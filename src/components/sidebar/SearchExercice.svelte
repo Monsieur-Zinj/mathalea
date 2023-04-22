@@ -36,6 +36,7 @@
   export let isAmcOnlySelected: boolean = false
   export let isInteractiveOnlySelected: boolean = false
   let isFiltersDisplayed: boolean = false
+  let isSearchInputDisplayed: boolean = false
 
   $: {
     referentiel = referentiel
@@ -103,7 +104,14 @@
 
 <!-- <svelte:window on:keydown={handlePressEnter} /> -->
 <div class="flex flex-row space-x-6 {isFiltersDisplayed ? 'mb-0' : 'mb-2'} justify-start items-center">
-  <div class="font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div>
+  <!-- <div class="font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div> -->
+  <Button
+    title=""
+    icon="bx-search"
+    on:click={() => {
+      isSearchInputDisplayed = !isSearchInputDisplayed
+    }}
+  />
   <Button
     title=""
     icon="bx-filter-alt"
@@ -160,33 +168,35 @@
     <label for="checkbox-choice" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> Exercices interactifs </label>
   </div>
 </div>
-<div class="mb-4 w-full">
-  <input
-    type="text"
-    id="searchField"
-    class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
-    placeholder="Thème, identifiant..."
-    bind:value={inputSearch}
-  />
-</div>
-{#if inputSearch.length > 0}
-  <div class="mb-4 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light text-sm font-light">
-    Inclure les courses aux nombres :
+<div class={isSearchInputDisplayed ? "flex" : "hidden"}>
+  <div class="mb-4 w-full">
     <input
-      type="checkbox"
-      class="ml-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-2 border-transparent focus:border-2 text-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-      bind:checked={isCanInclusDansResultats}
+      type="text"
+      id="searchField"
+      class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
+      placeholder="Thème, identifiant..."
+      bind:value={inputSearch}
     />
   </div>
-{/if}
-
-{#each filteredList as exercice}
-  <!-- <div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-1">
-    <div class="flex-1 hover:bg-coopmaths-light dark:hover:bg-coopmathsdark-light cursor-pointer" on:click={() => addToList(exercice)} on:keydown={() => addToList(exercice)}>
-      <div class="ml-[3px] pl-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas  hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-dark flex-1">
-        <span class="font-bold">{exercice.id} - </span>{exercice.titre}
-      </div>
+  {#if inputSearch.length > 0}
+    <div class="mb-4 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light text-sm font-light">
+      Inclure les courses aux nombres :
+      <input
+        type="checkbox"
+        class="ml-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-2 border-transparent focus:border-2 text-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
+        bind:checked={isCanInclusDansResultats}
+      />
     </div>
-  </div> -->
-  <EntreeRecherche {exercice} />
-{/each}
+  {/if}
+
+  {#each filteredList as exercice}
+    <!-- <div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-1">
+      <div class="flex-1 hover:bg-coopmaths-light dark:hover:bg-coopmathsdark-light cursor-pointer" on:click={() => addToList(exercice)} on:keydown={() => addToList(exercice)}>
+        <div class="ml-[3px] pl-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas  hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-dark flex-1">
+          <span class="font-bold">{exercice.id} - </span>{exercice.titre}
+        </div>
+      </div>
+    </div> -->
+    <EntreeRecherche {exercice} />
+  {/each}
+</div>
