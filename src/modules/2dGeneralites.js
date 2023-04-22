@@ -1,4 +1,4 @@
-import {context} from './context.js'
+import { context } from './context.js'
 
 /*
   MathALEA2D
@@ -21,7 +21,7 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  *
  * @author Rémi Angot
  */
-export function ObjetMathalea2D({classe = true} = {}) {
+export function ObjetMathalea2D ({classe = true} = {}) {
   this.positionLabel = 'above'
   this.isVisible = true
   this.color = colorToLatexOrHTML('black')
@@ -47,7 +47,7 @@ export function ObjetMathalea2D({classe = true} = {}) {
  * de cette manière d'autres options Tikz pourront aussi être ajoutées
  * si il n'y a qu'une optionsTikz on peut passer un string
  */
-export function mathalea2d(
+export function mathalea2d (
   {
     xmin = 0,
     ymin = 0,
@@ -183,7 +183,7 @@ export function mathalea2d(
 }
 
 class Vide2d {
-  constructor(x, y) {
+  constructor (x, y) {
     this.bordures = [x, y, x, y]
     this.tikz = function () {
       return ''
@@ -194,7 +194,7 @@ class Vide2d {
   }
 }
 
-export function vide2d(x = 0, y = 0) {
+export function vide2d (x = 0, y = 0) {
   return new Vide2d(x, y)
 }
 
@@ -232,7 +232,7 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
  * @return {number[]}
  */
 // JSDOC Validee par EE Juin 2022
-function convertHexToRGB(couleur = '000000') {
+function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   const hexToRGB = [
     parseInt(hexDecoupe[0], 16),
@@ -256,7 +256,7 @@ function convertHexToRGB(couleur = '000000') {
  * @return {string[]}
  */
 // JSDOC Validee par EE Juin 2022
-export function colorToLatexOrHTML(couleur) {
+export function colorToLatexOrHTML (couleur) {
   const tabCouleur = []
   let rgb = []
   if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
@@ -282,7 +282,7 @@ export function colorToLatexOrHTML(couleur) {
  * @return {boolean||string} Retourne false si le code couleur ne peut pas être converti car non trouvé dans la liste
  */
 // JSDOC Validee par EE Novembre 2022
-export function convertCodeCouleurToHex(color) {
+export function convertCodeCouleurToHex (color) {
   const colours = {
     aliceblue: '#f0f8ff',
     antiquewhite: '#faebd7',
@@ -443,7 +443,7 @@ export function convertCodeCouleurToHex(color) {
  * @return {string} Retourne le code hexadecimal de la nouvelle couleur
  */
 // JSDOC Validee par EE Novembre 2022
-export function assombrirOuEclaircir(couleur, coefficient) {
+export function assombrirOuEclaircir (couleur, coefficient) {
   const convertCodeCouleur = convertCodeCouleurToHex(couleur)
   if (convertCodeCouleur !== false) couleur = convertCodeCouleur
   couleur = couleur.replace('#', '')
@@ -477,7 +477,7 @@ export function assombrirOuEclaircir(couleur, coefficient) {
  * @private
  */
 // JSDOC Validee par EE Juin 2022
-export function codeSvg(fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
+export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
   let code = ''
   const fenetrexmin = fenetreMathalea2d[0]
   const fenetreymin = fenetreMathalea2d[3] * -(1)
@@ -518,7 +518,7 @@ export function codeSvg(fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
  * @private
  */
 // JSDOC Validee par EE Juin 2022
-export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
+export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   let code = ''
   const fenetrexmin = fenetreMathalea2d[0]
   const fenetreymin = fenetreMathalea2d[3] * -(1)
@@ -584,7 +584,7 @@ export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
  * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
  * @return {object} {xmin, ymin, xmax, ymax}
  */
-export function fixeBordures(objets, {
+export function fixeBordures (objets, {
   rxmin = undefined,
   rymin = undefined,
   rxmax = undefined,
@@ -602,11 +602,15 @@ export function fixeBordures(objets, {
   rymax = rymax !== undefined ? rymax : 0.5
   for (const objet of objets) {
     if (Array.isArray(objet.bordures) && objet.bordures.length === 4) {
-      xmin = Math.min(xmin, objet.bordures[0])
-      xmax = Math.max(xmax, objet.bordures[2])
-      ymin = Math.min(ymin, objet.bordures[1])
-      ymax = Math.max(ymax, objet.bordures[3])
-      bordures = true
+      if (objet.bordures.filter((el) => isNaN(el)).length > 0) {
+        window.notify(`Ìl y a un problème avec les bordures de ${JSON.stringify(objet)}`)
+      } else {
+        xmin = Math.min(xmin, objet.bordures[0])
+        xmax = Math.max(xmax, objet.bordures[2])
+        ymin = Math.min(ymin, objet.bordures[1])
+        ymax = Math.max(ymax, objet.bordures[3])
+        bordures = true
+      }
     }
   }
   if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', {...objets})
