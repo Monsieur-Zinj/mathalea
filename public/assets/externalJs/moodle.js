@@ -73,7 +73,7 @@ if (typeof window.iMathAlea === 'undefined') {
     */
 
     // Appelé lorsque l'élément est inséré dans le DOM
-    connectedCallback() {
+    connectedCallback () {
       let VERSION
       if (this.getAttribute('url')) {
         VERSION = 3
@@ -87,7 +87,7 @@ if (typeof window.iMathAlea === 'undefined') {
       // import.meta.url si le fichier appelé en mode module
       let SERVEUR_URL
       try {
-        if(DEBUG) {
+        if (DEBUG) {
           SERVEUR_URL = new URL(DEBUG)
         } else {
           SERVEUR_URL = new URL('../..', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
@@ -175,11 +175,11 @@ if (typeof window.iMathAlea === 'undefined') {
       shadow.appendChild(iframe)
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback (name, oldValue, newValue) {
       name === 'height' && (this.iframe.height = newValue)
     }
 
-    static get observedAttributes() { return ['height'] }
+    static get observedAttributes () { return ['height'] }
   }
 
   // Define the new element

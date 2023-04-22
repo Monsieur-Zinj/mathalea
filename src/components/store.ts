@@ -26,7 +26,7 @@ export const exercicesParams = writable<InterfaceParams[]>([])
  * Le paramètre 'es' est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions
  */
-export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'liste_exos', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true})
+export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'liste_exos', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
@@ -85,16 +85,6 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('dGlobal')
   }
-  if (options.recorder) {
-    url.searchParams.append('recorder', options.recorder)
-  } else {
-    url.searchParams.delete('recorder')
-  }
-  if (options.done) {
-    url.searchParams.append('done', options.done)
-  } else {
-    url.searchParams.delete('done')
-  }
   if (options.choice) {
     url.searchParams.append('choice', options.choice.toString())
   } else {
@@ -133,6 +123,16 @@ export function updateGlobalOptionsInURL (url: URL) {
       es += options.isSolutionAccessible ? '1' : '0'
       es += options.isInteractiveFree ? '1' : '0'
       url.searchParams.append('es', es)
+    }
+    if (options.recorder) {
+      url.searchParams.append('recorder', options.recorder)
+    } else {
+      url.searchParams.delete('recorder')
+    }
+    if (options.done) {
+      url.searchParams.append('done', options.done)
+    } else {
+      url.searchParams.delete('done')
     }
   } else {
     url.searchParams.delete('title')
