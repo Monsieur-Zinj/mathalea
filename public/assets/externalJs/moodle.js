@@ -140,7 +140,7 @@ if (typeof window.iMathAlea === 'undefined') {
         iframe.setAttribute('height', '400')
         if (VERSION === 3) {
           let exoUrl = this.getAttribute('url')
-          exoUrl = exoUrl.replaceAll(/(uuid=[A-Za-z0-9]+&)/g, '$1alea=' + questionSeed + '&') // on ajoute la graine
+          exoUrl = exoUrl.replaceAll(/(uuid=[A-Za-z0-9]+(?:&id=[A-Za-z0-9-]+)?(?:&|$))/g, '$1alea=' + questionSeed + '&') // on ajoute la graine
           iframe.setAttribute('src', SERVEUR_URL + '?' + exoUrl + '&i=1&v=eleve&recorder=moodle&title=&es=0110&iframe=' + iMoodle + (this.getAttribute('correction') !== null ? '&done=1' : '') + (typeof answer !== 'undefined' ? '&answers=' + answer : ''))
         } else {
           iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + ',i=1&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
