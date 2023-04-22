@@ -3,7 +3,7 @@
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Footer from "./Footer.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
@@ -25,6 +25,8 @@
   let divExercices: HTMLDivElement
   let zoom: number = 1
   let setAllInteractifClicked: boolean = false
+  let isInteractiveOnlySelected: boolean = false
+  let isAmcOnlySelected: boolean = false
 
   /**
    * Pour afficher les menus de boutons lorsqu'il n'y a pas assez de place pour les afficher tous
@@ -133,6 +135,63 @@
     }
 
     /**
+     * Détecter si une valeur est un objet
+     * @param val valeur à analyser
+     */
+    const isObject = (val: unknown) => val && typeof val === "object" && !Array.isArray(val)
+
+    /**
+     * Ne garder les exos qui n'ont que le tag amc ou interactif
+     */
+    if (isAmcOnlySelected || isInteractiveOnlySelected) {
+      let specificExercises: InterfaceReferentiel[] = []
+
+      const traverseObject = (obj: InterfaceReferentiel[]): InterfaceReferentiel[] => {
+        return Object.entries(obj).reduce((product, [key, value]) => {
+          if (isObject(value as InterfaceReferentiel)) {
+            if (Object.hasOwn(value, "uuid")) {
+              // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
+              if (Object.hasOwn(value, "tags")) {
+                // @ts-ignore
+                if (isInteractiveOnlySelected && isAmcOnlySelected) {
+                  if (value.tags.amc !== undefined && value.tags.interactif !== undefined) {
+                    specificExercises.push({ [key]: value })
+                  }
+                } else if (isAmcOnlySelected) {
+                  if (value.tags.amc !== undefined) {
+                    specificExercises.push({ [key]: value })
+                  }
+                } else if (isInteractiveOnlySelected) {
+                  if (value.tags.interactif !== undefined) {
+                    specificExercises.push({ [key]: value })
+                  }
+                }
+              }
+              return null
+            } else {
+              return traverseObject(value)
+            }
+          }
+        }, [])
+      }
+
+      let specificReferentiel = {}
+      for (const prop in filteredReferentiel) {
+        specificExercises = []
+        // console.log(filteredReferentiel[prop])
+        traverseObject(filteredReferentiel[prop])
+        // console.log("specific for [" + prop + "] : " + specificExercises)
+        let specificExercisesAsObject = {}
+        specificExercises.forEach((exo) => Object.assign(specificExercisesAsObject, exo))
+        specificReferentiel[prop] = specificExercisesAsObject
+        console.log(specificReferentiel)
+      }
+      filteredReferentiel = { ...specificReferentiel }
+      console.log("filtré :")
+      console.log(filteredReferentiel)
+    }
+
+    /**
      * Construit un object contenant les références des exercices ayant une date
      * de modification ou de publication récente (<= 1mois)
      * en parcourant récursivement l'objet passé en paramètre
@@ -142,12 +201,6 @@
      * @author sylvain
      */
     function getRecentExercises(obj: InterfaceReferentiel[]): InterfaceReferentiel[] {
-      /**
-       * Détecter si une valeur est un objet
-       * @param val valeur à analyser
-       */
-      const isObject = (val: unknown) => val && typeof val === "object" && !Array.isArray(val)
-
       let recentExercises: InterfaceReferentiel[] = []
       /**
        * On parcourt récursivement l'objet référentiel et on en profite pour peupler
@@ -172,7 +225,6 @@
         }, [])
       }
       traverseObject(obj)
-
       let recentExercisesAsObject = {}
       recentExercises.forEach((exo) => Object.assign(recentExercisesAsObject, exo))
       return recentExercisesAsObject
@@ -183,6 +235,9 @@
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
+    console.log("amc? " + isAmcOnlySelected + " / interactif? " + isInteractiveOnlySelected)
+    console.log("tableau pour menu : ")
+    console.log(arrayReferentielFiltre)
   }
   updateReferentiel()
 
@@ -359,7 +414,7 @@
                     <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
                   </select>
                 </div>
-                <SearchExercice referentiel={filteredReferentiel} />
+                <SearchExercice referentiel={filteredReferentiel} bind:isInteractiveOnlySelected bind:isAmcOnlySelected on:specific={updateReferentiel} />
                 <ul>
                   {#each arrayReferentielFiltre as item}
                     <li>
@@ -707,7 +762,7 @@
                   <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
                 </select>
               </div>
-              <SearchExercice referentiel={filteredReferentiel} />
+              <SearchExercice referentiel={filteredReferentiel} bind:isInteractiveOnlySelected bind:isAmcOnlySelected on:specific={updateReferentiel} />
               <ul>
                 {#each arrayReferentielFiltre as item}
                   <li>
