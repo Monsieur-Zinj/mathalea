@@ -124,7 +124,7 @@ export function updateGlobalOptionsInURL (url: URL) {
     if (options.iframe !== undefined) {
       url.searchParams.append('iframe', options.iframe)
     }
-    if (options.answers !== undefined && JSON.stringify(options.answers).length > 0) {
+    if (options.answers !== undefined && options.answers.length > 0) {
       url.searchParams.append('answers', JSON.stringify(options.answers))
     }
     if (typeof options !== 'undefined') {
