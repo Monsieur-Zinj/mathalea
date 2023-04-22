@@ -12,6 +12,7 @@
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
   // import { deviceType } from "./utils/measures"
+  import { findPropPaths } from "./utils/searching"
 
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
@@ -134,6 +135,37 @@
         }, {})
     }
 
+    function buildReferentiel(listOfEntries) {
+      let referentiel = {}
+      for (const path of listOfEntries) {
+        let schema = referentiel
+        let obj = { ...filteredReferentiel }
+        for (let i = 0; i < path.length - 1; i++) {
+          const elt = path[i]
+          if (!schema[elt]) {
+            schema[elt] = {}
+          }
+          schema = schema[elt]
+          obj = { ...obj[path[i]] }
+        }
+        schema[path[path.length - 1]] = obj[path[path.length - 1]]
+      }
+      return referentiel
+    }
+    // Construction du tableau des chemins vers les exercices ayant la propriété `amc` et/ou `interactif`
+    if (isAmcOnlySelected && !isInteractiveOnlySelected) {
+      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === "amc").map((elt) => elt.replace(/(?:\.tags\.amc)$/, "").split("."))
+      filteredReferentiel = { ...buildReferentiel(amcCompatible) }
+    } else if (isInteractiveOnlySelected && !isAmcOnlySelected) {
+      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === "interactif").map((elt) => elt.replace(/(?:\.tags\.interactif)$/, "").split("."))
+      filteredReferentiel = { ...buildReferentiel(interactiveCompatible) }
+    } else if (isAmcOnlySelected && isInteractiveOnlySelected) {
+      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === "amc").map((elt) => elt.replace(/(?:\.tags\.amc)$/, "").split("."))
+      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === "interactif").map((elt) => elt.replace(/(?:\.tags\.interactif)$/, "").split("."))
+      const bothCompatible = [...amcCompatible, ...interactiveCompatible]
+      filteredReferentiel = { ...buildReferentiel(bothCompatible) }
+    }
+
     /**
      * Détecter si une valeur est un objet
      * @param val valeur à analyser
@@ -143,53 +175,53 @@
     /**
      * Ne garder les exos qui n'ont que le tag amc ou interactif
      */
-    if (isAmcOnlySelected || isInteractiveOnlySelected) {
-      let specificExercises: InterfaceReferentiel[] = []
+    // if (isAmcOnlySelected || isInteractiveOnlySelected) {
+    //   let specificExercises: InterfaceReferentiel[] = []
 
-      const traverseObject = (obj: InterfaceReferentiel[]): InterfaceReferentiel[] => {
-        return Object.entries(obj).reduce((product, [key, value]) => {
-          if (isObject(value as InterfaceReferentiel)) {
-            if (Object.hasOwn(value, "uuid")) {
-              // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
-              if (Object.hasOwn(value, "tags")) {
-                // @ts-ignore
-                if (isInteractiveOnlySelected && isAmcOnlySelected) {
-                  if (value.tags.amc !== undefined && value.tags.interactif !== undefined) {
-                    specificExercises.push({ [key]: value })
-                  }
-                } else if (isAmcOnlySelected) {
-                  if (value.tags.amc !== undefined) {
-                    specificExercises.push({ [key]: value })
-                  }
-                } else if (isInteractiveOnlySelected) {
-                  if (value.tags.interactif !== undefined) {
-                    specificExercises.push({ [key]: value })
-                  }
-                }
-              }
-              return null
-            } else {
-              return traverseObject(value)
-            }
-          }
-        }, [])
-      }
+    //   const traverseObject = (obj: InterfaceReferentiel[]): InterfaceReferentiel[] => {
+    //     return Object.entries(obj).reduce((product, [key, value]) => {
+    //       if (isObject(value as InterfaceReferentiel)) {
+    //         if (Object.hasOwn(value, "uuid")) {
+    //           // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
+    //           if (Object.hasOwn(value, "tags")) {
+    //             // @ts-ignore
+    //             if (isInteractiveOnlySelected && isAmcOnlySelected) {
+    //               if (value.tags.amc !== undefined && value.tags.interactif !== undefined) {
+    //                 specificExercises.push({ [key]: value })
+    //               }
+    //             } else if (isAmcOnlySelected) {
+    //               if (value.tags.amc !== undefined) {
+    //                 specificExercises.push({ [key]: value })
+    //               }
+    //             } else if (isInteractiveOnlySelected) {
+    //               if (value.tags.interactif !== undefined) {
+    //                 specificExercises.push({ [key]: value })
+    //               }
+    //             }
+    //           }
+    //           return null
+    //         } else {
+    //           return traverseObject(value)
+    //         }
+    //       }
+    //     }, [])
+    //   }
 
-      let specificReferentiel = {}
-      for (const prop in filteredReferentiel) {
-        specificExercises = []
-        // console.log(filteredReferentiel[prop])
-        traverseObject(filteredReferentiel[prop])
-        // console.log("specific for [" + prop + "] : " + specificExercises)
-        let specificExercisesAsObject = {}
-        specificExercises.forEach((exo) => Object.assign(specificExercisesAsObject, exo))
-        specificReferentiel[prop] = specificExercisesAsObject
-        console.log(specificReferentiel)
-      }
-      filteredReferentiel = { ...specificReferentiel }
-      console.log("filtré :")
-      console.log(filteredReferentiel)
-    }
+    //   let specificReferentiel = {}
+    //   for (const prop in filteredReferentiel) {
+    //     specificExercises = []
+    //     // console.log(filteredReferentiel[prop])
+    //     traverseObject(filteredReferentiel[prop])
+    //     // console.log("specific for [" + prop + "] : " + specificExercises)
+    //     let specificExercisesAsObject = {}
+    //     specificExercises.forEach((exo) => Object.assign(specificExercisesAsObject, exo))
+    //     specificReferentiel[prop] = specificExercisesAsObject
+    //     console.log(specificReferentiel)
+    //   }
+    //   filteredReferentiel = { ...specificReferentiel }
+    //   console.log("filtré :")
+    //   console.log(filteredReferentiel)
+    // }
 
     /**
      * Construit un object contenant les références des exercices ayant une date
