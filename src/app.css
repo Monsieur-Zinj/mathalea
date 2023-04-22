@@ -1,0 +1,837 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media print {
+  body {
+    font-size: 10pt!important;
+  }
+  nav, aside, footer, .print-hidden {
+    display: none!important;
+  }
+
+  div {
+    margin-top: 0pt!important;
+    margin-bottom: 0pt!important;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 30pt;
+}
+
+@layer components {
+  .checkbox-primary {
+    @apply appearance-none ml-2 h-4 w-4 border-2 border-gray-400 bg-gray-100 rounded-sm checked:bg-coopmaths-lightest checked:border-coopmaths focus:outline-none transition duration-500 cursor-pointer;
+  }
+}
+/* Retiré de ce fichier et positionné dans Start.svelte pour avoir accès à un ascenseur dans la page principale.
+ ::-webkit-scrollbar {
+  display:none;
+}
+:root{ scrollbar-width: none } */
+/*
+ .d8888b.                                                               
+d88P  Y88b                                                              
+888    888                                                              
+888        888  888 888d888 .d8888b   .d88b.  888  888 888d888 .d8888b  
+888        888  888 888P"   88K      d8P  Y8b 888  888 888P"   88K      
+888    888 888  888 888     "Y8888b. 88888888 888  888 888     "Y8888b. 
+Y88b  d88P Y88b 888 888          X88 Y8b.     Y88b 888 888          X88 
+ "Y8888P"   "Y88888 888      88888P'  "Y8888   "Y88888 888      88888P' 
+*/
+/* Définition des thèmes pour les curseurs */
+/* source : https://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html */
+
+/* Firefox */
+input[type="range"] {
+  /* fix for FF unable to apply focus style bug  */
+  border: 1px solid white;
+
+  /*required for proper track sizing in FF*/
+  /* width: 300px; */
+}
+input[type="range"]::-moz-range-track {
+  /* width: 300px; */
+  height: 10px;
+  background: #ddd;
+  border: none;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  border-radius: 0px;
+  height: 10px;
+  width: 16px;
+  background: #ff8c5c;
+}
+
+/*hide the outline behind the border*/
+input[type="range"]:-moz-focusring {
+  outline: 1px solid white;
+  outline-offset: -1px;
+}
+
+input[type="range"]:focus::-moz-range-track {
+  background: #ccc;
+}
+
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type="range"] {
+    -webkit-appearance: none;
+  }
+
+  /* piste */
+  input[type="range"]::-webkit-slider-runnable-track {
+    /* width: 300px; */
+    height: 10px;
+    background: #ddd;
+    border: none;
+    /* border-radius: 3px; */
+  }
+
+  /*curseur lui-même */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 10px;
+    width: 16px;
+    /* border-radius: 50%; */
+    background: #ff8c5c;
+    /* margin-top: -4px; */
+  }
+
+  input[type="range"]:focus {
+    outline: none;
+  }
+
+  input[type="range"]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+  }
+}
+
+/* Internet Explorer */
+input[type="range"]::-ms-track {
+  /* width: 300px; */
+  height: 10px;
+
+  /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+  background: transparent;
+
+  /*leave room for the larger thumb to overflow with a transparent border */
+  border-color: transparent;
+  border-width: 6px 0;
+
+  /*remove default tick marks*/
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: #777;
+  border-radius: 0px;
+}
+input[type="range"]::-ms-fill-upper {
+  background: #ddd;
+  border-radius: 0px;
+}
+input[type="range"]::-ms-thumb {
+  border: none;
+  height: 10px;
+  width: 16px;
+  border-radius: 0%;
+  background: #ff8c5c;
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background: #888;
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background: #ccc;
+}
+
+input[type="radio"]:checked {
+    background-color: #F15929;
+}
+
+/*
+8888888888                   888                      
+888                          888                      
+888                          888                      
+8888888     .d88b.  88888b.  888888  .d88b.  .d8888b  
+888        d88""88b 888 "88b 888    d8P  Y8b 88K      
+888        888  888 888  888 888    88888888 "Y8888b. 
+888        Y88..88P 888  888 Y88b.  Y8b.          X88 
+888         "Y88P"  888  888  "Y888  "Y8888   88888P'
+*/
+
+/* source-sans-pro-200 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 200;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-200.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-200italic - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 200;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-200italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-200italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-300 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-300italic - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 300;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-300italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-300italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-italic - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-600 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-600.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-600italic - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 600;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-600italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-600italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-700 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-700italic - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-700italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-700italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-900 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 900;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-900.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* source-sans-pro-900italic - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 900;
+  src: local(''),
+       url('fonts/source-sans-pro-v21-latin-900italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/source-sans-pro-v21-latin-900italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* NeoRetroDraw - latin */
+@font-face {
+    font-family: 'neoretrodrawregular';
+    src: url('fonts/neord___-webfont.woff2') format('woff2'),
+         url('fonts/neord___-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* Geometry Soft Pro Bold - latin */
+@font-face {
+    font-family: 'geometry_soft_probold_n';
+    src: url('fonts/geometry_soft_pro-bold_n-webfont.woff2') format('woff2'),
+         url('fonts/geometry_soft_pro-bold_n-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* fredoka-one-regular - latin */
+@font-face {
+  font-family: 'Fredoka One';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/fredoka-one-v13-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/fredoka-one-v13-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* bebas-neue-regular - latin */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/bebas-neue-v9-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/bebas-neue-v9-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* frente-h1-regular */
+@font-face {
+    font-family: 'Frente H1';
+    src: url('fonts/frenteh1-regular-webfont.woff2') format('woff2'),
+         url('fonts/frenteh1-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/*colortube - latin */
+@font-face {
+    font-family: 'colortuberegular';
+    src: url('fonts/colortube-regular-webfont.woff2') format('woff2'),
+         url('fonts/colortube-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/* cabin-sketch-regular - latin */
+@font-face {
+font-family: 'Cabin Sketch';
+font-style: normal;
+font-weight: 400;
+src: local(''),
+	url('fonts/cabin-sketch-v19-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('fonts/cabin-sketch-v19-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* cabin-sketch-700 - latin */
+@font-face {
+font-family: 'Cabin Sketch';
+font-style: normal;
+font-weight: 700;
+src: local(''),
+	url('fonts/cabin-sketch-v19-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('fonts/cabin-sketch-v19-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* fredericka-the-great-regular - latin */
+@font-face {
+  font-family: 'Fredericka the Great';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/fredericka-the-great-v15-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/fredericka-the-great-v15-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* jelleebold - latin */
+@font-face {
+  font-family: 'jelleebold';
+  src: local(''),
+    url('fonts/jellee-roman-webfont.woff2') format('woff2'),
+    url('fonts/jellee-roman-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/*league gothic condensed - latin */
+@font-face {
+    font-family: 'League Gothic Condensed';
+    src: local(''),
+      url('fonts/leaguegothic-condensedregular-webfont.woff2') format('woff2'),
+      url('fonts/leaguegothic-condensedregular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* fff-tusj-bold - latin */
+@font-face {
+    font-family: 'FFF Tusj';
+    src: local(''),
+      url('fonts/fff_tusj-webfont.woff2') format('woff2'),
+      url('fonts/fff_tusj-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* days-regular - latin */
+@font-face {
+    font-family: 'Days';
+    src: local(''),
+      url('fonts/days-webfont.woff2') format('woff2'),
+      url('fonts/days-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* BarlowCondensed-Black - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 900;
+  src: local(''),
+       url('fonts/BarlowCondensed-Black.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-Black.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Blackitalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 900;
+  src: local(''),
+       url('fonts/BarlowCondensed-BlackItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-BlackItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-ExtraBold - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  src: local(''),
+       url('fonts/BarlowCondensed-ExtraBold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-ExtraBold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-ExtraBolditalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 800;
+  src: local(''),
+       url('fonts/BarlowCondensed-ExtraBoldItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-ExtraBoldItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Bold - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''),
+       url('fonts/BarlowCondensed-Bold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-Bold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Bolditalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 700;
+  src: local(''),
+       url('fonts/BarlowCondensed-BoldItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-BoldItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-SemiBold - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''),
+       url('fonts/BarlowCondensed-SemiBold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-SemiBold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-SemiBolditalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 600;
+  src: local(''),
+       url('fonts/BarlowCondensed-SemiBoldItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-SemiBoldItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Medium - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''),
+       url('fonts/BarlowCondensed-Medium.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-Medium.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Mediumitalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 500;
+  src: local(''),
+       url('fonts/BarlowCondensed-MediumItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-MediumItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Regular - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/BarlowCondensed-Regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-Regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Regularitalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/BarlowCondensed-Italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-Italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Light - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+       url('fonts/BarlowCondensed-Light.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-Light.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Lightitalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 300;
+  src: local(''),
+       url('fonts/BarlowCondensed-LightItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-LightItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-ExtraLight - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 200;
+  src: local(''),
+       url('fonts/BarlowCondensed-ExtraLight.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-ExtraLight.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-ExtraLightitalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 200;
+  src: local(''),
+       url('fonts/BarlowCondensed-ExtraLightItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-ExtraLightItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Thin - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 100;
+  src: local(''),
+       url('fonts/BarlowCondensed-Thin.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-Thin.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* BarlowCondensed-Thinitalic - latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 100;
+  src: local(''),
+       url('fonts/BarlowCondensed-ThinItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/BarlowCondensed-ThinItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+
+/* Barlow-Black - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 900;
+  src: local(''),
+       url('fonts/Barlow-Black.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-Black.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Blackitalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 900;
+  src: local(''),
+       url('fonts/Barlow-BlackItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-BlackItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-ExtraBold - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 800;
+  src: local(''),
+       url('fonts/Barlow-ExtraBold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-ExtraBold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-ExtraBolditalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 800;
+  src: local(''),
+       url('fonts/Barlow-ExtraBoldItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-ExtraBoldItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Bold - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''),
+       url('fonts/Barlow-Bold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-Bold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Bolditalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 700;
+  src: local(''),
+       url('fonts/Barlow-BoldItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-BoldItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-SemiBold - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''),
+       url('fonts/Barlow-SemiBold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-SemiBold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-SemiBolditalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 600;
+  src: local(''),
+       url('fonts/Barlow-SemiBoldItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-SemiBoldItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Medium - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''),
+       url('fonts/Barlow-Medium.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-Medium.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Mediumitalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 500;
+  src: local(''),
+       url('fonts/Barlow-MediumItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-MediumItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Regular - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/Barlow-Regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-Regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Regularitalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 400;
+  src: local(''),
+       url('fonts/Barlow-Italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-Italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Light - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+       url('fonts/Barlow-Light.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-Light.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Lightitalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 300;
+  src: local(''),
+       url('fonts/Barlow-LightItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-LightItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-ExtraLight - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 200;
+  src: local(''),
+       url('fonts/Barlow-ExtraLight.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-ExtraLight.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-ExtraLightitalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 200;
+  src: local(''),
+       url('fonts/Barlow-ExtraLightItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-ExtraLightItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Thin - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 100;
+  src: local(''),
+       url('fonts/Barlow-Thin.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-Thin.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Barlow-Thinitalic - latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 100;
+  src: local(''),
+       url('fonts/Barlow-ThinItalic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('fonts/Barlow-ThinItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Orbiton black */
+@font-face {
+  font-family: 'Orbiton';
+  font-style: normal;
+  font-weight: 900;
+  src: local(''),
+       url('/fonts/orbitron_black-webfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('/fonts/orbitron_black-webfont.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Orbiton bold */
+@font-face {
+  font-family: 'Orbiton';
+  font-style: normal;
+  font-weight: 800;
+  src: local(''),
+       url('/fonts/orbitron_bold-webfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('/fonts/orbitron_bold-webfont.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Orbiton medium */
+@font-face {
+  font-family: 'Orbiton';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''),
+       url('/fonts/orbitron_medium-webfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('/fonts/orbitron_medium-webfont.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Orbiton light */
+@font-face {
+  font-family: 'Orbiton';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+       url('/fonts/orbitron_light-webfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('/fonts/orbitron_light-webfont.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* 
+888b     d888                                                                
+8888b   d8888                                                                
+88888b.d88888                                                                
+888Y88888P888  .d88b.  .d8888b  .d8888b   8888b.   .d88b.   .d88b.  .d8888b  
+888 Y888P 888 d8P  Y8b 88K      88K          "88b d88P"88b d8P  Y8b 88K      
+888  Y8P  888 88888888 "Y8888b. "Y8888b. .d888888 888  888 88888888 "Y8888b. 
+888   "   888 Y8b.          X88      X88 888  888 Y88b 888 Y8b.          X88 
+888       888  "Y8888   88888P'  88888P' "Y888888  "Y88888  "Y8888   88888P' 
+                                                       888                   
+                                                  Y8b d88P                   
+                                                   "Y88P"                     */
+/*warnMessage*/
+div[id^="warnMessage"]{
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 my-2 border-l-4 border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark  font-light relative w-2/3
+}
+div[id^="warnMessage"]:before{
+    content: "🌬";
+    float: left;
+    @apply mr-3 text-lg text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark rounded-full h-6 w-6 inline-flex items-center justify-center
+}
+div[id^="title-warnMessage"]{
+  @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark
+}
+/* info message */
+div[id^="infoMessage"]{
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas px-4 py-2 my-2 border-l-4 border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark  font-light relative w-2/3
+}
+div[id^="infoMessage"]:before{
+    content: "ℹ";
+    float: left;
+    @apply mr-3 text-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas font-black bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark rounded-full h-6 w-6 inline-flex items-center justify-center
+}
+div[id^="title-infoMessage"]{
+  @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark
+}
+/* lampe message */
+div[id^="lampeMessage"]{
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas px-4 py-2 my-2 border-l-4 border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark font-light relative w-2/3 mb-4
+}
+div[id^="lampeMessage"]:before{
+    content: "📚";
+    float: left;
+    @apply mr-3 text-xl text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark inline-block
+}
+div[id^="title-lampeMessage"]{
+  @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark
+}
+/* aides */
+div[id^="aide-"] {
+  @apply inline-block
+}
+
+div[id^="aide-trigger-"]{
+  @apply h-4 w-4 ml-1 inline-flex justify-center items-center rounded-full font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light
+}
+
+div[id^="aide-content-"]{
+  @apply fixed w-5/6 md:w-2/3 lg:w-1/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:flex flex-col items-start justify-start z-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 rounded-xl shadow-lg
+}
+
+.aide-header {
+  @apply text-coopmaths-struct dark:text-coopmathsdark-struct font-semibold text-base md:text-lg
+}
+
+.aide-content{
+  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light pt-2 pl-0 md:pl-2
+}
+
+
+.katex {
+  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus
+}
+
+.mathalea2d {
+  @apply dark:bg-coopmathsdark-canvas-light
+}
+
+input[id^="checkEx"] {
+  @apply cursor-pointer border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded
+}
