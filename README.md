@@ -9,6 +9,8 @@ Il propose plusieurs utilisations possibles :
 * Création de liens personnalisés à destination des élèves
 * Exercices avec ou sans interactivité
 * Affichage des questions en mode diaporama
+* Annales d'examens accessibles par mots-clés
+* Course aux nombres
 * ...
 
 Le moteur développé depuis 2018 connait un développement régulier grâce à une communauté de professeurs de mathématiques en exercice qui améliorent l'interface et proposent toujours de nouveaux exercices.
@@ -31,4 +33,5 @@ pnpm start
 
 La communauté de développeur autour de MathALEA est ouverte et prête à accompagner toutes les bonnes volontés intéressées pour améliorer l'outil.
 
-La documentation est disponible sur https://github.com/mathalea/mathalea/wiki. Vous pouvez nous contacter à contact@coopmaths.fr.
+La documentation est disponible sur https://forge.aeif.fr/coopmaths/mathalea/-/wikis/home. 
+Vous pouvez nous contacter à contact@coopmaths.fr.
