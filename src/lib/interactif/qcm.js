@@ -18,6 +18,10 @@ export function verifQuestionQcm (exercice, i) {
   exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
     const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
     const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
+    if (check.checked) {
+      if (exercice.answers === undefined) { exercice.answers = {} }
+      exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = 1
+    }
     if (proposition.statut) {
       if (check.checked) {
         nbBonnesReponses++

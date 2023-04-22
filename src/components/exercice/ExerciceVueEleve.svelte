@@ -78,8 +78,16 @@
         $globalOptions.answers = objAnswers
         MathaleaUpdateUrlFromExercicesParams($exercicesParams)
         for (const answer in objAnswers) {
+          // La réponse correspond à un champs texte
           const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
-          field?.setValue(objAnswers[answer])
+          if (field !== null) {
+            field.setValue(objAnswers[answer])
+          }
+          // La réponse correspond à une case à cocher qui doit être cochée
+          const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+          if (checkBox !== null && objAnswers[answer] === 1) {
+            checkBox.checked = true
+          }
         }
         if (buttonScore) {
           buttonScore.click()
