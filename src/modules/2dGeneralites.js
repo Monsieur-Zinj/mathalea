@@ -530,7 +530,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   if (scale === 1) {
     code += '\\begin{tikzpicture}[baseline]\n'
   } else {
-    code += `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`
+    code += `\\begin{tikzpicture}[baseline,scale = ${scale.toFixed(2)}]\n`
   }
   code += `\\tikzset{
     point/.style={
@@ -545,7 +545,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   \\clip (${fenetrexmin},${fenetreymin}) rectangle (${fenetrexmax},${fenetreymax});
 
   \n\n`
-  
+
   for (const objet of objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
