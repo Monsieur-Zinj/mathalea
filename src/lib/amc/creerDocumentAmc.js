@@ -516,9 +516,9 @@ export function exportQcmAmc (exercice, idExo) {
           switch (qrType) {
             case 'qcmMono': // qcmMono de Hybride
             case 'qcmMult': // qcmMult de Hybride la différence est juste le nom de l'environnement changé dynamiquement
-              if (elimineDoublons(propositions)) {
+              /* if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
-              }
+              } */
 
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
@@ -769,19 +769,19 @@ export function exportQcmAmc (exercice, idExo) {
               if (!(propositions[0].enonce === undefined)) texQr += `\t${propositions[0].enonce}\n`
               texQr += `\t\t\\explain{${propositions[0].texte}}\n`
 
-              if (propositions[0].numQuestionVisible === undefined) {
-                texQr += `\t\t\\notation{${propositions[0].statut}}`
-                if (!(isNaN(propositions[0].sanscadre))) {
-                  texQr += `[${propositions[0].sanscadre}]` // le statut contiendra si on a un cadre ou pas
-                } else {
-                  texQr += '[false]'
-                }
-                if (!(isNaN(propositions[0].pointilles))) {
-                  texQr += `[${propositions[0].pointilles}]` // le statut contiendra les lignes sont des pointillés ou vierges
-                } else {
-                  texQr += '[true]'
-                }
+              // if (propositions[0].numQuestionVisible === undefined) {
+              texQr += `\t\t\\notation{${propositions[0].statut}}`
+              if (!(isNaN(propositions[0].sanscadre))) {
+                texQr += `[${propositions[0].sanscadre}]` // le statut contiendra si on a un cadre ou pas
+              } else {
+                texQr += '[false]'
               }
+              if (!(isNaN(propositions[0].pointilles))) {
+                texQr += `[${propositions[0].pointilles}]` // le statut contiendra les lignes sont des pointillés ou vierges
+              } else {
+                texQr += '[true]'
+              }
+              //  }
 
               texQr += '\n' // le statut contiendra le nombre de lignes pour ce type
               texQr += '\t\\end{question}\n'

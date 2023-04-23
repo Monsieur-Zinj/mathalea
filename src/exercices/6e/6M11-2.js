@@ -341,8 +341,18 @@ export default function PerimetreOuAireDeFiguresComposees () {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: 'Calculer le périmètre et l\'aire de la figure suivante.\\\\' + texte,
-          options: { multicols: true, barreseparation: true, numerotationEnonce: true },
+          options: { multicols: true, barreseparation: false, numerotationEnonce: true },
           propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                enonce: 'Indiquer ci-dessous les calculs : <br>',
+                numQuestionVisible: false,
+                texte: texteCorr,
+                statut: 6,
+                pointilles: false
+              }]
+            },
             {
               type: 'AMCNum',
               propositions: [
