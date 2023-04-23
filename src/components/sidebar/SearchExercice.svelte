@@ -7,6 +7,7 @@
   import Button from "../forms/Button.svelte"
   import Chip from "../forms/Chip.svelte"
   export let referentiel: object
+  let searchField: HTMLInputElement
 
   /**
    * Renvoie tous les objets qui ont une clé uuid
@@ -108,8 +109,10 @@
   <Button
     title=""
     icon="bx-search"
-    on:click={() => {
+    on:click={async () => {
       isSearchInputDisplayed = !isSearchInputDisplayed
+      await tick()
+      searchField.focus()
     }}
   />
   <Button
@@ -168,14 +171,15 @@
     <label for="checkbox-choice" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> Exercices interactifs </label>
   </div>
 </div>
-<div class={isSearchInputDisplayed ? "flex" : "hidden"}>
+<div class="{isSearchInputDisplayed ? 'flex' : 'hidden'} flex-col">
   <div class="mb-4 w-full">
     <input
       type="text"
-      id="searchField"
+      id="searchInputField"
       class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
       placeholder="Thème, identifiant..."
       bind:value={inputSearch}
+      bind:this={searchField}
     />
   </div>
   {#if inputSearch.length > 0}
