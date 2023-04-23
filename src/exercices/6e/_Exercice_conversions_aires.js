@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, texTexte, deuxColonnesResp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, texTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -33,7 +33,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.sup3 = 1 // interactifType Qcm
   this.sup4 = false // tableau
   this.titre = "Conversions d'aires"
-  this.consigne = 'Compléter :'
   this.spacing = 2
   this.nbColsCorr = 1
   this.amcReady = amcReady
@@ -41,11 +40,13 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.interactifReady = interactifReady
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
+    this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
+    this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
+    console.log(this.interactifType)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     Decimal.toExpNeg = -15
-    let prefixeMulti = [
+    /*  let prefixeMulti = [
       [' da', '\\times10\\times10', 100],
       [' h', '\\times100\\times100', 10000],
       [' k', '\\times1~000\\times1~000', 1000000]
@@ -54,6 +55,16 @@ export default function ExerciceConversionsAires (niveau = 1) {
       [' d', '\\div10\\div10', 100],
       [' c', '\\div100\\div100', 10000],
       [' m', '\\div1~000\\div1~000', 1000000]
+    ] */
+    let prefixeMulti = [
+      [' da', '\\times100', 100],
+      [' h', '\\times100\\times100', 10000],
+      [' k', '\\times100\\times100\\times100', 1000000]
+    ]
+    let prefixeDiv = [
+      [' d', '\\div100', 100],
+      [' c', '\\div100\\div100', 10000],
+      [' m', '\\div100\\div100\\div100', 1000000]
     ]
     const unite = 'm'
     const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
@@ -114,10 +125,16 @@ export default function ExerciceConversionsAires (niveau = 1) {
 
       if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
-        prefixeMulti = [
+        /*      prefixeMulti = [
           [' da', '\\times10\\times10', 100],
           [' h', '\\times100\\times100', 10000],
           [' k', '\\times1~000\\times1~000', 1000000]
+        ]      // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
+        */
+        const prefixeMulti = [
+          [' da', '\\times100', 100],
+          [' h', '\\times100\\times100', 10000],
+          [' k', '\\times100\\times100\\times100', 1000000]
         ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
         resultat = a.mul(prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         resultat2 = resultat.div(10)
@@ -151,10 +168,15 @@ export default function ExerciceConversionsAires (niveau = 1) {
         prefixe = prefixeMulti[k][2]
         texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
       } else if (div && typesDeQuestions < 4) {
-        prefixeDiv = [
+        /* prefixeDiv = [
           [' d', '\\div10\\div10', 100],
           [' c', '\\div100\\div100', 10000],
           [' m', '\\div1~000\\div1~000', 1000000]
+        ] */
+        prefixeDiv = [
+          [' d', '\\div100', 100],
+          [' c', '\\div100\\div100', 10000],
+          [' m', '\\div100\\div100\\div100', 1000000]
         ]
         k = randint(0, 1) // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
         resultat = a.div(prefixeDiv[k][2]) // Attention aux notations scientifiques pour 10e-8
@@ -264,9 +286,13 @@ export default function ExerciceConversionsAires (niveau = 1) {
         }
       } else if (typesDeQuestions === 5) {
         // Pour typesDeQuestions==5
-        prefixeMulti = [
+        /* prefixeMulti = [
           ['ha', '\\times100\\times100', 10000],
           ['a', '\\times10\\times10', 100]
+        ] */
+        prefixeMulti = [
+          ['ha', '\\times100\\times100', 10000],
+          ['a', '\\times100', 100]
         ]
         k = randint(0, 1)
         resultat = a.mul(prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
@@ -323,9 +349,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
       ]
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
-      } else {
-        texte += ajouteChampTexteMathLive(this, i)
-        setReponse(this, i, parseFloat(resultat))
       }
 
       if (this.questionJamaisPosee(i, a, prefixe, div)) {
@@ -333,27 +356,37 @@ export default function ExerciceConversionsAires (niveau = 1) {
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfills', '\\text{ en }')
         }
+        if (this.interactif && this.interactifType !== 'qcm') {
+          texte = texte.replace(
+            '\\dotfills', '$' + ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore') + '$')
+          setReponse(this, i, parseFloat(resultat))
+        }
         if (context.isHtml) {
           texte = texte.replace(
             '\\dotfills',
             '................................................'
           )
         }
+        if (this.sup4 && i === this.nbQuestions - 1) {
+          texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
+        }
+
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    if (context.vue === 'latex') this.listePackages = ['arydshln'] // pour les lignes en pointillés
+    // if (context.vue === 'latex') this.listePackages = ['arydshln'] // pour les lignes en pointillés
     listeQuestionsToContenu(this)
-
+    /*
     if (context.vue === 'latex' && this.sup4) {
       this.contenu += '\n\n' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
     } else if (context.vue !== 'diap' && context.isHtml && this.sup4) {
       const options = { eleId: numeroExercice, widthmincol1: '300px', widthmincol2: '200px' }
       this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
     }
+    */
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
@@ -415,7 +448,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false) {
       const col = (context.vue === 'latex' ? '>{\\centering\\arraybackslash}m{0.45cm}' : 'c')
       if (i % 2 === 0) { texte += `|${col}` + (i === end ? ':}' : '') } else { texte += `:${col}` + (i === end ? '|}' : '') }
     }
-    const headers = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', 'km^2', '\\hspace*{0.4cm}', 'hm^2', '\\hspace*{0.4cm}', 'dam^2', '\\hspace*{0.4cm}', 'm^2', '\\hspace*{0.6cm}', 'dm^2', '\\hspace*{0.4cm}', 'cm^2', '\\hspace*{0.4cm}', 'mm^2', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
+    const headers = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\text{km}^2', '\\hspace*{0.4cm}', '\\text{hm}^2', '\\hspace*{0.4cm}', '\\text{dam}^2', '\\hspace*{0.4cm}', '\\text{m}^2', '\\hspace*{0.6cm}', '\\text{dm}^2', '\\hspace*{0.4cm}', '\\text{cm}^2', '\\hspace*{0.4cm}', '\\text{mm}^2', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
     texte += '\\hline '
     for (let i = first; i <= end; i++) {
       if (context.vue === 'latex') {
