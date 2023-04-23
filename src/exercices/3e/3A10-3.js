@@ -7,7 +7,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const titre = 'Décomposer un entier en produit de facteurs premiers'
+export const titre = 'Décomposer un entier en produit de facteurs premiers' //Essai
 
 /**
  * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
