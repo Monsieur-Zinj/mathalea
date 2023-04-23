@@ -267,9 +267,9 @@
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
-    console.log("amc? " + isAmcOnlySelected + " / interactif? " + isInteractiveOnlySelected)
-    console.log("tableau pour menu : ")
-    console.log(arrayReferentielFiltre)
+    // console.log("amc? " + isAmcOnlySelected + " / interactif? " + isInteractiveOnlySelected)
+    // console.log("tableau pour menu : ")
+    // console.log(arrayReferentielFiltre)
   }
   updateReferentiel()
 

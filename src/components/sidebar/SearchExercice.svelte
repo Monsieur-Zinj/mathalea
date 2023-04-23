@@ -102,18 +102,29 @@
   function onCtrklK() {
     getSearchDisplayed()
   }
+  function matchOnFilteredList(exoId: string) {
+    for (let i = 0; i < filteredList.length; i++) {
+      console.log("input[" + i + "]: " + inputSearch + " / id: " + filteredList[i].id)
+      if (inputSearch === filteredList[i].id) {
+        return i
+      }
+    }
+    return null
+  }
   /**
    * Si Entrée et qu'un seul exercice matche alors on ajoute l'exercice à la liste
    */
   function onEnterDown() {
-    if (filteredList.length === 1) {
-      console.log(filteredList[0])
+    const matchingIndex = matchOnFilteredList(inputSearch)
+    if (matchingIndex !== null) {
+      console.log(filteredList[matchingIndex])
       const newExercise = {
-        url: filteredList[0].url,
-        id: filteredList[0].id,
-        uuid: filteredList[0].uuid,
+        url: filteredList[matchingIndex].url,
+        id: filteredList[matchingIndex].id,
+        uuid: filteredList[matchingIndex].uuid,
       }
       exercicesParams.update((list) => [...list, newExercise])
+      return
     }
   }
   /**
@@ -238,8 +249,8 @@
       bind:value={inputSearch}
       bind:this={searchField}
     />
-    <div class="{filteredList.length === 1 ? 'visible' : 'invisible'} pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-      Enter pour ajouter l'exercice
+    <div class="{matchOnFilteredList(inputSearch) !== null ? 'visible' : 'invisible'} pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+      Entrée pour ajouter l'exercice
     </div>
   </div>
   {#if inputSearch.length > 0}
