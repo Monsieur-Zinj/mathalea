@@ -448,9 +448,9 @@
                 </div>
                 <SearchExercice referentiel={filteredReferentiel} bind:isInteractiveOnlySelected bind:isAmcOnlySelected on:specific={updateReferentiel} />
                 <ul>
-                  {#each arrayReferentielFiltre as item}
+                  {#each arrayReferentielFiltre as item, i}
                     <li>
-                      <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+                      <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
                     </li>
                   {/each}
                 </ul>
@@ -796,9 +796,9 @@
               </div>
               <SearchExercice referentiel={filteredReferentiel} bind:isInteractiveOnlySelected bind:isAmcOnlySelected on:specific={updateReferentiel} />
               <ul>
-                {#each arrayReferentielFiltre as item}
+                {#each arrayReferentielFiltre as item, i}
                   <li>
-                    <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+                    <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
                   </li>
                 {/each}
               </ul>

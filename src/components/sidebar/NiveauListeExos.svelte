@@ -8,6 +8,7 @@
   export let items: any
   export let pathToThisNode: string[]
   export let nestedLevelCount: number
+  export let indexBase: string
   import themesList from "../../json/levelsThemesList.json"
   import { MathaleaRenderDiv } from "../../lib/Mathalea"
 
@@ -34,11 +35,36 @@
     // const item = Array.from(items, ([key, obj]) => ({ key, obj }))
     const regExpEntreesRef = /^(?:(?:(?:(?:c3)|\d)\S\d){1}|(?:can\d\S))(?:.*){0}$/g
     const regExpBrevetAnnee = /^(?:Brevet)(?:.*?)(?:année)/g
+    const regExpBrevetThème = /^(?:Brevet)(?:.*?)(?:thèmes)/g
+    // entrées DNB(années) années décroissantes
     if (levelTitle.match(regExpBrevetAnnee)) {
       items = new Map([...items.entries()].reverse())
     }
+    // entrées exos 4A10 avant 4A10-1
     if (levelTitle.match(regExpEntreesRef)) {
       items = new Map([...items.entries()].sort())
+    }
+    // entrées DNB(thèmes) années décroissantes
+    if ((indexBase.match(/-/g) || []).length === 2) {
+      const parentIdElt = document.getElementById("titre-liste-" + indexBase.replaceAll(/(-\d+)$/g, ""))
+      const parentTitle = document.getElementById(parentIdElt.id + "-content").textContent
+      if (parentTitle.match(regExpBrevetThème)) {
+        const regExpDNBYearMonth = /^(?:dnb_)(?<year>\d{4})_(?<month>\d{2})/g
+        items = new Map(
+          [...items.entries()].sort((exoA, exoB) => {
+            const exoAData = [...exoA[0].matchAll(regExpDNBYearMonth)]
+            const exoBData = [...exoB[0].matchAll(regExpDNBYearMonth)]
+            const exoAYear = parseInt(exoAData[0].groups.year)
+            const exoBYear = parseInt(exoBData[0].groups.year)
+            if (exoAYear !== exoBYear) {
+              return exoBYear - exoAYear
+            }
+            const exoAMonth = parseInt(exoAData[0].groups.month)
+            const exoBMonth = parseInt(exoBData[0].groups.month)
+            return exoBMonth - exoAMonth
+          })
+        )
+      }
     }
     expanded = !expanded
   }
@@ -62,6 +88,7 @@
   - **nestedLevelCount** : compteur pour connaître le nombre d'imbrication (utilisé pour l'indentation de la ligne) class="pl-{nestedLevelCount * 2}"
  -->
 <div
+  id={"titre-liste-" + indexBase}
   class="flex flex-row items-center justify-between {expanded
     ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
     : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'} font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest cursor-pointer"
@@ -69,7 +96,7 @@
   on:click={toggleContent}
   on:keydown={toggleContent}
 >
-  <div class="text-base">{levelTitle} <span class="font-normal">{themeTitle(levelTitle)}</span></div>
+  <div id={"titre-liste-" + indexBase + "-content"} class="text-base">{levelTitle} <span class="font-normal">{themeTitle(levelTitle)}</span></div>
   <i class=" text-xl bg-transparent bx {expanded ? 'bx-plus rotate-[225deg]' : 'bx-plus'} transition-transform duration-500 ease-in-out" />
 </div>
 {#if expanded}
@@ -79,12 +106,12 @@
     </div>
   {/if}
   <ul transition:slide={{ duration: 500 }} bind:this={listeExercices}>
-    {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item}
+    {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item, i}
       <li>
         {#if item.obj.has("uuid")}
           <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} exercice={item.obj} />
         {:else}
-          <svelte:self nestedLevelCount={nestedLevelCount + 1} pathToThisNode={[...pathToThisNode, item.key]} levelTitle={item.key} items={item.obj} />
+          <svelte:self indexBase={`${indexBase}-${i.toString()}`} nestedLevelCount={nestedLevelCount + 1} pathToThisNode={[...pathToThisNode, item.key]} levelTitle={item.key} items={item.obj} />
         {/if}
       </li>
     {/each}
