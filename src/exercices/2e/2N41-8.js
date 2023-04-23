@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, choice, abs, combinaisonListes, rienS
 import { setReponse } from '../../modules/gestionInteractif.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const dateDePublication = '18/04/2023'
+export const dateDePublication = '23/04/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Mettre au même dénominateur des expressions littérales'
