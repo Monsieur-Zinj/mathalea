@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, contraindreValeur, reduireAxPlusB } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
 import { } from '../../modules/2d.js'
 export const titre = 'Nombre dérivé de fonctions de références'
 
@@ -7,11 +7,6 @@ export const titre = 'Nombre dérivé de fonctions de références'
 export const dateDePublication = '16/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
-/**
- * Description didactique de l'exercice
- * @author
- * Référence
-*/
 export const uuid = '29202'
 export const ref = '1AN10-1'
 export default function Tauxvariation () {
@@ -29,7 +24,7 @@ export default function Tauxvariation () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4]
-    this.sup = contraindreValeur(1, 5, this.sup, 5)
+    // this.sup = contraindreValeur(1, 5, this.sup, 5)
     if (this.sup !== 5) typesDeQuestionsDisponibles = [this.sup]
     else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
