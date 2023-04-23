@@ -101,20 +101,60 @@
       msg: "Action triggered !",
     })
   }
+
+  // ================== Gestion du Ctrl + K ==============================
+  // source : https://svelte.dev/repl/48bd3726b74c4329a186838ce645099b?version=3.46.4
+  let isCtrlDown: boolean = false
+  let isKDown: boolean = false
+  function onCtrklK() {
+    getSearchDisplayed()
+  }
+  /**
+   *
+   * @param event
+   */
+  function onKeyDown(event) {
+    if (event.repeat) return
+    switch (event.key) {
+      case "Control":
+        isCtrlDown = true
+        event.preventDefault()
+        break
+      case "k":
+        isKDown = true
+        event.preventDefault()
+        break
+    }
+    if (isCtrlDown && isKDown) {
+      onCtrklK()
+    }
+  }
+
+  function onKeyUp(event) {
+    switch (event.key) {
+      case "Control":
+        isCtrlDown = false
+        event.preventDefault()
+        break
+      case "k":
+        isKDown = false
+        event.preventDefault()
+        break
+    }
+  }
+
+  const getSearchDisplayed = async () => {
+    isSearchInputDisplayed = !isSearchInputDisplayed
+    await tick()
+    searchField.focus()
+  }
 </script>
 
 <!-- <svelte:window on:keydown={handlePressEnter} /> -->
+<svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
 <div class="flex flex-row space-x-6 {isFiltersDisplayed ? 'mb-0' : 'mb-2'} justify-start items-center">
   <!-- <div class="font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div> -->
-  <Button
-    title=""
-    icon="bx-search"
-    on:click={async () => {
-      isSearchInputDisplayed = !isSearchInputDisplayed
-      await tick()
-      searchField.focus()
-    }}
-  />
+  <Button title="" icon="bx-search" on:click={getSearchDisplayed} />
   <Button
     title=""
     icon="bx-filter-alt"
