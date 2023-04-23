@@ -44,7 +44,7 @@
     listeDesExercices = getAllExercices(referentiel)
     filteredList = listeDesExercices.filter((exercice) => filtre(exercice, inputSearch, isCanInclusDansResultats))
   }
-  let inputSearch = ""
+  let inputSearch: string = ""
 
   // function handlePressEnter(e: KeyboardEvent) {
   //   if (e.key === "Enter") {
@@ -82,18 +82,6 @@
     return results.every((value) => value === true)
   }
 
-  // /**
-  //  * Ajouter l'exercice courant à la liste
-  //  */
-  // function addToList(exercice: InterfaceReferentiel) {
-  //   const newExercise = {
-  //     url: exercice.url,
-  //     id: exercice.id,
-  //     uuid: exercice.uuid,
-  //   }
-  //   exercicesParams.update((list) => [...list, newExercise])
-  // }
-
   const dispatch = createEventDispatcher()
 
   function triggerAction() {
@@ -102,12 +90,31 @@
     })
   }
 
-  // ================== Gestion du Ctrl + K ==============================
+  // ================== Gestion du Ctrl + K et Enter  ==============================
+  // POur la gestion du clavier voir
   // source : https://svelte.dev/repl/48bd3726b74c4329a186838ce645099b?version=3.46.4
   let isCtrlDown: boolean = false
   let isKDown: boolean = false
+  let isEnterDown: boolean = false
+  /**
+   * Si Ctrl+K afficher le champ de recherche avec focus
+   */
   function onCtrklK() {
     getSearchDisplayed()
+  }
+  /**
+   * Si Entrée et qu'un seul exercice matche alors on ajoute l'exercice à la liste
+   */
+  function onEnterDown() {
+    if (filteredList.length === 1) {
+      console.log(filteredList[0])
+      const newExercise = {
+        url: filteredList[0].url,
+        id: filteredList[0].id,
+        uuid: filteredList[0].uuid,
+      }
+      exercicesParams.update((list) => [...list, newExercise])
+    }
   }
   /**
    *
@@ -124,9 +131,16 @@
         isKDown = true
         event.preventDefault()
         break
+      case "Enter":
+        isEnterDown = true
+        event.preventDefault()
+        break
     }
     if (isCtrlDown && isKDown) {
       onCtrklK()
+    }
+    if (isEnterDown) {
+      onEnterDown()
     }
   }
 
@@ -139,6 +153,9 @@
       case "k":
         isKDown = false
         event.preventDefault()
+        break
+      case "Enter":
+        isEnterDown = false
         break
     }
   }
@@ -212,7 +229,7 @@
   </div>
 </div>
 <div class="{isSearchInputDisplayed ? 'flex' : 'hidden'} flex-col">
-  <div class="mb-4 w-full">
+  <div class="flex flex-col mb-4 w-full">
     <input
       type="text"
       id="searchInputField"
@@ -221,6 +238,9 @@
       bind:value={inputSearch}
       bind:this={searchField}
     />
+    <div class="{filteredList.length === 1 ? 'visible' : 'invisible'} pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+      Enter pour ajouter l'exercice
+    </div>
   </div>
   {#if inputSearch.length > 0}
     <div class="mb-4 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light text-sm font-light">
@@ -234,13 +254,6 @@
   {/if}
 
   {#each filteredList as exercice}
-    <!-- <div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-1">
-      <div class="flex-1 hover:bg-coopmaths-light dark:hover:bg-coopmathsdark-light cursor-pointer" on:click={() => addToList(exercice)} on:keydown={() => addToList(exercice)}>
-        <div class="ml-[3px] pl-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas  hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-dark flex-1">
-          <span class="font-bold">{exercice.id} - </span>{exercice.titre}
-        </div>
-      </div>
-    </div> -->
     <EntreeRecherche {exercice} />
   {/each}
 </div>
