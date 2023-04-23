@@ -28,3 +28,27 @@ export function findPropPaths (obj, predicate) { // The function
   }(obj))
   return results
 }
+
+/**
+ * Trouver les exercices en double dans un tableau contenant
+ * des tableaux des chemins vers des exercices.
+ * ### Exemple d'élément
+ *  `['CAN', 'CM1/CM2', 'c3C', 'canc3C05']`
+ * ### Principe
+ *  le dernier élément étant l'ID de l'exercice
+ * on repère les doublons grâce à ce dernier élément
+ * @param {Array} array Tableau d'entrées de chemins d'exercices
+ * @returns {Array}
+ */
+export const findDuplicates = (array) => {
+  const duplicates = []
+  const map = new Map()
+  array.forEach((item) => {
+    if (map.has(item[item.length - 1])) {
+      duplicates.push(item)
+    } else {
+      map.set(item[item.length - 1], item)
+    }
+  })
+  return duplicates
+}
