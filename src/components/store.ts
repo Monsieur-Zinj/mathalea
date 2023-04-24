@@ -65,6 +65,8 @@ let timerId: ReturnType<typeof setTimeout>
  */
 export function updateGlobalOptionsInURL (url: URL) {
   const options = get(globalOptions)
+  const selectedExexercicesStore = get(selectedExercises)
+  const questionsOrderStore = get(questionsOrder)
   if (options.v) {
     url.searchParams.append('v', options.v)
   } else {
@@ -137,6 +139,14 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('title')
     url.searchParams.delete('es')
+  }
+  if (options.v === 'can' || options.v === 'diaporama') {
+    if (selectedExexercicesStore) {
+      url.searchParams.append('selectedExercises', JSON.stringify(selectedExexercicesStore))
+    }
+    if (questionsOrderStore) {
+      url.searchParams.append('questionsOrder', JSON.stringify(questionsOrderStore))
+    }
   }
   const currentUrl = new URL(window.location.href)
   if (currentUrl.searchParams.has('triche')) {

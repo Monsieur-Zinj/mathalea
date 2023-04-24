@@ -30,6 +30,11 @@
   let correctionsSteps: number[] = []
 
   onMount(async () => {
+    const url = new URL(window.location.href)
+    const paramsSelectedExercises = url.searchParams.get("selectedExercises")
+    selectedExercises.update(() => JSON.parse(paramsSelectedExercises))
+    const paramsQuestionsOrder = url.searchParams.get("questionsOrder")
+    questionsOrder.update(() => JSON.parse(paramsQuestionsOrder))
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
@@ -75,7 +80,6 @@
         consignes.push(exercice.consigne)
       }
     }
-    // console.log("can/store = " + $questionsOrder.indexes)
     await tick()
     if (divExercice) mathaleaRenderDiv(divExercice)
   }
@@ -111,7 +115,7 @@
         duration: exercice.duration,
       })
     }
-    exercicesParams.update((l) => newParams)
+    exercicesParams.update(() => newParams)
     updateExercices()
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
