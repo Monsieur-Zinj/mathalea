@@ -17,7 +17,7 @@ export const amcType = 'qcmMono'
 export const uuid = '90998'
 export const ref = '2F10-1'
 export default function Reconnaitrefonctionaffine () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.video = ''

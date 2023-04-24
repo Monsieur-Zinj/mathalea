@@ -19,7 +19,7 @@ export const titre = 'Trouver le terme manquant d\'une somme de nombres relatifs
 export const uuid = '61b4a'
 export const ref = '5R10'
 export default function TermeInconnuDeSomme () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
   this.sup = 1

@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f5dcf'
 export const ref = '4C30'
 export default function PuissancesDeDix () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
   this.titre = titre

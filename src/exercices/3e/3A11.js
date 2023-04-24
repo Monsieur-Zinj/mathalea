@@ -11,7 +11,7 @@ export const titre = 'Rendre irréductible une fraction'
 export const uuid = 'a6667'
 export const ref = '3A11'
 export default function FractionsIrreductibles () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne

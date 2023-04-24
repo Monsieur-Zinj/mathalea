@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, creerNomD
 import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageAngleDroit, codageSegments, codageAngle, longueur, angleOriente } from '../../modules/2d.js'
 
 export default function UtiliserLeCodagePourDecrire () {
-  'use strict'
+  
   Exercice.call(this)
   this.titre = 'Utiliser le codage pour décrire une figure'
   this.nbQuestions = 1

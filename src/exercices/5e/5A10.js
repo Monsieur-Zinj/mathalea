@@ -18,7 +18,7 @@ export const interactifType = 'mathLive'
 export const uuid = '4828d'
 export const ref = '5A10'
 export default function ListeDesDiviseurs5e () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

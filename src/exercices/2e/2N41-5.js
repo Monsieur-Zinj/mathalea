@@ -29,7 +29,7 @@ export const interactifType = 'mathLive'
 export const uuid = '5a4ad'
 export const ref = '2N41-5'
 export default function DevelopperIdentitesRemarquables4() {
-    'use strict'
+    
     Exercice.call(this) // Héritage de la classe Exercice()
     this.titre = titre
     this.interactifReady = interactifReady

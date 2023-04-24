@@ -34,7 +34,7 @@ export const amcType = 'AMCHybride'
 export const uuid = '442e0'
 export const ref = '3G12'
 export default function PavageEtRotation2D () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

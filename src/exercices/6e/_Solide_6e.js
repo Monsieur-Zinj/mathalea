@@ -9,7 +9,7 @@ import { point, labelPoint, segment, polygone, translation2Points, similitude, c
  * @author Jean-Claude Lhote
  */
 export default function Solide6e () {
-  'use strict'
+  
   Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1

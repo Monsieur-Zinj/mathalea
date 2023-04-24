@@ -10,7 +10,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerO
  * @author Sébastien Lozano
  */
 export default function TableauxEtPourcentages () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.sup = 1 // nature du coefficient entre les pourcentages, entier/decimal

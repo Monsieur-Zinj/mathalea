@@ -17,7 +17,7 @@ export const amcReady = true
 export const uuid = '82313'
 export const ref = '3L11-3'
 export default function DistributiviteSimpleDoubleReduction () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady

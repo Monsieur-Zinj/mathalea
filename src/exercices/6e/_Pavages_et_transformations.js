@@ -18,7 +18,7 @@ export const amcType = 'AMCHybride'
  * Relecture : Novembre 2021 par EE
  */
 export default function PavagesEtTransformations () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
 
   // this.titre = "Trouver l'image d'une figure par une symétrie centrale";

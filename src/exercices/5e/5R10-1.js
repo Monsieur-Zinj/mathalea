@@ -12,7 +12,7 @@ export const titre = 'Deviner un nombre relatif'
 export const uuid = '76343'
 export const ref = '5R10-1'
 export default function DevinerNombreRelatif () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

@@ -832,7 +832,7 @@ fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${s
 export const uuid = 'f7a14'
 export const ref = '6P11'
 export default function ProportionnaliteParLinearite () {
-  'use strict'
+  
   let question
   Exercice.call(this) // Héritage de la classe Exercice()
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)

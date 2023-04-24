@@ -22,7 +22,7 @@ export const dateDePublication = '04/11/2021'
 export const uuid = '18559'
 export const ref = '6C30-6'
 export default function MultiplierUnNombreParPuissanceDeDix () {
-  'use strict'
+  
   Exercice.call(this)
   this.nbQuestions = 5 // Ici le nombre de questions
   this.consigne = ''

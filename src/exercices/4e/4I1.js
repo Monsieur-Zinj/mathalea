@@ -18,7 +18,7 @@ export const titre = 'Dessiner avec scratch'
 export const uuid = '33c9a'
 export const ref = '4I1'
 export default function TracerAvecScratch () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'

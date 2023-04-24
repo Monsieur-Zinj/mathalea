@@ -13,7 +13,7 @@ export const dateDeModifImportante = '26/11/2021'
 export const uuid = 'cab80'
 export const ref = '5R10-0'
 export default function TrouverOppose () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.besoinFormulaireCaseACocher = ['Afficher quelques fois le signe des nombres positifs']

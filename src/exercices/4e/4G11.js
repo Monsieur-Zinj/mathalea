@@ -16,7 +16,7 @@ export const titre = 'Trouver l\'image d\'une figure par une translation dans un
 export const uuid = '3bfb6'
 export const ref = '4G11'
 export default function PavageEtTranslation2d () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

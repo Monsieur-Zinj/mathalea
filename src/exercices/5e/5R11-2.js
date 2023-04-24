@@ -19,7 +19,7 @@ export const titre = 'Placer un point d\'abscisse un nombre relatif'
 export const uuid = '6d576'
 export const ref = '5R11-2'
 export default function PlacerPointsSurAxeRelatifs () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

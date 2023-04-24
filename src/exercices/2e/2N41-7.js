@@ -11,7 +11,7 @@ export const titre = 'Factoriser avec les identités remarquables (niveau II)'
 export const uuid = '874e8'
 export const ref = '2N41-7'
 export default function FactoriserIdentitesremarquables2 () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Factoriser les expressions suivantes.'

@@ -27,7 +27,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'bae57'
 export const ref = '4C33-1'
 export default function PuissancesDunRelatif1 () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
   this.titre = titre

@@ -9370,7 +9370,7 @@ export function lectureImage (...args) {
 }
 
 export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, textAbs) {
-  // 'use strict'
+  // 
   ObjetMathalea2D.call(this, {})
   this.x = x
   this.y = y

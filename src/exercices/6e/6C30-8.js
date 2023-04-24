@@ -19,7 +19,7 @@ export const dateDePublication = '08/12/2021'
 export const uuid = '9540b'
 export const ref = '6C30-8'
 export default function DiviserPar101001000 () {
-  'use strict'
+  
   Exercice.call(this)
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions

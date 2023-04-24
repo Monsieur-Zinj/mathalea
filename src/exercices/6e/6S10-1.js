@@ -19,7 +19,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'adac4'
 export const ref = '6S10-1'
 export default function LireUnDiagramme () {
-  'use strict'
+  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 2
