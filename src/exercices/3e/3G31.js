@@ -53,10 +53,9 @@ export default function CalculDAngle () {
   this.sup = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
-
   if (context.isHtml) {
-    this.spacing = 0
-    this.spacingCorr = 0
+    this.spacing = 2
+    this.spacingCorr = 3
   } else {
     this.spacing = 2
     this.spacingCorr = 2
@@ -254,14 +253,14 @@ export default function CalculDAngle () {
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ab), texNombre2(bc))}$<br>`
-          texteCorr += `$\\widehat{${nom}}=\\arccos(${texFraction(texNombre2(ab), texNombre2(bc))})\\approx ${angleABC}\\degree$<br>`
+          texteCorr += `$\\widehat{${nom}}=\\arccos\\left(${texFraction(texNombre2(ab), texNombre2(bc))}\\right)\\approx ${angleABC}\\degree$<br>`
           break
         case 'Asin':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$ ${mEp2},le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\sin\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ac), texNombre2(bc))}$<br>`
-          texteCorr += `$\\widehat{${nom}}=\\arcsin(${texFraction(texNombre2(ac), texNombre2(bc))})\\approx ${angleABC}\\degree$<br>`
+          texteCorr += `$\\widehat{${nom}}=\\arcsin\\left(${texFraction(texNombre2(ac), texNombre2(bc))}\\right)\\approx ${angleABC}\\degree$<br>`
 
           break
         case 'Atan':
