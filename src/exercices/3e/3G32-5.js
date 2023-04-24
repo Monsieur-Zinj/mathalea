@@ -13,5 +13,6 @@ export default function CalculHauteurMontagne () {
   problemesTrigoLongueur.call(this)
   this.titre = titre
   this.sup2 = 6
+  this.nbQuestions = 1
   this.besoinFormulaireCaseACocher = false
 }
