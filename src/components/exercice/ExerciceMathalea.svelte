@@ -5,7 +5,7 @@
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure } from "../../lib/interactif/interactif"
   import { loadMathLive } from "../../modules/loaders"
-  import { MathaleaFormatExercice, MathaleaHandleExerciceSimple, MathaleaHandleStringFromUrl, MathaleaHandleSup, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
+  import { mathaleaFormatExercice, mathaleaHandleExerciceSimple, mathaleaHandleSup, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from "../../lib/mathalea"
   import { exerciceInteractif } from "../../lib/interactif/interactif"
   import { exercicesParams } from "../store"
   import HeaderExercice from "./HeaderExercice.svelte"
@@ -101,7 +101,7 @@
           newData()
         }
       }
-      MathaleaRenderDiv(divExercice)
+      mathaleaRenderDiv(divExercice)
     }
   })
 
@@ -135,19 +135,19 @@
     }
     if (event.detail.sup !== undefined) {
       exercice.sup = event.detail.sup
-      $exercicesParams[indiceExercice].sup = MathaleaHandleSup(exercice.sup)
+      $exercicesParams[indiceExercice].sup = mathaleaHandleSup(exercice.sup)
     }
     if (event.detail.sup2 !== undefined) {
       exercice.sup2 = event.detail.sup2
-      $exercicesParams[indiceExercice].sup2 = MathaleaHandleSup(exercice.sup2)
+      $exercicesParams[indiceExercice].sup2 = mathaleaHandleSup(exercice.sup2)
     }
     if (event.detail.sup3 !== undefined) {
       exercice.sup3 = event.detail.sup3
-      $exercicesParams[indiceExercice].sup3 = MathaleaHandleSup(exercice.sup3)
+      $exercicesParams[indiceExercice].sup3 = mathaleaHandleSup(exercice.sup3)
     }
     if (event.detail.sup4 !== undefined) {
       exercice.sup4 = event.detail.sup4
-      $exercicesParams[indiceExercice].sup4 = MathaleaHandleSup(exercice.sup4)
+      $exercicesParams[indiceExercice].sup4 = mathaleaHandleSup(exercice.sup4)
     }
     if (event.detail.alea !== undefined) {
       exercice.seed = event.detail.alea
@@ -172,14 +172,14 @@
       exercice.applyNewSeed()
     }
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
-    MathaleaUpdateUrlFromExercicesParams()
+    mathaleaUpdateUrlFromExercicesParams()
     adjustMathalea2dFiguresWidth()
   }
 
@@ -362,7 +362,7 @@
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
                   <li id="exercice{indiceExercice}Q{i}">
-                    {@html MathaleaFormatExercice(item)}
+                    {@html mathaleaFormatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
                     <div
@@ -370,7 +370,7 @@
                       id="correction${indiceExercice}Q${i}"
                     >
                       <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
-                        {@html MathaleaFormatExercice(exercice.listeCorrections[i])}
+                        {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                       </div>
                       <!-- Avant le commit du 28/03/23, il y avait une mise en page plus complexe
                       et cela posait problème au changement des paramètres avec la correction visible -->

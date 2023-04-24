@@ -2,10 +2,10 @@
   import {creerDocumentAmc} from "../lib/amc/creerDocumentAmc.js"
   import {context} from "../modules/context.js"
   import {
-    MathaleaGetExercicesFromParams,
-    MathaleaHandleExerciceSimple,
-    MathaleaUpdateExercicesParamsFromUrl
-  } from "../lib/Mathalea"
+    mathaleaGetExercicesFromParams,
+    mathaleaHandleExerciceSimple,
+    mathaleaUpdateExercicesParamsFromUrl
+  } from "../lib/mathalea.js"
   import Footer from "./Footer.svelte"
   import {darkMode, exercicesParams} from "./store"
   import type TypeExercice from "./utils/typeExercice"
@@ -13,7 +13,7 @@
   import NavBarV2 from "./header/NavBarV2.svelte"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import {showDialogForLimitedTime} from "./utils/dialogs.js"
-  import {MathaleaGenerateSeed, MathaleaUpdateUrlFromExercicesParams} from "../lib/Mathalea.js"
+  import {mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams} from "../lib/mathalea.js"
   import seedrandom from "seedrandom"
   import Button from "./forms/Button.svelte"
   import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
@@ -39,14 +39,14 @@
   let textForOverleaf: HTMLInputElement
   
   async function initExercices() {
-    await MathaleaUpdateExercicesParamsFromUrl()
-    exercices = await MathaleaGetExercicesFromParams($exercicesParams)
+    await mathaleaUpdateExercicesParamsFromUrl()
+    exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     for (const exercice of exercices) {
       isSettingsVisible.push(false)
       context.isHtml = false
       context.isAmc = true
       seedrandom(exercice.seed, {global: true})
-      if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, false)
+      if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, false)
       exercice.nouvelleVersion()
     }
   }
@@ -72,7 +72,7 @@
           context.isHtml = false
           context.isAmc = true
           seedrandom(exo.seed, {global: true})
-          if (exo.typeExercice === "simple") MathaleaHandleExerciceSimple(exo, false)
+          if (exo.typeExercice === "simple") mathaleaHandleExerciceSimple(exo, false)
           exo.nouvelleVersion()
         }
       }
@@ -201,11 +201,11 @@
               data-tip="Nouvel énoncé"
               type="button"
               on:click={() => {
-                exercice.seed = MathaleaGenerateSeed()
+                exercice.seed = mathaleaGenerateSeed()
                 seedrandom(exercice.seed, { global: true })
                 exercice.nouvelleVersion()
                 $exercicesParams[i].alea = exercice.seed
-                MathaleaUpdateUrlFromExercicesParams()
+                mathaleaUpdateUrlFromExercicesParams()
               }}><i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"/>
             </button>

@@ -10,7 +10,7 @@
   export let nestedLevelCount: number
   export let indexBase: string
   import themesList from "../../json/levelsThemesList.json"
-  import { MathaleaRenderDiv } from "../../lib/Mathalea"
+  import { mathaleaRenderDiv } from "../../lib/mathalea"
 
   const themes = toMap(themesList)
   let listeExercices: HTMLUListElement
@@ -70,7 +70,7 @@
   }
 
   $: {
-    if (listeExercices) MathaleaRenderDiv(listeExercices)
+    if (listeExercices) mathaleaRenderDiv(listeExercices)
   }
 </script>
 

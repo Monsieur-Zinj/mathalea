@@ -7,7 +7,7 @@
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
-  import { MathaleaUpdateExercicesParamsFromUrl, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea"
+  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
@@ -57,7 +57,7 @@
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
   function urlToDisplay() {
-    const urlOptions = MathaleaUpdateExercicesParamsFromUrl()
+    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       return urlOptions
     })
@@ -72,7 +72,7 @@
 
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
-    if (isInitialUrlHandled) MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     if ($globalOptions.v === "l") {
       // $isSideMenuVisible = false
       isNavBarVisible = false

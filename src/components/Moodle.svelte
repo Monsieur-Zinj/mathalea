@@ -2,7 +2,7 @@
   import { exercicesParams, darkMode } from "./store"
   import Footer from "./Footer.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
-  import { MathaleaGetExercicesFromParams, MathaleaUpdateExercicesParamsFromUrl } from "../lib/Mathalea.js"
+  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from "../lib/mathalea.js"
   import type TypeExercice from "./utils/typeExercice"
 
 
@@ -30,8 +30,8 @@
   let exercices: TypeExercice[]
 
   async function initExercices() {
-    MathaleaUpdateExercicesParamsFromUrl()
-    exercices = await MathaleaGetExercicesFromParams($exercicesParams)
+    mathaleaUpdateExercicesParamsFromUrl()
+    exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     let i = 0
     for (const param of $exercicesParams) {
       let paramUrl = ''

@@ -1,13 +1,13 @@
 <script lang="ts">
   import {
-    MathaleaFormatExercice,
-    MathaleaHandleExerciceSimple,
-    MathaleaHandleParamOfOneExercice,
-    MathaleaLoadExerciceFromUuid,
-    MathaleaRenderDiv,
-    MathaleaUpdateExercicesParamsFromUrl,
-    MathaleaUpdateUrlFromExercicesParams,
-  } from "../lib/Mathalea"
+    mathaleaFormatExercice,
+    mathaleaHandleExerciceSimple,
+    mathaleaHandleParamOfOneExercice,
+    mathaleaLoadExerciceFromUuid,
+    mathaleaRenderDiv,
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams,
+  } from "../lib/mathalea"
   import { exercicesParams, darkMode, globalOptions, resultsByExercice, isMenuNeededForExercises, isMenuNeededForQuestions } from "./store"
   import type TypeExercice from "./utils/typeExercice"
   import Exercice from "./exercice/Exercice.svelte"
@@ -40,7 +40,7 @@
   let currentWindowWidth: number = document.body.clientWidth
 
   function urlToDisplay() {
-    let urlOptions = MathaleaUpdateExercicesParamsFromUrl()
+    let urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       urlOptions.v = "eleve"
       return urlOptions
@@ -116,7 +116,7 @@
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
-      let urlOptions = MathaleaUpdateExercicesParamsFromUrl()
+      let urlOptions = mathaleaUpdateExercicesParamsFromUrl()
       urlOptions.v = "eleve"
       globalOptions.update(() => {
         return urlOptions
@@ -132,9 +132,9 @@
       }
     }
     for (const paramsExercice of $exercicesParams) {
-      const exercice: TypeExercice = await MathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
-      MathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
       if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
         exercice.interactif = true
       }
@@ -148,7 +148,7 @@
   async function buildQuestions() {
     for (const [k, exercice] of exercices.entries()) {
       if (exercice.typeExercice === "simple") {
-        MathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
+        mathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
       }
       seedrandom(exercice.seed, { global: true })
       exercice.numeroExercice = k
@@ -161,15 +161,15 @@
       }
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
-      questions = questions.map(MathaleaFormatExercice)
-      corrections = corrections.map(MathaleaFormatExercice)
-      consignes = consignes.map(MathaleaFormatExercice)
+      questions = questions.map(mathaleaFormatExercice)
+      corrections = corrections.map(mathaleaFormatExercice)
+      consignes = consignes.map(mathaleaFormatExercice)
     }
     if ($globalOptions.presMode === "liste_questions" || $globalOptions.presMode === "une_question_par_page") {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
-      MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+      mathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
-      MathaleaRenderDiv(document.querySelector<HTMLElement>("section"))
+      mathaleaRenderDiv(document.querySelector<HTMLElement>("section"))
       loadMathLive()
     }
     let hauteurExercice = window.document.querySelector("section").scrollHeight
@@ -200,14 +200,14 @@
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true
     await tick()
-    MathaleaRenderDiv(divsCorrection[i])
+    mathaleaRenderDiv(divsCorrection[i])
   }
 
   async function switchCorrectionVisible(i: number) {
     isCorrectionVisible[i] = !isCorrectionVisible[i]
     if (isCorrectionVisible[i]) {
       await tick()
-      MathaleaRenderDiv(divsCorrection[i])
+      mathaleaRenderDiv(divsCorrection[i])
     }
   }
 
@@ -382,7 +382,7 @@
                     bind:this={divsCorrection[k]}
                   >
                     <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
-                      {@html MathaleaFormatExercice(corrections[k])}
+                      {@html mathaleaFormatExercice(corrections[k])}
                     </div>
                     <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
                     <div
@@ -438,7 +438,7 @@
                       bind:this={divsCorrection[k]}
                     >
                       <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
-                        {@html MathaleaFormatExercice(corrections[k])}
+                        {@html mathaleaFormatExercice(corrections[k])}
                       </div>
                       <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
                       <div

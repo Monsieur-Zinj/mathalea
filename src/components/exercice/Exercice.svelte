@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MathaleaHandleParamOfOneExercice, MathaleaLoadExerciceFromUuid } from "../../lib/Mathalea"
+  import { mathaleaHandleParamOfOneExercice, mathaleaLoadExerciceFromUuid } from "../../lib/mathalea"
   import { onMount, SvelteComponent } from "svelte"
   import { globalOptions } from "../store"
     import type { InterfaceParams } from "src/lib/types";
@@ -24,10 +24,10 @@
       optionsComponent = { uuid: paramsExercice.uuid }
       ComponentExercice = (await import("./ExerciceStatic.svelte")).default
     } else {
-      exercice = await MathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
       exercice.numeroExercice = indiceExercice
-      MathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
       if (paramsExercice.duration) exercice.duree = paramsExercice.duration
       optionsComponent = { exercice }
       if ($globalOptions.v === "eleve") {

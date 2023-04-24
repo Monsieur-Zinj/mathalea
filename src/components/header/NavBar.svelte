@@ -1,5 +1,5 @@
 <script>
-    import { MathaleaHandleComponentChange } from "src/lib/Mathalea";
+    import { mathaleaHandleComponentChange } from "src/lib/mathalea";
   import { globalOptions, darkMode } from "../store"
 
   import NavBarMenuV2 from "./NavBarMenuV2.svelte"
@@ -99,7 +99,7 @@
   }
 
   function goToMathalea() {
-    MathaleaHandleComponentChange("latex", "")
+    mathaleaHandleComponentChange("latex", "")
   }
 </script>
 

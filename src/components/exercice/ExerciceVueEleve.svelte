@@ -6,7 +6,7 @@
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure, exerciceInteractif } from "../../lib/interactif/interactif"
   import { loadMathLive } from "../../modules/loaders"
-  import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleExerciceSimple, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
+  import { mathaleaFormatExercice, mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from "../../lib/mathalea"
   import { exercicesParams, isMenuNeededForExercises } from "../store"
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
@@ -76,7 +76,7 @@
         const answers = url.searchParams.get("answers")
         const objAnswers = answers ? JSON.parse(answers) : undefined
         $globalOptions.answers = objAnswers
-        MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+        mathaleaUpdateUrlFromExercicesParams($exercicesParams)
         for (const answer in objAnswers) {
           // La réponse correspond à un champs texte
           const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
@@ -111,14 +111,14 @@
           newData()
         }
       }
-      MathaleaRenderDiv(divExercice)
+      mathaleaRenderDiv(divExercice)
       adjustMathalea2dFiguresWidth()
     }
   })
 
   async function newData() {
     if (isCorrectionVisible) isCorrectionVisible = false
-    const seed = MathaleaGenerateSeed()
+    const seed = mathaleaGenerateSeed()
     exercice.seed = seed
     if (buttonScore) initButtonScore()
     if (isCorrectionVisible) {
@@ -137,16 +137,16 @@
   }
 
   async function updateDisplay() {
-    if (exercice.seed === undefined) exercice.seed = MathaleaGenerateSeed()
+    if (exercice.seed === undefined) exercice.seed = mathaleaGenerateSeed()
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
-    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
   function verifExerciceVueEleve() {
@@ -331,7 +331,7 @@
             {#each exercice.listeQuestions as item, i (i)}
               <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-4 mb-2 lg:mb-4">
                 <li id="exercice{indiceExercice}Q{i}">
-                  {@html MathaleaFormatExercice(item)}
+                  {@html mathaleaFormatExercice(item)}
                 </li>
                 {#if isCorrectionVisible}
                   <div
@@ -339,7 +339,7 @@
                     id="correction${indiceExercice}Q${i}"
                   >
                     <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
-                      {@html MathaleaFormatExercice(exercice.listeCorrections[i])}
+                      {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                     </div>
                     <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
                     <div

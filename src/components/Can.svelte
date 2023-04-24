@@ -2,15 +2,15 @@
   import { globalOptions, questionsOrder, selectedExercises, darkMode } from "./store"
   import { onMount, tick } from "svelte"
   import {
-    MathaleaFormatExercice,
-    MathaleaGenerateSeed,
-    MathaleaHandleComponentChange,
-    MathaleaHandleExerciceSimple,
-    MathaleaHandleParamOfOneExercice,
-    MathaleaLoadExerciceFromUuid,
-    MathaleaRenderDiv,
-    MathaleaUpdateUrlFromExercicesParams,
-  } from "../lib/Mathalea"
+    mathaleaFormatExercice,
+    mathaleaGenerateSeed,
+    mathaleaHandleComponentChange,
+    mathaleaHandleExerciceSimple,
+    mathaleaHandleParamOfOneExercice,
+    mathaleaLoadExerciceFromUuid,
+    mathaleaRenderDiv,
+    mathaleaUpdateUrlFromExercicesParams,
+  } from "../lib/mathalea"
   import { exercicesParams } from "./store"
   import type Exercice from "./utils/typeExercice"
   import seedrandom from "seedrandom"
@@ -30,11 +30,11 @@
   let correctionsSteps: number[] = []
 
   onMount(async () => {
-    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
-      const exercice: Exercice = await MathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      const exercice: Exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
-      MathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
       exercice.duration = paramsExercice.duration ?? 10
       exercices.push(exercice)
     }
@@ -59,14 +59,14 @@
         } else {
           exercice.seed = exercice.seed.substring(0, 4)
         }
-        if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, false)
+        if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
         if ($selectedExercises.indexes.includes(k)) {
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
           corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
-          questions[idVue] = questions[idVue].map(MathaleaFormatExercice)
-          corrections[idVue] = corrections[idVue].map(MathaleaFormatExercice)
+          questions[idVue] = questions[idVue].map(mathaleaFormatExercice)
+          corrections[idVue] = corrections[idVue].map(mathaleaFormatExercice)
         }
       }
     }
@@ -77,7 +77,7 @@
     }
     // console.log("can/store = " + $questionsOrder.indexes)
     await tick()
-    if (divExercice) MathaleaRenderDiv(divExercice)
+    if (divExercice) mathaleaRenderDiv(divExercice)
   }
 
   async function switchCorrectionVisible(section: "correction" | "instructions") {
@@ -96,13 +96,13 @@
 
   async function updateDisplay() {
     await tick()
-    if (divExercice) MathaleaRenderDiv(divExercice)
+    if (divExercice) mathaleaRenderDiv(divExercice)
   }
 
   function newDataForAll() {
     const newParams: InterfaceParams[] = []
     for (const exercice of exercices) {
-      exercice.seed = MathaleaGenerateSeed()
+      exercice.seed = mathaleaGenerateSeed()
       newParams.push({
         uuid: exercice.uuid,
         id: exercice.id,
@@ -113,7 +113,7 @@
     }
     exercicesParams.update((l) => newParams)
     updateExercices()
-    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
   /**
@@ -151,7 +151,7 @@
         <button
           type="button"
           class="pb-8 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-          on:click={() => MathaleaHandleComponentChange("can", "diaporama")}><i class="bx bx-sm bx-arrow-back" /></button
+          on:click={() => mathaleaHandleComponentChange("can", "diaporama")}><i class="bx bx-sm bx-arrow-back" /></button
         >
         <button
           type="button"
@@ -264,7 +264,7 @@
                     <div class="flex flex-col justify-start items-start max-w-full">
                       {#if isQuestionsVisible}
                         <div>
-                          {@html MathaleaFormatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
+                          {@html mathaleaFormatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
                         </div>
                       {/if}
                       {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
@@ -274,7 +274,7 @@
                             : ''} py-2 pl-6 max-w-full"
                         >
                           <div class="container overflow-x-auto overflow-y-hidden">
-                            {@html MathaleaFormatExercice(corrections[currentVue][$questionsOrder.indexes[i]])}
+                            {@html mathaleaFormatExercice(corrections[currentVue][$questionsOrder.indexes[i]])}
                           </div>
                           <div
                             class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
@@ -308,7 +308,7 @@
                         <div class="flex flex-col justify-start items-start max-w-full">
                           {#if isQuestionsVisible}
                             <div>
-                              {@html MathaleaFormatExercice(questions[currentVueId][$questionsOrder.indexes[i]])}
+                              {@html mathaleaFormatExercice(questions[currentVueId][$questionsOrder.indexes[i]])}
                             </div>
                           {/if}
                           {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
@@ -318,7 +318,7 @@
                                 : ''} p-2 max-w-full"
                             >
                               <div class="container overflow-x-auto overflow-y-hidden">
-                                {@html MathaleaFormatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
+                                {@html mathaleaFormatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
                               </div>
                               <div
                                 class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"

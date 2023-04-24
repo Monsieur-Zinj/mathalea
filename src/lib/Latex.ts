@@ -1,6 +1,6 @@
 import preambule from '../lib/latex/preambule.tex?raw'
 import type TypeExercice from '../components/utils/typeExercice'
-import { MathaleaHandleExerciceSimple } from './Mathalea.js'
+import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
 
 class Latex {
@@ -21,7 +21,7 @@ class Latex {
     let contentCorr = ''
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') continue
-      if (exercice.typeExercice === 'simple') MathaleaHandleExerciceSimple(exercice, false)
+      if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       seedrandom(seed, { global: true })
       exercice.nouvelleVersion()

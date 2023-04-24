@@ -1,6 +1,6 @@
 <script lang="ts">
   import { exercicesParams, darkMode } from "./store"
-  import { MathaleaGetExercicesFromParams, MathaleaUpdateExercicesParamsFromUrl, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea.js"
+  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea.js"
   import type TypeExercice from "./utils/typeExercice"
   import Footer from "./Footer.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
@@ -37,8 +37,8 @@
 
   const latex = new Latex()
   async function initExercices() {
-    MathaleaUpdateExercicesParamsFromUrl()
-    exercices = await MathaleaGetExercicesFromParams($exercicesParams)
+    mathaleaUpdateExercicesParamsFromUrl()
+    exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     for (const exercice of exercices) {
       if (exercice.typeExercice === "statique") {
         isExerciceStaticInTheList = true
@@ -52,7 +52,7 @@
   }
 
   onMount(() => {
-    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     downloadPicsModal = document.getElementById("downloadPicsModal")
   })
 

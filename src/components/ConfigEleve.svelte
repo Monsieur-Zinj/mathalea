@@ -1,6 +1,6 @@
 <script lang="ts">
   import { exercicesParams, darkMode, globalOptions } from "./store"
-  import { MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea.js"
+  import { mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea.js"
   import Footer from "./Footer.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Button from "./forms/Button.svelte"
@@ -13,7 +13,7 @@
   import { buildUrlAddendumForEsParam } from "./utils/urls"
 
   onMount(() => {
-    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   })
 
   let formatQRCodeIndex: number = 0

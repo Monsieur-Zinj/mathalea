@@ -2,9 +2,9 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 // @ts-ignore
 import Exercice from '../exercices/Exercice.js'
-import type TypeExercice from '../components/utils/typeExercice'
+import type TypeExercice from '../components/utils/typeExercice.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store.js'
 import { get } from 'svelte/store'
 // @ts-ignore
 import { setReponse } from '../modules/gestionInteractif.js'
@@ -41,7 +41,7 @@ function getExerciceStaticByUuid (uuid: string) {
    * @param {string} url
    * @returns {Promise<Exercice>} exercice
    */
-export async function MathaleaLoadExerciceFromUuid (uuid: string) {
+export async function mathaleaLoadExerciceFromUuid (uuid: string) {
   const url = uuidToUrl[uuid as keyof typeof uuidToUrl]
   const [filename, directory, isCan] = url.split('/').reverse()
   try {
@@ -76,7 +76,7 @@ export async function MathaleaLoadExerciceFromUuid (uuid: string) {
    * en fonction du store exercicesParams
    *
    */
-export async function MathaleaGetExercicesFromParams (params: InterfaceParams[]): Promise<TypeExercice[]> {
+export async function mathaleaGetExercicesFromParams (params: InterfaceParams[]): Promise<TypeExercice[]> {
   const exercices = []
   for (const param of params) {
     if (
@@ -101,9 +101,9 @@ export async function MathaleaGetExercicesFromParams (params: InterfaceParams[])
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
       exercices.push({ typeExercice: 'statique', content, contentCorr, annee, lieu, mois, numeroInitial, examen })
     } else {
-      const exercice = await MathaleaLoadExerciceFromUuid(param.uuid)
+      const exercice = await mathaleaLoadExerciceFromUuid(param.uuid)
       if (typeof exercice === 'undefined') continue
-      MathaleaHandleParamOfOneExercice(exercice, param)
+      mathaleaHandleParamOfOneExercice(exercice, param)
       exercices.push(exercice)
     }
   }
@@ -113,21 +113,21 @@ export async function MathaleaGetExercicesFromParams (params: InterfaceParams[])
 /**
  * Applique les paramètres sauvegardés dans un élément de exercicesParams à un exercice
  */
-export function MathaleaHandleParamOfOneExercice (exercice: TypeExercice, param: InterfaceParams) {
+export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param: InterfaceParams) {
   exercice.uuid = param.uuid
   if (param.nbQuestions) exercice.nbQuestions = param.nbQuestions
   exercice.duration = param.duration ?? 10
   if (param.id) exercice.id = param.id
-  if (param.sup) exercice.sup = MathaleaHandleStringFromUrl(param.sup)
-  if (param.sup2) exercice.sup2 = MathaleaHandleStringFromUrl(param.sup2)
-  if (param.sup3) exercice.sup3 = MathaleaHandleStringFromUrl(param.sup3)
-  if (param.sup4) exercice.sup4 = MathaleaHandleStringFromUrl(param.sup4)
+  if (param.sup) exercice.sup = mathaleaHandleStringFromUrl(param.sup)
+  if (param.sup2) exercice.sup2 = mathaleaHandleStringFromUrl(param.sup2)
+  if (param.sup3) exercice.sup3 = mathaleaHandleStringFromUrl(param.sup3)
+  if (param.sup4) exercice.sup4 = mathaleaHandleStringFromUrl(param.sup4)
   if (param.interactif) exercice.interactif = param.interactif === '1'
   if (param.alea) exercice.seed = param.alea
   if (param.cols > 1) exercice.nbCols = param.cols
   if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
   if (exercice.seed === undefined) {
-    exercice.seed = MathaleaGenerateSeed()
+    exercice.seed = mathaleaGenerateSeed()
   }
 }
 
@@ -138,7 +138,7 @@ export function MathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
  * ou dans le store exercicesParams, ils sont sauvegardés sous forme de string d'où cette fonction de conversion
  * d'un des trois types vers string
  */
-export function MathaleaHandleSup (param: boolean | string | number): string {
+export function mathaleaHandleSup (param: boolean | string | number): string {
   if (typeof param === 'string') {
     return param
   } else if (typeof param === 'number') {
@@ -155,7 +155,7 @@ export function MathaleaHandleSup (param: boolean | string | number): string {
  * ou dans le store exercicesParams, ils sont sauvegardés sous forme de string d'où cette fonction de conversion
  * su string vers booléen ou number
  */
-export function MathaleaHandleStringFromUrl (text: string): boolean|number|string {
+export function mathaleaHandleStringFromUrl (text: string): boolean|number|string {
   if (text === 'true' || text === 'false') {
     // "true"=>true
     return text === 'true'
@@ -170,7 +170,7 @@ export function MathaleaHandleStringFromUrl (text: string): boolean|number|strin
 /**
  * Gère l'affichage des formules mathématiques écrites entre dollars
  */
-export function MathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
+export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
   // KaTeX à remplacer par MathLive ?
   // renderMathInElement(div, {
   //   TeX: {
@@ -221,7 +221,7 @@ export function MathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
  * Modifie l'url courante avec le store exercicesParams ou un tableau similaire
  * sauf si le store freezeUrl est à true (utile sur un site externe)
  */
-export function MathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]) {
+export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]) {
   if (get(freezeUrl) === true) return
   if (params === undefined) {
     params = get(exercicesParams)
@@ -250,7 +250,7 @@ export function MathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
    * avec tous les exercices et les options
    * @returns vue
    */
-export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions {
+export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions {
   let v = ''
   let z = '1'
   let durationGlobal = 0
@@ -383,7 +383,7 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
  * ne définissent qu'une seule question.
  * Avec cette fonction, on permet la création de plusieurs questions.
  */
-export function MathaleaHandleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice?: number) {
+export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice?: number) {
   if (numeroExercice !== undefined) exercice.numeroExercice = numeroExercice
   exercice.autoCorrection = []
   exercice.interactif = isInteractif
@@ -413,7 +413,7 @@ export function MathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
 /**
  * Génère un string de 4 caractères qui sera utilisé comme seed pour l'aléatoire
  */
-export function MathaleaGenerateSeed ({ includeUpperCase = true, includeNumbers = true, length = 4, startsWithLowerCase = false }: { includeUpperCase?: boolean, includeNumbers?: boolean, length?: number, startsWithLowerCase?: boolean } = {}) {
+export function mathaleaGenerateSeed ({ includeUpperCase = true, includeNumbers = true, length = 4, startsWithLowerCase = false }: { includeUpperCase?: boolean, includeNumbers?: boolean, length?: number, startsWithLowerCase?: boolean } = {}) {
   let a = 10
   const b = 'abcdefghijklmnopqrstuvwxyz'
   let c = ''
@@ -444,7 +444,7 @@ export function MathaleaGenerateSeed ({ includeUpperCase = true, includeNumbers 
 * @param {string} texte
 * @returns string
 */
-export function MathaleaFormatExercice (texte = '') {
+export function mathaleaFormatExercice (texte = '') {
   return texte
     .replace(/\\dotfill/g, '..............................')
     .replace(/\\not=/g, '≠')
@@ -456,7 +456,7 @@ export function MathaleaFormatExercice (texte = '') {
    * @param {string} oldComponent composant à changer
    * @param {string} newComponent composant à afficher
    */
-export function MathaleaHandleComponentChange (oldComponent: string, newComponent: string) {
+export function mathaleaHandleComponentChange (oldComponent: string, newComponent: string) {
   const oldPart = '&v=' + oldComponent
   const newPart = newComponent === '' ? '' : '&v=' + newComponent
   const urlString = window.location.href.replace(oldPart, newPart)

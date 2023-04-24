@@ -5963,6 +5963,7 @@
         "uuid": "cd69a",
         "url": "6e/6G32-1.js",
         "titre": "Appliquer les propriétés de conservation de la symétrie axiale",
+        "dateDeModifImportante": "23/04/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -6278,6 +6279,7 @@
         "uuid": "6225c",
         "url": "6e/6M23.js",
         "titre": "Convertir des aires",
+        "dateDeModifImportante": "23/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": [

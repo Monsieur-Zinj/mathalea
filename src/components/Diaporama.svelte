@@ -1,16 +1,15 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
   import {
-    MathaleaFormatExercice,
-    MathaleaGenerateSeed,
-    MathaleaHandleComponentChange,
-    MathaleaHandleExerciceSimple,
-    MathaleaHandleParamOfOneExercice,
-    MathaleaHandleSup,
-    MathaleaLoadExerciceFromUuid,
-    MathaleaRenderDiv,
-    MathaleaUpdateUrlFromExercicesParams,
-  } from "../lib/Mathalea"
+    mathaleaFormatExercice,
+    mathaleaHandleComponentChange,
+    mathaleaHandleExerciceSimple,
+    mathaleaHandleParamOfOneExercice,
+    mathaleaHandleSup,
+    mathaleaLoadExerciceFromUuid,
+    mathaleaRenderDiv,
+    mathaleaUpdateUrlFromExercicesParams,
+  } from "../lib/mathalea"
   import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from "./store"
   import type Exercice from "./utils/typeExercice"
   import seedrandom from "seedrandom"
@@ -96,11 +95,11 @@
 
   onMount(async () => {
     context.vue = "diap"
-    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
-      const exercice: Exercice = await MathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      const exercice: Exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
-      MathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
       exercice.duration = paramsExercice.duration ?? 10
       exercices.push(exercice)
     }
@@ -112,7 +111,7 @@
     }
     updateExercices()
     await tick()
-    if (divTableDurationsQuestions) MathaleaRenderDiv(divTableDurationsQuestions)
+    if (divTableDurationsQuestions) mathaleaRenderDiv(divTableDurationsQuestions)
   })
 
   function handleStringFromUrl(text: string): boolean | number | string {
@@ -128,7 +127,7 @@
   }
 
   async function updateExercices() {
-    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
     consignes = [[], [], [], []]
@@ -144,7 +143,7 @@
         } else {
           exercice.seed = exercice.seed.substring(0, 4)
         }
-        if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, false)
+        if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
         let consigne: string = ""
@@ -159,9 +158,9 @@
           }
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
           corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
-          consignes[idVue] = consignes[idVue].map(MathaleaFormatExercice)
-          questions[idVue] = questions[idVue].map(MathaleaFormatExercice)
-          corrections[idVue] = corrections[idVue].map(MathaleaFormatExercice)
+          consignes[idVue] = consignes[idVue].map(mathaleaFormatExercice)
+          questions[idVue] = questions[idVue].map(mathaleaFormatExercice)
+          corrections[idVue] = corrections[idVue].map(mathaleaFormatExercice)
         }
       }
     }
@@ -177,10 +176,10 @@
         alea: exercice.seed.substring(0, 4),
         nbQuestions: exercice.nbQuestions,
         duration: exercice.duration,
-        sup: MathaleaHandleSup(exercice.sup),
-        sup2: MathaleaHandleSup(exercice.sup2),
-        sup3: MathaleaHandleSup(exercice.sup3),
-        sup4: MathaleaHandleSup(exercice.sup4),
+        sup: mathaleaHandleSup(exercice.sup),
+        sup2: mathaleaHandleSup(exercice.sup2),
+        sup3: mathaleaHandleSup(exercice.sup3),
+        sup4: mathaleaHandleSup(exercice.sup4),
       })
     }
     globalOptions.update((l) => {
@@ -188,10 +187,10 @@
       return l
     })
     exercicesParams.update((l) => newParams)
-    MathaleaUpdateUrlFromExercicesParams(newParams)
+    mathaleaUpdateUrlFromExercicesParams(newParams)
     totalDuration = getTotalDuration()
     stringDureeTotale = formattedTimeStamp(getTotalDuration())
-    if (divTableDurationsQuestions) MathaleaRenderDiv(divTableDurationsQuestions)
+    if (divTableDurationsQuestions) mathaleaRenderDiv(divTableDurationsQuestions)
     // préparation des indexes si l'ordre aléatoire est demandé
     if ($questionsOrder.isQuestionsShuffled) {
       $questionsOrder.indexes = shuffle([...Array(questions[0].length).keys()])
@@ -416,7 +415,7 @@
 
   $: {
     nbOfVues = parseInt(stringNbOfVues)
-    if (divTableDurationsQuestions) MathaleaRenderDiv(divTableDurationsQuestions)
+    if (divTableDurationsQuestions) mathaleaRenderDiv(divTableDurationsQuestions)
     if (durationGlobal) previousDurationGlobal = durationGlobal
     if (isSameDurationForAll && previousDurationGlobal) durationGlobal = previousDurationGlobal
 
@@ -457,7 +456,7 @@
     let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== "undefined") {
-        MathaleaRenderDiv(divQuestion[i], -1)
+        mathaleaRenderDiv(divQuestion[i], -1)
         const textcell_div = document.getElementById("textcell" + i) as HTMLDivElement
         const consigne_div = document.getElementById("consigne" + i) as HTMLDivElement
         const question_div = document.getElementById("question" + i) as HTMLDivElement
@@ -773,7 +772,7 @@
   }
 
   function handleQuit() {
-    MathaleaHandleComponentChange("diaporama", "")
+    mathaleaHandleComponentChange("diaporama", "")
     // $selectedExercises.isActive = false
     updateExercices()
   }
@@ -794,8 +793,8 @@
         <button type="button">
           <i
             class="relative bx ml-2 bx-lg bx-x text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer"
-            on:click={() => MathaleaHandleComponentChange("diaporama", "")}
-            on:keydown={() => MathaleaHandleComponentChange("diaporama", "")}
+            on:click={() => mathaleaHandleComponentChange("diaporama", "")}
+            on:keydown={() => mathaleaHandleComponentChange("diaporama", "")}
           />
         </button>
       </div>
@@ -810,7 +809,7 @@
                   <button
                     type="button"
                     class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    on:click={() => MathaleaHandleComponentChange("diaporama", "can")}
+                    on:click={() => mathaleaHandleComponentChange("diaporama", "can")}
                   >
                     <i class="bx text-2xl bx-detail" />
                   </button>
@@ -1240,7 +1239,7 @@
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => MathaleaHandleComponentChange("diaporama", "can")}
+            on:click={() => mathaleaHandleComponentChange("diaporama", "can")}
           >
             <i class="bx text-[100px] bx-detail" />
           </button>
@@ -1265,7 +1264,7 @@
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => MathaleaHandleComponentChange("diaporama", "")}
+            on:click={() => mathaleaHandleComponentChange("diaporama", "")}
           >
             <i class="bx text-[100px] bx-home-alt-2" />
           </button>
