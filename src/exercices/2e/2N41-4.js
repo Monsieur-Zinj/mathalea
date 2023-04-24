@@ -17,9 +17,6 @@ import {
 import {
     context
 } from '../../modules/context.js'
-import {
-    strict
-} from 'assert'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Développer (a+b)²'
@@ -33,7 +30,6 @@ export const titre = 'Développer (a+b)²'
 export const uuid = '877a9'
 export const ref = '2N41-4'
 export default function DevelopperIdentitesRemarquables3() {
-    'use strict'
     Exercice.call(this) // Héritage de la classe Exercice()
     this.titre = titre
     this.consigne = 'Développer puis réduire les expressions suivantes.'
@@ -160,10 +156,11 @@ export default function DevelopperIdentitesRemarquables3() {
                             texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
                         }
                     }
-                    reponse = [`${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$`, `${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`]
+                    reponse = [`${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}`, `${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}`]
                     break
             }
             texte += ajouteChampTexteMathLive(this, i)
+            console.log(reponse)
             setReponse(this, i, reponse)
             if (this.questionJamaisPosee(i, typesDeQuestions, a)) {
                 // Si la question n'a jamais été posée, on en créé une autre
