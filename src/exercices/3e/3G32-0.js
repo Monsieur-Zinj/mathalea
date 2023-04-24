@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, numAlpha, stringNombre, combinaisonListes, texNombre, arrondi, texFractionReduite, creerNomDePolygone, choice, sp, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, numAlpha, stringNombre, combinaisonListes, texNombre, arrondi, creerNomDePolygone, choice, sp, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone } from '../../modules/2d.js'
 import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

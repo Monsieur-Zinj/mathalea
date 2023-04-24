@@ -36,12 +36,12 @@ export default function ProportionnaliteParLineariteTableau () {
   this.sup = 4 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    
+
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = [1, 1, 1, 1, 4]
@@ -52,9 +52,9 @@ export default function ProportionnaliteParLineariteTableau () {
     } else if (this.sup === 4) {
       typeDeQuestionsDisponibles = [1, 2, 3, 2, 4]
     }
-    
+
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    
+
     let np, cm, ng, o, pp, pg, pu, tp, index, a
     const fruits = [
       ['pêches', 0.24],
@@ -66,7 +66,7 @@ export default function ProportionnaliteParLineariteTableau () {
       ['citrons', 0.08],
       ['bananes', 0.09]
     ]
-    
+
     const objets = [
       ['billes', 0.1],
       ['bonbons', 0.1],
@@ -77,11 +77,11 @@ export default function ProportionnaliteParLineariteTableau () {
       ['stickers', 0.2],
       ['cahiers', 1.4]
     ]
-    
+
     for (let i = 0, texte, texteCorr, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = choice([1, 2, 3])
       // Boucle principale où i+1 correspond au numéro de la question
-      
+
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // multiplication
           if (a === 1) {
@@ -132,7 +132,7 @@ export default function ProportionnaliteParLineariteTableau () {
             setReponse(this, i, pg)
           }
           break
-        
+
         case 2: // division
           if (a === 1) {
             index = randint(0, 7)
@@ -182,7 +182,7 @@ export default function ProportionnaliteParLineariteTableau () {
             setReponse(this, i, pp)
           }
           break
-        
+
         case 3: // passage par l'unité
           if (a === 1) {
             index = randint(0, 7)
@@ -225,7 +225,7 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse pourrait être achetée avec $${ng}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
-              
+
               ligne1: [`\\text{Prix des ${o} (en euros)}`, np, 1, ng],
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pu))}`, `${miseEnEvidence(texMasse(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
@@ -233,7 +233,7 @@ export default function ProportionnaliteParLineariteTableau () {
             setReponse(this, i, pg)
           }
           break
-        
+
         case 4: // Non proportionnalité
           if (a === 1) {
             tp = randint(120, 165) / 100
@@ -261,8 +261,8 @@ export default function ProportionnaliteParLineariteTableau () {
           break
       }
       if (listeTypeQuestions[i] !== 4) {
-        const {xmin, xmax, ymin, ymax} = fixeBordures([monTableau])
-        texteCorr = mathalea2d(Object.assign({xmin, xmax, ymin, ymax}, {
+        const { xmin, xmax, ymin, ymax } = fixeBordures([monTableau])
+        texteCorr = mathalea2d(Object.assign({ xmin, xmax, ymin, ymax }, {
           scale: 0.7,
           style: 'display:block'
         }), monTableau)
