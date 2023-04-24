@@ -257,13 +257,11 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} chausse du $${tp}$ à $${np}$ ans. Quelle sera sa pointure à $${ng}$ ans ?`
             texteCorr = 'On ne peut pas savoir car la pointure n\'est pas proportionnelle à l\'âge.'
           }
-          
           setReponse(this, i, 'non')
           break
       }
       if (listeTypeQuestions[i] !== 4) {
         const {xmin, xmax, ymin, ymax} = fixeBordures([monTableau])
-        console.log(xmin, ymin, xmax, ymax)
         texteCorr = mathalea2d(Object.assign({xmin, xmax, ymin, ymax}, {
           scale: 0.7,
           style: 'display:block'
