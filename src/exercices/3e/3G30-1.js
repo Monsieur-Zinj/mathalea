@@ -43,14 +43,14 @@ export const ref = '3G30-1'
 export default function ExprimerCosSinTan () {
   Exercice.call(this)
   this.titre = titre
-  this.nbQuestions = 2
+  this.nbQuestions = 1
   this.nbQuestionsModifiable = true
   this.nbCols = 1
-  this.nbColsCorr = 2
+  this.nbColsCorr = 1
   this.sup = 1
   if (context.isHtml) {
     this.spacing = 2
-    this.spacingCorr = 2
+    this.spacingCorr = 3
   } else {
     this.spacing = 2
     this.spacingCorr = 2
@@ -140,7 +140,12 @@ export default function ExprimerCosSinTan () {
         rymin: -1,
         rymax: 1
       }), { scale: 0.5, pixelsParCm: 20, mainlevee: false })
-      const paramsCorrection = Object.assign({}, fixeBordures([A, B, C]), {
+      const paramsCorrection = Object.assign({}, fixeBordures([A, B, C], {
+        rxmin: -1,
+        rxmax: 1,
+        rymin: -1,
+        rymax: 1
+      }), {
         scale: 0.5,
         pixelsParCm: 20,
         mainlevee: false
