@@ -43,7 +43,10 @@ function getExerciceStaticByUuid (uuid: string) {
    */
 export async function mathaleaLoadExerciceFromUuid (uuid: string) {
   const url = uuidToUrl[uuid as keyof typeof uuidToUrl]
-  const [filename, directory, isCan] = url.split('/').reverse()
+  let filename, directory, isCan
+  if (url) {
+    ;[filename, directory, isCan] = url.split('/').reverse()
+  }
   try {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
     // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
@@ -62,10 +65,10 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
     ;(await exercice).id = filename
     return exercice
   } catch (error) {
-    console.log(`Chargement de l'exercice ${directory}/${filename} impossible`)
+    console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
     console.log(error)
     const exercice = new Exercice()
-    exercice.titre = `Exercice ${filename} - Problème à signaler`
+    exercice.titre = `Uuid ${uuid} - Problème à signaler`
     exercice.nouvelleVersion = () => {}
     return exercice
   }
