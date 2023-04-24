@@ -61,7 +61,7 @@ export default function ArrondirUneValeur () {
     }
     this.listeQuestions = []
     this.listeCorrections = []
-    let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac, angle, v
+    let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, nbSansDegree, rac, angle, v
     const listeTypeDeQuestion = this.sup < 5 ? combinaisonListes([this.sup], this.nbQuestions) : combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
@@ -113,11 +113,12 @@ export default function ArrondirUneValeur () {
           } else {
             n = v / degCos(angle)
             nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}\\degree)}`
+            nbSansDegree = nb.replace('\\degree', '')
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
           }
-          texte = `$${nb}\\quad \\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nb}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}$.`
+          texte = `$${nb}\\quad \\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nbSansDegree}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}$.`
           break
       }
 
