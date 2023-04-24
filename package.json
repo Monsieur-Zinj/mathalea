@@ -48,6 +48,7 @@
     "buildDicos": "cd ./src/modules && node exercice_to_json.js > journal2.log"
   },
   "dependencies": {
+    "@bugsnag/js": "^7.20.0",
     "@cortex-js/compute-engine": "^0.12.2",
     "@svgdotjs/svg.js": "^3.1.2",
     "algebrite": "^1.4.0",

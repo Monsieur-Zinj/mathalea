@@ -12,10 +12,6 @@
   import Moodle from "./Moodle.svelte"
 
   context.versionMathalea = 3
-  // ToFix fonction à lier avec bugsnag
-  // @ts-ignore
-  window.notify = (arg: string) => console.log(arg)
-  
   if (customElements.get("alea-instrumenpoche") === undefined) {
     customElements.define("alea-instrumenpoche", ElementInstrumenpoche)
     customElements.define("alea-buttoninstrumenpoche", ElementButtonInstrumenpoche)
