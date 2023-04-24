@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { choice, randint, sp, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer une coordonnée avec un produit scalaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,8 +27,8 @@ export default function RechercheCoordonneesProdScal () {
     const uy = randint(-10, 10, 0)
     const vx = randint(-10, 10, 0)
     const vy = randint(-10, 10, 0)
-    const f1 = new FractionX(-ux * vx, vy)
-    const f2 = new FractionX(-uy * vy, ux)
+    const f1 = new FractionEtendue(-ux * vx, vy)
+    const f2 = new FractionEtendue(-uy * vy, ux)
     switch (choice([1, 2])) { //
       case 1:
         this.question = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on considère les vecteurs :<br>

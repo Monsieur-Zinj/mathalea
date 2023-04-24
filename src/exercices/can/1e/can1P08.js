@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, tableauColonneLigne, sp } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -82,9 +82,9 @@ export default function ProbaLoiVA () {
           c = randint(7, 10)
 
           fraction = choice(listeFractions)
-          f1 = new FractionX(fraction[0], fraction[1])
-          f2 = new FractionX(fraction[2], fraction[3])
-          f3 = new FractionX(fraction[1] * fraction[3] - fraction[0] * fraction[3] - fraction[2] * fraction[1], fraction[1] * fraction[3])
+          f1 = new FractionEtendue(fraction[0], fraction[1])
+          f2 = new FractionEtendue(fraction[2], fraction[3])
+          f3 = new FractionEtendue(fraction[1] * fraction[3] - fraction[0] * fraction[3] - fraction[2] * fraction[1], fraction[1] * fraction[3])
           p1 = (new Decimal(randint(1, 30))).div(100)
           p2 = (new Decimal(randint(31, 60))).div(100)
           p3 = (new Decimal(1 - p1 - p2))

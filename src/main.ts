@@ -1,8 +1,7 @@
 import 'boxicons/css/boxicons.min.css'
 import './app.css'
 import App from './components/App.svelte'
-import Bugsnag from '@bugsnag/js'
-import { bugsnagApiKey } from '../_private/keys'
+import Bugsnag from "@bugsnag/js";
 // @ts-ignore
 import { tropDeChiffres } from './modules/outils.js'
 
@@ -11,11 +10,11 @@ const app = new App({
 })
 
 export default app
-
 if (document.location.href.includes('coopmaths.fr')) {
+  const fileName = '../_private/keys'
+  const bugsnagApiKey = await import(/* @vite-ignore */fileName)
   Bugsnag.start(bugsnagApiKey)
 }
-
 // @todo regarder pourquoi window.Bugsnag n'est pas défini et donc les signalements sont balancés dans la console alors qu'on est en ligne !
 // @ts-ignore
 window.notify = function notify (error, metadatas) {

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
   point, grille, droiteGraduee, plot, segment, milieu, segmentAvecExtremites, texteParPosition, polygoneAvecNom, polygone
 } from '../../../modules/2d.js'
@@ -588,7 +588,7 @@ export default function SujetCAN2023Sixieme () {
           <br>`
           texte += mathalea2d({ xmin: -0.5, ymin: -0.1, xmax: 6.1, ymax: b + 0.5, scale: 0.7, style: 'margin: auto' }, A, C)
           texteCorr = `Il y a $${c * d + e * f - e * d}$ ${c * d + e * f - e * d > 1 ? 'carrés' : 'carré'} gris sur un total de $${a * b}$ carrés, la surface grisée représente donc $\\dfrac{${miseEnEvidence(c * d + e * f - e * d)}}{${miseEnEvidence(a * b)}}$ de la surface totale.`
-          reponse = new FractionX(c * d + e * f - e * d, a * b)
+          reponse = new FractionEtendue(c * d + e * f - e * d, a * b)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           this.listeCanEnonces.push(texte)
@@ -617,7 +617,7 @@ export default function SujetCAN2023Sixieme () {
             b = a + a / 2
 
             reponse = arrondi(2 * b, 0)
-            texte = `Si une pile de $${a}$ pièces de monnaie a une hauteur de $${2 * a}$ mm, alors une pile de 
+            texte = `Si une pile de $${a}$ pièces de monnaie a une hauteur de $${2 * a}$ mm, alors une pile de
           $${texNombre(b, 0)}$ pièces a une hauteur de `
 
             texteCorr = `Une pile de $${a}$ pièces de monnaie a une hauteur de $2\\times ${a}=${2 * a}$ mm.<br>
@@ -680,7 +680,7 @@ export default function SujetCAN2023Sixieme () {
             objets.push(
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3)
-            reponse = new FractionX(2, b)
+            reponse = new FractionEtendue(2, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $2$ carreaux, soit $\\dfrac{${miseEnEvidence(2)}}{${miseEnEvidence(b)}}$ u.l. `
           }
@@ -713,7 +713,7 @@ export default function SujetCAN2023Sixieme () {
             objets.push(
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4)
-            reponse = new FractionX(3, b)
+            reponse = new FractionEtendue(3, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $3$ carreaux, soit $\\dfrac{${miseEnEvidence(3)}}{${miseEnEvidence(b)}}$ u.l. `
           }
@@ -750,7 +750,7 @@ export default function SujetCAN2023Sixieme () {
             objets.push(
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
-            reponse = new FractionX(4, b)
+            reponse = new FractionEtendue(4, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $4$ carreaux, soit $\\dfrac{${miseEnEvidence(4)}}{${miseEnEvidence(b)}}$ u.l. `
           }
@@ -792,7 +792,7 @@ export default function SujetCAN2023Sixieme () {
           b = 60 / a // nombre de minutes de l'énoncé
           if (a === 4) { c = choice([40, 80, 100]) } else { c = choice([30, 60, 90, 120]) }
           reponse = arrondi(c / a, 0)
-          texte = `Une voiture roule à $${c}$ km/h. <br>Combien de kilomètres 
+          texte = `Une voiture roule à $${c}$ km/h. <br>Combien de kilomètres
         parcourt-elle en $${b}$ min à cette vitesse ?`
           texteCorr = `En $1$ h la voiture parcourt $${c}$ km.<br>
        En $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
@@ -815,7 +815,7 @@ export default function SujetCAN2023Sixieme () {
           if (a === 4) { c = choice([40, 80, 100]) } else { c = choice([30, 60, 90, 120]) }
           if (a === 3) { e = randint(1, 2) } else { e = randint(1, 3) }
           reponse = arrondi(d * c + e * c / a, 0)
-          texte = `Une voiture roule à  $${c}$ km/h.<br> Combien de kilomètres parcourt-elle 
+          texte = `Une voiture roule à  $${c}$ km/h.<br> Combien de kilomètres parcourt-elle
         en $${d}$ h et $${b * e}$ min à cette vitesse ?`
           texteCorr = `
         En $${d}$ h, elle parcourt $${d * c}$ km.<br>

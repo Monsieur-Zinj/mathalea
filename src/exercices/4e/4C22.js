@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, obtenirLis
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Multiplier ou/et diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -135,8 +135,8 @@ export default function ExerciceMultiplierFractions () {
             break
         }
       }
-      const f1 = new FractionX(a, b)
-      const f2 = new FractionX(c, d)
+      const f1 = new FractionEtendue(a, b)
+      const f2 = new FractionEtendue(c, d)
       if (listeTypesDoperation[i] === 'mul') {
         texte = `$${f1.texFSD}\\times${f2.texFraction}=$`
         texteCorr = `$${f1.texProduitFraction(f2, this.sup2)}$`

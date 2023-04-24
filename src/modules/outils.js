@@ -4,7 +4,7 @@ import Decimal from 'decimal.js'
 import { equal, evaluate, format, Fraction, gcd, isArray, isInteger, isPrime, matrix, parse, round } from 'mathjs'
 import { texteParPosition } from './2d.js'
 import { context } from './context.js'
-import FractionX from './FractionEtendue.js'
+import FractionEtendue from './FractionEtendue.js'
 import { fraction } from './fractions.js'
 import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
@@ -1065,7 +1065,7 @@ export function diversesReponsesPossibles (tab) {
 export function rienSi1 (a) {
   if (equal(a, 1)) return ''
   if (equal(a, -1)) return '-'
-  if (a instanceof Fraction || a instanceof FractionX) return a.toLatex()
+  if (a instanceof Fraction || a instanceof FractionEtendue) return a.toLatex()
   if (Number(a) || a === 0) return stringNombre(a) // on retourne 0 ce sera pas joli, mais Number(0) est false !!!
   window.notify('rienSi1 : type de valeur non prise en compte : ', {a})
 }
@@ -1142,7 +1142,7 @@ export function ecritureNombreRelatifc (a) {
  * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
  */
 export function ecritureAlgebrique (a) {
-  if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
+  if (a instanceof Fraction || a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
       return '+' + stringNombre(a)
@@ -1167,7 +1167,7 @@ export function ecritureAlgebrique (a) {
 export function ecritureAlgebriqueSauf1 (a) {
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
-  else if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
+  else if (a instanceof Fraction || a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') return ecritureAlgebrique(a)
   else window.notify('rienSi1 : type de valeur non prise en compte')
 }
@@ -1603,7 +1603,7 @@ export function abs (a) {
  * @author Jean-Claude Lhote
  */
 export function egalOuApprox (a, precision) {
-  if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
+  if (typeof a === 'object' && ['Fraction', 'FractionEtendue'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
@@ -1624,7 +1624,7 @@ export function pgcd (...args) {
 
 /**
  * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
- * * **ATTENTION Fonction clonée dans la classe FractionX()**
+ * * **ATTENTION Fonction clonée dans la classe FractionEtendue()**
  * @author Rémi Angot
  */
 export function fractionSimplifiee (n, d) {

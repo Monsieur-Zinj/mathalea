@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Lire graphiquement un nombre dérivé'
@@ -69,9 +69,9 @@ export default function LectureGraphiqueNombreDerivee () {
         })
         tang = x => f(nbre) * (x - nbre) + F(nbre)
         F = x => a * (x - alpha) ** 2 + beta
-        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br> 
+        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br>
         
-        Déterminer $f'(${nbre})$. <br> 
+        Déterminer $f'(${nbre})$. <br>
         
         `
         this.question += mathalea2d({ xmin: -8, xmax: 8, ymin: -3, ymax: 10, pixelsParCm: 14, scale: 0.5, style: 'margin: auto' },
@@ -124,9 +124,9 @@ export default function LectureGraphiqueNombreDerivee () {
         })
         tang = x => f(nbre) * (x - nbre) + F(nbre)
         F = x => a * (x - alpha) ** 2 + beta
-        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br> 
+        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br>
         
-        Déterminer $f'(${nbre})$.  <br> 
+        Déterminer $f'(${nbre})$.  <br>
         
         `
         this.question += mathalea2d({ xmin: -8, xmax: 8, ymin: -10, ymax: 3, pixelsParCm: 14, scale: 0.5 },
@@ -145,7 +145,7 @@ export default function LectureGraphiqueNombreDerivee () {
         a = randint(1, 2)
         nbre = randint(1, 2)
         b = randint(0, 3)
-        frac = new FractionX(-a, nbre * nbre)
+        frac = new FractionEtendue(-a, nbre * nbre)
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
         f = function (x) {
           return calcule(-a / (x * x))
@@ -155,7 +155,7 @@ export default function LectureGraphiqueNombreDerivee () {
         }
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br>
         
-        Déterminer $f'(${nbre})$.<br> 
+        Déterminer $f'(${nbre})$.<br>
         
         `
         r = repere({
@@ -196,7 +196,7 @@ export default function LectureGraphiqueNombreDerivee () {
       case 4:// exp(ax) avec a>0
 
         fraction = choice(listeFractions)
-        frac = new FractionX(fraction[0], fraction[1])
+        frac = new FractionEtendue(fraction[0], fraction[1])
 
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
         f = function (x) {
@@ -207,7 +207,7 @@ export default function LectureGraphiqueNombreDerivee () {
         }
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br>
         
-        Déterminer $f'(0)$.  <br> 
+        Déterminer $f'(0)$.  <br>
         `
         r = repere({
           xMin: -2,
@@ -249,7 +249,7 @@ export default function LectureGraphiqueNombreDerivee () {
       case 5:// exp(ax) avec a<0
 
         fraction = choice(listeFractions)
-        frac = new FractionX(fraction[0] * (-1), fraction[1])
+        frac = new FractionEtendue(fraction[0] * (-1), fraction[1])
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
         f = function (x) {
           return calcule(frac * Math.exp(frac * x))
@@ -257,9 +257,9 @@ export default function LectureGraphiqueNombreDerivee () {
         F = function (x) {
           return calcule(Math.exp(frac * x))
         }
-        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br> 
+        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br>
         
-        Déterminer $f'(0)$. <br>  
+        Déterminer $f'(0)$. <br>
         
         `
         r = repere({

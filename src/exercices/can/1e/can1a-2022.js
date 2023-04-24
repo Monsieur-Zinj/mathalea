@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { Arbre } from '../../../modules/arbres.js'
 import { pave, point, repere, tracePoint, courbe, droite, labelPoint, segment, milieu, texteParPosition, plot } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
@@ -70,14 +70,14 @@ export default function SujetCAN2022Premiere () {
         case 2:
           a = randint(1, 9)
           b = choice(listeFractions2)
-          f = new FractionX(b[0], b[1])
+          f = new FractionEtendue(b[0], b[1])
           if (choice([true, false])) {
-            reponse = new FractionX(a * b[1] + b[0], b[1])
+            reponse = new FractionEtendue(a * b[1] + b[0], b[1])
             texte = `$${a}+${f.texFraction}= $`
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
             texteCorr = `$${a}+${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}+${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
           } else {
-            reponse = new FractionX(a * b[1] - b[0], b[1])
+            reponse = new FractionEtendue(a * b[1] - b[0], b[1])
             texte = `$${a}-${f.texFraction}= $`
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
             texteCorr = `$${a}-${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}-${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
@@ -131,7 +131,7 @@ export default function SujetCAN2022Premiere () {
         case 5:
           a = randint(2, 10)
           b = randint(-10, 10, 0)
-          f = new FractionX(-b, a)
+          f = new FractionEtendue(-b, a)
 
           texte = `Résoudre l'équation $${reduireAxPlusB(a, b)}=0$.`
           texteCorr = `On se ramène à une équation du type $a\\times x=b$ :<br>
@@ -140,7 +140,7 @@ export default function SujetCAN2022Premiere () {
          ${a}x&=${-b}\\\\
                               x&=${f.texFraction}${f.texSimplificationAvecEtapes()}
          \\end{aligned}$<br>
-                   
+          
         
           
           L'équation $${reduireAxPlusB(a, b)}=0$ a pour solution $x=${f.texFractionSimplifiee}$.`
@@ -161,13 +161,13 @@ export default function SujetCAN2022Premiere () {
             if (a === 2) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûte $${texNombre(a / 2, 0)}$ croissant ?
               `
-              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc
                        $${texNombre(a / 2, 0)}$ croissant coûte $2$ fois moins, soit : <br>
                        $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`
             } else {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûtent $${texNombre(a / 2, 0)}$ croissants ?
                         `
-              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc
                        $${texNombre(a / 2, 0)}$ croissants coûtent $2$ fois moins, soit : <br>
                        $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`
             }
@@ -180,13 +180,13 @@ export default function SujetCAN2022Premiere () {
             if (a === 3) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 3, 0)}$ croissant ?
                             `
-              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc
                                      $${texNombre(a / 3, 0)}$ croissant coûte $3$ fois moins, soit : <br>
                                      $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`
             } else {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 3, 0)}$ croissants ?
                                       `
-              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc
                                      $${texNombre(a / 3, 0)}$ croissants coûtent $3$ fois moins, soit : <br>
                                      $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`
             }
@@ -199,13 +199,13 @@ export default function SujetCAN2022Premiere () {
             if (a === 4) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 4, 0)}$ croissant ?
                                           `
-              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc
                                                    $${texNombre(a / 4, 0)}$ croissant coûte $4$ fois moins, soit : <br>
                                                    $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`
             } else {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 4, 0)}$ croissants ?
                                                     `
-              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc
                                                                                            $${texNombre(a / 4, 0)}$ croissants coûtent $4$ fois moins, soit : <br>
                                                                                            $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`
             }
@@ -230,7 +230,7 @@ export default function SujetCAN2022Premiere () {
           for (let n = 0; n < b; n++) {
             d.push(plot(n % 5, -Math.floor(n / 5), { rayon: 0.2, couleur: 'black', couleurDeRemplissage: c[n] ? 'black' : 'white' }))
           }
-          f = new FractionX(a, b)
+          f = new FractionEtendue(a, b)
           texte = `Calculer la fréquence de boules noires parmi ces boules :<br>
           ${mathalea2d(Object.assign({}, fixeBordures(d)), d)}`
           // $${a}$ boules noires $${b}$ boules au total.
@@ -822,7 +822,7 @@ export default function SujetCAN2022Premiere () {
           m = randint(1, 5)
           p = randint(-10, 10, 0)
           ordonnee = randint(-5, 5)
-          reponse = new FractionX(ordonnee - p, m)
+          reponse = new FractionEtendue(ordonnee - p, m)
           texte = `$M$ est un point d'ordonnée $${ordonnee}$ de la droite d'équation $y=${reduireAxPlusB(m, p)}$.<br>
       `
 
@@ -896,7 +896,7 @@ export default function SujetCAN2022Premiere () {
           texte = `$(AB)//(CD)$<br><br>
           `
           texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
-          texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$. 
+          texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$.
           On en déduit que la longueur $EC$ est $${k}$ fois plus grande que la longueur $CD$.<br>
           Ainsi, $CE=${k}\\times ${c}=${reponse}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

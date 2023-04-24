@@ -12529,7 +12529,7 @@ export default {
     }
   },
   "betaTestFraction": {
-    "titre": "Tester la classe FractionX",
+    "titre": "Tester la classe FractionEtendue",
     "url": "/exercices/beta/betaTestFraction.js",
     "amcReady": false,
     "interactifReady": true,

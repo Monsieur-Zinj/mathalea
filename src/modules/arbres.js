@@ -26,7 +26,7 @@ export class Arbre {
   /**
    * @param {object} parametres
    * @param {string} [parametres.nom]
-   * @param {numberparametres.rationnel | FractionX} [parametres.proba]
+   * @param {numberparametres.rationnel | FractionEtendue} [parametres.proba]
    * @param {Arbre[]} [parametres.enfants]
    * @param {boolean} [parametres.rationnel]
    * @param {boolean} [parametres.visible]
@@ -95,7 +95,7 @@ export class Arbre {
   }
 
   isFraction (obj) {
-    return (typeof obj === 'object' && ['Fraction', 'FractionX'].indexOf(obj.type) !== -1)
+    return (typeof obj === 'object' && ['Fraction', 'FractionEtendue'].indexOf(obj.type) !== -1)
   }
 
   /**

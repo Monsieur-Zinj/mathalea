@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction, choice, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -64,18 +64,18 @@ export default function ImageFonctionsRefs () {
         case 'carré':
           nombre = randint(-10, 10, [0, 1])
           solution = nombre * nombre
-          solution = new FractionX(solution, 1)
+          solution = new FractionEtendue(solution, 1)
           texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^2 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${solution}$`
           break
         case 'cube':
           nombre = randint(-5, 5, [0, 1])
           solution = nombre * nombre * nombre
-          solution = new FractionX(solution, 1)
+          solution = new FractionEtendue(solution, 1)
           texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^3 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${ecritureParentheseSiNegatif(nombre * nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${solution}$`
           break
         case 'racine carrée':
           solution = randint(1, 10)
-          solution = new FractionX(solution, 1)
+          solution = new FractionEtendue(solution, 1)
           nombre = solution * solution
           texteCorr = `$${nom}(${nombre}) = \\sqrt{${nombre}} = ${solution} $ car $ ${ecritureParentheseSiNegatif(solution)}^2 = ${nombre} $`
           break
@@ -87,7 +87,7 @@ export default function ImageFonctionsRefs () {
           }
           Math.random() < 0.25 && (nombre = arrondi(1 / nombre, 6))
           Math.random() < 0.5 && (nombre *= -1)
-          solution = new FractionX(1, nombre)
+          solution = new FractionEtendue(1, nombre)
           texteCorr = `$${nom}(${texNombre(nombre)}) = ${texFraction(1, nombre)} = ${texNombre(solution)}$`
           break
       }

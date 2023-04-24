@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer le coefficient directeur d’une tangente (fonctions de référence)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -51,7 +51,7 @@ export default function CalculCoeffDir () {
 
 `
         if (a === 1 || a === 4 || a === 9 || a === 16 || a === 25) {
-          f = new FractionX(1, Math.sqrt(a))
+          f = new FractionEtendue(1, Math.sqrt(a))
           this.correction += `Comme $f'(${a})=\\dfrac{1}{2\\sqrt{${a}}}=\\dfrac{1}{${2 * Math.sqrt(a)}}$, le coefficient directeur de la tangente au point d'abscisse $${a}$ est : $\\dfrac{1}{${2 * Math.sqrt(a)}}$.`
           this.reponse = [`\\dfrac{1}{2\\sqrt{${a}}}`, f.texFraction, 1 / (2 * Math.sqrt(a))]
         } else {
@@ -61,7 +61,7 @@ export default function CalculCoeffDir () {
         break
       case 3:// 1/x
         a = randint(1, 10) * choice([-1, 1])
-        f = new FractionX(-1, a * a)
+        f = new FractionEtendue(-1, a * a)
         this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction inverse au point d'abscisse $${a}$.
                  `
 

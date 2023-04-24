@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, choice, prenomM, prenomF, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp, quotientier, texNombre, texFraction, miseEnEvidence, arrondi, texteEnCouleurEtGras, stringNombre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { min } from 'mathjs'
 import Grandeur from '../../modules/Grandeur.js'
 export const interactifReady = true
@@ -88,7 +88,7 @@ export default function EchellesProblemes () {
           unite2 = tableauUnites[Math.floor(min(Math.log10(nb2), 6))] // unite2 est l'unité d'usage de nb2 (m, dam, hm ou km)
           nb2Unite1 = arrondi(nb2 / Math.pow(10, min(Math.floor(Math.log10(nb1)), 6)), 3) // nb2Unite1 vaut nb2 dans l'unite1
           nb2Unite2 = arrondi(nb2 / Math.pow(10, min(Math.floor(Math.log10(nb2)), 6)), 3) // nb2Unite2 vaut nb2 dans l'unite2
-          reponse = new FractionX(nb1, nb2)
+          reponse = new FractionEtendue(nb1, nb2)
           texte += `Sur le plan ${echelleQ[1]} de  ${quidam[1]} ${quidam[0]}, ${quidam2} constate que $${texNombre(nb1Unite1)}$ ${unite1} sur le plan correspond à $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité.`
           texte += ' Quelle est l\'échelle du plan ? '
           texteCorr += `$${texNombre(nb1Unite1, 2)}$ ${unite1} sur le plan représente $${texNombre(nb2Unite2, 2)}$ ${unite2} dans la réalité. `
@@ -115,7 +115,7 @@ export default function EchellesProblemes () {
           unite2 = tableauUnites[Math.floor(min(Math.log10(echelleQ[0]) + Math.floor(Math.log10(nb1)), 6))]
           nb2Unite2 = nb1Unite1 * echelleQUnite2
           reponse = nb2Unite2
-          texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${texFraction(1, echelleQ[0])}$. ${quidam2} mesure, sur ce plan, un segment de $${texNombre(nb1Unite1, 2)}$ ${unite1}. 
+          texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${texFraction(1, echelleQ[0])}$. ${quidam2} mesure, sur ce plan, un segment de $${texNombre(nb1Unite1, 2)}$ ${unite1}.
             À quelle distance réelle, ce segment correspond-il ?`
           texteCorr += `Une échelle de $${texFraction(1, echelleQ[0])}$ signifie que $1$ ${unite1} sur le plan représente $${texNombre(echelleQ[0])}$ ${unite1} en réalité, soit $${texNombre(echelleQUnite2, 2)}$ ${unite2}.<br>`
           texteCorr += `$${texNombre(nb1Unite1)}$ ${unite1} étant $${texNombre(nb1Unite1)}$ fois plus grand que $1$ ${unite1}, alors la distance réelle est $${texNombre(nb1Unite1)}$ fois plus grande que $${texNombre(echelleQUnite2, 2)}$ ${unite2}. ${sp(10)} `
@@ -139,7 +139,7 @@ export default function EchellesProblemes () {
           nb2Unite2 = nb1 * echelleQUnite2
           nb2Unite1 = nb2
           reponse = nb1Unite1
-          texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${texFraction(1, echelleQ[0])}$. ${quidam2} trace, sur ce plan, un segment qui représente $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité. 
+          texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${texFraction(1, echelleQ[0])}$. ${quidam2} trace, sur ce plan, un segment qui représente $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité.
               Quelle est la longueur du segment tracé sur le plan par ${quidam2} ?`
           texteCorr += `Une échelle de $${texFraction(1, echelleQ[0])}$ signifie que $1$ ${unite1} sur le plan représente $${texNombre(echelleQ[0])}$ ${unite1} en réalité, soit $${texNombre(echelleQUnite2, 2)}$ ${unite2}.<br>`
           texteCorr += `Cherchons par combien multiplier $${texNombre(echelleQUnite2, 2)}$ ${unite2} pour obtenir $${texNombre(nb2Unite2, 3)}$ ${unite2}. $${sp(10)} ${texNombre(nb2Unite2, 2)}\\div${texNombre(echelleQUnite2, 2)}=${texNombre(nb1Unite1)}$<br>`

@@ -6,7 +6,7 @@ import { exerciceMathLive } from './interactif/questionMathLive.js'
 import { exerciceQcm } from './interactif/questionQcm.js'
 import { isUserIdOk } from './interactif/isUserIdOk.js'
 import { gestionCan } from './interactif/gestionCan.js'
-import FractionX from './FractionEtendue.js'
+import FractionEtendue from './FractionEtendue.js'
 import Grandeur from './Grandeur.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
@@ -77,11 +77,11 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   const engine = new ComputeEngine()
   switch (formatInteractif) {
     case 'Num':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses })
+      if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
       break
     case 'Den':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "Den" une fraction est attendue !', { reponses })
+      if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "Den" une fraction est attendue !', { reponses })
       break
     case 'calcul':
       laReponseDemandee = reponses[0]
@@ -113,15 +113,15 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
       if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "ignorerCasse" la réponse n\'est pas un string !', { reponses })
       break
     case 'fractionPlusSimple':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "fractionPlusSimple" une fraction est attendue !', { reponses })
+      if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fractionPlusSimple" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
       break
     case 'fractionEgale':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses })
+      if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
       break
     case 'fraction':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "fraction" une fraction est attendue !', { reponses })
+      if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fraction" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
       break
     case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix

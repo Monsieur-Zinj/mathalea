@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer avec un programme de calcul*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -104,10 +104,10 @@ export default function ProgrammeCalcul2 () {
       case 5:// 1/x+1/y
         a = randint(-10, 10, 0)
         b = randint(-4, 4, 0) * a
-        f1 = new FractionX(1, a)
-        f2 = new FractionX(1, b)
+        f1 = new FractionEtendue(1, a)
+        f2 = new FractionEtendue(1, b)
         this.formatInteractif = 'fractionEgale'
-        reponse = new FractionX((f1).add(f2))
+        reponse = new FractionEtendue((f1).add(f2))
         this.question = `Choisir deux nombres puis calculer la somme de leur inverse.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
@@ -128,7 +128,7 @@ export default function ProgrammeCalcul2 () {
         b = randint(-10, 10, [0, -a])
 
         this.formatInteractif = 'fractionEgale'
-        reponse = new FractionX(1, a + b)
+        reponse = new FractionEtendue(1, a + b)
         this.question = `Choisir deux nombres puis calculer l'inverse de leur somme.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
@@ -143,10 +143,10 @@ export default function ProgrammeCalcul2 () {
       case 7:// 1/(x+y) avec x fraction
         a = randint(2, 10)
         b = randint(1, 10)
-        f1 = new FractionX(1, a)
+        f1 = new FractionEtendue(1, a)
         this.formatInteractif = 'fractionEgale'
-        f2 = new FractionX(1 + b * a, a)
-        reponse = new FractionX(a, 1 + b * a)
+        f2 = new FractionEtendue(1 + b * a, a)
+        reponse = new FractionEtendue(a, 1 + b * a)
         this.question = `Choisir deux nombres puis calculer l'inverse de leur somme.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${f1.texFraction}$ et $${b}$ ?`
@@ -166,7 +166,7 @@ export default function ProgrammeCalcul2 () {
 
         this.formatInteractif = 'fractionEgale'
 
-        reponse = new FractionX(1, (a + b) ** 2)
+        reponse = new FractionEtendue(1, (a + b) ** 2)
         this.question = `Choisir deux nombres puis calculer l'inverse du carré de leur somme.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`

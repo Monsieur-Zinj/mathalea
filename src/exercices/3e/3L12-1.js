@@ -3,7 +3,7 @@ import { randint, choice, texFraction, lettreDepuisChiffre, listeQuestionsToCont
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -65,7 +65,7 @@ export default function DevelopperIdentitesRemarquables3 () {
         texte = `$${lettreDepuisChiffre(i + 1)} = \\left(${texFraction(ns, ds)}${choixLettre}-${a}\\right)\\left(${texFraction(ns, ds)}${choixLettre}+${a}\\right)$` // b>1
         texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\left(${texFraction(ns, ds)}${choixLettre}-${a}\\right)\\left(${texFraction(ns, ds)}${choixLettre}+${a}\\right)=\\left(${texFraction(ns, ds)}${choixLettre}\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}$`
         reponse = `${texFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}`
-        reponse1 = new FractionX(ns * ns, ds * ds)
+        reponse1 = new FractionEtendue(ns * ns, ds * ds)
       }
       if (this.sup2) {
         this.spacingCorr = 1

@@ -1,6 +1,6 @@
 import { choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Comparer des fractions de même dénominateur/numérateur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,8 +35,8 @@ export default function ComparerFraction () {
     switch (choice([1, 2])) {
       case 1:// même dénominateur
         fraction1 = choice(listeFractions1)
-        a = new FractionX(fraction1[0], fraction1[1])
-        b = new FractionX(fraction1[2], fraction1[3])
+        a = new FractionEtendue(fraction1[0], fraction1[1])
+        b = new FractionEtendue(fraction1[2], fraction1[3])
 
         if (choice([true, false])) {
           this.question = 'Compléter avec $>$ ou $<$ : <br>'
@@ -59,8 +59,8 @@ export default function ComparerFraction () {
 
       case 2:// même numérateur
         fraction1 = choice(listeFractions1)
-        a = new FractionX(fraction1[1], fraction1[0])
-        b = new FractionX(fraction1[3], fraction1[2])
+        a = new FractionEtendue(fraction1[1], fraction1[0])
+        b = new FractionEtendue(fraction1[3], fraction1[2])
 
         if (choice([true, false])) {
           this.question = 'Compléter avec $>$ ou $<$ : <br>'

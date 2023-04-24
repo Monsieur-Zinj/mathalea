@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { arrondi, listeQuestionsToContenu, sp, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { cercle, droite, longueur, point, polygone, symetrieAxiale, translation, vecteur } from '../../modules/2d.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer l\'aire d\'un disque'
 
@@ -43,7 +43,7 @@ export default function EncadrerAireDisque () {
     let longueurCoteCarreRef
 
     texte += `Le disque a pour rayon ${texteEnCouleurEtGras(rayon + ' cm')}.<br>
-    Pour chaque étape, encadrons le disque entre une figure basée sur un maximum de carrés et une figure basée sur un minimum de carrés. 
+    Pour chaque étape, encadrons le disque entre une figure basée sur un maximum de carrés et une figure basée sur un minimum de carrés.
     Encadrons ensuite l'aire du disque par l'aire de chaque figure.<br>`
     for (let Nmax = 1; Nmax <= this.sup; Nmax++) {
       texte += texteEnCouleurEtGras(` Étape ${Nmax} :`)
@@ -54,11 +54,11 @@ export default function EncadrerAireDisque () {
       A = D
       B = D
       C = D
-      longueurCoteCarreRef = new FractionX(cote, Nmax)
-      abscisse1 = new FractionX(0, Nmax)
-      abscisse2 = new FractionX(cote, Nmax)
+      longueurCoteCarreRef = new FractionEtendue(cote, Nmax)
+      abscisse1 = new FractionEtendue(0, Nmax)
+      abscisse2 = new FractionEtendue(cote, Nmax)
       aireCarre = arrondi(abscisse2 * abscisse2, 4)
-      ordonnee1 = new FractionX(0, Nmax)
+      ordonnee1 = new FractionEtendue(0, Nmax)
       ordonnee2 = longueurCoteCarreRef
 
       // Carres exterieurs
@@ -89,7 +89,7 @@ export default function EncadrerAireDisque () {
           ordonnee1 = ordonnee2
           ordonnee2 = ordonnee2.sommeFraction(longueurCoteCarreRef)
         }
-        ordonnee1 = new FractionX(0, Nmax)
+        ordonnee1 = new FractionEtendue(0, Nmax)
         ordonnee2 = longueurCoteCarreRef
         abscisse1 = abscisse2
         abscisse2 = abscisse2.sommeFraction(longueurCoteCarreRef)
@@ -101,10 +101,10 @@ export default function EncadrerAireDisque () {
 
       // Carres interieurs
       D = centre
-      ordonnee1 = new FractionX(0, Nmax)
+      ordonnee1 = new FractionEtendue(0, Nmax)
       ordonnee2 = longueurCoteCarreRef
-      abscisse1 = new FractionX(0, Nmax)
-      abscisse2 = new FractionX(cote, Nmax)
+      abscisse1 = new FractionEtendue(0, Nmax)
+      abscisse2 = new FractionEtendue(cote, Nmax)
       for (let i = 1; i <= Nmax; i++) {
         A = D
         B = translation(centre, vecteur(abscisse2.num / abscisse2.den, ordonnee1.num / ordonnee1.den))
@@ -136,7 +136,7 @@ export default function EncadrerAireDisque () {
           C = translation(centre, vecteur(abscisse2.num / abscisse2.den, ordonnee2.num / ordonnee2.den))
           D = translation(centre, vecteur(abscisse1.num / abscisse1.den, ordonnee2.num / ordonnee2.den))
         }
-        ordonnee1 = new FractionX(0, Nmax)
+        ordonnee1 = new FractionEtendue(0, Nmax)
         ordonnee2 = longueurCoteCarreRef
         abscisse1 = abscisse2
         abscisse2 = abscisse2.sommeFraction(longueurCoteCarreRef)

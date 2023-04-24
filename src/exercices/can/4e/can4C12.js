@@ -1,6 +1,6 @@
 
 import { choice } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la moitié d’une fraction'
 export const interactifReady = true
@@ -33,8 +33,8 @@ export default function CalculMoitieFraction () {
     ]
 
     const a = choice(listeFractions)
-    const f = new FractionX(a[0], a[1])
-    const reponse = new FractionX(a[0], a[1] * 2).simplifie()
+    const f = new FractionEtendue(a[0], a[1])
+    const reponse = new FractionEtendue(a[0], a[1] * 2).simplifie()
     this.reponse = reponse
     this.question = `Calculer la moitié de $${f.texFraction}$ sous la forme d'une fraction irréductible.`
     this.correction = `$${f.texFraction}\\div 2=${f.texFraction}\\times \\dfrac{1}{2}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$

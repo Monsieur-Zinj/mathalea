@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { fraction as fractionX } from '../../modules/fractions.js'
+import { fraction as fractionEtendue } from '../../modules/fractions.js'
 import { ajouteChampFractionMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
@@ -96,7 +96,7 @@ export default function EgalitesEntreFractions () {
           case 0 :
             texte = `$${texFraction(a, b)} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Num' })
+              setReponse(this, i, fractionEtendue(c, d), { formatInteractif: 'Num' })
               texte += ajouteChampFractionMathLive(this, i, false, d)
             } else {
               texte += `$${texFraction('\\phantom{0000}', d)}$`
@@ -132,7 +132,7 @@ export default function EgalitesEntreFractions () {
           case 1 :
             texte = `$${texFraction(a, b)} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Den' })
+              setReponse(this, i, fractionEtendue(c, d), { formatInteractif: 'Den' })
               texte += ajouteChampFractionMathLive(this, i, c, false)
             } else {
               texte += `$${texFraction(c, '\\phantom{0000}')}$`
@@ -184,7 +184,7 @@ export default function EgalitesEntreFractions () {
           case 0 :
             texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Num' })
+              setReponse(this, i, fractionEtendue(c, d), { formatInteractif: 'Num' })
               texte += ajouteChampFractionMathLive(this, i, false, d)
             } else {
               texte += `$${texFraction('\\phantom{0000}', d)}$`
@@ -223,7 +223,7 @@ export default function EgalitesEntreFractions () {
           case 1 :
             texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Den' })
+              setReponse(this, i, fractionEtendue(c, d), { formatInteractif: 'Den' })
               texte += ajouteChampFractionMathLive(this, i, c, false)
             } else {
               texte += `$${texFraction(c, '\\phantom{0000}')}$`

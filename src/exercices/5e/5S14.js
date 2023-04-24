@@ -3,7 +3,7 @@ import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint, choice, listeDeNotes, joursParMois, unMoisDeTemperature } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 
 export const interactifReady = true
@@ -46,7 +46,7 @@ export default function CalculerDesMoyennes () {
         texte += '<br>Calculer la moyenne des notes.'
         const [, somme] = OutilsStats.computeMoyenne(notes)
         texteCorr = OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
-        reponse = new FractionX(somme, nombreNotes)
+        reponse = new FractionEtendue(somme, nombreNotes)
       } else if (this.sup === 2) { // ici on relève des températures
         const mois = randint(1, 12)
         const annee = randint(1980, 2019)
@@ -57,7 +57,7 @@ export default function CalculerDesMoyennes () {
         texte += '<br>Calculer la moyenne des températures.'
         const [, somme] = OutilsStats.computeMoyenne(temperatures)
         texteCorr = '<br>' + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
-        reponse = new FractionX(somme, nombreTemperatures)
+        reponse = new FractionEtendue(somme, nombreTemperatures)
       } else { // pointures des membres du club de foot (moyenne pondérée)
         const nombreNotes = 5 // 5 colonnes
         const min = randint(33, 35)
@@ -70,7 +70,7 @@ export default function CalculerDesMoyennes () {
         texte += '<br>Calculer la pointure moyenne des membres de ce club.'
         const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
         texteCorr = '<br>' + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
-        reponse = new FractionX(somme, effectifTotal)
+        reponse = new FractionEtendue(somme, effectifTotal)
       }
       if (this.interactif) {
         texte += ' (On donnera la valeur exacte en écriture décimale ou fractionnaire)<br>'

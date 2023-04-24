@@ -5,7 +5,7 @@ import {
   point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codageSegment, pointAdistance, polygone, milieu, segment
 } from '../../../modules/2d.js'
 import Decimal from 'decimal.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer un produit scalaire sur des figures géométriques classiques '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,7 +35,7 @@ export default function ProduitScalaireFiguresClassiques () {
         b = randint(4, 8)//
         d = (new Decimal(a * b)).div(2)
 
-        f1 = new FractionX(a * b, 2)
+        f1 = new FractionEtendue(a * b, 2)
         B = pointAdistance(A, b, 0, 'B', 'below')
         angle = choice([30, 45, 60])
         C = pointAdistance(B, a, angle, 'C', 'above')
@@ -171,7 +171,7 @@ export default function ProduitScalaireFiguresClassiques () {
 
           this.correction = `Le projeté orthogonal de $D$ sur $(AB)$ est $A$. Ainsi : <br>
           $\\overrightarrow{AB}\\cdot \\overrightarrow{ID}=\\overrightarrow{AB}\\cdot \\overrightarrow{IA}$.<br>
-          Les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{IA}$ sont colinéaires de sens contraire. On a donc 
+          Les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{IA}$ sont colinéaires de sens contraire. On a donc
           $\\overrightarrow{AB}\\cdot \\overrightarrow{ID}=-${a}\\times ${texNombre(a / 2, 0)}=${texNombre(-a * a / 2, 0)}$.
      `
           this.reponse = -a * a / 2
@@ -187,7 +187,7 @@ export default function ProduitScalaireFiguresClassiques () {
 
           this.correction = `Le projeté orthogonal de $D$ sur $(AB)$ est $A$. Ainsi : <br>
           $\\overrightarrow{BI}\\cdot \\overrightarrow{ID}=\\overrightarrow{BI}\\cdot \\overrightarrow{IA}$.<br>
-          Les vecteurs $\\overrightarrow{BI}$ et $\\overrightarrow{IA}$ sont colinéaires de même sens. On a donc 
+          Les vecteurs $\\overrightarrow{BI}$ et $\\overrightarrow{IA}$ sont colinéaires de même sens. On a donc
           $\\overrightarrow{BI}\\cdot \\overrightarrow{ID}=${texNombre(a / 2, 0)}\\times ${texNombre(a / 2, 0)}=${texNombre(sol, 0)}$.
      `
           this.reponse = sol
@@ -203,7 +203,7 @@ export default function ProduitScalaireFiguresClassiques () {
 
           this.correction = `Le projeté orthogonal de $I$ sur $(BC)$ est $B$. Celui de $D$ sur $(BC)$ est $C$.  Ainsi : <br>
           $\\overrightarrow{BC}\\cdot ${choixb ? '\\overrightarrow{ID}' : '\\overrightarrow{DI}'}=\\overrightarrow{BC}\\cdot ${choixb ? '\\overrightarrow{BC}' : '\\overrightarrow{CB}'}$.<br>
-           On a donc 
+           On a donc
           $\\overrightarrow{BC}\\cdot ${choixb ? '\\overrightarrow{ID}' : '\\overrightarrow{DI}'}=${a}\\times ${choixb ? `${a}` : `(-${a})`}=${choixb ? `${a * a}` : `${-a * a}`}$.
      `
 
@@ -270,7 +270,7 @@ export default function ProduitScalaireFiguresClassiques () {
           this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
 
           this.correction = `Les vecteurs $\\overrightarrow{AB}$ et  $${choixb ? '\\overrightarrow{DC}' : '\\overrightarrow{CD}'}$ sont colinéaires ${choixb ? 'même sens' : 'sens contraire'}.<br>
-         On a :  $\\overrightarrow{AB}\\cdot ${choixb ? '\\overrightarrow{DC}' : '\\overrightarrow{CD}'}=${a}\\times ${choixb ? `${b}` : `(-${b})`}=${choixb ? `${a * b}` : `${-a * b}`}$ 
+         On a :  $\\overrightarrow{AB}\\cdot ${choixb ? '\\overrightarrow{DC}' : '\\overrightarrow{CD}'}=${a}\\times ${choixb ? `${b}` : `(-${b})`}=${choixb ? `${a * b}` : `${-a * b}`}$
        
          
          

@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, nombreDeChiffresDe
 
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Mettre bout à bout des segments'
 export const interactifReady = true
@@ -55,7 +55,7 @@ export default function AjouterDesFractionsDunite () {
 
       texte = `On place bout à bout 4 segments de longueurs respectives $${f[0].texFraction}$, $${f[1].texFraction}$, $${f[2].texFraction}$ et $${f[3].texFraction}$.<br>`
       texte += 'Quelle est la longueur du segment obtenu ?'
-      setReponse(this, i, new FractionX(num[0] + num[1] + num[2] + num[3], den), { digitsNum: nombreDeChiffresDe(num[0] + num[1] + num[2] + num[3]) + randint(0, 1), digitsDen: nombreDeChiffresDe(den) + randint(0, 1), signe: false, formatInteractif: 'fractionEgale' })
+      setReponse(this, i, new FractionEtendue(num[0] + num[1] + num[2] + num[3], den), { digitsNum: nombreDeChiffresDe(num[0] + num[1] + num[2] + num[3]) + randint(0, 1), digitsDen: nombreDeChiffresDe(den) + randint(0, 1), signe: false, formatInteractif: 'fractionEgale' })
       if (this.interactif && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25')
       }

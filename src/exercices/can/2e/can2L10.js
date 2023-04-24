@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, rienSi1, arrondi, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Simplifier un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export default function SimplifierQuotient () {
       case 1 :// ax/b
         { const a = randint(2, 9)
           const k = randint(-9, 9, [0, 1])
-          const maFraction1 = new FractionX(a, k * a)
+          const maFraction1 = new FractionEtendue(a, k * a)
           if (choice([true, false])) {
             this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${a}x}{${k * a}}$.`
             this.correction = `$\\dfrac{${a}x}{${k * a}}=\\dfrac{${a}x}{${k}\\times ${a}}=\\dfrac{x}{${k}}=${maFraction1.texFractionSimplifiee}x$`

@@ -1,4 +1,4 @@
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -178,7 +178,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       // if (this.sup3) {
       texteCorr += `=${texFraction(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
-      if (!(new FractionX(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction)'
+      if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction)'
       // } else {
       //   texteCorr += `=${texFraction(num, den)}`
       //   texteCorr += '$'

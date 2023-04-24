@@ -1,38 +1,38 @@
-import FractionX from './FractionEtendue.js'
+import FractionEtendue from './FractionEtendue.js'
 
 /**
  * Gère les polynômes du second degré
  *  - Définition depuis la forme développée, canonique ou factorisée
  *  - Calcul du discriminant, des racines, des coordonnées du sommet
- *  - Compatible avec la classe FractionX pour la gestion du calcul exact avec les rationnels
+ *  - Compatible avec la classe FractionEtendue pour la gestion du calcul exact avec les rationnels
  * @author Rémi Angot
  */
 class Trinome {
   /**
      * Définit un trinôme de la forme ax^2 + bx + c
-     * @param {number | FractionX} a
-     * @param {number | FractionX} b
-     * @param {number | FractionX} c
+     * @param {number | FractionEtendue} a
+     * @param {number | FractionEtendue} b
+     * @param {number | FractionEtendue} c
      */
   constructor (a, b, c) {
-    if (typeof a === 'number') this.a = new FractionX(a)
+    if (typeof a === 'number') this.a = new FractionEtendue(a)
     else this.a = a
-    if (typeof b === 'number') this.b = new FractionX(b)
+    if (typeof b === 'number') this.b = new FractionEtendue(b)
     else this.b = b
-    if (typeof c === 'number') this.c = new FractionX(c)
+    if (typeof c === 'number') this.c = new FractionEtendue(c)
     else this.c = c
   }
 
   /**
    * Modifie le polynome pour qu'il soit égal à a(x-x1)(x-x2)
-   * @param {number | FractionX} a
-   * @param {number | FractionX} x1
-   * @param {number | FractionX} x2
+   * @param {number | FractionEtendue} a
+   * @param {number | FractionEtendue} x1
+   * @param {number | FractionEtendue} x2
    */
   defFormeFactorisee (a, x1, x2) {
-    if (a instanceof FractionX === false) a = new FractionX(a)
-    if (x1 instanceof FractionX === false) x1 = new FractionX(x1)
-    if (x2 instanceof FractionX === false) x2 = new FractionX(x2)
+    if (a instanceof FractionEtendue === false) a = new FractionEtendue(a)
+    if (x1 instanceof FractionEtendue === false) x1 = new FractionEtendue(x1)
+    if (x2 instanceof FractionEtendue === false) x2 = new FractionEtendue(x2)
     this.a = a
     this.b = x1.oppose().sommeFraction(x2.oppose()).produitFraction(a)
     this.c = x1.produitFraction(x2).produitFraction(a)
@@ -40,18 +40,18 @@ class Trinome {
 
   /**
    * Modifie le polynome pour qu'il soit égal à k(ax+b)(cx+d)
-   * @param {number | FractionX} k
-   * @param {number | FractionX} a
-   * @param {number | FractionX} b
-   * @param {number | FractionX} c
-   * @param {number | FractionX} d
+   * @param {number | FractionEtendue} k
+   * @param {number | FractionEtendue} a
+   * @param {number | FractionEtendue} b
+   * @param {number | FractionEtendue} c
+   * @param {number | FractionEtendue} d
    */
   defFormeFactorisee2 (k, a, b, c, d) {
-    if (k instanceof FractionX === false) k = new FractionX(k)
-    if (a instanceof FractionX === false) a = new FractionX(a)
-    if (b instanceof FractionX === false) b = new FractionX(b)
-    if (c instanceof FractionX === false) c = new FractionX(c)
-    if (d instanceof FractionX === false) d = new FractionX(d)
+    if (k instanceof FractionEtendue === false) k = new FractionEtendue(k)
+    if (a instanceof FractionEtendue === false) a = new FractionEtendue(a)
+    if (b instanceof FractionEtendue === false) b = new FractionEtendue(b)
+    if (c instanceof FractionEtendue === false) c = new FractionEtendue(c)
+    if (d instanceof FractionEtendue === false) d = new FractionEtendue(d)
     this.a = k.produitFraction(a).produitFraction(c)
     this.b = k.produitFraction(a).produitFraction(d).sommeFraction(k.produitFraction(b).produitFraction(c))
     this.c = k.produitFraction(b).produitFraction(d)
@@ -59,14 +59,14 @@ class Trinome {
 
   /**
    * Modifie le polynome pour qu'il soit égal à a(x - alpha)^2 + beta
-   * @param {number | FractionX} a
-   * @param {number | FractionX} alpha
-   * @param {number | FractionX} beta
+   * @param {number | FractionEtendue} a
+   * @param {number | FractionEtendue} alpha
+   * @param {number | FractionEtendue} beta
    */
   defFormeCanonique (a, alpha, beta) {
-    if (a instanceof FractionX === false) a = new FractionX(a)
-    if (alpha instanceof FractionX === false) alpha = new FractionX(alpha)
-    if (beta instanceof FractionX === false) beta = new FractionX(beta)
+    if (a instanceof FractionEtendue === false) a = new FractionEtendue(a)
+    if (alpha instanceof FractionEtendue === false) alpha = new FractionEtendue(alpha)
+    if (beta instanceof FractionEtendue === false) beta = new FractionEtendue(beta)
     this.a = a
     this.b = a.produitFraction(alpha).multiplieEntier(-2)
     this.c = a.produitFraction(alpha).produitFraction(alpha).sommeFraction(beta)
@@ -113,7 +113,7 @@ class Trinome {
 
   /**
    * Discriminant du trinome
-   * @type {FractionX}
+   * @type {FractionEtendue}
    */
   get discriminant () {
     const b2 = this.b.produitFraction(this.b)
@@ -124,21 +124,21 @@ class Trinome {
 
   /**
    * Renvoie l'image de x par la fonction définie par le trinome
-   * @param {number | FractionX} x
-   * @returns {FractionX}
+   * @param {number | FractionEtendue} x
+   * @returns {FractionEtendue}
    */
   image (x) {
-    if (x instanceof FractionX === false) x = new FractionX(x)
+    if (x instanceof FractionEtendue === false) x = new FractionEtendue(x)
     return this.a.produitFraction(x).produitFraction(x).sommeFraction(this.b.produitFraction(x)).sommeFraction(this.c)
   }
 
   /**
    * Calcul détaillé de l'image d'un nombre
-   * @param {number | FractionX} x
+   * @param {number | FractionEtendue} x
    * @returns {string}
    */
   texCalculImage (x) {
-    if (x instanceof FractionX === false) x = new FractionX(x)
+    if (x instanceof FractionEtendue === false) x = new FractionEtendue(x)
     let result = ''
     if (this.a.valeurDecimale === -1) result = '-'
     else if (this.a.valeurDecimale !== 1) result = `${this.a.texFSD} \\times `
@@ -199,7 +199,7 @@ class Trinome {
     let result = 'x_1 = '
     if (this.b.valeurDecimale === 0) result += `\\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{-\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
     else result += `\\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{${this.b.oppose().texFractionSimplifiee}-\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
-    if (this.x1 instanceof FractionX) result += `=${this.x1.texFractionSimplifiee}`
+    if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFractionSimplifiee}`
     else result += `\\approx${this.x1.toString().replace('.', ',')}`
     return result
   }
@@ -213,7 +213,7 @@ class Trinome {
     let result = 'x_2 = '
     if (this.b.valeurDecimale === 0) result += `\\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
     else result += `\\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{${this.b.oppose().texFractionSimplifiee}+\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
-    if (this.x2 instanceof FractionX) result += `=${this.x2.texFractionSimplifiee}`
+    if (this.x2 instanceof FractionEtendue) result += `=${this.x2.texFractionSimplifiee}`
     else result += `\\approx${this.x2.toString().replace('.', ',')}`
     return result
   }
@@ -253,16 +253,16 @@ class Trinome {
 
   /**
    * Première racine du trinome
-   * @type {FractionX | number}
+   * @type {FractionEtendue | number}
    */
   get x1 () {
     if (this.discriminant.s === -1) return false
     const deltaNum = this.discriminant.num
     const deltaDen = this.discriminant.den
-    let racineDeDelta = new FractionX()
+    let racineDeDelta = new FractionEtendue()
     if (Math.abs((Math.sqrt(deltaNum) - Math.round(Math.sqrt(deltaNum)))) < 0.000001 &&
      Math.abs(Math.sqrt(deltaDen) - Math.round(Math.sqrt(deltaDen))) < 0.000001) {
-      racineDeDelta = new FractionX(Math.sqrt(deltaNum), Math.sqrt(deltaDen))
+      racineDeDelta = new FractionEtendue(Math.sqrt(deltaNum), Math.sqrt(deltaDen))
       const unSurDeuxA = this.a.multiplieEntier(2).inverse()
       return this.b.oppose().sommeFraction(racineDeDelta.oppose()).produitFraction(unSurDeuxA)
     } else {
@@ -272,16 +272,16 @@ class Trinome {
 
   /**
    * Deuxième racine du trinome
-   * @type {FractionX | number}
+   * @type {FractionEtendue | number}
    */
   get x2 () {
     if (this.discriminant.s === -1) return false
     const deltaNum = this.discriminant.num
     const deltaDen = this.discriminant.den
-    let racineDeDelta = new FractionX()
+    let racineDeDelta = new FractionEtendue()
     if (Math.abs((Math.sqrt(deltaNum) - Math.round(Math.sqrt(deltaNum)))) < 0.000001 &&
      Math.abs(Math.sqrt(deltaDen) - Math.round(Math.sqrt(deltaDen))) < 0.000001) {
-      racineDeDelta = new FractionX(Math.sqrt(deltaNum), Math.sqrt(deltaDen))
+      racineDeDelta = new FractionEtendue(Math.sqrt(deltaNum), Math.sqrt(deltaDen))
       const unSurDeuxA = this.a.multiplieEntier(2).inverse()
       return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA)
     } else {
@@ -294,7 +294,7 @@ class Trinome {
    * @type {string}
    */
   get texX1 () {
-    if (this.x1 instanceof FractionX) return this.x1.simplifie().texFraction
+    if (this.x1 instanceof FractionEtendue) return this.x1.simplifie().texFraction
     else {
       const num = this.b.oppose().texFraction + `- \\sqrt{${this.discriminant.texFraction}}`
       const den = 2 * this.a
@@ -307,7 +307,7 @@ class Trinome {
    * @type {string}
    */
   get texX2 () {
-    if (this.x2 instanceof FractionX) return this.x2.simplifie().texFraction
+    if (this.x2 instanceof FractionEtendue) return this.x2.simplifie().texFraction
     else {
       const num = this.b.oppose().texFraction + `+ \\sqrt{${this.discriminant.texFraction}}`
       const den = 2 * this.a
@@ -320,7 +320,7 @@ class Trinome {
    * @type {string}
    */
   get texFormeFactorisee () {
-    if (this.x1 instanceof FractionX) {
+    if (this.x1 instanceof FractionEtendue) {
       if (this.x1.valeurDecimale === 0) {
         if (this.a.valeurDecimale === 1) return `x(x${this.x2.oppose().simplifie().texFractionSignee})`
         else if (this.a.valeurDecimale === -1) return `-x(x${this.x2.oppose().simplifie().texFractionSignee})`

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, texNombre, miseEnEvidence, randint, shuffle } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Homothétie - Rapport'
 
@@ -70,10 +70,10 @@ export default class HomothetieRapport extends Exercice {
         numerateur = denominateur
         denominateur = temp
       }
-      const fraction = new FractionX(numerateur, denominateur)
+      const fraction = new FractionEtendue(numerateur, denominateur)
       const numerateurFractionInverseOpposee = -1 * denominateur
       const denominateurFractionInverseOpposee = numerateur
-      const fractionInverseEtOpposee = new FractionX(numerateurFractionInverseOpposee, denominateurFractionInverseOpposee)
+      const fractionInverseEtOpposee = new FractionEtendue(numerateurFractionInverseOpposee, denominateurFractionInverseOpposee)
 
       // On crée les objets
       const cas1 = {

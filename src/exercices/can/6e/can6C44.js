@@ -1,6 +1,6 @@
 import { choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Comparer deux fractions*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,8 +34,8 @@ export default function ComparerFraction () {
 
     const fraction1 = choice(listeFractions1)
     const fraction2 = choice(listeFractions2)
-    const a = choice([new FractionX(fraction1[0], fraction1[1])], [new FractionX(fraction1[2], fraction1[3])])
-    const b = choice([new FractionX(fraction2[0], fraction2[1])], [new FractionX(fraction2[2], fraction2[3])])
+    const a = choice([new FractionEtendue(fraction1[0], fraction1[1])], [new FractionEtendue(fraction1[2], fraction1[3])])
+    const b = choice([new FractionEtendue(fraction2[0], fraction2[1])], [new FractionEtendue(fraction2[2], fraction2[3])])
     if (choice([true, false])) { // <plus petit que 1>
       this.question = 'Compléter avec $>$ ou $<$ : <br>'
       this.question += `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`

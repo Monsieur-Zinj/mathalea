@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
   point, droiteGraduee, pave, droite, segment, milieu, codageAngle, rotation, tracePoint, codageAngleDroit, texteParPosition, polygone
 } from '../../../modules/2d.js'
@@ -338,7 +338,7 @@ export default function SujetCAN2023Cinquieme () {
             scale: 1,
             style: 'margin: auto'
           }
-          f = new FractionX(num, den)
+          f = new FractionEtendue(num, den)
           reponse = f
           texte = `Quelle fraction du disque représente ${context.isHtml ? '' : '<br>'}l'aire grisée ?<br>`
           texte += context.isHtml ? '' : '\\begin{center}'
@@ -443,7 +443,7 @@ export default function SujetCAN2023Cinquieme () {
             ['les trois septièmes', 3, 7, 4, 7], ['les cinq septièmes', 5, 7, 2, 7],
             ['les trois dixièmes', 3, 10, 7, 10], ['les sept dixièmes', 7, 10, 3, 10], ['les neuf dixièmes', 9, 10, 1, 10]])
 
-          reponse = new FractionX(a[3], a[4])
+          reponse = new FractionEtendue(a[3], a[4])
           texte = `On vide ${a[0]} d'une bouteille d'eau. <br>
             Quelle fraction de la bouteille est encore remplie ?`
           texteCorr = `La fraction de la bouteille encore remplie est donnée par : $1-\\dfrac{${a[1]}}{${a[2]}}=${miseEnEvidence(reponse.texFraction)}$.`
@@ -553,7 +553,7 @@ export default function SujetCAN2023Cinquieme () {
           texte = `J'achète $${a}$ croissants à $${texPrix(b)}$ € l'unité et un pain à $${texPrix(c)}$ €. <br>
           Combien cela me coûte-t-il ?`
           texteCorr = `$${a}$ croissants à $${texPrix(b)}$ € l'unité coûtent $${a}\\times ${texPrix(b)}\\text{ € }=${texPrix(new Decimal(a).mul(b))}\\text{ € }$.<br>
-          En ajoutant le prix du pain, on obtient : 
+          En ajoutant le prix du pain, on obtient :
           ${context.isHtml
 ? `$${texPrix(new Decimal(a).mul(b))}\\text{ €}+ ${texPrix(c)}\\text{ € }= ${texPrix(reponse)}\\text{ € }$.<br>`
           : `$\\Prix{${new Decimal(a).mul(b)}}+ \\Prix{${c}}= \\Prix{${reponse}}$.<br>`}`
@@ -696,7 +696,7 @@ export default function SujetCAN2023Cinquieme () {
           texte = `$10\\,\\%$ de $${a}$`
 
           texteCorr = `Prendre $10\\,\\%$ d'une quantité revient à la diviser par $10$. <br>
-            Ainsi, 
+            Ainsi,
            $10\\,\\%$ de $${a}=  ${a}\\div 10 =${miseEnEvidence(texNombre(reponse, 1))}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -884,7 +884,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
 
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  : 
+            texte = `Recopie  le résultat de  :
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>
             
             `
@@ -898,7 +898,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             b = randint(2, 5) + randint(1, 9) / 10
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  : 
+            texte = `Recopie  le résultat de  :
                 $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>
                 
                 `
@@ -912,7 +912,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             b = randint(25, 29) + randint(1, 9) / 10
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  : 
+            texte = `Recopie  le résultat de  :
                     $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>
                     
                     `

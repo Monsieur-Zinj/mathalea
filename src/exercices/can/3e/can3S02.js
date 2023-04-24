@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { choice, texFraction } from '../../../modules/outils.js'
 export const titre = 'Calculer la probabilité d’ un évènement contraire'
 export const interactifReady = true
@@ -35,7 +35,7 @@ Quelle est la probabilité de son événement contraire ?
 `
     this.correction = `La relation entre la probabilité d'un événement $A$ et celle de son contraire $\\overline{A}$ est :  $P(\\overline{A})=1-P(A)$.<br>
         Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${texFraction(d - n, d)}$.`
-    this.reponse = new FractionX(d - n, d)
+    this.reponse = new FractionEtendue(d - n, d)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

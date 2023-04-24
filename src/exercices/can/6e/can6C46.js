@@ -1,7 +1,7 @@
 import { choice, prenomF, prenomM, rangeMinMax, miseEnEvidence } from '../../../modules/outils.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'//
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Exercice from '../../Exercice.js'
 import { fractionCliquable } from '../../../modules/2dinteractif.js'
 export const titre = 'Résoudre un problème de reste en fraction'
@@ -37,14 +37,14 @@ export default function ProblemeResteFraction () {
     const Ville1 = choice(listeVille)
     const n1 = fraction1[0]
     const d1 = fraction1[1]
-    const f1 = new FractionX(n1, d1)
-    const f2 = new FractionX(d1 - n1, d1)
+    const f1 = new FractionEtendue(n1, d1)
+    const f2 = new FractionEtendue(d1 - n1, d1)
     const p1 = prenomF()
     const p2 = prenomM()
     const longueur = 15
 
     const schemaCorr = fractionCliquable(0, 0, 1, d1, { cliquable: false, longueur, liste1: rangeMinMax(1, n1), liste2: rangeMinMax(n1 + 1, n1 + d1) })
-    this.reponse = new FractionX(d1 - n1, d1)
+    this.reponse = new FractionEtendue(d1 - n1, d1)
     if (choice([true, false])) {
       this.question = `${p1} rejoint une amie à ${Ville1} en voiture. <br>
     Elle a déjà parcouru $${f1.texFraction}$ de la distance. <br>

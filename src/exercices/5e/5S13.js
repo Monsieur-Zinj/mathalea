@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, calcul, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texFraction } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Calculer des fréquences'
@@ -80,7 +80,7 @@ export default function CalculerDesFrequences () {
         texteCorr = 'La valeur ' + `$${calcul(nombreDes + indexValeur)}$ apparaît ` + `$${tirages[indexValeur][1]}$ fois.<br>Le nombre total de lancers est $${texNombre(nombreTirages)}$.<br>`
         texteCorr += 'La fréquence de la valeur ' + `$${calcul(nombreDes + indexValeur)}$` + ' est ' + `$${texFraction(tirages[indexValeur][1], texNombre(nombreTirages))}=${texNombre(calcul(tirages[indexValeur][1] / nombreTirages))}$<br>`
         texteCorr += 'Soit ' + `$${texNombre(calcul(tirages[indexValeur][1] * 100 / nombreTirages))}\\thickspace\\%$.`
-        reponse = new FractionX(tirages[indexValeur][1], nombreTirages)
+        reponse = new FractionEtendue(tirages[indexValeur][1], nombreTirages)
       } else if (this.sup === 2) { // ici on trie des notes
         nombreNotes = choice([8, 10, 12])
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
@@ -97,7 +97,7 @@ export default function CalculerDesFrequences () {
         texte += `<br><br>Calculer la fréquence de la note $${notes[indexValeur]}$.`
         texteCorr = `La note $${notes[indexValeur]}$ a été obtenue $${frequence}$ fois.<br> Il y a $${nombreNotes}$ notes.<br>`
         texteCorr += `Donc la fréquence de la note $${notes[indexValeur]}$ est : ` + `$${texFraction(texNombre(frequence), texNombre(nombreNotes))}$`
-        reponse = new FractionX(frequence, nombreNotes)
+        reponse = new FractionEtendue(frequence, nombreNotes)
         if (arrondi(frequence / nombreNotes, 3) === frequence / nombreNotes) { // valeurs exactes
           texteCorr += `$=${texNombre(frequence / nombreNotes, 3)}$<br>` // fréquence à 3 chiffres significatifs
           texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreNotes))}\\thickspace\\%$.` // fréquence en pourcentage avec 1 décimale
@@ -139,7 +139,7 @@ export default function CalculerDesFrequences () {
         texteCorr = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[indexValeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`
         texteCorr += `Il y a $${joursParMois(mois, annee)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[indexValeur]}^\\circ\\text{C}$ est :<br>`
         texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois, annee)))}$`
-        reponse = new FractionX(frequence, joursParMois(mois, annee))
+        reponse = new FractionEtendue(frequence, joursParMois(mois, annee))
         if (arrondi(frequence / nombreTemperatures, 3) === frequence / nombreTemperatures) { // valeurs exactes
           texteCorr += `$=${texNombre(frequence / nombreTemperatures, 3)}$<br>`
           texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreTemperatures))}\\thickspace\\%$.`

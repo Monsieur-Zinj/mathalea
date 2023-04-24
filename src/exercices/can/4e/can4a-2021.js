@@ -5,7 +5,7 @@ import {
   point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, stringNombre, combinaisonListes, texFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 // import { tableauColonneLigne } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -498,7 +498,7 @@ export default function SujetCAN20214ieme () {
           a = fraction(fraction2[0], fraction2[1])
 
           b = fraction(4 * fraction2[0], 2 * fraction2[1])
-          r = (new FractionX(-fraction2[0], fraction2[1])).simplifie()
+          r = (new FractionEtendue(-fraction2[0], fraction2[1])).simplifie()
           texte = `$A=${a.texFraction} -${b.texFraction}$<br>
            Donne la valeur de $A$ sous la forme d'une fraction simplifiée au maximum ou d'un nombre entier.`
           texteCorr = ` $A=${a.texFraction} -${b.texFraction}=${texFraction(2 * fraction2[0], 2 * fraction2[1])}-${b.texFraction}=${texFraction(-2 * fraction2[0], 2 * fraction2[1])}=${miseEnEvidence(texFractionReduite(-2 * fraction2[0], 2 * fraction2[1]))}$.

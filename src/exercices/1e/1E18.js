@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, listeQuestionsToContenu, randint, rienSi1 } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
@@ -49,8 +49,8 @@ export default class EquationsEtInequations extends Exercice {
         const d = randint(-5, 5, [0, b])
         texte += `$(${b}${ecritureAlgebriqueSauf1(a)}x)(${rienSi1(c)}x${ecritureAlgebrique(d)}) ${typeInequation} 0$`
 
-        let x1 = new FractionX(-b, a)
-        let x2 = new FractionX(-d, c)
+        let x1 = new FractionEtendue(-b, a)
+        let x2 = new FractionEtendue(-d, c)
         texteCorr += 'On cherche l\'ensemble des $x$ tels que : ' + texte + '.'
         texteCorr += `<br><br>$${b}${ecritureAlgebriqueSauf1(a)}x = 0 \\iff x= ${x1.simplifie().texFraction}`
         texteCorr += ` \\qquad \\text{et} \\qquad ${rienSi1(c)}x${ecritureAlgebrique(d)} = 0 \\iff x= ${x2.simplifie().texFraction}$`
@@ -158,7 +158,7 @@ export default class EquationsEtInequations extends Exercice {
         texteCorr += `<br><br>$${rienSi1(a)}x^2 = ${rienSi1(-b)}x \\iff ${rienSi1(a)}x^2  ${ecritureAlgebriqueSauf1(b)}x = 0$`
         texteCorr += `<br><br>$\\phantom{${rienSi1(a)}x^2 = ${rienSi1(-b)}x} \\iff x(${rienSi1(a)}x  ${ecritureAlgebrique(b)})=0$`
         texteCorr += `<br><br>$\\phantom{${rienSi1(a)}x^2 = ${rienSi1(-b)}x} \\iff x = 0 \\text{ \\qquad ou \\qquad }${rienSi1(a)}x  ${ecritureAlgebrique(b)}=0$`
-        const x = new FractionX(-b, a)
+        const x = new FractionEtendue(-b, a)
         texteCorr += `<br><br>Finalement $S=\\left\\{ 0 \\,;\\, ${x.simplifie().texFraction}  \\right\\}$.`
       }
 

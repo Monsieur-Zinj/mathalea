@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { diagrammeCirculaire } from '../../modules/2d.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -92,7 +92,7 @@ export default class SuperExoMathalea2d extends Exercice {
     texte += mathalea2d(paramsEnonce, objetsEnonce)
     // On ajoute au texte de la correction, la figure de la correction
     texteCorr = ''
-    const f = new FractionX(2, 1)
+    const f = new FractionEtendue(2, 1)
     texte += `$${f.texSimplificationAvecEtapes()}$`
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

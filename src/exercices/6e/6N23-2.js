@@ -20,7 +20,7 @@ import { droiteGraduee } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Lire des abscisses décimales sous trois formes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -150,7 +150,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: texte3,
-                    valeur: new FractionX(10 * x3, 10),
+                    valeur: new FractionEtendue(10 * x3, 10),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(x3) + 1,
                       digitsDen: 3,
@@ -184,7 +184,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
-                    valeur: new FractionX(calcul(10 * (x2 - Math.floor(x2))), 10),
+                    valeur: new FractionEtendue(calcul(10 * (x2 - Math.floor(x2))), 10),
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(calcul(10 * (x2 - Math.floor(x2)))),
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(calcul(10 * (x2 - Math.floor(x2)))),
@@ -286,7 +286,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: texte3,
-                    valeur: new FractionX(100 * x3, 100),
+                    valeur: new FractionEtendue(100 * x3, 100),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(100 * x3) + 1,
                       digitsDen: 4,
@@ -320,7 +320,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
-                    valeur: new FractionX(calcul(100 * (x2 - Math.floor(x2))), 100),
+                    valeur: new FractionEtendue(calcul(100 * (x2 - Math.floor(x2))), 100),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(calcul(100 * (x2 - Math.floor(x2)))),
                       digitsDen: 3,
@@ -426,7 +426,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: texte3,
-                    valeur: new FractionX(1000 * x3, 1000),
+                    valeur: new FractionEtendue(1000 * x3, 1000),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(1000 * x3) + 1,
                       digitsDen: 5,
@@ -460,7 +460,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
-                    valeur: new FractionX(calcul(1000 * (x2 - Math.floor(x2))), 1000),
+                    valeur: new FractionEtendue(calcul(1000 * (x2 - Math.floor(x2))), 1000),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(calcul(1000 * (x2 - Math.floor(x2)))),
                       digitsDen: 4,

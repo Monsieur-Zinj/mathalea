@@ -1,4 +1,4 @@
-import FractionX from './FractionEtendue.js'
+import FractionEtendue from './FractionEtendue.js'
 import ListeFraction from './ListeFraction.js'
 
 /**
@@ -72,7 +72,7 @@ export function listeFractions (...fractions) {
 }
 
 /**
- * Construit et Retourne un objet FractionX(a, b)
+ * Construit et Retourne un objet FractionEtendue(a, b)
  * @param {number} a
  * @param {number} b
  * @return {Fraction}
@@ -84,9 +84,9 @@ export function fraction (a, b) {
       return NaN
     } else {
       if (typeof a === 'number') {
-        return new FractionX(a)
+        return new FractionEtendue(a)
       } else if (!isNaN(a)) {
-        return new FractionX(Number(a))
+        return new FractionEtendue(Number(a))
       }
       window.notify('fraction de fractions.js : l\'argument est de type inconvenant ', { a })
       return NaN
@@ -97,9 +97,9 @@ export function fraction (a, b) {
       return NaN
     } else {
       if (typeof a === 'number' && typeof b === 'number') {
-        return new FractionX(a, b)
+        return new FractionEtendue(a, b)
       } else if (!isNaN(b) && !isNaN(a)) {
-        return new FractionX(Number(a), Number(b))
+        return new FractionEtendue(Number(a), Number(b))
       }
       window.notify('fraction de fractions.js : les arguments sont de type inconvenant ', { a, b })
       return NaN

@@ -1,5 +1,5 @@
 import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint, choice, texteCentre, choisitLettresDifferentes } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -29,10 +29,10 @@ export default function VecteursCol () {
     const b = randint(1, a - 1)// abscisse de B l'abscisse de A est 0
     const noms = choisitLettresDifferentes(3, 'O', true)
 
-    const f1 = new FractionX(b, a)
-    const f2 = new FractionX(a, b)
-    const f3 = new FractionX(b, a).multiplieEntier(-1)
-    const f4 = new FractionX(a, b).multiplieEntier(-1)
+    const f1 = new FractionEtendue(b, a)
+    const f2 = new FractionEtendue(a, b)
+    const f3 = new FractionEtendue(b, a).multiplieEntier(-1)
+    const f4 = new FractionEtendue(a, b).multiplieEntier(-1)
     switch (choice([1, 2, 3, 4])) { //
       case 1:
 

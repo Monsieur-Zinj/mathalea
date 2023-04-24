@@ -2,7 +2,7 @@ import Decimal from 'decimal.js'
 import { Tableau } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
@@ -62,7 +62,7 @@ export default function CalculerCoeffPropo () {
     for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {
       if (context.isAmc) this.autoCorrection[i] = {}
       // Je suis en js, je fais du typage inline JsDoc pratique pour récupérer l'autocomplétion
-      /** @type number | Decimal | FractionX */
+      /** @type number | Decimal | FractionEtendue */
       let coefficient
       /** @type Array<{ nombre: number, visible: boolean }> */
       const premiereLigne = []
@@ -104,7 +104,7 @@ export default function CalculerCoeffPropo () {
             do {
               allNumberAreGood = true
               const [numerateur, denominateur] = choice(choice(tableauxCoefficientsFractions))
-              coefficient = new FractionX(numerateur, denominateur)
+              coefficient = new FractionEtendue(numerateur, denominateur)
               for (let colonne = 0; colonne < 3; colonne++) {
                 const contenuVisible = choice([true, false])
                 let unNombre
@@ -128,7 +128,7 @@ export default function CalculerCoeffPropo () {
           }
         }
       } while (isBetterWithLinearity(premiereLigne.map(elt => elt.nombre)))
-      const coefficientRationnel = coefficient instanceof FractionX
+      const coefficientRationnel = coefficient instanceof FractionEtendue
       const coefficientDecimal = coefficient instanceof Decimal
       const coefficientTex = coefficientRationnel ? coefficient.texFraction : texNombre(coefficient)
       // remplissage du tableau énoncé et correction.
@@ -247,7 +247,7 @@ export default function CalculerCoeffPropo () {
                           digitsDen: nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
                           digits: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre) + nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
                           approx: 0//,
-                          // aussiCorrect: new FractionX(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
+                          // aussiCorrect: new FractionEtendue(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
                         }
                         : {
                           digits: 2,
@@ -300,7 +300,7 @@ export default function CalculerCoeffPropo () {
         `Le coefficient de proportionnalité est donné par le quotient de $${texNombre(deuxiemeLigne[colonneReference].nombre)}$
  par $${texNombre(premiereLigne[colonneReference].nombre)}$.<br>Soit $\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`
       if (coefficientRationnel) {
-        const quotient = new FractionX(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
+        const quotient = new FractionEtendue(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
         if (!quotient.estIrreductible) {
           texteCorr += `= ${coefficient.texFraction}$.<br>`
         } else {

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Simplifier des fractions à l\'aide des nombres premiers'
 export const interactifReady = true
@@ -67,7 +67,7 @@ export default function SimplifierFractions () {
           denominateur = denominateur * facteurSurprise
           break
       }
-      const f = new FractionX(numerateur, denominateur)
+      const f = new FractionEtendue(numerateur, denominateur)
       texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: ' =' })}`
       texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true)}$`
       setReponse(this, i, f.simplifie(), { formatInteractif: 'fraction' })
