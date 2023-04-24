@@ -15,7 +15,7 @@ export const dateDePublication = '20/09/2022'
 export const uuid = '39a32'
 export const ref = '3I12-1'
 export default function CompleterScriptMultiple () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5
   this.sup2 = 5

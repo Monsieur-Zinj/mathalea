@@ -12,7 +12,7 @@ export const titre = 'Calculer, de manières différentes, des images par une fo
 export const uuid = '02116'
 export const ref = '3F12'
 export default function FonctionsCalculsDImages () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
   this.titre = titre

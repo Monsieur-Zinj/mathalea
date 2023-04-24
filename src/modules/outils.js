@@ -4367,7 +4367,7 @@ export function modalImage (numeroExercice, urlImage, titre, labelBouton = 'Illu
  * @author Sébastien Lozano
  */
 export function listeDiviseurs (n) {
-  'use strict'
+  
   let i = 2
   const diviseurs = [1]
   while (i <= n) {
@@ -4398,7 +4398,7 @@ export function listeDiviseurs (n) {
 
 export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
   // tous les textes sont en mode maths !!!
-  'use strict'
+  
   return `
   \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
   \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
@@ -4433,7 +4433,7 @@ export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2,
  * @author Sébastien Lozano
  */
 export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
-  'use strict'
+  
   const xInit = -10
   let saut = 0
   const pas = 1
@@ -4566,7 +4566,7 @@ export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
  * @author Sébastien Lozano
  */
 export function katexPopup (texte, titrePopup, textePopup) {
-  'use strict'
+  
   let contenu = ''
   if (context.isHtml) {
     contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>'
@@ -4583,7 +4583,7 @@ export function katexPopup (texte, titrePopup, textePopup) {
 }
 
 export function katexPopupTest (texte, titrePopup, textePopup) {
-  'use strict'
+  
   let contenu = ''
   if (context.isHtml) {
     contenu = '<div class="ui right label katexPopup">' + texte + '</div>'
@@ -4689,7 +4689,7 @@ export function numAlphaNum (k, nospace = false) {
  */
 
 export function texCadreParOrange (texte) {
-  'use strict'
+  
   // \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
   const sortie = `
    
@@ -4712,7 +4712,7 @@ export function texCadreParOrange (texte) {
  */
 
 export function machineMathsVideo (urlVideo) {
-  'use strict'
+  
   const video = `
   <div style="text-align:center">
   <video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
@@ -4729,7 +4729,7 @@ export function machineMathsVideo (urlVideo) {
  * @author Sébastien Lozano
  */
 export function detectSafariChromeBrowser () {
-  'use strict'
+  
   let isChrome = navigator.userAgent.indexOf('Chrome') > -1
   // var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
   // var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
@@ -4780,7 +4780,7 @@ export function premierMultipleInferieur (k, n) {
  * @author Sébastien Lozano
  */
 export function listeNombresPremiersStrictJusqua (borneSup) {
-  'use strict'
+  
   // tableau contenant les 300 premiers nombres premiers
   const liste300 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
   const liste = []
@@ -4798,7 +4798,7 @@ export function listeNombresPremiersStrictJusqua (borneSup) {
  * @author Sébastien Lozano
  */
 export function cribleEratostheneN (n) {
-  'use strict'
+  
   const tabEntiers = [] // pour tous les entiers de 2 à n
   const testMax = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
   const liste = [] // tableau de la liste des premiers jusqu'à n
@@ -4837,7 +4837,7 @@ export function cribleEratostheneN (n) {
  */
 
 export function premiersEntreBornes (min, max) {
-  'use strict'
+  
   // on crée les premiers jusque min
   const premiersASupprimer = cribleEratostheneN(min - 1)
   // on crée les premiers jusque max
@@ -4855,7 +4855,7 @@ export function premiersEntreBornes (min, max) {
  */
 
 export function texteOuPas (texte) {
-  'use strict'
+  
   const bool = randint(0, 1)
   if (bool === 0) {
     return '\\ldots'
@@ -4996,7 +4996,7 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
  * @author Sébastien Lozano
  */
 export function warnMessage (texte, couleur, titre) {
-  'use strict'
+  
   const timeStamp = Date.now()
   if (typeof (titre) === 'undefined') {
     titre = ''
@@ -5038,7 +5038,7 @@ export function warnMessage (texte, couleur, titre) {
  */
 
 export function infoMessage ({titre, texte, couleur}) {
-  // 'use strict';
+  // ;
   const timeStamp = Date.now()
   if (context.isHtml) {
     if (context.versionMathalea === 3) {
@@ -5142,7 +5142,7 @@ export function decompositionFacteursPremiersArray (n) {
  * @author Sébastien Lozano
  */
 export function Triangles (l1, l2, l3, a1, a2, a3) {
-  'use strict'
+  
   const self = this
   
   /**
@@ -5428,7 +5428,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
  * @author Sébastien Lozano
  */
 export function Relatif (...relatifs) {
-  // 'use strict'; pas de use strict avec un paramètre du reste
+  // ; pas de use strict avec un paramètre du reste
   this.relatifs = relatifs
   
   /**

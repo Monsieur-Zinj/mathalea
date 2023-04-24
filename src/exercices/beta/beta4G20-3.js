@@ -8,7 +8,7 @@ import { afficheLongueurSegment, barycentre, carre, latexParPoint, point, polygo
 export const titre = 'Calculer une valeur manquante avec l\'égalité de Pythagore'
 
 export default function CalculerValeurManquanteVisuelPythagore () {
-  'use strict'
+  
   Exercice.call(this)
   this.titre = titre
   this.consigne = "Dans chaque cas, calculer la valeur manquante indiquée par un point d'interrogation."

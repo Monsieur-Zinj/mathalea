@@ -16,7 +16,7 @@ export const titre = 'Puzzles géométriques'
  */
 
 export default function PuzzlesGeometriques () {
-  'use strict'
+  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1 // Ici le nombre de questions

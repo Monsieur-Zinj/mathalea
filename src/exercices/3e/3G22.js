@@ -12,7 +12,7 @@ export const titre = 'Connaître les effets des agrandissements/réductions sur 
 export const uuid = '960f9'
 export const ref = '3G22'
 export default function AgrandissementReduction () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

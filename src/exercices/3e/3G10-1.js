@@ -21,7 +21,7 @@ export const dateDeModifImportante = '15/01/2023' //  Par EE
 export const uuid = 'd4088'
 export const ref = '3G10-1'
 export default function TransformationsDuPlanEtCoordonnees () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

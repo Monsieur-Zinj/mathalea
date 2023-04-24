@@ -18,7 +18,7 @@ export const amcType = 'qcmMono'
 export const uuid = '526f8'
 export const ref = '3A10-2'
 export default function PremierOuPasCriterePar7Par11 () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne

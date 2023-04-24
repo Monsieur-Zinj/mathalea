@@ -18,7 +18,7 @@ export const dateDePublication = '07/11/2022'
 export const uuid = 'a3cb9'
 export const ref = '3G41-1'
 export default function ConstruireSectionPaveDroit () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 3

@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 * 3L11-3
 */
 export default function ResoudreEnXetY () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady

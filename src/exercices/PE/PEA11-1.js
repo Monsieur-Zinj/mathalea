@@ -15,7 +15,7 @@ export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 export const uuid = 'a24a6'
 export const ref = 'PEA11-1'
 export default function PasserDeLaBase12Ou16ALaBase10 () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

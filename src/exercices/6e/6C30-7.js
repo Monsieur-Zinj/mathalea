@@ -22,7 +22,7 @@ export const dateDePublication = '04/11/2021'
 export const uuid = '85989'
 export const ref = '6C30-7'
 export default function DiviserUnNombreParPuissanceDeDix () {
-  'use strict'
+  
   Exercice.call(this)
   this.nbQuestions = 5 // Ici le nombre de questions
   this.consigne = ''

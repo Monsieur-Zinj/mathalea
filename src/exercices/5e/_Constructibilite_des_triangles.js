@@ -15,7 +15,7 @@ export const titre = 'Constructibilité des triangles via les longueurs'
  * @author Sébastien Lozano
  */
 export default function ConstructibiliteDesTriangles () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
   this.nbQuestions = 3

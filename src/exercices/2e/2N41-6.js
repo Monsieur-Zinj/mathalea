@@ -17,9 +17,6 @@ import {
 import {
     context
 } from '../../modules/context.js'
-import {
-    strict
-} from 'assert'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Développer avec les identités remarquables'
@@ -32,7 +29,6 @@ export const titre = 'Développer avec les identités remarquables'
 export const uuid = '04b0a'
 export const ref = '2N41-6'
 export default function DevelopperIdentitesRemarquables2() {
-    'use strict'
     Exercice.call(this) // Héritage de la classe Exercice()
     this.titre = titre
     this.consigne = 'Développer et réduire les expressions suivantes.'

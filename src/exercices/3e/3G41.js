@@ -17,7 +17,7 @@ export const amcType = 'AMCHybride'
 export const uuid = '136dd'
 export const ref = '3G41'
 export default function VuesEmpilementCubes () {
-  'use strict'
+  
   Exercice.call(this)
   this.titre = titre
   this.sup = 1

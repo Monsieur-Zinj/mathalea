@@ -11,7 +11,7 @@ import { context } from '../../modules/context.js'
  * Réfrence 6G21-1 et 5G20
  */
 export default function ConstruireUnTriangleAvecCible () {
-  'use strict'
+  
   Exercice.call(this)
   this.titre = 'Construire un triangle avec cible auto-corrective'
   this.nbQuestions = 4

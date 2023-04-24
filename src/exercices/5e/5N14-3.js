@@ -24,7 +24,7 @@ export const description = 'Déterminer si une égalité de deux fractions est v
 export const uuid = 'd1fb2'
 export const ref = '5N14-3'
 export default function EqResolvantesThales () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   if (this.debug) {

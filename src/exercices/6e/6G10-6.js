@@ -14,7 +14,7 @@ export const dateDePublication = '05/10/2022' // La date de publication initiale
 export const uuid = '9af23'
 export const ref = '6G10-6'
 export default class constructionElementaire extends Exercice {
-//  'use strict'
+//  
   constructor () {
     super()
     this.titre = titre

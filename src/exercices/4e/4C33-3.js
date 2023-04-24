@@ -23,7 +23,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'c71da'
 export const ref = '4C33-3'
 export default function PuissancesDUnRelatif2 () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   context.isHtml

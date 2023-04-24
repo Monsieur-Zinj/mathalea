@@ -13,7 +13,7 @@ export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseur
 export const uuid = '5b60d'
 export const ref = '3A10'
 export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne

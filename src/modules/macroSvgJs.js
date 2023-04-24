@@ -10,7 +10,7 @@ import { context } from './context.js'
  */
 
 export function svgEngrenages () {
-  'use strict'
+  
   class SvgEngrenage extends HTMLElement {
     constructor () {
       super()
@@ -121,7 +121,7 @@ export function svgEngrenages () {
  * @author Sébastien Lozano
  */
 export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpressions) {
-  'use strict'
+  
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
@@ -243,7 +243,7 @@ export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpression
 * @author Sébastien Lozano
 */
 export function SVG_fleche_machine_maths (groupe, chemin, couleur) {
-  'use strict'
+  
   return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
 }
 
@@ -254,7 +254,7 @@ export function SVG_fleche_machine_maths (groupe, chemin, couleur) {
   * @author Sébastien Lozano
   */
 export function SVG_chemin (groupe, chemin, couleur) {
-  'use strict'
+  
   return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
 }
 
@@ -269,7 +269,7 @@ export function SVG_chemin (groupe, chemin, couleur) {
    * @author Sébastien Lozano
    */
 export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpressions) {
-  'use strict'
+  
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
@@ -354,7 +354,7 @@ export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpr
    * @author Sébastien Lozano
    */
 export function my_svg_font (font, interligne, ancre, f_style, f_weight) {
-  'use strict'
+  
   return {
     family: font,
     size: interligne,
@@ -385,7 +385,7 @@ export function my_svg_font (font, interligne, ancre, f_style, f_weight) {
    * @author Sébastien Lozano
    */
 export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
-  'use strict'
+  
   const interligne = 15 // pour un interligne uniforme
   const prop_font = my_svg_font('Helvetica', interligne, 'start', 'normal', 'normal')
   const prop_font_nom = my_svg_font('Helvetica', interligne, 'start', 'normal', 'bold')

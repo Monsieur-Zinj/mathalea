@@ -36,7 +36,7 @@ export const dateDeModificationImportante = '02/04/2023'
 export const uuid = '6516e'
 export const ref = '3L13-2'
 export default function EqResolvantesThales() {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.debug = false

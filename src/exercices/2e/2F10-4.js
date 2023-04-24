@@ -13,7 +13,7 @@ export const titre = 'Déterminer une fonction affine à partir de deux images'
 export const uuid = 'ef897'
 export const ref = '2F10-4'
 export default function Determinerfonctionaffine () {
-  'use strict'
+  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Déterminer, en expliquant, l'expression de la fonction affine $f$ vérifiant les conditions de l'énoncé :"
