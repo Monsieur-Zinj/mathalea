@@ -3,7 +3,7 @@
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Footer from "./Footer.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
@@ -12,6 +12,7 @@
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
   // import { deviceType } from "./utils/measures"
+  import { findPropPaths, findDuplicates } from "./utils/searching"
 
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
@@ -25,6 +26,8 @@
   let divExercices: HTMLDivElement
   let zoom: number = 1
   let setAllInteractifClicked: boolean = false
+  let isInteractiveOnlySelected: boolean = false
+  let isAmcOnlySelected: boolean = false
 
   /**
    * Pour afficher les menus de boutons lorsqu'il n'y a pas assez de place pour les afficher tous
@@ -132,6 +135,44 @@
         }, {})
     }
 
+    function buildReferentiel(listOfEntries) {
+      let referentiel = {}
+      for (const path of listOfEntries) {
+        let schema = referentiel
+        let obj = { ...filteredReferentiel }
+        for (let i = 0; i < path.length - 1; i++) {
+          const elt = path[i]
+          if (!schema[elt]) {
+            schema[elt] = {}
+          }
+          schema = schema[elt]
+          obj = { ...obj[path[i]] }
+        }
+        schema[path[path.length - 1]] = obj[path[path.length - 1]]
+      }
+      return referentiel
+    }
+    // Construction du tableau des chemins vers les exercices ayant la propriété `amc` et/ou `interactif`
+    if (isAmcOnlySelected && !isInteractiveOnlySelected) {
+      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === "amc").map((elt) => elt.replace(/(?:\.tags\.amc)$/, "").split("."))
+      filteredReferentiel = { ...buildReferentiel(amcCompatible) }
+    } else if (isInteractiveOnlySelected && !isAmcOnlySelected) {
+      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === "interactif").map((elt) => elt.replace(/(?:\.tags\.interactif)$/, "").split("."))
+      filteredReferentiel = { ...buildReferentiel(interactiveCompatible) }
+    } else if (isAmcOnlySelected && isInteractiveOnlySelected) {
+      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === "amc").map((elt) => elt.replace(/(?:\.tags\.amc)$/, "").split("."))
+      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === "interactif").map((elt) => elt.replace(/(?:\.tags\.interactif)$/, "").split("."))
+      // garder que les doublons
+      const bothCompatible = findDuplicates(amcCompatible.concat(interactiveCompatible))
+      filteredReferentiel = { ...buildReferentiel(bothCompatible) }
+    }
+
+    /**
+     * Détecter si une valeur est un objet
+     * @param val valeur à analyser
+     */
+    const isObject = (val: unknown) => val && typeof val === "object" && !Array.isArray(val)
+
     /**
      * Construit un object contenant les références des exercices ayant une date
      * de modification ou de publication récente (<= 1mois)
@@ -142,12 +183,6 @@
      * @author sylvain
      */
     function getRecentExercises(obj: InterfaceReferentiel[]): InterfaceReferentiel[] {
-      /**
-       * Détecter si une valeur est un objet
-       * @param val valeur à analyser
-       */
-      const isObject = (val: unknown) => val && typeof val === "object" && !Array.isArray(val)
-
       let recentExercises: InterfaceReferentiel[] = []
       /**
        * On parcourt récursivement l'objet référentiel et on en profite pour peupler
@@ -172,7 +207,6 @@
         }, [])
       }
       traverseObject(obj)
-
       let recentExercisesAsObject = {}
       recentExercises.forEach((exo) => Object.assign(recentExercisesAsObject, exo))
       return recentExercisesAsObject
@@ -183,6 +217,9 @@
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
+    // console.log("amc? " + isAmcOnlySelected + " / interactif? " + isInteractiveOnlySelected)
+    // console.log("tableau pour menu : ")
+    // console.log(arrayReferentielFiltre)
   }
   updateReferentiel()
 
@@ -359,11 +396,11 @@
                     <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
                   </select>
                 </div>
-                <SearchExercice referentiel={filteredReferentiel} />
+                <SearchExercice referentiel={filteredReferentiel} bind:isInteractiveOnlySelected bind:isAmcOnlySelected on:specific={updateReferentiel} />
                 <ul>
-                  {#each arrayReferentielFiltre as item}
+                  {#each arrayReferentielFiltre as item, i}
                     <li>
-                      <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+                      <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
                     </li>
                   {/each}
                 </ul>
@@ -707,11 +744,11 @@
                   <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
                 </select>
               </div>
-              <SearchExercice referentiel={filteredReferentiel} />
+              <SearchExercice referentiel={filteredReferentiel} bind:isInteractiveOnlySelected bind:isAmcOnlySelected on:specific={updateReferentiel} />
               <ul>
-                {#each arrayReferentielFiltre as item}
+                {#each arrayReferentielFiltre as item, i}
                   <li>
-                    <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+                    <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
                   </li>
                 {/each}
               </ul>
