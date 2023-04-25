@@ -1,7 +1,7 @@
 import 'boxicons/css/boxicons.min.css'
 import './app.css'
 import App from './components/App.svelte'
-import Bugsnag from "@bugsnag/js";
+import Bugsnag from '@bugsnag/js'
 // @ts-ignore
 import { tropDeChiffres } from './modules/outils.js'
 
