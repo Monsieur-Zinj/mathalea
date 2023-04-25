@@ -29,6 +29,11 @@
 
   const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
 
+  // Evènement indispensable pour pointCliquable par exemple
+  const exercicesAffiches = new window.Event("exercicesAffiches", {
+      bubbles: true,
+  })
+
   let headerExerciceProps: {
     title: string
     isInteractif: boolean
@@ -103,6 +108,7 @@
       }
       mathaleaRenderDiv(divExercice)
     }
+    document.dispatchEvent(exercicesAffiches)
   })
 
   async function newData() {

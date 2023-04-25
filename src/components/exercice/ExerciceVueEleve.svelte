@@ -21,10 +21,14 @@
   let buttonScore: HTMLButtonElement
   let columnsCount = $exercicesParams[indiceExercice].cols || 1
   let isInteractif = exercice.interactif
-  let isMessagesVisible = true
   let interactifReady = exercice.interactifReady
 
   const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
+  // Evènement indispensable pour pointCliquable par exemple
+  const exercicesAffiches = new window.Event("exercicesAffiches", {
+      bubbles: true,
+    })
+  document.dispatchEvent(exercicesAffiches)
 
   let headerExerciceProps: {
     title: string
@@ -114,6 +118,7 @@
       mathaleaRenderDiv(divExercice)
       adjustMathalea2dFiguresWidth()
     }
+    document.dispatchEvent(exercicesAffiches)
   })
 
   async function newData() {
