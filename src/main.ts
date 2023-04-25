@@ -10,10 +10,14 @@ const app = new App({
 })
 
 export default app
-if (document.location.href.includes('coopmaths.fr')) {
+
+async function handleBugsnag () {
   const fileName = '../_private/keys'
   const bugsnagApiKey = await import(/* @vite-ignore */fileName)
   Bugsnag.start(bugsnagApiKey)
+}
+if (document.location.href.includes('coopmaths.fr')) {
+  handleBugsnag()
 }
 // @todo regarder pourquoi window.Bugsnag n'est pas défini et donc les signalements sont balancés dans la console alors qu'on est en ligne !
 // @ts-ignore
