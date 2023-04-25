@@ -104,7 +104,6 @@
   }
   function matchOnFilteredList(exoId: string) {
     for (let i = 0; i < filteredList.length; i++) {
-      console.log("input[" + i + "]: " + inputSearch + " / id: " + filteredList[i].id)
       if (inputSearch === filteredList[i].id) {
         return i
       }
@@ -117,7 +116,6 @@
   function onEnterDown() {
     const matchingIndex = matchOnFilteredList(inputSearch)
     if (matchingIndex !== null) {
-      console.log(filteredList[matchingIndex])
       const newExercise = {
         url: filteredList[matchingIndex].url,
         id: filteredList[matchingIndex].id,
