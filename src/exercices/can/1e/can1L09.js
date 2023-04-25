@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu, reduirePolynomeDegre3, ecritureAlgebrique, rienSi1 } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
@@ -34,7 +34,7 @@ export default function EquationSecondDegreParticuliere () {
       a = randint(-10, 10, 0)
       b = randint(-10, 10, 0)
       c = randint(-10, 10, 0)
-      f = new FractionX(-b, a)
+      f = new FractionEtendue(-b, a)
       texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br>
 
    $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.<br>`

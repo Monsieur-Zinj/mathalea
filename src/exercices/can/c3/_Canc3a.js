@@ -1,5 +1,5 @@
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
   point, grille, droiteGraduee, plot, segment, milieu, segmentAvecExtremites, texteParPosition, polygoneAvecNom, polygone
 } from '../../../modules/2d.js'
@@ -293,7 +293,7 @@ export default class ClasseCan2023 {
       c = choice([30, 35, 40, 45])
       sortie.texte = context.isHtml ? `$${b}\\text{ min }+${a} \\text{ h }${c} \\text{ min }=$` : `\\Temps{;;;;${b};}+ \\Temps{;;;${a};${c};}`
       sortie.reponse = b + c - 60
-      sortie.texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
+      sortie.texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
           $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(sortie.reponse)}$ min.`
     } else {
       a = randint(6, 10)
@@ -661,7 +661,7 @@ export default class ClasseCan2023 {
     <br>`
     sortie.texte += mathalea2d({ xmin: -0.5, ymin: -0.1, xmax: 6.1, ymax: b + 0.5, scale: 0.7, style: 'margin: auto' }, A, C)
     sortie.texteCorr = `Il y a $${c * d + e * f - e * d}$ ${c * d + e * f - e * d > 1 ? 'carrés' : 'carré'} gris sur un total de $${a * b}$ carrés, la surface grisée représente donc $\\dfrac{${miseEnEvidence(c * d + e * f - e * d)}}{${miseEnEvidence(a * b)}}$ de la surface totale.`
-    sortie.reponse = new FractionX(c * d + e * f - e * d, a * b)
+    sortie.reponse = new FractionEtendue(c * d + e * f - e * d, a * b)
     sortie.canEnonce = sortie.texte
     sortie.canReponseACompleter = ''
     return sortie
@@ -775,7 +775,7 @@ export default class ClasseCan2023 {
       objets.push(
         texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
         a, s1, s2, s3)
-      sortie.reponse = new FractionX(2, b)
+      sortie.reponse = new FractionEtendue(2, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
       sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $2$ carreaux, soit $\\dfrac{${miseEnEvidence(2)}}{${miseEnEvidence(b)}}$ u.l. `
     }
@@ -808,7 +808,7 @@ export default class ClasseCan2023 {
       objets.push(
         texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
         a, s1, s2, s3, s4)
-      sortie.reponse = new FractionX(3, b)
+      sortie.reponse = new FractionEtendue(3, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
       sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $3$ carreaux, soit $\\dfrac{${miseEnEvidence(3)}}{${miseEnEvidence(b)}}$ u.l. `
     }
@@ -845,7 +845,7 @@ export default class ClasseCan2023 {
       objets.push(
         texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
         a, s1, s2, s3, s4, s5)
-      sortie.reponse = new FractionX(4, b)
+      sortie.reponse = new FractionEtendue(4, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
       sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $4$ carreaux, soit $\\dfrac{${miseEnEvidence(4)}}{${miseEnEvidence(b)}}$ u.l. `
     }
@@ -1036,7 +1036,7 @@ export default class ClasseCan2023 {
       C = grille(0, 0, 12, 5, 'black', 1, 1, false)
       // D = point(1 + a, 4 - b)
 
-      sortie.texte = `${prenom1} veut construire une figure d'aire ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire (uA).<br>  
+      sortie.texte = `${prenom1} veut construire une figure d'aire ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire (uA).<br>
       Combien de petits carreaux doit-elle contenir ?<br>`
 
       sortie.texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 5.5, scale: 1, style: 'margin: auto' }, C, A, B)

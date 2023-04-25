@@ -3,7 +3,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, nombreDeChiffresDe, stringNombre, listeQuestionsToContenu } from '../../modules/outils.js'
 import { point, segment, droiteGraduee } from '../../modules/2d.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
@@ -172,8 +172,8 @@ export default function LireUneAbscisseAvecZoom () {
 
         reponse1 = x1
         reponse2A = Math.floor(x1)
-        reponse2B = new FractionX(calcul(10 * (x1 - Math.floor(x1))), 10)
-        reponse3 = new FractionX(calcul(x1 * 10), 10)
+        reponse2B = new FractionEtendue(calcul(10 * (x1 - Math.floor(x1))), 10)
+        reponse3 = new FractionEtendue(calcul(x1 * 10), 10)
       } else if (this.sup === 2) {
         if (this.niveau === 'CM') {
           xmin = 0
@@ -312,8 +312,8 @@ export default function LireUneAbscisseAvecZoom () {
 
         reponse1 = x1
         reponse2A = partent
-        reponse2B = new FractionX(calcul(pardec * 100), 100)
-        reponse3 = new FractionX(calcul(x1 * 100), 100)
+        reponse2B = new FractionEtendue(calcul(pardec * 100), 100)
+        reponse3 = new FractionEtendue(calcul(x1 * 100), 100)
       } else if (this.sup === 3) {
         if (this.niveau === 'CM') {
           xmin = 0
@@ -515,8 +515,8 @@ export default function LireUneAbscisseAvecZoom () {
         texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 1000), 1000)}=${texFraction(calcul(x1 * 1000), 1000)}$.<br>`
         reponse1 = x1
         reponse2A = partent
-        reponse2B = new FractionX(calcul(pardec * 1000), 1000)
-        reponse3 = new FractionX(calcul(x1 * 1000), 1000)
+        reponse2B = new FractionEtendue(calcul(pardec * 1000), 1000)
+        reponse3 = new FractionEtendue(calcul(x1 * 1000), 1000)
       }
       texte = `Donner l'abscisse de ${noms[1]} sous `
       texte += context.isAmc ? 'deux ' : 'trois '

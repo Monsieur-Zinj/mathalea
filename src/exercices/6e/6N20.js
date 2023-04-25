@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction, n
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -138,7 +138,7 @@ export default function ExerciceFractionsDecomposer () {
                   feedback: '',
                   reponse: { // utilisé si type = 'AMCNum'
                     texte: 'Fraction inférieure à 1', // facultatif
-                    valeur: new FractionX(c, b), // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
+                    valeur: new FractionEtendue(c, b), // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                     alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                     param: {
                       digits: 3, // obligatoire pour AMC (le nombre de chiffres dans le nombre, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)

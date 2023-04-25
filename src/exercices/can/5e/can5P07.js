@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { choice, randint } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Résoudre un problème de proportionnalité*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -39,14 +39,14 @@ export default function Proportionnalite2 () {
           b = a - 1
           fruits = choice(listefruits1)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(9 * b, a)
+          frac = new FractionEtendue(9 * b, a)
           this.reponse = frac
           if (choice([true, false])) {
-            this.question = `On paie  $9$ € pour $${a}$ kg de ${fruits[0]}s.<br> 
+            this.question = `On paie  $9$ € pour $${a}$ kg de ${fruits[0]}s.<br>
        Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
         Donner la valeur exacte de ce prix.`
           } else {
-            this.question = ` $${a}$ kg de ${fruits[0]}s coûtent 9 €.<br> 
+            this.question = ` $${a}$ kg de ${fruits[0]}s coûtent 9 €.<br>
         Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
          Donner la valeur exacte de ce prix.`
           }
@@ -61,7 +61,7 @@ export default function Proportionnalite2 () {
           b = a - 1
           fruits = choice(listefruits1)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(7 * b, a)
+          frac = new FractionEtendue(7 * b, a)
           this.reponse = frac
           if (choice([true, false])) {
             this.question = `On paie  $7$ € pour $${a}$ kg de ${fruits[0]}s.<br>
@@ -70,7 +70,7 @@ export default function Proportionnalite2 () {
 
            Donner la valeur exacte de ce prix.`
           } else {
-            this.question = ` $${a}$ kg de ${fruits[0]}s coûtent $7$ €.<br> 
+            this.question = ` $${a}$ kg de ${fruits[0]}s coûtent $7$ €.<br>
 
            Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
 
@@ -88,16 +88,16 @@ export default function Proportionnalite2 () {
           b = a - randint(1, 2)
           fruits = choice(listefruits1)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(11 * b, a)
+          frac = new FractionEtendue(11 * b, a)
           this.reponse = frac
           if (choice([true, false])) {
-            this.question = `On paie  $11$ € pour $${a}$ kg de ${fruits[0]}s.<br> 
+            this.question = `On paie  $11$ € pour $${a}$ kg de ${fruits[0]}s.<br>
 
           Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
 
            Donner la valeur exacte de ce prix.`
           } else {
-            this.question = ` $${a}$ kg de ${fruits[0]}s coûtent $11$ €.<br> 
+            this.question = ` $${a}$ kg de ${fruits[0]}s coûtent $11$ €.<br>
 
            Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
 
@@ -119,7 +119,7 @@ export default function Proportionnalite2 () {
           a = randint(4, 10)// 2ième nombre de fruits
           fruits2 = choice(listefruits2)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(a * poids1, 3)
+          frac = new FractionEtendue(a * poids1, 3)
           this.reponse = frac
           this.question = `$3$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
 
@@ -136,7 +136,7 @@ export default function Proportionnalite2 () {
           a = randint(5, 11, 8)// 2ième nombre de fruits
           fruits2 = choice(listefruits2)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(a * poids1, 4)
+          frac = new FractionEtendue(a * poids1, 4)
           this.reponse = frac
           this.question = `$4$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
 

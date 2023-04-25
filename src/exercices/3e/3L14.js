@@ -10,7 +10,7 @@ import {
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Résoudre une équation produit nul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -197,7 +197,7 @@ export default function ResoudreUneEquationProduitNul () {
             solution1 = fraction(-d, c).simplifie()
             solution2 = fraction(-d, c).simplifie()
           } else {
-            setReponse(this, i, FractionX.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
+            setReponse(this, i, FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
             if (-b / a < -d / c) {
               solution1 = fraction(-b, a).simplifie()
               solution2 = fraction(-d, c).simplifie()
@@ -240,7 +240,7 @@ export default function ResoudreUneEquationProduitNul () {
           }
 
           // il ne peut y avoir de solution double, il y a un positif et un négatif
-          setReponse(this, i, FractionX.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, d, c))
+          setReponse(this, i, FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, d, c))
           solution1 = fraction(-b, a).simplifie() // la négative en premier
           solution2 = fraction(d, c).simplifie()
           break

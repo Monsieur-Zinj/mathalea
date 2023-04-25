@@ -6,7 +6,7 @@ import { codageAngleDroit, point, pointAdistance, polygone, nommePolygone, codag
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { min, max } from 'mathjs'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export default function AgrandirReduireFigure () {
   this.titre = titre
   this.besoinFormulaireTexte = [
     'Type de figures',
-    `Nombres séparés par des tirets : 
+    `Nombres séparés par des tirets :
     1 : Triangle équilatéral
     2 : Carré
     3 : Triangle avec coefficient de réduction ou d'agrandissement
@@ -66,7 +66,7 @@ export default function AgrandirReduireFigure () {
       iiAMC = 0
       objets = []
       coefAgrandissement = [1.5, 2, 3, 5, 0.5, 0.25, 0.75]
-      coefReduction = [new FractionX(1, 2), new FractionX(1, 4), new FractionX(3, 4)]
+      coefReduction = [new FractionEtendue(1, 2), new FractionEtendue(1, 4), new FractionEtendue(3, 4)]
       choixAgrandissementOuReduction = randint(0, 6)
       A = point(0, 0)
       absB = choixAgrandissementOuReduction < 5 ? randint(5, 11, [6, 9]) : 2 * randint(4, 7)

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, choice, combinaisonListes, texNombre, arrondi } from '../../modules/outils.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = "Passer d'une fraction à une écriture décimale et inversement"
@@ -82,10 +82,10 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
           let multiple
           denominateur === 4 ? multiple = 100 : multiple = 10
           texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\cfrac{${ecritureDecimale * multiple}}{${multiple}}$  ou $${texNombre(ecritureDecimale, 3)} = \\cfrac{${numerateur}}{${denominateur}}$`
-          setReponse(this, i, [new FractionX(ecritureDecimale * multiple, multiple), new FractionX(numerateur, denominateur)], { formatInteractif: 'fraction' })
+          setReponse(this, i, [new FractionEtendue(ecritureDecimale * multiple, multiple), new FractionEtendue(numerateur, denominateur)], { formatInteractif: 'fraction' })
         } else {
           texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\cfrac{${numerateur}}{${denominateur}}$`
-          setReponse(this, i, new FractionX(numerateur, denominateur), { formatInteractif: 'fraction' })
+          setReponse(this, i, new FractionEtendue(numerateur, denominateur), { formatInteractif: 'fraction' })
         }
       } else if (listeDesSensDemandes[i] === 'FractionnaireADecimale') {
         texte = `Donner l'écriture décimale de $\\cfrac{${numerateur}}{${denominateur}}$.`

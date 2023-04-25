@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint, choice, ecritureAlgebrique, texNombre, reduireAxPlusB } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine*'
 export const interactifReady = true
@@ -47,7 +47,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{1}{${a}}$ et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{1}{${a}}$. `
 
-          this.reponse = new FractionX(1, a)
+          this.reponse = new FractionEtendue(1, a)
         } else {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
 
@@ -58,7 +58,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=-\\dfrac{1}{${a}}$ et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=-\\dfrac{1}{${a}}$. `
 
-          this.reponse = new FractionX(-1, a)
+          this.reponse = new FractionEtendue(-1, a)
         }
 
         break
@@ -66,7 +66,7 @@ export default function CalculFonctionDeriveeAffine2 () {
         m = randint(2, 15) * choice([-1, 1])
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         a = randint(2, 15)
-        f = new FractionX(m, a)
+        f = new FractionEtendue(m, a)
         if (choice([true, false])) {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
 
@@ -98,7 +98,7 @@ export default function CalculFonctionDeriveeAffine2 () {
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         a = randint(2, 15)
         fraction = choice(listeFractions)
-        f = new FractionX(fraction[0], fraction[1])
+        f = new FractionEtendue(fraction[0], fraction[1])
         if (choice([true, false])) {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
 
@@ -131,7 +131,7 @@ export default function CalculFonctionDeriveeAffine2 () {
         a = randint(2, 15)
         fraction2 = choice(listeFractions2)
         if (choice([true, false])) {
-          f = new FractionX(fraction2[0], fraction2[1])
+          f = new FractionEtendue(fraction2[0], fraction2[1])
 
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
 
@@ -144,7 +144,7 @@ export default function CalculFonctionDeriveeAffine2 () {
 
           this.reponse = f
         } else {
-          f = new FractionX(-fraction2[0], fraction2[1])
+          f = new FractionEtendue(-fraction2[0], fraction2[1])
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
 
            $f(x)=${texNombre(p, 1)}-\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$. <br>

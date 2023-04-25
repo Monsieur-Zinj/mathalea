@@ -5,7 +5,7 @@ import {
   repere, texteParPosition,
   point, tracePoint, segment, droite, milieu
 } from '../../../modules/2d.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer le coefficient directeur d\'une droite (graphique)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +41,7 @@ export default function CoeffDirDroite () {
         Bx = point(B.x, A.y)
         sABx = segment(A, Bx)
         sBBx = segment(B, Bx)
-        m = new FractionX(yB - yA, xB - xA)
+        m = new FractionEtendue(yB - yA, xB - xA)
         sBBx.epaisseur = 2
         sBBx.pointilles = 5
         sABx.epaisseur = 2
@@ -123,7 +123,7 @@ export default function CoeffDirDroite () {
         Bx = point(B.x, A.y)
         sABx = segment(A, Bx)
         sBBx = segment(B, Bx)
-        m = new FractionX(2 * (yB - yA), xB - xA)
+        m = new FractionEtendue(2 * (yB - yA), xB - xA)
         sBBx.epaisseur = 2
         sBBx.pointilles = 5
         sABx.epaisseur = 2

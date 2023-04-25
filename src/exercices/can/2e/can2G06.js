@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, ecritureParentheseSiNegatif, calcul, reduireAxPlusB } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { courbe, repere } from '../../../modules/2d.js'
 export const titre = 'Déterminer le coefficient directeur d\'une droite'
 export const interactifReady = true
@@ -34,17 +34,17 @@ export default function CoeffDirecteurDroite () {
         n = yB - yA
         d = xB - xA
 
-        this.reponse = new FractionX(n, d)
+        this.reponse = new FractionEtendue(n, d)
         this.formatInteractif = 'fractionEgale'
         this.question = `Dans un repère du plan, on considère les points $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>
-         
+        
         Calculer le coefficient directeur de la droite $(AB)$.
          `
         this.correction = 'On observe que $ x_B\\neq x_A$.'
         this.correction += '<br>La droite $(AB)$ n\'est donc pas verticale.'
         this.correction += '<br>On peut donc calculer le coefficient directeur de la droite.'
         this.correction += '<br>On sait d\'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
-        this.correction += `<br>On applique avec les données de l'énoncé : 
+        this.correction += `<br>On applique avec les données de l'énoncé :
         $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=
         ${this.reponse.texFraction}${this.reponse.texSimplificationAvecEtapes()}$.`
 

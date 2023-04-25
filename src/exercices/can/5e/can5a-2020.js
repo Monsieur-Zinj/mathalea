@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { pave, point, grille, labelPoint, codageSegment, codageAngleDroit, polygone, repere, traceBarre, droiteGraduee, segment, milieu, texteParPosition, polygoneAvecNom } from '../../../modules/2d.js'
@@ -154,7 +154,7 @@ export default function SujetCAN20205ieme () {
           prenom = prenomM()
           texte = `${prenom} part à  $${a}$ h $${b}$ min et son trajet dure  $${c}$ h $${d}$ min.<br>
           À quelle heure arrive-t-il ?`
-          texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${c}$  ${c > 1 ? ' heures' : ' heure '}      
+          texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${c}$  ${c > 1 ? ' heures' : ' heure '}
           et $${d - 60 + b}$ min, soit une arrivée à  $${a + c + 1}$ h $${b + d - 60}$ min.`
 
           if (this.interactif) {
@@ -309,7 +309,7 @@ export default function SujetCAN20205ieme () {
           texte = 'Quelle fraction de la surface totale représente la surface grisée ?<br>'
           texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: b + 1, scale: 0.7 }, A, C)
           texteCorr = `Il y a $${c * d + e * f - e * d}$ ${c * d + e * f - e * d > 1 ? 'carrés' : 'carré'} gris sur un total de $${a * b}$ carrés, la surface grisée représente donc $\\dfrac{${c * d + e * f - e * d}}{${a * b}}$ de la surface totale.`
-          reponse = new FractionX(c * d + e * f - e * d, a * b)
+          reponse = new FractionEtendue(c * d + e * f - e * d, a * b)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1

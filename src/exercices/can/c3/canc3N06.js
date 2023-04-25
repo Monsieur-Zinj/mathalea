@@ -2,7 +2,7 @@ import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 import { choice, listeQuestionsToContenu, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Comparer deux nombres sur une droite graduée (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -35,7 +35,7 @@ export default function ComparerDroiteGrad () {
         case 1:
 
           f = choice(listeFractions1)
-          frac = new FractionX(f[0], f[1])
+          frac = new FractionEtendue(f[0], f[1])
           fdec = f[0] / f[1]
           texte = `Sur une droite graduée, la fraction $${frac.texFraction}$ est-elle placée avant ou après $1$ ?`
           this.canEnonce = texte
@@ -64,7 +64,7 @@ export default function ComparerDroiteGrad () {
         case 2:
 
           f = choice(listeFractions2)
-          frac = new FractionX(f[0], f[1])
+          frac = new FractionEtendue(f[0], f[1])
           fdec = f[0] / f[1]
           texte = `Sur une droite graduée, la fraction $${frac.texFraction}$ est-elle placée avant ou après $\\dfrac{1}{2}$ ?`
           this.canEnonce = texte

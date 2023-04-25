@@ -1,7 +1,7 @@
 
 import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import Trinome from '../../modules/Trinome.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -44,9 +44,9 @@ export default function CalculerDiscriminant () {
           c = randint(-5, 5)
           break
         case 3 :
-          a = new FractionX(randint(-9, 9), choice([2, 3, 5]))
-          b = new FractionX(randint(-9, 9), choice([2, 3, 5]))
-          c = new FractionX(randint(-9, 9), choice([2, 3, 5]))
+          a = new FractionEtendue(randint(-9, 9), choice([2, 3, 5]))
+          b = new FractionEtendue(randint(-9, 9), choice([2, 3, 5]))
+          c = new FractionEtendue(randint(-9, 9), choice([2, 3, 5]))
           break
       }
       const p = new Trinome(a, b, c)

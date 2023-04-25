@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { choice, randint } from '../../modules/outils.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Opérations simples avec des fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -39,13 +39,13 @@ export default function CalculsFractionsSimples () {
       this.question = `$\\dfrac{${a}}{${den}} ${operation} \\dfrac{${b}}{${den}} = $`
       num = operation === '+' ? a + b : a - b
       this.correction = `$\\dfrac{${a}}{${den}} ${operation} \\dfrac{${b}}{${den}} = \\dfrac{${num}}{${den}}$`
-      this.reponse = new FractionX(num, den)
+      this.reponse = new FractionEtendue(num, den)
     } else {
       if (a === 1) a = randint(2, 10)
       this.question = `$${a} \\times \\dfrac{${b}}{${den}} = $`
       num = a * b
       this.correction = `$${a} \\times \\dfrac{${b}}{${den}} = \\dfrac{${num}}{${den}}$`
     }
-    this.reponse = new FractionX(num, den)
+    this.reponse = new FractionEtendue(num, den)
   }
 }

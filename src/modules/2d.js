@@ -5,7 +5,7 @@ import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
 import { context } from './context.js'
 import { degCos, degSin, radians } from './fonctionsMaths.js'
-import FractionX from './FractionEtendue.js'
+import FractionEtendue from './FractionEtendue.js'
 import {
   arrondi,
   calcul,
@@ -7597,8 +7597,8 @@ export function AxeY (
   ytick = 2,
   titre = ''
 ) {
-  if (!(ystep instanceof Fraction || ystep instanceof FractionX)) ystep = fraction(ystep)
-  if (!(ytick instanceof Fraction || ytick instanceof FractionX)) ytick = fraction(ytick)
+  if (!(ystep instanceof Fraction || ystep instanceof FractionEtendue)) ystep = fraction(ystep)
+  if (!(ytick instanceof Fraction || ytick instanceof FractionEtendue)) ytick = fraction(ytick)
   ObjetMathalea2D.call(this, {})
   const objets = []
   objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 'gauche', color))

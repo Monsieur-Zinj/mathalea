@@ -1,6 +1,6 @@
 
 import { choice, randint, texNombre, arrondi } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer une fraction de dénomiteur un décimal'
@@ -29,7 +29,7 @@ export default function CalculFractionDecimal () {
     const a = choice([2, 4, 8])
     const d = new Decimal(a).div(10)
 
-    const f = new FractionX(n * 10, d * 10).simplifie()
+    const f = new FractionEtendue(n * 10, d * 10).simplifie()
     const reponse = arrondi(n / d, 2)
     this.reponse = reponse
     this.question = `Écrire  $\\dfrac{${n}}{${texNombre(d, 1)}}$ sous la forme d'un décimal ou d'un entier.`

@@ -1,5 +1,5 @@
 import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max, polynomialRoot, round, acos, abs } from 'mathjs'
-import FractionX from './FractionEtendue.js'
+import FractionEtendue from './FractionEtendue.js'
 import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
 import { Courbe, Segment } from './2d.js'
@@ -113,7 +113,7 @@ export function fractionLatexToMathjs (fractionLatex) {
   const parts = fractionLatex.split('{')
   const num = Number(parts[1].substring(0, parts[1].length - 1))
   const den = Number(parts[2].substring(0, parts[2].length - 1))
-  return new FractionX(num, den)
+  return new FractionEtendue(num, den)
 }
 /**
  * delta(true) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c >0

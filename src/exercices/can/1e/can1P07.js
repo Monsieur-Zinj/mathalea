@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, tableauColonneLigne } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer une probabilté dans un tableau d’effectifs'
@@ -39,7 +39,7 @@ export default function CalculProbaTableauEff () {
       tableau = tableauColonneLigne(['', 'F', '\\overline{F}', '\\text{Total}'],
         ['V', '\\overline{V}', '\\text{Total}'],
         [`${texNombre(FinterV, 2)}`, `${texNombre(V - FinterV, 2)}`, `${texNombre(V, 2)}`, `${texNombre(F - FinterV)}`, `${texNombre(T - F - V + FinterV)}`, `${texNombre(T - V)}`, `${texNombre(F)}`, `${texNombre(T - F)}`, `${texNombre(T)}`])
-      texte = `Dans ce tableau, on note  :<br> 
+      texte = `Dans ce tableau, on note  :<br>
       $F$ : « La personne est une fille » et $V$ : « La personne a plus de $20$ ans ».<br>
       On choisit une personne au hasard.<br>`
       this.canEnonce = texte
@@ -61,9 +61,9 @@ export default function CalculProbaTableauEff () {
               texte += '<br>Quelle est la probabilté de choisir une fille ?<br>'
             }
           }
-          texteCorr = ` $P(F)=\\dfrac{\\text{Nombre de filles}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(F)}}{${texNombre(T)}}$ 
+          texteCorr = ` $P(F)=\\dfrac{\\text{Nombre de filles}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(F)}}{${texNombre(T)}}$
       `
-          reponse = new FractionX(F, T)
+          reponse = new FractionEtendue(F, T)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           this.canEnonce += `${tableau}<br>
           Quelle est la probabilté de choisir une fille ?`
@@ -93,9 +93,9 @@ export default function CalculProbaTableauEff () {
             }
           }
           texteCorr = ` La probabilté est donnée par : <br>
-          $P(F\\cap V)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(F)}}{${texNombre(T)}}$ 
+          $P(F\\cap V)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(F)}}{${texNombre(T)}}$
       `
-          reponse = new FractionX(FinterV, T)
+          reponse = new FractionEtendue(FinterV, T)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           break
 
@@ -122,9 +122,9 @@ export default function CalculProbaTableauEff () {
             this.canReponseACompleter = ''
           }
           texteCorr = `La probabilté est donnée par : <br>
-          $P_V(F)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de personnes de plus de 20 ans}}=\\dfrac{${texNombre(FinterV)}}{${texNombre(V)}}$ 
+          $P_V(F)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de personnes de plus de 20 ans}}=\\dfrac{${texNombre(FinterV)}}{${texNombre(V)}}$
       `
-          reponse = new FractionX(FinterV, V)
+          reponse = new FractionEtendue(FinterV, V)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           break
 
@@ -151,9 +151,9 @@ export default function CalculProbaTableauEff () {
             }
           }
           texteCorr = `La probabilté est donnée par : <br>
-          $P(F\\cap\\overline{V})=\\dfrac{\\text{Nombre de filles de moins de 20 ans}}{\\text{Nombre  total de personnes}}=\\dfrac{${texNombre(F - FinterV)}}{${texNombre(T)}}$ 
+          $P(F\\cap\\overline{V})=\\dfrac{\\text{Nombre de filles de moins de 20 ans}}{\\text{Nombre  total de personnes}}=\\dfrac{${texNombre(F - FinterV)}}{${texNombre(T)}}$
       `
-          reponse = new FractionX(F - FinterV, T)
+          reponse = new FractionEtendue(F - FinterV, T)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
           break
@@ -165,7 +165,7 @@ export default function CalculProbaTableauEff () {
               texte += '<br> $P_{\\overline{V}}(\\overline{F})=$ '
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
             } else {
-              texte += `<br>            
+              texte += `<br>
             Déterminer $P_{\\overline{V}}(\\overline{F})$. `
               this.canEnonce += `${tableau}<br>`
               this.canReponseACompleter = '$P_{\\overline{V}}(\\overline{F})=\\ldots$'
@@ -182,9 +182,9 @@ export default function CalculProbaTableauEff () {
             this.canReponseACompleter = ''
           }
           texteCorr = `La probabilté est donnée par : <br>
-          $P_{\\overline{V}}(\\overline{F})=\\dfrac{\\text{Nombre de garçons de moins de 20 ans}}{\\text{Nombre  de personnes de moins de 20 ans}}=\\dfrac{${texNombre(T - F - V + FinterV)}}{${texNombre(T - V)}}$ 
+          $P_{\\overline{V}}(\\overline{F})=\\dfrac{\\text{Nombre de garçons de moins de 20 ans}}{\\text{Nombre  de personnes de moins de 20 ans}}=\\dfrac{${texNombre(T - F - V + FinterV)}}{${texNombre(T - V)}}$
       `
-          reponse = new FractionX(T - F - V + FinterV, T - V)
+          reponse = new FractionEtendue(T - F - V + FinterV, T - V)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           break
 
@@ -211,9 +211,9 @@ export default function CalculProbaTableauEff () {
             this.canReponseACompleter = ''
           }
           texteCorr = `La probabilté est donnée par : <br>
-          $P_{F}(V)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de filles}}=\\dfrac{${texNombre(FinterV)}}{${texNombre(F)}}$ 
+          $P_{F}(V)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de filles}}=\\dfrac{${texNombre(FinterV)}}{${texNombre(F)}}$
       `
-          reponse = new FractionX(FinterV, F)
+          reponse = new FractionEtendue(FinterV, F)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
           break
@@ -242,9 +242,9 @@ export default function CalculProbaTableauEff () {
           }
 
           texteCorr = `La probabilté est donnée par : <br>
-          $P_{\\overline{F}}(V)=\\dfrac{\\text{Nombre de garçons de plus de 20 ans}}{\\text{Nombre  de garçons}}=\\dfrac{${texNombre(V - FinterV)}}{${texNombre(T - F)}}$ 
+          $P_{\\overline{F}}(V)=\\dfrac{\\text{Nombre de garçons de plus de 20 ans}}{\\text{Nombre  de garçons}}=\\dfrac{${texNombre(V - FinterV)}}{${texNombre(T - F)}}$
       `
-          reponse = new FractionX(V - FinterV, T - F)
+          reponse = new FractionEtendue(V - FinterV, T - F)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
           break
@@ -271,9 +271,9 @@ export default function CalculProbaTableauEff () {
               this.canReponseACompleter = ''
             }
           }
-          texteCorr = ` $P(\\overline{V})=\\dfrac{\\text{Nombre de personnes de moins de 20 ans}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(T - V)}}{${texNombre(T)}}$ 
+          texteCorr = ` $P(\\overline{V})=\\dfrac{\\text{Nombre de personnes de moins de 20 ans}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(T - V)}}{${texNombre(T)}}$
       `
-          reponse = new FractionX(T - V, T)
+          reponse = new FractionEtendue(T - V, T)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
           break

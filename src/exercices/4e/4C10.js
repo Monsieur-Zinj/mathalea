@@ -1,7 +1,7 @@
 import { choice, combinaisonListes, contraindreValeur, ecritureParentheseSiNegatif, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Calculer des produits et des quotients de nombres relatifs'
@@ -56,8 +56,8 @@ export default function ProduitsEtQuotientRelatifs () {
           num1 = randint(2, 15, [den1, 2 * den1, 3 * den1, 4 * den1, 5 * den1, 6 * den1, 7 * den1]) // on évite les fractions réductibles
           den2 = randint(2, 9)
           num2 = randint(2, 15, [den2, 2 * den2, 3 * den2, 4 * den2, 5 * den2, 6 * den2, 7 * den2]) // on évite les fractions réductibles
-          a = new FractionX(num1 * (signes[0] === '-' ? -1 : 1), den1)
-          b = new FractionX(num2 * (signes[1] === '-' ? -1 : 1), den2)
+          a = new FractionEtendue(num1 * (signes[0] === '-' ? -1 : 1), den1)
+          b = new FractionEtendue(num2 * (signes[1] === '-' ? -1 : 1), den2)
           break
       }
       switch (listeTypesDeQuestion[i]) {

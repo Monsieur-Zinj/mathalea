@@ -5,7 +5,7 @@ import {
   point, labelPoint, afficheLongueurSegment, afficheMesureAngle, pointAdistance, segment
 } from '../../../modules/2d.js'
 import Decimal from 'decimal.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer un produit scalaire à l’aide de normes et d’un angle '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,7 +34,7 @@ export default function ProduitScalaireNormesAngles () {
     const B = pointAdistance(A, a, 0, nom[1], 'below')
     const b = randint(4, 8)//
     const d = (new Decimal(a * b)).div(2)
-    const f1 = new FractionX(a * b, 2)
+    const f1 = new FractionEtendue(a * b, 2)
     const Angle = [[60, '$\\dfrac{\\pi}{3}$', '\\dfrac{\\pi}{3}'], [30, '$\\dfrac{\\pi}{6}$', '\\dfrac{\\pi}{6}'],
       [45, '$\\dfrac{\\pi}{4}$', '\\dfrac{\\pi}{4}'],
       [120, '$\\dfrac{2\\pi}{3}$', '\\dfrac{2\\pi}{3}'],

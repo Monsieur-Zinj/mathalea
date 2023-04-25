@@ -1,7 +1,7 @@
 import { choice, randint, texNombre, texFractionReduite } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Passer d\'un décimal à une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,9 +27,9 @@ export default function DecimalVersFractionIr () {
       case 1:// division par 10
         a = randint(1, 39, [10, 20, 30])
         d = new Decimal(a).div(10)
-        maFraction = new FractionX(a, 10)
+        maFraction = new FractionEtendue(a, 10)
         this.question = `Écrire $${texNombre(d, 1)}$ sous la forme d'une fraction irréductible.`
-        this.correction = `        
+        this.correction = `
         $${texNombre(d, 1)}=\\dfrac{${texNombre(d * 10, 0)}}{10}${maFraction.texSimplificationAvecEtapes()}$ `
         this.reponse = maFraction.simplifie()
 
@@ -37,9 +37,9 @@ export default function DecimalVersFractionIr () {
       case 2:// division par 100
         a = randint(1, 19, 10)
         d = new Decimal(a).div(100)
-        maFraction = new FractionX(a, 100)
+        maFraction = new FractionEtendue(a, 100)
         this.question = `Écrire $${texNombre(d, 2)}$ sous la forme d'une fraction irréductible.`
-        this.correction = `     
+        this.correction = `
         $${texNombre(d, 2)}=\\dfrac{${texNombre(d * 100, 2)}}{100}${maFraction.texSimplificationAvecEtapes()}$ `
         this.reponse = maFraction.simplifie()
         break
@@ -47,7 +47,7 @@ export default function DecimalVersFractionIr () {
       case 3:// 0,25 et 0,75
         a = 2 * randint(0, 19) + 1
         d = new Decimal(a).div(4)
-        maFraction = new FractionX(a, 4)
+        maFraction = new FractionEtendue(a, 4)
         d1 = d.sub(Math.floor(a / 4))
         this.question = `Écrire $${texNombre(d, 2)}$ sous la forme d'une fraction irréductible.`
         if (a === 1) {

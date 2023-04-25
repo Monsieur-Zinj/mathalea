@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { choice, randint, texPrix } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Résoudre un problème de proportionnalité**'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -39,9 +39,9 @@ export default function Proportionnalite3 () {
           prix2 = prix1 - randint(1, 3)// prix pour masse cherchée
           fruits = choice(listefruits1)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(5 * prix2, prix1)
+          frac = new FractionEtendue(5 * prix2, prix1)
           this.reponse = frac
-          this.question = `$5$ kg de ${fruits[0]} coûtent $${texPrix(prix1)}$ €.<br> 
+          this.question = `$5$ kg de ${fruits[0]} coûtent $${texPrix(prix1)}$ €.<br>
 
         Quelle masse de ${fruits[0]} faut-il acheter pour payer $${texPrix(prix2)}$ € ?<br>
         
@@ -57,7 +57,7 @@ export default function Proportionnalite3 () {
           prix2 = prix1 - randint(1, 3)// prix pour masse cherchée
           fruits = choice(listefruits1)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(3 * prix2, prix1)
+          frac = new FractionEtendue(3 * prix2, prix1)
           this.reponse = frac
           this.question = `$3$ ${fruits[0]} coûtent $${texPrix(prix1)}$ €.<br>
 
@@ -80,7 +80,7 @@ export default function Proportionnalite3 () {
           poids2 = poids1 - randint(1, 2)// 2ième masse
           fruits2 = choice(listefruits2)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(3 * poids2, poids1)
+          frac = new FractionEtendue(3 * poids2, poids1)
           this.reponse = frac
           this.question = `$3$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
 
@@ -97,7 +97,7 @@ export default function Proportionnalite3 () {
           poids2 = poids1 - 1// 2ième masse
           fruits2 = choice(listefruits2)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(2 * poids2, poids1)
+          frac = new FractionEtendue(2 * poids2, poids1)
           this.reponse = frac
           this.question = `$2$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
         Combien faut-il acheter  de ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>
@@ -112,7 +112,7 @@ export default function Proportionnalite3 () {
           poids2 = poids1 - randint(1, 4)// 2ième masse
           fruits2 = choice(listefruits2)
           this.formatInteractif = 'fractionEgale'
-          frac = new FractionX(5 * poids2, poids1)
+          frac = new FractionEtendue(5 * poids2, poids1)
           this.reponse = frac
           this.question = `$5$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
             Combien faut-il acheter de  ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>

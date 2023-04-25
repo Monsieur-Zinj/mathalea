@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
 import { randint, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1, texNombre, reduireAxPlusB } from '../../../modules/outils.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +31,7 @@ export default function CalculFonctionDeriveeAffine () {
       case 1:// mx+p
         m = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
-        f = new FractionX(m * 10, 10)
+        f = new FractionEtendue(m * 10, 10)
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
        $f(x)=${reduireAxPlusB(m, p)}$.<br>
         Déterminer $f'(x)$.`
@@ -47,7 +47,7 @@ export default function CalculFonctionDeriveeAffine () {
       case 2:// p+mx
         m = choice([randint(2, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
-        f = new FractionX(m * 10, 10)
+        f = new FractionEtendue(m * 10, 10)
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
       $f(x)=${texNombre(p, 1)}${ecritureAlgebrique(m)}x$.<br>
         Déterminer $f'(x)$.`

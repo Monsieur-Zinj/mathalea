@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, ecritureAlgebriqueSauf1, randint, rienSi1, sp, abs, choice, ecritureAlgebrique } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Résoudre une équation du second degré sans $\\Delta$'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -203,7 +203,7 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           a = randint(-5, 3, 0)
           b = randint(-3, 5, 0)
 
-          k = new FractionX(-b, a)
+          k = new FractionEtendue(-b, a)
           if (this.interactif) {
             if (choice([true, false])) {
               texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$ est :
@@ -269,14 +269,14 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           }
 
           if (k > 0) {
-            texteCorr = `En factorisant le premier membre de l'équation on obtient : 
+            texteCorr = `En factorisant le premier membre de l'équation on obtient :
             $x(${rienSi1(a)}x${ecritureAlgebrique(b)})$.<br>
             L'équation s'écrit alors : $x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$.<br>
             On reconnaît une équation produit nul. Un poduit de deux facteurs est nul si et seulement si l'un au moins des deux facteurs est nul.<br>
             $x=0$ ou $ ${rienSi1(a)}x${ecritureAlgebrique(b)}=0$ soit $x=${k.texFraction}${k.texSimplificationAvecEtapes()}$.<br>
             Ainsi, $S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$.`
           } else {
-            texteCorr = `En factorisant le premier membre de l'équation on obtient : 
+            texteCorr = `En factorisant le premier membre de l'équation on obtient :
             $x(${rienSi1(a)}x${ecritureAlgebrique(b)})$.<br>
             L'équation s'écrit alors : $x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$.<br>
             On reconnaît une équation produit nul. Un poduit de deux facteurs est nul si et seulement si l'un au moins des deux facteurs est nul.<br>
@@ -291,7 +291,7 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           a = choice([1, 2])
           b = randint(-3, 5, 0)
           c = b ** 2
-          k = new FractionX(-b, a)
+          k = new FractionEtendue(-b, a)
           if (this.interactif) {
             if (choice([true, false])) {
               texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}=0$ est :

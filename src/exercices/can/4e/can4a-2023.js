@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { scratchblock } from '../../../modules/scratchblock.js'
 import {
@@ -334,7 +334,7 @@ export default function SujetCAN2023Quatrieme () {
             scale: 0.4,
             style: 'margin: auto'
           }
-          f = new FractionX(num, den)
+          f = new FractionEtendue(num, den)
           reponse = f
           texte = `Quelle fraction du disque représente ${context.isHtml ? '' : '<br>'}l'aire grisée ?<br>`
           texte += context.isHtml ? '' : '\\begin{center}'
@@ -409,9 +409,9 @@ export default function SujetCAN2023Quatrieme () {
           a = randint(1, 4)
           b = maFraction[0]
           c = maFraction[1]
-          f = new FractionX(b, c)
-          d = new FractionX(a * c + b, c).simplifie()
-          e = new FractionX(a * c - b, c).simplifie()
+          f = new FractionEtendue(b, c)
+          d = new FractionEtendue(a * c + b, c).simplifie()
+          e = new FractionEtendue(a * c - b, c).simplifie()
 
           if (choice([true, false])) {
             texte = `$${a}+${f.texFraction}$`
@@ -561,7 +561,7 @@ export default function SujetCAN2023Quatrieme () {
         case 16:
           a = choice(obtenirListeFractionsIrreductibles())
           c = choice([2, 3])
-          b = new FractionX(1, a.d * c)
+          b = new FractionEtendue(1, a.d * c)
           if (choice([true, false])) {
             texte = `Calculer $${a.texFraction} - ${b.texFraction}$.`
             texteCorr = `$${a.texFraction} - ${b.texFraction}=
@@ -721,15 +721,15 @@ export default function SujetCAN2023Quatrieme () {
 
           if (choice([true, false])) {
             b = a.n
-            d = new FractionX(b, c)
+            d = new FractionEtendue(b, c)
             texte = `L'opposé de $\\dfrac{${b}}{${c}}$ `
             texteCorr = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
               Ainsi, l'opposé de $\\dfrac{${b}}{${c}}$ est $${miseEnEvidence('-')}${miseEnEvidence(d.texFraction)}$ car $\\dfrac{${b}}{${c}}+\\left(-${d.texFraction}\\right)=0$.`
             reponse = d.oppose()
           } else {
             b = a.n
-            d = new FractionX(b, c)
-            e = new FractionX(c, b)
+            d = new FractionEtendue(b, c)
+            e = new FractionEtendue(c, b)
             texte = `L'inverse de $\\dfrac{${b}}{${c}}$`
             texteCorr = `Deux nombres sont inverses l'un de l'autre lorsque leur produit vaut $1$.<br>
                 Ainsi, l'inverse de $\\dfrac{${b}}{${c}}$ est $${miseEnEvidence(texFractionReduite(c, b))}$ car $\\dfrac{${b}}{${c}}\\times ${texFractionReduite(c, b)}=1$.`
@@ -817,14 +817,14 @@ export default function SujetCAN2023Quatrieme () {
             reponse = arrondi(2 * a / 3, 0)
             texte = `Je bois le tiers d'une bouteille d'eau ${context.isHtml ? '' : '<br>'} de $${a}$ cL.<br>
               Quelle quantité d'eau reste-t-il ?`
-            texteCorr = `J'ai bu $\\dfrac{${a}}{3}=${texNombre(a / 3, 0)}$ cL. Il reste donc 
+            texteCorr = `J'ai bu $\\dfrac{${a}}{3}=${texNombre(a / 3, 0)}$ cL. Il reste donc
               $${a}$ cL $-${texNombre(a / 3, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
           } else {
             a = choice([75, 90, 100, 60, 50])
             reponse = arrondi(4 * a / 5, 0)
             texte = `Je bois le cinquième  d'une bouteille d'eau ${context.isHtml ? '' : '<br>'} de $${a}$ cL.<br>
               Quelle quantité d'eau reste-t-il ?`
-            texteCorr = `J'ai bu $\\dfrac{${a}}{5}=${texNombre(a / 5, 0)}$ cL. Il reste donc 
+            texteCorr = `J'ai bu $\\dfrac{${a}}{5}=${texNombre(a / 5, 0)}$ cL. Il reste donc
               $${a}$ cL $-${texNombre(a / 5, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
           }
 
@@ -839,12 +839,12 @@ export default function SujetCAN2023Quatrieme () {
           a = randint(1, 9, 5)
           b = choice([1, 3, 5, 9, 11])
           if (choice([true, false])) {
-            maFraction = new FractionX(a, 5)
+            maFraction = new FractionEtendue(a, 5)
             reponse = arrondi(a / 5, 2)
             texte = `L'écriture décimale de  $${maFraction.texFraction}$ est : `
             texteCorr = `$${maFraction.texFraction}=${miseEnEvidence(texNombre(reponse))}$`
           } else {
-            maFraction = new FractionX(b, 4)
+            maFraction = new FractionEtendue(b, 4)
             reponse = arrondi(b / 4, 2)
             texte = `L'écriture décimale de   $${maFraction.texFraction}$  est : `
             texteCorr = `$${maFraction.texFraction}=${miseEnEvidence(texNombre(reponse))}$`
@@ -910,7 +910,7 @@ export default function SujetCAN2023Quatrieme () {
           } else {
             texteCorr += texteEnCouleur(`<br> Mentalement : <br>
              Prendre $${p}${sp(1)}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10${sp(1)}\\%$  de $${a}$.<br>
-             Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$  d'une quantité, on la divise par $10$), alors 
+             Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$  d'une quantité, on la divise par $10$), alors
              $${p}${sp(1)}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
             `)
           }

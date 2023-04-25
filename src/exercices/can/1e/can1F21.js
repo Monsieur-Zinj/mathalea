@@ -1,6 +1,6 @@
 
 import Exercice from '../../Exercice.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { choice, randint, reduirePolynomeDegre3, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../../modules/outils.js'
 export const titre = 'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
 export const interactifReady = true
@@ -33,7 +33,7 @@ export default function EcondDegreAbscisseOrdonneeSommet () {
       b = randint(-9, 9)
       c = randint(-9, 9)
       nom = choice(nomF)
-      r = new FractionX(-b, 2 * a)
+      r = new FractionEtendue(-b, 2 * a)
       this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :<br>
 
       $${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>

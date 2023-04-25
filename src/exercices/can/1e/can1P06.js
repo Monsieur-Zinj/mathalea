@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, tableauColonneLigne, sp } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer une probabilté dans un tableau de probabilités'
@@ -51,9 +51,9 @@ export default function CalculProbaTableau () {
           } else {
             texte += 'Déterminer $P_A(B)$. '
           }
-          texteCorr = ` $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pA, 2)}}=\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pA * 100, 0)}}$ 
+          texteCorr = ` $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pA, 2)}}=\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pA * 100, 0)}}$
       `
-          reponse = new FractionX(pAinterB, pA)
+          reponse = new FractionEtendue(pAinterB, pA)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P_A(B)=\\ldots$'
@@ -81,7 +81,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += 'Déterminer $P(\\overline{B})$. '
           }
-          texteCorr = ` $P(\\overline{B})=${texNombre(1 - pB, 2)}$ 
+          texteCorr = ` $P(\\overline{B})=${texNombre(1 - pB, 2)}$
       `
           reponse = (new Decimal(pB)).mul(-1).add(1)
           setReponse(this, i, reponse)
@@ -139,9 +139,9 @@ export default function CalculProbaTableau () {
           } else {
             texte += ' Déterminer $P_B(A)$. '
           }
-          texteCorr = ` $P_B(A)=\\dfrac{P(A\\cap B)}{P(B)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pB, 2)}}=\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pB * 100, 0)}}$ 
+          texteCorr = ` $P_B(A)=\\dfrac{P(A\\cap B)}{P(B)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pB, 2)}}=\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pB * 100, 0)}}$
         `
-          reponse = new FractionX(pAinterB, pB)
+          reponse = new FractionEtendue(pAinterB, pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P_B(A)=\\ldots$'
@@ -154,9 +154,9 @@ export default function CalculProbaTableau () {
           } else {
             texte += 'Déterminer $P_B(\\overline{A})$. '
           }
-          texteCorr = ` $P_B(\\overline{A})=\\dfrac{P(\\overline{A}\\cap B)}{P(B)}=\\dfrac{${texNombre(pB - pAinterB, 2)}}{${texNombre(pB, 2)}}=\\dfrac{${texNombre((pB - pAinterB) * 100, 0)}}{${texNombre(pB * 100, 0)}}$ 
+          texteCorr = ` $P_B(\\overline{A})=\\dfrac{P(\\overline{A}\\cap B)}{P(B)}=\\dfrac{${texNombre(pB - pAinterB, 2)}}{${texNombre(pB, 2)}}=\\dfrac{${texNombre((pB - pAinterB) * 100, 0)}}{${texNombre(pB * 100, 0)}}$
           `
-          reponse = new FractionX(pB - pAinterB, pB)
+          reponse = new FractionEtendue(pB - pAinterB, pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P_B(\\overline{A})=\\ldots$'
@@ -171,7 +171,7 @@ export default function CalculProbaTableau () {
             texte += '       Déterminer $P_{\\overline{B}}(\\overline{A})$. '
           }
           texteCorr = ` $P_{\\overline{B}}(\\overline{A})=\\dfrac{P(\\overline{A}\\cap \\overline{B})}{P(\\overline{B})}=\\dfrac{${texNombre(pAbarreinterBbarre, 2)}}{${texNombre(1 - pB, 2)}}=\\dfrac{${texNombre(pAbarreinterBbarre * 100, 0)}}{${texNombre((1 - pB) * 100, 0)}}$ `
-          reponse = new FractionX(pAbarreinterBbarre, 1 - pB)
+          reponse = new FractionEtendue(pAbarreinterBbarre, 1 - pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           this.canEnonce += `${tableau}<br>`
           this.canReponseACompleter = '$P_{\\overline{B}}(\\overline{A})=\\ldots$'

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, pgcd, texteGras, prenomF, itemize, sp, reduireAxPlusB, texPrix, ecritureParentheseSiNegatif, miseEnEvidence, rienSi1, abs, choice, texNombre, randint, ecritureAlgebrique } from '../../modules/outils.js'
 import { polygone, codageAngleDroit, milieu, labelPoint, point, segment, texteParPosition } from '../../modules/2d.js'
@@ -63,10 +63,10 @@ export default function ModeliseInequations () {
               ${texNombre(d - c, 2)}x+${b}-${miseEnEvidence(texNombre(b))}&<${a}-${b}\\\\
               ${texNombre(d - c, 2)}x&<${a - b}\\\\
       \\dfrac{${texNombre(d - c, 2)}x}{${miseEnEvidence(texNombre(d - c, 2))}}&>\\dfrac{${a - b}}{${miseEnEvidence(texNombre(d - c, 2))}}${sp(7)} \\text{On divise par } ${texNombre(d - c, 2)} <0\\\\
-      x&>\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}  
+      x&>\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}
       \\end{aligned}$<br>`
             if (Math.round((a - b) / (d - c)) === (a - b) / (d - c)) {
-              texteCorr += `Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}= ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${texNombre(Math.ceil((a - b) / (d - c)) + 1, 0)}$ km que le tarif B est plus intéressant que le tarif A.      
+              texteCorr += `Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}= ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${texNombre(Math.ceil((a - b) / (d - c)) + 1, 0)}$ km que le tarif B est plus intéressant que le tarif A.
              `
             } else {
               texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\simeq ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${Math.ceil((a - b) / (d - c))}$ km que le tarif B est plus intéressant que le tarif A.
@@ -94,10 +94,10 @@ export default function ModeliseInequations () {
             ${reduireAxPlusB(a, b)}&<${budget}\\\\
             ${texNombre(a, 2)}x+${b}-${miseEnEvidence(b)}&< ${budget}x-${miseEnEvidence(b)}\\\\
             ${texNombre(a, 2)}x&<${budget - b}\\\\
-            x&<\\dfrac{${budget - b}}{${texNombre(a, 2)}}             
+            x&<\\dfrac{${budget - b}}{${texNombre(a, 2)}}
     \\end{aligned}$<br>`
 
-            texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\simeq'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}$ km pendant le mois avec son budget de $${budget}$ €.      
+            texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\simeq'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}$ km pendant le mois avec son budget de $${budget}$ €.
        `
           }
           break
@@ -115,13 +115,13 @@ export default function ModeliseInequations () {
 
                 $\\begin{aligned}
                 ${texNombre(PB * EM, 2)} +${texNombre(PB, 2)} x&\\geqslant ${texNombre(RT)}\\\\
-                ${texNombre(PB * EM, 2)} +${texNombre(PB, 2)}x-${miseEnEvidence(texNombre(PB * EM, 2))}&\\geqslant ${texNombre(RT)}-${miseEnEvidence(texNombre(PB * EM, 2))}\\\\ 
-                ${texNombre(PB, 2)}x&\\geqslant ${texNombre(RT - PB * EM, 2)}\\\\  
-                x&\\geqslant \\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}\\\\        
+                ${texNombre(PB * EM, 2)} +${texNombre(PB, 2)}x-${miseEnEvidence(texNombre(PB * EM, 2))}&\\geqslant ${texNombre(RT)}-${miseEnEvidence(texNombre(PB * EM, 2))}\\\\
+                ${texNombre(PB, 2)}x&\\geqslant ${texNombre(RT - PB * EM, 2)}\\\\
+                x&\\geqslant \\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}\\\\
     \\end{aligned}$<br>
-  Comme  $\\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? '=' : '\\simeq'} ${texNombre((RT - PB * EM) / PB, 1)}$, 
+  Comme  $\\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? '=' : '\\simeq'} ${texNombre((RT - PB * EM) / PB, 1)}$,
   il faudra au minimum ${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? `$${texNombre((RT - PB * EM) / PB, 0)}$` : `$${texNombre((RT - PB * EM) / PB + 1, 0)}$`} entrées pour que la recette de la journée soit au moins égale à  $${texNombre(RT)}$ €.
-               
+              
               `
           }
           break
@@ -134,8 +134,8 @@ export default function ModeliseInequations () {
             const L = l + randint(3, 10)// longueur
 
             const P = choice([['au tiers', 3], ['au quart', 4], ['à la moitié', 2], ['au dixième', 10], ['au cinquième', 5]])
-            const f = new FractionX(L * l / 2, P[1] * l / 2 + l / 2).simplifie()
-            const f2 = new FractionX(l * L, l * P[1] + l).simplifie()
+            const f = new FractionEtendue(L * l / 2, P[1] * l / 2 + l / 2).simplifie()
+            const f2 = new FractionEtendue(l * L, l * P[1] + l).simplifie()
             const A = point(0, 0, 'A', 'below')
             const B = point(10, 0, 'B', 'below')
             const C = point(10, 6, 'C')
@@ -241,7 +241,7 @@ export default function ModeliseInequations () {
             const a = randint(1, 3)// côté carré
             const b = choice([6, 8, 10, 12])// hauteur triangle
             const Aire = randint(50, 70)
-            const f = new FractionX(Aire - a ** 2, a + b / 2).simplifie()
+            const f = new FractionEtendue(Aire - a ** 2, a + b / 2).simplifie()
             const A = point(0, 0, 'A')
             const B = point(8, 0, 'B')
             const C = point(10, 0, 'C')
@@ -300,7 +300,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             const b = randint(-10, 10, [-1, 0, 1])
             const c = randint(2, 10)
             const res = randint(-20, 20, 0)
-            const f = new FractionX(res - b * c, c * a).simplifie()
+            const f = new FractionEtendue(res - b * c, c * a).simplifie()
             const choix = choice([['strictement supérieur', '>', '<'], ['strictement inférieur', '<', '>'], ['inférieur ou égal ', '\\leqslant', '\\geqslant'], ['supérieur ou égal ', '\\geqslant', '\\leqslant']])
             texte = ` ${texteGras('Voici un programme de calcul :')} `
             texte += itemize(['Choisir un nombre', `Multiplier ce nombre par $${a}$`, `Ajouter $${b}$`, `Multiplier le résultat par $${c}$`])
@@ -332,7 +332,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             const a = randint(-10, 10, 0)
 
             const b = randint(-10, 10, 0)
-            const f = new FractionX(b * b, a - 2 * b).simplifie()
+            const f = new FractionEtendue(b * b, a - 2 * b).simplifie()
             const choix = choice([['strictement supérieur', '>', '<'], ['strictement inférieur', '<', '>'], ['inférieur ou égal ', '\\leqslant', '\\geqslant'], ['supérieur ou égal ', '\\geqslant', '\\leqslant']])
             texte = `On donne les deux programmes de calcul suivants :<br>
             ${texteGras('Programme 1 :')}<br>
@@ -342,7 +342,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             ${texteGras('Programme 2 :')}<br>
                         `
             texte += itemize(['Choisir un nombre', `Ajouter $${b}$`, 'Prendre le carré du résultat'])
-            texte += `<br>Déterminer les nombres que l'on  doit entrer dans ces deux programmes pour qu'au final le résultat obtenu 
+            texte += `<br>Déterminer les nombres que l'on  doit entrer dans ces deux programmes pour qu'au final le résultat obtenu
             avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2.<br><br>`
             texteCorr = `En notant $x$ le nombre choisi au départ : <br>
             On obtient avec le ${texteGras('programme 1 :')} <br>
@@ -351,7 +351,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
                    On obtient avec le ${texteGras('programme 2 :')} <br>
         $\\bullet$ Ajouter $${b}$ :${sp(5)} $x+${ecritureParentheseSiNegatif(b)}$ ;<br>
         $\\bullet$ Prendre le carré du résultat :${sp(5)} $(x${ecritureAlgebrique(b)})^2=x^2${ecritureAlgebrique(2 * b)}x+${(b * b)}$.<br>
-                    
+        
         Les nombres $x$ que l'on  doit entrer dans les deux programmes pour qu'au final le résultat obtenu avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2 vérifient : <br>
         $\\begin{aligned}
         x^2${a > 0 ? '+' : '-'}${rienSi1(abs(a))}x & ${choix[1]} x^2${ecritureAlgebrique(2 * b)}x+${b * b}\\\\
@@ -361,11 +361,11 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             if (a - 2 * b === 1) { texteCorr += '' } else { texteCorr += ` x &${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}\\dfrac{${b * b}}{${a - 2 * b}}\\\\` }
             texteCorr += '\\end{aligned}$<br>'
             if (pgcd(b * b, a - 2 * b) === 1) {
-              texteCorr += `On doit choisir $x${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour que le résultat obtenu 
+              texteCorr += `On doit choisir $x${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour que le résultat obtenu
   avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2.
 `
             } else {
-              texteCorr += `Comme $\\dfrac{${b * b}}{${a - 2 * b}}=${f.texFraction}$, on doit choisir $x${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour que le résultat obtenu 
+              texteCorr += `Comme $\\dfrac{${b * b}}{${a - 2 * b}}=${f.texFraction}$, on doit choisir $x${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour que le résultat obtenu
   avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2.`
             }
           }

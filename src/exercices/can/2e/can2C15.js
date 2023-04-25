@@ -1,4 +1,4 @@
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { obtenirListeFractionsIrreductibles, choice, texFraction, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un nombre connaissant son inverse'
@@ -26,12 +26,12 @@ export default function NombreInverse () {
     const a = randint(1, 4)
     const b = maFraction[0]
     const c = maFraction[1]
-    const d = new FractionX(a * c + b, c)
-    const e = new FractionX(a * c - b, c)
+    const d = new FractionEtendue(a * c + b, c)
+    const e = new FractionEtendue(a * c - b, c)
     const listeNom = ['R', 'x', 'y', 'T', 'z', 'U', 'A', 'B', 'C']
     const Nom = choice(listeNom)
     if (choice([true, false])) {
-      this.reponse = new FractionX(a * c + b, c).inverse()
+      this.reponse = new FractionEtendue(a * c + b, c).inverse()
       this.question = `Calculer $${Nom}$  sachant que : <br>
      $\\dfrac{1}{${Nom}}=${a}+${texFraction(b, c)}$`
       this.correction = `$\\dfrac{1}{${Nom}}=${a}+${texFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${d.texFraction}$<br>
@@ -39,7 +39,7 @@ export default function NombreInverse () {
       this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}+${texFraction(b, c)}$`// 'Compléter'
       this.canReponseACompleter = `$${Nom}=\\ldots$`
     } else {
-      this.reponse = new FractionX(a * c - b, c).inverse()
+      this.reponse = new FractionEtendue(a * c - b, c).inverse()
       this.question = `Calculer $${Nom}$  sachant que : <br>
          $\\dfrac{1}{${Nom}}=${a}-${texFraction(b, c)}$`
       this.correction = `$\\dfrac{1}{${Nom}}=${a}-${texFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} - \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} - \\dfrac{${b}}{${c}}  =${e.texFraction}$<br>

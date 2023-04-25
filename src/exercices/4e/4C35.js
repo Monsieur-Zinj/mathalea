@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, puissanceEnProduit } from '../../modules/outils.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Puissances : écriture décimale ou fractionnaire'
@@ -43,42 +43,42 @@ export default function PuissanceDecimaleOuFractionnaire () {
           n = (a === 2) ? randint(2, 8) : (a < 4) ? randint(2, 3) : 2
           texte = `$${a}^{${n}} = $`
           texteCorr = `$${a}^{${n}} = ${puissanceEnProduit(a, n)} = ${a ** n}$`
-          reponse = new FractionX(a ** n)
+          reponse = new FractionEtendue(a ** n)
           break
         case 'puissanceNeg':
           a = choice([2, 3, randint(4, 9)])
           n = (a === 2) ? randint(2, 8) : (a < 4) ? randint(2, 3) : 2
           texte = `$${a}^{${-n}} = $`
           texteCorr = `$${a}^{${-n}} =  \\dfrac{1}{${a}^{${n}}} = ${puissanceEnProduit(a, -n)} = \\dfrac{1}{${a ** n}}$`
-          reponse = new FractionX(1, a ** n)
+          reponse = new FractionEtendue(1, a ** n)
           break
         case 'negPuissancePaire':
           a = choice([2, 3, randint(4, 9)])
           n = (a === 2) ? choice([2, 4, 6, 8]) : 2
           texte = `$${-a}^{${n}} = $`
           texteCorr = `$${-a}^{${n}} = - (${puissanceEnProduit(a, n)}) = - ${a ** n}$`
-          reponse = new FractionX(-(a ** n))
+          reponse = new FractionEtendue(-(a ** n))
           break
         case 'negPuissanceImpaire':
           a = 2
           n = choice([3, 5, 7])
           texte = `$${-a}^{${n}} = $`
           texteCorr = `$${-a}^{${n}} = -(${puissanceEnProduit(a, n)}) = - ${a ** n}$`
-          reponse = new FractionX(-(a ** n))
+          reponse = new FractionEtendue(-(a ** n))
           break
         case 'negParenthesePuissancePaire':
           a = choice([2, 3, randint(4, 9)])
           n = (a === 2) ? choice([2, 4, 6, 8]) : 2
           texte = `$(${-a})^{${n}} = $`
           texteCorr = `$(${-a})^{${n}} = ${puissanceEnProduit(-a, n)} = ${a ** n}$`
-          reponse = new FractionX(a ** n)
+          reponse = new FractionEtendue(a ** n)
           break
         case 'negParenthesePuissanceImpaire':
           a = choice([2, 3, randint(4, 5)])
           n = (a === 2) ? choice([3, 5, 7, 9]) : 3
           texte = `$(${-a})^{${n}} = $`
           texteCorr = `$(${-a})^{${n}} = ${puissanceEnProduit(-a, n)} = -${a ** n}$`
-          reponse = new FractionX(-(a ** n))
+          reponse = new FractionEtendue(-(a ** n))
           break
         case 'puissance0':
           a = randint(11, 40)
@@ -86,7 +86,7 @@ export default function PuissanceDecimaleOuFractionnaire () {
           n = 0
           texte = `$${a}^{${n}} = $`
           texteCorr = `$${a}^{${n}} = 1$`
-          reponse = new FractionX(1)
+          reponse = new FractionEtendue(1)
           break
         case 'puissance1':
           a = randint(11, 40)
@@ -94,21 +94,21 @@ export default function PuissanceDecimaleOuFractionnaire () {
           n = 1
           texte = `$${a}^{${n}} = $`
           texteCorr = `$${a}^{${n}} = ${a}$`
-          reponse = new FractionX(a)
+          reponse = new FractionEtendue(a)
           break
         case 'negParenthesePuissancePaireNeg':
           a = choice([2, 3, randint(4, 9)])
           n = (a === 2) ? choice([2, 4, 6, 8]) : 2
           texte = `$(${-a})^{${-n}} = $`
           texteCorr = `$(${-a})^{${-n}} = ${puissanceEnProduit(-a, -n)} = \\dfrac{1}{${a ** n}}$`
-          reponse = new FractionX(1, a ** n)
+          reponse = new FractionEtendue(1, a ** n)
           break
         case 'negParenthesePuissanceImpaireNeg':
           a = choice([2, 3, randint(4, 5)])
           n = (a === 2) ? choice([3, 5, 7, 9]) : 3
           texte = `$(${-a})^{${-n}} = $`
           texteCorr = `$(${-a})^{${-n}} = ${puissanceEnProduit(-a, -n)} = \\dfrac{-1}{${a ** n}}$`
-          reponse = new FractionX(-1, a ** n)
+          reponse = new FractionEtendue(-1, a ** n)
           break
         default :
           texte = 'Cas non traité'

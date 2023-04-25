@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { point, polygoneAvecNom, codageAngleDroit, droite, labelPoint, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, ecritureAlgebrique, stringNombre, texPrix, rienSi1, texNombre, shuffle, reduirePolynomeDegre3, choice, reduireAxPlusB, sp, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
@@ -73,14 +73,14 @@ export default function SujetCAN2022Seconde () {
         case 2:
           a = randint(1, 9)
           b = choice(listeFractions2)
-          f = new FractionX(b[0], b[1])
+          f = new FractionEtendue(b[0], b[1])
           if (choice([true, false])) {
-            reponse = new FractionX(a * b[1] + b[0], b[1])
+            reponse = new FractionEtendue(a * b[1] + b[0], b[1])
             texte = `$${a}+${f.texFraction}= $`
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
             texteCorr = `$${a}+${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}+${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
           } else {
-            reponse = new FractionX(a * b[1] - b[0], b[1])
+            reponse = new FractionEtendue(a * b[1] - b[0], b[1])
             texte = `$${a}-${f.texFraction}= $`
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
             texteCorr = `$${a}-${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}-${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
@@ -130,7 +130,7 @@ export default function SujetCAN2022Seconde () {
         case 5:
           a = randint(2, 10)
           b = randint(-10, 10, 0)
-          f = new FractionX(-b, a)
+          f = new FractionEtendue(-b, a)
 
           texte = `Résoudre l'équation $${reduireAxPlusB(a, b)}=0$.`
           texteCorr = `On se ramène à une équation du type $a\\times x=b$ :<br>
@@ -216,7 +216,7 @@ export default function SujetCAN2022Seconde () {
           a = randint(2, 10)
           b = randint(2, 10, a)
 
-          f = new FractionX(a, a + b)
+          f = new FractionEtendue(a, a + b)
           texte = `Une urne contient $${a}$ boules noires et $${b}$ boules blanches.<br>
           On tire une boule au hasard.<br>
           Quelle est la probabilité de tirer une boule noire ?`
@@ -293,7 +293,7 @@ export default function SujetCAN2022Seconde () {
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${a}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^2\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp + 2}}$.
-                        
+              
  `
           }
           if (choix === 'b') {
@@ -306,7 +306,7 @@ export default function SujetCAN2022Seconde () {
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${a}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^1\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp + 2}}$.
-                        
+              
  `
           }
           if (choix === 'c') {
@@ -318,7 +318,7 @@ export default function SujetCAN2022Seconde () {
             texte = `Donner l'écriture  scientifique de $${texNombre(a, 2)}\\times 10^{${exp}}$.`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-              Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-1}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 1}}$.                  
+              Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-1}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 1}}$.
  `
           }
 
@@ -331,7 +331,7 @@ export default function SujetCAN2022Seconde () {
             texte = `Donner l'écriture  scientifique de $${texNombre(a, 2)}\\times 10^{${exp}}$.`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-  Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-2}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 2}}$.                  
+  Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-2}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 2}}$.
 `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -516,7 +516,7 @@ export default function SujetCAN2022Seconde () {
 
         case 15:
           a = new Decimal(randint(11, 49, [20, 30, 40])).div(100)
-          f = new FractionX(a * 100, 100)
+          f = new FractionEtendue(a * 100, 100)
           reponse = new Decimal(a).mul(-1).add(1)
 
           texte = `Donner l'écriture décimale de $1-${f.texFraction}$.
@@ -632,12 +632,12 @@ export default function SujetCAN2022Seconde () {
           c = a + k
           d = b + randint(2, 4) * k
           texte = `Dans un repère du plan, on considère les points $C(${a};${b})$ et $D(${c};${d})$.<br>
-          Calculer le coefficient directeur de la droite $(CD)$. 
+          Calculer le coefficient directeur de la droite $(CD)$.
       `
           texteCorr = ` Le coefficient directeur de la droite $(CD)$ est donné par :<br>
            $\\dfrac{y_D-y_C}{x_D-x_C}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
           `
-          reponse = new FractionX(d - b, c - a)
+          reponse = new FractionEtendue(d - b, c - a)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
@@ -721,26 +721,26 @@ export default function SujetCAN2022Seconde () {
             texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $3$ issues qui comportent au moins une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
-            reponse = new FractionX(3, 4)
+            reponse = new FractionEtendue(3, 4)
           }
           if (choix === 'b') {
             texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $3$ issues qui comportent au plus une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
-            reponse = new FractionX(3, 4)
+            reponse = new FractionEtendue(3, 4)
           }
 
           if (choix === 'c') {
             texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $2$ issues qui comportent une seule fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{2}$.`
-            reponse = new FractionX(1, 2)
+            reponse = new FractionEtendue(1, 2)
           }
           if (choix === 'd') {
             texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $1$ issue qui comporte deux fois ${c ? 'piles' : 'faces'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{4}$.`
-            reponse = new FractionX(1, 4)
+            reponse = new FractionEtendue(1, 4)
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -921,7 +921,7 @@ export default function SujetCAN2022Seconde () {
           texte = `$(AB)//(CD)$<br><br>
           `
           texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
-          texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $EC$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $EB$. 
+          texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $EC$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $EB$.
           On en déduit que la longueur $DE$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $AE$.<br>
           Ainsi, $DE=${texNombre(k, 1)}\\times ${a}=${texNombre(reponse, 1)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -938,7 +938,7 @@ export default function SujetCAN2022Seconde () {
           if (choix === 'a') {
             a = randint(2, 10)
             b = a * 4
-            reponse = new FractionX(1, 2)
+            reponse = new FractionEtendue(1, 2)
             texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
             Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
             Quel est le rapport de réduction ?`
@@ -949,7 +949,7 @@ export default function SujetCAN2022Seconde () {
           } if (choix === 'b') {
             a = randint(2, 10)
             b = a * 9
-            reponse = new FractionX(1, 3)
+            reponse = new FractionEtendue(1, 3)
             texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
             Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
             Quel est le rapport de réduction ?`
@@ -961,7 +961,7 @@ export default function SujetCAN2022Seconde () {
           if (choix === 'c') {
             a = randint(1, 5)
             b = a * 16
-            reponse = new FractionX(1, 4)
+            reponse = new FractionEtendue(1, 4)
             texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
             Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
             Quel est le rapport de réduction ?`

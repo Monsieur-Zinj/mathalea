@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
   point, segment, milieu, repere, codageAngle, rotation, polygoneAvecNom, labelPoint, demiDroite, codageSegments, droite, segmentAvecExtremites, tracePoint, codageAngleDroit, texteParPosition, polygone, droiteGraduee
 } from '../../../modules/2d.js'
@@ -337,7 +337,7 @@ export default function SujetCAN2023troisieme () {
             scale: 1,
             style: 'margin: auto'
           }
-          f = new FractionX(num, den)
+          f = new FractionEtendue(num, den)
           reponse = f
           texte = `Quelle fraction du disque représente ${context.isHtml ? '' : '<br>'}l'aire grisée ?<br>`
           texte += context.isHtml ? '' : '\\begin{center}'
@@ -803,9 +803,9 @@ export default function SujetCAN2023troisieme () {
           a = randint(1, 4)
           b = maFraction[0]
           c = maFraction[1]
-          f = new FractionX(b, c)
-          d = new FractionX(a * c + b, c).simplifie()
-          e = new FractionX(a * c - b, c).simplifie()
+          f = new FractionEtendue(b, c)
+          d = new FractionEtendue(a * c + b, c).simplifie()
+          e = new FractionEtendue(a * c - b, c).simplifie()
 
           if (choice([true, false])) {
             texte = `$${a}+${f.texFraction}$`
@@ -906,7 +906,7 @@ export default function SujetCAN2023troisieme () {
             texte = `$(AB)//(CD)$<br><br>
           `
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
-            texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$. 
+            texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$.
           On en déduit que la longueur $EC$ est $${k}$ fois plus grande que la longueur $CD$.<br>
           Ainsi, $CE=${k}\\times ${c}=${miseEnEvidence(reponse)}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -1001,8 +1001,8 @@ export default function SujetCAN2023troisieme () {
           a = randint(3, 10)
           b = a - randint(-1, 1, 0)
           choix1 = choice([true, false])
-          reponse1 = new FractionX(a, a + b)
-          reponse2 = new FractionX(b, a + b)
+          reponse1 = new FractionEtendue(a, a + b)
+          reponse2 = new FractionEtendue(b, a + b)
           if (choix1 === true) { reponse = reponse1 } else { reponse = reponse2 }
           texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules bleues. <br>
                 On tire une boule au hasard. <br>
@@ -1024,7 +1024,7 @@ export default function SujetCAN2023troisieme () {
         case 27:
           a = randint(3, 6)
           b = choice([a ** 2 + 1, a ** 2 - 1])
-          reponse = new FractionX(b, a)// .simplifie()
+          reponse = new FractionEtendue(b, a)// .simplifie()
           texte = 'Quelle  fraction repère le point d’interrogation ?<br>' + mathalea2d({ xmin: -0.2, ymin: -1.3, xmax: 21, ymax: 1.5, scale: 0.5, style: 'margin: auto' },
             droiteGraduee({
               Unite: 3,
@@ -1059,8 +1059,8 @@ export default function SujetCAN2023troisieme () {
           b = c - a * reponse
           texte = `Solution de l'équation : <br>$${a}x${ecritureAlgebrique(b)}=${c}$`
           texteCorr = `On procède par étapes successives :<br>
-          On commence par isoler $${a}x$ dans le membre de gauche en ajoutant 
-          $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise 
+          On commence par isoler $${a}x$ dans le membre de gauche en ajoutant
+          $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise
           par $${a}$ pour obtenir la solution : <br>
            $\\begin{aligned}
            ${a}x${ecritureAlgebrique(b)}&=${c}\\\\

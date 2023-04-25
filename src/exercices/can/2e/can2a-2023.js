@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
   point, segment, milieu, repere, courbeInterpolee, grille, labelPoint, demiDroite, codageSegments, droite, segmentAvecExtremites, tracePoint, texteParPosition
 } from '../../../modules/2d.js'
@@ -351,8 +351,8 @@ export default function SujetCAN2023Seconde () {
           b = c - a * reponse
           texte = `Solution de l'équation  <br>$${a}x${ecritureAlgebrique(b)}=${c}$`
           texteCorr = `On procède par étapes successives :<br>
-          On commence par isoler $${a}x$ dans le membre de gauche en ajoutant 
-          $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise 
+          On commence par isoler $${a}x$ dans le membre de gauche en ajoutant
+          $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise
           par $${a}$ pour obtenir la solution : <br>
            $\\begin{aligned}
            ${a}x${ecritureAlgebrique(b)}&=${c}\\\\
@@ -421,7 +421,7 @@ export default function SujetCAN2023Seconde () {
             style: 'margin: auto'
           }, objets)
           texte += '<br>'
-          texteCorr = `On calcule la moyenne de $${texNombre(a)}$ et $${texNombre(b)}$ :<br>  
+          texteCorr = `On calcule la moyenne de $${texNombre(a)}$ et $${texNombre(b)}$ :<br>
           $x_A=\\dfrac{${texNombre(a)}+${texNombre(b)}}{2}=
           \\dfrac{${texNombre(a + b)}}{2}=${miseEnEvidence(texNombre((a + b) / 2, 1))}$`
 
@@ -471,8 +471,8 @@ export default function SujetCAN2023Seconde () {
 
             setReponse(this, index, [`${a}^{${b - 1}}`], { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-            texteCorr = `L${c[d][1]} de $${a}^{${b}}$ se calcule  par 
-       : <br> 
+            texteCorr = `L${c[d][1]} de $${a}^{${b}}$ se calcule  par
+       : <br>
        $ ${a}^{${b}}\\div ${a}=\\dfrac{${a}^{${b}}}{${a}}=${a}^{${b} - 1}=${miseEnEvidence(a)}^{${miseEnEvidence(b - 1)}}$`
           }
 
@@ -686,7 +686,7 @@ export default function SujetCAN2023Seconde () {
             texte = `$(AB)//(CD)$. Détermine la longueur $CE$.<br><br>
           `
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
-            texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$. 
+            texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$.
           On en déduit que la longueur $EC$ est $${k}$ fois plus grande que la longueur $CD$.<br>
           Ainsi, $CE=${k}\\times ${c}=${miseEnEvidence(reponse)}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -799,7 +799,7 @@ export default function SujetCAN2023Seconde () {
             objets.push(
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5, s6)
-            reponse = new FractionX(7, b)
+            reponse = new FractionEtendue(7, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
           }
@@ -832,7 +832,7 @@ export default function SujetCAN2023Seconde () {
             objets.push(
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
-            reponse = new FractionX(7, b)
+            reponse = new FractionEtendue(7, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
           }
@@ -865,7 +865,7 @@ export default function SujetCAN2023Seconde () {
             objets.push(
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
-            reponse = new FractionX(7, b)
+            reponse = new FractionEtendue(7, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
           }
@@ -898,7 +898,7 @@ export default function SujetCAN2023Seconde () {
             objets.push(
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
-            reponse = new FractionX(5, b)
+            reponse = new FractionEtendue(5, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
           }
@@ -931,7 +931,7 @@ export default function SujetCAN2023Seconde () {
             objets.push(
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
-            reponse = new FractionX(5, b)
+            reponse = new FractionEtendue(5, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
           }
@@ -976,7 +976,7 @@ export default function SujetCAN2023Seconde () {
           s26B.pointilles = 5
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
-          m = new FractionX(yB26 - yA26, -xA26)
+          m = new FractionEtendue(yB26 - yA26, -xA26)
 
           lA = texteParPosition('A', xA26, yA26 + 0.5, 'milieu', 'black', 1.5)
           traceA = tracePoint(A26, 'black') // Variable qui trace les points avec une croix
@@ -1034,12 +1034,12 @@ export default function SujetCAN2023Seconde () {
           if (yB26 === 0) {
             if (b === 2 * (yA26 - yB26)) {
               texteCorr = `${texteEnCouleurEtGras('Vrai')}<br>La droite passe par l'origine du repère, elle traduit donc une situation de proportionnalité.<br>
-          L'abscisse du point $M$ est deux fois plus grande que celle du point $A$. Son ordonnée est aussi deux plus grande que celle du point $A$, 
+          L'abscisse du point $M$ est deux fois plus grande que celle du point $A$. Son ordonnée est aussi deux plus grande que celle du point $A$,
           donc le point $M$ est bien sur la droite.`
               reponse = 'V'
             } else {
               texteCorr = `${texteEnCouleurEtGras('Faux')}<br>La droite passe par l'origine du repère, elle traduit donc une situation de proportionnalité.<br>
-        L'abscisse du point $M$ est deux fois plus grande que celle du point $A$. Son ordonnée n'est pas  deux plus grande que celle du point $A$, 
+        L'abscisse du point $M$ est deux fois plus grande que celle du point $A$. Son ordonnée n'est pas  deux plus grande que celle du point $A$,
         donc le point $M$ n'est pas sur la droite.`
               reponse = 'F'
             }

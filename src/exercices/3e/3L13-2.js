@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
 import {context} from '../../modules/context.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 
 import {setReponse} from '../../modules/gestionInteractif.js'
 import {ajouteChampTexteMathLive} from '../../modules/interactif/questionMathLive.js'
@@ -176,7 +176,7 @@ export default function EqResolvantesThales() {
         b: nbAlea[1].mul(coeff[1]),
         c: nbAlea[2].mul(coeff[2]),
         inc,
-        fraction: new FractionX(nbAlea[1].mul(nbAlea[0]), nbAlea[2].div(coeff[0]).div(coeff[1]))
+        fraction: new FractionEtendue(nbAlea[1].mul(nbAlea[0]), nbAlea[2].div(coeff[0]).div(coeff[1]))
       }
       
       // pour les situations, autant de situations que de cas dans le switch !
@@ -308,7 +308,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           break
       }
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', {texte: `<br> ${inc} = `})
-      reponse = new FractionX(correctionInteractif)
+      reponse = new FractionEtendue(correctionInteractif)
       if (context.isAmc) setReponse(this, i, reponse)
       else setReponse(this, i, reponse, {formatInteractif: 'fractionEgale'})
       

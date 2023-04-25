@@ -1,7 +1,7 @@
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import Grandeur from '../../modules/Grandeur'
 import { number } from 'mathjs'
-import FractionEtendue from '../../modules/FractionEtendue'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { texteExposant } from '../../modules/outils'
 import Hms from '../../modules/Hms'
 
