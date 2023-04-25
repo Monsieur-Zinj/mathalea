@@ -52,7 +52,7 @@ export default function FractionsCalculsSimples () {
       typeQuestionsDisponibles = rangeMinMax(1, 4)
     } else {
       if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typeQuestionsDisponibles[0] = contraindreValeur(1, 5, this.sup, 5)
+        typeQuestionsDisponibles[0] = contraindreValeur(1, 5, this.sup2, 5)
       } else {
         typeQuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
