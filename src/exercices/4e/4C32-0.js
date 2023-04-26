@@ -7,10 +7,12 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Écriture décimale d\'un calcul avec des puissances de 10'
 export const dateDePublication = '18/01/2022'
+export const dateDeModifImportante = '26/04/2023'
 
 /**
  * On donne un calcul avec des puissances de 10 et on en attend le résultat en écriture décimale
  * @author Mireille Gain
+ * Ajout du choix du signe de l'exposant par Guillaume Valmont le 26/04/2023
  * 4C32-0
 */
 export const uuid = '5d72b'
@@ -23,13 +25,18 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
   this.video = ''
+
+  this.besoinFormulaireNumerique = ['Exposants', 3, '1 : Positifs\n2 : Négatifs\n3 : Mélange']
+  this.sup = 3
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4']
+    let typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4']
 
+    if (this.sup === 1) typeQuestionsDisponibles = ['type1', 'type3']
+    if (this.sup === 2) typeQuestionsDisponibles = ['type2', 'type4']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, n, nb, d, p, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
