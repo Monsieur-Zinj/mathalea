@@ -12,7 +12,7 @@ const app = new App({
 export default app
 
 async function handleBugsnag () {
-  const fileName = './_private/bugsnagApiKey.js'
+  const fileName = '../_private/bugsnagApiKey.js'
   const getBugsnagApiKey = await import(/* @vite-ignore */fileName)
   const key = getBugsnagApiKey.default() || ''
   Bugsnag.start(key)
