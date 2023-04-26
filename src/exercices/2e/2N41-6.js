@@ -21,7 +21,6 @@ export const interactifType = 'mathLive'
 export const titre = 'Développer avec les identités remarquables'
 export const dateDeModifImportante = '26/04/2023' // Correction par Rémi Angot avec ajout des réponses pour les case 4 à 8
 
-
 /**
  * Développer avec les 3 identités remarquables
  * @author Jean-Claude Lhote
