@@ -20,7 +20,7 @@
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
   let columnsCount = $exercicesParams[indiceExercice].cols || 1
-  let isInteractif = exercice.interactif
+  let isInteractif = exercice.interactif && exercice.interactifReady
   let interactifReady = exercice.interactifReady
 
   const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
