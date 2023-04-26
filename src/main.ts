@@ -12,13 +12,15 @@ const app = new App({
 export default app
 
 async function handleBugsnag () {
-  const fileName = '../_private/keys'
-  const bugsnagApiKey = await import(/* @vite-ignore */fileName)
-  Bugsnag.start(bugsnagApiKey)
+  const fileName = './_private/bugsnagApiKey.js'
+  const getBugsnagApiKey = await import(/* @vite-ignore */fileName)
+  const key = getBugsnagApiKey.default() || ''
+  Bugsnag.start(key)
 }
 if (document.location.href.includes('coopmaths.fr')) {
   handleBugsnag()
 }
+
 // @todo regarder pourquoi window.Bugsnag n'est pas défini et donc les signalements sont balancés dans la console alors qu'on est en ligne !
 // @ts-ignore
 window.notify = function notify (error, metadatas) {
