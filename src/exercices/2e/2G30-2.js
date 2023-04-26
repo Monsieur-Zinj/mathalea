@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Déterminer une équation réduite de droite'
+export const dateDeModifImportante = '26/04/2023' // Ajout de l'interactivité et cas de la droite horizontale par Rémi Angot
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Description didactique de l'exercice
@@ -63,11 +69,9 @@ export default function EquationReduiteDeDroites () {
         if (d * yA - n * xA === 0) { // cas où p=0
           if (n === d) { // cas où m=1 et p=0
             texteCorr += 'x'
-          }
-          if (n === -d) { // cas où m=-1 et p=0
+          } else if (n === -d) { // cas où m=-1 et p=0
             texteCorr += '-x'
-          }
-          if ((pgcd(n, d) !== 1 || d === 1) && n !== 0) { // m entier  non nul ou fraction réductible
+          } else if ((pgcd(n, d) !== 1 || d === 1) && n !== 0) { // m entier  non nul ou fraction réductible
             texteCorr += `${texFractionReduite(n, d)}x$`
           } else { // m fraction irréductible
             if (n !== 0) { texteCorr += `${texFractionReduite(n, d)}x$` }
@@ -101,8 +105,12 @@ export default function EquationReduiteDeDroites () {
             texteCorr += '+'
           }
           // tous les cas précédents :
-          texteCorr += `${texFractionReduite(d * yA - n * xA, d)} .$`
+          texteCorr += `${texFractionReduite(d * yA - n * xA, d)}$.`
+          if (yA === yB) {
+            texteCorr = `On constate que $y_A=y_B=${yA}$, c'est donc une droite horizontale d'équation $y = ${yA}$.`
+          }
         }
+        setReponse(this, i, `y=${texFractionReduite(n, d)}x+(${texFractionReduite(d * yA - n * xA, d)})`)
         // break
       }
       if (this.sup === 2) {
@@ -143,9 +151,11 @@ export default function EquationReduiteDeDroites () {
           if (n !== 0) { texteCorr += `$${texFraction(n, d)}x$` }
         }
         if (d * d * yA - n * xA * d > 0) { texteCorr += '$+$' }
-        texteCorr += `$${texFractionReduite(d * yA - n * xA, d)} .$`
+        texteCorr += `$${texFractionReduite(d * yA - n * xA, d)}$.`
+        setReponse(this, i, `y=${texFractionReduite(n, d)}x+(${texFractionReduite(d * yA - n * xA, d)})`)
       }
       // }
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, xA, yA, xu, yu)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
