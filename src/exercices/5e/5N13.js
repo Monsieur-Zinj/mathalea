@@ -5,10 +5,11 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = ['mathLive', 'qcm']
 
 export const titre = 'Simplification de fractions'
 
@@ -34,6 +35,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
+    this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -72,7 +74,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
       [9, 10]
     ] // Couples de nombres premiers entre eux
     for (
-      let i = 0, fraction, a, k, b, texte, texteCorr;
+      let i = 0, fraction, a, k, b, texte, texteCorr, reponse;
       i < this.nbQuestions;
       i++
     ) {
@@ -89,6 +91,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' = ' +
           texFraction('\\phantom{0000}', '') +
           ' $'
+      if (this.sup3) texte += '<br>'
       texteCorr =
           '$ ' +
           texFraction(k * a, k * b) +
@@ -97,20 +100,59 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' = ' +
           texFraction(a, b) +
           ' $'
-      texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-      if (this.interactif && context.isHtml) texte = texte.replace(' \\dfrac{\\phantom{00000000000000}}{} = \\dfrac{\\phantom{0000}}{}', '')
+      if (this.sup2) {
+        reponse = new FractionEtendue(a, b)
+      } else {
+        reponse = new FractionEtendue(k * a, k * b)
+      }
+      if (this.sup3) {
+        this.autoCorrection[i] = {
+          enonce: 'la question n°i est posée ici',
+          propositions: [
+            {
+              texte: '$' + reponse.toLatex() + '$',
+              statut: true,
+              feedback: ''
+            },
+            {
+              texte: '$' + new FractionEtendue(a * k, b).toLatex() + '$',
+              statut: false,
+              feedback: ''
+            },
+            {
+              texte: '$' + new FractionEtendue(a, b * k).toLatex() + '$',
+              statut: false,
+              feedback: ''
+            },
+            {
+              texte: '$' + new FractionEtendue(randint(2, 9, [a]), randint(2, 9, [b])).toLatex() + '$',
+              statut: false,
+              feedback: ''
+            }
+          ],
+          options: {
+            ordered: false // (true si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
+          }
+        }
+        const monQcm = propositionsQcm(this, i) // Les deux paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice.
+        texte += monQcm.texte
+      } else {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        // Pour AMC question AmcOpen
+        this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
+      }
+      if ((this.interactif && context.isHtml) || this.sup3) texte = texte.replace(' \\dfrac{\\phantom{00000000000000}}{} = \\dfrac{\\phantom{0000}}{}', '')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
-      // Pour AMC question AmcOpen
-      this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
       if (this.sup2) {
-        setReponse(this, i, new FractionEtendue(a, b), { formatInteractif: 'fraction' })
+        setReponse(this, i, reponse, { formatInteractif: 'fraction' })
       } else {
-        setReponse(this, i, new FractionEtendue(k * a, k * b), { formatInteractif: 'fractionPlusSimple' })
+        setReponse(this, i, reponse, { formatInteractif: 'fractionPlusSimple' })
       }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
   this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99999]
   this.besoinFormulaire2CaseACocher = ['Simplification maximale exigée']
+  this.besoinFormulaire3CaseACocher = ['QCM']
 }
