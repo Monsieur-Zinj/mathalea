@@ -7626,6 +7626,16 @@
         "titre": "Construire des quadrilatères particuliers",
         "tags": {}
       },
+      "5G42-1": {
+        "id": "5G42-1",
+        "uuid": "78f28",
+        "url": "5e/5G42-1.js",
+        "titre": "Connaître les propriétés des parallélogrammes particuliers",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm"
+        }
+      },
       "5G42": {
         "id": "5G42",
         "uuid": "8812e",
@@ -10946,7 +10956,11 @@
         "uuid": "0cee9",
         "url": "2e/2G30-2.js",
         "titre": "Déterminer une équation réduite de droite",
-        "tags": {}
+        "dateDeModifImportante": "26/04/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2G30-3": {
         "id": "2G30-3",
