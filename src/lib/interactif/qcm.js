@@ -51,10 +51,11 @@ export function verifQuestionQcm (exercice, i) {
   spanReponseLigne.style.fontSize = 'large'
   if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
     const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
+    console.log('eltFeedback', eltFeedback)
     if (eltFeedback) { eltFeedback.innerHTML = '' }
     // Message par défaut qui est celui de la dernière réponse cochée
     let message = exercice.autoCorrection[i].propositions[indiceFeedback].feedback
-    if (resultat === 'KO') {
+    if (resultat === 'KO' && (message === undefined || message === '')) {
       // Juste mais incomplet
       if (nbBonnesReponses > 0 && nbBonnesReponses < nbBonnesReponsesAttendues) {
         message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''} mais c'est incomplet.`
