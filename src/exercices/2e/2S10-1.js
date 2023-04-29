@@ -1,11 +1,8 @@
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre } from '../../modules/outils.js'
-export const titre = 'Connaître les différentes écriture d\'une proportion'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-export const amcReady = true // Pour en bénéficier avec le générateur AMC
-export const amcType = 'AMCNum' // Les réponses sont des valeurs numériques à encoder
+export const titre = 'Connaître les différentes écritures d\'une proportion'
 export const dateDePublication = '21/04/2023'
 
 /**
@@ -20,19 +17,15 @@ export const dateDePublication = '21/04/2023'
 * *
 */
 export const uuid = 'ae913'
-export const ref = ''
+export const ref = '2S10-1'
 export default function DiffentesEcrituresProportions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 4 // type de questions
-  this.spacing = 1
-  this.spacingCorr = 2
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -47,7 +40,7 @@ export default function DiffentesEcrituresProportions () {
       typesDeQuestionsDisponibles = ['Pourcentage']
     }
     if (this.sup === 3) {
-      typesDeQuestionsDisponibles = ['Decimal']
+      typesDeQuestionsDisponibles = ['Fraction']
     }
     if (this.sup === 4) {
       typesDeQuestionsDisponibles = ['Decimal', 'Pourcentage', 'Fraction']//,
@@ -84,8 +77,8 @@ export default function DiffentesEcrituresProportions () {
           dec = new Decimal(randint(11, 99)).div(10)
           pourc = new Decimal(dec).mul(100)
           listeFractions = [
-            [32, 125], [32, 125], [2, 125], [7, 125], [9, 125], [13, 125], [32, 125], [9, 250], [17, 250],
-            [81, 1250], [91, 1250], [87, 1250], [91, 1250], [47, 1250], [59, 1250], [31, 1250], [63, 1250]] //
+            [32, 125], [32, 125], [2, 125], [7, 125], [9, 125], [13, 125], [32, 125], [71, 125], [108, 125], [9, 250], [17, 250],
+            [81, 1250], [91, 1250], [87, 1250], [91, 1250], [47, 1250], [59, 1250], [31, 1250], [63, 1250], [117, 2500], [91, 2500]] //
           fraction = choice(listeFractions)
           n = fraction[0]
           d = fraction[1]
@@ -97,19 +90,49 @@ export default function DiffentesEcrituresProportions () {
         case 'Decimal':
 
           texte = 'Écrire sous la forme d\'une fraction de dénominateur $100$, puis sous la forme d\'un pourcentage.<br>'
-          texte += `$${texNombre(dec, 4)}=\\ldots=\\ldots \\,\\%$`
+          if (context.isHtml) {
+            texte += ''
+          } else {
+            texte += '<br>'
+          }
+          texte += `$${texNombre(dec, 4)}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}\\,\\%$`
+          if (context.isHtml) {
+            texte += ''
+          } else {
+            texte += '<br>'
+          }
           texteCorr = `$${texNombre(dec, 4)}=\\dfrac{${texNombre(pourc, 3)}}{100}=${texNombre(pourc, 3)} \\,\\%$`
           break
 
         case 'Pourcentage':
           texte = 'Écrire sous forme décimale, puis sous la forme d\'une fraction de dénominateur $100$.<br>'
-          texte += `$${texNombre(pourc, 4)}\\,\\%=\\ldots=\\ldots$`
+          if (context.isHtml) {
+            texte += ''
+          } else {
+            texte += '<br>'
+          }
+          texte += `$${texNombre(pourc, 4)}\\,\\%=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}$`
+          if (context.isHtml) {
+            texte += ''
+          } else {
+            texte += '<br>'
+          }
           texteCorr = `$${texNombre(pourc, 3)}\\,\\%=${texNombre(dec, 4)}=\\dfrac{${texNombre(pourc, 3)}}{100}$`
 
           break
         case 'Fraction':
           texte = 'Écrire sous forme décimale, puis sous la forme d\'un pourcentage.<br>'
-          texte += `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=\\ldots=\\ldots\\,\\%$`
+          if (context.isHtml) {
+            texte += ''
+          } else {
+            texte += '<br>'
+          }
+          texte += `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}\\,\\%$`
+          if (context.isHtml) {
+            texte += ''
+          } else {
+            texte += '<br>'
+          }
           texteCorr = `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${texNombre(f, 4)}=${texNombre(f * 100, 4)}\\,\\%$`
           break
       }
@@ -123,5 +146,5 @@ export default function DiffentesEcrituresProportions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer l\'effectif d\'une sous-population \n2 : Calculer une proportion en pourcentage\n3 : Calculer l\'effectif de la population totale \n4 : Mélange']
+  this.besoinFormulaireNumerique = ['Type de question', 4, '1 : Décimal vers fraction ou pourcentage \n2 : Pourcentage vers fraction ou décimal\n3 : Fraction vers décimal ou pourcentage \n4 : Mélange']
 }
