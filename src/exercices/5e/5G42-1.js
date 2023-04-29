@@ -620,7 +620,7 @@ export default class nomExercice extends Exercice {
             {
               texte: 'c\'est un parallélogramme.',
               statut: false,
-              feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un rectangle.'
+              feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un parallélogramme.'
             },
             {
               texte: 'c\'est un rectangle.',

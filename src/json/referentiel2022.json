@@ -11697,11 +11697,19 @@
       }
     },
     "2S1": {
+      "2S10-1": {
+        "id": "2S10-1",
+        "uuid": "ae913",
+        "url": "2e/2S10-1.js",
+        "titre": "Connaître les différentes écritures d'une proportion",
+        "tags": {}
+      },
       "2S10-2": {
         "id": "2S10-2",
         "uuid": "612a5",
         "url": "2e/2S10-2.js",
         "titre": "Calculer une proportion ou appliquer un pourcentage",
+        "dateDeModifImportante": "28/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",

@@ -68,6 +68,10 @@ export function verifQuestionQcm (exercice, i) {
     if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) {
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     }
+    // Que du faux
+    if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) {
+      message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
+    }
   }
   messageFeedback({
     id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,
