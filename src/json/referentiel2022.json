@@ -7927,7 +7927,10 @@
         "titre": "Simplification de fractions",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive",
+          "interactifType": [
+            "mathLive",
+            "qcm"
+          ],
           "amc": true,
           "amcType": "AMCOpen"
         }

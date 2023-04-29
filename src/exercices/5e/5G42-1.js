@@ -791,7 +791,7 @@ export default class nomExercice extends Exercice {
             {
               texte: 'c\'est un carré.',
               statut: true,
-              feedback: 'Coom c\'est un rectangle et un losange, alors c\'est un carré.'
+              feedback: 'Comme c\'est un rectangle et un losange, alors c\'est un carré.'
             }
           ]
           texteCorr = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires et de même longueur alors on est sûr que c\'est un rectangle, un losange et donc un carré.'
@@ -957,32 +957,6 @@ export default class nomExercice extends Exercice {
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
-              statut: false,
-              feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu pour être certain que c\'est un parallélogramme.'
-            },
-            {
-              texte: 'c\'est un rectangle.',
-              statut: false,
-              feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu et soient de même longueur pour être certain que c\'est un rectangle.'
-            },
-            {
-              texte: 'c\'est un losange.',
-              statut: true,
-              feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu et soient perpendiculaires pour être certain que c\'est un losange.'
-            },
-            {
-              texte: 'c\'est un carré.',
-              statut: true,
-              feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu, soient perpendiculaires et soient de même longueur pour être certain que c\'est un losange.'
-            }
-          ]
-          texteCorr = 'Si un parallélogramme a ses diagonales perpendiculaires et de même longueur alors c\'est un rectangle et un losange donc c\'est un carré.'
-          break
-        case 'reciproque16':
-          texte = 'Si un quadrilatère a ses diagonales perpendiculaires et de même longueur alors on est sûr que...'
-          this.autoCorrection[i].propositions = [
-            {
-              texte: 'c\'est un parallélogramme.',
               statut: true,
               feedback: ''
             },
@@ -1002,11 +976,37 @@ export default class nomExercice extends Exercice {
               feedback: 'Car c\'est un rectangle et un losange.'
             }
           ]
-          texteCorr = 'Si un parallélogramme a ses diagonales perpendiculaires et de même longueur alors ce n\'est pas forcément un parallélogramme (on appele cela un cerf-volant).'
+          texteCorr = 'Si un parallélogramme a ses diagonales perpendiculaires et de même longueur alors c\'est un rectangle et un losange donc c\'est un carré.'
+          break
+        case 'reciproque16':
+          texte = 'Si un quadrilatère a ses diagonales perpendiculaires et de même longueur alors on est sûr que...'
+          this.autoCorrection[i].propositions = [
+            {
+              texte: 'c\'est un parallélogramme.',
+              statut: false,
+              feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu pour être certain que c\'est un parallélogramme.'
+            },
+            {
+              texte: 'c\'est un rectangle.',
+              statut: false,
+              feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu et soient de même longueur pour être certain que c\'est un rectangle.'
+            },
+            {
+              texte: 'c\'est un losange.',
+              statut: true,
+              feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu et soient perpendiculaires pour être certain que c\'est un losange.'
+            },
+            {
+              texte: 'c\'est un carré.',
+              statut: true,
+              feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu, soient perpendiculaires et soient de même longueur pour être certain que c\'est un losange.'
+            }
+          ]
+          texteCorr = 'Si un quadrilatères a ses diagonales perpendiculaires et de même longueur alors cela peut être un quadrilatère quelconque (il faudrait en plus que les diagonales se coupent en leur milieu pour que ce soit un carré).'
           break
       }
       this.autoCorrection[i].options = {
-        ordered: false,
+        ordered: true,
         vertical: true,
         nbCols: 1
       }

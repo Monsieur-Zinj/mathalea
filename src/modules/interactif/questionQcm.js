@@ -173,7 +173,7 @@ export function propositionsQcm (exercice, i) {
       texte += `<div class="ex${exercice.numeroExercice} my-3 ${vertical ? '' : 'inline'}">
       <input type="checkbox" tabindex="0"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2 text-base">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
-      <div id="feedbackEx${exercice.numeroExercice}Q${i}" ${vertical ? '' : 'class="inline"'}></div>
+      <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div>
       </div>`
     }
     texte += `</div><div class="m-2" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`

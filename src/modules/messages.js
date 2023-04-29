@@ -57,7 +57,13 @@ export function messageFeedback ({ id, message = '', type = 'error' } = {}) {
   const container = get(id)
   const div = addFeedback(container, { message, type })
   div.style.width = '400px'
-  div.style.color = 'green'
+  if (type === 'error') {
+    div.style.color = 'red'
+  } else if (type === 'positive') {
+    div.style.color = 'green'
+  } else {
+    div.style.color = 'rgb(33,109,54)'
+  }
   return div
 }
 

@@ -8,7 +8,6 @@ export function verifQuestionQcm (exercice, i) {
   let nbBonnesReponses = 0
   let nbMauvaisesReponses = 0
   let nbBonnesReponsesAttendues = 0
-  let indiceFeedback
   // Compte le nombre de réponses justes attendues
   for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
     if (exercice.autoCorrection[i].propositions[k].statut) { nbBonnesReponsesAttendues++ }
@@ -19,14 +18,22 @@ export function verifQuestionQcm (exercice, i) {
     const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
     const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
     if (check.checked) {
+      // Sauvegarde pour les exports Moodle, Capytale...
       if (exercice.answers === undefined) { exercice.answers = {} }
       exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = 1
+      // Gestion du feedback de toutes les cases cochées
+      if (exercice.autoCorrection[i].propositions[indice].feedback) {
+        messageFeedback({
+          id: `feedbackEx${exercice.numeroExercice}Q${i}R${indice}`,
+          message: exercice.autoCorrection[i].propositions[indice].feedback,
+          type: proposition.statut ? 'positive' : 'error'
+        })
+      }
     }
     if (proposition.statut) {
       if (check.checked) {
         nbBonnesReponses++
         if (aucuneMauvaiseReponseDonnee) {
-          indiceFeedback = indice
           label.style.backgroundColor = monVert
         }
       } else { // Bonnes réponses non cochées
@@ -35,7 +42,6 @@ export function verifQuestionQcm (exercice, i) {
     } else if (check.checked === true) {
       label.style.backgroundColor = monRouge
       nbMauvaisesReponses++
-      indiceFeedback = indice
       aucuneMauvaiseReponseDonnee = false
     }
   })
@@ -48,28 +54,25 @@ export function verifQuestionQcm (exercice, i) {
     typeFeedback = 'error'
     resultat = 'KO'
   }
+  // Gestion du feedback global de la question
   spanReponseLigne.style.fontSize = 'large'
-  if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
-    const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
-    console.log('eltFeedback', eltFeedback)
-    if (eltFeedback) { eltFeedback.innerHTML = '' }
-    // Message par défaut qui est celui de la dernière réponse cochée
-    let message = exercice.autoCorrection[i].propositions[indiceFeedback].feedback
-    if (resultat === 'KO' && (message === undefined || message === '')) {
-      // Juste mais incomplet
-      if (nbBonnesReponses > 0 && nbBonnesReponses < nbBonnesReponsesAttendues) {
-        message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''} mais c'est incomplet.`
-      }
-      // Du juste et du faux
-      if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) {
-        message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
-      }
+  const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
+  let message = 'Bravo !' // = exercice.autoCorrection[i].propositions[indiceFeedback].feedback
+  if (eltFeedback) { eltFeedback.innerHTML = '' }
+  if (resultat === 'KO') {
+    // Juste mais incomplet
+    if (nbBonnesReponses > 0 && nbBonnesReponses < nbBonnesReponsesAttendues) {
+      message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''} mais c'est incomplet.`
     }
-    messageFeedback({
-      id: `feedbackEx${exercice.numeroExercice}Q${i}`,
-      message,
-      type: typeFeedback
-    })
+    // Du juste et du faux
+    if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) {
+      message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
+    }
   }
+  messageFeedback({
+    id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,
+    message,
+    type: typeFeedback
+  })
   return resultat
 }
