@@ -3,7 +3,7 @@ export const titre = 'Convertir des aires'
 
 export { amcReady, interactifReady, amcType, interactifType } from './_Exercice_conversions_aires.js'
 
-export const dateDeModifImportante = '23/04/2023'
+export const dateDeModifImportante = '30/04/2023'
 /**
  * @author Rémi Angot
  * référence 6M23

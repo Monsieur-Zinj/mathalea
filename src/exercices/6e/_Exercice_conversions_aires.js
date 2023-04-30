@@ -166,7 +166,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeMulti[k][2]
-        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, true)
       } else if (div && typesDeQuestions < 4) {
         /* prefixeDiv = [
           [' d', '\\div10\\div10', 100],
@@ -209,7 +209,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeDiv[k][2]
-        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite)
+        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, true)
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
         let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l'un à l'autre
@@ -249,7 +249,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
             '^2' +
             '$'
           prefixe = Math.pow(10, 2 * ecart)
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1])
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], true)
         } else {
           resultat = a.div(Math.pow(10, 2 * ecart))
           resultat2 = resultat.div(10)
@@ -282,7 +282,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
             '^2' +
             '$'
           prefixe = Math.pow(10, 2 * ecart)
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2])
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], true)
         }
       } else if (typesDeQuestions === 5) {
         // Pour typesDeQuestions==5
@@ -323,7 +323,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeMulti[k][2]
-        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite)
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite, true)
       }
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [{
@@ -368,7 +368,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           )
         }
         if (this.sup4 && i === this.nbQuestions - 1) {
-          texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
+          texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true, true)
         }
 
         this.listeQuestions.push(texte)
@@ -377,7 +377,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
       }
       cpt++
     }
-    // if (context.vue === 'latex') this.listePackages = ['arydshln'] // pour les lignes en pointillés
+    if (context.vue === 'latex') this.listePackages = ['arydshln'] // pour les lignes en pointillés
     listeQuestionsToContenu(this)
     /*
     if (context.vue === 'latex' && this.sup4) {
@@ -398,7 +398,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.besoinFormulaire4CaseACocher = ['Avec tableau']
 }
 
-function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false) {
+function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false) {
   const tabRep = function (nbre, uniteNbre) {
     const res = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
     switch (uniteNbre.replaceAll(' ', '')) {
@@ -442,38 +442,40 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false) {
     }
     return res
   }
-  const createTab = function (aT, rT, first, end) {
-    let texte = '$\\def\\arraystretch{1.5}\\begin{array}{'
+
+  const createTab = function (aT, rT, first, end, ligne, correction = false) {
+    let texte = '$\\def\\arraystretch{1.5}\\begin{array}{|'
     for (let i = first; i <= end; i++) {
-      const col = (context.vue === 'latex' ? '>{\\centering\\arraybackslash}m{0.45cm}' : 'c')
-      if (i % 2 === 0) { texte += `|${col}` + (i === end ? ':}' : '') } else { texte += `:${col}` + (i === end ? '|}' : '') }
+      texte += 'c|'
     }
-    const headers = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\text{km}^2', '\\hspace*{0.4cm}', '\\text{hm}^2', '\\hspace*{0.4cm}', '\\text{dam}^2', '\\hspace*{0.4cm}', '\\text{m}^2', '\\hspace*{0.6cm}', '\\text{dm}^2', '\\hspace*{0.4cm}', '\\text{cm}^2', '\\hspace*{0.4cm}', '\\text{mm}^2', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
+    texte += '}'
+    const headers2 = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\text{km}^2', '\\text{hm}^2', '\\text{dam}^2', '\\text{m}^2', '\\text{dm}^2', '\\text{cm}^2', '\\text{mm}^2', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
     texte += '\\hline '
-    for (let i = first; i <= end; i++) {
-      if (context.vue === 'latex') {
-        if (i % 2 === 0 && i === first) texte += `\\multicolumn{2}{|c|}{${headers[i + 1]}} & `
-        if (i % 2 === 0 && i > first && i + 1 < end) texte += `\\multicolumn{2}{c|}{${headers[i + 1]}} & `
-        if (i % 2 === 0 && i + 1 === end) texte += `\\multicolumn{2}{c|}{${headers[i + 1]}} \\\\`
-      } else {
-        texte += `${headers[i]} ${i < end ? ' &' : ' \\\\'}`
-      }
+    for (let i = first; i < end; i++) {
+      texte += `${headers2[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
     }
-    texte += '\\hline '
-    for (let i = first; i <= end; i++) {
-      texte += `${aT[i]} ${i < end ? ' &' : ' \\\\'}`
-    }
-    texte += '\\hline '
-    for (let i = first; i <= end; i++) {
-      texte += `${rT[i]} ${i < end ? ' &' : ' \\\\'}`
+    texte += ' \\hline '
+    console.log('toto ', correction, end)
+
+    for (let i = first; i < end; i++) {
+      texte += '\\begin{array}{c:c}'
+      texte += `${aT[2 * i]} & ${aT[2 * i + 1]}  \\\\`
+      texte += !correction ? ` ${rT[2 * i]} & ${rT[2 * i + 1]}  \\\\` : ''
+      texte += '\\end{array}'
+      texte += (i !== end - 1 ? ' & ' : '')
     }
     for (let k = 3; k <= ligne; k++) {
-      texte += '\\hline '
-      for (let i = first; i <= end; i++) {
-        texte += `${i < end ? ' &' : ' \\\\'}`
+      texte += '\\\\ \\hline '
+      for (let i = first; i < end; i++) {
+        texte += '\\begin{array}{c:c}'
+        texte += ' & \\\\'
+        texte += '\\end{array}'
+        texte += (i !== end - 1 ? ' & ' : '')
       }
     }
-    texte += '\\hline \\end{array}$'
+    texte += '\\\\ \\hline '
+
+    texte += ' \\end{array}$'
     return texte
   }
   const aTab = tabRep(a, uniteA)
@@ -482,6 +484,6 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false) {
   const minTab2 = rTab[0] !== '' || rTab[1] !== '' ? 0 : rTab[2] !== '' || rTab[3] !== '' || force ? 2 : 4
   const maxTab1 = aTab[21] !== '' || aTab[20] !== '' ? 21 : aTab[19] !== '' || aTab[18] !== '' || force ? 19 : 17
   const maxTab2 = rTab[21] !== '' || rTab[20] !== '' ? 21 : rTab[19] !== '' || rTab[18] !== '' || force ? 19 : 17
-  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2), Math.max(maxTab1, maxTab2), ligne)
+  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2) / 2, (1 + Math.max(maxTab1, maxTab2)) / 2, ligne, correction)
   return texte
 }
