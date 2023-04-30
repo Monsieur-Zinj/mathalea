@@ -82,7 +82,9 @@ export default function EquationDuSecondDegreAvecUnParametre () {
         texteCorr += '<br>Cherchons les valeurs de $m$ qui annulent cette expression du second degré :'
         texteCorr += `<br>Le discriminant $\\Delta^\\prime$ vaut : $\\Delta^\\prime =${xcas('d2')}$`
         a = +`${xcas('d2')}` // valeur de Delta'
-        f = eval(`${xcas('ifactors(d2)')}`).some((v, i) => v > 1 && i % 2 === 1) // Y a-t-il des carrés dans Delta' ?
+        const facteurs = xcas('ifactors(d2)')
+        const arrayFacteurs = facteurs.replace('[', '').replace(']', '').split(',')
+        f = arrayFacteurs.some((v, i) => v > 1 && i % 2 === 1) // Y a-t-il des carrés dans Delta' ?
         if (f && a > 0) {
           texteCorr += ` (Remarquons que $\\sqrt{\\Delta^\\prime} =${xcas('simplify(sqrt(d2))')}$)`
         }

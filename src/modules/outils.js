@@ -12,7 +12,7 @@ import { loadScratchblocks } from './loaders.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
-const math = {format, evaluate}
+const math = { format, evaluate }
 
 /**
  * Fonctions diverses pour la création des exercices
@@ -204,9 +204,9 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
  */
 export function deuxColonnesResp (cont1, cont2, options) {
   if (options === undefined) {
-    options = {largeur1: 50}
+    options = { largeur1: 50 }
   } else if (typeof options === 'number') {
-    options = {largeur1: options}
+    options = { largeur1: options }
   }
   if (options.largeur1 === undefined) {
     options.largeur1 = 50
@@ -223,7 +223,7 @@ export function deuxColonnesResp (cont1, cont2, options) {
   if (options.widthmincol2 === undefined) {
     options.widthmincol2 = '0px'
   }
-  
+
   if (context.isHtml) {
     return `
     <style>
@@ -297,19 +297,19 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {number | undefined} random la valeur utilisée pour l'option mélange à savoir randint(min,max)
  */
 export function formTextSerializer ({
-                                      saisie,
-                                      min = 1,
-                                      max,
-                                      defaut,
-                                      listeOfCase,
-                                      shuffle = true,
-                                      nbQuestions,
-                                      random
-                                    } = {}) {
+  saisie,
+  min = 1,
+  max,
+  defaut,
+  listeOfCase,
+  shuffle = true,
+  nbQuestions,
+  random
+} = {}) {
   if (max == null || isNaN(max) || max < min) throw Error('La fonction formTextSerialize réclame un paramètre max de type number')
   if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== random)) throw Error('La fonction formTextSerializer réclame un paramètre defaut compris entre min(1) et max')
   let listeIndex
-  
+
   if (!saisie) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
   } else {
@@ -474,7 +474,7 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
       result.push([E1[i], E2[j]])
     }
   }
-  
+
   temp = shuffle(result).slice(0) // créer un clone du tableau result mélangé
   result = temp.slice(0)
   while (result.length < nombreDeCouplesMin) {
@@ -507,7 +507,7 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
   if (!Number.isInteger(min) || !Number.isInteger(max)) {
-    window.notify('Les min et max de randint doivent être entiers', {min, max})
+    window.notify('Les min et max de randint doivent être entiers', { min, max })
     min = Math.floor(min)
     max = Math.ceil(max)
     if (max - min < 1) max = min + 1
@@ -521,14 +521,14 @@ export function randint (min, max, listeAEviter = []) {
     if (Number.isInteger(listeAEviter)) {
       listeAEviter = [listeAEviter]
     } else {
-      window.notify('Le nombre fourni à randint en exclusion n\'est pas un entier', {listeAEviter})
+      window.notify('Le nombre fourni à randint en exclusion n\'est pas un entier', { listeAEviter })
       listeAEviter = [listeAEviter] // ce n'est pas grave de mettre un nombre non entier, randint ne choisit que des entiers
     }
   }
   if (Array.isArray(listeAEviter)) {
     listeAEviter = listeAEviter.map(Number).filter(el => Math.round(el) === el) // on filtre les non nombres et les non-entiers
   } else {
-    window.notify('La liste d\'exclusion de randint n\'est pas d\'un type pris en compte', {listeAEviter})
+    window.notify('La liste d\'exclusion de randint n\'est pas d\'un type pris en compte', { listeAEviter })
     listeAEviter = []
   }
   if (listeAEviter.length > 0) {
@@ -836,20 +836,20 @@ export function shuffle (array) {
   let currentIndex = array.length
   let temporaryValue
   let randomIndex
-  
+
   // While there remain elements to shuffle...
   const arrayBis = array.slice()
   while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex)
     currentIndex -= 1
-    
+
     // And swap it with the current element.
     temporaryValue = arrayBis[currentIndex]
     arrayBis[currentIndex] = arrayBis[randomIndex]
     arrayBis[randomIndex] = temporaryValue
   }
-  
+
   return arrayBis
 }
 
@@ -884,7 +884,7 @@ export function shuffleLettres (txt) {
 export function shuffle2tableaux (obj1, obj2) {
   let index = obj1.length
   let rnd, tmp1, tmp2
-  
+
   while (index) {
     rnd = Math.floor(Math.random() * index)
     index -= 1
@@ -910,12 +910,12 @@ export function tridictionnaire (dict) {
     sorted[sorted.length] = key
   }
   sorted.sort()
-  
+
   const tempDict = {}
   for (let i = 0; i < sorted.length; i++) {
     tempDict[sorted[i]] = dict[sorted[i]]
   }
-  
+
   return tempDict
 }
 
@@ -927,7 +927,7 @@ export function tridictionnaire (dict) {
  * @author Rémi Angot
  */
 export function filtreDictionnaire (dict, sub) {
-  return Object.assign({}, ...Object.entries(dict).filter(([k]) => k.substring(0, sub.length) === sub).map(([k, v]) => ({[k]: v}))
+  return Object.assign({}, ...Object.entries(dict).filter(([k]) => k.substring(0, sub.length) === sub).map(([k, v]) => ({ [k]: v }))
   )
 }
 
@@ -942,15 +942,15 @@ if (!Object.fromEntries) {
       if (!entries || !entries[Symbol.iterator]) {
         throw new Error('Object.fromEntries() requires a single iterable argument')
       }
-      
+
       const o = {}
-      
+
       Object.keys(entries).forEach((key) => {
         const [k, v] = entries[key]
-        
+
         o[k] = v
       })
-      
+
       return o
     }
   })
@@ -1067,7 +1067,7 @@ export function rienSi1 (a) {
   if (equal(a, -1)) return '-'
   if (a instanceof Fraction || a instanceof FractionEtendue) return a.toLatex()
   if (Number(a) || a === 0) return stringNombre(a) // on retourne 0 ce sera pas joli, mais Number(0) est false !!!
-  window.notify('rienSi1 : type de valeur non prise en compte : ', {a})
+  window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
 }
 
 /**
@@ -1418,7 +1418,7 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
   // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
   // nécessite d'être en repère orthonormal...
   // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
-  
+
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
   const matriceSymYyPrime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
@@ -1430,25 +1430,25 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
   const matriceRotation60Indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
   const matriceRotation120Direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
   const matriceRotation120Indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-  
+
   let pointA1 = [0, 0, 0]
   let pointA2 = [0, 0, 0]
-  
+
   if (pointA.length === 2) pointA.push(1)
   const x2 = pointO[0] // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
   const y2 = pointO[1]
   const u = vecteur[0] // (u,v) vecteur de translation.
   const v = vecteur[1]
   const k = rapport // rapport d'homothétie
-  
+
   const matriceChangementDeRepere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
   const matriceChangementDeRepereInv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
   const matriceTranslation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
   const matriceHomothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
   const matriceHomothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
-  
+
   let matrice
-  
+
   switch (transformation) {
     case 1:
       matrice = matriceSymObl1.multiplieMatriceCarree(matriceChangementDeRepereInv)
@@ -1559,7 +1559,7 @@ export function unSiPositifMoinsUnSinon (a) {
  */
 export function arrondi (nombre, precision = 2) {
   if (isNaN(nombre)) {
-    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', {nombre, precision})
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
     return NaN
   } else {
     return round(nombre, precision)
@@ -1609,7 +1609,7 @@ export function egalOuApprox (a, precision) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
   } else if (!isNaN(a) && !isNaN(precision)) return egal(a, round(a, precision), 10 ** (-precision - 2)) ? '=' : '\\approx'
   else {
-    window.notify('egalOuApprox : l\'argument n\'est pas un nombre', {a, precision})
+    window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
     return 'Mauvais argument (nombres attendus).'
   }
 }
@@ -1976,7 +1976,7 @@ export function texRacineCarree (n) {
  * @author Rémi Angot
  */
 export function xcas (expression) {
-  const sortie = (txt) => UI.eval(`latex(${txt})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
+  const sortie = (txt) => UI.caseval(`latex(${txt})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
   if (typeof expression === 'string') return sortie(expression)
   else {
     const result = []
@@ -1996,7 +1996,7 @@ export function calcul (x, arrondir = 6) {
   const sansPrecision = (arrondir === undefined)
   // if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
-    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', {x})
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     x = parseFloat(evaluate(x))
   }
   if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) {
@@ -2113,7 +2113,7 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
     while (premiersommet + augmentation < 65) augmentation += 26
     polygone += String.fromCharCode(premiersommet + augmentation)
   }
-  
+
   if (listeAEviter.length < 26 - nbsommets - 1) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
     let cpt = 0
     while (possedeUnCaractereInterdit(polygone, listeAEviter) && cpt < 20) {
@@ -2385,7 +2385,7 @@ export function objet () {
  * le 14/03/2021
  */
 class Personne {
-  constructor ({prenom = '', genre = '', pronom = '', Pronom = ''} = {}) {
+  constructor ({ prenom = '', genre = '', pronom = '', Pronom = '' } = {}) {
     let choix
     this.prenom = ''
     this.genre = ''
@@ -2416,8 +2416,8 @@ class Personne {
  * @author Jean-Claude Lhote
  * le 14/03/2021
  */
-export function personne ({prenom = '', genre = '', pronom = ''} = {}) {
-  return new Personne({prenom, genre, pronom})
+export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
+  return new Personne({ prenom, genre, pronom })
 }
 
 /**
@@ -2630,7 +2630,7 @@ export function texParagraphe (liste, spacing = false, retourCharriot) {
   if (spacing > 1) {
     result = `\\begin{spacing}{${spacing}}\n`
   }
-  
+
   for (const i in liste) {
     if (retourCharriot) {
       result += `\t${liste[i]}\\\\\n`
@@ -2753,7 +2753,7 @@ export function htmlLigne (liste, spacing, classe = 'question') {
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
   result += '</div></div>\n'
-  
+
   return result
 }
 
@@ -2795,7 +2795,7 @@ export function texConsigne (consigne) {
  * @returns retourne un nombre au format français sans espace après la virgule
  */
 export function num (nb) {
-  return Intl.NumberFormat('fr-FR', {maximumFractionDigits: 20}).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
 }
 
 /**
@@ -2804,7 +2804,7 @@ export function num (nb) {
  * @returns retourne un nombre au format français
  */
 export function numberFormat (nb) {
-  return Intl.NumberFormat('fr-FR', {maximumFractionDigits: 20}).format(nb).toString().replace(/\s+/g, '\\thickspace ')
+  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
 }
 
 /**
@@ -2829,7 +2829,7 @@ export function texNombre (nb, precision = 8, force = false) {
  * @author Rémi Angot
  */
 export function texNombre2 (nb) {
-  let nombre = math.format(nb, {notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12}).replace('.', ',')
+  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere = ''
   if (rangVirgule !== -1) {
@@ -2841,7 +2841,7 @@ export function texNombre2 (nb) {
   if (rangVirgule !== -1) {
     partieDecimale = nombre.substring(rangVirgule + 1)
   }
-  
+
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
@@ -2873,7 +2873,7 @@ export function nombrec2 (nb) {
  * Rajout Octobre 2021 pour 6C14
  */
 export function texNombre3 (nb) {
-  let nombre = math.format(nb, {notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12}).replace('.', ',')
+  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere = ''
   if (rangVirgule !== -1) {
@@ -2885,7 +2885,7 @@ export function texNombre3 (nb) {
   if (rangVirgule !== -1) {
     partieDecimale = nombre.substring(rangVirgule + 1)
   }
-  
+
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     partieEntiere = partieEntiere.substring(0, i) + sp() + partieEntiere.substring(i)
   }
@@ -2922,12 +2922,12 @@ export function sp (nb = 1) {
  */
 export function nombreAvecEspace (nb) {
   if (isNaN(nb)) {
-    window.notify('nombreAvecEspace : argument NaN ou undefined', {nb})
+    window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
     return 'NaN'
   }
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
-    return Intl.NumberFormat('fr-FR', {maximumFractionDigits: 20}).format(nb).toString().replace(/\s+/g, ' ')
+    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
   } else {
     let result
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
@@ -3081,7 +3081,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
             minimumFractionDigits: precision
           }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', {maximumFractionDigits: precision}).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
         }
       } else {
         if (force) {
@@ -3090,7 +3090,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
             minimumSignificantDigits: maximumSignificantDigits
           }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', {maximumSignificantDigits}).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
         }
       }
     }
@@ -3124,10 +3124,10 @@ function afficherNombre (nb, precision, fonction, force = false) {
     }
     return nombre
   } // fin insereEspacesNombre()
-  
+
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
-    window.notify("AfficherNombre : Le nombre n'en est pas un", {nb, precision, fonction})
+    window.notify("AfficherNombre : Le nombre n'en est pas un", { nb, precision, fonction })
     return ''
   }
   if (nb instanceof Decimal) {
@@ -3165,11 +3165,11 @@ function afficherNombre (nb, precision, fonction, force = false) {
       }
     }
   }
-  
+
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  
+
   if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
-    window.notify(fonction + ` : ${tropDeChiffres}`, {nb, precision})
+    window.notify(fonction + ` : ${tropDeChiffres}`, { nb, precision })
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   } else {
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
@@ -3560,7 +3560,7 @@ export function listeDesDiviseurs (n) {
     }
     k++
   }
-  
+
   return liste
 }
 
@@ -3799,7 +3799,7 @@ export class MatriceCarree {
       }
       return matriceCarree(resultat)
     }
-    
+
     /**
      * Méthode : Calcule le produit d'une matrice nxn par un vecteur 1xn (matrice colonne): retourne un vecteur 1xn.
      *
@@ -4367,7 +4367,6 @@ export function modalImage (numeroExercice, urlImage, titre, labelBouton = 'Illu
  * @author Sébastien Lozano
  */
 export function listeDiviseurs (n) {
-  
   let i = 2
   const diviseurs = [1]
   while (i <= n) {
@@ -4398,7 +4397,7 @@ export function listeDiviseurs (n) {
 
 export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
   // tous les textes sont en mode maths !!!
-  
+
   return `
   \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
   \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
@@ -4433,7 +4432,6 @@ export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2,
  * @author Sébastien Lozano
  */
 export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
-  
   const xInit = -10
   let saut = 0
   const pas = 1
@@ -4566,7 +4564,6 @@ export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
  * @author Sébastien Lozano
  */
 export function katexPopup (texte, titrePopup, textePopup) {
-  
   let contenu = ''
   if (context.isHtml) {
     contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>'
@@ -4583,7 +4580,6 @@ export function katexPopup (texte, titrePopup, textePopup) {
 }
 
 export function katexPopupTest (texte, titrePopup, textePopup) {
-  
   let contenu = ''
   if (context.isHtml) {
     contenu = '<div class="ui right label katexPopup">' + texte + '</div>'
@@ -4689,7 +4685,6 @@ export function numAlphaNum (k, nospace = false) {
  */
 
 export function texCadreParOrange (texte) {
-  
   // \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
   const sortie = `
    
@@ -4698,7 +4693,7 @@ export function texCadreParOrange (texte) {
    \\noindent\\fcolorbox{nombres}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{` + texte + `}}
    \\par\\vspace{0.25cm}
    `
-  
+
   return sortie
 }
 
@@ -4712,7 +4707,6 @@ export function texCadreParOrange (texte) {
  */
 
 export function machineMathsVideo (urlVideo) {
-  
   const video = `
   <div style="text-align:center">
   <video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
@@ -4720,7 +4714,7 @@ export function machineMathsVideo (urlVideo) {
     Votre navigateur ne gère pas l'élément <code>video</code>.
   </video>
   </div>`
-  
+
   return video
 }
 
@@ -4729,7 +4723,6 @@ export function machineMathsVideo (urlVideo) {
  * @author Sébastien Lozano
  */
 export function detectSafariChromeBrowser () {
-  
   let isChrome = navigator.userAgent.indexOf('Chrome') > -1
   // var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
   // var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
@@ -4741,7 +4734,7 @@ export function detectSafariChromeBrowser () {
   if ((isChrome) && (isOpera)) {
     isChrome = false
   }
-  
+
   return (isChrome || isSafari)
 }
 
@@ -4780,7 +4773,6 @@ export function premierMultipleInferieur (k, n) {
  * @author Sébastien Lozano
  */
 export function listeNombresPremiersStrictJusqua (borneSup) {
-  
   // tableau contenant les 300 premiers nombres premiers
   const liste300 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
   const liste = []
@@ -4798,16 +4790,15 @@ export function listeNombresPremiersStrictJusqua (borneSup) {
  * @author Sébastien Lozano
  */
 export function cribleEratostheneN (n) {
-  
   const tabEntiers = [] // pour tous les entiers de 2 à n
   const testMax = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
   const liste = [] // tableau de la liste des premiers jusqu'à n
-  
+
   // On rempli un tableau avec des booléeens de 2 à n
   for (let i = 0; i < n + 1; i++) {
     tabEntiers.push(true)
   }
-  
+
   // On supprime les multiples des nombres premiers à partir de 2, 3, 5,...
   for (let i = 2; i <= testMax; i++) {
     if (tabEntiers[i]) {
@@ -4816,14 +4807,14 @@ export function cribleEratostheneN (n) {
       }
     }
   }
-  
+
   // On récupère tous les indices du tableau des entiers dont le booléen est à true qui sont donc premiers
   for (let i = 2; i < n + 1; i++) {
     if (tabEntiers[i]) {
       liste.push(i)
     }
   }
-  
+
   return liste
 }
 
@@ -4837,7 +4828,6 @@ export function cribleEratostheneN (n) {
  */
 
 export function premiersEntreBornes (min, max) {
-  
   // on crée les premiers jusque min
   const premiersASupprimer = cribleEratostheneN(min - 1)
   // on crée les premiers jusque max
@@ -4855,7 +4845,6 @@ export function premiersEntreBornes (min, max) {
  */
 
 export function texteOuPas (texte) {
-  
   const bool = randint(0, 1)
   if (bool === 0) {
     return '\\ldots'
@@ -4945,7 +4934,7 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
     tableauCL += 'c|'
   }
   tableauCL += '}\n'
-  
+
   tableauCL += '\\hline\n'
   if (typeof tabEntetesColonnes[0] === 'number') {
     tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
@@ -4984,7 +4973,7 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
   } else {
     tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
   }
-  
+
   return tableauCL
 }
 
@@ -4996,7 +4985,6 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
  * @author Sébastien Lozano
  */
 export function warnMessage (texte, couleur, titre) {
-  
   const timeStamp = Date.now()
   if (typeof (titre) === 'undefined') {
     titre = ''
@@ -5037,7 +5025,7 @@ export function warnMessage (texte, couleur, titre) {
  * @author Sébastien Lozano
  */
 
-export function infoMessage ({titre, texte, couleur}) {
+export function infoMessage ({ titre, texte, couleur }) {
   // ;
   const timeStamp = Date.now()
   if (context.isHtml) {
@@ -5078,7 +5066,7 @@ export function infoMessage ({titre, texte, couleur}) {
  * @author Sébastien Lozano
  */
 
-export function lampeMessage ({titre, texte, couleur}) {
+export function lampeMessage ({ titre, texte, couleur }) {
   const timeStamp = Date.now()
   if (context.isHtml) {
     if (context.versionMathalea === 3) {
@@ -5142,19 +5130,18 @@ export function decompositionFacteursPremiersArray (n) {
  * @author Sébastien Lozano
  */
 export function Triangles (l1, l2, l3, a1, a2, a3) {
-  
   const self = this
-  
+
   /**
    * @constant {array} nomsPossibles liste de noms possibles pour un triangle
    */
   const nomsPossibles = ['AGE', 'AIL', 'AIR', 'ALU', 'AME', 'AMI', 'ANE', 'ARC', 'BAC', 'BAL', 'BAR', 'BEC', 'BEL', 'BIO', 'BIP', 'BIS', 'BLE', 'BOA', 'BOF', 'BOG', 'BOL', 'BUT', 'BYE', 'COQ', 'CRI', 'CRU', 'DUC', 'DUO', 'DUR', 'EAU', 'ECU', 'EGO', 'EPI', 'FER', 'FIL', 'FUN', 'GPS', 'ICE', 'JET', 'KIF', 'KIR', 'MAC', 'NEM', 'PAS', 'PIC', 'PIF', 'PIN', 'POT', 'RAI', 'RAP', 'RAT', 'RIF', 'SEL', 'TAF', 'TIC', 'TAC', 'TOC', 'TOP', 'UNI', 'WOK', 'YAK', 'YEN', 'ZEN', 'ZIG', 'ZAG']
-  
+
   /**
    * @property {string} nom nom du triangle, tiré au hasard dans un tableau
    */
   this.nom = choice(nomsPossibles)
-  
+
   /**
    * @return {string} Renvoie le nom du triangle tiré au hasard
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -5163,7 +5150,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
   function getNom () {
     return '$' + self.nom + '$'
   }
-  
+
   /**
    * @return {array} Renvoie un tableau contenant le nom des côtés, segments, du triangle tiré au hasard
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -5176,10 +5163,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     cotes[0] = '$[' + sommets[0] + '' + sommets[1] + ']$'
     cotes[1] = '$[' + sommets[1] + '' + sommets[2] + ']$'
     cotes[2] = '$[' + sommets[2] + '' + sommets[0] + ']$'
-    
+
     return cotes
   }
-  
+
   /**
    * @return {array} Renvoie un tableau contenant le nom des longueurs des côtés du triangle tiré au hasard
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -5192,10 +5179,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     longueurs[0] = '$' + sommets[0] + '' + sommets[1] + '$'
     longueurs[1] = '$' + sommets[1] + '' + sommets[2] + '$'
     longueurs[2] = '$' + sommets[2] + '' + sommets[0] + '$'
-    
+
     return longueurs
   }
-  
+
   /**
    * @return {array} Renvoie un tableau avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance de la classe
    */
@@ -5208,10 +5195,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     longueurs[0] = self.l1
     longueurs[1] = self.l2
     longueurs[2] = self.l3
-    
+
     return longueurs
   }
-  
+
   /**
    * @return {array} Renvoie un tableau de strings avec les noms des angles du triangle.
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -5223,10 +5210,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     angles[0] = `$\\;\\widehat{${sommets[0] + sommets[1] + sommets[2]}}$`
     angles[1] = `$\\;\\widehat{${sommets[1] + sommets[2] + sommets[0]}}$`
     angles[2] = `$\\;\\widehat{${sommets[2] + sommets[0] + sommets[1]}}$`
-    
+
     return angles
   }
-  
+
   /**
    * @return {array} Renvoie un tableau avec les valeurs des angles du triangle passées en paramètre à l'instance de la classe
    */
@@ -5239,10 +5226,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     angles[0] = self.a1
     angles[1] = self.a2
     angles[2] = self.a3
-    
+
     return angles
   }
-  
+
   /**
    * @return {array} Renvoie un tableau de strings avec les noms des sommets du triangle.
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -5257,7 +5244,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     }
     return sommets
   }
-  
+
   /**
    * @return {array} Renvoie le périmètre de l'instance de la classe Triangle() avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance
    * @example let triangle = new Triangle();
@@ -5274,7 +5261,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return self.l1 + self.l2 + self.l3
     }
   }
-  
+
   /**
    * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un vrai triangle ou non
    * @example let triangle = new Triangle();
@@ -5303,7 +5290,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return false
     }
   }
-  
+
   /**
    * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un triangle plat ou non
    * @example let triangle = new Triangle();
@@ -5332,7 +5319,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return false
     }
   }
-  
+
   /**
    * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un vrai triangle ou non
    * @example let triangle = new Triangle();
@@ -5346,7 +5333,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
    * * triangle.a3 = 60
    * * triangle.isTrueTriangleAngles() renvoie true
    */
-  
+
   function isTrueTriangleAngles () {
     // si l'un des angles n'est pas defini ça ne va pas
     if ((typeof self.a1 === 'undefined') || (typeof self.a2 === 'undefined') || (typeof self.a3 === 'undefined')) {
@@ -5368,7 +5355,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return false
     }
   }
-  
+
   // renvoie un booleen selon que les trois angles forment un triangle plat ou non
   /**
    * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un triangle plat ou non
@@ -5398,7 +5385,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return false
     }
   }
-  
+
   this.l1 = l1
   this.l2 = l2
   this.l3 = l3
@@ -5430,7 +5417,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
 export function Relatif (...relatifs) {
   // ; pas de use strict avec un paramètre du reste
   this.relatifs = relatifs
-  
+
   /**
    * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs,
    * * Si 0 fait partie des relatifs on renvoie une erreur
@@ -5467,7 +5454,7 @@ export function Relatif (...relatifs) {
     }
     return signes
   }
-  
+
   /**
    * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
    * @return {array} Renvoie un tableau de strings valant 'négatif' ou 'positif'
@@ -5486,14 +5473,14 @@ export function Relatif (...relatifs) {
     })
     return signesString
   }
-  
+
   /**
    *
    * @param  {...any} n une liste de deux ou plus de nombres relatifs
    * @return {number} Renvoie le signe du produit des nombres de cette liste. 1 ou -1
    * @example getSigneProduitNumber(1,-4,-7) renvoie 1
    */
-  
+
   function getSigneProduitNumber (...n) {
     let produit = 1
     try {
@@ -5524,14 +5511,14 @@ export function Relatif (...relatifs) {
       console.log(err.stack)
     }
   }
-  
+
   /**
    *
    * @param  {...any} n une liste de deux ou plus de nombres relatifs
    * @return {string} Renvoie un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
    * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
    */
-  
+
   function getSigneProduitString (...n) {
     const produit = getSigneProduitNumber(...n)
     if (produit === -1) {
@@ -5541,7 +5528,7 @@ export function Relatif (...relatifs) {
       return 'positif'
     }
   }
-  
+
   /**
    *
    * @param  {...any} n une liste de deux ou plus de nombres relatifs
@@ -5550,7 +5537,7 @@ export function Relatif (...relatifs) {
    * @example getCardNegatifs([1,-4,-7]) renvoie 2
    * @example getCardNegatifs([4,-5,7,7,-8,-9]) renvoie 3
    */
-  
+
   function getCardNegatifs ([...n]) {
     let card = 0
     try {
@@ -5577,7 +5564,7 @@ export function Relatif (...relatifs) {
       console.log(err.message)
     }
   }
-  
+
   /**
    * Fonction locale
    * @param {integer} n un entier désignant le cardinal de facteurs négatifs dans un produit
@@ -5592,13 +5579,13 @@ export function Relatif (...relatifs) {
       return 'facteur négatif'
     }
   }
-  
+
   /**
    * @param  {...any} n une liste de deux ou plus de nombres relatifs qui constituent les facteurs du produit
    * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
    * @example setRegleProduitFacteurs([1,-2,-8,5]) renvoie le string 'Il y a 2 facteurs négatifs, le nombre de facteurs négatifs est pair donc le produit est positif.'
    */
-  
+
   function setRegleSigneProduit (...n) {
     try {
       // port du string interdit !
@@ -5632,7 +5619,7 @@ export function Relatif (...relatifs) {
       console.log(err.message)
     }
   }
-  
+
   /**
    *
    * @param  {...any} num une liste de deux ou plus de nombres relatifs qui constituent les facteurs du numérateur
@@ -5640,7 +5627,7 @@ export function Relatif (...relatifs) {
    * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
    * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
    */
-  
+
   function setRegleSigneQuotient (...n) {
     try {
       // port du string interdit !
@@ -5676,7 +5663,7 @@ export function Relatif (...relatifs) {
       console.log(err.message)
     }
   }
-  
+
   this.getSigneNumber = getSigneNumber
   this.getSigneString = getSigneString
   this.getSigneProduitNumber = getSigneProduitNumber
@@ -5694,7 +5681,7 @@ export function nombreEnLettres (nb, type = 1) {
     partieDecimale = new Decimal(nb).sub(partieEntiere).toDP(3)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
     partieDecimale = partieDecimale.mul(10 ** nbDec).toNumber()
-    
+
     switch (nbDec) {
       case 1:
         if (partieDecimale > 1) decstring = ' dixièmes'
@@ -5709,7 +5696,7 @@ export function nombreEnLettres (nb, type = 1) {
         else decstring = ' millième'
         break
     }
-    
+
     if (type === 1) {
       nbstring = partieEntiereEnLettres(partieEntiere) + ' unités et ' + partieEntiereEnLettres(partieDecimale) + decstring
     } else if (nbDec === nombreDeChiffresDansLaPartieEntiere(partieDecimale)) {
@@ -5729,7 +5716,7 @@ export function nombreEnLettres (nb, type = 1) {
  *
  *
  * @param {int} nb
- 
+
  *
  */
 export function partieEntiereEnLettres (nb) {
@@ -6736,7 +6723,7 @@ export function partieEntiereEnLettres (nb) {
     998: 'neuf cent quatre-vingt-dix-huit',
     999: 'neuf cent quatre-vingt-dix-neuf'
   }
-  
+
   const nbString = nb.toString()
   let classeDesMilliards = ''
   if (nbString.substring(nbString.length - 12, nbString.length - 9).length > 0) {
@@ -6868,7 +6855,7 @@ export function TrouverSolutionMathador (
   const nbDetermines = arguments.length - 2
   while (eureka === false) {
     tirage = []
-    
+
     if (nbDetermines < 1) a = parseInt(choice(listeChoix))
     else a = A
     if (nbDetermines < 2) {
@@ -6905,7 +6892,7 @@ export function TrouverSolutionMathador (
       `${nombresRestants[3]}`,
       `${nombresRestants[4]}`
     ]
-    
+
     while (nombresRestants.length > 1) {
       b = nombresRestants.pop()
       a = nombresRestants.pop()
@@ -6913,7 +6900,7 @@ export function TrouverSolutionMathador (
       part1f = expressionEnCoursF.pop()
       part2d = expressionEnCoursD.pop()
       part1d = expressionEnCoursD.pop()
-      
+
       op = operationsRestantes.pop()
       if (op === '\\times') {
         c = a * b
@@ -6962,7 +6949,7 @@ export function TrouverSolutionMathador (
       }
       operationsSuccessives.push(`${a}` + op + `${b}=${c}`)
     }
-    
+
     if (nombresRestants.length === 1 && operationsRestantes.length === 0) {
       solution = nombresRestants[0]
       if (solution >= min && solution <= max) {
@@ -7010,11 +6997,11 @@ export function telechargeFichier (text, filename) {
   const element = document.createElement('a')
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
   element.setAttribute('download', filename)
-  
+
   element.style.display = 'none'
   document.body.appendChild(element)
   element.click()
-  
+
   document.body.removeChild(element)
 }
 
@@ -8269,5 +8256,5 @@ export function listeEntiersSommeConnue (nbElements, total, valMin = 1) {
  * @author Jean-Léon Henry
  */
 export function prettyTex (expression) {
-  return expression.toTex({implicit: 'hide'}).replaceAll('\\cdot', '')
+  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }
