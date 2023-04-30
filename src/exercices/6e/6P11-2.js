@@ -180,7 +180,7 @@ export default function ProportionnaliteParLineariteTableau () {
             pp = np * fruits[index][1]
             pg = cm * pp
             o = choice([fruits[index][0]])
-            texte = `${prenom()} achète ${texMasse(pg)} kg de ${o} pour $${texPrix(ng)}$ €. Quelle masse pourrait être achetée avec $${np}$ € ? `
+            texte = `${prenom()} achète ${texMasse(pg)} kg de ${o} pour $${texPrix(ng)}$ €. Quelle masse de ${o} pourrait être achetée avec $${np}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [`\\text{Prix des ${o} (en euros)}`, ng, np],
@@ -230,7 +230,7 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = randint(2, 10, np)
             pg = pu * ng
             o = choice([fruits[index][0]])
-            texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse pourrait être achetée avec $${ng}$ € ? `
+            texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
 
