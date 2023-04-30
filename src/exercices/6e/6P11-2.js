@@ -21,6 +21,8 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+export const dateDeModifImportante = '30/04/2023' // EE : Rajout de 2 paramètres
+
 /**
  * Résoudre un problème de proportionnalité avec linéarité via tableau
  * @Mireille Gain, 30 mai 2021
@@ -29,28 +31,34 @@ export const interactifType = 'mathLive'
 export const ref = '6P11-2'
 export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
   this.nbQuestions = 5
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 4 // Niveau de difficulté
+  this.sup2 = false
+  this.sup3 = false
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
+    this.consigne = 'On considère que les situations suivantes'
+    console.log(this.sup3)
+    this.consigne += this.sup3 ? ', sauf cas flagrant,' : ''
+    this.consigne += ' sont des situations de proportionnalité.'
+    this.consigne += this.sup2 ? ' <br>On demande de les résoudre à l\'aide d\'un tableau.' : ''
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
-      typeDeQuestionsDisponibles = [1, 1, 1, 1, 4]
+      typeDeQuestionsDisponibles = this.sup3 ? [1, 1, 1, 1, 4] : [1]
     } else if (this.sup === 2) {
-      typeDeQuestionsDisponibles = [2, 2, 2, 2, 4]
+      typeDeQuestionsDisponibles = this.sup3 ? [2, 2, 2, 2, 4] : [2]
     } else if (this.sup === 3) {
-      typeDeQuestionsDisponibles = [3, 3, 3, 3, 4]
+      typeDeQuestionsDisponibles = this.sup3 ? [3, 3, 3, 3, 4] : [3]
     } else if (this.sup === 4) {
-      typeDeQuestionsDisponibles = [1, 2, 3, 2, 4]
+      typeDeQuestionsDisponibles = this.sup3 ? [1, 2, 3, 2, 4] : [1, 2, 3]
     }
 
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -267,10 +275,7 @@ export default function ProportionnaliteParLineariteTableau () {
           style: 'display:block'
         }), monTableau)
       }
-      this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>'
-      if (!this.interactif) {
-        this.consigne += 'On demande de les résoudre à l\'aide d\'un tableau.'
-      } else {
+      if (this.interactif && this.sup3) {
         this.consigne += 'Si ce n\'est pas une situation de proportionnalité, écrire : non proportionnel.'
       }
       texte += ajouteChampTexteMathLive(this, i)
@@ -285,4 +290,6 @@ export default function ProportionnaliteParLineariteTableau () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Multiplication\n2 : Division\n3 : Passage par l\'unité\n4 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Avec tableau dans la consigne']
+  this.besoinFormulaire3CaseACocher = ['Avec des situations de non-proportionnalité']
 }
