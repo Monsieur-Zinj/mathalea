@@ -42,7 +42,7 @@
 <div
   class="{isVisible
     ? 'inline-flex'
-    : 'hidden'} flex-wrap scale-75 ml-1 items-center justify-center rounded-full bg-coopmaths-{bgColor} dark:bg-coopmathsdark-{bgColor} text-coopmaths-{textColor} dark:text-coopmathsdark-{textColor} text-xs px-2 py-[1px] shadow-sm"
+    : 'hidden'} flex-wrap scale-75 mr-1 items-center justify-center rounded-full bg-coopmaths-{bgColor} dark:bg-coopmathsdark-{bgColor} text-coopmaths-{textColor} dark:text-coopmathsdark-{textColor} text-xs px-2 py-[1px] shadow-sm"
 >
   {text}
   <button class="ml-1 bg-transparent hover focus:outline-none cursor-pointer" on:click={triggerAction}>

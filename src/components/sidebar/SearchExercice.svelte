@@ -6,6 +6,7 @@
   import EntreeRecherche from "./EntreeRecherche.svelte"
   import Button from "../forms/Button.svelte"
   import Chip from "../forms/Chip.svelte"
+  import Filtres from "./Filtres.svelte"
   export let referentiel: object
   let searchField: HTMLInputElement
 
@@ -33,26 +34,63 @@
 
   let listeDesExercices = getAllExercices(referentiel)
   let filteredList: InterfaceReferentiel[]
+  let filteredStaticList: InterfaceReferentiel[] = []
   let isCanInclusDansResultats: boolean
-  export let isAmcOnlySelected: boolean = false
-  export let isInteractiveOnlySelected: boolean = false
   let isFiltersDisplayed: boolean = false
   let isSearchInputDisplayed: boolean = false
 
+  let inputSearch: string = ""
   $: {
     referentiel = referentiel
     listeDesExercices = getAllExercices(referentiel)
-    filteredList = listeDesExercices.filter((exercice) => filtre(exercice, inputSearch, isCanInclusDansResultats))
+    filteredList = listeDesExercices
+      .filter((exercice) => filtre(exercice, inputSearch, true))
+      .sort((exoA, exoB) => {
+        const scoreA = exoA.id.startsWith("can") ? 1 : 0
+        const scoreB = exoB.id.startsWith("can") ? 1 : 0
+        return scoreA - scoreB
+      }) // exos CAN à la fin de la liste
   }
-  let inputSearch: string = ""
 
-  // function handlePressEnter(e: KeyboardEvent) {
-  //   if (e.key === "Enter") {
-  //     if (filteredList.length === 1) {
-  //       addToList(filteredList[0])
-  //     }
-  //   }
-  // }
+  function buildStaticList() {
+    const liste = listeDesExercices.filter((exercice) => filtreStatic(exercice, inputSearch))
+    // retirer les doublons (le référentiel statique contient des classements par thèmes
+    //  et années avec les mêmes exercices !!!)
+    let alreadySelected = []
+    filteredStaticList = liste.filter((exo) => {
+      if (!alreadySelected.includes(exo.uuid)) {
+        alreadySelected.push(exo.uuid)
+        return true
+      } else {
+        return false
+      }
+    })
+  }
+
+  /**
+   * Filtre pour les exercices statiques :
+   * ### Méthode :
+   * On cherche si l'exercice a un lieu. Dans ce cas, on regarde parmis tous les `tags` si un match le contenu de `inputSearch`
+   * @param {InterfaceReferentiel} exercice exercice à filtrer
+   * @param {string} inputSearch chaîne à chercher
+   * @returns {boolean} `true` si les tags contienne un bout de la requête, `false` sinon
+   * @author sylvain
+   */
+  const filtreStatic = (exercice, inputSearch) => {
+    if (!inputSearch) {
+      return false
+    }
+    if (exercice.lieu === undefined) {
+      return false
+    } else {
+      for (const tag of exercice.tags) {
+        if (tag.toLowerCase().includes(inputSearch.toLowerCase())) {
+          return true
+        }
+      }
+      return false
+    }
+  }
 
   /**
    * Détermine si un exercice est dans les résultats de la recherche ou pas
@@ -178,9 +216,30 @@
 
 <!-- <svelte:window on:keydown={handlePressEnter} /> -->
 <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
-<div class="flex flex-row space-x-6 {isFiltersDisplayed ? 'mb-0' : 'mb-2'} justify-start items-center">
+<div class="flex flex-row space-x-2 justify-start items-center">
   <!-- <div class="font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div> -->
-  <Button title="" icon="bx-search" on:click={getSearchDisplayed} />
+  <div class="relative flex flex-col w-full">
+    <input
+      type="text"
+      id="searchInputField"
+      class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
+      placeholder="🔍 Thème, identifiant..."
+      bind:value={inputSearch}
+      bind:this={searchField}
+      on:input={() => {
+        filteredStaticList.length = 0
+        buildStaticList()
+        // console.log(filteredStaticList)
+      }}
+    />
+    <div
+      class="absolute -bottom-4 {matchOnFilteredList(inputSearch) !== null
+        ? 'flex'
+        : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
+    >
+      Presser <span class="font-normal mx-1">Entrée</span> pour ajouter l'exercice
+    </div>
+  </div>
   <Button
     title=""
     icon="bx-filter-alt"
@@ -188,81 +247,25 @@
       isFiltersDisplayed = !isFiltersDisplayed
     }}
   />
-  <div class="inline-flex justify-start text-sm">
-    <Chip
-      text="AMC"
-      textColor="canvas"
-      bgColor="struct"
-      isVisible={isAmcOnlySelected}
-      on:action={() => {
-        isAmcOnlySelected = !isAmcOnlySelected
-        triggerAction()
-      }}
-    />
-    <Chip
-      text="Interactif"
-      textColor="canvas"
-      bgColor="struct"
-      isVisible={isInteractiveOnlySelected}
-      on:action={() => {
-        isInteractiveOnlySelected = !isInteractiveOnlySelected
-        triggerAction()
-      }}
-    />
-    <!-- <span class={isAmcOnlySelected ? "flex" : "hidden"}>AMC</span>
-    <span class={isInteractiveOnlySelected ? "flex" : "hidden"}>Interactif</span> -->
-  </div>
 </div>
-<div class="{isFiltersDisplayed ? 'flex' : 'hidden'} flex-col justify-start items-start mb-2">
-  <div class="flex-row justify-start items-center pr-4 pl-6">
-    <input
-      id="checkbox-amc"
-      aria-describedby="checkbox-amc"
-      type="checkbox"
-      class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action rounded"
-      bind:checked={isAmcOnlySelected}
-      on:change={triggerAction}
-    />
-    <label for="checkbox-choice" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> Exercices compatibles AMC </label>
-  </div>
-  <div class="flex-row justify-start items-center pr-4 pl-6">
-    <input
-      id="checkbox-interactive"
-      aria-describedby="checkbox-interactive"
-      type="checkbox"
-      class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action rounded"
-      bind:checked={isInteractiveOnlySelected}
-      on:change={triggerAction}
-    />
-    <label for="checkbox-choice" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> Exercices interactifs </label>
-  </div>
+<div class="py-3">
+  <Filtres isVisible={isFiltersDisplayed} on:filters />
 </div>
-<div class="{isSearchInputDisplayed ? 'flex' : 'hidden'} flex-col">
-  <div class="flex flex-col mb-4 w-full">
+<div class="{filteredList.length > 0 ? 'flex' : 'hidden'} flex-col my-3">
+  <!-- <div class="mb-2 text-coopmaths-coprpus-light dark:text-coopmathsdark-coprpus-light text-sm font-light">
+    Inclure les courses aux nombres :
     <input
-      type="text"
-      id="searchInputField"
-      class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
-      placeholder="Thème, identifiant..."
-      bind:value={inputSearch}
-      bind:this={searchField}
+      type="checkbox"
+      class="ml-2 w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action rounded disabled:opacity-30"
+      bind:checked={isCanInclusDansResultats}
     />
-    <div class="{matchOnFilteredList(inputSearch) !== null ? 'visible' : 'invisible'} pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-      Entrée pour ajouter l'exercice
-    </div>
-  </div>
-  {#if inputSearch.length > 0}
-    <div class="mb-4 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light text-sm font-light">
-      Inclure les courses aux nombres :
-      <input
-        type="checkbox"
-        class="ml-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-2 border-transparent focus:border-2 text-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-        bind:checked={isCanInclusDansResultats}
-      />
-    </div>
-  {/if}
-
+  </div> -->
   {#each filteredList as exercice}
+    <EntreeRecherche {exercice} />
+  {/each}
+</div>
+<div class="{filteredStaticList.length > 0 ? 'flex' : 'hidden'} flex-col my-3">
+  {#each filteredStaticList as exercice}
     <EntreeRecherche {exercice} />
   {/each}
 </div>

@@ -10,7 +10,6 @@
   const isPresent = (code) => {
     return code === exercice.uuid
   }
-  const tags = exercice.tags
   let selectedCount = 0
   let listeCodes = []
   // on compte réactivement le nombre d'occurences
@@ -78,23 +77,35 @@
     }}
   >
     <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1">
-      <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-        <span class="font-bold">{exercice.id} - </span>{exercice.titre}
-        {#if isRecent(exercice.datePublication)}
-          <span
-            class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
-          >
-            NEW
-          </span>
-        {/if}
-        {#if isRecent(exercice.dateModification)}
-          <span
-            class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
-          >
-            MAJ
-          </span>
-        {/if}
-      </div>
+      {#if exercice.lieu}
+        <span class="font-bold">{exercice.typeExercice.toUpperCase()} {exercice.mois || ""} {exercice.annee} - {exercice.lieu} - {exercice.numeroInitial}</span>
+        <div>
+          {#each exercice.tags as tag}
+            <span
+              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
+              >{tag}</span
+            >
+          {/each}
+        </div>
+      {:else}
+        <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          <span class="font-bold">{exercice.id} - </span>{exercice.titre}
+          {#if isRecent(exercice.datePublication)}
+            <span
+              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
+            >
+              NEW
+            </span>
+          {/if}
+          {#if isRecent(exercice.dateModification)}
+            <span
+              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
+            >
+              MAJ
+            </span>
+          {/if}
+        </div>
+      {/if}
     </div>
   </div>
   <!-- {#if selectedCount >= 1} -->
@@ -106,8 +117,10 @@
     on:mouseout={handleMouseOut}
     on:blur={handleMouseOut}
     on:click={removeFromList}
-    on:keydown={removeFromList}><i class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}" /></button
+    on:keydown={removeFromList}
   >
+    <i class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}" />
+  </button>
   <!-- {/if} -->
   {#if selectedCount >= 2 && mouseIsOut}
     <div class="absolute -left-[12.5px] text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark">{selectedCount}</div>
