@@ -22,7 +22,7 @@
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
-  let filtre: string = "all"
+  let filtres: string[] = []
   let divExercices: HTMLDivElement
   let zoom: number = 1
   let setAllInteractifClicked: boolean = false
@@ -107,27 +107,23 @@
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
+  let itemsAccepted = []
   function updateReferentiel() {
-    let itemsAccepted: string[]
-    if (filtre === "college") {
-      itemsAccepted = ["6e", "5e", "4e", "3e"]
-    } else if (filtre === "lycee") {
-      itemsAccepted = ["2e", "1e", "1techno", "Ex", "HP"]
-    } else if (filtre === "crpe") {
-      itemsAccepted = ["PE"]
-    }
-
-    if (filtre === "all") {
+    if (itemsAccepted.length === 0) {
+      // pas de filtres sélectionnés
       filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
     } else {
-      filteredReferentiel = Object.keys(referentiel)
+      filteredReferentiel = Object.keys({ ...referentiel, static: { ...referentielStatic } })
         .filter((key) => itemsAccepted.includes(key))
         .reduce((obj, key) => {
+          const ref = { ...referentiel, static: { ...referentielStatic } }
           return {
             ...obj,
-            [key]: referentiel[key],
+            [key]: ref[key],
           }
         }, {})
+      console.log("first list :")
+      console.log(filteredReferentiel)
     }
 
     function buildReferentiel(listOfEntries) {
@@ -213,8 +209,8 @@
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
     // console.log("amc? " + isAmcOnlySelected + " / interactif? " + isInteractiveOnlySelected)
-    // console.log("tableau pour menu : ")
-    // console.log(arrayReferentielFiltre)
+    console.log("tableau pour menu : ")
+    console.log(arrayReferentielFiltre)
   }
   updateReferentiel()
 
@@ -349,6 +345,17 @@
   function toggleExercisesList() {
     isExercisesListVisible = !isExercisesListVisible
   }
+
+  function updateFilters(filters) {
+    itemsAccepted = [...filters.levels]
+    if (filters.types.includes("static")) {
+      itemsAccepted = [...itemsAccepted, "static"]
+    }
+    console.log(itemsAccepted)
+    isAmcOnlySelected = filters.types.includes("amc")
+    isInteractiveOnlySelected = filters.types.includes("interactif")
+    updateReferentiel()
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -358,7 +365,6 @@
     <div id="headerStart" class="lg:sticky lg:top-0 z-40 h-32 pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
       <NavBarV2 />
     </div>
-    <!-- <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} /> -->
   {/if}
   <!-- Gestion du mode sombre -->
   <div class="flex flex-col justify-between min-h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mt-6 md:mt-0">
@@ -379,19 +385,12 @@
                 </button>
               </div>
               <div class="{isExercisesListVisible ? '' : 'hidden'} h-full">
-                <div class="flex flex-auto mb-2">
-                  <select
-                    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1 focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
-                    bind:value={filtre}
-                    on:change={updateReferentiel}
-                  >
-                    <option value="all" class=" hover:bg-coopmaths-canvas-darkest">Tous les exercices</option>
-                    <option value="college" class=" hover:bg-coopmaths-canvas-darkest">Collège</option>
-                    <option value="lycee" class=" hover:bg-coopmaths-canvas-darkest">Lycée</option>
-                    <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
-                  </select>
-                </div>
-                <SearchExercice referentiel={filteredReferentiel} bind:isInteractiveOnlySelected bind:isAmcOnlySelected on:specific={updateReferentiel} />
+                <SearchExercice
+                  referentiel={filteredReferentiel}
+                  on:filters={(e) => {
+                    updateFilters(e.detail)
+                  }}
+                />
                 <ul>
                   {#each arrayReferentielFiltre as item, i}
                     <li>
@@ -727,19 +726,12 @@
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
                 <div class="font-bold text-xl">Choix des exercices</div>
               </div>
-              <div class=" mb-2">
-                <select
-                  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1 focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
-                  bind:value={filtre}
-                  on:change={updateReferentiel}
-                >
-                  <option value="all" class=" hover:bg-coopmaths-canvas-darkest">Tous les exercices</option>
-                  <option value="college" class=" hover:bg-coopmaths-canvas-darkest">Collège</option>
-                  <option value="lycee" class=" hover:bg-coopmaths-canvas-darkest">Lycée</option>
-                  <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
-                </select>
-              </div>
-              <SearchExercice referentiel={filteredReferentiel} bind:isInteractiveOnlySelected bind:isAmcOnlySelected on:specific={updateReferentiel} />
+              <SearchExercice
+                referentiel={filteredReferentiel}
+                on:filters={(e) => {
+                  updateFilters(e.detail)
+                }}
+              />
               <ul>
                 {#each arrayReferentielFiltre as item, i}
                   <li>
