@@ -6279,7 +6279,7 @@
         "uuid": "6225c",
         "url": "6e/6M23.js",
         "titre": "Convertir des aires",
-        "dateDeModifImportante": "23/04/2023",
+        "dateDeModifImportante": "30/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -7083,6 +7083,7 @@
         "uuid": "65288",
         "url": "6e/6P11-2.js",
         "titre": "Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité",
+        "dateDeModifImportante": "30/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
