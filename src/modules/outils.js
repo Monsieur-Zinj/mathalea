@@ -333,9 +333,7 @@ export function formTextSerializer ({
   const Max = Math.max(...listeIndex)
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
     if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
-    return listeIndex.map((el) => {
-      listeOfCase[el - 1]
-    })
+    return listeIndex.map((el) => listeOfCase[el - 1])
   }
   return listeIndex
 }

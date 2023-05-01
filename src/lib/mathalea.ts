@@ -1,3 +1,4 @@
+import loadjs from 'loadjs'
 // @ts-ignore
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 // @ts-ignore
@@ -63,6 +64,11 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
       if (module[p] !== undefined) exercice[p] = module[p]
     })
     ;(await exercice).id = filename
+    if (exercice.typeExercice === 'XCas') {
+      animationLoading(true)
+      await loadGiac()
+      animationLoading(false)
+    }
     return exercice
   } catch (error) {
     console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
@@ -468,4 +474,87 @@ export function mathaleaHandleComponentChange (oldComponent: string, newComponen
     l.v = newComponent
     return l
   })
+}
+
+/**
+ * Nos applis prédéterminées avec la liste des fichiers à charger
+ */
+const apps = {
+  giac: './assets/externalJs/giacsimple.js',
+  mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js'
+  // prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css'],
+  // scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js',
+  // slick: ['/assets/externalJs/semantic-ui/semantic.min.css', '/assets/externalJs/semantic-ui/semantic.min.js', '/assets/externalJs/semantic-ui/components/state.min.js']
+}
+
+/**
+ * Charge une appli listée dans apps (pour mutualiser l'appel de loadjs)
+ * @private
+ * @param {string} name
+ * @return {Promise<undefined, Error>} promesse de chargement
+ */
+async function load (name: 'giac' | 'mathgraph') {
+  // on est dans une fct async, si l'une de ces deux lignes plantent ça va retourner une promesse rejetée avec l'erreur
+  if (!apps[name]) throw Error(`application ${name} inconnue`)
+  // cf https://github.com/muicss/loadjs
+  try {
+    if (!loadjs.isDefined(name)) await loadjs(apps[name], name, { returnPromise: true })
+  } catch (error) {
+    console.error(error)
+    throw new Error(`Le chargement de ${name} a échoué`)
+  }
+  // loadjs.ready veut une callback, on emballe ça dans une promesse
+  return new Promise((resolve, reject) => {
+    loadjs.ready(name, {
+      // @ts-ignore
+      success: resolve,
+      // si le chargement précédent a réussi on voit pas trop comment on pourrait arriver là, mais ça reste plus prudent de gérer l'erreur éventuelle
+      error: () => reject(new Error(`Le chargement de ${name} a échoué`))
+    })
+  })
+}
+
+/**
+ * Attend que xcas soit chargé (max 60s), car giacsimple lance le chargement du wasm|js suivant les cas
+ * @return {Promise<undefined,Error>} rejette en cas de timeout
+ */
+function waitForGiac () {
+  /* global Module */
+  // @ts-ignore
+  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
+  const timeout = 60 // en s
+  const tsStart = Date.now()
+  return new Promise((resolve, reject) => {
+    const monInterval = setInterval(() => {
+      const delay = Math.round((Date.now() - tsStart) / 1000)
+      // @ts-ignore
+      if (Module.ready === true) {
+        clearInterval(monInterval)
+        // @ts-ignore
+        resolve()
+      } else if (delay > timeout) {
+        clearInterval(monInterval)
+        reject(Error(`xcas n’est toujours pas chargé après ${delay}s`))
+      }
+    }, 500)
+  })
+}
+
+/**
+ * Charge giac
+ * @return {Promise} qui peut échouer…
+ */
+export async function loadGiac () {
+  await load('giac')
+  // attention, le load précédent résoud la promesse lorsque giacsimple est chargé,
+  // mais lui va charger le webAssembly ou js ensuite, d'où le besoin de waitForGiac
+  await waitForGiac()
+}
+
+function animationLoading (state: boolean) {
+  if (state) {
+    document.getElementById('loading').classList.remove('hidden')
+  } else {
+    document.getElementById('loading').classList.add('hidden')
+  }
 }
