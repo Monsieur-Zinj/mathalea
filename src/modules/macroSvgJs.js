@@ -1,4 +1,3 @@
-/* global $ */
 /* eslint-disable camelcase */
 import katex from 'katex'
 import { SVG } from '@svgdotjs/svg.js'
@@ -10,7 +9,6 @@ import { context } from './context.js'
  */
 
 export function svgEngrenages () {
-  
   class SvgEngrenage extends HTMLElement {
     constructor () {
       super()
@@ -121,13 +119,12 @@ export function svgEngrenages () {
  * @author Sébastien Lozano
  */
 export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpressions) {
-  
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
   window.SVGExist[id_du_div] = setInterval(function () {
-    if ($(`#${id_du_div}`).length) {
-      $(`#${id_du_div}`).html('')// Vide le div pour éviter les SVG en doublon
+    if (document.querySelector(`#${id_du_div}`)) {
+      document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
       // on crée un rectangle dont la taille est adaptée au texte
       // let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
       document.getElementById(id_du_div).innerHTML = `
@@ -243,7 +240,6 @@ export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpression
 * @author Sébastien Lozano
 */
 export function SVG_fleche_machine_maths (groupe, chemin, couleur) {
-  
   return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
 }
 
@@ -254,7 +250,6 @@ export function SVG_fleche_machine_maths (groupe, chemin, couleur) {
   * @author Sébastien Lozano
   */
 export function SVG_chemin (groupe, chemin, couleur) {
-  
   return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
 }
 
@@ -269,13 +264,12 @@ export function SVG_chemin (groupe, chemin, couleur) {
    * @author Sébastien Lozano
    */
 export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpressions) {
-  
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
   window.SVGExist[id_du_div] = setInterval(function () {
-    if ($(`#${id_du_div}`).length) {
-      $(`#${id_du_div}`).html('')// Vide le div pour éviter les SVG en doublon
+    if (document.querySelector(`#${id_du_div}`)) {
+      document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
       // on crée un rectangle dont la taille est adaptée au texte
       // let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
       document.getElementById(id_du_div).innerHTML = `
@@ -354,7 +348,6 @@ export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpr
    * @author Sébastien Lozano
    */
 export function my_svg_font (font, interligne, ancre, f_style, f_weight) {
-  
   return {
     family: font,
     size: interligne,
@@ -385,7 +378,6 @@ export function my_svg_font (font, interligne, ancre, f_style, f_weight) {
    * @author Sébastien Lozano
    */
 export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
-  
   const interligne = 15 // pour un interligne uniforme
   const prop_font = my_svg_font('Helvetica', interligne, 'start', 'normal', 'normal')
   const prop_font_nom = my_svg_font('Helvetica', interligne, 'start', 'normal', 'bold')
@@ -394,8 +386,8 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
   window.SVGExist[id_du_div] = setInterval(function () {
-    if ($(`#${id_du_div}`).length) {
-      $(`#${id_du_div}`).html('')// Vide le div pour éviter les SVG en doublon
+    if (document.querySelector(`#${id_du_div}`)) {
+      document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
       // const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
       const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h)
       // on trace un cadre pour le debug
