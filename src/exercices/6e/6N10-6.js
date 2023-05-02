@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range1, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences, sp, combinaisonListes2, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, texNombre, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences, sp, combinaisonListes2, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -89,7 +89,7 @@ export default function SommeFractionsDecimales () {
           switch (this.sup2) {
             case 2 : texteCorr = `$${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombrec(reponseAMC)}$`
+            default : texteCorr = `$${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -107,7 +107,7 @@ export default function SommeFractionsDecimales () {
           switch (this.sup2) {
             case 2 : texteCorr = `$${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombrec(reponseAMC)}$`
+            default : texteCorr = `$${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -127,7 +127,7 @@ export default function SommeFractionsDecimales () {
           switch (this.sup2) {
             case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombrec(reponseAMC)}$`
+            default : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -146,7 +146,7 @@ export default function SommeFractionsDecimales () {
           switch (this.sup2) {
             case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombrec(reponseAMC)}$`
+            default : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -166,7 +166,7 @@ export default function SommeFractionsDecimales () {
           switch (this.sup2) {
             case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombrec(reponseAMC)}$`
+            default : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -185,7 +185,7 @@ export default function SommeFractionsDecimales () {
           switch (this.sup2) {
             case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombrec(reponseAMC)}$`
+            default : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break

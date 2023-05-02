@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec, sp } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre, texteEnCouleur, texNombre, sp } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des m$^3$ et litres'
 export const interactifReady = true
@@ -33,7 +33,7 @@ export default function ConversionM3EtLitres () {
         this.correction = ` $${texNombre(a)}$ m$^3 = ${texNombre(a * 1000)}$ L`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Comme $1$ m$^3 = ${texNombre(1000)}$ L,  alors pour passer des «${sp()}m$^3$ ${sp()}» au «${sp()}L ${sp()}», on multiplie par $${texNombre(1000)}$.<br>
-          Comme $${texNombre(a)}\\times ${texNombre(1000)} =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ m$^3${sp()}=${resultat}$ L.  `)
+          Comme $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}$ m$^3${sp()}=${resultat}$ L.  `)
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}$ m$^3 = \\dots$ L`
         break
@@ -48,10 +48,10 @@ export default function ConversionM3EtLitres () {
         this.optionsChampTexte = { texteApres: ' m$^3$' }
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}$ L $ = \\dots$ m$^3$`
-        this.correction = ` $${texNombre(a)}$ L $=${texNombrec(a / 1000)}$ m$^3$`
+        this.correction = ` $${texNombre(a)}$ L $=${texNombre(a / 1000)}$ m$^3$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
            Comme $1$ m$^3 = ${texNombre(1000)}$ L, alors $1$ L$${sp()} = ${texNombre(0.001)}$ m$^3$. Donc, pour passer des «${sp()}L ${sp()}» au «${sp()}m$^3$ ${sp()}», on divise par $${texNombre(1000)}$.<br>
-          Comme $${texNombre(a)}\\div ${texNombre(1000)} =${texNombrec(a / 1000)}$, alors $${texNombrec(a)}$ L$${sp()}=${texNombrec(a / 1000)}$ m$^3$.  `)
+          Comme $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}$ L$${sp()}=${texNombre(a / 1000)}$ m$^3$.  `)
 
         break
     }

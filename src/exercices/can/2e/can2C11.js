@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, texNombrec, choice, calcul, sp } from '../../../modules/outils.js'
+import { randint, texNombre, choice, calcul, sp } from '../../../modules/outils.js'
 export const titre = 'Passer du coefficient multiplicateur au taux d’évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,39 +29,39 @@ export default function CoeffTaux () {
       case 'a':
         taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
         coeff = calcul(1 + taux / 100)
-        this.question = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombrec(coeff)}$ est `
+        this.question = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff)}$ est `
         if (!this.interactif) {
           this.question += '.... '
         }
         this.optionsChampTexte = { texteApres: ' %' }
-        this.correction = `Multiplier par $${texNombrec(coeff)}$ revient à multiplier par $1+\\dfrac{${texNombrec(taux)}}{100}$. <br>
+        this.correction = `Multiplier par $${texNombre(coeff)}$ revient à multiplier par $1+\\dfrac{${texNombre(taux)}}{100}$. <br>
         Cela revient donc à augmenter de $${taux}${sp(1)}\\%$. <br>
-        Ainsi, le taux d'évolution associé au coefficient multiplicateur $${texNombrec(coeff)}$ est $+${texNombrec((coeff - 1) * 100)}${sp(1)}\\%$.<br><br>
+        Ainsi, le taux d'évolution associé au coefficient multiplicateur $${texNombre(coeff)}$ est $+${texNombre((coeff - 1) * 100)}${sp(1)}\\%$.<br><br>
         Autre formulation :<br>
-        Multiplier une valeur par $${texNombrec(coeff)}$ revient à en prendre  $${texNombrec(coeff * 100)}${sp(1)}\\%$.<br>
-        Cela signifie  qu'on l'augmente de $${texNombrec(coeff * 100 - 100)}${sp(1)}\\%$ car $100${sp(1)}\\% +${texNombrec(coeff * 100 - 100)}${sp(1)}\\%=${texNombrec(coeff * 100)}${sp(1)}\\%$.<br>
+        Multiplier une valeur par $${texNombre(coeff)}$ revient à en prendre  $${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
+        Cela signifie  qu'on l'augmente de $${texNombre(coeff * 100 - 100)}${sp(1)}\\%$ car $100${sp(1)}\\% +${texNombre(coeff * 100 - 100)}${sp(1)}\\%=${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
         Le taux d'évolution est donc $+${taux}${sp(1)}\\%$. `
         this.reponse = taux
         break
       case 'b':
         taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
         coeff = calcul(1 - taux / 100)
-        this.question = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombrec(coeff)}$ est `
+        this.question = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff)}$ est `
         if (!this.interactif) {
           this.question += '.... '
         }
         this.optionsChampTexte = { texteApres: ' %' }
-        this.correction = `Multiplier par $${texNombrec(coeff)}$ revient à multiplier par $1-\\dfrac{${texNombrec(taux)}}{100}$. <br>
+        this.correction = `Multiplier par $${texNombre(coeff)}$ revient à multiplier par $1-\\dfrac{${texNombre(taux)}}{100}$. <br>
         Cela revient donc à diminuer de  $${taux}${sp(1)}\\%$. <br>
-        Ainsi, le taux d'évolution associé au coefficient multiplicateur $${texNombrec(coeff)}$ est $${texNombrec((coeff - 1) * 100)}${sp(1)}\\%$<br><br>
+        Ainsi, le taux d'évolution associé au coefficient multiplicateur $${texNombre(coeff)}$ est $${texNombre((coeff - 1) * 100)}${sp(1)}\\%$<br><br>
         Autre formulation :<br>
-        Multiplier une valeur par $${texNombrec(coeff)}$ revient à en prendre  $${texNombrec(coeff * 100)}${sp(1)}\\%$.<br>
-        Cela signifie  qu'on la diminue de $${texNombrec(100 - coeff * 100)}${sp(1)}\\%$ car $100${sp(1)}\\%-${texNombrec(100 - coeff * 100)}${sp(1)}\\% =${texNombrec(coeff * 100)}${sp(1)}\\%$.<br>
+        Multiplier une valeur par $${texNombre(coeff)}$ revient à en prendre  $${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
+        Cela signifie  qu'on la diminue de $${texNombre(100 - coeff * 100)}${sp(1)}\\%$ car $100${sp(1)}\\%-${texNombre(100 - coeff * 100)}${sp(1)}\\% =${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
         Le taux d'évolution est donc $-${taux}${sp(1)}\\%$.`
         this.reponse = -taux
         break
     }
     this.canEnonce = 'Compléter.'
-    this.canReponseACompleter = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombrec(coeff)}$ est $\\ldots$ $\\%$ `
+    this.canReponseACompleter = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff)}$ est $\\ldots$ $\\%$ `
   }
 }

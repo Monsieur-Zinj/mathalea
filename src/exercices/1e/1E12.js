@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombrec, lettreMinusculeDepuisChiffre, texNombre, miseEnEvidence, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombre, lettreMinusculeDepuisChiffre, miseEnEvidence, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
 import { repere, courbe } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 
@@ -97,7 +97,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
           if (this.correctionDetaillee) {
             texteCorr += `Développons la forme canonique : $\\mathscr{${fName[i]}}(x)=
   a(x${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}=
-  a(x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1), 'green')}x+${miseEnEvidence(texNombrec(x1 ** 2), 'red')})${miseEnEvidence(ecritureAlgebrique(f(x1)), 'red')}
+  a(x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1), 'green')}x+${miseEnEvidence(texNombre(x1 ** 2), 'red')})${miseEnEvidence(ecritureAlgebrique(f(x1)), 'red')}
   =${miseEnEvidence('a', 'blue')}x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1) + 'a', 'green')}x${miseEnEvidence(ecritureAlgebriqueSauf1(x1 ** 2) + 'a' + ecritureAlgebrique(f(x1)), 'red')}$.<br>`
           }
           texteCorr += `En remplaçant $a$ par sa valeur $${a}$ dans l'expression canonique développée $${miseEnEvidence('a', 'blue')}x^2${miseEnEvidence(ecritureAlgebrique(-2 * x1) + 'a', 'green')}x${miseEnEvidence(ecritureAlgebriqueSauf1(x1 ** 2) + 'a' + ecritureAlgebrique(f(x1)), 'red')}$ on obtient :<br>`
@@ -148,7 +148,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
       svgYmin = Math.min(calcule(Ymin / Yscale), -1)
       svgYmax = Math.max(calcule(Ymax / Yscale), 1)
       F = x => a * x ** 2 + b * x + c
-      texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm: pixelsParCm, scale: 0.6 }, courbe(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
+      texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm, scale: 0.6 }, courbe(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

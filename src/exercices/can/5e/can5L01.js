@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, texNombre, texNombrec, choice } from '../../../modules/outils.js'
+import { randint, calcul, texNombre, texNombre, choice } from '../../../modules/outils.js'
 export const titre = 'Trouver $a+1$ ou $a-1$ connaissant $2a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,11 +24,11 @@ export default function MoitiePlusOuMoinsUn () {
     if (choice([true, false])) {
       this.reponse = calcul(a / 2 + 1)
       this.question = `On a  $2\\times a=${texNombre(a)}$, combien vaut $a+1$ ?`
-      this.correction = `$2\\times a=${texNombre(a)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a)}}{2}=${texNombrec(a / 2)}$.<br>Donc $a+1=${texNombrec(a / 2)}+1=${texNombrec(a / 2 + 1)}$.`
+      this.correction = `$2\\times a=${texNombre(a)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a)}}{2}=${texNombre(a / 2)}$.<br>Donc $a+1=${texNombre(a / 2)}+1=${texNombre(a / 2 + 1)}$.`
     } else {
       this.reponse = calcul(a / 2 - 1)
       this.question = `On a  $2\\times a=${texNombre(a)}$, combien vaut $a-1$ ?`
-      this.correction = `$2\\times a=${texNombre(a)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a)}}{2}=${texNombrec(a / 2)}$.<br>Donc $a-1=${texNombrec(a / 2)}-1=${texNombrec(a / 2 - 1)}$.`
+      this.correction = `$2\\times a=${texNombre(a)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a)}}{2}=${texNombre(a / 2)}$.<br>Donc $a-1=${texNombre(a / 2)}-1=${texNombre(a / 2 - 1)}$.`
     }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

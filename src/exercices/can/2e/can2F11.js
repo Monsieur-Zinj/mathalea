@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, abs, miseEnEvidence, randint, calcul, choice, texNombrec } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, abs, miseEnEvidence, randint, calcul, choice, texNombre } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Utiliser la fonction carré pour comparer deux images'
 export const interactifReady = true
@@ -37,11 +37,11 @@ export default function ComparerAvecFctCarre () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$${texNombrec(a)}^2<${texNombrec(b)}^2$`,
+                  texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
                   statut: true
                 },
                 {
-                  texte: `$${texNombrec(a)}^2>${texNombrec(b)}^2$`,
+                  texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
                   statut: false
                 }
               ]
@@ -52,11 +52,11 @@ export default function ComparerAvecFctCarre () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$${texNombrec(a)}^2>${texNombrec(b)}^2$`,
+                  texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
                   statut: true
                 },
                 {
-                  texte: `$${texNombrec(a)}^2<${texNombrec(b)}^2$`,
+                  texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
                   statut: false
                 }
               ]
@@ -65,20 +65,20 @@ export default function ComparerAvecFctCarre () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Comparer $${texNombrec(a)}^2$ et $${texNombrec(b)}^2$.`
+          texte = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
         }
 
         texteCorr = `            La fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. Cela signifie que deux nombres positifs sont rangés dans le même ordre que leurs carrés.   <br>
             Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
 
         if (a < b) {
-          texteCorr += `<br>Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, 
-          alors  $${texNombrec(a)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}^2$.`
+          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, 
+          alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}^2$.`
         } else {
-          texteCorr += `<br>Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, 
-          alors  $${texNombrec(b)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}^2$.`
+          texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, 
+          alors  $${texNombre(b)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}^2$.`
         }
-        this.canEnonce = `Comparer $${texNombrec(a)}^2$ et $${texNombrec(b)}^2$.`
+        this.canEnonce = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
         this.canReponseACompleter = ''
         break
       case 2 :
@@ -92,11 +92,11 @@ export default function ComparerAvecFctCarre () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$(${texNombrec(a)})^2>(${texNombrec(b)})^2$`,
+                  texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
                   statut: true
                 },
                 {
-                  texte: `$(${texNombrec(a)})^2<(${texNombrec(b)})^2$`,
+                  texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
                   statut: false
                 }
               ]
@@ -107,11 +107,11 @@ export default function ComparerAvecFctCarre () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$(${texNombrec(a)})^2<(${texNombrec(b)})^2$`,
+                  texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
                   statut: true
                 },
                 {
-                  texte: `$(${texNombrec(a)})^2>(${texNombrec(b)})^2$`,
+                  texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
                   statut: false
                 }
               ]
@@ -120,7 +120,7 @@ export default function ComparerAvecFctCarre () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Comparer $(${texNombrec(a)})^2$ et $(${texNombrec(b)})^2$.`
+          texte = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
         }
 
         texteCorr = ` La fonction carré étant strictement décroissante sur $]-\\infty;0]$, elle change l'ordre. <br>
@@ -128,13 +128,13 @@ export default function ComparerAvecFctCarre () {
             Autrement dit, si $a$ et $b$ sont deux nombres  négatifs et si $a < b$, alors $a^2 > b^2$.`
 
         if (a < b) {
-          texteCorr += `<br>Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, 
-        alors  $(${texNombrec(a)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombrec(b)})^2$`
+          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, 
+        alors  $(${texNombre(a)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombre(b)})^2$`
         } else {
-          texteCorr += `<br>Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, 
-        alors  $(${texNombrec(b)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombrec(a)})^2$.`
+          texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, 
+        alors  $(${texNombre(b)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombre(a)})^2$.`
         }
-        this.canEnonce = `Comparer $(${texNombrec(a)})^2$ et $(${texNombrec(b)})^2$.`
+        this.canEnonce = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
         this.canReponseACompleter = ''
         break
       case 3 :
@@ -148,11 +148,11 @@ export default function ComparerAvecFctCarre () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$(${texNombrec(b)})^2>${texNombrec(a)}^2$`,
+                  texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
                   statut: true
                 },
                 {
-                  texte: `$${texNombrec(a)}^2>(${texNombrec(b)})^2$`,
+                  texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
                   statut: false
                 }
               ]
@@ -163,11 +163,11 @@ export default function ComparerAvecFctCarre () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$${texNombrec(a)}^2>(${texNombrec(b)})^2$`,
+                  texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
                   statut: true
                 },
                 {
-                  texte: `$(${texNombrec(b)})^2>${texNombrec(a)}^2$`,
+                  texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
                   statut: false
                 }
               ]
@@ -177,28 +177,28 @@ export default function ComparerAvecFctCarre () {
           texte += propositionsQcm(this, 0).texte
         } else {
           if (choice([true, false])) {
-            texte = `Comparer $${texNombrec(a)}^2$ et $(${texNombrec(b)})^2$.`
-            this.canEnonce = `Comparer $${texNombrec(a)}^2$ et $(${texNombrec(b)})^2$.`
+            texte = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
+            this.canEnonce = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
             this.canReponseACompleter = ''
-          } else { texte = `Comparer  $(${texNombrec(b)})^2$ et $${texNombrec(a)}^2$.` }
-          this.canEnonce = `Comparer  $(${texNombrec(b)})^2$ et $${texNombrec(a)}^2$.`
+          } else { texte = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.` }
+          this.canEnonce = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.`
           this.canReponseACompleter = ''
         }
 
-        texteCorr = ` Le nombre $${texNombrec(b)}$ est négatif, alors que le nombre $${texNombrec(a)}$ est positif. 
-            Comme deux nombres opposés ont le même carré, comparer $${texNombrec(a)}^2$ et $(${texNombrec(b)})^2$ 
-            revient à comparer $${texNombrec(a)}^2$ et $${texNombrec(-b)}^2$.<br>
+        texteCorr = ` Le nombre $${texNombre(b)}$ est négatif, alors que le nombre $${texNombre(a)}$ est positif. 
+            Comme deux nombres opposés ont le même carré, comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$ 
+            revient à comparer $${texNombre(a)}^2$ et $${texNombre(-b)}^2$.<br>
              La fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. <br>
              Cela signifie que deux nombres positifs sont rangés dans le même ordre que leurs carrés.   <br>
              Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
         if (abs(a) < abs(b)) {
-          texteCorr += `<br>Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(-b)}$, 
-        alors  $${texNombrec(a)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(-b)}^2$.<br>
-        On en déduit que $${texNombrec(a)}^2 < (${texNombrec(b)})^2$.`
+          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(-b)}$, 
+        alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(-b)}^2$.<br>
+        On en déduit que $${texNombre(a)}^2 < (${texNombre(b)})^2$.`
         } else {
-          texteCorr += `<br>Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombrec(-b)}$, 
-        alors  $${texNombrec(a)}^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombrec(-b)}^2$.<br>
-        On en déduit que $${texNombrec(a)}^2 > (${texNombrec(b)})^2$.`
+          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombre(-b)}$, 
+        alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombre(-b)}^2$.<br>
+        On en déduit que $${texNombre(a)}^2 > (${texNombre(b)})^2$.`
         }
 
         break

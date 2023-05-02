@@ -1,7 +1,7 @@
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Hms from '../../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { calcul, choice, listeQuestionsToContenu, randint, sp, texNombrec, texFractionReduite } from '../../../modules/outils.js'
+import { calcul, choice, listeQuestionsToContenu, randint, sp, texNombre, texFractionReduite } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des heures décimales en heures/minutes et inversement'
 export const interactifReady = true
@@ -32,17 +32,17 @@ export default function ConversionHeuresDecimalesMinutes () {
           b = choice([0.25, 0.5, 0.75])
           d = calcul(b * 60)
           if (!this.interactif) {
-            texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$ ..... h ..... min`
-            texteCorr = `$${texNombrec(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombrec(b)} \\times 60  = ${a}$ h $${d}$ min`
+            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$ ..... h ..... min`
+            texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
-            texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$`
+            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline')
             setReponse(this, i, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
-            texteCorr = `$${texNombrec(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombrec(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
+            texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
             nbChamps = 2
           }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombrec(a + b)}$ h = $\\ldots$ h $\\ldots$ min`
+          this.canReponseACompleter = `$${texNombre(a + b)}$ h = $\\ldots$ h $\\ldots$ min`
           break
 
         case 2 :
@@ -51,19 +51,19 @@ export default function ConversionHeuresDecimalesMinutes () {
           b = choice([0.25, 0.5, 0.75])
           d = calcul(b * 60)
           if (!this.interactif) {
-            texte = `Compléter par un nombre décimal : <br>$${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $=$ ..... h`
-            texteCorr = `$${texNombrec(b * 60)}$ min  $=   \\dfrac{${texNombrec(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombrec(b)}$ h. <br>
-          Ainsi, $${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $=$ $${texNombrec(a + b)}$ h.`
+            texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ ..... h`
+            texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>
+          Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
           } else {
-            texte = `Compléter par un nombre décimal : <br>$${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $=$`
+            texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$`
             texte += ajouteChampTexteMathLive(this, index, 'inline', { texteApres: sp(5) + 'h' })
-            texteCorr = `$${texNombrec(b * 60)}$ min  $=   \\dfrac{${texNombrec(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombrec(b)}$ h. <br>
-          Ainsi, $${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $=$ $${texNombrec(a + b)}$ h.`
+            texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>
+          Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
             setReponse(this, index, a + b)
             nbChamps = 1
           }
           this.canEnonce = 'Compléter par un nombre décimal.'
-          this.canReponseACompleter = `$${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $= \\ldots\\ldots$ h`
+          this.canReponseACompleter = `$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $= \\ldots\\ldots$ h`
           break
       }
       if (this.questionJamaisPosee(i, a, b)) {

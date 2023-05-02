@@ -10,7 +10,7 @@ export const dateDePublication = '07/01/2022'
 /**
 *
 *
-* @author Gilles Mora // suppression des calcul des texNombrec et simplification des racines carrées de fration par Jean-Claude Lhote
+* @author Gilles Mora // suppression des calcul des texNombre et simplification des racines carrées de fration par Jean-Claude Lhote
 *
 */
 export const uuid = 'de0d1'

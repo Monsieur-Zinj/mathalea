@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, arrondi, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, arrondi, calcul, texNombre, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
@@ -57,7 +57,7 @@ export default function CourseAuxNombres2024 (numeroExercice) {
       // Boucle principale où i+1 correspond au numéro de la question
       // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
       // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
-      // texNombrec(expression) fait les deux choses ci-dessus.
+      // texNombre(expression) fait les deux choses ci-dessus.
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
         case 1:
           texte = `$${texNombre(2024)}\\times 2$`
