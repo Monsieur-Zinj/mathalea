@@ -3325,19 +3325,16 @@ export function href (texte, lien) {
  * @author Rémi Angot
  */
 export function texPrix (nb) {
-  let stringReponse
   if (nb instanceof Decimal) {
-    if (nb.isInteger()) stringReponse = texNombre(nb, 0)
-    else stringReponse = texNombre(nb, 2, true)
+    if (nb.isInteger()) return texNombre(nb, 0)
+    else return texNombre(nb, 2, true)
   }
   const nombre = Number(nb)
   if (nombre.toString() === nombre.toFixed(0)) {
-    stringReponse = texNombre(nb, 0)
+    return texNombre(nb, 0)
   } else {
-    stringReponse = texNombre(nb, 2)
+    return texNombre(nb, 2, true)
   }
-  if (stringReponse.includes('{,}') && stringReponse.split('{,}')[1].length === 1) stringReponse += '0'
-  return stringReponse
 }
 
 /**
@@ -3345,15 +3342,16 @@ export function texPrix (nb) {
  * @author Mireille Gain
  */
 export function texMasse (nb) {
-  // Remplace le . par la ,
-  const nombre = Number(nb)
-  let result
-  if (nombre.toString() === nombre.toFixed(0)) {
-    result = nombre
-  } else {
-    result = nombre.toFixed(3).toString().replace('.', ',') // Ne gère pas l'espace des milliers
+  if (nb instanceof Decimal) {
+    if (nb.isInteger()) return texNombre(nb, 0)
+    else return texNombre(nb, 3, true)
   }
-  return result
+  const nombre = Number(nb)
+  if (nombre.toString() === nombre.toFixed(0)) {
+    return texNombre(nb, 0)
+  } else {
+    return texNombre(nb, 3, true)
+  }
 }
 
 /**
