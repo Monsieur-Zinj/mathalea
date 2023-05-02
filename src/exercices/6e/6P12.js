@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, stringNombre, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, rangeMinMax, contraindreValeur, miseEnCouleur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, stringNombre, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, rangeMinMax, contraindreValeur, miseEnCouleur, compteOccurences } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -466,7 +466,6 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
 export const uuid = 'b0f4e'
 export const ref = '6P12'
 export default function ProportionnaliteParCoefDeProportionnalite () {
-  
   let question
   Exercice.call(this) // Héritage de la classe Exercice()
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
@@ -476,7 +475,8 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
-  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface']
+  this.sup2 = 7
+  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
     this.listeQuestions = [] // Liste de questions
@@ -487,14 +487,16 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
       listeIndexSituationsDisponible = rangeMinMax(1, 6)
     } else {
       if (typeof (this.sup2) === 'number') { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
-        listeIndexSituationsDisponible[0] = contraindreValeur(1, 6, this.sup2, 6)
+        listeIndexSituationsDisponible[0] = contraindreValeur(1, 7, this.sup2, 7)
       } else {
         listeIndexSituationsDisponible = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < listeIndexSituationsDisponible.length; i++) { // on a un tableau avec des strings : ['1', '5', '2','toto','45']
-          listeIndexSituationsDisponible[i] = contraindreValeur(1, 6, parseInt(listeIndexSituationsDisponible[i]), 6) // parseInt en fait un tableau d'entiers
+          listeIndexSituationsDisponible[i] = contraindreValeur(1, 7, parseInt(listeIndexSituationsDisponible[i]), 7) // parseInt en fait un tableau d'entiers
         }
       }
     }
+    if (compteOccurences(listeIndexSituationsDisponible, 7) > 0) listeIndexSituationsDisponible = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
+
     const listeIndexSituations = combinaisonListes(listeIndexSituationsDisponible, this.nbQuestions)
     let cpt = 0
     for (let i = 0; i < this.nbQuestions && cpt < 50;) {
