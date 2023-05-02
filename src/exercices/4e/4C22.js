@@ -138,7 +138,7 @@ export default function ExerciceMultiplierFractions () {
       const f1 = new FractionEtendue(a, b)
       const f2 = new FractionEtendue(c, d)
       if (listeTypesDoperation[i] === 'mul') {
-        texte = `$${f1.texFSD}\\times${f2.texFraction}=$`
+        texte = `$${f1.texFraction}\\times${f2.texFraction}=$`
         texteCorr = `$${f1.texProduitFraction(f2, this.sup2)}$`
         reponse = f1.produitFraction(f2).simplifie()
       } else {
