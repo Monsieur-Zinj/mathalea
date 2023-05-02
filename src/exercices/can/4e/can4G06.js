@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec, stringNombre } from '../../../modules/outils.js'
+import { randint, choice, calcul, creerNomDePolygone, texNombre, stringNombre } from '../../../modules/outils.js'
 import {
   point, pointAdistance, polygoneAvecNom, labelPoint, segmentAvecExtremites, droite, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
@@ -57,9 +57,9 @@ export default function CalculLongueurThales () {
         `
       this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[2]}$.<br>
-    Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombrec(a)}}{${b}}=${texNombrec(a / b)}$.<br>
-    On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombrec(a / b)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
-        Ainsi, $${nom[3]}${nom[2]}=${texNombrec(a / b)}\\times ${nom[1]}${nom[4]}=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
+    Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombre(a)}}{${b}}=${texNombre(a / b)}$.<br>
+    On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombre(a / b)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
+        Ainsi, $${nom[3]}${nom[2]}=${texNombre(a / b)}\\times ${nom[1]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${texNombre(a * c / b)}$.
                   <br>`
       this.reponse = calcul(a * c / b)
       this.canEnonce = this.question// 'Compléter'
@@ -93,9 +93,9 @@ export default function CalculLongueurThales () {
        `
       this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[2]}$.<br>
-   Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[2]}${nom[3]}}{${nom[1]}${nom[4]}}=\\dfrac{${texNombrec(k * b)}}{${b}}=${texNombrec(k)}$.<br>
-   On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombrec(k)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
-       Ainsi, $${nom[0]}${nom[3]}=${texNombrec(k)}\\times ${nom[0]}${nom[1]}=${texNombrec(k)}\\times ${a}=${texNombrec(k * a)}$.
+   Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[2]}${nom[3]}}{${nom[1]}${nom[4]}}=\\dfrac{${texNombre(k * b)}}{${b}}=${texNombre(k)}$.<br>
+   On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombre(k)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
+       Ainsi, $${nom[0]}${nom[3]}=${texNombre(k)}\\times ${nom[0]}${nom[1]}=${texNombre(k)}\\times ${a}=${texNombre(k * a)}$.
                  <br>`
       this.reponse = calcul(k * a)
       this.canEnonce = this.question// 'Compléter'

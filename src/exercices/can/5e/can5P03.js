@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { context } from '../../../modules/context.js'
-import { calcul, choice, texNombrec, randint, texPrix } from '../../../modules/outils.js'
+import { calcul, choice, texNombre, randint, texPrix } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -107,9 +107,9 @@ export default function PoucentageP2 () {
           this.question += context.isHtml ? '' : '\\renewcommand{\\arraystretch}{1}'
           this.question += `$\\begin{array}{|l|c|c|}
           \\hline
-          ${texNombrec(a)} & ${texNombrec(b)} & ? ${context.isHtml ? '\\\\' : '\\tabularnewline'}
+          ${texNombre(a)} & ${texNombre(b)} & ? ${context.isHtml ? '\\\\' : '\\tabularnewline'}
           \\hline
-        ${texNombrec(c)} &${texNombrec(d)} & ${texNombrec(c + d)} ${context.isHtml ? '\\\\' : '\\tabularnewline'}
+        ${texNombre(c)} &${texNombre(d)} & ${texNombre(c + d)} ${context.isHtml ? '\\\\' : '\\tabularnewline'}
          \\hline
          \\end{array}$`
 

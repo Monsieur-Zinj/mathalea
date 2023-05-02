@@ -43,7 +43,6 @@ export default function ExerciceLabyrintheNumeration () {
     const laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
     laby.niveau = randint(1, 6) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     const monchemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
-    console.log(monchemin)
     laby.murs2d = laby.construitMurs(monchemin) // On construit le labyrinthe
     laby.chemin2d = laby.traceChemin(monchemin) // On trace le chemin solution
     const positions = this.sup ? ['dix-millièmes', 'millièmes', 'centièmes', 'dixièmes', 'unités', 'dizaines', 'centaines', 'unités de mille', 'dizaines de mille'] : ['millièmes', 'centièmes', 'dixièmes', 'unités', 'dizaines', 'centaines', 'unités de mille']

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombre, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { RedactionPythagore } from './_pythagore.js'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 
@@ -189,7 +189,7 @@ export default function ProblemesPythagore () {
           texteCorr += `<br>Finalement comme $O$ est aussi le milieu de $[${D + B
             }]$ : $${D + B}=2\\times ${O + B}=2\\times${texNombre(
               b
-            )}=${texNombrec(2 * b)}$ cm.`
+            )}=${texNombre(2 * b)}$ cm.`
           break
 
         case 'rectangle_diagonale_connue':
@@ -220,12 +220,12 @@ export default function ProblemesPythagore () {
           }
           texteCorr += `Dans le triangle $${A + O + B
             }$, le plus grand côté est $[${A + B}]$.<br>`
-          texteCorr += `$${A + B}^2=${texNombre(c)}^2=${texNombrec(
+          texteCorr += `$${A + B}^2=${texNombre(c)}^2=${texNombre(
             c ** 2
           )}$<br>`
           texteCorr += `$${A + O}^2+${O + B}^2=${texNombre(a)}^2+${texNombre(
             b
-          )}^2=${texNombrec(a ** 2 + b ** 2)}$<br>`
+          )}^2=${texNombre(a ** 2 + b ** 2)}$<br>`
           texteCorr += `On constate que $${A + B}^2=${A + O}^2+${O + B
             }^2$, l'égalité de Pythagore est vérifiée donc $${A + O + B
             }$ est rectangle en $O$.<br>`
@@ -244,12 +244,12 @@ export default function ProblemesPythagore () {
           }
           texteCorr += `Dans le triangle $${A + O + B
             }$, le plus grand côté est $[${A + B}]$.<br>`
-          texteCorr += `$${A + B}^2=${texNombre(c)}^2=${texNombrec(
+          texteCorr += `$${A + B}^2=${texNombre(c)}^2=${texNombre(
             c ** 2
           )}$<br>`
           texteCorr += `$${A + O}^2+${O + B}^2=${texNombre(a)}^2+${texNombre(
             b
-          )}^2=${texNombrec(a ** 2 + b ** 2)}$<br>`
+          )}^2=${texNombre(a ** 2 + b ** 2)}$<br>`
           texteCorr += `On constate que $${A + B}^2\\not=${A + O}^2+${O + B
             }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${A + O + B
             }$ n'est pas un triangle rectangle.<br>`
@@ -271,12 +271,12 @@ export default function ProblemesPythagore () {
           }
           texteCorr += `Dans le triangle $${A + B + C
             }$, le plus grand côté est $[${A + C}]$.<br>`
-          texteCorr += `$${A + C}^2=${texNombre(c)}^2=${texNombrec(
+          texteCorr += `$${A + C}^2=${texNombre(c)}^2=${texNombre(
             c ** 2
           )}$<br>`
           texteCorr += `$${A + B}^2+${B + C}^2=${texNombre(a)}^2+${texNombre(
             b
-          )}^2=${texNombrec(a ** 2 + b ** 2)}$<br>`
+          )}^2=${texNombre(a ** 2 + b ** 2)}$<br>`
           texteCorr += `On constate que $${A + C}^2=${A + B}^2+${B + C
             }^2$, l'égalité de Pythagore est vérifiée donc $${A + B + C
             }$ est rectangle en $${B}$.<br>`
@@ -295,12 +295,12 @@ export default function ProblemesPythagore () {
           }
           texteCorr += `Dans le triangle $${A + B + C
             }$, le plus grand côté est $[${A + C}]$.<br>`
-          texteCorr += `$${A + C}^2=${texNombre(c)}^2=${texNombrec(
+          texteCorr += `$${A + C}^2=${texNombre(c)}^2=${texNombre(
             c ** 2
           )}$<br>`
           texteCorr += `$${A + B}^2+${B + C}^2=${texNombre(a)}^2+${texNombre(
             b
-          )}^2=${texNombrec(a ** 2 + b ** 2)}$<br>`
+          )}^2=${texNombre(a ** 2 + b ** 2)}$<br>`
           texteCorr += `On constate que $${A + C}^2\\not=${A + B}^2+${B + C
             }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${A + B + C
             }$ n'est pas rectangle en $${B}$.<br>`

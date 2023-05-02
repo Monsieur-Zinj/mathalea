@@ -622,6 +622,5 @@ export default function ReconnaitreExp () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    console.log(this)
   }
 }

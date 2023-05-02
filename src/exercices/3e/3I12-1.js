@@ -15,7 +15,6 @@ export const dateDePublication = '20/09/2022'
 export const uuid = '39a32'
 export const ref = '3I12-1'
 export default function CompleterScriptMultiple () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5
   this.sup2 = 5
@@ -57,12 +56,10 @@ export default function CompleterScriptMultiple () {
         if (compteOccurences(briquesATrouver, 5) > 0) briquesATrouver = [randint(1, 4)]
       }
     }
-    console.log(briquesATrouver)
     const choixLignes3et5 = compteOccurences(briquesATrouver, 1) > 0
     const choixLigne6 = compteOccurences(briquesATrouver, 2) > 0
     const choixLignes7et8Extremes = compteOccurences(briquesATrouver, 3) > 0
     const choixLignes7et8Centre = compteOccurences(briquesATrouver, 4) > 0
-    console.log(choixLignes7et8Centre)
     if (!this.sup2) { // Si aucune liste n'est saisie
       optionsBriques = [randint(1, 4)]
     } else {

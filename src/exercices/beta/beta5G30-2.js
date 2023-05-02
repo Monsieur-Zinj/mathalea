@@ -23,13 +23,13 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
     b: arcPointPointAngle(x, t, 180 - (rot.O - rot.A), true, 'green'),
     c: arcPointPointAngle(t, Ox, rot.O - rot.A, true, 'red'),
     d: arcPointPointAngle(Ox, s, 180 - (rot.O - rot.A), true, 'gray'),
-    s: s,
-    t: t,
-    x: x,
-    Ox: Ox,
+    s,
+    t,
+    x,
+    Ox,
     As: droite(A, s),
     Ax: droite(A, x),
-    A: A,
+    A,
     labela: texteSurArc((rot.O - rot.A) % 180 + '°', s, x, rot.O - rot.A, 'black'),
     labelb: texteSurArc((180 - (rot.O - rot.A)) % 180 + '°', x, t, 180 - (rot.O - rot.A), 'black'),
     labelc: texteSurArc((rot.O - rot.A) % 180 + '°', t, Ox, rot.O - rot.A, 'black'),
@@ -140,7 +140,7 @@ export default function ExercicesAnglesAIC () {
           }
           const texteCorr = `Les angles marqués sont ${reponse}.`
           texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
-          exercice = { texte: texte, texteCorr: texteCorr }
+          exercice = { texte, texteCorr }
           break
         }
         case 2: {
@@ -286,7 +286,7 @@ export default function ExercicesAnglesAIC () {
           Donc les droites ${sont} parallèles.
           `
           texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
-          exercice = { texte: texte, texteCorr: texteCorr }
+          exercice = { texte, texteCorr }
           break
         }
         case 3: {
@@ -443,7 +443,7 @@ export default function ExercicesAnglesAIC () {
           L'angle bleu mesure donc ${mesure}.
           `
           texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
-          exercice = { texte: texte, texteCorr: texteCorr }
+          exercice = { texte, texteCorr }
           break
         }
       }

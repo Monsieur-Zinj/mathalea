@@ -42,7 +42,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.nouvelleVersion = function (numeroExercice) {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
-    console.log(this.interactifType)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     Decimal.toExpNeg = -15
@@ -455,7 +454,6 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
       texte += `${headers2[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
     }
     texte += ' \\hline '
-    console.log('toto ', correction, end)
 
     for (let i = first; i < end; i++) {
       texte += '\\begin{array}{c:c}'
