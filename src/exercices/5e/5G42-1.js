@@ -562,10 +562,10 @@ export default class nomExercice extends Exercice {
             {
               texte: 'il a quatre axes de symétrie.',
               statut: true,
-              feedback: 'C\'est un losange particuloer donc ses diagonales sont des axes de symétrie. C\'est un rectangle particulier donc ses médiatrices sont des axes de symétrie. Il a donc 4 axes de symétrie.'
+              feedback: 'C\'est un losange particulier donc ses diagonales sont des axes de symétrie. C\'est un rectangle particulier donc ses médiatrices sont des axes de symétrie. Il a donc 4 axes de symétrie.'
             }
           ]
-          texteCorr = 'Un rectangle a un centre de symétrie qui est le point d\'intersection de ses diagonales et deux axes de symétrie qui sont les médiatrices de ses côtés.'
+          texteCorr = 'Un carré a un centre de symétrie qui est le point d\'intersection de ses diagonales et quatre axes de symétrie qui sont ses diagonales ainsi que les médiatrices de ses côtés.'
           break
         case 'carre5':
           texte = 'Si un quadrilatère est un carré alors...'
