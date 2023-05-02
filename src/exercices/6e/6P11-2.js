@@ -3,12 +3,14 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
+  arrondi,
   choice,
   combinaisonListes,
   listeQuestionsToContenu,
   miseEnEvidence,
   prenom,
   randint,
+  sp,
   stringNombre,
   texMasse,
   texNombre,
@@ -25,9 +27,9 @@ export const dateDeModifImportante = '30/04/2023' // EE : Rajout de 2 paramètre
 
 /**
  * Résoudre un problème de proportionnalité avec linéarité via tableau
- * @Mireille Gain, 30 mai 2021
- * Référence 6P11-2
- */export const uuid = '65288'
+ * @MireilleGain, 30 mai 2021
+ */
+export const uuid = '65288'
 export const ref = '6P11-2'
 export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -41,10 +43,10 @@ export default function ProportionnaliteParLineariteTableau () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.consigne = 'On considère que les situations suivantes'
+    this.consigne = `On considère que ${this.nbQuestions > 1 ? 'les' : 'la'} situation${this.nbQuestions > 1 ? 's' : ''} suivante${this.nbQuestions > 1 ? 's' : ''}`
     this.consigne += this.sup3 ? ', sauf cas flagrant,' : ''
-    this.consigne += ' sont des situations de proportionnalité.'
-    this.consigne += this.sup2 ? ' <br>On demande de les résoudre à l\'aide d\'un tableau.' : ''
+    this.consigne += ` ${this.nbQuestions > 1 ? 'sont des' : 'est une'} situation${this.nbQuestions > 1 ? 's' : ''} de proportionnalité.`
+    this.consigne += this.sup2 ? ` <br>On demande de ${this.nbQuestions > 1 ? 'les' : 'la'} résoudre à l'aide d'un tableau.` : ''
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -85,7 +87,7 @@ export default function ProportionnaliteParLineariteTableau () {
       ['cahiers', 1.4]
     ]
 
-    for (let i = 0, texte, texteCorr, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, texteApres, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = choice([1, 2, 3])
       // Boucle principale où i+1 correspond au numéro de la question
 
@@ -96,8 +98,8 @@ export default function ProportionnaliteParLineariteTableau () {
             np = randint(1, 10)
             cm = randint(2, 7)
             ng = np * cm
-            pp = np * randint(8, 9) * ([objets[index][1]]) / 10
-            pg = cm * pp
+            pp = arrondi(np * randint(8, 9) * ([objets[index][1]]) / 10, 4)
+            pg = arrondi(cm * pp, 4)
             o = choice([objets[index][0]])
             texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
             monTableau = tableau({
@@ -106,13 +108,14 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
             setReponse(this, i, pg)
+            texteApres = '€'
           } else if (a === 2) {
             index = randint(0, 7)
             np = randint(1, 10)
             cm = randint(2, 7)
-            ng = np * cm
-            pp = np * fruits[index][1]
-            pg = cm * pp
+            ng = arrondi(np * cm, 4)
+            pp = arrondi(np * fruits[index][1], 4)
+            pg = arrondi(cm * pp, 4)
             o = choice([fruits[index][0]])
             texte = `${prenom()} achète $${texMasse(pp)}$ kg de ${o} pour $${texPrix(np)}$ €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
             monTableau = tableau({
@@ -122,13 +125,14 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
             setReponse(this, i, pg)
+            texteApres = 'kg'
           } else {
             index = randint(0, 7)
             np = randint(1, 10)
             cm = randint(2, 7)
             ng = np * cm
-            pp = np * randint(11, 48) / 10
-            pg = cm * pp
+            pp = arrondi(np * randint(11, 48) / 10, 4)
+            pg = arrondi(cm * pp, 4)
             texte = `$${np}$ objets occupent un volume de ${stringNombre(pp)} cm³. Quel volume serait occupé par $${ng}$ de ces objets ? `
             monTableau = tableau({
               largeurTitre: 10,
@@ -137,6 +141,7 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
             setReponse(this, i, pg)
+            texteApres = 'cm³'
           }
           break
 
@@ -146,8 +151,8 @@ export default function ProportionnaliteParLineariteTableau () {
             np = randint(1, 10)
             cm = randint(2, 7)
             ng = np * cm
-            pp = np * randint(8, 9) / 10
-            pg = cm * pp
+            pp = arrondi(np * randint(8, 9) / 10, 4)
+            pg = arrondi(cm * pp, 4)
             o = choice([objets[index][0]])
             texte = `${prenom()} achète $${ng}$ ${ng === 1 ? o.slice(0, -1) : o} pour $${texPrix(pg)}$ €. Combien faudrait-il payer pour en acheter $${np}$ ? `
             monTableau = tableau({
@@ -157,6 +162,7 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
             })
             setReponse(this, i, pp)
+            texteApres = '€'
           } else if (a === 2) {
             np = randint(1, 10)
             cm = randint(2, 7)
@@ -171,13 +177,14 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
             })
             setReponse(this, i, pp)
+            texteApres = 'm²'
           } else {
             index = randint(0, 7)
             np = randint(1, 10)
             cm = randint(2, 7)
-            ng = np * cm
-            pp = np * fruits[index][1]
-            pg = cm * pp
+            ng = arrondi(np * cm, 4)
+            pp = arrondi(np * fruits[index][1], 4)
+            pg = arrondi(cm * pp, 4)
             o = choice([fruits[index][0]])
             texte = `${prenom()} achète ${texMasse(pg)} kg de ${o} pour $${texPrix(ng)}$ €. Quelle masse de ${o} pourrait être achetée avec $${np}$ € ? `
             monTableau = tableau({
@@ -187,19 +194,20 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
             })
             setReponse(this, i, pp)
+            texteApres = 'kg'
           }
           break
 
         case 3: // passage par l'unité
           if (a === 1) {
             index = randint(0, 7)
-            pu = randint(1, 19) * ([objets[index][1]]) / 10
+            pu = arrondi(randint(1, 19) * ([objets[index][1]]) / 10, 4)
             np = randint(2, 10)
-            pp = pu * np
+            pp = arrondi(pu * np, 4)
             ng = randint(2, 10, np)
-            pg = pu * ng
+            pg = arrondi(pu * ng, 4)
             o = choice([objets[index][0]])
-            texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
+            texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(0.7)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],
@@ -207,6 +215,7 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
             })
             setReponse(this, i, pg)
+            texteApres = '€'
           } else if (a === 2) {
             pu = randint(40, 60)
             np = randint(2, 10)
@@ -221,13 +230,14 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
             })
             setReponse(this, i, pg)
+            texteApres = 'm²'
           } else {
             index = randint(0, 7)
-            pu = randint(8, 12) * fruits[index][1] / 10
+            pu = arrondi(randint(8, 12) * fruits[index][1] / 10, 4)
             np = randint(2, 10)
-            pp = pu * np
+            pp = arrondi(pu * np, 4)
             ng = randint(2, 10, np)
-            pg = pu * ng
+            pg = arrondi(pu * ng, 2)
             o = choice([fruits[index][0]])
             texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
             monTableau = tableau({
@@ -238,6 +248,7 @@ export default function ProportionnaliteParLineariteTableau () {
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
             })
             setReponse(this, i, pg)
+            texteApres = 'kg'
           }
           break
 
@@ -249,6 +260,7 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = np * cm
             texte = `${prenom()} mesure $${texNombre(tp)}$ m à $${np}$ ans. Quelle sera sa taille à $${ng}$ ans ?`
             texteCorr = 'On ne peut pas savoir car la taille n\'est pas proportionnelle à l\'âge.'
+            texteApres = 'm'
           } else if (a === 2) {
             tp = randint(30, 45)
             np = randint(10, 13)
@@ -256,6 +268,7 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = np * cm
             texte = `${prenom()} pèse $${texNombre(tp)}$ kg à $${np}$ ans. Quelle sera son poids à $${ng}$ ans ?`
             texteCorr = 'On ne peut pas savoir car le poids (plus précisément la masse) n\'est pas proportionnel à l\'âge.'
+            texteApres = 'kg'
           } else if (a === 3) {
             tp = randint(35, 39)
             np = randint(10, 13)
@@ -263,6 +276,7 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = np * cm
             texte = `${prenom()} chausse du $${tp}$ à $${np}$ ans. Quelle sera sa pointure à $${ng}$ ans ?`
             texteCorr = 'On ne peut pas savoir car la pointure n\'est pas proportionnelle à l\'âge.'
+            texteApres = ''
           }
           setReponse(this, i, 'non')
           break
@@ -277,7 +291,7 @@ export default function ProportionnaliteParLineariteTableau () {
       if (this.interactif && this.sup3) {
         this.consigne += 'Si ce n\'est pas une situation de proportionnalité, écrire : non proportionnel.'
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, ' inline', { texteApres: sp(2) + texteApres })
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
