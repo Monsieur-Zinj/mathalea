@@ -1,9 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, arrondi, calcul, texNombre, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, arrondi, texNombre, choice, range1 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
@@ -40,16 +38,16 @@ export default function CourseAuxNombres2024 (numeroExercice) {
       questions[i] = parseInt(questions[i]) - 1
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const fruits2 = [
-      ['pêches', 4.5, 10, 30],
-      ['noix', 5.2, 4, 13],
-      ['cerises', 6.4, 11, 20],
-      ['pommes', 2.7, 20, 40],
-      ['framboises', 10.5, 1, 5],
-      ['fraises', 7.5, 5, 10],
-      ['citrons', 1.8, 15, 30],
-      ['bananes', 1.7, 15, 25]
-    ]
+    // const fruits2 = [
+    //   ['pêches', 4.5, 10, 30],
+    //   ['noix', 5.2, 4, 13],
+    //   ['cerises', 6.4, 11, 20],
+    //   ['pommes', 2.7, 20, 40],
+    //   ['framboises', 10.5, 1, 5],
+    //   ['fraises', 7.5, 5, 10],
+    //   ['citrons', 1.8, 15, 30],
+    //   ['bananes', 1.7, 15, 25]
+    // ]
 
     const typeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]//
 

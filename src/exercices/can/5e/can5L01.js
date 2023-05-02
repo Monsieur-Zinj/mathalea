@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, texNombre, texNombre, choice } from '../../../modules/outils.js'
+import { randint, calcul, texNombre, choice } from '../../../modules/outils.js'
 export const titre = 'Trouver $a+1$ ou $a-1$ connaissant $2a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'

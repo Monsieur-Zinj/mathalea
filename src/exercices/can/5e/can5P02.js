@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { calcul, choice, texNombre, randint, texNombre, texFractionReduite, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { calcul, choice, texNombre, randint, texFractionReduite, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 export const titre = 'Déterminer (ou calculer avec) un pourcentage de proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texNombre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Diviser un entier par 10, 100 ou 1000'
 export const amcReady = true

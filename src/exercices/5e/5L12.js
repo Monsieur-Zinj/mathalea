@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, rienSi1, calcul, texNombre, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, rienSi1, calcul, texNombre, lettreDepuisChiffre } from '../../modules/outils.js'
 
 export const titre = 'Réduire une expression littérale'
 

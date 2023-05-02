@@ -14,7 +14,6 @@ import {
   stringNombre,
   texMasse,
   texNombre,
-  texNombre,
   texPrix
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

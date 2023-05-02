@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombre, creerNomDePolygone, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { RedactionPythagore } from './_pythagore.js'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 

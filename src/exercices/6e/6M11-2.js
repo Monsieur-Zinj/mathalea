@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, arrondi, texNombre, stringNombre, choice, texNombre, calcul, combinaisonListesSansChangerOrdre, troncature, contraindreValeur, texTexte, rangeMinMax, sp, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, arrondi, stringNombre, choice, texNombre, calcul, combinaisonListesSansChangerOrdre, troncature, contraindreValeur, texTexte, rangeMinMax, sp, combinaisonListes } from '../../modules/outils.js'
 import { texteSurSegment, cercle, codageAngleDroit, droite, codageSegments, point, polygoneAvecNom, segment, codageSegment, pointIntersectionCC, pointIntersectionDD, droiteParPointEtPerpendiculaire, arc, pointSurCercle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

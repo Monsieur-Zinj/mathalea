@@ -1,5 +1,5 @@
 import { fraction } from '../../../modules/fractions.js'
-import { calcul, choice, randint, texNombre, texNombre } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true

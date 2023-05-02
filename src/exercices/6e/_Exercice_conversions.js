@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombre, texFraction, texTexte, calcul, texNombre2, contraindreValeur, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texFraction, texTexte, calcul, texNombre, texNombre2, contraindreValeur, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 

@@ -11652,6 +11652,16 @@
         "url": "2e/2N52-4.js",
         "titre": "Résoudre des équations se ramenant au produit-nul",
         "tags": {}
+      },
+      "2N52-5": {
+        "id": "2N52-5",
+        "uuid": "b5828",
+        "url": "2e/2N52-5.js",
+        "titre": "Résoudre des équations avec un quotient",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "2N6": {

@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombre, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombre, choice, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../../modules/2d.js'

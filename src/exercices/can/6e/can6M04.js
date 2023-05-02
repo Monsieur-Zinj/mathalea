@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur, texNombre, sp } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre, texteEnCouleur, sp } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir en tous sens'
 export const interactifReady = true

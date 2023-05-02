@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombre, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texNombre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
 export const amcReady = true

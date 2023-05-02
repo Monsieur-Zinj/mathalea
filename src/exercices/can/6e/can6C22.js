@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur, texNombre } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer la valeur décimale d’une fraction'
 export const interactifReady = true

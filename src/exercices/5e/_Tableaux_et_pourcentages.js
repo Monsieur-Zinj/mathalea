@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre, texNombre, miseEnEvidence, texPrix, tableauColonneLigne, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre, miseEnEvidence, texPrix, tableauColonneLigne, sp } from '../../modules/outils.js'
 
 /**
  * * Tableaux et pourcentages

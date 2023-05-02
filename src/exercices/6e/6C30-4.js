@@ -18,7 +18,6 @@ export const titre = 'Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule)'
 export const uuid = '47a54'
 export const ref = '6C30-4'
 export default function PlacerLaVirgule () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 4 // Ici le nombre de questions

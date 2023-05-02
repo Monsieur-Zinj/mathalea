@@ -1,4 +1,4 @@
-import { estentier, randint, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombre, texNombre, nombreAvecEspace, texFraction, rienSi1 } from '../../modules/outils.js'
+import { estentier, randint, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombre, nombreAvecEspace, texFraction, rienSi1 } from '../../modules/outils.js'
 /**
  * Fork de la fonction de JC avec ajout de la dernière opération dans le tableau de sortie
  * @param {number} nbOperations

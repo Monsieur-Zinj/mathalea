@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier astucieusement'
 export const interactifReady = true

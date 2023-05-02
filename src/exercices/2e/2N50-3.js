@@ -1,6 +1,6 @@
 import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'
-import { randint, texNombre, miseEnEvidence, texteGras, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
+import { randint, miseEnEvidence, texteGras, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
 
 export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'

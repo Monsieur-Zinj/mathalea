@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombre, texNombre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombre, calcul } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tiers'
 export const amcReady = true
