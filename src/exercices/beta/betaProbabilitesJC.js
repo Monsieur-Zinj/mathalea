@@ -141,8 +141,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     console.log(`P(R) = ${texProba(probaR, true)}`)
     console.log(`P(V) = ${texProba(probaV, true)}`)
     console.log(`P(C) = ${texProba(probaC, false)}`)
-    // eslint-disable-next-line no-template-curly-in-string
-    console.log("const probaB = omega.getProba('B', true)\nconst probaR = omega.getProba('R', true)\nconst probaV = omega.getProba('V', true)\nconsole.log(`P(B) = ${texProba(probaB, true)}`)\nconsole.log(`P(R) = ${texProba(probaV, true)}`)\nconsole.log(`P(V) = ${texProba(probaB, true)}`)")
 
     const objets = omega.represente(0, 15, 0, 3, true, -1)
     texte += mathalea2d({ xmin: -15, xmax: 1, ymin: -2, ymax: 15, style: 'inline' }, ...objets)

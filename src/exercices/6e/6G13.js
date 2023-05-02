@@ -252,14 +252,14 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               dis = [lAB, lBC, lAC, m - Math.floor(m * 10) * 0.1]
               if (dis[3] < 0.005) {
                 disSave = dis
-                console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
-                console.log('OK i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
+                // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
+                // console.log('OK i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                 ok = true
                 break
               } else {
                 if (dis[3] < disSave[3]) {
-                  console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
-                  console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
+                  // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
+                  // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                   disSave = dis
                 }
               }
