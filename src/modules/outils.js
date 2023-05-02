@@ -3344,16 +3344,19 @@ export function href (texte, lien) {
  * @author Rémi Angot
  */
 export function texPrix (nb) {
+  let stringReponse
   if (nb instanceof Decimal) {
-    if (nb.isInteger()) return texNombre(nb, 0)
-    else return texNombre(nb, 2, true)
+    if (nb.isInteger()) stringReponse = texNombre(nb, 0)
+    else stringReponse = texNombre(nb, 2, true)
   }
   const nombre = Number(nb)
   if (nombre.toString() === nombre.toFixed(0)) {
-    return texNombre(nb, 0)
+    stringReponse = texNombre(nb, 0)
   } else {
-    return texNombre(nb, 2)
+    stringReponse = texNombre(nb, 2)
   }
+  if (stringReponse.includes('{,}') && stringReponse.split('{,}')[1].length === 1) stringReponse += '0'
+  return stringReponse
 }
 
 /**
