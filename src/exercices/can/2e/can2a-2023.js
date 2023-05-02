@@ -65,7 +65,6 @@ export default function SujetCAN2023Seconde () {
         }
       }
     }
-    console.log(typeQuestionsDisponibles)
     const xA26 = randint(2, 6)
     const yA26 = randint(2, 4)
     const yB26 = randint(0, 1)

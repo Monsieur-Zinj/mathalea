@@ -393,7 +393,6 @@ export default function ExercicePerimetresEtAires () {
                 }]
               }]
           }
-          //          console.log(this.autoCorrection[i])
         }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

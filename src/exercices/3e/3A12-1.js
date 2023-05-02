@@ -227,7 +227,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           break
       } // fin du switch
       if (this.questionJamaisPosee(i, var1, var2, objet)) {
-        console.log(texteA, texteB, texteC)
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: '',
