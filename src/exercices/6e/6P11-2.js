@@ -42,7 +42,6 @@ export default function ProportionnaliteParLineariteTableau () {
 
   this.nouvelleVersion = function () {
     this.consigne = 'On considère que les situations suivantes'
-    console.log(this.sup3)
     this.consigne += this.sup3 ? ', sauf cas flagrant,' : ''
     this.consigne += ' sont des situations de proportionnalité.'
     this.consigne += this.sup2 ? ' <br>On demande de les résoudre à l\'aide d\'un tableau.' : ''
