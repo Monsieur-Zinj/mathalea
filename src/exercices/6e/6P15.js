@@ -34,10 +34,6 @@ export default function CalculerCoeffPropo () {
   this.nbQuestions = 5
   this.besoinFormulaireNumerique = ['Type de coefficient', 4, '1 : Entier\n2 : Decimal\n3 : Fraction\n4 : Mélange']
   this.nouvelleVersion = function () {
-    /**
-     * retourne true si il existe une combinaison linéaire avec des entiers entre les 3 nombres
-     * @param {number[]} nombres
-     */
     const isBetterWithLinearity = function (nombres) {
       const [a, b, c] = nombres
       if (a % b === 0 || a % c === 0 || b % c === 0 || b % a === 0 || c % a === 0 || c % b === 0) return true
@@ -55,7 +51,7 @@ export default function CalculerCoeffPropo () {
     const tableauxCoefficientsEntiers = [[2, 4, 6, 8, 10], [3, 5, 7, 9, 80, 90], [11, 5, 19, 15, 25, 50, 75], [12, 15, 20, 25, 30, 40]]
     const tableauxCoefficientsFractions = [[[2, 5], [3, 4], [2, 3], [2, 7]], [[3, 7], [4, 7], [4, 9], [5, 9]], [[7, 3], [8, 3], [3, 2], [7, 2]], [[9, 4], [7, 8], [8, 7], [9, 5]]]
     // @todo prévoir un tableau de choix des fractions plutôt que d'aléatoiriser leur construction
-    
+
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     if (this.sup === 4) listeTypesDeCoefficient = combinaisonListes(typeDeCoefficient, this.nbQuestions)
     else listeTypesDeCoefficient = combinaisonListes([typeDeCoefficient[this.sup - 1]], this.nbQuestions)
@@ -182,20 +178,23 @@ export default function CalculerCoeffPropo () {
           flecheDroite: `$\\times ${coefficientTex}$`,
           flecheDroiteSens: 'bas'
         })
-      texte = numAlpha(0) + 'Calculer le coefficient de proportionnalité.<br>'
+      texte = 'Le tableau ci-dessous représente une situation de proportionnalité.<br>'
+      texte += numAlpha(0) + 'Calculer le coefficient de proportionnalité.<br>'
       texte += numAlpha(1) + 'Compléter le tableau de proportionnalité.<br>'
       // dessin du tableau selon le contexte
       // définition d'un objet pour les réponses attendues
-      const reponsesAttendue = {reponse1: {}, reponse2: {}}
+      const reponsesAttendue = { reponse1: {}, reponse2: {} }
       for (let colonne = 1, rep = 1; colonne < 4; colonne++) {
         if (colonne !== colonneReference + 1) {
           reponsesAttendue[`reponse${rep.toString()}`] = {
             lettre: premiereLigne[colonne - 1].visible ? 'B' : 'A',
             colonne,
-            reponse: premiereLigne[colonne - 1].visible ? {
-              valeur: deuxiemeLigne[colonne - 1].nombre,
-              digits: 4
-            } : {valeur: premiereLigne[colonne - 1].nombre, digits: 2}
+            reponse: premiereLigne[colonne - 1].visible
+              ? {
+                  valeur: deuxiemeLigne[colonne - 1].nombre,
+                  digits: 4
+                }
+              : { valeur: premiereLigne[colonne - 1].nombre, digits: 2 }
           }
           rep++
         }
@@ -204,13 +203,13 @@ export default function CalculerCoeffPropo () {
         texte += mathalea2d(Object.assign({}, fixeBordures([monTableau])), monTableau)
         if (this.interactif) {
           texte += 'Coefficient de proportionnalité de A à B : ' + ajouteChampTexteMathLive(this, 3 * i, 'largeur15 inline')
-          setReponse(this, 3 * i, coefficient, {formatInteractif: coefficientRationnel ? 'fractionEgale' : 'calcul'})
+          setReponse(this, 3 * i, coefficient, { formatInteractif: coefficientRationnel ? 'fractionEgale' : 'calcul' })
           texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse1.lettre} pour la colonne ${reponsesAttendue.reponse1.colonne} :`
           texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur15 inline')
-          setReponse(this, 3 * i + 1, reponsesAttendue.reponse1.reponse.valeur, {formatInteractif: 'calcul'})
+          setReponse(this, 3 * i + 1, reponsesAttendue.reponse1.reponse.valeur, { formatInteractif: 'calcul' })
           texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse2.lettre} pour la colonne ${reponsesAttendue.reponse2.colonne} :`
           texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur15 inline')
-          setReponse(this, 3 * i + 2, reponsesAttendue.reponse2.reponse.valeur, {formatInteractif: 'calcul'})
+          setReponse(this, 3 * i + 2, reponsesAttendue.reponse2.reponse.valeur, { formatInteractif: 'calcul' })
         }
       } else { // pour LAtex, c'est profCollege dans le texte
         texte += '\\Propor[Math,\nStretch=2,\nlargeur=1.5]{'
@@ -224,7 +223,7 @@ export default function CalculerCoeffPropo () {
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,
-            options: {multicols: true, barreseparation: true}, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+            options: { multicols: true, barreseparation: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
             propositions: [
               {
                 type: 'AMCNum',
@@ -236,25 +235,25 @@ export default function CalculerCoeffPropo () {
                     valeur: [coefficient],
                     param: coefficientDecimal
                       ? {
-                        digits: 3,
-                        decimal: 2,
-                        signe: false,
-                        approx: 0
-                      }
-                      : coefficientRationnel
-                        ? {
-                          digitsNum: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre),
-                          digitsDen: nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
-                          digits: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre) + nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
-                          approx: 0//,
-                          // aussiCorrect: new FractionEtendue(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
-                        }
-                        : {
-                          digits: 2,
-                          decimals: 0,
+                          digits: 3,
+                          decimal: 2,
                           signe: false,
                           approx: 0
                         }
+                      : coefficientRationnel
+                        ? {
+                            digitsNum: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre),
+                            digitsDen: nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
+                            digits: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre) + nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
+                            approx: 0//,
+                          // aussiCorrect: new FractionEtendue(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
+                          }
+                        : {
+                            digits: 2,
+                            decimals: 0,
+                            signe: false,
+                            approx: 0
+                          }
                   }
                 }]
               },
