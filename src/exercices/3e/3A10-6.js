@@ -34,7 +34,7 @@ export default function TrouverChiffre () {
 
   this.nouvelleVersion = function () {
     const symboleChiffreCache = symboleChiffreCacheTab[this.sup3 - 1]
-    console.log(this.sup3, symboleChiffreCacheTab, symboleChiffreCache)
+    // console.log(this.sup3, symboleChiffreCacheTab, symboleChiffreCache)
     this.consigne = this.interactif ? 'Dans le champ de réponses, indiquer toutes les réponses possibles dans l\'ordre croissant et séparées par des points-virgules. Si aucun chiffre n\'est possible, écrire aucun.' : ''
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -101,8 +101,6 @@ export default function CalculerCaracteristiques () {
     enleveDoublonNum(typeQuestions)
     if (compteOccurences(typeQuestions, 4)) typeQuestions = range1(3)
 
-    console.log(typeQuestions)
-
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
 
     for (let i = 0, cpt = 0, texte, initAMC, texteAMC, reponsesAMC, approxAMC, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
