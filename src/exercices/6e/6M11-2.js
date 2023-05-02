@@ -36,6 +36,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
   this.nbQuestionsModifiable = true
   this.sup = '1-2-3-4-5-6'
   this.sup2 = true
+  this.sup3 = 1
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
