@@ -272,7 +272,7 @@ export default class nomExercice extends Exercice {
           texteCorr = 'Un rectangle a ses angles opposés et ses angles consécutifs de même mesure et supplémentaires car ils mesurent tous 90°.'
           break
         case 'rect4':
-          texte = 'Si un quadrilatère est un rectanlgle alors...'
+          texte = 'Si un quadrilatère est un rectangle alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'il a un centre de symétrie qui est le point d\'intersection de ses diagonales.',
