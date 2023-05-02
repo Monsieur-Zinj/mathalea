@@ -82,7 +82,7 @@ export default function ProportionnaliteParLineariteBis () {
       const consigneQuestions = shuffle([n3, n4, n5])
       texte = `${situation.lieu}, ${prenomliste[0]} achète $${n1}$ ${pluriel(n1, situation)} et paie $${texPrix(n1 * situation.pu)}$${sp()}€.
       <br>${prenomliste[1]} achète $${n2}$ ${pluriel(n2, situation)} et paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
-      const enonceQ1 = `<br>${numAlpha(k++)} Combien paiera ${prenomliste[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i, 'largeur25 inline')}`
+      const enonceQ1 = `<br>${numAlpha(k++)} Combien paiera ${prenomliste[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
       let enonceAMC = texte + '<br>' + enonceQ1
       texte += enonceQ1
       const propositionsAMC = [
@@ -104,7 +104,7 @@ export default function ProportionnaliteParLineariteBis () {
           }]
         }
       ]
-      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomliste[3]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur25 inline')}`
+      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomliste[3]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
       texte += '<br>' + enonceAMC
       propositionsAMC.push(
         {
@@ -125,7 +125,7 @@ export default function ProportionnaliteParLineariteBis () {
           }]
         }
       )
-      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomliste[4]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur25 inline')}`
+      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomliste[4]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
       texte += '<br>' + enonceAMC
       propositionsAMC.push(
         {
@@ -146,7 +146,7 @@ export default function ProportionnaliteParLineariteBis () {
           }]
         }
       )
-      enonceAMC = `${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$${sp()}€ ? ${ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur25 inline')}`
+      enonceAMC = `${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$${sp()}€ ? ${ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur25 inline', { texteApres: sp(2) + situation.achat_plur })}`
       texte += '<br>' + enonceAMC
       propositionsAMC.push(
         {
@@ -175,11 +175,11 @@ export default function ProportionnaliteParLineariteBis () {
         Pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.
         <br> Pour $${n2}$ ${pluriel(n2, situation)}, on paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
       const texteCorrn3 = `
-        <br> Donc pour $${n1}+${n2}$ ${pluriel(n3, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€.
+        <br> Donc pour $${n1}$ ${pluriel(n3, situation)} $+$ $${n2}$ ${pluriel(n3, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€.
         <br> ${texteEnCouleurEtGras(`${prenomliste[2]} paiera donc $${miseEnEvidence(texPrix(n3 * situation.pu))}$${sp()}€ pour $${miseEnEvidence(n3)}$ ${pluriel(n3, situation)}.`)}
         <br>`
       const texteCorrn4 = `
-        <br> Donc pour $${n1}-${n2}$ ${pluriel(n4, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€.
+        <br> Donc pour $${n1}$ ${pluriel(n3, situation)} $-$ $${n2}$ ${pluriel(n4, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€.
         <br> ${texteEnCouleurEtGras(`${prenomliste[3]} paiera donc $${miseEnEvidence(texPrix(n4 * situation.pu))}$${sp()}€ pour $${miseEnEvidence(n4)}$ ${pluriel(n4, situation)}.`)}
         <br>`
       const texteCorrn5 = `
@@ -200,7 +200,7 @@ export default function ProportionnaliteParLineariteBis () {
             break
         }
       }
-      texteCorr += `
+      texteCorr += `<br>
         ${numAlpha(kCorr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
         <br> Par exemple, pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.
         <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)}$${sp()}€ $\\div ${n1} = ${texPrix(situation.pu)}$${sp()}€.
