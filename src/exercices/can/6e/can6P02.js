@@ -35,7 +35,7 @@ export default function ProportionnaliteCompliquee () {
   this.nouvelleVersion = function () {
     const a = randint(0, 7) // index du fruit
     const b = calcul(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
-    const c = Math.round(randint(fruits[a][2], fruits[a][3] / 10)) // nombre de kg première valeur
+    const c = Math.round(randint(fruits[a][2], fruits[a][3]) / 10) // nombre de kg première valeur
     const d = randint(3, 6, c) // nombre de kg supplémentaires
     this.reponse = calcul(d * b)
     this.question = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br> $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>
