@@ -32,7 +32,6 @@ export default function ExosScratch () {
     ]
   ]
   this.nouvelleVersion = function () {
-    console.log(this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const choix = i % 4
       const exo = new listeExos[choix]()
@@ -53,7 +52,6 @@ export default function ExosScratch () {
         i++
       }
       cpt++
-      console.log(cpt)
     }
     listeQuestionsToContenu(this)
   }

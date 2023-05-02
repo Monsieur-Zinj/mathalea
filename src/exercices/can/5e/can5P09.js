@@ -92,7 +92,6 @@ export default function CalculPrix () {
         } else { this.correction += '' }
 
         this.reponse = reponse
-        console.log(reponse)
         break
 
       case 3:
@@ -127,7 +126,6 @@ export default function CalculPrix () {
         } else { this.correction += '' }
 
         this.reponse = reponse
-        console.log(reponse)
         break
     }
     this.canEnonce = this.question// 'Compléter'

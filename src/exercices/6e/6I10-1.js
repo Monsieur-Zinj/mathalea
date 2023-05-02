@@ -73,7 +73,6 @@ export default function ColorierDeplacement () {
 
     function fleche (x, y, direction) {
       let depart, arrivee
-      console.log(direction)
       switch (direction) {
         case 0: // est
           depart = [x + 0.2, y - 0.5]

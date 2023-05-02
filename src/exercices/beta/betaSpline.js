@@ -74,7 +74,6 @@ export default class nomExercice extends Exercice {
       texte = mathalea2d({ xmin: x0 - 1, xmax: 15, ymin: -15, ymax: 2 * (x0 + n * step), style: 'display: inline' }, r, c)
       texte += mathalea2d({ xmin: x0 - 1, xmax: 15, ymin: -15, ymax: 2 * (x0 + n * step), style: 'display: inline' }, r, cPrime)
       texte += mathalea2d({ xmin: x0 - 1, xmax: 15, ymin: -15, ymax: 2 * (x0 + n * step), style: 'display: inline' }, r, cSec)
-      console.log(f.polys, fPrime.polys, fSec.polys)
       const antecedents = f.solve(y)
       let texteCorr = `Correction ${i + 1} de type 1 : `
       if (antecedents.length > 0) {
