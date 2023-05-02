@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, texNombrec, choice, calcul } from '../../../modules/outils.js'
+import { randint, texNombre, choice, calcul } from '../../../modules/outils.js'
 export const titre = 'Calculer astucieusement avec une factorisation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,14 +27,14 @@ export default function CalculAstucieuxAvecFactorisation () {
         a = randint(5, 99) / 10
         b = calcul(randint(2, 9) * 5)
         c = 100 - b
-        this.question = `Calculer $${b}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}$. 
+        this.question = `Calculer $${b}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}$. 
 `
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
+        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
 En factorisant par ce nombre, on obtient : <br>
 $\\begin{aligned}
-${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=100}\\\\
-&=${texNombrec(a)}\\times 100\\\\
-&=${texNombrec(100 * a)}
+${texNombre(b)}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}&=${texNombre(a)}\\underbrace{(${texNombre(b)}+${texNombre(c)})}_{=100}\\\\
+&=${texNombre(a)}\\times 100\\\\
+&=${texNombre(100 * a)}
 \\end{aligned}$`
         this.reponse = 100 * a
         break
@@ -43,14 +43,14 @@ ${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}&=${texNomb
         a = randint(5, 99) / 100
         b = randint(2, 8)
         c = 10 - b
-        this.question = `Calculer $ ${b}\\times${texNombrec(a)}+ ${c}\\times${texNombrec(a)}$. 
+        this.question = `Calculer $ ${b}\\times${texNombre(a)}+ ${c}\\times${texNombre(a)}$. 
 `
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
+        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
         En factorisant par ce nombre, on obtient : <br>
         $\\begin{aligned}
-        ${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(c)}\\times${texNombrec(a)}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=10}\\\\
-        &=${texNombrec(a)}\\times 10\\\\
-        &=${texNombrec(10 * a)}
+        ${texNombre(b)}\\times${texNombre(a)} + ${texNombre(c)}\\times${texNombre(a)}&=${texNombre(a)}\\underbrace{(${texNombre(b)}+${texNombre(c)})}_{=10}\\\\
+        &=${texNombre(a)}\\times 10\\\\
+        &=${texNombre(10 * a)}
         \\end{aligned}$`
         this.reponse = 10 * a
         break
@@ -60,14 +60,14 @@ ${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}&=${texNomb
         b = randint(2, 8) / 10
         d = randint(1, 2)
         c = d - b
-        this.question = `Calculer $ ${texNombrec(b)}\\times${texNombrec(a)}+ ${texNombrec(c)}\\times${texNombrec(a)}$. 
+        this.question = `Calculer $ ${texNombre(b)}\\times${texNombre(a)}+ ${texNombre(c)}\\times${texNombre(a)}$. 
 `
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
+        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
         En factorisant par ce nombre, on obtient : <br>
 $\\begin{aligned}
-${texNombrec(a)}\\times ${texNombrec(b)}+${texNombrec(a)}\\times ${texNombrec(c)}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=${d}}\\\\
-&=${texNombrec(a)}\\times ${d}\\\\
-&=${texNombrec(d * a)}
+${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=${texNombre(a)}\\underbrace{(${texNombre(b)}+${texNombre(c)})}_{=${d}}\\\\
+&=${texNombre(a)}\\times ${d}\\\\
+&=${texNombre(d * a)}
 \\end{aligned}$`
         this.reponse = d * a
         break
@@ -75,14 +75,14 @@ ${texNombrec(a)}\\times ${texNombrec(b)}+${texNombrec(a)}\\times ${texNombrec(c)
         a = calcul(randint(5, 99) / 100)
         b = calcul(randint(2, 99) / 10)
         c = 10 - b
-        this.question = `Calculer $ ${texNombrec(b)}\\times${texNombrec(a)}+ ${texNombrec(c)}\\times${texNombrec(a)}$. 
+        this.question = `Calculer $ ${texNombre(b)}\\times${texNombre(a)}+ ${texNombre(c)}\\times${texNombre(a)}$. 
     `
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
+        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
             En factorisant par ce nombre, on obtient : <br>
             $\\begin{aligned}
-            ${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(c)}\\times${texNombrec(a)}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=10}\\\\
-            &=${texNombrec(a)}\\times 10\\\\
-            &=${texNombrec(10 * a)}
+            ${texNombre(b)}\\times${texNombre(a)} + ${texNombre(c)}\\times${texNombre(a)}&=${texNombre(a)}\\underbrace{(${texNombre(b)}+${texNombre(c)})}_{=10}\\\\
+            &=${texNombre(a)}\\times 10\\\\
+            &=${texNombre(10 * a)}
             \\end{aligned}$`
         this.reponse = 10 * a
         break
@@ -90,14 +90,14 @@ ${texNombrec(a)}\\times ${texNombrec(b)}+${texNombrec(a)}\\times ${texNombrec(c)
         a = calcul(randint(1, 12) * 10)
         b = calcul(randint(2, 9) / 10)
         c = 5 - b
-        this.question = `Calculer $ ${texNombrec(a)}\\times${texNombrec(b)}+ ${texNombrec(c)}\\times${texNombrec(a)}$. 
+        this.question = `Calculer $ ${texNombre(a)}\\times${texNombre(b)}+ ${texNombre(c)}\\times${texNombre(a)}$. 
     `
-        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
+        this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
             En factorisant par ce nombre, on obtient : <br>
             $\\begin{aligned}
-            ${texNombrec(a)}\\times${texNombrec(b)}+ ${texNombrec(c)}\\times${texNombrec(a)}&=${texNombrec(a)}\\underbrace{(${texNombrec(b)}+${texNombrec(c)})}_{=5}\\\\
-            &=${texNombrec(a)}\\times 5\\\\
-            &=${texNombrec(5 * a)}
+            ${texNombre(a)}\\times${texNombre(b)}+ ${texNombre(c)}\\times${texNombre(a)}&=${texNombre(a)}\\underbrace{(${texNombre(b)}+${texNombre(c)})}_{=5}\\\\
+            &=${texNombre(a)}\\times 5\\\\
+            &=${texNombre(5 * a)}
             \\end{aligned}$`
         this.reponse = 5 * a
         break

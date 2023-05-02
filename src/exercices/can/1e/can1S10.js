@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombrec, ecritureParentheseSiNegatif, rienSi1, texFraction } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, ecritureParentheseSiNegatif, rienSi1, texFraction } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Trouver le sens de variation d’une suite (QCM)'
 export const interactifReady = true
@@ -252,7 +252,7 @@ export default function SensVariationSuite () {
           }
           if (choix === 2) { // suite géométrique q^n avec 0<q<1
             q = calcul(randint(1, 9) / 10)
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${texNombrec(q)}^n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${texNombre(q)}^n$.<br>
             
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -277,12 +277,12 @@ export default function SensVariationSuite () {
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
 
-            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombrec(q)}$ et de premier terme $${s}_0=1$. <br>`
+            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombre(q)}$ et de premier terme $${s}_0=1$. <br>`
             texteCorr += `Comme $0 < q < 1$ et que le premier terme est  positif, la suite $(${s}_{n})$ est strictement décroissante. `
           }
           if (choix === 3) { // suite géométrique avec q<0
             q = choice([calcul(randint(-9, -1) / 10), randint(-10, -1)])
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${texNombrec(q)})^n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${texNombre(q)})^n$.<br>
            
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -308,7 +308,7 @@ export default function SensVariationSuite () {
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
 
-            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombrec(q)}$ et de premier terme $${s}_0=1$. <br>`
+            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombre(q)}$ et de premier terme $${s}_0=1$. <br>`
             texteCorr += `Comme $ q < 0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. `
           }
 
@@ -495,7 +495,7 @@ export default function SensVariationSuite () {
           if (choix === 5) { // suite géométrique a*q^n avec 0<q <1 et a>0
             q = calcul(randint(1, 9) / 10)
             a = randint(2, 10)
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times ${texNombrec(q)}^n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times ${texNombre(q)}^n$.<br>
            
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -526,7 +526,7 @@ export default function SensVariationSuite () {
           if (choix === 6) { // suite géométrique a*q^n avec 0<q <1 et a<0
             q = calcul(randint(1, 9) / 10)
             a = randint(-10, -2)
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${a})\\times ${texNombrec(q)}^n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${a})\\times ${texNombre(q)}^n$.<br>
           
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -551,7 +551,7 @@ export default function SensVariationSuite () {
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
 
-            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombrec(q)}$ et de premier terme $${s}_{0}=${a}$. <br>`
+            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombre(q)}$ et de premier terme $${s}_{0}=${a}$. <br>`
             texteCorr += `Comme $0 < q <1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement croissante. `
           }
           if (choix === 7) { // suite géométrique a*q^n q fraction comprise entre 0 et 1 et a >0
@@ -883,7 +883,7 @@ export default function SensVariationSuite () {
             a = randint(-10, 10, [-1, 0, 1])
             q = calcul(randint(1, 9) / 10)
 
-            texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texNombrec(q)}${s}_n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texNombre(q)}${s}_n$.<br>
        
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -931,7 +931,7 @@ export default function SensVariationSuite () {
               texte += monQcm.texte
             }
             texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${q}$.<br>`
-            if (a > 0) { texteCorr += `Comme $ 0< ${texNombrec(q)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $ 0< ${texNombrec(q)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. ` }
+            if (a > 0) { texteCorr += `Comme $ 0< ${texNombre(q)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $ 0< ${texNombre(q)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. ` }
           }
 
           if (choix === 7) { // suite recurrente u(n+1)=q*u(n) avec 0<q<1 fraction

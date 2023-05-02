@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombrec, prenomF, texPrix } from '../../../modules/outils.js'
+import { randint, choice, texNombre, prenomF, texPrix } from '../../../modules/outils.js'
 export const titre = 'Rechercher un prix unitaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,8 +37,8 @@ export default function RecherchePrix () {
      
     Quel est le prix d'${s} ?`
     this.correction = `${prenom1} achète $${a}$ ${p}. Comme on lui rend $${texPrix(t - a * pu)}$ euros sur son billet de $${t}$ euros,
-    ses ${p} lui ont coûté : $${t}-${texNombrec(t - a * pu)}=${texPrix(a * pu)}$ euros.<br>
-    Le prix d'${s} est donc donné par :  $${texNombrec(a * pu)}\\div ${a}=${texPrix(pu)}$ euros. `
+    ses ${p} lui ont coûté : $${t}-${texNombre(t - a * pu)}=${texPrix(a * pu)}$ euros.<br>
+    Le prix d'${s} est donc donné par :  $${texNombre(a * pu)}\\div ${a}=${texPrix(pu)}$ euros. `
     this.reponse = pu
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dots$ €'

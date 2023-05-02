@@ -14,7 +14,7 @@ import {
   stringNombre,
   texMasse,
   texNombre,
-  texNombrec,
+  texNombre,
   texPrix
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -137,7 +137,7 @@ export default function ProportionnaliteParLineariteTableau () {
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: ['\\text{Nombre d\'objets}', np, ng],
-              ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombrec(pg))}`],
+              ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombre(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
             setReponse(this, i, pg)
