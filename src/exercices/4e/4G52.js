@@ -21,7 +21,7 @@ export const ref = '4G52'
 export default function ReperagePaveDroit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Placer les points sur le pavé ci-dessous dans le repère $(A;I;J;K)$.'
+  this.consigne = 'Dans le repère $(A;I;J;K)$ :'
   this.nbQuestions = 3
   this.tailleDiaporama = 2
 
