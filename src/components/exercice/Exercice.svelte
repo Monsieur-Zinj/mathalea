@@ -27,13 +27,18 @@
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
       exercice.numeroExercice = indiceExercice
-      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-      if (paramsExercice.duration) exercice.duree = paramsExercice.duration
-      optionsComponent = { exercice }
-      if ($globalOptions.v === "eleve") {
-        ComponentExercice = (await import("./ExerciceVueEleve.svelte")).default
+      if (exercice.typeExercice && exercice.typeExercice.includes('html')) {
+        optionsComponent = { exercice }
+        ComponentExercice = (await import("./ExerciceHtml.svelte")).default
       } else {
-        ComponentExercice = (await import("./ExerciceMathalea.svelte")).default
+        mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+        if (paramsExercice.duration) exercice.duree = paramsExercice.duration
+        optionsComponent = { exercice }
+        if ($globalOptions.v === "eleve") {
+          ComponentExercice = (await import("./ExerciceVueEleve.svelte")).default
+        } else {
+          ComponentExercice = (await import("./ExerciceMathalea.svelte")).default
+        }
       }
     }
   })
