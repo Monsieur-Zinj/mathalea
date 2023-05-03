@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Connaître les propriétés des parallélogrammes particuliers'
 
 export const dateDePublication = '26/04/2023'
@@ -1011,6 +1012,9 @@ export default class nomExercice extends Exercice {
         nbCols: 1
       }
       texte += propositionsQcm(this, i).texte
+      if (!context.isHtml) {
+        texteCorr = propositionsQcm(this, i).texteCorr
+      }
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i])) {
