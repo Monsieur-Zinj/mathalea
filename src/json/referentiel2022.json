@@ -7082,7 +7082,7 @@
         "id": "6P11-2",
         "uuid": "65288",
         "url": "6e/6P11-2.js",
-        "titre": "Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité",
+        "titre": "Résoudre des problèmes de proportionnalité avec la linéarité (avec ou sans un tableau)",
         "dateDeModifImportante": "30/04/2023",
         "tags": {
           "interactif": true,
@@ -9200,6 +9200,7 @@
         "uuid": "9c916",
         "url": "4e/4G52.js",
         "titre": "Exercice de repérage dans un pavé droit",
+        "dateDeModifImportante": "03/05/2023",
         "tags": {}
       },
       "4G53": {
