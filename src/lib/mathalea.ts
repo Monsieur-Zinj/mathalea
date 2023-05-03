@@ -64,7 +64,7 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
       if (module[p] !== undefined) exercice[p] = module[p]
     })
     ;(await exercice).id = filename
-    if (exercice.typeExercice.includes('xcas')) {
+    if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
       animationLoading(true)
       await loadGiac()
       animationLoading(false)

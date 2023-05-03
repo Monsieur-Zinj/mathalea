@@ -27,7 +27,7 @@
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
       exercice.numeroExercice = indiceExercice
-      if (exercice.typeExercice.includes('html')) {
+      if (exercice.typeExercice && exercice.typeExercice.includes('html')) {
         optionsComponent = { exercice }
         ComponentExercice = (await import("./ExerciceHtml.svelte")).default
       } else {

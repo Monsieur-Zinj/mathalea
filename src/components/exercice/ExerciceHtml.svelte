@@ -27,6 +27,5 @@
 
 <HeaderExercice {...headerExerciceProps}}/>
 <section class="m-10">
-  <h1>Mon exercice en HTML</h1>
   <div bind:this={divExercice}></div>
 </section>
