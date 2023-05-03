@@ -78,7 +78,6 @@ export default function VocabulaireDuCercle () {
       const OA = segment(O, A)
       const BC = segment(B, C)
       const DE = segment(D, E)
-      debugger
       const polygon = polygoneAvecNom(A, B, C, D, E)
       objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon[1])
       const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1 }

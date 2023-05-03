@@ -1,4 +1,5 @@
 import {
+  fixeBordures,
   carre,
   labelPoint,
   point,

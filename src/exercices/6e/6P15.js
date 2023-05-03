@@ -1,10 +1,10 @@
 import Decimal from 'decimal.js'
-import {Tableau} from '../../modules/2d.js'
-import {fixeBordures, mathalea2d} from '../../modules/2dGeneralites.js'
-import {context} from '../../modules/context.js'
+import { Tableau } from '../../modules/2d.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import {setReponse} from '../../modules/gestionInteractif.js'
-import {ajouteChampTexteMathLive} from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
   choice,
   combinaisonListes,
@@ -55,7 +55,7 @@ export default function CalculerCoeffPropo () {
     const tableauxCoefficientsEntiers = [[2, 4, 6, 8, 10], [3, 5, 7, 9, 80, 90], [11, 5, 19, 15, 25, 50, 75], [12, 15, 20, 25, 30, 40]]
     const tableauxCoefficientsFractions = [[[2, 5], [3, 4], [2, 3], [2, 7]], [[3, 7], [4, 7], [4, 9], [5, 9]], [[7, 3], [8, 3], [3, 2], [7, 2]], [[9, 4], [7, 8], [8, 7], [9, 5]]]
     // @todo prévoir un tableau de choix des fractions plutôt que d'aléatoiriser leur construction
-    
+
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     if (this.sup === 4) listeTypesDeCoefficient = combinaisonListes(typeDeCoefficient, this.nbQuestions)
     else listeTypesDeCoefficient = combinaisonListes([typeDeCoefficient[this.sup - 1]], this.nbQuestions)
@@ -203,9 +203,9 @@ export default function CalculerCoeffPropo () {
             colonne,
             reponse: premiereLigne[colonne - 1].visible
               ? {
-                valeur: deuxiemeLigne[colonne - 1].nombre,
-                digits: 4
-              }
+                  valeur: deuxiemeLigne[colonne - 1].nombre,
+                  digits: 4
+                }
               : { valeur: premiereLigne[colonne - 1].nombre, digits: 2 }
           }
           rep++
@@ -247,25 +247,25 @@ export default function CalculerCoeffPropo () {
                     valeur: [coefficient],
                     param: coefficientDecimal
                       ? {
-                        digits: 3,
-                        decimal: 2,
-                        signe: false,
-                        approx: 0
-                      }
-                      : coefficientRationnel
-                        ? {
-                          digitsNum: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre),
-                          digitsDen: nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
-                          digits: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre) + nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
-                          approx: 0//,
-                          // aussiCorrect: new FractionEtendue(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
-                        }
-                        : {
-                          digits: 2,
-                          decimals: 0,
+                          digits: 3,
+                          decimal: 2,
                           signe: false,
                           approx: 0
                         }
+                      : coefficientRationnel
+                        ? {
+                            digitsNum: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre),
+                            digitsDen: nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
+                            digits: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre) + nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
+                            approx: 0//,
+                          // aussiCorrect: new FractionEtendue(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
+                          }
+                        : {
+                            digits: 2,
+                            decimals: 0,
+                            signe: false,
+                            approx: 0
+                          }
                   }
                 }]
               },

@@ -55,10 +55,11 @@ export default class NomExercice extends Exercice {
       nomPoly = creerNomDePolygone(cotes, 'GPT') // Permet de choisir un nom de polygone de cotes lettres qui se suivent à l'exclusion de la séquence GPT
       texte = `Construire le ${naturePoly} $${nomPoly}$.<br>`
 
+      let A, B, C, D
       switch (listeTypeDeQuestions[i]) {
         case 1: {
-          const A = point(0, 0, nomPoly.charAt(0), 'below') // nomPoly.charAt(0) renvoie le premier caractère de nomPoly
-          const B = point(5, randint(-30, 30) / 10, nomPoly.charAt(1), 'below') // nomPoly.charAt(1) renvoie le deuxième caractère de nomPoly
+          A = point(0, 0, nomPoly.charAt(0), 'below') // nomPoly.charAt(0) renvoie le premier caractère de nomPoly
+          B = point(5, randint(-30, 30) / 10, nomPoly.charAt(1), 'below') // nomPoly.charAt(1) renvoie le deuxième caractère de nomPoly
 
           const figure = polygoneRegulier(A, B, cotes) // Trace le polygone régulier direct à n côtés qui a pour côté [AB]
           // En tant que polygone, figure a de nombreux attributs. En particulier :
@@ -68,7 +69,7 @@ export default class NomExercice extends Exercice {
           // Voir l'exercice 5S12 pour voir comment colorier et hachurer une figure
 
           // Les points créés avec polygoneRegulier n'ont pas de nom donc pour leur ajouter un nom on peut faire
-          const C = figure.listePoints[2]
+          C = figure.listePoints[2]
           C.nom = nomPoly.charAt(2)
           C.positionLabel = 'above'
           // ou alors
