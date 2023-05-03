@@ -14,7 +14,7 @@ import {
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
-export const titre = 'Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité'
+export const titre = 'Résoudre des problèmes de proportionnalité avec la linéarité (avec ou sans un tableau)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
