@@ -1,5 +1,4 @@
 import {
-  fixeBordures,
   carre,
   labelPoint,
   point,
@@ -9,7 +8,7 @@ import {
   tracePoint,
   triangle2points2longueurs
 } from '../../modules/2d.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
