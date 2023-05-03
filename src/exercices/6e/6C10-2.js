@@ -39,7 +39,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.consigne = 'Calculer.'
   this.spacing = 2
   this.tailleDiaporama = 3
-  
+
   this.nouvelleVersion = function () {
     this.interactifType = parseInt(this.sup2) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
@@ -117,7 +117,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ' = ' +
         texNombre(a * b) +
         ' $'
-      
+
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {

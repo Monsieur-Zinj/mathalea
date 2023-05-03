@@ -14,7 +14,6 @@ export const titre = 'Stabilisation des fréquences'
 */
 
 export default function StabilisationFrequence () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 4 // Ici le nombre de questions

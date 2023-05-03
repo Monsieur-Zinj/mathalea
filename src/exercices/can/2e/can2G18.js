@@ -75,7 +75,7 @@ export default function LectureGraphiqueVecteurRepere () {
       texte = `Lire les coordonnées du vecteur $\\vec{u}$.<br> 
       
       `
-      texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, style: 'display: inline', pixelsParCm: 30, scale: 0.75 },
+      texte += mathalea2d({ xmin, xmax, ymin, ymax, style: 'display: inline', pixelsParCm: 30, scale: 0.75 },
         r1, o, AB, nomvAB
       )
       texte += ` 

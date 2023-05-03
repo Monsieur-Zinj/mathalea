@@ -68,7 +68,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
     const xmax = Math.max(...pointsX) + 2
     const ymin = Math.min(...pointsY) - 2
     const ymax = Math.max(...pointsY) + 2
-    const parametres2d = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 0.6 }
+    const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.6 }
     this.introduction = '' + mathalea2d(parametres2d, objets2d)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -152,7 +152,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
       this.autoCorrection[i] = {
         enonce: questionReponse.question,
         options: { ordered: true },
-        propositions: propositions
+        propositions
       }
       const monQcm = propositionsQcm(this, i)
       texte += context.isAmc ? '' : questionReponse.question + '<br>'

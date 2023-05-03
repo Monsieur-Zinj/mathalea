@@ -14,7 +14,6 @@ export const titre = 'Fabriquer des pavages pour travailler les transformations'
  * Ref : P007
  */
 export default function PavagesMathalea2d () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

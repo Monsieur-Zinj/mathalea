@@ -895,7 +895,7 @@ export default function SujetCAN2022Premiere () {
           reponse = k * c
           texte = `$(AB)//(CD)$<br><br>
           `
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$.
           On en déduit que la longueur $EC$ est $${k}$ fois plus grande que la longueur $CD$.<br>
           Ainsi, $CE=${k}\\times ${c}=${reponse}$.`

@@ -16,7 +16,6 @@ export const dateDePublication = '23/09/2022'
 export const uuid = '9a1a9'
 export const ref = '3I12-4'
 export default function ComprendreScriptListeMultiples () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 9
   this.sup2 = 5

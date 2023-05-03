@@ -12,7 +12,6 @@ export const titre = 'Reconnaître des tableaux de proportionnalité'
 export const uuid = 'aa997'
 export const ref = '5P10'
 export default function TableauxEtProportionnalite () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.sup = 1

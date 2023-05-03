@@ -38,7 +38,7 @@ export const dateDePublication = '09/10/2022'
 export const uuid = 'df825'
 export const ref = '6G11-1'
 export default class constructionPerpendiculaires extends Exercice {
-//  
+//
   constructor () {
     super()
     this.titre = titre
@@ -61,16 +61,16 @@ export default class constructionPerpendiculaires extends Exercice {
         '2 : Orthocentre (extérieur du triangle)',
         '3 : Centre du cercle circonscrit  (intérieur du triangle)',
         '4 : Centre du cercle circonscrit  (extérieur du triangle)',
-        '5 : Mélange',
+        '5 : Mélange'
       ].join('\n')
     ]
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    
+
     let listeTypeDeQuestions = []
     listeTypeDeQuestions = formTextSerializer({
       min: 1,
@@ -90,7 +90,7 @@ export default class constructionPerpendiculaires extends Exercice {
       const indLettre = randint(1, 15)
       const A = point(0, 0, lettreDepuisChiffre(indLettre), 'above left')
       let B = point(20, randint(-4, 0, [-1, 0, 1]), lettreDepuisChiffre(indLettre + 1), 'above right')
-      
+
       let ang1, ang2, ang3
       switch (typesDeQuestions) {
         case 'OrthoInterieur':
@@ -131,15 +131,15 @@ export default class constructionPerpendiculaires extends Exercice {
       const C2 = rotation(A, B, -1 * ang2)
       const CC = pointIntersectionDD(droite(A, C1), droite(B, C2))
       let C = point(Math.floor(CC.x), Math.floor(CC.y), lettreDepuisChiffre(indLettre + 2), 'above left')
-      
+
       const ag1 = angle(B, A, C)
       const ag2 = angle(C, B, A)
       const ag3 = angle(A, C, B)
-      
+
       if ((typesDeQuestions === 1 || typesDeQuestions === 3) && (ag1 > 85 || ag2 > 85 || ag3 > 85)) {
         continue
       }
-      
+
       const dAC = droite(A, C)
       const dBC = droite(B, C)
       let hC, hB, hA, ortho
@@ -159,13 +159,13 @@ export default class constructionPerpendiculaires extends Exercice {
           ortho = pointIntersectionDD(hC, hB)
           break
       }
-      
+
       const Xmin = Math.floor(Math.min(A.x, B.x, C.x, ortho.x) - 1)
       const Xmax = Math.ceil(Math.max(A.x, B.x, C.x, ortho.x) + 1)
       const Ymin = Math.floor(Math.min(A.y, B.y, C.y, ortho.y) - 1)
       const Ymax = Math.ceil(Math.max(A.y, B.y, C.y, ortho.y) + 1)
       context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
-      
+
       let pHc = pointIntersectionDD(droite(point(Xmin, Ymin), point(Xmax, Ymin)), hC, '(d_1)', 'above left')
       if (pHc && pHc.x >= Xmin && pHc.x <= Xmax) {
         // intersection avec le cadran du bas
@@ -264,9 +264,9 @@ export default class constructionPerpendiculaires extends Exercice {
       anim.pointsCreer(A, B, C)
       anim.regleModifierLongueur(20)
       anim.equerreZoom(200)
-      anim.regleDroite(A, B, {couleur: 'blue'})
-      anim.regleDroite(A, C, {couleur: 'blue'})
-      anim.regleDroite(B, C, {couleur: 'blue'})
+      anim.regleDroite(A, B, { couleur: 'blue' })
+      anim.regleDroite(A, C, { couleur: 'blue' })
+      anim.regleDroite(B, C, { couleur: 'blue' })
       anim.regleMasquer()
       if (typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'OrthoExterieur') {
         anim.perpendiculaireRegleEquerreDroitePoint(droite(A, B), C)
@@ -319,7 +319,7 @@ export default class constructionPerpendiculaires extends Exercice {
         },
         objetsCorrection
       )
-      
+
       /****************************************************/
       correction += anim.htmlBouton(this.numeroExercice, i)
       if (context.isHtml) correction += '<br><br>Remarque : les droites $(d_1)$, $(d_2)$ et $(d_3)$ ont un seul point d\'intersection. On dit qu\'elles sont concourantes.'
@@ -330,7 +330,7 @@ export default class constructionPerpendiculaires extends Exercice {
         i++
       }
     }
-    
+
     listeQuestionsToContenu(this)
   }
 }

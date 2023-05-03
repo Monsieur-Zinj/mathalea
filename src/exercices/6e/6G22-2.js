@@ -87,7 +87,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       const xmax = Math.max(...pointsX) + 2.2
       const ymin = Math.min(...pointsY) - 2.2
       const ymax = Math.max(...pointsY) + 2.2
-      const parametres2d = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 0.4 }
+      const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.4 }
       texte = 'Dans la figure ci-dessous :<br>' + mathalea2d(parametres2d, objets2d) + '<br>'
       texteCorr = ''
       // On construit les questions
@@ -114,7 +114,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       this.autoCorrection[i] = {
         enonce: questionReponse.question,
         options: { ordered: true },
-        propositions: propositions
+        propositions
       }
       const monQcm = propositionsQcm(this, i)
       texte += context.isAmc ? '' : questionReponse.question + '<br>'

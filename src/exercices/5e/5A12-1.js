@@ -19,7 +19,6 @@ export const amcType = 'qcmMono'
 export const uuid = '36074'
 export const ref = '5A12-1'
 export default function PremierOuPas5e () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne

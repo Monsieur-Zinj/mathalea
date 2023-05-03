@@ -280,7 +280,7 @@ export default function Proportions () {
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${taux}\\,\\%$ de cadres dans cette entreprise.`
               reponse = taux
-              paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } 
+              paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 }
               break
           }
           break

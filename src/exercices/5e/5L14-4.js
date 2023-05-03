@@ -12,7 +12,6 @@ export const titre = 'Déterminer la dernière opération à effectuer dans une 
 export const uuid = '97f1a'
 export const ref = '5L14-4'
 export default function DeterminerDerniereOperationExpressionLitterale () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.nbQuestions = 4

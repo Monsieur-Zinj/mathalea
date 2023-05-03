@@ -1,9 +1,9 @@
-import Decimal from "decimal.js";
-import {context} from '../../modules/context.js'
+import Decimal from 'decimal.js'
+import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
-import {setReponse} from '../../modules/gestionInteractif.js'
-import {ajouteChampTexteMathLive} from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
   choice,
   combinaisonListesSansChangerOrdre,
@@ -35,8 +35,7 @@ export const dateDeModificationImportante = '02/04/2023'
  */
 export const uuid = '6516e'
 export const ref = '3L13-2'
-export default function EqResolvantesThales() {
-  
+export default function EqResolvantesThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.debug = false
@@ -45,23 +44,23 @@ export default function EqResolvantesThales() {
   } else {
     this.nbQuestions = 2
   }
-  
+
   this.sup = 1
   this.consigne = (this.nbQuestions === 1 || context.vue === 'diap') ? 'Résoudre l\'équation suivante.' : 'Résoudre les équations suivantes.'
   this.tailleDiaporama = 3
-  
+
   this.nbCols = 1
   this.nbColsCorr = 1
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
-  
+
   this.listePackages = 'bclogo'
-  
+
   let typesDeQuestionsDisponibles
-  
+
   this.nouvelleVersion = function () {
     // une fonction pour dire que c'est trivial dans ce cas
-    function trivial(bool, a, b, c, inc) {
+    function trivial (bool, a, b, c, inc) {
       let sortie
       let texte = ''
       if (bool) {
@@ -78,10 +77,10 @@ export default function EqResolvantesThales() {
       }
       return sortie
     }
-    
+
     // Un fonction pour afficher la simplification si c'est possible
     // eslint-disable-next-line no-unused-vars
-    function simplificationSiPossible(bool, frac, inc) {
+    function simplificationSiPossible (bool, frac, inc) {
       let sortie
       if (!bool) {
         sortie = `
@@ -93,20 +92,19 @@ export default function EqResolvantesThales() {
       }
       return sortie
     }
-    
+
     if (this.debug) {
       typesDeQuestionsDisponibles = [0, 1, 2, 3]
     } else {
       typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])
     }
-    
-    
+
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    
+
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
-    
+
     for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on a besoin d'un coeff pour le type de nombres
       let coeff, masterChoix
@@ -134,7 +132,7 @@ export default function EqResolvantesThales() {
           nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
           break
         case 3: // décimaux
-          
+
           coeff = [dixieme, dixieme, dixieme]
           nbAlea[0] = new Decimal(randint(2, 9))
           nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
@@ -144,9 +142,9 @@ export default function EqResolvantesThales() {
           nbAlea[0] = new Decimal(randint(2, 9))
           nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
           nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
-          
+
           masterChoix = choice([
-            {c: [one, one, one], na: [nbAlea[0], nbAlea[1], nbAlea[2]]},
+            { c: [one, one, one], na: [nbAlea[0], nbAlea[1], nbAlea[2]] },
             {
               c: [choice([one, moinsUn]), choice([one, moinsUn]), choice([one, moinsUn])],
               na: [nbAlea[0], nbAlea[1], nbAlea[2]]
@@ -159,8 +157,7 @@ export default function EqResolvantesThales() {
           coeff = masterChoix.c
           nbAlea = masterChoix.na
       }
-      
-      
+
       let inc
       if (this.exo === '4L15-1') {
         inc = choice(['r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
@@ -169,8 +166,7 @@ export default function EqResolvantesThales() {
       } else {
         inc = choice(['x', 'y', 'GO', 'AB', 'z', 'GA', 'BU', 'ZO', 'ME'])
       }
-      
-      
+
       const params = {
         a: nbAlea[0].mul(coeff[0]),
         b: nbAlea[1].mul(coeff[1]),
@@ -178,7 +174,7 @@ export default function EqResolvantesThales() {
         inc,
         fraction: new FractionEtendue(nbAlea[1].mul(nbAlea[0]), nbAlea[2].div(coeff[0]).div(coeff[1]))
       }
-      
+
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
         { // x/b = a/c
@@ -222,11 +218,11 @@ export default function EqResolvantesThales() {
           trivial: params.b.equals(params.c) || params.c.equals(params.a)
         }
       ]
-      
+
       let enoncePlus
       let corrPlusPremiereLigne
       let correctionInteractif
-      
+
       const enonces = []
       for (let k = 0; k < situations.length; k++) {
         if (this.exo === '4P10-2') {
@@ -236,8 +232,7 @@ export default function EqResolvantesThales() {
           enoncePlus = `$${situations[k].eq}$`
           corrPlusPremiereLigne = ''
         }
-        
-        
+
         enonces.push({
           enonce: enoncePlus,
           question: '',
@@ -253,8 +248,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           correctionInteractif: [situations[k].b.mul(situations[k].a).div(situations[k].c).toFixed(4)]
         })
       }
-      
-      
+
       // Autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
         case 0:
@@ -267,7 +261,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           } else {
             texteCorr = `${enonces[0].correction}`
           }
-          
+
           correctionInteractif = enonces[0].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 1:
@@ -279,7 +273,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           } else {
             texteCorr = `${enonces[1].correction}`
           }
-          
+
           correctionInteractif = enonces[1].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 2:
@@ -291,7 +285,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           } else {
             texteCorr = `${enonces[2].correction}`
           }
-          
+
           correctionInteractif = enonces[2].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 3:
@@ -303,15 +297,15 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           } else {
             texteCorr = `${enonces[3].correction}`
           }
-          
+
           correctionInteractif = enonces[3].correctionInteractif[0].replace('{', '').replace('}', '')
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', {texte: `<br> ${inc} = `})
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `<br> ${inc} = ` })
       reponse = new FractionEtendue(correctionInteractif)
       if (context.isAmc) setReponse(this, i, reponse)
-      else setReponse(this, i, reponse, {formatInteractif: 'fractionEgale'})
-      
+      else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -50,7 +50,7 @@ export default function MultiplicationsBaseN () {
       nb = nb.toString()
       texte = `$(${mb})_{${base}} \\times (${nb})_{${base}}$`
       if (parseInt(mb) < parseInt(nb)) [mb, nb] = [nb, mb]
-      texteCorr = `En base ${base} :<br>` + Operation({ operande1: m, operande2: n, type: 'multiplication', base: base }) + '<br>'
+      texteCorr = `En base ${base} :<br>` + Operation({ operande1: m, operande2: n, type: 'multiplication', base }) + '<br>'
       for (let ligne = nb.length - 1; ligne > -1; ligne--) {
         const retenue = []
         texteCorr += `Calcul de $${nb[ligne]}\\times${mb} :$ <br>`

@@ -20,7 +20,6 @@ export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de
 export const uuid = 'fd4d8'
 export const ref = '6C10-5'
 export default function ExerciceLabyrintheMultiples () {
-  
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''

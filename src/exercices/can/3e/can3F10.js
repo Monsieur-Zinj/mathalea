@@ -79,7 +79,7 @@ export default function OrdonneeAbscisseFonctionLineaire () {
       grilleSecondaireXMin: xmin,
       grilleSecondaireXMax: xmax
     })
-    const objet = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }), r1, lA, traceA, o, sAAx, sAAy)
+    const objet = mathalea2d({ xmin, xmax, ymin, ymax, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }), r1, lA, traceA, o, sAAx, sAAy)
     switch (choice([1, 2])) {
       case 1://
         this.question = `$B(${xB}\\,;\\, \\ldots)$ est un point de la droite $(OA)$.<br> 

@@ -8,9 +8,9 @@ import {
   obtenirListeFractionsIrreductibles,
   contraindreValeur
 } from '../../modules/outils.js'
-import {setReponse} from '../../modules/gestionInteractif.js'
-import {ajouteChampTexteMathLive} from '../../modules/interactif/questionMathLive.js'
-import {context} from '../../modules/context.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Multiplier ou/et diviser des fractions'
@@ -83,7 +83,7 @@ export default function ExerciceMultiplierFractions () {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
         [a, b] = choice(listeFractions);
-          [c, d] = choice(listeFractions)
+        [c, d] = choice(listeFractions)
       } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || (b * d === 100))
       if (this.sup2 === false) {
         // methode 1 : simplifications finale
@@ -96,7 +96,7 @@ export default function ExerciceMultiplierFractions () {
             break
           case 2: // fraction * fraction tout positif
             break
-          
+
           case 3:
             do {
               a = a * choice([-1, 1])
@@ -110,7 +110,7 @@ export default function ExerciceMultiplierFractions () {
       } else {
         // méthode 2 : décomposition
         let facteurA, facteurB
-        let listePremiers = shuffle([2, 3, 5, 7, 11])
+        const listePremiers = shuffle([2, 3, 5, 7, 11])
         do {
           facteurA = listePremiers.pop()
           facteurB = listePremiers.pop()
@@ -118,7 +118,7 @@ export default function ExerciceMultiplierFractions () {
           d = d * facteurA
           b = b * facteurB
           c = c * facteurB
-        } while (Math.abs(a) === Math.abs(b) && listePremiers.length>1)
+        } while (Math.abs(a) === Math.abs(b) && listePremiers.length > 1)
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             b = 1
@@ -176,7 +176,7 @@ export default function ExerciceMultiplierFractions () {
       }
       cpt++
     }
-    
+
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
   this.besoinFormulaireNumerique = [

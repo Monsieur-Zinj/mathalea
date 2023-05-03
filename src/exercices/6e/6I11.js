@@ -24,7 +24,6 @@ export const titre = 'Note la couleur (scratch)'
 export const uuid = '0e016'
 export const ref = '6I11'
 export default function NoteLaCouleur6e () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1

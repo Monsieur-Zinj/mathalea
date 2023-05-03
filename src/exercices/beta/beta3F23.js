@@ -18,7 +18,6 @@ export const titre = 'Déterminer un antécédent'
 */
 
 export default function AntecedentParCalcul () {
-  
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Répondre aux questions suivantes avec une valeur exacte simplifiée. '

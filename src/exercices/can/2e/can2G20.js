@@ -85,8 +85,8 @@ export default function EquationDroite () {
           grilleSecondaireXMin: xmin,
           grilleSecondaireXMax: xmax
         })
-        objet = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
-        objetC = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+        objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
+        objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
         this.question = `Donner l'équation réduite de la droite.<br>
 
@@ -180,9 +180,9 @@ export default function EquationDroite () {
           grilleSecondaireXMin: xmin,
           grilleSecondaireXMax: xmax
         })
-        objet = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
-        objetC = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
-        objetC2 = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, lABx2, sBAx, sAxA, lBBx2)
+        objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
+        objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
+        objetC2 = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, lABx2, sBAx, sAxA, lBBx2)
         this.question = `Donner l'équation réduite de la droite.<br>
 
         `

@@ -10,7 +10,6 @@ export const titre = 'Réduire un produit et une somme à partir des mêmes él�
 export const uuid = '46234'
 export const ref = '5L12-1'
 export default function ReduireDinstinctionSommeProduit () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   if (this.debug) {

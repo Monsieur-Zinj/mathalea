@@ -516,7 +516,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
               texte: texteCorr,
               statut: '',
               reponse: {
-                texte: texte,
+                texte,
                 valeur: [calcul(distance * dureeR / dureeQ)],
                 param: {
                   digits: nombreDeChiffresDe(calcul(distance * dureeR / dureeQ, 3)),
@@ -832,7 +832,6 @@ fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${s
 export const uuid = 'f7a14'
 export const ref = '6P11'
 export default function ProportionnaliteParLinearite () {
-  
   let question
   Exercice.call(this) // Héritage de la classe Exercice()
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)

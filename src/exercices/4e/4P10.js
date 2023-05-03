@@ -29,7 +29,6 @@ export const titre = 'Résoudre des problèmes de grandeurs composées et de con
 export const uuid = '72c5a'
 export const ref = '4P10'
 export default function ProblemesGrandeursComposees () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

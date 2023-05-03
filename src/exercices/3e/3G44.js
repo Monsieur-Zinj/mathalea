@@ -24,7 +24,6 @@ export const dateDePublication = '19/12/2022' // La date de publication initiale
 export const uuid = '57c70'
 export const ref = '3G44'
 export default function CalculPythagoreEspace () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 4

@@ -16,7 +16,6 @@ export const titre = 'Simulation d\'expériences aléatoires'
 */
 
 export default function SimulateurAleatoire () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1 // Ici le nombre de questions

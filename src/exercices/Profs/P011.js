@@ -7,7 +7,6 @@ import { contraindreValeur, Triangles } from '../../modules/outils.js'
 export const titre = 'Construis mon triangle'
 
 export default function ConstruisMonTriangle () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1 // Ici le nombre de questions

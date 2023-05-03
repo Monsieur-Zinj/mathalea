@@ -7,7 +7,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const titre = 'Décomposer un entier en produit de facteurs premiers' //Essai
+export const titre = 'Décomposer un entier en produit de facteurs premiers' // Essai
 
 /**
  * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
@@ -21,7 +21,6 @@ export const titre = 'Décomposer un entier en produit de facteurs premiers' //E
 export const uuid = '32f33'
 export const ref = '3A10-3'
 export default function DecompositionFacteursPremiers () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne

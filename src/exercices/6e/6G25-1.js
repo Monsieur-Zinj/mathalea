@@ -19,7 +19,6 @@ export const amcType = 'AMCHybride'
 export const uuid = '49cb2'
 export const ref = '6G25-1'
 export default function SymetrieAxialePavageTriangulaire () {
-  
   Exercice.call(this)
   this.titre = 'Symétrie axiale dans un pavage de triangles équilatéraux'
   this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions

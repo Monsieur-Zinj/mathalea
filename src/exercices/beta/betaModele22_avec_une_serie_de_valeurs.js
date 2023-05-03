@@ -18,21 +18,21 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.consigne = 'Consigne'
     this.nbQuestions = 10
-    
+
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4 : Mélange']
     this.sup = '1-1-2-3'
-    
+
     this.nbCols = 2
     this.nbColsCorr = 2
     this.tailleDiaporama = 3
     this.video = ''
   }
-  
+
   nouvelleVersion (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    
+
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
     const listeTypeQuestions = formTextSerializer( // retourne une liste de choix pour les questions à partir du paramètre saisie
       {
@@ -46,7 +46,7 @@ export default class NomExercice extends Exercice {
         defaut: 1 // si dans la saisie, une valeur est invalide, ce sera cette valeur
       }
     )
-    
+
     for (let i = 0, texte, texteCorr, typeDeProbleme, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeQuestions[i] === 'type1') { // On ajuste le type de problème selon le paramètre.
         typeDeProbleme = 'fleuriste'

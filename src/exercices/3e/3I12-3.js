@@ -15,7 +15,6 @@ export const dateDePublication = '22/09/2022'
 export const uuid = '52c97'
 export const ref = '3I12-3'
 export default function CompleterScriptDiviseurs () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '1-2-3-4-5-6-7-8-9-10'
   this.sup2 = 3

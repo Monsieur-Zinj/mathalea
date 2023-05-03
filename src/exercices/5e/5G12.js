@@ -18,7 +18,6 @@ export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans
 export const uuid = '76ea9'
 export const ref = '5G12'
 export default function PavageEtDemiTour2D () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
