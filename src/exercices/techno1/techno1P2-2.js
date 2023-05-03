@@ -17,7 +17,6 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.consigne = 'Consigne'
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

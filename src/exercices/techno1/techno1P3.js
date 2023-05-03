@@ -18,7 +18,6 @@ export default function Proportion () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur25 inline'
-  this.optionsChampTexte = { texteApres: ' €' }
   this.nouvelleVersion = function () {
     let a, b, c, d
     switch (choice(['simple'])) {
