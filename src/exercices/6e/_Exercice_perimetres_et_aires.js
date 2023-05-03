@@ -318,7 +318,7 @@ export default function ExercicePerimetresEtAires () {
               texte += `d'un demi-disque de $${texNombre(2 * R)}$ cm de diamètre. Donner une valeur approchée au dixième de cm pour l'un et au dixième de cm$^2$ pour l'autre.` + '<br>'
               texteCorr = `Le diamètre est de $${texNombre(2 * R)}$ cm donc le rayon est de $${texNombre(R)}$ cm.<br>`
             } else {
-              texte += `d'un demi-disque de $${texNombre(R)}$ cm de rayon. Donner une valeur approchée au dixième de cm pour l'un et au dixième de cm$^2$ pour l'autre.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un demi-disque de $${texNombre(R)}$ cm de rayon. Donner une valeur approchée au dixième de cm pour l'un et au dixième de cm$^2$ pour l'autre.`
               texteCorr = ''
             }
           }
