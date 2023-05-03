@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
@@ -240,16 +240,16 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             }), TexteX, TexteY
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = `  Une société de location de véhicules particuliers propose le tarif suivant pour un week-end de location :<br>
-          ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(c, 2)}$ € par km parcouru (dans la limite de $${texNombre(km, 0)}$ km).<br> 
+          ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(c, 2)}$ € par km parcouru (dans la limite de $${texNombre(km, 0)}$ km).<br>
           On note $x$ le nombre de km parcourus par un client au cours d'un week-end et on considère la fonction $T$ qui à chaque valeur de $x$ associe le prix payé par le client.<br>
           ${numAlpha(0)} Donner l'ensemble de définition de la fonction $T$.<br>
-          ${numAlpha(1)} Exprimer $T(x)$ en fonction de $x$.<br> 
+          ${numAlpha(1)} Exprimer $T(x)$ en fonction de $x$.<br>
           ${numAlpha(2)} Résoudre l'équation $T(x)=${texNombre(prix, 2)}$.<br>
           Interpréter ce résultat dans le contexte de l'exercice. `
-            texteCorr = `  ${numAlpha(0)} On ne peut pas faire plus de $${texNombre(km)}$ km durant le week-end, ainsi l'ensemble de définition de la fonction $T$ est $[0\\,;\\,${km}]$.<br> 
+            texteCorr = `  ${numAlpha(0)} On ne peut pas faire plus de $${texNombre(km)}$ km durant le week-end, ainsi l'ensemble de définition de la fonction $T$ est $[0\\,;\\,${km}]$.<br>
           ${numAlpha(1)} Le tarif  comprend un forfait fixe et un tarif par km parcouru. <br>
           Ainsi, le montant de la location est  : Forfait + Coût d'un km $\\times$ Nombre de km parcourus, soit $T(x)=${a}+${texNombre(c, 2)}x$.<br>
-          ${numAlpha(2)} On résout l'équation  $T(x)=${texNombre(prix, 2)}$.<br> 
+          ${numAlpha(2)} On résout l'équation  $T(x)=${texNombre(prix, 2)}$.<br>
           $\\begin{aligned}
           ${a}+${texNombre(c, 2)}x&=${texNombre(prix, 2)}\\\\
           ${texNombre(c, 2)}x&= ${texNombre(prix, 2)}-${a}${sp(8)} \\text{(On retranche ${a} à chaque membre)} \\\\
@@ -332,8 +332,8 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
           ${numAlpha(1)} Calculer au mètre près, la distance de freinage de la voiture si elle roule à $${v}$ km/h.<br>
           ${numAlpha(2)} La distance de freinage est-elle proportionnelle à la vitesse ?<br>
           ${numAlpha(3)}   La distance de freinage de cette voiture a été de $${b}$ m. Quelle était sa vitesse en km/h arrondie à l'unité ? `
-            texteCorr = `${numAlpha(0)} Le carré de la vitesse est $v^2$, donc la fonction $d$ est définie par : $d(v)=\\dfrac{v^2}{${texNombre(a, 1)}}$. <br> 
-          ${numAlpha(1)} $d(${v})=\\dfrac{${v}^2}{${texNombre(a, 1)}}\\simeq ${Math.round(v ** 2 / a, 0)}$. La distance de freinage est d'environ $${Math.round(v ** 2 / a, 0)}$.<br> 
+            texteCorr = `${numAlpha(0)} Le carré de la vitesse est $v^2$, donc la fonction $d$ est définie par : $d(v)=\\dfrac{v^2}{${texNombre(a, 1)}}$. <br>
+          ${numAlpha(1)} $d(${v})=\\dfrac{${v}^2}{${texNombre(a, 1)}}\\simeq ${Math.round(v ** 2 / a, 0)}$. La distance de freinage est d'environ $${Math.round(v ** 2 / a, 0)}$.<br>
                     ${numAlpha(2)} La distance de freinage n'est pas proportionnelle à la vitesse car la fonction $d$ n'est pas une fonction linéaire. Elle ne traduit pas une situation de proportionnalité.<br>
                     ${numAlpha(3)}   On cherche $v$ tel que $d(v)=${b}$.<br>
                     $\\begin{aligned}
@@ -547,7 +547,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             ${numAlpha(1)} Déterminer l'expression algébrique de la fonction $${nom}$ (c'est-à-dire l'expression de $${nom}(x)$ en fonction de $x$).<br>
             ${numAlpha(2)} Le prix payé est-il proportionnel au nombre de litres mis dans le réservoir ? Justifier.<br>
             ${numAlpha(3)} Résoudre l'équation $${nom}(x)=${texNombre(prix, 2)}$. Interpréter ce résultat dans le contexte de l'exercice. `
-            texteCorr = `${numAlpha(0)} Le minimum de litres que ${P} peut mettre est  $${b}$ et le maximum est $${c}$. <br> 
+            texteCorr = `${numAlpha(0)} Le minimum de litres que ${P} peut mettre est  $${b}$ et le maximum est $${c}$. <br>
             L'ensemble de définition de $${nom}$ est donc $[${b}\\,;\\,${c}]$.<br>
             ${numAlpha(1)} Pour obtenir le prix payé, on multiplie le nombre de litres par le prix d'un litre. <br>
             Ainsi, l'expression algébrique de $${nom}$ est : $${nom}(x)=${texNombre(a, 2)}\\times x$, soit $${nom}(x)=${texNombre(a, 2)}x$.<br>
@@ -591,18 +591,18 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             ${numAlpha(4)}  En déduire la recette $${nom}(x)$ réalisée après une hausse du prix du menu de $x$ € et montrer qu’il peut
             s’exprimer sous la forme :  $${nom}(x) = ${-c}x^2 + ${b - a * c}x + ${a * b}$.
            `
-            texteCorr = `${numAlpha(0)} L'ensemble de définition est donné par l'énoncé ($0 \\leqslant x \\leqslant ${d}$). <br> 
+            texteCorr = `${numAlpha(0)} L'ensemble de définition est donné par l'énoncé ($0 \\leqslant x \\leqslant ${d}$). <br>
             L'ensemble de définition de $${nom}$ est donc $[0\\,;\\,${d}]$.<br>
 
             ${numAlpha(1)} Après une hausse de $${h}$ € :<br>
             $\\bullet$  le prix du menu est $${a}+${h}=${a + h}$ € ;<br>
-            $\\bullet$  le nombre de couverts est $${b}-10\\times ${h}=${b - 10 * h}$ ;<br> 
-            $\\bullet$  la recette  est $${a + h}\\times ${b - 10 * h}=${(a + h) * (b - 10 * h)}$.<br> 
+            $\\bullet$  le nombre de couverts est $${b}-10\\times ${h}=${b - 10 * h}$ ;<br>
+            $\\bullet$  la recette  est $${a + h}\\times ${b - 10 * h}=${(a + h) * (b - 10 * h)}$.<br>
 
-            ${numAlpha(2)} Le prix du menu après une augmentation de $x$ € est $${a}+x$.<br>         
-                                   
+            ${numAlpha(2)} Le prix du menu après une augmentation de $x$ € est $${a}+x$.<br>
+            
             ${numAlpha(3)} Puisqu'à chaque hausse de $1$ €, le nombre de couverts diminue de $${c}$, on en déduit que le nombre de couverts après une hausse de $x$  € est $${b}-${c}\\times x$ soit $${b}-${c}x$.<br>
-                   
+            
             ${numAlpha(4)}  La recette est donnée par le produit du prix d'un menu par le nombre de menu, soit $(${a}+x)\\times (${b}-${c}x)=${a * b}-${a * c}x+${b}x-${c}x^2=-${c}x^2+${b - a * c}x+${a * b}$.
          `
           }
@@ -674,11 +674,11 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             ${numAlpha(2)} Le saut commence à $t=0$ et se termine lorsque ${P} se retrouve au sol, c'est-à-dire lorsque la hauteur est nulle. <br>
             Ainsi, le temps du saut est donnée par la solution positive de l'équation $(${texNombre(a, 3)}t${texNombre(b, 2)})(t${texNombre(c, 2)})=0$<br>
             Il s'agit d'une équation produit nul qui a deux solutions : $t_1= ${texNombre(-b.div(a), 2)}$   et   $t_2= ${texNombre(-c, 2)}$.  <br>
-            Le saut dure  $${texNombre(-c, 2)}$ secondes.<br>                                   
+            Le saut dure  $${texNombre(-c, 2)}$ secondes.<br>
             ${numAlpha(3)} On développe en utilisant la double distributivité :<br>
             $${nom}(t)=(${texNombre(a, 3)}t${texNombre(b, 2)})(t${texNombre(c, 2)})=${texNombre(a, 3)}t^2+${texNombre(a.mul(c), 3)}t${texNombre(b, 2)}t+${texNombre(b.mul(c), 2)}=${texNombre(a, 3)}t^2+${texNombre(a.mul(c).plus(b), 2)}t+${texNombre(b.mul(c), 2)}$.
             <br>
-               
+            
          `
           }
           break
@@ -769,7 +769,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
                     ${numAlpha(5)} La fonction $${nom}$ a été représentée sur un intervalle de temps  correspondant à celui
                     d’un battement de cœur du patient.<br>On parle de tachycardie lorsque, au repos, le nombre de battements du cœur est supérieur à $100$ par minute. <br>
                     D’après cet examen, peut-on estimer que le patient souffre de tachycardie ?`
-            texte += ` <br>        
+            texte += ` <br>
               ${graphique}<br>
               
               `
@@ -931,31 +931,31 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
           `
             texte += `${graphique}<br>
           `
-            texte += ` 
+            texte += `
             ${numAlpha(0)}  À quel instant le taux d’alcoolémie de cette personne est-il maximal ? Quelle est alors sa valeur ? Arrondir
             au centième.<br>
             ${numAlpha(1)} Résoudre graphiquement l'inéquation $${nom}(t)>0,5$. <br>
-            ${numAlpha(2)} À l'instant $t=0$, il était $${h}$ h. À quelle heure, à la minute près, l’automobiliste peut-il reprendre le volant sans être en infraction ? 
+            ${numAlpha(2)} À l'instant $t=0$, il était $${h}$ h. À quelle heure, à la minute près, l’automobiliste peut-il reprendre le volant sans être en infraction ?
            `
-            texteCorr = `    ${numAlpha(0)} Le taux d'alcoolémie maximal est atteint lorsque $t=${texNombre(Math.round(s0 * 10) / 10, 1)}$. Sa valeur 
-            est environ  $${texNombre(Math.round(f(s0) * 100) / 100, 2)}$. 
+            texteCorr = `    ${numAlpha(0)} Le taux d'alcoolémie maximal est atteint lorsque $t=${texNombre(Math.round(s0 * 10) / 10, 1)}$. Sa valeur
+            est environ  $${texNombre(Math.round(f(s0) * 100) / 100, 2)}$.
            .<br>
             ${numAlpha(1)} Les solutions de l'inéquation $${nom}(t)>0,5$ sont les abscisses des points de la courbe qui se situent strictement en dessous de la droite d'équation $y=0,5$. <br>
             Cette inéquation a pour ensemble de solution $]${texNombre(Math.round(s1 * 10) / 10, 1)}\\,;\\,${texNombre(Math.round(s2 * 10) / 10, 1)}[$. <br>
               `
 
             if (Math.round(s2 * 10) / 10 === 2 || Math.round(s2 * 10) / 10 === 3 || Math.round(s2 * 10) / 10 === 4 || Math.round(s2 * 10) / 10 === 5 || Math.round(s2 * 10) / 10 === 6) {
-              texteCorr += ` ${numAlpha(2)} L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.round(s2 * 10) / 10} \\text{ h }$ après la consommation de l'alcool, 
+              texteCorr += ` ${numAlpha(2)} L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.round(s2 * 10) / 10} \\text{ h }$ après la consommation de l'alcool,
             soit à $${Math.round(s2 * 10) / 10 + h} \\text{ h}$.<br><br>`
             } else {
               texteCorr += ` ${numAlpha(2)} $${texNombre(Math.round(s2 * 10) / 10, 1)}\\text{ h } =${Math.floor(s2)} \\text{ h } +${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\text{ h }$.<br>
             Or, $${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\text{ h }=${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\times 60 \\text{ min }=${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$.<br>
-            L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.floor(s2)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$ après la consommation de l'alcool, 
+            L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.floor(s2)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$ après la consommation de l'alcool,
             soit à $${Math.floor(s2 + h)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min}$.<br><br>`
             }
 
             texteCorr += `${graphiqueCorr}
-               
+            
          `
           }
           break
