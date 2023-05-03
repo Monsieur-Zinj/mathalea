@@ -19,7 +19,7 @@ export default function EquationAvecUneValeurAbsolue () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.typeExercice = 'XCas'
+  this.typeExercice = 'xcas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
 
