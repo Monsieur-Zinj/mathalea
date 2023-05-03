@@ -1,17 +1,20 @@
 import { labelPoint, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint } from '../../modules/outils.js'
+import { combinaisonListes, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint } from '../../modules/outils.js'
 import { radians, degSin } from '../../modules/fonctionsMaths.js'
 import { point3d, arete3d } from '../../modules/3d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Exercice de repérage dans un pavé droit'
 
+export const dateDeModifImportante = '03/05/2023'
+
 /**
  * Un point est situé dans un pavé découpé suivant les trois axes, on doit donner ses coordonnées
  * @author Arnaud Durand et Jean-Claude Lhote
  * Référence 4G52
  * publié 9/06/2021
+ * Ajout d'un paramètre permettant de choisir entre placer un point et lire ses coordonnées
 */
 export const uuid = '9c916'
 export const ref = '4G52'
@@ -20,12 +23,13 @@ export default function ReperagePaveDroit () {
   this.titre = titre
   this.consigne = 'Placer les points sur le pavé ci-dessous dans le repère $(A;I;J;K)$.'
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = false // à modifier si besoin
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // 30+ pour la persperctive
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+  this.tailleDiaporama = 2
+
+  this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
+  this.sup = 1
+
+  this.besoinFormulaire2Numerique = ['Type d\'exercice', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
+  this.sup2 = 1
 
   this.nouvelleVersion = function () { // c'est ici que les données sont relatives
     this.listeQuestions = [] // Liste de questions
@@ -123,6 +127,11 @@ export default function ReperagePaveDroit () {
       objetsAtracer.push(s.c2d)
     }
 
+    let typesDeQuestionsDisponibles = ['placer', 'lire']
+    if (this.sup2 === 1) typesDeQuestionsDisponibles = ['placer']
+    if (this.sup2 === 2) typesDeQuestionsDisponibles = ['lire']
+    const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+
     for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, x, y, z, t, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       x = 0
@@ -134,7 +143,6 @@ export default function ReperagePaveDroit () {
         z = randint(0, nbgraduationz)
       }
       pointCoord = [x, y, z]
-      texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
       pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`, 'below right')
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'blue', true)
       s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), '#f15929', true)
@@ -146,8 +154,16 @@ export default function ReperagePaveDroit () {
       t.epaisseur = 2
       t.taille = 6
       objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
-      texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective), scale: 0.6, style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
-      texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], '#f15929')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
+      if (listeTypesDeQuestions[i] === 'placer') {
+        texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
+        texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective), scale: 0.6, style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], '#f15929')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
+      } else {
+        texte = `Donner les coordonnées du point $${lettreDepuisChiffre(i + 12)}$`
+        objetsAtracer.push(labelPoint(pointAplacer))
+        texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective), scale: 0.6, style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
+        texteCorr += `<br>Le point $${lettreDepuisChiffre(i + 12)}$ a pour coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -160,5 +176,4 @@ export default function ReperagePaveDroit () {
     this.introduction = (context.vue === 'diap' ? '<center>' : '') + mathalea2d({ xmin: -1, xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective), style: 'display: block; margin-top:20px;' }, objetsAtracer) + (context.vue === 'diap' ? '</center>' : '')
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
 }
