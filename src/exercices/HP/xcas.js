@@ -1,5 +1,5 @@
 import { xcas } from '../../modules/outils.js'
-import { mathaleaRenderDiv } from '../../lib/mathalea'
+// import { mathaleaRenderDiv } from '../../lib/mathalea'
 
 export const uuid = 'fd89f'
 
@@ -39,7 +39,7 @@ class xCas {
       result.innerHTML += `${field.value} <span class="mx-2">➡︎</span> $${xcas(field.value)}$`
       result.innerHTML += '<br>'
       field.value = ''
-      mathaleaRenderDiv(result)
+      // mathaleaRenderDiv(result)
     })
   }
 }
