@@ -1870,12 +1870,14 @@ export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
  */
 export function obtenirListeFacteursPremiers (n) {
   const facteurs = []
-  for (let i = 2; i <= n; i++) {
+  const signe = n < 0 ? -1 : 1
+  for (let i = 2; i <= Math.abs(n); i++) {
     while (n % i === 0) {
       facteurs.push(i)
       n /= i
     }
   }
+  facteurs[0] = signe * facteurs[0]
   return facteurs
 }
 
@@ -3477,10 +3479,11 @@ export function obtenirListeNombresPremiers (n = 300) {
  * @author Rémi Angot
  */
 export function decompositionFacteursPremiers (n) {
+  console.log('liste des facteurs premiers pour -72 : ', obtenirListeFacteursPremiers(-72))
   let decomposition = ''
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
-    decomposition += liste[i] + '\\times'
+    decomposition += ecritureParentheseSiNegatif(liste[i]) + '\\times'
   }
   decomposition = decomposition.substr(0, decomposition.length - 6)
   return decomposition

@@ -136,7 +136,6 @@ export default function ExerciceMultiplierFractions () {
             break
         }
       }
-      console.log(a, b, c, d)
       const f1 = new FractionEtendue(a, b)
       const f2 = new FractionEtendue(c, d)
       if (listeTypesDoperation[i] === 'mul') {
