@@ -136,7 +136,7 @@ export default function ProportionnaliteParLineariteTableau () {
             texteApres = 'kg'
           } else {
             index = randint(0, 7)
-            np = randint(1, 10)
+            np = randint(2, 10)
             cm = randint(2, 7)
             ng = np * cm
             pp = new Decimal(randint(11, 48)).mul(np).div(10)
