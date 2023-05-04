@@ -10,7 +10,7 @@ import {
   prenom,
   randint,
   sp,
-  stringNombre
+  stringNombre, texMasse, texPrix, texNombre
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
@@ -96,18 +96,18 @@ export default function ProportionnaliteParLineariteTableau () {
             pp = objets[index][1].mul(np * randint(8, 9)).div(10)
             pg = pp.mul(cm)
             o = objets[index][0]
-            texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${stringNombre(pp, 2, true)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
+            texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Nombre de ${o}` }, { texte: np.toString(), math: true }, {
-                texte: ng.toString(),
+              ligne1: [{ texte: `Nombre de ${o}` }, { texte: stringNombre(np, 0), math: true }, {
+                texte: stringNombre(ng, 0),
                 math: true
               }],
               ligne2: [{ texte: 'Prix (en euros)' }, {
-                texte: `${stringNombre(pp, 2, true)}`,
+                texte: `${stringNombre(pp, 2, true, false)}`,
                 math: true
-              }, { texte: `${stringNombre(pg, 2, true)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '×' + cm.toString(), math: true, gras: true, color: '#f15929' }]]
+              }, { texte: `${stringNombre(pg, 2, true, false)}`, math: true, gras: true, color: '#f15929' }],
+              flecheHaut: [[1, 2, { texte: '×' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
             texteApres = '€'
@@ -119,18 +119,18 @@ export default function ProportionnaliteParLineariteTableau () {
             pp = fruits[index][1].mul(np)
             pg = pp.mul(cm)
             o = choice([fruits[index][0]])
-            texte = `${prenom()} achète $${stringNombre(pp, 3, true)}$ kg de ${o} pour $${stringNombre(np, 2, true)}$ €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
+            texte = `${prenom()} achète $${texMasse(pp)}$ kg de ${o} pour $${texPrix(np)}$ €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [{ texte: `Prix des ${o} (en euros)` }, {
-                texte: np.toString(),
+                texte: stringNombre(np, 0),
                 math: true
-              }, { texte: ng.toString(), math: true }],
+              }, { texte: stringNombre(ng, 0), math: true }],
               ligne2: [{ texte: `Masse des ${o} (en kg)` }, {
-                texte: `${stringNombre(pp, 3, true)}`,
+                texte: `${stringNombre(pp, 3, true, false)}`,
                 math: true
-              }, { texte: `${stringNombre(pg, 3)}`, math: true, color: '#f15929', gras: true }],
-              flecheHaut: [[1, 2, { texte: '×' + cm.toString(), math: true, gras: true, color: '#f15929' }]]
+              }, { texte: `${stringNombre(pg, 3, true, false)}`, math: true, color: '#f15929', gras: true }],
+              flecheHaut: [[1, 2, { texte: '×' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
             texteApres = 'kg'
@@ -141,18 +141,18 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = np * cm
             pp = new Decimal(randint(11, 48)).mul(np).div(10)
             pg = pp.mul(cm)
-            texte = `$${np}$ objets occupent un volume de ${stringNombre(pp)} cm³. Quel volume serait occupé par $${ng}$ de ces objets ? `
+            texte = `$${np}$ objets occupent un volume de $${texNombre(pp, 1, false)}$ cm³. Quel volume serait occupé par $${ng}$ de ces objets ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: 'Nombre d\'objets' }, { texte: np.toString(), math: true }, {
-                texte: ng.toString(),
+              ligne1: [{ texte: 'Nombre d\'objets' }, { texte: stringNombre(np, 0), math: true }, {
+                texte: stringNombre(ng, 0),
                 math: true
               }],
               ligne2: [{ texte: 'Volume des objets (en cm³)' }, {
-                texte: `${stringNombre(pp, 0)}`,
+                texte: `${stringNombre(pp, 1)}`,
                 math: true
-              }, { texte: `${stringNombre(pg, 3)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '×' + cm.toString(), math: true, gras: true, color: '#f15929' }]]
+              }, { texte: `${stringNombre(pg, 1)}`, math: true, gras: true, color: '#f15929' }],
+              flecheHaut: [[1, 2, { texte: '×' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
             texteApres = 'cm³'
@@ -168,15 +168,15 @@ export default function ProportionnaliteParLineariteTableau () {
             pp = new Decimal(randint(8, 9)).mul(np).div(10)
             pg = pp.mul(cm)
             o = objets[index][0]
-            texte = `${prenom()} achète $${ng}$ ${ng === 1 ? o.slice(0, -1) : o} pour $${stringNombre(pg, 2, true)}$ €. Combien faudrait-il payer pour en acheter $${np}$ ? `
+            texte = `${prenom()} achète $${ng}$ ${ng === 1 ? o.slice(0, -1) : o} pour $${texPrix(pg)}$ €. Combien faudrait-il payer pour en acheter $${np}$ ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Nombre de ${o}` }, { texte: ng.toString() }, { texte: np.toString() }],
+              ligne1: [{ texte: `Nombre de ${o}` }, { texte: stringNombre(ng, 0) }, { texte: stringNombre(np, 0) }],
               ligne2: [{ texte: 'Prix (en euros)' }, {
-                texte: `${stringNombre(pg, 2, true)}`,
+                texte: `${stringNombre(pg, 2, true, false)}`,
                 math: true
-              }, { texte: `${stringNombre(pp, 2, true)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '÷' + cm.toString(), math: true, gras: true, color: '#f15929' }]]
+              }, { texte: `${stringNombre(pp, 2, true, false)}`, math: true, gras: true, color: '#f15929' }],
+              flecheHaut: [[1, 2, { texte: '÷' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pp)
             texteApres = '€'
@@ -189,15 +189,15 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} peint une surface de $${stringNombre(pg, 0)}$ m² en $${ng}$ jours. Quelle surface serait peinte en $${np}$ ${np === 1 ? 'jour' : 'jours'} ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: 'Durée (en jours)' }, { texte: ng.toString(), math: true }, {
-                texte: np.toString(),
+              ligne1: [{ texte: 'Durée (en jours)' }, { texte: stringNombre(ng, 0), math: true }, {
+                texte: stringNombre(np, 0),
                 math: true
               }],
               ligne2: [{ texte: 'Surface peinte (en m²)' }, {
                 texte: `${stringNombre(pg, 0)}`,
                 math: true
-              }, { texte: `${stringNombre(pp, 2)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '÷' + cm.toString(), math: true, gras: true, color: '#f15929' }]]
+              }, { texte: `${stringNombre(pp, 0)}`, math: true, gras: true, color: '#f15929' }],
+              flecheHaut: [[1, 2, { texte: '÷' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pp)
             texteApres = 'm²'
@@ -209,18 +209,18 @@ export default function ProportionnaliteParLineariteTableau () {
             pp = fruits[index][1].mul(np)
             pg = pp.mul(cm)
             o = fruits[index][0]
-            texte = `${prenom()} achète ${stringNombre(pg, 3, true)} kg de ${o} pour $${stringNombre(ng, 2, true)}$ €. Quelle masse pourrait être achetée avec $${np}$ € ? `
+            texte = `${prenom()} achète $${texMasse(pg)}$ kg de ${o} pour $${texPrix(ng)}$ €. Quelle masse pourrait être achetée avec $${np}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [{ texte: `Prix des ${o} (en euros)` }, {
-                texte: ng.toString(),
+                texte: stringNombre(ng, 0),
                 math: true
-              }, { texte: np.toString(), math: true }],
+              }, { texte: stringNombre(np, 0), math: true }],
               ligne2: [{ texte: `Masse des ${o} (en kg)` }, {
-                texte: `${stringNombre(pg, 3, true)}`,
+                texte: `${stringNombre(pg, 3, true, false)}`,
                 math: true
-              }, { texte: `${stringNombre(pp, 3, true)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '÷' + cm.toString(), math: true, gras: true, color: '#f15929' }]]
+              }, { texte: `${stringNombre(pp, 3, true, false)}`, math: true, gras: true, color: '#f15929' }],
+              flecheHaut: [[1, 2, { texte: '÷' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pp)
             texteApres = 'kg'
@@ -236,28 +236,28 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = randint(2, 10, np)
             pg = pu.mul(ng)
             o = objets[index][0]
-            texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${stringNombre(pp, 2, true)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
+            texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Nombre de ${o}` }, { texte: np.toString(), math: true }, {
+              ligne1: [{ texte: `Nombre de ${o}` }, { texte: stringNombre(np, 0), math: true }, {
                 texte: '1',
                 math: true
-              }, { texte: ng.toString(), math: true }],
+              }, { texte: stringNombre(ng, 0), math: true }],
               ligne2: [{ texte: 'Prix (en euros)' }, {
-                texte: `${stringNombre(pp, 2, true)}`,
+                texte: `${stringNombre(pp, 2, true, false)}`,
                 math: true
               }, {
-                texte: `${stringNombre(pu, 2, true)}`,
+                texte: `${stringNombre(pu, 2, true, false)}`,
                 math: true,
                 gras: true,
                 color: '#f15929'
-              }, { texte: `${stringNombre(pg, 2, true)}`, math: true, gras: true, color: '#f15929' }],
+              }, { texte: `${stringNombre(pg, 2, true, false)}`, math: true, gras: true, color: '#f15929' }],
               flecheHaut: [[1, 2, {
-                texte: '÷' + np.toString(),
+                texte: '÷' + stringNombre(np, 0),
                 math: true,
                 gras: true,
                 color: '#f15929'
-              }], [2, 3, { texte: '×' + ng.toString(), math: true, gras: true, color: '#f15929' }]]
+              }], [2, 3, { texte: '×' + stringNombre(ng, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
             texteApres = '€'
@@ -267,28 +267,28 @@ export default function ProportionnaliteParLineariteTableau () {
             pp = pu * np
             ng = randint(2, 10, np)
             pg = pu * ng
-            texte = `${prenom()} peint une surface de $${stringNombre(pp, 2)}$ m² en $${np}$ jours. Quelle surface serait peinte en $${ng}$ jours ? `
+            texte = `${prenom()} peint une surface de $${stringNombre(pp, 0)}$ m² en $${np}$ jours. Quelle surface serait peinte en $${ng}$ jours ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: 'Durée (en jours)' }, { texte: np.toString(), math: true }, {
+              ligne1: [{ texte: 'Durée (en jours)' }, { texte: stringNombre(np, 0), math: true }, {
                 texte: '1',
                 math: true
-              }, { texte: ng.toString(), math: true }],
+              }, { texte: stringNombre(ng, 0), math: true }],
               ligne2: [{ texte: 'Surface peinte (en m²)' }, {
-                texte: pp.toString(),
+                texte: stringNombre(pp, 0),
                 math: true
-              }, { texte: pu.toString(), math: true, gras: true, color: '#f15929' }, {
-                texte: pg.toString(),
+              }, { texte: stringNombre(pu, 0), math: true, gras: true, color: '#f15929' }, {
+                texte: stringNombre(pg, 0),
                 math: true,
                 gras: true,
                 color: '#f15929'
               }],
               flecheHaut: [[1, 2, {
-                texte: '÷' + np.toString(),
+                texte: '÷' + stringNombre(np, 0),
                 math: true,
                 gras: true,
                 color: '#f15929'
-              }], [2, 3, { texte: '×' + ng.toString(), math: true, gras: true, color: '#f15929' }]]
+              }], [2, 3, { texte: '×' + stringNombre(ng, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
             texteApres = 'm²'
@@ -300,28 +300,28 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = randint(2, 10, np)
             pg = pu.mul(ng)
             o = fruits[index][0]
-            texte = `${prenom()} achète ${stringNombre(pp, 3, true)} kg de ${o} pour ${stringNombre(np, 2, true)} €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
+            texte = `${prenom()} achète $${texMasse(pp)}$ kg de ${o} pour $${texPrix(np)}$ €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Prix des ${o} (en euros)` }, { texte: np.toString(), math: true }, {
+              ligne1: [{ texte: `Prix des ${o} (en euros)` }, { texte: stringNombre(np, 0), math: true }, {
                 texte: '1',
                 math: true
-              }, { texte: ng.toString(), math: true }],
+              }, { texte: stringNombre(ng, 0), math: true }],
               ligne2: [{ texte: `Masse des ${o} (en kg)` }, {
-                texte: `${stringNombre(pp, 3, true)}`,
+                texte: `${stringNombre(pp, 3, true, false)}`,
                 math: true
               }, {
-                texte: `${stringNombre(pu, 3, true)}`,
+                texte: `${stringNombre(pu, 3, true, false)}`,
                 math: true,
                 gras: true,
                 color: '#f15929'
-              }, { texte: `${stringNombre(pg, 3, true)}`, math: true, gras: true, color: '#f15929' }],
+              }, { texte: `${stringNombre(pg, 3, true, false)}`, math: true, gras: true, color: '#f15929' }],
               flecheHaut: [[1, 2, {
-                texte: '÷' + np.toString(),
+                texte: '÷' + stringNombre(np, 0),
                 math: true,
                 gras: true,
                 color: '#f15929'
-              }], [2, 3, { texte: '×' + ng.toString(), math: true, gras: true, color: '#f15929' }]]
+              }], [2, 3, { texte: '×' + stringNombre(ng, 0), math: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
             texteApres = 'kg'
@@ -334,7 +334,7 @@ export default function ProportionnaliteParLineariteTableau () {
             np = randint(10, 14)
             cm = randint(2, 4)
             ng = np * cm
-            texte = `${prenom()} mesure $${stringNombre(tp, 2)}$ m à $${np}$ ans. Quelle sera sa taille à $${ng}$ ans ?`
+            texte = `${prenom()} mesure $${texNombre(tp, 2, true, false)}$ m à $${np}$ ans. Quelle sera sa taille à $${ng}$ ans ?`
             texteCorr = 'On ne peut pas savoir car la taille n\'est pas proportionnelle à l\'âge.'
             texteApres = 'm'
           } else if (a === 2) {
@@ -342,7 +342,7 @@ export default function ProportionnaliteParLineariteTableau () {
             np = randint(10, 13)
             cm = randint(2, 5)
             ng = np * cm
-            texte = `${prenom()} pèse $${stringNombre(tp, 2)}$ kg à $${np}$ ans. Quelle sera son poids à $${ng}$ ans ?`
+            texte = `${prenom()} pèse $${texMasse(tp)}$ kg à $${np}$ ans. Quelle sera son poids à $${ng}$ ans ?`
             texteCorr = 'On ne peut pas savoir car le poids (plus précisément la masse) n\'est pas proportionnel à l\'âge.'
             texteApres = 'kg'
           } else if (a === 3) {

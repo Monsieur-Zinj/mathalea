@@ -2801,13 +2801,14 @@ export function numberFormat (nb) {
  * Avec comme avantage immédiat pour le format Decimal : precision est illimité.
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Guillaume Valmont
- * @param {number} nb nombre à afficher
+ * @param {number} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
- * @param {boolean} force true pour forcer à precision chiffres (ajout de zéros éventuels). false par défaut pour supprimer les zéros non significatifs.
+ * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
+ * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb, precision = 8, force = false) {
-  const result = afficherNombre(nb, precision, 'texNombre', force)
+export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers) {
+  const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
@@ -3002,13 +3003,14 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  * Sinon, renvoie le nombre à afficher dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Jean-Claude Lhote
  * @author Guillaume Valmont
- * @param {number} nb nombre à afficher
+ * @param {number} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
- * @param {boolean} force true pour forcer à precision chiffres (ajout de zéros éventuels). false par défaut pour supprimer les zéros non significatifs.
+ * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
+ * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8, force = false) {
-  return afficherNombre(nb, precision, 'stringNombre', force)
+export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers) {
+  return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
 
 /**
@@ -3020,8 +3022,10 @@ export function stringNombre (nb, precision = 8, force = false) {
  * @param {number} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
  * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
+ * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
+ * @param {boolean} aussiCompleterEntiers true si on veut ajouter des zéros inutiles aux entiers
  */
-function afficherNombre (nb, precision, fonction, force = false) {
+function afficherNombre (nb, precision, fonction, completerZeros = false, aussiCompleterEntiers) {
   /**
    * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
    * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
@@ -3038,23 +3042,23 @@ function afficherNombre (nb, precision, fonction, force = false) {
     if (nb instanceof Decimal) {
       signe = nb.isNeg()
       if (nb.abs().gte(1)) {
-        if (force) {
+        if (completerZeros) {
           nombre = nb.toFixed(precision).replace('.', ',')
         } else {
           nombre = nb.toDP(precision).toString().replace('.', ',')
         }
       } else {
-        if (force) {
+        if (completerZeros) {
           nombre = nb.toFixed(precision).replace('.', ',')
         } else {
           nombre = nb.toDP(precision).toString().replace('.', ',')
         }
       }
-    } else {
+    } else { // nb est un number
       signe = nb < 0
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
-      if (Math.abs(nb) < 1) {
-        if (force) {
+      if (Math.abs(nb) < 1) { // si il est < 1, on n'a pas à se préoccuper de savoir si il est entier pour aussiCompleterEntiers
+        if (completerZeros) {
           nombre = Intl.NumberFormat('fr-FR', {
             maximumFractionDigits: precision,
             minimumFractionDigits: precision
@@ -3063,7 +3067,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
           nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
         }
       } else {
-        if (force) {
+        if (completerZeros && ((aussiCompleterEntiers && Number.isInteger(nb)) || (!Number.isInteger(nb)))) {
           nombre = Intl.NumberFormat('fr-FR', {
             maximumSignificantDigits,
             minimumSignificantDigits: maximumSignificantDigits
@@ -3119,22 +3123,20 @@ function afficherNombre (nb, precision, fonction, force = false) {
     } else {
       nbChiffresPartieEntiere = nb.abs().toFixed(0).length
     }
-    if (nb.isInteger()) precision = 0
-    else {
-      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-        precision = 15 - nbChiffresPartieEntiere
-      } else if (precision < 0) {
-        precision = 0
-      }
+    if (nb.isInteger() && !aussiCompleterEntiers) precision = 0
+    else if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+      precision = 15 - nbChiffresPartieEntiere
+    } else if (precision < 0) {
+      precision = 0
     }
-  } else {
+  } else { // nb est un number
     if (Math.abs(nb) < 1) {
       nbChiffresPartieEntiere = 0
     } else {
       // attention 9.7 donner 10 avec Math.abs(9.7).toFixed(0)
       nbChiffresPartieEntiere = Math.floor(Math.abs(nb)).toFixed(0).length
     }
-    if (Number.isInteger(nb) && !force) {
+    if (Number.isInteger(nb) && !completerZeros) {
       precision = 0
     } else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
