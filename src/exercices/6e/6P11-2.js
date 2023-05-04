@@ -233,7 +233,7 @@ export default function ProportionnaliteParLineariteTableau () {
             pu = objets[index][1].mul(randint(1, 19)).div(10)
             np = randint(2, 10)
             pp = pu.mul(np)
-            ng = randint(2, 10, np)
+            ng = randint(2, 10, [np, 2 * np, 3 * np, 4 * np, 5 * np, np / 2, np / 3, np / 4, np / 5])
             pg = pu.mul(ng)
             o = objets[index][0]
             texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
@@ -265,7 +265,7 @@ export default function ProportionnaliteParLineariteTableau () {
             pu = randint(40, 60)
             np = randint(2, 10)
             pp = pu * np
-            ng = randint(2, 10, np)
+            ng = randint(2, 10, [np, 2 * np, 3 * np, 4 * np, 5 * np, np / 2, np / 3, np / 4, np / 5])
             pg = pu * ng
             texte = `${prenom()} peint une surface de $${stringNombre(pp, 0)}$ m² en $${np}$ jours. Quelle surface serait peinte en $${ng}$ jours ? `
             monTableau = tableau({
@@ -297,7 +297,7 @@ export default function ProportionnaliteParLineariteTableau () {
             pu = objets[index][1].mul(randint(8, 12)).div(10)
             np = randint(2, 10)
             pp = pu.mul(np)
-            ng = randint(2, 10, np)
+            ng = randint(2, 10, [np, 2 * np, 3 * np, 4 * np, 5 * np, np / 2, np / 3, np / 4, np / 5])
             pg = pu.mul(ng)
             o = fruits[index][0]
             texte = `${prenom()} achète $${texMasse(pp)}$ kg de ${o} pour $${texPrix(np)}$ €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
