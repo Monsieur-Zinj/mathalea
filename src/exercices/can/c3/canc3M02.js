@@ -46,7 +46,7 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
 
           this.reponse = choix ? 4 * a : a * a
           this.correction = `Il s'agit d'un carré. <br>
-        Son ${choix ? 'périmètre' : 'aire'} est donc 
+        Son ${choix ? 'périmètre' : 'aire'} est donc
         ${choix ? `$4$ fois la longueur de son côté, soit $4\\times ${a}=${4 * a}$ cm.` : `le carré de la longueur de son côté, soit $${a}\\times ${a}=${a * a}$ cm$^2$.`}`
         } else {
           objets.push(codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
@@ -92,7 +92,7 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
 
         this.reponse = choix ? 2 * a + 2 * b : a * b
         this.correction = `Il s'agit d'un rectangle. <br>
-        Son ${choix ? 'périmètre' : 'aire'} est donc 
+        Son ${choix ? 'périmètre' : 'aire'} est donc
         ${choix ? `$2$ fois la longueur de son demi-périmètre, soit $2\\times (${a}+${b})=${2 * a + 2 * b}$ cm.` : `le produit de sa longueur par sa largeur, soit $${a}\\times ${b}=${a * b}$ cm$^2$.`}`
         break
 
@@ -136,8 +136,10 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
 
       case 4:// périmètre/longueur triangle isocèle
         objets = []
-        a = randint(3, 7)
-        b = randint(8, 12)
+        do {
+          a = randint(3, 7)
+          b = randint(8, 12)
+        } while (2 * a <= b)
         A = point(0, 0, 'A', 'below')
         B = point(5, 0, 'B', 'below')
         C = point(2.5, 2, 'C', 'below')
@@ -171,7 +173,7 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
             texteParPosition('?', milieu(B, C).x + 1, milieu(B, C).y + 0.5),
             s1, s2, s3)
           this.question = `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
-           
+          
           La figure n'est pas à l'échelle. <br>
             
             ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
@@ -189,7 +191,7 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
             texteParPosition(`${a} cm`, milieu(B, C).x + 1, milieu(B, C).y + 0.5),
             s1, s2, s3)
           this.question = `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
-              
+          
           La figure n'est pas à l'échelle. <br>
                 
                 ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
