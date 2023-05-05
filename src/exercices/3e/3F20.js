@@ -7,15 +7,13 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import {
   choice,
   combinaisonListes,
-  combinaisonListesSansChangerOrdre,
   contraindreValeur,
   ecritureParentheseSiNegatif,
-  enleveDoublonNum,
+  formTextSerializer,
   listeQuestionsToContenu,
   pgcd,
   premierAvec,
   randint,
-  rangeMinMax,
   texNombre
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -43,7 +41,7 @@ J'ai fait le choix d'un antécédent primaire entier positif, le coefficient ét
 On peut choisir le type de questions.`
   this.sup = 1 // coefficient entier relatif
   this.nbQuestions = 8
-  this.sup2 = 9
+  this.sup2 = '9'
 
   this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
   this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange']
@@ -59,28 +57,11 @@ On peut choisir le type de questions.`
       'antecedentParExpression',
       'antecedentParValeurs',
       'antecedentParGraphique',
-      'expressionParValeur',
+      'expressionParValeurs',
       'expressionParGraphique'
     ]
-    let QuestionsDisponibles
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 8)
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles = [contraindreValeur(1, 9, this.sup2, 9)]
-      } else {
-        QuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 9, QuestionsDisponibles[i], 9)
-        }
-        this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
-      }
-    }
-    enleveDoublonNum(QuestionsDisponibles)
-    if (QuestionsDisponibles.includes(9)) QuestionsDisponibles = rangeMinMax(1, 8)
-    const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions).map(nb => typesDeQuestionsDisponibles[nb])
-
-    const listeTypesDeQuestions = combinaisonListes(typesDeQuestions, this.nbQuestions)
+    const questionsDisponibles = formTextSerializer({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, random: 9 })
+    const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.sup = contraindreValeur(1, 3, this.sup, 1)
@@ -260,7 +241,7 @@ On peut choisir le type de questions.`
           texteCorr += `${antecedent}$`
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
-        case 'expressionParValeur':
+        case 'expressionParValeurs':
           texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           if (context.isAmc) {
             texte += 'Donner le coefficient de  $f$.'
