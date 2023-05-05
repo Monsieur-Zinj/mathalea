@@ -180,9 +180,11 @@
     seedrandom(exercice.seed, { global: true })
     if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
-    $exercicesParams[indiceExercice].alea = exercice.seed
-    $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
-    $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
+    if ($exercicesParams[indiceExercice] !== undefined) {
+      $exercicesParams[indiceExercice].alea = exercice.seed
+      $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
+      $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
+    }
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
     mathaleaUpdateUrlFromExercicesParams()
