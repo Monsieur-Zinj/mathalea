@@ -231,6 +231,9 @@
         buildStaticList()
         // console.log(filteredStaticList)
       }}
+      on:focusout={() => {
+        inputSearch = ''
+      }}
     />
     <div
       class="absolute -bottom-4 {matchOnFilteredList(inputSearch) !== null
