@@ -216,6 +216,7 @@
           name="formText1"
           type="text"
           bind:value={sup}
+          on:input={newSettings}
         />
       </div>
       <!-- <fieldset>
@@ -296,6 +297,7 @@
           name="formText2"
           type="text"
           bind:value={sup2}
+          on:input={newSettings}
         />
       </div>
       <!-- <fieldset>
@@ -376,6 +378,7 @@
           name="formText3"
           type="text"
           bind:value={sup3}
+          on:input={newSettings}
         />
       </div>
       <!-- <div>
@@ -458,6 +461,7 @@
           name="formText4"
           type="text"
           bind:value={sup4}
+          on:input={newSettings}
         />
       </div>
     </form>
@@ -502,6 +506,7 @@
       name="formAlea"
       type="text"
       bind:value={alea}
+      on:input={newSettings}
     />
   </form>
   {#if exercice.comment !== undefined}
