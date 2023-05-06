@@ -2,8 +2,6 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, sp, texFractionReduite, combinaisonListes, rienSi1, reduireAxPlusB, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
 export const dateDePublication = '02/05/2023'
-export const interactifReady = true
-export const interactifType = 'mathLive'
 export const titre = 'Résoudre des équations avec un quotient'
 
 /**
