@@ -152,6 +152,7 @@
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    adjustMathalea2dFiguresWidth()
   }
 
   function verifExerciceVueEleve() {
@@ -220,7 +221,7 @@
     const mathalea2dFigures = document.getElementsByClassName("mathalea2d") as HTMLCollectionOf<SVGElement>
     if (mathalea2dFigures.length !== 0) {
       await tick()
-      const consigne_div = document.getElementById("consigne" + indiceExercice + "-0")
+      const body = document.getElementsByTagName("body")[0]
       for (let k = 0; k < mathalea2dFigures.length; k++) {
         if (initialDimensionsAreNeeded) {
           // réinitialisation
@@ -229,10 +230,10 @@
           mathalea2dFigures[k].setAttribute("width", initialWidth)
           mathalea2dFigures[k].setAttribute("height", initialHeight)
         }
-        // console.log("got figures !!! --> DIV " + consigne_div.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
-        if (mathalea2dFigures[k].clientWidth > consigne_div.clientWidth) {
-          const coef = (consigne_div.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
-          const newFigWidth = consigne_div.clientWidth * 0.95
+        // console.log("got figures !!! --> DIV " + body.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
+        if (mathalea2dFigures[k].clientWidth > body.clientWidth) {
+          const coef = (body.clientWidth * 0.9) / mathalea2dFigures[k].clientWidth
+          const newFigWidth = body.clientWidth * 0.9
           const newFigHeight = mathalea2dFigures[k].clientHeight * coef
           mathalea2dFigures[k].setAttribute("width", newFigWidth.toString())
           mathalea2dFigures[k].setAttribute("height", newFigHeight.toString())
@@ -248,7 +249,7 @@
   }
 </script>
 
-<div class="z-0 flex-1" bind:this={divExercice}>
+<div class="z-0 flex-1 w-full" bind:this={divExercice}>
   <HeaderExerciceVueEleve {...headerExerciceProps} {indiceExercice} showNumber={indiceLastExercice > 1} />
 
   <div class="flex flex-col-reverse lg:flex-row">
@@ -278,7 +279,14 @@
             </button>
           </div>
         {/if}
-        <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
+        <button
+          class="mx-2 tooltip tooltip-right"
+          data-tip="Nouvel énoncé"
+          type="button"
+          on:click={() => {
+            newData()
+          }}
+        >
           <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
         </button>
         <button
@@ -301,8 +309,8 @@
           </div>
         {/if}
       </div>
-      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative" style="font-size: {($globalOptions.z || 1).toString()}rem">
-        <div class="flex flex-col">
+      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative w-full" style="font-size: {($globalOptions.z || 1).toString()}rem">
+        <div class="flex flex-col w-full">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>
               <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
