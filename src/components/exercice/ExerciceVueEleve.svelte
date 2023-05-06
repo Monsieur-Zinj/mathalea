@@ -26,25 +26,25 @@
   const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event("exercicesAffiches", {
-      bubbles: true,
-    })
+    bubbles: true,
+  })
   document.dispatchEvent(exercicesAffiches)
 
   let headerExerciceProps: {
     title: string
-    isInteractif: boolean
-    correctionReady?: boolean
-    randomReady?: boolean
-    interactifReady?: boolean
+    // isInteractif: boolean
+    // correctionReady?: boolean
+    // randomReady?: boolean
+    // interactifReady?: boolean
   } = {
     title,
-    isInteractif,
-    interactifReady,
+    // isInteractif,
+    // interactifReady,
   }
 
   if ($globalOptions.recorder !== undefined) {
     headerExerciceProps.randomReady = false
-    headerExerciceProps.interactifReady = false
+    interactifReady = false
   }
 
   $: {
@@ -54,7 +54,7 @@
       headerExerciceProps.correctionReady = false
       headerExerciceProps.randomReady = false
     }
-    headerExerciceProps.isInteractif = isInteractif
+    // headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps = headerExerciceProps
   }
 
