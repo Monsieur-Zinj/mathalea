@@ -317,6 +317,9 @@ export function formTextSerializer ({
       listeIndex = [contraindreValeur(min, Math.max(max, random ?? max), saisie, defaut)]
     } else {
       listeIndex = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      if (listeIndex[listeIndex.length - 1] === '') {
+        listeIndex.pop()
+      }
       for (let i = 0; i < listeIndex.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
         listeIndex[i] = contraindreValeur(min, Math.max(max, random ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
       }
