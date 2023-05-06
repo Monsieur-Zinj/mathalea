@@ -351,7 +351,7 @@
                     class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
                     id="correction${indiceExercice}Q${i}"
                   >
-                    <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
+                    <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
                       {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                     </div>
                     <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->

@@ -377,7 +377,7 @@
                       class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
                       id="correction${indiceExercice}Q${i}"
                     >
-                      <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
+                      <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
                         {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                       </div>
                       <!-- Avant le commit du 28/03/23, il y avait une mise en page plus complexe
