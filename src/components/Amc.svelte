@@ -27,6 +27,7 @@
   let matiere = ""
   let titre = ""
   let nbQuestionsModif: number[] = []
+  const exercicesARetirer: string[] =[]
   
   type NbQuestionsIndexees = {
     indexExercice: number
@@ -39,6 +40,7 @@
   let textForOverleaf: HTMLInputElement
   
   async function initExercices() {
+    exercicesARetirer.length = 0
     await mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     for (const exercice of exercices) {
@@ -47,8 +49,12 @@
       context.isAmc = true
       seedrandom(exercice.seed, {global: true})
       if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, false)
-      exercice.nouvelleVersion()
+      if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
+      if (exercice.amcType == null){ // l'exercice n'est pas disponible AMC
+        exercicesARetirer.push(exercice.uuid)
+      }
     }
+    exercices = exercices.filter((exercice)=>!exercicesARetirer.includes(exercice.uuid))
   }
   
   initExercices()
@@ -73,11 +79,10 @@
           context.isAmc = true
           seedrandom(exo.seed, {global: true})
           if (exo.typeExercice === "simple") mathaleaHandleExerciceSimple(exo, false)
-          exo.nouvelleVersion()
+          if ( exo.nouvelleVersion != null) exo.nouvelleVersion()
         }
       }
     }
-    console.log(nbQuestions)
     content = creerDocumentAmc({
       exercices,
       typeEntete: entete,
@@ -186,6 +191,22 @@
         <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions
           par groupe
         </div>
+        {#if {exercicesARetirer}.length>0}
+          <div>
+          <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="overleaf-modal"
+                                    on:action={close}>
+            <span slot="header">Attention !</span>
+            <ul class="list-inside list-disc text-left text-base" slot="content">
+              Les exercices suivants n'ayant pas de version AMC ont été retirés de la liste.
+              {#each exercices as exercice}
+                {#if {exercicesARetirer}.includes(exercice.uuid)}}
+                  <li>exercice.ref</li>
+                  {/if}
+                {/each}
+            </ul>
+          </ModalMessageBeforeAction>
+          </div>
+          {/if}
         {#each exercices as exercice, i}
           <div>
             {exercice.id}{exercice.sup ? `-S:${exercice.sup}` : ""}{exercice.sup2 ? `-S2:${exercice.sup2}` : ""}{exercice.sup3 ? `-S3:${exercice.sup3}` : ""}
@@ -203,7 +224,7 @@
               on:click={() => {
                 exercice.seed = mathaleaGenerateSeed()
                 seedrandom(exercice.seed, { global: true })
-                exercice.nouvelleVersion()
+                if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
                 $exercicesParams[i].alea = exercice.seed
                 mathaleaUpdateUrlFromExercicesParams()
               }}><i
