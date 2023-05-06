@@ -181,7 +181,9 @@
         event.preventDefault()
         break
       case "Enter":
-        isEnterDown = true
+        if (isInputFocused) {
+          isEnterDown = true
+        } 
         event.preventDefault()
         break
     }
@@ -217,9 +219,8 @@
 </script>
 
 <!-- <svelte:window on:keydown={handlePressEnter} /> -->
-<!-- <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} /> -->
-<div on:keydown={onKeyDown}
-  on:keyup={onKeyUp}
+<svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
+<div 
   class="flex flex-row space-x-2 justify-start items-center">
   <!-- <div class="font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div> -->
   <div class="relative flex flex-col w-full">
