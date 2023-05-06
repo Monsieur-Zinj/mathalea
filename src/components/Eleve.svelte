@@ -222,7 +222,7 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
   <div
-    class="fixed z-20 bottom-4 right-2 {($globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
+    class="fixed h-20 lg:h-10 z-20 bottom-4 right-2 {($globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
     $globalOptions.title.length > 0
       ? 'lg:top-8'
       : 'lg:top-20'}  lg:right-6"
