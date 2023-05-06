@@ -38,9 +38,7 @@
   ```tsx
   const headerExerciceProps = {
     title: exercice.titre,
-    indiceExercice: 2,
-    interactifReady: true,
-    randomReady: true
+    indiceExercice: 2
   }
   <HeaderExerciceVueEleve {...headerExerciceProps}/>
   ```
