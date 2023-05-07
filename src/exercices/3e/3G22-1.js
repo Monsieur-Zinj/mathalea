@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, contraindreValeur, compteOccurences, rangeMinMax } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  texNombre,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -21,6 +26,7 @@ export const uuid = 'a0ad1'
 export const ref = '3G22-1'
 export default function Agrandissement () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.sup = '9'
 
   this.besoinFormulaireTexte = ['Choix des types de problèmes', `Nombres séparés par des tirets
   1 : Calcul de A2 connaissant k et A1
@@ -36,24 +42,7 @@ export default function Agrandissement () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
-    let listeDesProblemes = [9] // Paramétrage par défaut
-    const valMaxParametre = 9
-    if (this.sup) { // Si une liste est saisie
-      if (this.sup.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
-        listeDesProblemes = [contraindreValeur(1, valMaxParametre, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
-      } else {
-        listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
-          listeDesProblemes[i] = contraindreValeur(1, valMaxParametre, parseInt(listeDesProblemes[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
-        }
-      }
-    }
-    // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
-    if (compteOccurences(listeDesProblemes, valMaxParametre) > 0) listeDesProblemes = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
-
-    const listeTypeQuestions = combinaisonListes(listeDesProblemes, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-
+    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 8, melange: 9, defaut: 9, nbQuestions: this.nbQuestions, shuffle: true }) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, V1, V2, A1, A2, l1, l2, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       k = new Decimal(randint(1, 20, 10)).div(10)
       V1 = randint(10, 120) // Les données de départ sont entières, on n'utilise pas Decimal() ici

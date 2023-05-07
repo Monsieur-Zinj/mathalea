@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, choisitLettresDifferentes, combinaisonListes, compteOccurences, contraindreValeur, listeQuestionsToContenu, miseEnEvidence, randint, rangeMinMax, sp, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { calcul, choisitLettresDifferentes, gestionnaireFormulaireTexte, listeQuestionsToContenu, miseEnEvidence, randint, sp, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { droite, homothetie, labelPoint, point, segmentAvecExtremites, symetrieAxiale, distancePointDroite, longueur, afficheLongueurSegment, pointSurDroite, tracePoint, polygone, nommePolygone, angle, arc, latexParPoint, angleOriente, rotation } from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'
 
@@ -26,10 +26,10 @@ export default function SymetrieAxialeProprietes () {
   this.sup2 = true
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    /*
     let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = rangeMinMax(1, 4)
@@ -45,6 +45,17 @@ export default function SymetrieAxialeProprietes () {
     }
     if (compteOccurences(typesDeQuestionsDisponibles, 5) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, 4) // Teste si l'utilisateur a choisi tout
     typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+*/
+
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      min: 1,
+      max: 4,
+      defaut: 5,
+      nbQuestions: this.nbQuestions,
+      melange: 5,
+      saisie: this.sup
+    })
+
     for (let i = 0, texte, texteCorr, objetsEnonce, a, b, d, A, B, C, D, E, F, ptRef1, ptRef2, Aarc, Barc, Carc, ALabel, BLabel, CLabel, nbpoints, noms, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''

@@ -290,13 +290,13 @@ export function contraindreValeur (min, max, valeur, defaut) {
  *@param {string|number} saisie Ce qui vient du formulaireTexte donc une série de nombres séparés par des tirets ou un seul nombre (normalement en string) ou rien
  * @param {number} min 1 par défaut
  * @param {number} max obligatoirement >min
- * @param {number} defaut obligatoirement compris entre min et max inclus ou alors égal à random
+ * @param {number} defaut obligatoirement compris entre min et max inclus ou alors égal à melange
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
  * La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
- * @param {boolean} shuffle si true, alors on brasse la liste en sortie sinon on garde l'ordre
+ * @param {boolean} [shuffle=true] si true, alors on brasse la liste en sortie sinon on garde l'ordre
  * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
- * @param {number | undefined} random la valeur utilisée pour l'option mélange à savoir randint(min,max)
- * @param {boolean} enleveDoublons  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
+ * @param {number | undefined} melange la valeur utilisée pour l'option mélange
+ * @param {boolean} [enleveDoublons=false]  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
  */
 export function gestionnaireFormulaireTexte ({
   saisie,
@@ -306,36 +306,33 @@ export function gestionnaireFormulaireTexte ({
   listeOfCase,
   shuffle = true,
   nbQuestions,
-  random,
+  melange,
   enleveDoublons = false
 } = {}) {
-  if (max == null || isNaN(max) || max < min) throw Error('La fonction formTextSerialize réclame un paramètre max de type number')
-  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== random)) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre defaut compris entre min(1) et max')
+  if (max == null || isNaN(max) || max < min) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre max de type number')
+  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre defaut compris entre min(1) et max')
   let listeIndex
 
   if (!saisie) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
   } else {
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-      listeIndex = [contraindreValeur(min, Math.max(max, random ?? max), saisie, defaut)]
+      listeIndex = [contraindreValeur(min, Math.max(max, melange ?? max), saisie, defaut)]
     } else {
       listeIndex = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       if (listeIndex[listeIndex.length - 1] === '') {
         listeIndex.pop()
       }
       for (let i = 0; i < listeIndex.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        listeIndex[i] = contraindreValeur(min, Math.max(max, random ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
+        listeIndex[i] = contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
       }
     }
   }
-  if (shuffle) {
-    listeIndex = combinaisonListes(listeIndex, nbQuestions)
-  } else {
-    listeIndex = combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
+  if (melange != null && compteOccurences(listeIndex, melange)) {
+    listeIndex = rangeMinMax(min, max)
   }
-  if (random != null && compteOccurences(listeIndex, random)) {
-    listeIndex = combinaisonListes(rangeMinMax(min, max), nbQuestions)
-  }
+  listeIndex = shuffle ? combinaisonListes(listeIndex, nbQuestions) : combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
+
   const Max = Math.max(...listeIndex)
   if (enleveDoublons) listeIndex = enleveDoublonNum(listeIndex)
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex

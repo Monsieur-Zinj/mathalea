@@ -4,7 +4,7 @@ import { segment, cone, point, milieu, homothetie, tracePoint } from '../../modu
 import { context } from '../../modules/context.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, choice, premiereLettreEnMajuscule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures, vide2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = 'Reconnaitre des solides'
@@ -34,22 +34,13 @@ export default function ReconnaitreDesSolides () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    let typeDeQuestion = []
     this.nbQuestions = Math.min(this.nbQuestions, 50) // Comme il n'y a que 70 questions différentes on limite pour éviter que la boucle ne cherche trop longtemps
     this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? 'Donner le nom de ce solide.' : 'Donner le nom de chacun des solides.'
-    /* const listePrimes = [
-      '1,1,3', '1,1,4', '1,1,5', '1,1,6', '1,1,7', '1,1,8', // prisme de 3 à 8 sommets sur la base suivant l'axe z
-      '1,2,3', '1,2,4', '1,2,5', '1,2,6', '1,2,7', '1,2,8', // prisme de 3 à 8 sommets sur la base suivant l'axe x
-      '1,3,3', '1,3,4', '1,3,5', '1,3,6', '1,3,7', '1,3,8'] // prisme de 3 à 8 sommets sur la base suivant l'axe y
-    const listePyramides = [
-      '2,1,3', '2,1,4', '2,1,5', '2,1,6', '2,1,7', '2,1,8', // pyramide de 3 à 8 sommets sur la base suivant l'axe z
-      '2,2,3', '2,2,4', '2,2,5', '2,2,6', '2,2,7', '2,2,8', // pyramide de 3 à 8 sommets sur la base suivant l'axe x
-      '2,3,3', '2,3,4', '2,3,5', '2,3,6', '2,3,7', '2,3,8'] // pyramide de 3 à 8 sommets sur la base suivant l'axe y
-      */
+    /*
     const listeDesProblemes = []
     if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
       listeDesProblemes.push('1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2', '1', '2', '3', '4', '5')
-    } else {
+    } else  {
       const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
         const type = quests[i].split(',')
@@ -61,11 +52,21 @@ export default function ReconnaitreDesSolides () {
         }
       }
     }
-    typeDeQuestion = combinaisonListes(listeDesProblemes, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const typeDeQuestion = combinaisonListes(listeDesProblemes, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+*/
+    const typeDeQuestion = gestionnaireFormulaireTexte({
+      min: 1,
+      max: 7,
+      defaut: 8,
+      nbQuestions: this.nbQuestions,
+      melange: 8,
+      saisie: this.sup
+    })
 
     for (let j = 0, k = 0, choix; j < this.nbQuestions && k < 50; k++) {
-      const type = typeDeQuestion[j].split(',')
-      choix = parseInt(type[0])
+      // const type = typeDeQuestion[j].split(',')
+      // choix = parseInt(type[0])
+      choix = typeDeQuestion[j]
       context.anglePerspective = 30
       const objets = []
       let reponseQcm
@@ -76,10 +77,12 @@ export default function ReconnaitreDesSolides () {
       const a3 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 0, 1), 'blue').c2d : vide2d() // l'objet vide() ne fait pas planter fixeBordures... {} oui.
       // a1, a2, a3 sont des objets 2d ou vides.
       // axe=1 -> base dans XY ;  axe=2 -> base dans YZ ; axe=3 -> base dans XZ ;
-      let axe = ((choix >= 1 && choix <= 5) ? (type.length > 1 ? parseInt(type[1]) : randint(1, 3)) : 0)
+      // let axe = ((choix >= 1 && choix <= 5) ? (type.length > 1 ? parseInt(type[1]) : randint(1, 3)) : 0)
+      let axe = (choix >= 1 && choix <= 5) ? randint(1, 3) : 0
 
       // nombre de sommets de la base.
-      const n = (choix < 3 ? (type.length > 2 ? parseInt(type[2]) : randint(3, 8)) : (choix === 5 || choix === 6 ? 4 : 0))
+      // const n = (choix < 3 ? (type.length > 2 ? parseInt(type[2]) : randint(3, 8)) : (choix === 5 || choix === 6 ? 4 : 0))
+      const n = choix < 3 ? randint(3, 8) : (choix === 5 || choix === 6 ? 4 : 0)
 
       let prisme, pyra, leCone, cylindre, pave, sphere
       switch (solides[choix - 1]) {
@@ -208,10 +211,10 @@ export default function ReconnaitreDesSolides () {
             cylindre = cylindre3d(point3d(0, 0, 2), point3d(0, -3, 2), vecteur3d(1, 0, 0), vecteur3d(1, 0, 0))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
             c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
-            const c1 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 110, 280)
-            const c2 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 280, 360 + 110)
-            const c3 = arc3d(point3d(0, -0.5, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'blue', 110, 280)
-            const c4 = arc3d(point3d(0, -0.5, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 280, 360 + 110)
+            const c1 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'black', 110, 280)
+            const c2 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'black', 280, 360 + 110)
+            const c3 = arc3d(point3d(0, -0.5, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'black', 110, 280)
+            const c4 = arc3d(point3d(0, -0.5, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'black', 280, 360 + 110)
             // generatrice
             const g = []
             for (let i = 0; i < c1.listePoints.length; i += 2) {
@@ -234,10 +237,10 @@ export default function ReconnaitreDesSolides () {
             cylindre = cylindre3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, 1, 0), vecteur3d(0, 1, 0))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
             c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
-            const c1 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'red', 90, 270)
-            const c2 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'caché', 'red', 270, 360 + 90)
-            const c3 = arc3d(point3d(3, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'blue', 90, 270)
-            const c4 = arc3d(point3d(3, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'caché', 'blue', 270, 360 + 90)
+            const c1 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'black', 90, 270)
+            const c2 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'caché', 'black', 270, 360 + 90)
+            const c3 = arc3d(point3d(3, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'black', 90, 270)
+            const c4 = arc3d(point3d(3, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'caché', 'black', 270, 360 + 90)
             // generatrice
             const g = []
             for (let i = 0; i < c1.listePoints.length; i += 2) {
@@ -267,7 +270,7 @@ export default function ReconnaitreDesSolides () {
         case 'cube': // cube
         {
           if (choix === 6) {
-            axe = 2 // cube quelquesoit l'axe
+            axe = 2 // cube quel que soit l'axe
           }
           const points3XY = []
           const points3XZ = []
