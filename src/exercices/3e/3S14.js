@@ -54,9 +54,9 @@ export default function CalculerCaracteristiques () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, random: 7, defaut: 7, nbQuestions: this.nbQuestions, shuffle: true })
+    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions, shuffle: true })
 
-    const typeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, random: 4, defaut: 4, nbQuestions: this.nbQuestions, shuffle: true, enleveDoublons: true })
+    const typeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, shuffle: true, enleveDoublons: true })
     console.log(typeQuestions)
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
 

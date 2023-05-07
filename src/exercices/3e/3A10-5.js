@@ -79,7 +79,7 @@ export default function RecourirDecompositionFacteursPremiers () {
     this.consigne = 'Décomposer en produit de facteurs premiers '
     this.consigne += this.nbQuestions === 1 ? 'le nombre suivant.' : 'les nombres suivants.'
     if (this.interactif) this.consigne += '<br>Indiquer les facteurs par ordre croissant.'
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, random: 5, defaut: 5, nbQuestions: this.nbQuestions, shuffle: true })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, defaut: 5, nbQuestions: this.nbQuestions, shuffle: true })
     const puissanceMax = contraindreValeur(2, 5, this.sup2, 3)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, nbADecomposer; i < this.nbQuestions && cpt < 50;) {

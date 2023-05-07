@@ -86,7 +86,7 @@ export default function DecompositionFacteursPremiers () {
       saisie: this.sup2,
       min: 1,
       max: 3,
-      random: 4,
+      melange: 4,
       defaut: 4,
       shuffle: true,
       nbQuestions: this.nbQuestions

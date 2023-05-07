@@ -1,6 +1,17 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, texteExposant, texteGras, stringNombre, texNombre, range1, contraindreValeur, compteOccurences, choice, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import {
+  randint,
+  listeQuestionsToContenu,
+  texteExposant,
+  texteGras,
+  stringNombre,
+  texNombre,
+  choice,
+  nombreDeChiffresDe,
+  nombreDeChiffresDansLaPartieDecimale,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { point3d, vecteur3d, cylindre3d, sphere3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -43,21 +54,7 @@ export default function VolumeBoule () {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    let listeTypeDeQuestions = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      listeTypeDeQuestions = range1(4)
-    } else {
-      if (!isNaN(this.sup)) { // Si c'est un nombre c'est qu'il y a qu'un problème
-        listeTypeDeQuestions[0] = contraindreValeur(1, 5, parseInt(this.sup), 4)
-      } else {
-        listeTypeDeQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeTypeDeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeTypeDeQuestions[i] = contraindreValeur(1, 5, parseInt(listeTypeDeQuestions[i]), 5) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(listeTypeDeQuestions, 5)) listeTypeDeQuestions = range1(4)
-    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, defaut: 5, shuffle: true, nbQuestions: this.nbQuestions })
     for (let i = 0, r, d, A, rayon, O, B, OO, o, R, s, c, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
