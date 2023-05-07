@@ -110,7 +110,7 @@ export default function Proportions () {
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // on mets 4 chiffres même si la plupart des réponses n'en ont que 3 pour ne pas contraindre les réponses
               break
             case 'population-totale':
-              texte = `Lors d'un concert, il y a $${texNombre(sous, 2)}$ spectacteurs de plus de $60$ ans, ce qui représente $${taux}~\\%$ du public. <br>Combien de spectateurs ont assisté au concert ?`
+              texte = `Lors d'un concert, il y a $${texNombre(sous, 2)}$ spectateurs de plus de $60$ ans, ce qui représente $${taux}~\\%$ du public. <br>Combien de spectateurs ont assisté au concert ?`
               texteCorr = `Soit $x$ le nombre total de spectateur. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texNombre(sous, 2)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
               \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous, 2)} \\\\\\
@@ -123,7 +123,7 @@ export default function Proportions () {
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // Le nombre attendu a bien 4 chiffres maxi
               break
             case 'proportion':
-              texte = `Parmi les $${texNombre(totale, 0)}$ spectacteurs d'un concert, $${texNombre(sous, 2)}$ ont moins de $18$ ans. <br>Calculer la proportion en pourcentage des personnes mineures dans le public en pourcentage.`
+              texte = `Parmi les $${texNombre(totale, 0)}$ spectateurs d'un concert, $${texNombre(sous, 2)}$ ont moins de $18$ ans. <br>Calculer la proportion en pourcentage des personnes mineures dans le public en pourcentage.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${taux}~\\%$ de personnes mineures dans le public.`
               reponse = taux
