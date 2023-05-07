@@ -270,18 +270,18 @@ export default function ExercicePerimetresEtAires () {
           }
 
           if (this.sup4) {
-            texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\approx ${texNombre(2 * R * Math.PI, 3)}${sp()}${texTexte('cm')}$.<br>`
-            texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14\\approx ${texNombre(R * R * Math.PI, 3)}${sp()}${texTexte('cm')}^2$.`
+            texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\approx ${texNombre(2 * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}${texTexte('cm')}$.<br>`
+            texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14\\approx ${texNombre(R * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}${texTexte('cm')}^2$.`
           } else {
             texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi${sp()}\\text{cm}=${texNombre(2 * R)}\\pi${sp()}\\text{cm}\\approx${texNombre(
-              2 * R * Math.PI, 3)}${sp()}\\text{cm}$<br>`
+              2 * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}\\text{cm}$<br>`
             texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi${sp()}\\text{cm}^2=${texNombre(R * R)}\\pi${sp()}\\text{cm}^2\\approx${texNombre(
-              R * R * Math.PI, 3)}${sp()}\\text{cm}^2$`
+              R * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}\\text{cm}^2$`
           }
-          texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(2 * R * Math.PI, 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(2 * R * Math.PI, 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(2 * R * Math.PI, 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
-          texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * Math.PI, 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * Math.PI, 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(R * R * Math.PI, 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`
-          resultat1 = [troncature(2 * R * Math.PI, 1), troncature(2 * R * Math.PI + 0.1, 1)]
-          resultat2 = [troncature(R * R * Math.PI, 1), troncature(R * R * Math.PI + 0.1, 1)]
+          texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(2 * R * (this.sup4 ? 3.14 : Math.PI), 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(2 * R * (this.sup4 ? 3.14 : Math.PI), 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(2 * R * (this.sup4 ? 3.14 : Math.PI), 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
+          texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * (this.sup4 ? 3.14 : Math.PI), 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * (this.sup4 ? 3.14 : Math.PI), 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(R * R * (this.sup4 ? 3.14 : Math.PI), 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`
+          resultat1 = [troncature(2 * R * (this.sup4 ? 3.14 : Math.PI), 1), troncature(2 * R * (this.sup4 ? 3.14 : Math.PI) + 0.1, 1)]
+          resultat2 = [troncature(R * R * (this.sup4 ? 3.14 : Math.PI), 1), troncature(R * R * (this.sup4 ? 3.14 : Math.PI) + 0.1, 1)]
           break
         case 'demi-disque':
           R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
@@ -322,21 +322,22 @@ export default function ExercicePerimetresEtAires () {
               texteCorr = ''
             }
           }
+          texteCorr += 'Pour le périmètre, à la moitié d\'un cercle, il faut penser à ajouter le diamètre du demi-cercle, pour fermer la figure.<br>'
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
           }
           if (this.sup4) {
-            texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx (2 \\times ${texNombre(R)} \\times 3,14 \\div 2) + (2 \\times ${texNombre(R)}) \\approx ${texNombre(2 * R * Math.PI / 2 + 2 * R, 3)}${sp()}${texTexte('cm')}$.<br>`
-            texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14 \\div 2\\approx ${texNombre(R * R * Math.PI / 2, 3)}${sp()}${texTexte('cm')}^2$.`
+            texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx (2 \\times ${texNombre(R)} \\times 3,14 \\div 2) + (2 \\times ${texNombre(R)}) \\approx ${texNombre(2 * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 2 * R, 3)}${sp()}${texTexte('cm')}$.<br>`
+            texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14 \\div 2\\approx ${texNombre(R * R * (this.sup4 ? 3.14 : Math.PI) / 2, 3)}${sp()}${texTexte('cm')}^2$.`
           } else {
-            texteCorr += `$\\mathcal{P}=(2\\times${texNombre(R)}\\times\\pi\\div 2) + (2\\times${texNombre(R)})${sp()}\\approx${texNombre(2 * R * Math.PI / 2 + 2 * R, 3)}${sp()}\\text{cm}$<br>`
-            texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi \\div 2${sp()}\\approx${texNombre(R * R * Math.PI / 2, 3)}${sp()}\\text{cm}^2$`
+            texteCorr += `$\\mathcal{P}=(2\\times${texNombre(R)}\\times\\pi\\div 2) + (2\\times${texNombre(R)})${sp()}\\approx${texNombre(2 * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 2 * R, 3)}${sp()}\\text{cm}$<br>`
+            texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi \\div 2${sp()}\\approx${texNombre(R * R * (this.sup4 ? 3.14 : Math.PI) / 2, 3)}${sp()}\\text{cm}^2$`
           }
-          texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(2 * R * Math.PI / 2 + 2 * R, 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(2 * R * Math.PI / 2 + 2 * R, 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(2 * R * Math.PI / 2 + 2 * R, 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
-          texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * Math.PI / 2, 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * Math.PI / 2, 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(R * R * Math.PI / 2, 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`
+          texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(2 * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 2 * R, 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(2 * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 2 * R, 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(2 * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 2 * R, 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
+          texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * (this.sup4 ? 3.14 : Math.PI) / 2, 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * (this.sup4 ? 3.14 : Math.PI) / 2, 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(R * R * (this.sup4 ? 3.14 : Math.PI) / 2, 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`
 
-          resultat1 = [troncature(2 * R * Math.PI / 2 + 2 * R, 1), troncature(2 * R * Math.PI / 2 + 2 * R + 0.1, 1)]
-          resultat2 = [troncature(R * R * Math.PI / 2, 1), troncature(R * R * Math.PI / 2 + 0.1, 1)]
+          resultat1 = [troncature(2 * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 2 * R, 1), troncature(2 * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 2 * R + 0.1, 1)]
+          resultat2 = [troncature(R * R * (this.sup4 ? 3.14 : Math.PI) / 2, 1), troncature(R * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 0.1, 1)]
           break
       }
       if (reponses.indexOf(resultat1[0] * resultat2[0]) === -1) {
