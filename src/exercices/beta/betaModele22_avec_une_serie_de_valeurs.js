@@ -39,11 +39,12 @@ export default class NomExercice extends Exercice {
         saisie: this.sup ?? '1-2-3',
         min: 1,
         max: 3,
-        random: 4, // si renseigné indique que le choix 4 signifie un choix aléatoire entre min et max
+        melange: 4, // si renseigné indique que le choix 4 signifie un choix aléatoire entre min et max
         listeOfCase: typeQuestionsDisponibles, // si cette liste est fournie, la fonction retournera des valeurs de la liste, sinon des nombres
         nbQuestions: this.nbQuestions,
         shuffle: true, // la liste est brassée, si false, l'ordre des choix correspond à la saisie
-        defaut: 1 // si dans la saisie, une valeur est invalide, ce sera cette valeur
+        defaut: 1, // si dans la saisie, une valeur est invalide, ce sera cette valeur
+        enleveDoublons: false // si true ça supprime les doublons du tableau, du coup, il faut vérifier qu'il y a assez d'éléments dans le tableau pour le nombre de questions
       }
     )
 

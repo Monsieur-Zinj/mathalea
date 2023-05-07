@@ -1,7 +1,21 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, numAlpha, stringNombre, combinaisonListes, texNombre, arrondi, creerNomDePolygone, choice, sp, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  numAlpha,
+  stringNombre,
+  texNombre,
+  arrondi,
+  creerNomDePolygone,
+  choice,
+  sp,
+  lettreDepuisChiffre,
+  nombreDeChiffresDe,
+  nombreDeChiffresDansLaPartieDecimale,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone } from '../../modules/2d.js'
 import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -60,22 +74,7 @@ export default function ProblemesTrigoLongueur () {
     let hauteur; let teta; let index
     // let M1, MInit, normalH1, R21, P1
     const lettresGrecques = [['α', '\\alpha'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]
-    let listeTypeQuestions = []
-
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      listeTypeQuestions = rangeMinMax(1, 6)
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeTypeQuestions[0] = contraindreValeur(1, 7, this.sup2, 7)
-      } else {
-        listeTypeQuestions = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeTypeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeTypeQuestions[i] = contraindreValeur(1, 7, parseInt(listeTypeQuestions[i]), 7) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(listeTypeQuestions, 7) > 0) listeTypeQuestions = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
-    listeTypeQuestions = combinaisonListes(listeTypeQuestions, this.nbQuestions)
+    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions, shuffle: true })
 
     let ii = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].

@@ -1,5 +1,14 @@
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, contraindreValeur, deuxColonnes, lampeMessage, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
+import {
+  choice,
+  deuxColonnes,
+  gestionnaireFormulaireTexte,
+  lampeMessage,
+  lettreMinusculeDepuisChiffre,
+  listeQuestionsToContenu,
+  randint,
+  texteGras
+} from '../../modules/outils.js'
 import { point } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -45,32 +54,14 @@ export default function ScratchMultiScript () {
       couleur: 'nombres'
     })
     const lePlateau = plateau2dNLC(1, false, 0.5, true)
-    let listeQuestions = []
     const listeCouleurs = ['Blanc', 'Vert', 'Bleu', 'Rouge', 'Noir', 'Rose', 'Orange', 'Jaune', 'Gris']
-    let choixQuestions = []
     this.consigne = 'Donner la série de couleurs affichées par ce' + (this.nbQuestions > 1 ? 's' : '') + ' programme' + (this.nbQuestions > 1 ? 's.' : '.')
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     const mesQcm = []
     let indexReponse = 0
-    if (!this.sup) { // Si aucune liste n'est saisie
-      listeQuestions = [1, 2, 3]
-    } else {
-      if (Number(this.sup) > 1 && Number(this.sup) < 3) {
-        this.sup = contraindreValeur(1, 3, Number(this.sup), 1)
-        listeQuestions = new Array(this.nbQuestions).fill(this.sup)
-      } else {
-        const optionsQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < optionsQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeQuestions[i] = contraindreValeur(1, 3, Number(optionsQuestions[i]), 1)
-        }
-        if (listeQuestions.length === 0) {
-          listeQuestions = [1, 2, 3]
-        }
-      }
-    }
-    choixQuestions = combinaisonListes(listeQuestions, this.nbQuestions)
+    const choixQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, nbQuestions: this.nbQuestions, shuffle: true })
     const noteLesCouleurs = []
     const lutins = []
     const couleurs = []
