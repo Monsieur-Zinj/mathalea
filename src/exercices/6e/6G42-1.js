@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, contraindreValeur, compteOccurences, choisitLettresDifferentes, choice, numAlpha, texteEnCouleurEtGras, enleveDoublonNum } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, contraindreValeur, choisitLettresDifferentes, choice, numAlpha, texteEnCouleurEtGras, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { pave3d, point3d } from '../../modules/3d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -66,6 +66,7 @@ export default function LireFacePaveDroit () {
     this.sup4 = contraindreValeur(2, 6, this.sup4, 6)
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
+    /*
     let typesDeQuestionsIndisponibles = []
     if (!this.sup2) { // Si aucune liste n'est saisie
       typesDeQuestionsIndisponibles = 7
@@ -81,6 +82,18 @@ export default function LireFacePaveDroit () {
     }
     if (compteOccurences(typesDeQuestionsIndisponibles, 7) > 0) typesDeQuestionsIndisponibles = [] // Teste si l'utilisateur a choisi rien
     enleveDoublonNum(typesDeQuestionsIndisponibles)
+    */
+
+    const typesDeQuestionsIndisponibles = gestionnaireFormulaireTexte({
+      min: 1,
+      max: 6,
+      defaut: 7,
+      nbQuestions: this.nbQuestions,
+      melange: 7,
+      shuffle: false,
+      saisie: this.sup2,
+      enleveDoublons: true
+    })
 
     function comparerNombres (a, b) {
       return a - b

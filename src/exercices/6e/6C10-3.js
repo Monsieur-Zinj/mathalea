@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, contraindreValeur, rangeMinMax, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -32,12 +32,12 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (!this.sup) {
+    /* if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
     }
     let tables = []
-    /* if (typeof this.sup === 'number') {
+    if (typeof this.sup === 'number') {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup
     } else {
@@ -47,6 +47,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       }
     }
 */
+    /*
     if (!this.sup) { // Si aucune liste n'est saisie
       tables[0] = rangeMinMax(2, 9)
     } else {
@@ -59,6 +60,14 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         }
       }
     }
+*/
+    const tables = gestionnaireFormulaireTexte({
+      min: 2,
+      max: 9,
+      defaut: randint(2, 9),
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
 
     const couples = creerCouples(
       tables,
@@ -133,7 +142,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Choix des tables',
+    'Choix des tables (entre 2 et 9)',
     'Nombres séparés par des tirets'
   ] // Texte, tooltip
 }

@@ -76,10 +76,9 @@ export default class constructionPerpendiculaires extends Exercice {
       min: 1,
       max: 4,
       defaut: 1,
-      random: 5,
+      melange: 5,
       listeOfCase: ['OrthoInterieur', 'OrthoExterieur', 'CircoInterieur', 'CircoExterieur', 'Mélange'],
       nbQuestions: this.nbQuestions,
-      shuffle: true,
       saisie: this.sup2
     })
     for (let i = 0, texte, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {

@@ -237,6 +237,6 @@ export default function SymetrieAxialeConservation1 () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type d\'axe :', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire']
-  this.besoinFormulaire3Numerique = ['Nombre de symétriques à trouver :', 26]
+  this.besoinFormulaire3Numerique = ['Nombre de symétriques à trouver', 26]
   this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"]
 }

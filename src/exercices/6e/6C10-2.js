@@ -51,7 +51,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       max: 9,
       defaut: randint(2, 9),
       nbQuestions: this.nbQuestions,
-      shuffle: true,
       saisie: this.sup
     })
     /* if (!this.sup) {
@@ -166,6 +165,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des tables', 'Nombres séparés par des tirets'] // Texte, tooltip
+  this.besoinFormulaireTexte = ['Choix des tables (entre 2 et 9)', 'Nombres séparés par des tirets'] // Texte, tooltip
   if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
 }
