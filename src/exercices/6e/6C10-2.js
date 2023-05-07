@@ -6,7 +6,7 @@ import {
   calcul,
   choice,
   creerCouples,
-  formTextSerializer,
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
   texNombre,
@@ -46,7 +46,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
     let tables = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    tables = formTextSerializer({
+    tables = gestionnaireFormulaireTexte({
       min: 2,
       max: 9,
       defaut: randint(2, 9),

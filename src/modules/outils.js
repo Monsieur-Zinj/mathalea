@@ -290,13 +290,15 @@ export function contraindreValeur (min, max, valeur, defaut) {
  *@param {string|number} saisie Ce qui vient du formulaireTexte donc une série de nombres séparés par des tirets ou un seul nombre (normalement en string) ou rien
  * @param {number} min 1 par défaut
  * @param {number} max obligatoirement >min
- * @param {number} defaut obligatoirement compris entre min et max inclus
+ * @param {number} defaut obligatoirement compris entre min et max inclus ou alors égal à random
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
+ * La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
  * @param {boolean} shuffle si true, alors on brasse la liste en sortie sinon on garde l'ordre
  * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
  * @param {number | undefined} random la valeur utilisée pour l'option mélange à savoir randint(min,max)
+ * @param {boolean} enleveDoublons  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
  */
-export function formTextSerializer ({
+export function gestionnaireFormulaireTexte ({
   saisie,
   min = 1,
   max,
@@ -304,10 +306,11 @@ export function formTextSerializer ({
   listeOfCase,
   shuffle = true,
   nbQuestions,
-  random
+  random,
+  enleveDoublons = false
 } = {}) {
   if (max == null || isNaN(max) || max < min) throw Error('La fonction formTextSerialize réclame un paramètre max de type number')
-  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== random)) throw Error('La fonction formTextSerializer réclame un paramètre defaut compris entre min(1) et max')
+  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== random)) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre defaut compris entre min(1) et max')
   let listeIndex
 
   if (!saisie) { // Si aucune liste n'est saisie
@@ -334,9 +337,10 @@ export function formTextSerializer ({
     listeIndex = combinaisonListes(rangeMinMax(min, max), nbQuestions)
   }
   const Max = Math.max(...listeIndex)
+  if (enleveDoublons) listeIndex = enleveDoublonNum(listeIndex)
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
     if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
-    return listeIndex.map((el) => listeOfCase[el - 1])
+    return listeIndex.map((el) => listeOfCase[el - min])
   }
   return listeIndex
 }
@@ -361,6 +365,7 @@ export function entreDeux (a, b) {
  * @return {boolean}
  */
 export function egal (a, b, tolerance = epsilon) {
+  tolerance = tolerance === 0 ? 1e-10 : tolerance
   return (Math.abs(a - b) < tolerance)
 }
 
@@ -792,16 +797,17 @@ export function numTrie (arr) {
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
-export function enleveDoublonNum (arr, tolerance = 0) {
+export function enleveDoublonNum (arr, tolerance = epsilon) {
   let k = 0
   while (k < arr.length - 1) {
     let kk = k + 1
-    while (kk < arr.length - 1) {
+    while (kk <= arr.length - 1) {
       if (egal(arr[k], arr[kk], tolerance)) {
         arr[k] = (arr[k] + arr[kk]) / 2 // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
         arr.splice(kk, 1) // on supprime le doublon.
+      } else {
+        kk++
       }
-      kk++
     }
     k++
   }
@@ -2812,7 +2818,7 @@ export function numberFormat (nb) {
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers) {
+export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
   const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
@@ -2960,8 +2966,8 @@ export function nombreAvecEspace (nb) {
 }
 */
 export const scientifiqueToDecimal = (mantisse, exp) => {
-  if (exp < -6) Decimal.toExpNeg = exp - 1
-  else if (exp > 20) Decimal.toExpPos = exp + 1
+  if (exp < -6) Decimal.set({ toExpNeg: exp - 1 })
+  else if (exp > 20) Decimal.set({ toExpPos: exp + 1 })
   return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
 }
 
@@ -3014,7 +3020,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers) {
+export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
   return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
 

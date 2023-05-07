@@ -1,8 +1,21 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, obtenirListeFacteursPremiers, texNombre, miseEnEvidence, modalPdf, modalVideo, cribleEratostheneN, premiersEntreBornes, warnMessage, rangeMinMax, contraindreValeur, compteOccurences, combinaisonListes } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  obtenirListeFacteursPremiers,
+  texNombre,
+  miseEnEvidence,
+  modalPdf,
+  modalVideo,
+  cribleEratostheneN,
+  premiersEntreBornes,
+  warnMessage,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -37,7 +50,6 @@ export default function DecompositionFacteursPremiers () {
   this.besoinFormulaire2Texte = ['Choix des décompositions', 'Nombres séparés par des tirets\n1 : 3 à 5 petits facteurs premiers max\n2 : 2 facteurs premiers entre 30 et 100\n3 : Un seul grand nombre premier\n4 : Mélange']
   this.sup = true
   this.sup2 = 4
-
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
@@ -45,14 +57,12 @@ export default function DecompositionFacteursPremiers () {
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
       this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
-    };
-
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-
     /* From Sebastien Lozano
     let typesDeQuestionsDisponibles = [1, 2, 3]
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
@@ -63,7 +73,7 @@ export default function DecompositionFacteursPremiers () {
     let stringRappel = 'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' + cribleEratostheneN(100)[0]
     for (let k = 1; k < cribleEratostheneN(100).length; k++) {
       stringRappel += ', ' + cribleEratostheneN(100)[k]
-    };
+    }
     stringRappel += '.'
 
     if (this.sup) {
@@ -71,22 +81,16 @@ export default function DecompositionFacteursPremiers () {
     } else {
       this.introduction = ''
     }
-    // Rajout EE
-    let listeDesProblemes = []
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      listeDesProblemes = rangeMinMax(1, 4)
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeDesProblemes[0] = contraindreValeur(1, 4, this.sup2, 4)
-      } else {
-        listeDesProblemes = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeDesProblemes[i] = contraindreValeur(1, 4, parseInt(listeDesProblemes[i]), 4) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(listeDesProblemes, 4) > 0) listeDesProblemes = rangeMinMax(1, 3) // Teste si l'utilisateur a choisi tout
-    listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+    // Rajout EE modifié par JCL
+    const listeDesProblemes = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 3,
+      random: 4,
+      defaut: 4,
+      shuffle: true,
+      nbQuestions: this.nbQuestions
+    })
     // Fin du rajout EE
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -96,7 +100,7 @@ export default function DecompositionFacteursPremiers () {
       switch (typesDeQuestions) {
         case 1: // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max
           {
-            // on fixe le nombre de facteurs premier entre 3 et 5
+          // on fixe le nombre de facteurs premier entre 3 et 5
             const nbDePremiers = randint(3, 5)
             // on fixe la limite pour le choix des premiers
             const maxPremier = 11
@@ -110,12 +114,14 @@ export default function DecompositionFacteursPremiers () {
                 tabRangsExclus.push(tabRangs[m])
               }
               tabRangs[k] = randint(0, rgMax, tabRangsExclus)
-            };
+            }
+
             // on choisit les premiers
             const tabPremiers = []
             for (let k = 0; k < tabRangs.length; k++) {
               tabPremiers[k] = cribleEratostheneN(maxPremier)[tabRangs[k]]
-            };
+            }
+
             // on range les facteurs premiers dans l'ordre croissant
             tabPremiers.sort(function (a, b) {
               return a - b
@@ -124,15 +130,17 @@ export default function DecompositionFacteursPremiers () {
             const tabMultiplicites = []
             for (let k = 0; k < tabRangs.length; k++) {
               tabMultiplicites[k] = randint(1, 2)
-            };
+            }
+
             // yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
             texte = 'À l\'aide de la calculatrice, si c\'est possible, décomposer '
             let nombreTodecompose = 1
             for (let k = 0; k < tabRangs.length; k++) {
               for (let m = 0; m < tabMultiplicites[k]; m++) {
                 nombreTodecompose = nombreTodecompose * tabPremiers[k]
-              };
-            };
+              }
+            }
+
             const racinePremier1 = Math.trunc(Math.sqrt(nombreTodecompose))
             texte += `$${texNombre(nombreTodecompose)}$ en produit de facteurs premiers.`
             // correction
@@ -151,14 +159,16 @@ export default function DecompositionFacteursPremiers () {
               if (k % 15 === 0) {
                 texteCorr += '<br>'
               }
-            };
+            }
+
             texteCorr += '<br>'
             const listeFacteursPremiers = obtenirListeFacteursPremiers(nombreTodecompose)
             let quotientIntermediaire = nombreTodecompose
             for (let k = 0; k < listeFacteursPremiers.length; k++) {
               texteCorr += `$${texNombre(quotientIntermediaire)}\\div${miseEnEvidence(listeFacteursPremiers[k])} = ${texNombre(quotientIntermediaire / listeFacteursPremiers[k])}$<br>`
               quotientIntermediaire = quotientIntermediaire / listeFacteursPremiers[k]
-            };
+            }
+
             texteCorr += `Finalement, on obtient la décomposition suivante : $ ${texNombre(nombreTodecompose)} = `
             if (tabMultiplicites[0] === 1) {
               texteCorr += `${tabPremiers[0]}`
@@ -166,7 +176,8 @@ export default function DecompositionFacteursPremiers () {
             } else {
               texteCorr += `${tabPremiers[0]}^{${tabMultiplicites[0]}}`
               reponse = `${tabPremiers[0]}^{${tabMultiplicites[0]}}`
-            };
+            }
+
             for (let k = 1; k < tabPremiers.length; k++) {
               if (tabMultiplicites[k] === 1) {
                 texteCorr += `\\times${tabPremiers[k]}`
@@ -174,8 +185,9 @@ export default function DecompositionFacteursPremiers () {
               } else {
                 texteCorr += `\\times${tabPremiers[k]}^{${tabMultiplicites[k]}}`
                 reponse += `\\times${tabPremiers[k]}^{${tabMultiplicites[k]}}`
-              };
-            };
+              }
+            }
+
             texteCorr += '$.'
             nombre = nombreTodecompose
             setReponse(this, i, reponse)
@@ -192,7 +204,8 @@ export default function DecompositionFacteursPremiers () {
               const p = premier1
               premier1 = premier2
               premier2 = p
-            };
+            }
+
             texte = `À l'aide de la calculatrice, si c'est possible, décomposer $${texNombre(premier1 * premier2)}$ en produit de facteurs premiers.`
             const racinePrem = Math.trunc(Math.sqrt(premier1 * premier2))
             texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(premier1 * premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(premier1 * premier2)}}$, c'est-à-dire inférieurs à $${texNombre(racinePrem)}$.<br>`
@@ -200,14 +213,16 @@ export default function DecompositionFacteursPremiers () {
             texteCorr += cribleEratostheneN(racinePrem)[0]
             for (let k = 1; k < cribleEratostheneN(racinePrem).length; k++) {
               texteCorr += '; ' + cribleEratostheneN(racinePrem)[k]
-            };
+            }
+
             texteCorr += '.$<br>'
             const listeFacteursPremiers = obtenirListeFacteursPremiers(premier1 * premier2)
             let quotientIntermediaire = premier1 * premier2
             for (let k = 0; k < listeFacteursPremiers.length; k++) {
               texteCorr += `$${texNombre(quotientIntermediaire)}\\div${miseEnEvidence(listeFacteursPremiers[k])} = ${texNombre(quotientIntermediaire / listeFacteursPremiers[k])}$<br>`
               quotientIntermediaire = quotientIntermediaire / listeFacteursPremiers[k]
-            };
+            }
+
             texteCorr += ` D'où $${texNombre(premier1 * premier2)} = ${texNombre(premier1)}\\times${texNombre(premier2)}$.`
             reponse = `${premier1}\\times${premier2}`
             nombre = premier1 * premier2
@@ -226,7 +241,8 @@ export default function DecompositionFacteursPremiers () {
             texteCorr += cribleEratostheneN(racinePremier)[0]
             for (let k = 1; k < cribleEratostheneN(racinePremier).length; k++) {
               texteCorr += '; ' + cribleEratostheneN(racinePremier)[k]
-            };
+            }
+
             texteCorr += '$, '
             texteCorr += `on se rend compte que $${texNombre(premier)}$ n'est divisible par aucun de ces nombres et donc est un nombre premier.<br>Aucune décomposition en produit de nombres premiers n'est possible et  donc `
             texteCorr += `$${texNombre(premier)} = ${texNombre(premier)}$.`

@@ -1,4 +1,4 @@
-import { formTextSerializer, listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Nom de l\'exercice'
@@ -34,7 +34,7 @@ export default class NomExercice extends Exercice {
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
-    const listeTypeQuestions = formTextSerializer( // retourne une liste de choix pour les questions à partir du paramètre saisie
+    const listeTypeQuestions = gestionnaireFormulaireTexte( // retourne une liste de choix pour les questions à partir du paramètre saisie
       {
         saisie: this.sup ?? '1-2-3',
         min: 1,

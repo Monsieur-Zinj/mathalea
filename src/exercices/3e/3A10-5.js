@@ -1,5 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, range1, contraindreValeur, compteOccurences, texNombre, sp, combinaisonListes } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  contraindreValeur,
+  texNombre,
+  sp,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Recourir à une décomposition en facteurs premiers dans des cas simples'
@@ -72,23 +79,8 @@ export default function RecourirDecompositionFacteursPremiers () {
     this.consigne = 'Décomposer en produit de facteurs premiers '
     this.consigne += this.nbQuestions === 1 ? 'le nombre suivant.' : 'les nombres suivants.'
     if (this.interactif) this.consigne += '<br>Indiquer les facteurs par ordre croissant.'
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [5]
-    } else {
-      if (typeof (this.sup) === 'number') {
-        this.sup = Math.max(Math.min(parseInt(this.sup), 5), 1)
-        typesDeQuestionsDisponibles[0] = this.sup
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typesDeQuestionsDisponibles[i]), 5)
-        }
-      }
-    }
-    if (compteOccurences(typesDeQuestionsDisponibles, 5) > 0) typesDeQuestionsDisponibles = range1(4) // Teste si l'utilisateur a choisi tout
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, random: 5, defaut: 5, nbQuestions: this.nbQuestions, shuffle: true })
     const puissanceMax = contraindreValeur(2, 5, this.sup2, 3)
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, nbADecomposer; i < this.nbQuestions && cpt < 50;) {
       a = randint(0, puissanceMax)

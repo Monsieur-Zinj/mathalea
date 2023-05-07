@@ -9,7 +9,7 @@ import {
   combinaisonListes,
   contraindreValeur,
   ecritureParentheseSiNegatif,
-  formTextSerializer,
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   pgcd,
   premierAvec,
@@ -60,7 +60,7 @@ On peut choisir le type de questions.`
       'expressionParValeurs',
       'expressionParGraphique'
     ]
-    const questionsDisponibles = formTextSerializer({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, random: 9 })
+    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, random: 9 })
     const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -288,7 +288,7 @@ On peut choisir le type de questions.`
           }
           break
       }
-      if (this.questionJamaisPosee(i, coefficient, antecedent, image)) {
+      if (this.questionJamaisPosee(i, coefficient, antecedent0, image0)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
