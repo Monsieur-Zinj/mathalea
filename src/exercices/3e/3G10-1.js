@@ -2,7 +2,18 @@ import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, point
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombre, contraindreValeur, numAlpha, listeQuestionsToContenu, miseEnCouleur, miseEnEvidence } from '../../modules/outils.js'
+import {
+  randint,
+  choice,
+  imagePointParTransformation,
+  texFractionReduite,
+  texNombre,
+  numAlpha,
+  listeQuestionsToContenu,
+  miseEnCouleur,
+  miseEnEvidence,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -44,21 +55,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const punto = [[]]
     const couleurs = ['brown', 'green', 'blue']
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [0]
-    } else {
-      if (typeof (this.sup) === 'number') {
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 6, this.sup, 1) - 1
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, typesDeQuestionsDisponibles[i], 1) - 1
-        }
-      }
-    }
-    typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, 3)
-
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, random: 7, defaut: 7, nbQuestions: this.nbQuestions * 3, shuffle: true }).map((nb) => nb - 1)
     for (let ee = 0, texte, texteCorr, xA, yA, xB, yB, xC, yC, objetsEnonce, objetsCorrection, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
       let enonceAmc = ''
       texte = ''
@@ -694,5 +691,5 @@ export default function TransformationsDuPlanEtCoordonnees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Translation\n 4 : Rotation\n 5 : Homothétie de rapport entier\n 6 : Homothétie de rapport fractionnaire']
+  this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Translation\n4 : Rotation\n5 : Homothétie de rapport entier\n6 : Homothétie de rapport fractionnaire\n7: Mélange']
 }

@@ -1,5 +1,15 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, contraindreValeur, compteOccurences, combinaisonListes, rangeMinMax, texteGras, sp, texteEnCouleur, texteEnCouleurEtGras, sommeDesChiffres, numAlpha } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  texteGras,
+  sp,
+  texteEnCouleur,
+  texteEnCouleurEtGras,
+  sommeDesChiffres,
+  numAlpha,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Trouver un chiffre pour qu\'un nombre soit divisible par un autre'
@@ -38,43 +48,12 @@ export default function TrouverChiffre () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let nombreDeChiffres = []
-
     // CHOIX DU NOMBRE DE CHIFFRES COMPOSANT LE NOMBRE
-    if (!this.sup) { // Si aucune liste n'est saisie
-      nombreDeChiffres = 7
-    } else {
-      if (typeof (this.sup) === 'number') {
-        this.sup = contraindreValeur(2, 7, parseInt(this.sup), 7)
-        nombreDeChiffres[0] = this.sup
-      } else {
-        nombreDeChiffres = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < nombreDeChiffres.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          nombreDeChiffres[i] = contraindreValeur(2, 7, parseInt(nombreDeChiffres[i]), 7)
-        }
-      }
-    }
-    if (compteOccurences(nombreDeChiffres, 7) > 0) nombreDeChiffres = rangeMinMax(2, 6) // Teste si l'utilisateur a choisi tout
-    nombreDeChiffres = combinaisonListes(nombreDeChiffres, this.nbQuestions)
+    const nombreDeChiffres = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 6, random: 7, defaut: 7, nbQuestions: this.nbQuestions })
 
     // CHOIX DU CRITERE DE DIVISIBILITE
     const choixDiviseurs = ['', 'par 2', 'par 3', 'par 5', 'par 9', 'par 2 et par 3', 'par 2 et par 5', 'par 6', 'par 10']
-    let casChoixDiviseurs = []
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      casChoixDiviseurs = 9
-    } else {
-      if (typeof (this.sup2) === 'number') {
-        this.sup2 = contraindreValeur(1, 9, parseInt(this.sup2), 9)
-        casChoixDiviseurs[0] = this.sup2
-      } else {
-        casChoixDiviseurs = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < casChoixDiviseurs.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          casChoixDiviseurs[i] = contraindreValeur(1, 9, parseInt(casChoixDiviseurs[i]), 9)
-        }
-      }
-    }
-    if (compteOccurences(casChoixDiviseurs, 9) > 0) casChoixDiviseurs = rangeMinMax(1, 8) // Teste si l'utilisateur a choisi tout
-    casChoixDiviseurs = combinaisonListes(casChoixDiviseurs, this.nbQuestions)
+    const casChoixDiviseurs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, random: 9, defaut: 9, nbQuestions: this.nbQuestions, shuffle: false })
 
     for (let i = 0, texte, texteCorr, cpt = 0, nb, positionX, a, tabChiffresX, nbAvecChiffreCache,
       sommePourTroisouNeuf, ajoutPourTroisouNeuf, reponse; i < this.nbQuestions && cpt < 50;) {
