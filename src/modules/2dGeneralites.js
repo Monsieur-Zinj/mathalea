@@ -21,7 +21,7 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  *
  * @author Rémi Angot
  */
-export function ObjetMathalea2D ({classe = true} = {}) {
+export function ObjetMathalea2D ({ classe = true } = {}) {
   this.positionLabel = 'above'
   this.isVisible = true
   this.color = colorToLatexOrHTML('black')
@@ -124,7 +124,6 @@ export function mathalea2d (
       } else {
         optionsTikz.forEach(e => listeOptionsTikz.push(e))
       }
-      
     }
     if (scale === 1) {
       code = '\\begin{tikzpicture}[baseline'
@@ -140,7 +139,7 @@ export function mathalea2d (
       code += `,scale = ${scale}`
       code += ']\n'
     }
-    
+
     code += `
     \\tikzset{
       point/.style={
@@ -483,7 +482,7 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
   const fenetreymin = fenetreMathalea2d[3] * -(1)
   const fenetrexmax = fenetreMathalea2d[2]
   const fenetreymax = fenetreMathalea2d[1] * (-1)
-  
+
   code = `<svg width="${(fenetrexmax - fenetrexmin) * pixelsParCm}" height="${(fenetreymax - fenetreymin) * pixelsParCm}" viewBox="${fenetrexmin * pixelsParCm} ${fenetreymin * pixelsParCm} ${(fenetrexmax - fenetrexmin) * pixelsParCm} ${(fenetreymax - fenetreymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`
   for (const objet of objets) {
     if (Array.isArray(objet)) {
@@ -591,9 +590,9 @@ export function fixeBordures (objets, {
   rymax = undefined,
   rzoom = 1
 } = {}) {
-  let xmin = 1000;
-  let ymin = 1000;
-  let xmax = -1000;
+  let xmin = 1000
+  let ymin = 1000
+  let xmax = -1000
   let ymax = -1000
   let bordures = false
   rxmin = rxmin !== undefined ? rxmin : -0.5
@@ -613,7 +612,7 @@ export function fixeBordures (objets, {
       }
     }
   }
-  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', {...objets})
+  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
   return {
     xmin: xmin + rxmin * rzoom,
     xmax: xmax + rxmax * rzoom,

@@ -1,7 +1,7 @@
 import Operation from '../../modules/operations.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, calcul, nombreDeChiffresDe, contraindreValeur, compteOccurences, combinaisonListes, rangeMinMax } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, calcul, nombreDeChiffresDe, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { grille, seyes } from '../../modules/2d.js'
@@ -44,15 +44,16 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
     3,
     ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
-  this.sup = '6'
+  this.sup = 6
   this.sup2 = 3
 
   this.nouvelleVersion = function () {
-    this.sup2 = parseInt(this.sup2)
+    // this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let typesDeQuestions, reponse
+    /*
     let typesDequestionsDisponibles = [1, 2, 3, 4, 5] // Paramétrage par défaut
     const valMaxParametre = 6
     if (this.sup) { // Si une liste est saisie
@@ -67,8 +68,17 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
     }
     // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
     if (compteOccurences(typesDequestionsDisponibles, valMaxParametre) > 0) typesDequestionsDisponibles = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
-
     let listeTypeDeQuestions = combinaisonListes(typesDequestionsDisponibles, this.nbQuestions)
+    */
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      min: 1,
+      max: 5,
+      defaut: randint(1, 5),
+      nbQuestions: this.nbQuestions,
+      melange: 6,
+      saisie: this.sup
+    })
+    /*
     if (Number(this.sup) === 6) {
       if (Number(this.nbQuestions) === 3) {
         listeTypeDeQuestions = [1, 2, 5]
@@ -80,7 +90,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
         listeTypeDeQuestions = [1, 2, 3, 4, 5]
       }
     }
-
+*/
     let grilletxt
     if (this.sup2 < 3) {
       const g = (this.sup2 < 3 ? grille(0, 0, 5, 8, 'gray', 0.7) : '')
