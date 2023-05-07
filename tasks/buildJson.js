@@ -33,7 +33,7 @@ async function handleLevels () {
       if (fs.statSync(url).isDirectory() || file.charAt(0) === '_') continue
       url = path.join('../', url).replaceAll('\\', '/')
       try {
-        const { titre, datePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
+        const { titre, dateDePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
         url = url.replace('../src/exercices/', '')
         url = url.replace('..\\src\\exercices\\', '')
         if (uuid === undefined) {
@@ -59,7 +59,7 @@ async function handleLevels () {
         /** L'arborescence est complexe 2 premières lettres, 4 premières lettres, on n'a pas toujours la même règle pour les identifiants */
         const category = categoryByNiveau(niveau, ref)
         if (ref && dictionnaire[niveau] && dictionnaire[niveau][category] !== undefined) {
-          dictionnaire[niveau][category][ref] = { id: ref, uuid, url, titre, datePublication, dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
+          dictionnaire[niveau][category][ref] = { id: ref, uuid, url, titre, datePublication: dateDePublication, dateModification: dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
           exercicesList.push(url)
         } else {
           console.log(`${url} non géré`)

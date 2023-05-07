@@ -4786,7 +4786,7 @@
         "uuid": "40ae0",
         "url": "c3/c3C10-2.js",
         "titre": "Parcourir un labyrinthe de multiples",
-        "dateDeModifImportante": "30/03/2023",
+        "dateModification": "30/03/2023",
         "tags": {}
       },
       "c3C10-3": {
@@ -4794,6 +4794,7 @@
         "uuid": "f92e1",
         "url": "c3/c3C10-3.js",
         "titre": "Multiplier un nombre entier (ou décimal) par 10, 100 ou 1 000",
+        "datePublication": "12/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -4854,6 +4855,7 @@
         "uuid": "ec3cc",
         "url": "c3/c3C13-1.js",
         "titre": "Résoudre des problèmes de masses",
+        "datePublication": "02/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -4866,6 +4868,7 @@
         "uuid": "b0311",
         "url": "c3/c3C13.js",
         "titre": "Résoudre des problèmes de prix",
+        "datePublication": "02/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -4880,7 +4883,7 @@
         "uuid": "3a087",
         "url": "c3/c3C23.js",
         "titre": "Opérations simples avec des fractions",
-        "dateDeModifImportante": "27/01/2022",
+        "dateModification": "27/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -4928,6 +4931,7 @@
         "uuid": "c96de",
         "url": "c3/c3N10-1.js",
         "titre": "Recomposer un entier",
+        "datePublication": "14/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom",
@@ -4994,6 +4998,7 @@
         "uuid": "c9ba6",
         "url": "c3/c3N30.js",
         "titre": "Conversion d'unités des préfixes k,h,da vers unité de référence",
+        "datePublication": "13/11/2020",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5010,6 +5015,7 @@
         "uuid": "322a0",
         "url": "6e/6C10-0.js",
         "titre": "Résoudre une Rose additive",
+        "datePublication": "12/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -5071,7 +5077,7 @@
         "uuid": "fd4d8",
         "url": "6e/6C10-5.js",
         "titre": "Parcourir un labyrinthe de multiples",
-        "dateDeModifImportante": "05/10/2022",
+        "dateModification": "05/10/2022",
         "tags": {
           "interactif": false,
           "amc": true,
@@ -5083,6 +5089,7 @@
         "uuid": "57502",
         "url": "6e/6C10-6.js",
         "titre": "Résoudre une Rose multiplicative",
+        "datePublication": "12/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -5093,6 +5100,7 @@
         "uuid": "26bb9",
         "url": "6e/6C10-7a.js",
         "titre": "Résoudre un Yohaku additif niveau 1",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -5103,6 +5111,7 @@
         "uuid": "08680",
         "url": "6e/6C10-7b.js",
         "titre": "Résoudre un Yohaku multiplicatif niveau 1",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -5144,6 +5153,7 @@
         "uuid": "4e35d",
         "url": "6e/6C11-2.js",
         "titre": "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne",
+        "datePublication": "25/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5156,6 +5166,7 @@
         "uuid": "d0cd7",
         "url": "6e/6C11-3.js",
         "titre": "Indiquer une égalité à partir d'une division euclidienne",
+        "datePublication": "09/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5180,6 +5191,7 @@
         "uuid": "4e2b2",
         "url": "6e/6C12-1.js",
         "titre": "Résoudre des problèmes de masses",
+        "datePublication": "02/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5192,6 +5204,7 @@
         "uuid": "7fb24",
         "url": "6e/6C12-3.js",
         "titre": "Trouver les informations utiles ou inutiles pour résoudre des problèmes",
+        "datePublication": "01/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -5204,6 +5217,7 @@
         "uuid": "529ad",
         "url": "6e/6C12-4.js",
         "titre": "Résoudre des problèmes avec des informations inutiles",
+        "datePublication": "01/03/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5216,6 +5230,7 @@
         "uuid": "28d56",
         "url": "6e/6C12.js",
         "titre": "Résoudre des problèmes de prix",
+        "datePublication": "02/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5244,7 +5259,7 @@
         "uuid": "01873",
         "url": "6e/6C20.js",
         "titre": "Effectuer additions et soustractions de nombres décimaux",
-        "dateDeModifImportante": "01/04/2023",
+        "dateModification": "01/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5269,6 +5284,7 @@
         "uuid": "99522",
         "url": "6e/6C22.js",
         "titre": "Résoudre des problèmes de type : ... de plus ou ... de moins",
+        "datePublication": "10/07/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5295,6 +5311,7 @@
         "uuid": "f6413",
         "url": "6e/6C30-0.js",
         "titre": "Poser des multiplications de nombres décimaux (Version 2)",
+        "datePublication": "08/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5307,7 +5324,7 @@
         "uuid": "2471d",
         "url": "6e/6C30-1.js",
         "titre": "Multiplier un nombre décimal par 10, 100 ou 1 000",
-        "dateDeModifImportante": "12/12/2021",
+        "dateModification": "12/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5368,6 +5385,7 @@
         "uuid": "18559",
         "url": "6e/6C30-6.js",
         "titre": "Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ?",
+        "datePublication": "04/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -5380,6 +5398,7 @@
         "uuid": "85989",
         "url": "6e/6C30-7.js",
         "titre": "Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ...",
+        "datePublication": "04/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -5392,6 +5411,7 @@
         "uuid": "9540b",
         "url": "6e/6C30-8.js",
         "titre": "Diviser par 10, 100 ou 1 000",
+        "datePublication": "08/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -5404,6 +5424,7 @@
         "uuid": "c6836",
         "url": "6e/6C30-9.js",
         "titre": "Produit et somme ou différence de décimaux",
+        "datePublication": "20/12/2022",
         "tags": {}
       },
       "6C30": {
@@ -5445,6 +5466,7 @@
         "uuid": "e906e",
         "url": "6e/6C32-1.js",
         "titre": "Résoudre des problèmes (plus complexes)",
+        "datePublication": "27/11/2022",
         "tags": {}
       },
       "6C32": {
@@ -5488,7 +5510,8 @@
         "uuid": "4e89b",
         "url": "6e/6C35.js",
         "titre": "Modéliser des problèmes",
-        "dateDeModifImportante": "16/11/2021",
+        "datePublication": "24/04/2021",
+        "dateModification": "16/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -5530,7 +5553,7 @@
         "uuid": "e960d",
         "url": "6e/6D12.js",
         "titre": "Calculer des durées ou déterminer un horaire",
-        "dateDeModifImportante": "02/01/2022",
+        "dateModification": "02/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5543,7 +5566,7 @@
         "uuid": "4f8f4",
         "url": "6e/6D13.js",
         "titre": "Convertir en min vers h et min ou en s vers min et s",
-        "dateDeModifImportante": "14/05/2022",
+        "dateModification": "14/05/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5586,6 +5609,7 @@
         "uuid": "03b49",
         "url": "6e/6G10-4.js",
         "titre": "Connaître le vocabulaire du cercle",
+        "datePublication": "19/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -5599,6 +5623,7 @@
         "uuid": "3dbda",
         "url": "6e/6G10-5.js",
         "titre": "Tracer des droites, segments,...",
+        "datePublication": "05/10/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -5609,6 +5634,7 @@
         "uuid": "9af23",
         "url": "6e/6G10-6.js",
         "titre": "Appartient ou n'appartient pas ?",
+        "datePublication": "05/10/2022",
         "tags": {}
       },
       "6G10": {
@@ -5626,6 +5652,7 @@
         "uuid": "df825",
         "url": "6e/6G11-1.js",
         "titre": "Tracer des perpendiculaires",
+        "datePublication": "09/10/2022",
         "tags": {}
       },
       "6G11": {
@@ -5663,6 +5690,7 @@
         "uuid": "4f9a6",
         "url": "6e/6G13-1.js",
         "titre": "Tracer des carrés et rectangles et auto-vérification",
+        "datePublication": "19/12/2022",
         "tags": {}
       },
       "6G13": {
@@ -5670,6 +5698,7 @@
         "uuid": "2203a",
         "url": "6e/6G13.js",
         "titre": "Tracer des carrés et des rectangles de longueurs données",
+        "datePublication": "10/09/2022",
         "tags": {}
       },
       "6G14": {
@@ -5696,6 +5725,7 @@
         "uuid": "18672",
         "url": "6e/6G20-3.js",
         "titre": "Connaitre le vocabulaire de base des polygones",
+        "datePublication": "21/10/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -5721,6 +5751,7 @@
         "uuid": "f4fdd",
         "url": "6e/6G21-2.js",
         "titre": "Construire un triangle quelconque avec les instruments et auto-vérification",
+        "datePublication": "17/12/2022",
         "tags": {}
       },
       "6G21-3": {
@@ -5728,6 +5759,7 @@
         "uuid": "e1e64",
         "url": "6e/6G21-3.js",
         "titre": "Construire un triangle particulier avec les instruments et auto-vérification",
+        "datePublication": "17/12/2022",
         "tags": {}
       },
       "6G21-4": {
@@ -5735,6 +5767,7 @@
         "uuid": "3fc85",
         "url": "6e/6G21-4.js",
         "titre": "Construire des losanges ou des parallélogrammes et auto-vérification",
+        "datePublication": "19/12/2022",
         "tags": {}
       },
       "6G21-5": {
@@ -5742,6 +5775,7 @@
         "uuid": "b3a4c",
         "url": "6e/6G21-5.js",
         "titre": "Construire des quadrilatères particuliers et auto-vérification",
+        "datePublication": "19/12/2022",
         "tags": {}
       },
       "6G21": {
@@ -5756,6 +5790,7 @@
         "uuid": "e8d33",
         "url": "6e/6G22-1.js",
         "titre": "Connaitre le vocabulaire de base des angles",
+        "datePublication": "03/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -5767,6 +5802,7 @@
         "uuid": "fe08e",
         "url": "6e/6G22-2.js",
         "titre": "Reconnaître un angle particulier",
+        "datePublication": "03/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -5778,6 +5814,7 @@
         "uuid": "e10d1",
         "url": "6e/6G22.js",
         "titre": "Nommer un angle",
+        "datePublication": "13/04/2022",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -5812,6 +5849,7 @@
         "uuid": "73630",
         "url": "6e/6G23-3.js",
         "titre": "Tracer un triangle dont on connaît une longueur et 2 angles (angles aigus et/ou obtus)",
+        "datePublication": "04/03/2022",
         "tags": {}
       },
       "6G23-4": {
@@ -5819,6 +5857,7 @@
         "uuid": "ff2cc",
         "url": "6e/6G23-4.js",
         "titre": "Mesurer un angle avec rapporteur intégré",
+        "datePublication": "26/04/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5831,6 +5870,7 @@
         "uuid": "329fe",
         "url": "6e/6G23-5.js",
         "titre": "Calculer un angle, déduit de figures simples",
+        "datePublication": "03/05/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5880,6 +5920,7 @@
         "uuid": "07f8a",
         "url": "6e/6G24-4.js",
         "titre": "Compléter un nuage de points symétriques",
+        "datePublication": "18/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "custom",
@@ -5916,7 +5957,7 @@
         "uuid": "f5569",
         "url": "6e/6G25-2.js",
         "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré",
-        "dateDeModifImportante": "15/01/2023",
+        "dateModification": "15/01/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5929,6 +5970,7 @@
         "uuid": "328b1",
         "url": "6e/6G25-3.js",
         "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage",
+        "datePublication": "14/12/2020",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -5949,6 +5991,7 @@
         "uuid": "d7da5",
         "url": "6e/6G26.js",
         "titre": "Trouver les symétries axiales successives dans un damier",
+        "datePublication": "4/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5963,7 +6006,8 @@
         "uuid": "cd69a",
         "url": "6e/6G32-1.js",
         "titre": "Appliquer les propriétés de conservation de la symétrie axiale",
-        "dateDeModifImportante": "23/04/2023",
+        "datePublication": "26/10/2020",
+        "dateModification": "23/04/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -5974,6 +6018,7 @@
         "uuid": "65bd7",
         "url": "6e/6G32.js",
         "titre": "Utiliser les propriétés de conservation de la symétrie axiale",
+        "datePublication": "25/01/2023",
         "tags": {}
       },
       "6G33": {
@@ -6005,6 +6050,7 @@
         "uuid": "6809f",
         "url": "6e/6G42-1.js",
         "titre": "Nommer des faces dans un pavé droit",
+        "datePublication": "06/11/2022",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -6039,6 +6085,7 @@
         "uuid": "051aa",
         "url": "6e/6G44-1.js",
         "titre": "Reconnaitre des solides",
+        "datePublication": "24/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -6054,6 +6101,7 @@
         "uuid": "da6a4",
         "url": "6e/6G44.js",
         "titre": "Trouver le nombre de faces ou d'arêtes d'un solide",
+        "datePublication": "7/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6068,6 +6116,7 @@
         "uuid": "02320",
         "url": "6e/6G51-1.js",
         "titre": "Reconnaître des points alignés",
+        "datePublication": "22/02/2023",
         "tags": {}
       },
       "6G51-2": {
@@ -6075,6 +6124,7 @@
         "uuid": "a8f1f",
         "url": "6e/6G51-2.js",
         "titre": "Utiliser les symboles ∈ et ∉",
+        "datePublication": "27/02/2023",
         "tags": {}
       },
       "6G52-2": {
@@ -6082,6 +6132,7 @@
         "uuid": "c46e8",
         "url": "6e/6G52-2.js",
         "titre": "Utiliser les propriétés des droites perpendiculaires",
+        "datePublication": "21/09/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -6092,6 +6143,7 @@
         "uuid": "5bac3",
         "url": "6e/6G52.js",
         "titre": "Se servir des relations entre perpendicularité et parallélisme",
+        "datePublication": "11/09/2022",
         "tags": {}
       },
       "6G53": {
@@ -6099,6 +6151,7 @@
         "uuid": "29c3b",
         "url": "6e/6G53.js",
         "titre": "Mesurer la distance d'un point à une droite",
+        "datePublication": "01/03/2023",
         "tags": {}
       }
     },
@@ -6139,6 +6192,7 @@
         "uuid": "9a5fe",
         "url": "6e/6M10-1.js",
         "titre": "Problèmes d'aires de rectangles",
+        "datePublication": "09/04/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -6161,7 +6215,7 @@
         "uuid": "d1513",
         "url": "6e/6M11-1.js",
         "titre": "Calculer périmètre et aire de carrés, rectangles et triangles rectangles",
-        "dateDeModifImportante": "12/04/2023",
+        "dateModification": "12/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6174,7 +6228,7 @@
         "uuid": "5999f",
         "url": "6e/6M11-2.js",
         "titre": "Calculer périmètre et aire de figures composées",
-        "dateDeModifImportante": "12/04/2023",
+        "dateModification": "12/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6187,6 +6241,7 @@
         "uuid": "5563e",
         "url": "6e/6M11-3.js",
         "titre": "Calculer le périmètre de carrés, rectangles et triangles",
+        "datePublication": "27/11/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6225,7 +6280,7 @@
         "uuid": "06b1a",
         "url": "6e/6M20.js",
         "titre": "Calculer l'aire de triangles",
-        "dateDeModifImportante": "12/04/2023",
+        "dateModification": "12/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6238,6 +6293,7 @@
         "uuid": "95313",
         "url": "6e/6M21.js",
         "titre": "Comparer périmètres et/ou aires de figures",
+        "datePublication": "08/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm"
@@ -6279,7 +6335,7 @@
         "uuid": "6225c",
         "url": "6e/6M23.js",
         "titre": "Convertir des aires",
-        "dateDeModifImportante": "30/04/2023",
+        "dateModification": "30/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -6343,7 +6399,7 @@
         "uuid": "33ac2",
         "url": "6e/6M31.js",
         "titre": "Convertir des volumes",
-        "dateDeModifImportante": "14/05/2022",
+        "dateModification": "14/05/2022",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -6371,7 +6427,7 @@
         "uuid": "7efdf",
         "url": "6e/6N10-1.js",
         "titre": "Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...",
-        "dateDeModifImportante": "09/09/2022",
+        "dateModification": "09/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6396,7 +6452,7 @@
         "uuid": "34579",
         "url": "6e/6N10-3.js",
         "titre": "Décomposer un nombre entier (nombre de ..., chiffres des ...)",
-        "dateDeModifImportante": "02/10/2022",
+        "dateModification": "02/10/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6419,7 +6475,8 @@
         "uuid": "80645",
         "url": "6e/6N10-5.js",
         "titre": "Parcourir un labyrinthe de numération décimale",
-        "dateDeModifImportante": "05/10/2022",
+        "datePublication": "9/12/2020",
+        "dateModification": "05/10/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -6430,6 +6487,7 @@
         "uuid": "c5438",
         "url": "6e/6N10-6.js",
         "titre": "Donner l'écriture (décimale ou en fraction décimale) d'une somme (ou différence) de nombres avec fractions décimales",
+        "datePublication": "20/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6442,6 +6500,7 @@
         "uuid": "f899b",
         "url": "6e/6N10-7.js",
         "titre": "Recomposer un décimal ou un entier",
+        "datePublication": "14/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom",
@@ -6454,7 +6513,8 @@
         "uuid": "0688e",
         "url": "6e/6N10.js",
         "titre": "Écrire un nombre entier en chiffres ou en lettres",
-        "dateDeModifImportante": "14/09/2022",
+        "datePublication": "19/09/2021",
+        "dateModification": "14/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6493,6 +6553,7 @@
         "uuid": "a7aa7",
         "url": "6e/6N11-5.js",
         "titre": "Comparer deux nombres entiers",
+        "datePublication": "07/08/2022",
         "tags": {}
       },
       "6N11": {
@@ -6512,6 +6573,7 @@
         "uuid": "89c0c",
         "url": "6e/6N12-1.js",
         "titre": "Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ?",
+        "datePublication": "05/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -6524,7 +6586,7 @@
         "uuid": "bb9d8",
         "url": "6e/6N12.js",
         "titre": "Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)",
-        "dateDeModifImportante": "09/08/2022",
+        "dateModification": "09/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6537,6 +6599,7 @@
         "uuid": "5d1e2",
         "url": "6e/6N13-0.js",
         "titre": "Connaître les préfixes utilisés dans les unités",
+        "datePublication": "17/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "listeDeroulante"
@@ -6559,7 +6622,7 @@
         "uuid": "87479",
         "url": "6e/6N14.js",
         "titre": "Représenter des fractions",
-        "dateDeModifImportante": "07/03/2023",
+        "dateModification": "07/03/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -6637,7 +6700,8 @@
         "uuid": "c75b6",
         "url": "6e/6N22.js",
         "titre": "Effectuer des calculs simples avec des fractions",
-        "dateDeModifImportante": "07/03/2023",
+        "datePublication": "20/11/21",
+        "dateModification": "07/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6662,7 +6726,7 @@
         "uuid": "1acf7",
         "url": "6e/6N23-1.js",
         "titre": "Donner différentes écritures de nombres décimaux",
-        "dateDeModifImportante": "25/09/2022",
+        "dateModification": "25/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6675,7 +6739,7 @@
         "uuid": "12773",
         "url": "6e/6N23-2.js",
         "titre": "Lire des abscisses décimales sous trois formes",
-        "dateDeModifImportante": "22/11/2022",
+        "dateModification": "22/11/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6688,7 +6752,7 @@
         "uuid": "23c48",
         "url": "6e/6N23-3.js",
         "titre": "Lire une abscisse décimale grâce à des zooms successifs",
-        "dateDeModifImportante": "22/11/2022",
+        "dateModification": "22/11/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6701,7 +6765,7 @@
         "uuid": "e8e24",
         "url": "6e/6N23-4.js",
         "titre": "Donner l'écriture décimale d'un nombre à partir de différents textes",
-        "dateDeModifImportante": "15/01/2022",
+        "dateModification": "15/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6726,6 +6790,7 @@
         "uuid": "d5e44",
         "url": "6e/6N23-6.js",
         "titre": "Calculer la valeur décimale d'une fraction",
+        "datePublication": "18/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6750,6 +6815,7 @@
         "uuid": "708a9",
         "url": "6e/6N23-8.js",
         "titre": "Donner l'écriture décimale d'une fraction décimale",
+        "datePublication": "28/09/22",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6857,7 +6923,7 @@
         "uuid": "b86b9",
         "url": "6e/6N31-4.js",
         "titre": "Intercaler un nombre décimal entre deux nombres décimaux",
-        "dateDeModifImportante": "29/10/2021",
+        "dateModification": "29/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6870,6 +6936,7 @@
         "uuid": "a8c21",
         "url": "6e/6N31-5.js",
         "titre": "Encadrer un décimal",
+        "datePublication": "28/09/22",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6882,6 +6949,7 @@
         "uuid": "d2b82",
         "url": "6e/6N31-6.js",
         "titre": "Trouver une valeur approchée ou un arrondi d'un décimal",
+        "datePublication": "28/09/22",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -6986,7 +7054,7 @@
         "uuid": "f8a4d",
         "url": "6e/6N41-1.js",
         "titre": "Parcourir un labyrinthe de fractions égales",
-        "dateDeModifImportante": "05/10/2022",
+        "dateModification": "05/10/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -7021,7 +7089,7 @@
         "uuid": "bbdd6",
         "url": "6e/6N43-3.js",
         "titre": "Reconnaître diviseur, multiple, divisible",
-        "dateDeModifImportante": "07/03/2023",
+        "dateModification": "07/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -7070,7 +7138,7 @@
         "uuid": "c511f",
         "url": "6e/6P11-1.js",
         "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité",
-        "dateDeModifImportante": "23/02/2022",
+        "dateModification": "23/02/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7083,7 +7151,7 @@
         "uuid": "65288",
         "url": "6e/6P11-2.js",
         "titre": "Résoudre des problèmes de proportionnalité avec la linéarité (avec ou sans un tableau)",
-        "dateDeModifImportante": "30/04/2023",
+        "dateModification": "30/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -7125,7 +7193,8 @@
         "uuid": "064ce",
         "url": "6e/6P13.js",
         "titre": "Augmenter ou diminuer d'un pourcentage",
-        "dateDeModifImportante": "16/04/2023",
+        "datePublication": "23/07/2021",
+        "dateModification": "16/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7138,6 +7207,7 @@
         "uuid": "4c6e2",
         "url": "6e/6P14.js",
         "titre": "Agrandir ou réduire des figures, d'après une situation de proportionnalité",
+        "datePublication": "13/03/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7150,6 +7220,7 @@
         "uuid": "2d5eb",
         "url": "6e/6P15.js",
         "titre": "Calculer le coefficient de proportionnalité",
+        "datePublication": "18/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7199,7 +7270,7 @@
         "uuid": "4828d",
         "url": "5e/5A10.js",
         "titre": "Écrire la liste de tous les diviseurs d'un entier",
-        "dateDeModifImportante": "28/10/2021",
+        "dateModification": "28/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -7210,7 +7281,7 @@
         "uuid": "a3870",
         "url": "5e/5A11-1.js",
         "titre": "Labyrinthe de multiples basé sur les critères de divisibilité",
-        "dateDeModifImportante": "05/10/2022",
+        "dateModification": "05/10/2022",
         "tags": {}
       },
       "5A11-2": {
@@ -7218,7 +7289,8 @@
         "uuid": "5618d",
         "url": "5e/5A11-2.js",
         "titre": "Labyrinthe de multiples avec critères choisis équilibrés ",
-        "dateDeModifImportante": "05/10/2022",
+        "datePublication": "16/11/2021",
+        "dateModification": "05/10/2022",
         "tags": {}
       },
       "5A11": {
@@ -7250,7 +7322,8 @@
         "uuid": "03d65",
         "url": "5e/5A12-2.js",
         "titre": "Déterminer si un nombre est premier",
-        "dateDeModifImportante": "",
+        "datePublication": "11/07/2022",
+        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -7263,6 +7336,7 @@
         "uuid": "05079",
         "url": "5e/5A12-3.js",
         "titre": "Explorer un labyrinthe de nombres premiers",
+        "datePublication": "12/10/2022",
         "tags": {}
       },
       "5A13": {
@@ -7315,6 +7389,7 @@
         "uuid": "41f23",
         "url": "5e/5C12-2.js",
         "titre": "Distributivité numérique",
+        "datePublication": "26/11/2022",
         "tags": {}
       },
       "5C12-3": {
@@ -7322,6 +7397,7 @@
         "uuid": "9103e",
         "url": "5e/5C12-3.js",
         "titre": "Distributivité et calcul mental",
+        "datePublication": "26/11/2022",
         "tags": {}
       },
       "5C12": {
@@ -7390,7 +7466,8 @@
         "uuid": "08f60",
         "url": "5e/5G11-4.js",
         "titre": "Trouver les coordonnées de l'image d'un point par une symétrie centrale",
-        "dateDeModifImportante": "28/12/2022",
+        "datePublication": "28/10/2021",
+        "dateModification": "28/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7403,7 +7480,8 @@
         "uuid": "2d2bb",
         "url": "5e/5G11-5.js",
         "titre": "Trouver les coordonnées de l'image d'un point par une symétrie axiale ou centrale",
-        "dateDeModifImportante": "28/12/2022",
+        "datePublication": "28/10/2021",
+        "dateModification": "28/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7416,6 +7494,7 @@
         "uuid": "2a611",
         "url": "5e/5G11-6.js",
         "titre": "Compléter un nuage de points symétriques",
+        "datePublication": "18/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "custom",
@@ -7452,6 +7531,7 @@
         "uuid": "dbc1d",
         "url": "5e/5G12-2.js",
         "titre": "Trouver les symétries successives dans un damier",
+        "datePublication": "4/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7464,6 +7544,7 @@
         "uuid": "2d343",
         "url": "5e/5G12-3.js",
         "titre": "Identifier une transformation",
+        "datePublication": "4/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "listeDeroulante"
@@ -7481,7 +7562,7 @@
         "uuid": "07d1a",
         "url": "5e/5G13.js",
         "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
-        "dateDeModifImportante": "06/03/2023",
+        "dateModification": "06/03/2023",
         "tags": {}
       }
     },
@@ -7563,6 +7644,7 @@
         "uuid": "19812",
         "url": "5e/5G30-2.js",
         "titre": "Angles et parallèles",
+        "datePublication": "15/01/2022",
         "tags": {}
       },
       "5G30": {
@@ -7584,6 +7666,7 @@
         "uuid": "c2f77",
         "url": "5e/5G31-2.js",
         "titre": "Déterminer un angle dans un triangle et sa nature",
+        "datePublication": "11/01/2023",
         "tags": {}
       },
       "5G31": {
@@ -7591,7 +7674,7 @@
         "uuid": "dc8c9",
         "url": "5e/5G31.js",
         "titre": "Somme des angles dans un triangle",
-        "dateDeModifImportante": "04/03/2023",
+        "dateModification": "04/03/2023",
         "tags": {}
       }
     },
@@ -7601,7 +7684,7 @@
         "uuid": "af2c2",
         "url": "5e/5G40-1.js",
         "titre": "Citer les propriétés des parallélogrammes",
-        "dateDeModifImportante": "08/05/2022",
+        "dateModification": "08/05/2022",
         "tags": {}
       },
       "5G40-2": {
@@ -7609,7 +7692,7 @@
         "uuid": "588fe",
         "url": "5e/5G40-2.js",
         "titre": "Reconnaître un parallélogramme à partir du codage d'une figure",
-        "dateDeModifImportante": "08/05/2022",
+        "dateModification": "08/05/2022",
         "tags": {}
       },
       "5G40": {
@@ -7617,7 +7700,7 @@
         "uuid": "b611a",
         "url": "5e/5G40.js",
         "titre": "Construire des parallélogrammes avec dispositif d'auto-correction",
-        "dateDeModifImportante": "08/05/2022",
+        "dateModification": "08/05/2022",
         "tags": {}
       },
       "5G41": {
@@ -7632,6 +7715,7 @@
         "uuid": "78f28",
         "url": "5e/5G42-1.js",
         "titre": "Connaître les propriétés des parallélogrammes particuliers",
+        "datePublication": "26/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm"
@@ -7676,7 +7760,7 @@
         "uuid": "12bb6",
         "url": "5e/5L10-2.js",
         "titre": "Traduire un programme de calcul par une expression littérale",
-        "dateDeModifImportante": "15/10/2022",
+        "dateModification": "15/10/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -7703,7 +7787,7 @@
         "uuid": "3c1f7",
         "url": "5e/5L10.js",
         "titre": "Écrire une expression littérale",
-        "dateDeModifImportante": "11/05/2022",
+        "dateModification": "11/05/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -7723,6 +7807,7 @@
         "uuid": "a8ad0",
         "url": "5e/5L12-2.js",
         "titre": "Réduire une expression littérale (somme et produit)",
+        "datePublication": "22/02/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -7814,7 +7899,8 @@
         "uuid": "e2e64",
         "url": "5e/5L16.js",
         "titre": "Simplifier l'écriture d'une expression littérale",
-        "dateDeModifImportante": "18/06/2022",
+        "datePublication": "07/04/2022",
+        "dateModification": "18/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -7827,7 +7913,7 @@
         "uuid": "d6cd1",
         "url": "5e/5M10.js",
         "titre": "Aire du parallélogramme",
-        "dateDeModifImportante": "08/05/2022",
+        "dateModification": "08/05/2022",
         "tags": {}
       }
     },
@@ -7854,6 +7940,7 @@
         "uuid": "91d72",
         "url": "5e/5N10.js",
         "titre": "Passer d'une fraction à une écriture décimale et inversement",
+        "datePublication": "16/03/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -7878,7 +7965,7 @@
         "uuid": "0e58f",
         "url": "5e/5N11-3.js",
         "titre": "Écrire une fraction sur 100 puis sous la forme d'un pourcentage",
-        "dateDeModifImportante": "17/03/2022",
+        "dateModification": "17/03/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7891,7 +7978,7 @@
         "uuid": "6b534",
         "url": "5e/5N11-4.js",
         "titre": "Exprimer une fraction sous la forme d'une valeur approchée d'un pourcentage",
-        "dateDeModifImportante": "17/03/2022",
+        "dateModification": "17/03/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -7948,7 +8035,7 @@
         "uuid": "d1fb2",
         "url": "5e/5N14-3.js",
         "titre": "Fractions égales et égalité des produits en croix",
-        "dateDeModifImportante": "25/01/2023",
+        "dateModification": "25/01/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -8027,6 +8114,7 @@
         "uuid": "edb61",
         "url": "5e/5P13.js",
         "titre": "Utiliser ou trouver des échelles d'un plan",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -8037,6 +8125,7 @@
         "uuid": "542be",
         "url": "5e/5P14-1.js",
         "titre": "Appliquer un pourcentage",
+        "datePublication": "04/04/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8049,6 +8138,7 @@
         "uuid": "5199b",
         "url": "5e/5P14-2.js",
         "titre": "Appliquer un pourcentage (calculs simples)",
+        "datePublication": "19/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -8059,6 +8149,7 @@
         "uuid": "4db23",
         "url": "5e/5P14.js",
         "titre": "Exprimer une proportion sous la forme d'un pourcentage",
+        "datePublication": "04/04/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8073,7 +8164,7 @@
         "uuid": "cab80",
         "url": "5e/5R10-0.js",
         "titre": "Trouver l'opposé d'un nombre relatif",
-        "dateDeModifImportante": "26/11/2021",
+        "dateModification": "26/11/2021",
         "tags": {}
       },
       "5R10-1": {
@@ -8178,6 +8269,7 @@
         "uuid": "598c3",
         "url": "5e/5R20-6.js",
         "titre": "Résoudre un Yohaku additif nombres relatifs niveau 1",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8188,6 +8280,7 @@
         "uuid": "3e4d9",
         "url": "5e/5R20-7.js",
         "titre": "Résoudre une Rose additive avec des relatifs",
+        "datePublication": "12/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8213,7 +8306,7 @@
         "uuid": "b6982",
         "url": "5e/5R21.js",
         "titre": "Soustraction de deux entiers relatifs",
-        "dateDeModifImportante": "11/11/2021",
+        "dateModification": "11/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8266,6 +8359,7 @@
         "uuid": "d3ca7",
         "url": "5e/5S12.js",
         "titre": "Représenter des données par un diagramme",
+        "datePublication": "20/03/2022",
         "tags": {}
       },
       "5S13-1": {
@@ -8292,7 +8386,7 @@
         "uuid": "8cdd5",
         "url": "5e/5S13.js",
         "titre": "Calculer des fréquences",
-        "dateDeModifImportante": "28/02/2022",
+        "dateModification": "28/02/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8305,7 +8399,7 @@
         "uuid": "ab91d",
         "url": "5e/5S14.js",
         "titre": "Calculer des moyennes",
-        "dateDeModifImportante": "28/02/2022",
+        "dateModification": "28/02/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8341,6 +8435,7 @@
         "uuid": "df72b",
         "url": "5e/5S22.js",
         "titre": "Décrire une expérience aléatoire",
+        "datePublication": "03/04/2022",
         "tags": {}
       }
     }
@@ -8352,6 +8447,7 @@
         "uuid": "50663",
         "url": "4e/4A10-1.js",
         "titre": "Explorer un labyrinthe de nombres premiers",
+        "datePublication": "12/10/2022",
         "tags": {}
       },
       "4A10": {
@@ -8371,7 +8467,7 @@
         "uuid": "1eaf7",
         "url": "4e/4A11-0.js",
         "titre": "Décomposer un nombre entier en produit de (petits) facteurs premiers",
-        "dateDeModifImportante": "2/11/2021",
+        "dateModification": "2/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -8399,7 +8495,7 @@
         "uuid": "b16c6",
         "url": "4e/4A12.js",
         "titre": "Résoudre des problèmes de conjonction de phénomènes",
-        "dateDeModifImportante": "10/10/2022",
+        "dateModification": "10/10/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8438,6 +8534,7 @@
         "uuid": "857c1",
         "url": "4e/4C10-10.js",
         "titre": "Multiplication à trou de deux entiers relatifs",
+        "datePublication": "26/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -8511,6 +8608,7 @@
         "uuid": "2fbc0",
         "url": "4e/4C10-8.js",
         "titre": "Résoudre un Yohaku multiplicatif nombres relatifs niveau 1",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8521,6 +8619,7 @@
         "uuid": "9e862",
         "url": "4e/4C10-9.js",
         "titre": "Résoudre une Rose multiplicative avec des relatifs",
+        "datePublication": "12/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8531,6 +8630,7 @@
         "uuid": "745ba",
         "url": "4e/4C10.js",
         "titre": "Calculer des produits et des quotients de nombres relatifs",
+        "datePublication": "23/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8562,6 +8662,7 @@
         "uuid": "7f2be",
         "url": "4e/4C20-2.js",
         "titre": "Fractions égales et égalité des produits en croix 4e",
+        "datePublication": "24/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -8598,6 +8699,7 @@
         "uuid": "1a61d",
         "url": "4e/4C21-2.js",
         "titre": "Résoudre un Yohaku additif fractions niveau 1",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8608,6 +8710,7 @@
         "uuid": "0576d",
         "url": "4e/4C21-3.js",
         "titre": "Résoudre une Rose additive avec des fractions",
+        "datePublication": "12/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8652,6 +8755,7 @@
         "uuid": "ee808",
         "url": "4e/4C22-3.js",
         "titre": "Résoudre un Yohaku multiplicatif fractions niveau 1",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8662,6 +8766,7 @@
         "uuid": "4713e",
         "url": "4e/4C22-4.js",
         "titre": "Résoudre une Rose multiplicative avec des fractions",
+        "datePublication": "12/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8672,7 +8777,7 @@
         "uuid": "72ce7",
         "url": "4e/4C22.js",
         "titre": "Multiplier ou/et diviser des fractions",
-        "dateDeModifImportante": "09/04/2022",
+        "dateModification": "09/04/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8707,6 +8812,7 @@
         "uuid": "612b9",
         "url": "4e/4C24.js",
         "titre": "Simplifier des fractions à l'aide des nombres premiers",
+        "datePublication": "17/03/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8762,6 +8868,7 @@
         "uuid": "b0b3c",
         "url": "4e/4C30-4.js",
         "titre": "Puissances de 10 et préfixes",
+        "datePublication": "12/04/2022",
         "tags": {
           "interactif": true,
           "interactifType": "listeDeroulante"
@@ -8782,7 +8889,8 @@
         "uuid": "5d72b",
         "url": "4e/4C32-0.js",
         "titre": "Écriture décimale d'un calcul avec des puissances de 10",
-        "dateDeModifImportante": "26/04/2023",
+        "datePublication": "18/01/2022",
+        "dateModification": "26/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -8819,6 +8927,7 @@
         "uuid": "8b399",
         "url": "4e/4C32-4.js",
         "titre": "Calculs avec des multiplications et des puissances de 10",
+        "datePublication": "20/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -8843,6 +8952,7 @@
         "uuid": "1d078",
         "url": "4e/4C33-0.js",
         "titre": "Utiliser la notation puissance",
+        "datePublication": "21/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8891,6 +9001,7 @@
         "uuid": "125bd",
         "url": "4e/4C35.js",
         "titre": "Puissances : écriture décimale ou fractionnaire",
+        "datePublication": "14/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -8901,7 +9012,8 @@
         "uuid": "975cc",
         "url": "4e/4C36.js",
         "titre": "Utiliser les ordres de grandeur pour vérifier ses résultats",
-        "dateDeModifImportante": "18/06/2022",
+        "datePublication": "23/05/2022",
+        "dateModification": "18/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm"
@@ -8912,6 +9024,7 @@
         "uuid": "67432",
         "url": "4e/4C37.js",
         "titre": "Déterminer le signe d'une puissance",
+        "datePublication": "30/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -8938,7 +9051,8 @@
         "uuid": "7b40c",
         "url": "4e/4G10-1.js",
         "titre": "Trouver les coordonnées de l'image d'un point par une translation et une rotation",
-        "dateDeModifImportante": "28/12/2022",
+        "datePublication": "28/10/2021",
+        "dateModification": "28/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8951,6 +9065,7 @@
         "uuid": "6a2dd",
         "url": "4e/4G10-2.js",
         "titre": "Transformer une figure par translation",
+        "datePublication": "16/05/2022",
         "tags": {}
       },
       "4G10": {
@@ -8989,6 +9104,7 @@
         "uuid": "8ac93",
         "url": "4e/4G12-1.js",
         "titre": "Trouver la transformation",
+        "datePublication": "3/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "listeDeroulante"
@@ -8999,6 +9115,7 @@
         "uuid": "3174f",
         "url": "4e/4G12-2.js",
         "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
+        "datePublication": "16/05/2022",
         "tags": {}
       },
       "4G12": {
@@ -9006,6 +9123,7 @@
         "uuid": "4ffdb",
         "url": "4e/4G12.js",
         "titre": "Trouver une série de transformations",
+        "datePublication": "3/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9027,7 +9145,7 @@
         "uuid": "40c47",
         "url": "4e/4G20-1.js",
         "titre": "Donner ou compléter une égalité de Pythagore",
-        "dateDeModifImportante": "28/12/2022",
+        "dateModification": "28/12/2022",
         "tags": {
           "interactif": 1,
           "interactifType": "mathLive"
@@ -9050,6 +9168,7 @@
         "uuid": "e564b",
         "url": "4e/4G20-3.js",
         "titre": "Calculer un carré",
+        "datePublication": "17/01/2023",
         "tags": {}
       },
       "4G20-4": {
@@ -9119,6 +9238,7 @@
         "uuid": "ff410",
         "url": "4e/4G30-1.js",
         "titre": "Écrire une relation de Thalès",
+        "datePublication": "05/01/2023",
         "tags": {}
       },
       "4G30": {
@@ -9192,7 +9312,7 @@
         "uuid": "0e754",
         "url": "4e/4G51.js",
         "titre": "Compléter une représentation en perspective cavalière",
-        "dateDeModifImportante": "18/06/2022",
+        "dateModification": "18/06/2022",
         "tags": {}
       },
       "4G52": {
@@ -9200,7 +9320,7 @@
         "uuid": "9c916",
         "url": "4e/4G52.js",
         "titre": "Exercice de repérage dans un pavé droit",
-        "dateDeModifImportante": "03/05/2023",
+        "dateModification": "03/05/2023",
         "tags": {}
       },
       "4G53": {
@@ -9256,6 +9376,7 @@
         "uuid": "af8bb",
         "url": "4e/4L10-2.js",
         "titre": "Donner l'expression littérale d'un périmètre et d'une aire de quadrilatère",
+        "datePublication": "08/03/2022",
         "tags": {}
       },
       "4L10-3": {
@@ -9263,6 +9384,7 @@
         "uuid": "4c5da",
         "url": "4e/4L10-3.js",
         "titre": "Résoudre un Yohaku additif expressions littérales niveau 1",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -9273,6 +9395,7 @@
         "uuid": "a40d6",
         "url": "4e/4L10-4.js",
         "titre": "Résoudre une Rose additive avec calcul littéral",
+        "datePublication": "12/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -9302,7 +9425,8 @@
         "uuid": "501f9",
         "url": "4e/4L12.js",
         "titre": "Démontrer l'équivalence de deux programmes de calcul",
-        "dateDeModifImportante": "",
+        "datePublication": "21/02/2022",
+        "dateModification": "",
         "tags": {}
       },
       "4L13-0": {
@@ -9324,7 +9448,8 @@
         "uuid": "5ca1e",
         "url": "4e/4L13-2.js",
         "titre": "Mettre un problème en équation et le résoudre",
-        "dateDeModifImportante": "05/04/2023",
+        "datePublication": "04/04/2022",
+        "dateModification": "05/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9434,6 +9559,7 @@
         "uuid": "63cdb",
         "url": "4e/4P16.js",
         "titre": "Convertir des grandeurs composées",
+        "datePublication": "23/05/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -9453,7 +9579,7 @@
         "uuid": "7c068",
         "url": "4e/4S11.js",
         "titre": "Déterminer des médianes",
-        "dateDeModifImportante": "28/10/2021",
+        "dateModification": "28/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9468,6 +9594,7 @@
         "uuid": "7ba64",
         "url": "4e/4S20.js",
         "titre": "Utiliser le vocabulaire des probabilités",
+        "datePublication": "03/04/2022",
         "tags": {}
       }
     }
@@ -9522,6 +9649,7 @@
         "uuid": "eee79",
         "url": "3e/3A10-5.js",
         "titre": "Recourir à une décomposition en facteurs premiers dans des cas simples",
+        "datePublication": "29/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -9532,6 +9660,7 @@
         "uuid": "5636e",
         "url": "3e/3A10-6.js",
         "titre": "Trouver un chiffre pour qu'un nombre soit divisible par un autre",
+        "datePublication": "29/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -9542,6 +9671,7 @@
         "uuid": "9552d",
         "url": "3e/3A10-7.js",
         "titre": "Explorer un labyrinthe de nombres premiers",
+        "datePublication": "12/10/2022",
         "tags": {}
       },
       "3A10": {
@@ -9556,6 +9686,7 @@
         "uuid": "1871d",
         "url": "3e/3A11-0.js",
         "titre": "Simplifier des fractions à l'aide des nombres premiers",
+        "datePublication": "28/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9587,6 +9718,7 @@
         "uuid": "6b37f",
         "url": "3e/3A12-0.js",
         "titre": "Problèmes avec des engrenages",
+        "datePublication": "05/10/2022",
         "tags": {}
       },
       "3A12-1": {
@@ -9606,7 +9738,7 @@
         "uuid": "ce352",
         "url": "3e/3A12.js",
         "titre": "Résoudre un exercice d'engrenages",
-        "dateDeModifImportante": "01/04/2023",
+        "dateModification": "01/04/2023",
         "tags": {}
       },
       "3A13-1": {
@@ -9614,6 +9746,7 @@
         "uuid": "8741f",
         "url": "3e/3A13-1.js",
         "titre": "Poser divisions euclidiennes",
+        "datePublication": "14/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9626,6 +9759,7 @@
         "uuid": "d8bf2",
         "url": "3e/3A13-2.js",
         "titre": "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité",
+        "datePublication": "14/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9638,6 +9772,7 @@
         "uuid": "d9cf3",
         "url": "3e/3A13-3.js",
         "titre": "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne",
+        "datePublication": "14/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9650,6 +9785,7 @@
         "uuid": "b0cee",
         "url": "3e/3A13-4.js",
         "titre": "Indiquer une égalité à partir d'une division euclidienne",
+        "datePublication": "14/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9695,6 +9831,7 @@
         "uuid": "4daef",
         "url": "3e/3F10-3.js",
         "titre": "Vocabulaire et notations des fonctions",
+        "datePublication": "29/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -9793,6 +9930,7 @@
         "uuid": "aeb5a",
         "url": "3e/3F20.js",
         "titre": "Fonctions linéaires",
+        "datePublication": "13/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9805,7 +9943,7 @@
         "uuid": "e5ddd",
         "url": "3e/3F21-1.js",
         "titre": "Déterminer une fonction affine",
-        "dateDeModifImportante": "31/03/2023",
+        "dateModification": "31/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9847,7 +9985,7 @@
         "uuid": "d4088",
         "url": "3e/3G10-1.js",
         "titre": "Trouver les coordonnées de l'image d'un point par une rotation et une homothétie",
-        "dateDeModifImportante": "15/01/2023",
+        "dateModification": "15/01/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9860,7 +9998,7 @@
         "uuid": "d5f34",
         "url": "3e/3G10-2.js",
         "titre": "Trouver l'image d'un point par une homothétie ou une rotation",
-        "dateDeModifImportante": "15/01/2023",
+        "dateModification": "15/01/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9880,6 +10018,7 @@
         "uuid": "1ebf7",
         "url": "3e/3G11-1.js",
         "titre": "Homothétie - Rapport",
+        "datePublication": "27/11/2022",
         "tags": {}
       },
       "3G11": {
@@ -9887,7 +10026,8 @@
         "uuid": "18e25",
         "url": "3e/3G11.js",
         "titre": "Construire l'image d'un point par une homothétie avec cible auto-corrective",
-        "dateDeModifImportante": "31/01/2023",
+        "datePublication": "30/11/2020",
+        "dateModification": "31/01/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -9898,7 +10038,7 @@
         "uuid": "034f1",
         "url": "3e/3G12-1.js",
         "titre": "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage",
-        "dateDeModifImportante": "15/01/2023",
+        "dateModification": "15/01/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9911,7 +10051,8 @@
         "uuid": "442e0",
         "url": "3e/3G12.js",
         "titre": "Trouver l'image d'une figure par une rotation dans un pavage",
-        "dateDeModifImportante": "29/01/2023",
+        "datePublication": "16/12/2020",
+        "dateModification": "29/01/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9924,7 +10065,8 @@
         "uuid": "6f383",
         "url": "3e/3G13.js",
         "titre": "Homothétie (calculs)",
-        "dateDeModifImportante": "29/01/2023",
+        "datePublication": "28/11/2021",
+        "dateModification": "29/01/2023",
         "tags": {}
       }
     },
@@ -9941,6 +10083,7 @@
         "uuid": "6fd12",
         "url": "3e/3G20-2.js",
         "titre": "Écrire une relation de Thalès",
+        "datePublication": "05/01/2023",
         "tags": {}
       },
       "3G20": {
@@ -9972,7 +10115,8 @@
         "uuid": "a0ad1",
         "url": "3e/3G22-1.js",
         "titre": "Agrandissement et réduction",
-        "dateDeModifImportante": "02/04/2023",
+        "datePublication": "25/10/2021",
+        "dateModification": "02/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -10014,7 +10158,7 @@
         "uuid": "bd6b1",
         "url": "3e/3G30.js",
         "titre": "Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie",
-        "dateDeModifImportante": "21/03/2022",
+        "dateModification": "21/03/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10039,7 +10183,7 @@
         "uuid": "0ac11",
         "url": "3e/3G31.js",
         "titre": "Calculer un angle dans un triangle rectangle en utilisant la trigonométrie",
-        "dateDeModifImportante": "11/04/2023",
+        "dateModification": "11/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10052,6 +10196,7 @@
         "uuid": "2045e",
         "url": "3e/3G32-0.js",
         "titre": "Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie",
+        "datePublication": "05/03/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10138,7 +10283,7 @@
         "uuid": "75ea2",
         "url": "3e/3G40.js",
         "titre": "Repérage sur la sphère",
-        "dateDeModifImportante": "02/11/2022",
+        "dateModification": "02/11/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10149,6 +10294,7 @@
         "uuid": "a3cb9",
         "url": "3e/3G41-1.js",
         "titre": "Construire la section d'un plan dans un un pavé droit",
+        "datePublication": "07/11/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -10159,6 +10305,7 @@
         "uuid": "136dd",
         "url": "3e/3G41.js",
         "titre": "Dessiner différentes vues d'un empilement de cubes",
+        "datePublication": "06/10/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10196,6 +10343,7 @@
         "uuid": "57c70",
         "url": "3e/3G44.js",
         "titre": "Déterminer des longueurs dans la géométrie dans l'espace",
+        "datePublication": "19/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10224,6 +10372,7 @@
         "uuid": "2ecd9",
         "url": "3e/3I10-1.js",
         "titre": "Analyser des scripts Scratch",
+        "datePublication": "27/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -10236,6 +10385,7 @@
         "uuid": "39a32",
         "url": "3e/3I12-1.js",
         "titre": "Compléter un script Scratch - 1",
+        "datePublication": "20/09/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -10246,6 +10396,7 @@
         "uuid": "defeb",
         "url": "3e/3I12-2.js",
         "titre": "Comprendre un script Scratch - 1",
+        "datePublication": "20/09/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10256,6 +10407,7 @@
         "uuid": "52c97",
         "url": "3e/3I12-3.js",
         "titre": "Compléter un script Scratch - 2",
+        "datePublication": "22/09/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -10266,6 +10418,7 @@
         "uuid": "9a1a9",
         "url": "3e/3I12-4.js",
         "titre": "Comprendre un script Scratch - 2",
+        "datePublication": "23/09/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10278,7 +10431,7 @@
         "uuid": "815eb",
         "url": "3e/3L10-1.js",
         "titre": "Additionner ou soustraire une expression entre parenthèses",
-        "dateDeModifImportante": "26/12/2022",
+        "dateModification": "26/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10291,6 +10444,7 @@
         "uuid": "c88ba",
         "url": "3e/3L10-2.js",
         "titre": "Supprimer les parenthèses puis réduire l'expression (niveau 2)",
+        "datePublication": "28/11/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10315,7 +10469,7 @@
         "uuid": "4197c",
         "url": "3e/3L11-1.js",
         "titre": "Utiliser la double distributivité",
-        "dateDeModifImportante": "26/02/2023",
+        "dateModification": "26/02/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10328,6 +10482,7 @@
         "uuid": "c8403",
         "url": "3e/3L11-10.js",
         "titre": "Table de double distributivité",
+        "datePublication": "23/02/2023",
         "tags": {}
       },
       "3L11-2": {
@@ -10335,7 +10490,7 @@
         "uuid": "f6853",
         "url": "3e/3L11-2.js",
         "titre": "Réduire une expression",
-        "dateDeModifImportante": "20/02/2023",
+        "dateModification": "20/02/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10392,6 +10547,7 @@
         "uuid": "7cf81",
         "url": "3e/3L11-7.js",
         "titre": "Développer des carrés avec la double distributivité",
+        "datePublication": "12/12/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10404,6 +10560,7 @@
         "uuid": "1f9b4",
         "url": "3e/3L11-8.js",
         "titre": "Résoudre un Yohaku multiplicatif expressions littérales niveau 1",
+        "datePublication": "10/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -10414,6 +10571,7 @@
         "uuid": "4963b",
         "url": "3e/3L11-9.js",
         "titre": "Résoudre une Rose multiplicative avec calcul littéral",
+        "datePublication": "12/08/2022",
         "tags": {
           "interactif": false
         }
@@ -10435,7 +10593,7 @@
         "uuid": "be157",
         "url": "3e/3L12-1.js",
         "titre": "Développer (a-b)(a+b)",
-        "dateDeModifImportante": "26/02/2023",
+        "dateModification": "26/02/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10448,7 +10606,7 @@
         "uuid": "81fd2",
         "url": "3e/3L12.js",
         "titre": "Factoriser a²-b²",
-        "dateDeModifImportante": "26/02/2023",
+        "dateModification": "26/02/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -10494,7 +10652,8 @@
         "uuid": "22412",
         "url": "3e/3L13-3.js",
         "titre": "Mettre en équation un problème et le résoudre",
-        "dateDeModifImportante": "06/04/2023",
+        "datePublication": "15/02/2022",
+        "dateModification": "06/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10507,6 +10666,7 @@
         "uuid": "cd2f2",
         "url": "3e/3L13-4.js",
         "titre": "Trouver périmètre ou aire en résolvant une équation",
+        "datePublication": "04/03/2022",
         "tags": {}
       },
       "3L13": {
@@ -10538,7 +10698,7 @@
         "uuid": "ecf62",
         "url": "3e/3L14.js",
         "titre": "Résoudre une équation produit nul",
-        "dateDeModifImportante": "09/03/2023",
+        "dateModification": "09/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10592,7 +10752,8 @@
         "uuid": "f4b95",
         "url": "3e/3S12.js",
         "titre": "Calculer des effectifs et des fréquences",
-        "dateDeModifImportante": "10/04/2023",
+        "datePublication": "07/02/2021",
+        "dateModification": "10/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10605,7 +10766,7 @@
         "uuid": "b8afd",
         "url": "3e/3S14.js",
         "titre": "Calculer des caractéristiques d'une série",
-        "dateDeModifImportante": "10/04/2023",
+        "dateModification": "10/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10618,7 +10779,7 @@
         "uuid": "36e68",
         "url": "3e/3S15.js",
         "titre": "Calculer des étendues",
-        "dateDeModifImportante": "31/08/2022",
+        "dateModification": "31/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -10638,6 +10799,7 @@
         "uuid": "76230",
         "url": "3e/3S21.js",
         "titre": "Expérience aléatoire à deux épreuves",
+        "datePublication": "15/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -10704,6 +10866,7 @@
         "uuid": "46bec",
         "url": "2e/2F10-7.js",
         "titre": "Dresser et utiliser le tableau de signes d'une fonction affine en lien avec son sens de variation",
+        "datePublication": "01/10/2022",
         "tags": {}
       },
       "2F11-1": {
@@ -10711,6 +10874,7 @@
         "uuid": "b6cc0",
         "url": "2e/2F11-1.js",
         "titre": "Déterminer l'image d'un nombre par une fonction de référence",
+        "datePublication": "18/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10723,6 +10887,7 @@
         "uuid": "9315e",
         "url": "2e/2F11-2.js",
         "titre": "Comparer deux images avec une fonction de référence",
+        "datePublication": "14/02/2023",
         "tags": {}
       },
       "2F12-1": {
@@ -10730,6 +10895,7 @@
         "uuid": "de0d1",
         "url": "2e/2F12-1.js",
         "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence",
+        "datePublication": "07/01/2022",
         "tags": {}
       },
       "2F12-2": {
@@ -10737,6 +10903,7 @@
         "uuid": "277d3",
         "url": "2e/2F12-2.js",
         "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
+        "datePublication": "14/02/2023",
         "tags": {}
       }
     },
@@ -10753,6 +10920,7 @@
         "uuid": "ec059",
         "url": "2e/2F20-2.js",
         "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l'abscisse ou l'ordonnée",
+        "datePublication": "24/09/2022",
         "tags": {}
       },
       "2F21-1": {
@@ -10760,6 +10928,7 @@
         "uuid": "5621b",
         "url": "2e/2F21-1.js",
         "titre": "Modéliser une situation à l'aide d'une fonction",
+        "datePublication": "14/02/2023",
         "tags": {}
       },
       "2F25-1": {
@@ -10788,6 +10957,7 @@
         "uuid": "05b52",
         "url": "2e/2F30-1.js",
         "titre": "Dresser un tableau de variations à partir d'une courbe",
+        "datePublication": "14/02/2023",
         "tags": {}
       },
       "2F31-1": {
@@ -10795,6 +10965,7 @@
         "uuid": "1803c",
         "url": "2e/2F31-1.js",
         "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
+        "datePublication": "07/01/2022",
         "tags": {}
       },
       "2F31-2": {
@@ -10802,6 +10973,7 @@
         "uuid": "1ca05",
         "url": "2e/2F31-2.js",
         "titre": "Utiliser les variations des fonctions de référence pour comparer ou encadrer",
+        "datePublication": "31/01/2022",
         "tags": {}
       },
       "2F31-3": {
@@ -10809,7 +10981,8 @@
         "uuid": "c705b",
         "url": "2e/2F31-3.js",
         "titre": "Comparaison d'images dans un tableau de variations",
-        "dateDeModifImportante": "24/10/2021",
+        "datePublication": "25/10/2021",
+        "dateModification": "24/10/2021",
         "tags": {}
       },
       "2F32-2": {
@@ -10817,6 +10990,7 @@
         "uuid": "573f2",
         "url": "2e/2F32-2.js",
         "titre": "Déterminer graphiquement les extremums",
+        "datePublication": "1/08/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10829,6 +11003,7 @@
         "uuid": "acee0",
         "url": "2e/2F32-3.js",
         "titre": "Déterminer un extremum ou encadrer par lecture d'un tableau de variations",
+        "datePublication": "20/12/2021",
         "tags": {}
       }
     },
@@ -10918,7 +11093,7 @@
         "uuid": "2b8bf",
         "url": "2e/2G21-1.js",
         "titre": "Construire les images de points par une translation",
-        "dateDeModifImportante": "29/01/2023",
+        "dateModification": "29/01/2023",
         "tags": {}
       },
       "2G22-1": {
@@ -10961,7 +11136,7 @@
         "uuid": "0cee9",
         "url": "2e/2G30-2.js",
         "titre": "Déterminer une équation réduite de droite",
-        "dateDeModifImportante": "26/04/2023",
+        "dateModification": "26/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11021,7 +11196,7 @@
         "uuid": "507cf",
         "url": "2e/2N10-1.js",
         "titre": "Lire l’abscisse décimale d’un point repéré par une fraction",
-        "dateDeModifImportante": "27/10/2021",
+        "dateModification": "27/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -11034,7 +11209,7 @@
         "uuid": "8164e",
         "url": "2e/2N10-2.js",
         "titre": "Placer un point d'abscisse décimale",
-        "dateDeModifImportante": "27/10/2021",
+        "dateModification": "27/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "custom",
@@ -11047,7 +11222,7 @@
         "uuid": "7cfbe",
         "url": "2e/2N10-3.js",
         "titre": "Utiliser les abscisses fractionnaires",
-        "dateDeModifImportante": "27/10/2021",
+        "dateModification": "27/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -11072,7 +11247,7 @@
         "uuid": "d309b",
         "url": "2e/2N12-1.js",
         "titre": "Encadrer une fraction entre deux nombres entiers",
-        "dateDeModifImportante": "27/10/2021",
+        "dateModification": "27/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -11085,7 +11260,7 @@
         "uuid": "8f56e",
         "url": "2e/2N12-2.js",
         "titre": "Encadrer avec des puissances de 10",
-        "dateDeModifImportante": "2/11/2021",
+        "dateModification": "2/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11096,6 +11271,7 @@
         "uuid": "ed2ee",
         "url": "2e/2N12-3.js",
         "titre": "Encadrer avec les racines carrées",
+        "datePublication": "28/09/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11106,7 +11282,7 @@
         "uuid": "bba9b",
         "url": "2e/2N13-1.js",
         "titre": "Arrondir une valeur",
-        "dateDeModifImportante": "27/10/2021",
+        "dateModification": "27/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -11147,7 +11323,7 @@
         "uuid": "7cf48",
         "url": "2e/2N20-1.js",
         "titre": "Écrire la liste de tous les diviseurs d'un entier",
-        "dateDeModifImportante": "28/10/2021",
+        "dateModification": "28/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11158,7 +11334,7 @@
         "uuid": "d5a6d",
         "url": "2e/2N20-2.js",
         "titre": "Critères de divisibilité (plusieurs possibles)",
-        "dateDeModifImportante": "29/10/2021",
+        "dateModification": "29/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -11171,7 +11347,7 @@
         "uuid": "098db",
         "url": "2e/2N20-3.js",
         "titre": "Division Euclidienne - Diviseurs - Multiples",
-        "dateDeModifImportante": "29/10/2021",
+        "dateModification": "29/10/2021",
         "tags": {}
       },
       "2N20-4": {
@@ -11179,7 +11355,7 @@
         "uuid": "c04cc",
         "url": "2e/2N20-4.js",
         "titre": "Primalité ou pas",
-        "dateDeModifImportante": "29/10/2021",
+        "dateModification": "29/10/2021",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -11192,7 +11368,7 @@
         "uuid": "c14e8",
         "url": "2e/2N20-5.js",
         "titre": "Décomposition en facteurs premiers",
-        "dateDeModifImportante": "2/11/2021",
+        "dateModification": "2/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11203,7 +11379,7 @@
         "uuid": "74939",
         "url": "2e/2N20-6.js",
         "titre": "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
-        "dateDeModifImportante": "14/11/2021",
+        "dateModification": "14/11/2021",
         "tags": {}
       },
       "2N20-7": {
@@ -11211,7 +11387,7 @@
         "uuid": "c3c84",
         "url": "2e/2N20-7.js",
         "titre": "Engrenages",
-        "dateDeModifImportante": "14/11/2021",
+        "dateModification": "14/11/2021",
         "tags": {}
       },
       "2N20-8": {
@@ -11298,6 +11474,7 @@
         "uuid": "53fbb",
         "url": "2e/2N31-0.js",
         "titre": "Puissances : écriture décimale ou fractionnaire",
+        "datePublication": "14/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11363,7 +11540,7 @@
         "uuid": "d9495",
         "url": "2e/2N32-3.js",
         "titre": "Écrire le nombre proposé sous la forme $ a\\sqrt{b}$",
-        "dateDeModifImportante": "26/04/2023",
+        "dateModification": "26/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11523,7 +11700,7 @@
         "uuid": "04b0a",
         "url": "2e/2N41-6.js",
         "titre": "Développer avec les identités remarquables",
-        "dateDeModifImportante": "26/04/2023",
+        "dateModification": "26/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11548,6 +11725,7 @@
         "uuid": "641bc",
         "url": "2e/2N41-8.js",
         "titre": "Mettre au même dénominateur des expressions littérales",
+        "datePublication": "23/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11574,6 +11752,7 @@
         "uuid": "846b8",
         "url": "2e/2N50-3.js",
         "titre": "Modéliser une situation  à l'aide d'une équation",
+        "datePublication": "16/12/2021",
         "tags": {}
       },
       "2N50-4": {
@@ -11581,6 +11760,7 @@
         "uuid": "cf5b7",
         "url": "2e/2N50-4.js",
         "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+        "datePublication": "16/12/2021",
         "tags": {}
       },
       "2N51-1": {
@@ -11659,6 +11839,7 @@
         "uuid": "b5828",
         "url": "2e/2N52-5.js",
         "titre": "Résoudre des équations avec un quotient",
+        "datePublication": "02/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11671,6 +11852,7 @@
         "uuid": "d2084",
         "url": "2e/2N60-1.js",
         "titre": "Modéliser un problème par une inéquation.",
+        "datePublication": "14/02/2023",
         "tags": {}
       },
       "2N60-3": {
@@ -11678,6 +11860,7 @@
         "uuid": "e32f3",
         "url": "2e/2N60-3.js",
         "titre": "Utiliser les propriétés de conservation du sens d'une inégalité",
+        "datePublication": "14/02/2023",
         "tags": {}
       },
       "2N60-4": {
@@ -11714,6 +11897,7 @@
         "uuid": "ae913",
         "url": "2e/2S10-1.js",
         "titre": "Connaître les différentes écritures d'une proportion",
+        "datePublication": "21/04/2023",
         "tags": {}
       },
       "2S10-2": {
@@ -11721,7 +11905,8 @@
         "uuid": "612a5",
         "url": "2e/2S10-2.js",
         "titre": "Calculer une proportion ou appliquer un pourcentage",
-        "dateDeModifImportante": "28/04/2023",
+        "datePublication": "9/12/2021",
+        "dateModification": "28/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -11744,6 +11929,7 @@
         "uuid": "12444",
         "url": "2e/2S11-2.js",
         "titre": "Variations en pourcentage",
+        "datePublication": "06/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11754,6 +11940,8 @@
         "uuid": "018f3",
         "url": "2e/2S12-2.js",
         "titre": "Déterminer un taux d'évolution global",
+        "datePublication": "06/01/2022",
+        "dateModification": "04/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11764,6 +11952,7 @@
         "uuid": "509db",
         "url": "2e/2S12-3.js",
         "titre": "Déterminer un taux d'évolution réciproque",
+        "datePublication": "16/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11829,7 +12018,8 @@
         "uuid": "cee5d",
         "url": "2e/2S30-5.js",
         "titre": "Expérience aléatoire à deux épreuves",
-        "dateDeModifImportante": "30/08/2022",
+        "datePublication": "28/12/2021",
+        "dateModification": "30/08/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -11846,7 +12036,8 @@
         "uuid": "29202",
         "url": "1e/1AN10-1.js",
         "titre": "Nombre dérivé de fonctions de références",
-        "dateDeModifImportante": "24/10/2021",
+        "datePublication": "16/12/2021",
+        "dateModification": "24/10/2021",
         "tags": {}
       },
       "1AN11": {
@@ -11854,7 +12045,8 @@
         "uuid": "4c8c7",
         "url": "1e/1AN11.js",
         "titre": "Déterminer une équation de tangente",
-        "dateDeModifImportante": "24/10/2021",
+        "datePublication": "16/12/2021",
+        "dateModification": "24/10/2021",
         "tags": {}
       },
       "1AN14-4": {
@@ -11862,6 +12054,7 @@
         "uuid": "1a60f",
         "url": "1e/1AN14-4.js",
         "titre": "Dérivée d'un produit",
+        "datePublication": "22/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11872,6 +12065,7 @@
         "uuid": "b32f2",
         "url": "1e/1AN14-5.js",
         "titre": "Dérivée d'un quotient",
+        "datePublication": "22/01/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11898,7 +12092,7 @@
         "uuid": "731f0",
         "url": "1e/1E11-1.js",
         "titre": "Calculer le discriminant d'un polynôme du second degré",
-        "dateDeModifImportante": "26/10/2022",
+        "dateModification": "26/10/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -11963,6 +12157,7 @@
         "uuid": "e6718",
         "url": "1e/1E12-2.js",
         "titre": "Étude complète de paraboles",
+        "datePublication": "27/10/2022",
         "tags": {
           "interactif": false
         }
@@ -11995,6 +12190,7 @@
         "uuid": "fe4df",
         "url": "1e/1E15.js",
         "titre": "Déterminer le nombre de solutions d'une équation du second degré avec paramètre",
+        "datePublication": "30/10/2021",
         "tags": {}
       },
       "1E16": {
@@ -12009,6 +12205,7 @@
         "uuid": "8fde1",
         "url": "1e/1E17.js",
         "titre": "Utiliser les différentes formes d'un polynôme du second degré",
+        "datePublication": "27/10/2022",
         "tags": {
           "interactif": false
         }
@@ -12018,6 +12215,7 @@
         "uuid": "b9252",
         "url": "1e/1E18.js",
         "titre": "Équations et inéquations du second degré",
+        "datePublication": "28/10/2022",
         "tags": {
           "interactif": false
         }
@@ -12038,7 +12236,8 @@
         "uuid": "4e684",
         "url": "1e/1G10.js",
         "titre": "Valeurs remarquables du cosinus et sinus",
-        "dateDeModifImportante": "",
+        "datePublication": "16/04/2022",
+        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12049,7 +12248,8 @@
         "uuid": "a720c",
         "url": "1e/1G11.js",
         "titre": "Mesure principale d'un angle",
-        "dateDeModifImportante": "",
+        "datePublication": "20/04/2022",
+        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12060,7 +12260,8 @@
         "uuid": "b9e6a",
         "url": "1e/1G12.js",
         "titre": "cos et sin associés à un réel x ",
-        "dateDeModifImportante": "",
+        "datePublication": "20/04/2022",
+        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12087,6 +12288,7 @@
         "uuid": "8ed19",
         "url": "1e/1N12-1.js",
         "titre": "Calculer une somme",
+        "datePublication": "28/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12097,6 +12299,7 @@
         "uuid": "cfac9",
         "url": "1e/1N12.js",
         "titre": "Somme des termes d'une suite arithmétique",
+        "datePublication": "30/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12107,6 +12310,7 @@
         "uuid": "974a9",
         "url": "1e/1N13.js",
         "titre": "Somme des termes d'une suite géométrique",
+        "datePublication": "28/12/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12119,7 +12323,8 @@
         "uuid": "9ccfd",
         "url": "1e/1P10.js",
         "titre": "Probabilités conditionnelles",
-        "dateDeModifImportante": "24/10/2021",
+        "datePublication": "25/10/2021",
+        "dateModification": "24/10/2021",
         "tags": {}
       }
     }
@@ -12131,6 +12336,7 @@
         "uuid": "e38d8",
         "url": "techno1/techno1E2.js",
         "titre": "Associer évolution en pourcentage et coefficient",
+        "datePublication": "19/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12143,6 +12349,7 @@
         "uuid": "c988f",
         "url": "techno1/techno1P1.js",
         "titre": "Écriture fractionnaire, écriture décimale, pourcentage",
+        "datePublication": "19/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12165,7 +12372,8 @@
         "uuid": "86f71",
         "url": "techno1/techno1P2-2.js",
         "titre": "Proportion d'une sous-population",
-        "dateDeModifImportante": "",
+        "datePublication": "25/06/2022",
+        "dateModification": "",
         "tags": {}
       },
       "techno1P2": {
@@ -12173,6 +12381,7 @@
         "uuid": "eb1e8",
         "url": "techno1/techno1P2.js",
         "titre": "Appliquer un pourcentage",
+        "datePublication": "19/06/2022",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12219,7 +12428,8 @@
         "uuid": "1aad3",
         "url": "techno1/techno1P8.js",
         "titre": "Union et Intersection de proportions",
-        "dateDeModifImportante": "24/10/2021",
+        "datePublication": "26/06/2022",
+        "dateModification": "24/10/2021",
         "tags": {}
       }
     }
@@ -12231,6 +12441,7 @@
         "uuid": "8e72e",
         "url": "Ex/ExC100.js",
         "titre": "Résoudre une équation du premier degré dans C",
+        "datePublication": "30/10/2021",
         "tags": {}
       },
       "ExC101": {
@@ -12238,7 +12449,8 @@
         "uuid": "88241",
         "url": "Ex/ExC101.js",
         "titre": "Produit de matrices carrées ou colonnes",
-        "dateDeModifImportante": "24/10/2021",
+        "datePublication": "25/10/2021",
+        "dateModification": "24/10/2021",
         "tags": {}
       }
     }
@@ -12250,6 +12462,7 @@
         "uuid": "ad6a2",
         "url": "HP/HPC100.js",
         "titre": "Division de polynômes",
+        "datePublication": "30/10/2021",
         "tags": {}
       },
       "HPC102": {
@@ -12267,7 +12480,8 @@
         "uuid": "a868f",
         "url": "HP/HPC103.js",
         "titre": "Produit de matrices",
-        "dateDeModifImportante": "24/10/2021",
+        "datePublication": "25/10/2021",
+        "dateModification": "24/10/2021",
         "tags": {}
       },
       "HPC104": {
@@ -12275,7 +12489,8 @@
         "uuid": "2806f",
         "url": "HP/HPC104.js",
         "titre": "Calcul de déterminant",
-        "dateDeModifImportante": "24/10/2021",
+        "datePublication": "25/10/2021",
+        "dateModification": "24/10/2021",
         "tags": {}
       }
     }
@@ -12301,6 +12516,7 @@
         "uuid": "3441e",
         "url": "PE/PEA12.js",
         "titre": "Additions et soustractions dans d'autres bases",
+        "datePublication": "31/10/2021",
         "tags": {}
       },
       "PEA13": {
@@ -12308,6 +12524,7 @@
         "uuid": "a7016",
         "url": "PE/PEA13.js",
         "titre": "Multiplications dans d'autres bases",
+        "datePublication": "2/11/2021",
         "tags": {}
       }
     },
@@ -12317,6 +12534,7 @@
         "uuid": "44b85",
         "url": "PE/PEG20.js",
         "titre": "Partager un segment au compas et à la règle non graduée",
+        "datePublication": "29/10/2021",
         "tags": {}
       },
       "PEG21": {
@@ -12324,6 +12542,7 @@
         "uuid": "838fb",
         "url": "PE/PEG21.js",
         "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de la hauteur",
+        "datePublication": "1/11/2021",
         "tags": {}
       },
       "PEG22": {
@@ -12331,6 +12550,7 @@
         "uuid": "b752a",
         "url": "PE/PEG22.js",
         "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de Pythagore",
+        "datePublication": "1/11/2021",
         "tags": {}
       },
       "PEG23": {
@@ -12338,6 +12558,7 @@
         "uuid": "b976a",
         "url": "PE/PEG23.js",
         "titre": "Réaliser le produit de deux longueurs à la règle non graduée et au compas",
+        "datePublication": "1/11/2021",
         "tags": {}
       },
       "PEG24": {
@@ -12345,6 +12566,7 @@
         "uuid": "f9dd2",
         "url": "PE/PEG24.js",
         "titre": "Réaliser le quotient de deux longueurs à la règle non graduée et au compas",
+        "datePublication": "1/11/2021",
         "tags": {}
       }
     }
