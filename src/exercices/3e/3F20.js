@@ -162,8 +162,8 @@ On peut choisir le type de questions.`
         case 'imageParValeurs':
           texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
-          texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
+          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
+          texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
@@ -181,23 +181,19 @@ On peut choisir le type de questions.`
           }, r, d, t, coordonnees, pointilles)
           texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Comme $f(${antecedent0})=${image0}$ alors $f(x)=\\dfrac{${image0}}{${antecedent0}}x`
-          if (pgcd(image0, antecedent0) !== 1) {
-            const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
-            texteCorr += `=${simplification}x`
-          }
-          texteCorr += `$<br>Donc $f(${antecedent})=${coefficientString}\\times ${antecedent}=${imageString}$`
+          texteCorr += `Comme $f(${antecedent0})=${image0}$ et $f(x)=ax$ on en déduit $a\\times ${antecedent0} = ${image0}$ soit $a=\\dfrac{${image0}}{${antecedent0}}${coefficient instanceof FractionEtendue ? '' : '=' + coefficientString}$.<br>`
+          texteCorr += `Ainsi $f(${antecedent})=${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent)}=${imageString}$`
           setReponse(this, i, image, { formatInteractif })
           break
         case 'antecedentParExpression':
           texte += `Soit $f(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Posons $A$ l'antécédent de $${imageString}$, alors $f(A)=${coefficientString}\\times A=${imageString}$<br>`
+          texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString}\\times b=${imageString}$<br>`
           if (coefficient instanceof FractionEtendue) {
-            texteCorr += `Donc $A=\\dfrac{${image.texFSD}}{${coefficientString}}=`
+            texteCorr += `Donc $b=\\dfrac{${image.texFSD}}{${coefficientString}}=`
             texteCorr += `${image.texFSD}\\times ${coefficient.inverse().texFSP}=`
           } else {
-            texteCorr += `Donc $A=\\dfrac{${texNombre(image, 0)}}{${coefficientString}}=`
+            texteCorr += `Donc $b=\\dfrac{${texNombre(image, 0)}}{${coefficientString}}=`
           }
           texteCorr += `${antecedent}$`
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
@@ -205,14 +201,14 @@ On peut choisir le type de questions.`
         case 'antecedentParValeurs':
           texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
+          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
           }
-          texteCorr += `$<br>Posons $A$ l'antécédent de $${imageString}$, alors $f(A)=${coefficientString} \\times A=${imageString}$.<br>`
-          texteCorr += `On en déduit que $A=\\dfrac{${imageString}}{${coefficientString}}=`
+          texteCorr += `$<br>Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString} \\times b=${imageString}$.<br>`
+          texteCorr += `On en déduit que $b=\\dfrac{${imageString}}{${coefficientString}}=`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `${imageString}\\times ${coefficient.inverse().texFSP}=`
           }
@@ -233,8 +229,8 @@ On peut choisir le type de questions.`
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}x`
           }
-          texteCorr += `$<br>Posons $A$ l'antécédent de $${imageString}$, alors $f(A)=${coefficientString}\\times A=${imageString}$.<br>`
-          texteCorr += `On en déduit que $A=\\dfrac{${imageString}}{${coefficientString}}=`
+          texteCorr += `$<br>Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString}\\times b=${imageString}$.<br>`
+          texteCorr += `On en déduit que $b=\\dfrac{${imageString}}{${coefficientString}}=`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `${imageString}\\times ${coefficient.inverse().texFSP}=`
           }
@@ -248,8 +244,8 @@ On peut choisir le type de questions.`
           } else {
             texte += 'Donner l\'expression de  $f(x)$.' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           }
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
-          texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
+          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
+          texteCorr += `Soit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`

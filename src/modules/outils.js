@@ -420,6 +420,7 @@ export function inferieurouegal (a, b, tolerance = epsilon) {
  * @return {boolean}
  */
 export function estentier (a, tolerance = epsilon) {
+  if (typeof a !== 'number') window.notify('Erreur dans estEntier()', { a })
   return (Math.abs(a - round(a)) < tolerance)
 }
 
