@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint, quotientier, rangeMinMax, nombreDeChiffresDe, contraindreValeur, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice, randint, quotientier, rangeMinMax, nombreDeChiffresDe, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
 import { fractionCliquable } from '../../modules/2dinteractif.js'
@@ -47,6 +47,7 @@ export default function FractionsCalculsSimples () {
       this.consigne = 'Calculer.'
     }
 
+    /*
     let typeQuestionsDisponibles = []
     if (!this.sup2) { // Si aucune liste n'est saisie
       typeQuestionsDisponibles = rangeMinMax(1, 4)
@@ -63,6 +64,16 @@ export default function FractionsCalculsSimples () {
     if (compteOccurences(typeQuestionsDisponibles, 5) > 0) typeQuestionsDisponibles = rangeMinMax(1, 4) // Teste si l'utilisateur a choisi tout
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    */
+
+    const listeTypeQuestions = gestionnaireFormulaireTexte({
+      max: 4,
+      defaut: 5,
+      melange: 5,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup2
+    })
+
     for (let i = 0, reponseAMC, texte, texteCorr, schema, schemaCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       let c, n, f1, f2, f3
       const b = choice([2, 3, 4, 5])

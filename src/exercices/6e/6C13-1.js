@@ -140,7 +140,7 @@ export default function VocabulaireSur4Operations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de question',
+  this.besoinFormulaireTexte = ['Type de questions',
     `0 : Mélange
      1 : Addition (terme)
      2 : Addition (somme)

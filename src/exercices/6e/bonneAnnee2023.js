@@ -2,7 +2,7 @@ import { cercle, courbe, droite, labelPoint, latexParCoordonnees, point, repere,
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { texteEnCouleur, combinaisonListes, choice, choisitLettresDifferentes, contraindreValeur, listeQuestionsToContenu, miseEnEvidence, numAlphaNum, rangeMinMax, sp, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { texteEnCouleur, combinaisonListes, choisitLettresDifferentes, listeQuestionsToContenu, miseEnEvidence, numAlphaNum, sp, texNombre, texteEnCouleurEtGras, gestionnaireFormulaireTexte, randint } from '../../modules/outils.js'
 import { RedactionPythagore } from '../4e/_pythagore.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Bonne année...'
@@ -30,6 +30,7 @@ export default function Questions2023 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    /*
     let QuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles[0] = choice(rangeMinMax(1, 28))
@@ -43,9 +44,18 @@ export default function Questions2023 () {
         }
       }
     }
+    */
+
+    const QuestionsDisponibles = gestionnaireFormulaireTexte({
+      max: 28,
+      defaut: randint(1, 28),
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup,
+      shuffle: false
+    })
+
     let texte = ''
     let texteCorr = ''
-    // QuestionsDisponibles = range1(28)
     let choixLettre = choisitLettresDifferentes(23, 'OQW', true)
     choixLettre = combinaisonListes(choixLettre, 30)
     const unEspace = QuestionsDisponibles.length !== 1 ? sp(7) : ''

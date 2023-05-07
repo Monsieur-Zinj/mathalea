@@ -56,7 +56,6 @@ export default function ExerciceInformationsProblemes () {
     listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
   */
     const listeDesProblemes = gestionnaireFormulaireTexte({
-      min: 1,
       max: 10,
       defaut: 11,
       nbQuestions: this.nbQuestions,

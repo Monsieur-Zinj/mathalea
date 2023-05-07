@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range1, texNombre, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences, sp, combinaisonListes2, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, sp, combinaisonListes2, choice, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -36,7 +36,7 @@ export default function SommeFractionsDecimales () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 3)
+    // this.sup2 = contraindreValeur(1, 3, this.sup2, 3)
     this.consigne = "Donner l'écriture décimale de "
     this.consigne += this.nbQuestions === 1 ? 'ce' : 'chaque'
     switch (this.sup2) {
@@ -50,6 +50,7 @@ export default function SommeFractionsDecimales () {
         this.consigne += ' calcul sous forme d\'une fraction décimale puis en écriture décimale.'
         break
     }
+    /*
     let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = range1(6)
@@ -65,6 +66,16 @@ export default function SommeFractionsDecimales () {
       }
     }
     if (compteOccurences(typesDeQuestionsDisponibles, 7) > 0) typesDeQuestionsDisponibles = range1(6) // Teste si l'utilisateur a choisi tout
+    */
+
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      max: 6,
+      defaut: 7,
+      melange: 7,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
     const listeTypeDeQuestions = combinaisonListes2(typesDeQuestionsDisponibles, this.nbQuestions)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, denAMC, numAMC, choix; i < this.nbQuestions && cpt < 50;) {
