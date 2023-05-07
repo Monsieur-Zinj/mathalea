@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, choice, prenomM, prenomF, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp, quotientier, texNombre, texFraction, miseEnEvidence, arrondi, texteEnCouleurEtGras, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice, prenomM, prenomF, rangeMinMax, sp, quotientier, texNombre, texFraction, miseEnEvidence, arrondi, texteEnCouleurEtGras, stringNombre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -39,6 +39,7 @@ export default function EchellesProblemes () {
     this.consigne += ' problème, lié à une échelle sur un plan.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
 
+    /*
     let listeDesProblemes = []
     if (!this.sup) { // Si aucune liste n'est saisie
       listeDesProblemes = rangeMinMax(1, 4)
@@ -54,6 +55,16 @@ export default function EchellesProblemes () {
     }
     if (compteOccurences(listeDesProblemes, 4) > 0) listeDesProblemes = rangeMinMax(1, 3) // Teste si l'utilisateur a choisi tout
     listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+    */
+
+    const listeDesProblemes = gestionnaireFormulaireTexte({
+      max: 3,
+      defaut: 4,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
     const FamilleH = ['père', 'frère', 'cousin', 'grand-père', 'voisin']
     const FamilleF = ['mère', 'sœur', 'cousine', 'grand-mère', 'tante', 'voisine']
     const Famille = []
