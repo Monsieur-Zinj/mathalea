@@ -19,7 +19,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 import {
-  formTextSerializer,
+  gestionnaireFormulaireTexte,
   lettreDepuisChiffre,
   listeQuestionsToContenu,
   numAlpha,
@@ -72,7 +72,7 @@ export default class constructionPerpendiculaires extends Exercice {
     this.autoCorrection = []
 
     let listeTypeDeQuestions = []
-    listeTypeDeQuestions = formTextSerializer({
+    listeTypeDeQuestions = gestionnaireFormulaireTexte({
       min: 1,
       max: 4,
       defaut: 1,
