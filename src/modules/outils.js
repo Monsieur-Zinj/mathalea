@@ -2812,7 +2812,7 @@ export function numberFormat (nb) {
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers) {
+export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
   const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
@@ -3014,7 +3014,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers) {
+export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
   return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
 
