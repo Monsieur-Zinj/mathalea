@@ -102,7 +102,7 @@ export default class ProblemesEnEquation extends Exercice {
       saisie: this.sup,
       min: 1,
       max: 11,
-      random: 12,
+      melange: 12,
       defaut: 1,
       shuffle: true,
       nbQuestions: this.nbQuestions
