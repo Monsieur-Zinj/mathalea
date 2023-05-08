@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, gestionnaireFormulaireTexte, choice } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
 export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 
@@ -40,10 +40,11 @@ export default function ExerciceLabyrintheDivisibilite1 () {
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
-    let tablesDisponibles
     let texte, texteCorr
     let laby = []
     let monChemin
+    /*
+    let tablesDisponibles
     if (!this.sup) { // Si aucune liste n'est saisie
       tablesDisponibles = [2, 5, 10]
     } else {
@@ -57,10 +58,16 @@ export default function ExerciceLabyrintheDivisibilite1 () {
       }
     }
     const tables = combinaisonListesSansChangerOrdre(tablesDisponibles, this.nbQuestions)
+    */
 
-    for (let i = 0; i < this.nbQuestions; i++) {
-      tables[i] = contraindreValeur(2, 50, parseInt(tables[i]), 5)
-    }
+    const tables = gestionnaireFormulaireTexte({
+      min: 2,
+      max: 20,
+      defaut: choice([2, 5, 10]),
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup,
+      shuffle: false
+    })
 
     for (let q = 0; q < this.nbQuestions;) {
       const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
@@ -95,7 +102,7 @@ export default function ExerciceLabyrintheDivisibilite1 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Critères de divisibilité séparés par des tirets (exemple : 3-5-10) ', '2-5-10']
+  this.besoinFormulaireTexte = ['Critères de divisibilité pour chaque question', 'Nombres séparés par des tirets']
   this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
   this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe', 8, 'Entre 2 et 8\n1 si vous laissez le hasard décider']
   this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe', 8, 'Entre 3 et 8\n1 si vous laissez le hasard décider']

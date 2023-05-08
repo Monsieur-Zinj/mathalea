@@ -1,7 +1,7 @@
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { combinaisonListes, listeQuestionsToContenu, randint, lettreDepuisChiffre, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, lettreDepuisChiffre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
@@ -26,10 +26,11 @@ export default function CalculerUneExpressionNumerique () {
   this.sup4 = false
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    let typesDeQuestionsDisponibles = []
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    /*
+    let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = [2, 3, 4, 5]
     } else {
@@ -39,8 +40,17 @@ export default function CalculerUneExpressionNumerique () {
         typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       }
     }
-    let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    */
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      min: 2,
+      max: 5,
+      defaut: randint(2, 5),
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
+    let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
     if (this.sup2) {
       decimal = 10
     } else {
@@ -49,7 +59,7 @@ export default function CalculerUneExpressionNumerique () {
 
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-      nbOperations = contraindreValeur(1, 5, parseInt(listeTypeDeQuestions[i]), 2)
+      nbOperations = listeTypeDeQuestions[i]
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
