@@ -1,7 +1,14 @@
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre, contraindreValeur } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  combinaisonListes,
+  lettreDepuisChiffre,
+  contraindreValeur,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -21,41 +28,18 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-  this.sup = false
+  this.sup = 6
   this.sup3 = true
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    let typesDeQuestionsDisponibles = []
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (isNaN(this.sup)) {
-      if (this.sup4 === 1) {
-        this.sup = '1-1-2-2-3'
-      } else if (this.sup4 === 2) {
-        this.sup = '2-2-3-3-3'
-      } else if (this.sup4 === 3) {
-        this.sup = '2-2-3-3-4'
-      } else if (this.sup4 === 4) {
-        this.sup = '2-3-4-5'
-      }
-    }
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    } else {
-      if (typeof this.sup === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-        typesDeQuestionsDisponibles = [this.sup % 6]
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) {
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typesDeQuestionsDisponibles[i]), randint(1, 5))
-        }
-      }
-    }
+
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions, shuffle: true })
     let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     if (!calculMental) {
       decimal = 10
     } else {
