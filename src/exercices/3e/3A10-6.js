@@ -49,11 +49,11 @@ export default function TrouverChiffre () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     // CHOIX DU NOMBRE DE CHIFFRES COMPOSANT LE NOMBRE
-    const nombreDeChiffres = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 6, random: 7, defaut: 7, nbQuestions: this.nbQuestions })
+    const nombreDeChiffres = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions })
 
     // CHOIX DU CRITERE DE DIVISIBILITE
     const choixDiviseurs = ['', 'par 2', 'par 3', 'par 5', 'par 9', 'par 2 et par 3', 'par 2 et par 5', 'par 6', 'par 10']
-    const casChoixDiviseurs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, random: 9, defaut: 9, nbQuestions: this.nbQuestions, shuffle: false })
+    const casChoixDiviseurs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, melange: 9, defaut: 9, nbQuestions: this.nbQuestions, shuffle: false })
 
     for (let i = 0, texte, texteCorr, cpt = 0, nb, positionX, a, tabChiffresX, nbAvecChiffreCache,
       sommePourTroisouNeuf, ajoutPourTroisouNeuf, reponse; i < this.nbQuestions && cpt < 50;) {

@@ -76,7 +76,7 @@ export default function CalculsHomothetie () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
-    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 11, random: 12, defaut: 12, nbQuestions: this.nbQuestions, listeOfCase: typeQuestionsDisponibles, shuffle: true })
+    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 11, melange: 12, defaut: 12, nbQuestions: this.nbQuestions, listeOfCase: typeQuestionsDisponibles, shuffle: true })
     const kEstEntier = this.sup3 > 1
     const valeursSimples = this.sup3 === 3
     for (let i = 0, approx, environ, melange, donnee1, donnee2, donnee3, donnees, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question

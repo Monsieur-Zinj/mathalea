@@ -55,7 +55,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const punto = [[]]
     const couleurs = ['brown', 'green', 'blue']
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
-    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, random: 7, defaut: 7, nbQuestions: this.nbQuestions * 3, shuffle: true }).map((nb) => nb - 1)
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions * 3, shuffle: true }).map((nb) => nb - 1)
     for (let ee = 0, texte, texteCorr, xA, yA, xB, yB, xC, yC, objetsEnonce, objetsCorrection, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
       let enonceAmc = ''
       texte = ''
