@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, arrondi, stringNombre, choice, texNombre, calcul, combinaisonListesSansChangerOrdre, troncature, contraindreValeur, texTexte, rangeMinMax, sp, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, arrondi, stringNombre, choice, texNombre, calcul, troncature, texTexte, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { texteSurSegment, cercle, codageAngleDroit, droite, codageSegments, point, polygoneAvecNom, segment, codageSegment, pointIntersectionCC, pointIntersectionDD, droiteParPointEtPerpendiculaire, arc, pointSurCercle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -34,7 +34,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
   this.spacingCorr = 2
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
-  this.sup = '1-2-3-4-5-6'
+  this.sup = 7
   this.sup2 = true
   this.sup3 = 1 // Ne pas oublier !
 
@@ -58,16 +58,6 @@ export default function PerimetreOuAireDeFiguresComposees () {
     ]
 
     /*
-    const typesDeQuestionsDisponibles = [
-      'rectangle_triangle', // 1
-      'rectangle_moins_triangle', // 2
-      'rectangle_moins_deux_triangles', // 3
-      'rectangle_demi_cercle', // 4
-      'rectangle_cercle', // 5
-      'rectangle_triangle_demi_cercle' // 6
-    ]
-    */
-
     let questionsDisponibles
     if (!this.sup) { // Si aucune liste n'est saisie
       questionsDisponibles = rangeMinMax(1, 6)
@@ -82,6 +72,16 @@ export default function PerimetreOuAireDeFiguresComposees () {
       }
     }
     const typesDeQuestions = this.sup2 ? combinaisonListes(questionsDisponibles, this.nbQuestions) : combinaisonListesSansChangerOrdre(questionsDisponibles, this.nbQuestions)
+    */
+
+    const typesDeQuestions = gestionnaireFormulaireTexte({
+      max: 6,
+      defaut: 7,
+      melange: 7,
+      nbQuestions: this.nbQuestions,
+      shuffle: this.sup2,
+      saisie: this.sup
+    })
 
     const texteSurSeg = function (A, B, texte) {
       const segT = texteSurSegment(texte, A, B, 'black', 0.5)
@@ -408,8 +408,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Types de figures (nombres séparés par des tirets)',
-    '1 : Rectangle & triangle\n2 : Rectangle moins triangle\n3 : Rectangle moins deux triangles\n4 : Rectangle & demi-cercle\n5 : Rectangle & cercle \n6 : Rectangle & demi-cercle & triangle'
+    'Types de figures',
+    'Nombres séparés par des tirets\n1 : Rectangle & triangle\n2 : Rectangle moins triangle\n3 : Rectangle moins deux triangles\n4 : Rectangle & demi-cercle\n5 : Rectangle & cercle \n6 : Rectangle & demi-cercle & triangle\n7 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des figures choisies']
   this.besoinFormulaire3Numerique = ['Choix de la précision : ', 2, '1 : À l\'unité\n 2 : Au dixième']

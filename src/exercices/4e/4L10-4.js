@@ -17,5 +17,5 @@ export default function RoseAdditive4L () { // c'est l'ExoRose zéro contenu dan
   this.typeDonnees = 'litteraux'
   this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des termes', 30]
   this.besoinFormulaire2Numerique = ['Nombre de termes entre 3 et 5', 5]
-  this.besoinFormulaire3Numerique = ['Type de question', 4, '1 : Calculer les sommes\n2 : Calculer les termes manquants\n3 : Course aux nombres 1\n4 : Course aux nombres 2']
+  this.besoinFormulaire3Numerique = ['Type de questions', 4, '1 : Calculer les sommes\n2 : Calculer les termes manquants\n3 : Course aux nombres 1\n4 : Course aux nombres 2']
 }

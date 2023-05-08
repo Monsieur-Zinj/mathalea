@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, choice, texNombre, texFraction, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, texFraction, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive, ajouteChampFractionMathLive } from '../../modules/interactif/questionMathLive.js'
 import { format } from 'mathjs'
@@ -34,6 +34,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
+    /*
     let listeTypeDeQuestions = []
     if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
       listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions)
@@ -48,6 +49,15 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
       if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = [1, 2] }
       listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     }
+    */
+
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      max: 2,
+      defaut: 3,
+      melange: 3,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
 
     const consi = [false, false]
     for (let i = 0, a, b, n, typesDeQuestions, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -117,11 +127,11 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Type de question', [
+    'Type de questions', [
       'Nombres séparés par des tirets',
-      '0 : Mélange',
       '1 : Ecriture décimale -> fraction décimale',
-      '2 : Fraction décimale -> écriture décimale'
+      '2 : Fraction décimale -> écriture décimale',
+      '3 : Mélange'
     ].join('\n')
   ]
 }
