@@ -86,7 +86,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
             question: `$${nomDirectCorrect}$ est :`,
             propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
             reponses: ['le nom de l\'angle'],
-            explications: `C'est l'angle qui part de ${A.nom}, qui passe par ${B.nom} et qui va vers ${C.nom}`
+            explications: `C'est l'angle qui part de ${A.nom}, qui passe par ${B.nom} et qui va vers ${C.nom}.`
           }
           break
         case 'sommet':
@@ -123,7 +123,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
               break
             case 'nom':
               question = `$${nomIndirrectIncorrect}$ est :`
-              explications = `C'est l'angle qui part de ${A.nom}, qui passe par ${B.nom} et qui va vers ${C.nom}, c'est donc l'angle $${nomDirectCorrect}$`
+              explications = `C'est l'angle qui part de ${A.nom}, qui passe par ${B.nom} et qui va vers ${C.nom}, c'est donc l'angle $${nomDirectCorrect}$.`
               break
           }
           questionReponse =
