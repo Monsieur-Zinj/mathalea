@@ -17,7 +17,7 @@ export const amcType = 'AMCOpenNum'
 /**
 * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
 * @author Jean-Claude Lhote
-* Référence 5C11, 5C11-1, 5C11-2, 5C12, 5C12-1, 5L13
+* Référence 5C11, 5C11-1, 5C12-1, 5L10-1, 5L10-3, 5L14-1 et 5L14-3
 */
 export default function EcrireUneExpressionNumerique (calculMental) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -35,8 +35,21 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions, shuffle: true })
+    let listeTypeDeQuestions
+    if (typeof this.sup4 === 'number' && isNaN(this.sup)) {
+      if (this.sup4 === 1) {
+        this.sup = '1-1-2-2-3'
+      } else if (this.sup4 === 2) {
+        this.sup = '2-2-3-3-3'
+      } else if (this.sup4 === 3) {
+        this.sup = '2-2-3-3-4'
+      } else if (this.sup4 === 4) {
+        this.sup = '2-3-4-5'
+      }
+      listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions, shuffle: true })
+    } else {
+      listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions, shuffle: true })
+    }
     let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
     if (!calculMental) {
       decimal = 10
