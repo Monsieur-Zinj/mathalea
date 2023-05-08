@@ -3,7 +3,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import Hms from '../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-import { calcul, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils.js'
+import { calcul, combinaisonListes, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true
@@ -27,7 +27,6 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
   this.correctionDetaillee = false
   this.sup = 1
   this.nouvelleVersion = function () {
-    this.sup = contraindreValeur(1, 3, this.sup, 1)
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

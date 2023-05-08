@@ -67,7 +67,7 @@ export default function CalculDeVolumes () {
       }
     }
     if (compteOccurences(typesDeQuestionsDisponibles, thissup4Max + 1) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max) // Teste si l'utilisateur a choisi tout
-*/
+    */
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       max: thissup4Max,
       defaut: thissup4Max + 1,
