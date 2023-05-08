@@ -27,7 +27,8 @@
   let matiere = ""
   let titre = ""
   let nbQuestionsModif: number[] = []
-  const exercicesARetirer: string[] =[]
+  const exercicesARetirer: string[] = []
+  $: refsExercicesARetirer = []
   
   type NbQuestionsIndexees = {
     indexExercice: number
@@ -50,11 +51,28 @@
       seedrandom(exercice.seed, {global: true})
       if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, false)
       if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
-      if (exercice.amcType == null){ // l'exercice n'est pas disponible AMC
+      if (exercice.amcType == null) {
+        // l'exercice n'est pas disponible AMC
         exercicesARetirer.push(exercice.uuid)
+        if (exercice.id != null) {
+          refsExercicesARetirer.push(exercice.id)
+        } else {
+          console.log(Object.entries(exercice))
+          const proprietes = Object.entries(exercice).map(([prop,val])=>val)
+          proprietes.shift()
+          refsExercicesARetirer.push(proprietes.join(' '))
+        }
       }
     }
-    exercices = exercices.filter((exercice)=>!exercicesARetirer.includes(exercice.uuid))
+    exercices = exercices.filter((exercice) => !exercicesARetirer.includes(exercice.uuid))
+    
+    refsExercicesARetirer = refsExercicesARetirer
+    // afficher le modal pour les exercices non AMC ?
+    if (refsExercicesARetirer.length !== 0) {
+      nonAmcModal.style.display = "block"
+    } else {
+      nonAmcModal.style.display = "none"
+    }
   }
   
   initExercices()
@@ -79,7 +97,7 @@
           context.isAmc = true
           seedrandom(exo.seed, {global: true})
           if (exo.typeExercice === "simple") mathaleaHandleExerciceSimple(exo, false)
-          if ( exo.nouvelleVersion != null) exo.nouvelleVersion()
+          if (exo.nouvelleVersion != null) exo.nouvelleVersion()
         }
       }
     }
@@ -89,7 +107,7 @@
       format,
       matiere,
       titre,
-      nbQuestions: nbQuestions.map(elt => elt.nombre),
+      nbQuestions: nbQuestions.map((elt) => elt.nombre),
       nbExemplaires,
     })
   }
@@ -118,15 +136,25 @@
    */
   let modal: HTMLElement
   let overleafForm: HTMLFormElement
+  let nonAmcModal: HTMLElement
+  // $: isNonAmcModal Visible = false
   onMount(async () => {
     modal = document.getElementById("overleaf-modal")
     overleafForm = document.getElementById("overleaf-form") as HTMLFormElement
+    nonAmcModal = document.getElementById("nonAmc-modal")
   })
   // click en dehors du modal le fait disparaître
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none"
     }
+    if (event.target == nonAmcModal) {
+      nonAmcModal.style.display = "none"
+    }
+  }
+  
+  function handleNonAmcModal() {
+    nonAmcModal.style.display = "none"
   }
   
   /**
@@ -191,22 +219,6 @@
         <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions
           par groupe
         </div>
-        {#if {exercicesARetirer}.length>0}
-          <div>
-          <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="overleaf-modal"
-                                    on:action={close}>
-            <span slot="header">Attention !</span>
-            <ul class="list-inside list-disc text-left text-base" slot="content">
-              Les exercices suivants n'ayant pas de version AMC ont été retirés de la liste.
-              {#each exercices as exercice}
-                {#if {exercicesARetirer}.includes(exercice.uuid)}}
-                  <li>exercice.ref</li>
-                  {/if}
-                {/each}
-            </ul>
-          </ModalMessageBeforeAction>
-          </div>
-          {/if}
         {#each exercices as exercice, i}
           <div>
             {exercice.id}{exercice.sup ? `-S:${exercice.sup}` : ""}{exercice.sup2 ? `-S2:${exercice.sup2}` : ""}{exercice.sup3 ? `-S3:${exercice.sup3}` : ""}
@@ -216,7 +228,7 @@
               placeholder={exercice.nbQuestions.toString()}
               bind:value={nbQuestionsModif[i]}
             />
-            <span>{exercice.amcReady ? exercice.amcType : 'not amcReady'}</span>
+            <span>{exercice.amcReady ? exercice.amcType : "not amcReady"}</span>
             <button
               class="mx-2 tooltip tooltip-left"
               data-tip="Nouvel énoncé"
@@ -227,7 +239,8 @@
                 if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
                 $exercicesParams[i].alea = exercice.seed
                 mathaleaUpdateUrlFromExercicesParams()
-              }}><i
+              }}
+            ><i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"/>
             </button>
             <!-- <button
@@ -250,6 +263,20 @@
                          -->
           </div>
         {/each}
+        <div>
+          <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="nonAmc-modal"
+                                    on:action={handleNonAmcModal}>
+            <span slot="header"></span>
+            <div slot="content" class="text-justify">
+              Les exercices suivants n'ayant pas de version AMC, ils ont été retirés de la liste.
+              <ul class="list-inside list-disc text-left text-base mt-1">
+                {#each refsExercicesARetirer as reference}
+                  <li>{reference}</li>
+                {/each}
+              </ul>
+            </div>
+          </ModalMessageBeforeAction>
+        </div>
       </div>
       <div>
         <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre
@@ -262,7 +289,6 @@
           type="number"
         />
       </div>
-    
     </div>
     
     <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
@@ -293,7 +319,9 @@
                             on:action={handleOverLeaf}>
     <span slot="header">Attention !</span>
     <ul class="list-inside list-disc text-left text-base" slot="content">
-      <li>Il faudra uploader sur Overleaf le package <span class="font-mono bg-coopmaths-warn-100">automultiplechoice.sty</span>
+      <li>
+        Il faudra uploader sur Overleaf le package <span
+        class="font-mono bg-coopmaths-warn-100">automultiplechoice.sty</span>
         pour compiler.
       </li>
       <li>Le fichier sortit d’Overleaf ne constitue qu’un aperçu.</li>
