@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texteEnCouleur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
 
@@ -17,14 +17,15 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
+  this.sup3 = 5
   this.consigne = 'Déterminer la dernière opération à effectuer s\'il fallait faire le calcul pour des valeurs données de $x$ et de $y$.'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
+    this.listeQuestions = [] // Liste de questionss
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
+    /*
     let typesDeQuestionsDisponibles = []
     if (!this.sup3 || this.sup3 === 'NaN') { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = ['5']
@@ -38,8 +39,17 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
         }
       }
     }
-    let expn; let expc; let decimal = 1; let nbOperations; let resultats; let lastOp; let structureExpression
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    */
+
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      max: 5,
+      defaut: randint(1, 5),
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup3
+    })
+
+    let expn; let expc; let decimal = 1; let nbOperations; let resultats; let lastOp; let structureExpression
     if (this.sup2) decimal = 10
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       nbOperations = parseInt(listeTypeDeQuestions[i])
