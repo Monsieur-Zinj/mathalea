@@ -4,9 +4,7 @@ import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 import {
   listeQuestionsToContenu,
   randint,
-  combinaisonListes,
   lettreDepuisChiffre,
-  contraindreValeur,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
