@@ -11840,10 +11840,7 @@
         "url": "2e/2N52-5.js",
         "titre": "Résoudre des équations avec un quotient",
         "datePublication": "02/05/2023",
-        "tags": {
-          "interactif": true,
-          "interactifType": "mathLive"
-        }
+        "tags": {}
       }
     },
     "2N6": {
