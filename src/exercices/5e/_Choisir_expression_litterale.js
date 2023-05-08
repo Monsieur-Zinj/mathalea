@@ -5,9 +5,9 @@ import { estentier, randint, arrondi, simplificationDeFractionAvecEtapes, calcul
  * @param {number} decimal
  * @param {number} val1
  * @param {number} val2
- * @returns [expf,expl,expc,nbval,lastOp]
+ * @returns [expf,expl,expc,nbval,lastOp, structureExpression]
  * @author Jean Claude Lhote forked by Sébastien LOZANO
- * Référence 5C11,5C11-1, 5C11-2, 5L13
+ * Référence 5C12, 5L14-4, 5L14-6 et exrire_une_expression_numerique
  * Ajout de la structure de l'expression le 14/08/2021 : Guillaume Valmont
  */
 export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 = 1, val2 = 2, timesOn = true, calculMental = true) {
@@ -49,7 +49,7 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           break
         case 2: // produit de deux nombres
           expf = `Le produit de $${l1}$ par $${nombreAvecEspace(b)}$`
-          expl = `$${l1}\\times ${texNombre(b)} = ${texNombre(b)}${l1}$`
+          expl = timesOn ? `$${l1}\\times ${texNombre(b)}$` : `$${texNombre(b)}${l1}$`
           expc = `$${texNombre(b)}${l1} = ${texNombre(b)}\\times ${val1}=${texNombre(b * val1)}$`
           lastOp = 'multiplication'
           break

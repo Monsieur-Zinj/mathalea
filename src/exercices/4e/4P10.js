@@ -15,8 +15,7 @@ import {
   texPrix,
   katexPopup2,
   numAlpha,
-  contraindreValeur,
-  egalOuApprox, stringNombre, sp
+  egalOuApprox, stringNombre, sp, gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { round } from 'mathjs'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
@@ -45,7 +44,6 @@ export default function ProblemesGrandeursComposees () {
     this.listeCorrections = [] // Liste de questions corrigées
     // let listeIndex_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
-    let grandeurs = []
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)
     let flag7 = 0
     let flag2 = 0
@@ -53,25 +51,9 @@ export default function ProblemesGrandeursComposees () {
     let appareil, puissance, dureeMax, nbQuartsDHeures, prixkWh, h1, h2, l, L, deltaT, r, h
     let concentration2, tailleFichier
     let d1, d2, k, n1, n2, I1, I2, allures, v1, v2, volume1, volume2, vMax, unites
-    if (!this.sup) {
-      // Si aucune grandeur n'est saisie
-      grandeurs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-        grandeurs[0] = parseInt(this.sup) % 15
-        this.nbQuestions = 1
-      } else {
-        grandeurs = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < grandeurs.length; i++) {
-          grandeurs[i] = contraindreValeur(1, 14, parseInt(grandeurs[i]), randint(1, 14))
-        }
-        this.nbQuestions = grandeurs.length
-      }
-    }
 
     // const listeIndex = combinaisonListes(grandeurs, this.nbQuestions)
-    const listeIndex = grandeurs
+    const grandeurs = gestionnaireFormulaireTexte({ saisie: this.sup, max: 14, melange: 15, defaut: 15, nbQuestions: this.nbQuestions })
     let typeAide = 1
     if (!context.isHtml) typeAide = 0
     const solutes = [
@@ -194,7 +176,7 @@ export default function ProblemesGrandeursComposees () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (parseInt(listeIndex[i]) % 15) {
+      switch (grandeurs[i]) {
         case 1: // problème de consommation éléctrique
           index = randint(0, 3)
           appareil = appareils[index][0]
