@@ -314,7 +314,7 @@
    * -- encodage du contenu du code LaTeX de la feuille d'exercices
    */
   const copyDocumentToOverleaf = async () => {
-    imagesList = buildImagesUrlsList() || []
+    imagesList = picsWanted ? buildImagesUrlsList() : []
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
     textForOverleafInput.value = "data:text/plain;base64," + btoa(unescape(encodeURIComponent(text)))
   }
