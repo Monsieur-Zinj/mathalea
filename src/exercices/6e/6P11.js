@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, texteExposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, contraindreValeur, rangeMinMax, stringNombre, sp, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, texteExposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, stringNombre, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -841,7 +841,7 @@ export default function ProportionnaliteParLinearite () {
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
-  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Echelle\n6 : Surface\n7 : Mélange']
+  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
   this.sup2 = 7
   this.nouvelleVersion = function () {
     if (this.interactif) {
@@ -853,6 +853,7 @@ export default function ProportionnaliteParLinearite () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    /*
     let listeIndexSituationsDisponible = []
 
     if (!this.sup2) { // Si aucune liste n'est saisie
@@ -869,10 +870,17 @@ export default function ProportionnaliteParLinearite () {
     }
     if (compteOccurences(listeIndexSituationsDisponible, 7) > 0) listeIndexSituationsDisponible = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
     const listeIndexSituations = combinaisonListes(listeIndexSituationsDisponible, this.nbQuestions) // permet de ne pas avoir 2 fois la même situation si - de questions que de situations
-    // boucle pour le nombre de question.
-    // A chaque question on vérifie qu'elle n'existe pas déjà pour en refaire une. Sécurité : on ajoute un compteur pour eviter trop d'essais...
-    let cpt = 0
-    for (let i = 0; i < this.nbQuestions && cpt < 50;) {
+    */
+
+    const listeIndexSituations = gestionnaireFormulaireTexte({
+      max: 6,
+      defaut: 7,
+      melange: 7,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup2
+    })
+
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       indexN = randint(0, couplePremiersEntreEux.length - 1)
       if (this.sup) {
         versionSimplifiee = true

@@ -71,7 +71,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
     let listeTypeDeQuestions = combinaisonListes(typesDequestionsDisponibles, this.nbQuestions)
     */
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
-      min: 1,
       max: 5,
       defaut: randint(1, 5),
       nbQuestions: this.nbQuestions,

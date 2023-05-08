@@ -68,7 +68,7 @@ export default function EquationsProgression () {
   for (let i = 0; i < nbCase; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
-    'Type de question', nbCase, formulaire.join('\n')
+    'Type de questions', nbCase, formulaire.join('\n')
   ]
   this.consigne = ''
   this.nbCols = 0

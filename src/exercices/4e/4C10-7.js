@@ -131,7 +131,7 @@ export default function ExerciceOperationsRelatifs () {
   }
   this.besoinFormulaireCaseACocher = ['Avec des écritures simplifiées']
   this.besoinFormulaire2Texte = [
-    'Type de question', [
+    'Type de questions', [
       '1 : multiplication',
       '2 : division',
       '3 : addition',

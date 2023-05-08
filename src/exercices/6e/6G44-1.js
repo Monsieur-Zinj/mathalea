@@ -55,7 +55,6 @@ export default function ReconnaitreDesSolides () {
     const typeDeQuestion = combinaisonListes(listeDesProblemes, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 */
     const typeDeQuestion = gestionnaireFormulaireTexte({
-      min: 1,
       max: 7,
       defaut: 8,
       nbQuestions: this.nbQuestions,

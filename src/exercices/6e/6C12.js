@@ -75,7 +75,6 @@ export default class QuestionsPrix extends Exercice {
       if (this.sup2) QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, QuestionsDisponibles.length)
       */
       const QuestionsDisponibles = gestionnaireFormulaireTexte({
-        min: 1,
         max: 8,
         defaut: 9,
         nbQuestions: this.nbQuestions,

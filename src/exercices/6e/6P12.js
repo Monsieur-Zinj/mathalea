@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, stringNombre, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, rangeMinMax, contraindreValeur, miseEnCouleur, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, stringNombre, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, miseEnCouleur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -483,6 +483,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    /*
     let listeIndexSituationsDisponible = []
     if (!this.sup2) { // Si aucune liste n'est saisie
       listeIndexSituationsDisponible = rangeMinMax(1, 6)
@@ -499,8 +500,17 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
     if (compteOccurences(listeIndexSituationsDisponible, 7) > 0) listeIndexSituationsDisponible = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
 
     const listeIndexSituations = combinaisonListes(listeIndexSituationsDisponible, this.nbQuestions)
-    let cpt = 0
-    for (let i = 0; i < this.nbQuestions && cpt < 50;) {
+    */
+
+    const listeIndexSituations = gestionnaireFormulaireTexte({
+      max: 6,
+      defaut: 7,
+      melange: 7,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup2
+    })
+
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       indexN = randint(0, couplePremiersEntreEux.length - 1)
       if (this.sup) {
         versionSimplifiee = true

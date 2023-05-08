@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, contraindreValeur, combinaisonListes, arrondi, numAlpha, choice, compteOccurences, rangeMinMax, entreDeux } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, numAlpha, choice, entreDeux, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { arc, codageSegment, droite, droiteParPointEtPente, homothetie, longueur, milieu, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -83,6 +83,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     this.autoCorrection = []
+    /*
     let typesDeProblemes = []
     const nbQuestionsDifferentes = 13
     if (typeof this.sup === 'number') {
@@ -97,6 +98,14 @@ export default function CompareAireEtPerimetreAvecRectangle () {
     if (compteOccurences(typesDeProblemes, 13) > 0) typesDeProblemes = rangeMinMax(1, 12) // Teste si l'utilisateur a choisi tout
 
     typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
+    */
+    const typesDeProblemes = gestionnaireFormulaireTexte({
+      max: 12,
+      defaut: 13,
+      melange: 13,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
 
     const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', '#f15929'], this.nbQuestions)
 

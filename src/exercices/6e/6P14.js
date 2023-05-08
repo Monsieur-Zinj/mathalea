@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, arrondi, choice, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, miseEnEvidence, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, arrondi, choice, lettreDepuisChiffre, miseEnEvidence, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { codageAngleDroit, point, pointAdistance, polygone, nommePolygone, codageSegments, afficheLongueurSegment, rotation, triangle2points2longueurs, angleOriente } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -25,15 +25,16 @@ export default function AgrandirReduireFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.besoinFormulaireTexte = [
-    'Type de figures',
-    `Nombres séparés par des tirets :
-    1 : Triangle équilatéral
-    2 : Carré
-    3 : Triangle avec coefficient de réduction ou d'agrandissement
-    4 : Triangle avec longueur initiale et longueur finale
-    5 : Rectangle avec coefficient de réduction ou d'agrandissement
-    6 : Rectangle avec longueur initiale et longueur finale
-    7 : Mélange`
+    'Type de figures', [
+      'Nombres séparés par des tirets',
+      '1 : Triangle équilatéral',
+      '2 : Carré',
+      '3 : Triangle avec coefficient de réduction ou d\'agrandissement',
+      '4 : Triangle avec longueur initiale et longueur finale',
+      '5 : Rectangle avec coefficient de réduction ou d\'agrandissement',
+      '6 : Rectangle avec longueur initiale et longueur finale',
+      '7 : Mélange'
+    ].join('\n')
   ]
   this.sup = 7
   this.nbQuestions = 4
@@ -43,6 +44,7 @@ export default function AgrandirReduireFigure () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    /*
     let listeTypeQuestions = []
     if (!this.sup) { // Si aucune liste n'est saisie
       listeTypeQuestions = rangeMinMax(1, 6)
@@ -58,6 +60,16 @@ export default function AgrandirReduireFigure () {
     }
     if (compteOccurences(listeTypeQuestions, 7) > 0) listeTypeQuestions = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
     listeTypeQuestions = combinaisonListes(listeTypeQuestions, this.nbQuestions)
+    */
+
+    const listeTypeQuestions = gestionnaireFormulaireTexte({
+      max: 6,
+      defaut: 7,
+      melange: 7,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
     const texteAgrandissementOuReduction = [[' agrandissement', 'e réduction'], ['l\'agrandissement demandé', 'la réduction demandée']] // Ne pas supprimer le 'e'
     let ii = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].

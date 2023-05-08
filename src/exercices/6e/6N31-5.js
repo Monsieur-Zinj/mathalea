@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, miseEnEvidence, nombreDeChiffresDe, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombre, miseEnEvidence, nombreDeChiffresDe, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 
@@ -19,7 +19,7 @@ export const ref = '6N31-5'
 export const uuid = 'a8c21'
 export default function EncadrerUnDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = '1-2-3' // Type de question
+  this.sup = 4 // Type de questions
   this.nbQuestions = 4
   this.consigneCorrection = 'Encadrer'
   this.nbCols = 1
@@ -32,6 +32,7 @@ export default function EncadrerUnDecimal () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
+    /*
     let listeTypeDeQuestions = []
     if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
       listeTypeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
@@ -46,6 +47,15 @@ export default function EncadrerUnDecimal () {
       if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = [1, 2, 3] }
       listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     }
+    */
+
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      max: 3,
+      defaut: 4,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
 
     for (let i = 0, indexQ = 0, texte, typesDeQuestions, texteCorr, reponseMin, reponseMax, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       typesDeQuestions = listeTypeDeQuestions[i]
@@ -193,12 +203,12 @@ export default function EncadrerUnDecimal () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Type de question', [
+    'Type de questions', [
       'Nombres séparés par des tirets',
-      '0 : Mélange',
       '1 : Encadrer à l\'unité',
       '2 : Encadrer au dixième',
-      '3 : Encadrer au centième'
+      '3 : Encadrer au centième',
+      '4 : Mélange'
     ].join('\n')
   ]
 }

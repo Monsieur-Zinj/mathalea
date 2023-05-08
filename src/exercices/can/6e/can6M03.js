@@ -39,5 +39,5 @@ export default function ConvertirEnM () {
     this.canReponseACompleter = '$\\dots$ m'
   }
 
-  // this.besoinFormulaireNumerique = ['Type de question', 2, '1 : km vers m\n2 : cm vers m']
+  // this.besoinFormulaireNumerique = ['Type de questions', 2, '1 : km vers m\n2 : cm vers m']
 }

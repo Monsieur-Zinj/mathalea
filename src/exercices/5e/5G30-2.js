@@ -76,7 +76,7 @@ export default function ExercicesAnglesAIC () {
   ]
   this.nbQuestions = 1
   this.besoinFormulaireNumerique = [
-    'Type de question', 8, formulaire.join('\n')
+    'Type de questions', 8, formulaire.join('\n')
   ]
   this.consigne = ''
   this.nbCols = 0

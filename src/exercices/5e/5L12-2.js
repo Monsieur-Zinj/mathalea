@@ -136,7 +136,7 @@ export default function ReduireUneExpressionLitterale () {
   this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   this.besoinFormulaire3Texte = [
-    'Type de question', [
+    'Type de questions', [
       '0 : Mélange des types de questions',
       '1 : ax+bx+c',
       '2 : ax+b+x+c',

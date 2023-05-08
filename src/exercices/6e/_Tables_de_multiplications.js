@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,10 +22,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.consigne = 'Calculer : '
   this.spacing = 2
 
-  this.besoinFormulaireTexte = [
-    'Choix des tables',
-    'Nombres séparés par des tirets'
-  ] // Texte, tooltip
+  this.besoinFormulaireTexte = ['Choix des tables (entre 2 et 9)', 'Nombres séparés par des tirets'] // Texte, tooltip
   this.besoinFormulaire2Numerique = [
     'Type de questions',
     3,
@@ -37,11 +34,11 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    if (!this.sup) {
+    /* if (!this.sup) {
     // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
-    }
-    let tables = []
+    } */
+    // let tables = []
     /* if (typeof this.sup === 'number') {
     // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup
@@ -52,6 +49,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       tables[i] = parseInt(tables[i])
     }
     */
+    /*
     if (!this.sup) { // Si aucune liste n'est saisie
       tables[0] = rangeMinMax(2, 9)
     } else {
@@ -64,7 +62,15 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         }
         // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
       }
-    }
+    } */
+    const tables = gestionnaireFormulaireTexte({
+      min: 2,
+      max: 9,
+      defaut: randint(2, 9),
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],

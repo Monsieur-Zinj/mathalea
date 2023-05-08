@@ -48,7 +48,6 @@ export default function SymetrieAxialeProprietes () {
 */
 
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
-      min: 1,
       max: 4,
       defaut: 5,
       nbQuestions: this.nbQuestions,
