@@ -57,21 +57,19 @@ export function verifQuestionQcm (exercice, i) {
   // Gestion du feedback global de la question
   spanReponseLigne.style.fontSize = 'large'
   const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
-  let message = 'Bravo !' // = exercice.autoCorrection[i].propositions[indiceFeedback].feedback
+  let message = ''
   if (eltFeedback) { eltFeedback.innerHTML = '' }
   if (resultat === 'KO') {
     // Juste mais incomplet
     if (nbBonnesReponses > 0 && nbBonnesReponses < nbBonnesReponsesAttendues) {
       message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''} mais c'est incomplet.`
-    }
-    // Du juste et du faux
-    if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) {
+    } else if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) { // Du juste et du faux
+      message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
+    } else if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) { // Que du faux
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     }
-    // Que du faux
-    if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) {
-      message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
-    }
+  } else {
+    message = 'Bravo !'
   }
   messageFeedback({
     id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,
