@@ -43,7 +43,6 @@ export default function PavagesMathalea2d () {
     }
     this.listeCorrections = []
     this.listeQuestions = []
-    let texte = ''; let texteCorr = ''
 
     const monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
     const typeDePavage = this.sup === 8 ? randint(1, 7) : this.sup
@@ -61,9 +60,9 @@ export default function PavagesMathalea2d () {
     for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
-    texte = mathalea2d(monpavage.fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    const texte = mathalea2d(monpavage.fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
 
-    texteCorr = 'Le premier paramètre permet de choisir le pavage.<br>'
+    let texteCorr = 'Le premier paramètre permet de choisir le pavage.<br>'
     texteCorr += 'Le deuxième permet de choisir le nombre de répétitions en x et y. Exemple : 3-2<br>'
     texteCorr += "Le troisième permet d'afficher un Numéro distinct sur chaque figure.<br>"
     texteCorr += 'En activant la correction détaillée, on affiche les barycentres de celles-ci.'
