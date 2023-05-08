@@ -5,8 +5,6 @@ import {
   combinaisonListes,
   calcul,
   ecritureParentheseSiNegatif,
-  contraindreValeur,
-  range1,
   ecritureNombreRelatif,
   ecritureAlgebrique,
   nombreDeChiffresDansLaPartieEntiere,
@@ -45,21 +43,6 @@ export default function ExerciceOperationsRelatifs () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeSignes = combinaisonListes(['-+', '+-', '--', '-+', '+-', '--', '++'], this.nbQuestions)
-
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup2 || parseInt(this.sup2) === 5) { // Si aucune liste n'est saisie ou mélange demandé
-      typesDeQuestionsDisponibles = range1(4)
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 4, this.sup2, 2)
-      } else {
-        typesDeQuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 4, parseInt(typesDeQuestionsDisponibles[i]), 2) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup2, max: 4, melange: 5, defaut: 2 })
     for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       switch (listeTypeDeQuestions[i]) {
