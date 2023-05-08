@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, calcul, texNombre, creerNomDePolygone, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur, miseEnEvidence } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, calcul, texNombre, creerNomDePolygone, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, miseEnEvidence } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -56,7 +56,8 @@ export default function ExercicePerimetresEtAires () {
       'cercle',
       'demi-disque'
     ]
-    let QuestionsDisponibles
+
+    /* let QuestionsDisponibles
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles = rangeMinMax(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5)
     } else {
@@ -71,6 +72,17 @@ export default function ExercicePerimetresEtAires () {
       }
     }
     const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
+    */
+
+    const typesDeQuestions = gestionnaireFormulaireTexte({
+      min: this.exo === 'NoDisk' ? 1 : 4,
+      max: this.exo === 'NoDisk' ? 3 : 5,
+      defaut: this.exo === 'NoDisk' ? 2 : 4,
+      nbQuestions: this.nbQuestions,
+      shuffle: false,
+      saisie: this.sup
+    })
+
     let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cote, nomCarre, L, l, nomRectangle, a, b, c, nomTriangle, triplet, R, donneLeDiametre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (i % 4 === 0) listeDeNomsDePolygones = ['QD']
@@ -405,8 +417,8 @@ export default function ExercicePerimetresEtAires () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Types de figures (nombres séparés par des tirets)',
-    '1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Disque\n5 : Demi-disque'
+    'Type de figures',
+    'Valeurs séparées par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
   this.besoinFormulaire3CaseACocher = ['Avec figure']

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, arrondi, htmlConsigne, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, contraindreValeur, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
+import { calcul, arrondi, htmlConsigne, listeQuestionsToContenu, randint, stringNombre, lettreIndiceeDepuisChiffre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { droiteGraduee } from '../../modules/2d.js'
@@ -30,12 +30,13 @@ export default function LireAbscisseDecimaleBis2d () {
   this.nbColsCorr = 1
   this.spacing = 1
   this.spacingCorr = 1
-  this.sup = '1-2-3-4-5-6'
+  this.sup = 7
   this.interactif = false
   this.niveau = 6
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
+    /*
     let QuestionsDisponibles
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles = [1, 2, 3, 4, 5, 6]
@@ -49,13 +50,22 @@ export default function LireAbscisseDecimaleBis2d () {
         }
       }
     }
+    const typesDeQuestions = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
+    */
+
+    const typesDeQuestions = gestionnaireFormulaireTexte({
+      max: 6,
+      defaut: 7,
+      melange: 7,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
 
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    const typesDeQuestions = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
     const d = []
     this.contenu = htmlConsigne(this.consigne)
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -177,6 +187,6 @@ export default function LireAbscisseDecimaleBis2d () {
   }
   this.besoinFormulaireTexte = [
     'Choix des subdivisions',
-    'Nombres séparés par des tirets\n1 : dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : cinquièmes\n6 : huitièmes'
+    'Nombres séparés par des tirets\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange'
   ]
 }

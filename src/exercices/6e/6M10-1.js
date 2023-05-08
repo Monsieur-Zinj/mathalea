@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, contraindreValeur, combinaisonListes, texteExposant, texNombre, texteEnCouleurEtGras, miseEnEvidence, stringNombre, arrondi, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texteExposant, texNombre, texteEnCouleurEtGras, miseEnEvidence, stringNombre, arrondi, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { latexParCoordonnees, point, polygone, segment, texteParPositionEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -334,13 +334,13 @@ export default function ProblemesAiresRectangles () {
     nombreTotalEtapes = combinaisonListes(nombreTotalEtapes, this.nbQuestions)
 */
     const nombreTotalEtapes = gestionnaireFormulaireTexte({
-      min: 1,
       max: 7,
       defaut: 5,
       nbQuestions: this.nbQuestions,
       saisie: this.sup
     })
 
+    /*
     let typesDeProblemes = []
     if (typeof this.sup4 === 'number') {
       // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
@@ -352,6 +352,14 @@ export default function ProblemesAiresRectangles () {
       }
     }
     typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
+*/
+    const typesDeProblemes = gestionnaireFormulaireTexte({
+      max: 2,
+      defaut: 1,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup4
+    })
+
     if (this.sup2 === 1) choixDesTables = [2, 3, 4, 5, 6, 7, 8, 9]
     else choixDesTables = [3, 4, 6, 7, 8, 9, 11, 12]
 
@@ -389,8 +397,8 @@ export default function ProblemesAiresRectangles () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireTexte = ['Nombre d\'étapes (de 1 à 7)', 'Valeurs séparées par des tirets']
+  this.besoinFormulaireTexte = ['Nombre d\'étapes (de 1 à 7)', 'Nombres séparés par des tirets']
   this.besoinFormulaire2Numerique = ['Difficulté', 2, '1 : facile\n2 : difficile']
   this.besoinFormulaire3CaseACocher = ['Longueurs entières', true]
-  this.besoinFormulaire4Texte = ['Choix des problèmes séparés par des tirets (1=longueur finale, 2=aire intermédiaire)']
+  this.besoinFormulaire4Texte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Longueur finale\n2 : Aire intermédiaire']
 }

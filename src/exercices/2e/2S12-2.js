@@ -481,5 +481,5 @@ export default function EvolutionsSuccesives () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de question', 4, '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange']
+  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange']
 }

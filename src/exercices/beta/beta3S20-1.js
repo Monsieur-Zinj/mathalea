@@ -613,7 +613,7 @@ export default function CalculsProbabilites () {
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 'all' // Type d'exercice
   this.besoinFormulaireNumerique = [
-    'Type de question', 9, [
+    'Type de questions', 9, [
       '0 : Mélange des types de questions',
       '1 : Calculer une fréquence à partir du diagramme des effectifs (valeur exacte).',
       '2 : Calculer une fréquence à partir du diagramme des effectifs (valeur approchée).',

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombre, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
@@ -27,7 +27,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale de chaque nombre."
   this.nbQuestions = 5
-  this.besoinFormulaireTexte = ['Type des textes', 'Nombres séparés par des tirets\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : 128/10\n5 : 8+5/100+7/100\n6 : Mélange']
+  this.besoinFormulaireTexte = ['Type des textes', 'Nombres séparés par des tirets\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : Du genre 128/10\n5 : Du genre 8+5/100+7/100\n6 : Mélange']
   this.sup = 6
 
   this.nouvelleVersion = function () {
@@ -35,6 +35,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
+    /*
     let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = range1(5)
@@ -51,6 +52,17 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
     }
     if (compteOccurences(typesDeQuestionsDisponibles, 6) > 0) typesDeQuestionsDisponibles = range1(5) // Teste si l'utilisateur a choisi tout
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    */
+
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      max: 5,
+      defaut: 6,
+      melange: 6,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup,
+      shuffle: false
+    })
+
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, n, choix; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 9)

@@ -17,7 +17,7 @@ export default function Reglages6M10 () {
   this.exo = 'NoDisk'
   this.besoinFormulaire4CaseACocher = false
   this.besoinFormulaireTexte = [
-    'Types de figures (nombres séparés par des tirets)',
-    '1 : Carré\n2 : Rectangle\n3 : Triangle rectangle'
+    'Type de figures',
+    'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle'
   ]
 }

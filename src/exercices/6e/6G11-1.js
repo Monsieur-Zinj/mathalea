@@ -55,7 +55,7 @@ export default class constructionPerpendiculaires extends Exercice {
       ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
     ]
     this.besoinFormulaire2Texte = [
-      'Type de question', [
+      'Type de questions', [
         'Nombres séparés par des tirets',
         '1 : Orthocentre (intérieur du triangle)',
         '2 : Orthocentre (extérieur du triangle)',
@@ -73,7 +73,6 @@ export default class constructionPerpendiculaires extends Exercice {
 
     let listeTypeDeQuestions = []
     listeTypeDeQuestions = gestionnaireFormulaireTexte({
-      min: 1,
       max: 4,
       defaut: 1,
       melange: 5,

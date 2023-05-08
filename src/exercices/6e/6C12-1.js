@@ -66,7 +66,6 @@ export default function QuestionsMasses () {
        */
 
       const QuestionsDisponibles = gestionnaireFormulaireTexte({
-        min: 1,
         max: 8,
         defaut: 9,
         nbQuestions: 1,

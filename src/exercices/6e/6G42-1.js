@@ -85,11 +85,9 @@ export default function LireFacePaveDroit () {
     */
 
     const typesDeQuestionsIndisponibles = gestionnaireFormulaireTexte({
-      min: 1,
       max: 6,
       defaut: 7,
       nbQuestions: this.nbQuestions,
-      melange: 7,
       shuffle: false,
       saisie: this.sup2,
       enleveDoublons: true
