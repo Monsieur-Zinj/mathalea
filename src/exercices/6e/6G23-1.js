@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, combinaisonListes } from '../../modules/outils.js'
 import { point, rotation, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
@@ -38,7 +38,6 @@ export default function MesurerUnAngle () {
     let angle; let anglerot; let Apos; let Bpos; let Cpos; let p; let texte; let texteCorr; let A; let B; let C; let s2; let s1; let bis; const signes = []
     let xMin, xMax, yMin, yMax, objetsEnonce, secteur0
     let typeDeQuestions
-    this.sup = contraindreValeur(1, 4, this.sup, 1)
     if (this.sup < 4) typeDeQuestions = [this.sup]
     else typeDeQuestions = [1, 2, 3]
     const listeTypeDeQuestion = combinaisonListes(typeDeQuestions, this.nbQuestions)
