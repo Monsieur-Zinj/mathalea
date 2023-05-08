@@ -1,5 +1,17 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombre, choice, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  calcul,
+  texNombre,
+  choice,
+  texPrix,
+  prenom,
+  personne,
+  miseEnEvidence,
+  stringNombre,
+  gestionnaireFormulaireTexte
+} from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../../modules/2d.js'
@@ -34,24 +46,9 @@ export default function CourseAuxNombresCM (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat, objets, A, B, C
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
+
+    const listeIndex = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, max: 30, defaut: 31, melange: 31, shuffle: false }).map((index) => index - 1)
+
     const fruits2 = [
       ['pêches', 4.5, 10, 30],
       ['noix', 5.2, 4, 13],
@@ -574,5 +571,6 @@ export default function CourseAuxNombresCM (numeroExercice) {
   27 : Soustraction entiers mesures\n
   28 : Durée\n
   29 : Proportionnalité\n
-  30 : Addition d'entiers mesures `]
+  30 : Addition d'entiers mesures\n
+  31 : Mélange`]
 }

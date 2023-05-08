@@ -78,10 +78,10 @@
     let imagesFilesUrls = []
     getImagesInCode()
     exosContentList.forEach((exo, i) => {
-      const year = exo.groups.year
-      const month = exo.groups.month
-      const area = exo.groups.zone.replace(/ /g, "_")
-      const serie = exo.groups.serie.toLowerCase()
+      const year = exo.year
+      const month = exo.month
+      const area = exo.zone.replace(/ /g, "_")
+      const serie = exo.serie.toLowerCase()
       for (const file of picsNames[i]) {
         // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
         // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
@@ -148,13 +148,23 @@
     let picsList: string[][] = []
     picsNames = []
     exosContentList = []
-    const regExpExo = /(?:\\begin\{EXO\}\{(?<title>(?<serie>[A-Z\d]{3,4})(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/gm
+    let exosData = []
+    // const regExpExoCoopmaths = /(?:\\begin\{EXO\}\{(?<title>(?<serie>[A-Z\d]{3,4})(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/gm
+    // const regExpExoClassic = /(?:\\begin\{EXO\})((.|\n)*?)(?:\\end\{EXO\})/gm
     const regExpImage = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
     const regExpImageName = /(?<name>.*?)\.(?<format>.*)$/gm
     const latexCode = contents.content
-    exosContentList = [...latexCode.matchAll(regExpExo)]
+    for (const exo of exercices) {
+      let data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(" ") }
+      exosContentList.push(data)
+    }
+    // if (style === "Coopmaths") {
+    //   exosContentList = [...latexCode.matchAll(regExpExoCoopmaths)]
+    // } else {
+    //   exosContentList = [...latexCode.matchAll(regExpExoClassic)]
+    // }
     for (const exo of exosContentList) {
-      const pics = [...exo[0].matchAll(regExpImage)]
+      const pics = [...exo.content.matchAll(regExpImage)]
       picsList.push(pics)
     }
     picsList.forEach((list, index) => {
@@ -171,7 +181,7 @@
         picsNames[index] = [...picsNames[index], imgObj]
       }
     })
-    // console.log(picsNames)
+    // console.log(exercices)
   }
 
   /**
@@ -416,7 +426,8 @@
         Voici ce dont vous aurez besoin :
         {#each exosContentList as exo, i (exo)}
           <ul class="flex flex-col justify-start items-start list-disc pl-6">
-            <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
+            <!-- <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li> -->
+            <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.title}</span>) :</li>
             <ul class="flex flex-col justify-start items-start list-none pl-4">
               {#each picsNames[i] as img}
                 <li class="font-mono text-sm">{img.name}</li>
