@@ -288,7 +288,7 @@ export function contraindreValeur (min, max, valeur, defaut) {
 
 /**
  *@param {string|number} saisie Ce qui vient du formulaireTexte donc une série de nombres séparés par des tirets ou un seul nombre (normalement en string) ou rien
- * @param {number} min 1 par défaut
+ * @param {number} [min=1]
  * @param {number} max obligatoirement >min
  * @param {number} defaut obligatoirement compris entre min et max inclus ou alors égal à melange
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste

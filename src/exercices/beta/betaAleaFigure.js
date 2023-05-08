@@ -47,7 +47,7 @@ export default function ExercicesThales () {
   ]
   this.nbQuestions = 1
   this.besoinFormulaireNumerique = [
-    'Type de question', nbCase, formulaire.join('\n')
+    'Type de questions', nbCase, formulaire.join('\n')
   ]
   this.besoinFormulaire2Numerique = true
   this.besoinFormulaire2Numerique = [

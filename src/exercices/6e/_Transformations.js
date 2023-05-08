@@ -2,7 +2,7 @@ import { point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVertical
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal, listeQuestionsToContenu, texNombre, miseEnCouleur, miseEnEvidence } from '../../modules/outils.js'
+import { randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal, listeQuestionsToContenu, texNombre, miseEnCouleur, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -26,7 +26,9 @@ export default function Transformations () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    let choixTransformation; let nbImages
+    let nbImages
+    /*
+    let choixTransformation;
 
     if (!this.sup) { // Si aucune liste n'est saisie
       choixTransformation = rangeMinMax(1, 3)
@@ -40,6 +42,14 @@ export default function Transformations () {
         }
       }
     }
+    */
+
+    const choixTransformation = gestionnaireFormulaireTexte({
+      max: 10,
+      defaut: randint(1, 10),
+      nbQuestions: 3,
+      saisie: this.sup
+    })
 
     if (this.can) {
       nbImages = 1

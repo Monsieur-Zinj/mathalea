@@ -49,7 +49,6 @@ export default function CalculerUnAngle () {
     QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
 */
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
-      min: 1,
       max: 14,
       defaut: 15,
       nbQuestions: this.nbQuestions,

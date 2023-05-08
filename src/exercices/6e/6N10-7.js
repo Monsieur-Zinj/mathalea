@@ -1,4 +1,4 @@
-import { randint, texNombre, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, compteOccurences, rangeMinMax, combinaisonListes, combinaisonListesSansChangerOrdre, sp } from '../../modules/outils.js'
+import { randint, texNombre, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, combinaisonListes, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 import Decimal from 'decimal.js'
@@ -39,6 +39,7 @@ export default function RecomposerEntierC3 () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    /*
     let listeTypeDeQuestionsDemandees = this.sup3.toString().split('-')
     for (let k = 0; k < listeTypeDeQuestionsDemandees.length; k++) {
       listeTypeDeQuestionsDemandees[k] = contraindreValeur(1, 15, listeTypeDeQuestionsDemandees[k], 1)
@@ -46,9 +47,32 @@ export default function RecomposerEntierC3 () {
     if (compteOccurences(listeTypeDeQuestionsDemandees, 15) > 0) listeTypeDeQuestionsDemandees = rangeMinMax(1, 14)
     // const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDemandees, this.nbQuestions)
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(listeTypeDeQuestionsDemandees, this.nbQuestions)
+    */
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      max: 14,
+      defaut: 15,
+      melange: 15,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup3,
+      shuffle: false
+    })
+
+    /*
     let listeNombresDemandes = this.sup4.toString().split('-')
     listeNombresDemandes[0] = contraindreValeur(0, 4, listeNombresDemandes[0], 4)
     if (listeNombresDemandes[0] === 4) listeNombresDemandes = rangeMinMax(0, 3)
+    */
+
+    const listeNombresDemandes = gestionnaireFormulaireTexte({
+      min: 0,
+      max: 3,
+      defaut: 4,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup4,
+      shuffle: false
+    })
+
     const nombreDeChiffresDec = combinaisonListes(listeNombresDemandes, this.nbQuestions)
     this.nombreDeChamps = []
 
@@ -628,7 +652,7 @@ export default function RecomposerEntierC3 () {
   }
   this.besoinFormulaireNumerique = ['Nombre de chiffres minimum des nombres à décomposer']
   this.besoinFormulaire2Numerique = ['Nombre de chiffres maximum des nombres à décomposer']
-  this.besoinFormulaire3Texte = ['Types de question séparés par des tirets', '1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Trouver le nombre en ordre avec zéros possibles avec groupement\n13 : Trouver le nombre en désordre avec zéros possibles\n14 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n15 : Mélange']
+  this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Trouver le nombre en ordre avec zéros possibles avec groupement\n13 : Trouver le nombre en désordre avec zéros possibles\n14 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n15 : Mélange']
   this.besoinFormulaire4Texte = ['Nombre de chiffres de la partie décimale', '0 : Aucun chiffre dans la partie décimale\n1 : Un seul chiffre dans la partie décimale\n2 : Que deux chiffres dans la partie décimale\n3 : Que trois chiffres dans la partie décimale\n4 : Mélange']
   this.correctionInteractive = (i) => {
     const champsTexte = []

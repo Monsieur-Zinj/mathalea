@@ -15,7 +15,7 @@ export default function Reglages6M22 () {
   this.sup = '4-5'
   this.exo = 'WithDisk'
   this.besoinFormulaireTexte = [
-    'Types de figures (nombres séparés par des tirets)',
-    '4 : Disque\n5 : Demi-disque'
+    'Types de figures',
+    'Nombres séparés par des tirets\n4 : Disque\n5 : Demi-disque'
   ]
 }

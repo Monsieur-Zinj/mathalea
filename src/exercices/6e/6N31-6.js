@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombre, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 
@@ -17,7 +17,7 @@ export const ref = '6N31-6'
 export const uuid = 'd2b82'
 export default function ArrondirUnDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = '1-2-3-4-5-6' // Type de question
+  this.sup = 7 // Type de questions
   this.nbQuestions = 6
 
   this.nbCols = 1
@@ -30,6 +30,7 @@ export default function ArrondirUnDecimal () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
+    /*
     let listeTypeDeQuestions = []
     if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
       listeTypeDeQuestions = combinaisonListes(['1', '2', '3', '4', '5', '6'], this.nbQuestions)
@@ -45,11 +46,21 @@ export default function ArrondirUnDecimal () {
       if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = ['1', '2', '3', '4', '5', '6'] }
       listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     }
+    */
 
-    for (let i = 0, indexQ = 0, texte, typesDeQuestions, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
-      const type = listeTypeDeQuestions[i].split(',')
-      typesDeQuestions = parseInt(type[0])
-      const valeurdegaucheoudroite = ((type.length > 1 ? parseInt(type[1]) : randint(1, 2)))
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      max: 6,
+      defaut: 7,
+      melange: 7,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
+    for (let i = 0, indexQ = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+      // const type = listeTypeDeQuestions[i].split(',')
+      // typesDeQuestions = parseInt(type[0])
+      // const valeurdegaucheoudroite = ((type.length > 1 ? parseInt(type[1]) : randint(1, 2)))
+      const valeurdegaucheoudroite = randint(1, 2)
 
       const m = randint(1, 9)
       const c = randint(1, 9)
@@ -63,7 +74,7 @@ export default function ArrondirUnDecimal () {
         continue
       }
 
-      switch (typesDeQuestions) {
+      switch (listeTypeDeQuestions[i]) {
         case 6: { // arrondi au centième
           texte = `Donner un arrondi au centième de 
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
@@ -187,15 +198,15 @@ export default function ArrondirUnDecimal () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Type de question', [
+    'Type de questions', [
       'Nombres séparés par des tirets',
-      '0 : mélange',
       '1 : Valeur approchée à l\'unité',
       '2 : Valeur approchée au dixième',
       '3 : Valeur approchée au centième',
       '4 : Arrondi à l\'unité',
       '5 : Arrondi au dixième',
-      '6 : Arrondi au centième'
+      '6 : Arrondi au centième',
+      '7 : Mélange'
     ].join('\n')
   ]
 }
