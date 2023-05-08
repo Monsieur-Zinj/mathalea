@@ -242,10 +242,8 @@ export default function CompleterScriptDiviseurs () {
     'Brique(s) à trouver',
     'Nombres séparés par des tirets\n1 : Ligne 2 (variable)\n2 : Ligne 2 (nombre)\n3 : Ligne 4\n4 : Ligne 5 (réponse)\n5 : Ligne 5 (variable)\n6 : Ligne 5 (nombre)\n7 : Ligne 6 (variable et réponse)\n8 : Ligne 6 (mot(s))\n9 : Ligne 7 (nombre)\n10 : Ligne 7 (variable)\n11 : Tous ces choix'
   ]
-  this.besoinFormulaire2Numerique = [
-    'Nombre de briques à trouver', 10,
-    'Choix entre 1 et 10.\nSi ce choix est inférieur au nombre de briques à trouver, alors les briques seront choisies aléatoirement parmi celles à trouver.\nSi ce choix est supérieur au nombre de briques à trouver, alors les briques à trouver seront complétées par des briques choisies aléatoirement parmi les restantes.'
-  ]
+  // 'Choix entre 1 et 10. Si ce choix est inférieur au nombre de briques à trouver, alors les briques seront choisies aléatoirement parmi celles à trouver. Si ce choix est supérieur au nombre de briques à trouver, alors les briques à trouver seront complétées par des briques choisies aléatoirement parmi les restantes.'
+  this.besoinFormulaire2Numerique = ['Nombre de briques à trouver', 10]
   this.besoinFormulaire3Texte = [
     'Choix sur la brique intiale',
     'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
