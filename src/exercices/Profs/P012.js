@@ -3,7 +3,11 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 
 import { fraction } from '../../modules/fractions.js'
-import { combinaisonListesSansChangerOrdre, contraindreValeur } from '../../modules/outils.js'
+import {
+  combinaisonListesSansChangerOrdre,
+  contraindreValeur,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 
 export const titre = 'Faire des camemberts pour travailler les fractions'
 
@@ -22,26 +26,11 @@ export default function Camemberts () {
   this.titre = titre
 
   this.nouvelleVersion = function () {
-    let nbParts, nbDisques
     if (this.sup === '') {
       this.sup = '2-3-4-5'
     }
-    if (typeof this.sup === 'number') {
-      nbParts = [contraindreValeur(2, 12, parseInt(this.sup), 6)]
-    } else {
-      nbParts = this.sup.split('-')
-      for (let i = 0; i < nbParts.length; i++) {
-        nbParts[i] = contraindreValeur(2, 12, parseInt(nbParts[i]), 6)
-      }
-    }
-    if (typeof this.sup2 === 'number') {
-      nbDisques = contraindreValeur(1, 5, parseInt(this.sup2), 2)
-    } else {
-      nbDisques = this.sup2.split('-')
-      for (let i = 0; i < nbDisques.length; i++) {
-        nbDisques[i] = contraindreValeur(1, 5, parseInt(nbDisques[i]), 2)
-      }
-    }
+    const nbParts = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 12, defaut: 6, nbQuestions: this.nbQuestions })
+    const nbDisques = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 5, defaut: 2, nbQuestions: this.nbQuestions })
     this.contenu = ''
 
     const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
@@ -58,6 +47,6 @@ export default function Camemberts () {
       }
     }
   }
-  this.besoinFormulaireTexte = ['Nombre de parts séparés par des tirets (maximum 12)']
-  this.besoinFormulaire2Texte = ['Nombre de disques par ligne séparés par des tirets (maximum 5)']
+  this.besoinFormulaireTexte = ['Nombre de parts séparés par des tirets (de 2 à 12)']
+  this.besoinFormulaire2Texte = ['Nombre de disques par ligne séparés par des tirets (de 1 à 5)']
 }

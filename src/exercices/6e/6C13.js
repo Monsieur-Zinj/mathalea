@@ -1,8 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListes, numAlpha, rangeMinMax, contraindreValeur, compteOccurences } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+  numAlpha,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'
 export const titre = 'Traduire des phrases en calculs et réciproquement'
-
+export const dateDeModificationImportante = '08/05/2023'
 /**
  * Mettre en relation un calcul, une traduction en français, une expression, un résultat, pour les décliner dans différents exercices.
  * Exercice sur le vocabulaire : somme,différence, produit, quotient...
@@ -26,25 +31,8 @@ export default function VocabulaireEtOperations () {
   this.nouvelleVersion = function () {
     let decimal
     let expf, expn, expc, resultats
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = rangeMinMax(1, 3)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 4, this.sup, 4)
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '5', '2','toto','45']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 4, parseInt(typesDeQuestionsDisponibles[i]), 4) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(typesDeQuestionsDisponibles, 4) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, 3) // Teste si l'utilisateur a choisi tout
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions })
 
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions
-    )
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (this.sup2) decimal = 10 ** randint(1, 2)
@@ -101,10 +89,9 @@ export default function VocabulaireEtOperations () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Type de questions',
-    4,
-    ' 1 : Phrase -> Calcul\n 2 : Calcul -> Phrase\n 3 : Phrase -> Calcul + résultat\n 4 : Mélange'
+  this.besoinFormulaireTexte = [
+    'Type de questions (nombres séparés par des tirets)',
+    '1 : Phrase -> Calcul\n2 : Calcul -> Phrase\n3 : Phrase -> Calcul + résultat\n4 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Décimaux', false]
 }
