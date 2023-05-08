@@ -80,9 +80,13 @@
     exosContentList.forEach((exo, i) => {
       const year = exo.year
       const month = exo.month
-      const area = exo.zone.replace(/ /g, "_")
-      const serie = exo.serie.toLowerCase()
-      for (const file of picsNames[i]) {
+      const area = exo?.zone?.replace(/ /g, "_")
+      const serie = exo?.serie?.toLowerCase()
+      if (picsNames !== undefined && picsNames[i] !== undefined) {
+        picsNames = []
+        picsNames[i] = []
+      } 
+      if (picsNames[i] !== undefined) for (const file of picsNames[i]) {
         // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
         // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
         // https://coopmaths.fr/alea/static/crpe/2022/images/2022-g1-ex1-img1.png
@@ -164,8 +168,11 @@
     //   exosContentList = [...latexCode.matchAll(regExpExoClassic)]
     // }
     for (const exo of exosContentList) {
-      const pics = [...exo.content.matchAll(regExpImage)]
-      picsList.push(pics)
+      let pics
+      if (exo?.content?.matchAll(regExpImage) !== undefined) {
+        pics = [...exo.content.matchAll(regExpImage)]
+        picsList.push(pics)
+      }
     }
     picsList.forEach((list, index) => {
       picsNames.push([])
@@ -306,7 +313,7 @@
    * -- encodage du contenu du code LaTeX de la feuille d'exercices
    */
   const copyDocumentToOverleaf = async () => {
-    imagesList = buildImagesUrlsList()
+    imagesList = buildImagesUrlsList() || []
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
     textForOverleafInput.value = "data:text/plain;base64," + btoa(unescape(encodeURIComponent(text)))
   }
