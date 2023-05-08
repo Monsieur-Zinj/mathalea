@@ -1,5 +1,19 @@
 import Exercice from '../Exercice.js'
-import { combinaisonListes, listeNombresPremiersStrictJusqua, listeQuestionsToContenu, nombreAvecEspace, randint, texteEnCouleurEtGras, personne, warnMessage, nombreDeChiffresDe, contraindreValeur, compteOccurences, rangeMinMax } from '../../modules/outils.js'
+import {
+  combinaisonListes,
+  listeNombresPremiersStrictJusqua,
+  listeQuestionsToContenu,
+  nombreAvecEspace,
+  randint,
+  texteEnCouleurEtGras,
+  personne,
+  warnMessage,
+  nombreDeChiffresDe,
+  contraindreValeur,
+  compteOccurences,
+  rangeMinMax,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
@@ -40,21 +54,8 @@ export default function ProblemesEvenementsRecurrents () {
     const preListePremiers = listeNombresPremiersStrictJusqua(12)
     const listePremiers = combinaisonListes(preListePremiers, this.nbQuestions * 5)
 
-    let listeDesProblemes = [1, 2, 3, 4, 5] // Paramétrage par défaut
     const valMaxParametre = 6
-    if (this.sup2) { // Si une liste est saisie
-      if (this.sup2.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
-        listeDesProblemes = [contraindreValeur(1, valMaxParametre, parseInt(this.sup2), 1)] // ... on crée un tableau avec une seule valeur
-      } else {
-        listeDesProblemes = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
-          listeDesProblemes[i] = contraindreValeur(1, valMaxParametre, parseInt(listeDesProblemes[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
-        }
-      }
-    }
-    // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
-    if (compteOccurences(listeDesProblemes, valMaxParametre) > 0) listeDesProblemes = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
-
+    const listeDesProblemes = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: valMaxParametre - 1, melange: valMaxParametre, defaut: 1, shuffle: true })
     const listeDesSaveurs = ['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages']
     let saveurs = []
     for (const probleme of listeDesProblemes) {
@@ -219,7 +220,7 @@ export default function ProblemesEvenementsRecurrents () {
           texte4 = 'le nombre de jours avant le prochain « restau - ciné »'
           break
         case 'engrenages':
-          texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}. 
+          texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.
           Elles tournent jusqu'à revenir (pour la première fois) en position initiale.<br>`
           if (this.interactif || context.isAmc) {
             switch (typeDeQuestion) {
