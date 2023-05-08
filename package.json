@@ -1,7 +1,7 @@
 {
   "name": "mathalea",
   "private": false,
-  "version": "3.0.20230502",
+  "version": "3.0.20230508",
   "type": "module",
   "description": "Générateur d'exercices de mathématiques",
   "author": "Rémi Angot <contact@coopmaths.fr>",
@@ -78,6 +78,7 @@
     "@sveltejs/vite-plugin-svelte": "^2.1.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tsconfig/svelte": "^4.0.1",
+    "@types/file-saver": "^2.0.5",
     "@types/katex": "^0.16.0",
     "@types/loadjs": "^4.0.1",
     "@types/node": "^18.16.0",

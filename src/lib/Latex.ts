@@ -21,8 +21,9 @@ class Latex {
     let contentCorr = ''
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') continue
-      if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
+      exercice.seed = seed
+      if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
       seedrandom(seed, { global: true })
       exercice.nouvelleVersion()
     }
