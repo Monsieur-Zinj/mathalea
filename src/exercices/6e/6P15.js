@@ -8,7 +8,6 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import {
   choice,
   combinaisonListes,
-  contraindreValeur,
   listeQuestionsToContenu,
   nombreDeChiffresDansLaPartieEntiere,
   numAlpha,
@@ -56,7 +55,6 @@ export default function CalculerCoeffPropo () {
     const tableauxCoefficientsFractions = [[[2, 5], [3, 4], [2, 3], [2, 7]], [[3, 7], [4, 7], [4, 9], [5, 9]], [[7, 3], [8, 3], [3, 2], [7, 2]], [[9, 4], [7, 8], [8, 7], [9, 5]]]
     // @todo prévoir un tableau de choix des fractions plutôt que d'aléatoiriser leur construction
 
-    this.sup = contraindreValeur(1, 4, this.sup, 1)
     if (this.sup === 4) listeTypesDeCoefficient = combinaisonListes(typeDeCoefficient, this.nbQuestions)
     else listeTypesDeCoefficient = combinaisonListes([typeDeCoefficient[this.sup - 1]], this.nbQuestions)
     for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {

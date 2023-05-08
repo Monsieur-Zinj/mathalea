@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texNombre, numAlpha, prenomF, rangeMinMax, contraindreValeur, combinaisonListes, personne, texPrix, prenom } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, numAlpha, prenomF, personne, texPrix, prenom, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Résoudre des problèmes (plus complexes)'
@@ -16,7 +16,7 @@ export const ref = '6C32-1'
 export default function ExerciceProblemesComplexes () {
   // Multiplier deux nombres
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 0
+  this.sup = 11
   this.titre = titre
   this.spacing = 1.5
   if (context.isHtml) this.spacingCorr = 1.5
@@ -26,6 +26,7 @@ export default function ExerciceProblemesComplexes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
+    /*
     let listeDesProblemes = []
     if (!this.sup || (typeof (this.sup) === 'number' && this.sup === 0) || this.sup === '0') { // Si aucune liste n'est saisie
       listeDesProblemes = rangeMinMax(1, 10)
@@ -40,6 +41,15 @@ export default function ExerciceProblemesComplexes () {
       }
     }
     listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+    */
+
+    const listeDesProblemes = gestionnaireFormulaireTexte({
+      max: 10,
+      defaut: 11,
+      melange: 11,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
 
     for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
       texte = ''
@@ -264,17 +274,19 @@ export default function ExerciceProblemesComplexes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de questions',
-    `0 : Mélange
-1 : Régime alimentaire
-2 : Fromagerie
-3 : Programme de calcul
-4 : Cinéma (siège)
-5 : Cinéma (pellicule) 
-6 : Boulangerie (sandwitchs)
-7 : Cagettes
-8 : Billets
-9 : Fruits
-10 : Devinette`
+  this.besoinFormulaireTexte = ['Type de questions', [
+    'Nombres séparés par des tirets',
+    '1 : Régime alimentaire',
+    '2 : Fromagerie',
+    '3 : Programme de calcul',
+    '4 : Cinéma (siège)',
+    '5 : Cinéma (pellicule)',
+    '6 : Boulangerie (sandwichs)',
+    '7 : Cagettes',
+    '8 : Billets',
+    '9 : Fruits',
+    '10 : Devinette',
+    '11 : Mélange'
+  ].join('\n')
   ]
 }

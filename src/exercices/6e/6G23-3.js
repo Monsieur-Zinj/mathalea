@@ -24,7 +24,7 @@ export default function TracerTriangle2Angles () {
   this.nbColsCorr = 1
   this.typeExercice = 'IEP'
   this.sup = false
-  this.sup3 = 0 // Type de question
+  this.sup3 = 3 // Type de questions
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -32,12 +32,12 @@ export default function TracerTriangle2Angles () {
     this.autoCorrection = []
     let listeDeNomsDePolygones
     if (!this.sup3) { // Si aucune liste n'est saisie
-      this.sup3 = 0
+      this.sup3 = 3
     }
     if (typeof (this.sup3) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-      this.sup3 = contraindreValeur(0, 2, this.sup3, 0)
+      this.sup3 = contraindreValeur(1, 3, this.sup3, 3)
     } else {
-      this.sup3 = contraindreValeur(0, 2, parseInt(this.sup3), 0)
+      this.sup3 = contraindreValeur(1, 3, parseInt(this.sup3), 3)
     }
 
     for (
@@ -50,7 +50,7 @@ export default function TracerTriangle2Angles () {
       const c = calcul(randint(40, 70) / 10)
       const b = calcul(randint(40, 80) / 10)
       let ang1
-      if (this.sup3 === 0) {
+      if (this.sup3 === 3) {
         ang1 = randint(20, 140)
       } else if (this.sup3 === 1) {
         ang1 = randint(20, 80)
@@ -137,9 +137,9 @@ export default function TracerTriangle2Angles () {
   this.besoinFormulaireCaseACocher = ["Longueurs données qu'à la fin de l'animation"]
   this.besoinFormulaire3Texte = [
     'Type de questions', [
-      '0 : Mélange',
       '1 : deux angles aigus',
-      '2 : un angle obtus et un angle aigu'
+      '2 : un angle obtus et un angle aigu',
+      '3 : Mélange'
     ].join('\n')
   ]
 }

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, combinaisonListes } from '../../modules/outils.js'
 import { point, rotation, afficheMesureAngle, sensDeRotation, homothetie, cibleCouronne, texteParPoint, similitude, segment, demiDroite } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
@@ -30,7 +30,6 @@ export default function ConstruireUnAngle () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.sup = contraindreValeur(1, 4, this.sup, 1)
     let typeDeQuestions
     if (this.sup < 4) typeDeQuestions = [this.sup]
     else typeDeQuestions = [1, 2, 3]
