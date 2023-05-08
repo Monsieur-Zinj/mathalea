@@ -85,21 +85,22 @@
       if (picsNames !== undefined && picsNames[i] !== undefined) {
         picsNames = []
         picsNames[i] = []
-      } 
-      if (picsNames[i] !== undefined) for (const file of picsNames[i]) {
-        // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
-        // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
-        // https://coopmaths.fr/alea/static/crpe/2022/images/2022-g1-ex1-img1.png
-        if (serie === "crpe") {
-          imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
-        } else {
-          if (file.format) {
-            imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
+      }
+      if (picsNames[i] !== undefined)
+        for (const file of picsNames[i]) {
+          // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+          // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
+          // https://coopmaths.fr/alea/static/crpe/2022/images/2022-g1-ex1-img1.png
+          if (serie === "crpe") {
+            imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
           } else {
-            imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`, fileName: `${file.name}.eps` })
+            if (file.format) {
+              imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
+            } else {
+              imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`, fileName: `${file.name}.eps` })
+            }
           }
         }
-      }
     })
     return imagesFilesUrls
   }
@@ -434,12 +435,14 @@
         {#each exosContentList as exo, i (exo)}
           <ul class="flex flex-col justify-start items-start list-disc pl-6">
             <!-- <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li> -->
-            <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.title}</span>) :</li>
-            <ul class="flex flex-col justify-start items-start list-none pl-4">
-              {#each picsNames[i] as img}
-                <li class="font-mono text-sm">{img.name}</li>
-              {/each}
-            </ul>
+            {#if picsNames[i]}
+              <li>Exercice {i + 1} (<span class="text-italic">{exo.title}</span>) :</li>
+              <ul class="flex flex-col justify-start items-start list-none pl-4">
+                {#each picsNames[i] as img}
+                  <li class="font-mono text-sm">{img.name}</li>
+                {/each}
+              </ul>
+            {/if}
           </ul>
         {/each}
       </div>
