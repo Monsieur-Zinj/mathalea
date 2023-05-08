@@ -197,7 +197,7 @@
         <input
           name="formNum1"
           type="number"
-          class="w-16 border-1"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={exercice.besoinFormulaireNumerique[1]}
           data-bs-toggle="tooltip"
