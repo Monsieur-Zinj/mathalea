@@ -9,9 +9,6 @@ import {
   personne,
   warnMessage,
   nombreDeChiffresDe,
-  contraindreValeur,
-  compteOccurences,
-  rangeMinMax,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
