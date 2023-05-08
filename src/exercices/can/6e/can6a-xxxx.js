@@ -1,6 +1,17 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, pgcd, texNombre, choice, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  calcul,
+  pgcd,
+  texNombre,
+  choice,
+  sp,
+  shuffle,
+  texPrix,
+  gestionnaireFormulaireTexte
+} from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { droiteGraduee } from '../../../modules/2d.js'
@@ -38,24 +49,8 @@ export default function CourseAuxNombres6e (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat, propositions
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
+
+    const listeIndex = gestionnaireFormulaireTexte({ saisie: this.sup, max: 30, melange: 31, defaut: 31, nbQuestions: this.nbQuestions, shuffle: false }).map((index) => index - 1)
     const fruits = [
       ['pêches', 4, 10, 30],
       ['noix', 5, 4, 13],
@@ -492,5 +487,6 @@ export default function CourseAuxNombres6e (numeroExercice) {
   27 :  Calcul de distance à vitesse constante\n
   28 :  Comparaison de périmètre\n
   29 :  Repérage fraction\n
-  30 :  Proportionnalité par linéarité\n`]
+  30 :  Proportionnalité par linéarité\n
+  31 :  Mélange`]
 }

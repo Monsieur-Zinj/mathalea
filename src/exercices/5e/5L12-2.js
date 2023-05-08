@@ -1,5 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, printlatex, calcul, texNombre, lettreDepuisChiffre, contraindreValeur } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  choice,
+  printlatex,
+  calcul,
+  texNombre,
+  lettreDepuisChiffre,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -45,7 +54,7 @@ export default function ReduireUneExpressionLitterale () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    /*
     let listeDesProblemes = []
     if (!this.sup3 || parseInt(this.sup3) === 0) { // Si aucune liste n'est saisie ou mélange demandé
       listeDesProblemes = range1(9)
@@ -59,8 +68,8 @@ export default function ReduireUneExpressionLitterale () {
         }
       }
     }
-    const typesDeQuestionsDisponibles = listeDesProblemes
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+  */
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup3, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions })
 
     for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a, b, c, d
@@ -137,7 +146,6 @@ export default function ReduireUneExpressionLitterale () {
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   this.besoinFormulaire3Texte = [
     'Type de questions', [
-      '0 : Mélange des types de questions',
       '1 : ax+bx+c',
       '2 : ax+b+x+c',
       '3 : ax^2+bx+c+dx^2+x',
@@ -146,7 +154,8 @@ export default function ReduireUneExpressionLitterale () {
       '6 : ax.bx',
       '7 : ax+c',
       '8 : ax × b',
-      '9 : ax+bx'
+      '9 : ax+bx',
+      '10 : Mélange des types de questions'
     ].join('\n')
   ]
 }

@@ -1,4 +1,11 @@
-import { randint, texNombre, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import {
+  randint,
+  texNombre,
+  contraindreValeur,
+  listeQuestionsToContenu,
+  shuffle2tableaux,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 import Decimal from 'decimal.js'
@@ -32,16 +39,12 @@ export default function RecomposerEntierC3 () {
   this.nbQuestions = 4
   this.sup = 5 // nombre de chiffres minimum du nombre à décomposer
   this.sup2 = 7 // nombre de chiffres maximum du nombre à décomposer
-  this.sup3 = '0-1-2-3-4-5-6-7-8-9-10-11-12-13'
+  this.sup3 = 15
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeQuestionsDemandees = this.sup3.toString().split('-')
-    for (let k = 0; k < listeTypeDeQuestionsDemandees.length; k++) {
-      listeTypeDeQuestionsDemandees[k] = contraindreValeur(0, 13, listeTypeDeQuestionsDemandees[k], 0)
-    }
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(listeTypeDeQuestionsDemandees, this.nbQuestions)
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup3, max: 14, defaut: 15, melange: 15, nbQuestions: this.nbQuestions }).map((index) => index - 1)
     const nombreDeChiffresMin = contraindreValeur(3, 6, this.sup, 5)
     const nombreDeChiffresMax = contraindreValeur(nombreDeChiffresMin, 7, this.sup2, 6)
     this.nombreDeChamps = []
@@ -601,7 +604,7 @@ export default function RecomposerEntierC3 () {
   }
   this.besoinFormulaireNumerique = ['Nombre de chiffres minimum des nombres à décomposer']
   this.besoinFormulaire2Numerique = ['Nombre de chiffres maximum des nombres à décomposer']
-  this.besoinFormulaire3Texte = ['Types de question séparés par des tirets', '0 : Chiffrée en ordre sans zéro\n1 : Chiffrée en désordre sans zéro\n2 : Puissances de dix en ordre sans zéro\n3 : Puissances de dix en désordre sans zéro\n4 : Chiffrée en ordre avec zéros possibles\n5 : Chiffrée en désordre avec zéros possibles\n6 : Puissances de dix en ordre avec zéros possibles\n7 : Puissances de dix en désordre avec zéros possibles\n8 : Trouver le nombre en ordre sans zéro\n9 : Trouver le nombre en désordre sans zéro avec groupement\n10 : Trouver le nombre en ordre avec zéros possibles avec groupement\n11 : Trouver le nombre en désordre avec zéros possibles\n12 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n13 : Puissances de dix en désordre deux zéros consécutifs avec groupement']
+  this.besoinFormulaire3Texte = ['Types de question séparés par des tirets', '1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre sans zéro avec groupement\n11 : Trouver le nombre en ordre avec zéros possibles avec groupement\n12 : Trouver le nombre en désordre avec zéros possibles\n13 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n14 : Puissances de dix en désordre deux zéros consécutifs avec groupement\n15 : Mélange']
   this.correctionInteractive = (i) => {
     const champsTexte = []
     const saisies = []
