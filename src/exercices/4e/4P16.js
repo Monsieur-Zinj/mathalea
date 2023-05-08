@@ -1,5 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, contraindreValeur, compteOccurences, rangeMinMax, randint, texNombre } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  texNombre,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
@@ -21,7 +26,7 @@ export default class NomExercice extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : m/h\n2 : m³/h\n3 : L/h\n4 : L/m²\n5 : m²/h\n6 : Wh\n7 : VA\n8 : Mélange']
-    this.sup = '8'
+    this.sup = 8
     this.titre = titre
   }
 
@@ -30,22 +35,8 @@ export default class NomExercice extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    let listeDesProblemes = [1, 2, 3, 4, 5, 6, 7] // Paramétrage par défaut
     const valMaxParametre = 8
-    if (this.sup) { // Si une liste est saisie
-      if (this.sup.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
-        listeDesProblemes = [contraindreValeur(1, valMaxParametre, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
-      } else {
-        listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
-          listeDesProblemes[i] = contraindreValeur(1, valMaxParametre, parseInt(listeDesProblemes[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
-        }
-      }
-    }
-    // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
-    if (compteOccurences(listeDesProblemes, valMaxParametre) > 0) listeDesProblemes = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
-
-    listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+    const listeDesProblemes = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup, melange: valMaxParametre, max: valMaxParametre - 1, defaut: 1 })
 
     const unitesLongueur = [
       {

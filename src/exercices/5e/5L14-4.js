@@ -92,7 +92,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec le signe × devant les parenthèses', true]
+  this.besoinFormulaireCaseACocher = ['Signe × explicite', true]
   this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
   this.besoinFormulaire3Texte = ['Nombre d\'opérations', 'Nombres séparés par des tirets\n1 : 1 opération\n2 : 2 opérations\n3 : 3 opérations\n4 : 4 opérations\n5 : Entre 2 et 5 opérations']
 }
