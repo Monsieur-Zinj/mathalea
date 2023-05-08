@@ -36,8 +36,10 @@ export default function LeCompteEstBonV4 () {
         max = this.sup2
       } else {
         minmax = this.sup2.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
+
         min = minmax[0]
-        max = minmax[1]
+        if (minmax[1] === '') max = 100
+        else max = minmax[1]
       }
     }
     min = contraindreValeur(0, 100, parseInt(min), 50)
@@ -51,6 +53,7 @@ export default function LeCompteEstBonV4 () {
         solutionMathador = TrouverSolutionMathador(min, max, this.sup)
       } else {
         tirage = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
+        if (tirage[tirage.length - 1] === '') tirage.pop()
         for (let i = 0; i < tirage.length; i++) tirage[i] = parseInt(tirage[i])
         solutionMathador = TrouverSolutionMathador(min, max, ...tirage)
       }
