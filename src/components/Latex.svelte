@@ -12,7 +12,6 @@
   import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import { showDialogForLimitedTime } from "./utils/dialogs.js"
-  import { downloadFileFromURL } from "./utils/urls"
   import JSZip from "jszip"
   import JSZipUtils from "jszip-utils"
   import { saveAs } from "file-saver"
