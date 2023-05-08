@@ -1,5 +1,18 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, ecritureParentheseSiNegatif, contraindreValeur, range1, ecritureNombreRelatif, ecritureAlgebrique, nombreDeChiffresDansLaPartieEntiere, ecritureNombreRelatifc } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  combinaisonListes,
+  calcul,
+  ecritureParentheseSiNegatif,
+  contraindreValeur,
+  range1,
+  ecritureNombreRelatif,
+  ecritureAlgebrique,
+  nombreDeChiffresDansLaPartieEntiere,
+  ecritureNombreRelatifc,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Opérations avec deux entiers relatifs'
@@ -47,7 +60,7 @@ export default function ExerciceOperationsRelatifs () {
       }
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup2, max: 4, melange: 5, defaut: 2 })
     for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       switch (listeTypeDeQuestions[i]) {
         case 2:
