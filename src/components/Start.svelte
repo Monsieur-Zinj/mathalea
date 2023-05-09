@@ -546,7 +546,7 @@
               </button>
               <!-- <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Config pour élèves">
                     <i
-                      class="bx bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
+                      class="bx bx-link  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
                       {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}"
                     />
                   </label>
@@ -563,7 +563,12 @@
                   })
                 }}
               >
-                <i class="bx bx-sm bxs-graduation hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+                  <i class="bx bx-sm bx-link" />
+                  <div class="absolute -bottom-1 -right-1">
+                    <i class="scale-75 bx bx-xs bxs-graduation" />
+                  </div>
+                </div>
               </button>
               <button
                 type="button"
@@ -888,7 +893,7 @@
               </button>
               <!-- <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Config pour élèves">
                     <i
-                      class="bx bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
+                      class="bx bx-link  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
                       {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}"
                     />
                   </label>
@@ -904,10 +909,20 @@
                   })}
               >
                 <div class="inline-flex xl:hidden">
-                  <i class="bx bx-sm bxs-graduation hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                  <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+                    <i class="bx bx-sm bx-link" />
+                    <div class="absolute -bottom-1 -right-1">
+                      <i class="scale-75 bx bx-xs bxs-graduation" />
+                    </div>
+                  </div>
                 </div>
                 <div class="hidden xl:inline-flex">
-                  <i class="bx bx-md bxs-graduation hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                  <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+                    <i class="bx bx-md bx-link" />
+                    <div class="absolute -bottom-1 -right-0">
+                      <i class="scale-95 bx bx-xs bxs-graduation" />
+                    </div>
+                  </div>
                 </div>
               </button>
               <button
