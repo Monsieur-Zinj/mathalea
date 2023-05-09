@@ -135,7 +135,7 @@
       const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
       mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-      if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
+      if ($globalOptions.setInteractive === "1" && exercice?.interactifReady) {
         exercice.interactif = true
       }
       exercices.push(exercice)
@@ -150,12 +150,22 @@
       if (exercice.typeExercice === "simple") {
         mathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
       }
-      seedrandom(exercice.seed, { global: true })
+      if (exercice.seed !== undefined) {
+        seedrandom(exercice.seed, { global: true })
+      }
       exercice.numeroExercice = k
-      exercice.nouvelleVersion(k)
+      if (exercice.nouvelleVersion !== undefined) {
+        exercice.nouvelleVersion(k)
+      }
       isCorrectionVisible[k] = false
+      if (exercice.listeQuestions === undefined) {
+        exercice.listeQuestions = []
+      }
+      if (exercice.listeCorrections === undefined) {
+        exercice.listeCorrections = []
+      }
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
-        consignes.push(exercice.consigne + exercice.introduction)
+        consignes.push(exercice?.consigne + exercice?.introduction)
         indiceExercice.push(k)
         indiceQuestionInExercice.push(i)
       }
