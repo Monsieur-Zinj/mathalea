@@ -180,7 +180,7 @@ export default function CalculerDesFrequences () {
   this.nbColsCorr = 1
   this.sup = 1
   this.besoinFormulaireNumerique = [
-    'Type d\'exercice', 4, [
+    'Type de questions', 4, [
       '1 : Choix d\'un exercice aléatoire parmi les deux versions',
       '2 : Calculer des fréquences à partir d\'un tableau d\'effectifs',
       '3 : Calculer des fréquences à partir d\'un diagramme bâton',
