@@ -356,7 +356,7 @@
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class="h-screen scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
+<div class="scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
   <!-- <Header /> -->
   {#if isNavBarVisible}
     <div id="headerStart" class="lg:sticky lg:top-0 z-40 h-32 pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
@@ -546,7 +546,7 @@
               </button>
               <!-- <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Config pour élèves">
                     <i
-                      class="bx bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
+                      class="bx bx-link  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
                       {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}"
                     />
                   </label>
@@ -563,7 +563,12 @@
                   })
                 }}
               >
-                <i class="bx bx-sm bxs-graduation hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+                  <i class="bx bx-sm bx-link" />
+                  <div class="absolute -bottom-1 -right-1">
+                    <i class="scale-75 bx bx-xs bxs-graduation" />
+                  </div>
+                </div>
               </button>
               <button
                 type="button"
@@ -708,9 +713,9 @@
             style="{$isSideMenuVisible || nbExercisesInList === 0
               ? `width:${sidebarWidth}px;`
               : 'width: 0px;'} transition: width; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
-            class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:h-full {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
+            class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:100vh {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
-            <div id="choiceMenuWrapper" class="flex flex-col overflow-y-scroll overscroll-y-auto">
+            <div id="choiceMenuWrapper" class="flex flex-col overflow-y-scroll overscroll-y-auto overflow-x-hidden">
               <div class="print-hidden hidden md:block absolute top-4 right-2">
                 <button
                   type="button"
@@ -750,7 +755,7 @@
       </div>
       <!-- content -->
       {#if $exercicesParams.length !== 0}
-        <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full h-full overflow-y-scroll overscroll-y-auto" bind:this={divExercices}>
+        <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full h-full " bind:this={divExercices}>
           <div class="fixed left-0 top-32 print-hidden hidden md:block">
             <button
               type="button"
@@ -888,7 +893,7 @@
               </button>
               <!-- <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Config pour élèves">
                     <i
-                      class="bx bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
+                      class="bx bx-link  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
                       {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}"
                     />
                   </label>
@@ -904,10 +909,20 @@
                   })}
               >
                 <div class="inline-flex xl:hidden">
-                  <i class="bx bx-sm bxs-graduation hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                  <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+                    <i class="bx bx-sm bx-link" />
+                    <div class="absolute -bottom-1 -right-1">
+                      <i class="scale-75 bx bx-xs bxs-graduation" />
+                    </div>
+                  </div>
                 </div>
                 <div class="hidden xl:inline-flex">
-                  <i class="bx bx-md bxs-graduation hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                  <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+                    <i class="bx bx-md bx-link" />
+                    <div class="absolute -bottom-1 -right-0">
+                      <i class="scale-95 bx bx-xs bxs-graduation" />
+                    </div>
+                  </div>
                 </div>
               </button>
               <button
@@ -1078,14 +1093,14 @@
 </div>
 
 <style>
-  ::-webkit-scrollbar {
+  /* ::-webkit-scrollbar {
     display: none;
-  }
+  } */ 
   #startComponent {
     scrollbar-width: none;
   }
   #exercisesWrapper {
-    height: calc(100vh - 8rem);
+    /*height: calc(100vh - 8rem);*/
     min-height: 100%;
   }
   #choiceMenuWrapper {
