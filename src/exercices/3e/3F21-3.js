@@ -81,18 +81,18 @@ export default function PenteEtOrdonneeOrigineDroite () {
       let question3 = numAlpha(2) + `En déduire l'expression algébrique de $${nomFonction}$.`
       question3 += ajouteChampTexteMathLive(this, 2, 'largeur15 inline nospacebefore', { texte: `$${sp(10)}${nomFonction} : x \\mapsto $` })
 
-      setReponse(this, 0, b)
-      setReponse(this, 1, [a, `\\frac{${num}}{${den}}`])
-      setReponse(this, 2, `${stringNombre(a)}x+${b}`)
+      setReponse(this, 3 * i, b)
+      setReponse(this, 3 * i + 1, [a, `\\frac{${num}}{${den}}`])
+      setReponse(this, 3 * i + 2, `${stringNombre(a)}x+${b}`)
       if (den === 2) setReponse(this, 2, [`${stringNombre(a)}x+${b}`, `\\frac{${num}}{2}\\times x + ${b}`])
 
-      const correction1 = `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$, l'ordonnée à l'origine est donc $${b}$.`
-      let correction2 = `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
+      const correction1 = numAlpha(0) + `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$, l'ordonnée à l'origine est donc $${b}$.`
+      let correction2 = numAlpha(1) + `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
       correction2 += ` le coefficient directeur est donc $${texNombre(a)}$.`
-      let correction3 = `$${nomFonction}$ étant une fonction affine, on a $${nomFonction} : x \\mapsto ax + b$ avec $a$ le coefficient directeur (ou pente) et $b$ son ordonnée à l'origine.`
+      let correction3 = numAlpha(2) + `$${nomFonction}$ étant une fonction affine, on a $${nomFonction} : x \\mapsto ax + b$ avec $a$ le coefficient directeur (ou pente) et $b$ son ordonnée à l'origine.`
       correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x ${ecritureAlgebrique(b)}$.`
       texte = introduction + '<br>' + question1 + '<br>' + question2 + '<br>' + question3
-      this.listeCorrections.push(correction1, correction2, correction3)
+      texteCorr = correction1 + '<br>' + correction2 + '<br>' + correction3
 
       if (this.questionJamaisPosee(i, a, b, num, den)) {
         this.listeQuestions.push(texte)
