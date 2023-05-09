@@ -5242,7 +5242,7 @@
         "id": "6C13-1",
         "uuid": "32e02",
         "url": "6e/6C13-1.js",
-        "titre": "Vocabulaires liés aux 4 opérations",
+        "titre": "Connaître le vocabulaire lié aux 4 opérations",
         "tags": {}
       },
       "6C13": {
@@ -6086,6 +6086,7 @@
         "url": "6e/6G44-1.js",
         "titre": "Reconnaitre des solides",
         "datePublication": "24/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -8467,7 +8468,7 @@
         "uuid": "1eaf7",
         "url": "4e/4A11-0.js",
         "titre": "Décomposer un nombre entier en produit de (petits) facteurs premiers",
-        "dateModification": "2/11/2021",
+        "dateModification": "02/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -9966,6 +9967,7 @@
         "uuid": "056fa",
         "url": "3e/3F21-3.js",
         "titre": "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine",
+        "dateModification": "08/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -10306,6 +10308,7 @@
         "url": "3e/3G41.js",
         "titre": "Dessiner différentes vues d'un empilement de cubes",
         "datePublication": "06/10/2022",
+        "dateModification": "06/10/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10386,6 +10389,7 @@
         "url": "3e/3I12-1.js",
         "titre": "Compléter un script Scratch - 1",
         "datePublication": "20/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -10397,6 +10401,7 @@
         "url": "3e/3I12-2.js",
         "titre": "Comprendre un script Scratch - 1",
         "datePublication": "20/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10408,6 +10413,7 @@
         "url": "3e/3I12-3.js",
         "titre": "Compléter un script Scratch - 2",
         "datePublication": "22/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -10419,6 +10425,7 @@
         "url": "3e/3I12-4.js",
         "titre": "Comprendre un script Scratch - 2",
         "datePublication": "23/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -11403,7 +11410,7 @@
         "id": "2N30-1",
         "uuid": "45726",
         "url": "2e/2N30-1.js",
-        "titre": "Décomposer une fraction (partie entière +fraction inférieure à 1) puis donner l'écriture décimale",
+        "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12234,7 +12241,6 @@
         "url": "1e/1G10.js",
         "titre": "Valeurs remarquables du cosinus et sinus",
         "datePublication": "16/04/2022",
-        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12246,7 +12252,6 @@
         "url": "1e/1G11.js",
         "titre": "Mesure principale d'un angle",
         "datePublication": "20/04/2022",
-        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12258,7 +12263,6 @@
         "url": "1e/1G12.js",
         "titre": "cos et sin associés à un réel x ",
         "datePublication": "20/04/2022",
-        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"

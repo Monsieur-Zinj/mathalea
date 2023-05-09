@@ -6,6 +6,7 @@
 
 import fs, { readFileSync } from 'fs'
 import path from 'path'
+import uuidsRessources from '../src/json/uuidsRessources.json' assert { type: 'json' }
 
 const uuidUrls = {}
 const refToUuid = {}
@@ -148,6 +149,8 @@ await handleLevels()
 await handleCanLevels()
 console.log(errors)
 
+const uuidUrlsAvecRessources = { ...uuidsRessources, ...uuidUrls }
+
 fs.writeFileSync(path.join('./src', 'json', 'referentiel2022.json'), JSON.stringify(dictionnaire, null, 2).replaceAll('"c3"', '"CM1/CM2"'))
-fs.writeFileSync(path.join('./src', 'json', 'uuidsToUrl.json'), JSON.stringify(uuidUrls, null, 2))
+fs.writeFileSync(path.join('./src', 'json', 'uuidsToUrl.json'), JSON.stringify(uuidUrlsAvecRessources, null, 2))
 fs.writeFileSync(path.join('./src', 'json', 'refToUuid.json'), JSON.stringify(refToUuid, null, 2))
