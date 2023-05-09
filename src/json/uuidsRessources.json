@@ -1,4 +1,4 @@
 {
   "xcas": "ressources/xcas.js",
-  "video": "ressources/video.js"
+  "iframe": "ressources/iframe.js"
 }

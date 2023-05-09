@@ -9926,6 +9926,17 @@
       }
     },
     "3F2": {
+      "3F20-1": {
+        "id": "3F20-1",
+        "uuid": "20d20",
+        "url": "3e/3F20-1.js",
+        "titre": "Fonctions affines",
+        "datePublication": "08/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
       "3F20": {
         "id": "3F20",
         "uuid": "aeb5a",
