@@ -78,15 +78,15 @@
     let imagesFilesUrls = []
     getImagesInCode()
     exosContentList.forEach((exo, i) => {
-      const year = exo.year
-      const month = exo.month
-      const area = exo?.zone?.replace(/ /g, "_")
-      const serie = exo?.serie?.toLowerCase()
-      if (picsNames !== undefined && picsNames[i] !== undefined) {
-        picsNames = []
-        picsNames[i] = []
-      }
-      if (picsNames[i] !== undefined)
+      if (picsNames[i].length !== 0) {
+        const year = exo.year
+        const month = exo.month
+        const area = exo?.zone?.replace(/ /g, "_")
+        const serie = exo?.serie?.toLowerCase()
+        // if (picsNames !== undefined && picsNames[i] !== undefined) {
+        //   picsNames = []
+        //   picsNames[i] = []
+        // }
         for (const file of picsNames[i]) {
           // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
           // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
@@ -101,6 +101,7 @@
             }
           }
         }
+      }
     })
     return imagesFilesUrls
   }
@@ -160,9 +161,16 @@
     const regExpImageName = /(?<name>.*?)\.(?<format>.*)$/gm
     const latexCode = contents.content
     for (const exo of exercices) {
-      let data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(" ") }
+      let data
+      if (exo.typeExercice !== undefined) {
+        data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(" ") }
+      } else {
+        data = { content: exo.contenu }
+      }
       exosContentList.push(data)
     }
+    console.log(exercices)
+    console.log(exosContentList)
     // if (style === "Coopmaths") {
     //   exosContentList = [...latexCode.matchAll(regExpExoCoopmaths)]
     // } else {
@@ -170,26 +178,30 @@
     // }
     for (const exo of exosContentList) {
       let pics
-      if (exo?.content?.matchAll(regExpImage) !== undefined) {
+      if (exo.content.matchAll(regExpImage) !== undefined) {
         pics = [...exo.content.matchAll(regExpImage)]
         picsList.push(pics)
+      } else {
+        picsList.push([])
       }
     }
     picsList.forEach((list, index) => {
       picsNames.push([])
-      for (const item of list) {
-        let imgObj
-        if (item[1].match(regExpImageName)) {
-          const imgFile = [...item[1].matchAll(regExpImageName)]
-          imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
-        } else {
-          imgObj = { name: item[1], format: undefined }
+      if (list.length !== 0) {
+        for (const item of list) {
+          let imgObj
+          if (item[1].match(regExpImageName)) {
+            const imgFile = [...item[1].matchAll(regExpImageName)]
+            imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
+          } else {
+            imgObj = { name: item[1], format: undefined }
+          }
+          // console.log("image : " + item[1])
+          picsNames[index] = [...picsNames[index], imgObj]
         }
-        // console.log("image : " + item[1])
-        picsNames[index] = [...picsNames[index], imgObj]
       }
     })
-    // console.log(exercices)
+    console.log(picsNames)
   }
 
   /**
@@ -346,21 +358,21 @@
         <h2 class="ml-0 text-xl md:text-2xl font-bold md:mr-10 mb-2 lg:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Éléments de titres</h2>
         <input
           type="text"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === "Can" ? "Course aux nombres" : "Titre"}
           bind:value={title}
           disabled={style === "Can"}
         />
         <input
           type="text"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === "Coopmaths" ? "Référence" : "Haut de page gauche"}
           bind:value={reference}
           disabled={style === "Can"}
         />
         <input
           type="text"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === "Coopmaths" ? "Sous-titre / Chapitre" : "Pied de page droit"}
           bind:value={subtitle}
           disabled={style === "Can"}
