@@ -11594,6 +11594,17 @@
         "url": "2e/2N32-7.js",
         "titre": "Rendre entier le dénominateur d'une fraction",
         "tags": {}
+      },
+      "2N32-8": {
+        "id": "2N32-8",
+        "uuid": "99c84",
+        "url": "2e/2N32-8.js",
+        "titre": "Encadrer une racine carrée",
+        "datePublication": "09/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "2N4": {
