@@ -8,4 +8,4 @@ export interface InterfaceParams { uuid: string, id?: string, alea?: string, int
 
 export interface InterfaceReferentiel { uuid: string, id: string, url: string, titre: string, tags: { interactif: boolean, interactifType: string, amc: boolean }, datePublication?: string, dateModification?: string, annee?: string }
 
-export interface InterfaceResultExercice {numberOfPoints: number, numberOfQuestions: number, uuid: string, title: string, alea: string, answers: string[]}
+export interface InterfaceResultExercice {numberOfPoints: number, numberOfQuestions: number, uuid?: string, title?: string, alea?: string, answers?: string[]}

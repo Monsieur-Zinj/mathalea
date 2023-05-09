@@ -5,7 +5,8 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 export default defineConfig({
   base: '/alea/',
   build: {
-    target: 'es2015'
+    target: 'es2015',
+    sourcemap: 'inline'
   },
   plugins: [
     svelte({

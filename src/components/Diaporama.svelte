@@ -471,11 +471,9 @@
           const optimalSVGWidth = textcell_width * 0.9
           const coefHeight = isCorrectionVisible ? 0.33 : 0.66
           const optimalSVGHeigth = textcell_height * coefHeight
-          // console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
           for (let k = 0; k < nbOfSVG; k++) {
             const startingWidth = svg_divs[k].clientWidth
             const startingHeight = svg_divs[k].clientHeight
-            // console.log("starting width : " + startingWidth + " / strating height : " + startingHeight)
             const rw = optimalSVGWidth / startingWidth
             const rh = optimalSVGHeigth / startingHeight
             if (startingHeight * rw < optimalSVGHeigth) {
@@ -491,7 +489,6 @@
             } else {
               svg_divs[k].setAttribute("style", "margin: auto")
             }
-            // console.log("final dimensions : " + svg_divs[k].clientWidth + " x " + svg_divs[k].clientHeight)
             if (finalSVGHeight < parseInt(svg_divs[k].getAttribute("height"))) {
               finalSVGHeight = parseInt(svg_divs[k].getAttribute("height"))
             }
@@ -511,9 +508,7 @@
             nbOfCharInKaTeX += katexHtmlElement[k].innerText.length
             kw += katexHtmlElement[k].clientWidth
           }
-          console.log("new katex width : " + kw)
           elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
-          console.log("char in katex : " + nbOfCharInKaTeX)
         }
         //@ts-ignore
         const elementsSVG = clone.getElementsByClassName("mathalea2d")
@@ -522,7 +517,6 @@
         }
         //@ts-ignore
         let nbOfCharactersInTextDiv = clone.innerText.length + nbOfCharInKaTeX
-        // console.log("nb caractères : " + nbOfCharactersInTextDiv)
         if (finalSVGHeight !== 0) {
           nbOfCharactersInTextDiv -= 100
         }
@@ -563,11 +557,6 @@
             correction_height = 0
             correction_width = 0
           }
-          // console.log("cell w=" + textcell_width + "/h=" + textcell_height)
-          // console.log("question w=" + question_width + "/h=" + question_height)
-          // console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
-          // console.log("correction w=" + correction_width + "/h=" + correction_height)
-          //  question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width ||
         } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
         if (question_div !== null) {
           question_div.style.fontSize = currentZoom * size + "px"
@@ -578,7 +567,6 @@
         if (correction_div !== null) {
           correction_div.style.fontSize = currentZoom * size + "px"
         }
-        console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + " / font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
       }
     }
   }

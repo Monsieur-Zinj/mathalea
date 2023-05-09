@@ -1,5 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, printlatex, calcul, texNombrec, lettreDepuisChiffre, texNombre, contraindreValeur } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  choice,
+  printlatex,
+  calcul,
+  texNombre,
+  lettreDepuisChiffre,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -45,7 +54,7 @@ export default function ReduireUneExpressionLitterale () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    /*
     let listeDesProblemes = []
     if (!this.sup3 || parseInt(this.sup3) === 0) { // Si aucune liste n'est saisie ou mélange demandé
       listeDesProblemes = range1(9)
@@ -59,8 +68,8 @@ export default function ReduireUneExpressionLitterale () {
         }
       }
     }
-    const typesDeQuestionsDisponibles = listeDesProblemes
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+  */
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup3, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions })
 
     for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a, b, c, d
@@ -93,13 +102,13 @@ export default function ReduireUneExpressionLitterale () {
           break
         case 4: // a+x+b+c+dx
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x=${texNombrec(1 + d)}x+${texNombrec(a + b + c)}$`
-          reponse = printlatex(`${texNombrec(1 + d)}x+${texNombrec(a + b + c)}`)
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x=${texNombre(1 + d)}x+${texNombre(a + b + c)}$`
+          reponse = printlatex(`${texNombre(1 + d)}x+${texNombre(a + b + c)}`)
           break
         case 5: // ax+y+bx+c+dy
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y=${texNombrec(a + b)}x+${texNombrec(1 + d)}y+${texNombre(c)}$`
-          reponse = printlatex(`${texNombrec(a + b)}x+${texNombrec(1 + d)}y+${texNombre(c)}`)
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y=${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}$`
+          reponse = printlatex(`${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}`)
           break
         case 6: // ax . bx
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}x$`
@@ -136,8 +145,7 @@ export default function ReduireUneExpressionLitterale () {
   this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   this.besoinFormulaire3Texte = [
-    'Type de question', [
-      '0 : Mélange des types de questions',
+    'Type de questions', [
       '1 : ax+bx+c',
       '2 : ax+b+x+c',
       '3 : ax^2+bx+c+dx^2+x',
@@ -146,7 +154,8 @@ export default function ReduireUneExpressionLitterale () {
       '6 : ax.bx',
       '7 : ax+c',
       '8 : ax × b',
-      '9 : ax+bx'
+      '9 : ax+bx',
+      '10 : Mélange des types de questions'
     ].join('\n')
   ]
 }

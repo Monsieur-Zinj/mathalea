@@ -5,7 +5,6 @@
   import type { InterfaceReferentiel } from "../../lib/types"
   import EntreeRecherche from "./EntreeRecherche.svelte"
   import Button from "../forms/Button.svelte"
-  import Chip from "../forms/Chip.svelte"
   import Filtres from "./Filtres.svelte"
   export let referentiel: object
   let searchField: HTMLInputElement
@@ -38,6 +37,9 @@
   let isCanInclusDansResultats: boolean
   let isFiltersDisplayed: boolean = false
   let isSearchInputDisplayed: boolean = false
+  let isInputFocused = false
+	function onFocusInput() { isInputFocused = true }
+	function onBlurInput() { isInputFocused = false }
 
   let inputSearch: string = ""
   $: {
@@ -56,7 +58,7 @@
     const liste = listeDesExercices.filter((exercice) => filtreStatic(exercice, inputSearch))
     // retirer les doublons (le référentiel statique contient des classements par thèmes
     //  et années avec les mêmes exercices !!!)
-    let alreadySelected = []
+    let alreadySelected: string[] = []
     filteredStaticList = liste.filter((exo) => {
       if (!alreadySelected.includes(exo.uuid)) {
         alreadySelected.push(exo.uuid)
@@ -76,7 +78,7 @@
    * @returns {boolean} `true` si les tags contienne un bout de la requête, `false` sinon
    * @author sylvain
    */
-  const filtreStatic = (exercice, inputSearch) => {
+  const filtreStatic = (exercice, inputSearch: string) => {
     if (!inputSearch) {
       return false
     }
@@ -167,7 +169,7 @@
    *
    * @param event
    */
-  function onKeyDown(event) {
+  function onKeyDown(event: KeyboardEvent) {
     if (event.repeat) return
     switch (event.key) {
       case "Control":
@@ -179,7 +181,9 @@
         event.preventDefault()
         break
       case "Enter":
-        isEnterDown = true
+        if (isInputFocused) {
+          isEnterDown = true
+        } 
         event.preventDefault()
         break
     }
@@ -191,7 +195,7 @@
     }
   }
 
-  function onKeyUp(event) {
+  function onKeyUp(event: KeyboardEvent) {
     switch (event.key) {
       case "Control":
         isCtrlDown = false
@@ -216,7 +220,8 @@
 
 <!-- <svelte:window on:keydown={handlePressEnter} /> -->
 <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
-<div class="flex flex-row space-x-2 justify-start items-center">
+<div 
+  class="flex flex-row space-x-2 justify-start items-center">
   <!-- <div class="font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div> -->
   <div class="relative flex flex-col w-full">
     <input
@@ -226,6 +231,8 @@
       placeholder="🔍 Thème, identifiant..."
       bind:value={inputSearch}
       bind:this={searchField}
+      on:focus={onFocusInput}
+      on:blur={onBlurInput}
       on:input={() => {
         filteredStaticList.length = 0
         buildStaticList()
@@ -233,7 +240,7 @@
       }}
     />
     <div
-      class="absolute -bottom-4 {matchOnFilteredList(inputSearch) !== null
+      class="absolute -bottom-4 {(matchOnFilteredList(inputSearch) !== null && isInputFocused)
         ? 'flex'
         : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
     >

@@ -118,7 +118,7 @@ export default function TrouverEquationDeParabole () {
       const r = repere({ xMin: xmin, xMax: xmax, yMin: ymin, yMax: ymax })
 
       const cg = courbe(g, { repere: r, xMin: xmin, xMax: xmax })
-      texteCorr += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, pixelsParCm: 30, scale: 0.8 }, r, cg)
+      texteCorr += mathalea2d({ xmin, xmax, ymin, ymax, pixelsParCm: 30, scale: 0.8 }, r, cg)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

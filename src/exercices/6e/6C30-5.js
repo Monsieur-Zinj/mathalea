@@ -18,7 +18,6 @@ export const titre = 'Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nomb
 export const uuid = '021f3'
 export const ref = '6C30-5'
 export default function MultiplierPar001 () {
-  
   Exercice.call(this)
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions

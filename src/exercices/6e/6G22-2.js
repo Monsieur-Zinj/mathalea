@@ -48,25 +48,25 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       switch (listeTypeQuestions[i]) {
         case 'nul':
           triangle = triangle2points1angle1longueur(B, A, 0, distanceCB, -1)
-          explications = 'Un angle nul est un angle dont la mesure est égale à 0°'
+          explications = 'Un angle nul est un angle dont la mesure est égale à 0°.'
           break
         case 'aigu':
           triangle = triangle2points1angle1longueur(B, A, randint(10, 80), distanceCB, -1)
-          explications = 'Un angle aigu est un angle dont la mesure est comprise entre 0° et 90°'
+          explications = 'Un angle aigu est un angle dont la mesure est comprise entre 0° et 90°.'
           break
         case 'droit':
           triangle = triangle2points1angle1longueur(B, A, 90, distanceCB, -1)
-          explications = 'Un angle nul est un angle dont la mesure est égale à 0°'
+          explications = 'Un angle nul est un angle dont la mesure est égale à 0°.'
           break
         case 'obtus':
           B = point(A.x + distanceAB * degCos(randint(-30, 30)), A.y + distanceAB * degSin(randint(-30, 30)), lettreDepuisChiffre(indiceNomB))
           triangle = triangle2points1angle1longueur(B, A, randint(100, 170), distanceCB, -1)
-          explications = 'Un angle nul est un angle dont la mesure est égale à 0°'
+          explications = 'Un angle nul est un angle dont la mesure est égale à 0°.'
           break
         case 'plat':
           B = point(A.x + distanceAB * degCos(randint(-30, 30)), A.y + distanceAB * degSin(randint(-30, 30)), lettreDepuisChiffre(indiceNomB))
           triangle = triangle2points1angle1longueur(B, A, 179.99, distanceCB, -1)
-          explications = 'Un angle aigu est un angle dont la mesure est comprise entre 0° et 90°'
+          explications = 'Un angle aigu est un angle dont la mesure est comprise entre 0° et 90°.'
           break
       }
       const C = triangle.listePoints[2]
@@ -87,7 +87,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       const xmax = Math.max(...pointsX) + 2.2
       const ymin = Math.min(...pointsY) - 2.2
       const ymax = Math.max(...pointsY) + 2.2
-      const parametres2d = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 0.4 }
+      const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.4 }
       texte = 'Dans la figure ci-dessous :<br>' + mathalea2d(parametres2d, objets2d) + '<br>'
       texteCorr = ''
       // On construit les questions
@@ -114,7 +114,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       this.autoCorrection[i] = {
         enonce: questionReponse.question,
         options: { ordered: true },
-        propositions: propositions
+        propositions
       }
       const monQcm = propositionsQcm(this, i)
       texte += context.isAmc ? '' : questionReponse.question + '<br>'

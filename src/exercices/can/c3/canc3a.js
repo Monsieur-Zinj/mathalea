@@ -1,5 +1,17 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  calcul,
+  texNombre,
+  choice,
+  texPrix,
+  prenom,
+  personne,
+  miseEnEvidence,
+  stringNombre,
+  gestionnaireFormulaireTexte
+} from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../../modules/2d.js'
@@ -34,24 +46,9 @@ export default function CourseAuxNombresCM (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat, objets, A, B, C
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
+
+    const listeIndex = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, max: 30, defaut: 31, melange: 31, shuffle: false }).map((index) => index - 1)
+
     const fruits2 = [
       ['pêches', 4.5, 10, 30],
       ['noix', 5.2, 4, 13],
@@ -98,7 +95,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
       // Boucle principale où i+1 correspond au numéro de la question
       // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
       // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
-      // texNombrec(expression) fait les deux choses ci-dessus.
+      // texNombre(expression) fait les deux choses ci-dessus.
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
         case 'q1': // somme d'entiers à deux chiffres sans retenue
           a = randint(1, 3) * 10 + randint(1, 5)
@@ -148,28 +145,28 @@ export default function CourseAuxNombresCM (numeroExercice) {
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = randint(1, 4)
           texte = `$${texNombre(a)}+${b}$`
-          texteCorr = `$${texNombre(a)}+${b}=${texNombrec(a + b)}$`
+          texteCorr = `$${texNombre(a)}+${b}=${texNombre(a + b)}$`
           setReponse(this, i, calcul(a + b), { formatInteractif: 'calcul' })
           break
         case 'q8': // Somme décimaux
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = calcul(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
           texte = `$${texNombre(a)}+${texNombre(b)}$`
-          texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombrec(a + b)}$`
+          texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$`
           setReponse(this, i, calcul(a + b), { formatInteractif: 'calcul' })
           break
         case 'q9': // Différence décimaux
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = calcul(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
-          texte = `$${texNombrec(a + b)}-${texNombre(a)}$`
-          texteCorr = `$${texNombrec(a + b)}-${texNombre(a)}=${texNombre(b)}$`
+          texte = `$${texNombre(a + b)}-${texNombre(a)}$`
+          texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q10': // Différence décimaux avec retenue
           a = calcul(randint(1, 5) + randint(5, 9) / 10)
           b = calcul(randint(1, 4) + randint(5, 9) / 10)
-          texte = `$${texNombrec(a + b)}-${texNombre(a)}$`
-          texteCorr = `$${texNombrec(a + b)}-${texNombre(a)}=${texNombre(b)}$`
+          texte = `$${texNombre(a + b)}-${texNombre(a)}$`
+          texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q11' : // Divisions d'entiers
@@ -237,15 +234,15 @@ export default function CourseAuxNombresCM (numeroExercice) {
           switch (randint(1, 3)) {
             case 1:
               texte = `Combien font $${b}$ de plus que $${texNombre(a)}$ ?`
-              texteCorr = `$${texNombre(a)}+${b}=${texNombrec(a + b)}$`
+              texteCorr = `$${texNombre(a)}+${b}=${texNombre(a + b)}$`
               break
             case 2:
               texte = `$\\ldots - ${texNombre(a)}=${b}$`
-              texteCorr = `$${miseEnEvidence(texNombrec(a + b))} - ${texNombre(a)}=${b}$`
+              texteCorr = `$${miseEnEvidence(texNombre(a + b))} - ${texNombre(a)}=${b}$`
               break
             case 3:
               texte = `$\\ldots - ${b}=${texNombre(a)}$`
-              texteCorr = `$${miseEnEvidence(texNombrec(a + b))} - ${b}=${texNombre(a)}$`
+              texteCorr = `$${miseEnEvidence(texNombre(a + b))} - ${b}=${texNombre(a)}$`
               break
           }
           setReponse(this, i, calcul(a + b), { formatInteractif: 'calcul' })
@@ -299,7 +296,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               break
             case 2:
               texte = `$\\ldots + ${texNombre(a)}=${texNombre(c)}$`
-              texteCorr = `$${miseEnEvidence(texNombrec(b))} + ${texNombre(a)}=${texNombre(c)}$`
+              texteCorr = `$${miseEnEvidence(texNombre(b))} + ${texNombre(a)}=${texNombre(c)}$`
               break
             case 3:
               A = point(0, 0)
@@ -330,7 +327,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               break
             case 2:
               texte = `$\\ldots - ${texNombre(a)}=${texNombre(b)}$`
-              texteCorr = `$${miseEnEvidence(texNombrec(c))} - ${texNombre(a)}=${texNombre(b)}$`
+              texteCorr = `$${miseEnEvidence(texNombre(c))} - ${texNombre(a)}=${texNombre(b)}$`
               break
             case 3:
               A = point(0, 0)
@@ -413,12 +410,12 @@ export default function CourseAuxNombresCM (numeroExercice) {
           switch (randint(1, 2)) {
             case 1:
               texte = choice([`$${texNombre(a)} \\times 20$`, `$20 \\times ${texNombre(a)}$`])
-              texteCorr = `$${texNombre(a)} \\times 20=${texNombrec(a * 20)}$`
+              texteCorr = `$${texNombre(a)} \\times 20=${texNombre(a * 20)}$`
               setReponse(this, i, calcul(a * 20), { formatInteractif: 'calcul' })
               break
             case 2:
-              texte = `$\\ldots \\times 20=${texNombrec(a * 20)}$`
-              texteCorr = `$${miseEnEvidence(texNombre(a))} \\times 20=${texNombrec(a * 20)}$`
+              texte = `$\\ldots \\times 20=${texNombre(a * 20)}$`
+              texteCorr = `$${miseEnEvidence(texNombre(a))} \\times 20=${texNombre(a * 20)}$`
               setReponse(this, i, a, { formatInteractif: 'calcul' })
               break
           }
@@ -428,8 +425,8 @@ export default function CourseAuxNombresCM (numeroExercice) {
           b = fruits2[a][1]
           c = randint(2, 5)
           d = randint(2, 5)
-          texte = `$${c}$ kg de ${fruits2[a][0]} coûtent $${texNombrec(c * b)}$ €, combien coûtent $${c * d}$ kg de ${fruits2[a][0]} ?`
-          texteCorr = `$${c * d}$ kg de ${fruits2[a][0]} coûtent : $${texNombrec(c * b)} \\times ${d} = ${texPrix(c * b * d)}$ €.`
+          texte = `$${c}$ kg de ${fruits2[a][0]} coûtent $${texNombre(c * b)}$ €, combien coûtent $${c * d}$ kg de ${fruits2[a][0]} ?`
+          texteCorr = `$${c * d}$ kg de ${fruits2[a][0]} coûtent : $${texNombre(c * b)} \\times ${d} = ${texPrix(c * b * d)}$ €.`
           setReponse(this, i, calcul(c * d * b), { formatInteractif: 'calcul' })
           break
         case 'q25' : // quotient par 4
@@ -574,5 +571,6 @@ export default function CourseAuxNombresCM (numeroExercice) {
   27 : Soustraction entiers mesures\n
   28 : Durée\n
   29 : Proportionnalité\n
-  30 : Addition d'entiers mesures `]
+  30 : Addition d'entiers mesures\n
+  31 : Mélange`]
 }

@@ -1,6 +1,6 @@
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-import { calcul, listeQuestionsToContenu, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver un ordre de grandeur (QCM)'
 export const interactifReady = true
@@ -28,7 +28,7 @@ export default function OrdreDeGrandeur () {
       const c = randint(1, 9)
       const d = randint(5, 9)
       const resultat = calcul((a * 100 + b * 10 + c) * d)
-      let texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> 
+      let texte = `$${texNombre(a * 100 + b * 10 + c)}\\times ${d}$<br> 
     Choisir la bonne réponse sans effectuer précisément le calcul.`
       // Ajout avant l'ajout des propositions de réponse
       // ça serait mieux en uniformisant avec this.question pour tous les exos can
@@ -41,11 +41,11 @@ export default function OrdreDeGrandeur () {
             statut: true
           },
           {
-            texte: `$${texNombrec(d * 1000 + a * 100 + b * 10 + c)}$`,
+            texte: `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`,
             statut: false
           },
           {
-            texte: `$${texNombrec((a * 1000 + b * 100 + c) * d)}$`,
+            texte: `$${texNombre((a * 1000 + b * 100 + c) * d)}$`,
             statut: false
           }
         ]
@@ -54,7 +54,7 @@ export default function OrdreDeGrandeur () {
       if (!context.isAmc) {
         texte += monQcm.texte
       }
-      let texteCorr = `$${texNombrec(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$<br>
+      let texteCorr = `$${texNombre(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$<br>
         `
       if (a * 100 + b * 10 + c > a * 100 + 50) {
         texteCorr += texteEnCouleur(`

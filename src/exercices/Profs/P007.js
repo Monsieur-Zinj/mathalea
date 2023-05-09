@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, nombreAvecEspace } from '../../modules/outils.js'
+import { listeQuestionsToContenu, nombreAvecEspace, randint } from '../../modules/outils.js'
 import { texteParPosition } from '../../modules/2d.js'
 import { pavage } from '../../modules/Pavage.js'
 
@@ -14,7 +14,6 @@ export const titre = 'Fabriquer des pavages pour travailler les transformations'
  * Ref : P007
  */
 export default function PavagesMathalea2d () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -44,10 +43,9 @@ export default function PavagesMathalea2d () {
     }
     this.listeCorrections = []
     this.listeQuestions = []
-    let texte = ''; let texteCorr = ''
 
     const monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
-    const typeDePavage = parseInt(this.sup)
+    const typeDePavage = this.sup === 8 ? randint(1, 7) : this.sup
     monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     if (this.sup3) { // Doit-on afficher les Numéros ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
@@ -62,9 +60,9 @@ export default function PavagesMathalea2d () {
     for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
-    texte = mathalea2d(monpavage.fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    const texte = mathalea2d(monpavage.fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
 
-    texteCorr = 'Le premier paramètre permet de choisir le pavage.<br>'
+    let texteCorr = 'Le premier paramètre permet de choisir le pavage.<br>'
     texteCorr += 'Le deuxième permet de choisir le nombre de répétitions en x et y. Exemple : 3-2<br>'
     texteCorr += "Le troisième permet d'afficher un Numéro distinct sur chaque figure.<br>"
     texteCorr += 'En activant la correction détaillée, on affiche les barycentres de celles-ci.'
@@ -73,7 +71,7 @@ export default function PavagesMathalea2d () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de pavage', 7, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d\'écolier\n7 : Pavage 6.3.6.3']
+  this.besoinFormulaireNumerique = ['Type de pavage', 7, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d\'écolier\n7 : Pavage 6.3.6.3\n8 : Mélange']
   this.besoinFormulaire2Texte = ['Nombre de répétitions du motif (2 entiers séparés par un tiret)']
   this.besoinFormulaire3CaseACocher = ['Présence de numéros']
 } // Fin de l'exercice.

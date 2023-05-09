@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { abs, arrondi, choice, combinaisonListes, compteOccurences, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint, rangeMinMax, sp } from '../../modules/outils.js'
+import { abs, arrondi, choice, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint, sp } from '../../modules/outils.js'
 import { point, segment, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo, afficheMesureAngle, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -30,6 +30,7 @@ export default function CalculerUnAngle () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    /*
     let QuestionsDisponibles = []
 
     if (!this.sup) { // Si aucune liste n'est saisie
@@ -46,6 +47,15 @@ export default function CalculerUnAngle () {
     }
     if (compteOccurences(QuestionsDisponibles, 15) > 0) QuestionsDisponibles = rangeMinMax(1, 14) // Teste si l'utilisateur a choisi tout
     QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
+*/
+    const QuestionsDisponibles = gestionnaireFormulaireTexte({
+      max: 14,
+      defaut: 15,
+      nbQuestions: this.nbQuestions,
+      melange: 15,
+      saisie: this.sup
+    })
+
     for (let i = 0, somAngle, choixAngD, choixAngC, numA, numB, numC, numD, numE, texte, texteCorr, tabAngle, partageAngle, pointsPartage, choixPartage, reponse, A, B, B1, C, C1, D, D1, E, AB, AC, AD, sensRot, posA, posB, posC, posD, angB, angC, angD, paramsEnonce; i < this.nbQuestions; i++) {
       texte = ''
       texteCorr = ''

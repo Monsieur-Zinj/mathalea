@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
@@ -47,7 +47,8 @@ export default function ExerciceInformationsProblemes () {
     this.consigne += ' à sa résolution.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
 
-    let listeDesProblemes = []
+    /*
+    const listeDesProblemes = []
     if (!this.sup2) { // Si aucune liste n'est saisie
       listeDesProblemes = rangeMinMax(1, 10)
     } else {
@@ -62,6 +63,15 @@ export default function ExerciceInformationsProblemes () {
     }
     if (compteOccurences(listeDesProblemes, 11) > 0) listeDesProblemes = rangeMinMax(1, 10) // Teste si l'utilisateur a choisi tout
     listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+    */
+    const listeDesProblemes = gestionnaireFormulaireTexte({
+      max: 10,
+      defaut: 11,
+      nbQuestions: this.nbQuestions,
+      melange: 11,
+      saisie: this.sup2
+    })
+
     const FamilleH = ['père', 'frère', 'cousin', 'grand-père', 'voisin']
     const FamilleF = ['mère', 'sœur', 'cousine', 'grand-mère', 'tante', 'voisine']
 
@@ -1339,7 +1349,7 @@ export default function ExerciceInformationsProblemes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix de la formulation', 2, '1 : Coche les informations qui servent à sa résolution.\n2 : Coche les informations qui NE servent PAS à sa résolution.']
+  this.besoinFormulaireNumerique = ['Choix de la formulation :', 2, '1 : Coche les informations qui servent à sa résolution.\n2 : Coche les informations qui NE servent PAS à sa résolution.']
   this.besoinFormulaire2Texte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Livres\n2 : Haricots\n3 : Villages de montagne\n4 : Manga\n5 : Film\n6 : Vélo\n7 : Taille\n8 : Gare\n9 : Livreur\n10 : Cargo\n11 : Tous les problèmes\n']
   this.besoinFormulaire3CaseACocher = ['Certains problèmes peuvent être insolubles']
 }

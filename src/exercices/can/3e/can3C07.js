@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, texNombrec, calcul, stringNombre } from '../../../modules/outils.js'
+import { randint, texNombre, calcul, stringNombre } from '../../../modules/outils.js'
 import { point, segmentAvecExtremites, codageSegments, texteParPosition } from '../../../modules/2d.js'
 export const titre = 'Calculer l’abscisse d’un milieu'
 export const interactifReady = true
@@ -50,9 +50,9 @@ export default function MilieuEntre1EtFraction () {
       style: 'margin: auto'
     }, objets)
     this.question += '<br>'
-    this.correction = `On calcule la moyenne de $${texNombrec(a)}$ et $${texNombrec(b)}$ :<br>  
-    $x_M=\\dfrac{${texNombrec(a)}+${texNombrec(b)}}{2}=
-    \\dfrac{${texNombrec(a + b)}}{2}=${texNombrec((a + b) / 2)}$`
+    this.correction = `On calcule la moyenne de $${texNombre(a)}$ et $${texNombre(b)}$ :<br>  
+    $x_M=\\dfrac{${texNombre(a)}+${texNombre(b)}}{2}=
+    \\dfrac{${texNombre(a + b)}}{2}=${texNombre((a + b) / 2)}$`
 
     this.reponse = (a + b) / 2
     this.canEnonce = this.question// 'Compléter'

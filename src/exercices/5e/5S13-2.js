@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, combinaisonListes, arrondi, egalOuApprox, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, numAlpha, combinaisonListes, arrondi, egalOuApprox, sp } from '../../modules/outils.js'
 import { diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
@@ -368,8 +368,6 @@ export default function CalculerDesFrequences () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.sup = contraindreValeur(1, 4, this.sup, 1)
-    this.sup2 = contraindreValeur(1, 5, this.sup2, 1)
     const theme = listeDesThemes[this.sup2 - 1]
     const exercice = { questions: [], corrections: [] }
     let transit = {}

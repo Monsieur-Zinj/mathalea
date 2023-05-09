@@ -66,7 +66,7 @@ export default function ReductionsPiegesClassiques () {
         b *= choice([-1, 1])
       }
       let reponse
-      let saufD = this.interactif
+      const saufD = this.interactif
       switch (typesDeQuestions) {
         case 'ax+b':
           texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a}x${ecritureAlgebrique(b)}$`

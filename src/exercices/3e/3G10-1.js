@@ -2,7 +2,18 @@ import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, point
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombre, contraindreValeur, numAlpha, listeQuestionsToContenu, miseEnCouleur, miseEnEvidence } from '../../modules/outils.js'
+import {
+  randint,
+  choice,
+  imagePointParTransformation,
+  texFractionReduite,
+  texNombre,
+  numAlpha,
+  listeQuestionsToContenu,
+  miseEnCouleur,
+  miseEnEvidence,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -21,7 +32,6 @@ export const dateDeModifImportante = '15/01/2023' //  Par EE
 export const uuid = 'd4088'
 export const ref = '3G10-1'
 export default function TransformationsDuPlanEtCoordonnees () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -45,21 +55,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const punto = [[]]
     const couleurs = ['brown', 'green', 'blue']
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [0]
-    } else {
-      if (typeof (this.sup) === 'number') {
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 6, this.sup, 1) - 1
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, typesDeQuestionsDisponibles[i], 1) - 1
-        }
-      }
-    }
-    typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, 3)
-
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions * 3, shuffle: true }).map((nb) => nb - 1)
     for (let ee = 0, texte, texteCorr, xA, yA, xB, yB, xC, yC, objetsEnonce, objetsCorrection, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
       let enonceAmc = ''
       texte = ''
@@ -89,8 +85,9 @@ export default function TransformationsDuPlanEtCoordonnees () {
         yB = randint(-7, 7, -1)
         xC = randint(-7, 7, 0) // Point C
         yC = randint(-7, 7, [yA, yB, -1])
-
+        // console.log('trouve')
         punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
+        compteur = 0
         while ((punto[0][0] < -9 || punto[0][0] > 9 || punto[0][1] < -9 || punto[0][1] > 9) && compteur < 20) { // on teste si A est dans la fenêtre sinon on en choisit un autre
           xA = randint(-7, 7) // Point A
           yA = randint(-7, 7, -1)
@@ -98,13 +95,14 @@ export default function TransformationsDuPlanEtCoordonnees () {
           compteur++
         }
         if (compteur < 20) {
-          compteur = 0
+          // console.log('compteur fin1:' + compteur)
         } else {
-          compteur = 100
+          continue
         }
         A = point(xA, yA, 'A')
         Aprime = point(punto[0][0], punto[0][1], "A'")
         if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+        compteur = 0
         while ((punto[1][0] < -9 || punto[1][0] > 9 || punto[1][1] < -9 || punto[1][1] > 9) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
           xB = randint(-7, 7, [xA]) // Point B
           yB = randint(-7, 7, -1)
@@ -112,15 +110,16 @@ export default function TransformationsDuPlanEtCoordonnees () {
           compteur++
         }
         if (compteur < 20) {
-          compteur = 0
+          // console.log('compteur fin2:' + compteur)
         } else {
-          compteur = 100
+          continue
         }
 
         B = point(xB, yB, 'B')
         Bprime = point(punto[1][0], punto[1][1], "B'")
 
         if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+        compteur = 0
         while ((punto[2][0] < -9 || punto[2][0] > 9 || punto[2][1] < -9 || punto[2][1] > 9) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
           xC = randint(-7, 7) // Point C
           yC = randint(-7, 7, [yA, yB, -1])
@@ -128,7 +127,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
           compteur++
         }
         if (compteur < 20) {
+          // console.log('compteur fin3:' + compteur)
           trouve = true
+        } else {
+          continue
         }
         C = point(xC, yC, 'C')
         Cprime = point(punto[2][0], punto[2][1], "C'")
@@ -695,5 +697,5 @@ export default function TransformationsDuPlanEtCoordonnees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Translation\n 4 : Rotation\n 5 : Homothétie de rapport entier\n 6 : Homothétie de rapport fractionnaire']
+  this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Translation\n4 : Rotation\n5 : Homothétie de rapport entier\n6 : Homothétie de rapport fractionnaire\n7: Mélange']
 }

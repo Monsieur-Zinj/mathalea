@@ -6,7 +6,6 @@ export const titre = 'Problèmes de ratio'
 export const uuid = '0a637'
 export const ref = '5N15'
 export default function ProblemeDeRatio () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 4 // Ici le nombre de questions

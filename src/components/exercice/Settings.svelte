@@ -143,6 +143,7 @@
         min="1"
         bind:value={nbQuestions}
         on:change={newSettings}
+        on:input={newSettings}
         class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
       />
     </div>
@@ -196,7 +197,7 @@
         <input
           name="formNum1"
           type="number"
-          class="w-16 border-1"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={exercice.besoinFormulaireNumerique[1]}
           data-bs-toggle="tooltip"
@@ -216,6 +217,7 @@
           name="formText1"
           type="text"
           bind:value={sup}
+          on:input={newSettings}
         />
       </div>
       <!-- <fieldset>
@@ -296,6 +298,7 @@
           name="formText2"
           type="text"
           bind:value={sup2}
+          on:input={newSettings}
         />
       </div>
       <!-- <fieldset>
@@ -376,6 +379,7 @@
           name="formText3"
           type="text"
           bind:value={sup3}
+          on:input={newSettings}
         />
       </div>
       <!-- <div>
@@ -458,6 +462,7 @@
           name="formText4"
           type="text"
           bind:value={sup4}
+          on:input={newSettings}
         />
       </div>
     </form>
@@ -502,6 +507,7 @@
       name="formAlea"
       type="text"
       bind:value={alea}
+      on:input={newSettings}
     />
   </form>
   {#if exercice.comment !== undefined}

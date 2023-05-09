@@ -80,6 +80,7 @@ class Exercice {
   contentCorr?: string // Pour les exercices statiques
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: string[]
+  html?: HTMLElement
   applyNewSeed: () => void
 }
 

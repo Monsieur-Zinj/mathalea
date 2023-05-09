@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texFraction, rangeMinMax, contraindreValeur, compteOccurences, sp, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texFraction, sp, nombreDeChiffresDansLaPartieEntiere, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -21,7 +21,6 @@ export const interactifType = ['qcm', 'mathLive']
 export const uuid = '04b0d'
 export const ref = '6M30'
 export default function CalculDeVolumes () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 4
@@ -34,23 +33,27 @@ export default function CalculDeVolumes () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.sup3 = 2
-  this.sup4 = 8
   this.nouvelleVersion = function (numeroExercice) {
     // this.consigne = this.interactif ? '' : "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
-    let typesDeQuestionsDisponibles = []
     let thissup4Max
     switch (this.classe) {
       case 6 : thissup4Max = 2
+        this.sup4 = 3
         break
       case 5 : thissup4Max = 4
+        this.sup4 = 5
         break
       case 4 : thissup4Max = 6
+        this.sup4 = 7
         break
       case 3 : thissup4Max = 7
+        this.sup4 = 8
         break
     }
+    /*
+    let typesDeQuestionsDisponibles = []
     if (!this.sup4) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max)
     } else {
@@ -64,6 +67,15 @@ export default function CalculDeVolumes () {
       }
     }
     if (compteOccurences(typesDeQuestionsDisponibles, thissup4Max + 1) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max) // Teste si l'utilisateur a choisi tout
+    */
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      max: thissup4Max,
+      defaut: thissup4Max + 1,
+      melange: thissup4Max + 1,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup4,
+      shuffle: false
+    })
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     this.listeQuestions = [] // Liste de questions
@@ -395,5 +407,5 @@ export default function CalculDeVolumes () {
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
   this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
-  this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1 : Cubes\n2 : Pavés droits\n 3 : Mélange']
+  this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1 : Cubes\n2 : Pavés droits\n3 : Mélange']
 }

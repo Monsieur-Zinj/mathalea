@@ -1,8 +1,31 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range, egal, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
-import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, latexParCoordonneesBox, pointSurDroite, segment } from '../../modules/2d.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  range,
+  egal,
+  rangeMinMax,
+  shuffle,
+  contraindreValeur,
+  choice,
+  gestionnaireFormulaireTexte, combinaisonListesSansChangerOrdre
+} from '../../modules/outils.js'
+import {
+  point,
+  pointIntersectionDD,
+  droite,
+  droiteParPointEtParallele,
+  droiteParPointEtPerpendiculaire,
+  droiteParPointEtPente,
+  rotation,
+  codageAngleDroit,
+  latexParCoordonneesBox,
+  pointSurDroite,
+  segment
+} from '../../modules/2d.js'
+
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
@@ -16,7 +39,6 @@ export const titre = 'Utiliser les propriétés des droites perpendiculaires'
 export const uuid = '6a336'
 export const ref = '6G14'
 export default function ProprietesParallelesPerpendiculaires () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 3
@@ -29,7 +51,7 @@ export default function ProprietesParallelesPerpendiculaires () {
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    let typesDeQuestionsDisponibles = []
+    const typesDeQuestionsDisponibles = []
     let questionsParNiveau = []
     if (!this.sup2) {
       questionsParNiveau.push(range(3))
@@ -38,36 +60,32 @@ export default function ProprietesParallelesPerpendiculaires () {
       questionsParNiveau.push(rangeMinMax(19, 31, 20))
       questionsParNiveau.push(questionsParNiveau[0].concat(questionsParNiveau[1].concat(questionsParNiveau[2]).concat(questionsParNiveau[3])))
     } else {
-      questionsParNiveau = [[2], [15], [31], [2, 15, 31]]
+      questionsParNiveau = [[2], [5], [15], [31], [2, 5, 15, 31]]
     }
-    let AvecMelange = true
-    if (!this.sup) { // Si aucun melange n'est saisi
-      typesDeQuestionsDisponibles = questionsParNiveau[4]
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre, on duplique ce nombre et on insère un - entre les deux.
-        this.sup = this.sup + '-' + this.sup
-      } else { AvecMelange = false }
-
-      let QuestionsDisponibles = []
-      const IndiceNew = [0, 0, 0, 0, 0]
-      let NumQuestionsDisponibles
-      QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-      for (let i = 0; i < this.nbQuestions; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        NumQuestionsDisponibles = contraindreValeur(1, 5, parseInt(QuestionsDisponibles[i % QuestionsDisponibles.length]), 4) - 1
-        typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
-        if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
-          IndiceNew[NumQuestionsDisponibles] = i
-          typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles]))
-        }
+    let QuestionsDisponibles = []
+    const IndiceNew = [0, 0, 0, 0, 0]
+    let NumQuestionsDisponibles
+    QuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      defaut: 5,
+      melange: 5,
+      nbQuestions: this.nbQuestions,
+      shuffle: true
+    })
+    for (let i = 0; i < this.nbQuestions; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+      NumQuestionsDisponibles = contraindreValeur(1, 5, parseInt(QuestionsDisponibles[i % QuestionsDisponibles.length]), 4) - 1
+      typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
+      if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
+        IndiceNew[NumQuestionsDisponibles] = i
+        typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles]))
       }
     }
-    let listeTypeDeQuestions = []
-    if (AvecMelange) {
-      listeTypeDeQuestions = combinaisonListes(
-        typesDeQuestionsDisponibles,
-        this.nbQuestions
-      )
-    } else { listeTypeDeQuestions = typesDeQuestionsDisponibles }
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions
+    )
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -79,11 +97,16 @@ export default function ProprietesParallelesPerpendiculaires () {
 
       const numDroites = shuffle([1, 2, 3, 4, 5])
       // const numDroites = [1, 2, 3, 4, 5]
-      const d = []; const dE = []; const P = []; const objets = []; const objets2 = []
-      let code = []; let code2 = []
+      const d = []
+      const dE = []
+      const P = []
+      const objets = []
+      const objets2 = []
+      let code = []
+      let code2 = []
 
       switch (listeTypeDeQuestions[i]) {
-        // \n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 : Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
+      // \n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 : Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
         case 0: // si 1//2 et 2//3 alors 1//3
           code = [[1, 2, 1], [2, 3, 1]]
           break
@@ -255,7 +278,16 @@ export default function ProprietesParallelesPerpendiculaires () {
       objets.push(...labels)
 
       if (this.sup3) {
-        texte += (context.vue === 'diap' ? '<center>' : '') + mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: (context.vue !== 'latex' ? 0.3 : 0.6), mainlevee: false, amplitude: 0.3 }, objets2) + '<br>' + (context.vue === 'diap' ? '</center>' : '')
+        texte += (context.vue === 'diap' ? '<center>' : '') + mathalea2d({
+          xmin: -2,
+          xmax: 15,
+          ymin: -2,
+          ymax: 10,
+          pixelsParCm: 20,
+          scale: (context.vue !== 'latex' ? 0.3 : 0.6),
+          mainlevee: false,
+          amplitude: 0.3
+        }, objets2) + '<br>' + (context.vue === 'diap' ? '</center>' : '')
       }
       texte += `Que peut-on dire de $(d_${numDroites[code[0][0] - 1]})$ et $(d_${numDroites[code[code.length - 1][1] - 1]})$ ?`
       if (context.isAmc && !this.sup3) {
@@ -268,7 +300,16 @@ export default function ProprietesParallelesPerpendiculaires () {
         texteCorr += ' Les droites données parallèles dans l\'énoncé sont de même '
         texteCorr += (context.html) ? ' couleur/style.<br>' : 'style.<br>'
       }
-      texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: (context.vue !== 'latex' ? 0.3 : 0.6), mainlevee: false, amplitude: 0.3 }, objets) + '<br>'
+      texteCorr += mathalea2d({
+        xmin: -2,
+        xmax: 15,
+        ymin: -2,
+        ymax: 10,
+        pixelsParCm: 20,
+        scale: (context.vue !== 'latex' ? 0.3 : 0.6),
+        mainlevee: false,
+        amplitude: 0.3
+      }, objets) + '<br>'
       for (let j = 0; j < code.length - 1; j++) {
         if (this.correctionDetaillee) texteCorr += 'On sait que : '
         else texteCorr += 'Comme '
@@ -315,7 +356,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       /****************************************************/
 
       if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte + '<br>')
         this.listeCorrections.push(texteCorr + '<br>')
         i++
@@ -329,6 +370,7 @@ export default function ProprietesParallelesPerpendiculaires () {
   this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
   this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
 }
+
 /**
  * Ajouter une étiquette sur une droite.
  * @param {*} droite La droite où on va rajouter une étiquette
@@ -358,7 +400,8 @@ export function labelOnLine (droite, nom, options = {}) {
   // const largeur = Math.ceil((nom.replaceAll('$', '').length) * 10 * Math.log10(options.taille))
   const largeur = Math.ceil((nom.replaceAll('$', '').length) * options.taille * 10 / 12)
   const hauteur = 20
-  let absNom, ordNom, leNom, anchor, usedPosition; const positions = []
+  let absNom, ordNom, leNom, anchor, usedPosition
+  const positions = []
   if (nom !== '') {
     if (egal(droite.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
       // droite quasi verticale

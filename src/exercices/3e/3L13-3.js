@@ -1,10 +1,29 @@
-import { codageSegments, homothetie, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d.js'
+import {
+  codageSegments,
+  homothetie,
+  point,
+  polygone,
+  polygoneAvecNom,
+  segment,
+  texteParPosition
+} from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { arrondi, choice, combinaisonListes, compteOccurences, contraindreValeur, ecritureAlgebrique, listeQuestionsToContenu, prenom, rangeMinMax, stringNombre, texNombre, texPrix } from '../../modules/outils.js'
+import {
+  arrondi,
+  choice,
+  ecritureAlgebrique,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  prenom,
+  stringNombre,
+  texNombre,
+  texPrix
+} from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+
 export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -46,7 +65,15 @@ export default class ProblemesEnEquation extends Exercice {
     const longCA = texteParPosition(`${b}`, 0, 3)
     const longAB = texteParPosition(`${c}`, 2, 6)
     const longCD = texteParPosition(`${a}`, 1.5, 2.5)
-    return mathalea2d({ xmin: -1, xmax: 5, ymin: -1, ymax: 7, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB[0], OAB[1], longOC, longCA, longAB, longCD, CD)
+    return mathalea2d({
+      xmin: -1,
+      xmax: 5,
+      ymin: -1,
+      ymax: 7,
+      pixelsParCm: 20,
+      scale: 0.8,
+      zoom: 1
+    }, OAB[0], OAB[1], longOC, longCA, longAB, longCD, CD)
   }
 
   triangleIsocele1 () {
@@ -71,22 +98,15 @@ export default class ProblemesEnEquation extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    let listeDesProblemes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] // basket, basket2, achats, polygone, programmes, programmes2, tarifs, spectacle, isocele, Thales, Thales2
-    const valMaxParametre = 12
-    if (this.sup) { // Si une liste est saisie
-      if (this.sup.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
-        listeDesProblemes = [contraindreValeur(1, valMaxParametre, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
-      } else {
-        listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
-          listeDesProblemes[i] = contraindreValeur(1, valMaxParametre, parseInt(listeDesProblemes[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
-        }
-      }
-    }
-    // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
-    if (compteOccurences(listeDesProblemes, valMaxParametre) > 0) listeDesProblemes = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
-
-    const listeDeProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+    const listeDeProblemes = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 11,
+      melange: 12,
+      defaut: 1,
+      shuffle: true,
+      nbQuestions: this.nbQuestions
+    })
     for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
       // const n = 0 // un paramètre entier qui peut servir dans certains cas.

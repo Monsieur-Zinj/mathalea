@@ -11,7 +11,6 @@ export const titre = 'Trouver l\'erreur dans une résolution d\'équation du pre
 export const uuid = 'df5a3'
 export const ref = '4L15-0'
 export default function TrouverErreurResolEqDeg1 () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.sup = 1

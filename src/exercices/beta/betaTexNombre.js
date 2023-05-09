@@ -9,7 +9,8 @@ export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const uuid = 'efeee'
+export const ref = 'betaTexNombre'
 const bmath = create(all)
 
 bmath.config({ number: 'BigNumber' })
@@ -32,10 +33,11 @@ export default function NomExercice () {
     Decimal.toExpPos = 40
     const a = parseFloat(this.sup)
     const precision = parseInt(this.sup2)
-    this.listeQuestions = [`StringNombre :  ${stringNombre(a, precision)}        TexNombre : $${texNombre(a, precision)}$<br>
-    Avec 'force' StringNombre : ${stringNombre(a, precision, true)} ${sp((5))} TexNombre : $${texNombre(a, precision, true)}$`]
+    this.listeQuestions = [`StringNombre :  ${stringNombre(a, precision, this.sup3, this.sup4)}        TexNombre : $${texNombre(a, precision, this.sup3, this.sup4)}$<br>`]
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Nombre à tester :']
   this.besoinFormulaire2Numerique = ['Précision voulue :', 6]
+  this.besoinFormulaire3CaseACocher = ['Completer zéros : ']
+  this.besoinFormulaire4CaseACocher = ['Aussi completer entiers : ']
 }

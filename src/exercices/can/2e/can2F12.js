@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, ecritureParentheseSiNegatif, miseEnEvidence, randint, calcul, choice, texNombrec } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, ecritureParentheseSiNegatif, miseEnEvidence, randint, calcul, choice, texNombre } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images'
 export const interactifReady = true
@@ -40,11 +40,11 @@ export default function ComparerAvecFctRef () {
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
                     statut: true
                   },
                   {
-                    texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
                     statut: false
                   }
                 ]
@@ -55,11 +55,11 @@ export default function ComparerAvecFctRef () {
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
                     statut: true
                   },
                   {
-                    texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
                     statut: false
                   }
                 ]
@@ -68,7 +68,7 @@ export default function ComparerAvecFctRef () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Comparer $\\dfrac{1}{${texNombrec(a)}}$ et $\\dfrac{1}{${texNombrec(b)}}$.`
+            texte = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
           }
 
           texteCorr = `         La fonction inverse étant strictement décroissante sur $]0;+\\infty[$, elle change l'ordre. 
@@ -76,9 +76,9 @@ export default function ComparerAvecFctRef () {
         Autrement dit, si $a$ et $b$ sont deux nombres strictement positifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
 
           if (a < b) {
-            texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors  $\\dfrac{1}{${texNombrec(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(b)}}$`
+            texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors  $\\dfrac{1}{${texNombre(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(b)}}$`
           } else {
-            texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors  $\\dfrac{1}{${texNombrec(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(a)}}$`
+            texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors  $\\dfrac{1}{${texNombre(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(a)}}$`
           }
         }
         if (N === 2) {
@@ -92,11 +92,11 @@ export default function ComparerAvecFctRef () {
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
                     statut: true
                   },
                   {
-                    texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
                     statut: false
                   }
                 ]
@@ -107,11 +107,11 @@ export default function ComparerAvecFctRef () {
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
                     statut: true
                   },
                   {
-                    texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
                     statut: false
                   }
                 ]
@@ -120,7 +120,7 @@ export default function ComparerAvecFctRef () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Comparer $\\dfrac{1}{${texNombrec(a)}}$ et $\\dfrac{1}{${texNombrec(b)}}$.`
+            texte = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
           }
 
           texteCorr = `     La fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre. 
@@ -128,12 +128,12 @@ export default function ComparerAvecFctRef () {
     Autrement dit, si $a$ et $b$ sont deux nombres strictement négatifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
 
           if (a < b) {
-            texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors  $\\dfrac{1}{${texNombrec(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(b)}}$`
+            texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors  $\\dfrac{1}{${texNombre(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(b)}}$`
           } else {
-            texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors  $\\dfrac{1}{${texNombrec(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(a)}}$`
+            texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors  $\\dfrac{1}{${texNombre(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(a)}}$`
           }
         }
-        this.canEnonce = `Comparer $\\dfrac{1}{${texNombrec(a)}}$ et $\\dfrac{1}{${texNombrec(b)}}$.`
+        this.canEnonce = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
         this.canReponseACompleter = ''
         break
       case 2 :
@@ -182,9 +182,9 @@ export default function ComparerAvecFctRef () {
             Cela signifie que deux nombres réels  sont rangés dans le même ordre que leurs cubes.<br>
             Autrement dit, si $a$ et $b$ sont deux nombres réels et si $a < b$, alors $a^3 < b^3$.<br>`
         if (a < b) {
-          texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$,
+          texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
             alors $${ecritureParentheseSiNegatif(a)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(b)}^3$.`
-        } else { texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors $${ecritureParentheseSiNegatif(b)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a)}^3$.` }
+        } else { texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors $${ecritureParentheseSiNegatif(b)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a)}^3$.` }
         this.canEnonce = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
         this.canReponseACompleter = ''
         break
@@ -200,11 +200,11 @@ export default function ComparerAvecFctRef () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$\\sqrt{${texNombrec(b)}}>\\sqrt{${texNombrec(a)}}$`,
+                  texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
                   statut: true
                 },
                 {
-                  texte: `$\\sqrt{${texNombrec(a)}}>\\sqrt{${texNombrec(b)}}$`,
+                  texte: `$\\sqrt{${texNombre(a)}}>\\sqrt{${texNombre(b)}}$`,
                   statut: false
                 }
               ]
@@ -215,11 +215,11 @@ export default function ComparerAvecFctRef () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$\\sqrt{${texNombrec(b)}}<\\sqrt{${texNombrec(a)}}$`,
+                  texte: `$\\sqrt{${texNombre(b)}}<\\sqrt{${texNombre(a)}}$`,
                   statut: true
                 },
                 {
-                  texte: `$\\sqrt{${texNombrec(b)}}>\\sqrt{${texNombrec(a)}}$`,
+                  texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
                   statut: false
                 }
               ]
@@ -228,20 +228,20 @@ export default function ComparerAvecFctRef () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Comparer $\\sqrt{${texNombrec(a)}}$  et $\\sqrt{${texNombrec(b)}}$.`
+          texte = `Comparer $\\sqrt{${texNombre(a)}}$  et $\\sqrt{${texNombre(b)}}$.`
         }
 
         texteCorr = `                La fonction racine carrée étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. 
                 Cela signifie que deux nombres réels positifs sont rangés dans le même ordre que leurs racines carrées.<br>
                 Autrement dit, si $a$ et $b$ sont deux nombres réels positifs et si $a < b$, alors $\\sqrt{a} < \\sqrt{b}$.<br>`
         if (a < b) {
-          texteCorr += ` Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors 
-                $\\sqrt{${texNombrec(a)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombrec(b)}}$.`
+          texteCorr += ` Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors 
+                $\\sqrt{${texNombre(a)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombre(b)}}$.`
         } else {
-          texteCorr += ` Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, 
-                alors $\\sqrt{${texNombrec(b)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombrec(a)}}$.`
+          texteCorr += ` Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, 
+                alors $\\sqrt{${texNombre(b)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombre(a)}}$.`
         }
-        this.canEnonce = `Comparer $\\sqrt{${texNombrec(a)}}$  et $\\sqrt{${texNombrec(b)}}$.`
+        this.canEnonce = `Comparer $\\sqrt{${texNombre(a)}}$  et $\\sqrt{${texNombre(b)}}$.`
         this.canReponseACompleter = ''
         break
     }

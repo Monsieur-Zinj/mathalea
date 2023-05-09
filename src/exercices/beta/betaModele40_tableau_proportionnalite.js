@@ -25,18 +25,18 @@ export default class NomExercice extends Exercice {
     this.tailleDiaporama = 3
     this.video = ''
   }
-  
+
   nouvelleVersion (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 2) // Ici ça ne sert à rien, c'est juste pour la fonction questionJamaisPosee()
       const b = randint(2, 3) // A adapter selon les besoins de l'exo
       const c = randint(13, 54)
       const d = randint(24, 39)
-      
+
       const monTableau = tableau({
         ligne1: ['\\text{Masse (en g)}', 150, 450, 600, '4~500'], // Contenu des cases de la première ligne
         ligne2: ['\\text{Prix (en euros)}', 3], // Contenu des cases de la deuxième ligne
@@ -46,7 +46,7 @@ export default class NomExercice extends Exercice {
         flecheDroiteSens: 'haut' // Sens de la flèche à droite : 'haut' ou 'bas'
       })
       texte = 'Question sur le tableau suivant <br>'
-      texte += mathalea2d({xmin: -1, xmax: 22, ymin: -7, ymax: 8}, monTableau)
+      texte += mathalea2d({ xmin: -1, xmax: 22, ymin: -7, ymax: 8 }, monTableau)
       texteCorr = 'Correction'
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

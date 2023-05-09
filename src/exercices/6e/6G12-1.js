@@ -18,7 +18,7 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
 export const uuid = 'd14bc'
 export const ref = '6G12-1'
 export default class ParalleleEtPerpendiculaires extends Exercice {
-//  
+//
   constructor () {
     super()
     this.titre = titre

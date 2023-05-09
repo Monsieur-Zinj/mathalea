@@ -14,7 +14,6 @@ export const titre = 'Représenter des données par un diagramme'
 export const uuid = 'd3ca7'
 export const ref = '5S12'
 export default function ConstruireUnDiagramme () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1

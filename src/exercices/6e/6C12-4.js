@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp, minToHour, minToHoraire, minToHeuresMinutes, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, texNombre, miseEnEvidence, texPrix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, prenomM, arrondi, prenomF, nomDuMois, jour, sp, minToHour, minToHoraire, minToHeuresMinutes, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, texNombre, miseEnEvidence, texPrix, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
@@ -38,7 +38,7 @@ export default function ExerciceInformationsProblemes () {
     this.consigne += this.nbQuestions === 1 ? chaqueCe[1] : chaqueCe[0]
     this.consigne += ' problème.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
-
+    /*
     let listeDesProblemes = []
     if (!this.sup) { // Si aucune liste n'est saisie
       listeDesProblemes = rangeMinMax(1, 10)
@@ -54,6 +54,15 @@ export default function ExerciceInformationsProblemes () {
     }
     if (compteOccurences(listeDesProblemes, 11) > 0) listeDesProblemes = rangeMinMax(1, 10) // Teste si l'utilisateur a choisi tout
     listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+  */
+    const listeDesProblemes = gestionnaireFormulaireTexte({
+      max: 10,
+      defaut: 11,
+      nbQuestions: this.nbQuestions,
+      melange: 11,
+      saisie: this.sup2
+    })
+
     const FamilleH = ['père', 'frère', 'cousin', 'grand-père', 'voisin']
     const FamilleF = ['mère', 'sœur', 'cousine', 'grand-mère', 'tante', 'voisine']
 

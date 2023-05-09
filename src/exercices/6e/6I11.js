@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { point, texteParPositionEchelle } from '../../modules/2d.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
-import { choice, combinaisonListes, contraindreValeur, listeQuestionsToContenu, modalPdf, modalUrl, randint, stringNombre, texteGras } from '../../modules/outils.js'
+import { choice, combinaisonListes, listeQuestionsToContenu, modalPdf, modalUrl, randint, stringNombre, texteGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 
 export const titre = 'Note la couleur (scratch)'
@@ -24,7 +24,6 @@ export const titre = 'Note la couleur (scratch)'
 export const uuid = '0e016'
 export const ref = '6I11'
 export default function NoteLaCouleur6e () {
-  
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
@@ -58,7 +57,6 @@ export default function NoteLaCouleur6e () {
       ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir', 'Rouge', 'Blanc'],
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
     ]
-    this.sup = contraindreValeur(1, 4, this.sup, 1)
     const echelleDessin = 0.5
     this.listeQuestions = []
     this.listeCorrections = []

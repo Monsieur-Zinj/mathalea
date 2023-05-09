@@ -50,17 +50,17 @@ export default function EcritureDecimalePuissance () {
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${n}}$`
           texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${texNombre(a ** n)}$`
-          setReponse(this, i, a**n)
+          setReponse(this, i, a ** n)
           break
         case '-':
           a = listeDeCalculs[i][0]
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${-n}}$`
           texteCorr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a, n)}}=\\dfrac{1}{${texNombre(a ** n)}}$`
-           setReponse(this, i,fraction(1, a**n), {formatInteractif: 'fraction'})
+          setReponse(this, i, fraction(1, a ** n), { formatInteractif: 'fraction' })
           break
       }
-      
+
       if (this.interactif) {
         texte += ' = ' + ajouteChampTexteMathLive(this, i, 'inline')
       }

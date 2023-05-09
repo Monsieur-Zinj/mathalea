@@ -50,7 +50,7 @@ export default function TraceCourbeInterpolee1 () {
       x0: xMin,
       step: pas
     })
-    const c = courbeSpline(f, { repere: r, step: 0.1, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, tracenoeuds: true, color: couleurs[parseInt(this.sup3) - 1].colCourbe })
+    const c = courbeSpline(f, { repere: r, step: 0.1, xMin, xMax, yMin, yMax, tracenoeuds: true, color: couleurs[parseInt(this.sup3) - 1].colCourbe })
     objets.push(r, c)
 
     if (this.sup2) {

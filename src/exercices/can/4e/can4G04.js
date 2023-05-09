@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, creerNomDePolygone, texNombrec, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
+import { randint, creerNomDePolygone, texNombre, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
 import {
   point, pointAdistance, polygoneAvecNom, codageAngleDroit, texteParPosition, milieu
 } from '../../../modules/2d.js'
@@ -43,12 +43,12 @@ export default function CalculCotePythagore () {
     const reductible = (reduction[0] !== 1)
 
     objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-    // texteParPosition(`${texNombrec(a)}`, milieu(C, A).x, milieu(A, B).y + 0.2, 'milieu', 'black', 1, 'middle', true)
-    objets.push(texteParPosition(`${texNombrec(b)}`, milieu(C, A).x, milieu(C, A).y + 0.4),
-      texteParPosition(`${texNombrec(a)}`, milieu(B, A).x - 0.3, milieu(B, A).y + 0.2)
+    // texteParPosition(`${texNombre(a)}`, milieu(C, A).x, milieu(A, B).y + 0.2, 'milieu', 'black', 1, 'middle', true)
+    objets.push(texteParPosition(`${texNombre(b)}`, milieu(C, A).x, milieu(C, A).y + 0.4),
+      texteParPosition(`${texNombre(a)}`, milieu(B, A).x - 0.3, milieu(B, A).y + 0.2)
     )
-    // objets.push(latexParPoint(`${texNombrec(b)}`, similitude(C, A, 4, 0.5, '', 'center'), 'black', 20, 10, ''),
-    //  latexParPoint(`${texNombrec(a)}`, similitude(B, A, -10, 0.5, '', 'center'), 'black', 20, 10, '')
+    // objets.push(latexParPoint(`${texNombre(b)}`, similitude(C, A, 4, 0.5, '', 'center'), 'black', 20, 10, ''),
+    //  latexParPoint(`${texNombre(a)}`, similitude(B, A, -10, 0.5, '', 'center'), 'black', 20, 10, '')
     // )
     this.question = `Sur cette figure, déterminer la valeur exacte de $${nom[1]}${nom[2]}$.<br>
     

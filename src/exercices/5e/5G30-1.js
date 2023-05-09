@@ -15,7 +15,6 @@ export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
 export const uuid = 'd12db'
 export const ref = '5G30-1'
 export default function EgaliteDAngles () {
-  
   Exercice.call(this)
   this.sup = 1
   this.nbQuestions = 1

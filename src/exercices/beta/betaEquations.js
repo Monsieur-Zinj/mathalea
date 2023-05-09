@@ -54,7 +54,7 @@ function schemaBarre () {
   const diagrammeMathalea = mathalea2d(Object.assign({}, fixeBordures(diagramme, { rxmin: -3, rymin: -2, rymax: 1.5 }), { style: 'inline', scale: 1 }), ...diagramme)
   const texte = `${diagrammeMathalea}`
   const texteCorr = ''
-  return { texte: texte, texteCorr: texteCorr }
+  return { texte, texteCorr }
 }
 /**
  * Résoudre des équations du premier degré
@@ -68,7 +68,7 @@ export default function EquationsProgression () {
   for (let i = 0; i < nbCase; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
-    'Type de question', nbCase, formulaire.join('\n')
+    'Type de questions', nbCase, formulaire.join('\n')
   ]
   this.consigne = ''
   this.nbCols = 0
@@ -309,7 +309,7 @@ export default function EquationsProgression () {
             }
           )
           exercice = calculer('a*x^2+c*x+b', {
-            variables: variables
+            variables
           })
           break
         }
@@ -323,7 +323,7 @@ export default function EquationsProgression () {
             }
           )
           exercice = calculer('a*x^2+c*x+b', {
-            variables: variables
+            variables
           })
           break
         }
@@ -1050,7 +1050,7 @@ export default function EquationsProgression () {
           const disc = aleaVariables(Object.assign(variables, { disc: '(b/e)^2-4*(a/d)*(c/f)' }), { valueOf: false }).disc
           const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
           const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
-          const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { comments: false, mixed: false, variables: variables }).texteCorr
+          const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { comments: false, mixed: false, variables }).texteCorr
           exercice = {}
           exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(disc.toFraction())}$
           <br>
@@ -1073,7 +1073,7 @@ export default function EquationsProgression () {
           const disc = aleaVariables(Object.assign(variables, { disc: '(b/e)^2-4*(a/d)*(c/f)' }), { valueOf: false }).disc
           const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
           const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
-          const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { comments: false, mixed: false, variables: variables }).texteCorr
+          const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { comments: false, mixed: false, variables }).texteCorr
           exercice = {}
           exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(disc.toFraction())}$
           <br>
@@ -1176,7 +1176,7 @@ export default function EquationsProgression () {
               a: true,
               b: true
             }
-          exercice = resoudre('9*x+a=6*x+b', { variables: variables, color: 'blue', comment: true })
+          exercice = resoudre('9*x+a=6*x+b', { variables, color: 'blue', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
           exercice.texteCorr = `
           <br>
@@ -1196,7 +1196,7 @@ export default function EquationsProgression () {
           const comments = {
             MULTIPLY_FRACTIONS: 'Multiplier numérateurs et dénominateurs entre eux.'
           }
-          exercice = calculer('5/2*(7/3+6/8)', { substeps: true, comment: true, comments: comments })
+          exercice = calculer('5/2*(7/3+6/8)', { substeps: true, comment: true, comments })
           exercice.texte = `Calculer : $${exercice.printExpression}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
@@ -1242,7 +1242,7 @@ export default function EquationsProgression () {
               test: 'a!=7'
             }
             , { valueOf: true })
-          exercice = resoudre('a*(x+6)-7=7*x-3', { variables: variables })
+          exercice = resoudre('a*(x+6)-7=7*x-3', { variables })
           break
         }
         case 123: {
@@ -1603,7 +1603,7 @@ export default function EquationsProgression () {
             c: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and a!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'c/x']).join('='), { variables: variables, produitsencroix: true, comment: true, verifications: true })
+          exercice = resoudre(aleaName(['a/b', 'c/x']).join('='), { variables, produitsencroix: true, comment: true, verifications: true })
           break
         }
         case 135: {
@@ -1616,7 +1616,7 @@ export default function EquationsProgression () {
             d: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and b!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'x/c']).join('='), { variables: variables, produitsencroix: true, comment: true, verifications: true })
+          exercice = resoudre(aleaName(['a/b', 'x/c']).join('='), { variables, produitsencroix: true, comment: true, verifications: true })
           break
         }
         case 136: {
@@ -1629,7 +1629,7 @@ export default function EquationsProgression () {
             d: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and a!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'c/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
+          exercice = resoudre(aleaName(['a/b', 'c/(x+d)']).join('='), { variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
           break
         }
         case 137: {
@@ -1642,7 +1642,7 @@ export default function EquationsProgression () {
             d: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and a!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'c*x/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
+          exercice = resoudre(aleaName(['a/b', 'c*x/(x+d)']).join('='), { variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
           break
         }
         case 138: {
@@ -1655,7 +1655,7 @@ export default function EquationsProgression () {
             d: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and a!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'c*x/(x+d)']).join('='), { variables: variables, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
+          exercice = resoudre(aleaName(['a/b', 'c*x/(x+d)']).join('='), { variables, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
           break
         }
         case 139: {
@@ -1667,7 +1667,7 @@ export default function EquationsProgression () {
             d: 'randomInt(2,10)',
             test: 'a!=c'
           }
-          exercice = resoudre(aleaName(['a/x', 'c/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
+          exercice = resoudre(aleaName(['a/x', 'c/(x+d)']).join('='), { variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
           break
         }
       }

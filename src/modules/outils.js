@@ -288,15 +288,17 @@ export function contraindreValeur (min, max, valeur, defaut) {
 
 /**
  *@param {string|number} saisie Ce qui vient du formulaireTexte donc une série de nombres séparés par des tirets ou un seul nombre (normalement en string) ou rien
- * @param {number} min 1 par défaut
+ * @param {number} [min=1]
  * @param {number} max obligatoirement >min
- * @param {number} defaut obligatoirement compris entre min et max inclus
+ * @param {number} defaut obligatoirement compris entre min et max inclus ou alors égal à melange
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
- * @param {boolean} shuffle si true, alors on brasse la liste en sortie sinon on garde l'ordre
+ * La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
+ * @param {boolean} [shuffle=true] si true, alors on brasse la liste en sortie sinon on garde l'ordre
  * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
- * @param {number | undefined} random la valeur utilisée pour l'option mélange à savoir randint(min,max)
+ * @param {number | undefined} melange la valeur utilisée pour l'option mélange
+ * @param {boolean} [enleveDoublons=false]  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
  */
-export function formTextSerializer ({
+export function gestionnaireFormulaireTexte ({
   saisie,
   min = 1,
   max,
@@ -304,36 +306,38 @@ export function formTextSerializer ({
   listeOfCase,
   shuffle = true,
   nbQuestions,
-  random
+  melange,
+  enleveDoublons = false
 } = {}) {
-  if (max == null || isNaN(max) || max < min) throw Error('La fonction formTextSerialize réclame un paramètre max de type number')
-  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== random)) throw Error('La fonction formTextSerializer réclame un paramètre defaut compris entre min(1) et max')
+  if (max == null || isNaN(max) || max < min) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre max de type number')
+  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre defaut compris entre min(1) et max')
   let listeIndex
 
   if (!saisie) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
   } else {
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-      listeIndex = [contraindreValeur(min, Math.max(max, random ?? max), saisie, defaut)]
+      listeIndex = [contraindreValeur(min, Math.max(max, melange ?? max), saisie, defaut)]
     } else {
       listeIndex = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      if (listeIndex[listeIndex.length - 1] === '') {
+        listeIndex.pop()
+      }
       for (let i = 0; i < listeIndex.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        listeIndex[i] = contraindreValeur(min, Math.max(max, random ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
+        listeIndex[i] = contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
       }
     }
   }
-  if (shuffle) {
-    listeIndex = combinaisonListes(listeIndex, nbQuestions)
-  } else {
-    listeIndex = combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
+  if (melange != null && compteOccurences(listeIndex, melange)) {
+    listeIndex = rangeMinMax(min, max)
   }
-  if (random != null && compteOccurences(listeIndex, random)) {
-    listeIndex = combinaisonListes(rangeMinMax(min, max), nbQuestions)
-  }
+  listeIndex = shuffle ? combinaisonListes(listeIndex, nbQuestions) : combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
+
   const Max = Math.max(...listeIndex)
+  if (enleveDoublons) listeIndex = enleveDoublonNum(listeIndex)
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
     if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
-    return listeIndex.map((el) => listeOfCase[el - 1])
+    return listeIndex.map((el) => listeOfCase[el - min])
   }
   return listeIndex
 }
@@ -358,6 +362,7 @@ export function entreDeux (a, b) {
  * @return {boolean}
  */
 export function egal (a, b, tolerance = epsilon) {
+  tolerance = tolerance === 0 ? 1e-10 : tolerance
   return (Math.abs(a - b) < tolerance)
 }
 
@@ -412,6 +417,7 @@ export function inferieurouegal (a, b, tolerance = epsilon) {
  * @return {boolean}
  */
 export function estentier (a, tolerance = epsilon) {
+  if (typeof a !== 'number') window.notify('Erreur dans estEntier()', { a })
   return (Math.abs(a - round(a)) < tolerance)
 }
 
@@ -789,16 +795,17 @@ export function numTrie (arr) {
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
-export function enleveDoublonNum (arr, tolerance = 0) {
+export function enleveDoublonNum (arr, tolerance = epsilon) {
   let k = 0
   while (k < arr.length - 1) {
     let kk = k + 1
-    while (kk < arr.length - 1) {
+    while (kk <= arr.length - 1) {
       if (egal(arr[k], arr[kk], tolerance)) {
         arr[k] = (arr[k] + arr[kk]) / 2 // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
         arr.splice(kk, 1) // on supprime le doublon.
+      } else {
+        kk++
       }
-      kk++
     }
     k++
   }
@@ -1124,9 +1131,9 @@ export function ecritureNombreRelatif (a) {
 export function ecritureNombreRelatifc (a) {
   let result = ''
   if (a > 0) {
-    result = miseEnEvidence('(+' + texNombrec(a) + ')', 'blue')
+    result = miseEnEvidence('(+' + texNombre(a) + ')', 'blue')
   } else if (a < 0) {
-    result = miseEnEvidence('(' + texNombrec(a) + ')')
+    result = miseEnEvidence('(' + texNombre(a) + ')')
   } else { // ne pas mettre de parenthèses pour 0
     result = miseEnEvidence('0', 'black')
   }
@@ -1177,10 +1184,10 @@ export function ecritureAlgebriqueSauf1 (a) {
 export function ecritureAlgebriquec (a) {
   let result = ''
   if (a > 0) {
-    result = miseEnEvidence('+' + texNombrec(a), 'blue')
+    result = miseEnEvidence('+' + texNombre(a), 'blue')
   } else if (a < 0) {
-    result = miseEnEvidence(texNombrec(a))
-  } else result = miseEnEvidence(texNombrec(a), 'black')
+    result = miseEnEvidence(texNombre(a))
+  } else result = miseEnEvidence(texNombre(a), 'black')
   return result
 }
 
@@ -1731,7 +1738,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
       return result
     }
     const p4 = new Decimal(b).mul(c).div(a)
-    result += `\\dfrac{${texNombrec(b)}\\times${texNombrec(c)}}{${texNombrec(a)}}`
+    result += `\\dfrac{${texNombre(b)}\\times${texNombre(c)}}{${texNombre(a)}}`
     if (p4.eq(p4.toDP(precision))) result += '='
     else result += '\\approx'
     result += `${texNombre(p4, precision)}`
@@ -1870,12 +1877,14 @@ export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
  */
 export function obtenirListeFacteursPremiers (n) {
   const facteurs = []
-  for (let i = 2; i <= n; i++) {
+  const signe = n < 0 ? -1 : 1
+  for (let i = 2; i <= Math.abs(n); i++) {
     while (n % i === 0) {
       facteurs.push(i)
       n /= i
     }
   }
+  facteurs[0] = signe * facteurs[0]
   return facteurs
 }
 
@@ -2020,17 +2029,6 @@ export function nombreDecimal (expression, arrondir = false) {
 }
 
 /**
- * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
- * @author Rémi Angot
- * texNombrec n'apportant rien, je la shinte.
- */
-
-export function texNombrec (expression, precision) {
-  // return texNombre(parseFloat(Algebrite.eval(expression)))
-  return texNombre(expression, precision)
-}
-
-/**
  * Formattage pour une sortie LaTeX entre $$
  * formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
  * Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
@@ -2058,9 +2056,9 @@ export function texNum (expression, formatFraction = false) {
  * @param {string} expression l'expression à calculer
  */
 export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black') {
-  if (nombre > 0) return miseEnEvidence(texNombrec(nombre), positif)
-  else if (nombre < 0) return miseEnEvidence(texNombrec(nombre), negatif)
-  else return miseEnEvidence(texNombrec(0), nul)
+  if (nombre > 0) return miseEnEvidence(texNombre(nombre), positif)
+  else if (nombre < 0) return miseEnEvidence(texNombre(nombre), negatif)
+  else return miseEnEvidence(texNombre(0), nul)
 }
 
 /**
@@ -2812,13 +2810,14 @@ export function numberFormat (nb) {
  * Avec comme avantage immédiat pour le format Decimal : precision est illimité.
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Guillaume Valmont
- * @param {number} nb nombre à afficher
+ * @param {number} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
- * @param {boolean} force true pour forcer à precision chiffres (ajout de zéros éventuels). false par défaut pour supprimer les zéros non significatifs.
+ * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
+ * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb, precision = 8, force = false) {
-  const result = afficherNombre(nb, precision, 'texNombre', force)
+export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
+  const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
@@ -2853,14 +2852,6 @@ export function texNombre2 (nb) {
     nombre = partieEntiere + '{,}' + partieDecimale
   }
   return nombre
-}
-
-export function texNombrec2 (expr, precision = 12) {
-  return texNombre(expr, precision)
-}
-
-export function nombrec2 (nb) {
-  return math.evaluate(nb)
 }
 
 /**
@@ -2973,8 +2964,8 @@ export function nombreAvecEspace (nb) {
 }
 */
 export const scientifiqueToDecimal = (mantisse, exp) => {
-  if (exp < -6) Decimal.toExpNeg = exp - 1
-  else if (exp > 20) Decimal.toExpPos = exp + 1
+  if (exp < -6) Decimal.set({ toExpNeg: exp - 1 })
+  else if (exp > 20) Decimal.set({ toExpPos: exp + 1 })
   return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
 }
 
@@ -3021,13 +3012,14 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  * Sinon, renvoie le nombre à afficher dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Jean-Claude Lhote
  * @author Guillaume Valmont
- * @param {number} nb nombre à afficher
+ * @param {number} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
- * @param {boolean} force true pour forcer à precision chiffres (ajout de zéros éventuels). false par défaut pour supprimer les zéros non significatifs.
+ * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
+ * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8, force = false) {
-  return afficherNombre(nb, precision, 'stringNombre', force)
+export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
+  return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
 
 /**
@@ -3039,8 +3031,10 @@ export function stringNombre (nb, precision = 8, force = false) {
  * @param {number} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
  * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
+ * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
+ * @param {boolean} aussiCompleterEntiers true si on veut ajouter des zéros inutiles aux entiers
  */
-function afficherNombre (nb, precision, fonction, force = false) {
+function afficherNombre (nb, precision, fonction, completerZeros = false, aussiCompleterEntiers) {
   /**
    * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
    * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
@@ -3057,23 +3051,23 @@ function afficherNombre (nb, precision, fonction, force = false) {
     if (nb instanceof Decimal) {
       signe = nb.isNeg()
       if (nb.abs().gte(1)) {
-        if (force) {
+        if (completerZeros) {
           nombre = nb.toFixed(precision).replace('.', ',')
         } else {
           nombre = nb.toDP(precision).toString().replace('.', ',')
         }
       } else {
-        if (force) {
+        if (completerZeros) {
           nombre = nb.toFixed(precision).replace('.', ',')
         } else {
           nombre = nb.toDP(precision).toString().replace('.', ',')
         }
       }
-    } else {
+    } else { // nb est un number
       signe = nb < 0
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
-      if (Math.abs(nb) < 1) {
-        if (force) {
+      if (Math.abs(nb) < 1) { // si il est < 1, on n'a pas à se préoccuper de savoir si il est entier pour aussiCompleterEntiers
+        if (completerZeros) {
           nombre = Intl.NumberFormat('fr-FR', {
             maximumFractionDigits: precision,
             minimumFractionDigits: precision
@@ -3082,7 +3076,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
           nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
         }
       } else {
-        if (force) {
+        if (completerZeros && ((aussiCompleterEntiers && Number.isInteger(nb)) || (!Number.isInteger(nb)))) {
           nombre = Intl.NumberFormat('fr-FR', {
             maximumSignificantDigits,
             minimumSignificantDigits: maximumSignificantDigits
@@ -3138,22 +3132,20 @@ function afficherNombre (nb, precision, fonction, force = false) {
     } else {
       nbChiffresPartieEntiere = nb.abs().toFixed(0).length
     }
-    if (nb.isInteger()) precision = 0
-    else {
-      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-        precision = 15 - nbChiffresPartieEntiere
-      } else if (precision < 0) {
-        precision = 0
-      }
+    if (nb.isInteger() && !aussiCompleterEntiers) precision = 0
+    else if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+      precision = 15 - nbChiffresPartieEntiere
+    } else if (precision < 0) {
+      precision = 0
     }
-  } else {
+  } else { // nb est un number
     if (Math.abs(nb) < 1) {
       nbChiffresPartieEntiere = 0
     } else {
       // attention 9.7 donner 10 avec Math.abs(9.7).toFixed(0)
       nbChiffresPartieEntiere = Math.floor(Math.abs(nb)).toFixed(0).length
     }
-    if (Number.isInteger(nb) && !force) {
+    if (Number.isInteger(nb) && !completerZeros) {
       precision = 0
     } else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
@@ -3352,7 +3344,7 @@ export function texPrix (nb) {
   if (nombre.toString() === nombre.toFixed(0)) {
     return texNombre(nb, 0)
   } else {
-    return texNombre(nb, 2)
+    return texNombre(nb, 2, true)
   }
 }
 
@@ -3361,15 +3353,16 @@ export function texPrix (nb) {
  * @author Mireille Gain
  */
 export function texMasse (nb) {
-  // Remplace le . par la ,
-  const nombre = Number(nb)
-  let result
-  if (nombre.toString() === nombre.toFixed(0)) {
-    result = nombre
-  } else {
-    result = nombre.toFixed(3).toString().replace('.', ',') // Ne gère pas l'espace des milliers
+  if (nb instanceof Decimal) {
+    if (nb.isInteger()) return texNombre(nb, 0)
+    else return texNombre(nb, 3, true)
   }
-  return result
+  const nombre = Number(nb)
+  if (nombre.toString() === nombre.toFixed(0)) {
+    return texNombre(nb, 0)
+  } else {
+    return texNombre(nb, 3, true)
+  }
 }
 
 /**
@@ -3493,10 +3486,11 @@ export function obtenirListeNombresPremiers (n = 300) {
  * @author Rémi Angot
  */
 export function decompositionFacteursPremiers (n) {
+  console.log('liste des facteurs premiers pour -72 : ', obtenirListeFacteursPremiers(-72))
   let decomposition = ''
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
-    decomposition += liste[i] + '\\times'
+    decomposition += ecritureParentheseSiNegatif(liste[i]) + '\\times'
   }
   decomposition = decomposition.substr(0, decomposition.length - 6)
   return decomposition

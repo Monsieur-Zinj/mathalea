@@ -2,7 +2,7 @@ import { codageAngleDroit, codageSegments, pointAdistance, polygoneAvecNom, poin
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, rangeMinMax, contraindreValeur, enleveDoublonNum, compteOccurences, numAlpha, nombreDeChiffresDe, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, numAlpha, nombreDeChiffresDe, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -42,6 +42,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    /*
     let QuestionsDisponibles
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles = rangeMinMax(1, 3)
@@ -58,6 +59,18 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
     }
     enleveDoublonNum(QuestionsDisponibles)
     if (compteOccurences(QuestionsDisponibles, 4)) QuestionsDisponibles = rangeMinMax(1, 3)
+    */
+
+    const QuestionsDisponibles = gestionnaireFormulaireTexte({
+      max: 3,
+      defaut: 4,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+      shuffle: false,
+      saisie: this.sup,
+      enleveDoublons: true
+    })
+
     const incrementation = QuestionsDisponibles.length * (this.sup2 === 3 ? 2 : 1)
     for (let i = 0, texte, texteAMC, texteCorr, nbPuces, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nom = creerNomDePolygone(11, 'QD')
@@ -296,8 +309,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Types de figures (nombres séparés par des tirets)',
-    '1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Les trois'
+    'Type de figures',
+    'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
   ]
   this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
   this.besoinFormulaire3CaseACocher = ['Avec figures']

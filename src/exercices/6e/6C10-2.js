@@ -6,7 +6,7 @@ import {
   calcul,
   choice,
   creerCouples,
-  formTextSerializer,
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
   texNombre,
@@ -39,19 +39,17 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.consigne = 'Calculer.'
   this.spacing = 2
   this.tailleDiaporama = 3
-  
+
   this.nouvelleVersion = function () {
     this.interactifType = parseInt(this.sup2) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
-    let tables = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    tables = formTextSerializer({
+    const tables = gestionnaireFormulaireTexte({
       min: 2,
       max: 9,
       defaut: randint(2, 9),
       nbQuestions: this.nbQuestions,
-      shuffle: true,
       saisie: this.sup
     })
     /* if (!this.sup) {
@@ -117,7 +115,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ' = ' +
         texNombre(a * b) +
         ' $'
-      
+
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
@@ -166,6 +164,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des tables', 'Nombres séparés par des tirets'] // Texte, tooltip
+  this.besoinFormulaireTexte = ['Choix des tables (entre 2 et 9)', 'Nombres séparés par des tirets'] // Texte, tooltip
   if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
 }

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint, range, combinaisonListes, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur, sp, rangeMinMax } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range, combinaisonListes, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
@@ -40,6 +40,7 @@ export default function ProportionnalitePasProportionnalite () {
       listeIndexDisponibles,
       this.nbQuestions
     )
+    /*
     let listeChoixDisponibles = []
     if (!this.sup || this.sup === 'NaN') { // Si aucune liste n'est saisie
       listeChoixDisponibles = [1, 2, 3, 4, 5]
@@ -59,6 +60,16 @@ export default function ProportionnalitePasProportionnalite () {
       listeChoixDisponibles,
       this.nbQuestions
     )
+      */
+
+    const listeChoix = gestionnaireFormulaireTexte({
+      max: 5,
+      defaut: 6,
+      melange: 6,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
     const nombre = compteOccurences(listeChoix, '1') + compteOccurences(listeChoix, '5')
     const listeProportionnelOuPas = combinaisonListes(
       [true, false],

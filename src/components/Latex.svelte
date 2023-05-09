@@ -12,7 +12,6 @@
   import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import { showDialogForLimitedTime } from "./utils/dialogs.js"
-  import { downloadFileFromURL } from "./utils/urls"
   import JSZip from "jszip"
   import JSZipUtils from "jszip-utils"
   import { saveAs } from "file-saver"
@@ -79,21 +78,27 @@
     let imagesFilesUrls = []
     getImagesInCode()
     exosContentList.forEach((exo, i) => {
-      const year = exo.groups.year
-      const month = exo.groups.month
-      const area = exo.groups.zone.replace(/ /g, "_")
-      const serie = exo.groups.serie.toLowerCase()
-      for (const file of picsNames[i]) {
-        // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
-        // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
-        // https://coopmaths.fr/alea/static/crpe/2022/images/2022-g1-ex1-img1.png
-        if (serie === "crpe") {
-          imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
-        } else {
-          if (file.format) {
-            imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
+      if (picsNames[i].length !== 0) {
+        const year = exo.year
+        const month = exo.month
+        const area = exo?.zone?.replace(/ /g, "_")
+        const serie = exo?.serie?.toLowerCase()
+        // if (picsNames !== undefined && picsNames[i] !== undefined) {
+        //   picsNames = []
+        //   picsNames[i] = []
+        // }
+        for (const file of picsNames[i]) {
+          // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+          // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
+          // https://coopmaths.fr/alea/static/crpe/2022/images/2022-g1-ex1-img1.png
+          if (serie === "crpe") {
+            imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
           } else {
-            imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`, fileName: `${file.name}.eps` })
+            if (file.format) {
+              imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
+            } else {
+              imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`, fileName: `${file.name}.eps` })
+            }
           }
         }
       }
@@ -149,30 +154,54 @@
     let picsList: string[][] = []
     picsNames = []
     exosContentList = []
-    const regExpExo = /(?:\\begin\{EXO\}\{(?<title>(?<serie>[A-Z\d]{3,4})(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/gm
+    let exosData = []
+    // const regExpExoCoopmaths = /(?:\\begin\{EXO\}\{(?<title>(?<serie>[A-Z\d]{3,4})(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/gm
+    // const regExpExoClassic = /(?:\\begin\{EXO\})((.|\n)*?)(?:\\end\{EXO\})/gm
     const regExpImage = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
     const regExpImageName = /(?<name>.*?)\.(?<format>.*)$/gm
     const latexCode = contents.content
-    exosContentList = [...latexCode.matchAll(regExpExo)]
+    for (const exo of exercices) {
+      let data
+      if (exo.typeExercice !== undefined) {
+        data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(" ") }
+      } else {
+        data = { content: exo.contenu }
+      }
+      exosContentList.push(data)
+    }
+    console.log(exercices)
+    console.log(exosContentList)
+    // if (style === "Coopmaths") {
+    //   exosContentList = [...latexCode.matchAll(regExpExoCoopmaths)]
+    // } else {
+    //   exosContentList = [...latexCode.matchAll(regExpExoClassic)]
+    // }
     for (const exo of exosContentList) {
-      const pics = [...exo[0].matchAll(regExpImage)]
-      picsList.push(pics)
+      let pics
+      if (exo.content.matchAll(regExpImage) !== undefined) {
+        pics = [...exo.content.matchAll(regExpImage)]
+        picsList.push(pics)
+      } else {
+        picsList.push([])
+      }
     }
     picsList.forEach((list, index) => {
       picsNames.push([])
-      for (const item of list) {
-        let imgObj
-        if (item[1].match(regExpImageName)) {
-          const imgFile = [...item[1].matchAll(regExpImageName)]
-          imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
-        } else {
-          imgObj = { name: item[1], format: undefined }
+      if (list.length !== 0) {
+        for (const item of list) {
+          let imgObj
+          if (item[1].match(regExpImageName)) {
+            const imgFile = [...item[1].matchAll(regExpImageName)]
+            imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
+          } else {
+            imgObj = { name: item[1], format: undefined }
+          }
+          // console.log("image : " + item[1])
+          picsNames[index] = [...picsNames[index], imgObj]
         }
-        // console.log("image : " + item[1])
-        picsNames[index] = [...picsNames[index], imgObj]
       }
     })
-    // console.log(picsNames)
+    console.log(picsNames)
   }
 
   /**
@@ -297,7 +326,7 @@
    * -- encodage du contenu du code LaTeX de la feuille d'exercices
    */
   const copyDocumentToOverleaf = async () => {
-    imagesList = buildImagesUrlsList()
+    imagesList = picsWanted ? buildImagesUrlsList() : []
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
     textForOverleafInput.value = "data:text/plain;base64," + btoa(unescape(encodeURIComponent(text)))
   }
@@ -329,21 +358,21 @@
         <h2 class="ml-0 text-xl md:text-2xl font-bold md:mr-10 mb-2 lg:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Éléments de titres</h2>
         <input
           type="text"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === "Can" ? "Course aux nombres" : "Titre"}
           bind:value={title}
           disabled={style === "Can"}
         />
         <input
           type="text"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === "Coopmaths" ? "Référence" : "Haut de page gauche"}
           bind:value={reference}
           disabled={style === "Can"}
         />
         <input
           type="text"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === "Coopmaths" ? "Sous-titre / Chapitre" : "Pied de page droit"}
           bind:value={subtitle}
           disabled={style === "Can"}
@@ -417,12 +446,15 @@
         Voici ce dont vous aurez besoin :
         {#each exosContentList as exo, i (exo)}
           <ul class="flex flex-col justify-start items-start list-disc pl-6">
-            <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
-            <ul class="flex flex-col justify-start items-start list-none pl-4">
-              {#each picsNames[i] as img}
-                <li class="font-mono text-sm">{img.name}</li>
-              {/each}
-            </ul>
+            <!-- <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li> -->
+            {#if picsNames[i].length !== 0}
+              <li>Exercice {i + 1} (<span class="text-italic">{exo.title}</span>) :</li>
+              <ul class="flex flex-col justify-start items-start list-none pl-4">
+                {#each picsNames[i] as img}
+                  <li class="font-mono text-sm">{img.name}</li>
+                {/each}
+              </ul>
+            {/if}
           </ul>
         {/each}
       </div>

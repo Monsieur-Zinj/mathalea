@@ -1,4 +1,4 @@
-import { formTextSerializer, listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Nom de l\'exercice'
@@ -18,35 +18,36 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.consigne = 'Consigne'
     this.nbQuestions = 10
-    
+
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4 : Mélange']
     this.sup = '1-1-2-3'
-    
+
     this.nbCols = 2
     this.nbColsCorr = 2
     this.tailleDiaporama = 3
     this.video = ''
   }
-  
+
   nouvelleVersion (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    
+
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
-    const listeTypeQuestions = formTextSerializer( // retourne une liste de choix pour les questions à partir du paramètre saisie
+    const listeTypeQuestions = gestionnaireFormulaireTexte( // retourne une liste de choix pour les questions à partir du paramètre saisie
       {
         saisie: this.sup ?? '1-2-3',
         min: 1,
         max: 3,
-        random: 4, // si renseigné indique que le choix 4 signifie un choix aléatoire entre min et max
+        melange: 4, // si renseigné indique que le choix 4 signifie un choix aléatoire entre min et max
         listeOfCase: typeQuestionsDisponibles, // si cette liste est fournie, la fonction retournera des valeurs de la liste, sinon des nombres
         nbQuestions: this.nbQuestions,
         shuffle: true, // la liste est brassée, si false, l'ordre des choix correspond à la saisie
-        defaut: 1 // si dans la saisie, une valeur est invalide, ce sera cette valeur
+        defaut: 1, // si dans la saisie, une valeur est invalide, ce sera cette valeur
+        enleveDoublons: false // si true ça supprime les doublons du tableau, du coup, il faut vérifier qu'il y a assez d'éléments dans le tableau pour le nombre de questions
       }
     )
-    
+
     for (let i = 0, texte, texteCorr, typeDeProbleme, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeQuestions[i] === 'type1') { // On ajuste le type de problème selon le paramètre.
         typeDeProbleme = 'fleuriste'

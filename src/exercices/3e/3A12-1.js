@@ -1,5 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, texteEnCouleurEtGras, listeDesDiviseurs, sp, numAlpha, contraindreValeur } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  texteEnCouleurEtGras,
+  listeDesDiviseurs,
+  sp,
+  numAlpha,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -30,30 +38,15 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
+  this.sup = '4'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    let QuestionsDisponibles = [] // 3 problèmes différents
-    let listeQuestions = []
+    const listeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, shuffle: false })
 
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = [1, 2, 3]
-    } else {
-      if (!isNaN(this.sup)) { // Si c'est un nombre c'est qu'il y a qu'un problème
-        QuestionsDisponibles[0] = contraindreValeur(1, 3, parseInt(this.sup), 1)
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        // this.nbQuestions = QuestionsDisponibles.length
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 3, parseInt(QuestionsDisponibles[i]), 1) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-
-    listeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
     const nombrePremier = [2, 3, 5, 7, 11]
 
     for (let i = 0, texte, texteSansQuestions, texteA, texteB, texteC, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -227,7 +220,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           break
       } // fin du switch
       if (this.questionJamaisPosee(i, var1, var2, objet)) {
-        console.log(texteA, texteB, texteC)
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: '',
@@ -297,5 +289,5 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n']
+  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4: Mélange']
 }

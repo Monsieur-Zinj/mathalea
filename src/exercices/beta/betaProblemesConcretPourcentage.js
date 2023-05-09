@@ -28,7 +28,6 @@ export default class ProblemesConcretsEtPourcentages extends Exercice {
     const minMaxCoeffNombres = [[5, 20, 100], [5, 100, 10], [12, 25, 4], [50, 100, 1], [50, 10000, 100], [5, 1000, 100]]
     const listeChoix = combinaisonListes(range(5), this.nbQuestions)
     const nombreObjectif = []
-    console.log(listeChoix)
     for (let ii = 0; ii < this.nbQuestions; ii++) {
       nombreObjectif[ii] = randint(minMaxCoeffNombres[listeChoix[ii]][0], minMaxCoeffNombres[listeChoix[ii]][1]) * minMaxCoeffNombres[listeChoix[ii]][2]
     }

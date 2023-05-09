@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp } from '../../modules/outils.js'
-import { point, rotation, similitude, texteParPoint, longueur, segment, homothetie, polygoneRegulierParCentreEtRayon, latexParCoordonneesBox, droite, latexParPoint, tracePoint, labelPoint, pointIntersectionDD } from '../../modules/2d.js'
+import { point, rotation, similitude, texteParPoint, longueur, segment, homothetie, polygoneRegulierParCentreEtRayon, latexParCoordonneesBox, droite, latexParPoint, pointIntersectionDD } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
@@ -254,7 +254,7 @@ export function ExoRose () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.valeurMax = contraindreValeur(10, 30, this.sup, 10)
     this.nombreDeValeurs = contraindreValeur(3, 9, this.sup2, 5)
-    this.sup3 = contraindreValeur(1, 4, this.sup3, 1)
+    // this.sup3 = contraindreValeur(1, 4, this.sup3, 1)
     switch (this.sup3) {
       case 1:
         this.type = 'résultats'
@@ -349,7 +349,7 @@ export function ExoRose () {
   }
   this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des facteurs', 30]
   this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 9 (limité à 5 pour les valeurs fractionnaires ou littérales)']
-  this.besoinFormulaire3Numerique = ['Type de question', 4, '1 : Calculer les produits\n2 : Calculer les facteurs\n3 : Course aux nombres 1\n4 : Course aux nombres 2']
+  this.besoinFormulaire3Numerique = ['Type de questions', 4, '1 : Calculer les produits\n2 : Calculer les facteurs\n3 : Course aux nombres 1\n4 : Course aux nombres 2']
 
   this.correctionInteractive = i => {
     const taille = this.nombreDeValeurs

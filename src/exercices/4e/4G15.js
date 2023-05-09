@@ -13,7 +13,6 @@ export const titre = 'Tranformations de triangle'
 export const uuid = '0da6a'
 export const ref = '4G15'
 export default function TransformationsDeTriangle () {
-  
   Exercice.call(this)
   this.titre = 'Tranformations de triangle'
   this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)

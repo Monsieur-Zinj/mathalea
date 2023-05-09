@@ -1,9 +1,18 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, obtenirListeFractionsIrreductibles, obtenirListeNombresPremiers, contraindreValeur } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  choice,
+  shuffle,
+  combinaisonListes,
+  obtenirListeFractionsIrreductibles,
+  contraindreValeur
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+
 export const titre = 'Multiplier ou/et diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -73,21 +82,15 @@ export default function ExerciceMultiplierFractions () {
       let i = 0, a, b, c, d, texte, texteCorr, reponse, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
-        const ab = choice(listeFractions)
-        const cd = choice(listeFractions);
-        [a, b] = ab;
-        [c, d] = cd
+        [a, b] = choice(listeFractions);
+        [c, d] = choice(listeFractions)
       } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || (b * d === 100))
-
       if (this.sup2 === false) {
         // methode 1 : simplifications finale
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             if (a === 1) {
               a = randint(2, 9)
-            }
-            if (a === c) {
-              a = a + 1
             }
             b = 1
             break
@@ -106,18 +109,16 @@ export default function ExerciceMultiplierFractions () {
         }
       } else {
         // méthode 2 : décomposition
-        if (a === c) {
-          a++
-        }
         let facteurA, facteurB
+        const listePremiers = shuffle([2, 3, 5, 7, 11])
         do {
-          facteurA = obtenirListeNombresPremiers()[randint(1, 5)]
-          facteurB = obtenirListeNombresPremiers()[randint(1, 5)]
+          facteurA = listePremiers.pop()
+          facteurB = listePremiers.pop()
           a = a * facteurA
           d = d * facteurA
           b = b * facteurB
           c = c * facteurB
-        } while (Math.abs(a) === Math.abs(b))
+        } while (Math.abs(a) === Math.abs(b) && listePremiers.length > 1)
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             b = 1
@@ -138,7 +139,7 @@ export default function ExerciceMultiplierFractions () {
       const f1 = new FractionEtendue(a, b)
       const f2 = new FractionEtendue(c, d)
       if (listeTypesDoperation[i] === 'mul') {
-        texte = `$${f1.texFSD}\\times${f2.texFraction}=$`
+        texte = `$${f1.texFraction}\\times${f2.texFraction}=$`
         texteCorr = `$${f1.texProduitFraction(f2, this.sup2)}$`
         reponse = f1.produitFraction(f2).simplifie()
       } else {
@@ -151,10 +152,22 @@ export default function ExerciceMultiplierFractions () {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
         if (fractionIrreductibleDemandee) {
           if (context.isAmc) texte = 'Calculer et donner la réponse sous forme irréductible\\\\\n' + texte
-          setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+          setReponse(this, i, reponse, {
+            formatInteractif: 'fraction',
+            digits: 5,
+            digitsNum: 3,
+            digitsDen: 2,
+            signe: true
+          })
         } else {
           if (context.isAmc) texte = 'Calculer\\\\\n' + texte
-          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+          setReponse(this, i, reponse, {
+            formatInteractif: 'fractionEgale',
+            digits: 5,
+            digitsNum: 3,
+            digitsDen: 2,
+            signe: true
+          })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

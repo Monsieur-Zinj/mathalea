@@ -116,6 +116,9 @@ export function propositionsQcm (exercice, i) {
     texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
     texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
   }
+  if (!context.isHtml) {
+    texte += '\\\\\n\t'
+  }
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
     if (context.isHtml) {
       if (vertical && (rep % nbCols === 0) && rep > 0) {
@@ -141,14 +144,18 @@ export function propositionsQcm (exercice, i) {
         texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       }
     } else {
-      texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
-      if (nbCols > 1 && vertical) {
-        texte += '\\\\\n\t'
-      }
+      texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
       if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
       } else {
-        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
+      }
+      if (vertical) {
+        texte += '\\\\\n\t'
+        texteCorr += '\\\\\n\t'
+      } else {
+        texte += '\\qquad'
+        texteCorr += '\\qquad'
       }
     }
   }

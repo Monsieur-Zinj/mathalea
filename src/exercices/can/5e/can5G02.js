@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
+import { randint, choice, calcul, creerNomDePolygone, texNombre } from '../../../modules/outils.js'
 import {
   // eslint-disable-next-line no-unused-vars
   point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom
@@ -48,10 +48,10 @@ export default function AngleTriangleIsocele () {
           objets.push(afficheMesureAngle(B, A, C, 'black', 1, a + '°'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
         `
-          this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 1, style: 'margin: auto' }, objets)
+          this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 1, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
-        Ainsi $\\widehat{${nom[2]}}=180°-2\\times ${a}°=${texNombrec(180 - 2 * a)}°$
+        Ainsi $\\widehat{${nom[2]}}=180°-2\\times ${a}°=${texNombre(180 - 2 * a)}°$
     <br>`
           this.reponse = calcul(180 - 2 * a)
         } else {
@@ -63,10 +63,10 @@ export default function AngleTriangleIsocele () {
           objets.push(afficheMesureAngle(B, A, C, 'black', 1, a + '°'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
             `
-          this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
+          this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
-            Ainsi $\\widehat{${nom[2]}}=180°-2\\times ${a}°=${texNombrec(180 - 2 * a)}°$
+            Ainsi $\\widehat{${nom[2]}}=180°-2\\times ${a}°=${texNombre(180 - 2 * a)}°$
         <br>`
           this.reponse = calcul(180 - 2 * a)
         }
@@ -88,10 +88,10 @@ export default function AngleTriangleIsocele () {
           objets.push(afficheMesureAngle(A, C, B, 'black', 2.5, 180 - 2 * a + '°'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br> 
             `
-          this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
+          this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
-          Ainsi $\\widehat{${nom[1]}}=(180-${(180 - 2 * a)})\\div 2=${texNombrec(a)}$.
+          Ainsi $\\widehat{${nom[1]}}=(180-${(180 - 2 * a)})\\div 2=${texNombre(a)}$.
       <br>`
           this.reponse = a
         } else {
@@ -103,10 +103,10 @@ export default function AngleTriangleIsocele () {
           objets.push(afficheMesureAngle(A, C, B, 'black', 0.4, 180 - 2 * a + '°'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br> 
               `
-          this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 35, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
+          this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 35, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
-          Ainsi $\\widehat{${nom[1]}}=(180-${(180 - 2 * a)})\\div 2=${texNombrec(a)}$.
+          Ainsi $\\widehat{${nom[1]}}=(180-${(180 - 2 * a)})\\div 2=${texNombre(a)}$.
       <br>`
           this.reponse = a
         }

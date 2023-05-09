@@ -1,5 +1,5 @@
 import { fraction } from '../../../modules/fractions.js'
-import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Écrire la valeur décimale d\'une somme de fractions'
 export const interactifReady = true
@@ -55,7 +55,7 @@ export default function EntierPlusFractionVersDecimal () {
         resultat = calcul(a + b / 100 + c / 1000)
         this.question = `Quelle est la valeur décimale de $${a}+${maFraction.texFraction}+${maFraction2.texFraction}$ ?
        `
-        this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(resultat)}$.`
+        this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombre(b / 100)}+${texNombre(c / 1000)}=${texNombre(resultat)}$.`
         this.reponse = resultat
         break
       case 4:// addition entier et fraction avec den =1000 et 100
@@ -67,7 +67,7 @@ export default function EntierPlusFractionVersDecimal () {
         resultat = calcul(a + b / 1000 + c / 100)
         this.question = `Quelle est la valeur décimale de $${a}+${maFraction.texFraction}+${maFraction2.texFraction}$ ?
         `
-        this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombrec(b / 1000)}+${texNombrec(c / 100)}=${texNombre(resultat)}$.`
+        this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombre(b / 1000)}+${texNombre(c / 100)}=${texNombre(resultat)}$.`
         this.reponse = resultat
         break
     }

@@ -65,30 +65,30 @@ export default function EvolutionsSuccesives () {
           if (tauxr.isNeg()) {
             nomr = 'baisse'
           }
-          texte = `Le prix d'un article subit une ${nom} de $${t}~\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son prix initial ?`
-          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à 0,01% près.'
+          texte = `Le prix d'un article subit une ${nom} de $${t}\\,\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son prix initial ?`
+          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près.'
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })
           texteCorr = 'Pour déterminer le taux d\'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :'
           if (taux > 0) {
-            texteCorr += `<br>Augmenter de $${t}~\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
+            texteCorr += `<br>Augmenter de $${t}\\,\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
           if (taux < 0) {
-            texteCorr += `<br>Diminuer de $${t}~\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
+            texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
           texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 4)} ${texNombre(CMra, 4)}$.`
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur('<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.')
           }
           if (CMr > 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}~\\%$.`
+            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr < 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}~\\%$.`
+            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr - CMra === 0) {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}~\\%$ pour revenir au prix initial.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au prix initial.`
           } else {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}~\\%$ pour revenir au prix initial.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}\\,\\%$ pour revenir au prix initial.`
           }
           break
         case 2 :
@@ -115,30 +115,30 @@ export default function EvolutionsSuccesives () {
             nomr = 'baisse'
           }
           metier = choice(['Un artisan', 'Un ouvrier', 'Un coiffeur', 'Une informaticienne', 'Une cordonnière', 'Une luthière'])
-          texte = `${metier} a décidé ${nom} son tarif horaire de $${t}~\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son niveau de départ ?`
-          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à 0,01% près.'
+          texte = `${metier} a décidé ${nom} son tarif horaire de $${t}\\,\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son niveau de départ ?`
+          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près.'
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })
           texteCorr = 'Pour déterminer le taux d\'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :'
           if (taux > 0) {
-            texteCorr += `<br>Augmenter de $${t}~\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
+            texteCorr += `<br>Augmenter de $${t}\\,\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
           if (taux < 0) {
-            texteCorr += `<br>Diminuer de $${t}~\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
+            texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
           texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 4)} ${texNombre(CMr, 4)}$.`
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur('<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.')
           }
           if (CMr > 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}~\\%$.`
+            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr < 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}~\\%$.`
+            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr - CMra === 0) {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}~\\%$ pour revenir au niveau de départ.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
           } else {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}~\\%$ pour revenir au niveau de départ.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
           }
           break
         case 3 :
@@ -164,30 +164,30 @@ export default function EvolutionsSuccesives () {
             nomr = 'baisse'
           }
           metier = choice(['d\'employés', 'de commerciaux', 'de stagiaires', 'de jeunes diplomés'])
-          texte = `Le nombre ${metier} d'une entreprise a ${nom} de $${t}~\\%$.<br>Quelle évolution permettrait de retrouver le nombre de départ ?`
-          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à 0,1% près.'
+          texte = `Le nombre ${metier} d'une entreprise a ${nom} de $${t}\\,\\%$.<br>Quelle évolution permettrait de retrouver le nombre de départ ?`
+          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à $0,1\\,\\%$ près.'
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })
           texteCorr = 'Pour déterminer le taux d\'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :'
           if (taux > 0) {
             texteCorr += `<br>Augmenter de $${t}~\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
           if (taux < 0) {
-            texteCorr += `<br>Diminuer de $${t}~\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
+            texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
           texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 3)} ${texNombre(CMr, 4)}$.`
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur('<br>Remarque : Il faut arrondir les valeurs à $10^{-3}$ pour avoir un arrondi en pourcentage à $10^{-1}$.')
           }
           if (CMr > 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}~\\%$.`
+            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr < 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}~\\%$.`
+            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr - CMra === 0) {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}~\\%$ pour revenir au niveau de départ.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
           } else {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}~\\%$ pour revenir au niveau de départ.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
           }
           break
       }

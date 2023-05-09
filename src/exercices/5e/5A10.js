@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, texteOuPas, contraindreValeur, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, texteOuPas, contraindreValeur, texNombre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -18,7 +18,6 @@ export const interactifType = 'mathLive'
 export const uuid = '4828d'
 export const ref = '5A10'
 export default function ListeDesDiviseurs5e () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -28,8 +27,8 @@ export default function ListeDesDiviseurs5e () {
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = '2-2-2'
-  this.sup2 = '6-6-6'
+  this.sup = 2
+  this.sup2 = 6
   this.sup3 = 10
 
   this.nouvelleVersion = function () {
@@ -39,10 +38,10 @@ export default function ListeDesDiviseurs5e () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     this.autoCorrection = []
-    let nombresDeChiffresMax
-    let nombresDeDiviseursMax
 
     this.sup3 = contraindreValeur(2, 16, parseInt(this.sup3), 10)
+    /*
+    let nombresDeChiffresMax
     if (typeof this.sup === 'number') {
       nombresDeChiffresMax = [contraindreValeur(1, 5, parseInt(this.sup), 2)]
     } else {
@@ -51,6 +50,16 @@ export default function ListeDesDiviseurs5e () {
         nombresDeChiffresMax[i] = contraindreValeur(1, 5, parseInt(nombresDeChiffresMax[i]), 2)
       }
     }
+    */
+    const nombresDeChiffresMax = gestionnaireFormulaireTexte({
+      max: 5,
+      defaut: 2,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup,
+      shuffle: false
+    })
+    /*
+    let nombresDeDiviseursMax
     if (typeof this.sup2 === 'number') {
       nombresDeDiviseursMax = [contraindreValeur(2, parseInt(this.sup3), parseInt(this.sup2), 6)]
     } else {
@@ -59,6 +68,16 @@ export default function ListeDesDiviseurs5e () {
         nombresDeDiviseursMax[i] = contraindreValeur(2, parseInt(this.sup3), parseInt(nombresDeDiviseursMax[i]), 6)
       }
     }
+  */
+    const nombresDeDiviseursMax = gestionnaireFormulaireTexte({
+      min: 2,
+      max: parseInt(this.sup3),
+      defaut: 6,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup2,
+      shuffle: false
+    })
+
     const typesDeQuestionsDisponibles = [1, 1, 2]
     const nbChiffresMax = combinaisonListesSansChangerOrdre(nombresDeChiffresMax, this.nbQuestions)
     const nbDiviseursMax = combinaisonListesSansChangerOrdre(nombresDeDiviseursMax, this.nbQuestions)
@@ -194,6 +213,6 @@ export default function ListeDesDiviseurs5e () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombres de chiffres des entiers (un par question) séparés par des tirets', '2-2-2']
-  this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers (un par question) séparés par des tirets', '6-6-6']
+  this.besoinFormulaireTexte = ['Nombre de chiffres des entiers (entre 1 et 5)', 'Nombres séparés par des tirets']
+  this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers', 'Nombres séparés par des tirets']
 }

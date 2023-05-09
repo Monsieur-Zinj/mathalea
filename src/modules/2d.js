@@ -583,7 +583,7 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   let x, y
   if (f.a * d.b - f.b * d.a === 0) {
-    // console.log('Les droites sont parallèles, pas de point d\'intersection')
+    // Les droites sont parallèles, pas de point d'intersection
     return false
   } else {
     y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a)
@@ -732,9 +732,6 @@ export function LabelPoint (...points) {
       } else {
         A = unPoint
       }
-      // console.log(A.nom, A.positionLabel)
-      // if (this.positionLabel) A.positionLabel = this.positionLabel
-      // console.log(A.nom, A.positionLabel)
       code += `\t\\draw (${arrondi(A.x)},${arrondi(A.y)}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
     }
     return code
@@ -9370,7 +9367,7 @@ export function lectureImage (...args) {
 }
 
 export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, textAbs) {
-  // 
+  //
   ObjetMathalea2D.call(this, {})
   this.x = x
   this.y = y
@@ -10472,7 +10469,7 @@ export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', co
  * @author Rémi Angot
  */
 export function texteParPosition (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, opacite) {
-  return new TexteParPoint(texte, point(arrondi(x), arrondi(y)), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
+  return new TexteParPoint(texte, point(arrondi(x, 2), arrondi(y, 2)), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
 
 /**
@@ -11533,9 +11530,11 @@ export function labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
 
 /**
  * fonction utilisée par la classe Tableau pour créer une flèche
+ * Pour l'objet texte : si texte.latex est true, alors les autres paramètres sont ignorés et tout le formatage doit être contenu dans texte
+ * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur
  * @param {Point} D
  * @param {Point} A
- * @param {string} texte
+ * @param {object} {texte: string, gras: boolean = false, math:boolean= true, latex: boolean=false, color:string='black'}
  * @param {number} h
  * @returns {array} (Polyline|Segment|TexteParPoint)[]
  * @author Rémi Angot
@@ -11550,10 +11549,13 @@ function flecheH (D, A, texte, h = 1) {
   const objets = [fleche, eFleche]
   let t
   if (texte) {
-    if (h > 0) {
-      t = texteParPosition('$' + texte + '$', M.x, M.y + 0.5)
+    const color = texte.color ?? 'black'
+    if (texte.latex) {
+      t = latexParCoordonnees(texte.texte, M.x, M.y + (h > 0 ? 0.5 : -0.8), color, 50, 20, '', 10)
     } else {
-      t = texteParPosition('$' + texte + '$', M.x, M.y - 0.8)
+      const math = texte.math ?? false
+      t = texteParPosition(texte.texte, M.x, M.y + (h > 0 ? 0.5 : -0.8), 'milieu', color, 1, 'middle', math)
+      t.gras = texte.gras ?? false
     }
     objets.push(t)
   }
@@ -11562,9 +11564,10 @@ function flecheH (D, A, texte, h = 1) {
 
 /**
  * fonction utilisée par la classe Tableau pour créer une flèche
- * @param {Point} D
+ * Pour l'objet texte : si texte.latex est true, alors les autres paramètres sont ignorés et tout le formatage doit être contenu dans texte
+ * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur* @param {Point} D
  * @param {Point} A
- * @param {string} texte
+ * @param {object} {texte: string, gras: boolean, math: boolean, color: string, latex: boolean}
  * @param {number} h
  * @param {boolean} flip Pour pouvoir faire des flèches à gauche et pas à droite
  * @returns {array} (Polyline|Segment|TexteParPoint)[]
@@ -11579,8 +11582,17 @@ function flecheV (D, A, texte, h = 1, flip = false) {
   eFleche.styleExtremites = '->'
   const M = milieu(D1, A1)
   const objets = [fleche, eFleche]
+  let t
+  const color = texte.color ?? 'black'
+  const math = texte.math ?? false
   if (texte) {
-    objets.push(texteParPoint(texte, point(M.x + h, M.y - 0.6), flip ? 'droite' : 'milieu', 'black', 1, 'middle', true))
+    if (texte.latex) {
+      t = latexParCoordonnees(texte.texte, M.x + h, M.y - 0.6, color, 50, 20, '', 10)
+    } else {
+      t = texteParPosition(texte.texte, M.x + h, M.y - 0.6, flip ? 'droite' : 'milieu', color, 1, 'middle', math)
+      t.gras = texte.gras ?? false
+    }
+    objets.push(t)
   }
   return objets
 }
@@ -11592,8 +11604,10 @@ function flecheV (D, A, texte, h = 1, flip = false) {
  * @param { number } hauteur
  * @param { number } nbColonnes
  * @param { Point } origine
- * @param { string[] } ligne1
- * @param { string[] } ligne2
+ * Pour les objets de ligne1 et ligne2 (appelés texte ci-après): si texte.latex est true, alors les autres paramètres sont ignorés et tout le formatage doit être contenu dans texte
+ * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur
+ * @param { object[] } ligne1 contient des objets avec {texte: string, gras: boolean= false; color: string = 'black', latex: boolean}
+ * @param { object[] } ligne2 contient des objets avec {texte: string, gras: boolean= false; color: string = 'black', latex: boolean}
  * @param { [number, number, string] } flecheHaut
  * @param { [number, number, string] } flecheBas
  * @param { string | boolean } flecheDroite
@@ -11636,16 +11650,52 @@ export function Tableau ({
   // Ecrit le texte dans les colonnes
   for (let i = 0; i < nbColonnes; i++) {
     objets.push(segment(point(x, A.y), point(x, C.y)))
-    if (ligne1[i + 1]) objets.push(latexParCoordonnees(ligne1[i + 1] ?? '', x + largeur / 2, A.y + 1.4 * hauteur))
-    if (ligne2[i + 1]) objets.push(latexParCoordonnees(ligne2[i + 1] ?? '', x + largeur / 2, A.y + 0.4 * hauteur))
+    if (ligne1[i + 1]) {
+      if (ligne1[i + 1].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
+        objets.push(latexParCoordonnees(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, 'black', largeur * 8, 20, '', 10))
+      } else {
+        const color = ligne1[i + 1].color ?? 'black'
+        const math = ligne1[i + 1].math ?? false
+        const texte = texteParPosition(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, 'milieu', color, 1.2, 'middle', math)
+        texte.gras = ligne1[i + 1].gras ?? false
+        objets.push(texte)
+      }
+    }
+    if (ligne2[i + 1]) {
+      if (ligne2[i + 1].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
+        objets.push(latexParCoordonnees(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, 'black', largeur * 8, 20, '', 10))
+      } else {
+        const color = ligne2[i + 1].color ?? 'black'
+        const math = ligne2[i + 1].math ?? false
+        const texte = texteParPosition(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, 'milieu', color, 1.2, 'middle', math)
+        texte.gras = ligne2[i + 1].gras ?? false
+        objets.push(texte)
+      }
+    }
     x += largeur
   }
   // Ecrit les titres
   if (ligne1[0]) {
-    objets.push(latexParCoordonnees(ligne1[0] ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 'black', largeurTitre * 10))
+    if (ligne1[0].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
+      objets.push(latexParCoordonnees(ligne1[0].texte ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 'black', largeur * 8, 20, '', 10))
+    } else {
+      const color = ligne1[0].color ?? 'black'
+      const math = ligne1[0].math ?? false
+      const texte = texteParPosition(ligne1[0].texte ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 'milieu', color, 1.2, 'middle', math)
+      texte.gras = ligne1[0].gras ?? false
+      objets.push(texte)
+    }
   }
   if (ligne2[0]) {
-    objets.push(latexParCoordonnees(ligne2[0] ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 'black', largeurTitre * 10))
+    if (ligne2[0].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
+      objets.push(latexParCoordonnees(ligne2[0].texte ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 'black', largeur * 8, 20, '', 10))
+    } else {
+      const color = ligne2[0].color ?? 'black'
+      const math = ligne2[0].math ?? false
+      const texte = texteParPosition(ligne2[0].texte ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 'milieu', color, 1.2, 'middle', math)
+      texte.gras = ligne2[0].gras ?? false
+      objets.push(texte)
+    }
   }
   for (const fleche of flecheHaut) {
     const Depart = point(A.x + largeurTitre + fleche[0] * largeur - 0.4 * largeur, A.y + 2.1 * hauteur)
@@ -11686,9 +11736,10 @@ export function Tableau ({
     } else {
       objets.push(...flecheV(Arrivee, Depart, flecheGauche, 1, true))
     }
-  }  const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
-    this.bordures = [xmin, ymin, xmax, ymax]
-  
+  }
+  const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
+  this.bordures = [xmin, ymin, xmax, ymax]
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {

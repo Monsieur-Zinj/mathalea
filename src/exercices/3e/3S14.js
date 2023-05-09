@@ -5,18 +5,13 @@ import {
   arrondi,
   choice,
   combinaisonListes,
-  combinaisonListesSansChangerOrdre,
-  compteOccurences,
-  contraindreValeur,
-  enleveDoublonNum,
+  gestionnaireFormulaireTexte,
   listeDeNotes,
   listeQuestionsToContenu,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
   numAlpha,
   randint,
-  range1,
-  rangeMinMax,
   tirerLesDes,
   unMoisDeTemperature
 } from '../../modules/outils.js'
@@ -59,50 +54,10 @@ export default function CalculerCaracteristiques () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let questionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      questionsDisponibles = rangeMinMax(1, 5)
-      questionsDisponibles = combinaisonListes(questionsDisponibles, this.nbQuestions)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        if (this.sup >= 1 && this.sup <= 6) {
-          questionsDisponibles = [this.sup]
-        } else {
-          questionsDisponibles = rangeMinMax(1, 5)
-        }
-        questionsDisponibles = combinaisonListes(questionsDisponibles, this.nbQuestions)
-      } else {
-        const questions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < questions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          questions[i] = parseInt(questions[i])
-          if (questions[i] >= 1 && questions[i] <= 6) {
-            questionsDisponibles.push(questions[i])
-          } else {
-            questionsDisponibles.push(...rangeMinMax(1, 5))
-          }
-        }
-        questionsDisponibles = combinaisonListesSansChangerOrdre(questionsDisponibles, this.nbQuestions)
-      }
-    }
+    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions, shuffle: true })
 
-    let typeQuestions = []
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      typeQuestions = rangeMinMax(1, 3)
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typeQuestions = [contraindreValeur(1, 4, this.sup2, 4)]
-      } else {
-        typeQuestions = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typeQuestions[i] = contraindreValeur(1, 4, parseInt(typeQuestions[i]), 4)
-        }
-      }
-    }
-    enleveDoublonNum(typeQuestions)
-    if (compteOccurences(typeQuestions, 4)) typeQuestions = range1(3)
-
+    const typeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, shuffle: true, enleveDoublons: true })
     console.log(typeQuestions)
-
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
 
     for (let i = 0, cpt = 0, texte, initAMC, texteAMC, reponsesAMC, approxAMC, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { randint, combinaisonListes, rangeMinMax, contraindreValeur, sp, listeQuestionsToContenu } from '../../modules/outils.js'
-export const titre = 'Vocabulaires liés aux 4 opérations'
+import { randint, sp, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+export const titre = 'Connaître le vocabulaire lié aux 4 opérations'
 
 /**
  * Exercice sur le vocabulaire : somme, différence, produit, quotient...
@@ -15,10 +15,11 @@ export default function VocabulaireSur4Operations () {
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.sup = 0
+  this.sup = 15
   this.spacing = 2
 
   this.nouvelleVersion = function () {
+    /*
     let typesDeQuestionsDisponibles = []
     if (!this.sup || this.sup === '0') { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = rangeMinMax(1, 14)
@@ -34,6 +35,15 @@ export default function VocabulaireSur4Operations () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    */
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      max: 14,
+      defaut: 15,
+      melange: 15,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -140,21 +150,23 @@ export default function VocabulaireSur4Operations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de question',
-    `0 : Mélange
-     1 : Addition (terme)
-     2 : Addition (somme)
-     3 : Addition (calcul)
-     4 : Soustraction (terme)
-     5 : Soustraction (différence)
-     6 : Soustraction (calcul)
-     7 : Multiplication (facteur)
-     8 : Multiplication (produit)
-     9 : Multiplication (calcul)
-     10 : Division (dividende)
-     11 : Division (diviseur)
-     12 : Division (quotient)
-     13 : Division (reste)
-     14 : Division (calcul)`
+  this.besoinFormulaireTexte = ['Type de questions', [
+    'Nombres séparés par des tirets',
+    '1 : Addition (terme)',
+    '2 : Addition (somme)',
+    '3 : Addition (calcul)',
+    '4 : Soustraction (terme)',
+    '5 : Soustraction (différence)',
+    '6 : Soustraction (calcul)',
+    '7 : Multiplication (facteur)',
+    '8 : Multiplication (produit)',
+    '9 : Multiplication (calcul)',
+    '10 : Division (dividende)',
+    '11 : Division (diviseur)',
+    '12 : Division (quotient)',
+    '13 : Division (reste)',
+    '14 : Division (calcul)`',
+    '15 : Mélange'
+  ].join('\n')
   ]
 }

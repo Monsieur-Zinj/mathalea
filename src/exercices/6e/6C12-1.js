@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, range, texteEnCouleurEtGras, sp, numAlpha, contraindreValeur, choice, arrondi, prenomF, rangeMinMax, texNombre3, troncature, estentier, compteOccurences, enleveDoublonNum, combinaisonListes, enleveElementNo, texPrix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, range, texteEnCouleurEtGras, sp, numAlpha, choice, arrondi, prenomF, rangeMinMax, texNombre3, troncature, estentier, enleveElementNo, texPrix, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -46,7 +46,7 @@ export default function QuestionsMasses () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let QuestionsDisponibles = []
+      /* let QuestionsDisponibles = []
 
       if (!this.sup) { // Si aucune liste n'est saisie
         QuestionsDisponibles = rangeMinMax(1, 8)
@@ -62,8 +62,19 @@ export default function QuestionsMasses () {
       }
       if (compteOccurences(QuestionsDisponibles, 9) > 0) QuestionsDisponibles = rangeMinMax(1, 8) // Teste si l'utilisateur a choisi tout
       enleveDoublonNum(QuestionsDisponibles)
-
       if (this.sup2) QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, QuestionsDisponibles.length)
+       */
+
+      const QuestionsDisponibles = gestionnaireFormulaireTexte({
+        max: 8,
+        defaut: 9,
+        nbQuestions: 1,
+        melange: 9,
+        saisie: this.sup,
+        shuffle: this.sup2,
+        enleveDoublons: true
+      })
+
       const Chiffres = range(9, [0])
       const TabPrixUnitaire = []
       const TabAutrePrix = []

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice, nombreEnLettres, shuffle, contraindreValeur } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice, nombreEnLettres, shuffle, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
@@ -30,7 +30,7 @@ export default function ÉcrirePetitsNombresEntiers () {
 
   this.besoinFormulaireTexte = ['Type de nombres', 'Nombres séparés par des tirets\n2 : À deux chiffres\n3 : À trois chiffres\n4 : À quatre chiffres\n5 : À cinq chiffres\n6 : À six chiffres\n7 : À neuf chiffres\n8 : À douze chiffres']
   this.sup = 4 // Valeur du paramètre par défaut
-  this.besoinFormulaire2Texte = ['Demande particulière', 'Nombres séparés par des tirets\n0 : Aucune demande particulière.\n1 : Au moins un nombre se termine par 80.\n2 : Au moins un nombre contient entre 81 et 99.\n3 : Au moins un nombre se termine par un multiple de 100.\n4 : Au moins un nombre commence par mille.\n5 : Au moins un nombre ne possèdant ni centaines ou ni centaines de mille.']
+  this.besoinFormulaire2Texte = ['Demande particulière', 'Nombres séparés par des tirets\n0 : Aucune demande particulière.\n1 : Au moins un nombre se termine par 80.\n2 : Au moins un nombre contient entre 81 et 99.\n3 : Au moins un nombre se termine par un multiple de 100.\n4 : Au moins un nombre commence par mille.\n5 : Au moins un nombre ne possède ni centaines ou ni centaines de mille.']
   this.sup2 = 0 // Valeur du paramètre par défaut
   this.besoinFormulaire3Numerique = ['Type d\'exercices', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
   this.sup3 = 1 // Valeur du paramètre par défaut
@@ -59,11 +59,9 @@ export default function ÉcrirePetitsNombresEntiers () {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    let QuestionsDisponibles = []
+    /*
     let listeQuestions = []
-    let OptionsDisponibles = [] // Pour envisager les cas particuliers demandés 80, 81... 99 et 100, 200.. 900.
-    let listeOptions = []
-
+    let QuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles = [2, 3, 4, 5, 6, 7, 8]
     } else {
@@ -77,6 +75,18 @@ export default function ÉcrirePetitsNombresEntiers () {
         }
       }
     }
+    */
+
+    const listeQuestions = gestionnaireFormulaireTexte({
+      min: 2,
+      max: 8,
+      defaut: 8,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup
+    })
+
+    /*
+    let OptionsDisponibles = [] // Pour envisager les cas particuliers demandés 80, 81... 99 et 100, 200.. 900.
     if (!this.sup2) { // Si aucune liste n'est saisie
       OptionsDisponibles = [0]
     } else {
@@ -90,12 +100,22 @@ export default function ÉcrirePetitsNombresEntiers () {
         }
       }
     }
-    for (let i = OptionsDisponibles.length; i < this.nbQuestions; i++) { // on finit de remplir le tableau par des zéros (aucune demande particulière)
+    */
+
+    const OptionsDisponibles = gestionnaireFormulaireTexte({
+      min: 0,
+      max: 5,
+      defaut: randint(0, 5),
+      nbQuestions: 1,
+      saisie: this.sup2,
+      shuffle: false
+    })
+
+    for (let i = OptionsDisponibles.length; i < this.nbQuestions; i++) { // On finit de remplir le tableau par des zéros (aucune demande particulière)
       OptionsDisponibles[i] = 0
     }
-
-    listeQuestions = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
-    listeOptions = shuffle(OptionsDisponibles)
+    console.log(OptionsDisponibles)
+    const listeOptions = shuffle(OptionsDisponibles)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let NombreAEcrire // Comme la valeur sera modifiée, on la déclare avec let

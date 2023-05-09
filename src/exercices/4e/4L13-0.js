@@ -13,7 +13,6 @@ export const titre = 'Mettre en équation un problème sans objectif de résolut
 export const uuid = '5a6f2'
 export const ref = '4L13-0'
 export default function MettreEnEquationSansResoudre () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.sup = 1

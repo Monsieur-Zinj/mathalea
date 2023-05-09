@@ -7,15 +7,13 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import {
   choice,
   combinaisonListes,
-  combinaisonListesSansChangerOrdre,
   contraindreValeur,
   ecritureParentheseSiNegatif,
-  enleveDoublonNum,
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   pgcd,
   premierAvec,
   randint,
-  rangeMinMax,
   texNombre
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -35,19 +33,18 @@ export const uuid = 'aeb5a'
  */
 export default function FonctionsLineaires () {
   Exercice.call(this)
-  this.comment = `L'exercice propose différents type de questions sur les fonctions linéaires :<br>
+  this.comment = `L'exercice propose différents types de questions sur les fonctions linéaires :<br>
 calcul d'image, calcul d'antécédent ou détermination du coefficient.<br>
 Ce coefficient peut être au choix entier relatif ou rationnel relatif.<br>
-Certaines questions de calcul d'image nécessite le calcul du coefficient au prélable.<br>
-J'ai fait le choix d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50%.<br>
-On peut choisir le type de questions.`
+Certaines questions de calcul d'image nécessitent le calcul du coefficient au prélable.<br>
+Le choix a été fait d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50%.<br>`
   this.sup = 1 // coefficient entier relatif
   this.nbQuestions = 8
-  this.sup2 = 9
-  
+  this.sup2 = '9'
+
   this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
-  this.besoinFormulaire2Texte = ['Types de questions', `Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange`]
-  
+  this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange']
+
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -59,28 +56,11 @@ On peut choisir le type de questions.`
       'antecedentParExpression',
       'antecedentParValeurs',
       'antecedentParGraphique',
-      'expressionParValeur',
+      'expressionParValeurs',
       'expressionParGraphique'
     ]
-    let QuestionsDisponibles
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 8)
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles = [contraindreValeur(1, 9, this.sup2, 9)]
-      } else {
-        QuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 9, QuestionsDisponibles[i], 9)
-        }
-        this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
-      }
-    }
-    enleveDoublonNum(QuestionsDisponibles)
-    if (QuestionsDisponibles.includes(9)) QuestionsDisponibles = rangeMinMax(1, 8)
-    const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions).map(nb => typesDeQuestionsDisponibles[nb])
-    
-    const listeTypesDeQuestions = combinaisonListes(typesDeQuestions, this.nbQuestions)
+    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: 9 })
+    const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.sup = contraindreValeur(1, 3, this.sup, 1)
@@ -144,8 +124,8 @@ On peut choisir le type de questions.`
       const yMax = -yThickMin
       const xmin = xMin * xUnite
       const ymin = yMin * yUnite
-      const xmax = xMax * xUnite
-      const ymax = yMax * yUnite
+      const xmax = xMax * xUnite + 0.5
+      const ymax = yMax * yUnite + 0.5
       const r = repere({
         xUnite,
         yUnite,
@@ -181,42 +161,41 @@ On peut choisir le type de questions.`
         case 'imageParValeurs':
           texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
-          texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
+          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
+          texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
           }
-          texteCorr += `$<br>Donc $f(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
+          texteCorr += `$ et par suite $f(x)=${coefficientString}x$<br>`
+          texteCorr += `Donc $f(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$`
           setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParGraphique':
+          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
+          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += '<br>'
           texte += mathalea2d({
+            scale: 0.6,
             xmin,
             ymin,
             xmax,
             ymax
           }, r, d, t, coordonnees, pointilles)
-          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Comme $f(${antecedent0})=${image0}$ alors $f(x)=\\dfrac{${image0}}{${antecedent0}}x`
-          if (pgcd(image0, antecedent0) !== 1) {
-            const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
-            texteCorr += `=${simplification}x`
-          }
-          texteCorr += `$<br>Donc $f(${antecedent})=${coefficientString}\\times ${antecedent}=${imageString}$`
+          texteCorr += `Comme $f(${antecedent0})=${image0}$ et $f(x)=ax$ on en déduit $a\\times ${antecedent0} = ${image0}$ soit $a=\\dfrac{${image0}}{${antecedent0}}${coefficient instanceof FractionEtendue ? '' : '=' + coefficientString}$.<br>`
+          texteCorr += `Ainsi $f(${antecedent})=${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent)}=${imageString}$`
           setReponse(this, i, image, { formatInteractif })
           break
         case 'antecedentParExpression':
           texte += `Soit $f(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Posons $A$ l'antécédent de $${imageString}$, alors $f(A)=${coefficientString}\\times A=${imageString}$<br>`
+          texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString}\\times b=${imageString}$<br>`
           if (coefficient instanceof FractionEtendue) {
-            texteCorr += `Donc $A=\\dfrac{${image.texFSD}}{${coefficientString}}=`
+            texteCorr += `Donc $b=\\dfrac{${image.texFSD}}{${coefficientString}}=`
             texteCorr += `${image.texFSD}\\times ${coefficient.inverse().texFSP}=`
           } else {
-            texteCorr += `Donc $A=\\dfrac{${texNombre(image, 0)}}{${coefficientString}}=`
+            texteCorr += `Donc $b=\\dfrac{${texNombre(image, 0)}}{${coefficientString}}=`
           }
           texteCorr += `${antecedent}$`
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
@@ -224,14 +203,14 @@ On peut choisir le type de questions.`
         case 'antecedentParValeurs':
           texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
+          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
           }
-          texteCorr += `$<br>Posons $A$ l'antécédent de $${imageString}$, alors $f(A)=${coefficientString} \\times A=${imageString}$.<br>`
-          texteCorr += `On en déduit que $A=\\dfrac{${imageString}}{${coefficientString}}=`
+          texteCorr += `$<br>Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString} \\times b=${imageString}$.<br>`
+          texteCorr += `On en déduit que $b=\\dfrac{${imageString}}{${coefficientString}}=`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `${imageString}\\times ${coefficient.inverse().texFSP}=`
           }
@@ -239,7 +218,11 @@ On peut choisir le type de questions.`
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParGraphique':
+          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
+          texte += `Calculer l'antécédent de $${imageString}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += '<br>'
           texte += mathalea2d({
+            scale: 0.6,
             xmin,
             ymin,
             xmax,
@@ -252,23 +235,23 @@ On peut choisir le type de questions.`
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}x`
           }
-          texteCorr += `$<br>Posons $A$ l'antécédent de $${imageString}$, alors $f(A)=${coefficientString}\\times A=${imageString}$.<br>`
-          texteCorr += `On en déduit que $A=\\dfrac{${imageString}}{${coefficientString}}=`
+          texteCorr += `$<br>Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString}\\times b=${imageString}$.<br>`
+          texteCorr += `On en déduit que $b=\\dfrac{${imageString}}{${coefficientString}}=`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `${imageString}\\times ${coefficient.inverse().texFSP}=`
           }
           texteCorr += `${antecedent}$`
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
-        case 'expressionParValeur':
+        case 'expressionParValeurs':
           texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           if (context.isAmc) {
             texte += 'Donner le coefficient de  $f$.'
           } else {
             texte += 'Donner l\'expression de  $f(x)$.' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           }
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
-          texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
+          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
+          texteCorr += `Soit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
@@ -281,18 +264,20 @@ On peut choisir le type de questions.`
           }
           break
         case 'expressionParGraphique':
-          texte += mathalea2d({
-            xmin,
-            ymin,
-            xmax,
-            ymax
-          }, r, d, t, coordonnees, pointilles)
           texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
           if (context.isAmc) {
             texte += 'Donner le coefficient de  $f$.'
           } else {
             texte += 'Donner l\'expression de  $f(x)$.' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           }
+          texte += '<br>'
+          texte += mathalea2d({
+            scale: 0.6,
+            xmin,
+            ymin,
+            xmax,
+            ymax
+          }, r, d, t, coordonnees, pointilles)
           texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
@@ -307,7 +292,7 @@ On peut choisir le type de questions.`
           }
           break
       }
-      if (this.questionJamaisPosee(i, coefficient, antecedent, image)) {
+      if (this.questionJamaisPosee(i, coefficient, antecedent0, image0)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

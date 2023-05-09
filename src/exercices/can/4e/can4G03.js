@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, creerNomDePolygone, texNombrec, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
+import { randint, choice, creerNomDePolygone, texNombre, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
 import {
   point, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude, texteParPosition
 } from '../../../modules/2d.js'
@@ -48,8 +48,8 @@ export default function CalculHypotenusePythagore () {
         reductible = (reduction[0] !== 1)
         entiere = (reduction[1] === 1)
         objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-        objets.push(texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.4),
-          texteParPosition(`${texNombrec(b)}`, milieu(B, C).x + 0.4, milieu(B, C).y)
+        objets.push(texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y + 0.4),
+          texteParPosition(`${texNombre(b)}`, milieu(B, C).x + 0.4, milieu(B, C).y)
         )
         this.question = `Sur cette figure, calculer la valeur exacte de $${nom[0]}${nom[2]}$.<br>
         

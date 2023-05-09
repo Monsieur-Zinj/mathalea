@@ -2,7 +2,15 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { range, choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes, contraindreValeur, compteOccurences } from '../../modules/outils.js'
+import {
+  choice,
+  randint,
+  listeQuestionsToContenu,
+  choisitLettresDifferentes,
+  texNum,
+  combinaisonListes,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
 // eslint-disable-next-line no-debugger
@@ -68,23 +76,7 @@ export default function CalculsHomothetie () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [12]
-    } else {
-      if (typeof (this.sup) === 'number') {
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 12, this.sup, 12)
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 12, typesDeQuestionsDisponibles[i], 12)
-        }
-      }
-    }
-    if (compteOccurences(typesDeQuestionsDisponibles, 12) > 0) typesDeQuestionsDisponibles = combinaisonListes(range(11), this.nbQuestions)
-    typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    const listeTypeQuestions = []
-    for (let ee = 0; ee < typesDeQuestionsDisponibles.length; ee++) { listeTypeQuestions.push(typeQuestionsDisponibles[typesDeQuestionsDisponibles[ee] - 1]) }
+    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 11, melange: 12, defaut: 12, nbQuestions: this.nbQuestions, listeOfCase: typeQuestionsDisponibles, shuffle: true })
     const kEstEntier = this.sup3 > 1
     const valeursSimples = this.sup3 === 3
     for (let i = 0, approx, environ, melange, donnee1, donnee2, donnee3, donnees, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -358,7 +350,7 @@ et $${O} ${hA} ${plusgrandque} ${O} ${A}$
 donc c'est ${unAgrandissement} et on a ${intervallek}.
 <br>${fImage2etapes.solution}
 `
-            texteCorr += String.raw`<br>        
+            texteCorr += String.raw`<br>
 Le rapport de cette homothétie est
 ${lopposedu} quotient de la longueur d'un segment
 "à l'arrivée" par sa longueur "au départ".

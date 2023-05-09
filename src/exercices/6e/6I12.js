@@ -18,7 +18,6 @@ export const titre = 'Trouver le bon tracé avec Scratch'
 export const uuid = 'e9cac'
 export const ref = '6I12'
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
-  
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
   this.titre = titre
   this.nbQuestions = 1

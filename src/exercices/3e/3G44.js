@@ -1,6 +1,21 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, rangeMinMax, contraindreValeur, compteOccurences, choisitLettresDifferentes, choice, calcul, arrondi, miseEnEvidence, texteEnCouleurEtGras, sp, nombreDeChiffresDe, shuffle } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  texNombre,
+  rangeMinMax,
+  choisitLettresDifferentes,
+  choice,
+  calcul,
+  arrondi,
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+  sp,
+  nombreDeChiffresDe,
+  shuffle,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { CodageAngleDroit3D, cone3d, cube3d, cylindre3d, droite3d, pave3d, point3d, polygone3d, pyramide3d, rotation3d, sphere3d, translation3d, vecteur3d } from '../../modules/3d.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -24,7 +39,6 @@ export const dateDePublication = '19/12/2022' // La date de publication initiale
 export const uuid = '57c70'
 export const ref = '3G44'
 export default function CalculPythagoreEspace () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 4
@@ -33,22 +47,8 @@ export default function CalculPythagoreEspace () {
 
   this.nouvelleVersion = function (numeroExercice) {
     this.autoCorrection = []
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = rangeMinMax(1, 9)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 10, this.sup, 10)
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 10, parseInt(typesDeQuestionsDisponibles[i]), 10) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(typesDeQuestionsDisponibles, 10) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, 9) // Teste si l'utilisateur a choisi tout
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions, shuffle: true }) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeUnites = [

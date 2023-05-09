@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import {context} from '../../modules/context.js'
+import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
@@ -23,7 +23,6 @@ export const titre = 'Compter et lister les diviseurs d\'un entier à partir de 
 export const uuid = '4117b'
 export const ref = '3A10-4'
 export default function ListerDiviseursParDecompositionFacteursPremiers () {
-  
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = false
   this.titre = titre
@@ -36,7 +35,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
-  
+
   this.nouvelleVersion = function (numeroExercice) {
     // let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
@@ -46,19 +45,19 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
     } else { // sortie LaTeX
     }
     ;
-    
+
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    
+
     // const typesDeQuestionsDisponibles = [1]
     // let typesDeQuestionsDisponibles = [1];
     // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // typesDeQuestions = listeTypeDeQuestions[i]
-      
+
       // switch (typesDeQuestions) {
       // case 1: // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers
       texte = 'Lister/compter les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
@@ -148,7 +147,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       // tableau pour la permutation circulaire
       const tabTemp = entLignes
       // on y affecte les lignes
-      
+
       // on supprime le x de l'entete des colonnes
       entColonnes.shift()
       // on affecte ça aux lignes;
@@ -173,7 +172,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       texte += '<br>'
       texte += numAlpha(1) + ` En déduire le nombre de diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
       texte += numAlpha(2) + ` Enfin, dresser la liste des diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
-      
+
       // correction
       texteCorr = `Avec la décomposition en facteurs premiers de $${texNombre(nombreADecomposerb)}$ qui est : $`
       if (tabMultiplicitesb[0] === 1) {
@@ -252,7 +251,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       }
       ;
       texteCorr += `$${tabPremiersb[0]}^{` + tabMultiplicitesb[0] + `}$ d'où le facteur $(${tabMultiplicitesb[0]}+1)$.`
-      
+
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[1]}$ avec la multiplicité $${tabMultiplicitesb[1]}$`
       texteCorr += `, le facteur $${tabPremiersb[1]}$ apparaît donc sous les formes : `
       for (let k = 0; k < tabMultiplicitesb[1]; k++) {
@@ -260,7 +259,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       }
       ;
       texteCorr += `$${tabPremiersb[1]}^{` + tabMultiplicitesb[1] + `}$ d'où le facteur $(${tabMultiplicitesb[1]}+1)$.`
-      
+
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[2]}$ avec la multiplicité $${tabMultiplicitesb[2]}$`
       texteCorr += `, le facteur $${tabPremiersb[2]}$ apparaît donc sous les formes : `
       for (let k = 0; k < tabMultiplicitesb[2]; k++) {
@@ -278,7 +277,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       texteCorr += '.$'
       //   break
       // };
-      
+
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -286,7 +285,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       }
       cpt++
     }
-    
+
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"];

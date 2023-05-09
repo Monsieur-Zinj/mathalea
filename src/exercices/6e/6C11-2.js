@@ -13,12 +13,12 @@ export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '25/10/2021'
+export const dateDeModificationImportante = '07/05/2023'
 
 /**
  * Détermination du vocabulaire associé à l'égalité issue de la division euclidienne
  *
  * @author Eric ELTER
- * Référence 6C11-2
  */
 export const uuid = '4e35d'
 export const ref = '6C11-2'
@@ -41,13 +41,13 @@ export default function VocabulaireDivisionEuclidienne () {
     this.listeCorrections = [] // Liste de questions corrigées
     const QuestionsDisponibles = range(3)
     if (this.sup) {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        enleveElementNo(QuestionsDisponibles, contraindreValeur(-1, 3, this.sup - 1, -1))
+      if (typeof (this.sup) === 'number') {
+        enleveElementNo(QuestionsDisponibles, contraindreValeur(0, 3, this.sup, 0) - 1)
       } else {
-        const QuestionsDisponibles2 = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles2.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+        const QuestionsDisponibles2 = this.sup.split('-')
+        for (let i = 0; i < QuestionsDisponibles2.length; i++) {
           if (QuestionsDisponibles.length > 2) {
-            enleveElement(QuestionsDisponibles, contraindreValeur(-1, 3, parseInt(QuestionsDisponibles2[i]) - 1, -1))
+            enleveElement(QuestionsDisponibles, contraindreValeur(0, 3, parseInt(QuestionsDisponibles2[i]), 0) - 1)
           }
         }
       }

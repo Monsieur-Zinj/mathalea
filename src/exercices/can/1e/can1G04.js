@@ -62,7 +62,7 @@ export default function ProduitScalaireNormesAngles () {
     this.question = `Calculer $\\overrightarrow{${nom[0]}${nom[1]}}\\cdot\\overrightarrow{${nom[0]}${nom[2]}}$.<br>
     
     `
-    this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
+    this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
     if (angle[0] === 30) {
       this.correction = `
     $\\begin{aligned}

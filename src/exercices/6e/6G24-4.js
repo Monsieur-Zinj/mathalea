@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, contraindreValeur, randint, choice, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle } from '../../modules/outils.js'
 import { droite, longueur, papierPointe, point, symetrieAxiale, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
@@ -29,8 +29,6 @@ export default function CompleterParSymetrie6e () {
   this.sup2 = 1
   this.sup3 = true
   this.nouvelleVersion = function () {
-    this.sup = contraindreValeur(1, 5, this.sup, 1)
-    this.sup2 = contraindreValeur(1, 4, this.sup2, 1)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

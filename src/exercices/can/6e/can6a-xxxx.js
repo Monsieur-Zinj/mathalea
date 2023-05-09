@@ -1,6 +1,17 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  calcul,
+  pgcd,
+  texNombre,
+  choice,
+  sp,
+  shuffle,
+  texPrix,
+  gestionnaireFormulaireTexte
+} from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { droiteGraduee } from '../../../modules/2d.js'
@@ -38,24 +49,8 @@ export default function CourseAuxNombres6e (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat, propositions
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
+
+    const listeIndex = gestionnaireFormulaireTexte({ saisie: this.sup, max: 30, melange: 31, defaut: 31, nbQuestions: this.nbQuestions, shuffle: false }).map((index) => index - 1)
     const fruits = [
       ['pêches', 4, 10, 30],
       ['noix', 5, 4, 13],
@@ -112,7 +107,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
         case 'q1':
           a = randint(1, 25)
           texte = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?`
-          texteCorr = `Le nombre est ${a}, sa moitié est ${texNombrec(a / 2)}.`
+          texteCorr = `Le nombre est ${a}, sa moitié est ${texNombre(a / 2)}.`
           setReponse(this, q, calcul(a / 2), { formatInteractif: 'calcul' })
           break
         case 'q2':
@@ -146,8 +141,8 @@ export default function CourseAuxNombres6e (numeroExercice) {
           c = randint(1, 9, [a, b])
           d = randint(1, 9, [a, b, c])
           resultat = calcul(10 + (b + d) * 0.1 + c * 0.01)
-          texte = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}$`
-          texteCorr = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=${texNombrec(10 + (b + d) * 0.1 + c * 0.01)}$`
+          texte = `$${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}$`
+          texteCorr = `$${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}=${texNombre(10 + (b + d) * 0.1 + c * 0.01)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q5':
@@ -157,11 +152,11 @@ export default function CourseAuxNombres6e (numeroExercice) {
           if (choice([true, false])) {
             resultat = calcul(3 * c)
             texte = `Quel est le triple de $${texNombre(c)}$ ?`
-            texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombrec(3 * c)}$.`
+            texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombre(3 * c)}$.`
           } else {
             resultat = calcul(2 * c)
             texte = `Quel est le double de $${texNombre(c)}$ ?`
-            texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombrec(2 * c)}$.`
+            texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombre(2 * c)}$.`
           }
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
@@ -173,12 +168,12 @@ export default function CourseAuxNombres6e (numeroExercice) {
           if (choice([true, false])) {
             resultat = calcul(3 * c)
             texte = `Quel est le triple de $${texNombre(c)}$ ?`
-            texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombrec(3 * c)}$.`
+            texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombre(3 * c)}$.`
             setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           } else {
             resultat = calcul(2 * c)
             texte = `Quel est le double de $${texNombre(c)}$ ?`
-            texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombrec(2 * c)}$.`
+            texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombre(2 * c)}$.`
             setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           }
           break
@@ -324,8 +319,8 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
           resultat = calcul(c / 5 * b)
-          texte = `$${texNombrec(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombrec(c / 10 * b)}$ €, combien coûtent $${texNombrec(c / 5)}$ kg de ${fruits[a][0]} ?`
-          texteCorr = `$${texNombrec(c / 10 * b)} \\times 2 = ${texNombre(resultat)}$`
+          texte = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 10 * b)}$ €, combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
+          texteCorr = `$${texNombre(c / 10 * b)} \\times 2 = ${texNombre(resultat)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q21':
@@ -334,10 +329,10 @@ export default function CourseAuxNombres6e (numeroExercice) {
           c = randint(1, 9)
           d = randint(5, 9)
           resultat = calcul((a * 100 + b * 10 + c) * d)
-          texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
-          propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombrec(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombrec((a * 1000 + b * 100 + c) * d)}$`])
+          texte = `$${texNombre(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
+          propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombre((a * 1000 + b * 100 + c) * d)}$`])
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
-          texteCorr = `$${texNombrec(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$`
+          texteCorr = `$${texNombre(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q22':
@@ -387,7 +382,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = randint(1, 3)
           resultat = calcul(a * (b + 0.5))
           texte = `Une voiture roule à une vitesse constante de ${a} km/h. Combien de kilomètres parcourt-elle en ${b} h et 30 min ?`
-          texteCorr = `$${a}\\times ${texNombrec(b + 0.5)} = ${resultat}$`
+          texteCorr = `$${a}\\times ${texNombre(b + 0.5)} = ${resultat}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q28':
@@ -492,5 +487,6 @@ export default function CourseAuxNombres6e (numeroExercice) {
   27 :  Calcul de distance à vitesse constante\n
   28 :  Comparaison de périmètre\n
   29 :  Repérage fraction\n
-  30 :  Proportionnalité par linéarité\n`]
+  30 :  Proportionnalité par linéarité\n
+  31 :  Mélange`]
 }
