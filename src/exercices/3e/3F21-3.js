@@ -73,7 +73,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
       const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])
 
       const introduction = `On a représenté ci-dessous une fonction affine $${nomFonction}$.<br><br>` + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d)
-      this.consigneCorrection = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d, c, s1, s2, t1, t2)
+      const consigneCorrection = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d, c, s1, s2, t1, t2)
       let question1 = numAlpha(0) + `Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
       question1 += ajouteChampTexteMathLive(this, 0, 'largeur15 inline ')
       let question2 = numAlpha(1) + `Quel est le coefficient directeur de $${nomFonction}$ ?`
@@ -86,10 +86,12 @@ export default function PenteEtOrdonneeOrigineDroite () {
       setReponse(this, 3 * i + 2, `${stringNombre(a)}x+${b}`)
       if (den === 2) setReponse(this, 2, [`${stringNombre(a)}x+${b}`, `\\frac{${num}}{2}\\times x + ${b}`])
 
-      const correction1 = numAlpha(0) + `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$, l'ordonnée à l'origine est donc $${b}$.`
-      let correction2 = numAlpha(1) + `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
-      correction2 += ` le coefficient directeur est donc $${texNombre(a)}$.`
-      let correction3 = numAlpha(2) + `$${nomFonction}$ étant une fonction affine, on a $${nomFonction} : x \\mapsto ax + b$ avec $a$ le coefficient directeur (ou pente) et $b$ son ordonnée à l'origine.`
+      let correction1 = consigneCorrection + '<br>'
+      correction1 += numAlpha(0) + `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$. L'ordonnée de $${nomFonction}$ à l'origine est donc $${b}$.`
+      // let correction2 = numAlpha(1) + `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
+      let correction2 = numAlpha(1) + `À chaque fois que l'on avance de 1 unité d'abscisses, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ unité${Math.abs(a) >= 2 ? 's' : ''} d'ordonnées. `
+      correction2 += `Le coefficient directeur de $${nomFonction}$ est donc $${texNombre(a)}$.`
+      let correction3 = numAlpha(2) + `$${nomFonction}$ étant une fonction affine, on a $${nomFonction} : x \\mapsto ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l'origine.`
       correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x ${ecritureAlgebrique(b)}$.`
       texte = introduction + '<br>' + question1 + '<br>' + question2 + '<br>' + question3
       texteCorr = correction1 + '<br>' + correction2 + '<br>' + correction3
