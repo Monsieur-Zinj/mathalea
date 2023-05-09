@@ -31,6 +31,7 @@
   let questions: string[] = []
   let consignes: string[] = []
   let corrections: string[] = []
+  let consignesCorrections: string[] = []
   let indiceExercice: number[] = []
   let indiceQuestionInExercice: number[] = []
   let resultsByQuestion: boolean[] = []
@@ -158,6 +159,7 @@
         exercice.nouvelleVersion(k)
       }
       isCorrectionVisible[k] = false
+      let cumulConsignesCorrections = []
       if (exercice.listeQuestions === undefined) {
         exercice.listeQuestions = []
       }
@@ -168,11 +170,16 @@
         consignes.push(exercice?.consigne + exercice?.introduction)
         indiceExercice.push(k)
         indiceQuestionInExercice.push(i)
+        if (exercice.consigneCorrection !== undefined) {
+          cumulConsignesCorrections.push(exercice.consigneCorrection)
+        }
       }
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
+      consignesCorrections = [...consignesCorrections, ...cumulConsignesCorrections]
       questions = questions.map(mathaleaFormatExercice)
       corrections = corrections.map(mathaleaFormatExercice)
+      consignesCorrections = consignesCorrections.map(mathaleaFormatExercice)
       consignes = consignes.map(mathaleaFormatExercice)
     }
     if ($globalOptions.presMode === "liste_questions" || $globalOptions.presMode === "une_question_par_page") {
@@ -391,6 +398,17 @@
                     style="break-inside:avoid"
                     bind:this={divsCorrection[k]}
                   >
+                    {#if consignesCorrections[k].length !== 0}
+                      <div class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3">
+                        <div class="container absolute top-4 -left-4">
+                          <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                        </div>
+                        <div class="">
+                          {@html consignesCorrections[k]}
+                        </div>
+                      </div>
+                    {/if}
+
                     <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
                       {@html mathaleaFormatExercice(corrections[k])}
                     </div>
@@ -447,6 +465,16 @@
                       style="break-inside:avoid"
                       bind:this={divsCorrection[k]}
                     >
+                      {#if consignesCorrections[k].length !== 0}
+                        <div class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3">
+                          <div class="container absolute top-4 -left-4">
+                            <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                          </div>
+                          <div class="">
+                            {@html consignesCorrections[k]}
+                          </div>
+                        </div>
+                      {/if}
                       <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
                         {@html mathaleaFormatExercice(corrections[k])}
                       </div>
