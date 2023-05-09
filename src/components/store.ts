@@ -113,11 +113,15 @@ export function updateGlobalOptionsInURL (url: URL) {
     } else {
       url.searchParams.delete('title')
     }
-    if (options.iframe !== undefined) {
+    if (options.iframe !== undefined && options.iframe.length > 0) {
       url.searchParams.append('iframe', options.iframe)
+    } else {
+      url.searchParams.delete('iframe')
     }
     if (options.answers !== undefined && options.answers.length > 0) {
       url.searchParams.append('answers', JSON.stringify(options.answers))
+    } else {
+      url.searchParams.delete('answers')
     }
     if (typeof options !== 'undefined') {
       let es = presModeId.indexOf(options.presMode).toString()
@@ -139,6 +143,10 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('title')
     url.searchParams.delete('es')
+    url.searchParams.delete('iframe')
+    url.searchParams.delete('answers')
+    url.searchParams.delete('recorder')
+    url.searchParams.delete('done')
   }
   if (options.v === 'can' || options.v === 'diaporama') {
     if (selectedExexercicesStore) {
