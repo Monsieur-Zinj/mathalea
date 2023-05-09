@@ -10,7 +10,7 @@
   export let nestedLevelCount: number
   export let indexBase: string
   import themesList from "../../json/levelsThemesList.json"
-  import { mathaleaRenderDiv } from "../../lib/mathalea"
+    import { convertLatexToSpeakableText } from "mathlive";
 
   const themes = toMap(themesList)
   let listeExercices: HTMLUListElement
@@ -28,50 +28,67 @@
       return ""
     }
   }
+
+  /**
+   * Basculer le flag pour l'affichage du contenu
+   */
+   function updateItems() {
+    // const item = Array.from(items, ([key, obj]) => ({ key, obj }))    
+    if (items){    
+      const regExpEntreesRef = /^(?:(?:(?:(?:c3)|\d)\S\d){1}|(?:can\d\S))(?:.*){0}$/g
+      const regExpBrevetAnnee = /^(?:Brevet)(?:.*?)(?:année)/g
+      const regExpBrevetThème = /^(?:Brevet)(?:.*?)(?:thèmes)/g
+      // entrées DNB(années) années décroissantes
+      if (levelTitle.match(regExpBrevetAnnee)) {
+        items = new Map([...items.entries()].reverse())
+      }
+      // entrées exos 4A10 avant 4A10-1
+      if (levelTitle.match(regExpEntreesRef)) {
+        items = new Map([...items.entries()].sort())
+      }
+      // entrées DNB(thèmes) années décroissantes
+      if ((indexBase.match(/-/g) || []).length === 2) {
+        // console.log('match3')
+        const parentIdElt = document.getElementById("titre-liste-" + indexBase.replaceAll(/(-\d+)$/g, ""))
+        const parentTitle = parentIdElt!=null ? document.getElementById(parentIdElt.id + "-content").textContent : ""
+        if (parentTitle.match(regExpBrevetThème)) {
+          const regExpDNBYearMonth = /^(?:dnb_)(?<year>\d{4})_(?<month>\d{2})/g
+          items = new Map(
+            [...items.entries()].sort((exoA, exoB) => {
+              const exoAData = [...exoA[0].matchAll(regExpDNBYearMonth)]
+              const exoBData = [...exoB[0].matchAll(regExpDNBYearMonth)]
+              const exoAYear = parseInt(exoAData[0].groups.year)
+              const exoBYear = parseInt(exoBData[0].groups.year)
+              if (exoAYear !== exoBYear) {
+                return exoBYear - exoAYear
+              }
+              const exoAMonth = parseInt(exoAData[0].groups.month)
+              const exoBMonth = parseInt(exoBData[0].groups.month)
+              return exoBMonth - exoAMonth
+            })
+          )
+        }
+      }
+    }
+  }
+
+  updateItems();
+  
   /**
    * Basculer le flag pour l'affichage du contenu
    */
   function toggleContent() {
-    // const item = Array.from(items, ([key, obj]) => ({ key, obj }))
-    const regExpEntreesRef = /^(?:(?:(?:(?:c3)|\d)\S\d){1}|(?:can\d\S))(?:.*){0}$/g
-    const regExpBrevetAnnee = /^(?:Brevet)(?:.*?)(?:année)/g
-    const regExpBrevetThème = /^(?:Brevet)(?:.*?)(?:thèmes)/g
-    // entrées DNB(années) années décroissantes
-    if (levelTitle.match(regExpBrevetAnnee)) {
-      items = new Map([...items.entries()].reverse())
-    }
-    // entrées exos 4A10 avant 4A10-1
-    if (levelTitle.match(regExpEntreesRef)) {
-      items = new Map([...items.entries()].sort())
-    }
-    // entrées DNB(thèmes) années décroissantes
-    if ((indexBase.match(/-/g) || []).length === 2) {
-      const parentIdElt = document.getElementById("titre-liste-" + indexBase.replaceAll(/(-\d+)$/g, ""))
-      const parentTitle = document.getElementById(parentIdElt.id + "-content").textContent
-      if (parentTitle.match(regExpBrevetThème)) {
-        const regExpDNBYearMonth = /^(?:dnb_)(?<year>\d{4})_(?<month>\d{2})/g
-        items = new Map(
-          [...items.entries()].sort((exoA, exoB) => {
-            const exoAData = [...exoA[0].matchAll(regExpDNBYearMonth)]
-            const exoBData = [...exoB[0].matchAll(regExpDNBYearMonth)]
-            const exoAYear = parseInt(exoAData[0].groups.year)
-            const exoBYear = parseInt(exoBData[0].groups.year)
-            if (exoAYear !== exoBYear) {
-              return exoBYear - exoAYear
-            }
-            const exoAMonth = parseInt(exoAData[0].groups.month)
-            const exoBMonth = parseInt(exoBData[0].groups.month)
-            return exoBMonth - exoAMonth
-          })
-        )
-      }
-    }
     expanded = !expanded
   }
 
+  
+
+  /* Mickel Guironnet  : 
+  Très dangereux de bind:this={listeExercices} sur un arbre récursif.
+  Très lourd en javascript...
   $: {
     if (listeExercices) mathaleaRenderDiv(listeExercices)
-  }
+  }*/
 </script>
 
 <!-- 
@@ -105,7 +122,7 @@
       <span class="font-light italic text-sm">Pas de publication ou de modification récente.</span>
     </div>
   {/if}
-  <ul transition:slide={{ duration: 500 }} bind:this={listeExercices}>
+  <ul transition:slide={{ duration: 500 }}>
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item, i}
       <li>
         {#if item.obj.has("uuid")}
