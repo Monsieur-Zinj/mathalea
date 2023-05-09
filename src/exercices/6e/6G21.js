@@ -110,6 +110,7 @@ export default function ConstruireUnTriangle () {
           }
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           IEP.triangle3longueurs(sommets, lAB, lAC, lBC)
+          verif = ''
           break
 
         case 2: // triangle rectangle donné par longueur hypoténuse et un côté de l'angle droit.
@@ -130,6 +131,7 @@ export default function ConstruireUnTriangle () {
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée, l\'équerre et le compas.<br>'
 
           IEP.triangleRectangleCoteHypotenuse(sommets, lAB, lAC)
+          verif = ''
           break
         case 3: {
           // triangle quelconque donné par trois longueurs et auto-correction
