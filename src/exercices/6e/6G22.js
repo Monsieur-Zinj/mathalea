@@ -302,7 +302,7 @@ export default function NommerUnAngle () {
       listeQuestionsToContenu(this)
     }
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'angles à trouver', 3, '1, 2 ou 3 angles']
+  this.besoinFormulaireNumerique = ['Nombre d\'angles à trouver (entre 1 et 3) :', 3]
   if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Texte']
   this.besoinFormulaire3CaseACocher = ['Figure en noir et blanc']
 }

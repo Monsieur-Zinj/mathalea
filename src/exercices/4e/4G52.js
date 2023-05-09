@@ -28,7 +28,7 @@ export default function ReperagePaveDroit () {
   this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
   this.sup = 1
 
-  this.besoinFormulaire2Numerique = ['Type d\'exercice', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
+  this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
   this.sup2 = 1
 
   this.nouvelleVersion = function () { // c'est ici que les données sont relatives
