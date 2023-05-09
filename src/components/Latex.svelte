@@ -447,7 +447,7 @@
         {#each exosContentList as exo, i (exo)}
           <ul class="flex flex-col justify-start items-start list-disc pl-6">
             <!-- <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li> -->
-            {#if picsNames[i]}
+            {#if picsNames[i].length !== 0}
               <li>Exercice {i + 1} (<span class="text-italic">{exo.title}</span>) :</li>
               <ul class="flex flex-col justify-start items-start list-none pl-4">
                 {#each picsNames[i] as img}
