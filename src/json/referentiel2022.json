@@ -11941,6 +11941,17 @@
           "amcType": "AMCNum"
         }
       },
+      "2S10-3": {
+        "id": "2S10-3",
+        "uuid": "0f1d1",
+        "url": "2e/2S10-3.js",
+        "titre": "Travailler sur des situations mettant en jeu des pourcentages de pourcentages",
+        "datePublication": "10/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
       "2S11-1": {
         "id": "2S11-1",
         "uuid": "05db7",
