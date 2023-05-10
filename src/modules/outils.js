@@ -297,6 +297,7 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
  * @param {number | undefined} melange la valeur utilisée pour l'option mélange
  * @param {boolean} [enleveDoublons=false]  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
+ * @param {number[]} exclus liste de valeurs à exclure entre min et max
  */
 export function gestionnaireFormulaireTexte ({
   saisie,
@@ -307,8 +308,12 @@ export function gestionnaireFormulaireTexte ({
   shuffle = true,
   nbQuestions,
   melange,
-  enleveDoublons = false
+  enleveDoublons = false,
+  exclus
 } = {}) {
+  if (exclus) {
+    exclus = exclus.filter((element) => element >= min && element <= max)
+  }
   if (max == null || isNaN(max) || max < min) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre max de type number')
   if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre defaut compris entre min(1) et max')
   let listeIndex
@@ -331,6 +336,10 @@ export function gestionnaireFormulaireTexte ({
   if (melange != null && compteOccurences(listeIndex, melange)) {
     listeIndex = rangeMinMax(min, max)
   }
+  if (exclus && exclus.length > 0) {
+    listeIndex = listeIndex.filter((element) => !exclus.includes(element))
+  }
+
   listeIndex = shuffle ? combinaisonListes(listeIndex, nbQuestions) : combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
 
   const Max = Math.max(...listeIndex)
