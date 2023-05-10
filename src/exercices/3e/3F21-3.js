@@ -75,11 +75,11 @@ export default function PenteEtOrdonneeOrigineDroite () {
       const introduction = `On a représenté ci-dessous une fonction affine $${nomFonction}$.<br><br>` + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d)
       const consigneCorrection = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d, c, s1, s2, t1, t2)
       let question1 = numAlpha(0) + `Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
-      question1 += ajouteChampTexteMathLive(this, 0, 'largeur15 inline ')
+      question1 += ajouteChampTexteMathLive(this, 3 * i , 'largeur15 inline ')
       let question2 = numAlpha(1) + `Quel est le coefficient directeur de $${nomFonction}$ ?`
-      question2 += ajouteChampTexteMathLive(this, 1, 'largeur15 inline ')
+      question2 += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur15 inline ')
       let question3 = numAlpha(2) + `En déduire l'expression algébrique de $${nomFonction}$.`
-      question3 += ajouteChampTexteMathLive(this, 2, 'largeur15 inline nospacebefore', { texte: `$${sp(10)}${nomFonction} : x \\mapsto $` })
+      question3 += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur15 inline nospacebefore', { texte: `$${sp(10)}${nomFonction} : x \\mapsto $` })
 
       setReponse(this, 3 * i, b)
       setReponse(this, 3 * i + 1, [a, `\\frac{${num}}{${den}}`])
