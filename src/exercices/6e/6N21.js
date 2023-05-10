@@ -72,7 +72,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
       const tailleUnite = 4
       const d = droiteGraduee({
         Min: origine,
-        Max: origine + 4 * tailleUnite,
+        Max: origine + 4,
         Unite: tailleUnite,
         thickSec: true,
         thickSecDist: 1 / den
@@ -134,10 +134,10 @@ export default function PlacerPointsAbscissesFractionnaires () {
 
       if (this.interactif) {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, d, traceA, labels)
+        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:30px ' }, d, traceA, labels)
       } else {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, d, traceA, traceB, traceC, labels)
+        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:5px ' }, d, traceA, traceB, traceC, labels)
       }
 
       if (context.isAmc) {
