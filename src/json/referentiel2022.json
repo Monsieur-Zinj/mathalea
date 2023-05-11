@@ -6666,6 +6666,16 @@
           "amcType": "AMCHybride"
         }
       },
+      "6N21-1": {
+        "id": "6N21-1",
+        "uuid": "a2582",
+        "url": "6e/6N21-1.js",
+        "titre": "Utiliser les abscisses fractionnaires",
+        "tags": {
+          "interactif": true,
+          "interactifType": "custom"
+        }
+      },
       "6N21": {
         "id": "6N21",
         "uuid": "2ba53",
@@ -11939,6 +11949,17 @@
           "interactifType": "mathLive",
           "amc": true,
           "amcType": "AMCNum"
+        }
+      },
+      "2S10-3": {
+        "id": "2S10-3",
+        "uuid": "0f1d1",
+        "url": "2e/2S10-3.js",
+        "titre": "Travailler sur des situations mettant en jeu des pourcentages de pourcentages",
+        "datePublication": "10/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
         }
       },
       "2S11-1": {
