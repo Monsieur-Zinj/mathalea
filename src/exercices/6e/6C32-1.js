@@ -123,22 +123,22 @@ export default function ExerciceProblemesComplexes () {
         }
         case 4 : {
           const range = randint(20, 40) // 35
-          const fauteils = randint(10, 20) // 12
+          const fauteuils = randint(10, 20) // 12
           const prix = randint(5, 12) + randint(5, 8) * 0.1
           const n1 = randint(10, 15)
-          texte += `Dans une salle de cinéma, il y a $${range}$ rangées de $${fauteils}$ fauteuils.<br>
+          texte += `Dans une salle de cinéma, il y a $${range}$ rangées de $${fauteuils}$ fauteuils.<br>
                     Le prix d'une place pour une séance est de $${texPrix(prix)}$ €.<br>
                   ${numAlpha(0)} Si toutes les places sont occupées, quelle est la somme d'argent récoltée ?<br>
                   ${numAlpha(1)} Pour une autre séance, $${n1}$ rangées sont pleines, le reste des
                   rangées étant vides. Quelle est la recette pour cette séance ?`
-          texteCorr += `${numAlpha(0)} $${range} \\times ${fauteils} =${fauteils * range}$<br>
-                        Il y a $${fauteils * range}$ places dans la salle.<br>
-                        $${fauteils * range} \\times ${texPrix(prix)} = ${texPrix(fauteils * range * prix)}$<br>
-                        La somme d'argent perçue est $${texPrix(fauteils * range * prix)}$ €.<br>
-                        ${numAlpha(1)} $${n1} \\times ${fauteils} =${fauteils * n1}$<br>
-                        Il y a $${fauteils * n1}$ places occupées dans la salle.<br>
-                        $${fauteils * n1} \\times ${texNombre(prix)} = ${texNombre(fauteils * n1 * prix)}$<br>
-                        La somme d'argent perçue est $${texNombre(fauteils * n1 * prix)}$ €.<br>`
+          texteCorr += `${numAlpha(0)} $${range} \\times ${fauteuils} =${fauteuils * range}$<br>
+                        Il y a $${fauteuils * range}$ places dans la salle.<br>
+                        $${fauteuils * range} \\times ${texPrix(prix)} = ${texPrix(fauteuils * range * prix)}$<br>
+                        La somme d'argent perçue est $${texPrix(fauteuils * range * prix)}$ €.<br>
+                        ${numAlpha(1)} $${n1} \\times ${fauteuils} =${fauteuils * n1}$<br>
+                        Il y a $${fauteuils * n1}$ places occupées dans la salle.<br>
+                        $${fauteuils * n1} \\times ${texNombre(prix)} = ${texNombre(fauteuils * n1 * prix)}$<br>
+                        La somme d'argent perçue est $${texPrix(fauteuils * n1 * prix)}$ €.<br>`
           break
         }
         case 5 : {
