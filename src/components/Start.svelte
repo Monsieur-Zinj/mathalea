@@ -755,7 +755,7 @@
       </div>
       <!-- content -->
       {#if $exercicesParams.length !== 0}
-        <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full h-full " bind:this={divExercices}>
+        <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full h-full overflow-y-scroll overscroll-y-auto" bind:this={divExercices}>
           <div class="fixed left-0 top-32 print-hidden hidden md:block">
             <button
               type="button"
@@ -1100,11 +1100,11 @@
     scrollbar-width: none;
   }
   #exercisesWrapper {
-    /*height: calc(100vh - 8rem);*/
+    height: calc(100vh - 14rem);
     min-height: 100%;
   }
   #choiceMenuWrapper {
-    height: calc(100vh - 8rem);
+    height: calc(100vh - 14rem);
     min-height: 100%;
   }
 </style>
