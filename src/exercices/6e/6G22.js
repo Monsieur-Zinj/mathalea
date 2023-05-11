@@ -243,7 +243,7 @@ export default function NommerUnAngle () {
           : `${couleurRemplissageAngle[1]}`
         texteCorr += ` se nomme, au choix : $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
-          texteCorr += `, $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
+          texteCorr += `, $${this.sup3 ? miseEnEvidence(resultat[ee], 'black') : miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
         }
         texteCorr += '.'
         propositionsDuQcm = [{
