@@ -1,15 +1,20 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texNombre, numAlpha, prenomF, personne, texPrix, prenom, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { sp, listeQuestionsToContenu, randint, texNombre, numAlpha, prenomF, personne, texPrix, prenom, gestionnaireFormulaireTexte, arrondi } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Résoudre des problèmes (plus complexes)'
 export const dateDePublication = '27/11/2022'
+export const dateDeModifImportante = '11/05/2023' // par EE : Décoquillage et passage en interactif
 
 /**
  * Résoudre des problèmes (plus complexes)
  * @author Mikael Guironnet
  * Relecture typographique par Rémi Angot
-* Référence 6C32-1
+ * Référence 6C32-1
  */
 export const uuid = 'e906e'
 export const ref = '6C32-1'
@@ -50,7 +55,7 @@ export default function ExerciceProblemesComplexes () {
       nbQuestions: this.nbQuestions,
       saisie: this.sup
     })
-
+    let indiceInteractif = 0
     for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
       texte = ''
       texteCorr = ''
@@ -68,9 +73,8 @@ export default function ExerciceProblemesComplexes () {
           const prenomFP = personnage.prenom
           texte += `${prenomFP} suit un régime et ne doit pas absorber plus de $700$ calories par repas.<br>
                    Aujourd'hui, ${personnage.pronom} a mangé le repas suivant :<br>
-                   $1$ côtelette d'agneau de $${quaAgneau}$ g,<br> $${quaEpinards}$ g d'épinards,<br> $${quaFro}$ g de fromage blanc <br> et une pomme de $${quaPom}$ g. <br>
-                   <br>On sait que $1$ g d'agneau fournit $${texNombre(calAgneau)}$ calories, <br> $1$ g d'épinards fournit $${texNombre(calEpinards)}$ calories, <br> $1$ g de fromage blanc fournit $${texNombre(calFro)}$ calories <br> et $1$ g de pomme $${texNombre(calPom)}$ calories.<br>
-                   ${prenomFP} respecte-t-${personnage.pronom} son régime ?`
+                   une côtelette d'agneau de $${quaAgneau}$ g,<br> $${quaEpinards}$ g d'épinards,<br> $${quaFro}$ g de fromage blanc <br> et une pomme de $${quaPom}$ g. <br>
+                   <br>On sait que $1$ g d'agneau fournit $${texNombre(calAgneau)}$ calories, <br> $1$ g d'épinards fournit $${texNombre(calEpinards)}$ calories, <br> $1$ g de fromage blanc fournit $${texNombre(calFro)}$ calories <br> et $1$ g de pomme $${texNombre(calPom)}$ calories.<br>`
           texteCorr += `Agneau : $${quaAgneau}\\times ${texNombre(calAgneau)} =   ${texNombre(calAgneau * quaAgneau)}$ calories. <br>
                         Epinards : $${quaEpinards}\\times ${texNombre(calEpinards)} =   ${texNombre(calEpinards * quaEpinards)}$ calories. <br>
                         Fromage blanc : $${quaFro}\\times ${texNombre(calFro)} =   ${texNombre(calFro * quaFro)}$ calories. <br>
@@ -78,6 +82,31 @@ export default function ExerciceProblemesComplexes () {
                         Cela fait un total de : $${texNombre(calAgneau * quaAgneau)} + ${texNombre(calEpinards * quaEpinards)} + ${texNombre(calFro * quaFro)} + ${texNombre(calPom * quaPom)} =  ${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} $ calories.<br>
                         ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? `${personnage.Pronom} respecte son règime` : `${personnage.Pronom} ne respecte pas son règime`} 
                         car $${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? '< 700' : '> 700'}$.`
+          if (this.interactif) {
+            texte += '<br>' + numAlpha(0) + `Combien de calories fournit une côtelette d'agneau de $${quaAgneau}$ g ?`
+            setReponse(this, indiceInteractif, calAgneau * quaAgneau)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' calories' })
+
+            texte += '<br>' + numAlpha(1) + `Combien de calories fournit $${quaEpinards}$ g d'épinards ?`
+            setReponse(this, indiceInteractif + 1, calEpinards * quaEpinards)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' calories' })
+
+            texte += '<br>' + numAlpha(2) + `Combien de calories fournit $${quaFro}$ g de fromage blanc ?`
+            setReponse(this, indiceInteractif + 2, calFro * quaFro)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25', { texteApres: ' calories' })
+
+            texte += '<br>' + numAlpha(3) + `Combien de calories fournit une pomme de $${quaPom}$ g ?`
+            setReponse(this, indiceInteractif + 3, calPom * quaPom)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur25', { texteApres: ' calories' })
+
+            texte += '<br>' + numAlpha(4)
+          }
+          texte += `${prenomFP} respecte-t-${personnage.pronom} son régime ?`
+          setReponse(this, indiceInteractif + 4, calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? ['Oui', 'OUI', 'oui'] : ['Non', 'NON', 'non'])
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25')
+
+          indiceInteractif += indiceInteractif + 5
+
           break
         }
         case 2 : {
@@ -88,11 +117,21 @@ export default function ExerciceProblemesComplexes () {
           const total = quaFro1 * masseFro1 + quaFro2 * masseFro2
           texte += `Le livreur d'une fromagerie charge $${quaFro1}$ fromages pesant chacun $${texNombre(masseFro1)}$ kg <br>
                                   et $${quaFro2}$ autres pesant chacun $${texNombre(masseFro2)}$ kg dans une voiture pouvant transporter $550$ kg.<br>
-                                  Le véhicule est-il en surcharge ? Si oui, de combien ? Si non, combien reste-t-il ?`
-          texteCorr += `Première sorte de fromage : $${quaFro1}\\times ${texNombre(masseFro1)}~\\text{kg} =   ${texNombre(quaFro1 * masseFro1)}~\\text{kg}$. <br>
-                        Deuxième sorte de fromage : $${quaFro2}\\times ${texNombre(masseFro2)}~\\text{kg} =   ${texNombre(quaFro2 * masseFro2)}~\\text{kg}$. <br>
-                        Cela fait un total de $${texNombre(quaFro1 * masseFro1)}~\\text{kg} + ${texNombre(quaFro2 * masseFro2)}~\\text{kg} = ${texNombre(quaFro1 * masseFro1 + quaFro2 * masseFro2)}~\\text{kg}$.<br>
-                        ${total > 550 ? `La surcharge est de : $${texNombre(total)}~\\text{kg} - 550~\\text{kg} = ${texNombre(total - 550)}~\\text{kg}$.` : `Il n'y a pas de surcharge et il reste : $550~\\text{kg} - ${texNombre(total)}~\\text{kg} = ${texNombre(550 - total)}~\\text{kg}$.`}`
+                                  Le véhicule est-il en surcharge ?`
+          setReponse(this, indiceInteractif, total > 550 ? ['Oui', 'OUI', 'oui'] : ['Non', 'NON', 'non'])
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
+
+          texte += '<br>Si oui, de combien ? Si non, combien reste-t-il ?'
+          setReponse(this, indiceInteractif + 1, total > 550 ? total - 550 : 550 - total)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' kg' })
+
+          texteCorr += `Première sorte de fromage : $${quaFro1}\\times ${texNombre(masseFro1)}${sp()}\\text{kg} =   ${texNombre(quaFro1 * masseFro1)}${sp()}\\text{kg}$. <br>
+                        Deuxième sorte de fromage : $${quaFro2}\\times ${texNombre(masseFro2)}${sp()}\\text{kg} =   ${texNombre(quaFro2 * masseFro2)}${sp()}\\text{kg}$. <br>
+                        Cela fait un total de $${texNombre(quaFro1 * masseFro1)}${sp()}\\text{kg} + ${texNombre(quaFro2 * masseFro2)}${sp()}\\text{kg} = ${texNombre(quaFro1 * masseFro1 + quaFro2 * masseFro2)}${sp()}\\text{kg}$.<br>
+                        ${total > 550 ? `La surcharge est de : $${texNombre(total)}${sp()}\\text{kg} - 550${sp()}\\text{kg} = ${texNombre(total - 550)}${sp()}\\text{kg}$.` : `Il n'y a pas de surcharge et il reste : $550${sp()}\\text{kg} - ${texNombre(total)}${sp()}\\text{kg} = ${texNombre(550 - total)}${sp()}\\text{kg}$.`}`
+
+          indiceInteractif += indiceInteractif + 2
+
           break
         }
         case 3 : {
@@ -101,11 +140,21 @@ export default function ExerciceProblemesComplexes () {
           const n1 = randint(2, 9)
           const n2 = randint(2, 9, [n1])
           texte += `On considère le programme de calcul :<br>
-                    • Choisir un nombre.<br>
-                    • Multiplier ce nombre par $${texNombre(k1)}$.<br>
-                    • Multiplier le résultat par $${texNombre(k2)}$.<br>
-                  ${numAlpha(0)} Effectuer ce programme avec $${n1}$ et  $${n2}$.<br>
-                  ${numAlpha(1)} Remplacer ce programme par un programme plus court. Expliquer.`
+          • Choisir un nombre.<br>
+          • Multiplier ce nombre par $${texNombre(k1)}$.<br>
+          • Multiplier le résultat par $${texNombre(k2)}$.<br>`
+          if (!this.interactif) {
+            texte += `<br>${numAlpha(0)} Effectuer ce programme avec $${n1}$ et  $${n2}$.
+            <br>${numAlpha(1)} Remplacer ce programme par un programme plus court. Expliquer.`
+          } else {
+            texte += `<br>${numAlpha(0)} Effectuer ce programme avec $${n1}$.`
+            setReponse(this, indiceInteractif, arrondi(n1 * k1 * k2, 2))
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
+
+            texte += `<br>${numAlpha(1)} Effectuer ce programme avec $${n2}$.`
+            setReponse(this, indiceInteractif + 1, arrondi(n2 * k1 * k2, 2))
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25')
+          }
           texteCorr += `${numAlpha(0)} Si le nombre est $${n1}$ :<br>
                         • $${n1} \\times ${texNombre(k1)} = ${texNombre(n1 * k1)}$ ;<br>
                         • $${texNombre(n1 * k1)} \\times ${texNombre(k2)} = ${texNombre(n1 * k1 * k2)}$.<br>
@@ -119,6 +168,9 @@ export default function ExerciceProblemesComplexes () {
                         Donc le programme peut être le suivant : <br>
                         • Choisir un nombre.<br>
                         • Multiplier ce nombre par $${texNombre(k1 * k2)}$.<br>`
+
+          indiceInteractif += indiceInteractif + 2
+
           break
         }
         case 4 : {
@@ -128,9 +180,16 @@ export default function ExerciceProblemesComplexes () {
           const n1 = randint(10, 15)
           texte += `Dans une salle de cinéma, il y a $${range}$ rangées de $${fauteuils}$ fauteuils.<br>
                     Le prix d'une place pour une séance est de $${texPrix(prix)}$ €.<br>
-                  ${numAlpha(0)} Si toutes les places sont occupées, quelle est la somme d'argent récoltée ?<br>
+                  ${numAlpha(0)} Si toutes les places sont occupées, quelle est la somme d'argent récoltée ?`
+          setReponse(this, indiceInteractif, arrondi(fauteuils * range * prix, 2))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' €' })
+
+          texte += `<br>
                   ${numAlpha(1)} Pour une autre séance, $${n1}$ rangées sont pleines, le reste des
                   rangées étant vides. Quelle est la recette pour cette séance ?`
+          setReponse(this, indiceInteractif + 1, arrondi(fauteuils * n1 * prix, 2))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' €' })
+
           texteCorr += `${numAlpha(0)} $${range} \\times ${fauteuils} =${fauteuils * range}$<br>
                         Il y a $${fauteuils * range}$ places dans la salle.<br>
                         $${fauteuils * range} \\times ${texPrix(prix)} = ${texPrix(fauteuils * range * prix)}$<br>
@@ -139,6 +198,9 @@ export default function ExerciceProblemesComplexes () {
                         Il y a $${fauteuils * n1}$ places occupées dans la salle.<br>
                         $${fauteuils * n1} \\times ${texNombre(prix)} = ${texNombre(fauteuils * n1 * prix)}$<br>
                         La somme d'argent perçue est $${texPrix(fauteuils * n1 * prix)}$ €.<br>`
+
+          indiceInteractif += indiceInteractif + 2
+
           break
         }
         case 5 : {
@@ -149,27 +211,40 @@ export default function ExerciceProblemesComplexes () {
                    Le format souvent utilisé était le format $35$ mm ce qui signifie que la pellicule faisait $35$ mm de largeur.<br>
                    Avec $24$ images par seconde, une pellicule de film de $30$ mètres de long représente $1$ minute de projection.<br>
                    Pour projeter un film, plusieurs pellicules étaient nécessaires et le projectionniste avait pour rôle de les changer.<br>                                       
-                   ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la longueur totale en mètres du film ?<br>
-                   ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la durée totale du film ?<br>
-                   ${numAlpha(2)} Si le film dure $1~\\text{h}~${min}$, quelle est la longueur totale, en mètres, du film ?<br>
-                   ${numAlpha(3)} Si le film dure $1~\\text{h}~${min}$, combien faut-il de pellicules de $600$ m ?<br>
-                   ${numAlpha(4)} Si la pellicule mesure $${longueur}$ m, quelle est la durée de la pellicule ?<br>
-                   ${numAlpha(5)} Si la pellicule mesure $${longueur}$ m, combien d'images y a-t-il sur la pellicule ?<br>`
+                   ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la longueur totale en mètres du film ?`
+          setReponse(this, indiceInteractif, arrondi(nombreP * 600, 2))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' m' })
 
-          texteCorr += `${numAlpha(0)} $${nombreP}~\\text{ pellicules} \\times 600~\\text{m} = ${texNombre(nombreP * 600)}~\\text{m}$<br>
+          texte += `<br> ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la durée totale du film ?`
+          setReponse(this, indiceInteractif + 1, arrondi(nombreP * 20, 2))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' minutes' })
+
+          texte += `<br>${numAlpha(2)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, quelle est la longueur totale, en mètres, du film ?`
+          setReponse(this, indiceInteractif + 2, arrondi((60 + min) * 30, 2))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25', { texteApres: ' m' })
+
+          texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600$ m ?`
+          setReponse(this, indiceInteractif + 2, arrondi((60 + min) * 30, 2))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25', { texteApres: ' m' })
+
+          texte += `<br>${numAlpha(4)} Si la pellicule mesure $${longueur}$ m, quelle est la durée de la pellicule ?`
+          texte += `<br>${numAlpha(5)} Si la pellicule mesure $${longueur}$ m, combien d'images y a-t-il sur la pellicule ?`
+
+          texteCorr += `${numAlpha(0)} $${nombreP}${sp()}\\text{ pellicules} \\times 600${sp()}\\text{m} = ${texNombre(nombreP * 600)}${sp()}\\text{m}$<br>
                         La longueur totale du film est de $${texNombre(nombreP * 600)}$ mètres.<br>
-                        ${numAlpha(1)} $30~\\text{m} \\times 20 = 600~\\text{m}$ donc une pellicule de $600$ m représente $1~\\text{min} \\times 20 = 20~\\text{min}$.<br>
-                        $${nombreP}~\\text{pellicules} \\times 20~\\text{min} = ${texNombre(nombreP * 20)}~\\text{min}$.<br>
+                        ${numAlpha(1)} $30${sp()}\\text{m} \\times 20 = 600${sp()}\\text{m}$ donc une pellicule de $600$ m représente $1${sp()}\\text{min} \\times 20 = 20${sp()}\\text{min}$.<br>
+                        $${nombreP}${sp()}\\text{pellicules} \\times 20${sp()}\\text{min} = ${texNombre(nombreP * 20)}${sp()}\\text{min}$<br>
                         La durée totale du film est de $${texNombre(nombreP * 20)}$ minutes.<br>
-                        ${numAlpha(2)} $${60 + min}~\\text{min} \\times 30~\\text{m}= ${texNombre((60 + min) * 30)}~\\text{m}$.<br>
-                        La longueur totale en mètres d'un film de $1~\\text{h}~${min}$ est de $${texNombre((60 + min) * 30)}$ mètres.<br>
-                        ${numAlpha(3)} $${texNombre(Math.floor(((60 + min) * 30) / 600))} \\times 600 = ${texNombre(Math.floor(((60 + min) * 30) / 600) * 600)}~\\text{m}$.<br>
-                        Donc il faut $${texNombre(Math.floor(((60 + min) * 30) / 600))}$ bobines de $600$ m et une bobine de  $${texNombre(((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600)}$ mètres.<br>
-                        ${numAlpha(4)} $${texNombre(Math.floor(longueur / 30))} \\times 30 = ${texNombre(longueur)}$ mètres.<br>
+                        ${numAlpha(2)} $${60 + min}${sp()}\\text{min} \\times 30${sp()}\\text{m}= ${texNombre((60 + min) * 30)}${sp()}\\text{m}$<br>
+                        La longueur totale en mètres d'un film de $1${sp()}\\text{h}${sp()}${min}$ est de $${texNombre((60 + min) * 30)}$ mètres.<br>
+                        ${numAlpha(3)} $${texNombre(Math.floor(((60 + min) * 30) / 600))} \\times 600${sp()}\\text{m} = ${texNombre(Math.floor(((60 + min) * 30) / 600) * 600)}${sp()}\\text{m}$<br>
+                        Donc il faut $${texNombre(Math.floor(((60 + min) * 30) / 600))}$ bobines de $600$ mètres`
+          texteCorr += ((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600 !== 0 ? ` (et $1$ bobine de  $${texNombre(((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600)}$ mètres).<br>` : '.<br>'
+          texteCorr += `${numAlpha(4)} $${texNombre(Math.floor(longueur / 30))} \\times 30${sp()}\\text{m} = ${texNombre(longueur)}$ m<br>
                         Donc la durée de la pellicule est de $${texNombre(Math.floor(longueur / 30))}$ minutes.<br>
-                        ${numAlpha(5)} $${texNombre(Math.floor(longueur / 30))} \\times 60 = ${texNombre(Math.floor(longueur / 30)) * 60}$ secondes.<br>
-                        $${texNombre(Math.floor(longueur / 30)) * 60}~\\text{secondes} \\times 24~\\text{images} = ${texNombre(Math.floor(longueur / 30)) * 60 * 24}~\\text{images}$.<br>
-                        Il y a $${texNombre(Math.floor(longueur / 30)) * 60 * 24}~\\text{images}$ dans la pellicule.`
+                        ${numAlpha(5)} $${texNombre(Math.floor(longueur / 30))} \\times 60 = ${texNombre(Math.floor(longueur / 30)) * 60}$ secondes<br>
+                        $${texNombre(Math.floor(longueur / 30)) * 60}${sp()}\\text{secondes} \\times 24${sp()}\\text{images} = ${texNombre(Math.floor(longueur / 30) * 60 * 24)}${sp()}\\text{images}$<br>
+                        Il y a $${texNombre(Math.floor(longueur / 30) * 60 * 24)}${sp()}\\text{images}$ dans la pellicule.`
           break
         }
         case 6 : {
@@ -219,8 +294,8 @@ export default function ExerciceProblemesComplexes () {
                     Combien a-t-elle de billets de $5$ € et de $10$ € ?<br>`
           texteCorr += `Après plusieurs essais, on trouve qu'elle a $${nbDix}$ billets de 10 € et $${nbCinq}$ billets de 5 €.`
           texteCorr += `<br><br>Vérification :<br>
-                    Nombre de billets : $${nbDix} \\text{ billets de 10 €} +  ${nbCinq} \\text{ billets de 5 €} =${texNombre(nbDix + nbCinq)}~\\text{billets}$.<br>
-                    Somme d'argent : $${nbDix} \\times 10~\\text{€} +  ${nbCinq} \\times 5~\\text{€} =${texNombre(nbDix * 10 + nbCinq * 5)}~\\text{€}$`
+                    Nombre de billets : $${nbDix} \\text{ billets de 10 €} +  ${nbCinq} \\text{ billets de 5 €} =${texNombre(nbDix + nbCinq)}${sp()}\\text{billets}$.<br>
+                    Somme d'argent : $${nbDix} \\times 10${sp()}\\text{€} +  ${nbCinq} \\times 5${sp()}\\text{€} =${texNombre(nbDix * 10 + nbCinq * 5)}${sp()}\\text{€}$`
           break
         }
         case 9 : {
@@ -235,12 +310,12 @@ export default function ExerciceProblemesComplexes () {
           texte += `Un marchand de fruits vend $${nbBarquettesFr}$ barquettes de $${gBarquettesFr}$ g de fraises des bois à $${texPrix(prixFr)}$ € le kg<br>
                     et $${nbBarquettesMy}$ barquettes de $${gBarquettesMy}$ g de myrtilles des bois à $${texPrix(prixMy)}$ € le kg.<br>
                     Combien d'argent lui rapporte cette vente ?<br>`
-          texteCorr += `$${nbBarquettesFr} \\times ${texNombre(gBarquettesFr)}~\\text{g} = ${texNombre(nbBarquettesFr * gBarquettesFr)}~\\text{g}$ de fraises.<br>
-                        $${texNombre(nbBarquettesFr * gBarquettesFr)}~\\text{g} \\div 1~000 = ${texNombre(nbBarquettesFr * gBarquettesFr * 0.001, 4)} $ kg de fraises.<br>
-                        $${texNombre(nbBarquettesFr * gBarquettesFr * 0.001)}~\\text{kg} \\times ${texNombre(prixFr)}~\\text{€/kg} =${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr)}$ € pour les fraises.<br>
-                        $${nbBarquettesMy} \\times ${texNombre(gBarquettesMy)}~\\text{g} = ${texNombre(nbBarquettesMy * gBarquettesMy)}~\\text{g}$ de myrtilles.<br>
-                        $${texNombre(nbBarquettesMy * gBarquettesMy)}~\\text{g} \\div 1~000 = ${texNombre(nbBarquettesMy * gBarquettesMy * 0.001)}~\\text{kg}$ de myrtilles.<br>
-                        $${texNombre(nbBarquettesMy * gBarquettesMy * 0.001)}~\\text{kg} \\times ${texNombre(prixMy)}~\\text{€/kg} =${texNombre(nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)}$ € pour les myrtilles.<br>
+          texteCorr += `$${nbBarquettesFr} \\times ${texNombre(gBarquettesFr)}${sp()}\\text{g} = ${texNombre(nbBarquettesFr * gBarquettesFr)}${sp()}\\text{g}$ de fraises.<br>
+                        $${texNombre(nbBarquettesFr * gBarquettesFr)}${sp()}\\text{g} \\div 1${sp()}000 = ${texNombre(nbBarquettesFr * gBarquettesFr * 0.001, 4)} $ kg de fraises.<br>
+                        $${texNombre(nbBarquettesFr * gBarquettesFr * 0.001)}${sp()}\\text{kg} \\times ${texNombre(prixFr)}${sp()}\\text{€/kg} =${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr)}$ € pour les fraises.<br>
+                        $${nbBarquettesMy} \\times ${texNombre(gBarquettesMy)}${sp()}\\text{g} = ${texNombre(nbBarquettesMy * gBarquettesMy)}${sp()}\\text{g}$ de myrtilles.<br>
+                        $${texNombre(nbBarquettesMy * gBarquettesMy)}${sp()}\\text{g} \\div 1${sp()}000 = ${texNombre(nbBarquettesMy * gBarquettesMy * 0.001)}${sp()}\\text{kg}$ de myrtilles.<br>
+                        $${texNombre(nbBarquettesMy * gBarquettesMy * 0.001)}${sp()}\\text{kg} \\times ${texNombre(prixMy)}${sp()}\\text{€/kg} =${texNombre(nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)}$ € pour les myrtilles.<br>
                         $${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr)} + ${texNombre(nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)} = ${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr + nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)}$<br>
                         Cette vente va lui rapporter ${isEnviron} $${texPrix(prixFinal)}$ €.<br>`
           break
