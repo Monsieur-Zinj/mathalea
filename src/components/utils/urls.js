@@ -24,9 +24,9 @@ export function buildUrlAddendumForEsParam () {
 
 export async function getShortenedCurrentUrl (addendum = '') {
   //  La ligne ci-dessous devra être celle de la version définitive
-  //   const url = document.URL + addendum
+  const url = document.URL.replace('http://localhost:5173/alea', 'https://coopmaths.fr/beta') + addendum
   // ci-dessous, URL en dur pour test (le service ne fonctionne pas avec des localhost dans l'URL)
-  const url = 'https://coopmaths.fr/beta/?uuid=322a0&id=6C10-0&alea=uf2K&uuid=a5c5a&id=6C10-3&alea=3yIA&uuid=fd4d8&id=6C10-5&alea=yuEs&v=eleve&title=Exercices&es=1111'
+  // const url = 'https://coopmaths.fr/beta/?uuid=322a0&id=6C10-0&alea=uf2K&uuid=a5c5a&id=6C10-3&alea=3yIA&uuid=fd4d8&id=6C10-5&alea=yuEs&v=eleve&title=Exercices&es=1111'
   let response
   try {
     const request = await fetch(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(url)}`)
@@ -105,6 +105,15 @@ export function decrypt (url) {
 }
 
 /**
+ * Détecte si une URL a été encryptée par `encrypt`
+ * @param {URL} url Chaîne representant l'URL à analyser
+ * @returns {boolean} `true` si l'URL est crypté avec la fonction `encrypt`
+ */
+export function isCrypted (url) {
+  return url.href.includes('?EEEE')
+}
+
+/**
  * Télécharger un fichier connaissant l'URL
  *
  * __Exemple__
@@ -121,7 +130,6 @@ export async function downloadFileFromURL (url, filename) {
   try {
     // Fetch the file
     const response = await fetch(url)
-
     // Check if the request was successful
     if (response.status !== 200) {
       throw new Error(`Unable to download file. HTTP status: ${response.status}`)
