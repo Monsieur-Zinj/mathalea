@@ -97,6 +97,7 @@ export default function CalculDAngleFigureComplexe () {
           if (!this.sup) {
             texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}\\degree$.`
           }
+          texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
           texteCorr = ''
           if (this.correctionDetaillee) {
             const texte1 = texteSurSegment('hypoténuse', C, A)
@@ -124,7 +125,6 @@ export default function CalculDAngleFigureComplexe () {
           texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}\\degree$.`
           texteCorr += `<br>La somme des angles d'un triangle est égale à $180\\degree$ donc $\\widehat{${B.nom + C.nom + A.nom}}=180\\degree-90\\degree-${BAC}\\degree=${90 - BAC}\\degree$.`
           texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180\\degree-90\\degree-${ACD}\\degree$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}\\degree$.`
-          texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
           if (this.interactif) {
             setReponse(this, 3 * i, ACD)
             setReponse(this, 3 * i + 1, 90 - BAC)
@@ -145,6 +145,7 @@ export default function CalculDAngleFigureComplexe () {
           if (!this.sup) {
             texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}\\degree$.`
           }
+          texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
           texteCorr = ''
           if (this.correctionDetaillee) {
             const texte1 = texteSurSegment('hypoténuse', C, A)
@@ -198,7 +199,7 @@ export default function CalculDAngleFigureComplexe () {
                 statut: '',
                 multicolsBegin: true,
                 reponse: {
-                  texte: numAlpha(0) + `<br>Valeur de $\\widehat{${A.nom + C.nom + D.nom}}$`,
+                  texte: numAlpha(0) + `<br>Valeur arrondie à l'unité de $\\widehat{${A.nom + C.nom + D.nom}}$`,
                   valeur: ACD,
                   alignement: 'center',
                   param: {
@@ -216,7 +217,7 @@ export default function CalculDAngleFigureComplexe () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: numAlpha(1) + typesDeQuestion === 'BA-AD-BAC' ? `Valeur de $\\widehat{${B.nom + C.nom + A.nom}}$` : `Valeur de $\\widehat{${B.nom + A.nom + C.nom}}$`,
+                  texte: numAlpha(1) + typesDeQuestion === 'BA-AD-BAC' ? `Valeur arrondie à l'unité  de $\\widehat{${B.nom + C.nom + A.nom}}$` : `Valeur arrondie à l'unité de $\\widehat{${B.nom + A.nom + C.nom}}$`,
                   valeur: typesDeQuestion === 'BA-AD-BAC' ? 90 - BAC : 90 - ACB,
                   alignement: 'center',
                   param: {
@@ -235,7 +236,7 @@ export default function CalculDAngleFigureComplexe () {
                 statut: '',
                 multicolsEnd: true,
                 reponse: {
-                  texte: numAlpha(2) + `Valeur de $\\widehat{${C.nom + D.nom + A.nom}}$`,
+                  texte: numAlpha(2) + `Valeur arrondie à l'unité  de $\\widehat{${C.nom + D.nom + A.nom}}$`,
                   valeur: 90 - ACD,
                   alignement: 'center',
                   param: {
