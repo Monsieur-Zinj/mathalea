@@ -1,24 +1,20 @@
 <script lang="ts">
-  import {creerDocumentAmc} from "../lib/amc/creerDocumentAmc.js"
-  import {context} from "../modules/context.js"
-  import {
-    mathaleaGetExercicesFromParams,
-    mathaleaHandleExerciceSimple,
-    mathaleaUpdateExercicesParamsFromUrl
-  } from "../lib/mathalea.js"
+  import { creerDocumentAmc } from "../lib/amc/creerDocumentAmc.js"
+  import { context } from "../modules/context.js"
+  import { mathaleaGetExercicesFromParams, mathaleaHandleExerciceSimple, mathaleaUpdateExercicesParamsFromUrl } from "../lib/mathalea.js"
   import Footer from "./Footer.svelte"
-  import {darkMode, exercicesParams} from "./store"
+  import { darkMode, exercicesParams } from "./store"
   import type TypeExercice from "./utils/typeExercice"
   import FormRadio from "./forms/FormRadio.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
-  import {showDialogForLimitedTime} from "./utils/dialogs.js"
-  import {mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams} from "../lib/mathalea.js"
+  import { showDialogForLimitedTime } from "./utils/dialogs.js"
+  import { mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea.js"
   import seedrandom from "seedrandom"
   import Button from "./forms/Button.svelte"
   import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
-  import {onMount} from "svelte"
-  
+  import { onMount } from "svelte"
+
   let isSettingsVisible: boolean[] = []
   let exercices: TypeExercice[] = []
   let content = ""
@@ -29,17 +25,17 @@
   let nbQuestionsModif: number[] = []
   const exercicesARetirer: string[] = []
   $: refsExercicesARetirer = []
-  
+
   type NbQuestionsIndexees = {
     indexExercice: number
     nombre: number
   }
-  
+
   let nbQuestions: Array<NbQuestionsIndexees> = []
   let nbQuestionsString = "1"
   let nbExemplaires = 1
   let textForOverleaf: HTMLInputElement
-  
+
   async function initExercices() {
     exercicesARetirer.length = 0
     await mathaleaUpdateExercicesParamsFromUrl()
@@ -48,7 +44,7 @@
       isSettingsVisible.push(false)
       context.isHtml = false
       context.isAmc = true
-      seedrandom(exercice.seed, {global: true})
+      seedrandom(exercice.seed, { global: true })
       if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, false)
       if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
       if (exercice.amcType == null) {
@@ -58,14 +54,14 @@
           refsExercicesARetirer.push(exercice.id)
         } else {
           console.log(Object.entries(exercice))
-          const proprietes = Object.entries(exercice).map(([prop,val])=>val)
+          const proprietes = Object.entries(exercice).map(([prop, val]) => val)
           proprietes.shift()
-          refsExercicesARetirer.push(proprietes.join(' '))
+          refsExercicesARetirer.push(proprietes.join(" "))
         }
       }
     }
     exercices = exercices.filter((exercice) => !exercicesARetirer.includes(exercice.uuid))
-    
+
     refsExercicesARetirer = refsExercicesARetirer
     // afficher le modal pour les exercices non AMC ?
     if (refsExercicesARetirer.length !== 0) {
@@ -74,16 +70,16 @@
       nonAmcModal.style.display = "none"
     }
   }
-  
+
   initExercices()
-  
+
   $: {
     // ToDo vérifier la saisie utilisateur
     // Si les copies sont préremplies, c'est un seul exemplaire pour ne pas avoir plusieurs sujets avec le même nom
     if (entete === "AMCassociation") nbExemplaires = 1
     // On récupère les nombres de questions par groupe indexé sur l'index d'exercice dans exercices
     nbQuestions = nbQuestionsModif.map((elt, i) => {
-      if (elt !== null) return {indexExercice: i, nombre: elt}
+      if (elt !== null) return { indexExercice: i, nombre: elt }
     })
     // on blinde le nbExemplaires qui ne peut être 0 ou undefined
     if (nbExemplaires == null) nbExemplaires = 1
@@ -95,7 +91,7 @@
           exo.nbQuestions = nbQ.nombre * nbExemplaires
           context.isHtml = false
           context.isAmc = true
-          seedrandom(exo.seed, {global: true})
+          seedrandom(exo.seed, { global: true })
           if (exo.typeExercice === "simple") mathaleaHandleExerciceSimple(exo, false)
           if (exo.nouvelleVersion != null) exo.nouvelleVersion()
         }
@@ -111,7 +107,7 @@
       nbExemplaires,
     })
   }
-  
+
   /**
    * Copier le code LaTeX dans le presse-papier
    * @param {string} dialogId id attaché au composant
@@ -128,7 +124,7 @@
       }
     )
   }
-  
+
   /* =======================================================
    *
    * Mécanismes de gestion du modal d'infos sur OverLeaf
@@ -152,11 +148,11 @@
       nonAmcModal.style.display = "none"
     }
   }
-  
+
   function handleNonAmcModal() {
     nonAmcModal.style.display = "none"
   }
-  
+
   /**
    * Gérer le POST pour Overleaf
    */
@@ -165,13 +161,13 @@
     overleafForm.submit()
     modal.style.display = "none"
   }
-  
+
   // =======================================================
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="AMC"/>
-  
+  <NavBarV2 subtitle="AMC" subtitleType="export" />
+
   <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10">
       <div>
@@ -216,9 +212,7 @@
         />
       </div>
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions
-          par groupe
-        </div>
+        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions par groupe</div>
         {#each exercices as exercice, i}
           <div>
             {exercice.id}{exercice.sup ? `-S:${exercice.sup}` : ""}{exercice.sup2 ? `-S2:${exercice.sup2}` : ""}{exercice.sup3 ? `-S3:${exercice.sup3}` : ""}
@@ -240,8 +234,7 @@
                 $exercicesParams[i].alea = exercice.seed
                 mathaleaUpdateUrlFromExercicesParams()
               }}
-            ><i
-              class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"/>
+              ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh" />
             </button>
             <!-- <button
                class="tooltip tooltip-left tooltip-neutral"
@@ -264,9 +257,8 @@
           </div>
         {/each}
         <div>
-          <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="nonAmc-modal"
-                                    on:action={handleNonAmcModal}>
-            <span slot="header"></span>
+          <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="nonAmc-modal" on:action={handleNonAmcModal}>
+            <span slot="header" />
             <div slot="content" class="text-justify">
               Les exercices suivants n'ayant pas de version AMC, ils ont été retirés de la liste.
               <ul class="list-inside list-disc text-left text-base mt-1">
@@ -279,9 +271,7 @@
         </div>
       </div>
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre
-          d'exemplaires distincts
-        </div>
+        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre d'exemplaires distincts</div>
         <input
           bind:value={nbExemplaires}
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -290,7 +280,7 @@
         />
       </div>
     </div>
-    
+
     <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
       <ModalActionWithDialog
         dialogId="latexCopy"
@@ -309,19 +299,16 @@
         title="Compiler sur OverLeaf"
       />
     </div>
-    <pre
-      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
+    <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
       {content}
     </pre>
   </section>
   <!-- Message avant envoi sur Overleaf -->
-  <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="overleaf-modal"
-                            on:action={handleOverLeaf}>
+  <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="overleaf-modal" on:action={handleOverLeaf}>
     <span slot="header">Attention !</span>
     <ul class="list-inside list-disc text-left text-base" slot="content">
       <li>
-        Il faudra uploader sur Overleaf le package <span
-        class="font-mono bg-coopmaths-warn-100">automultiplechoice.sty</span>
+        Il faudra uploader sur Overleaf le package <span class="font-mono bg-coopmaths-warn-100">automultiplechoice.sty</span>
         pour compiler.
       </li>
       <li>Le fichier sortit d’Overleaf ne constitue qu’un aperçu.</li>
@@ -330,9 +317,9 @@
   </ModalMessageBeforeAction>
   <!-- Formulaire pour Overleaf -->
   <form action="https://www.overleaf.com/docs" id="overleaf-form" method="POST" target="_blank">
-    <input autocomplete="off" bind:this={textForOverleaf} name="encoded_snip" type="hidden" value=""/>
-    <input autocomplete="off" name="snip_name" type="hidden" value="CoopMaths"/>
-    <input autocomplete="off" name="engine" type="hidden" value="lualatex"/>
+    <input autocomplete="off" bind:this={textForOverleaf} name="encoded_snip" type="hidden" value="" />
+    <input autocomplete="off" name="snip_name" type="hidden" value="CoopMaths" />
+    <input autocomplete="off" name="engine" type="hidden" value="lualatex" />
   </form>
-  <Footer/>
+  <Footer />
 </main>

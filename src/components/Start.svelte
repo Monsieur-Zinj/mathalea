@@ -359,12 +359,12 @@
 <div class="scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
   <!-- <Header /> -->
   {#if isNavBarVisible}
-    <div id="headerStart" class="lg:sticky lg:top-0 z-40 h-32 pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
-      <NavBarV2 />
+    <div id="headerStart" class="lg:sticky lg:top-0 z-40 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
+      <NavBarV2 subtitle="Conception de document" subtitleType="design" />
     </div>
   {/if}
   <!-- Gestion du mode sombre -->
-  <div class="flex flex-col justify-between min-h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mt-6 md:mt-0">
+  <div class="flex flex-col justify-between min-h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mt-6 lg:mt-0">
     <main class="mb-auto ml-0 lg:ml-4 flex flex-col lg:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
       <!-- Version du menu pour breakpoint < LG -->
       <div class="flex lg:hidden">
@@ -713,16 +713,16 @@
             style="{$isSideMenuVisible || nbExercisesInList === 0
               ? `width:${sidebarWidth}px;`
               : 'width: 0px;'} transition: width; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
-            class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:100vh {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
+            class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:100vh {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
             <div id="choiceMenuWrapper" class="flex flex-col overflow-y-scroll overscroll-y-auto overflow-x-hidden">
-              <div class="print-hidden hidden md:block absolute top-4 right-2">
+              <div class="print-hidden hidden lg:block absolute top-4 right-2">
                 <button
                   type="button"
                   class="inline-flex bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark bg-opacity-60 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest m-0 p-0"
                   on:click={toggleSideMenu}
                 >
-                  <i class="print-hidden bx bx-sm bx-caret-left bx-fade-left-hover m-0 p-0" />
+                  <i class="print-hidden bx bx-sm bx-x m-0 p-0" />
                 </button>
               </div>
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
@@ -755,8 +755,8 @@
       </div>
       <!-- content -->
       {#if $exercicesParams.length !== 0}
-        <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full h-full overflow-y-scroll overscroll-y-auto" bind:this={divExercices}>
-          <div class="fixed left-0 top-32 print-hidden hidden md:block">
+        <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full h-full" bind:this={divExercices}>
+          <div class="fixed left-0 {$globalOptions.v !== 'l' ? 'top-[7.5rem]' : 'top-2'} print-hidden hidden lg:block">
             <button
               type="button"
               class="p-2 {$isSideMenuVisible
@@ -771,7 +771,7 @@
           <div
             id="setupButtonBar"
             class="fixed {$globalOptions.v !== 'l'
-              ? 'top-32'
+              ? 'top-28'
               : 'top-0'} z-50 hidden lg:flex lg:flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
             style="width: calc(100vw - ({sbWidth}px  + 4px + 5rem));"
           >
@@ -1095,7 +1095,7 @@
 <style>
   /* ::-webkit-scrollbar {
     display: none;
-  } */ 
+  } */
   #startComponent {
     scrollbar-width: none;
   }
