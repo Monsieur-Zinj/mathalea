@@ -5,7 +5,6 @@
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from "../lib/mathalea.js"
   import type TypeExercice from "./utils/typeExercice"
 
-
   const copyCode = async () => {
     try {
       const text = document.querySelector("pre").innerText
@@ -15,7 +14,7 @@
     }
   }
 
-    function downloadCode() {
+  function downloadCode() {
     const text = document.querySelector('pre').innerText
     const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
@@ -64,25 +63,29 @@
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="Moodle" />
+  <NavBarV2 subtitle="Moodle" subtitleType="export" />
 
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
- 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>
 
     <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl">
-      MathALÉA vous permet de créer un fichier au format gift que vous pourrez ensuite importer dans la banque de questions de votre plateforme Moodle. 
-      Vous trouverez de plus amples informations dans notre <a href="https://github.com/mathalea/mathalea/wiki/Utilisation-de-Mathalea-avec-Moodle" target="_blank" rel="noopener noreferrer" class="text-coopmaths-action dark:text-coopmathsdark-action">documentation</a>.
+      MathALÉA vous permet de créer un fichier au format gift que vous pourrez ensuite importer dans la banque de questions de votre plateforme Moodle. Vous trouverez de plus amples informations dans
+      notre <a
+        href="https://github.com/mathalea/mathalea/wiki/Utilisation-de-Mathalea-avec-Moodle"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-coopmaths-action dark:text-coopmathsdark-action">documentation</a
+      >.
     </p>
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
 
     <button
-        type="submit"
-        on:click={downloadCode}
-        class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-      >
-      <i class='bx bx-download mr-2'></i>Télécharger le fichier gift
-      </button>
+      type="submit"
+      on:click={downloadCode}
+      class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+    >
+      <i class="bx bx-download mr-2" />Télécharger le fichier gift
+    </button>
     <!-- <button
         on:click={copyCode}
         class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
@@ -90,7 +93,6 @@
       Copier le code
       </button> -->
 
-   
     <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{content}
   </pre>

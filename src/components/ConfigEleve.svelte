@@ -61,7 +61,7 @@
 </script>
 
 <main class="mb-auto flex flex-col justify-between h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="La page Élève" />
+  <NavBarV2 subtitle="La page Élève" subtitleType="export" />
   <div class="h-full w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div class="h-full w-full md:w-2/3 lg:w-3/5 flex flex-col p-4 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mx-auto">
       <div class="flex flex-col md:flex-row justify-start px-4 py-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
@@ -85,8 +85,8 @@
             title="présentation"
             bind:valueSelected={$globalOptions.presMode}
             labelsValues={[
-              { label: "Une page unique", value: "liste_exos" },
-              { label: "Une page par exercice", value: "un_exo_par_page" },
+              { label: "Tous les exercices sur une page", value: "liste_exos" },
+              { label: "Une page par exercice", value: "un_exo_par_page", isDisabled: $exercicesParams.length === 1 },
               { label: "Toutes les questions sur une page", value: "liste_questions" },
               { label: "Une page par question", value: "une_question_par_page" },
             ]}
@@ -112,7 +112,9 @@
           </div>
         </div>
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Correction</div>
+          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light {$globalOptions.setInteractive !== '0' ? 'text-opacity-20' : 'text-opacity-100'}">
+            Correction
+          </div>
           <div class="flex flex-row justify-start items-center px-4">
             <ButtonToggle titles={["Accès aux corrections", "Pas de corrections"]} isDisabled={$globalOptions.setInteractive !== "0"} bind:value={$globalOptions.isSolutionAccessible} />
           </div>
