@@ -298,7 +298,7 @@ export default function CalculPythagoreEspace () {
           }
           p = polygone3d(ptsBase, 'blue')
           solideDessine = pyramide3d(p, D, 'blue', A, true, 'black', true)
-          numeroSommet = randint(0, Math.floor(nbSommets))
+          numeroSommet = randint(0, nbSommets - 1)
           segmentATrouver = solideDessine.aretesSommet[numeroSommet].c2d
           segmentATrouver.epaisseur = 2
           segmentATrouver.color = colorToLatexOrHTML('#f15929')
