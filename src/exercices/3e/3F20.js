@@ -33,12 +33,11 @@ export const uuid = 'aeb5a'
  */
 export default function FonctionsLineaires () {
   Exercice.call(this)
-  this.comment = `L'exercice propose différents type de questions sur les fonctions linéaires :<br>
+  this.comment = `L'exercice propose différents types de questions sur les fonctions linéaires :<br>
 calcul d'image, calcul d'antécédent ou détermination du coefficient.<br>
 Ce coefficient peut être au choix entier relatif ou rationnel relatif.<br>
-Certaines questions de calcul d'image nécessite le calcul du coefficient au prélable.<br>
-J'ai fait le choix d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50%.<br>
-On peut choisir le type de questions.`
+Certaines questions de calcul d'image nécessitent le calcul du coefficient au prélable.<br>
+Le choix a été fait d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50%.<br>`
   this.sup = 1 // coefficient entier relatif
   this.nbQuestions = 8
   this.sup2 = '9'
@@ -174,6 +173,9 @@ On peut choisir le type de questions.`
           setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParGraphique':
+          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
+          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
             xmin,
@@ -181,11 +183,6 @@ On peut choisir le type de questions.`
             xmax,
             ymax
           }, r, d, t, coordonnees, pointilles)
-          texte += context.isHtml
-            ? ''
-            : '\\\\'
-          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texteCorr += `Comme $f(${antecedent0})=${image0}$ et $f(x)=ax$ on en déduit $a\\times ${antecedent0} = ${image0}$ soit $a=\\dfrac{${image0}}{${antecedent0}}${coefficient instanceof FractionEtendue ? '' : '=' + coefficientString}$.<br>`
           texteCorr += `Ainsi $f(${antecedent})=${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent)}=${imageString}$`
           setReponse(this, i, image, { formatInteractif })
@@ -221,6 +218,9 @@ On peut choisir le type de questions.`
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParGraphique':
+          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
+          texte += `Calculer l'antécédent de $${imageString}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
             xmin,
@@ -228,9 +228,6 @@ On peut choisir le type de questions.`
             xmax,
             ymax
           }, r, d, t, coordonnees, pointilles)
-          texte += context.isHtml
-            ? ''
-            : '\\\\'
           texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texteCorr += `Comme $f(${antecedent0})=${image0}$ alors $f(x)=\\dfrac{${image0}}{${antecedent0}}x`
@@ -267,6 +264,13 @@ On peut choisir le type de questions.`
           }
           break
         case 'expressionParGraphique':
+          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
+          if (context.isAmc) {
+            texte += 'Donner le coefficient de  $f$.'
+          } else {
+            texte += 'Donner l\'expression de  $f(x)$.' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          }
+          texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
             xmin,
@@ -274,15 +278,6 @@ On peut choisir le type de questions.`
             xmax,
             ymax
           }, r, d, t, coordonnees, pointilles)
-          texte += context.isHtml
-            ? ''
-            : '\\\\'
-          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
-          if (context.isAmc) {
-            texte += 'Donner le coefficient de  $f$.'
-          } else {
-            texte += 'Donner l\'expression de  $f(x)$.' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          }
           texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {

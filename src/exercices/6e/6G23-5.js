@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { abs, arrondi, choice, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint, sp } from '../../modules/outils.js'
+import { abs, arrondi, choice, combinaisonListes, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint, sp } from '../../modules/outils.js'
 import { point, segment, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo, afficheMesureAngle, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -12,6 +12,7 @@ export const interactifType = 'mathLive'
 export const interactifReady = true
 
 export const dateDePublication = '03/05/2022'
+export const dateDeModifImportante = '09/05/2023'
 
 /**
  * Calculer un angle à partir de figures simples
@@ -55,8 +56,9 @@ export default function CalculerUnAngle () {
       melange: 15,
       saisie: this.sup
     })
+    const partagesPossiblesAngle90 = combinaisonListes([2, 3, 5, 6, 9, 10], this.nbQuestions)
 
-    for (let i = 0, somAngle, choixAngD, choixAngC, numA, numB, numC, numD, numE, texte, texteCorr, tabAngle, partageAngle, pointsPartage, choixPartage, reponse, A, B, B1, C, C1, D, D1, E, AB, AC, AD, sensRot, posA, posB, posC, posD, angB, angC, angD, paramsEnonce; i < this.nbQuestions; i++) {
+    for (let i = 0, QCas6 = 0, somAngle, choixAngD, choixAngC, numA, numB, numC, numD, numE, texte, texteCorr, tabAngle, partageAngle, pointsPartage, choixPartage, reponse, A, B, B1, C, C1, D, D1, E, AB, AC, AD, sensRot, posA, posB, posC, posD, angB, angC, angD, paramsEnonce; i < this.nbQuestions; i++) {
       texte = ''
       texteCorr = ''
       // On prépare la figure...
@@ -80,6 +82,7 @@ export default function CalculerUnAngle () {
 
       // Mise en place des angles BAC et BAD selon les cas
       choixPartage = 0
+
       switch (QuestionsDisponibles[i]) {
         case 1:
           angC = sensRot * 90
@@ -97,7 +100,8 @@ export default function CalculerUnAngle () {
           angC = sensRot * randint(91, 179)
           break
         case 6:
-          partageAngle = randint(2, 10, [4, 7, 8])
+          partageAngle = partagesPossiblesAngle90[QCas6]
+          QCas6++
           choixPartage = 1
           angD = sensRot * (90 - choixPartage * arrondi(90 / partageAngle))
           angC = sensRot * 90
@@ -299,7 +303,7 @@ export default function CalculerUnAngle () {
       if (QuestionsDisponibles[i] !== 14) texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre([8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? numB : numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
       else texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
 
-      texte += ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true })
+      texte += ajouteChampTexteMathLive(this, i, 'inline', { texteApres: ' °' })
       setReponse(this, i, abs(reponse), { digits: 3, decimals: 0, signe: false }) // abs indispensable à cause du cas 8
 
       // Correction selon les cas
@@ -343,7 +347,7 @@ export default function CalculerUnAngle () {
     }
   }
   this.besoinFormulaireTexte = [
-    'Type d\'exercice',
+    'Type de questions',
     `Nombres séparés par des tirets :
     1 : Complément d'un angle droit
     2 : Complément d'un angle plat avec affichage angle plat

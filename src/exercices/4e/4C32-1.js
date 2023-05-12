@@ -147,6 +147,6 @@ export default function CalculsAvecPuissancesDeDix () {
     listeQuestionsToContenu(this)
   }
 
-  this.besoinFormulaireNumerique = ["Type d'exercices", 2, '1 : Traduire en notation scientifique\n2 : Exercice à trou']
+  this.besoinFormulaireNumerique = ['Type de questions', 2, '1 : Traduire en notation scientifique\n2 : Exercice à trou']
   this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }

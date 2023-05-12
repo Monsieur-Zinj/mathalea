@@ -243,7 +243,7 @@ export default function NommerUnAngle () {
           : `${couleurRemplissageAngle[1]}`
         texteCorr += ` se nomme, au choix : $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
-          texteCorr += `, $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
+          texteCorr += `, $${this.sup3 ? miseEnEvidence(resultat[ee], 'black') : miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
         }
         texteCorr += '.'
         propositionsDuQcm = [{
@@ -302,7 +302,7 @@ export default function NommerUnAngle () {
       listeQuestionsToContenu(this)
     }
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'angles à trouver', 3, '1, 2 ou 3 angles']
+  this.besoinFormulaireNumerique = ['Nombre d\'angles à trouver (entre 1 et 3) :', 3]
   if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Texte']
   this.besoinFormulaire3CaseACocher = ['Figure en noir et blanc']
 }

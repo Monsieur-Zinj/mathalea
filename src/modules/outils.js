@@ -473,9 +473,9 @@ export function ecrireNombre2D (x, y, n) {
 export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
   let result = []
   let temp = []
-  for (const i in E1) {
-    for (const j in E2) {
-      result.push([E1[i], E2[j]])
+  for (const i of E1) {
+    for (const j of E2) {
+      result.push([i, j])
     }
   }
 
@@ -2663,7 +2663,7 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tai
   // Pour diapCorr, on numérote les questions même si un exercice n'en comporte qu'une
   if (liste.length > 1 || context.vue === 'diapCorr') {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};" ${classeOl ? `class = ${classeOl}` : ''}>` : result = `<ol ${classeOl ? `class = ${classeOl}` : ''}>`
-    for (const i in liste) {
+    for (let i = 0; i < liste.length; i++) {
       result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''} ${dataTaille(tailleDiaporama)}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
     result += '</ol>'

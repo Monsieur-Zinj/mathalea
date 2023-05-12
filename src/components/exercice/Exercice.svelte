@@ -28,6 +28,7 @@
       if (exercice === undefined) return
       exercice.numeroExercice = indiceExercice
       if (exercice.typeExercice && exercice.typeExercice.includes('html')) {
+        mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
         optionsComponent = { exercice }
         ComponentExercice = (await import("./ExerciceHtml.svelte")).default
       } else {

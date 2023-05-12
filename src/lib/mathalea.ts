@@ -54,9 +54,17 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
     // L'extension doit-être visible donc on l'enlève avant de la remettre...
     let module: any
     if (isCan) {
-      module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      if (filename.includes('.ts')) {
+        module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
+      } else {
+        module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      }
     } else {
-      module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
+      if (filename.includes('.ts')) {
+        module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
+      } else {
+        module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
+      }
     }
     const ClasseExercice = module.default
     const exercice = new ClasseExercice()

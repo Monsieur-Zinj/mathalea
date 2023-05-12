@@ -1,0 +1,78 @@
+import { exercicesParams, globalOptions } from '../../components/store'
+import { get } from 'svelte/store'
+import { createButon, createTextInput } from './components'
+
+class ressourceVideo {
+  typeExercice: string
+  numeroExercice: number
+  sup: string
+  sup2: string
+  sup3: string
+  titre: string
+  container: HTMLDivElement
+  iframe: HTMLIFrameElement
+  fieldUrl: HTMLInputElement
+  fieldLargeur: HTMLInputElement
+  fieldHauteur: HTMLInputElement
+  button: HTMLButtonElement
+  url: URL
+  constructor () {
+    this.typeExercice = 'html'
+    this.titre = ''
+    this.container = document.createElement('div')
+    this.iframe = document.createElement('iframe')
+    this.iframe.setAttribute('width', '100%')
+    this.iframe.classList.add('my-10')
+    this.fieldUrl = createTextInput({ placeholder: 'URL', autoCorrect: false })
+    this.fieldLargeur = createTextInput({ placeholder: 'Largeur' })
+    this.fieldHauteur = createTextInput({ placeholder: 'Hauteur' })
+    this.button = createButon()
+    this.container.append(this.iframe, this.fieldUrl, this.fieldLargeur, this.fieldHauteur, this.button)
+    this.button.addEventListener('click', () => {
+      this.iframe.src = this.fieldUrl.value
+      if (this.fieldLargeur.value) {
+        this.iframe.setAttribute('width', this.fieldLargeur.value)
+      }
+      if (this.fieldHauteur.value) {
+        this.iframe.setAttribute('height', this.fieldHauteur.value)
+      } else {
+        this.iframe.setAttribute('height', (this.iframe.offsetWidth / 4 * 3).toString())
+      }
+      this.sup = encodeURIComponent(this.fieldUrl.value)
+      exercicesParams.update(l => {
+        l[this.numeroExercice].sup = encodeURIComponent(this.fieldUrl.value)
+        l[this.numeroExercice].sup2 = encodeURIComponent(this.fieldLargeur.value)
+        l[this.numeroExercice].sup3 = encodeURIComponent(this.fieldHauteur.value)
+        return l
+      })
+    })
+  }
+
+  get html () {
+    if (get(globalOptions).v === 'eleve') {
+      this.fieldHauteur.remove()
+      this.fieldLargeur.remove()
+      this.fieldUrl.remove()
+      this.button.remove()
+    }
+    if (this.sup !== undefined) {
+      this.iframe.src = decodeURIComponent(this.sup)
+      this.fieldUrl.value = decodeURIComponent(this.sup)
+    }
+    if (this.sup2 !== undefined) {
+      this.iframe.setAttribute('width', decodeURIComponent(this.sup2))
+      this.fieldLargeur.value = decodeURIComponent(this.sup2)
+    } else {
+      this.iframe.setAttribute('width', '800')
+    }
+    if (this.sup3 !== undefined) {
+      this.iframe.setAttribute('height', decodeURIComponent(this.sup3))
+      this.fieldHauteur.value = decodeURIComponent(this.sup3)
+    } else {
+      this.iframe.setAttribute('height', '600')
+    }
+    return this.container
+  }
+}
+
+export default ressourceVideo

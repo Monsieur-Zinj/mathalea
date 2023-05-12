@@ -325,15 +325,6 @@
               </p>
             </div>
           {/if}
-          {#if isCorrectionVisible}
-            <div
-              class="{exercice.consigneCorrection.length !== 0
-                ? ''
-                : 'hidden'} bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2 ml-2 lg:mx-5"
-            >
-              {@html exercice.consigneCorrection}
-            </div>
-          {/if}
         </div>
         <div style="columns: {columnsCount.toString()}">
           <ul
@@ -351,6 +342,16 @@
                     class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
                     id="correction${indiceExercice}Q${i}"
                   >
+                    <div
+                      class={exercice.consigneCorrection.length !== 0 ? "container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3" : "hidden"}
+                    >
+                      <div class="{exercice.consigneCorrection.length !== 0 ? 'container absolute top-4 -left-4' : 'hidden'} ">
+                        <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                      </div>
+                      <div class="">
+                        {@html exercice.consigneCorrection}
+                      </div>
+                    </div>
                     <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
                       {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                     </div>

@@ -36,7 +36,13 @@
     for (const param of $exercicesParams) {
       let paramUrl = ''
       for (const key of Object.keys(param)) {
-        if(key !== 'alea') {
+        if(key === 'sup') {
+          paramUrl += `s\\=${param[key]}&`
+        } else if (key === 'sup2') {
+          paramUrl += `s2\\=${param[key]}&`
+        } else if (key === 'sup3') {
+          paramUrl += `s3\\=${param[key]}&`
+        } else if(key !== 'alea') {
           paramUrl += `${key}\\=${param[key]}&`
         }
       }
