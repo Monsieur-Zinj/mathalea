@@ -18,7 +18,7 @@ import 'katex/dist/katex.min.css'
 // @ts-ignore
 import renderScratch from './renderScratch.js'
 // @ts-ignore
-import { decrypt } from '../components/utils/urls.js'
+import { decrypt, isCrypted } from '../components/utils/urls.js'
 import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
 
 function getExerciceStaticByUuid (uuid: string) {
@@ -260,6 +260,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
    * @returns vue
    */
 export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions {
+  let urlNeedToBeFreezed = false
   let v = ''
   let z = '1'
   let durationGlobal = 0
@@ -277,6 +278,9 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   let isSolutionAccessible = true
   let isInteractiveFree = true
   let url = new URL(window.location.href)
+  if (isCrypted(url)) {
+    urlNeedToBeFreezed = true
+  }
   url = decrypt(url)
   const entries = url.searchParams.entries()
   let indiceExercice = -1
@@ -355,6 +359,9 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   exercicesParams.update((l) => {
     return newListeExercice
   })
+  if (urlNeedToBeFreezed) {
+    freezeUrl.set(true)
+  }
   /**
    * es permet de résumer les réglages de la vue élève
    * Il est de la forme 2101

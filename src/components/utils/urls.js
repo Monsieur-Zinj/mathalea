@@ -106,11 +106,11 @@ export function decrypt (url) {
 
 /**
  * Détecte si une URL a été encryptée par `encrypt`
- * @param {string} url Chaîne representant l'URL à analyser
+ * @param {URL} url Chaîne representant l'URL à analyser
  * @returns {boolean} `true` si l'URL est crypté avec la fonction `encrypt`
  */
 export function isCrypted (url) {
-  return url.includes('?EEEE')
+  return url.href.includes('?EEEE')
 }
 
 /**
