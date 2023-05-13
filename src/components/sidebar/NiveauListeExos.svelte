@@ -10,7 +10,7 @@
   export let nestedLevelCount: number
   export let indexBase: string
   import themesList from "../../json/levelsThemesList.json"
-    import { convertLatexToSpeakableText } from "mathlive";
+  import { convertLatexToSpeakableText } from "mathlive"
 
   const themes = toMap(themesList)
   let listeExercices: HTMLUListElement
@@ -32,9 +32,9 @@
   /**
    * Basculer le flag pour l'affichage du contenu
    */
-   function updateItems() {
-    // const item = Array.from(items, ([key, obj]) => ({ key, obj }))    
-    if (items){    
+  function updateItems() {
+    // const item = Array.from(items, ([key, obj]) => ({ key, obj }))
+    if (items) {
       const regExpEntreesRef = /^(?:(?:(?:(?:c3)|\d)\S\d){1}|(?:can\d\S))(?:.*){0}$/g
       const regExpBrevetAnnee = /^(?:Brevet)(?:.*?)(?:année)/g
       const regExpBrevetThème = /^(?:Brevet)(?:.*?)(?:thèmes)/g
@@ -50,7 +50,7 @@
       if ((indexBase.match(/-/g) || []).length === 2) {
         // console.log('match3')
         const parentIdElt = document.getElementById("titre-liste-" + indexBase.replaceAll(/(-\d+)$/g, ""))
-        const parentTitle = parentIdElt!=null ? document.getElementById(parentIdElt.id + "-content").textContent : ""
+        const parentTitle = parentIdElt != null ? document.getElementById(parentIdElt.id + "-content").textContent : ""
         if (parentTitle.match(regExpBrevetThème)) {
           const regExpDNBYearMonth = /^(?:dnb_)(?<year>\d{4})_(?<month>\d{2})/g
           items = new Map(
@@ -72,16 +72,14 @@
     }
   }
 
-  updateItems();
-  
+  updateItems()
+
   /**
    * Basculer le flag pour l'affichage du contenu
    */
   function toggleContent() {
     expanded = !expanded
   }
-
-  
 
   /* Mickel Guironnet  : 
   Très dangereux de bind:this={listeExercices} sur un arbre récursif.
@@ -106,7 +104,7 @@
  -->
 <div
   id={"titre-liste-" + indexBase}
-  class="flex flex-row items-center justify-between {expanded
+  class="flex flex-row mr-4 items-center justify-between {expanded
     ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
     : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'} font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest cursor-pointer"
   style="padding-left: {(nestedLevelCount * 2) / 4}rem"
