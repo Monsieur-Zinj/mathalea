@@ -112,7 +112,7 @@
           on:click={() => goToMathalea($globalOptions.v)}
           on:keydown={() => goToMathalea($globalOptions.v)}
           class="inline-flex text-5xl md:text-6xl font-logo9 tracking-tighter font-black
-          {subtitle.length === 0
+          {subtitleType === 'design'
             ? 'text-coopmaths-struct dark:text-coopmathsdark-struct'
             : 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer '}"
         >
@@ -152,7 +152,7 @@
       <Button
         title=""
         icon="bx-x"
-        classDeclaration="text-3xl {subtitle.length === 0 ? 'hidden' : ''}"
+        classDeclaration="text-3xl {subtitleType === 'design' ? 'hidden' : ''}"
         on:click={() => {
           mathaleaHandleComponentChange($globalOptions.v, "")
         }}
