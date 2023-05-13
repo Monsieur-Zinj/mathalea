@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre,
 import { droiteGraduee, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Placer des abscisses fractionnaires (niv 2)'
+export const titre = 'Utiliser des abscisses fractionnaires (niv 2)'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDePublication = '11/05/2023'
@@ -209,9 +209,9 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : graduation en 1/4, 1/6, 1/8, 1/9, 1/10\n2 : graduation en 1/12, 1/14, 1/16, 1/18 et 1/20\n3 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['avec des fractions simplifiées', true]
-  this.besoinFormulaire3CaseACocher = ['avec des valeurs négatives', false]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté :', 3, '1 : Graduation en 1/4, 1/6, 1/8, 1/9, 1/10\n2 : Graduation en 1/12, 1/14, 1/16, 1/18 et 1/20\n3 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Avec des fractions simplifiées', true]
+  this.besoinFormulaire3CaseACocher = ['Avec des valeurs négatives', false]
 }
 
 /**

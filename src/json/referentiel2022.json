@@ -6670,7 +6670,8 @@
         "id": "6N21-1",
         "uuid": "a2582",
         "url": "6e/6N21-1.js",
-        "titre": "Utiliser les abscisses fractionnaires",
+        "titre": "Placer des abscisses fractionnaires (niv 2)",
+        "datePublication": "11/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "custom"
@@ -8082,6 +8083,17 @@
         "url": "5e/5N20-0.js",
         "titre": "Résoudre un problème en utilisant des fractions",
         "tags": {}
+      },
+      "5N20-1": {
+        "id": "5N20-1",
+        "uuid": "75f80",
+        "url": "5e/5N20-1.js",
+        "titre": "Effectuer des calculs de fractions (à dénominateurs multiples) un peu complexes",
+        "datePublication": "12/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "5N20": {
         "id": "5N20",
