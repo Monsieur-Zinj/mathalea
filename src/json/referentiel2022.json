@@ -6666,6 +6666,16 @@
           "amcType": "AMCHybride"
         }
       },
+      "6N21-1": {
+        "id": "6N21-1",
+        "uuid": "a2582",
+        "url": "6e/6N21-1.js",
+        "titre": "Utiliser les abscisses fractionnaires",
+        "tags": {
+          "interactif": true,
+          "interactifType": "custom"
+        }
+      },
       "6N21": {
         "id": "6N21",
         "uuid": "2ba53",
