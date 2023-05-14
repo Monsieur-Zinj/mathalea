@@ -56,7 +56,7 @@ export default function SujetCAN2023CM2 () {
     // On crée un objet necessaire à liaison des deux questions sur la vitesse
     const vitesseCommunePourQ21Q22 = myCan.vitesseCommune()
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:{
           const produit = myCan.produitDeDeuxFacteurs(4, 9, 4, 9)
@@ -64,9 +64,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = produit.texteCorr
           setReponse(this, index, produit.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-          } else {
-            texte += context.isHtml ? '$\\ldots$' : ''
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
           nbChamps = 1
           this.listeCanEnonces.push(produit.canEnonce)
@@ -80,9 +78,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = somme.texteCorr
           setReponse(this, index, somme.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-          } else {
-            texte += context.isHtml ? '$\\ldots$' : ''
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
           nbChamps = 1
           this.listeCanEnonces.push(somme.canEnonce)
@@ -96,6 +92,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = figureProduit.texteCorr
           setReponse(this, index, figureProduit.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
           this.listeCanEnonces.push(figureProduit.canEnonce)
           this.listeCanReponsesACompleter.push(figureProduit.canReponseACompleter)
         }
@@ -108,8 +105,6 @@ export default function SujetCAN2023CM2 () {
           setReponse(this, index, moitieDouble.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-          } else {
-            texte += context.isHtml ? '$\\ldots$' : ''
           }
           nbChamps = 1
           this.listeCanEnonces.push(moitieDouble.canEnonce)
@@ -135,7 +130,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = facteursDUnProduit.texteCorr
           setReponse(this, index, facteursDUnProduit.reponse, { formatInteractif: 'texte' })
           if (this.interactif && !context.isAmc) {
-            texte += '<br>Écrire le deux nombres dans l\'ordre croissant séparés par un point virgule.'
+            texte += '<br>Écris les deux nombres séparés par un point virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline')
           }
           nbChamps = 1
@@ -148,7 +143,7 @@ export default function SujetCAN2023CM2 () {
           const sommeDeDurees = myCan.sommeDeDurees()
           texte = sommeDeDurees.texte
           texteCorr = sommeDeDurees.texteCorr
-          setReponse(this, index, new Hms({ hour: a + 1, minute: sommeDeDurees.reponse }), { formatInteractif: 'hms' })
+          setReponse(this, index, new Hms({ hour: 1, minute: sommeDeDurees.reponse }), { formatInteractif: 'hms' })
           if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
           nbChamps = 1
           this.listeCanEnonces.push(sommeDeDurees.canEnonce)
@@ -243,6 +238,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = trouverUnTermeDecimalInconnu.texteCorr
           setReponse(this, index, trouverUnTermeDecimalInconnu.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
           this.listeCanEnonces.push(trouverUnTermeDecimalInconnu.canEnonce)
           this.listeCanReponsesACompleter.push(trouverUnTermeDecimalInconnu.canReponseACompleter)
         }
@@ -254,7 +250,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = decomposerUnNombreATroisChiffresEnDizainesUnites.texteCorr
           setReponse(this, index, decomposerUnNombreATroisChiffresEnDizainesUnites.reponse, { formatInteractif: 'texte' })
           if (this.interactif && !context.isAmc) {
-            texte += '<br>Écrire le nombre de dizaines puis d\'unités dans cet ordre séparés par un point virgule.<br>'
+            texte += '<br>Écris le nombre de dizaines puis d\'unités dans cet ordre séparés par un point virgule.<br>'
             texte += ajouteChampTexteMathLive(this, index, 'largeur6 inline')
             // texte += ajouteChampTexteMathLive(this, index, 'largeur6 inline', { texteApres: sp(5) + 'unites.' })
           }
