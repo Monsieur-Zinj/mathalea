@@ -11,14 +11,12 @@
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
-  // import { deviceType } from "./utils/measures"
   import { findPropPaths, findDuplicates } from "./utils/searching"
-
   import SearchExercice from "./sidebar/SearchExercice.svelte"
-
   import { isRecent } from "./utils/handleDate"
   import type { InterfaceReferentiel } from "src/lib/types"
   import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
+  import handleCapytale from "./utils/handleCapytale"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
@@ -67,7 +65,13 @@
 
   // À la construction du component ou à la navigation dans l'historique du navigateur
   // on met à jour l'url headerStart
-  onMount(urlToDisplay)
+  onMount( () => {
+    // On analyse l'url pour mettre à jour l'affichage
+    urlToDisplay()
+    if ($globalOptions.recorder === "capytale") {
+      handleCapytale()
+    }
+  })
   addEventListener("popstate", urlToDisplay)
 
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
@@ -296,6 +300,7 @@
   }
 
   function newDataForAll() {
+    console.log($globalOptions, $exercicesParams)
     const newDataForAll = new window.Event("newDataForAll", {
       bubbles: true,
     })

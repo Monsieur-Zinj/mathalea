@@ -17,7 +17,8 @@
     customElements.define("alea-buttoninstrumenpoche", ElementButtonInstrumenpoche)
   }
 
-  // Est-ce que l'url contient &recorder
+  // Gestion des recorders (Moodle, Capytale, etc. )
+  // Lorsque la page d'accueil est dans un iFrame, l'URL est bloquée et les boutons d'exports cachés
   const url = new URL(window.location.href)
   const recorder = url.searchParams.get("recorder")
   if (recorder !== null) {
