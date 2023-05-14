@@ -10885,8 +10885,11 @@
         "id": "2F10-4",
         "uuid": "ef897",
         "url": "2e/2F10-4.js",
-        "titre": "Déterminer une fonction affine à partir de deux images",
-        "tags": {}
+        "titre": "Déterminer une fonction affine",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2F10-5": {
         "id": "2F10-5",
