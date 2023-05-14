@@ -1,6 +1,13 @@
 import type { Activity, InterfaceGlobalOptions, InterfaceParams, StudentAssignement } from 'src/lib/types.js'
-import { exercicesParams, globalOptions } from '../components/store.js'
+import { exercicesParams, globalOptions, resultsByExercice } from '../components/store.js'
 import { mathaleaHandleComponentChange } from './mathalea.js'
+import { get } from 'svelte/store'
+
+// Fichiers temporaires pour tester avant de récupérer les paramètres depuis Capytale
+const testExercicesParams: InterfaceParams[] = [{ uuid: '5c1b3', nbQuestions: 1, interactif: '1' },
+  { uuid: 'cfa6a', interactif: '0', nbQuestions: 2 }, { uuid: '5c1b3', nbQuestions: 2, interactif: '1' }, { uuid: '5c1b3', nbQuestions: 2, interactif: '1' }]
+
+const testGlobalOptions: InterfaceGlobalOptions = { v: 'eleve', title: '', presMode: 'un_exo_par_page' }
 
 // timer pour ne pas prévenir Capytale trop souvent
 let timerId: ReturnType<typeof setTimeout>
@@ -29,11 +36,6 @@ async function toolGetActivityParams ({ mode, activity, studentAssignement }: { 
   }
 }
 
-const testExercicesParams: InterfaceParams[] = [{ uuid: 'cfa6a', nbQuestions: 1, interactif: '1' },
-  { uuid: 'cfa6a', interactif: '0', nbQuestions: 2 }]
-
-const testGlobalOptions: InterfaceGlobalOptions = { v: '', title: '', presMode: 'un_exo_par_page' }
-
 export default async function handleCapytale () {
   toolGetActivityParams({ mode: 'create', activity: { exercicesParams: testExercicesParams, globalOptions: testGlobalOptions } })
 }
@@ -53,4 +55,18 @@ export async function sendToCapytaleMathaleaHasChanged () {
       timerId = undefined
     }, 500)
   }
+}
+
+export function sendToCapytaleSaveStudentAssignement () {
+  const results = get(resultsByExercice)
+  let bilan = ''
+  let i = 1
+  for (const resultExercice of results) {
+    if (resultExercice?.numberOfPoints !== undefined) {
+      bilan += `Ex ${i} : ${resultExercice.numberOfPoints}/${resultExercice.numberOfQuestions}\n`
+    }
+    i++
+  }
+  console.log(bilan)
+  // sendToCapytaleSaveStudentAssignement(get(resultsByExercice), bilan)
 }

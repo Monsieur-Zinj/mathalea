@@ -24,7 +24,6 @@
   import BtnZoom from "./ui/btnZoom.svelte"
   import { getCanvasFont, getTextWidth, remToPixels } from "./utils/measures"
   import Footer2 from "./Footer2.svelte"
-  import Amc from "./Amc.svelte"
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
