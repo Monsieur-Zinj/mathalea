@@ -3,12 +3,13 @@ import { sp, listeQuestionsToContenu, randint, texNombre, numAlpha, prenomF, per
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { min, max } from 'mathjs'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre des problèmes (plus complexes)'
 export const dateDePublication = '27/11/2022'
-export const dateDeModifImportante = '11/05/2023' // par EE : Décoquillage et passage en interactif
+export const dateDeModifImportante = '14/05/2023' // par EE : Décoquillage et passage en interactif
 
 /**
  * Résoudre des problèmes (plus complexes)
@@ -105,7 +106,7 @@ export default function ExerciceProblemesComplexes () {
           setReponse(this, indiceInteractif + 4, calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? ['Oui', 'OUI', 'oui'] : ['Non', 'NON', 'non'])
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25')
 
-          indiceInteractif += indiceInteractif + 5
+          indiceInteractif += 5
 
           break
         }
@@ -130,7 +131,7 @@ export default function ExerciceProblemesComplexes () {
                         Cela fait un total de $${texNombre(quaFro1 * masseFro1)}${sp()}\\text{kg} + ${texNombre(quaFro2 * masseFro2)}${sp()}\\text{kg} = ${texNombre(quaFro1 * masseFro1 + quaFro2 * masseFro2)}${sp()}\\text{kg}$.<br>
                         ${total > 550 ? `La surcharge est de : $${texNombre(total)}${sp()}\\text{kg} - 550${sp()}\\text{kg} = ${texNombre(total - 550)}${sp()}\\text{kg}$.` : `Il n'y a pas de surcharge et il reste : $550${sp()}\\text{kg} - ${texNombre(total)}${sp()}\\text{kg} = ${texNombre(550 - total)}${sp()}\\text{kg}$.`}`
 
-          indiceInteractif += indiceInteractif + 2
+          indiceInteractif += 2
 
           break
         }
@@ -169,7 +170,7 @@ export default function ExerciceProblemesComplexes () {
                         • Choisir un nombre.<br>
                         • Multiplier ce nombre par $${texNombre(k1 * k2)}$.<br>`
 
-          indiceInteractif += indiceInteractif + 2
+          indiceInteractif += 2
 
           break
         }
@@ -199,7 +200,7 @@ export default function ExerciceProblemesComplexes () {
                         $${fauteuils * n1} \\times ${texNombre(prix)} = ${texNombre(fauteuils * n1 * prix)}$<br>
                         La somme d'argent perçue est $${texPrix(fauteuils * n1 * prix)}$ €.<br>`
 
-          indiceInteractif += indiceInteractif + 2
+          indiceInteractif += 2
 
           break
         }
@@ -224,11 +225,16 @@ export default function ExerciceProblemesComplexes () {
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25', { texteApres: ' m' })
 
           texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600$ m ?`
-          setReponse(this, indiceInteractif + 2, arrondi((60 + min) * 30, 2))
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25', { texteApres: ' m' })
+          setReponse(this, indiceInteractif + 3, Math.floor(((60 + min) * 30) / 600))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur25', { texteApres: ' pellicules entières de $600$ m' })
 
           texte += `<br>${numAlpha(4)} Si la pellicule mesure $${longueur}$ m, quelle est la durée de la pellicule ?`
+          setReponse(this, indiceInteractif + 4, Math.floor(longueur / 30))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25', { texteApres: ' minutes' })
+
           texte += `<br>${numAlpha(5)} Si la pellicule mesure $${longueur}$ m, combien d'images y a-t-il sur la pellicule ?`
+          setReponse(this, indiceInteractif + 5, Math.floor(longueur / 30) * 60 * 24)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 5, 'inline largeur25', { texteApres: ' images' })
 
           texteCorr += `${numAlpha(0)} $${nombreP}${sp()}\\text{ pellicules} \\times 600${sp()}\\text{m} = ${texNombre(nombreP * 600)}${sp()}\\text{m}$<br>
                         La longueur totale du film est de $${texNombre(nombreP * 600)}$ mètres.<br>
@@ -237,14 +243,21 @@ export default function ExerciceProblemesComplexes () {
                         La durée totale du film est de $${texNombre(nombreP * 20)}$ minutes.<br>
                         ${numAlpha(2)} $${60 + min}${sp()}\\text{min} \\times 30${sp()}\\text{m}= ${texNombre((60 + min) * 30)}${sp()}\\text{m}$<br>
                         La longueur totale en mètres d'un film de $1${sp()}\\text{h}${sp()}${min}$ est de $${texNombre((60 + min) * 30)}$ mètres.<br>
-                        ${numAlpha(3)} $${texNombre(Math.floor(((60 + min) * 30) / 600))} \\times 600${sp()}\\text{m} = ${texNombre(Math.floor(((60 + min) * 30) / 600) * 600)}${sp()}\\text{m}$<br>
-                        Donc il faut $${texNombre(Math.floor(((60 + min) * 30) / 600))}$ bobines de $600$ mètres`
+                        ${numAlpha(3)} $${texNombre(Math.floor(((60 + min) * 30) / 600))} \\times 600${sp()}\\text{m} = ${texNombre(Math.floor(((60 + min) * 30) / 600) * 600)}${sp()}\\text{m}$`
+          texteCorr += ((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600 !== 0
+            ? ` et $${texNombre(1 + Math.floor(((60 + min) * 30) / 600))} \\times 600${sp()}\\text{m} = ${texNombre((1 + Math.floor(((60 + min) * 30) / 600)) * 600)}${sp()}\\text{m}$.`
+            : ''
+          texteCorr += `<br>Donc il faut $${texNombre(Math.floor(((60 + min) * 30) / 600))}$ bobines de $600$ mètres`
+
           texteCorr += ((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600 !== 0 ? ` (et $1$ bobine de  $${texNombre(((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600)}$ mètres).<br>` : '.<br>'
           texteCorr += `${numAlpha(4)} $${texNombre(Math.floor(longueur / 30))} \\times 30${sp()}\\text{m} = ${texNombre(longueur)}$ m<br>
                         Donc la durée de la pellicule est de $${texNombre(Math.floor(longueur / 30))}$ minutes.<br>
                         ${numAlpha(5)} $${texNombre(Math.floor(longueur / 30))} \\times 60 = ${texNombre(Math.floor(longueur / 30)) * 60}$ secondes<br>
                         $${texNombre(Math.floor(longueur / 30)) * 60}${sp()}\\text{secondes} \\times 24${sp()}\\text{images} = ${texNombre(Math.floor(longueur / 30) * 60 * 24)}${sp()}\\text{images}$<br>
                         Il y a $${texNombre(Math.floor(longueur / 30) * 60 * 24)}${sp()}\\text{images}$ dans la pellicule.`
+
+          indiceInteractif += 6
+
           break
         }
         case 6 : {
@@ -255,7 +268,10 @@ export default function ExerciceProblemesComplexes () {
           const prenomAcheteur = prenom()
           texte += `Dans une boulangerie, ${prenomAcheteur} achète ${nbSch} sandwichs à $${texNombre(prixSch)}$ € chacun.<br>
                     et ${nbBo} boissons à $${texNombre(prixBo, 2)}$ € chacune.<br>
-                    ${prenomAcheteur} a un billet de 50 €, combien va lui rendre le caissier ?<br>`
+                    ${prenomAcheteur} a un billet de 50 €, combien va lui rendre le caissier ?`
+          setReponse(this, indiceInteractif, 50 - (nbBo * prixBo + nbSch * prixSch))
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' €' })
+
           texteCorr += `$${nbSch} \\times ${texNombre(prixSch, 2)} =${texNombre(nbSch * prixSch, 2)}$<br>
                         Le prix des sandwichs est de $${texPrix(nbSch * prixSch)}$ €.<br>
                         $${nbBo} \\times ${texNombre(prixBo)} =${texNombre(nbBo * prixBo, 2)}$<br>
@@ -264,6 +280,9 @@ export default function ExerciceProblemesComplexes () {
                         Le prix total à payer est $${texPrix(nbBo * prixBo + nbSch * prixSch, 2)}$ €.<br>
                         $50 -  (${texNombre(nbBo * prixBo)} + ${texNombre(nbSch * prixSch, 2)}) = ${texNombre(50 - (nbBo * prixBo + nbSch * prixSch), 2)}$<br>
                         Le caissier va rendre la somme de $${texPrix(50 - (nbBo * prixBo + nbSch * prixSch))}$ €.<br>`
+
+          indiceInteractif++
+
           break
         }
         case 7 : {
@@ -274,7 +293,10 @@ export default function ExerciceProblemesComplexes () {
           texte += `Un commerçant achète $${nbCagettes}$ cagettes d'oranges. Chaque cagette contient <br>
                     $${texNombre(kgOranges)}$ kg d'oranges et coûte $${texPrix(prixOranges)}$ €.<br>
                     Le commerçant revend les oranges $${texPrix(prixOrangesKg)}$ € le kilogramme.<br>
-                    Quel est son bénéfice s'il réussit à tout vendre ?<br>`
+                    Quel est son bénéfice s'il réussit à tout vendre ?`
+          setReponse(this, indiceInteractif, nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' €' })
+
           texteCorr += `$${nbCagettes} \\times ${texNombre(kgOranges)} =${texNombre(nbCagettes * kgOranges)}$<br>
                         Il y a $${texNombre(nbCagettes * kgOranges)}$ kg d'oranges.<br>
                         $${texNombre(nbCagettes)} \\times ${texNombre(prixOranges)} =${texNombre(nbCagettes * prixOranges)}$<br>
@@ -283,19 +305,35 @@ export default function ExerciceProblemesComplexes () {
                         S'il revend tout, il va gagner $${texPrix(nbCagettes * kgOranges * prixOrangesKg)}$ €.<br>
                         $${texNombre(nbCagettes * kgOranges * prixOrangesKg)} - ${texNombre(nbCagettes * prixOranges)} = ${texNombre(nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)}$<br>
                         Le bénéfice sera alors de $${texPrix(nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)}$ €.<br>`
+
+          indiceInteractif++
+
           break
         }
         case 8 : {
           const nbDix = randint(10, 20)
           const nbCinq = randint(10, 20, [nbDix])
           const prenomFe = prenomF()
-          texte += `${prenomFe} a dans sa tirelire uniqument des billets de $5$ € et de $10$ €.<br>
-                    Au total, elle a $${texNombre(nbDix + nbCinq)}$ billets qui représentent $${texNombre(nbDix * 10 + nbCinq * 5)}$ €.<br>
-                    Combien a-t-elle de billets de $5$ € et de $10$ € ?<br>`
+          texte += `${prenomFe} a dans sa tirelire uniquement des billets de $5$ € et de $10$ €.<br>
+                    Au total, elle a $${texNombre(nbDix + nbCinq)}$ billets qui représentent $${texNombre(nbDix * 10 + nbCinq * 5)}$ €.<br>`
+          if (!this.interactif) {
+            texte += 'Combien a-t-elle de billets de $5$ € et de $10$ € ?<br>'
+          } else {
+            texte += 'Combien a-t-elle de billets de $5$ € ?'
+            setReponse(this, indiceInteractif, nbCinq)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' billets de 5 €' })
+
+            texte += '<br>Combien a-t-elle de billets de $10$ € ?'
+            setReponse(this, indiceInteractif + 1, nbDix)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' billets de 10 €' })
+          }
           texteCorr += `Après plusieurs essais, on trouve qu'elle a $${nbDix}$ billets de 10 € et $${nbCinq}$ billets de 5 €.`
           texteCorr += `<br><br>Vérification :<br>
                     Nombre de billets : $${nbDix} \\text{ billets de 10 €} +  ${nbCinq} \\text{ billets de 5 €} =${texNombre(nbDix + nbCinq)}${sp()}\\text{billets}$.<br>
-                    Somme d'argent : $${nbDix} \\times 10${sp()}\\text{€} +  ${nbCinq} \\times 5${sp()}\\text{€} =${texNombre(nbDix * 10 + nbCinq * 5)}${sp()}\\text{€}$`
+                    Somme d'argent : $${nbDix} \\times 10${sp()}\\text{€} +  ${nbCinq} \\times 5${sp()}\\text{€} =${texNombre(nbDix * 10 + nbCinq * 5)}${sp()}\\text{€}$.`
+
+          indiceInteractif += 2
+
           break
         }
         case 9 : {
@@ -307,9 +345,12 @@ export default function ExerciceProblemesComplexes () {
           const prixMy = 8 + randint(2, 5) * 0.1
           const prixFinal = nbBarquettesFr * gBarquettesFr * 0.001 * prixFr + nbBarquettesMy * gBarquettesMy * 0.001 * prixMy
           const isEnviron = Math.abs(prixFinal * 100 - Math.round(prixFinal * 100)) > 0.001 ? 'environ' : ''
-          texte += `Un marchand de fruits vend $${nbBarquettesFr}$ barquettes de $${gBarquettesFr}$ g de fraises des bois à $${texPrix(prixFr)}$ € le kg<br>
-                    et $${nbBarquettesMy}$ barquettes de $${gBarquettesMy}$ g de myrtilles des bois à $${texPrix(prixMy)}$ € le kg.<br>
-                    Combien d'argent lui rapporte cette vente ?<br>`
+          texte += `Un marchand de fruits vend $${nbBarquettesFr}$ barquettes de $${texNombre(gBarquettesFr)}$ g de fraises des bois à $${texPrix(prixFr)}$ € le kg<br>
+                    et $${nbBarquettesMy}$ barquettes de $${texNombre(gBarquettesMy)}$ g de myrtilles des bois à $${texPrix(prixMy)}$ € le kg.<br>
+                    Combien d'argent lui rapporte cette vente ?`
+          setReponse(this, indiceInteractif, prixFinal)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' €' })
+
           texteCorr += `$${nbBarquettesFr} \\times ${texNombre(gBarquettesFr)}${sp()}\\text{g} = ${texNombre(nbBarquettesFr * gBarquettesFr)}${sp()}\\text{g}$ de fraises.<br>
                         $${texNombre(nbBarquettesFr * gBarquettesFr)}${sp()}\\text{g} \\div 1${sp()}000 = ${texNombre(nbBarquettesFr * gBarquettesFr * 0.001, 4)} $ kg de fraises.<br>
                         $${texNombre(nbBarquettesFr * gBarquettesFr * 0.001)}${sp()}\\text{kg} \\times ${texNombre(prixFr)}${sp()}\\text{€/kg} =${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr)}$ € pour les fraises.<br>
@@ -318,6 +359,9 @@ export default function ExerciceProblemesComplexes () {
                         $${texNombre(nbBarquettesMy * gBarquettesMy * 0.001)}${sp()}\\text{kg} \\times ${texNombre(prixMy)}${sp()}\\text{€/kg} =${texNombre(nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)}$ € pour les myrtilles.<br>
                         $${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr)} + ${texNombre(nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)} = ${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr + nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)}$<br>
                         Cette vente va lui rapporter ${isEnviron} $${texPrix(prixFinal)}$ €.<br>`
+
+          indiceInteractif++
+
           break
         }
         case 10 : {
@@ -329,13 +373,27 @@ export default function ExerciceProblemesComplexes () {
                     Si j'effectue ${opP === 1 ? 'la somme' : opP === 2 ? 'la différence' : 'le produit'} entre ses deux nombres, 
                     alors j'obtiens $${opP === 1 ? texNombre(nbP + nbD) : opP === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$.<br>
                     Si j'effectue ${opD === 1 ? 'la somme' : opD === 2 ? 'la différence' : 'le produit'} entre ses deux nombres, 
-                    alors j'obtiens $${opD === 1 ? texNombre(nbP + nbD) : opD === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$.<br>
-                    Quels sont ces deux nombres ?<br>`
+                    alors j'obtiens $${opD === 1 ? texNombre(nbP + nbD) : opD === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$.<br>`
+          if (!this.interactif) {
+            texte += 'Quels sont ces deux nombres ?'
+          } else {
+            texte += 'Quel est le plus petit de ces deux nombres ?'
+            setReponse(this, indiceInteractif, min(nbP, nbD))
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
+
+            texte += 'Quel est le plus grand de ces deux nombres ?'
+            setReponse(this, indiceInteractif, max(nbP, nbD))
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
+          }
+
           texteCorr += `Par essais-erreurs, on trouve ${nbP} et ${nbD}.<br>
                         Vérification :<br> 
                         $${nbP} ${opP === 1 ? '+' : opP === 2 ? '-' : '\\times'} ${nbD} = ${opP === 1 ? texNombre(nbP + nbD) : opP === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$<br>
                         $${nbP} ${opD === 1 ? '+' : opD === 2 ? '-' : '\\times'} ${nbD} = ${opD === 1 ? texNombre(nbP + nbD) : opD === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$<br>
                         `
+
+          indiceInteractif += 2
+
           break
         }
       }
