@@ -17,6 +17,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModificationImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 
 /**
  * @author Rémi Angot
@@ -35,7 +36,7 @@ export default function ExerciceFractionsDecomposer () {
   this.sup2 = false
   this.sup3 = '11'
   this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-  this.besoinFormulaire3Texte = ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: mélange']
+  this.besoinFormulaire3Texte = ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

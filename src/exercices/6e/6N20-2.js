@@ -12,6 +12,7 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModificationImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 
 /**
  * Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.
@@ -29,7 +30,7 @@ export default function ExerciceFractionsDifferentesEcritures () {
   this.sup = false
   this.sup2 = '11'
   this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-  this.besoinFormulaire2Texte = ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: mélange']
+  this.besoinFormulaire2Texte = ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

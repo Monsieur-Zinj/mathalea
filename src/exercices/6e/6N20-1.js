@@ -1,7 +1,14 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint, rangeMinMax } from '../../modules/outils.js'
+import {
+  modalTexteCourt,
+  combinaisonListes,
+  listeQuestionsToContenu,
+  randint,
+  rangeMinMax,
+  gestionnaireFormulaireTexte, choice
+} from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -11,6 +18,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModificationImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadrer entre 2 entiers
@@ -29,25 +37,38 @@ export default function EncadrerFractionEntre2Entiers () {
   this.nbColsCorr = 1
   this.correctionDetailleeDisponible = true
   this.lycee = false
-  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+  context.isHtml
+    ? this.correctionDetaillee = true
+    : this.correctionDetaillee =
+    this.sup = false
+  this.sup2 = '11'
+  this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
+  this.besoinFormulaire2Texte = this.lycee
+    ? ['Dénominateurs à choisir (nombres séparés par des tirets', 'De 2 à 9\n10: mélange']
+    : ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.liste_de_denominateurs = this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions)
-    this.liste_de_k = this.lycee ? combinaisonListes(rangeMinMax(-5, 5), this.nbQuestions) : combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
+    const listeDenominateurs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 2, max: this.lycee ? 9 : 10, defaut: this.lycee ? 10 : 11, melange: this.lycee ? 10 : 11, nbQuestions: this.nbQuestions, exclus: this.lycee ? [] : [6, 7, 8, 9] })
+    this.liste_de_denominateurs = !this.sup ? this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions) : listeDenominateurs
+    const denominateursDifferents = new Set(this.liste_de_denominateurs)
+    const nbDenominateursDifferents = denominateursDifferents.size
+    const aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents) + 1
+
+    // this.liste_de_k = this.lycee ? combinaisonListes(rangeMinMax(-5, 5), this.nbQuestions) : combinaisonListes(rangeMinMax(0, aleaMax), this.nbQuestions)
     for (let i = 0, texte, texteCorr, n, d, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       d = this.liste_de_denominateurs[i]
-      k = this.liste_de_k[i]
+      k = this.lycee ? choice(rangeMinMax(-5, 5)) : choice(rangeMinMax(0, aleaMax))
       n = k * d + randint(1, d - 1)
       texte = this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$< \\dfrac{${n}}{${d}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') : `$\\ldots < \\dfrac{${n}}{${d}} < \\ldots$`
       texteCorr = `$${k} < \\dfrac{${n}}{${d}} < ${k + 1}$`
       if (this.correctionDetaillee) {
         texteCorr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
         texteCorr += '<br><br>'
-        texteCorr += mathalea2d({ xmin: -0.5, xmax: 24, ymax: 1.5, scale: 0.6 }, fraction(n, d).representation(0, 0, 3, 0, 'barre', 'blue')
-        )
+        const representation = fraction(n, d).representation(0, 0, 3, 0, 'barre', 'blue')
+        texteCorr += mathalea2d(Object.assign({}, fixeBordures(representation)), representation)
       }
 
       if (this.questionJamaisPosee(i, d, n)) {
@@ -100,10 +121,10 @@ export default function EncadrerFractionEntre2Entiers () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
+      } else {
+        cpt++
       }
-      cpt++
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
