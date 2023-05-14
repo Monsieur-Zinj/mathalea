@@ -309,6 +309,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           } else {
             texte += 'Donner l\'expression de  $f(x)$.' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           }
+          texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
             xmin,
