@@ -39,7 +39,7 @@ export default class ClasseCan2023 {
     }
     const a = randint(minFacteur0, maxFacteur0)
     const b = randint(minFacteur1, maxFacteur1)
-    sortie.texte = `$${a} \\times ${b}${context.isHtml ? '=' : ''}$`
+    sortie.texte = `$${a} \\times ${b}$`
     sortie.texteCorr = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`
     sortie.reponse = a * b
     sortie.canEnonce = sortie.texte
@@ -64,7 +64,7 @@ export default class ClasseCan2023 {
     const a = randint(23, 38, [20, 30, 31, 29])
     const b = choice([19, 29, 39])
 
-    sortie.texte = `$${a}+${b}${context.isHtml ? '=' : ''}$`
+    sortie.texte = `$${a}+${b}$`
     sortie.reponse = a + b
     if (b === 19) { sortie.texteCorr = `$${a}+${b}=${a}+20-1=${a + 20}-1=${miseEnEvidence(sortie.reponse)}$` }
     if (b === 29) { sortie.texteCorr = `$${a}+${b}=${a}+30-1=${a + 30}-1=${miseEnEvidence(sortie.reponse)}$` }
@@ -127,12 +127,12 @@ export default class ClasseCan2023 {
     if (choice([true, false])) {
       a = randint(11, 25, 20) * 2
       sortie.reponse = a / 2
-      sortie.texte = `La moitié de $${a}$${context.isHtml ? ' est : ' : ''}`
+      sortie.texte = `La moitié de $${a}$`
       sortie.texteCorr = `La moitié de $${a}$ est $${a}\\div 2=${miseEnEvidence(a / 2)}$.`
     } else {
       a = randint(16, 45, [20, 30, 40])
       sortie.reponse = 2 * a
-      sortie.texte = `Le double de $${a}$${context.isHtml ? ' est : ' : ''}`
+      sortie.texte = `Le double de $${a}$`
       sortie.texteCorr = `Le double  de $${a}$ est $${a}\\times 2=${miseEnEvidence(a * 2)}$.`
     }
     sortie.canEnonce = sortie.texte
@@ -236,7 +236,7 @@ export default class ClasseCan2023 {
     if (m === 1) {
       sortie.texte = texteQ6(18).texte
       sortie.canReponseACompleter = texteQ6(18).reponseACompleter
-      sortie.reponse = ['3;6', '1;18', '2;9']
+      sortie.reponse = ['3;6', '1;18', '2;9', '6;3', '18;1', '9;2']
       sortie.texteCorr = `Trois réponses possibles (avec des entiers) : <br>
     $${miseEnEvidence(3)}\\times ${miseEnEvidence(6)}=18$<br>
     $${miseEnEvidence(2)}\\times ${miseEnEvidence(9)}=18$<br>
@@ -245,7 +245,7 @@ export default class ClasseCan2023 {
     if (m === 2) {
       sortie.texte = texteQ6(21).texte
       sortie.canReponseACompleter = texteQ6(21).reponseACompleter
-      sortie.reponse = ['3;7', '1;21']
+      sortie.reponse = ['3;7', '1;21', '7;3', '21;1']
       sortie.texteCorr = `Deux réponses possibles (avec des entiers) : <br>
       $${miseEnEvidence(3)}\\times ${miseEnEvidence(7)}=21$<br>
       $${miseEnEvidence(1)}\\times ${miseEnEvidence(21)}=21$ `
@@ -253,7 +253,7 @@ export default class ClasseCan2023 {
     if (m === 3) {
       sortie.texte = texteQ6(35).texte
       sortie.canReponseACompleter = texteQ6(35).reponseACompleter
-      sortie.reponse = ['5;7', '1;35']
+      sortie.reponse = ['5;7', '1;35', '7;5', '35;1']
       sortie.texteCorr = `Deux réponses possibles (avec des entiers) : <br>
         $${miseEnEvidence(5)}\\times ${miseEnEvidence(7)}=35$<br>
         $${miseEnEvidence(1)}\\times ${miseEnEvidence(35)}=35$ `
@@ -261,7 +261,7 @@ export default class ClasseCan2023 {
     if (m === 4) {
       sortie.texte = texteQ6(42).texte
       sortie.canReponseACompleter = texteQ6(42).reponseACompleter
-      sortie.reponse = ['6;7', '1;42', '2;21', '3;14']
+      sortie.reponse = ['6;7', '1;42', '2;21', '3;14', '7;6', '42;1', '21;2', '14;3']
       sortie.texteCorr = `Quatre réponses possibles (avec des entiers) : <br>
             $${miseEnEvidence(6)}\\times ${miseEnEvidence(7)}=42$<br>
             $${miseEnEvidence(2)}\\times ${miseEnEvidence(21)}=42$ <br>
@@ -286,23 +286,25 @@ export default class ClasseCan2023 {
       canEnonce: '',
       canReponseACompleter: ''
     }
-    let a, b, c
+    let b, c
     if (choice([true, false])) {
-      a = randint(6, 10)
       b = choice([35, 40, 45, 50, 55])
       c = choice([30, 35, 40, 45])
-      sortie.texte = context.isHtml ? `$${b}\\text{ min }+${a} \\text{ h }${c} \\text{ min }=$` : `\\Temps{;;;;${b};}+ \\Temps{;;;${a};${c};}`
+      sortie.texte = context.isHtml ? `$${b}\\text{ min }+${c} \\text{ min }= \\ldots \\text{ h } \\ldots \\text{ min }$` : `\\Temps{;;;;${b};}+ \\Temps{;;;;${c};}`
       sortie.reponse = b + c - 60
-      sortie.texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
-          $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(sortie.reponse)}$ min.`
     } else {
-      a = randint(6, 10)
       b = choice([20, 25, 30, 35])
       c = choice([45, 50, 55])
-      sortie.texte = context.isHtml ? `$${b}\\text{ min }+${a} \\text{ h }${c} \\text{ min }=$` : `\\Temps{;;;;${b};}+ \\Temps{;;;${a};${c};}`
-      sortie.reponse = b + c - 60
-      sortie.texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(sortie.reponse)}$ min.`
+      sortie.texte = context.isHtml ? `$${b}\\text{ min }+${c} \\text{ min }=\\ldots \\text{ h } \\ldots \\text{ min }$` : `\\Temps{;;;;${b};}+ \\Temps{;;;;${c};}`
     }
+    if (b > c) {
+      sortie.texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
+        On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(sortie.reponse)}$ min.`
+    } else {
+      sortie.texteCorr = `De $${c} \\text{ min }$ pour aller à $1$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
+        On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(sortie.reponse)}$ min.`
+    }
+
     sortie.canEnonce = sortie.texte
     sortie.canReponseACompleter = '\\ldots{} h \\ldots{} min'
     return sortie
@@ -381,7 +383,7 @@ export default class ClasseCan2023 {
     sortie.reponse = b
     sortie.reponseUnite = taille1[a][3]
 
-    sortie.texte = `Choisis parmi les propositions suivantes la hauteur d'une ${taille1[a][0]}<br>`
+    sortie.texte = `Choisis parmi les propositions suivantes la hauteur d'une ${taille1[a][0]}.<br>`
     sortie.texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}`
     sortie.texteCorr = `La taille d'une ${taille1[a][0]} est $${miseEnEvidence(sortie.reponse)}$ ${sortie.reponseUnite}.`
     sortie.canEnonce = `Entoure parmi les propositions suivantes la hauteur d'une ${taille1[a][0]}`
@@ -627,10 +629,10 @@ export default class ClasseCan2023 {
     const nombre = 10 * nombreDeDizaines + nombreDUnites
     sortie.reponse = [`${nombreDeDizaines};${nombreDUnites}`]
     sortie.texte = `Complète : ${sp(3)}
-    $${texNombre(nombre, 0)}= \\ldots \\text{ dizaines } \\ldots \\text{ unités }$ `
+    $${texNombre(nombre, 0)}= \\ldots$ dizaines  $\\ldots$  unités`
     sortie.texteCorr = `$${texNombre(nombre, 0)} = ${miseEnEvidence(texNombre(nombreDeDizaines, 0))} \\text{ dizaines } ${miseEnEvidence(texNombre(nombreDUnites, 0))} \\text{ unités }$`
     sortie.canEnonce = 'Complète.'
-    sortie.canReponseACompleter = `$${texNombre(nombre, 0)}= \\ldots \\text{ dizaines } \\ldots \\text{ unités }$ `
+    sortie.canReponseACompleter = `$${texNombre(nombre, 0)}= \\ldots$  dizaines $\\ldots$  unités  `
     return sortie
   }
 
@@ -684,7 +686,7 @@ export default class ClasseCan2023 {
     const b = randint(4, 9)
     const c = a * b
     sortie.reponse = b
-    sortie.texte = `$${c}\\div ${a}=$`
+    sortie.texte = `$${c}\\div ${a}$`
     sortie.texteCorr = `$${c}\\div ${a}=${miseEnEvidence(sortie.reponse)}$`
     sortie.canEnonce = 'Complète.'
     sortie.canReponseACompleter = `$${c}\\div ${a} =\\ldots$`
@@ -773,7 +775,7 @@ export default class ClasseCan2023 {
       ymax = 5
       objets = []
       objets.push(
-        texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+        texteParPosition('1 ul', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
         a, s1, s2, s3)
       sortie.reponse = new FractionEtendue(2, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
@@ -806,7 +808,7 @@ export default class ClasseCan2023 {
       ymax = 5
       objets = []
       objets.push(
-        texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+        texteParPosition('1 ul', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
         a, s1, s2, s3, s4)
       sortie.reponse = new FractionEtendue(3, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
@@ -843,14 +845,14 @@ export default class ClasseCan2023 {
       ymax = 5
       objets = []
       objets.push(
-        texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+        texteParPosition('1 ul', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
         a, s1, s2, s3, s4, s5)
       sortie.reponse = new FractionEtendue(4, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
       sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $4$ carreaux, soit $\\dfrac{${miseEnEvidence(4)}}{${miseEnEvidence(b)}}$ u.l. `
     }
     sortie.canEnonce = sortie.texte
-    sortie.canReponseACompleter = '$\\ldots$ u.l.'
+    sortie.canReponseACompleter = '$\\ldots$ ul'
     return sortie
   }
 
@@ -871,7 +873,7 @@ export default class ClasseCan2023 {
     const b = 5 // randint(2, 7) * 100
 
     sortie.reponse = a * b
-    sortie.texte = ` $${a}\\times ${b}=$`
+    sortie.texte = ` $${a}\\times ${b}$`
     sortie.texteCorr = `$${a}\\times ${b}=${a}\\times 10 \\div 2=${a * 10}\\div 2=${miseEnEvidence(texNombre(sortie.reponse))}$`
     sortie.canEnonce = 'Complète.'
     sortie.canReponseACompleter = `$${a}\\times ${b} =\\ldots$`
@@ -918,7 +920,7 @@ export default class ClasseCan2023 {
     switch (type) {
       case 'premiere':
         sortie.reponse = vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure
-        sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}$ km/h. <br>Combien de kilomètres parcourt-elle en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
+        sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}$ km/h à vitesse constante. <br>Combien de kilomètres parcourt-elle en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
         sortie.texteCorr = `En $1$ h la voiture parcourt $${vitesseCommune.vitesse}$ km.<br>
         En $${vitesseCommune.nombreDeMinutes}$ minutes, elle parcourt $${vitesseCommune.diviseurDeLHeure}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${vitesseCommune.vitesse}}{${vitesseCommune.diviseurDeLHeure}}=
         ${miseEnEvidence(texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2))}$ km.`
@@ -927,7 +929,7 @@ export default class ClasseCan2023 {
       case 'seconde':{
         const d = randint(1, 3)
         sortie.reponse = d * vitesseCommune.vitesse + (vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse
-        sortie.texte = `Une voiture roule à  $${vitesseCommune.vitesse}$ km/h.<br> Combien de kilomètres parcourt-elle en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
+        sortie.texte = `Une voiture roule à  $${vitesseCommune.vitesse}$ km/h à vitesse constante.<br> Combien de kilomètres parcourt-elle en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
         sortie.texteCorr = `En $${d}$ h, elle parcourt $${d * vitesseCommune.vitesse}$ km.<br>
         En $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt $${texNombre((vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse, 2)}$ km.<br>
         Ainsi, en en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt donc $${miseEnEvidence(texNombre(sortie.reponse, 0))}$ km.`
@@ -935,7 +937,7 @@ export default class ClasseCan2023 {
       }
         break
     }
-    sortie.canEnonce = `Une voiture roule à $${vitesseCommune.vitesse}$ \\Vitesse{}.`
+    sortie.canEnonce = `Une voiture roule à la vitesse constante de $${vitesseCommune.vitesse}$ \\Vitesse{}.`
     return sortie
   }
 
