@@ -718,7 +718,7 @@
               : 'width: 0px;'} transition: width; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
             class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:h-[calc(100vh-7rem)] {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
-            <div id="choiceMenuWrapper" class="flex flex-col overflow-y-scroll overscroll-y-auto overflow-x-hidden">
+            <div id="choiceMenuWrapper" class="flex flex-col overflow-y-auto">
               <div class="print-hidden hidden lg:block absolute top-4 right-2">
                 <button
                   type="button"
@@ -737,7 +737,7 @@
                   updateFilters(e.detail)
                 }}
               />
-              <ul>
+              <ul class="overflow-y-auto overflow-x-hidden">
                 {#each arrayReferentielFiltre as item, i}
                   <li>
                     <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
