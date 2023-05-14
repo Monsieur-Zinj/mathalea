@@ -16,7 +16,7 @@
   import { isRecent } from "./utils/handleDate"
   import type { InterfaceReferentiel } from "src/lib/types"
   import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
-  import handleCapytale from "./utils/handleCapytale"
+  import handleCapytale from "../lib/handleCapytale"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true

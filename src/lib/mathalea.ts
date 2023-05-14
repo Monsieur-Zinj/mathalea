@@ -20,6 +20,7 @@ import renderScratch from './renderScratch.js'
 // @ts-ignore
 import { decrypt, isCrypted } from '../components/utils/urls.js'
 import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
+import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 
 function getExerciceStaticByUuid (uuid: string) {
   for (const examen in referentielStatic) {
@@ -239,6 +240,9 @@ export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
  * sauf si le store freezeUrl est à true (utile sur un site externe)
  */
 export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]) {
+  if (get(globalOptions).recorder === 'capytale') {
+    sendToCapytaleMathaleaHasChanged()
+  }
   if (get(freezeUrl) === true) return
   if (params === undefined) {
     params = get(exercicesParams)
