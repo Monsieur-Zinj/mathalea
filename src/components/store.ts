@@ -7,6 +7,11 @@ import type { InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice }
 export const freezeUrl = writable<Boolean>(false)
 
 /**
+ * Pour signaler que MathALÉA est dans une iframe
+ */
+export const isInIframe = writable<Boolean>(false)
+
+/**
  * exercicesParams est un tableau d'objets décrivant les exercices
  * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4, n}
  */
@@ -130,11 +135,6 @@ export function updateGlobalOptionsInURL (url: URL) {
       es += options.isInteractiveFree ? '1' : '0'
       url.searchParams.append('es', es)
     }
-    if (options.recorder) {
-      url.searchParams.append('recorder', options.recorder)
-    } else {
-      url.searchParams.delete('recorder')
-    }
     if (options.done) {
       url.searchParams.append('done', options.done)
     } else {
@@ -147,6 +147,11 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('answers')
     url.searchParams.delete('recorder')
     url.searchParams.delete('done')
+  }
+  if (options.recorder) {
+    url.searchParams.append('recorder', options.recorder)
+  } else {
+    url.searchParams.delete('recorder')
   }
   if (options.v === 'can' || options.v === 'diaporama') {
     if (selectedExexercicesStore) {

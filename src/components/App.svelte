@@ -5,7 +5,7 @@
   import Eleve from "./Eleve.svelte"
   import ConfigEleve from "./ConfigEleve.svelte"
   import Latex from "./Latex.svelte"
-  import {globalOptions} from "./store"
+  import {freezeUrl, globalOptions, isInIframe} from "./store"
   import {context} from "../modules/context"
   import {ElementButtonInstrumenpoche, ElementInstrumenpoche} from "../modules/ElementInstrumenpoche"
   import Amc from "./Amc.svelte"
@@ -15,6 +15,16 @@
   if (customElements.get("alea-instrumenpoche") === undefined) {
     customElements.define("alea-instrumenpoche", ElementInstrumenpoche)
     customElements.define("alea-buttoninstrumenpoche", ElementButtonInstrumenpoche)
+  }
+
+  // Est-ce que l'url contient &recorder
+  const url = new URL(window.location.href)
+  const recorder = url.searchParams.get("recorder")
+  if (recorder !== null) {
+    isInIframe.set(true)
+    freezeUrl.set(true)
+  } else {
+    isInIframe.set(false)
   }
   
   $: {

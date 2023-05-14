@@ -3,7 +3,7 @@
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Footer from "./Footer.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
@@ -413,7 +413,7 @@
               >
                 <i class="bx bx-slider bx-sm" />
               </button>
-
+              {#if !$isInIframe}
               <button
                 type="button"
                 on:click={() => {
@@ -425,6 +425,7 @@
               >
                 <i class="bx bx-export rotate-90 bx-sm" />
               </button>
+              {/if}
             </div>
             <!-- barre des boutons commandes (tous les boutons SETTINGS) ==> POUR < LG SEULEMENT -->
             <div
@@ -593,7 +594,6 @@
                     version="1.1"
                     id="svg507"
                     xmlns="http://www.w3.org/2000/svg"
-                    xmlns:svg="http://www.w3.org/2000/svg"
                     class="w-4 h-4 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
                   >
                     <defs id="defs504" />
@@ -657,7 +657,6 @@
                     version="1.1"
                     id="svg4191"
                     xmlns="http://www.w3.org/2000/svg"
-                    xmlns:svg="http://www.w3.org/2000/svg"
                     class="w-4 h-4 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest hover:stroke-coopmaths-action-lightest stroke-coopmaths-action dark:stroke-coopmathsdark-action dark:hover:stroke-coopmathsdark-action-lightest"
                   >
                     <defs id="defs4188" />
@@ -691,7 +690,6 @@
                     version="1.1"
                     id="svg2697"
                     xmlns="http://www.w3.org/2000/svg"
-                    xmlns:svg="http://www.w3.org/2000/svg"
                     class="w-6 h-6 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
                   >
                     <defs id="defs2694" />
@@ -877,6 +875,7 @@
                 {/if}
               </div>
               <!-- boutons d'exports -->
+              {#if !$isInIframe}
               <div class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 mt-4 xl:mt-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
                 <button
                   type="button"
@@ -948,7 +947,6 @@
                       version="1.1"
                       id="svg507"
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:svg="http://www.w3.org/2000/svg"
                       class="w-5 h-5 xl:w-7 xl:h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
                     >
                       <defs id="defs504" />
@@ -1022,7 +1020,6 @@
                       version="1.1"
                       id="svg4191"
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:svg="http://www.w3.org/2000/svg"
                       class="w-4 h-4 xl:w-7 xl:h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest hover:stroke-coopmaths-action-lightest stroke-coopmaths-action dark:stroke-coopmathsdark-action dark:hover:stroke-coopmathsdark-action-lightest"
                     >
                       <defs id="defs4188" />
@@ -1056,7 +1053,6 @@
                       version="1.1"
                       id="svg2697"
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:svg="http://www.w3.org/2000/svg"
                       class="w-6 h-6 xl:w-8 xl:h-8 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
                     >
                       <defs id="defs2694" />
@@ -1070,6 +1066,7 @@
                   </i>
                 </button>
               </div>
+              {/if}
             </div>
             <div class="flex-1 mt-2 lg:mt-24 xl:mt-12">
               {#each $exercicesParams as paramsExercice, i (paramsExercice)}
