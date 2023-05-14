@@ -86,7 +86,6 @@ export default function ExerciceFractionsDifferentesEcritures () {
         const num = randint(1, b - 1)
         let partieDecimale = num * 1000 / b // avec les 8e on a 3 chiffres, avec les 4 2...
         partieDecimale = ',' + partieDecimale.toString().match(/[1-9]+/g)[0]
-        console.log(partieDecimale)
         const a = n * b + randint(1, b - 1)
         if (fractions.filter((element) => element[0] === a && element[1] === b).length === 0) { // la fraction n'a pas encore été construite
           fractions.push([a, b, n, partieDecimale])
@@ -94,7 +93,6 @@ export default function ExerciceFractionsDifferentesEcritures () {
         } else {
           cpt++
         }
-        console.log(cpt)
       }
     }
     for (
@@ -118,6 +116,8 @@ export default function ExerciceFractionsDifferentesEcritures () {
       } else {
         a = fractions[i][0]
         b = fractions[i][1]
+        n = fractions[i][2]
+        c = a - n * b
         ed = fractions[i][2].toString() + fractions[i][3]
       }
       // enleveElement(fractions, fraction) // Il n'y aura pas 2 fois la même partie décimale
