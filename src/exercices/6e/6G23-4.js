@@ -287,7 +287,7 @@ export default function MesurerUnAngleAvecRapporteur () {
     }
   }
   this.besoinFormulaireNumerique = ['Position du rapporteur', 3, '1 : Horizontal\n2 : Vertical\n3 : Peu importe']
-  this.besoinFormulaire2Numerique = ['Taille du rapporteur', 12, 'Entre 7 et 12']
-  this.besoinFormulaire3Numerique = ['Nombre d\'angles à mesurer', 4, 'Entre 1 et 4']
+  this.besoinFormulaire2Numerique = ['Taille du rapporteur (entre 7 et 12)', 12]
+  this.besoinFormulaire3Numerique = ['Nombre d\'angles à mesurer (entre 1 et 4)', 4]
   this.besoinFormulaire4CaseACocher = ['Avec deux points symétriquement opposés']
 }
