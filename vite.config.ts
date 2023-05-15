@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/alea/',
   build: {
     target: 'es2015',
-    sourcemap: 'inline'
+    sourcemap: true
   },
   plugins: [
     svelte({
