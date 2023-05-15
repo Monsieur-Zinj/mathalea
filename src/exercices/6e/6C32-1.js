@@ -381,7 +381,7 @@ export default function ExerciceProblemesComplexes () {
             setReponse(this, indiceInteractif, min(nbP, nbD))
             texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
 
-            texte += 'Quel est le plus grand de ces deux nombres ?'
+            texte += '<br>Quel est le plus grand de ces deux nombres ?'
             setReponse(this, indiceInteractif, max(nbP, nbD))
             texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
           }
