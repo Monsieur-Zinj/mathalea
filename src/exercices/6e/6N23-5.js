@@ -1,5 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, calcul, choice, texNombre2 } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  texFraction,
+  calcul,
+  choice,
+  texNombre2,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
@@ -26,13 +34,13 @@ export default function SensDeLaFraction () {
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
+  this.sup = '5'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const typeDeQuestionsDisponibles = [1, 2, 3, 4]
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, nin: 1, max: 4, defaut: 5, melange: 5, nbQuestions: this.nbQuestions, shuffle: true })
 
     for (let i = 0, texte, texteCorr, a, b, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
@@ -203,7 +211,5 @@ export default function SensDeLaFraction () {
     listeQuestionsToContenu(this)
   }
 
-  // this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
+  this.besoinFormulaireTexte = ['Type de questions', '1: Le quotient de a par b\n2: Le nombre qui, multiplié par b, donne a\n3: a divisé par b\n4 Nombre décimal\n5: Mélange']
 }
