@@ -5467,7 +5467,11 @@
         "url": "6e/6C32-1.js",
         "titre": "Résoudre des problèmes (plus complexes)",
         "datePublication": "27/11/2022",
-        "tags": {}
+        "dateModification": "14/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "6C32": {
         "id": "6C32",
