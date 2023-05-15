@@ -431,7 +431,7 @@ export default class nomExercice extends Exercice {
               feedback: 'Non, cela peut être vrai (dans le cas d\'un carré) mais ce n\'est pas toujours le cas.'
             }
           ]
-          texteCorr = 'Un rectangle a un centre de symétrie qui est le point d\'intersection de ses diagonales et deux axes de symétrie qui sont les médiatrices de ses côtés.'
+          texteCorr = 'Un losange a un centre de symétrie qui est le point d\'intersection de ses diagonales et deux axes de symétrie qui sont ses diagonales.'
           break
         case 'losange5':
           texte = 'Si un quadrilatère est un losange alors...'
