@@ -33,14 +33,14 @@
 
   let headerExerciceProps: {
     title: string
-    // isInteractif: boolean
-    // correctionReady?: boolean
-    // randomReady?: boolean
-    // interactifReady?: boolean
+    isInteractif: boolean
+    correctionReady?: boolean
+    randomReady?: boolean
+    interactifReady?: boolean
   } = {
     title,
-    // isInteractif,
-    // interactifReady,
+    isInteractif,
+    interactifReady,
   }
 
   if ($globalOptions.recorder !== undefined) {
@@ -67,6 +67,7 @@
   }
 
   onMount(async () => {
+    console.log($globalOptions)
     document.addEventListener("newDataForAll", newData)
     document.addEventListener("setAllInteractif", setAllInteractif)
     document.addEventListener("removeAllInteractif", removeAllInteractif)
