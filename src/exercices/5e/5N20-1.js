@@ -115,7 +115,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
             if (ordreDesFractions === 1) {
               texte = `$${texFraction(a, b)}- ${n} \\times  ${texFraction(c, d)}$`
             } else {
-              texte = `$${texFraction(c, d)}- ${n} \\times  ${texFraction(a, b)}=$`
+              texte = `$${texFraction(c, d)}- ${n} \\times  ${texFraction(a, b)}$`
             }
 
             if (ordreDesFractions === 1) {
