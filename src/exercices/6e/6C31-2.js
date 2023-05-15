@@ -18,7 +18,6 @@ export const uuid = '013ef'
 export const ref = '6C31-2'
 export default function ValeurApprocheeDivisionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Compléter les phrases suivantes.'
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -36,7 +35,7 @@ export default function ValeurApprocheeDivisionDecimale () {
       const a = choice([3, 5, 7, 11, 13], [k1, k2]) * choice([3, 5, 7, 11, 13], [k1, k2])
       const b = k1 * k2
       const q = arrondi(a / b, 6)
-      texte = `On sait que $${a}\\div${b}\\approx${texNombre(q)}$.`
+      texte = `On sait que $${a}\\div${b}\\approx${texNombre(q)}$.<br>Compléter les phrases suivantes.`
       const listeDeQuestions1 = [
         [`La valeur approchée par défaut de $${a}\\div${b}$ au dixième près est : `, arrondi(a / b - 0.05, 1)],
         [`La valeur approchée par excès de $${a}\\div${b}$ au dixième près est : `, arrondi(a / b + 0.05, 1)],
