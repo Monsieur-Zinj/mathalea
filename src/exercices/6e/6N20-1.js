@@ -35,12 +35,9 @@ export default function EncadrerFractionEntre2Entiers () {
   this.nbQuestions = 6
   this.nbCols = 2
   this.nbColsCorr = 1
-  this.correctionDetailleeDisponible = true
-  this.lycee = false
-  context.isHtml
-    ? this.correctionDetaillee = true
-    : this.correctionDetaillee =
-    this.sup = false
+  this.correctionDetailleeDisponible = !this.lycee
+  this.correctionDetaillee =
+  this.sup = false
   this.sup2 = '11'
   this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
   this.besoinFormulaire2Texte = this.lycee
@@ -64,9 +61,9 @@ export default function EncadrerFractionEntre2Entiers () {
       n = k * d + randint(1, d - 1)
       texte = this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$< \\dfrac{${n}}{${d}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') : `$\\ldots < \\dfrac{${n}}{${d}} < \\ldots$`
       texteCorr = `$${k} < \\dfrac{${n}}{${d}} < ${k + 1}$`
-      if (this.correctionDetaillee) {
-        texteCorr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
-        texteCorr += '<br><br>'
+      texteCorr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
+      texteCorr += '<br><br>'
+      if (this.correctionDetaillee && !this.lycee && context.isHtml) {
         const representation = fraction(n, d).representation(0, 0, 3, 0, 'barre', 'blue')
         texteCorr += mathalea2d(Object.assign({}, fixeBordures(representation)), representation)
       }

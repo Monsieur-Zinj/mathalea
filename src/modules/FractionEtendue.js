@@ -965,12 +965,12 @@ class FractionEtendue extends Fraction {
     } else {
       let diviseur
       if (this.denIrred % 6 === 0) { diviseur = 6 } else if (this.denIrred % 5 === 0) { diviseur = 5 } else if (this.denIrred % 4 === 0) { diviseur = 4 } else if (this.denIrred % 3 === 0) { diviseur = 3 } else if (this.denIrred % 2 === 0) { diviseur = 2 } else { diviseur = 1 }
-
+      const tailleCarres = Math.max(rayon / diviseur, 1)
       for (k = 0; k < n; k++) {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
-            O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
-            C = translation(O, vecteur(rayon / diviseur, 0))
+            O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+            C = translation(O, vecteur(tailleCarres, 0))
             dep = carre(O, C, 'black')
 
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
@@ -983,16 +983,16 @@ class FractionEtendue extends Fraction {
       if (num > 0) {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
-            O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
-            C = translation(O, vecteur(rayon / diviseur, 0))
+            O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+            C = translation(O, vecteur(tailleCarres, 0))
             dep = carre(O, C, 'black')
 
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
-          O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
-          C = translation(O, vecteur(rayon / diviseur, 0))
+          O = point(x + k * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
+          C = translation(O, vecteur(tailleCarres, 0))
           dep = carre(O, C, 'black')
 
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
@@ -1113,12 +1113,12 @@ class FractionEtendue extends Fraction {
     } else { // Type barre
       let diviseur
       if (this.den % 6 === 0) { diviseur = 6 } else if (this.den % 5 === 0) { diviseur = 5 } else if (this.den % 4 === 0) { diviseur = 4 } else if (this.den % 3 === 0) { diviseur = 3 } else if (this.den % 2 === 0) { diviseur = 2 } else { diviseur = 1 }
-
+      const tailleCarres = Math.max(rayon / diviseur, 1)
       for (k = 0; k < n; k++) {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < arrondi(this.den / diviseur); h++) {
-            O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
-            C = translation(O, vecteur(rayon / diviseur, 0))
+            O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+            C = translation(O, vecteur(tailleCarres, 0))
             dep = carre(O, C, 'black')
 
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
@@ -1131,16 +1131,16 @@ class FractionEtendue extends Fraction {
       if (num > 0) {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < arrondi(this.den / diviseur); h++) {
-            O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
-            C = translation(O, vecteur(rayon / diviseur, 0))
+            O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+            C = translation(O, vecteur(tailleCarres, 0))
             dep = carre(O, C, 'black')
 
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
-          O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
-          C = translation(O, vecteur(rayon / diviseur, 0))
+          O = point(x + k * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
+          C = translation(O, vecteur(tailleCarres, 0))
           dep = carre(O, C, 'black')
 
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
