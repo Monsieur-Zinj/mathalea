@@ -60,7 +60,7 @@
 
 <div class="z-0 flex-1">
   <h1
-    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between items-end xl:items-baseline"
+    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
   >
     <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center" id="exercice{indiceExercice}">
       <div class="flex font-bold text-sm md:text-base lg:text-xl">
