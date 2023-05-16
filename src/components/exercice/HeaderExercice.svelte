@@ -60,14 +60,14 @@
 
 <div class="z-0 flex-1">
   <h1
-    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center"
+    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between items-end xl:items-baseline"
   >
-    <div class="flex flex-col lg:flex-row lg:justify-start lg:items-center" id="exercice{indiceExercice}">
-      <div class="flex font-bold text-xl md:text-lg">
+    <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center" id="exercice{indiceExercice}">
+      <div class="flex font-bold text-sm md:text-base lg:text-xl">
         Exercice&#8239;{indiceExercice + 1}
       </div>
-      <div class="flex font-normal text-lg lg:text-normal">
-        <div><span class="invisible lg:visible mx-1 font-bold">&middot;</span>{title}</div>
+      <div class="flex font-normal text-sm md:text-base xl:text-lg pl-2">
+        <div><span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{title}</div>
       </div>
     </div>
     <div class="print-hidden flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1">
