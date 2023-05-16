@@ -1,4 +1,5 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
@@ -18,13 +19,13 @@ export default function Variationsapartirtableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.video = '' // Id YouTube ou url
-  this.listePackages = ['tkz-tab']
+  this.listePackages = ['tkz-tab']//, 'tkz-fct', 'tkz-euclide'
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5']//
+    const typeQuestionsDisponibles = ['type1']//, 'type2', 'type3', 'type4', 'type5'
     this.nbQuestionsModifiable = true
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, ligne1, a1, a2, a3, a4, x1, x2, x3, y1, y2, y3, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -65,26 +66,30 @@ export default function Variationsapartirtableau () {
           }))
           texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$,<br> `
           texteCorr += ` $${a1}\\in[${x1};${x2}]$, $${a2}\\in[${x1};${x2}]$, avec $${a1}<${a2}$.<br>`
-          // ligne1 = ['Var', 10, `-/$${y1}$`, 10, 't/', 10, 't/$f($x{2})$', 10, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
+          if (context.isHtml) {
+            ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] 
+            texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+              tabInit: [
+                [['$x$', 2, 10], ['$f(x)$', 4, 50]], [`$${x1}$`, 20, `$${x2}$`, 20, `$${x3}$`, 20]
+              ],
+              ['Val',`$f(${x1})$`, `$${x1}$`, 0.3, 'antécédent', 'image', long= 0.5],
+              tabLines: [ligne1],
+              colorBackground: '',
+              espcl: 1, // taille en cm entre deux antécédents
+              deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+              lgt: 3, // taille de la première colonne en cm
+              hauteurLignes: [15, 15]              
+            }))
+          } else {
+            texteCorr += `<br>\\begin{tikzpicture}%[scale=0.6]
+           \\tkzTabInit[lgt=1.5,espcl=5]{$x$/1,$f(x)$/2}{$${x1}$,$${x2}$,$${x3}$}
+            \\tkzTabVar{-/$${y1}$,+/$${y2}$,-/$${y3}$}
+            \\tkzTabVal[draw]{1}{2}{0.3}{$${a1}$}{$f(${a1})$}
+            \\tkzTabVal[draw]{1}{2}{0.6}{$${a2}$}{$f(${a2})$}
+         \\end{tikzpicture}<br><br>`
+          }
 
-          // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          // texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-          //   tabInit: [
-          //     [
-          // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-          //    ['$x$', 2, 10], ['$f(x)$', 4, 30]
-          //   ],
-          // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-          //    [`$${x1}$`, 10, `$${a1}$`, 10, `$${a2}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10]
-          //  ],
-          // tabLines ci-dessous contient les autres lignes du tableau.
-          //  tabLines: [ligne1], colorBackground: '',  espcl: 3.5, // taille en cm entre deux antécédents
-          // deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-          // lgt: 3, // taille de la première colonne en cm
-          //   hauteurLignes: [15, 15]
-          // }))
-
-          texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$,'
+          texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, '
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
           texteCorr += 'Cela signifie que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
           texteCorr += 'si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br><br>'
