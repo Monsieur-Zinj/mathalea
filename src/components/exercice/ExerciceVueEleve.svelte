@@ -33,28 +33,28 @@
 
   let headerExerciceProps: {
     title: string
-    isInteractif: boolean
-    correctionReady?: boolean
-    randomReady?: boolean
-    interactifReady?: boolean
+    // isInteractif: boolean
+    // correctionReady?: boolean
+    // randomReady?: boolean
+    // interactifReady?: boolean
   } = {
     title,
-    isInteractif,
-    interactifReady,
+    // isInteractif,
+    // interactifReady,
   }
 
   if ($globalOptions.recorder !== undefined) {
-    headerExerciceProps.randomReady = false
+    // headerExerciceProps.randomReady = false
     interactifReady = false
   }
 
   $: {
     if (isInteractif && buttonScore) initButtonScore()
 
-    if (!$globalOptions.isSolutionAccessible) {
-      headerExerciceProps.correctionReady = false
-      headerExerciceProps.randomReady = false
-    }
+    // if (!$globalOptions.isSolutionAccessible) {
+    //   headerExerciceProps.correctionReady = false
+    //   headerExerciceProps.randomReady = false
+    // }
     // headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps = headerExerciceProps
   }
@@ -67,7 +67,6 @@
   }
 
   onMount(async () => {
-    console.log($globalOptions)
     document.addEventListener("newDataForAll", newData)
     document.addEventListener("setAllInteractif", setAllInteractif)
     document.addEventListener("removeAllInteractif", removeAllInteractif)
@@ -296,7 +295,7 @@
           <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
         </button>
         <button
-          class="w-5 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && headerExerciceProps.interactifReady ? '' : 'hidden'}"
+          class="w-5 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && exercice.interactifReady ? '' : 'hidden'}"
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={() => {
