@@ -71,9 +71,10 @@ export default function Determinerfonctionaffine () {
               texteCorr += `On a donc : $f(x)=${b}$`
             } else {
               texteCorr += 'On en déduit que la fonction $f$ s\'écrit sous la forme : '
-              texteCorr += `   $f(x)=${m.texFraction} x +b.$<br>`
-              texteCorr += `${texteGras('Remarque : ')}On obtient $b$ en utilisant (au choix)   une des deux données de l'énoncé, par exemple $f(${a})=${b}$.<br>`
-              texteCorr += `Comme $f(x)=${m.texFraction}x +b$, alors $f(${a})=${m.texFraction}\\times ${a}+b$, soit $f(${a})=${m.texFraction * a}+b$. On en déduit :<br>`
+              texteCorr += `   $f(x)=${rienSi1(m.texFraction)} x +b.$<br>`
+              texteCorr += `${texteGras('Remarque : ')}On obtient $b$ en utilisant (au choix) une des deux données de l'énoncé, par exemple $f(${a})=${b}$.<br>`
+              texteCorr += `Comme $f(x)=${rienSi1(m.texFraction)}x +b$, alors $f(${a})=
+              ${abs((b - d) / (a - c)) === 1 ? `${m.texFraction * a}+b` : `${m.texFraction}\\times${a}+b=${m.texFraction * a}+b`}$ . On en déduit :<br>`
               texteCorr += `$\\begin{aligned}f(${a})=${b}&\\iff ${m.texFraction * a}+b=${b}\\\\`
               texteCorr += `&\\iff b=${b - m.texFraction * a}\\\\`
               texteCorr += '\\end{aligned}$<br>'
@@ -126,7 +127,7 @@ export default function Determinerfonctionaffine () {
             } else {
               texteCorr += `On en déduit que la fonction $f$ s'écrit sous la forme : $f(x)=${texFractionReduite(b - d, a - c)}x +b.$<br>`
               texteCorr += `${texteGras('Remarque : ')}On obtient $b$ en utilisant (au choix)   une des deux données de l'énoncé, par exemple $f(${a})=${b}$.<br>`
-              texteCorr += `Comme $f(x)=${texFractionReduite(b - d, a - c)}x +b$, alors $f(${a})=${texFractionReduite(b - d, a - c)}\\times ${a}+b$, soit $f(${a})=${texFractionReduite((b - d) * a, a - c)}+b$. On en déduit :<br>`
+              texteCorr += `Comme $f(x)=${texFractionReduite(b - d, a - c)}x +b$, alors $f(${a})=${texFractionReduite(b - d, a - c)}\\times ${a}+b=${texFractionReduite((b - d) * a, a - c)}+b$. On en déduit :<br><br>`
               texteCorr += `$\\begin{aligned}f(${a})=${b}&\\iff ${texFractionReduite((b - d) * a, a - c)}+b=${b}\\\\`
               texteCorr += `&\\iff b=${b} ${((b - d) * a) * (a - c) > 0 ? `${texFractionReduite((b - d) * a * (-1), a - c)}` : `+${texFractionReduite(abs((b - d) * a), abs(a - c))}`}\\\\`
               texteCorr += `&\\iff b=${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}\\\\`
@@ -181,7 +182,7 @@ export default function Determinerfonctionaffine () {
               texteCorr += 'On en déduit que la fonction $f$ s\'écrit sous la forme : '
               texteCorr += `   $f(x)=${texFractionReduite(b - d, a - c)}x +b.$<br>`
               texteCorr += `${texteGras('Remarque : ')}On obtient $b$ en utilisant (au choix)   une des deux données de l'énoncé, par exemple $f(${a})=${b}$.<br>`
-              texteCorr += `Comme $f(x)=${texFractionReduite(b - d, a - c)}x +b$, alors $f(${a})=${texFractionReduite(b - d, a - c)}\\times ${a}+b$, soit $f(${a})=${texFractionReduite((b - d) * a, a - c)}+b$. On en déduit :<br>`
+              texteCorr += `Comme $f(x)=${texFractionReduite(b - d, a - c)}x +b$, alors $f(${a})=${texFractionReduite(b - d, a - c)}\\times ${a}+b=${texFractionReduite((b - d) * a, a - c)}+b$. On en déduit :<br><br>`
               texteCorr += `$\\begin{aligned}f(${a})=${b}&\\iff ${texFractionReduite((b - d) * a, a - c)}+b=${b}\\\\`
               texteCorr += `&\\iff b=${b} ${((b - d) * a) * (a - c) > 0 ? `${texFractionReduite((b - d) * a * (-1), a - c)}` : `+${texFractionReduite(abs((b - d) * a), abs(a - c))}`}\\\\`
               texteCorr += `&\\iff b=${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}\\\\`
