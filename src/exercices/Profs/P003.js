@@ -4,6 +4,8 @@ import { listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Tracer des droites graduées'
+export const ref = 'P003'
+export const uuid = 'ad5f5'
 
 /**
  * Pour imprimer des repères vierges pour les élèves.

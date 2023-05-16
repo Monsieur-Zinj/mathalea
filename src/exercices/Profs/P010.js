@@ -4,6 +4,8 @@ import { reduirePolynomeDegre3, calcul, texFractionSigne, fractionSimplifiee, li
 import { repere, courbe, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Étude de fonctions de degré 3'
+export const ref = 'P010'
+export const uuid = '691a8'
 
 /**
  * tableau de variation d'une fonction et tracé de la courbe (polynomes de degré <= 3)

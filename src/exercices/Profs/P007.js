@@ -6,6 +6,8 @@ import { texteParPosition } from '../../modules/2d.js'
 import { pavage } from '../../modules/Pavage.js'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
+export const ref = 'P007'
+export const uuid = 'ad5f8'
 
 /**
  * Outil de création de pavages pour le prof

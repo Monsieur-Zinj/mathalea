@@ -5,6 +5,8 @@ import { arrondi, troncature, calcul, choisitLettresDifferentes } from '../../mo
 import { point, segment, droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
+export const ref = 'P006'
+export const uuid = 'bd5f7'
 
 /**
  * Fonction permettant aux enseignants de proposer rapidement un axe avec zooms pour placer un décimal

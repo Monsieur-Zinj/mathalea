@@ -20,6 +20,7 @@ let errors = ''
 
 const json = readFileSync('tasks/emptyRef2022.json')
 const dictionnaire = JSON.parse(json)
+const dictionnaireProfs = {}
 
 /**
  * On gère les niveaux classiques avec seulement un sous-répertoire
@@ -112,6 +113,49 @@ async function handleCanLevels () {
 }
 
 /**
+ * On gère les ressources du répertoires exercices/Profs
+ */
+async function handleProfs () {
+  const dir = path.join('./src', 'exercices', 'profs')
+  const files = fs.readdirSync(dir)
+  for await (const file of files) {
+    let url = path.join(dir, file)
+    /** On ignore les fichiers qui commencent par _ qui sont des méta-exercices */
+    if (fs.statSync(url).isDirectory() || file.charAt(0) === '_') continue
+    url = path.join('../', url).replaceAll('\\', '/')
+    try {
+      const { titre, dateDePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
+      url = url.replace('../src/exercices/', '')
+      url = url.replace('..\\src\\exercices\\', '')
+      if (uuid === undefined) {
+        console.log(`${url} n'a pas de uuid, il faut l'ajouter. Faites pnpm getUuid pour obtenir un UUID disponible`)
+        continue
+      } else {
+        if (uuid in uuidUrls) {
+          errors += `\nUUID : ${uuid} en doublon !!!!\n`
+        }
+        uuidUrls[uuid] = url
+      }
+      if (ref === undefined) {
+        console.log(`${url} n'a pas de ref, il faut l'ajouter`)
+        continue
+      }
+      if (titre === undefined) {
+        console.log(`${url} n'a pas de titre, il faut l'ajouter.`)
+        continue
+      }
+      if (ref !== undefined && uuid !== undefined) {
+        refToUuid[ref] = uuid
+      }
+      dictionnaireProfs[ref] = { id: ref, uuid, url, titre, datePublication: dateDePublication, dateModification: dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
+    } catch (error) {
+      console.log(error)
+      errors = error + '\n'
+    }
+  }
+}
+
+/**
  * Le rangement des exercices dans une catégorie suit une règle par rapport au nom du fichier
  * mais cette règle dépend, hélas, des niveaux
  */
@@ -147,10 +191,12 @@ function categoryCanByNiveau (niveau, ref) {
 
 await handleLevels()
 await handleCanLevels()
+await handleProfs()
 console.log(errors)
 
 const uuidUrlsAvecRessources = { ...uuidsRessources, ...uuidUrls }
 
 fs.writeFileSync(path.join('./src', 'json', 'referentiel2022.json'), JSON.stringify(dictionnaire, null, 2).replaceAll('"c3"', '"CM1/CM2"'))
+fs.writeFileSync(path.join('./src', 'json', 'referentielProfs.json'), JSON.stringify(dictionnaireProfs, null, 2))
 fs.writeFileSync(path.join('./src', 'json', 'uuidsToUrl.json'), JSON.stringify(uuidUrlsAvecRessources, null, 2))
 fs.writeFileSync(path.join('./src', 'json', 'refToUuid.json'), JSON.stringify(refToUuid, null, 2))

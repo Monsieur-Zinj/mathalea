@@ -1,0 +1,65 @@
+{
+  "P003": {
+    "id": "P003",
+    "uuid": "ad5f5",
+    "url": "profs/P003.js",
+    "titre": "Tracer des droites graduées",
+    "tags": {}
+  },
+  "P004": {
+    "id": "P004",
+    "uuid": "ad5f6",
+    "url": "profs/P004.js",
+    "titre": "Droites graduées avec zoom",
+    "tags": {}
+  },
+  "P005": {
+    "id": "P005",
+    "uuid": "ad5f7",
+    "url": "profs/P005.js",
+    "titre": "Grilles décimales",
+    "tags": {}
+  },
+  "P006": {
+    "id": "P006",
+    "uuid": "bd5f7",
+    "url": "profs/P006.js",
+    "titre": "Placer un nombre décimal avec des zooms successifs",
+    "tags": {}
+  },
+  "P007": {
+    "id": "P007",
+    "uuid": "ad5f8",
+    "url": "profs/P007.js",
+    "titre": "Fabriquer des pavages pour travailler les transformations",
+    "tags": {}
+  },
+  "P008": {
+    "id": "P008",
+    "uuid": "691a6",
+    "url": "profs/P008.js",
+    "titre": "Opérations posées",
+    "tags": {}
+  },
+  "P009": {
+    "id": "P009",
+    "uuid": "691a7",
+    "url": "profs/P009.js",
+    "titre": "Simulation d'expériences aléatoires",
+    "tags": {}
+  },
+  "P010": {
+    "id": "P010",
+    "uuid": "691a8",
+    "url": "profs/P010.js",
+    "titre": "Étude de fonctions de degré 3",
+    "tags": {}
+  },
+  "P011": {
+    "id": "P011",
+    "uuid": "697a7",
+    "url": "profs/P011.js",
+    "titre": "Construis mon triangle",
+    "tags": {}
+  }
+}

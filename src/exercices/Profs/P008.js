@@ -2,6 +2,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 export const titre = 'Opérations posées'
+export const ref = 'P008'
+export const uuid = '691a6'
 
 /**
  * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.

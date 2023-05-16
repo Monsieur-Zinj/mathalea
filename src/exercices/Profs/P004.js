@@ -4,6 +4,8 @@ import { randint, troncature, calcul, choisitLettresDifferentes } from '../../mo
 import { point, segment, droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Droites graduées avec zoom'
+export const ref = 'P004'
+export const uuid = 'ad5f6'
 
 /**
  * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom

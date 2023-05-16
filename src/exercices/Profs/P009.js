@@ -5,6 +5,8 @@ import { fraction } from '../../modules/fractions.js'
 import { repere, traceBarre } from '../../modules/2d.js'
 
 export const titre = 'Simulation d\'expériences aléatoires'
+export const ref = 'P009'
+export const uuid = '691a7'
 
 /**
  * Reconnaître une fonction affine

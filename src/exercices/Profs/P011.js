@@ -5,6 +5,8 @@ import Alea2iep from '../../modules/Alea2iep.js'
 import { contraindreValeur, Triangles } from '../../modules/outils.js'
 
 export const titre = 'Construis mon triangle'
+export const ref = 'P011'
+export const uuid = '697a7'
 
 export default function ConstruisMonTriangle () {
   Exercice.call(this)

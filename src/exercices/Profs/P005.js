@@ -3,6 +3,8 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { point, segment, polygone, carre, grille, lignesHorizontales, texteParPosition, lignesVerticales } from '../../modules/2d.js'
 
 export const titre = 'Grilles décimales'
+export const ref = 'P005'
+export const uuid = 'ad5f7'
 
 /**
  * Fonction permettant aux enseignants de proposer des grilles décimale à colorier

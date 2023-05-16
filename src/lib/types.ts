@@ -10,6 +10,7 @@ export interface InterfaceReferentiel { uuid: string, id: string, url: string, t
 
 export interface InterfaceResultExercice {numberOfPoints: number, numberOfQuestions: number, uuid?: string, title?: string, alea?: string, answers?: string[]}
 
+// Pour Capytale
 export interface Activity {globalOptions: InterfaceGlobalOptions, exercicesParams: InterfaceParams[]}
 
 export interface StudentAssignement {resultsByExercice: InterfaceResultExercice[]}
