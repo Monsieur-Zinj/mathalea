@@ -4,6 +4,7 @@
   import Footer from "./Footer.svelte"
   import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe } from "./store"
   import referentiel from "../json/referentielProfs.json"
+  import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
   import EntreeListeOutils from "./outils/EntreeListeOutils.svelte"
@@ -12,6 +13,7 @@
   //   const entrees = toMap(referentiel)
   let isMenuOpen: boolean = true
   let arrayReferentiel = []
+  let divExercices: HTMLDivElement
   for (const [key, value] of Object.entries(referentiel)) {
     arrayReferentiel.push(value)
   }
@@ -47,5 +49,36 @@
       <NavBarV2 subtitle="Outils pour la classe" subtitleType="design" />
     </div>
   {/if}
-  <SideMenuOutils referentiel={arrayReferentiel} />
+  <div class="flex flex-row w-full">
+    <div class="w-2/12">
+      <SideMenuOutils referentiel={arrayReferentiel} />
+    </div>
+    <div class="w-10/12">
+      {#if $exercicesParams.length !== 0}
+        <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full min-h-[calc(100vh-7rem)] overflow-y-auto" bind:this={divExercices}>
+          <div class="flex-1 mt-2 lg:mt-24 xl:mt-12">
+            {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+              <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+                <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+              </div>
+            {/each}
+          </div>
+          <Footer />
+        </div>
+      {:else}
+        <div class="relative flex flex-col h-[calc(100vh-7em)] justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus lg:px-10 py-6 lg:py-40">
+          <div class="animate-pulse h-full flex flex-col lg:flex-row justify-start space-x-6 items-center">
+            <div class="mt-[10px]">
+              <div class="hidden lg:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
+              <div class="inline-flex lg:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+            </div>
+            <div class="font-extralight text-[50px]">Sélectionner les outils</div>
+          </div>
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
+            <Footer />
+          </div>
+        </div>
+      {/if}
+    </div>
+  </div>
 </div>

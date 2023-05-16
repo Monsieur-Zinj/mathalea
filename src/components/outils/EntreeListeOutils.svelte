@@ -1,7 +1,5 @@
 <script lang="ts">
   import { exercicesParams } from "../store"
-  import { isRecent } from "../utils/handleDate"
-
   import renderMathInElement from "katex/dist/contrib/auto-render.js"
 
   export let outil
@@ -49,12 +47,15 @@
    * Ajouter l'outil courant à la liste
    */
   function addToList() {
+    console.log(outil)
     const newExercise = {
       url: outil.url,
       id: outil.id,
       uuid: outil.uuid,
     }
     exercicesParams.update((list) => [...list, newExercise])
+    console.log("from add :")
+    console.log($exercicesParams)
   }
   /**
    * Retirer l'outil de la liste (si plusieurs occurences
@@ -63,6 +64,8 @@
   function removeFromList() {
     let matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
+    console.log("from remove :")
+    console.log($exercicesParams)
   }
 
   /*--------------------------------------------------------------
