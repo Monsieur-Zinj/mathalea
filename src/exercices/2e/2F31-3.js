@@ -1,16 +1,18 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Comparaison d\'images dans un tableau de variations'
-
+export const interactifReady = true
+export const interactifType = 'qcm'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '17/05/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**
  * Description didactique de l'exercice
- * @author Stéphane Guyon
+ * @author Stéphane Guyon modif Gilles Mora
  * Référence 2F31-3
  */
 export const uuid = 'c705b'
@@ -25,7 +27,7 @@ export default function Variationsapartirtableau () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeQuestionsDisponibles = ['type2']//, 'type2', 'type3', 'type4', 'type5'
+    const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5']//
     this.nbQuestionsModifiable = true
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, ligne1, a1, a2, a3, a4, x1, x2, x3, y1, y2, y3, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -67,8 +69,7 @@ export default function Variationsapartirtableau () {
           texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$,<br> `
           texteCorr += ` $${a1}\\in[${x1};${x2}]$, $${a2}\\in[${x1};${x2}]$, avec $${a1}<${a2}$.<br>`
           if (context.isHtml) {
-            ligne1 = ['Var', 30, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`,30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
+            ligne1 = ['Var', 5, `-/$${y1}$`, 5, 't/', 5, 't/', 5, `+/$${y2}$`, 5, `-/$${y3}$`, 5]
             // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
             texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 50, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
               tabInit: [
@@ -77,14 +78,14 @@ export default function Variationsapartirtableau () {
                   ['$x$', 2, 10], ['$f(x)$', 4, 10]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                [`$${x1}$`, 30, `$${x2}$`, 30, `$${x3}$`,30],
-                ['Val', 1, 2, 0.3, `$${x1}$`, `$f(${x1})$`, 0.5]
+                [`$${x1}$`, 5, `$${a1}$`, 5, `$${a2}$`, 5, `$${x2}$`, 5, `$${x3}$`, 5]
+                // ['Val', 1, 2, 0.3, `$${x1}$`, `$f(${x1})$`, 0.5]
               ],
               // long=0.5
               // tabLines ci-dessous contient les autres lignes du tableau.
               tabLines: [ligne1],
               colorBackground: '',
-              espcl: 0.5, // taille en cm entre deux antécédents
+              espcl: 3, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 3, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
@@ -97,7 +98,27 @@ export default function Variationsapartirtableau () {
             \\tkzTabVal[draw]{1}{2}{0.6}{$${a2}$}{$f(${a2})$}
          \\end{tikzpicture}<br><br>`
           }
-
+          if (this.interactif) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `${choice([true, false]) ? `$f(${a2}) > f(${a1})$` : `$f(${a1}) < f(${a2})$`}`,
+                  statut: true
+                },
+                {
+                  texte: `${choice([true, false]) ? `$f(${a1}) > f(${a2})$` : `$f(${a2}) < f(${a1})$`}`,
+                  statut: false
+                },
+                {
+                  texte: 'On ne peut pas savoir',
+                  statut: false
+                }
+              ]
+            }
+            texte += propositionsQcm(this, i).texte
+          }
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, '
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
           texteCorr += 'Cela signifie que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
@@ -116,12 +137,12 @@ export default function Variationsapartirtableau () {
                 ['$x$', 2, 10], ['$f(x)$', 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-              [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10],
+              [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10]
             ],
             // tabLines ci-dessous contient les autres lignes du tableau.
             tabLines: [ligne1],
             colorBackground: '',
-            espcl: 3.5, // taille en cm entre deux antécédents
+            espcl: 2, // taille en cm entre deux antécédents
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
@@ -129,24 +150,54 @@ export default function Variationsapartirtableau () {
 
           texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$,<br> `
           texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$, avec $${a3}<${a4}$.<br>`
-          ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, 't/$f($x{2})$', 10, 't/', 10, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-            tabInit: [
-              [
+          if (context.isHtml) {
+            ligne1 = ['Var', 5, `-/$${y1}$`, 5, `+/$${y2}$`, 5, 't/', 5, 't/', 5, `-/$${y3}$`, 5] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
+            texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+              tabInit: [
+                [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 2, 10], ['$f(x)$', 3, 50]
+                  ['$x$', 2, 10], ['$f(x)$', 3, 50]
+                ],
+                // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                [`$${x1}$`, 5, `$${x2}$`, 5, `$${a3}$`, 5, `$${a4}$`, 5, `$${x3}$`, 5]
               ],
-              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-              [`$${x1}$`, 10, `$${x2}$`, 10, `$${a3}$`, 10, `$${a4}$`, 10, `$${x3}$`, 10]
-            ],
-            // tabLines ci-dessous contient les autres lignes du tableau.
-            tabLines: [ligne1],
-            colorBackground: '',
-            espcl: 3.5, // taille en cm entre deux antécédents
-            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-            lgt: 3, // taille de la première colonne en cm
-            hauteurLignes: [15, 15]
-          }))
+              // tabLines ci-dessous contient les autres lignes du tableau.
+              tabLines: [ligne1],
+              colorBackground: '',
+              espcl: 3.5, // taille en cm entre deux antécédents
+              deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+              lgt: 3, // taille de la première colonne en cm
+              hauteurLignes: [15, 15]
+            }))
+          } else {
+            texteCorr += `<br>\\begin{tikzpicture}%[scale=0.6]
+           \\tkzTabInit[lgt=1.5,espcl=5]{$x$/1,$f(x)$/2}{$${x1}$,$${x2}$,$${x3}$}
+            \\tkzTabVar{-/$${y1}$,+/$${y2}$,-/$${y3}$}
+            \\tkzTabVal[draw]{2}{3}{0.3}{$${a3}$}{$f(${a4})$}
+            \\tkzTabVal[draw]{2}{3}{0.6}{$${a3}$}{$f(${a4})$}
+         \\end{tikzpicture}<br><br>`
+          }
+          if (this.interactif) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `${choice([true, false]) ? `$f(${a3}) > f(${a4})$` : `$f(${a4}) < f(${a3})$`}`,
+                  statut: true
+                },
+                {
+                  texte: `${choice([true, false]) ? `$f(${a3}) < f(${a4})$` : `$f(${a4}) > f(${a3})$`}`,
+                  statut: false
+                },
+                {
+                  texte: 'On ne peut pas savoir',
+                  statut: false
+                }
+              ]
+            }
+            texte += propositionsQcm(this, i).texte
+          }
           texteCorr += 'On sait que si une fonction est décroissante sur un intervalle $[a;b]$, '
           texteCorr += 'alors ses antécédents et ses images sont rangés dans l\'ordre inverse. <br>'
           texteCorr += 'Cela signifie que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
@@ -186,6 +237,27 @@ export default function Variationsapartirtableau () {
           texteCorr += `Par conséquent, comme $${x1}<${a1}$, alors $f(${x1}) < f(${a1})$.`
           texteCorr += `<br>Comme $f(${x1}) =${y1}$, on a montré que :  $f(${a1}) > ${y1}$.<br><br>`
           texteCorr += `On en déduit que :  $f(${a1}) > ${y1} > ${y3} > f(${x3})$.<br>`
+          if (this.interactif) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `${choice([true, false]) ? `$f(${a1}) > f(${x3})$` : `$f(${x3}) < f(${a1})$`}`,
+                  statut: true
+                },
+                {
+                  texte: `${choice([true, false]) ? `$f(${a1}) < f(${x3})$` : `$f(${x3}) > f(${a1})$`}`,
+                  statut: false
+                },
+                {
+                  texte: 'On ne peut pas savoir',
+                  statut: false
+                }
+              ]
+            }
+            texte += propositionsQcm(this, i).texte
+          }
           break
         case 'type4':// parabole en U ; 2 images sur intervalle où f pas monotone, et on ne peut pas répondre
           texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
@@ -221,6 +293,27 @@ export default function Variationsapartirtableau () {
           texteCorr += `<br>On a donc montré que :  $${y1} < f(${a1}) < ${y2}$.<br><br>`
           texteCorr += `Comme $f(${x3})=${y3} \\in [${y1};${y2}]$,<br>`
           texteCorr += `on ne peut pas conclure sans plus d'informations pour comparer $f(${x3})$ et $f(${a1})$.`
+          if (this.interactif) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `${choice([true, false]) ? `$f(${x3}) > f(${a1})$` : `$f(${a1}) < f(${x3})$`}`,
+                  statut: false
+                },
+                {
+                  texte: `${choice([true, false]) ? `$f(${x3}) < f(${a1})$` : `$f(${a1}) > f(${x3})$`}`,
+                  statut: false
+                },
+                {
+                  texte: 'On ne peut pas savoir',
+                  statut: true
+                }
+              ]
+            }
+            texte += propositionsQcm(this, i).texte
+          }
           break
         case 'type5':// parabole en U ; 2 images sur intervalle où f non monotone. On ne peut conclure
           texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a3})$<br>`
@@ -250,6 +343,27 @@ export default function Variationsapartirtableau () {
           texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$<br><br>`
           texteCorr += ` Le tableau de variations ne permet pas de comparer $f(${a1})$ et $f(${a3})$. <br>`
           texteCorr += '<br>On ne peut donc pas conclure sans plus d\'informations.'
+          if (this.interactif) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `${choice([true, false]) ? `$f(${a3}) > f(${a1})$` : `$f(${a1}) < f(${a3})$`}`,
+                  statut: false
+                },
+                {
+                  texte: `${choice([true, false]) ? `$f(${a3}) < f(${a1})$` : `$f(${a1}) > f(${a3})$`}`,
+                  statut: false
+                },
+                {
+                  texte: 'On ne peut pas savoir',
+                  statut: true
+                }
+              ]
+            }
+            texte += propositionsQcm(this, i).texte
+          }
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
