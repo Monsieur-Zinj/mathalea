@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ReferentielForList } from "src/lib/types"
   import EntreeListeOutils from "./EntreeListeOutils.svelte"
-  import SideMenuLists from "./SideMenuLists.svelte"
+  import SideMenuList from "./SideMenuList.svelte"
   export let referentiel = []
   let isMenuOpen: boolean = true
   let isMenuDeployed: boolean = true
@@ -17,7 +17,7 @@
 >
   <div class="overflow-y-auto overflow-x-hidden">
     {#each refList as ref, i}
-      <SideMenuLists {ref} moreThanOne={refList.length > 1} />
+      <SideMenuList {ref} moreThanOne={refList.length > 1} />
     {/each}
   </div>
   <div
