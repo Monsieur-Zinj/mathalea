@@ -66,20 +66,26 @@ export default function Variationsapartirtableau () {
           }))
           texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$,<br> `
           texteCorr += ` $${a1}\\in[${x1};${x2}]$, $${a2}\\in[${x1};${x2}]$, avec $${a1}<${a2}$.<br>`
-          if (context.isHtml) {
-            ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] 
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-              tabInit: [
-                [['$x$', 2, 10], ['$f(x)$', 4, 50]], [`$${x1}$`, 20, `$${x2}$`, 20, `$${x3}$`, 20]
+          if (context.isHtml) {  ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
+
+          // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
+          texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            tabInit: [
+              [
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 10], ['$f(x)$', 4, 30]
               ],
-              ['Val',`$f(${x1})$`, `$${x1}$`, 0.3, 'antécédent', 'image', long= 0.5],
-              tabLines: [ligne1],
-              colorBackground: '',
-              espcl: 1, // taille en cm entre deux antécédents
-              deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-              lgt: 3, // taille de la première colonne en cm
-              hauteurLignes: [15, 15]              
-            }))
+              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+              [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10],
+              ['Val',1,2,0.3,`$${x1}$`,`$f(${x1})$`]],// long=0.5
+            // tabLines ci-dessous contient les autres lignes du tableau.
+            tabLines: [ligne1],
+            colorBackground: '',
+            espcl: 2, // taille en cm entre deux antécédents
+            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+            lgt: 3, // taille de la première colonne en cm
+            hauteurLignes: [15, 15]
+          }))
           } else {
             texteCorr += `<br>\\begin{tikzpicture}%[scale=0.6]
            \\tkzTabInit[lgt=1.5,espcl=5]{$x$/1,$f(x)$/2}{$${x1}$,$${x2}$,$${x3}$}
