@@ -2,9 +2,8 @@
   import { mathaleaHandleParamOfOneExercice, mathaleaLoadExerciceFromUuid } from "../../lib/mathalea"
   import { onMount, SvelteComponent } from "svelte"
   import { globalOptions } from "../store"
-    import type { InterfaceParams } from "src/lib/types";
+  import type { InterfaceParams } from "src/lib/types"
 
-  // paramsExercice est de type {url, nbQuestions, sup, sup2, sup3, sup4, duration}
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -34,7 +33,7 @@
       } else {
         mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
         if (paramsExercice.duration) exercice.duree = paramsExercice.duration
-        optionsComponent = { exercice }
+        optionsComponent = { exercice, isCorrectionVisible }
         if ($globalOptions.v === "eleve") {
           ComponentExercice = (await import("./ExerciceVueEleve.svelte")).default
         } else {
@@ -58,7 +57,7 @@ function handleStringFromUrl (text: string): boolean|number|string {
 </script>
 
 <div class="z-0 flex-1">
-  <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} {isCorrectionVisible} />
+  <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} />
 </div>
 
 <style>
