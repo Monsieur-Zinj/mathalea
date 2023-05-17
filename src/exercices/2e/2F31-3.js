@@ -173,8 +173,8 @@ export default function Variationsapartirtableau () {
             texteCorr += `<br>\\begin{tikzpicture}%[scale=0.6]
            \\tkzTabInit[lgt=1.5,espcl=5]{$x$/1,$f(x)$/2}{$${x1}$,$${x2}$,$${x3}$}
             \\tkzTabVar{-/$${y1}$,+/$${y2}$,-/$${y3}$}
-            \\tkzTabVal[draw]{2}{3}{0.3}{$${a3}$}{$f(${a4})$}
-            \\tkzTabVal[draw]{2}{3}{0.6}{$${a3}$}{$f(${a4})$}
+            \\tkzTabVal[draw]{2}{3}{0.3}{$${a3}$}{$f(${a3})$}
+            \\tkzTabVal[draw]{2}{3}{0.6}{$${a4}$}{$f(${a4})$}
          \\end{tikzpicture}<br><br>`
           }
           if (this.interactif) {
