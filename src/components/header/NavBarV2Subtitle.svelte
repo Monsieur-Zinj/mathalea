@@ -21,8 +21,8 @@
   />
   ```
  -->
-<div class="flex flex-row items-center space-x-4 pt-6 lg:pt-0 lg:inline-flex text-xl lg:text-4xl xl:text-5xl font-logo9 tracking-tighter">
-  <div class="pl-0 lg:pl-10 font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+<div class="flex flex-row items-center space-x-4 pt-6 md:pt-0 md:inline-flex text-xl md:text-3xl md:text-4xl xl:text-5xl font-logo9 tracking-tighter">
+  <div class="pl-0 md:pl-10 font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
     <i class={type === "export" ? "bx bx-export rotate-90 translate-y-1" : "hidden"} />
     <i class={type === "design" ? "bx bx-chevron-right translate-y-1" : "hidden"} />
   </div>

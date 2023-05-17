@@ -104,42 +104,44 @@
 
 <nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <!-- container -->
-  <div class="flex flex-row justify-between items-start w-full mx-auto lg:space-x-6">
-    <div class="flex flex-col lg:flex-row justify-start space-x-0 lg:space-x-2">
+  <div class="flex flex-row justify-between items-start w-full mx-auto md:space-x-6">
+    <div class="flex flex-col md:flex-row justify-start space-x-0 md:space-x-2">
       <!-- logo -->
-      <div class="relative">
+      <div class="">
         <div
           on:click={() => goToMathalea($globalOptions.v)}
           on:keydown={() => goToMathalea($globalOptions.v)}
-          class="inline-flex text-5xl lg:text-6xl font-logo9 tracking-tighter font-black
+          class=" relative inline-flex text-5xl md:text-6xl font-logo9 tracking-tighter font-black
           {subtitleType === 'design'
             ? 'text-coopmaths-struct dark:text-coopmathsdark-struct'
             : 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer '}"
         >
           {title}
-        </div>
-        <div class="absolute -bottom-4 left-1 font-light text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
-          par <a
-            href="https://coopmaths.fr"
-            target="_blank"
-            rel="noreferrer"
-            class="font-extrabold font-logo9 tracking-tighter text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-            >CoopMaths</a
-          >
+
+          <div class="absolute -bottom-4 left-1 font-light text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest">
+            <span class="font-light font-sans mr-1 tracking-normal">par</span>
+            <a
+              href="https://coopmaths.fr"
+              target="_blank"
+              rel="noreferrer"
+              class="font-extrabold font-logo9 tracking-tighter text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
+              >CoopMaths</a
+            >
+          </div>
         </div>
       </div>
       <NavBarV2Subtitle {subtitle} type={subtitleType} />
-      <!-- <div class="flex flex-row items-center space-x-4 pt-6 lg:pt-0 lg:inline-flex text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-logo9 tracking-tighter">
+      <!-- <div class="flex flex-row items-center space-x-4 pt-6 md:pt-0 md:inline-flex text-2xl md:text-3xl md:text-4xl xl:text-5xl font-logo9 tracking-tighter">
         {#if subtitle}
-          <div class="pl-0 lg:pl-10 font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"><i class="bx bx-export rotate-90 translate-y-1" /></div>
+          <div class="pl-0 md:pl-10 font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"><i class="bx bx-export rotate-90 translate-y-1" /></div>
           <div class="pl-0 md:pl-2 font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
         {:else}
-          <div class="pl-0 lg:pl-10 font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"><i class="bx bx-chevron-right translate-y-1" /></div>
+          <div class="pl-0 md:pl-10 font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"><i class="bx bx-chevron-right translate-y-1" /></div>
           <div class="pl-0 md:pl-2 font-black text-coopmaths-struct dark:text-coopmathsdark-struct w-full text-center">Conception de document</div>
         {/if}
       </div> -->
     </div>
-    <div class="flex flex-row space-x-4 px-0 pt-2 lg:px-4">
+    <div class="flex flex-row space-x-4 px-0 pt-2 md:px-4">
       <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
         <!-- this hidden checkbox controls the state -->
         <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} />
