@@ -1,11 +1,31 @@
 <script lang="ts">
-  import type { ReferentielForList } from "src/lib/types"
+  import type ReferentielForList from "src/lib/types"
+  import type ReferentielTypes from "src/lib/types"
+  import NiveauListeExos from "../sidebar/NiveauListeExos.svelte"
   import EntreeListeOutils from "./EntreeListeOutils.svelte"
+  import codeList from "../../json/codeToLevelList.json"
+  import { onMount } from "svelte"
+  import { toMap } from "../utils/toMap"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
 
   let isMenuDeployed: boolean = true
+  onMount(async () => {
+    console.log(ref)
+  })
+
+  /**
+   * Retrouve le titre d'un niveau basé sur son
+   * @param levelId
+   */
+  function codeToLevelTitle(code: string) {
+    if (codeList[code]) {
+      return codeList[code]
+    } else {
+      return code
+    }
+  }
 </script>
 
 <div class="w-full flex flex-row justify-between items-center px-6 py-5">
@@ -26,9 +46,21 @@
   </div>
 </div>
 <ul class={isMenuDeployed ? "flex flex-col pl-4 " : "hidden"}>
-  {#each ref.content as item, i}
-    <li>
-      <EntreeListeOutils outil={item} />
-    </li>
-  {/each}
+  {#if ref.type === "outils"}
+    {#each ref.content as item, i}
+      <li>
+        <EntreeListeOutils outil={item} />
+      </li>
+    {/each}
+  {:else if ref.type === "exercices"}
+    {#each ref.content as entries, k}
+      {#each Array.from(toMap(entries), ([key, obj]) => ({ key, obj })) as item, i}
+        <li>
+          <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+        </li>
+      {/each}
+    {/each}
+  {:else}
+    <li class="italic font-light">Référentiel de type inconnu...</li>
+  {/if}
 </ul>

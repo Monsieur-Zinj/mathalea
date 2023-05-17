@@ -1,11 +1,10 @@
 <script lang="ts">
-  import type { ReferentielForList } from "src/lib/types"
+  import type { ReferentielForList, InterfaceReferentiel } from "src/lib/types"
   import EntreeListeOutils from "./EntreeListeOutils.svelte"
   import SideMenuList from "./SideMenuList.svelte"
-  export let referentiel = []
+  export let referentiels: ReferentielForList[] = []
   let isMenuOpen: boolean = true
   let isMenuDeployed: boolean = true
-  let refList: ReferentielForList[] = [{ title: "Choix des outils", content: [...referentiel] }]
 </script>
 
 <aside
@@ -16,8 +15,8 @@
     : 'pb-0'} md:pb-2 pt-4"
 >
   <div class="overflow-y-auto overflow-x-hidden">
-    {#each refList as ref, i}
-      <SideMenuList {ref} moreThanOne={refList.length > 1} />
+    {#each referentiels as ref, i}
+      <SideMenuList {ref} moreThanOne={referentiels.length > 1} />
     {/each}
   </div>
   <div

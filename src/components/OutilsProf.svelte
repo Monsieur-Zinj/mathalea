@@ -3,19 +3,19 @@
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Footer from "./Footer.svelte"
   import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe } from "./store"
-  import referentiel from "../json/referentielProfs.json"
+  import referentielOutils from "../json/referentielProfs.json"
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
-  import EntreeListeOutils from "./outils/EntreeListeOutils.svelte"
   import SideMenuOutils from "./outils/SideMenuOutils.svelte"
+  import type { ReferentielForList } from "src/lib/types"
 
-  //   const entrees = toMap(referentiel)
   let isMenuOpen: boolean = true
-  let arrayReferentiel = []
   let divExercices: HTMLDivElement
-  for (const [key, value] of Object.entries(referentiel)) {
-    arrayReferentiel.push(value)
+  // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
+  let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
+  for (const [key, value] of Object.entries(referentielOutils)) {
+    arrayReferentiel.content.push(value)
   }
   let isNavBarVisible: boolean = true
   let zoom: number = 1
@@ -51,7 +51,7 @@
   {/if}
   <div class="flex flex-col md:flex-row w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div class="w-full md:w-5/12 lg:w-4/12 xl:w-3/12 mt-6 md:mt-8 lg:mt-0">
-      <SideMenuOutils referentiel={arrayReferentiel} />
+      <SideMenuOutils referentiels={[arrayReferentiel]} />
     </div>
     <div class="w-full md:w-7/12 lg:w-8/12 xl:w-9/12">
       {#if $exercicesParams.length !== 0}
