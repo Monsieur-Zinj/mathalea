@@ -35,7 +35,6 @@ export default function EncadrerFractionEntre2Entiers () {
   this.nbQuestions = 6
   this.nbCols = 2
   this.nbColsCorr = 1
-  this.correctionDetailleeDisponible = !this.lycee
   this.correctionDetaillee =
   this.sup = false
   this.sup2 = '11'
@@ -45,6 +44,7 @@ export default function EncadrerFractionEntre2Entiers () {
     : ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
 
   this.nouvelleVersion = function (numeroExercice) {
+    this.correctionDetailleeDisponible = !this.lycee
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
