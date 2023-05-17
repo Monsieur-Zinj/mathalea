@@ -66,7 +66,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1': // Calculs du type a/b + n * c/bk lorsque negOuPos === 1 et du type a/b - n * c/bk lorsque negOuPos === 2
           if (negOuPos === 1) {
-            if (ordreDesFractions === 1) {
+            if (ordreDesFractions === 1) { // La fraction de dénominateur plus grand est la deuxième
               texte = `$${texFraction(a, b)}+ ${n} \\times  ${texFraction(c, d)}$`
             } else {
               texte = `$${texFraction(c, d)}+ ${n} \\times  ${texFraction(a, b)}$`
@@ -106,9 +106,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
               }
             } else {
               if (ordreDesFractions === 1) {
-                setReponse(this, i, (new FractionEtendue(a * k + n * c, d)).simplifie(), { formatInteractif: 'fraction' })
+                setReponse(this, i, (new FractionEtendue(a * k + n * c, d)), { formatInteractif: 'fraction' })
               } else {
-                setReponse(this, i, (new FractionEtendue(n * a * k + c, d)).simplifie(), { formatInteractif: 'fraction' })
+                setReponse(this, i, (new FractionEtendue(n * a * k + c, d)), { formatInteractif: 'fraction' })
               }
             }
           } else {
@@ -154,9 +154,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
               }
             } else {
               if (ordreDesFractions === 1) {
-                setReponse(this, i, (new FractionEtendue(a * k - n * c, d)).simplifie(), { formatInteractif: 'fraction' })
+                setReponse(this, i, (new FractionEtendue(a * k - n * c, d)), { formatInteractif: 'fraction' })
               } else {
-                setReponse(this, i, (new FractionEtendue(n * a * k - c, d)).simplifie(), { formatInteractif: 'fraction' })
+                setReponse(this, i, (new FractionEtendue(n * a * k - c, d)), { formatInteractif: 'fraction' })
               }
             }
           }
@@ -210,9 +210,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
             }
           } else {
             if (ordreDesFractions === 2) {
-              setReponse(this, i, (new FractionEtendue(a * k - c * k - e, d)).simplifie(), { formatInteractif: 'fraction' })
+              setReponse(this, i, (new FractionEtendue(a * k - c * k - e, d)), { formatInteractif: 'fraction' })
             } else {
-              setReponse(this, i, (new FractionEtendue(a * k - c - k * e, d)).simplifie(), { formatInteractif: 'fraction' })
+              setReponse(this, i, (new FractionEtendue(a * k - c - k * e, d)), { formatInteractif: 'fraction' })
             }
           } if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i)
@@ -230,9 +230,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
               if (s !== 1) {
                 texteCorr += `$=${texFraction(calcul((a + n * b) / s) + miseEnEvidence('\\times ' + s), calcul(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a + n * b) / s), calcul(b / s))}$`
               }
-              setReponse(this, i, (new FractionEtendue(a + n * b, b)).simplifie(), { formatInteractif: 'fraction' })
-            } else {
               setReponse(this, i, (new FractionEtendue(a + n * b, b)).simplifie(), { formatInteractif: 'fractionEgale' })
+            } else {
+              setReponse(this, i, (new FractionEtendue(a + n * b, b)), { formatInteractif: 'fraction' })
             }
           } else {
             texte = `$${texFraction(a, b)} - ${n}$`
@@ -245,9 +245,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
               if (s !== 1) {
                 texteCorr += `$=${texFraction(calcul((a - n * b) / s) + miseEnEvidence('\\times ' + s), calcul(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a - n * b) / s), calcul(b / s))}$`
               }
-              setReponse(this, i, (new FractionEtendue(a - n * b, b)).simplifie(), { formatInteractif: 'fraction' })
-            } else {
               setReponse(this, i, (new FractionEtendue(a - n * b, b)).simplifie(), { formatInteractif: 'fractionEgale' })
+            } else {
+              setReponse(this, i, (new FractionEtendue(a - n * b, b)), { formatInteractif: 'fraction' })
             }
           }
           if (this.interactif) {
@@ -269,7 +269,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
             }
             setReponse(this, i, (new FractionEtendue(a * k - c + e * k, d)).simplifie(), { formatInteractif: 'fractionEgale' })
           } else {
-            setReponse(this, i, (new FractionEtendue(a * k - c + e * k, d)).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionEtendue(a * k - c + e * k, d)), { formatInteractif: 'fraction' })
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i)
