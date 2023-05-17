@@ -14,9 +14,10 @@
   import { findPropPaths, findDuplicates } from "./utils/searching"
   import SearchExercice from "./sidebar/SearchExercice.svelte"
   import { isRecent } from "./utils/handleDate"
-  import type { InterfaceReferentiel } from "src/lib/types"
+  import type { InterfaceReferentiel, ReferentielForList } from "src/lib/types"
   import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
   import handleCapytale from "../lib/handleCapytale"
+  import SideMenuList from "./outils/SideMenuList.svelte"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
@@ -26,6 +27,7 @@
   let setAllInteractifClicked: boolean = false
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
+  let testSideMenuList: ReferentielForList = { title: "Choix des exos", content: [], type: "exercices" }
 
   /**
    * Pour afficher les menus de boutons lorsqu'il n'y a pas assez de place pour les afficher tous
@@ -212,6 +214,7 @@
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
+    testSideMenuList.content = [...arrayReferentielFiltre]
   }
   updateReferentiel()
 
@@ -731,6 +734,7 @@
                   <i class="print-hidden bx bx-sm bx-x m-0 p-0" />
                 </button>
               </div>
+              <SideMenuList ref={testSideMenuList} moreThanOne={true} />
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
                 <div class="font-bold text-xl">Choix des exercices</div>
               </div>

@@ -53,12 +53,12 @@
       </li>
     {/each}
   {:else if ref.type === "exercices"}
-    {#each ref.content as entries, k}
-      {#each Array.from(toMap(entries), ([key, obj]) => ({ key, obj })) as item, i}
-        <li>
-          <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
-        </li>
-      {/each}
+    {#each ref.content as item, i}
+      <!-- {#each Array.from(toMap(entries), ([key, obj]) => ({ key, obj })) as item, i} -->
+      <li>
+        <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+      </li>
+      <!-- {/each} -->
     {/each}
   {:else}
     <li class="italic font-light">Référentiel de type inconnu...</li>
