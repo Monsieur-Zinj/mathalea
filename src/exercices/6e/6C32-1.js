@@ -54,6 +54,7 @@ export default function ExerciceProblemesComplexes () {
       defaut: 11,
       melange: 11,
       nbQuestions: this.nbQuestions,
+      shuffle: false, // A GARDER POUR DEBUGGAGE
       saisie: this.sup
     })
     let indiceInteractif = 0
@@ -381,9 +382,9 @@ export default function ExerciceProblemesComplexes () {
             setReponse(this, indiceInteractif, min(nbP, nbD))
             texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
 
-            texte += '<br>Quel est le plus grand de ces deux nombres ?'
-            setReponse(this, indiceInteractif, max(nbP, nbD))
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
+            texte += 'Quel est le plus grand de ces deux nombres ?'
+            setReponse(this, indiceInteractif + 1, max(nbP, nbD))
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25')
           }
 
           texteCorr += `Par essais-erreurs, on trouve ${nbP} et ${nbD}.<br>
@@ -397,6 +398,7 @@ export default function ExerciceProblemesComplexes () {
           break
         }
       }
+      texte += '<br>' + indiceInteractif
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
