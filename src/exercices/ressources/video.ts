@@ -56,6 +56,8 @@ class ressourceVideo {
       url.hostname = 'www.youtube.com'
       url.pathname = '/embed' + url.pathname
       this.iframe.src = url.toString()
+    } else if (url.hostname === 'podeduc.apps.education.fr') {
+      this.iframe.src = this.fieldUrl.value + '/?is_iframe=true'
     } else if (this.fieldUrl.value.includes('/w/')) { // Gestion des url en provenance de peertube
       this.iframe.src = this.fieldUrl.value.replace('/w/', '/videos/embed/')
     } else {
