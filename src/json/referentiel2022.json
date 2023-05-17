@@ -10917,6 +10917,17 @@
         "datePublication": "01/10/2022",
         "tags": {}
       },
+      "2F10-8": {
+        "id": "2F10-8",
+        "uuid": "c1961",
+        "url": "2e/2F10-8.js",
+        "titre": "Faire un bilan sur les fonctions affines",
+        "datePublication": "17/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
       "2F11-1": {
         "id": "2F11-1",
         "uuid": "b6cc0",
