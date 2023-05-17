@@ -14,3 +14,6 @@ export interface InterfaceResultExercice {numberOfPoints: number, numberOfQuesti
 export interface Activity {globalOptions: InterfaceGlobalOptions, exercicesParams: InterfaceParams[]}
 
 export interface StudentAssignement {resultsByExercice: InterfaceResultExercice[]}
+
+// Pour les listes d'entrées de référentiel dans le side menu
+export interface ReferentielForList {title: string, content: InterfaceReferentiel[]}
