@@ -42,7 +42,7 @@ export default function TableauSignes () {
             options: { vertical: true },
             propositions: [
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
                   tabInit: [
                     [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -62,7 +62,7 @@ export default function TableauSignes () {
                 statut: true
               },
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
                   tabInit: [
                     [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -82,7 +82,7 @@ export default function TableauSignes () {
                 statut: false
               },
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
                   tabInit: [
                     [
                     // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -109,7 +109,7 @@ export default function TableauSignes () {
             options: { vertical: true },
             propositions: [
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -129,7 +129,7 @@ export default function TableauSignes () {
                 statut: true
               },
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -149,7 +149,7 @@ export default function TableauSignes () {
                 statut: false
               },
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -186,7 +186,7 @@ export default function TableauSignes () {
         texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $.<br>`
         ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
       }
-      texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+      texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
