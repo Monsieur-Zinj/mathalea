@@ -11041,8 +11041,11 @@
         "url": "2e/2F31-3.js",
         "titre": "Comparaison d'images dans un tableau de variations",
         "datePublication": "25/10/2021",
-        "dateModification": "24/10/2021",
-        "tags": {}
+        "dateModification": "17/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm"
+        }
       },
       "2F32-2": {
         "id": "2F32-2",
