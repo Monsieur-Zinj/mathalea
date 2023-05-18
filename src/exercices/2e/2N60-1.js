@@ -31,7 +31,7 @@ export default function ModeliseInequations () {
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3']// 'typeE1', 'typeE2',
     } else if (this.sup === 2) {
-      typeDeQuestionsDisponibles = ['typeE4', 'typeE5', 'typeE6']
+      typeDeQuestionsDisponibles = ['typeE4', 'typeE5', 'typeE6']//
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = ['typeE7', 'typeE8']
     } else if (this.sup === 4) {
@@ -151,7 +151,7 @@ export default function ModeliseInequations () {
               texteParPosition(`${texNombre(l)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
               texteParPosition(`${texNombre(L)}`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
 
-            texte = ` Soit $ABCD$ un rectangle tel que $AB=${l}$ et $BC=${L}$.<br>
+            texte = ` Soit $ABCD$ un rectangle tel que $AD=${l}$ et $DC=${L}$.<br>
             $M$ est un point du segment $[AB]$. On note $AM=x$.<br>
             Pour quelles valeurs de $x$ l'aire du triangle $AMD$ est-elle ${choix ? 'au plus' : 'au moins'} égale ${P[0]} de l'aire du triangle $CMB$ ?<br>
               `
