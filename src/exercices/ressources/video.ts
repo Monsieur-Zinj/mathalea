@@ -1,6 +1,6 @@
 import { exercicesParams, globalOptions } from '../../components/store'
 import { get } from 'svelte/store'
-import { createButon, createTextInput } from './components'
+import { createButon, createIButton, createTextInput } from './components'
 
 class ressourceVideo {
   typeExercice: string
@@ -10,6 +10,7 @@ class ressourceVideo {
   container: HTMLDivElement
   iframe: HTMLIFrameElement
   fieldUrl: HTMLInputElement
+  iTooltip: HTMLButtonElement
   button: HTMLButtonElement
   constructor () {
     this.typeExercice = 'html'
@@ -25,7 +26,17 @@ class ressourceVideo {
     this.iframe.classList.add('my-10')
     this.fieldUrl = createTextInput({ placeholder: 'URL', autoCorrect: false })
     this.button = createButon()
-    this.container.append(this.fieldUrl, this.button, this.iframe)
+    const tooltip = `Formats supportés : 
+- lien direct vers la vidéo
+- peertube
+- podeduc.apps.education.fr
+- www.youtube.com
+- youtu.be
+- www.dailymotion.com
+- dai.ly
+- vimeo.com`
+    this.iTooltip = createIButton({ tooltip, direction: 'bottom' })
+    this.container.append(this.fieldUrl, this.button, this.iTooltip, this.iframe)
     this.button.addEventListener('click', () => {
       // On transforme https://youtu.be/Jup128waBI8 en https://www.youtube.com/embed/Jup128waBI8
       this.updateVideoFromUrl()
@@ -55,6 +66,20 @@ class ressourceVideo {
     if (url.hostname === 'youtu.be') {
       url.hostname = 'www.youtube.com'
       url.pathname = '/embed' + url.pathname
+      this.iframe.src = url.toString()
+    } else if (url.hostname === 'www.youtube.com') {
+      this.iframe.src = url.toString().replace('watch?v=', 'embed/')
+    } else if (url.hostname === 'www.dailymotion.com') {
+      url.pathname = '/embed' + url.pathname
+      this.iframe.src = url.toString()
+    } else if (url.hostname === 'dai.ly') {
+      url.hostname = 'www.dailymotion.com'
+      url.pathname = '/embed/video' + url.pathname
+      this.iframe.src = url.toString()
+    } else if (url.hostname === 'vimeo.com') {
+      url.hostname = 'player.vimeo.com'
+      url.pathname = '/video' + url.pathname
+      console.log(url.toString())
       this.iframe.src = url.toString()
     } else if (url.hostname === 'podeduc.apps.education.fr') {
       this.iframe.src = this.fieldUrl.value + '/?is_iframe=true'

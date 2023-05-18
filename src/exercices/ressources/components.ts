@@ -13,3 +13,17 @@ export function createTextInput ({ placeholder = '', autoCorrect = true } : {pla
   input.setAttribute('spellcheck', autoCorrect ? 'true' : 'false')
   return input
 }
+
+export function createIButton ({ tooltip = '', direction }: { tooltip?: string, direction?: 'top'|'bottom'|'left'|'right'} = {}) {
+  // <i class="bx bx-sm px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+  const i = document.createElement('i')
+  i.classList.add('bx', 'bx-sm', 'px-2', 'bx-info-circle', 'hover:text-coopmaths-action-lightest', 'text-coopmaths-action', 'dark:text-coopmathsdark-action', 'dark:hover:text-coopmathsdark-action-lightest')
+  const button = document.createElement('button')
+  button.appendChild(i)
+  button.setAttribute('data-tip', tooltip)
+  button.classList.add('tooltip', 'before:whitespace-pre-wrap', 'before:content-[attr(data-tip)]', 'before:text-left')
+  if (direction !== undefined) {
+    button.classList.add(`tooltip-${direction}`)
+  }
+  return button
+}
