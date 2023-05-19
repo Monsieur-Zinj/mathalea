@@ -58,7 +58,7 @@ export default function Variationsfonctionaffine () {
           if (choice([true, false])) {
             texte += `$${nomF}(x)=${reduireAxPlusB(a, b)}$.`
           } else {
-            texte += `$${b === 0 ? `${nomF}(x)=${rienSi1(b)}x` : `${nomF}(x)=${b}${ecritureAlgebriqueSauf1(a)}x`}$.`
+            texte += `$${b === 0 ? `${nomF}(x)=${rienSi1(a)}x` : `${nomF}(x)=${b}${ecritureAlgebriqueSauf1(a)}x`}$.`
           }
           texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
           texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>
@@ -105,7 +105,7 @@ export default function Variationsfonctionaffine () {
           if (choice([true, false])) {
             texte += `$${nomF}(x)=\\dfrac{${reduireAxPlusB(a, b)}}{${d}}$.`
           } else {
-            texte += `$${b === 0 ? `${nomF}(x)=\\dfrac{${rienSi1(b)}x}{${d}}` : `${nomF}(x)=\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${d}}`}$.`
+            texte += `$${b === 0 ? `${nomF}(x)=\\dfrac{${rienSi1(a)}x}{${d}}` : `${nomF}(x)=\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${d}}`}$.`
           }
           texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
           texteCorr += `avec $a=\\dfrac{${a}}{${d}}${simplificationDeFractionAvecEtapes(a, d)}$ et $b=\\dfrac{${b}}{${d}}${simplificationDeFractionAvecEtapes(b, d)}$. <br>
