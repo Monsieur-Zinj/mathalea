@@ -40,13 +40,13 @@ export default function VariationFA () {
         ['v'], ['w']
       ]
       const nomF = choice(nom)
-      switch (choice([1, 2])) {
+      switch (choice([1, 1, 2, 2, 3])) {
         case 1:
           texte = `Donner le sens de variation de la fonction $${nomF}$ définie sur $\\mathbb R$ par : `
           if (choice([true, false])) {
             texte += `$${nomF}(x)=${reduireAxPlusB(a, b)}$.`
           } else {
-            texte += `$${b === 0 ? `${nomF}(x)=${rienSi1(b)}x` : `${nomF}(x)=${b}${ecritureAlgebriqueSauf1(a)}x`}$.`
+            texte += `$${b === 0 ? `${nomF}(x)=${rienSi1(a)}x` : `${nomF}(x)=${b}${ecritureAlgebriqueSauf1(a)}x`}$.`
           } if (this.interactif) {
             if (a > 0) {
               this.autoCorrection[i] = {
@@ -59,6 +59,10 @@ export default function VariationFA () {
                   },
                   {
                     texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
                     statut: false
                   }
                 ]
@@ -74,6 +78,10 @@ export default function VariationFA () {
                   },
                   {
                     texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
                     statut: false
                   }
                 ]
@@ -98,7 +106,7 @@ export default function VariationFA () {
           if (choice([true, false])) {
             texte += `$${nomF}(x)=\\dfrac{${reduireAxPlusB(a, b)}}{${d}}$.`
           } else {
-            texte += `$${b === 0 ? `${nomF}(x)=\\dfrac{${rienSi1(b)}x}{${d}}` : `${nomF}(x)=\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${d}}`}$.`
+            texte += `$${b === 0 ? `${nomF}(x)=\\dfrac{${rienSi1(a)}x}{${d}}` : `${nomF}(x)=\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${d}}`}$.`
           }
           if (this.interactif) {
             if (a > 0) {
@@ -112,6 +120,10 @@ export default function VariationFA () {
                   },
                   {
                     texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
                     statut: false
                   }
                 ]
@@ -127,6 +139,10 @@ export default function VariationFA () {
                   },
                   {
                     texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
                     statut: false
                   }
                 ]
@@ -144,6 +160,38 @@ export default function VariationFA () {
           } else {
             texteCorr += `Comme $a=${texFractionReduite(a, d)}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
           }
+          break
+        case 3:
+          texte = `Donner le sens de variation de la fonction $${nomF}$ définie sur $\\mathbb R$ par : 
+            $${nomF}(x)=${b}$`
+
+          if (this.interactif) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
+                  statut: false
+                },
+                {
+                  texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
+                  statut: false
+                },
+                {
+                  texte: `$${nomF}$ est constante  sur $\\mathbb R$`,
+                  statut: true
+                }
+              ]
+            }
+
+            texte += propositionsQcm(this, i).texte
+          }
+
+          texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
+          texteCorr += `avec $a=0$ et $b=${b}$. <br>
+      Il s'agit d'une fonction constante (fonction affine particulière).`
+
           break
       }
       if (this.questionJamaisPosee(i, a, b)) {
