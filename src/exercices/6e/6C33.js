@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere, lettreDepuisChiffre, filtrer, rangeMinMax } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer en utilisant les priorités opératoires'
@@ -8,6 +8,8 @@ export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum' // Question numérique
+
+export const dateDeModifImportante = '21/05/2023'
 
 /**
  * Plusieurs type de calcul avec des entiers.
@@ -53,6 +55,8 @@ export default function Priorites () {
   this.nbColsCorr = 1
   this.sup = 3
   this.sup2 = false
+  this.sup3 = true
+  this.sup4 = true
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -67,6 +71,8 @@ export default function Priorites () {
     } else {
       questionsDisponibles = range1(22)
     }
+    if (!this.sup3) questionsDisponibles = filtrer(rangeMinMax(13, 22), questionsDisponibles)
+    if (!this.sup4) questionsDisponibles = filtrer([2, 3, 5, 8, 11, 12, 15, 16, 17, 21, 22], questionsDisponibles)
     const listeTypeDeQuestions = combinaisonListes(
       questionsDisponibles,
       this.nbQuestions
@@ -352,5 +358,7 @@ export default function Priorites () {
     3,
     '1 : Sans parenthèses\n2 : Avec parenthèses\n3 : Mélange'
   ]
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes']
+  this.besoinFormulaire3CaseACocher = ['Inclure des parenthèses']
+  this.besoinFormulaire4CaseACocher = ['Inclure des divisions']
 }
