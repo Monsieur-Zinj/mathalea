@@ -39,13 +39,13 @@ export default function FonctionsAffinesOuLineaires () {
     fonctionsAffines.lycee = this.lycee
     fonctionsAffines.sup = this.sup
     fonctionsAffines.sup2 = this.lycee ? '11' : '9'
-    fonctionsAffines.numeroExercice = this.numeroExercice
+    fonctionsAffines.numeroExercice = this.numeroExercice // indispensable pour l'interactif
     fonctionsAffines.nouvelleVersion()
     fonctionsLineaires.interactif = this.interactif
     fonctionsLineaires.lycee = this.lycee
     fonctionsLineaires.sup = this.sup
     fonctionsLineaires.sup2 = 9
-    fonctionsLineaires.numeroExercice = this.numeroExercice
+    fonctionsLineaires.numeroExercice = this.numeroExercice // indispensable pour l'interactif
     fonctionsLineaires.nouvelleVersion()
 
     this.besoinFormulaire2Texte = this.lycee
@@ -57,6 +57,7 @@ export default function FonctionsAffinesOuLineaires () {
     const choixFonction = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 2, defaut: 3, melange: 3, listeOfCase: ['linéaire', 'affine'], nbQuestions: this.nbQuestions, shuffle: true })
     for (let i = 0; i < this.nbQuestions; i++) {
       if (choixFonction[i] === 'affine') {
+        // On récupère tout ce qui fait la question, sa correction et l'interactif...
         this.listeQuestions.push(fonctionsAffines.listeQuestions[i])
         this.listeCorrections.push(fonctionsAffines.listeCorrections[i])
         this.autoCorrection.push(fonctionsAffines.autoCorrection[i])
