@@ -934,6 +934,16 @@ export function tridictionnaire (dict) {
 }
 
 /**
+ * Supprime les valeurs d'en array et renvoie l'array filtré
+ * @param {any[]} valeurs à supprimer de l'array
+ * @param {any[]} array à filtrer
+ * @returns array filtré
+ */
+export function filtrer (valeurs, array) {
+  return array.filter((valeur) => !valeurs.includes(valeur))
+}
+
+/**
  * Filtre un dictionnaire suivant les premiers caractères de ses clés
  *
  * @Example
