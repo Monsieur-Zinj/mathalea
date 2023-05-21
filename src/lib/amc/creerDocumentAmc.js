@@ -8,7 +8,7 @@ import {
   nombreDeChiffresDe,
   randint
 } from '../../modules/outils.js'
-import { format as formatLatex } from '../Latex'
+import { format as formatLatex } from '../latex'
 
 /**
  *

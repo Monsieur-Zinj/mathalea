@@ -4,7 +4,7 @@
   import type TypeExercice from "./utils/typeExercice"
   import Footer from "./Footer.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
-  import Latex from "../lib/Latex"
+  import Latex from "../lib/latex"
   import Button from "./forms/Button.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
   import { onMount } from "svelte"
