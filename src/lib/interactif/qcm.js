@@ -67,6 +67,8 @@ export function verifQuestionQcm (exercice, i) {
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     } else if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) { // Que du faux
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
+    } else { // Aucune réponse
+      message = 'Aucune réponse fournie'
     }
   } else {
     message = 'Bravo !'
