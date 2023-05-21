@@ -515,12 +515,12 @@
         "mois": "Juin",
         "numeroInitial": "2",
         "png": "static/dnb/2021/tex/png/dnb_2021_06_asie_2.png",
-        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
-        "pngcorcoop": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
+        "pngCorApmep": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
+        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
         "typeExercice": "dnb",
         "url": "static/dnb/2021/tex/dnb_2021_06_asie_2.tex",
-        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
-        "urlcorcoop": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
+        "urlcorApmep": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
+        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
         "tags": [
           "Pythagore",
           "Transformations",
@@ -6190,63 +6190,6 @@
       }
     },
     "Équations": {
-      "dnb_2022_09_metropole_1": {
-        "uuid": "dnb_2022_09_metropole_1",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "numeroInitial": "1",
-        "png": "static/dnb/2022/tex/png/dnb_2022_09_metropole_1.png",
-        "pngCor": "static/dnb/2022/tex/png/dnb_2022_09_metropole_1_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2022/tex/dnb_2022_09_metropole_1.tex",
-        "urlcor": "static/dnb/2022/tex/dnb_2022_09_metropole_1_cor.tex",
-        "tags": [
-          "QCM",
-          "Puissances",
-          "Arithmétique",
-          "Calcul littéral",
-          "Équations",
-          "Probabilités"
-        ]
-      },
-      "dnb_2022_09_metropole_2": {
-        "uuid": "dnb_2022_09_metropole_2",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "numeroInitial": "2",
-        "png": "static/dnb/2022/tex/png/dnb_2022_09_metropole_2.png",
-        "pngCor": "static/dnb/2022/tex/png/dnb_2022_09_metropole_2_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2022/tex/dnb_2022_09_metropole_2.tex",
-        "urlcor": "static/dnb/2022/tex/dnb_2022_09_metropole_2_cor.tex",
-        "tags": [
-          "Fonctions",
-          "Équations",
-          "Lecture graphique"
-        ]
-      },
-      "dnb_2022_09_polynesie_4": {
-        "uuid": "dnb_2022_09_polynesie_4",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Septembre",
-        "numeroInitial": "4",
-        "png": "static/dnb/2022/tex/png/dnb_2022_09_polynesie_4.png",
-        "pngCor": "static/dnb/2022/tex/png/dnb_2022_09_polynesie_4_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2022/tex/dnb_2022_09_polynesie_4.tex",
-        "urlcor": "static/dnb/2022/tex/dnb_2022_09_polynesie_4_cor.tex",
-        "tags": [
-          "Fonctions",
-          "Programme de calculs",
-          "Équations",
-          "Lecture graphique"
-        ]
-      }
-    },
-    "Équations": {
       "dnb_2013_04_pondichery_4": {
         "uuid": "dnb_2013_04_pondichery_4",
         "annee": "2013",
@@ -7498,6 +7441,61 @@
           "Calcul littéral",
           "Algorithmique-programmation",
           "Équations"
+        ]
+      },
+      "dnb_2022_09_metropole_1": {
+        "uuid": "dnb_2022_09_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2022/tex/png/dnb_2022_09_metropole_1.png",
+        "pngCor": "static/dnb/2022/tex/png/dnb_2022_09_metropole_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2022/tex/dnb_2022_09_metropole_1.tex",
+        "urlcor": "static/dnb/2022/tex/dnb_2022_09_metropole_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Puissances",
+          "Arithmétique",
+          "Calcul littéral",
+          "Équations",
+          "Probabilités"
+        ]
+      },
+      "dnb_2022_09_metropole_2": {
+        "uuid": "dnb_2022_09_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2022/tex/png/dnb_2022_09_metropole_2.png",
+        "pngCor": "static/dnb/2022/tex/png/dnb_2022_09_metropole_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2022/tex/dnb_2022_09_metropole_2.tex",
+        "urlcor": "static/dnb/2022/tex/dnb_2022_09_metropole_2_cor.tex",
+        "tags": [
+          "Fonctions",
+          "Équations",
+          "Lecture graphique"
+        ]
+      },
+      "dnb_2022_09_polynesie_4": {
+        "uuid": "dnb_2022_09_polynesie_4",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2022/tex/png/dnb_2022_09_polynesie_4.png",
+        "pngCor": "static/dnb/2022/tex/png/dnb_2022_09_polynesie_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2022/tex/dnb_2022_09_polynesie_4.tex",
+        "urlcor": "static/dnb/2022/tex/dnb_2022_09_polynesie_4_cor.tex",
+        "tags": [
+          "Fonctions",
+          "Programme de calculs",
+          "Équations",
+          "Lecture graphique"
         ]
       }
     },
@@ -12476,6 +12474,7 @@
           "Pythagore",
           "Thalès",
           "Pourcentages",
+          "Trigonométrie",
           "Recherche d'informations"
         ]
       },
@@ -18450,6 +18449,7 @@
           "Pythagore",
           "Thalès",
           "Pourcentages",
+          "Trigonométrie",
           "Recherche d'informations"
         ]
       },
@@ -18551,12 +18551,12 @@
         "mois": "Juin",
         "numeroInitial": "2",
         "png": "static/dnb/2021/tex/png/dnb_2021_06_asie_2.png",
-        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
-        "pngcorcoop": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
+        "pngCorApmep": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
+        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
         "typeExercice": "dnb",
         "url": "static/dnb/2021/tex/dnb_2021_06_asie_2.tex",
-        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
-        "urlcorcoop": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
+        "urlcorApmep": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
+        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
         "tags": [
           "Pythagore",
           "Transformations",
@@ -19970,6 +19970,7 @@
           "Pythagore",
           "Thalès",
           "Pourcentages",
+          "Trigonométrie",
           "Recherche d'informations"
         ]
       },
@@ -23170,6 +23171,7 @@
           "Pythagore",
           "Thalès",
           "Pourcentages",
+          "Trigonométrie",
           "Recherche d'informations"
         ]
       },
@@ -23743,12 +23745,12 @@
         "mois": "Juin",
         "numeroInitial": "2",
         "png": "static/dnb/2021/tex/png/dnb_2021_06_asie_2.png",
-        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
-        "pngcorcoop": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
+        "pngCorApmep": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
+        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
         "typeExercice": "dnb",
         "url": "static/dnb/2021/tex/dnb_2021_06_asie_2.tex",
-        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
-        "urlcorcoop": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
+        "urlcorApmep": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
+        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
         "tags": [
           "Pythagore",
           "Transformations",
@@ -24752,6 +24754,25 @@
           "Trigonométrie"
         ]
       },
+      "dnb_2020_09_metropole_3": {
+        "uuid": "dnb_2020_09_metropole_3",
+        "annee": "2020",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2020/tex/png/dnb_2020_09_metropole_3.png",
+        "pngCor": "static/dnb/2020/tex/png/dnb_2020_09_metropole_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2020/tex/dnb_2020_09_metropole_3.tex",
+        "urlcor": "static/dnb/2020/tex/dnb_2020_09_metropole_3_cor.tex",
+        "tags": [
+          "Pythagore",
+          "Thalès",
+          "Pourcentages",
+          "Trigonométrie",
+          "Recherche d'informations"
+        ]
+      },
       "dnb_2020_12_caledonie_4": {
         "uuid": "dnb_2020_12_caledonie_4",
         "annee": "2020",
@@ -24837,12 +24858,12 @@
         "mois": "Juin",
         "numeroInitial": "2",
         "png": "static/dnb/2021/tex/png/dnb_2021_06_asie_2.png",
-        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
-        "pngcorcoop": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
+        "pngCorApmep": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
+        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
         "typeExercice": "dnb",
         "url": "static/dnb/2021/tex/dnb_2021_06_asie_2.tex",
-        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
-        "urlcorcoop": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
+        "urlcorApmep": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
+        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
         "tags": [
           "Pythagore",
           "Transformations",
@@ -36391,6 +36412,7 @@
           "Pythagore",
           "Thalès",
           "Pourcentages",
+          "Trigonométrie",
           "Recherche d'informations"
         ]
       },
@@ -36930,12 +36952,12 @@
         "mois": "Juin",
         "numeroInitial": "2",
         "png": "static/dnb/2021/tex/png/dnb_2021_06_asie_2.png",
-        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
-        "pngcorcoop": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
+        "pngCorApmep": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png",
+        "pngCor": "static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png",
         "typeExercice": "dnb",
         "url": "static/dnb/2021/tex/dnb_2021_06_asie_2.tex",
-        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
-        "urlcorcoop": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
+        "urlcorApmep": "static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex",
+        "urlcor": "static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex",
         "tags": [
           "Pythagore",
           "Transformations",
@@ -56248,6 +56270,348 @@
         "tags": [
           "Algorithmique et programmation"
         ]
+      }
+    },
+    "2023": {
+      "crpe-2023-g1-ex1": {
+        "uuid": "crpe-2023-g1-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g1-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex1-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g1-ex2": {
+        "uuid": "crpe-2023-g1-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g1-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex2-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g1-ex3": {
+        "uuid": "crpe-2023-g1-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g1-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex3-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g1-ex4": {
+        "uuid": "crpe-2023-g1-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g1-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex4-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g1-ex5": {
+        "uuid": "crpe-2023-g1-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g1-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex5-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g1-ex6": {
+        "uuid": "crpe-2023-g1-ex6",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 6",
+        "png": [
+          "static/crpe/2023/2023-g1-ex6.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex6-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex6.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex6-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g2-ex1": {
+        "uuid": "crpe-2023-g2-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g2-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex1-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g2-ex2": {
+        "uuid": "crpe-2023-g2-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g2-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex2-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g2-ex3": {
+        "uuid": "crpe-2023-g2-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g2-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex3-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g2-ex4": {
+        "uuid": "crpe-2023-g2-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g2-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex4-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g2-ex5": {
+        "uuid": "crpe-2023-g2-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g2-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex5-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g2-ex6": {
+        "uuid": "crpe-2023-g2-ex6",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 6",
+        "png": [
+          "static/crpe/2023/2023-g2-ex6.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex6-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex6.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex6-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g3-ex1": {
+        "uuid": "crpe-2023-g3-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g3-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex1-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g3-ex2": {
+        "uuid": "crpe-2023-g3-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g3-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex2-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g3-ex3": {
+        "uuid": "crpe-2023-g3-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g3-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex3-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g3-ex4": {
+        "uuid": "crpe-2023-g3-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g3-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex4-corr.tex"
+        ],
+        "tags": []
+      },
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g3-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
+        ],
+        "tags": []
       }
     }
   },

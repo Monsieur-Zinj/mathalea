@@ -1,6 +1,7 @@
 /**
+ * L'exécuter avec node tasks/dictionnaireToReferentiel.js
  * Ce script met à jour le référentiel des exercices statiques en récupérant les mots clé et les url
- * dans les différents dictionnaires
+ * dans les différents dictionnaires qu'il faut mettre à jour au préalable.
  */
 
 import fs from 'fs'
@@ -114,7 +115,7 @@ for (const ex in dictionnaireCrpeCoop) {
   })
 }
 
-for (const annee of ['2022']) {
+for (const annee of ['2022', '2023']) {
   referentiel.crpe[annee] = {}
   for (const ex in dictionnaireCrpeCoop) {
     if (dictionnaireCrpeCoop[ex].annee === annee) {
