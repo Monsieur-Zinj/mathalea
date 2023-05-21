@@ -3898,10 +3898,10 @@
           "id": "can2L05",
           "uuid": "96a78",
           "url": "can/2e/can2L05.js",
-          "titre": "Résoudre une inéquation (QCM)",
+          "titre": "Résoudre une inéquation",
           "tags": {
             "interactif": true,
-            "interactifType": "qcm"
+            "interactifType": "mathLive"
           }
         },
         "can2L06": {
@@ -5501,6 +5501,7 @@
         "uuid": "4c10a",
         "url": "6e/6C33.js",
         "titre": "Calculer en utilisant les priorités opératoires",
+        "dateModification": "21/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
