@@ -55,7 +55,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2022/2022-g1-ex3-corr.tex'
     ],
-    tags: ['Résolution de problème', 'Équations']
+    tags: ['Résolution de problèmes', 'Équations']
   },
   'crpe-2022-g1-ex4': {
     typeExercice: 'crpe',
@@ -74,7 +74,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2022/2022-g1-ex4-corr.tex'
     ],
-    tags: ['Volumes', 'Aires latérales', 'Pythagore', 'Agrandissement-réduction', 'Fonctions affines et linéaires', 'Inéquations']
+    tags: ['Volumes', 'Aires latérales', 'Pythagore', 'Agrandissement-réduction', 'Fonctions', 'Inéquations']
   },
   'crpe-2022-g1-ex5': {
     typeExercice: 'crpe',
@@ -93,7 +93,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2022/2022-g1-ex5-corr.tex'
     ],
-    tags: ['Volumes', 'Pythagore', 'Agrandissement-réduction', 'Fonctions linéaires et affines', 'Inéquations']
+    tags: ['Volumes', 'Pythagore', 'Agrandissement-réduction', 'Fonctions', 'Inéquations']
   },
   'crpe-2022-g2-ex1': {
     typeExercice: 'crpe',
@@ -150,7 +150,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2022/2022-g2-ex3-corr.tex'
     ],
-    tags: ['Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction', 'Équations', 'Fonctions affines et linéaires', 'Inéquations']
+    tags: ['Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction', 'Équations', 'Fonctions', 'Inéquations']
   },
   'crpe-2022-g2-ex4': {
     typeExercice: 'crpe',
@@ -283,7 +283,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g1-ex1-corr.tex'
     ],
-    tags: []
+    tags: ['Pythagore', 'Vitesses']
   },
   'crpe-2023-g1-ex2': {
     typeExercice: 'crpe',
@@ -302,7 +302,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g1-ex2-corr.tex'
     ],
-    tags: []
+    tags: ['Résolution de problèmes', 'Fractions']
   },
   'crpe-2023-g1-ex3': {
     typeExercice: 'crpe',
@@ -321,7 +321,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g1-ex3-corr.tex'
     ],
-    tags: []
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2023-g1-ex4': {
     typeExercice: 'crpe',
@@ -340,7 +340,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g1-ex4-corr.tex'
     ],
-    tags: []
+    tags: ['Proportionnalité', 'Pythagore', 'Aires', 'Ratio', 'Volumes']
   },
   'crpe-2023-g1-ex5': {
     typeExercice: 'crpe',
@@ -359,7 +359,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g1-ex5-corr.tex'
     ],
-    tags: []
+    tags: ['Proportionnalité', 'Résolution de problèmes', 'Tableur']
   },
   'crpe-2023-g1-ex6': {
     typeExercice: 'crpe',
@@ -378,7 +378,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g1-ex6-corr.tex'
     ],
-    tags: []
+    tags: ['Probabilités', 'Pourcentages']
   },
   'crpe-2023-g2-ex1': {
     typeExercice: 'crpe',
@@ -397,7 +397,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g2-ex1-corr.tex'
     ],
-    tags: []
+    tags: ['Pythagore', 'Périmètres', 'Proportionnalité', 'Statistiques', 'Pourcentages']
   },
   'crpe-2023-g2-ex2': {
     typeExercice: 'crpe',
@@ -416,7 +416,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g2-ex2-corr.tex'
     ],
-    tags: []
+    tags: ['Propriétés des polygones']
   },
   'crpe-2023-g2-ex3': {
     typeExercice: 'crpe',
@@ -435,7 +435,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g2-ex3-corr.tex'
     ],
-    tags: []
+    tags: ['Algorithmique et programmation', 'Programmes de calculs', 'Calcul littéral']
   },
   'crpe-2023-g2-ex4': {
     typeExercice: 'crpe',
@@ -454,7 +454,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g2-ex4-corr.tex'
     ],
-    tags: []
+    tags: ['Probabilités']
   },
   'crpe-2023-g2-ex5': {
     typeExercice: 'crpe',
@@ -473,7 +473,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g2-ex5-corr.tex'
     ],
-    tags: []
+    tags: ['Calcul littéral']
   },
   'crpe-2023-g2-ex6': {
     typeExercice: 'crpe',
@@ -492,7 +492,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g2-ex6-corr.tex'
     ],
-    tags: []
+    tags: ['Calcul littéral']
   },
   'crpe-2023-g3-ex1': {
     typeExercice: 'crpe',
@@ -511,7 +511,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g3-ex1-corr.tex'
     ],
-    tags: []
+    tags: ['Arithmétique', 'Tableur']
   },
   'crpe-2023-g3-ex2': {
     typeExercice: 'crpe',
@@ -530,7 +530,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g3-ex2-corr.tex'
     ],
-    tags: []
+    tags: ['Pythagore', 'Thalès', 'Lecture graphique', 'Proportionnalité']
   },
   'crpe-2023-g3-ex3': {
     typeExercice: 'crpe',
@@ -549,7 +549,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g3-ex3-corr.tex'
     ],
-    tags: []
+    tags: ['Algorithmique et programmation', 'Propriétés des polygones', 'Proportionnalité']
   },
   'crpe-2023-g3-ex4': {
     typeExercice: 'crpe',
@@ -568,7 +568,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g3-ex4-corr.tex'
     ],
-    tags: []
+    tags: ['Probabilités']
   },
   'crpe-2023-g3-ex5': {
     typeExercice: 'crpe',
@@ -587,7 +587,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g3-ex5-corr.tex'
     ],
-    tags: []
+    tags: ['Vrai-faux', 'Ensembles de nombres', 'Calcul littéral', 'Pourcentages', 'Pythagore', 'Propriétés des polygones', 'Fonctions', 'Agrandissement-réduction']
   }
 }
 
@@ -694,7 +694,7 @@ export const garderPourTagsEx4 =
     pngCor: [
       'static/crpe/2022/2022-g2-ex3-corr.tex'
     ],
-    tags: ['Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction', 'Équations', 'Fonctions affines et linéaires', 'Inéquations']
+    tags: ['Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction', 'Équations', 'Fonctions', 'Inéquations']
   },
   'crpe-2022-g2-ex4': {
     typeExercice: 'crpe',
@@ -798,7 +798,7 @@ export const garderPourTagsEx4 =
     pngCor: [
       'static/crpe/2022/2022-g4-ex2-corr.tex'
     ],
-    tags: ['Pourcentages', 'Proportionnalité', 'Fonctions linéaires et affines', 'Volumes']
+    tags: ['Pourcentages', 'Proportionnalité', 'Fonctions', 'Volumes']
   },
   'crpe-2022-g4-ex3': {
     typeExercice: 'crpe',

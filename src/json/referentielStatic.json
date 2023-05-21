@@ -54507,7 +54507,7 @@
       }
     }
   },
-  "CRPE (2022) par thèmes": {
+  "CRPE (2022-2023) par thèmes": {
     "Agrandissement-réduction": {
       "crpe-2022-g1-ex4": {
         "uuid": "crpe-2022-g1-ex4",
@@ -54532,7 +54532,7 @@
           "Aires latérales",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -54558,7 +54558,7 @@
           "Volumes",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions linéaires et affines",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -54609,7 +54609,7 @@
           "Volumes",
           "Agrandissement-réduction",
           "Équations",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -54639,6 +54639,63 @@
           "Vitesses",
           "Proportionnalité"
         ]
+      },
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g3-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
+        ],
+        "tags": [
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
+          "Pythagore",
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
+        ]
+      }
+    },
+    "Aires": {
+      "crpe-2023-g1-ex4": {
+        "uuid": "crpe-2023-g1-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g1-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex4-corr.tex"
+        ],
+        "tags": [
+          "Proportionnalité",
+          "Pythagore",
+          "Aires",
+          "Ratio",
+          "Volumes"
+        ]
       }
     },
     "Aires latérales": {
@@ -54665,7 +54722,7 @@
           "Aires latérales",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       }
@@ -54691,6 +54748,101 @@
         ],
         "tags": [
           "Algorithmique et programmation"
+        ]
+      },
+      "crpe-2023-g1-ex3": {
+        "uuid": "crpe-2023-g1-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g1-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex3-corr.tex"
+        ],
+        "tags": [
+          "Algorithmique et programmation"
+        ]
+      },
+      "crpe-2023-g2-ex3": {
+        "uuid": "crpe-2023-g2-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g2-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex3-corr.tex"
+        ],
+        "tags": [
+          "Algorithmique et programmation",
+          "Programmes de calculs",
+          "Calcul littéral"
+        ]
+      },
+      "crpe-2023-g3-ex3": {
+        "uuid": "crpe-2023-g3-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g3-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex3-corr.tex"
+        ],
+        "tags": [
+          "Algorithmique et programmation",
+          "Propriétés des polygones",
+          "Proportionnalité"
+        ]
+      }
+    },
+    "Arithmétique": {
+      "crpe-2023-g3-ex1": {
+        "uuid": "crpe-2023-g3-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g3-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex1-corr.tex"
+        ],
+        "tags": [
+          "Arithmétique",
+          "Tableur"
         ]
       }
     },
@@ -54745,6 +54897,103 @@
           "Volumes",
           "Pourcentages",
           "Proportionnalité"
+        ]
+      },
+      "crpe-2023-g2-ex3": {
+        "uuid": "crpe-2023-g2-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g2-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex3-corr.tex"
+        ],
+        "tags": [
+          "Algorithmique et programmation",
+          "Programmes de calculs",
+          "Calcul littéral"
+        ]
+      },
+      "crpe-2023-g2-ex5": {
+        "uuid": "crpe-2023-g2-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g2-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex5-corr.tex"
+        ],
+        "tags": [
+          "Calcul littéral"
+        ]
+      },
+      "crpe-2023-g2-ex6": {
+        "uuid": "crpe-2023-g2-ex6",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 6",
+        "png": [
+          "static/crpe/2023/2023-g2-ex6.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex6-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex6.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex6-corr.tex"
+        ],
+        "tags": [
+          "Calcul littéral"
+        ]
+      },
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g3-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
+        ],
+        "tags": [
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
+          "Pythagore",
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
         ]
       }
     },
@@ -54802,6 +55051,37 @@
         ]
       }
     },
+    "Ensembles de nombres": {
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g3-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
+        ],
+        "tags": [
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
+          "Pythagore",
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
+        ]
+      }
+    },
     "Équations": {
       "crpe-2022-g1-ex3": {
         "uuid": "crpe-2022-g1-ex3",
@@ -54822,7 +55102,7 @@
           "static/crpe/2022/2022-g1-ex3-corr.tex"
         ],
         "tags": [
-          "Résolution de problème",
+          "Résolution de problèmes",
           "Équations"
         ]
       },
@@ -54850,7 +55130,7 @@
           "Volumes",
           "Agrandissement-réduction",
           "Équations",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -54879,7 +55159,7 @@
         ]
       }
     },
-    "Fonctions affines et linéaires": {
+    "Fonctions": {
       "crpe-2022-g1-ex4": {
         "uuid": "crpe-2022-g1-ex4",
         "typeExercice": "crpe",
@@ -54903,7 +55183,33 @@
           "Aires latérales",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions affines et linéaires",
+          "Fonctions",
+          "Inéquations"
+        ]
+      },
+      "crpe-2022-g1-ex5": {
+        "uuid": "crpe-2022-g1-ex5",
+        "typeExercice": "crpe",
+        "annee": "2022",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2022/2022-g1-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2022/2022-g1-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2022/2022-g1-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2022/2022-g1-ex5-corr.tex"
+        ],
+        "tags": [
+          "Volumes",
+          "Pythagore",
+          "Agrandissement-réduction",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -54931,36 +55237,37 @@
           "Volumes",
           "Agrandissement-réduction",
           "Équations",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
-      }
-    },
-    "Fonctions linéaires et affines": {
-      "crpe-2022-g1-ex5": {
-        "uuid": "crpe-2022-g1-ex5",
+      },
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
         "typeExercice": "crpe",
-        "annee": "2022",
-        "lieu": "Groupement 1",
+        "annee": "2023",
+        "lieu": "Groupement 3",
         "numeroInitial": "Ex 5",
         "png": [
-          "static/crpe/2022/2022-g1-ex5.png"
+          "static/crpe/2023/2023-g3-ex5.png"
         ],
         "pngCor": [
-          "static/crpe/2022/2022-g1-ex5-corr.png"
+          "static/crpe/2023/2023-g3-ex5-corr.png"
         ],
         "url": [
-          "static/crpe/2022/2022-g1-ex5.tex"
+          "static/crpe/2023/2023-g3-ex5.tex"
         ],
         "urlcor": [
-          "static/crpe/2022/2022-g1-ex5-corr.tex"
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
         ],
         "tags": [
-          "Volumes",
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
           "Pythagore",
-          "Agrandissement-réduction",
-          "Fonctions linéaires et affines",
-          "Inéquations"
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
         ]
       }
     },
@@ -54991,6 +55298,29 @@
           "Fractions",
           "Pythagore"
         ]
+      },
+      "crpe-2023-g1-ex2": {
+        "uuid": "crpe-2023-g1-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g1-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex2-corr.tex"
+        ],
+        "tags": [
+          "Résolution de problèmes",
+          "Fractions"
+        ]
       }
     },
     "Géométrie plane": {
@@ -55018,7 +55348,7 @@
           "Volumes",
           "Agrandissement-réduction",
           "Équations",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       }
@@ -55047,7 +55377,7 @@
           "Aires latérales",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -55073,7 +55403,7 @@
           "Volumes",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions linéaires et affines",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -55101,7 +55431,7 @@
           "Volumes",
           "Agrandissement-réduction",
           "Équations",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       }
@@ -55132,6 +55462,31 @@
           "Lecture graphique",
           "Volumes",
           "Pourcentages",
+          "Proportionnalité"
+        ]
+      },
+      "crpe-2023-g3-ex2": {
+        "uuid": "crpe-2023-g3-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g3-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex2-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Thalès",
+          "Lecture graphique",
           "Proportionnalité"
         ]
       }
@@ -55214,6 +55569,34 @@
         ]
       }
     },
+    "Périmètres": {
+      "crpe-2023-g2-ex1": {
+        "uuid": "crpe-2023-g2-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g2-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex1-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Périmètres",
+          "Proportionnalité",
+          "Statistiques",
+          "Pourcentages"
+        ]
+      }
+    },
     "Pourcentages": {
       "crpe-2022-g3-ex1": {
         "uuid": "crpe-2022-g3-ex1",
@@ -55269,6 +55652,84 @@
           "Pourcentages",
           "Proportionnalité"
         ]
+      },
+      "crpe-2023-g1-ex6": {
+        "uuid": "crpe-2023-g1-ex6",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 6",
+        "png": [
+          "static/crpe/2023/2023-g1-ex6.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex6-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex6.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex6-corr.tex"
+        ],
+        "tags": [
+          "Probabilités",
+          "Pourcentages"
+        ]
+      },
+      "crpe-2023-g2-ex1": {
+        "uuid": "crpe-2023-g2-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g2-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex1-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Périmètres",
+          "Proportionnalité",
+          "Statistiques",
+          "Pourcentages"
+        ]
+      },
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g3-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
+        ],
+        "tags": [
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
+          "Pythagore",
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
+        ]
       }
     },
     "Probabilités": {
@@ -55315,6 +55776,73 @@
         "tags": [
           "Probabilités"
         ]
+      },
+      "crpe-2023-g1-ex6": {
+        "uuid": "crpe-2023-g1-ex6",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 6",
+        "png": [
+          "static/crpe/2023/2023-g1-ex6.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex6-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex6.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex6-corr.tex"
+        ],
+        "tags": [
+          "Probabilités",
+          "Pourcentages"
+        ]
+      },
+      "crpe-2023-g2-ex4": {
+        "uuid": "crpe-2023-g2-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g2-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex4-corr.tex"
+        ],
+        "tags": [
+          "Probabilités"
+        ]
+      },
+      "crpe-2023-g3-ex4": {
+        "uuid": "crpe-2023-g3-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g3-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex4-corr.tex"
+        ],
+        "tags": [
+          "Probabilités"
+        ]
       }
     },
     "Programmes de calculs": {
@@ -55340,6 +55868,30 @@
           "Programmes de calculs",
           "Calcul littéral",
           "Équations"
+        ]
+      },
+      "crpe-2023-g2-ex3": {
+        "uuid": "crpe-2023-g2-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g2-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex3-corr.tex"
+        ],
+        "tags": [
+          "Algorithmique et programmation",
+          "Programmes de calculs",
+          "Calcul littéral"
         ]
       }
     },
@@ -55398,6 +55950,208 @@
           "Pourcentages",
           "Proportionnalité"
         ]
+      },
+      "crpe-2023-g1-ex4": {
+        "uuid": "crpe-2023-g1-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g1-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex4-corr.tex"
+        ],
+        "tags": [
+          "Proportionnalité",
+          "Pythagore",
+          "Aires",
+          "Ratio",
+          "Volumes"
+        ]
+      },
+      "crpe-2023-g1-ex5": {
+        "uuid": "crpe-2023-g1-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g1-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex5-corr.tex"
+        ],
+        "tags": [
+          "Proportionnalité",
+          "Résolution de problèmes",
+          "Tableur"
+        ]
+      },
+      "crpe-2023-g2-ex1": {
+        "uuid": "crpe-2023-g2-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g2-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex1-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Périmètres",
+          "Proportionnalité",
+          "Statistiques",
+          "Pourcentages"
+        ]
+      },
+      "crpe-2023-g3-ex2": {
+        "uuid": "crpe-2023-g3-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g3-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex2-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Thalès",
+          "Lecture graphique",
+          "Proportionnalité"
+        ]
+      },
+      "crpe-2023-g3-ex3": {
+        "uuid": "crpe-2023-g3-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g3-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex3-corr.tex"
+        ],
+        "tags": [
+          "Algorithmique et programmation",
+          "Propriétés des polygones",
+          "Proportionnalité"
+        ]
+      }
+    },
+    "Propriétés des polygones": {
+      "crpe-2023-g2-ex2": {
+        "uuid": "crpe-2023-g2-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g2-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex2-corr.tex"
+        ],
+        "tags": [
+          "Propriétés des polygones"
+        ]
+      },
+      "crpe-2023-g3-ex3": {
+        "uuid": "crpe-2023-g3-ex3",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 3",
+        "png": [
+          "static/crpe/2023/2023-g3-ex3.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex3-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex3.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex3-corr.tex"
+        ],
+        "tags": [
+          "Algorithmique et programmation",
+          "Propriétés des polygones",
+          "Proportionnalité"
+        ]
+      },
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g3-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
+        ],
+        "tags": [
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
+          "Pythagore",
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
+        ]
       }
     },
     "Puissances": {
@@ -55453,7 +56207,7 @@
           "Aires latérales",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -55479,7 +56233,7 @@
           "Volumes",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions linéaires et affines",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -55507,7 +56261,7 @@
           "Volumes",
           "Agrandissement-réduction",
           "Équations",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -55564,6 +56318,135 @@
           "Volumes",
           "Pourcentages",
           "Proportionnalité"
+        ]
+      },
+      "crpe-2023-g1-ex1": {
+        "uuid": "crpe-2023-g1-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g1-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex1-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Vitesses"
+        ]
+      },
+      "crpe-2023-g1-ex4": {
+        "uuid": "crpe-2023-g1-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g1-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex4-corr.tex"
+        ],
+        "tags": [
+          "Proportionnalité",
+          "Pythagore",
+          "Aires",
+          "Ratio",
+          "Volumes"
+        ]
+      },
+      "crpe-2023-g2-ex1": {
+        "uuid": "crpe-2023-g2-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g2-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex1-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Périmètres",
+          "Proportionnalité",
+          "Statistiques",
+          "Pourcentages"
+        ]
+      },
+      "crpe-2023-g3-ex2": {
+        "uuid": "crpe-2023-g3-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g3-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex2-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Thalès",
+          "Lecture graphique",
+          "Proportionnalité"
+        ]
+      },
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g3-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
+        ],
+        "tags": [
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
+          "Pythagore",
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
         ]
       }
     },
@@ -55596,7 +56479,35 @@
         ]
       }
     },
-    "Résolution de problème": {
+    "Ratio": {
+      "crpe-2023-g1-ex4": {
+        "uuid": "crpe-2023-g1-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g1-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex4-corr.tex"
+        ],
+        "tags": [
+          "Proportionnalité",
+          "Pythagore",
+          "Aires",
+          "Ratio",
+          "Volumes"
+        ]
+      }
+    },
+    "Résolution de problèmes": {
       "crpe-2022-g1-ex3": {
         "uuid": "crpe-2022-g1-ex3",
         "typeExercice": "crpe",
@@ -55616,8 +56527,55 @@
           "static/crpe/2022/2022-g1-ex3-corr.tex"
         ],
         "tags": [
-          "Résolution de problème",
+          "Résolution de problèmes",
           "Équations"
+        ]
+      },
+      "crpe-2023-g1-ex2": {
+        "uuid": "crpe-2023-g1-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g1-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex2-corr.tex"
+        ],
+        "tags": [
+          "Résolution de problèmes",
+          "Fractions"
+        ]
+      },
+      "crpe-2023-g1-ex5": {
+        "uuid": "crpe-2023-g1-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g1-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex5-corr.tex"
+        ],
+        "tags": [
+          "Proportionnalité",
+          "Résolution de problèmes",
+          "Tableur"
         ]
       }
     },
@@ -55648,6 +56606,32 @@
           "Vitesses",
           "Proportionnalité"
         ]
+      },
+      "crpe-2023-g2-ex1": {
+        "uuid": "crpe-2023-g2-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 2",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g2-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g2-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g2-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g2-ex1-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Périmètres",
+          "Proportionnalité",
+          "Statistiques",
+          "Pourcentages"
+        ]
       }
     },
     "Tableur": {
@@ -55673,6 +56657,53 @@
           "Vitesses",
           "Nombre π",
           "Durées",
+          "Tableur"
+        ]
+      },
+      "crpe-2023-g1-ex5": {
+        "uuid": "crpe-2023-g1-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g1-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex5-corr.tex"
+        ],
+        "tags": [
+          "Proportionnalité",
+          "Résolution de problèmes",
+          "Tableur"
+        ]
+      },
+      "crpe-2023-g3-ex1": {
+        "uuid": "crpe-2023-g3-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g3-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex1-corr.tex"
+        ],
+        "tags": [
+          "Arithmétique",
           "Tableur"
         ]
       }
@@ -55703,6 +56734,31 @@
           "Lecture graphique",
           "Volumes",
           "Pourcentages",
+          "Proportionnalité"
+        ]
+      },
+      "crpe-2023-g3-ex2": {
+        "uuid": "crpe-2023-g3-ex2",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 2",
+        "png": [
+          "static/crpe/2023/2023-g3-ex2.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex2-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex2.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex2-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Thalès",
+          "Lecture graphique",
           "Proportionnalité"
         ]
       }
@@ -55782,6 +56838,29 @@
           "Vitesses",
           "Proportionnalité"
         ]
+      },
+      "crpe-2023-g1-ex1": {
+        "uuid": "crpe-2023-g1-ex1",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 1",
+        "png": [
+          "static/crpe/2023/2023-g1-ex1.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex1-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex1.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex1-corr.tex"
+        ],
+        "tags": [
+          "Pythagore",
+          "Vitesses"
+        ]
       }
     },
     "Volumes": {
@@ -55808,7 +56887,7 @@
           "Aires latérales",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -55834,7 +56913,7 @@
           "Volumes",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions linéaires et affines",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -55862,7 +56941,7 @@
           "Volumes",
           "Agrandissement-réduction",
           "Équations",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -55920,10 +56999,67 @@
           "Pourcentages",
           "Proportionnalité"
         ]
+      },
+      "crpe-2023-g1-ex4": {
+        "uuid": "crpe-2023-g1-ex4",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 1",
+        "numeroInitial": "Ex 4",
+        "png": [
+          "static/crpe/2023/2023-g1-ex4.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g1-ex4-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g1-ex4.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g1-ex4-corr.tex"
+        ],
+        "tags": [
+          "Proportionnalité",
+          "Pythagore",
+          "Aires",
+          "Ratio",
+          "Volumes"
+        ]
+      }
+    },
+    "Vrai-faux": {
+      "crpe-2023-g3-ex5": {
+        "uuid": "crpe-2023-g3-ex5",
+        "typeExercice": "crpe",
+        "annee": "2023",
+        "lieu": "Groupement 3",
+        "numeroInitial": "Ex 5",
+        "png": [
+          "static/crpe/2023/2023-g3-ex5.png"
+        ],
+        "pngCor": [
+          "static/crpe/2023/2023-g3-ex5-corr.png"
+        ],
+        "url": [
+          "static/crpe/2023/2023-g3-ex5.tex"
+        ],
+        "urlcor": [
+          "static/crpe/2023/2023-g3-ex5-corr.tex"
+        ],
+        "tags": [
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
+          "Pythagore",
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
+        ]
       }
     }
   },
-  "CRPE (2022) par année": {
+  "CRPE (2022-2023) par année": {
     "2022": {
       "crpe-2022-g1-ex1": {
         "uuid": "crpe-2022-g1-ex1",
@@ -55991,7 +57127,7 @@
           "static/crpe/2022/2022-g1-ex3-corr.tex"
         ],
         "tags": [
-          "Résolution de problème",
+          "Résolution de problèmes",
           "Équations"
         ]
       },
@@ -56018,7 +57154,7 @@
           "Aires latérales",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -56044,7 +57180,7 @@
           "Volumes",
           "Pythagore",
           "Agrandissement-réduction",
-          "Fonctions linéaires et affines",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -56117,7 +57253,7 @@
           "Volumes",
           "Agrandissement-réduction",
           "Équations",
-          "Fonctions affines et linéaires",
+          "Fonctions",
           "Inéquations"
         ]
       },
@@ -56291,7 +57427,10 @@
         "urlcor": [
           "static/crpe/2023/2023-g1-ex1-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Pythagore",
+          "Vitesses"
+        ]
       },
       "crpe-2023-g1-ex2": {
         "uuid": "crpe-2023-g1-ex2",
@@ -56311,7 +57450,10 @@
         "urlcor": [
           "static/crpe/2023/2023-g1-ex2-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Résolution de problèmes",
+          "Fractions"
+        ]
       },
       "crpe-2023-g1-ex3": {
         "uuid": "crpe-2023-g1-ex3",
@@ -56331,7 +57473,9 @@
         "urlcor": [
           "static/crpe/2023/2023-g1-ex3-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Algorithmique et programmation"
+        ]
       },
       "crpe-2023-g1-ex4": {
         "uuid": "crpe-2023-g1-ex4",
@@ -56351,7 +57495,13 @@
         "urlcor": [
           "static/crpe/2023/2023-g1-ex4-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Proportionnalité",
+          "Pythagore",
+          "Aires",
+          "Ratio",
+          "Volumes"
+        ]
       },
       "crpe-2023-g1-ex5": {
         "uuid": "crpe-2023-g1-ex5",
@@ -56371,7 +57521,11 @@
         "urlcor": [
           "static/crpe/2023/2023-g1-ex5-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Proportionnalité",
+          "Résolution de problèmes",
+          "Tableur"
+        ]
       },
       "crpe-2023-g1-ex6": {
         "uuid": "crpe-2023-g1-ex6",
@@ -56391,7 +57545,10 @@
         "urlcor": [
           "static/crpe/2023/2023-g1-ex6-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Probabilités",
+          "Pourcentages"
+        ]
       },
       "crpe-2023-g2-ex1": {
         "uuid": "crpe-2023-g2-ex1",
@@ -56411,7 +57568,13 @@
         "urlcor": [
           "static/crpe/2023/2023-g2-ex1-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Pythagore",
+          "Périmètres",
+          "Proportionnalité",
+          "Statistiques",
+          "Pourcentages"
+        ]
       },
       "crpe-2023-g2-ex2": {
         "uuid": "crpe-2023-g2-ex2",
@@ -56431,7 +57594,9 @@
         "urlcor": [
           "static/crpe/2023/2023-g2-ex2-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Propriétés des polygones"
+        ]
       },
       "crpe-2023-g2-ex3": {
         "uuid": "crpe-2023-g2-ex3",
@@ -56451,7 +57616,11 @@
         "urlcor": [
           "static/crpe/2023/2023-g2-ex3-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Algorithmique et programmation",
+          "Programmes de calculs",
+          "Calcul littéral"
+        ]
       },
       "crpe-2023-g2-ex4": {
         "uuid": "crpe-2023-g2-ex4",
@@ -56471,7 +57640,9 @@
         "urlcor": [
           "static/crpe/2023/2023-g2-ex4-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Probabilités"
+        ]
       },
       "crpe-2023-g2-ex5": {
         "uuid": "crpe-2023-g2-ex5",
@@ -56491,7 +57662,9 @@
         "urlcor": [
           "static/crpe/2023/2023-g2-ex5-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Calcul littéral"
+        ]
       },
       "crpe-2023-g2-ex6": {
         "uuid": "crpe-2023-g2-ex6",
@@ -56511,7 +57684,9 @@
         "urlcor": [
           "static/crpe/2023/2023-g2-ex6-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Calcul littéral"
+        ]
       },
       "crpe-2023-g3-ex1": {
         "uuid": "crpe-2023-g3-ex1",
@@ -56531,7 +57706,10 @@
         "urlcor": [
           "static/crpe/2023/2023-g3-ex1-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Arithmétique",
+          "Tableur"
+        ]
       },
       "crpe-2023-g3-ex2": {
         "uuid": "crpe-2023-g3-ex2",
@@ -56551,7 +57729,12 @@
         "urlcor": [
           "static/crpe/2023/2023-g3-ex2-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Pythagore",
+          "Thalès",
+          "Lecture graphique",
+          "Proportionnalité"
+        ]
       },
       "crpe-2023-g3-ex3": {
         "uuid": "crpe-2023-g3-ex3",
@@ -56571,7 +57754,11 @@
         "urlcor": [
           "static/crpe/2023/2023-g3-ex3-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Algorithmique et programmation",
+          "Propriétés des polygones",
+          "Proportionnalité"
+        ]
       },
       "crpe-2023-g3-ex4": {
         "uuid": "crpe-2023-g3-ex4",
@@ -56591,7 +57778,9 @@
         "urlcor": [
           "static/crpe/2023/2023-g3-ex4-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Probabilités"
+        ]
       },
       "crpe-2023-g3-ex5": {
         "uuid": "crpe-2023-g3-ex5",
@@ -56611,7 +57800,16 @@
         "urlcor": [
           "static/crpe/2023/2023-g3-ex5-corr.tex"
         ],
-        "tags": []
+        "tags": [
+          "Vrai-faux",
+          "Ensembles de nombres",
+          "Calcul littéral",
+          "Pourcentages",
+          "Pythagore",
+          "Propriétés des polygones",
+          "Fonctions",
+          "Agrandissement-réduction"
+        ]
       }
     }
   },

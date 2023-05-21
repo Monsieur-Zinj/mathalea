@@ -174,8 +174,8 @@ delete Object.assign(referentiel, { 'BAC par thèmes - APMEP': referentiel.BACTa
 delete Object.assign(referentiel, { 'BAC par année - APMEP': referentiel.BAC }).BAC
 delete Object.assign(referentiel, { 'CRPE (2015-2019) par thèmes - COPIRELEM': referentiel.crpeCopirelemTags }).crpeCopirelemTags
 delete Object.assign(referentiel, { 'CRPE (2015-2019) par année - COPIRELEM': referentiel.crpeCopirelem }).crpeCopirelem
-delete Object.assign(referentiel, { 'CRPE (2022) par thèmes': referentiel.crpeTags }).crpeTags
-delete Object.assign(referentiel, { 'CRPE (2022) par année': referentiel.crpe }).crpe
+delete Object.assign(referentiel, { 'CRPE (2022-2023) par thèmes': referentiel.crpeTags }).crpeTags
+delete Object.assign(referentiel, { 'CRPE (2022-2023) par année': referentiel.crpe }).crpe
 delete Object.assign(referentiel, { 'E3C par thèmes - APMEP': referentiel.E3CTags }).E3CTags
 delete Object.assign(referentiel, { 'E3C par specimen - APMEP': referentiel.E3C }).E3C
 

@@ -3603,6 +3603,17 @@
             "interactif": true,
             "interactifType": "mathLive"
           }
+        },
+        "can2F15": {
+          "id": "can2F15",
+          "uuid": "a3e06",
+          "url": "can/2e/can2F15.js",
+          "titre": "Donner le sens de variation d’une fonction affine",
+          "datePublication": "19/05/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "qcm"
+          }
         }
       },
       "can2G": {

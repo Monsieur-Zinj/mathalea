@@ -101,9 +101,9 @@
   // @ts-ignore
   filteredReferentiel["3e"]["Brevet des collèges par thèmes - APMEP"] = filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
   // @ts-ignore
-  filteredReferentiel["PE"]["Concours 2022"] = filteredReferentiel["static"]["CRPE (2022) par année"]
+  filteredReferentiel["PE"]["CRPE (2022-2023) par année"] = filteredReferentiel["static"]["CRPE (2022-2023) par année"]
   // @ts-ignore
-  filteredReferentiel["PE"]["Concours 2022 - Par thèmes"] = filteredReferentiel["static"]["CRPE (2022) par thèmes"]
+  filteredReferentiel["PE"]["CRPE (2022-2023) par thèmes"] = filteredReferentiel["static"]["CRPE (2022-2023) par thèmes"]
   // @ts-ignore
   filteredReferentiel["PE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
   // @ts-ignore
