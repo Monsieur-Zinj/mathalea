@@ -34,7 +34,6 @@ export const uuid = '20d20'
  */
 export default function FonctionsAffines () {
   Exercice.call(this)
-  this.lycee = true // mettre à true dans 2F10-8.js
   this.comment = `L'exercice propose différents types de questions sur les fonctions affines comme son homologue 3F20 sur les fonctions affines :<br>
 calcul d'image, calcul d'antécédent.<br>
 Ce coefficient peut être au choix entier relatif ou rationnel relatif.<br>
@@ -316,7 +315,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
           } else {
-            setReponse(this, i, [`f(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `f(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
         case 'expressionParGraphique':
@@ -345,7 +344,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
           } else {
-            setReponse(this, i, [`f(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `f(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
         case 'expressionParGraphique2': {
@@ -452,7 +451,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
           } else {
-            setReponse(this, i, [`f(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `f(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
           }
         }
           break
@@ -486,7 +485,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
           } else {
-            setReponse(this, i, [`f(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `f(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
           }
 
           break
