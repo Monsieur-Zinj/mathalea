@@ -11,4 +11,6 @@ export const uuid = 'c1961'
 export const ref = '2F10-8'
 export default function FonctionsAffinesS () {
   FonctionsAffines.call(this)
+  this.lycee = true
+  this.nbQuestions = 10
 }
