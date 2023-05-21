@@ -16,6 +16,25 @@
   import JSZipUtils from "jszip-utils"
   import { saveAs } from "file-saver"
 
+  interface Exo {
+    content: string
+    serie?: string
+    month?: string
+    year?: string
+    zone?: string
+    title?: string
+  }
+
+  interface Image {
+    url: string
+    fileName: string
+  }
+
+  interface File {
+    name: string
+    format: string
+  }
+
   let nbVersions = 1
   let title = ""
   let reference = ""
@@ -29,9 +48,8 @@
   let downloadPicsModal: HTMLElement
   let picsWanted: boolean
   let messageForCopyPasteModal: string
-  let picsNames: string[][] = []
-  let exosContentList: string[] = []
-  let linkForOverleaf: HTMLLinkElement
+  let picsNames: File[][] = []
+  let exosContentList: Exo[] = []
   let imagesList: any[] = []
 
   const latex = new Latex()
@@ -75,7 +93,7 @@
    * @author sylvain
    */
   function buildImagesUrlsList() {
-    let imagesFilesUrls = []
+    let imagesFilesUrls = [] as Image[]
     getImagesInCode()
     exosContentList.forEach((exo, i) => {
       if (picsNames[i].length !== 0) {
@@ -151,7 +169,7 @@
    * @author sylvain
    */
   function getImagesInCode() {
-    let picsList: string[][] = []
+    let picsList: RegExpMatchArray[][] = []
     picsNames = []
     exosContentList = []
     let exosData = []
@@ -177,7 +195,7 @@
     //   exosContentList = [...latexCode.matchAll(regExpExoClassic)]
     // }
     for (const exo of exosContentList) {
-      let pics
+      let pics: RegExpMatchArray[]
       if (exo.content.matchAll(regExpImage) !== undefined) {
         pics = [...exo.content.matchAll(regExpImage)]
         picsList.push(pics)
