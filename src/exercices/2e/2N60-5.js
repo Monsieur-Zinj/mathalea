@@ -4,7 +4,7 @@ import {
 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-export const dateDePublication = '19/05/2023'
+export const dateDePublication = '22/05/2023'
 export const titre = 'Montrer qu\'un nombre est ou n\'est pas solution d\'une inéquation'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -12,7 +12,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 
 /**
- * Reconnaître une fonction affine
+ * Montrer qu'un nombre est ou n'est pas solution d'une inéquation
 * @author Gilles Mora
 * 2N60-5
 */
