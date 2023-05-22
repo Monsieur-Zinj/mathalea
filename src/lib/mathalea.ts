@@ -289,6 +289,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   let setInteractive = '2'
   let isSolutionAccessible = true
   let isInteractiveFree = true
+  let oneShot = false
   let url = new URL(window.location.href)
   if (isCrypted(url)) {
     urlNeedToBeFreezed = true
@@ -376,14 +377,15 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   }
   /**
    * es permet de résumer les réglages de la vue élève
-   * Il est de la forme 2101
-   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree
+   * Il est de la forme 21011
+   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot
    */
-  if (es && es.length === 4) {
+  if (es && es.length === 5) {
     presMode = presModeId[parseInt(es.charAt(0))]
     setInteractive = es.charAt(1)
     isSolutionAccessible = es.charAt(2) === '1'
     isInteractiveFree = es.charAt(3) === '1'
+    oneShot = es.charAt(4) === '1'
   }
   return {
     v,
@@ -399,6 +401,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
     setInteractive,
     isSolutionAccessible,
     isInteractiveFree,
+    oneShot,
     recorder,
     done,
     iframe,
