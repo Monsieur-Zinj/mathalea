@@ -84,7 +84,7 @@ const lyceeKeyboardLayer = {
           latex: '\\sum_{#0}^{#1}',
           insert: '$$\\sum_#0^#1$$' /// Somme
         },
-        { latex: '\\infin' },
+        { latex: '\\infty' },
         { class: 'separator w5' },
         { label: '4', latex: '4' },
         { label: '5', key: '5' },
@@ -120,8 +120,13 @@ const lyceeKeyboardLayer = {
         },
         {
           class: 'small',
-          latex: '[#0]',
-          insert: '$$[#0]$$' /// Crochets
+          latex: '[',
+          insert: '$[$' /// Crochets
+        },
+        {
+          class: 'small',
+          latex: ']',
+          insert: '$]$' /// Crochets
         },
         {
           class: 'small',
@@ -200,6 +205,7 @@ export const clavierLycee = {
     '%': { mode: 'math', value: '\\%' },
     '(': { mode: 'math', value: '(#0)' },
     '{': { mode: 'math', value: '\\{#0\\}' },
+    '[': { mode: 'math', value: '$[$' },
     singleton: { mode: 'math', value: '\\{#0\\}' },
     inf: { mode: 'math', value: '\\infty' },
     union: { mode: 'math', value: '\\bigcup' },

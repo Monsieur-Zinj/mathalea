@@ -3603,6 +3603,17 @@
             "interactif": true,
             "interactifType": "mathLive"
           }
+        },
+        "can2F15": {
+          "id": "can2F15",
+          "uuid": "a3e06",
+          "url": "can/2e/can2F15.js",
+          "titre": "Donner le sens de variation d’une fonction affine",
+          "datePublication": "19/05/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "qcm"
+          }
         }
       },
       "can2G": {
@@ -3887,10 +3898,10 @@
           "id": "can2L05",
           "uuid": "96a78",
           "url": "can/2e/can2L05.js",
-          "titre": "Résoudre une inéquation (QCM)",
+          "titre": "Résoudre une inéquation",
           "tags": {
             "interactif": true,
-            "interactifType": "qcm"
+            "interactifType": "mathLive"
           }
         },
         "can2L06": {
@@ -5490,6 +5501,7 @@
         "uuid": "4c10a",
         "url": "6e/6C33.js",
         "titre": "Calculer en utilisant les priorités opératoires",
+        "dateModification": "21/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10917,6 +10929,17 @@
         "datePublication": "01/10/2022",
         "tags": {}
       },
+      "2F10-8": {
+        "id": "2F10-8",
+        "uuid": "c1961",
+        "url": "2e/2F10-8.js",
+        "titre": "Faire un bilan sur les fonctions affines",
+        "datePublication": "17/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
       "2F11-1": {
         "id": "2F11-1",
         "uuid": "b6cc0",
@@ -11030,8 +11053,11 @@
         "url": "2e/2F31-3.js",
         "titre": "Comparaison d'images dans un tableau de variations",
         "datePublication": "25/10/2021",
-        "dateModification": "24/10/2021",
-        "tags": {}
+        "dateModification": "17/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm"
+        }
       },
       "2F32-2": {
         "id": "2F32-2",

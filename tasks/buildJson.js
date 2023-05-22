@@ -7,11 +7,11 @@
 import fs, { readFileSync } from 'fs'
 import path from 'path'
 import uuidsRessources from '../src/json/uuidsRessources.json' assert { type: 'json' }
+import { checkTitre, isFileExcluded, refOk, uuidOk } from './fileCheck.js'
 
 const uuidUrls = {}
 const refToUuid = {}
 const exercicesList = []
-let errors = ''
 
 /**
  * On utilise emptyRef2022 pour initialiser referentiel2022 avec les niveaux et les catégories
@@ -38,25 +38,10 @@ async function handleLevels () {
         const { titre, dateDePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
         url = url.replace('../src/exercices/', '')
         url = url.replace('..\\src\\exercices\\', '')
-        if (uuid === undefined) {
-          console.log(`${url} n'a pas de uuid, il faut l'ajouter. Faites pnpm getUuid pour obtenir un UUID disponible`)
-          continue
-        } else {
-          if (uuid in uuidUrls) {
-            errors += `\nUUID : ${uuid} en doublon !!!!\n`
-          }
+        checkTitre(titre, url)
+        if (uuidOk(uuid, url, uuidUrls)) {
           uuidUrls[uuid] = url
-        }
-        if (ref === undefined) {
-          console.log(`${url} n'a pas de ref, il faut l'ajouter`)
-          continue
-        }
-        if (titre === undefined) {
-          console.log(`${url} n'a pas de titre, il faut l'ajouter.`)
-          continue
-        }
-        if (ref !== undefined && uuid !== undefined) {
-          refToUuid[ref] = uuid
+          if (refOk(ref, url)) refToUuid[ref] = uuid
         }
         /** L'arborescence est complexe 2 premières lettres, 4 premières lettres, on n'a pas toujours la même règle pour les identifiants */
         const category = categoryByNiveau(niveau, ref)
@@ -64,11 +49,10 @@ async function handleLevels () {
           dictionnaire[niveau][category][ref] = { id: ref, uuid, url, titre, datePublication: dateDePublication, dateModification: dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
           exercicesList.push(url)
         } else {
-          console.log(`${url} non géré`)
+          if (!isFileExcluded(url)) console.log(`${url} n'a pas été ajouté${!ref ? ', sa référence n\'est pas définie' : ''}${dictionnaire[niveau][category] === undefined ? ', sa catégorie n\'est pas définie' : ''}`)
         }
       } catch (error) {
         console.log(error)
-        errors = error + '\n'
       }
     }
   }
@@ -89,24 +73,20 @@ async function handleCanLevels () {
         const { titre, dateDePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
         url = url.replace('../src/exercices/', '')
         url = url.replace('..\\src\\exercices\\', '')
+        checkTitre(titre, url)
+        if (uuidOk(uuid, url, uuidUrls)) {
+          uuidUrls[uuid] = url
+          if (refOk(ref, url)) refToUuid[ref] = uuid
+        }
         const category = categoryCanByNiveau(niveau, ref)
-        uuidUrls[uuid] = url
-        exercicesList.push(url)
         if (ref && dictionnaire.CAN[niveau] && dictionnaire.CAN[niveau][category] !== undefined) {
           dictionnaire.CAN[niveau][category][ref] = { id: ref, uuid, url, titre, datePublication: dateDePublication, dateModification: dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
+          exercicesList.push(url)
         } else {
-          if (ref === undefined) {
-            console.log(`${url} n'a pas de référence, il sera utilisable mais absent des menus`)
-          } else {
-            console.log(`${url} non géré`)
-          }
-        }
-        if (ref !== undefined && uuid !== undefined) {
-          refToUuid[ref] = uuid
+          if (!isFileExcluded(url)) console.log(`${url} n'a pas été ajouté${!ref ? ', sa référence n\'est pas définie' : ''}${dictionnaire.CAN[niveau][category] === undefined ? ', sa catégorie n\'est pas définie' : ''}`)
         }
       } catch (error) {
         console.log(error)
-        errors = error + '\n'
       }
     }
   }
@@ -127,30 +107,14 @@ async function handleProfs () {
       const { titre, dateDePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
       url = url.replace('../src/exercices/', '')
       url = url.replace('..\\src\\exercices\\', '')
-      if (uuid === undefined) {
-        console.log(`${url} n'a pas de uuid, il faut l'ajouter. Faites pnpm getUuid pour obtenir un UUID disponible`)
-        continue
-      } else {
-        if (uuid in uuidUrls) {
-          errors += `\nUUID : ${uuid} en doublon !!!!\n`
-        }
+      checkTitre(titre, url)
+      if (uuidOk(uuid, url, uuidUrls)) {
         uuidUrls[uuid] = url
-      }
-      if (ref === undefined) {
-        console.log(`${url} n'a pas de ref, il faut l'ajouter`)
-        continue
-      }
-      if (titre === undefined) {
-        console.log(`${url} n'a pas de titre, il faut l'ajouter.`)
-        continue
-      }
-      if (ref !== undefined && uuid !== undefined) {
-        refToUuid[ref] = uuid
+        if (refOk(ref, url)) refToUuid[ref] = uuid
       }
       dictionnaireProfs[ref] = { id: ref, uuid, url, titre, datePublication: dateDePublication, dateModification: dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
     } catch (error) {
       console.log(error)
-      errors = error + '\n'
     }
   }
 }
@@ -192,7 +156,6 @@ function categoryCanByNiveau (niveau, ref) {
 await handleLevels()
 await handleCanLevels()
 await handleProfs()
-console.log(errors)
 
 const uuidUrlsAvecRessources = { ...uuidsRessources, ...uuidUrls }
 

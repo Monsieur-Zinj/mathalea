@@ -229,7 +229,7 @@
 
   function handleIndexChange(exoNum: number) {
     currentIndex = exoNum
-    if (exercices[exoNum].interactifType === "cliqueFigure" && exercices[exoNum].interactif) {
+    if (exercices[exoNum] && exercices[exoNum].interactifType === "cliqueFigure" && exercices[exoNum].interactif) {
       prepareExerciceCliqueFigure(exercices[exoNum])
     }
   }

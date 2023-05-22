@@ -4,18 +4,31 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'standard'
+    'standard',
+    'plugin:svelte/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    project: 'tsconfig.json',
+    extraFileExtensions: ['.svelte']
   },
   plugins: [
     '@typescript-eslint'
   ],
   rules: {
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'error'
-  }
+  },
+  overrides: [
+    {
+      files: ['*.svelte'],
+      parser: 'svelte-eslint-parser',
+      parserOptions: {
+        parser: {
+          ts: '@typescript-eslint/parser',
+          typescript: '@typescript-eslint/parser'
+        }
+      }
+    }
+  ]
 }

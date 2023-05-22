@@ -24,10 +24,10 @@ export const uuid = '329fe'
 export const ref = '6G23-5'
 export default function CalculerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 5
   this.sup = 15
   this.nouvelleVersion = function () {
+    this.consigne = (this.nbQuestions === 1 ? 'L\' angle attendu est un angle saillant' : 'Les angles attendus sont des angles saillants') + ' (dont la mesure est comprise entre $0\\degree$ et $180\\degree$).'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -54,6 +54,7 @@ export default function CalculerUnAngle () {
       defaut: 15,
       nbQuestions: this.nbQuestions,
       melange: 15,
+      // shuffle: false, // A GARDER POUR LE DEBUGGAGE
       saisie: this.sup
     })
     const partagesPossiblesAngle90 = combinaisonListes([2, 3, 5, 6, 9, 10], this.nbQuestions)
@@ -276,7 +277,7 @@ export default function CalculerUnAngle () {
         objetsCorrection.push(afficheMesureAngle(B, A, D, 'black', 1.5, '', { ecart: 0.75 }))
       }
 
-      reponse = QuestionsDisponibles[i] === 14 ? choixAngD * partageAngle : [8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? -abs(angD) : abs(angC - angD) // Correction issue du 6
+      reponse = QuestionsDisponibles[i] === 14 ? choixAngD * partageAngle : [8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? -abs(angD) : QuestionsDisponibles[i] === 12 ? abs(abs(angC) + abs(angD)) : abs(abs(angC) - abs(angD)) // Correction issue du 6
 
       // Création de l'angle "multiple" dans les cas 6, 7, 9 et 10
       if ([6, 7, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {

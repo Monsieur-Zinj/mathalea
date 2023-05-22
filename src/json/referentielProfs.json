@@ -61,5 +61,10 @@
     "url": "profs/P011.js",
     "titre": "Construis mon triangle",
     "tags": {}
+  },
+  "undefined": {
+    "url": "profs/P020.js",
+    "titre": "Encodeur de texte",
+    "tags": {}
   }
 }

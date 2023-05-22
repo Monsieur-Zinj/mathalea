@@ -5,11 +5,10 @@
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
-  export let isCorrectionVisible = false
 
   let divExercice: HTMLDivElement
 
-  const headerExerciceProps = {
+  let headerExerciceProps = {
     title: exercice.titre,
     indiceExercice,
     indiceLastExercice,
@@ -22,10 +21,15 @@
   onMount(async () => {
     divExercice.appendChild(exercice.html)
   })
+
+  $ : {
+    headerExerciceProps.indiceExercice = indiceExercice
+    headerExerciceProps.indiceLastExercice = indiceLastExercice
+  }
   
 </script>
 
-<HeaderExercice {...headerExerciceProps}}/>
+<HeaderExercice {...headerExerciceProps}/>
 <section class="m-10">
   <div bind:this={divExercice}></div>
 </section>

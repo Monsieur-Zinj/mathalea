@@ -27,7 +27,7 @@ class ressourceVideo {
     this.fieldLargeur = createTextInput({ placeholder: 'Largeur' })
     this.fieldHauteur = createTextInput({ placeholder: 'Hauteur' })
     this.button = createButon()
-    this.container.append(this.iframe, this.fieldUrl, this.fieldLargeur, this.fieldHauteur, this.button)
+    this.container.append(this.fieldUrl, this.fieldLargeur, this.fieldHauteur, this.button, this.iframe)
     this.button.addEventListener('click', () => {
       this.iframe.src = this.fieldUrl.value
       if (this.fieldLargeur.value) {

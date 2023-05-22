@@ -1,4 +1,5 @@
 {
   "xcas": "ressources/xcas.ts",
-  "iframe": "ressources/iframe.ts"
+  "iframe": "ressources/iframe.ts",
+  "video": "ressources/video.ts"
 }
