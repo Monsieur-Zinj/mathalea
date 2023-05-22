@@ -259,7 +259,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
           } else {
-            setReponse(this, i, [`f(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
         case 'expressionParGraphique':
@@ -287,7 +287,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
           } else {
-            setReponse(this, i, [`f(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
       }
