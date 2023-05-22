@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { exercicesParams, darkMode, globalOptions } from "./store"
-  import { mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea.js"
+  import { exercicesParams, darkMode, globalOptions, updateGlobalOptionsInURL } from "./store"
+  import { mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea.js"
   import Footer from "./Footer.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Button from "./forms/Button.svelte"
@@ -13,7 +13,8 @@
   import { buildUrlAddendumForEsParam } from "./utils/urls"
 
   onMount(() => {
-    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    // mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    handleSeed()
   })
 
   let formatQRCodeIndex: number = 0
@@ -57,6 +58,21 @@
         return l
       })
     }
+  }
+
+  // Gestion de la graine
+  let isDataRandom: boolean = false
+  function handleSeed() {
+    console.log("Données aléatoires : " + isDataRandom)
+    for (const param of $exercicesParams) {
+      if (!isDataRandom && param.alea === undefined) {
+        param.alea = mathaleaGenerateSeed()
+      } else {
+        param.alea = undefined
+      }
+    }
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    console.log($exercicesParams)
   }
 </script>
 
@@ -109,6 +125,13 @@
               titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
               bind:value={$globalOptions.isInteractiveFree}
             />
+          </div>
+        </div>
+        <div class="pb-2">
+          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Données</div>
+          <div class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light">À chaque chargement du lien, les données seront :</div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <ButtonToggle titles={["identiques", "aléatoires"]} bind:value={isDataRandom} on:click={handleSeed} />
           </div>
         </div>
         <div class="pb-2">

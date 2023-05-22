@@ -9976,6 +9976,17 @@
           "interactifType": "mathLive"
         }
       },
+      "3F20-2": {
+        "id": "3F20-2",
+        "uuid": "17c65",
+        "url": "3e/3F20-2.js",
+        "titre": "Fonctions affines et/ou linéaires",
+        "datePublication": "21/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
       "3F20": {
         "id": "3F20",
         "uuid": "aeb5a",
@@ -10933,7 +10944,7 @@
         "id": "2F10-8",
         "uuid": "c1961",
         "url": "2e/2F10-8.js",
-        "titre": "Faire un bilan sur les fonctions affines",
+        "titre": "Faire un bilan sur les fonctions affines et/ou linéaires",
         "datePublication": "17/05/2023",
         "tags": {
           "interactif": true,

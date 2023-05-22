@@ -157,7 +157,7 @@
    * Gérer le POST pour Overleaf
    */
   function handleOverLeaf() {
-    textForOverleaf.value = encodeURIComponent(content)
+    textForOverleaf.value = "data:text/plain;base64," + btoa(unescape(encodeURIComponent(content)))
     overleafForm.submit()
     modal.style.display = "none"
   }
@@ -307,19 +307,27 @@
   <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="overleaf-modal" on:action={handleOverLeaf}>
     <span slot="header">Attention !</span>
     <ul class="list-inside list-disc text-left text-base" slot="content">
-      <li>
-        Il faudra uploader sur Overleaf le package <span class="font-mono bg-coopmaths-warn-100">automultiplechoice.sty</span>
-        pour compiler.
-      </li>
       <li>Le fichier sortit d’Overleaf ne constitue qu’un aperçu.</li>
       <li>Le fichier doit être compilé sous AMC impérativement pour que le fichier soit fonctionnel.</li>
     </ul>
   </ModalMessageBeforeAction>
   <!-- Formulaire pour Overleaf -->
   <form action="https://www.overleaf.com/docs" id="overleaf-form" method="POST" target="_blank">
-    <input autocomplete="off" bind:this={textForOverleaf} name="encoded_snip" type="hidden" value="" />
-    <input autocomplete="off" name="snip_name" type="hidden" value="CoopMaths" />
-    <input autocomplete="off" name="engine" type="hidden" value="lualatex" />
+    <input
+      type="hidden"
+      name="snip_uri[]"
+      value="https://coopmaths.fr/alea/static/amc/automultiplechoice.sty"
+      autocomplete="off"
+    />
+    <input
+      type="hidden"
+      name="snip_name[]"
+      value="automultiplechoice.sty"
+      autocomplete="off"
+    />
+    <input autocomplete="off" bind:this={textForOverleaf} name="snip_uri[]" type="hidden" value="" />
+    <input autocomplete="off" name="snip_name[]" type="hidden" value="coopmaths.tex" />
+    <input autocomplete="off" name="engine" type="hidden" value="lualatex" /> 
   </form>
   <Footer />
 </main>
