@@ -23,15 +23,17 @@ export default function SolutionInequation () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     let a, b, maFraction, n
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //, 'b', 2
+    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
       case 1 :// cas a>0
         a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
-
-        this.correction = `L'ensemble de solutions est : $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$<br>
+        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
+        if (this.interactif) {
+          this.question += '<br>$S=$'
+        }
+        this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$`)}.<br>
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
             $${a}x>${-b}$<br>
             En divisant par $${a}$ dans chaque membre, on obtient :<br>
@@ -44,9 +46,11 @@ export default function SolutionInequation () {
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
-
-        this.correction = `L'ensemble de solutions est : $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
+        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
+        if (this.interactif) {
+          this.question += '<br>$S=$'
+        }
+        this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$`)}.<br>
                     En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                     $${a}x\\geqslant${-b}$<br>
                     En divisant par $${a}$ dans chaque membre, on obtient :<br>
@@ -59,9 +63,11 @@ export default function SolutionInequation () {
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
-
-        this.correction = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$.<br>
+        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
+        if (this.interactif) {
+          this.question += '<br>$S=$'
+        }
+        this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$`)}.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                       $${a}x\\leqslant${-b}$<br>
                       En divisant par $${a}$ dans chaque membre, on obtient :<br>
@@ -74,9 +80,11 @@ export default function SolutionInequation () {
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
-
-        this.correction = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$.<br>
+        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
+        if (this.interactif) {
+          this.question += '<br>$S=$'
+        }
+        this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$`)}.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                       $${a}x<${-b}$<br>
                       En divisant par $${a}$ dans chaque membre, on obtient :<br>
@@ -92,9 +100,11 @@ export default function SolutionInequation () {
         b = n * a
         maFraction = fraction(-b, a)
 
-        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
-
-        this.correction = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$.<br>
+        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
+        if (this.interactif) {
+          this.question += '<br>$S=$'
+        }
+        this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$`)}.<br>
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
             $${a}x>${-b}$<br>
             En divisant par $(${a})$ dans chaque membre, on obtient :<br>
@@ -108,9 +118,11 @@ export default function SolutionInequation () {
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
-
-        this.correction = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$.<br>
+        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
+        if (this.interactif) {
+          this.question += '<br>$S=$'
+        }
+        this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$`)}.<br>
           En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
           $${a}x\\geqslant${-b}$<br>
           En divisant par $(${a})$ dans chaque membre, on obtient :<br>
@@ -124,9 +136,11 @@ export default function SolutionInequation () {
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
-
-        this.correction = `L'ensemble de solutions est : $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
+        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
+        if (this.interactif) {
+          this.question += '<br>$S=$'
+        }
+        this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$`)}.<br>
           En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
           $${a}x\\leqslant${-b}$<br>
           En divisant par $(${a})$ dans chaque membre, on obtient :<br>
@@ -140,9 +154,11 @@ export default function SolutionInequation () {
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
-
-        this.correction = `L'ensemble de solutions est : $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
+        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
+        if (this.interactif) {
+          this.question += '<br>$S=$'
+        }
+        this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$`)}.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                       $${a}x<${-b}$<br>
                       En divisant par $(${a})$ dans chaque membre, on obtient :<br>
@@ -150,7 +166,6 @@ export default function SolutionInequation () {
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres strictement supérieurs   à $${maFraction.texFractionSimplifiee}$. `
         this.reponse = [`$]${-n};+\\infty[$`]
-
         break
     }
     this.canEnonce = this.question// 'Compléter'

@@ -63,7 +63,6 @@
   // Gestion de la graine
   let isDataRandom: boolean = false
   function handleSeed() {
-    console.log("Données aléatoires : " + isDataRandom)
     for (const param of $exercicesParams) {
       if (!isDataRandom && param.alea === undefined) {
         param.alea = mathaleaGenerateSeed()
@@ -72,7 +71,6 @@
       }
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    console.log($exercicesParams)
   }
 </script>
 
@@ -126,12 +124,19 @@
               bind:value={$globalOptions.isInteractiveFree}
             />
           </div>
+          <div class="pl-2 pt-2">
+            <ButtonToggle
+              isDisabled={$globalOptions.setInteractive === "0"}
+              titles={["Les élèves peuvent répondre une seule fois", "Les élèves peuvent répondre plusieurs fois"]}
+              bind:value={$globalOptions.oneShot}
+            />
+          </div>
         </div>
         <div class="pb-2">
           <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Données</div>
-          <div class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light">À chaque chargement du lien, les données seront :</div>
+          <div class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light">Tous les élèves auront des pages :</div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={["identiques", "aléatoires"]} bind:value={isDataRandom} on:click={handleSeed} />
+            <ButtonToggle titles={["identiques", "différentes"]} bind:value={isDataRandom} on:click={handleSeed} />
           </div>
         </div>
         <div class="pb-2">

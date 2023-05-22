@@ -11,7 +11,7 @@
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   import type { MathfieldElement } from "mathlive"
-  import { sendToCapytaleSaveStudentAssignement } from "../../lib/handleCapytale";
+  import { sendToCapytaleSaveStudentAssignement } from "../../lib/handleCapytale"
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -168,11 +168,11 @@
       }
       return l
     })
-    if ($globalOptions.recorder === 'moodle') {
+    if ($globalOptions.recorder === "moodle") {
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get("iframe")
       window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: "mathalea:score", iframe }, "*")
-    } else if ($globalOptions.recorder === 'capytale') {
+    } else if ($globalOptions.recorder === "capytale") {
       sendToCapytaleSaveStudentAssignement()
     }
   }
@@ -285,7 +285,7 @@
           </div>
         {/if}
         <button
-          class="mx-2 tooltip tooltip-right"
+          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "ml-2 tooltip tooltip-right " : "hidden"}
           data-tip="Nouvel énoncé"
           type="button"
           on:click={() => {
@@ -295,7 +295,7 @@
           <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
         </button>
         <button
-          class="w-5 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && exercice.interactifReady ? '' : 'hidden'}"
+          class={$globalOptions.isInteractiveFree && exercice.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={() => {
