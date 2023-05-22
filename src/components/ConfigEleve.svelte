@@ -63,7 +63,6 @@
   // Gestion de la graine
   let isDataRandom: boolean = false
   function handleSeed() {
-    console.log("Données aléatoires : " + isDataRandom)
     for (const param of $exercicesParams) {
       if (!isDataRandom && param.alea === undefined) {
         param.alea = mathaleaGenerateSeed()
@@ -72,7 +71,6 @@
       }
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    console.log($exercicesParams)
   }
 </script>
 
@@ -124,6 +122,13 @@
               isDisabled={$globalOptions.setInteractive === "0"}
               titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
               bind:value={$globalOptions.isInteractiveFree}
+            />
+          </div>
+          <div class="pl-2 pt-2">
+            <ButtonToggle
+              isDisabled={$globalOptions.setInteractive === "0"}
+              titles={["Les élèves répondre une seule fois", "Les élèves peuvent répondre plusieurs fois"]}
+              bind:value={$globalOptions.oneShot}
             />
           </div>
         </div>

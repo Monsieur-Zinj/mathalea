@@ -14,11 +14,12 @@ export function buildUrlAddendumForEsParam () {
     ['une_question_par_page', 3]
   ])
   let addendum = '&v=eleve&title=' + options.title
-  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree
+  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot
   addendum += '&es=' + presentationMode.get(options.presMode)
   addendum += options.setInteractive
   addendum += options.isSolutionAccessible ? '1' : '0'
   addendum += options.isInteractiveFree ? '1' : '0'
+  addendum += options.oneShot ? '1' : '0'
   return addendum
 }
 
