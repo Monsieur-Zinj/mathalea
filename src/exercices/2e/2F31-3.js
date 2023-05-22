@@ -4,7 +4,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-export const titre = 'Comparaison d\'images dans un tableau de variations'
+export const titre = 'Comparer des images dans un tableau de variations'
 export const interactifReady = true
 export const interactifType = 'qcm'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -45,7 +45,7 @@ export default function Variationsapartirtableau () {
       a4 = randint(a3 + 1, x3 - 1) // 4eme antécédent dont on doit comparer l'image
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// parabole en U ; 2 images sur intervalle où f croissant
-          texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$<br><br>`
+          texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$.<br><br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -66,8 +66,9 @@ export default function Variationsapartirtableau () {
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           }))
-          texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$,<br> `
-          texteCorr += ` $${a1}\\in[${x1};${x2}]$, $${a2}\\in[${x1};${x2}]$, avec $${a1}<${a2}$.<br>`
+          texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$. <br>
+          `
+          texteCorr += `De plus, $${a1}\\in[${x1};${x2}]$, $${a2}\\in[${x1};${x2}]$ et $${a1}<${a2}$.<br>`
           if (context.isHtml) {
             ligne1 = ['Var', 5, `-/$${y1}$`, 5, 't/', 5, 't/', 5, `+/$${y2}$`, 5, `-/$${y3}$`, 5]
             // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -126,7 +127,7 @@ export default function Variationsapartirtableau () {
           texteCorr += `Par conséquent, comme $${a1}<${a2}$, alors $f(${a1}) < f(${a2})$.`
           break
         case 'type2':// parabole en U ; 2 images sur intervalle où f décroissant
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a3})$ et $f(${a4})$<br>`
+          texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a3})$ et $f(${a4})$.<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -148,8 +149,9 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$,<br> `
-          texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$, avec $${a3}<${a4}$.<br>`
+          texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$.<br>
+          De plus,`
+          texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$ et $${a3}<${a4}$.<br>`
           if (context.isHtml) {
             ligne1 = ['Var', 5, `-/$${y1}$`, 5, `+/$${y2}$`, 5, 't/', 5, 't/', 5, `-/$${y3}$`, 5] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
             texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
@@ -205,7 +207,7 @@ export default function Variationsapartirtableau () {
           texteCorr += `Par conséquent, comme $${a3}<${a4}$, alors $f(${a3}) > f(${a4})$.`
           break
         case 'type3':// parabole en U ; 2 images sur intervalle où f pas monotone, mais on peut répondre
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
+          texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$.<br>`
           y3 = randint(y1 - 12, y1 - 2)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
@@ -260,7 +262,7 @@ export default function Variationsapartirtableau () {
           }
           break
         case 'type4':// parabole en U ; 2 images sur intervalle où f pas monotone, et on ne peut pas répondre
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
+          texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$.<br>`
           y3 = randint(y1 + 2, y2 - 1)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
@@ -291,7 +293,7 @@ export default function Variationsapartirtableau () {
           texteCorr += 'si $x_1 < x_2$ alors $f(x_1) < f(x_2)$. <br>'
           texteCorr += `Par conséquent, comme $${x1}<${a1}<${x2}$, alors $f(${x1})< f(${a1}) < f(${x2})$.`
           texteCorr += `<br>On a donc montré que :  $${y1} < f(${a1}) < ${y2}$.<br><br>`
-          texteCorr += `Comme $f(${x3})=${y3} \\in [${y1};${y2}]$,<br>`
+          texteCorr += `Comme $f(${x3})=${y3} \\in [${y1};${y2}]$, `
           texteCorr += `on ne peut pas conclure sans plus d'informations pour comparer $f(${x3})$ et $f(${a1})$.`
           if (this.interactif) {
             this.autoCorrection[i] = {
@@ -316,7 +318,7 @@ export default function Variationsapartirtableau () {
           }
           break
         case 'type5':// parabole en U ; 2 images sur intervalle où f non monotone. On ne peut conclure
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a3})$<br>`
+          texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a3})$.<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -338,11 +340,11 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `D'après le tableau de variations :<br>$\\bullet$  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction est croissante<br>`
-          texteCorr += ` <br>$\\bullet  ${a3}\\in[${x2};${x3}]$, intervalle sur lequel la fonction est décroissante. <br>`
-          texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$<br><br>`
+          texteCorr = `D'après le tableau de variations :<br>$\\bullet$  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction est croissante.`
+          texteCorr += ` <br>$\\bullet$  $${a3}\\in[${x2};${x3}]$, intervalle sur lequel la fonction est décroissante. <br><br>`
+          texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$.<br><br>`
           texteCorr += ` Le tableau de variations ne permet pas de comparer $f(${a1})$ et $f(${a3})$. <br>`
-          texteCorr += '<br>On ne peut donc pas conclure sans plus d\'informations.'
+          texteCorr += 'On ne peut donc pas conclure sans plus d\'informations.'
           if (this.interactif) {
             this.autoCorrection[i] = {
               enonce: texte,
