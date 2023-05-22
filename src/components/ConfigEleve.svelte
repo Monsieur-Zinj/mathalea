@@ -58,6 +58,12 @@
       })
     }
   }
+
+  // Gestion de la graine
+  let isSeedSettled: boolean = false
+  function handleSeed() {
+    console.log("Données aléatoires : " + isSeedSettled)
+  }
 </script>
 
 <main class="mb-auto flex flex-col justify-between h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
@@ -109,6 +115,12 @@
               titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
               bind:value={$globalOptions.isInteractiveFree}
             />
+          </div>
+        </div>
+        <div class="pb-2">
+          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Données</div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <ButtonToggle titles={["Données aléatoires", "Données identiques"]} bind:value={isSeedSettled} on:click={handleSeed} />
           </div>
         </div>
         <div class="pb-2">
