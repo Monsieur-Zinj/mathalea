@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, texFraction, combinaisonListes } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Calculer les coordonnées de la somme de deux vecteurs'
@@ -33,12 +33,12 @@ export default function Calculercoordonneessommevecteurs () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, ux, uy, vx, vy, wx, wy, a, b, f, c, d, g, xA, yA, xB, yB, xC, yC, xD, yD, texte, texteCorr, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, ux, uy, vx, vy, wx, wy, a, b, f, c, d, e, g, h, frac, xA, yA, xB, yB, xC, yC, xD, yD, texte, texteCorr, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       switch (typesDeQuestions) {
-        case 1:
-          ux = randint(0, 9) * choice([-1, 1])
+        case 1:// On donne 2 vecteurs à coordonnées entières
+          ux = randint(0, 9) * choice([-1, 1])// tu peux mettre randint(-9,9)
           if (ux === 0) {
             uy = randint(1, 9) * choice([-1, 1])
           } else {
@@ -71,19 +71,36 @@ export default function Calculercoordonneessommevecteurs () {
         case 2:
           a = randint(1, 5)
           b = randint(2, 6, [a])
-          f = new FractionEtendue(a, b)
+          ux = new FractionEtendue(a, b).simplifie()
           c = randint(1, 5)
           d = randint(2, 6, [c])
-          g = new FractionEtendue(c, d)
-          ux = choice([f, randint(1, 9)]) * choice([-1, 1])
-          uy = choice([f, randint(1, 9)], [ux]) * choice([-1, 1])
-          vx = choice([g, randint(1, 9)]) * choice([-1, 1])
-          vy = choice([g, randint(1, 9)], [vx]) * choice([-1, 1])
-          // Chaque vecteur à une coordonnée fractionnaire
-          wx = ux + vx
-          wy = uy + vy
+          uy = new FractionEtendue(c, d).simplifie()
+         
+          e = randint(10, 15)
+          f = randint(13, 16, [a])
+          vx = new FractionEtendue(e, f).simplifie()
+          g = randint(11, 15)
+          h = randint(12, 16, [c])
+          vy = new FractionEtendue(g, h).simplifie()
+          
+          texte = `Donc, là on a ux=$${ux.texFraction}$, uy=$${uy.texFraction}$, vx=$${vx.texFraction}$, vy=$${vy.texFraction}$.<br>
+          Là où ça se complique c'est quand tu vas faire les sommes de ces fractions. <br>
+          Le numérateur  de ux est ux.n=$${ux.n}$ son dénominateur est ux.d=$${ux.d}$<br>
 
-          texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les vecteurs suivants :'
+          Parfois pour que ce soit plus simple j'utilise un tableau avec les fractions que je souhaite: par exemple <br>
+           listeFractions1 = [[5, 3], [7, 3], [10, 3], [11, 3], [17, 3],
+          [13, 6], [17, 6], [23, 6], [8, 7], [15, 7], [20, 7],
+          [14, 3], [22, 3], [25, 3]]<br>
+
+           fraction1 = choice(listeFractions1)<br>
+     frac = new FractionEtendue(fraction1[0], fraction1[1])<br>
+     Dans ce cas, le numérateur est fraction1[0]
+     et le dénomiateur fraction1[1]
+
+    
+<br><br><br>
+          `
+          texte += 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les vecteurs suivants :'
           texte += ` $\\vec{u}\\left(${ux};${uy}\\right)$ et $\\vec{v}\\left(${vx};${vy}\\right).$`
           texte += '<br>Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$.'
 
