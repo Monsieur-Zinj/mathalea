@@ -39,14 +39,14 @@ export default function FonctionsAffinesOuLineaires () {
     fonctionsAffines.nbQuestions = this.nbQuestions
     fonctionsAffines.lycee = this.lycee
     fonctionsAffines.sup = this.sup
-    fonctionsAffines.sup2 = this.lycee ? '11' : '9'
+    fonctionsAffines.sup2 = this.sup2
     fonctionsAffines.numeroExercice = this.numeroExercice // indispensable pour l'interactif
     fonctionsAffines.nouvelleVersion()
     fonctionsLineaires.interactif = this.interactif
     fonctionsLineaires.nbQuestions = this.nbQuestions
     fonctionsLineaires.lycee = this.lycee
     fonctionsLineaires.sup = this.sup
-    fonctionsLineaires.sup2 = '9'
+    fonctionsLineaires.sup2 = this.sup2
     fonctionsLineaires.numeroExercice = this.numeroExercice // indispensable pour l'interactif
     fonctionsLineaires.nouvelleVersion()
   
