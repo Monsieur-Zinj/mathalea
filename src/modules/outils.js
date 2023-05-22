@@ -315,7 +315,7 @@ export function gestionnaireFormulaireTexte ({
     exclus = exclus.filter((element) => element >= min && element <= max)
   }
   if (max == null || isNaN(max) || max < min) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre max de type number')
-  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre defaut compris entre min(1) et max')
+  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error(`La fonction gestionnaireFormulaireTexte réclame un paramètre defaut (ici, ${defaut}) compris entre min (ici, ${min}) et max (ici, ${max})`)
   let listeIndex
 
   if (!saisie) { // Si aucune liste n'est saisie
@@ -931,6 +931,16 @@ export function tridictionnaire (dict) {
   }
 
   return tempDict
+}
+
+/**
+ * Supprime les valeurs d'en array et renvoie l'array filtré
+ * @param {any[]} valeurs à supprimer de l'array
+ * @param {any[]} array à filtrer
+ * @returns array filtré
+ */
+export function filtrer (valeurs, array) {
+  return array.filter((valeur) => !valeurs.includes(valeur))
 }
 
 /**

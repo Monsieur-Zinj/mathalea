@@ -1,6 +1,7 @@
 /**
+ * L'exécuter avec node tasks/dictionnaireToReferentiel.js
  * Ce script met à jour le référentiel des exercices statiques en récupérant les mots clé et les url
- * dans les différents dictionnaires
+ * dans les différents dictionnaires qu'il faut mettre à jour au préalable.
  */
 
 import fs from 'fs'
@@ -114,7 +115,7 @@ for (const ex in dictionnaireCrpeCoop) {
   })
 }
 
-for (const annee of ['2022']) {
+for (const annee of ['2022', '2023']) {
   referentiel.crpe[annee] = {}
   for (const ex in dictionnaireCrpeCoop) {
     if (dictionnaireCrpeCoop[ex].annee === annee) {
@@ -173,8 +174,8 @@ delete Object.assign(referentiel, { 'BAC par thèmes - APMEP': referentiel.BACTa
 delete Object.assign(referentiel, { 'BAC par année - APMEP': referentiel.BAC }).BAC
 delete Object.assign(referentiel, { 'CRPE (2015-2019) par thèmes - COPIRELEM': referentiel.crpeCopirelemTags }).crpeCopirelemTags
 delete Object.assign(referentiel, { 'CRPE (2015-2019) par année - COPIRELEM': referentiel.crpeCopirelem }).crpeCopirelem
-delete Object.assign(referentiel, { 'CRPE (2022) par thèmes': referentiel.crpeTags }).crpeTags
-delete Object.assign(referentiel, { 'CRPE (2022) par année': referentiel.crpe }).crpe
+delete Object.assign(referentiel, { 'CRPE (2022-2023) par thèmes': referentiel.crpeTags }).crpeTags
+delete Object.assign(referentiel, { 'CRPE (2022-2023) par année': referentiel.crpe }).crpe
 delete Object.assign(referentiel, { 'E3C par thèmes - APMEP': referentiel.E3CTags }).E3CTags
 delete Object.assign(referentiel, { 'E3C par specimen - APMEP': referentiel.E3C }).E3C
 

@@ -63,6 +63,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
     const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const nomFonction = String.fromCharCode(102 + i)
       this.sup = contraindreValeur(1, 3, this.sup, 1)
       let texte = ''; let texteCorr = ''
       // valeur associée à image0 pour le calcul de coefficient : image0 = coefficient * antecedent0
@@ -152,29 +153,29 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       switch (listeTypesDeQuestions[i]) {
         // On détermine l'image à partir de l'expression générale de la fonction
         case 'imageParExpression':
-          texte += `Soit $f(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `$f(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
+          texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
+          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$`
           setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParValeurs':
-          texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
+          texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
+          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
           }
-          texteCorr += `$ et par suite $f(x)=${coefficientString}x$.<br>`
-          texteCorr += `Donc $f(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
+          texteCorr += `$ et par suite $${nomFonction}(x)=${coefficientString}x$.<br>`
+          texteCorr += `Donc $${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$.`
           setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParGraphique':
-          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
+          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -183,14 +184,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             xmax,
             ymax
           }, r, d, t, coordonnees, pointilles)
-          texteCorr += `Comme $f(${antecedent0})=${image0}$ et $f(x)=ax$ on en déduit $a\\times ${antecedent0} = ${image0}$ soit $a=\\dfrac{${image0}}{${antecedent0}}${coefficient instanceof FractionEtendue ? '' : '=' + coefficientString}$.<br>`
-          texteCorr += `Ainsi $f(${antecedent})=${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent)}=${imageString}$.`
+          texteCorr += `Comme $${nomFonction}(${antecedent0})=${image0}$ et $${nomFonction}(x)=ax$ on en déduit $a\\times ${antecedent0} = ${image0}$ soit $a=\\dfrac{${image0}}{${antecedent0}}${coefficient instanceof FractionEtendue ? '' : '=' + coefficientString}$.<br>`
+          texteCorr += `Ainsi $${nomFonction}(${antecedent})=${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent)}=${imageString}$.`
           setReponse(this, i, image, { formatInteractif })
           break
         case 'antecedentParExpression':
-          texte += `Soit $f(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
-          texte += `Calculer l'antécédent de $${imageString}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString}\\times b=${imageString}$.<br>`
+          texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
+          texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b=${imageString}$.<br>`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `Donc $b=\\dfrac{${image.texFSD}}{${coefficientString}}=`
             texteCorr += `${image.texFSD}\\times ${coefficient.inverse().texFSP}=`
@@ -201,15 +202,15 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParValeurs':
-          texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
+          texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
+          texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
           }
-          texteCorr += `$.<br>Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString} \\times b=${imageString}$.<br>`
+          texteCorr += `$.<br>Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString} \\times b=${imageString}$.<br>`
           texteCorr += `On en déduit que $b=\\dfrac{${imageString}}{${coefficientString}}=`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `${imageString}\\times ${coefficient.inverse().texFSP}=`
@@ -218,8 +219,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParGraphique':
-          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
-          texte += `Calculer l'antécédent de $${imageString}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
+          texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -228,12 +229,12 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             xmax,
             ymax
           }, r, d, t, coordonnees, pointilles)
-          texteCorr += `Comme $f(${antecedent0})=${image0}$ alors $f(x)=\\dfrac{${image0}}{${antecedent0}}x`
+          texteCorr += `Comme $${nomFonction}(${antecedent0})=${image0}$ alors $${nomFonction}(x)=\\dfrac{${image0}}{${antecedent0}}x`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}x`
           }
-          texteCorr += `$<br>Posons $b$ l'antécédent de $${imageString}$, alors $f(b)=${coefficientString}\\times b=${imageString}$.<br>`
+          texteCorr += `$<br>Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b=${imageString}$.<br>`
           texteCorr += `On en déduit que $b=\\dfrac{${imageString}}{${coefficientString}}=`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `${imageString}\\times ${coefficient.inverse().texFSP}=`
@@ -242,31 +243,31 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'expressionParValeurs':
-          texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
+          texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           if (context.isAmc) {
-            texte += 'Donner le coefficient de  $f$.'
+            texte += `Donner le coefficient de  $${nomFonction}$.`
           } else {
-            texte += 'Donner l\'expression de  $f(x)$.' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte += `Donner l'expression de  $${nomFonction}(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           }
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
+          texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `Soit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
           }
-          texteCorr += `$.<br>Donc $f(x)=${coefficientString}x$.`
+          texteCorr += `$.<br>Donc $${nomFonction}(x)=${coefficientString}x$.`
           if (context.isAmc) {
             setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
           } else {
-            setReponse(this, i, [`f(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
         case 'expressionParGraphique':
-          texte += `La droite représentant la fonction linéaire $f$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
+          texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
           if (context.isAmc) {
-            texte += 'Donner le coefficient de  $f$.'
+            texte += `Donner le coefficient de  $${nomFonction}$.`
           } else {
-            texte += 'Donner l\'expression de  $f(x)$.' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte += `Donner l'expression de  $${nomFonction}(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           }
           texte += '<br>'
           texte += mathalea2d({
@@ -276,17 +277,17 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             xmax,
             ymax
           }, r, d, t, coordonnees, pointilles)
-          texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
+          texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ est :<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
             const simplification = (new FractionEtendue(image0, antecedent0)).simplifie().texFSD
             texteCorr += `=${simplification}`
           }
-          texteCorr += `$.<br>Donc $f(x)=${coefficientString}x$.`
+          texteCorr += `$.<br>Donc $${nomFonction}(x)=${coefficientString}x$.`
           if (context.isAmc) {
             setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
           } else {
-            setReponse(this, i, [`f(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
       }

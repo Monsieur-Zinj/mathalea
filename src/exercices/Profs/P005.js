@@ -15,6 +15,8 @@ export default function FeuilleDeGrilles () {
   Exercice.call(this)
   this.nbCols = 1
   this.sup = 1
+  this.nbQuestionsModifiable = false
+  this.nbQuestions = 1
   this.titre = titre
 
   this.nouvelleVersion = function () {
@@ -106,6 +108,7 @@ export default function FeuilleDeGrilles () {
         this.contenu += '<br>'
       }
     }
+    this.listeQuestions[0] = this.contenu
     // listeDeChosesAImprimer(this);
   }
   this.besoinFormulaireNumerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000']

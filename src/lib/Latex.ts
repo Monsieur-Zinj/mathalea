@@ -3,6 +3,28 @@ import type TypeExercice from '../components/utils/typeExercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
 
+export interface Exo {
+  content: string
+  serie?: string
+  month?: string
+  year?: string
+  zone?: string
+  title?: string
+}
+
+export interface picFile {
+  name: string
+  format: string
+}
+
+export interface LatexFileInfos {
+  title: string
+  reference: string
+  subtitle: string
+  style: 'Coopmaths' | 'Classique' | 'Can'
+  nbVersions: number
+}
+
 class Latex {
   exercices: TypeExercice[]
   constructor () {
@@ -181,6 +203,110 @@ function writeQuestions (questions: string[], spacing = 1): string {
 function writeInCols (text: string, nb: number): string {
   if (nb < 2) return text
   return `\\begin{multicols}{${nb}}${text}\n\\end{multicols}`
+}
+
+/**
+ * Construire la liste des URLs pour les fichiers des images nécessaires
+ * ### Remarques :
+ * * Chaque URL est construite à partir de l'adresse du site Coopmaths
+ * * Elle a __toujours__ pour forme `https://coopmaths.fr/alea/static/<serie>/<annee>/tex/<format>/<nom_image>.<format>`
+ * * Elle présuppose donc que les images sont toutes au format `eps` et qu'elles ne sont pas stockées ailleurs.
+ * @author sylvain
+ */
+export function buildImagesUrlsList (exosContentList: Exo[], picsNames: picFile[][]) {
+  const imagesFilesUrls = [] as string[]
+  exosContentList.forEach((exo, i) => {
+    if (picsNames[i].length !== 0) {
+      const year = exo.year
+      const serie = exo?.serie?.toLowerCase()
+      for (const file of picsNames[i]) {
+        if (serie === 'crpe') {
+          imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
+        } else {
+          if (file.format) {
+            imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
+          } else {
+            imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`)
+          }
+        }
+      }
+    }
+  })
+  return imagesFilesUrls
+}
+
+/**
+ * Constituer la liste des noms des images présentes dans le code de la feuille d'exercices.
+ * ### Principe :
+ * * Les deux variables globales `exosContentList` et `picsNames` servent à stocker le contenu de chaque
+ * exercice et le nom de chaque images.
+ * * Découpe le contenu du code LaTeX pour identifier les exercices en détectant
+ * le texte entre les deux chaînes `\begin{EXO}` ... `\end{EXO}` (hormi les corrections où `\begin{EXO}`
+ * est systématiquement suivi de `{}` vides)
+ * * Dans le code de chaque exercice, on repère la commande `\includegraphics` dans les lignes non précédées d'un signe `%`
+ * et on récupère le nom du fichier sans l'extension.
+ * ### Remarques :
+ * * `picsNames` est une tableau de tableaux au cas où des exercices contiendraient plusieurs figures
+ * * les figures dans les corrections ne sont pas concernées.
+ * @author sylvain
+ */
+export function getExosContentList (exercices: TypeExercice[]) {
+  const exosContentList = []
+  for (const exo of exercices) {
+    let data
+    if (exo.typeExercice !== undefined) {
+      data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
+    } else {
+      data = { content: exo.contenu }
+    }
+    exosContentList.push(data)
+  }
+  return exosContentList
+}
+export function getPicsNames (exosContentList: Exo[]) {
+  const picsList = [] as RegExpMatchArray[][]
+  const picsNames = [] as picFile[][]
+  const regExpImage = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
+  const regExpImageName = /(?<name>.*?)\.(?<format>.*)$/gm
+  for (const exo of exosContentList) {
+    let pics: RegExpMatchArray[]
+    if (exo.content.matchAll(regExpImage) !== undefined) {
+      pics = [...exo.content.matchAll(regExpImage)]
+      picsList.push(pics)
+    } else {
+      picsList.push([])
+    }
+  }
+  picsList.forEach((list, index) => {
+    picsNames.push([])
+    if (list.length !== 0) {
+      for (const item of list) {
+        let imgObj
+        if (item[1].match(regExpImageName)) {
+          const imgFile = [...item[1].matchAll(regExpImageName)]
+          imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
+        } else {
+          imgObj = { name: item[1], format: undefined }
+        }
+        picsNames[index] = [...picsNames[index], imgObj]
+      }
+    }
+  })
+  return picsNames
+}
+
+/**
+ * Détecter si le code LaTeX contient des images
+ */
+export function doesLatexNeedsPics (contents: { content: string, contentCorr: string }) {
+  const includegraphicsMatches = contents.content.match('includegraphics')
+  return includegraphicsMatches !== null
+}
+
+export function makeImageFilesUrls (exercices: TypeExercice[]) {
+  const exosContentList = getExosContentList(exercices)
+  const picsNames = getPicsNames(exosContentList)
+  return buildImagesUrlsList(exosContentList, picsNames)
 }
 
 /**

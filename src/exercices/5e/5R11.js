@@ -92,9 +92,9 @@ export default function LireAbscisseRelative () {
 
       texte = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
       if (!context.isAmc && this.interactif) {
-        texte += `${l1}(` + ajouteChampTexteMathLive(this, 3 * i, 'largeur10 inline', { texteApres: '  )' }) + sp(20)
-        texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur10 inline', { texte: `${l2}(`, texteApres: '  )' }) + sp(20)
-        texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur10 inline', { texte: `${l3}(`, texteApres: '  )' })
+        texte += `${l1}(` + ajouteChampTexteMathLive(this, 3 * i, 'largeur10 inline nospacebefore', { texteApres: '  )' }) + sp(20)
+        texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur10 inline nospacebefore', { texte: `${l2}(`, texteApres: '  )' }) + sp(20)
+        texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur10 inline nospacebefore', { texte: `${l3}(`, texteApres: '  )' })
         setReponse(this, 3 * i, abs1)
         setReponse(this, 3 * i + 1, abs2)
         setReponse(this, 3 * i + 2, abs3)
@@ -156,7 +156,7 @@ export default function LireAbscisseRelative () {
           ]
         }
       }
-      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 },
+      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 2, scale: 0.75 },
         droiteGraduee({
           Unite: 3 * pas1,
           Min: abs0,

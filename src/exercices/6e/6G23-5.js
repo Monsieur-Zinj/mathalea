@@ -24,10 +24,10 @@ export const uuid = '329fe'
 export const ref = '6G23-5'
 export default function CalculerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 5
   this.sup = 15
   this.nouvelleVersion = function () {
+    this.consigne = (this.nbQuestions === 1 ? 'L\' angle attendu est un angle saillant' : 'Les angles attendus sont des angles saillants') + ' (dont la mesure est comprise entre $0\\degree$ et $180\\degree$).'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
