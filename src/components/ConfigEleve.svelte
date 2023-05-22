@@ -127,7 +127,7 @@
           <div class="pl-2 pt-2">
             <ButtonToggle
               isDisabled={$globalOptions.setInteractive === "0"}
-              titles={["Les élèves répondre une seule fois", "Les élèves peuvent répondre plusieurs fois"]}
+              titles={["Les élèves peuvent répondre une seule fois", "Les élèves peuvent répondre plusieurs fois"]}
               bind:value={$globalOptions.oneShot}
             />
           </div>
