@@ -134,9 +134,9 @@
         </div>
         <div class="pb-2">
           <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Données</div>
-          <div class="flex justify-start items-center pl-2 font-light text-sm text-coopmaths-corpus-light">À chaque chargement du lien, les données seront :</div>
+          <div class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light">Tous les élèves auront des pages :</div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={["identiques", "aléatoires"]} bind:value={isDataRandom} on:click={handleSeed} />
+            <ButtonToggle titles={["identiques", "différentes"]} bind:value={isDataRandom} on:click={handleSeed} />
           </div>
         </div>
         <div class="pb-2">
