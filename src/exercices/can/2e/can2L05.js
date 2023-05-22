@@ -166,7 +166,6 @@ export default function SolutionInequation () {
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres strictement supérieurs   à $${maFraction.texFractionSimplifiee}$. `
         this.reponse = [`$]${-n};+\\infty[$`]
-
         break
     }
     this.canEnonce = this.question// 'Compléter'
