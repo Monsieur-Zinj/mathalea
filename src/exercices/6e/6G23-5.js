@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { abs, arrondi, choice, combinaisonListes, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint, sp } from '../../modules/outils.js'
 import { point, segment, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo, afficheMesureAngle, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { min, max } from 'mathjs'
+import { context } from '../../modules/context.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const amcReady = true // pour définir que l'exercice est exportable AMC
 export const amcType = 'AMCNum'
@@ -335,8 +336,8 @@ export default function CalculerUnAngle () {
       }
 
       // paramètres de la fenêtre Mathalea2d pour l'énoncé
-      paramsEnonce = { xmin: -3 + min(A.x, B1.x, C1.x, D1.x, E.x), ymin: -3 + min(A.y, B1.y, C1.y, D1.y, E.y), xmax: 3 + max(A.x, B1.x, C1.x, D1.x, E.x), ymax: 3 + max(A.y, B1.y, C1.y, D1.y, E.y), pixelsParCm: 20, scale: 1, mainlevee: false }
-
+      // paramsEnonce = { xmin: -3 + min(A.x, B1.x, C1.x, D1.x, E.x), ymin: -3 + min(A.y, B1.y, C1.y, D1.y, E.y), xmax: 3 + max(A.x, B1.x, C1.x, D1.x, E.x), ymax: 3 + max(A.y, B1.y, C1.y, D1.y, E.y), pixelsParCm: 20, scale: 1, mainlevee: false }
+      paramsEnonce = Object.assign({ pixelsParCm: 20, scale: context.isHtml ? 1 : 0.5, mainlevee: false }, fixeBordures(objetsEnonce))
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
       // On ajoute au texte de la correction, la figure de la correction
