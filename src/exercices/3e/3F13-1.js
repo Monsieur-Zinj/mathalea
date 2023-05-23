@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { deuxColonnes, randint, texConsigne, numAlpha } from '../../modules/outils.js'
+import { deuxColonnes, randint, texConsigne, numAlpha, choice } from '../../modules/outils.js'
 import { repere, graphiqueInterpole } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -48,7 +48,7 @@ export default function AntecedentEtImageGraphique () {
       ,
       { repere: r, color: 'blue', step: 0.15, epaisseur: 2 })
 
-    if (randint(false, true)) {
+    if (choice([false, true])) {
       a *= -1
       b *= -1
       c *= -1
@@ -210,5 +210,7 @@ export default function AntecedentEtImageGraphique () {
     } else {
       this.contenuCorrection = `<div style="line-height: ${this.spacingCorr};">\n${this.contenuCorrection}\n</div>`
     }
+    this.listeQuestions[0] = this.contenu
+    this.listeCorrections[0] = this.contenuCorrection
   }
 }
