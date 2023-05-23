@@ -316,7 +316,8 @@ export function gestionnaireFormulaireTexte ({
   }
   if (max == null || isNaN(max) || max < min) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre max de type number')
   if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error(`La fonction gestionnaireFormulaireTexte réclame un paramètre defaut (ici, ${defaut}) compris entre min (ici, ${min}) et max (ici, ${max})`)
-  let listeIndex
+  let listeIndex, listeIndexProvisoire
+  listeIndex = []
 
   if (!saisie) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
@@ -324,12 +325,9 @@ export function gestionnaireFormulaireTexte ({
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
       listeIndex = [contraindreValeur(min, Math.max(max, melange ?? max), saisie, defaut)]
     } else {
-      listeIndex = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-      if (listeIndex[listeIndex.length - 1] === '') {
-        listeIndex.pop()
-      }
-      for (let i = 0; i < listeIndex.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        listeIndex[i] = contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
+      listeIndexProvisoire = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      for (let i = 0; i < listeIndexProvisoire.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+        if (!isNaN(parseInt(listeIndexProvisoire[i]))) { listeIndex.push(contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut)) } // parseInt en fait un tableau d'entiers
       }
     }
   }
