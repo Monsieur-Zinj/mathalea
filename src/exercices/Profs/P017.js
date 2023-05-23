@@ -5,6 +5,8 @@ import { cercle, droite, longueur, point, polygone, symetrieAxiale, translation,
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer l\'aire d\'un disque'
+export const ref= "P017"
+export const uuid = '0ff0f'
 
 /**
  * Encadre l'aire d'un disque par des aires de figures composées que de carrés de même taille

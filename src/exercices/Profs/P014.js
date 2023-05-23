@@ -3,6 +3,8 @@ import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Interpollation de Catmull-Rom'
+export const ref= "P014"
+export const uuid = '295a8'
 
 /**
  * Trace une courbe interpolee par des splines.

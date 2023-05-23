@@ -8,6 +8,8 @@ import { randint, enumerate, enumerateSansPuceSansNumero, infoMessage, texteGras
 export const dateDePublication = '14/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const titre = 'Puzzles géométriques'
+export const ref= "P015"
+export const uuid = '085ed'
 
 /**
  * Proposisiton des étapes de construction du puzzles géométriques type tangram, œuf magique ...

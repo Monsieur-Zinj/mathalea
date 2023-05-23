@@ -2,6 +2,8 @@ import { courbeInterpolee, point, repere, tracePoint } from '../../modules/2d.js
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'interpolation cosinusoïdale'
+export const ref= "P013"
+export const uuid = '5b767'
 
 /**
  * Trace une courbe interpolee par portions cosinusoïdales.
