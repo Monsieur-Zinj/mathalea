@@ -6601,7 +6601,7 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
     if (label !== '') {
       mesureAngleString = label
     } else {
-      mesureAngleString = Math.round(mesureAngle).toString() + '\\degree'
+      mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '\\degree'
     }
     const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
     const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
