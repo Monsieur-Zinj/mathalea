@@ -1,7 +1,9 @@
 import { courbeInterpolee, point, repere, tracePoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-export const titre = 'interpolation cosinusoïdale'
+export const titre = 'Interpolation cosinusoïdale'
+export const ref = 'P013'
+export const uuid = '5b767'
 
 /**
  * Trace une courbe interpolee par portions cosinusoïdales.
@@ -65,6 +67,7 @@ export default function TraceCourbeInterpolee1 () {
       }
     }
     this.contenu = mathalea2d({ xmin: xMin - 1, xmax: xMax + 1, ymin: yMin - 1, ymax: yMax + 1 }, objets)
+    this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireTexte = ['Liste des points sous la forme: (x0;y0),(x1;y1);..']
   this.besoinFormulaire2CaseACocher = ['Afficher les points ', true]

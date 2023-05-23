@@ -32,7 +32,7 @@ export default function FeuilleDAxesGradues () {
   this.spacingCorrModifiable = false
   this.listePackages = ['tkz-euclide']
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     const pas = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []

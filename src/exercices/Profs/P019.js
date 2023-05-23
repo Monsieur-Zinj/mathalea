@@ -2,6 +2,8 @@ import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils
 import Shikaku from '../6e/_Shikaku.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Générateur de Shikaku'
+export const ref = 'P019'
+export const uuid = '6fb13'
 export default function GenerateurShikaku () {
   Exercice.call(this)
   this.consigne = `Paver la grille à l'aide de rectangles.<br>

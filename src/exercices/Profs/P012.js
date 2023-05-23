@@ -5,11 +5,12 @@ import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
 import {
   combinaisonListesSansChangerOrdre,
-  contraindreValeur,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 
 export const titre = 'Faire des camemberts pour travailler les fractions'
+export const ref = 'P012'
+export const uuid = '62f5e'
 
 /**
  * Fonction permettant aux enseignants de proposer rapidement des diques partagés en parts
@@ -46,6 +47,7 @@ export default function Camemberts () {
         this.contenu += '\\\\'
       }
     }
+    this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireTexte = ['Nombre de parts séparés par des tirets (de 2 à 12)']
   this.besoinFormulaire2Texte = ['Nombre de disques par ligne séparés par des tirets (de 1 à 5)']

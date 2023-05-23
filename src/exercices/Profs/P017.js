@@ -5,6 +5,8 @@ import { cercle, droite, longueur, point, polygone, symetrieAxiale, translation,
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer l\'aire d\'un disque'
+export const ref = 'P017'
+export const uuid = '0ff0f'
 
 /**
  * Encadre l'aire d'un disque par des aires de figures composées que de carrés de même taille
@@ -156,6 +158,6 @@ export default function EncadrerAireDisque () {
     listeQuestionsToContenu(this)
   }
 
-  this.besoinFormulaireNumerique = ['Nombre d\'étapes', 50, 'Un nombre entier entre 1 et 50']
-  this.besoinFormulaire2Numerique = ['Rayon du disque', 20, 'Un nombre entier entre 1 et 20']
+  this.besoinFormulaireNumerique = ['Nombre d\'étapes (entre 1 et 50)', 50]
+  this.besoinFormulaire2Numerique = ['Rayon du disque (nombre entier entre 1 et 20)', 20]
 }

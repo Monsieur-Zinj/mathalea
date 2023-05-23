@@ -18,6 +18,7 @@ export default function FeuilleDeZooms () {
   this.nbCols = 1
   this.sup = 1
   this.titre = titre
+  this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
     this.contenu = ''
@@ -202,6 +203,7 @@ export default function FeuilleDeZooms () {
 
       this.contenu += texte
       this.contenu += '<br>'
+      this.listeQuestions[0] = this.contenu
     }
   }
   this.besoinFormulaireNumerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom']

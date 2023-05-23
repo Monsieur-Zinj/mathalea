@@ -4,7 +4,7 @@ import { polygoneAvecNom, codageSegments, codageAngleDroit, afficheMesureAngle, 
 import Alea2iep from '../../modules/Alea2iep.js'
 import { contraindreValeur, Triangles } from '../../modules/outils.js'
 
-export const titre = 'Construis mon triangle'
+export const titre = 'Construction animée d\'un triangle'
 export const ref = 'P011'
 export const uuid = '697a7'
 
@@ -136,6 +136,7 @@ export default function ConstruisMonTriangle () {
     }
     const texte = mathalea2d(paramsEnonce, objetsEnonceml) + '<br>' + anim.htmlBouton(this.numeroExercice)
     this.contenu = texte
+    this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireNumerique = ['Type de triangle', 6, '1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l\'hypoténuse\n 5 : Triangle équilatéral\n 6 : Triangle 2 longueurs et l\'angle entre ces côtés']
   this.besoinFormulaire2Texte = ['Nom du triangle', 'ABC par exemple']

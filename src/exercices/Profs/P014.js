@@ -3,6 +3,8 @@ import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Interpollation de Catmull-Rom'
+export const ref = 'P014'
+export const uuid = '295a8'
 
 /**
  * Trace une courbe interpolee par des splines.
@@ -63,6 +65,7 @@ export default function TraceCourbeInterpolee1 () {
       }
     }
     this.contenu = mathalea2d({ xmin: xMin - 1, xmax: xMax + 1, ymin: yMin - 1, ymax: yMax + 1 }, objets)
+    this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireTexte = ['Liste des ordonnées sous la forme: y0;y1;y2;...']
   this.besoinFormulaire2Texte = ['Première abscisse et incrément séparés par ; (séparateur décimal = . ) exemple : -5;0.5']

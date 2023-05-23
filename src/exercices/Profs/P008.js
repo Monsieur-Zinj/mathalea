@@ -60,6 +60,7 @@ export default function OperationsPosees () {
         this.contenu = Operation({ operande1: a, operande2: b, type: 'division', precision: parseInt(this.sup3) })
         break
     }
+    this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireNumerique = ['Opération', 5, '1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division euclidienne\n5 : Division décimale']
   this.besoinFormulaire2Texte = ['Deux nombres séparés par un tiret(séparateur décimal = le point)']
