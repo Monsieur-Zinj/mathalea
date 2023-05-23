@@ -7,8 +7,8 @@ import { randint, enumerate, enumerateSansPuceSansNumero, infoMessage, texteGras
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '14/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
-export const titre = 'Puzzles géométriques'
-export const ref= "P015"
+export const titre = 'Puzzles géométriques avec animation'
+export const ref = 'P015'
 export const uuid = '085ed'
 
 /**
@@ -409,6 +409,7 @@ export default function PuzzlesGeometriques () {
       texte += anim.htmlBouton(this.numeroExercice)
     }
     this.contenu = texte
+    this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireNumerique = ['Type de puzzle', 4, '1 : Oeuf magique\n 2 : Tangram\n 3 : Sam Loyd \n 4 : Sam Loyd bis']
   this.besoinFormulaire2CaseACocher = ['Animation disponible']

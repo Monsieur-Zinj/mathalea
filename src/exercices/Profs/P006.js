@@ -144,6 +144,7 @@ export default function NombreAPlacer () {
     } else {
       this.contenu += '\\\\'
     }
+    this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes']
   this.besoinFormulaire2Numerique = ['Saisir le nombre décimal ']
