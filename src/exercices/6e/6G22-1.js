@@ -165,10 +165,12 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
             feedback: ''
           })
         }
-        this.autoCorrection[ee + i * listeTypeQuestions.length] = {
-          enonce: questionReponse.question,
-          options: { ordered: true },
-          propositions
+        if (!context.isAmc) {
+          this.autoCorrection[ee + i * listeTypeQuestions.length] = {
+            enonce: questionReponse.question,
+            options: { ordered: true },
+            propositions
+          }
         }
         const monQcm = propositionsQcm(this, ee + i * listeTypeQuestions.length)
         texteQuestion += questionReponse.question + '<br>'
