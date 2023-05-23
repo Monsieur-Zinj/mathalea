@@ -13,7 +13,7 @@ import {
   listeQuestionsToContenu,
   pgcd,
   premierAvec,
-  randint,
+  randint, rangeMinMax,
   texNombre
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -22,7 +22,7 @@ export const titre = 'Fonctions linéaires'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const amcReady = true
-export const amcType = 'AMCNum'
+export const amcType = 'AMCHybride'
 export const dateDePublication = '13/04/2023'
 export const ref = '3F20'
 export const uuid = 'aeb5a'
@@ -63,6 +63,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
     const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const elementAmc = {}
       const nomFonction = String.fromCharCode(102 + i)
       this.sup = contraindreValeur(1, 3, this.sup, 1)
       let texte = ''; let texteCorr = ''
@@ -73,21 +74,22 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       let coefficient, image
       switch (this.sup) {
         case 1:
-          coefficient = premierAvec(antecedent0, antecedents, true) * choice([-1, 1])
+          coefficient = randint(2, 10) * choice([-1, 1])
           break
         case 2:
           coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           break
         case 3:
           if (Math.random() < 0.5) {
-            coefficient = premierAvec(antecedent0, antecedents, false) * choice([-1, 1])
+            coefficient = randint(2, 10) * choice([-1, 1])
           } else {
             coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           }
           break
       }
       let imageString, formatInteractif
-      const antecedent = premierAvec(antecedent0, antecedents, false) * choice([-1, 1])
+      //
+      const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1]))
       const image0 = coefficient instanceof FractionEtendue ? coefficient.num : coefficient * antecedent0
       if (coefficient instanceof FractionEtendue) {
         image = coefficient.multiplieEntier(antecedent)
@@ -157,7 +159,23 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$`
-          setReponse(this, i, image, { formatInteractif })
+          if (context.isAmc) {
+            elementAmc.propositions = [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  reponse: {
+                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
+                    valeur: image,
+                    param: {
+                      signe: true
+                    }
+                  }
+                }
+                ]
+              }
+            ]
+          } else setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
@@ -171,7 +189,23 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `$ et par suite $${nomFonction}(x)=${coefficientString}x$.<br>`
           texteCorr += `Donc $${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$.`
-          setReponse(this, i, image, { formatInteractif })
+          if (context.isAmc) {
+            elementAmc.propositions = [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  reponse: {
+                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
+                    valeur: image,
+                    param: {
+                      signe: true
+                    }
+                  }
+                }
+                ]
+              }
+            ]
+          } else setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
@@ -186,7 +220,23 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }, r, d, t, coordonnees, pointilles)
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${image0}$ et $${nomFonction}(x)=ax$ on en déduit $a\\times ${antecedent0} = ${image0}$ soit $a=\\dfrac{${image0}}{${antecedent0}}${coefficient instanceof FractionEtendue ? '' : '=' + coefficientString}$.<br>`
           texteCorr += `Ainsi $${nomFonction}(${antecedent})=${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent)}=${imageString}$.`
-          setReponse(this, i, image, { formatInteractif })
+          if (context.isAmc) {
+            elementAmc.propositions = [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  reponse: {
+                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
+                    valeur: image,
+                    param: {
+                      signe: true
+                    }
+                  }
+                }
+                ]
+              }
+            ]
+          } else setReponse(this, i, image, { formatInteractif })
           break
         case 'antecedentParExpression':
           texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
@@ -199,7 +249,23 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteCorr += `Donc $b=\\dfrac{${texNombre(image, 0)}}{${coefficientString}}=`
           }
           texteCorr += `${antecedent}$.`
-          setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          if (context.isAmc) {
+            elementAmc.propositions = [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  reponse: {
+                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
+                    valeur: antecedent,
+                    param: {
+                      signe: true
+                    }
+                  }
+                }
+                ]
+              }
+            ]
+          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
@@ -216,7 +282,23 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteCorr += `${imageString}\\times ${coefficient.inverse().texFSP}=`
           }
           texteCorr += `${antecedent}$.`
-          setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          if (context.isAmc) {
+            elementAmc.propositions = [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  reponse: {
+                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
+                    valeur: antecedent,
+                    param: {
+                      signe: true
+                    }
+                  }
+                }
+                ]
+              }
+            ]
+          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
@@ -240,7 +322,23 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteCorr += `${imageString}\\times ${coefficient.inverse().texFSP}=`
           }
           texteCorr += `${antecedent}$.`
-          setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          if (context.isAmc) {
+            elementAmc.propositions = [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  reponse: {
+                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
+                    valeur: antecedent,
+                    param: {
+                      signe: true
+                    }
+                  }
+                }
+                ]
+              }
+            ]
+          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'expressionParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
@@ -257,7 +355,21 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `$.<br>Donc $${nomFonction}(x)=${coefficientString}x$.`
           if (context.isAmc) {
-            setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
+            elementAmc.propositions = [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  reponse: {
+                    texte: `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`,
+                    valeur: coefficient,
+                    param: {
+                      signe: true
+                    }
+                  }
+                }
+                ]
+              }
+            ]
           } else {
             setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
@@ -285,13 +397,34 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `$.<br>Donc $${nomFonction}(x)=${coefficientString}x$.`
           if (context.isAmc) {
-            setReponse(this, i, coefficient, { formatInteractif: 'calcul' })
+            elementAmc.propositions = [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  reponse: {
+                    texte: `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`,
+                    valeur: coefficient,
+                    param: {
+                      signe: true
+                    }
+                  }
+                }
+                ]
+              }
+            ]
           } else {
             setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
       }
       if (this.questionJamaisPosee(i, coefficient, antecedent0, image0)) {
+        if (context.isAmc) {
+          elementAmc.enonce = texte + '\\\\'
+          elementAmc.enonceApresNumQuestion = false
+          elementAmc.propositions[0].propositions[0].texte = texteCorr
+          elementAmc.options = { multicolsAll: true, barreseparation: true }
+          this.autoCorrection[i] = elementAmc
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

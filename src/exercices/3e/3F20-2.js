@@ -9,8 +9,8 @@ import Exercice from '../Exercice.js'
 export const titre = 'Fonctions affines et/ou linéaires'
 export const interactifType = 'mathLive'
 export const interactifReady = true
-// export const amcReady = true
-// export const amcType = 'AMCNum'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 export const dateDePublication = '21/05/2023'
 export const ref = '3F20-2'
 export const uuid = '17c65'
@@ -21,6 +21,7 @@ export const uuid = '17c65'
  */
 export default function FonctionsAffinesOuLineaires () {
   Exercice.call(this)
+  this.titre = titre
   this.lycee = false
   const fonctionsLineaires = new FonctionsLineaires()
   const fonctionsAffines = new FonctionsAffines()
@@ -49,8 +50,8 @@ export default function FonctionsAffinesOuLineaires () {
     fonctionsLineaires.sup2 = this.sup2
     fonctionsLineaires.numeroExercice = this.numeroExercice // indispensable pour l'interactif
     fonctionsLineaires.nouvelleVersion()
-  
-     this.listeQuestions = []
+
+    this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     const choixFonction = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 2, defaut: 3, melange: 3, listeOfCase: ['linéaire', 'affine'], nbQuestions: this.nbQuestions, shuffle: true })
