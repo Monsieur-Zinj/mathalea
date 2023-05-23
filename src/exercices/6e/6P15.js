@@ -222,14 +222,14 @@ export default function CalculerCoeffPropo () {
           setReponse(this, 3 * i + 2, reponsesAttendue.reponse2.reponse.valeur, { formatInteractif: 'calcul' })
         }
       } else { // pour LAtex, c'est profCollege dans le texte
-        texte += '\\Propor[Math,\nStretch=2,\nlargeur=1.5]{'
+        texte += '\n\\Propor[Math,Stretch=2,largeur=15]{'
         for (let colonne = 0; colonne < 3; colonne++) {
-          texte += `$${ligne1[colonne + 1]}$/`
-          texte += `$${ligne2[colonne + 1]}$`
+          texte += `${ligne1[colonne + 1].texte.replace('...', '\\ldots')}/`
+          texte += `${ligne2[colonne + 1].texte.replace('...', '\\ldots')}`
           if (colonne < 2) texte += ','
           else texte += '}\n'
         }
-        texte += '\\FlechesPD{1}{2}{$\\times$\\ldots}\n'
+        texte += '\n\\FlechesPD{1}{2}{$\\times$\\ldots}\n'
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,

@@ -7,9 +7,8 @@ import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
-// export const amcReady = false
-export const amcType = 'qcmMono' // Question numérique
-export const amcReady = true // Il reste à gérer les options numériques
+export const amcType = 'qcmMono'
+export const amcReady = true
 
 export const titre = 'Reconnaître un angle particulier'
 
