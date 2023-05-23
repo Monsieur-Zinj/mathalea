@@ -76,6 +76,7 @@
       headerExerciceProps.isHidable = true
     }
     headerExerciceProps.isInteractif = isInteractif
+    headerExerciceProps.correctionExists = exercice.listeCorrections.length > 0
     headerExerciceProps = headerExerciceProps
   }
 

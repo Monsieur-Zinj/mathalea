@@ -25,7 +25,8 @@ export default function FeuilleDAxesGradues () {
   this.spacing = 3
   this.sup = 10
   this.consigneModifiable = false
-  this.nbQuestionsModifiable = false
+  this.nbQuestions = 4
+  // this.nbQuestionsModifiable = false
   this.nbColsModifiable = false
   this.nbColsCorrModifiable = false
   this.spacingModifiable = false
@@ -39,7 +40,7 @@ export default function FeuilleDAxesGradues () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
-    for (let i = 0, texte; i < 14; i++) {
+    for (let i = 0, texte; i < this.nbQuestions; i++) {
       texte = mathalea2d({ xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 }, droiteGraduee({
         Unite: 4,
         Min: 0,

@@ -10,6 +10,7 @@
   export let randomReady = true
   export let settingsReady = true
   export let correctionReady = true
+  export let correctionExists = true
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isInteractif = false
@@ -85,7 +86,7 @@
           <i class="bx {isMessagesVisible ? 'bxs-bulb' : 'bx-bulb'}" />
         </button> -->
         <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral {correctionReady ? '' : 'invisible'}"
+          class="mx-2 tooltip tooltip-left tooltip-neutral {correctionExists && correctionReady ? '' : 'hidden'}"
           data-tip={isCorrectionVisible ? "Masquer la correction" : "Montrer la correction"}
           type="button"
           on:click={() => {
@@ -103,7 +104,7 @@
           />
         </button>
         <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'invisible'}"
+          class="mx-2 tooltip tooltip-left tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'hidden'}"
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={switchInteractif}
@@ -112,13 +113,11 @@
         </button>
         <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
           ><i
-            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady
-              ? ''
-              : 'invisible'}"
+            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady ? '' : 'hidden'}"
           /></button
         >
         <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral {settingsReady ? '' : 'invisible'} "
+          class="mx-2 tooltip tooltip-left tooltip-neutral {settingsReady ? '' : 'hidden'} "
           data-tip="Changer les paramètres de l'exercice"
           type="button"
           on:click={() => {
