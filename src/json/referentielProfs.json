@@ -59,10 +59,70 @@
     "id": "P011",
     "uuid": "697a7",
     "url": "profs/P011.js",
-    "titre": "Construis mon triangle",
+    "titre": "Construction animée d'un triangle",
     "tags": {}
   },
-  "undefined": {
+  "P012": {
+    "id": "P012",
+    "uuid": "62f5e",
+    "url": "profs/P012.js",
+    "titre": "Faire des camemberts pour travailler les fractions",
+    "tags": {}
+  },
+  "P013": {
+    "id": "P013",
+    "uuid": "5b767",
+    "url": "profs/P013.js",
+    "titre": "Interpolation cosinusoïdale",
+    "tags": {}
+  },
+  "P014": {
+    "id": "P014",
+    "uuid": "295a8",
+    "url": "profs/P014.js",
+    "titre": "Interpollation de Catmull-Rom",
+    "tags": {}
+  },
+  "P015": {
+    "id": "P015",
+    "uuid": "085ed",
+    "url": "profs/P015.js",
+    "titre": "Puzzles géométriques avec animation",
+    "datePublication": "14/03/2022",
+    "tags": {}
+  },
+  "P016": {
+    "id": "P016",
+    "uuid": "bc372",
+    "url": "profs/P016.js",
+    "titre": "Simulateur de Dés",
+    "datePublication": "06/04/2022",
+    "tags": {}
+  },
+  "P017": {
+    "id": "P017",
+    "uuid": "0ff0f",
+    "url": "profs/P017.js",
+    "titre": "Encadrer l'aire d'un disque",
+    "tags": {}
+  },
+  "P018": {
+    "id": "P018",
+    "uuid": "75f89",
+    "url": "profs/P018.js",
+    "titre": "Générateur de pyramides",
+    "tags": {}
+  },
+  "P019": {
+    "id": "P019",
+    "uuid": "6fb13",
+    "url": "profs/P019.js",
+    "titre": "Générateur de Shikaku",
+    "tags": {}
+  },
+  "P020": {
+    "id": "P020",
+    "uuid": "de353",
     "url": "profs/P020.js",
     "titre": "Encodeur de texte",
     "tags": {}
