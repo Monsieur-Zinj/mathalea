@@ -4,16 +4,12 @@
   import NiveauListeExos from "../sidebar/NiveauListeExos.svelte"
   import EntreeListeOutils from "./EntreeListeOutils.svelte"
   import codeList from "../../json/codeToLevelList.json"
-  import { onMount } from "svelte"
   import { toMap } from "../utils/toMap"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
 
   let isMenuDeployed: boolean = true
-  onMount(async () => {
-    console.log(ref)
-  })
 
   /**
    * Retrouve le titre d'un niveau basé sur son

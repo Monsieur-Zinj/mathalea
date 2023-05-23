@@ -9,6 +9,11 @@
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
   import SideMenuOutils from "./outils/SideMenuOutils.svelte"
   import type { ReferentielForList } from "src/lib/types"
+  import ButtonsDeck from "./outils/ButtonsDeck.svelte"
+  import Button from "./forms/Button.svelte"
+  import ButtonSvg from "./forms/ButtonSvg.svelte"
+  import MoodleIcon from "./icons/MoodleIcon.svelte"
+  import AmcIcon from "./icons/AmcIcon.svelte"
 
   let isMenuOpen: boolean = true
   let divExercices: HTMLDivElement
@@ -18,7 +23,6 @@
     arrayReferentiel.content.push(value)
   }
   let isNavBarVisible: boolean = true
-  let zoom: number = 1
 
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
@@ -60,6 +64,34 @@
     event.preventDefault()
     sidebarWidth = event.pageX
   }
+
+  // Gestion du zoom
+  let zoom: number = 1
+  function zoomOut() {
+    zoom -= 0.25
+    updateSize()
+  }
+
+  function zoomIn() {
+    zoom += 0.25
+    updateSize()
+  }
+
+  function updateSize() {
+    globalOptions.update((params) => {
+      params.z = zoom.toString()
+      return params
+    })
+  }
+
+  // Gestion des nouvelles données pour tous les exercices
+  function newDataForAll() {
+    console.log($globalOptions, $exercicesParams)
+    const newDataForAll = new window.Event("newDataForAll", {
+      bubbles: true,
+    })
+    document.dispatchEvent(newDataForAll)
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -71,8 +103,8 @@
     </div>
   {/if}
   <div class="flex flex-col md:flex-row w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <div class="mt-6 md:mt-8 lg:mt-0 overflow-y-auto">
-      <SideMenuOutils bind:clientWidth={sbWidth} bind:isMenuOpen bind:sidebarWidth referentiels={[arrayReferentiel]} />
+    <div class="mt-6 md:mt-8 lg:mt-0">
+      <SideMenuOutils bind:isMenuOpen bind:sidebarWidth referentiels={[arrayReferentiel]} />
     </div>
 
     <!-- drag bar -->
@@ -84,6 +116,39 @@
       on:mousedown={startResizing.bind(this, "moving")}
     />
     <div class="w-full">
+      <ButtonsDeck>
+        <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
+          <Button title="" icon="bx-zoom-out" classDeclaration="text-3xl" on:click={zoomOut} />
+          <Button title="" icon="bx-zoom-in" classDeclaration="text-3xl" on:click={zoomIn} />
+          <Button title="" icon="bx-refresh" classDeclaration="text-3xl" on:click={newDataForAll} />
+          <Button
+            title=""
+            icon="bx-trash"
+            classDeclaration="text-3xl"
+            on:click={() => {
+              $exercicesParams.length = 0
+            }}
+          />
+          <!-- <Button title="" icon="bx-fullscreen" classDeclaration="text-3xl" /> -->
+        </div>
+
+        <div slot="export-buttons" class="flex flex-row justify-start items-center space-x-4">
+          <Button title="" icon="bx-slideshow" classDeclaration="text-3xl" />
+          <ButtonSvg classDeclaration="w-6 h-6 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+          <ButtonSvg>
+            <div slot="svelte-icon">
+              <AmcIcon
+                class="w-6 h-6 fill-current stroke-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              />
+            </div>
+          </ButtonSvg>
+          <ButtonSvg>
+            <div slot="svelte-icon">
+              <MoodleIcon class="w-8 h-8 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            </div>
+          </ButtonSvg>
+        </div>
+      </ButtonsDeck>
       {#if $exercicesParams.length !== 0}
         <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full min-h-[calc(100vh-7rem)] overflow-y-auto" bind:this={divExercices}>
           <div class="flex-1 md:mt-9 lg:mt-0">
