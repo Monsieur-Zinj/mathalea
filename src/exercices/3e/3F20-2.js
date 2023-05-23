@@ -21,6 +21,7 @@ export const uuid = '17c65'
  */
 export default function FonctionsAffinesOuLineaires () {
   Exercice.call(this)
+  this.titre = titre
   this.lycee = false
   const fonctionsLineaires = new FonctionsLineaires()
   const fonctionsAffines = new FonctionsAffines()
