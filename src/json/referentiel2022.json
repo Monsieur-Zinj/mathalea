@@ -11062,7 +11062,7 @@
         "id": "2F31-3",
         "uuid": "c705b",
         "url": "2e/2F31-3.js",
-        "titre": "Comparaison d'images dans un tableau de variations",
+        "titre": "Comparer des images dans un tableau de variations",
         "datePublication": "25/10/2021",
         "dateModification": "17/05/2023",
         "tags": {
@@ -11962,6 +11962,19 @@
         "url": "2e/2N60-4.js",
         "titre": "Inéquation du premier degré",
         "tags": {}
+      },
+      "2N60-5": {
+        "id": "2N60-5",
+        "uuid": "2844c",
+        "url": "2e/2N60-5.js",
+        "titre": "Montrer qu'un nombre est ou n'est pas solution d'une inéquation",
+        "datePublication": "22/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm",
+          "amc": true,
+          "amcType": "qcmMono"
+        }
       },
       "2N61-2": {
         "id": "2N61-2",
