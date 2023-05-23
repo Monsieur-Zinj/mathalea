@@ -6,6 +6,7 @@
   import { exercicesParams } from "../store"
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   export let title: string
+  export let category: string = "Exercice"
   export let randomReady = true
   export let settingsReady = true
   export let correctionReady = true
@@ -64,7 +65,7 @@
   >
     <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center" id="exercice{indiceExercice}">
       <div class="flex font-bold text-sm md:text-base lg:text-xl">
-        Exercice&#8239;{indiceExercice + 1}
+        {category}&#8239;{indiceExercice + 1}
       </div>
       <div class="flex font-normal text-sm md:text-base xl:text-lg pl-2">
         <div><span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{title}</div>

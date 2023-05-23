@@ -52,7 +52,9 @@
 
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
-
+    if ($globalOptions.v === "tools") {
+      headerExerciceProps.category = "Outil"
+    }
     if ($globalOptions.v === "eleve") {
       headerExerciceProps.settingsReady = false
       headerExerciceProps.isSortable = false
