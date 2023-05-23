@@ -40,9 +40,30 @@
   $: {
     if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
+
+  /**
+   * Gestion du redimentionnement de la largeur du menu des choix
+   */
+  let expanding = null
+  let sidebarWidth = 600
+  let sbWidth = sidebarWidth
+  function stopResizing() {
+    expanding = null
+  }
+
+  function startResizing(type, event: MouseEvent) {
+    expanding = type
+  }
+
+  function resizing(event: MouseEvent) {
+    if (!expanding) return
+    event.preventDefault()
+    sidebarWidth = event.pageX
+  }
 </script>
 
-<div class="scrollbar-hide h-screen {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
+<svelte:window on:mouseup={stopResizing} />
+<div class="scrollbar-hide h-screen {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent" on:mousemove={resizing}>
   <!-- <Header /> -->
   {#if isNavBarVisible}
     <div id="headerStart" class="shrink-0 z-40 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
@@ -50,10 +71,19 @@
     </div>
   {/if}
   <div class="flex flex-col md:flex-row w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <div class="w-full md:w-5/12 lg:w-4/12 xl:w-3/12 mt-6 md:mt-8 lg:mt-0">
-      <SideMenuOutils referentiels={[arrayReferentiel]} />
+    <div class="mt-6 md:mt-8 lg:mt-0 overflow-y-auto">
+      <SideMenuOutils bind:clientWidth={sbWidth} bind:isMenuOpen bind:sidebarWidth referentiels={[arrayReferentiel]} />
     </div>
-    <div class="w-full md:w-7/12 lg:w-8/12 xl:w-9/12">
+
+    <!-- drag bar -->
+    <div
+      id="dragbar"
+      class="hidden {isMenuOpen
+        ? 'md:flex'
+        : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
+      on:mousedown={startResizing.bind(this, "moving")}
+    />
+    <div class="w-full">
       {#if $exercicesParams.length !== 0}
         <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full min-h-[calc(100vh-7rem)] overflow-y-auto" bind:this={divExercices}>
           <div class="flex-1 md:mt-9 lg:mt-0">
@@ -82,3 +112,10 @@
     </div>
   </div>
 </div>
+
+<style>
+  #exercisesWrapper {
+    height: calc(100vh - 14rem);
+    min-height: 100%;
+  }
+</style>

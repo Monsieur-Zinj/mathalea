@@ -719,9 +719,7 @@
         <div class="relative h-[calc(100vh-7rem)] print-hidden transition-transform duration-300 {$isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
           <div
             bind:clientWidth={sbWidth}
-            style="{$isSideMenuVisible || nbExercisesInList === 0
-              ? `width:${sidebarWidth}px;`
-              : 'width: 0px;'} transition: width; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
+            style={$isSideMenuVisible || nbExercisesInList === 0 ? `width:${sidebarWidth}px;` : "width: 0px;"}
             class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:h-[calc(100vh-7rem)] {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
             <div id="choiceMenuWrapper" class="flex flex-col overflow-y-auto">
@@ -734,7 +732,7 @@
                   <i class="print-hidden bx bx-sm bx-x m-0 p-0" />
                 </button>
               </div>
-              <SideMenuList ref={testSideMenuList} moreThanOne={true} />
+              <!-- <SideMenuList ref={testSideMenuList} moreThanOne={true} /> -->
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
                 <div class="font-bold text-xl">Choix des exercices</div>
               </div>
