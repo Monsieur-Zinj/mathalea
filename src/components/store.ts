@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store'
-import type { InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice } from '../lib/types'
+import type { CallerComponentType, InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice } from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -54,6 +54,9 @@ export const isExportMenuVisible = writable<boolean>(false)
 
 // pour garder trace du statut d'ouverture du menu de choix
 export const isSideMenuVisible = writable<boolean>(true)
+
+// pour garder trace de la page appelant l'export
+export const callerComponent = writable<CallerComponentType>('')
 
 /**
  * Déplace un exercice dans exercicesParams

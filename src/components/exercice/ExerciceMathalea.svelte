@@ -52,7 +52,9 @@
 
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
-
+    if ($globalOptions.v === "tools") {
+      headerExerciceProps.category = "Outil"
+    }
     if ($globalOptions.v === "eleve") {
       headerExerciceProps.settingsReady = false
       headerExerciceProps.isSortable = false
@@ -74,6 +76,7 @@
       headerExerciceProps.isHidable = true
     }
     headerExerciceProps.isInteractif = isInteractif
+    headerExerciceProps.correctionExists = exercice.listeCorrections.length > 0
     headerExerciceProps = headerExerciceProps
   }
 
@@ -256,8 +259,8 @@
           mathalea2dFigures[k].setAttribute("width", initialWidth)
           mathalea2dFigures[k].setAttribute("height", initialHeight)
         }
-        // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+          // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
           const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
           const newFigWidth = consigneDiv.clientWidth * 0.95
           const newFigHeight = mathalea2dFigures[k].clientHeight * coef
@@ -357,10 +360,10 @@
             <ul
               class="{exercice.listeQuestions.length > 1
                 ? 'list-decimal'
-                : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+                : 'list-none'} w-full list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercice.listeQuestions as item, i (i)}
-                <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
+                <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container w-full grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
                   <li id="exercice{indiceExercice}Q{i}">
                     {@html mathaleaFormatExercice(item)}
                   </li>

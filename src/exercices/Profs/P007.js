@@ -64,13 +64,14 @@ export default function PavagesMathalea2d () {
     }
     const texte = mathalea2d(monpavage.fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
 
-    let texteCorr = 'Le premier paramètre permet de choisir le pavage.<br>'
-    texteCorr += 'Le deuxième permet de choisir le nombre de répétitions en x et y. Exemple : 3-2<br>'
-    texteCorr += "Le troisième permet d'afficher un Numéro distinct sur chaque figure.<br>"
-    texteCorr += 'En activant la correction détaillée, on affiche les barycentres de celles-ci.'
+    let texteComment = 'Le premier paramètre permet de choisir le pavage.<br>'
+    texteComment += 'Le deuxième permet de choisir le nombre de répétitions en x et y. Exemple : 3-2<br>'
+    texteComment += "Le troisième permet d'afficher un Numéro distinct sur chaque figure.<br>"
+    texteComment += 'En activant la correction détaillée, on affiche les barycentres de celles-ci.'
 
     this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
+    // this.listeCorrections.push(texteCorr)
+    this.comment = texteComment
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de pavage', 7, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d\'écolier\n7 : Pavage 6.3.6.3\n8 : Mélange']
