@@ -4,7 +4,7 @@
 </script>
 
 <div class="flex justify-center">
-  <div class="w-[70%] z-50 hidden md:flex md:flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+  <div class="w-[70%] z-50 flex flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div id="setupButtonsBar">
       <slot name="setup-buttons">
         {#each setupButtonsList as button}

@@ -24,7 +24,7 @@
   }
 </script>
 
-<div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-5">
+<div class="w-[100vw] flex flex-row justify-between items-center px-6 py-2 md:py-5">
   <div class=" font-bold text-xl text-coopmaths-struct">{ref.title}</div>
   <div class={moreThanOne ? "flex" : "flex md:hidden"}>
     <button
