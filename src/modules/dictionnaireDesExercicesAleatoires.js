@@ -20499,7 +20499,7 @@ export default {
   },
   "P003": {
     "titre": "Tracer des droites graduées",
-    "url": "/exercices/Profs/P003.js",
+    "url": "/exercices/profs/P003.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P003",
@@ -20514,7 +20514,7 @@ export default {
   },
   "P004": {
     "titre": "Droites graduées avec zoom",
-    "url": "/exercices/Profs/P004.js",
+    "url": "/exercices/profs/P004.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P004",
@@ -20529,7 +20529,7 @@ export default {
   },
   "P005": {
     "titre": "Grilles décimales",
-    "url": "/exercices/Profs/P005.js",
+    "url": "/exercices/profs/P005.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P005",
@@ -20544,7 +20544,7 @@ export default {
   },
   "P006": {
     "titre": "Placer un nombre décimal avec des zooms successifs",
-    "url": "/exercices/Profs/P006.js",
+    "url": "/exercices/profs/P006.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P006",
@@ -20559,7 +20559,7 @@ export default {
   },
   "P007": {
     "titre": "Fabriquer des pavages pour travailler les transformations",
-    "url": "/exercices/Profs/P007.js",
+    "url": "/exercices/profs/P007.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P007",
@@ -20574,7 +20574,7 @@ export default {
   },
   "P008": {
     "titre": "Opérations posées",
-    "url": "/exercices/Profs/P008.js",
+    "url": "/exercices/profs/P008.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P008",
@@ -20589,7 +20589,7 @@ export default {
   },
   "P009": {
     "titre": "Simulation d'expériences aléatoires",
-    "url": "/exercices/Profs/P009.js",
+    "url": "/exercices/profs/P009.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P009",
@@ -20604,7 +20604,7 @@ export default {
   },
   "P010": {
     "titre": "Étude de fonctions de degré 3",
-    "url": "/exercices/Profs/P010.js",
+    "url": "/exercices/profs/P010.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P010",
@@ -20619,7 +20619,7 @@ export default {
   },
   "P011": {
     "titre": "Construis mon triangle",
-    "url": "/exercices/Profs/P011.js",
+    "url": "/exercices/profs/P011.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P011",
@@ -20634,7 +20634,7 @@ export default {
   },
   "P012": {
     "titre": "Faire des camemberts pour travailler les fractions",
-    "url": "/exercices/Profs/P012.js",
+    "url": "/exercices/profs/P012.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P012",
@@ -20649,7 +20649,7 @@ export default {
   },
   "P013": {
     "titre": "interpolation cosinusoïdale",
-    "url": "/exercices/Profs/P013.js",
+    "url": "/exercices/profs/P013.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P013",
@@ -20664,7 +20664,7 @@ export default {
   },
   "P014": {
     "titre": "Interpollation de Catmull-Rom",
-    "url": "/exercices/Profs/P014.js",
+    "url": "/exercices/profs/P014.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P014",
@@ -20679,7 +20679,7 @@ export default {
   },
   "P015": {
     "titre": "Puzzles géométriques",
-    "url": "/exercices/Profs/P015.js",
+    "url": "/exercices/profs/P015.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P015",
@@ -20694,7 +20694,7 @@ export default {
   },
   "P016": {
     "titre": "Simulateur de Dés",
-    "url": "/exercices/Profs/P016.js",
+    "url": "/exercices/profs/P016.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P016",
@@ -20709,7 +20709,7 @@ export default {
   },
   "P017": {
     "titre": "Encadrer l'aire d'un disque",
-    "url": "/exercices/Profs/P017.js",
+    "url": "/exercices/profs/P017.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P017",
@@ -20724,7 +20724,7 @@ export default {
   },
   "P018": {
     "titre": "Générateur de pyramides",
-    "url": "/exercices/Profs/P018.js",
+    "url": "/exercices/profs/P018.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P018",
@@ -20739,7 +20739,7 @@ export default {
   },
   "P019": {
     "titre": "Générateur de Shikaku",
-    "url": "/exercices/Profs/P019.js",
+    "url": "/exercices/profs/P019.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P019",
@@ -20754,7 +20754,7 @@ export default {
   },
   "P020": {
     "titre": "Encodeur de texte",
-    "url": "/exercices/Profs/P020.js",
+    "url": "/exercices/profs/P020.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P020",
