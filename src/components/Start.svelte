@@ -190,7 +190,7 @@
       const traverseObject = (obj: InterfaceReferentiel[]): InterfaceReferentiel[] => {
         return Object.entries(obj).reduce((product, [key, value]) => {
           if (isObject(value as InterfaceReferentiel)) {
-            if (Object.hasOwn(value, "uuid")) {
+            if ("uuid" in value) {
               // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
               if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
                 // @ts-ignore

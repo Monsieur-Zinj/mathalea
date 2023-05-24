@@ -7,7 +7,9 @@ import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const amcReady = false
+export const amcType = 'qcmMono'
+export const amcReady = true
+
 export const titre = 'Reconnaître un angle particulier'
 
 export const dateDePublication = '03/12/2022'
@@ -88,13 +90,14 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       const ymin = Math.min(...pointsY) - 2.2
       const ymax = Math.max(...pointsY) + 2.2
       const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.4 }
-      texte = 'Dans la figure ci-dessous :<br>' + mathalea2d(parametres2d, objets2d) + '<br>'
+      const enonceFigure = 'Dans la figure ci-dessous :<br>' + mathalea2d(parametres2d, objets2d) + '<br>'
+      texte = ''
       texteCorr = ''
       // On construit les questions
 
       const questionReponse =
       {
-        question: '$\\widehat{' + A.nom + B.nom + C.nom + '}$ est un angle :',
+        question: enonceFigure + '$\\widehat{' + A.nom + B.nom + C.nom + '}$ est un angle :',
         propositions: ['nul', 'aigu', 'droit', 'obtus', 'plat'],
         reponses: [listeTypeQuestions[i]],
         explications

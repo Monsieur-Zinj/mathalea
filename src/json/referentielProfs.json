@@ -2,99 +2,99 @@
   "P003": {
     "id": "P003",
     "uuid": "ad5f5",
-    "url": "Profs/P003.js",
+    "url": "profs/P003.js",
     "titre": "Tracer des droites graduées",
     "tags": {}
   },
   "P004": {
     "id": "P004",
     "uuid": "ad5f6",
-    "url": "Profs/P004.js",
+    "url": "profs/P004.js",
     "titre": "Droites graduées avec zoom",
     "tags": {}
   },
   "P005": {
     "id": "P005",
     "uuid": "ad5f7",
-    "url": "Profs/P005.js",
+    "url": "profs/P005.js",
     "titre": "Grilles décimales",
     "tags": {}
   },
   "P006": {
     "id": "P006",
     "uuid": "bd5f7",
-    "url": "Profs/P006.js",
+    "url": "profs/P006.js",
     "titre": "Placer un nombre décimal avec des zooms successifs",
     "tags": {}
   },
   "P007": {
     "id": "P007",
     "uuid": "ad5f8",
-    "url": "Profs/P007.js",
+    "url": "profs/P007.js",
     "titre": "Fabriquer des pavages pour travailler les transformations",
     "tags": {}
   },
   "P008": {
     "id": "P008",
     "uuid": "691a6",
-    "url": "Profs/P008.js",
+    "url": "profs/P008.js",
     "titre": "Opérations posées",
     "tags": {}
   },
   "P009": {
     "id": "P009",
     "uuid": "691a7",
-    "url": "Profs/P009.js",
+    "url": "profs/P009.js",
     "titre": "Simulation d'expériences aléatoires",
     "tags": {}
   },
   "P010": {
     "id": "P010",
     "uuid": "691a8",
-    "url": "Profs/P010.js",
+    "url": "profs/P010.js",
     "titre": "Étude de fonctions de degré 3",
     "tags": {}
   },
   "P011": {
     "id": "P011",
     "uuid": "697a7",
-    "url": "Profs/P011.js",
-    "titre": "Construis mon triangle",
+    "url": "profs/P011.js",
+    "titre": "Construction animée d'un triangle",
     "tags": {}
   },
   "P012": {
     "id": "P012",
     "uuid": "62f5e",
-    "url": "Profs/P012.js",
+    "url": "profs/P012.js",
     "titre": "Faire des camemberts pour travailler les fractions",
     "tags": {}
   },
   "P013": {
     "id": "P013",
     "uuid": "5b767",
-    "url": "Profs/P013.js",
-    "titre": "interpolation cosinusoïdale",
+    "url": "profs/P013.js",
+    "titre": "Interpolation cosinusoïdale",
     "tags": {}
   },
   "P014": {
     "id": "P014",
     "uuid": "295a8",
-    "url": "Profs/P014.js",
+    "url": "profs/P014.js",
     "titre": "Interpollation de Catmull-Rom",
     "tags": {}
   },
   "P015": {
     "id": "P015",
     "uuid": "085ed",
-    "url": "Profs/P015.js",
-    "titre": "Puzzles géométriques",
+    "url": "profs/P015.js",
+    "titre": "Puzzles géométriques avec animation",
     "datePublication": "14/03/2022",
     "tags": {}
   },
   "P016": {
     "id": "P016",
     "uuid": "bc372",
-    "url": "Profs/P016.js",
+    "url": "profs/P016.js",
     "titre": "Simulateur de Dés",
     "datePublication": "06/04/2022",
     "tags": {}
@@ -102,28 +102,28 @@
   "P017": {
     "id": "P017",
     "uuid": "0ff0f",
-    "url": "Profs/P017.js",
+    "url": "profs/P017.js",
     "titre": "Encadrer l'aire d'un disque",
     "tags": {}
   },
   "P018": {
     "id": "P018",
     "uuid": "75f89",
-    "url": "Profs/P018.js",
+    "url": "profs/P018.js",
     "titre": "Générateur de pyramides",
     "tags": {}
   },
   "P019": {
     "id": "P019",
     "uuid": "6fb13",
-    "url": "Profs/P019.js",
+    "url": "profs/P019.js",
     "titre": "Générateur de Shikaku",
     "tags": {}
   },
   "P020": {
     "id": "P020",
     "uuid": "de353",
-    "url": "Profs/P020.js",
+    "url": "profs/P020.js",
     "titre": "Encodeur de texte",
     "tags": {}
   }
