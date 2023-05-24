@@ -327,12 +327,12 @@
   }
 
   function zoomMinus() {
-    zoom -= 0.25
+    zoom -= 0.1
     updateSize()
   }
 
   function zoomPlus() {
-    zoom += 0.25
+    zoom += 0.1
     updateSize()
   }
 
