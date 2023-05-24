@@ -23,7 +23,6 @@
   let filtres: string[] = []
   let divExercices: HTMLDivElement
   let zoom: number = 1
-  let scaleFactorForImage: number = 1
   let setAllInteractifClicked: boolean = false
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
@@ -326,13 +325,11 @@
 
   function zoomMinus() {
     zoom -= 0.1
-    scaleFactorForImage = 0.9
     updateSize()
   }
 
   function zoomPlus() {
     zoom += 0.1
-    scaleFactorForImage = 1.1
     updateSize()
   }
 
@@ -341,19 +338,6 @@
       params.z = zoom.toString()
       return params
     })
-    const exercicesDivList = document.querySelectorAll('[id^="exo"]')
-    for (const exoDiv of exercicesDivList) {
-      const containerWidth = exoDiv.clientWidth
-      const images = exoDiv.getElementsByTagName("img")
-      for (const image of images) {
-        const currentWidth = image.clientWidth
-        if (currentWidth < containerWidth) {
-          image.style.width = currentWidth * scaleFactorForImage + "px"
-        } else {
-          image.style.width = containerWidth
-        }
-      }
-    }
   }
 
   function toggleSideMenu() {
