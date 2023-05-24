@@ -5,7 +5,7 @@
 
 import fs from 'fs'
 import path from 'path'
-import { uuidOk } from './fileCheck'
+import { uuidOk } from './fileCheck.js'
 
 /**
  * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités)

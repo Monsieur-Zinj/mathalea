@@ -3,7 +3,7 @@
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Footer from "./Footer.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
@@ -14,9 +14,10 @@
   import { findPropPaths, findDuplicates } from "./utils/searching"
   import SearchExercice from "./sidebar/SearchExercice.svelte"
   import { isRecent } from "./utils/handleDate"
-  import type { InterfaceReferentiel } from "src/lib/types"
+  import type { InterfaceReferentiel, ReferentielForList } from "src/lib/types"
   import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
   import handleCapytale from "../lib/handleCapytale"
+  import SideMenuList from "./outils/SideMenuList.svelte"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
@@ -26,6 +27,7 @@
   let setAllInteractifClicked: boolean = false
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
+  let testSideMenuList: ReferentielForList = { title: "Choix des exos", content: [], type: "exercices" }
 
   /**
    * Pour afficher les menus de boutons lorsqu'il n'y a pas assez de place pour les afficher tous
@@ -212,6 +214,7 @@
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
+    testSideMenuList.content = [...arrayReferentielFiltre]
   }
   updateReferentiel()
 
@@ -544,6 +547,7 @@
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Diaporama"
                 on:click={() => {
+                  $callerComponent = ""
                   handleMenuVisibility("export")
                   globalOptions.update((params) => {
                     params.v = "diaporama"
@@ -565,6 +569,7 @@
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Lien pour les élèves"
                 on:click={() => {
+                  $callerComponent = ""
                   handleMenuVisibility("export")
                   globalOptions.update((params) => {
                     params.v = "confeleve"
@@ -585,6 +590,7 @@
                 data-tip="LaTeX"
                 on:click={() => {
                   handleMenuVisibility("export")
+                  $callerComponent = ""
                   globalOptions.update((params) => {
                     params.v = "latex"
                     return params
@@ -684,6 +690,7 @@
                 data-tip="Moodle"
                 on:click={() => {
                   globalOptions.update((params) => {
+                    $callerComponent = ""
                     params.v = "moodle"
                     return params
                   })
@@ -716,9 +723,7 @@
         <div class="relative h-[calc(100vh-7rem)] print-hidden transition-transform duration-300 {$isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
           <div
             bind:clientWidth={sbWidth}
-            style="{$isSideMenuVisible || nbExercisesInList === 0
-              ? `width:${sidebarWidth}px;`
-              : 'width: 0px;'} transition: width; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
+            style={$isSideMenuVisible || nbExercisesInList === 0 ? `width:${sidebarWidth}px;` : "width: 0px;"}
             class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:h-[calc(100vh-7rem)] {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
             <div id="choiceMenuWrapper" class="flex flex-col overflow-y-auto">
@@ -731,6 +736,7 @@
                   <i class="print-hidden bx bx-sm bx-x m-0 p-0" />
                 </button>
               </div>
+              <!-- <SideMenuList ref={testSideMenuList} moreThanOne={true} /> -->
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
                 <div class="font-bold text-xl">Choix des exercices</div>
               </div>

@@ -6,9 +6,11 @@
   import { exercicesParams } from "../store"
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   export let title: string
+  export let category: string = "Exercice"
   export let randomReady = true
   export let settingsReady = true
   export let correctionReady = true
+  export let correctionExists = true
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isInteractif = false
@@ -60,14 +62,14 @@
 
 <div class="z-0 flex-1">
   <h1
-    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center"
+    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
   >
-    <div class="flex flex-col lg:flex-row lg:justify-start lg:items-center" id="exercice{indiceExercice}">
-      <div class="flex font-bold text-xl md:text-lg">
-        Exercice&#8239;{indiceExercice + 1}
+    <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center" id="exercice{indiceExercice}">
+      <div class="flex font-bold text-sm md:text-base lg:text-xl">
+        {category}&#8239;{indiceExercice + 1}
       </div>
-      <div class="flex font-normal text-lg lg:text-normal">
-        <div><span class="invisible lg:visible mx-1 font-bold">&middot;</span>{title}</div>
+      <div class="flex font-normal text-sm md:text-base xl:text-lg pl-2">
+        <div><span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{title}</div>
       </div>
     </div>
     <div class="print-hidden flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1">
@@ -84,7 +86,7 @@
           <i class="bx {isMessagesVisible ? 'bxs-bulb' : 'bx-bulb'}" />
         </button> -->
         <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral {correctionReady ? '' : 'invisible'}"
+          class="mx-2 tooltip tooltip-left tooltip-neutral {correctionExists && correctionReady ? '' : 'hidden'}"
           data-tip={isCorrectionVisible ? "Masquer la correction" : "Montrer la correction"}
           type="button"
           on:click={() => {
@@ -102,7 +104,7 @@
           />
         </button>
         <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'invisible'}"
+          class="mx-2 tooltip tooltip-left tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'hidden'}"
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={switchInteractif}
@@ -111,13 +113,11 @@
         </button>
         <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
           ><i
-            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady
-              ? ''
-              : 'invisible'}"
+            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady ? '' : 'hidden'}"
           /></button
         >
         <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral {settingsReady ? '' : 'invisible'} "
+          class="mx-2 tooltip tooltip-left tooltip-neutral {settingsReady ? '' : 'hidden'} "
           data-tip="Changer les paramètres de l'exercice"
           type="button"
           on:click={() => {

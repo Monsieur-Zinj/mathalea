@@ -5,11 +5,12 @@
   import Eleve from "./Eleve.svelte"
   import ConfigEleve from "./ConfigEleve.svelte"
   import Latex from "./Latex.svelte"
-  import {freezeUrl, globalOptions, isInIframe} from "./store"
-  import {context} from "../modules/context"
-  import {ElementButtonInstrumenpoche, ElementInstrumenpoche} from "../modules/ElementInstrumenpoche"
+  import { freezeUrl, globalOptions, isInIframe } from "./store"
+  import { context } from "../modules/context"
+  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
   import Amc from "./Amc.svelte"
   import Moodle from "./Moodle.svelte"
+  import OutilsProf from "./OutilsProf.svelte"
 
   context.versionMathalea = 3
   if (customElements.get("alea-instrumenpoche") === undefined) {
@@ -27,7 +28,7 @@
   } else {
     isInIframe.set(false)
   }
-  
+
   $: {
     if ($globalOptions.v === "diaporama") {
       context.isDiaporama = true
@@ -51,22 +52,24 @@
   }
 </script>
 
-<div class="subpixel-antialiased ">
+<div class="subpixel-antialiased">
   {#if $globalOptions.v === "diaporama"}
-    <Diaporama/>
+    <Diaporama />
   {:else if $globalOptions.v === "can"}
-    <Can/>
+    <Can />
   {:else if $globalOptions.v === "eleve"}
-    <Eleve/>
+    <Eleve />
   {:else if $globalOptions.v === "latex"}
-    <Latex/>
+    <Latex />
   {:else if $globalOptions.v === "confeleve"}
-    <ConfigEleve/>
+    <ConfigEleve />
   {:else if $globalOptions.v === "amc"}
     <Amc />
   {:else if $globalOptions.v === "moodle"}
     <Moodle />
+  {:else if $globalOptions.v === "tools"}
+    <OutilsProf />
   {:else}
-    <Start/>
+    <Start />
   {/if}
 </div>
