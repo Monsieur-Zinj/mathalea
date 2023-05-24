@@ -5805,12 +5805,14 @@
         "id": "6G22-1",
         "uuid": "e8d33",
         "url": "6e/6G22-1.js",
-        "titre": "Connaitre le vocabulaire de base des angles",
+        "titre": "Connaître le vocabulaire de base des angles",
         "datePublication": "03/12/2022",
+        "dateModification": "23/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
-          "amc": false
+          "amc": true,
+          "amcType": "AMCHybride"
         }
       },
       "6G22-2": {
@@ -5822,7 +5824,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
-          "amc": false
+          "amc": true,
+          "amcType": "qcmMono"
         }
       },
       "6G22": {
@@ -9973,7 +9976,9 @@
         "datePublication": "08/05/2023",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive"
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCHybride"
         }
       },
       "3F20-2": {
@@ -9984,7 +9989,9 @@
         "datePublication": "21/05/2023",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive"
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCHybride"
         }
       },
       "3F20": {
@@ -9997,7 +10004,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCNum"
+          "amcType": "AMCHybride"
         }
       },
       "3F21-1": {

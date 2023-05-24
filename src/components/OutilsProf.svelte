@@ -133,8 +133,26 @@
         </div>
 
         <div slot="export-buttons" class="flex flex-row justify-start items-center space-x-4">
-          <Button title="" icon="bx-slideshow" classDeclaration="text-3xl" />
-          <ButtonSvg classDeclaration="w-6 h-6 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+          <Button
+            title=""
+            icon="bx-slideshow"
+            classDeclaration="text-3xl"
+            on:click={() => {
+              globalOptions.update((params) => {
+                params.v = "diaporama"
+                return params
+              })
+            }}
+          />
+          <ButtonSvg
+            classDeclaration="w-6 h-6 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            on:click={() => {
+              globalOptions.update((params) => {
+                params.v = "latex"
+                return params
+              })
+            }}
+          />
           <ButtonSvg>
             <div slot="svelte-icon">
               <AmcIcon
@@ -142,7 +160,14 @@
               />
             </div>
           </ButtonSvg>
-          <ButtonSvg>
+          <ButtonSvg
+            on:click={() => {
+              globalOptions.update((params) => {
+                params.v = "moodle"
+                return params
+              })
+            }}
+          >
             <div slot="svelte-icon">
               <MoodleIcon class="w-8 h-8 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
             </div>
