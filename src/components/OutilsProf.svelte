@@ -2,7 +2,7 @@
   import Exercice from "./exercice/Exercice.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Footer from "./Footer.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from "./store"
   import referentielOutils from "../json/referentielProfs.json"
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
@@ -139,6 +139,7 @@
             classDeclaration="text-3xl"
             on:click={() => {
               globalOptions.update((params) => {
+                $callerComponent = "tools"
                 params.v = "diaporama"
                 return params
               })
@@ -148,12 +149,13 @@
             classDeclaration="w-6 h-6 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             on:click={() => {
               globalOptions.update((params) => {
+                $callerComponent = "tools"
                 params.v = "latex"
                 return params
               })
             }}
           />
-          <ButtonSvg>
+          <!-- <ButtonSvg>
             <div slot="svelte-icon">
               <AmcIcon
                 class="w-6 h-6 fill-current stroke-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -162,6 +164,7 @@
           </ButtonSvg>
           <ButtonSvg
             on:click={() => {
+              $callerComponent = "tools"
               globalOptions.update((params) => {
                 params.v = "moodle"
                 return params
@@ -171,7 +174,7 @@
             <div slot="svelte-icon">
               <MoodleIcon class="w-8 h-8 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
             </div>
-          </ButtonSvg>
+          </ButtonSvg> -->
         </div>
       </ButtonsDeck>
       {#if $exercicesParams.length !== 0}

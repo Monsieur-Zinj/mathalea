@@ -19,3 +19,6 @@ export interface StudentAssignement {resultsByExercice: InterfaceResultExercice[
 // export enum ReferentielTypes { OUTILS = 'outils', EXERCICES = 'exercices'}
 export type ReferentielTypes = 'outils' | 'exercices'
 export interface ReferentielForList {title: string, content: InterfaceReferentiel[], type: ReferentielTypes}
+
+// Pour designer la page appelant un export
+export type CallerComponenType = '' | 'tools'

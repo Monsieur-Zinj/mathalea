@@ -3,7 +3,7 @@
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Footer from "./Footer.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
@@ -547,6 +547,7 @@
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Diaporama"
                 on:click={() => {
+                  $callerComponent = ""
                   handleMenuVisibility("export")
                   globalOptions.update((params) => {
                     params.v = "diaporama"
@@ -568,6 +569,7 @@
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Lien pour les élèves"
                 on:click={() => {
+                  $callerComponent = ""
                   handleMenuVisibility("export")
                   globalOptions.update((params) => {
                     params.v = "confeleve"
@@ -588,6 +590,7 @@
                 data-tip="LaTeX"
                 on:click={() => {
                   handleMenuVisibility("export")
+                  $callerComponent = ""
                   globalOptions.update((params) => {
                     params.v = "latex"
                     return params
@@ -687,6 +690,7 @@
                 data-tip="Moodle"
                 on:click={() => {
                   globalOptions.update((params) => {
+                    $callerComponent = ""
                     params.v = "moodle"
                     return params
                   })
