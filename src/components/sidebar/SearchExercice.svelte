@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte"
   import { tick } from "svelte"
   import { exercicesParams } from "../store"
+  import { sortArrayOfStringsWithHyphens } from "../utils/filters"
   import type { InterfaceReferentiel } from "../../lib/types"
   import EntreeRecherche from "./EntreeRecherche.svelte"
   import Button from "../forms/Button.svelte"
@@ -33,26 +34,48 @@
 
   let listeDesExercices = getAllExercices(referentiel)
   let filteredList: InterfaceReferentiel[]
+  let filteredAndOrderedList: InterfaceReferentiel[]
   let filteredStaticList: InterfaceReferentiel[] = []
   let isCanInclusDansResultats: boolean
   let isFiltersDisplayed: boolean = false
   let isSearchInputDisplayed: boolean = false
   let isInputFocused = false
-	function onFocusInput() { isInputFocused = true }
-	function onBlurInput() { isInputFocused = false }
+  function onFocusInput() {
+    isInputFocused = true
+  }
+  function onBlurInput() {
+    isInputFocused = false
+  }
 
   let inputSearch: string = ""
   $: {
     referentiel = referentiel
     listeDesExercices = getAllExercices(referentiel)
-    filteredList = listeDesExercices
-      .filter((exercice) => filtre(exercice, inputSearch, true))
-      .sort((exoA, exoB) => {
-        const scoreA = exoA.id.startsWith("can") ? 1 : 0
-        const scoreB = exoB.id.startsWith("can") ? 1 : 0
-        return scoreA - scoreB
-      }) // exos CAN à la fin de la liste
+    filteredList = listeDesExercices.filter((exercice) => filtre(exercice, inputSearch, true))
   }
+
+  /**
+   * Ordonner une liste d'exercices de manière que `4C10-10` arrive après `4C10-9`
+   * @param exercisesList la liste des exercices à trier
+   */
+  function orderList(exercisesList: InterfaceReferentiel) {
+    let idsList: string[] = []
+    for (const exo of exercisesList) {
+      idsList.push(exo.id)
+    }
+    idsList = sortArrayOfStringsWithHyphens(idsList)
+    let sortedList: InterfaceReferentiel[] = []
+    for (const id of idsList) {
+      for (const exo of exercisesList) {
+        if (exo.id === id) {
+          sortedList.push(exo)
+          break
+        }
+      }
+    }
+    return sortedList
+  }
+  $: filteredAndOrderedList = orderList(filteredList)
 
   function buildStaticList() {
     const liste = listeDesExercices.filter((exercice) => filtreStatic(exercice, inputSearch))
@@ -183,7 +206,7 @@
       case "Enter":
         if (isInputFocused) {
           isEnterDown = true
-        } 
+        }
         event.preventDefault()
         break
     }
@@ -220,8 +243,7 @@
 
 <!-- <svelte:window on:keydown={handlePressEnter} /> -->
 <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
-<div 
-  class="flex flex-row space-x-2 justify-start items-center">
+<div class="flex flex-row space-x-2 justify-start items-center">
   <!-- <div class="font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div> -->
   <div class="relative flex flex-col w-full">
     <input
@@ -236,11 +258,10 @@
       on:input={() => {
         filteredStaticList.length = 0
         buildStaticList()
-        // console.log(filteredStaticList)
       }}
     />
     <div
-      class="absolute -bottom-4 {(matchOnFilteredList(inputSearch) !== null && isInputFocused)
+      class="absolute -bottom-4 {matchOnFilteredList(inputSearch) !== null && isInputFocused
         ? 'flex'
         : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
     >
@@ -258,7 +279,7 @@
 <div class="py-3">
   <Filtres isVisible={isFiltersDisplayed} on:filters />
 </div>
-<div class="{filteredList.length > 0 ? 'flex' : 'hidden'} flex-col my-3">
+<div class="{filteredAndOrderedList.length > 0 ? 'flex' : 'hidden'} flex-col my-3">
   <!-- <div class="mb-2 text-coopmaths-coprpus-light dark:text-coopmathsdark-coprpus-light text-sm font-light">
     Inclure les courses aux nombres :
     <input
@@ -267,7 +288,7 @@
       bind:checked={isCanInclusDansResultats}
     />
   </div> -->
-  {#each filteredList as exercice}
+  {#each filteredAndOrderedList as exercice}
     <EntreeRecherche {exercice} />
   {/each}
 </div>
