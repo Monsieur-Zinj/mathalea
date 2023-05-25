@@ -53,7 +53,7 @@
         if (exercice.id != null) {
           refsExercicesARetirer.push(exercice.id)
         } else {
-          console.log(Object.entries(exercice))
+          // console.log(Object.entries(exercice))
           const proprietes = Object.entries(exercice).map(([prop, val]) => val)
           proprietes.shift()
           refsExercicesARetirer.push(proprietes.join(" "))
@@ -313,21 +313,11 @@
   </ModalMessageBeforeAction>
   <!-- Formulaire pour Overleaf -->
   <form action="https://www.overleaf.com/docs" id="overleaf-form" method="POST" target="_blank">
-    <input
-      type="hidden"
-      name="snip_uri[]"
-      value="https://coopmaths.fr/alea/static/amc/automultiplechoice.sty"
-      autocomplete="off"
-    />
-    <input
-      type="hidden"
-      name="snip_name[]"
-      value="automultiplechoice.sty"
-      autocomplete="off"
-    />
+    <input type="hidden" name="snip_uri[]" value="https://coopmaths.fr/alea/static/amc/automultiplechoice.sty" autocomplete="off" />
+    <input type="hidden" name="snip_name[]" value="automultiplechoice.sty" autocomplete="off" />
     <input autocomplete="off" bind:this={textForOverleaf} name="snip_uri[]" type="hidden" value="" />
     <input autocomplete="off" name="snip_name[]" type="hidden" value="coopmaths.tex" />
-    <input autocomplete="off" name="engine" type="hidden" value="lualatex" /> 
+    <input autocomplete="off" name="engine" type="hidden" value="lualatex" />
   </form>
   <Footer />
 </main>

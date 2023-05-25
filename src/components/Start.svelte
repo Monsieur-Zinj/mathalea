@@ -128,8 +128,8 @@
             [key]: ref[key],
           }
         }, {})
-      console.log("first list :")
-      console.log(filteredReferentiel)
+      // console.log("first list :")
+      // console.log(filteredReferentiel)
     }
 
     function buildReferentiel(listOfEntries) {
@@ -303,7 +303,7 @@
   }
 
   function newDataForAll() {
-    console.log($globalOptions, $exercicesParams)
+    // console.log($globalOptions, $exercicesParams)
     const newDataForAll = new window.Event("newDataForAll", {
       bubbles: true,
     })
@@ -356,7 +356,7 @@
     if (filters.types.includes("static")) {
       itemsAccepted = [...itemsAccepted, "static"]
     }
-    console.log(itemsAccepted)
+    // console.log(itemsAccepted)
     isAmcOnlySelected = filters.types.includes("amc")
     isInteractiveOnlySelected = filters.types.includes("interactif")
     updateReferentiel()
