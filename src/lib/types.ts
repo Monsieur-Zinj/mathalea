@@ -21,4 +21,4 @@ export type ReferentielTypes = 'outils' | 'exercices'
 export interface ReferentielForList {title: string, content: InterfaceReferentiel[], type: ReferentielTypes}
 
 // Pour designer la page appelant un export
-export type CallerComponenType = '' | 'tools'
+export type CallerComponentType = '' | 'tools'
