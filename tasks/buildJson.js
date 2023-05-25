@@ -96,7 +96,7 @@ async function handleCanLevels () {
  * On gère les ressources du répertoires exercices/Profs
  */
 async function handleProfs () {
-  const dir = path.join('./src', 'exercices', 'Profs')
+  const dir = path.join('./src', 'exercices', 'profs')
   const files = fs.readdirSync(dir)
   for await (const file of files) {
     let url = path.join(dir, file)
