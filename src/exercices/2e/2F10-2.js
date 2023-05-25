@@ -10,7 +10,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-
+export const dateDeModifImportante = '25/05/2023'
 /**
 
 */
@@ -134,7 +134,7 @@ export default function Lecturefonctionaffine () {
             texteCorr += `La droite est horizontale. Elle représente une fonction affine constante ($a=0$).<br>
           Ainsi, $f(x)=${b}$.`
           } else {
-            texteCorr += `$\\bullet$ $b$ est l'ordonnée à l'origine de la droite. On lit $b=${b}$<br>`
+            texteCorr += `$\\bullet$ $b$ est l'ordonnée à l'origine de la droite. On lit $b=${b}$.<br>`
             if (this.correctionDetaillee) {
               texteCorr += `L'ordonnée à l'origine est l'ordonnée du point d'intersection entre la droite et l'axe des ordonnées.<br>
               Ce point est le point $A$ de coordonnées $(0\\,;\\,${b})$.<br>`
@@ -185,7 +185,7 @@ export default function Lecturefonctionaffine () {
           a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
           b = randint(-3, 3) // ordonnée à l'origine
           aFrac = choice(listeFractions)
-          a = aFrac[0] * (-1)//* choice([-1, 1])
+          a = aFrac[0] * choice([-1, 1])//
           d = aFrac[1] //
           r = repere({
             xMin: -8,
@@ -224,7 +224,7 @@ export default function Lecturefonctionaffine () {
             scale: 0.6
           }, r, c, o)// On trace le graphique
           texteCorr = 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
-          texteCorr += `$\\bullet$ $b$ est l'ordonnée à l'origine de la droite. On lit $b=${b}$<br>`
+          texteCorr += `$\\bullet$ $b$ est l'ordonnée à l'origine de la droite. On lit $b=${b}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `L'ordonnée à l'origine est l'ordonnée du point d'intersection entre la droite et l'axe des ordonnées.<br>
         Ce point est le point $A$ de coordonnées $(0\\,;\\,${b})$.<br>`
