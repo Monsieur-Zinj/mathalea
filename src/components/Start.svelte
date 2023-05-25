@@ -215,6 +215,8 @@
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
     testSideMenuList.content = [...arrayReferentielFiltre]
+    console.log("final referentiel : ")
+    console.log(arrayReferentielFiltre)
   }
   updateReferentiel()
 
