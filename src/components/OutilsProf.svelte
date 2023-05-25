@@ -86,7 +86,6 @@
 
   // Gestion des nouvelles données pour tous les exercices
   function newDataForAll() {
-    console.log($globalOptions, $exercicesParams)
     const newDataForAll = new window.Event("newDataForAll", {
       bubbles: true,
     })
