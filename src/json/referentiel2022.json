@@ -10900,7 +10900,8 @@
         "id": "2F10-2",
         "uuid": "93f13",
         "url": "2e/2F10-2.js",
-        "titre": "Lecture graphique d'une fonction affine",
+        "titre": "Donner l'expression d'une fonction affine graphiquement",
+        "dateModification": "25/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
