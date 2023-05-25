@@ -2,6 +2,7 @@
   import { slide } from "svelte/transition"
   import EntreeListeExos from "./EntreeListeExos.svelte"
   import { toMap } from "../utils/toMap"
+  import { sortArrayOfStringsWithHyphens } from "../utils/filters"
 
   export let expanded: boolean = false
   export let levelTitle: string
@@ -44,7 +45,13 @@
       }
       // entrées exos 4A10 avant 4A10-1
       if (levelTitle.match(regExpEntreesRef)) {
-        items = new Map([...items.entries()].sort())
+        const sortedKeys = sortArrayOfStringsWithHyphens([...items.keys()])
+        let sortedMapOfItems = new Map()
+        for (const key of sortedKeys) {
+          sortedMapOfItems.set(key, items.get(key))
+        }
+        items = new Map([...sortedMapOfItems.entries()])
+        // items = new Map(sortStringWithHyphens([...items.entries()]))
       }
       // entrées DNB(thèmes) années décroissantes
       if ((indexBase.match(/-/g) || []).length === 2) {
