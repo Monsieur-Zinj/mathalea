@@ -254,10 +254,12 @@ export function getExosContentList (exercices: TypeExercice[]) {
   const exosContentList = []
   for (const exo of exercices) {
     let data
-    if (exo.typeExercice !== undefined) {
-      data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
-    } else {
+    if (exo.typeExercice === undefined) {
       data = { content: exo.contenu }
+    } else if (exo.typeExercice === 'simple') {
+      data = { content: exo.listeQuestions.join(' ') }
+    } else {
+      data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
     }
     exosContentList.push(data)
   }
