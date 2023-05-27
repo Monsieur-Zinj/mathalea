@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, combinaisonListes } from '../../modules/outils.js'
-import { point, rotation, afficheMesureAngle, sensDeRotation, homothetie, cibleCouronne, texteParPoint, similitude, segment, demiDroite } from '../../modules/2d.js'
+import { point, rotation, afficheMesureAngle, sensDeRotation, homothetie, cibleCouronne, texteParPoint, similitude, segment } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
 export const amcReady = true
@@ -51,7 +51,7 @@ export default function ConstruireUnAngle () {
       }
       angle = angle * signe[i]
       anglerot = randint(-50, 50)
-      p = ['x', lettreDepuisChiffre(randint(1, 16)), 'y']
+      p = ['x', lettreDepuisChiffre(19 + i), 'y']
       texte = `Construire l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ de mesure $${texNombre(Math.abs(angle))}\\degree$ en tournant dans le sens `
       if (angle < 0) {
         texte += 'des aiguilles d\'une montre.<br>'
@@ -61,16 +61,19 @@ export default function ConstruireUnAngle () {
       A = point(0, 0)
       B = point(5, 0)
       B = rotation(B, A, anglerot)
-      Apos = texteParPoint(p[1], similitude(B, A, -90, 0.1), 'milieu')
-      Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.9), signe[i] * 90, 0.1), 'milieu')
+      Apos = texteParPoint(p[1], similitude(B, A, -90, 0.1), 'milieu', 'black', 1, 'middle', true)
+      Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.9), signe[i] * 90, 0.1), 'milieu', 'black', 1, 'middle', true)
 
       s = segment(A, B)
       s.styleExtremites = '|-'
       s.epaisseur = 2
+      s.tailleExtremites = 1.5
       C = rotation(B, A, angle)
-      Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9), -signe[i] * 90, 0.1), 'milieu')
+      Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9), -signe[i] * 90, 0.1), 'milieu', 'black', 1, 'middle', true)
       fleche = sensDeRotation(B, A, signe[i])
-      s2 = demiDroite(A, C, 'black', '|-')
+      s2 = segment(A, C)
+      s2.styleExtremites = '|-'
+      s2.tailleExtremites = 1.5
       secteur = afficheMesureAngle(B, A, C)
       texteCorr = ''
       cible = cibleCouronne({ x: 0, y: 0, taille: 3 })
@@ -85,7 +88,7 @@ export default function ConstruireUnAngle () {
       texte += mathalea2d(Object.assign({}, bordure, { pixelsParCm: 20, scale: 0.65 }), objetsEnonce)
       // if ((!context.isHtml) && ((i + 1) % 2 === 0 && !(i + 1) % 4 === 0)) texte += '\\columnbreak '
       if ((!context.isHtml) && ((i + 1) % 4 === 0)) texte += '\\newpage '
-      texteCorr = mathalea2d(Object.assign({}, bordure, { pixelsParCm: 20, scale: 0.6 }), objetsCorrection)
+      texteCorr = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 20, scale: 0.6 }), objetsCorrection)
       if (this.questionJamaisPosee(i, angle, signe[i])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
