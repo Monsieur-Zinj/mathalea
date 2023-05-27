@@ -33,22 +33,22 @@ export default function Calculercoordonneessommevecteurs () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, ux, uy, vx, vy, wx, wy, a, b, f, c, d, e, g, h, frac, xA, yA, xB, yB, xC, yC, xD, yD, texte, texteCorr, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, ux, uy, vx, vy, wx, wy, a, b, c, d, listeFractions1, frac1, frac2, frac3, frac4, xA, yA, xB, yB, xC, yC, xD, yD, texte, texteCorr, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       switch (typesDeQuestions) {
-        case 1:// On donne 2 vecteurs à coordonnées entières
-          ux = randint(0, 9) * choice([-1, 1])// tu peux mettre randint(-9,9)
+        case 1:
+          ux = randint(-9, 9)
           if (ux === 0) {
-            uy = randint(1, 9) * choice([-1, 1])
+            uy = randint(-9, 9, [0])
           } else {
-            uy = randint(0, 9) * choice([-1, 1])
+            uy = randint(-9, 9)
           } // Premier vecteur jamais nul
-          vx = randint(0, 9) * choice([-1, 1])
+          vx = randint(-9, 9)
           if (vx === 0) {
-            vy = randint(1, 9) * choice([-1, 1])
+            vy = randint(-9, 9, [0])
           } else {
-            vy = randint(0, 9) * choice([-1, 1])
+            vy = randint(-9, 9)
           } // Second vecteur jamais nul
           wx = ux + vx
           wy = uy + vy
@@ -69,46 +69,41 @@ export default function Calculercoordonneessommevecteurs () {
           break
 
         case 2:
-          a = randint(1, 5)
-          b = randint(2, 6, [a])
-          ux = new FractionEtendue(a, b).simplifie()
-          c = randint(1, 5)
-          d = randint(2, 6, [c])
-          uy = new FractionEtendue(c, d).simplifie()
-         
-          e = randint(10, 15)
-          f = randint(13, 16, [a])
-          vx = new FractionEtendue(e, f).simplifie()
-          g = randint(11, 15)
-          h = randint(12, 16, [c])
-          vy = new FractionEtendue(g, h).simplifie()
-          
-          texte = `Donc, là on a ux=$${ux.texFraction}$, uy=$${uy.texFraction}$, vx=$${vx.texFraction}$, vy=$${vy.texFraction}$.<br>
-          Là où ça se complique c'est quand tu vas faire les sommes de ces fractions. <br>
-          Le numérateur  de ux est ux.n=$${ux.n}$ son dénominateur est ux.d=$${ux.d}$<br>
+          listeFractions1 = [[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4],
+            [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
+          frac1 = choice(listeFractions1)
+          ux = new FractionEtendue(frac1[0], frac1[1])
+          frac2 = choice(listeFractions1)
+          uy = new FractionEtendue(frac2[0], frac2[1])
 
-          Parfois pour que ce soit plus simple j'utilise un tableau avec les fractions que je souhaite: par exemple <br>
-           listeFractions1 = [[5, 3], [7, 3], [10, 3], [11, 3], [17, 3],
-          [13, 6], [17, 6], [23, 6], [8, 7], [15, 7], [20, 7],
-          [14, 3], [22, 3], [25, 3]]<br>
+          frac3 = choice(listeFractions1)
+          while (frac3[1] === frac1[1]) {
+            frac3 = choice(listeFractions1)
+          }
+          vx = new FractionEtendue(frac3[0], frac3[1])
+          frac4 = choice(listeFractions1)
+          while (frac4[1] === frac2[1]) {
+            frac4 = choice(listeFractions1)
+          }
+          vy = new FractionEtendue(frac4[0], frac4[1])
 
-           fraction1 = choice(listeFractions1)<br>
-     frac = new FractionEtendue(fraction1[0], fraction1[1])<br>
-     Dans ce cas, le numérateur est fraction1[0]
-     et le dénomiateur fraction1[1]
+          a = frac1[0] * frac3[1] + frac3[0] * frac1[1]
+          b = frac1[1] * frac3[1]
+          wx = new FractionEtendue(a, b).simplifie()
 
-    
-<br><br><br>
-          `
-          texte += 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les vecteurs suivants :'
-          texte += ` $\\vec{u}\\left(${ux};${uy}\\right)$ et $\\vec{v}\\left(${vx};${vy}\\right).$`
+          c = frac2[0] * frac4[1] + frac4[0] * frac2[1]
+          d = frac2[1] * frac4[1]
+          wy = new FractionEtendue(c, d).simplifie()
+
+          texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les vecteurs suivants :'
+          texte += ` $\\vec{u}\\left(${ux.texFraction};${uy.texFraction}\\right)$ et $\\vec{v}\\left(${vx.texFraction};${vy.texFraction}\\right).$`
           texte += '<br>Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$.'
 
           texteCorr = '<br>Soit $\\vec{u}\\left(x;y\\right)$ et $\\vec{v}\\left(x\';y\'\\right)$ deux vecteurs dans un repère $(O,\\vec i,\\vec j)$.'
           texteCorr += '<br>On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x+x\'  \\\\y+y\'\\end{pmatrix}$<br>'
-          texteCorr += ' <br>On applique ici aux données de l\'énoncé :'
-          texteCorr += `$\\overrightarrow{w}\\begin{pmatrix}${ux}+${ecritureParentheseSiNegatif(vx)}  \\\\${uy}+${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$<br>`
-          texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx}  \\\\${wy}\\end{pmatrix}$<br>`
+          texteCorr += '<br>On applique ici aux données de l\'énoncé :'
+          texteCorr += ` $\\overrightarrow{w}\\begin{pmatrix}${ux.texFraction}+${vx.texFraction}\\\\  \\\\${uy.texFraction}+${vy.texFraction}\\end{pmatrix}$<br>`
+          texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\  \\\\${wy.texFraction}\\end{pmatrix}$<br>`
           if (wx === 0 && wy === 0) {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
             texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont opposés $\\overrightarrow{u}=-\\overrightarrow{v}$.<br>'
@@ -116,14 +111,14 @@ export default function Calculercoordonneessommevecteurs () {
           break
 
         case 3:
-          xA = randint(0, 9) * choice([-1, 1])
-          yA = randint(0, 9, [xA]) * choice([-1, 1])
-          xB = randint(0, 9) * choice([-1, 1])
-          yB = randint(0, 9, [xB]) * choice([-1, 1])
-          xC = randint(0, 9) * choice([-1, 1])
-          yC = randint(0, 9, [xC]) * choice([-1, 1])
-          xD = randint(0, 9) * choice([-1, 1])
-          yD = randint(0, 9, [xD]) * choice([-1, 1])
+          xA = randint(-9, 9)
+          yA = randint(-9, 9, [xA])
+          xB = randint(-9, 9)
+          yB = randint(-9, 9, [xB])
+          xC = randint(-9, 9)
+          yC = randint(-9, 9, [xC])
+          xD = randint(-9, 9)
+          yD = randint(-9, 9, [xD])
           wx = (xB - xA) + (xD - xC)
           wy = (yB - yA) + (yD - yC)
 
@@ -148,7 +143,7 @@ export default function Calculercoordonneessommevecteurs () {
           }
           break
       }
-      if (this.questionJamaisPosee(i, ux, uy, vx, vy, wx, wy, a, b, f, c, d, g, xA, yA, xB, yB, xC, yC, xD, yD)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, ux, uy, vx, vy, wx, wy, a, b, c, d, listeFractions1, frac1, frac2, frac3, frac4, xA, yA, xB, yB, xC, yC, xD, yD)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
