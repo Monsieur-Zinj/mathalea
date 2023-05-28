@@ -8,7 +8,9 @@ import { context } from '../../modules/context.js'
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine"
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '08/05/2023'
+export const amcReady = true // pour définir que l'exercice peut servir à AMC
+export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '28/05/2023'
 
 /**
  * Lire la pente et l'ordonnée à l'origine d'une droite pour en déduire la forme algébrique de la fonction affine
@@ -26,15 +28,16 @@ export default function PenteEtOrdonneeOrigineDroite () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.sup = 3
   this.sup2 = 3
+  this.sup3 = 3
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const num = randint(1, 5)
-      const den = randint(1, 2)
-      const a = (this.sup === 3 ? choice([-1, 1]) : (this.sup === 2 ? -1 : 1)) * num / den
-      const b = (this.sup2 === 3 ? choice([-1, 1]) : (this.sup2 === 2 ? -1 : 1)) * randint(1, 4)
+      const den = this.sup === 3 ? randint(1, 2) : this.sup
+      const a = (this.sup2 === 3 ? choice([-1, 1]) : (this.sup2 === 2 ? -1 : 1)) * num / den
+      const b = (this.sup3 === 3 ? choice([-1, 1]) : (this.sup3 === 2 ? -1 : 1)) * randint(1, 4)
       let xMin
       context.isHtml ? xMin = -10 : xMin = -8
       const xMax = -xMin
@@ -72,10 +75,10 @@ export default function PenteEtOrdonneeOrigineDroite () {
 
       const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])
 
-      const introduction = `On a représenté ci-dessous une fonction affine $${nomFonction}$.<br><br>` + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d)
+      const introduction = `On a représenté ci-dessous une fonction affine $${nomFonction}$.<br><br>` + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax, scale: context.isAmc ? 0.5 : 1 }, r, d)
       const consigneCorrection = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d, c, s1, s2, t1, t2)
       let question1 = numAlpha(0) + `Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
-      question1 += ajouteChampTexteMathLive(this, 3 * i , 'largeur15 inline ')
+      question1 += ajouteChampTexteMathLive(this, 3 * i, 'largeur15 inline ')
       let question2 = numAlpha(1) + `Quel est le coefficient directeur de $${nomFonction}$ ?`
       question2 += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur15 inline ')
       let question3 = numAlpha(2) + `En déduire l'expression algébrique de $${nomFonction}$.`
@@ -99,12 +102,61 @@ export default function PenteEtOrdonneeOrigineDroite () {
       if (this.questionJamaisPosee(i, a, b, num, den)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: introduction + '<br>',
+            enonceAvant: false,
+            // enonceAvantUneFois: true, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
+            // enonceCentre: false, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
+            enonceApresNumQuestion: true, // New (12/2022) EE : ce champ est facultatif et permet (si true) de mettre le champ 'enonce' à côté du numéro de question (et non avant par défaut). Ne fonctionne (pour l'instant) que si la première question est AMCNum (pas de besoin autre pour l'instant).
+            options: { multicolsAll: true },
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: question1,
+                    valeur: [b],
+                    param: {
+                      signe: true
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: question2,
+                    valeur: [a],
+                    param: {
+                      signe: true
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  texte: '',
+                  enonce: question3 + '<br>',
+                  statut: 1
+                }]
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Signe du coefficient directeur ', 3, '1 : Positif\n 2 : Négatif\n 3: Peu importe']
-  this.besoinFormulaire2Numerique = ['Signe de l\'ordonnée à l\'origine ', 3, '1 : Positif\n 2 : Négatif\n 3: Peu importe']
+  this.besoinFormulaire2Numerique = ['Signe du coefficient directeur ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
+  this.besoinFormulaireNumerique = ['Coefficient directeur ', 3, '1 : Entier\n2 : Décimal\n3: Peu importe']
+  this.besoinFormulaire3Numerique = ['Signe de l\'ordonnée à l\'origine ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
 }

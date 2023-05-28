@@ -461,6 +461,7 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
+
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.numerotationEnonce) {
             texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}Enonce} \\QuestionIndicative `
@@ -507,7 +508,6 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
-
         for (let qr = 0, qrType, prop, propositions, rep, nbChiffresExpo; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les questions-reponses de l'élément j
           prop = autoCorrection[j].propositions[qr] // prop est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -715,14 +715,14 @@ export function exportQcmAmc (exercice, idExo) {
                   }
                   texQr += 'pt}\\begin{multicols}{2}\n'
                   texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-                }
+                } else if ((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) texQr += '\n\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
 
-                texQr += ((texQr.charAt(texQr.length - 1) === 'e') || !(qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) ? '' : '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
                 texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
-
+                /*
                 if (!(qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) {
                   texQr += `${autoCorrection[j].enonce} \n` // Enonce de la question
                 }
+                */
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
                 }
