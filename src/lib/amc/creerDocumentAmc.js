@@ -801,6 +801,7 @@ export function exportQcmAmc (exercice, idExo) {
         break
     }
   }
+  texQr = texQr.replaceAll('<br>', '\\\\\n')
   return [texQr, ref, exercice.nbQuestions, titre, melange]
 }
 
