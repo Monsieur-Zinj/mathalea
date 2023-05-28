@@ -6,7 +6,6 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
   choice,
-  combinaisonListes,
   contraindreValeur,
   ecritureParentheseSiNegatif,
   gestionnaireFormulaireTexte,
@@ -59,9 +58,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       'expressionParValeurs',
       'expressionParGraphique'
     ]
-    // const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: 9 })
-    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: false, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: 9 })
-    const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
+    const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: 9 })
     const antecedents = []
     for (let i = 0, texteAMC, valeurAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const elementAmc = {}
@@ -307,13 +304,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `$.<br>Donc $${nomFonction}(x)=${coefficientString}x$.`
           if (context.isAmc) {
-            texteAMC = `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
+            texteAMC = `Coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
             valeurAMC = coefficient
           } else {
             setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
       }
+      const JCAMC = false // Si besoin de prendre en compte une info supplémentaire avant les cases à cocher dans AMC
 
       if (this.questionJamaisPosee(i, coefficient, antecedent0, image0)) {
         if (context.isAmc) {
@@ -322,12 +320,11 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
               type: 'AMCNum',
               propositions: [{
                 reponse: {
-                  // texte: texteAMC,
-                  texte: '',
+                  texte: JCAMC ? texteAMC : '',
                   valeur: valeurAMC,
                   param: {
-                    signe: true
-                    //        digits: 2
+                    signe: true,
+                    digits: 2 // Ainsi, les réponses décimales auront toujours 2 digits et les réponses fractionnaires auront 2 digits pour le numérateur ET le dénominateur.
                   }
                 }
               }
