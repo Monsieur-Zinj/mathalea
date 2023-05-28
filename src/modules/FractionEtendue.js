@@ -781,6 +781,9 @@ class FractionEtendue extends Fraction {
     * @return {FractionEtendue}
     */
   texRacineCarree (detaillee = false) {
+    if (this.estParfaite) {
+      return this.racineCarree().texFraction
+    }
     if (this.s === -1) return false
     let factoDen = extraireRacineCarree(Math.abs(this.den))
     let factoNum
@@ -790,7 +793,7 @@ class FractionEtendue extends Fraction {
     } else {
       factoNum = extraireRacineCarree(Math.abs(this.num))
       if (factoNum[0] !== 1) {
-        etape = detaillee ? `\\sqrt{${this.num}}=` : ''
+        etape = detaillee ? `\\sqrt{${Math.abs(this.num)}}=` : ''
       } else {
         etape = ''
       }
