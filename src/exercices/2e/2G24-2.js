@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, texFraction, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, combinaisonListes } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Calculer les coordonnées de la somme de deux vecteurs'
@@ -15,8 +15,8 @@ export default function Calculercoordonneessommevecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 2
-  this.nbCols = 2
-  this.nbColsCorr = 2
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.sup = 1
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -53,18 +53,16 @@ export default function Calculercoordonneessommevecteurs () {
           wx = ux + vx
           wy = uy + vy
 
-          texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les vecteurs suivants :'
-          texte += ` $\\vec{u}\\left(${ux};${uy}\\right)$ et $\\vec{v}\\left(${vx};${vy}\\right)$.`
-          texte += '<br>Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$.'
+          texte = `Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les vecteurs suivants : $\\vec{u}\\left(${ux};${uy}\\right)$ et $\\vec{v}\\left(${vx};${vy}\\right)$.<br>`
+          texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$.'
 
-          texteCorr = '<br>Soit $\\vec{u}\\left(x;y\\right)$ et $\\vec{v}\\left(x\';y\'\\right)$ deux vecteurs dans un repère $(O,\\vec i,\\vec j)$.'
-          texteCorr += '<br>On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x+x\'  \\\\y+y\'\\end{pmatrix}$<br>'
-          texteCorr += '<br>On applique ici aux données de l\'énoncé :'
-          texteCorr += ` $\\overrightarrow{w}\\begin{pmatrix}${ux}+${ecritureParentheseSiNegatif(vx)}  \\\\${uy}+${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$<br>`
+          texteCorr = 'Soit $\\vec{u}\\left(x;y\\right)$ et $\\vec{v}\\left(x\';y\'\\right)$ deux vecteurs dans un repère $(O,\\vec i,\\vec j)$.<br>'
+          texteCorr += 'On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x+x\'  \\\\y+y\'\\end{pmatrix}$<br>'
+          texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{w}\\begin{pmatrix}${ux}+${ecritureParentheseSiNegatif(vx)}  \\\\${uy}+${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$<br>`
           texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx}  \\\\${wy}\\end{pmatrix}$<br>`
           if (wx === 0 && wy === 0) {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
-            texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont opposés $\\overrightarrow{u}=-\\overrightarrow{v}$.<br>'
+            texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont opposés $\\overrightarrow{u}=-\\overrightarrow{v}$.'
           }
           break
 
@@ -95,18 +93,16 @@ export default function Calculercoordonneessommevecteurs () {
           d = frac2[1] * frac4[1]
           wy = new FractionEtendue(c, d).simplifie()
 
-          texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les vecteurs suivants :'
-          texte += ` $\\vec{u}\\left(${ux.texFraction};${uy.texFraction}\\right)$ et $\\vec{v}\\left(${vx.texFraction};${vy.texFraction}\\right).$`
-          texte += '<br>Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$.'
+          texte = `Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les vecteurs suivants : $\\vec{u}\\left(${ux.texFraction};${uy.texFraction}\\right)$ et $\\vec{v}\\left(${vx.texFraction};${vy.texFraction}\\right).$<br>`
+          texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$.'
 
-          texteCorr = '<br>Soit $\\vec{u}\\left(x;y\\right)$ et $\\vec{v}\\left(x\';y\'\\right)$ deux vecteurs dans un repère $(O,\\vec i,\\vec j)$.'
-          texteCorr += '<br>On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x+x\'  \\\\y+y\'\\end{pmatrix}$<br>'
-          texteCorr += '<br>On applique ici aux données de l\'énoncé :'
-          texteCorr += ` $\\overrightarrow{w}\\begin{pmatrix}${ux.texFraction}+${vx.texFraction}\\\\  \\\\${uy.texFraction}+${vy.texFraction}\\end{pmatrix}$<br>`
+          texteCorr = 'Soit $\\vec{u}\\left(x;y\\right)$ et $\\vec{v}\\left(x\';y\'\\right)$ deux vecteurs dans un repère $(O,\\vec i,\\vec j)$.<br>'
+          texteCorr += 'On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x+x\'  \\\\y+y\'\\end{pmatrix}$<br>'
+          texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{w}\\begin{pmatrix}${ux.texFraction}+${vx.texFraction}\\\\  \\\\${uy.texFraction}+${vy.texFraction}\\end{pmatrix}$<br>`
           texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\  \\\\${wy.texFraction}\\end{pmatrix}$<br>`
           if (wx === 0 && wy === 0) {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
-            texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont opposés $\\overrightarrow{u}=-\\overrightarrow{v}$.<br>'
+            texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont opposés $\\overrightarrow{u}=-\\overrightarrow{v}$.'
           }
           break
 
@@ -122,24 +118,21 @@ export default function Calculercoordonneessommevecteurs () {
           wx = (xB - xA) + (xD - xC)
           wy = (yB - yA) + (yD - yC)
 
-          texte = 'Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les points suivants :'
-          texte += ` $A\\left(${xA};${yA}\\right)$, $B\\left(${xB};${yB}\\right)$, $C\\left(${xC};${yC}\\right)$ et $D\\left(${xD};${yD}\\right)$.`
-          texte += '<br>* Déterminer les coordonnées des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{CD}$.'
-          texte += '<br>* Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{AB}+\\overrightarrow{CD}$.'
+          texte = `Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les points suivants : $A\\left(${xA};${yA}\\right)$, $B\\left(${xB};${yB}\\right)$, $C\\left(${xC};${yC}\\right)$ et $D\\left(${xD};${yD}\\right)$.<br>`
+          texte += '* Déterminer les coordonnées des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{CD}$.<br>'
+          texte += '* Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{AB}+\\overrightarrow{CD}$.'
 
-          texteCorr = '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère,'
-          texteCorr += '<br>alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A  \\\\y_B-y_A\\end{pmatrix}$<br>'
-          texteCorr += '<br>On applique ici aux données de l\'énoncé :<p>'
-          texteCorr += `<br>$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}  \\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}  \\\\${yB - yA}\\end{pmatrix}$<p>`
-          texteCorr += `<br>$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}  \\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}  \\\\${yD - yC}\\end{pmatrix}$<p>`
-          texteCorr += '<br>Soit $\\vec{u}\\left(x;y\\right)$ et $\\vec{v}\\left(x\';y\'\\right)$ deux vecteurs dans un repère $(O,\\vec i,\\vec j)$.'
-          texteCorr += '<br>On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x+x\'  \\\\y+y\'\\end{pmatrix}$<br>'
-          texteCorr += '<br>On applique ici aux données de l\'énoncé :'
-          texteCorr += ` $\\overrightarrow{w}\\begin{pmatrix}${xB - xA}+${ecritureParentheseSiNegatif(xD - xC)}  \\\\${yB - yA}+${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$<br>`
+          texteCorr = 'On sait d\'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A  \\\\y_B-y_A\\end{pmatrix}$<br>'
+          texteCorr += 'On applique ici aux données de l\'énoncé :<br><br>'
+          texteCorr += `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}  \\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}  \\\\${yB - yA}\\end{pmatrix}$<br><br>`
+          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}  \\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}  \\\\${yD - yC}\\end{pmatrix}$<br><br>`
+          texteCorr += 'Soit $\\vec{u}\\left(x;y\\right)$ et $\\vec{v}\\left(x\';y\'\\right)$ deux vecteurs dans un repère $(O,\\vec i,\\vec j)$.<br>'
+          texteCorr += 'On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x+x\'  \\\\y+y\'\\end{pmatrix}$<br>'
+          texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{w}\\begin{pmatrix}${xB - xA}+${ecritureParentheseSiNegatif(xD - xC)}  \\\\${yB - yA}+${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$<br>`
           texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx}  \\\\${wy}\\end{pmatrix}$<br>`
           if (wx === 0 && wy === 0) {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
-            texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{AB}$ et $\\overrightarrow{CD}$ sont opposés $\\overrightarrow{AB}=-\\overrightarrow{CD}$.<br>'
+            texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{AB}$ et $\\overrightarrow{CD}$ sont opposés $\\overrightarrow{AB}=-\\overrightarrow{CD}$.'
           }
           break
       }
