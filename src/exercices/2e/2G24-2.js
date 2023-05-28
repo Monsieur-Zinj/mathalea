@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, combinaisonListes } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-
+import { context } from '../../modules/context.js'
 export const titre = 'Calculer les coordonnées de la somme de deux vecteurs'
 export const dateDePublication = '21/05/2023'
 
@@ -18,6 +18,9 @@ export default function Calculercoordonneessommevecteurs () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
+
+    //this.spacingCorr = 2
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -98,8 +101,9 @@ export default function Calculercoordonneessommevecteurs () {
 
           texteCorr = 'Soit $\\vec{u}\\left(x;y\\right)$ et $\\vec{v}\\left(x\';y\'\\right)$ deux vecteurs dans un repère $(O,\\vec i,\\vec j)$.<br>'
           texteCorr += 'On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}+\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x+x\'  \\\\y+y\'\\end{pmatrix}$<br>'
-          texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{w}\\begin{pmatrix}${ux.texFraction}+${vx.texFraction}\\\\  \\\\${uy.texFraction}+${vy.texFraction}\\end{pmatrix}$<br>`
-          texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\  \\\\${wy.texFraction}\\end{pmatrix}$<br>`
+          texteCorr += `On applique ici aux données de l'énoncé : 
+          $\\overrightarrow{w}\\begin{pmatrix}${ux.texFraction}+${vx.texFraction}\\\\[0.7em]${uy.texFraction}+${vy.texFraction}\\end{pmatrix}$<br>`
+          texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\[0.7em]${wy.texFraction}\\end{pmatrix}$<br>`
           if (wx === 0 && wy === 0) {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
             texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont opposés $\\overrightarrow{u}=-\\overrightarrow{v}$.'
