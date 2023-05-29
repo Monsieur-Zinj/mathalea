@@ -806,9 +806,9 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       }
       if (this.questionJamaisPosee(i, coefficient, antecedent0, image0) && Math.abs(image0) > 1) {
         if (context.isAmc) {
-          elementAmc.enonce = texte + '\\\\\n'
+          elementAmc.enonce = texte.replaceAll('<br>', '\\\\\n') + '\\\\\n'
           elementAmc.enonceApresNumQuestion = false
-          elementAmc.propositions[0].propositions[0].texte = texteCorr
+          elementAmc.propositions[0].propositions[0].texte = texteCorr.replaceAll('<br>', '\\\\\n')
           elementAmc.options = { multicolsAll: true, barreseparation: true }
           this.autoCorrection[i] = elementAmc
         }
