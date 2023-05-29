@@ -461,6 +461,7 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
+
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.numerotationEnonce) {
             texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}Enonce} \\QuestionIndicative `
@@ -507,8 +508,7 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
-
-        for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les questions-reponses de l'élément j
+        for (let qr = 0, qrType, prop, propositions, rep, nbChiffresExpo; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les questions-reponses de l'élément j
           prop = autoCorrection[j].propositions[qr] // prop est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
 
@@ -571,7 +571,7 @@ export function exportQcmAmc (exercice, idExo) {
               if (!Array.isArray(rep.valeur)) { // rep.valeur est un tableau si la réponse est une fraction
                 rep.valeur = [rep.valeur]
               }
-              if (rep.param.basePuissance !== undefined) {
+              if (rep.param.basePuissance !== undefined) { // Hybride dont la réponse est une puissance
                 if (rep.param.exposantPuissance === undefined) {
                   rep.param.exposantPuissance = 1000 // Nb volontairement grand pour faire comprendre à l'utilisateur AMC qu'il y a eu une erreur de programmation lors de la conception de l'exercice.
                 }
@@ -607,17 +607,29 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${autoCorrection[j].reponse.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
                 texQr += '\\end{questionmultx}\\end{multicols}\n\\end{minipage}\n\n'
                 id += 2
-              } else if (rep.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+              } else if (rep.valeur[0].num !== undefined) { // Hybride dont la réponse est une fraction (et non une puissance)
+                // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+                // Pour rappe! : rep = prop.propositions[0].reponse
                 valeurAMCNum = rep.valeur[0]
-                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+
+                if (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion) {
+                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}} \n `
+                  texQr += `${autoCorrection[j].enonce} \n` // Enonce de la question
+                  texQr += '\\end{questionmultx}'
+                }
+
+                texQr += `${((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                 if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\begin{'
-                  texQr += `${propositions[0].reponse.alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}` // Alignement : gauche, droite, centré
                 }
+
+                if (!(qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) texQr += `${autoCorrection[j].enonce} \n` // Enoncé de la question
+
                 if (propositions !== undefined) {
-                  texQr += `\\explain{${propositions[0].texte}}\n`
+                  texQr += `\\explain{${propositions[0].texte}}\n` // Correction
                 }
-                texQr += `${rep.texte}\n`
+                texQr += `${rep.texte}\n` // Texte juste avant les cases à cocher
                 let digitsNum = 0
                 if (rep.param.digitsNum !== undefined) {
                   digitsNum = Math.max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
@@ -670,8 +682,7 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 texQr += '\\end{questionmultx}\n'
                 id += 2
-              } else { // Ni puissances, ni fractions
-                let nbChiffresExpo
+              } else { // Hybride dont la réponse n'est ni une puissance, ni une fraction mais une valeur numérique simple (décimal relatif)
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
                   nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals ?? 0)
                   nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[0]), (isNaN(rep.param.digits - nbChiffresPd) ? 0 : rep.param.digits - nbChiffresPd))
@@ -704,11 +715,14 @@ export function exportQcmAmc (exercice, idExo) {
                   }
                   texQr += 'pt}\\begin{multicols}{2}\n'
                   texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-                }
+                } else if ((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) texQr += '\n\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
 
-                texQr += texQr.charAt(texQr.length - 1) === 'e' ? '' : '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
                 texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
-
+                /*
+                if (!(qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) {
+                  texQr += `${autoCorrection[j].enonce} \n` // Enonce de la question
+                }
+                */
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
                 }
