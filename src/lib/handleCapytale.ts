@@ -92,7 +92,12 @@ function sendToCapytaleActivityParams () {
 }
 
 export default async function handleCapytale () {
+  console.log('Communication avec Capytale')
   rpc.expose('platformGetActivityParams', sendToCapytaleActivityParams)
-  const activityParams = await rpc.call<{ mode: 'create'|'assignment'|'review', activity: Activity, studentAssignment?: StudentAssignment}>('toolGetActivityParams', {})
-  toolSetActivityParams(activityParams)
+  try {
+    const activityParams = await rpc.call<{ mode: 'create'|'assignment'|'review', activity: Activity, studentAssignment?: StudentAssignment}>('toolGetActivityParams', {})
+    toolSetActivityParams(activityParams)
+  } catch (error) {
+    console.log('Problème de communication avec Capytale', error)
+  }
 }
