@@ -1,22 +1,28 @@
-import type { Activity, InterfaceGlobalOptions, InterfaceParams, StudentAssignement } from 'src/lib/types.js'
+import type { Activity, StudentAssignment } from 'src/lib/types.js'
 import { exercicesParams, globalOptions, resultsByExercice } from '../components/store.js'
 import { mathaleaHandleComponentChange } from './mathalea.js'
 import { get } from 'svelte/store'
+import { RPC } from '@mixer/postmessage-rpc'
 
-// Fichiers temporaires pour tester avant de récupérer les paramètres depuis Capytale
-const testExercicesParams: InterfaceParams[] = [{ uuid: '5c1b3', nbQuestions: 1, interactif: '1' },
-  { uuid: 'cfa6a', interactif: '0', nbQuestions: 2 }, { uuid: '5c1b3', nbQuestions: 2, interactif: '1' }, { uuid: '5c1b3', nbQuestions: 2, interactif: '1' }]
+const serviceId = 'capytale-player'
 
-const testGlobalOptions: InterfaceGlobalOptions = { v: 'eleve', title: '', presMode: 'un_exo_par_page' }
+// Gestion des postMessage avec Capytale
+const rpc = new RPC({
+  target: window.parent,
+  serviceId,
+  origin: '*'
+})
 
-// timer pour ne pas prévenir Capytale trop souvent
+// timer pour ne pas lancer hasChanged trop souvent
 let timerId: ReturnType<typeof setTimeout>
 let firstTime = true
 
 /**
    * Fonction pour recevoir les paramètres des exercices depuis une plateforme extérieure comme Moodle
   */
-async function toolGetActivityParams ({ mode, activity, studentAssignement }: { mode: 'create'|'assignement', activity: Activity, studentAssignement?: StudentAssignement}) {
+async function toolSetActivityParams ({ mode, activity, workflow, studentAssignment }: { mode: 'create'|'assignment'|'review'|'view', workflow?: 'current'|'finished'|'corrected', activity: Activity, studentAssignment?: StudentAssignment}) {
+  // mode : create (le prof créé sa séance), assignment (l'élève voit sa copie), review (le prof voit la copie d'un élève), view (le prof voit la séance d'un collègue dans la bibliothèque et pourra la cloner)
+  // workflow : current (la copie n'a pas encore été rendue), finished (la copie a été rendue), corrected (la copie a été anotée par l'enseignant)
   // On récupère les paramètres de l'activité
   const [newExercicesParams, newGlobalOptions] = [activity.exercicesParams, activity.globalOptions]
   // On met à jour les paramètres des exercices
@@ -30,14 +36,26 @@ async function toolGetActivityParams ({ mode, activity, studentAssignement }: { 
     return l
   })
   if (mode === 'create') {
-    // console.log('create')
-  } else if (mode === 'assignement') {
+    // Enseignant qui crée et paramètre sa séance
+  } else {
     mathaleaHandleComponentChange('', 'eleve')
   }
-}
-
-export default async function handleCapytale () {
-  toolGetActivityParams({ mode: 'create', activity: { exercicesParams: testExercicesParams, globalOptions: testGlobalOptions } })
+  if (mode === 'assignment') {
+    // Élève sur sa copie
+    // Si la copie a déjà été rendue, on ne peut plus modifier les réponses
+    if (workflow !== 'current') {
+      globalOptions.update((l) => {
+        l.done = '1'
+        return l
+      })
+    }
+  } else if (mode === 'review') {
+    // Mettre le done à true pour que l'on ne puisse plus modifier les réponses
+    globalOptions.update((l) => {
+      l.done = '1'
+      return l
+    })
+  }
 }
 
 export async function sendToCapytaleMathaleaHasChanged () {
@@ -50,23 +68,36 @@ export async function sendToCapytaleMathaleaHasChanged () {
   // On ne prévient Capytale qu'une fois toutes les demi-secondes
   if (timerId === undefined) {
     timerId = setTimeout(() => {
-      // haschanged()
-      console.log('haschanged')
+      rpc.call('hasChanged', {})
       timerId = undefined
     }, 500)
   }
 }
 
-export function sendToCapytaleSaveStudentAssignement () {
+export function sendToCapytaleSaveStudentAssignment () {
   const results = get(resultsByExercice)
-  let bilan = ''
+  let evaluation = ''
   let i = 1
   for (const resultExercice of results) {
     if (resultExercice?.numberOfPoints !== undefined) {
-      bilan += `Ex ${i} : ${resultExercice.numberOfPoints}/${resultExercice.numberOfQuestions}\n`
+      evaluation += `Ex ${i} : ${resultExercice.numberOfPoints}/${resultExercice.numberOfQuestions}\n`
     }
     i++
   }
-  console.log(bilan)
-  // sendToCapytaleSaveStudentAssignement(get(resultsByExercice), bilan)
+  rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation })
+}
+
+function sendToCapytaleActivityParams () {
+  return { exercicesParams: get(exercicesParams), globalOptions: get(globalOptions) }
+}
+
+export default async function handleCapytale () {
+  console.log('Communication avec Capytale')
+  rpc.expose('platformGetActivityParams', sendToCapytaleActivityParams)
+  try {
+    const activityParams = await rpc.call<{ mode: 'create'|'assignment'|'review', activity: Activity, studentAssignment?: StudentAssignment}>('toolGetActivityParams', {})
+    toolSetActivityParams(activityParams)
+  } catch (error) {
+    console.log('Problème de communication avec Capytale', error)
+  }
 }

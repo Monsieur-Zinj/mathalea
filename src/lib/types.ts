@@ -13,4 +13,12 @@ export interface InterfaceResultExercice {numberOfPoints: number, numberOfQuesti
 // Pour Capytale
 export interface Activity {globalOptions: InterfaceGlobalOptions, exercicesParams: InterfaceParams[]}
 
-export interface StudentAssignement {resultsByExercice: InterfaceResultExercice[]}
+export interface StudentAssignment {resultsByExercice: InterfaceResultExercice[]}
+
+// Pour les listes d'entrées de référentiel dans le side menu
+// export enum ReferentielTypes { OUTILS = 'outils', EXERCICES = 'exercices'}
+export type ReferentielTypes = 'outils' | 'exercices'
+export interface ReferentielForList {title: string, content: InterfaceReferentiel[], type: ReferentielTypes}
+
+// Pour designer la page appelant un export
+export type CallerComponentType = '' | 'tools'

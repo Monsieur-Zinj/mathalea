@@ -26,7 +26,7 @@
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
       exercice.numeroExercice = indiceExercice
-      if (exercice.typeExercice && exercice.typeExercice.includes('html')) {
+      if (exercice.typeExercice && exercice.typeExercice.includes("html")) {
         mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
         optionsComponent = { exercice }
         ComponentExercice = (await import("./ExerciceHtml.svelte")).default
@@ -43,17 +43,17 @@
     }
   })
 
-function handleStringFromUrl (text: string): boolean|number|string {
-  if (text === 'true' || text === 'false') {
-    // "true"=>true
-    return text === 'true'
-  } else if (/^\d+$/.test(text)) {
-    // "17"=>17
-    return parseInt(text)
-  } else {
-    return text
+  function handleStringFromUrl(text: string): boolean | number | string {
+    if (text === "true" || text === "false") {
+      // "true"=>true
+      return text === "true"
+    } else if (/^\d+$/.test(text)) {
+      // "17"=>17
+      return parseInt(text)
+    } else {
+      return text
+    }
   }
-}
 </script>
 
 <div class="z-0 flex-1">

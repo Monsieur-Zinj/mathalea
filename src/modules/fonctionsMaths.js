@@ -41,7 +41,7 @@ export function degTan (a) {
   return calcul(Math.tan(radians(a)))
 }
 /**
-   * @param {number} un nombre qui correspond au cosinus de l'angle
+   * @param {number} x un nombre qui correspond au cosinus de l'angle
    * @returns flottant : la mesure de l'angle en degrés
    * @author Jean-Claude Lhote
    */
@@ -49,7 +49,7 @@ export function degAcos (x) {
   return arrondi(degres(Math.acos(x)), 1)
 }
 /**
-   * @param {number} un nombre qui correspond au sinus de l'angle
+   * @param {number} x un nombre qui correspond au sinus de l'angle
    * @returns flottant : la mesure de l'angle en degrés
    * @author Jean-Claude Lhote
    */
@@ -57,7 +57,7 @@ export function degAsin (x) {
   return arrondi(degres(Math.asin(x)), 1)
 }
 /**
-   * @param {number} un nombre qui correspond à la tangente de l'angle
+   * @param {number} x un nombre qui correspond à la tangente de l'angle
    * @returns flottant : la mesure de l'angle en degrés
    * @author Jean-Claude Lhote
    */
@@ -594,7 +594,10 @@ class Trace extends ObjetMathalea2D {
 }
 
 /**
- * @param {boolean} useFraction si false, les coefficients ne seront pas convertis en fractions. (true par défaut, rendant l'expression mathématique inutilisable avec Algebrite)
+ * Avertissement ! pour l'instant la classe ne gère pas les coefficients fractionnaires !
+ * @param {boolean} useFraction laissé à false pour l'instant (les coefficients fractionnaires ne sont pas encore utilisé et
+ * le code n'est pas dépourvu de problème si on utilise des coefficients fractionnaires !
+ * rendant l'expression mathématique inutilisable avec Algebrite et aussi dans la définition de la fonction x=>f(x)
 * @param {boolean} rand Donner true si on veut un polynôme aléatoire
 * @param {number} deg à fournir >=0 en plus de rand === true pour fixer le degré
 * @param {Array} coeffs liste de coefficients par ordre de degré croissant OU liste de couples [valeurMax, relatif?]
@@ -602,11 +605,10 @@ class Trace extends ObjetMathalea2D {
 * @example Polynome({ coeffs:[0, 2, 3] }) donne 3x²+2x
 * @example Polynome({ rand:true, deg:3 }) donne un ax³+bx²+cx+d à coefficients entiers dans [-10;10]\{0}
 * @example Polynome({ rand:true, coeffs:[[10, true], [0], [5, false]] }) donne un ax²+b avec a∈[1;5] et b∈[-10;10]\{0}
-* Les monomes sont maintenant stockés sous forme de fractions (même pour les entiers)
 */
 export class Polynome {
-  constructor ({ isUseFraction = true, rand = false, deg = -1, coeffs = [[10, true], [10, true]] }) {
-    this.isUseFraction = isUseFraction
+  constructor ({ isUseFraction = false, rand = false, deg = -1, coeffs = [[10, true], [10, true]] }) {
+    this.isUseFraction = false // @todo besoin d'adapter le code (notamment du getter fonction() !)
     if (rand) {
       if (largerEq(deg, 0)) {
         // on construit coeffs indépendamment de la valeur fournie
@@ -614,7 +616,7 @@ export class Polynome {
         coeffs.fill([10, true])
       }
       // Création de this.monomes
-      this.monomes = coeffs.map(function (el, i) {
+      this.monomes = coeffs.map(function (el) {
         if (isUseFraction) {
           if (equal(el[0], 0)) {
             return fraction(0)
@@ -631,7 +633,7 @@ export class Polynome {
       })
     } else {
       // les coeffs sont fourni
-      this.monomes = coeffs.map(function (el, i) {
+      this.monomes = coeffs.map(function (el) {
         if (isUseFraction) {
           return fraction(el)
         } else {
@@ -764,8 +766,8 @@ export class Polynome {
     let coeffs
     if (typeof q === 'number' || q.type === 'Fraction') {
       coeffs = isUseFraction
-        ? this.monomes.map(function (el, i) { return fraction(multiply(el, q)) })
-        : this.monomes.map(function (el, i) { return multiply(el, q) })
+        ? this.monomes.map(function (el) { return fraction(multiply(el, q)) })
+        : this.monomes.map(function (el) { return multiply(el, q) })
     } else if (q instanceof Polynome) {
       coeffs = new Array(this.deg + q.deg + 1)
       coeffs.fill(0)
@@ -809,7 +811,7 @@ export class Polynome {
    * @returns {function(number): number}
    */
   get fonction () {
-    return x => this.monomes.reduce((val, current) => val + current * x ** this.monomes.findIndex(coeff => coeff === current))
+    return x => this.monomes.reduce((val, current, currentIndex) => val + current * x ** currentIndex)
   }
 
   /**
@@ -956,12 +958,11 @@ function angleModulo (angle, k) {
 }
 /**
  * @param {object} param
- * @param {boolean} [param.associes] false pour niveau1 (quart de cercle) uniquement, true pour ajouter niveau2 (cercle trigo)
  * @param {number[]} [param.modulos] liste des k à utiliser pour ajouter les angles modulo 2k*Pi
  * @returns {{liste1: string[], liste2: string[], liste3: string[]}} liste1, liste2, liste3 les listes (niveau2 contient niveau1 et niveau3 contient niveau2)
  * @author Jean-Claude Lhote
  */
-export function valeursTrigo ({ associes = true, modulos = [-1, 1] }) {
+export function valeursTrigo ({ modulos = [-1, 1] }) {
   let mesAngles = anglesDeBase.slice()
   const mesAnglesNiv1 = mesAngles.slice()
   const nombreAnglesDeBase = mesAngles.length

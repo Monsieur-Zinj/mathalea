@@ -26,5 +26,5 @@
     <i class={type === "export" ? "bx bx-export rotate-90 translate-y-1" : "hidden"} />
     <i class={type === "design" ? "bx bx-chevron-right translate-y-1" : "hidden"} />
   </div>
-  <div class="pl-0 md:pl-2 font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
+  <div class="pl-0 lg:pl-2 font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
 </div>

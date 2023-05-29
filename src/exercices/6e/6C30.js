@@ -91,6 +91,7 @@ export default function MultiplierDecimaux () {
       texte += grilletxt
       reponse = calcul(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
+      texteCorr += context.isHtml ? '' : '\\hspace*{30mm}'
       texteCorr += Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       setReponse(this, i, reponse)

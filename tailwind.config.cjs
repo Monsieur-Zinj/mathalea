@@ -156,21 +156,7 @@ const config = {
       },
       fontFamily: {
         sans: ['"Source Sans Pro"', ...defaultTheme.fontFamily.sans],
-        logo1: 'neoretrodrawregular',
-        logo2: 'geometry_soft_probold_n',
-        logo3: '"Fredoka One"',
-        logo4: '"Bebas Neue"',
-        logo5: '"Frente H1"',
-        logo6: 'colortuberegular',
-        logo7: '"Cabin Sketch"',
-        logo8: '"Fredericka the Great"',
-        logo9: 'jelleebold',
-        logo10: '"League Gothic Condensed"',
-        logo11: '"FFF Tusj"',
-        logo12: 'Days',
-        logo13: 'Barlow',
-        logo13Condensed: 'Barlow Condensed',
-        logo14: 'Orbiton'
+        logo9: 'jelleebold'
       },
       transitionProperty: {
         width: 'width'
