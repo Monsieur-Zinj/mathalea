@@ -33,16 +33,16 @@ export default function ProportiondeProportion () {
         g = new Decimal(b * c).div(100)
         tauxG = new Decimal(b * c).div(10000)
 
-        this.question = `Dans une association,  $${b}\\,\\%$ des adhérents ont plus de  de $${a}$ ans. <br>
+        this.question = `Dans une association,  $${b}\\,\\%$ des adhérents ont plus de $${a}$ ans. <br>
         Parmi eux,   $${c}\\,\\%$ ont plus de $${d}$ années d'ancienneté.<br>
-        Quel est le pourcentage d'adhérents de plus de  $${a}$ ans ayant plus de $${d}$ années d'ancienneté ?<br>`
+        Quel est le pourcentage d'adhérents de plus de $${a}$ ans ayant plus de $${d}$ années d'ancienneté ?<br>`
         this.correction = `La population de référence est celle des membres de l'association.<br>
         La première sous-population est celle des plus de $${a}$ ans, 
         qui représente $p_1=${b}\\,\\%$ de la population de référence. <br>
         Dans cette sous-population, on sait que la population de ceux qui ont plus de $${d}$ années d'ancienneté représente $p_2=${c}\\,\\%$.<br>
         <br> D'après le cours, on calcule $p=p_1\\times p_2$, ce qui rerésente $${b}\\,\\%$ de $${c}\\,\\%$.<br>
       <br>Ainsi,  $p=${texNombre(tauxb)}\\times ${texNombre(tauxc)}=${texNombre(tauxG, 4)}$.<br>
-      Il y a donc $${texNombre(g, 2)}\\,\\%$ d'adhérents de plus de  $${a}$ ans ayant plus de $${a}$ années d'ancienneté.`
+      Il y a donc $${texNombre(g, 2)}\\,\\%$ d'adhérents de plus de $${a}$ ans ayant plus de $${a}$ années d'ancienneté.`
         this.reponse = g
         break
       case 'associationBis':
