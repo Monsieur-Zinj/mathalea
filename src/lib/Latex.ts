@@ -107,7 +107,7 @@ class Latex {
             contentCorr += '\\end{multicols}\n'
           }
           contentCorr += '\n\\end{EXO}\n'
-          content += `\n\\begin{EXO}{${exercice.consigne}}{${exercice.id.replace('.js', '')}}\n`
+          content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${exercice.id.replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
           content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
           content += '\n\\end{EXO}\n'
