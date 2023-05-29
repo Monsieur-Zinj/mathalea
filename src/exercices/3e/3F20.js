@@ -331,8 +331,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
               ]
             }
           ]
-        }
-        if (context.isAmc) {
           elementAmc.enonce = texte + '\\\\'
           elementAmc.enonceAvant = false
           elementAmc.enonceApresNumQuestion = true
