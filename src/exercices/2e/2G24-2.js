@@ -84,7 +84,6 @@ export default function Calculercoordonneessommevecteurs () {
             frac4 = choice(listeFractions1)
           }
           vy = randint(-9, 9, [0])
-          // vy = new FractionEtendue(frac4[0], frac4[1])
 
           a = frac1[0] * frac3[1] + frac3[0] * frac1[1]
           b = frac1[1] * frac3[1]
