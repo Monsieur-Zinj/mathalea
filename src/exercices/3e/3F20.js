@@ -87,7 +87,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       }
       let imageString, formatInteractif
       //
-      const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1]))
+      const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1, 2 * antecedent0]))
       const image0 = coefficient instanceof FractionEtendue ? coefficient.num : coefficient * antecedent0
       if (coefficient instanceof FractionEtendue) {
         image = coefficient.multiplieEntier(antecedent)
