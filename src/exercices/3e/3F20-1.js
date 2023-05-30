@@ -90,19 +90,19 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       // valeur associée à image0 pour le calcul de coefficient : image0 = coefficient * antecedent0
       // on retrouve ces valeurs antecedent0 et image0 dans l'énoncé pour certaines questions.
       // ce sont antecedent et image qui seront à calculer.
-      const antecedent0 = 2 * randint(2, 10) + 1
+      const antecedent0 = 2 * randint(2, 5) + 1
       const ordonneeOrigine = randint(-10, 10, [0])
       let coefficient, image
       switch (this.sup) {
         case 1:
-          coefficient = randint(2, 10) * choice([-1, 1])
+          coefficient = randint(2, 8) * choice([-1, 1])
           break
         case 2:
           coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           break
         case 3:
           if (Math.random() < 0.5) {
-            coefficient = randint(2, 10) * choice([-1, 1])
+            coefficient = randint(2, 8) * choice([-1, 1])
           } else {
             coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           }
@@ -124,12 +124,13 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       antecedents.push(antecedent, antecedent0)
       const coefficientString = coeffRationnel ? coefficient.simplifie().texFSD : coefficient.toString()
       let xUnite, yUnite, xThickDistance, yThickDistance, xThickMin, yThickMin
-      const tableauEchelleX = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100]]
-      const tableauEchelleY = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100], [1000, 0.005, 200]]
+      const tableauEchelleX = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100], [1000, 0.005, 200], [2000, 0.00025, 400]]
+      const tableauEchelleY = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100], [1000, 0.005, 200], [2000, 0.00025, 400]]
       xUnite = tableauEchelleX[0][1]
       xThickDistance = tableauEchelleX[0][2]
       xThickMin = -tableauEchelleX[0][0] - xThickDistance
       for (let k = 1; Math.abs(antecedent0) > tableauEchelleX[k - 1][0]; k++) {
+        if (k >= tableauEchelleX.length) break
         xUnite = tableauEchelleX[k][1]
         xThickDistance = tableauEchelleX[k][2]
         xThickMin = -tableauEchelleX[k][0] - xThickDistance
@@ -138,6 +139,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       yThickDistance = tableauEchelleY[0][2]
       yThickMin = -tableauEchelleY[0][0] - yThickDistance
       for (let k = 1; Math.max(Math.abs(image0), Math.abs(ordonneeOrigine)) > tableauEchelleY[k - 1][0]; k++) {
+        if (k >= tableauEchelleY.length) break
         yUnite = tableauEchelleY[k][1]
         yThickDistance = tableauEchelleY[k][2]
         yThickMin = -tableauEchelleY[k][0] - yThickDistance
@@ -369,8 +371,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
         case 'expressionParGraphique2': {
           let coefficientString
-          const denCoefficient = randint(2, 9)
-          const numCoefficient = randint(-9, 9, 0)
+          const denCoefficient = randint(2, 6)
+          const numCoefficient = randint(-7, 7, 0)
           if (coeffRationnel) { // on redéfinit le coefficient et les images pour ce cas de figure
             coefficient = new FractionEtendue(numCoefficient, denCoefficient)
             coefficientString = coefficient.texFSD
@@ -378,8 +380,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             coefficient = randint(-4, 4, 0)
             coefficientString = coefficient.toString()
           }
-          const antecedent2 = randint(-4, 6, [-1, 0, 1]) * denCoefficient
-          const antecedent0 = randint(Math.abs(antecedent2), 10, [-1, 0, 1]) * denCoefficient
+          const antecedent2 = randint(-4, 4, [-1, 0, 1]) * denCoefficient
+          const antecedent0 = randint(Math.abs(antecedent2), 8, [-1, 0, 1]) * denCoefficient
           const ordonneeOrigine = randint(-10, 10, 0)
           const image2 = coeffRationnel ? coefficient.multiplieEntier(antecedent2).ajouteEntier(ordonneeOrigine) : coefficient * antecedent2 + ordonneeOrigine
           const image2String = coeffRationnel ? image2.texFraction : image2
@@ -388,6 +390,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           xThickDistance = tableauEchelleX[0][2]
           xThickMin = -tableauEchelleX[0][0] - xThickDistance
           for (let k = 1; Math.abs(antecedent0) > tableauEchelleX[k - 1][0]; k++) {
+            if (k >= tableauEchelleX.length) break
             xUnite = tableauEchelleX[k][1]
             xThickDistance = tableauEchelleX[k][2]
             xThickMin = -tableauEchelleX[k][0] - xThickDistance
@@ -396,6 +399,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           yThickDistance = tableauEchelleY[0][2]
           yThickMin = -tableauEchelleY[0][0] - yThickDistance
           for (let k = 1; Math.max(Math.abs(image0), Math.abs(ordonneeOrigine)) > tableauEchelleY[k - 1][0]; k++) {
+            if (k >= tableauEchelleY.length) break
             yUnite = tableauEchelleY[k][1]
             yThickDistance = tableauEchelleY[k][2]
             yThickMin = -tableauEchelleY[k][0] - yThickDistance
