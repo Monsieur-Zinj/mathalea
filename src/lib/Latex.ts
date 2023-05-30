@@ -107,7 +107,7 @@ class Latex {
             contentCorr += '\\end{multicols}\n'
           }
           contentCorr += '\n\\end{EXO}\n'
-          content += `\n\\begin{EXO}{${exercice.consigne}}{${exercice.id.replace('.js', '')}}\n`
+          content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${exercice.id.replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
           content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
           content += '\n\\end{EXO}\n'
@@ -254,10 +254,12 @@ export function getExosContentList (exercices: TypeExercice[]) {
   const exosContentList = []
   for (const exo of exercices) {
     let data
-    if (exo.typeExercice !== undefined) {
-      data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
-    } else {
+    if (exo.typeExercice === undefined) {
       data = { content: exo.contenu }
+    } else if (exo.typeExercice === 'simple') {
+      data = { content: exo.listeQuestions.join(' ') }
+    } else {
+      data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
     }
     exosContentList.push(data)
   }

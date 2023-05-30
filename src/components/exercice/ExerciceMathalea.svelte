@@ -1,6 +1,6 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice } from "../store"
-  import { afterUpdate, onMount, tick } from "svelte"
+  import { afterUpdate, onMount, tick, onDestroy } from "svelte"
   import type TypeExercice from "../utils/typeExercice"
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure } from "../../lib/interactif/interactif"
@@ -87,6 +87,11 @@
     numberOfAnswerFields = answerFields.length
   }
 
+  onDestroy( () => {
+    // Détruit l'objet exercice pour libérer la mémoire
+    exercice = null
+  })
+
   onMount(async () => {
     document.addEventListener("newDataForAll", newData)
     document.addEventListener("setAllInteractif", setAllInteractif)
@@ -115,6 +120,7 @@
   })
 
   async function newData() {
+    if (exercice === null) return
     if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
     exercice.applyNewSeed()
     if (buttonScore) initButtonScore()

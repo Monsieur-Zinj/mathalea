@@ -50,6 +50,7 @@
   "dependencies": {
     "@bugsnag/js": "^7.20.2",
     "@cortex-js/compute-engine": "^0.12.2",
+    "@mixer/postmessage-rpc": "^1.1.4",
     "@svgdotjs/svg.js": "^3.1.2",
     "algebrite": "^1.4.0",
     "boxicons": "^2.1.4",

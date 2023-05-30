@@ -38,7 +38,7 @@ export default function TraceCourbeInterpolee1 () {
     }
     const xMin = parseFloat(this.sup2.split(';')[0])
     const pas = parseFloat(this.sup2.split(';')[1])
-    const xMax = xMin + liste.length * pas
+    const xMax = xMin + (ordonnees.length - 1) * pas
     let yMin = 100
     let yMax = -100
 

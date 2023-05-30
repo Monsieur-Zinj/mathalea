@@ -114,7 +114,6 @@ export default function ÉcrirePetitsNombresEntiers () {
     for (let i = OptionsDisponibles.length; i < this.nbQuestions; i++) { // On finit de remplir le tableau par des zéros (aucune demande particulière)
       OptionsDisponibles[i] = 0
     }
-    console.log(OptionsDisponibles)
     const listeOptions = shuffle(OptionsDisponibles)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

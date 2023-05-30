@@ -5341,7 +5341,7 @@ export function CibleCouronne ({
       objets.push(rayons[j - 1])
     }
     if (label) {
-      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu')
+      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'black', 1, 'middle', true)
       numero.contour = true
       objets.push(numero)
     }

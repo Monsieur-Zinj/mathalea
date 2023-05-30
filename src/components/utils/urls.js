@@ -27,8 +27,6 @@ export async function getShortenedCurrentUrl (addendum = '') {
   //  La ligne ci-dessous devra être celle de la version définitive
   const urlObj = new URL(window.location.href)
   const port = urlObj.port
-  console.log(urlObj)
-  console.log(document.URL)
   const url = port !== undefined ? document.URL.replace(`http://localhost:${port}/alea`, 'https://coopmaths.fr/alea') + addendum : document.url + addendum
   // ci-dessous, URL en dur pour test (le service ne fonctionne pas avec des localhost dans l'URL)
   // const url = 'https://coopmaths.fr/beta/?uuid=322a0&id=6C10-0&alea=uf2K&uuid=a5c5a&id=6C10-3&alea=3yIA&uuid=fd4d8&id=6C10-5&alea=yuEs&v=eleve&title=Exercices&es=1111'

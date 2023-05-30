@@ -1893,6 +1893,7 @@ export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
  * @returns {number[]} - Liste des facteurs premiers
  */
 export function obtenirListeFacteursPremiers (n) {
+  if (n === 1 || n === 0) return [] // 1 n'est pas premier, mais, sinon, ça retourne [NaN]
   const facteurs = []
   const signe = n < 0 ? -1 : 1
   for (let i = 2; i <= Math.abs(n); i++) {
@@ -1913,6 +1914,7 @@ export function obtenirListeFacteursPremiers (n) {
  */
 
 export function factorisation (n) {
+  if (n === 1) return [1]
   const liste = obtenirListeFacteursPremiers(n)
   const facto = []
   let index = 0
@@ -1966,6 +1968,7 @@ export function texFactorisation (n, puissancesOn = true) {
  * @author Jean-Claude Lhote
  */
 export function extraireRacineCarree (n) {
+  if (n === 1) return [[1], [1]]
   const facto = factorisation(n)
   let radical = 1
   let facteur = 1

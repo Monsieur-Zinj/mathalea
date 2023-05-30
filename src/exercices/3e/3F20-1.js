@@ -79,7 +79,10 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
     const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: this.lycee ? 10 : 8, defaut: this.lycee ? 11 : 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: this.lycee ? 11 : 9 })
     const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texteAMC, valeurAMC, texte2AMC, valeur2AMC, texte3AMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte2AMC = ''
+      texte3AMC = ''
+      valeur2AMC = ''
       const elementAmc = {}
       const nomFonction = String.fromCharCode(102 + i)
       this.sup = contraindreValeur(1, 3, this.sup, 1)
@@ -87,19 +90,19 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       // valeur associée à image0 pour le calcul de coefficient : image0 = coefficient * antecedent0
       // on retrouve ces valeurs antecedent0 et image0 dans l'énoncé pour certaines questions.
       // ce sont antecedent et image qui seront à calculer.
-      const antecedent0 = 2 * randint(2, 10) + 1
+      const antecedent0 = 2 * randint(2, 5) + 1
       const ordonneeOrigine = randint(-10, 10, [0])
       let coefficient, image
       switch (this.sup) {
         case 1:
-          coefficient = randint(2, 10) * choice([-1, 1])
+          coefficient = randint(2, 8) * choice([-1, 1])
           break
         case 2:
           coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           break
         case 3:
           if (Math.random() < 0.5) {
-            coefficient = randint(2, 10) * choice([-1, 1])
+            coefficient = randint(2, 8) * choice([-1, 1])
           } else {
             coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           }
@@ -121,12 +124,13 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       antecedents.push(antecedent, antecedent0)
       const coefficientString = coeffRationnel ? coefficient.simplifie().texFSD : coefficient.toString()
       let xUnite, yUnite, xThickDistance, yThickDistance, xThickMin, yThickMin
-      const tableauEchelleX = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100]]
-      const tableauEchelleY = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100], [1000, 0.005, 200]]
+      const tableauEchelleX = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100], [1000, 0.005, 200], [2000, 0.00025, 400]]
+      const tableauEchelleY = [[5, 1, 1], [10, 0.5, 2], [20, 0.25, 4], [50, 0.1, 10], [100, 0.05, 20], [250, 0.02, 50], [500, 0.01, 100], [1000, 0.005, 200], [2000, 0.00025, 400]]
       xUnite = tableauEchelleX[0][1]
       xThickDistance = tableauEchelleX[0][2]
       xThickMin = -tableauEchelleX[0][0] - xThickDistance
       for (let k = 1; Math.abs(antecedent0) > tableauEchelleX[k - 1][0]; k++) {
+        if (k >= tableauEchelleX.length) break
         xUnite = tableauEchelleX[k][1]
         xThickDistance = tableauEchelleX[k][2]
         xThickMin = -tableauEchelleX[k][0] - xThickDistance
@@ -135,6 +139,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       yThickDistance = tableauEchelleY[0][2]
       yThickMin = -tableauEchelleY[0][0] - yThickDistance
       for (let k = 1; Math.max(Math.abs(image0), Math.abs(ordonneeOrigine)) > tableauEchelleY[k - 1][0]; k++) {
+        if (k >= tableauEchelleY.length) break
         yUnite = tableauEchelleY[k][1]
         yThickDistance = tableauEchelleY[k][2]
         yThickMin = -tableauEchelleY[k][0] - yThickDistance
@@ -178,33 +183,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? coefficient.multiplieEntier(antecedent).texFraction : texNombre(coefficient * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
           texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? image.texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
-                    valeur: image,
-                    param: {
-                      signe: true,
-                      digits: 3,
-                      digitsNum: 2,
-                      digitsDen: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
+            texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
+            valeurAMC = image
           } else setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParValeurs':
@@ -222,33 +202,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? coefficient.multiplieEntier(antecedent).texFraction : texNombre(coefficient * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
           texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? image.texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
-                    valeur: image,
-                    param: {
-                      signe: true,
-                      digits: 3,
-                      digitsNum: 2,
-                      digitsDen: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
+            texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
+            valeurAMC = image
           } else setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParGraphique':
@@ -275,33 +230,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? coefficient.multiplieEntier(antecedent).texFraction : texNombre(coefficient * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
           texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? image.texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
-                    valeur: image,
-                    param: {
-                      signe: true,
-                      digits: 3,
-                      digitsNum: 2,
-                      digitsDen: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
+            texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
+            valeurAMC = image
           } else setReponse(this, i, image, { formatInteractif })
           break
         case 'antecedentParExpression':
@@ -321,33 +251,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `${antecedent}$`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
-                    valeur: antecedent,
-                    param: {
-                      signe: true,
-                      digits: 2,
-                      digitsDen: 2,
-                      digitsNum: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
+            texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
+            valeurAMC = antecedent
           } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParValeurs':
@@ -375,33 +280,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `${antecedent}$`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
-                    valeur: antecedent,
-                    param: {
-                      signe: true,
-                      digits: 2,
-                      digitsDen: 2,
-                      digitsNum: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
+            texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
+            valeurAMC = antecedent
           } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParGraphique':
@@ -437,33 +317,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `${antecedent}$`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
-                    valeur: antecedent,
-                    param: {
-                      signe: true,
-                      digits: 2,
-                      digitsDen: 2,
-                      digitsNum: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
+            texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
+            valeurAMC = antecedent
           } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'expressionParValeurs':
@@ -478,50 +333,12 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `$ et ainsi que $${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax+b$`,
-                    valeur: coefficient,
-                    param: {
-                      signe: true,
-                      digits: 2,
-                      digitsNum: 2,
-                      digitsDen: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `ordonnée à l'origine de $${nomFonction}$ : valeur de $b$ dans $${nomFonction}(x)=ax+b$`,
-                    valeur: ordonneeOrigine,
-                    param: {
-                      signe: true,
-                      digits: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
-          } else {
-            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
-          }
+            texteAMC = `Valeur de $a$ dans $${nomFonction}(x)=ax+b$`
+            valeurAMC = coefficient
+            texte2AMC = `Valeur de $b$ dans $${nomFonction}(x)=ax+b$`
+            valeur2AMC = ordonneeOrigine
+            texte3AMC = 'Vos calculs et votre réponse<br>'
+          } else setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
           break
         case 'expressionParGraphique':
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$ et coupe l'axe des ordonnées en $(0;${ordonneeOrigine})$.<br>`
@@ -543,55 +360,19 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `$ et ainsi que $${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax+b$`,
-                    valeur: coefficient,
-                    param: {
-                      signe: true,
-                      digits: 2,
-                      digitsNum: 2,
-                      digitsDen: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `ordonnée à l'origine de $${nomFonction}$ : valeur de $b$ dans $${nomFonction}(x)=ax+b$`,
-                    valeur: ordonneeOrigine,
-                    param: {
-                      signe: true,
-                      digits: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
+            texteAMC = `Valeur de $a$ dans $${nomFonction}(x)=ax+b$`
+            valeurAMC = coefficient
+            texte2AMC = `Valeur de $b$ dans $${nomFonction}(x)=ax+b$`
+            valeur2AMC = ordonneeOrigine
+            texte3AMC = 'Vos calculs et votre réponse<br>'
           } else {
             setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
         case 'expressionParGraphique2': {
           let coefficientString
-          const denCoefficient = randint(2, 9)
-          const numCoefficient = randint(-9, 9, 0)
+          const denCoefficient = randint(2, 6)
+          const numCoefficient = randint(-7, 7, 0)
           if (coeffRationnel) { // on redéfinit le coefficient et les images pour ce cas de figure
             coefficient = new FractionEtendue(numCoefficient, denCoefficient)
             coefficientString = coefficient.texFSD
@@ -599,8 +380,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             coefficient = randint(-4, 4, 0)
             coefficientString = coefficient.toString()
           }
-          const antecedent2 = randint(-4, 6, [-1, 0, 1]) * denCoefficient
-          const antecedent0 = randint(Math.abs(antecedent2), 10, [-1, 0, 1]) * denCoefficient
+          const antecedent2 = randint(-4, 4, [-1, 0, 1]) * denCoefficient
+          const antecedent0 = randint(Math.abs(antecedent2), 8, [-1, 0, 1]) * denCoefficient
           const ordonneeOrigine = randint(-10, 10, 0)
           const image2 = coeffRationnel ? coefficient.multiplieEntier(antecedent2).ajouteEntier(ordonneeOrigine) : coefficient * antecedent2 + ordonneeOrigine
           const image2String = coeffRationnel ? image2.texFraction : image2
@@ -609,6 +390,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           xThickDistance = tableauEchelleX[0][2]
           xThickMin = -tableauEchelleX[0][0] - xThickDistance
           for (let k = 1; Math.abs(antecedent0) > tableauEchelleX[k - 1][0]; k++) {
+            if (k >= tableauEchelleX.length) break
             xUnite = tableauEchelleX[k][1]
             xThickDistance = tableauEchelleX[k][2]
             xThickMin = -tableauEchelleX[k][0] - xThickDistance
@@ -617,6 +399,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           yThickDistance = tableauEchelleY[0][2]
           yThickMin = -tableauEchelleY[0][0] - yThickDistance
           for (let k = 1; Math.max(Math.abs(image0), Math.abs(ordonneeOrigine)) > tableauEchelleY[k - 1][0]; k++) {
+            if (k >= tableauEchelleY.length) break
             yUnite = tableauEchelleY[k][1]
             yThickDistance = tableauEchelleY[k][2]
             yThickMin = -tableauEchelleY[k][0] - yThickDistance
@@ -686,47 +469,11 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             : `$b=${image0}${ecritureAlgebrique(-coefficient)}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
           texteCorr += `D'où $${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax+b$`,
-                    valeur: coefficient,
-                    param: {
-                      signe: true,
-                      digits: 2,
-                      digitsNum: 2,
-                      digitsDen: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `ordonnée à l'origine de $${nomFonction}$ : valeur de $b$ dans $${nomFonction}(x)=ax+b$`,
-                    valeur: ordonneeOrigine,
-                    param: {
-                      signe: true,
-                      digits: 2
-                    }
-                  }
-                }
-                ]
-              },
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    statut: 3,
-                    texte: 'Vos calculs...'
-                  }
-                ]
-              }
-            ]
+            texteAMC = `Valeur de $a$ dans $${nomFonction}(x)=ax+b$`
+            valeurAMC = coefficient
+            texte2AMC = `Valeur de $b$ dans $${nomFonction}(x)=ax+b$`
+            valeur2AMC = ordonneeOrigine
+            texte3AMC = 'Vos calculs et votre réponse<br>'
           } else {
             setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
           }
@@ -756,32 +503,50 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             : `$b=${image0}${ecritureAlgebrique(-coefficient)}\\times ${ecritureParentheseSiNegatif(antecedent0)}=${ordonneeOrigine}$.<br>`
           texteCorr += `D'où $${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax+b$`,
-                    valeur: coefficient,
-                    param: {
-                      signe: true,
-                      digits: 2,
-                      digitsNum: 2,
-                      digitsDen: 2
-                    }
+            texteAMC = `Valeur de $a$ dans $${nomFonction}(x)=ax+b$`
+            valeurAMC = coefficient
+            texte2AMC = `Valeur de $b$ dans $${nomFonction}(x)=ax+b$`
+            valeur2AMC = ordonneeOrigine
+            texte3AMC = 'Vos calculs et votre réponse<br>'
+          } else {
+            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
+          }
+
+          break
+        }
+      }
+
+      const JCAMC = false || (texte2AMC !== '') // Si besoin de prendre en compte une info supplémentaire avant les cases à cocher dans AMC
+
+      if (this.questionJamaisPosee(i, coefficient, antecedent0, image0) && Math.abs(image0) > 1) {
+        if (context.isAmc) {
+          elementAmc.propositions = [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                reponse: {
+                  texte: JCAMC ? texteAMC : '',
+                  valeur: valeurAMC,
+                  param: {
+                    signe: true,
+                    digits: 2 // Ainsi, les réponses décimales auront toujours 2 digits et les réponses fractionnaires auront 2 digits pour le numérateur ET le dénominateur.
                   }
                 }
-                ]
-              },
+              }
+              ]
+            }
+          ]
+          if (texte2AMC !== '') {
+            elementAmc.propositions.push(
               {
                 type: 'AMCNum',
                 propositions: [{
                   reponse: {
-                    texte: `ordonnée à l'origine de $${nomFonction}$ : valeur de $b$ dans $${nomFonction}(x)=ax+b$`,
-                    valeur: ordonneeOrigine,
+                    texte: texte2AMC,
+                    valeur: valeur2AMC,
                     param: {
                       signe: true,
-                      digits: 2
+                      digits: 2 // Ainsi, les réponses décimales auront toujours 2 digits et les réponses fractionnaires auront 2 digits pour le numérateur ET le dénominateur.
                     }
                   }
                 }
@@ -792,24 +557,17 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
                 propositions: [
                   {
                     statut: 3,
-                    texte: 'Vos calculs...'
+                    enonce: texte3AMC
                   }
                 ]
               }
-            ]
-          } else {
-            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
+            )
           }
-
-          break
-        }
-      }
-      if (this.questionJamaisPosee(i, coefficient, antecedent0, image0) && Math.abs(image0) > 1) {
-        if (context.isAmc) {
-          elementAmc.enonce = texte + '\\\\\n'
-          elementAmc.enonceApresNumQuestion = false
+          elementAmc.enonce = texte + '\\\\'
+          elementAmc.enonceAvant = false
+          elementAmc.enonceApresNumQuestion = true
           elementAmc.propositions[0].propositions[0].texte = texteCorr
-          elementAmc.options = { multicolsAll: true, barreseparation: true }
+          elementAmc.options = { multicolsAll: true }
           this.autoCorrection[i] = elementAmc
         }
         this.listeQuestions.push(texte)

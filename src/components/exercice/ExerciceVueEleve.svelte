@@ -11,7 +11,7 @@
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   import type { MathfieldElement } from "mathlive"
-  import { sendToCapytaleSaveStudentAssignement } from "../../lib/handleCapytale"
+  import { sendToCapytaleSaveStudentAssignment } from "../../lib/handleCapytale"
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -173,7 +173,7 @@
       const iframe = url.searchParams.get("iframe")
       window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: "mathalea:score", iframe }, "*")
     } else if ($globalOptions.recorder === "capytale") {
-      sendToCapytaleSaveStudentAssignement()
+      sendToCapytaleSaveStudentAssignment()
     }
   }
 
