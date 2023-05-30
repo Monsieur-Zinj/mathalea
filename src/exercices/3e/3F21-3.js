@@ -23,8 +23,8 @@ export default function PenteEtOrdonneeOrigineDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 2
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  // this.nbCols = 2 // Uniquement pour la sortie LaTeX
+  // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.sup = 3
   this.sup2 = 3
@@ -78,7 +78,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
 
       const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])
 
-      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br><br>` + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax, scale: context.isAmc ? 0.5 : 1 }, r, d)
+      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br><br>` + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax, scale: context.isHtml ? 1 : 0.5 }, r, d)
       const consigneCorrection = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d, c, s1, s2, t1, t2)
       let question1; let question2; let question3; let indice = 0
       let correction1, correction2, correction3
