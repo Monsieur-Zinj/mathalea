@@ -82,7 +82,6 @@ export default function ExercicePerimetresEtAires () {
       shuffle: false,
       saisie: this.sup
     })
-
     let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cote, nomCarre, L, l, nomRectangle, a, b, c, nomTriangle, triplet, R, donneLeDiametre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (i % 4 === 0) listeDeNomsDePolygones = ['QD']
@@ -245,7 +244,7 @@ export default function ExercicePerimetresEtAires () {
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)
             listeDeNomsDePolygones.push(nomCercle)
             const A = point(0, 0, nomCercle.charAt(0), 'below left')
-            const Rd = randint(3, 6)
+            const Rd = 3
             const figure = cercle(A, Rd)
             const B = pointSurCercle(figure, 10, nomCercle.charAt(1), 'above right')
             const C = pointSurCercle(figure, 190, nomCercle.charAt(2), 'above left')
@@ -255,7 +254,7 @@ export default function ExercicePerimetresEtAires () {
             const ymin = Math.min(A.y - Rd) - 2
             const ymax = Math.max(A.y + Rd) + 2
             // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-            const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.8, zoom: 1 }
+            const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.6, zoom: 1 }
             // On ajoute au texte de la correction, la figure de la correction
             const traces = tracePoint(A, B, C)
             const labels = labelPoint(A, B, C)
@@ -302,7 +301,7 @@ export default function ExercicePerimetresEtAires () {
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)
             listeDeNomsDePolygones.push(nomCercle)
             const A = point(0, 0, nomCercle.charAt(0), 'below left')
-            const Rd = randint(4, 6)
+            const Rd = 3
             const B = pointAdistance(A, Rd, randint(-5, 5, [0]), nomCercle.charAt(1), 'above right')
             const figure = arc(B, A, 180, true, 'white', 'black', 0.2)
             const C = pointSurSegment(A, B, -Rd, nomCercle.charAt(2), 'above left')
@@ -312,7 +311,7 @@ export default function ExercicePerimetresEtAires () {
             const ymin = -1
             const ymax = Math.max(A.y + Rd) + 2
             // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-            const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.8, zoom: 1 }
+            const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.6, zoom: 1 }
             // On ajoute au texte de la correction, la figure de la correction
             const traces = tracePoint(A, B, C)
             const labels = labelPoint(A, B, C)
