@@ -106,11 +106,11 @@ export default function ArrondirUneValeur () {
           angle = randint(1, 89, 60)
           if (choice([true, false])) {
             n = v * degCos(angle)
-            nb = `${texNombre(v)}\\cos(${angle})` // pourquoi n'y a-t-il pas de \\degree ?
+            nb = `${texNombre(v)}\\cos(${angle}\\degree)`
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
-            // nbSansDegree n'est pas affecté ici alors qu'il est utilisé pour le texte
+            nbSansDegree = nb.replace('\\degree', '')
           } else { // arrondir un calcul de longueur avec une division par cosinus
             n = v / degCos(angle)
             nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}\\degree)}`
