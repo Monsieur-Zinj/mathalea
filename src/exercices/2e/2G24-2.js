@@ -124,7 +124,7 @@ export default function Calculercoordonneessommevecteurs () {
           wx = (xB - xA) + (xD - xC)
           wy = (yB - yA) + (yD - yC)
 
-          texte = `Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne les points suivants : $A\\begin{pmatrix}${xA}\\\\${yA}\\end{pmatrix}$, $B\\begin{pmatrix}${xB}\\\\${yB}\\end{pmatrix}$, $C\\begin{pmatrix}${xC}\\\\${yC}\\end{pmatrix}$ et $D\\begin{pmatrix}${xD}\\\\${yD}\\end{pmatrix}$.<br>`
+          texte = `Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne les points suivants : $A\\left(${xA};${yA}\\right)$, $B\\left(${xB};${yB}\\right)$, $C\\left(${xC};${yC}\\right)$ et $D\\left(${xD};${yD}\\right)$.<br>`
           texte += '* Déterminer les coordonnées des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{CD}$.<br>'
           texte += '* Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{AB}+\\overrightarrow{CD}$.'
 
