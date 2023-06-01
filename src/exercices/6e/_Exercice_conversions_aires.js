@@ -461,8 +461,9 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
         texte += '\\end{array}'
         texte += (i !== end - 1 ? ' & ' : '')
       }
-      texte += '\\\\ \\hline'
+      texte += '\\\\'
     }
+    texte += '\\hline'
     for (let i = first; i < end; i++) {
       texte += '\\begin{array}{c:c}'
       texte += `${aT[2 * i]} & ${aT[2 * i + 1]}  \\\\`

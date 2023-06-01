@@ -56,6 +56,7 @@ export default function ExerciceConversionsVolumes () {
     this.listeCorrections = [] // Liste de questions corrigées
     Decimal.toExpNeg = -20 // pour éviter la conversion en notation scientifique on va jusqu'à 20 décimales (-7 est la valeur par défaut)
     Decimal.toExpPos = 20 // pour les grands entiers, c'est la valeur par défaut
+    /*
     const prefixeMulti = [
       ['da', '10\\times10\\times10', 1000],
       ['h', '100\\times100\\times100', 1000000],
@@ -66,6 +67,18 @@ export default function ExerciceConversionsVolumes () {
       ['c', '100\\div100\\div100', 1000000],
       ['m', `1${sp()}000\\div1${sp()}000\\div1${sp()}000`, 1000000000]
     ]
+    */
+    const prefixeMulti = [
+      [' da', '\\times1000', 1000],
+      [' h', '\\times1000\\times1000', 1000000],
+      [' k', '\\times1000\\times1000\\times1000', 1000000000]
+    ]
+    const prefixeDiv = [
+      [' d', '\\div1000', 1000],
+      [' c', '\\div1000\\div1000', 1000000],
+      [' m', '\\div1000\\div1000\\div1000', 1000000000]
+    ]
+
     const unite = 'm'
     const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
     for (
@@ -149,7 +162,7 @@ export default function ExerciceConversionsVolumes () {
           texTexte(unite) +
           '^3' +
           '$'
-        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, true)
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, 2, true)
       } else if (div && typesDeQuestions < 4) {
         k = randint(0, 1) // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
         // Le commentaire précédent est sans objet avec Decimal, on peut afficher ici 20 chiffres après la virgule sans passer en notation scientifique !
@@ -179,7 +192,7 @@ export default function ExerciceConversionsVolumes () {
           texTexte(unite) +
           '^3' +
           '$'
-        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, true)
+        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, 2, true)
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
         let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l`un à l`autre
@@ -227,7 +240,7 @@ export default function ExerciceConversionsVolumes () {
             texTexte(listeUnite[unite1]) +
             '^3' +
             '$'
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], true)
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], 2, true)
         } else {
           switch (ecart) {
             case 1:
@@ -265,7 +278,7 @@ export default function ExerciceConversionsVolumes () {
             texTexte(listeUnite[unite2]) +
             '^3' +
             '$'
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], true)
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], 2, true)
         }
       }
 
@@ -336,43 +349,49 @@ export default function ExerciceConversionsVolumes () {
 function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false) {
   const tabRep = function (nbre, uniteNbre) {
     const res = []
+    let caseARemplir
     for (let ee = 0; ee < 33; ee++) res.push('')
     switch (uniteNbre.replaceAll(' ', '')) {
       case 'km':
         for (let i = 0; i < 33; i++) {
-          res[i] = (8 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) + (8 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)))
+          res[i] = (8 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (8 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'hm':
-      case 'ha':
         for (let i = 0; i < 33; i++) {
-          res[i] = (11 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) + (11 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)))
+          res[i] = (11 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (11 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'dam':
-      case 'a':
         for (let i = 0; i < 33; i++) {
-          res[i] = (14 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) + (14 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)))
+          res[i] = (14 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (14 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'm':
         for (let i = 0; i < 33; i++) {
-          res[i] = (17 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) + (17 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)))
+          res[i] = (17 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (17 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'dm':
         for (let i = 0; i < 33; i++) {
-          res[i] = (20 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)) + (20 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)))
+          res[i] = (20 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (20 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'cm':
         for (let i = 0; i < 33; i++) {
-          res[i] = (23 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)) + (23 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)))
+          res[i] = (23 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (23 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
       case 'mm':
         for (let i = 0; i < 33; i++) {
-          res[i] = (26 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)) + (26 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+          caseARemplir = i % 3 === 1 ? (getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)) !== '' ? '\\hspace*{0.1cm}' + getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)) + '\\hspace*{0.1cm}' : '\\hspace*{0.4cm}') : (getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)) === '' ? '\\hspace*{0.2cm}' : getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)))
+          res[i] = (26 - i === 0 ? '\\color{red}{' : '') + caseARemplir + (26 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
         }
         break
     }
@@ -417,8 +436,8 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
   const rTab = tabRep(r, uniteR)
   const minTab1 = aTab[0] !== '' || aTab[1] !== '' || aTab[2] !== '' ? 0 : aTab[3] !== '' || aTab[4] !== '' || aTab[5] !== '' || force ? 3 : 6
   const minTab2 = rTab[0] !== '' || rTab[1] !== '' || rTab[2] !== '' ? 0 : rTab[3] !== '' || rTab[4] !== '' || rTab[5] !== '' || force ? 3 : 6
-  const maxTab1 = aTab[32] !== '' || aTab[31] !== '' || aTab[30] !== '' ? 21 : aTab[29] !== '' || aTab[28] !== '' || aTab[27] !== '' || force ? 30 : 27
-  const maxTab2 = rTab[32] !== '' || rTab[31] !== '' || rTab[30] !== '' ? 21 : rTab[29] !== '' || rTab[28] !== '' || rTab[27] !== '' || force ? 30 : 27
+  const maxTab1 = aTab[32] !== '' || aTab[31] !== '' || aTab[30] !== '' ? 33 : aTab[29] !== '' || aTab[28] !== '' || aTab[27] !== '' || force ? 30 : 27
+  const maxTab2 = rTab[32] !== '' || rTab[31] !== '' || rTab[30] !== '' ? 33 : rTab[29] !== '' || rTab[28] !== '' || rTab[27] !== '' || force ? 30 : 27
   const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2) / 3, Math.max(maxTab1, maxTab2) / 3, ligne, correction)
   return texte
 }
