@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
@@ -40,7 +40,6 @@ export default function ExerciceLabyrintheMultiples () {
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
-    this.sup = contraindreValeur(1, 4, Number(this.sup), 4)
     let table
     if (this.sup === 1) {
       table = combinaisonListes([2, 5, 10], this.nbQuestions)

@@ -14,19 +14,22 @@ export function buildUrlAddendumForEsParam () {
     ['une_question_par_page', 3]
   ])
   let addendum = '&v=eleve&title=' + options.title
-  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree
+  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot
   addendum += '&es=' + presentationMode.get(options.presMode)
   addendum += options.setInteractive
   addendum += options.isSolutionAccessible ? '1' : '0'
   addendum += options.isInteractiveFree ? '1' : '0'
+  addendum += options.oneShot ? '1' : '0'
   return addendum
 }
 
 export async function getShortenedCurrentUrl (addendum = '') {
   //  La ligne ci-dessous devra être celle de la version définitive
-  //   const url = document.URL + addendum
+  const urlObj = new URL(window.location.href)
+  const port = urlObj.port
+  const url = port !== undefined ? document.URL.replace(`http://localhost:${port}/alea`, 'https://coopmaths.fr/alea') + addendum : document.url + addendum
   // ci-dessous, URL en dur pour test (le service ne fonctionne pas avec des localhost dans l'URL)
-  const url = 'https://coopmaths.fr/beta/?uuid=322a0&id=6C10-0&alea=uf2K&uuid=a5c5a&id=6C10-3&alea=3yIA&uuid=fd4d8&id=6C10-5&alea=yuEs&v=eleve&title=Exercices&es=1111'
+  // const url = 'https://coopmaths.fr/beta/?uuid=322a0&id=6C10-0&alea=uf2K&uuid=a5c5a&id=6C10-3&alea=3yIA&uuid=fd4d8&id=6C10-5&alea=yuEs&v=eleve&title=Exercices&es=1111'
   let response
   try {
     const request = await fetch(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(url)}`)
@@ -105,46 +108,54 @@ export function decrypt (url) {
 }
 
 /**
+ * Détecte si une URL a été encryptée par `encrypt`
+ * @param {URL} url Chaîne representant l'URL à analyser
+ * @returns {boolean} `true` si l'URL est crypté avec la fonction `encrypt`
+ */
+export function isCrypted (url) {
+  return url.href.includes('?EEEE')
+}
+
+/**
  * Télécharger un fichier connaissant l'URL
- * 
- * __Exemple__ 
+ *
+ * __Exemple__
  * ```tsx
  * downloadFileFromURL(url, 'image.jpg');
  * ```
- * 
+ *
  * __Paramètres__
  * @param {string} url URL du fichier à télécharger
  * @param {string} filename nom doné au fichier téléchargé
  * @see {@link https://blog.gitnux.com/code/javascript-download-file-from-url/}
  */
-export async function downloadFileFromURL(url, filename) {
+export async function downloadFileFromURL (url, filename) {
   try {
     // Fetch the file
-    const response = await fetch(url);
-    
+    const response = await fetch(url)
     // Check if the request was successful
     if (response.status !== 200) {
-      throw new Error(`Unable to download file. HTTP status: ${response.status}`);
+      throw new Error(`Unable to download file. HTTP status: ${response.status}`)
     }
 
     // Get the Blob data
-    const blob = await response.blob();
+    const blob = await response.blob()
 
     // Create a download link
-    const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = filename;
+    const downloadLink = document.createElement('a')
+    downloadLink.href = URL.createObjectURL(blob)
+    downloadLink.download = filename
 
     // Trigger the download
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
+    document.body.appendChild(downloadLink)
+    downloadLink.click()
 
     // Clean up
     setTimeout(() => {
-      URL.revokeObjectURL(downloadLink.href);
-      document.body.removeChild(downloadLink);
-    }, 100);
+      URL.revokeObjectURL(downloadLink.href)
+      document.body.removeChild(downloadLink)
+    }, 100)
   } catch (error) {
-    console.error('Error downloading the file:', error.message);
+    console.error('Error downloading the file:', error.message)
   }
 }

@@ -1,7 +1,7 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, texNombre, randint, interactivite, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -34,7 +34,6 @@ export default function PerimetreAireDisques (pa = 3) {
   this.nbQuestions = 4
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.sup = contraindreValeur(1, 3, this.sup, 3)
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -64,9 +63,9 @@ export default function PerimetreAireDisques (pa = 3) {
       }
       switch (interactivite(this)) {
         case 'AMC' :
-          this.consigne += '<br>Donner la valeur exacte et une valeur approchée au dixième près.'
+          this.consigne += '\\\\\nDonner la valeur exacte et une valeur approchée au dixième près.'
           break
-        default : this.consigne += '<br>Donner la valeur exacte et une valeur approchée au dixième près.'
+        default : this.consigne += `${context.isHtml ? '<br>' : '\\\\\n'} la valeur exacte et une valeur approchée au dixième près.`
       }
       if (this.sup === 1) {
       // si on ne demande pas les aires

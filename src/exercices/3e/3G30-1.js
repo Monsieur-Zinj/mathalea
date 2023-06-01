@@ -73,13 +73,13 @@ export default function ExprimerCosSinTan () {
       const b = point(randint(3, 7), 0)
       const c = similitude(b, a, 90, randint(3, 7) / longueur(a, b))
       const p1 = polygone(a, b, c)
-      // p1.isVisible = false
       const p2 = rotation(p1, a, randint(0, 360))
       const A = p2.listePoints[0]
       const B = p2.listePoints[1]
       const C = p2.listePoints[2]
       const codage = codageAngleDroit(B, A, C)
-      const nom = creerNomDePolygone(4, ['DQ'])
+      const nom = creerNomDePolygone(4, ['DQJ']) // J est enlevé car à côté du I, difficile de faire la différence
+      // const nom = ['A', 'B', 'C', 'H'] // Pratique pour le débuggage
       A.nom = nom[0]
       B.nom = nom[1]
       C.nom = nom[2]
@@ -108,7 +108,6 @@ export default function ExprimerCosSinTan () {
       const d = droite(B, C)
       d.isVisible = false
       const H = projectionOrtho(A, d)
-      H.nom = 'H'
       const pointNomH = pointSurSegment(H, A, -0.5)
       const codage2 = codageAngleDroit(A, H, B)
       H.nom = nom[3]
@@ -690,12 +689,12 @@ export default function ExprimerCosSinTan () {
                   propositions: [
                     {
                       texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: true,
+                      statut: false,
                       feedback: ''
                     },
                     {
                       texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
+                      statut: true,
                       feedback: ''
                     },
                     {
@@ -766,12 +765,12 @@ export default function ExprimerCosSinTan () {
                   propositions: [
                     {
                       texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
+                      statut: true,
                       feedback: ''
                     },
                     {
                       texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: true,
+                      statut: false,
                       feedback: ''
                     },
                     {

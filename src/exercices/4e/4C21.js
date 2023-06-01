@@ -154,9 +154,9 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           if (!this.sup2 && plusOuMoins === '-' && n < a / b) {
             n = randint(5, 9) // max(a/b)=9/2
           }
-          texte = `$${n}${plusOuMoins}${texFraction(a, b)}$`
-          texteCorr = texte
-          texteCorr += `$=${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFraction(a, b)}`
+          texteCorr = `$${n}${plusOuMoins}${texFraction(a, b)}`
+          texte = texteCorr + '$'
+          texteCorr += `=${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFraction(a, b)}`
           texteCorr += `=${texFraction(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
           num = calcul(n * b + plusOuMoinsUn * a)
         } else {

@@ -176,7 +176,7 @@
     {#if Array.isArray(formNum1.champs)}
       <div class="flex flex-col">
         <form action="">
-          <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum1">{formNum1.titre}</label>
+          <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum1">{formNum1.titre} :</label>
           <select
             class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             name="formNum1"
@@ -197,7 +197,7 @@
         <input
           name="formNum1"
           type="number"
-          class="w-16 border-1"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={exercice.besoinFormulaireNumerique[1]}
           data-bs-toggle="tooltip"
@@ -257,7 +257,7 @@
     {#if Array.isArray(formNum2.champs)}
       <div class="flex flex-col">
         <form action="">
-          <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum2">{formNum2.titre}</label>
+          <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum2">{formNum2.titre} :</label>
           <select
             class="flex flex-auto  w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             name="formNum2"
@@ -338,7 +338,7 @@
     {#if Array.isArray(formNum3.champs)}
       <div class="flex flex-col">
         <form action="">
-          <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum3">{formNum3.titre}</label>
+          <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum3">{formNum3.titre} :</label>
           <select
             class="flex flex-auto  w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             name="formNum3"
@@ -421,7 +421,7 @@
     {#if Array.isArray(formNum4.champs)}
       <div class="flex flex-col">
         <form action="">
-          <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum4">{formNum4.titre}</label>
+          <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum4">{formNum4.titre} :</label>
           <select
             class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             name="formNum4"

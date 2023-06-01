@@ -24,6 +24,7 @@
   import ModalForQRCode from "./modal/ModalForQRCode.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
   import ButtonToggle from "./forms/ButtonToggle.svelte"
+  import NavBarV2 from "./header/NavBarV2.svelte"
   import type { InterfaceParams } from "src/lib/types"
 
   let divQuestion: HTMLDivElement[] = []
@@ -775,8 +776,8 @@
 <!-- Page d'accueil du diapo -->
 <div id="diaporama" class={$darkMode.isActive ? "dark" : ""}>
   {#if currentQuestion === -1}
-    <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus" data-theme="daisytheme">
-      <div class="flex flex-row justify-between p-6">
+    <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus">
+      <!-- <div class="flex flex-row justify-between p-6">
         <div class="text-4xl text-coopmaths-struct font-bold">Réglages du Diaporama</div>
         <button type="button">
           <i
@@ -785,8 +786,9 @@
             on:keydown={() => mathaleaHandleComponentChange("diaporama", "")}
           />
         </button>
-      </div>
-      <div class="flex flex-row w-full justify-center items-start mx-20">
+      </div> -->
+      <NavBarV2 subtitle="Réglages du diaporama" subtitleType="export" />
+      <div class="flex flex-row w-full justify-center items-start mx-20 mt-10">
         <!-- Multivue + Liens -->
         <div class="flex flex-col w-1/5 justify-start">
           <div class="flex flex-row justify-start items-center pb-6">
@@ -872,7 +874,7 @@
             </div>
           </div>
           <div class="pb-6">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Choix aléatoire</div>
+            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct {exercices.length == 1 ? 'text-opacity-20' : 'text-opacity-100'}">Choix aléatoire</div>
             <div class="flex flex-row justify-start items-center px-4">
               <input
                 id="checkbox-choice"

@@ -1,7 +1,19 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale, texFraction } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  choice,
+  combinaisonListes,
+  calcul,
+  texNombre,
+  arrondi,
+  nombreDeChiffresDansLaPartieEntiere,
+  nombreDeChiffresDansLaPartieDecimale,
+  texFraction,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
@@ -36,39 +48,37 @@ export default function DivisionFraction () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
+  this.sup2 = false
+  this.sup3 = '10'
   this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let typesDeQuestionsDisponibles
 
-    parseInt(this.sup) === 1
-      ? (typesDeQuestionsDisponibles = [choice([1, 2, 3]), 4, 5])
-      : (typesDeQuestionsDisponibles = [7, 8, 9])
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions
-    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let typesDeQuestions
+    const typesDeQuestionsDisponibles = this.sup === 1
+      ? [choice([1, 2, 3]), 4, 5]
+      : [7, 8, 9]
+    const listeTypeDeQuestions = (!this.sup2)
+      ? combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+      : gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions, shuffle: true })// Exercice à la carte
+
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      switch (typesDeQuestions) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // fraction : entier divisé par 4 quotient : xx,25 ou xx,75
           b = 4
           a = (randint(2, 9) * 10 + randint(2, 9)) * 4 + choice([1, 3])
-          q = calcul(a / b)
+          q = a / b
           break
         case 2: // fraction : entier divisé par 8 quotient : x,125 ou x,375 ou x,625 ou x,875
           b = 8
           a = randint(2, 9) * 8 + choice([1, 3, 5, 7])
-          q = calcul(a / b)
+          q = a / b
           break
         case 3: // fraction : entier divisé par 6 quotient : xxx,5
           b = 6
@@ -80,12 +90,17 @@ export default function DivisionFraction () {
         case 4: // fraction : entier divisé par 2
           b = 2
           a = randint(3, 50) * 2 + 1
-          q = calcul(a / b)
+          q = a / b
           break
         case 5: // fraction : entier divisé par 5
           b = 5
           a = randint(3, 50) * 2 + 1
-          q = calcul(a / b)
+          q = a / b
+          break
+        case 6: // fraction : entier divisé par 10
+          b = 10
+          a = randint(0, 3) * 100 + randint(1, 9) * 10 + randint(1, 0)
+          q = a / b
           break
         case 7: // dénominateur = 7
           a = randint(2, 9) * 7 + randint(1, 6)
@@ -136,4 +151,15 @@ export default function DivisionFraction () {
     2,
     '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au centième près'
   ]
+  this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
+  this.besoinFormulaire3Texte = ['Types de questions (nombres séparés par des tirets', `1: entier divisé par 4 (quotient exact)
+2: entier divisé par 8 (quotient exact)
+3: entier divisé par 6 (quotient exact)
+4: entier divisé par 2 (quotient exact)
+5: entier divisé par 5 (quotient exact)
+6: entier divisé par 10 (quotient exact)
+7: entier divisé par 7 (quotient approché)
+8: entier divisé par 9 (quotient approché)
+9: entier divisé par 3 (quotient approché)
+10: Mélange`]
 }

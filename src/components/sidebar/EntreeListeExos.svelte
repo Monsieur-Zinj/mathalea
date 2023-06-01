@@ -2,18 +2,40 @@
   import { exercicesParams } from "../store"
   import { isRecent } from "../utils/handleDate"
 
-  export let exercice
+  import renderMathInElement from "katex/dist/contrib/auto-render.js"
+
+  export let exercice: Map<string, string | Map>
   export let nestedLevelCount: number
+
+  let nomDeExercice: HTMLDivElement
+
+  $: {
+    if (nomDeExercice && nomDeExercice.outerText.includes("$")) {
+      renderMathInElement(nomDeExercice, {
+        delimiters: [
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
+        ],
+        // Les accolades permettent d'avoir une formule non coupée
+        preProcess: (chaine: string) => "{" + chaine.replaceAll(String.fromCharCode(160), "\\,") + "}",
+        throwOnError: true,
+        errorColor: "#CC0000",
+        strict: "warn",
+        trust: false,
+      })
+      // console.log(nomDeExercice.outerText)
+    }
+  }
 
   /*--------------------------------------------------------------
     Gestions des exercices via la liste
    ---------------------------------------------------------------*/
-  const isPresent = (code) => {
+  const isPresent = (code: string) => {
     return code === exercice.get("uuid")
   }
   const tags = exercice.get("tags")
   let selectedCount = 0
-  let listeCodes = []
+  let listeCodes: string[]
   // on compte réactivement le nombre d'occurences
   // de l'exercice dans la liste des sélectionnés
   $: {
@@ -77,13 +99,13 @@
   - **nestedLevelCount** : compteur pour connaître le nombre d'imbrication (utilisé pour l'indentation de la ligne)
   
  -->
-<div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-{nestedLevelCount * 2}">
+<div class="relative flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-{nestedLevelCount * 2}">
   <div
     class="flex-1 hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
     on:click={addToList}
     on:keydown={addToList}
   >
-    <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1">
+    <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1" bind:this={nomDeExercice}>
       {#if exercice.has("lieu")}
         <span class="font-bold">{exercice.get("typeExercice").toUpperCase()} {exercice.get("mois") || ""} {exercice.get("annee")} - {exercice.get("lieu")} - {exercice.get("numeroInitial")}</span>
         <div>

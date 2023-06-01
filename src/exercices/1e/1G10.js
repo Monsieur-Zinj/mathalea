@@ -10,7 +10,6 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '16/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /** import { valeursTrigo } from './../../modules/fonctionsMaths';
 import { rangeMinMax } from './../../../../build/modules/outils';
 import { contraindreValeur } from './../../../../www/build/modules/outils';
@@ -41,7 +40,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     // TODO: Peut-être mettre en paramètre l'étendue des modulos pour avoir un contrôle sur le niveau de difficulté
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -57,7 +56,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
         }
       }
     }
-    const mesAngles = valeursTrigo({ associes: true, modulos: listeK })
+    const mesAngles = valeursTrigo({ modulos: listeK })
     if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
     else if (this.nbQuestions > 26 && this.sup === 2) this.nbQuestions = 26 // Le bridage est un peu plus large pour le niveau 2
     else if (this.nbQuestions > 126) this.nbQuestions = 126 // là c'est carrément l'opulence avec le niveau 3 !

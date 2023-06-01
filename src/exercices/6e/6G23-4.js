@@ -98,7 +98,7 @@ export default function MesurerUnAngleAvecRapporteur () {
       texte = nbAngles > 1 ? '<br>' + texteAMC : texteAMC
       texteCorr += `Comme la demi-droite (${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteGras(0)} du rapporteur et que la demi-droite (${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC), 'red')} du rapporteur, on lit que l'angle $\\widehat{${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure ${texteEnCouleurEtGras(abs(angC) + '°')}.<br>`
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i * nbAngles, 'inline', { tailleExtensible: true })
+        texte += ajouteChampTexteMathLive(this, i * nbAngles, 'inline largeur25', { texteApres: ' °' })
       }
       setReponse(this, i * nbAngles, abs(angC))
       if (context.isAmc) {
@@ -142,7 +142,7 @@ export default function MesurerUnAngleAvecRapporteur () {
         texteCorr += `La demi-droite (${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD), 'blue')} du rapporteur. `
         texteCorr += `Et ${abs(angC + angD)}-${abs(angC)}=${texteGras(abs(angD))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ mesure ${texteEnCouleurEtGras(abs(angD) + '°')}.<br>`
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i * nbAngles + 1, 'inline', { tailleExtensible: true })
+          texte += ajouteChampTexteMathLive(this, i * nbAngles + 1, 'inline largeur25', { texteApres: ' °' })
         }
         setReponse(this, i * nbAngles + 1, abs(angD))
         if (context.isAmc) {
@@ -185,7 +185,7 @@ export default function MesurerUnAngleAvecRapporteur () {
           texteCorr += `La demi-droite (${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE), 'hotpink')} du rapporteur. `
           texteCorr += `Et ${abs(angC + angD + angE)}-${abs(angC + angD)}=${texteGras(abs(angE))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numE)}}$ mesure ${texteEnCouleurEtGras(abs(angE) + '°')}.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i * nbAngles + 2, 'inline', { tailleExtensible: true })
+            texte += ajouteChampTexteMathLive(this, i * nbAngles + 2, 'inline largeur25', { texteApres: ' °' })
           }
           setReponse(this, i * nbAngles + 2, abs(angE))
           if (context.isAmc) {
@@ -228,7 +228,7 @@ export default function MesurerUnAngleAvecRapporteur () {
             texteCorr += `La demi-droite (${lettreDepuisChiffre(numF) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE + angF), 'green')} du rapporteur. `
             texteCorr += `Et ${abs(angC + angD + angE + angF)}-${abs(angC + angD + angE)}=${texteGras(abs(angF))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numF)}}$ mesure ${texteEnCouleurEtGras(abs(angF) + '°')}.<br>`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i * nbAngles + 3, 'inline', { tailleExtensible: true })
+              texte += ajouteChampTexteMathLive(this, i * nbAngles + 3, 'inline largeur25', { texteApres: ' °' })
             }
             setReponse(this, i * nbAngles + 3, abs(angF))
             if (context.isAmc) {
@@ -259,8 +259,10 @@ export default function MesurerUnAngleAvecRapporteur () {
         }
       }
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      paramsEnonce = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 1, mainlevee: false }
+
+      paramsEnonce = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: context.isHtml ? 1 : 0.75, mainlevee: false }
       paramsCorrection = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 0.9, mainlevee: false }
+      // figureExo = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1, mainlevee: false }, fixeBordures(objetsEnonce)), objetsEnonce)
       figureExo = mathalea2d(paramsEnonce, objetsEnonce)
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -287,7 +289,7 @@ export default function MesurerUnAngleAvecRapporteur () {
     }
   }
   this.besoinFormulaireNumerique = ['Position du rapporteur', 3, '1 : Horizontal\n2 : Vertical\n3 : Peu importe']
-  this.besoinFormulaire2Numerique = ['Taille du rapporteur', 12, 'Entre 7 et 12']
-  this.besoinFormulaire3Numerique = ['Nombre d\'angles à mesurer', 4, 'Entre 1 et 4']
+  this.besoinFormulaire2Numerique = ['Taille du rapporteur (entre 7 et 12)', 12]
+  this.besoinFormulaire3Numerique = ['Nombre d\'angles à mesurer (entre 1 et 4)', 4]
   this.besoinFormulaire4CaseACocher = ['Avec deux points symétriquement opposés']
 }

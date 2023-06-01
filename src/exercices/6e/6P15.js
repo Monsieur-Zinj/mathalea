@@ -8,7 +8,6 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import {
   choice,
   combinaisonListes,
-  contraindreValeur,
   listeQuestionsToContenu,
   nombreDeChiffresDansLaPartieEntiere,
   numAlpha,
@@ -56,7 +55,6 @@ export default function CalculerCoeffPropo () {
     const tableauxCoefficientsFractions = [[[2, 5], [3, 4], [2, 3], [2, 7]], [[3, 7], [4, 7], [4, 9], [5, 9]], [[7, 3], [8, 3], [3, 2], [7, 2]], [[9, 4], [7, 8], [8, 7], [9, 5]]]
     // @todo prévoir un tableau de choix des fractions plutôt que d'aléatoiriser leur construction
 
-    this.sup = contraindreValeur(1, 4, this.sup, 1)
     if (this.sup === 4) listeTypesDeCoefficient = combinaisonListes(typeDeCoefficient, this.nbQuestions)
     else listeTypesDeCoefficient = combinaisonListes([typeDeCoefficient[this.sup - 1]], this.nbQuestions)
     for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {
@@ -224,14 +222,14 @@ export default function CalculerCoeffPropo () {
           setReponse(this, 3 * i + 2, reponsesAttendue.reponse2.reponse.valeur, { formatInteractif: 'calcul' })
         }
       } else { // pour LAtex, c'est profCollege dans le texte
-        texte += '\\Propor[Math,\nStretch=2,\nlargeur=1.5]{'
+        texte += '\n\\Propor[Math,Stretch=2,largeur=15]{'
         for (let colonne = 0; colonne < 3; colonne++) {
-          texte += `$${ligne1[colonne + 1]}$/`
-          texte += `$${ligne2[colonne + 1]}$`
+          texte += `${ligne1[colonne + 1].texte.replace('...', '\\ldots')}/`
+          texte += `${ligne2[colonne + 1].texte.replace('...', '\\ldots')}`
           if (colonne < 2) texte += ','
           else texte += '}\n'
         }
-        texte += '\\FlechesPD{1}{2}{$\\times$\\ldots}\n'
+        texte += '\n\\FlechesPD{1}{2}{$\\times$\\ldots}\n'
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,

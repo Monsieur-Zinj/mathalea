@@ -18,8 +18,9 @@ import 'katex/dist/katex.min.css'
 // @ts-ignore
 import renderScratch from './renderScratch.js'
 // @ts-ignore
-import { decrypt } from '../components/utils/urls.js'
+import { decrypt, isCrypted } from '../components/utils/urls.js'
 import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
+import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 
 function getExerciceStaticByUuid (uuid: string) {
   for (const examen in referentielStatic) {
@@ -54,9 +55,17 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
     // L'extension doit-être visible donc on l'enlève avant de la remettre...
     let module: any
     if (isCan) {
-      module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      if (filename.includes('.ts')) {
+        module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
+      } else {
+        module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      }
     } else {
-      module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
+      if (filename.includes('.ts')) {
+        module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
+      } else {
+        module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
+      }
     }
     const ClasseExercice = module.default
     const exercice = new ClasseExercice()
@@ -231,6 +240,9 @@ export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
  * sauf si le store freezeUrl est à true (utile sur un site externe)
  */
 export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]) {
+  if (get(globalOptions).recorder === 'capytale') {
+    sendToCapytaleMathaleaHasChanged()
+  }
   if (get(freezeUrl) === true) return
   if (params === undefined) {
     params = get(exercicesParams)
@@ -260,6 +272,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
    * @returns vue
    */
 export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions {
+  let urlNeedToBeFreezed = false
   let v = ''
   let z = '1'
   let durationGlobal = 0
@@ -276,7 +289,11 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   let setInteractive = '2'
   let isSolutionAccessible = true
   let isInteractiveFree = true
+  let oneShot = false
   let url = new URL(window.location.href)
+  if (isCrypted(url)) {
+    urlNeedToBeFreezed = true
+  }
   url = decrypt(url)
   const entries = url.searchParams.entries()
   let indiceExercice = -1
@@ -355,16 +372,20 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   exercicesParams.update((l) => {
     return newListeExercice
   })
+  if (urlNeedToBeFreezed) {
+    freezeUrl.set(true)
+  }
   /**
    * es permet de résumer les réglages de la vue élève
-   * Il est de la forme 2101
-   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree
+   * Il est de la forme 21011
+   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot
    */
-  if (es && es.length === 4) {
+  if (es && es.length === 5) {
     presMode = presModeId[parseInt(es.charAt(0))]
     setInteractive = es.charAt(1)
     isSolutionAccessible = es.charAt(2) === '1'
     isInteractiveFree = es.charAt(3) === '1'
+    oneShot = es.charAt(4) === '1'
   }
   return {
     v,
@@ -380,6 +401,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
     setInteractive,
     isSolutionAccessible,
     isInteractiveFree,
+    oneShot,
     recorder,
     done,
     iframe,

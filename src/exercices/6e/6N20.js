@@ -1,5 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  enleveElement,
+  choice,
+  texFraction,
+  nombreDeChiffresDansLaPartieEntiere,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -9,6 +17,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModificationImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 
 /**
  * @author Rémi Angot
@@ -24,66 +33,100 @@ export default function ExerciceFractionsDecomposer () {
   this.spacing = 2
   this.spacingCorr = 2
   this.sup = false // Donner l'écriture décimale
+  this.sup2 = false
+  this.sup3 = '11'
+  this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
+  this.besoinFormulaire3Texte = ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const fractions = [
-      [1, 2, ',5'],
-      [1, 4, ',25'],
-      [3, 4, ',75'],
-      [1, 5, ',2'],
-      [2, 5, ',4'],
-      [3, 5, ',6'],
-      [4, 5, ',8'],
-      [1, 8, ',125'],
-      [3, 8, ',375'],
-      [1, 10, ',1'],
-      [3, 10, ',3'],
-      [7, 10, ',7'],
-      [9, 10, ',9']
-    ] // Fractions irréductibles avec une écriture décimale exacte
-    const fractions1 = [
-      [1, 2, ',5'],
-      [1, 4, ',25'],
-      [3, 4, ',75'],
-      [1, 8, ',125']
-    ]
-    fractions1.push(
-      choice([
-        [1, 10, ',1'],
-        [2, 10, ',2'],
-        [3, 10, ',3'],
-        [7, 10, ',7'],
-        [9, 10, ',9']
-      ])
-    )
-    fractions1.push(
-      choice([
+    const listeDenominateurs = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 2, max: 10, defaut: 11, melange: 11, nbQuestions: this.nbQuestions })
+    let fractions = []
+    let fractions1 = []
+    if (!this.sup2) {
+      fractions = [
+        [1, 2, ',5'],
+        [1, 4, ',25'],
+        [3, 4, ',75'],
         [1, 5, ',2'],
         [2, 5, ',4'],
         [3, 5, ',6'],
-        [4, 5, ',8']
-      ])
-    ) // liste_fractions pour les 6 premières questions
+        [4, 5, ',8'],
+        [1, 8, ',125'],
+        [3, 8, ',375'],
+        [1, 10, ',1'],
+        [3, 10, ',3'],
+        [7, 10, ',7'],
+        [9, 10, ',9']
+      ] // Fractions irréductibles avec une écriture décimale exacte
+      fractions1 = [
+        [1, 2, ',5'],
+        [1, 4, ',25'],
+        [3, 4, ',75'],
+        [1, 8, ',125']
+      ]
+      fractions1.push(
+        choice([
+          [1, 10, ',1'],
+          [2, 10, ',2'],
+          [3, 10, ',3'],
+          [7, 10, ',7'],
+          [9, 10, ',9']
+        ])
+      )
+      fractions1.push(
+        choice([
+          [1, 5, ',2'],
+          [2, 5, ',4'],
+          [3, 5, ',6'],
+          [4, 5, ',8']
+        ])
+      ) // liste_fractions pour les 6 premières
+    } else {
+      const denominateursDifferents = new Set(listeDenominateurs)
+      const nbDenominateursDifferents = denominateursDifferents.size
+      const aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents)
+      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
+        const n = randint(1, aleaMax)
+        const b = listeDenominateurs[i]
+        const num = randint(1, b - 1)
+        let partieDecimale = num * 1000 / b // avec les 8e on a 3 chiffres, avec les 4 2...
+        partieDecimale = ',' + partieDecimale.toString().match(/[1-9]+/g)[0]
+        const a = n * b + randint(1, b - 1)
+        if (fractions.filter((element) => element[0] === a && element[1] === b).length === 0) { // la fraction n'a pas encore été construite
+          fractions.push([a, b, n, partieDecimale])
+          i++
+        } else {
+          cpt++
+        }
+      }
+    }
     for (
       let i = 0, fraction, a, b, c, n, texte, texteCorr, reponse;
       i < this.nbQuestions;
       i++
     ) {
-      if (i < 6) {
-        fraction = choice(fractions1)
-        enleveElement(fractions1, fraction)
+      if (!this.sup2) {
+        if (i < 6) {
+          fraction = choice(fractions1)
+          enleveElement(fractions1, fraction)
+        } else {
+          fraction = choice(fractions)
+        }
+        //
+        c = fraction[0]
+        b = fraction[1]
+        n = randint(1, 4)
+        a = n * b + c
       } else {
-        fraction = choice(fractions)
+        a = fractions[i][0]
+        b = fractions[i][1]
+        n = fractions[i][2]
+        c = a - n * b
+        // ed = fractions[i][2].toString() + fractions[i][3]
       }
-      //
-      c = fraction[0]
-      b = fraction[1]
-      n = randint(1, 4)
-      a = n * b + c
-      enleveElement(fractions, fraction) // Il n'y aura pas 2 fois la même partie décimale
       texte =
         '$ ' +
         texFraction(a, b) +

@@ -224,11 +224,17 @@ export default function NommerUnAngle () {
         const ang = angleOriente(pt1, pt2, pt3)
 
         objetsEnonce.push(codageAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true))
-        texteAMC = 'Comment peut-on nommer l\'angle '
+        if ((this.interactif || context.isAmc) && this.interactifType === 'qcm') {
+          texteAMC = 'Choisir tous les angles qui peuvent nommer'
+        } else {
+          texteAMC = 'Comment peut-on nommer'
+        }
+        texteAMC += ' l\'angle '
         marquageAngleConsigne.push(codageAngle(M1, O, 79, 1, marquageAngle[jj]))
         texteAMC += this.sup3
-          ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne) + `${sp()}?`
-          : `${couleurRemplissageAngle[1]}${sp()}?`
+          ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne)
+          : `${couleurRemplissageAngle[1]}`
+        texteAMC += ((this.interactif || context.isAmc) && this.interactifType === 'qcm') ? '.' : `${sp()}?`
         texte += this.sup > 1 ? `${jj === 0 ? '' : '<br>'}${numAlpha(jj)}` : ''
         texte += texteAMC
         if (this.interactif && this.interactifType === 'mathLive') {
@@ -243,7 +249,7 @@ export default function NommerUnAngle () {
           : `${couleurRemplissageAngle[1]}`
         texteCorr += ` se nomme, au choix : $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
-          texteCorr += `, $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
+          texteCorr += `, $${this.sup3 ? miseEnEvidence(resultat[ee], 'black') : miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
         }
         texteCorr += '.'
         propositionsDuQcm = [{
@@ -302,7 +308,7 @@ export default function NommerUnAngle () {
       listeQuestionsToContenu(this)
     }
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'angles à trouver', 3, '1, 2 ou 3 angles']
+  this.besoinFormulaireNumerique = ['Nombre d\'angles à trouver (entre 1 et 3) :', 3]
   if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Texte']
   this.besoinFormulaire3CaseACocher = ['Figure en noir et blanc']
 }

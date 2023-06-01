@@ -1,6 +1,6 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice } from "../store"
-  import { afterUpdate, onMount, tick } from "svelte"
+  import { afterUpdate, onMount, tick, onDestroy } from "svelte"
   import type TypeExercice from "../utils/typeExercice"
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure } from "../../lib/interactif/interactif"
@@ -52,7 +52,9 @@
 
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
-
+    if ($globalOptions.v === "tools") {
+      headerExerciceProps.category = "Outil"
+    }
     if ($globalOptions.v === "eleve") {
       headerExerciceProps.settingsReady = false
       headerExerciceProps.isSortable = false
@@ -74,6 +76,7 @@
       headerExerciceProps.isHidable = true
     }
     headerExerciceProps.isInteractif = isInteractif
+    headerExerciceProps.correctionExists = exercice.listeCorrections.length > 0
     headerExerciceProps = headerExerciceProps
   }
 
@@ -83,6 +86,11 @@
     const answerFields = document.querySelectorAll(`[id^='champTexteEx${indiceExercice}']`)
     numberOfAnswerFields = answerFields.length
   }
+
+  onDestroy( () => {
+    // Détruit l'objet exercice pour libérer la mémoire
+    exercice = null
+  })
 
   onMount(async () => {
     document.addEventListener("newDataForAll", newData)
@@ -112,6 +120,7 @@
   })
 
   async function newData() {
+    if (exercice === null) return
     if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
     exercice.applyNewSeed()
     if (buttonScore) initButtonScore()
@@ -256,8 +265,8 @@
           mathalea2dFigures[k].setAttribute("width", initialWidth)
           mathalea2dFigures[k].setAttribute("height", initialHeight)
         }
-        console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+          // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
           const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
           const newFigWidth = consigneDiv.clientWidth * 0.95
           const newFigHeight = mathalea2dFigures[k].clientHeight * coef
@@ -353,22 +362,14 @@
               </p>
             </div>
           {/if}
-          {#if isCorrectionVisible}
-            <div
-              class="{exercice.consigneCorrection.length !== 0 ? '' : 'hidden'}
-                bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2 ml-2 lg:mx-5"
-            >
-              {@html exercice.consigneCorrection}
-            </div>
-          {/if}
           <div style="columns: {columnsCount.toString()}" class="mb-5">
             <ul
               class="{exercice.listeQuestions.length > 1
                 ? 'list-decimal'
-                : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+                : 'list-none'} w-full list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercice.listeQuestions as item, i (i)}
-                <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
+                <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container w-full grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
                   <li id="exercice{indiceExercice}Q{i}">
                     {@html mathaleaFormatExercice(item)}
                   </li>
@@ -377,6 +378,18 @@
                       class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
                       id="correction${indiceExercice}Q${i}"
                     >
+                      <div
+                        class={exercice.consigneCorrection.length !== 0
+                          ? "container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3"
+                          : "hidden"}
+                      >
+                        <div class="{exercice.consigneCorrection.length !== 0 ? 'container' : 'hidden'} absolute top-4 -left-4">
+                          <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                        </div>
+                        <div class="">
+                          {@html exercice.consigneCorrection}
+                        </div>
+                      </div>
                       <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
                         {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                       </div>

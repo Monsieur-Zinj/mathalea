@@ -1,6 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombre, texFraction } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  choice,
+  calcul,
+  texNombre,
+  texFraction,
+  combinaisonListes, gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -29,27 +37,23 @@ export default function PourcentageDunNombre () {
   this.nbColsCorr = 1
   this.sup = 1
   this.interactif = false
+  this.sup2 = false
+  this.sup3 = false
+  this.sup4 = '9'
 
   this.nouvelleVersion = function () {
-    let listePourcentages = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    const pourcentages = !this.sup3
+      ? combinaisonListes(this.sup === 1 ? [10, 20, 30, 40, 50] : [10, 20, 25, 30, 40, 50, 60, 90], this.nbQuestions)
+      : gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 8, defaut: 9, melange: 9, nbQuestions: this.nbQuestions, shuffle: true, listeOfCase: [10, 20, 25, 30, 40, 50, 60, 90] })
     for (
-      let i = 0, p, n, texte, texteCorr, cpt = 0;
+      let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
-      switch (parseInt(this.sup)) { // niveu de difficulté.
-        case 1:
-          listePourcentages = [10, 20, 30, 40, 50]
-          n = choice([randint(2, 9), randint(2, 9) * 10, randint(1, 9) * 10 + randint(1, 2)])
-          break
-        case 2: // niveau 2 : ajout de 25%, 60% et 90% + possibilité d'avoir n'importe quel multiple de 4 entre 4 et 200
-          listePourcentages = [10, 20, 25, 30, 40, 50, 60, 90]
-          n = choice([randint(2, 9), randint(2, 9) * 10, randint(1, 9) * 10 + randint(1, 2), randint(1, 50) * 4])
-          break
-      }
-      p = choice(listePourcentages)
+      const p = pourcentages[i]
+      const n = choice([randint(2, 9), randint(2, 9) * 10, randint(1, 9) * 10 + randint(1, 2)])
       texte = `$${p}~\\%~\\text{de }${n}$`
       switch (p) {
         case 50 :
@@ -85,13 +89,12 @@ $${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNomb
         this.autoCorrection[i].reponse.param.digits = 3
         this.autoCorrection[i].reponse.param.decimals = 1
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, p, n)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
-      }
-      cpt++
+      } else cpt++
     }
     listeQuestionsToContenu(this)
   }
@@ -101,4 +104,14 @@ $${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNomb
     ' 1 : Pourcentages 10, 20, 30, 40, 50 \n 2 : Pourcentages 10, 20, 25, 30, 40, 50, 60, 90'
   ]
   this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes']
+  this.besoinFormulaire3CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
+  this.besoinFormulaire4Texte = ['choix des pourcentages (nombres séparés par des tirets', `1: 10%
+2: 20%
+3: 25%
+4: 30%
+5: 40%
+6: 50%
+7: 60%
+8: 90%
+9: Mélange`]
 }

@@ -48,7 +48,7 @@ export default function ProblemesTrigoLongueur () {
   this.besoinFormulaireCaseACocher = ['Afficher des questions intermédiaires et éventuellement un schéma']
   this.sup = true
   this.besoinFormulaire2Texte = [
-    'Type d\'exercice',
+    'Type de questions',
     `Cet exercice regroupe les exercices 3G32 et 3G32-X (X : 1 à 5)
     Nombres séparés par des tirets :
     1 : Calculer la largeur d'une rivière

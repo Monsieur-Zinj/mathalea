@@ -24,13 +24,13 @@
   import BtnZoom from "./ui/btnZoom.svelte"
   import { getCanvasFont, getTextWidth, remToPixels } from "./utils/measures"
   import Footer2 from "./Footer2.svelte"
-  import Amc from "./Amc.svelte"
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
   let questions: string[] = []
   let consignes: string[] = []
   let corrections: string[] = []
+  let consignesCorrections: string[] = []
   let indiceExercice: number[] = []
   let indiceQuestionInExercice: number[] = []
   let resultsByQuestion: boolean[] = []
@@ -135,7 +135,7 @@
       const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
       mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-      if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
+      if ($globalOptions.setInteractive === "1" && exercice?.interactifReady) {
         exercice.interactif = true
       }
       exercices.push(exercice)
@@ -150,19 +150,35 @@
       if (exercice.typeExercice === "simple") {
         mathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
       }
-      seedrandom(exercice.seed, { global: true })
+      if (exercice.seed !== undefined) {
+        seedrandom(exercice.seed, { global: true })
+      }
       exercice.numeroExercice = k
-      exercice.nouvelleVersion(k)
+      if (exercice.nouvelleVersion !== undefined) {
+        exercice.nouvelleVersion(k)
+      }
       isCorrectionVisible[k] = false
+      let cumulConsignesCorrections = []
+      if (exercice.listeQuestions === undefined) {
+        exercice.listeQuestions = []
+      }
+      if (exercice.listeCorrections === undefined) {
+        exercice.listeCorrections = []
+      }
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
-        consignes.push(exercice.consigne + exercice.introduction)
+        consignes.push(exercice?.consigne + exercice?.introduction)
         indiceExercice.push(k)
         indiceQuestionInExercice.push(i)
+        if (exercice.consigneCorrection !== undefined) {
+          cumulConsignesCorrections.push(exercice.consigneCorrection)
+        }
       }
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
+      consignesCorrections = [...consignesCorrections, ...cumulConsignesCorrections]
       questions = questions.map(mathaleaFormatExercice)
       corrections = corrections.map(mathaleaFormatExercice)
+      consignesCorrections = consignesCorrections.map(mathaleaFormatExercice)
       consignes = consignes.map(mathaleaFormatExercice)
     }
     if ($globalOptions.presMode === "liste_questions" || $globalOptions.presMode === "une_question_par_page") {
@@ -213,7 +229,7 @@
 
   function handleIndexChange(exoNum: number) {
     currentIndex = exoNum
-    if (exercices[exoNum].interactifType === "cliqueFigure" && exercices[exoNum].interactif) {
+    if (exercices[exoNum] && exercices[exoNum].interactifType === "cliqueFigure" && exercices[exoNum].interactif) {
       prepareExerciceCliqueFigure(exercices[exoNum])
     }
   }
@@ -222,13 +238,13 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
   <div
-    class="fixed h-20 lg:h-10 z-20 bottom-4 right-2 {($globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
+    class="fixed z-20 h-16 bottom-4 right-2 {($globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
     $globalOptions.title.length > 0
       ? 'lg:top-8'
       : 'lg:top-20'}  lg:right-6"
   >
     <div class="flex flex-col-reverse lg:flex-row space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 scale-75 lg:scale-100">
-      <BtnZoom size="bx-sm md:bx-md" />
+      <BtnZoom size="bx-sm md:bx-md" isBorderTransparent={$globalOptions.title.length > 0} />
     </div>
   </div>
   <div class="mb-auto">
@@ -381,6 +397,17 @@
                     style="break-inside:avoid"
                     bind:this={divsCorrection[k]}
                   >
+                    {#if consignesCorrections[k].length !== 0}
+                      <div class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3">
+                        <div class="container absolute top-4 -left-4">
+                          <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                        </div>
+                        <div class="">
+                          {@html consignesCorrections[k]}
+                        </div>
+                      </div>
+                    {/if}
+
                     <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
                       {@html mathaleaFormatExercice(corrections[k])}
                     </div>
@@ -437,6 +464,16 @@
                       style="break-inside:avoid"
                       bind:this={divsCorrection[k]}
                     >
+                      {#if consignesCorrections[k].length !== 0}
+                        <div class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3">
+                          <div class="container absolute top-4 -left-4">
+                            <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                          </div>
+                          <div class="">
+                            {@html consignesCorrections[k]}
+                          </div>
+                        </div>
+                      {/if}
                       <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
                         {@html mathaleaFormatExercice(corrections[k])}
                       </div>

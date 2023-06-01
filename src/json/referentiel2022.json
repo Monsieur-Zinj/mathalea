@@ -942,7 +942,7 @@
           "id": "can6C43",
           "uuid": "f3b31",
           "url": "can/6e/can6C43.js",
-          "titre": "Comprarer deux fractions (dénominateurs multiples)",
+          "titre": "Comparer deux fractions (dénominateurs multiples)",
           "datePublication": "04/11/2022",
           "tags": {
             "interactif": true,
@@ -3603,6 +3603,17 @@
             "interactif": true,
             "interactifType": "mathLive"
           }
+        },
+        "can2F15": {
+          "id": "can2F15",
+          "uuid": "a3e06",
+          "url": "can/2e/can2F15.js",
+          "titre": "Donner le sens de variation d’une fonction affine",
+          "datePublication": "19/05/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "qcm"
+          }
         }
       },
       "can2G": {
@@ -3887,10 +3898,10 @@
           "id": "can2L05",
           "uuid": "96a78",
           "url": "can/2e/can2L05.js",
-          "titre": "Résoudre une inéquation (QCM)",
+          "titre": "Résoudre une inéquation",
           "tags": {
             "interactif": true,
-            "interactifType": "qcm"
+            "interactifType": "mathLive"
           }
         },
         "can2L06": {
@@ -5242,7 +5253,7 @@
         "id": "6C13-1",
         "uuid": "32e02",
         "url": "6e/6C13-1.js",
-        "titre": "Vocabulaires liés aux 4 opérations",
+        "titre": "Connaître le vocabulaire lié aux 4 opérations",
         "tags": {}
       },
       "6C13": {
@@ -5467,7 +5478,11 @@
         "url": "6e/6C32-1.js",
         "titre": "Résoudre des problèmes (plus complexes)",
         "datePublication": "27/11/2022",
-        "tags": {}
+        "dateModification": "14/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "6C32": {
         "id": "6C32",
@@ -5486,6 +5501,7 @@
         "uuid": "4c10a",
         "url": "6e/6C33.js",
         "titre": "Calculer en utilisant les priorités opératoires",
+        "dateModification": "21/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -5789,12 +5805,14 @@
         "id": "6G22-1",
         "uuid": "e8d33",
         "url": "6e/6G22-1.js",
-        "titre": "Connaitre le vocabulaire de base des angles",
+        "titre": "Connaître le vocabulaire de base des angles",
         "datePublication": "03/12/2022",
+        "dateModification": "23/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
-          "amc": false
+          "amc": true,
+          "amcType": "AMCHybride"
         }
       },
       "6G22-2": {
@@ -5806,7 +5824,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
-          "amc": false
+          "amc": true,
+          "amcType": "qcmMono"
         }
       },
       "6G22": {
@@ -5871,6 +5890,7 @@
         "url": "6e/6G23-5.js",
         "titre": "Calculer un angle, déduit de figures simples",
         "datePublication": "03/05/2022",
+        "dateModification": "09/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6086,6 +6106,7 @@
         "url": "6e/6G44-1.js",
         "titre": "Reconnaitre des solides",
         "datePublication": "24/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -6662,6 +6683,17 @@
           "interactifType": "mathLive",
           "amc": true,
           "amcType": "AMCHybride"
+        }
+      },
+      "6N21-1": {
+        "id": "6N21-1",
+        "uuid": "a2582",
+        "url": "6e/6N21-1.js",
+        "titre": "Utiliser des abscisses fractionnaires (niv 2)",
+        "datePublication": "11/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "custom"
         }
       },
       "6N21": {
@@ -8071,6 +8103,17 @@
         "titre": "Résoudre un problème en utilisant des fractions",
         "tags": {}
       },
+      "5N20-1": {
+        "id": "5N20-1",
+        "uuid": "75f80",
+        "url": "5e/5N20-1.js",
+        "titre": "Effectuer des calculs de fractions (à dénominateurs multiples) un peu complexes",
+        "datePublication": "12/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
       "5N20": {
         "id": "5N20",
         "uuid": "d5ee3",
@@ -8467,7 +8510,7 @@
         "uuid": "1eaf7",
         "url": "4e/4A11-0.js",
         "titre": "Décomposer un nombre entier en produit de (petits) facteurs premiers",
-        "dateModification": "2/11/2021",
+        "dateModification": "02/11/2021",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -9925,6 +9968,32 @@
       }
     },
     "3F2": {
+      "3F20-1": {
+        "id": "3F20-1",
+        "uuid": "20d20",
+        "url": "3e/3F20-1.js",
+        "titre": "Fonctions affines",
+        "datePublication": "08/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCHybride"
+        }
+      },
+      "3F20-2": {
+        "id": "3F20-2",
+        "uuid": "17c65",
+        "url": "3e/3F20-2.js",
+        "titre": "Fonctions affines et/ou linéaires",
+        "datePublication": "21/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCHybride"
+        }
+      },
       "3F20": {
         "id": "3F20",
         "uuid": "aeb5a",
@@ -9935,7 +10004,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCNum"
+          "amcType": "AMCHybride"
         }
       },
       "3F21-1": {
@@ -9966,6 +10035,7 @@
         "uuid": "056fa",
         "url": "3e/3F21-3.js",
         "titre": "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine",
+        "dateModification": "08/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -10306,6 +10376,7 @@
         "url": "3e/3G41.js",
         "titre": "Dessiner différentes vues d'un empilement de cubes",
         "datePublication": "06/10/2022",
+        "dateModification": "06/10/2022",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10386,6 +10457,7 @@
         "url": "3e/3I12-1.js",
         "titre": "Compléter un script Scratch - 1",
         "datePublication": "20/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -10397,6 +10469,7 @@
         "url": "3e/3I12-2.js",
         "titre": "Comprendre un script Scratch - 1",
         "datePublication": "20/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10408,6 +10481,7 @@
         "url": "3e/3I12-3.js",
         "titre": "Compléter un script Scratch - 2",
         "datePublication": "22/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCOpen"
@@ -10419,6 +10493,7 @@
         "url": "3e/3I12-4.js",
         "titre": "Comprendre un script Scratch - 2",
         "datePublication": "23/09/2022",
+        "dateModification": "08/05/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -10825,7 +10900,8 @@
         "id": "2F10-2",
         "uuid": "93f13",
         "url": "2e/2F10-2.js",
-        "titre": "Lecture graphique d'une fonction affine",
+        "titre": "Donner l'expression d'une fonction affine graphiquement",
+        "dateModification": "25/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10844,8 +10920,11 @@
         "id": "2F10-4",
         "uuid": "ef897",
         "url": "2e/2F10-4.js",
-        "titre": "Déterminer une fonction affine à partir de deux images",
-        "tags": {}
+        "titre": "Déterminer une fonction affine",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2F10-5": {
         "id": "2F10-5",
@@ -10868,6 +10947,17 @@
         "titre": "Dresser et utiliser le tableau de signes d'une fonction affine en lien avec son sens de variation",
         "datePublication": "01/10/2022",
         "tags": {}
+      },
+      "2F10-8": {
+        "id": "2F10-8",
+        "uuid": "c1961",
+        "url": "2e/2F10-8.js",
+        "titre": "Faire un bilan sur les fonctions affines et/ou linéaires",
+        "datePublication": "17/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2F11-1": {
         "id": "2F11-1",
@@ -10980,10 +11070,13 @@
         "id": "2F31-3",
         "uuid": "c705b",
         "url": "2e/2F31-3.js",
-        "titre": "Comparaison d'images dans un tableau de variations",
+        "titre": "Comparer des images dans un tableau de variations",
         "datePublication": "25/10/2021",
-        "dateModification": "24/10/2021",
-        "tags": {}
+        "dateModification": "17/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm"
+        }
       },
       "2F32-2": {
         "id": "2F32-2",
@@ -11403,7 +11496,7 @@
         "id": "2N30-1",
         "uuid": "45726",
         "url": "2e/2N30-1.js",
-        "titre": "Décomposer une fraction (partie entière +fraction inférieure à 1) puis donner l'écriture décimale",
+        "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11576,6 +11669,17 @@
         "url": "2e/2N32-7.js",
         "titre": "Rendre entier le dénominateur d'une fraction",
         "tags": {}
+      },
+      "2N32-8": {
+        "id": "2N32-8",
+        "uuid": "99c84",
+        "url": "2e/2N32-8.js",
+        "titre": "Encadrer une racine carrée",
+        "datePublication": "09/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "2N4": {
@@ -11840,10 +11944,7 @@
         "url": "2e/2N52-5.js",
         "titre": "Résoudre des équations avec un quotient",
         "datePublication": "02/05/2023",
-        "tags": {
-          "interactif": true,
-          "interactifType": "mathLive"
-        }
+        "tags": {}
       }
     },
     "2N6": {
@@ -11869,6 +11970,19 @@
         "url": "2e/2N60-4.js",
         "titre": "Inéquation du premier degré",
         "tags": {}
+      },
+      "2N60-5": {
+        "id": "2N60-5",
+        "uuid": "2844c",
+        "url": "2e/2N60-5.js",
+        "titre": "Montrer qu'un nombre est ou n'est pas solution d'une inéquation",
+        "datePublication": "22/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm",
+          "amc": true,
+          "amcType": "qcmMono"
+        }
       },
       "2N61-2": {
         "id": "2N61-2",
@@ -11912,6 +12026,17 @@
           "interactifType": "mathLive",
           "amc": true,
           "amcType": "AMCNum"
+        }
+      },
+      "2S10-3": {
+        "id": "2S10-3",
+        "uuid": "0f1d1",
+        "url": "2e/2S10-3.js",
+        "titre": "Travailler sur des situations mettant en jeu des pourcentages de pourcentages",
+        "datePublication": "10/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
         }
       },
       "2S11-1": {
@@ -12237,7 +12362,6 @@
         "url": "1e/1G10.js",
         "titre": "Valeurs remarquables du cosinus et sinus",
         "datePublication": "16/04/2022",
-        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12249,7 +12373,6 @@
         "url": "1e/1G11.js",
         "titre": "Mesure principale d'un angle",
         "datePublication": "20/04/2022",
-        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -12261,7 +12384,6 @@
         "url": "1e/1G12.js",
         "titre": "cos et sin associés à un réel x ",
         "datePublication": "20/04/2022",
-        "dateModification": "",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"

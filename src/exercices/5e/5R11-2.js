@@ -117,7 +117,8 @@ export default function PlacerPointsSurAxeRelatifs () {
       if (this.interactif && !context.isAmc) {
         for (let indicePoint = 0, monPoint, dist; indicePoint < 70; indicePoint++) {
           dist = abs0 + indicePoint / pas1 / pas2
-          monPoint = pointCliquable(changeCoord(dist, abs0, pas1), 0, { size: 3, width: 2, color: 'blue', radius: 0.15 })
+          monPoint = pointCliquable(changeCoord(dist, abs0, pas1), 0, { size: 5, width: 2, color: 'blue', radius: 0.15 })
+          monPoint.etat = false
           objets.push(monPoint)
           if (egal(dist, abs1) || egal(dist, abs2) || egal(dist, abs3)) {
             pointsSolutions[i].push(monPoint)
@@ -141,6 +142,7 @@ export default function PlacerPointsSurAxeRelatifs () {
       const t1 = tracePoint(A, 'blue')
       const t2 = tracePoint(B, 'blue')
       const t3 = tracePoint(C, 'blue')
+      const noms = labelPoint(A, B, C)
       t1.taille = 5
       t1.epaisseur = 2
       t2.taille = 5
@@ -148,14 +150,14 @@ export default function PlacerPointsSurAxeRelatifs () {
       t3.taille = 5
       t3.epaisseur = 2
 
-      texte = `Placer les points : $${l1}(${texNombre(abs1)}), ${l2}(${texNombre(abs2)}), ${l3}(${texNombre(abs3)})$<br>`
+      texte = `Placer les points : $${l1}(${texNombre(abs1)}), ${l2}(${texNombre(abs2)}), ${l3}(${texNombre(abs3)})$.<br>`
       texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
       if (this.interactif && !context.isAmc) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
 
       objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
-      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, axeGradue, t1, t2, t3)
+      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, axeGradue, t1, t2, t3, noms)
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

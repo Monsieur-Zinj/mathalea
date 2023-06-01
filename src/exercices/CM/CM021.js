@@ -1,5 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, range1, shuffle, combinaisonListes, calcul } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  range1,
+  shuffle,
+  combinaisonListes,
+  calcul,
+  gestionnaireFormulaireTexte
+} from '../../modules/outils.js'
 
 export const titre = 'Le compte est bon original'
 
@@ -20,23 +28,8 @@ export default function CompteEstBon () {
   this.sup = 1 // niveau de calcul souhaité
 
   this.nouvelleVersion = function () {
-    let typesDeQuestions, a, b, c, d, cible, tirage
-    if (!this.sup) {
-      // Si rien n'est saisi
-      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-        typesDeQuestions = combinaisonListes(
-          [parseInt(this.sup)],
-          this.nbQuestions
-        )
-      } else {
-        typesDeQuestions = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestions.length; i++) { typesDeQuestions[i] = parseInt(typesDeQuestions[i]) }
-        this.nbQuestions = typesDeQuestions.length
-      }
-    }
+    let a, b, c, d, cible, tirage
+    const typesDeQuestions = gestionnaireFormulaireTexte(({ saisie: this.sup, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions }))
     const choix = combinaisonListes(range1(5), this.nbQuestions)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -155,7 +148,7 @@ export default function CompteEstBon () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Niveaux de difficultés (1 à 3)',
-    'Nombres séparés par des tirets'
+    'Niveaux de difficultés nombres de 1 à 3 séparés par des tirets',
+    '1: Avec 10 et 100\n2 : Avec 10 et de quoi faire facilement 100\n3 : Avec des calculs imbriqués\n4 : Mélange'
   ] // Texte, tooltip
 }

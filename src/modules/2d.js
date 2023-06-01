@@ -5341,7 +5341,7 @@ export function CibleCouronne ({
       objets.push(rayons[j - 1])
     }
     if (label) {
-      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu')
+      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'black', 1, 'middle', true)
       numero.contour = true
       objets.push(numero)
     }
@@ -6601,7 +6601,7 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
     if (label !== '') {
       mesureAngleString = label
     } else {
-      mesureAngleString = Math.round(mesureAngle).toString() + '\\degree'
+      mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '\\degree'
     }
     const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
     const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)

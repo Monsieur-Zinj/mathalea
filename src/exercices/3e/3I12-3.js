@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, compteOccurences, contraindreValeur, enleveDoublonNum, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, randint, range1, shuffle } from '../../modules/outils.js'
+import { choice, compteOccurences, contraindreValeur, enleveDoublonNum, gestionnaireFormulaireTexte, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, randint, range1 } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Compléter un script Scratch - 2'
@@ -7,6 +7,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export const dateDePublication = '22/09/2022'
+export const dateDeModifImportante = '08/05/2023' // par EE : Le nb de questions peut être supérieur à 1.
 
 /**
  * Compléter un script sur les multiples et diviseurs
@@ -16,17 +17,15 @@ export const uuid = '52c97'
 export const ref = '3I12-3'
 export default function CompleterScriptDiviseurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = '1-2-3-4-5-6-7-8-9-10'
+  this.sup = 11
   this.sup2 = 3
   this.sup3 = 5
   this.sup4 = 4
   this.spacing = 2
   this.nbQuestions = 1
-  this.titre = titre
   this.typeExercice = 'Scratch'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.nbQuestionsModifiable = false
   this.listePackages = 'scratch3'
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
@@ -42,8 +41,8 @@ export default function CompleterScriptDiviseurs () {
     this.consigne += nbBriquesATrouver > 1 ? 'les briques manquantes.' : 'la brique manquante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    /*
     let briquesATrouver = []
-    let optionsBriques = []
     if (!this.sup) { // Si aucune liste n'est saisie
       briquesATrouver = shuffle(range1(10)).slice(0, nbBriquesATrouver)
     } else {
@@ -68,6 +67,19 @@ export default function CompleterScriptDiviseurs () {
         }
       }
     }
+    */
+
+    let briquesATrouver = gestionnaireFormulaireTexte({
+      max: 10,
+      defaut: 11,
+      melange: 11,
+      nbQuestions: 1,
+      saisie: this.sup
+    })
+
+    briquesATrouver.push(...range1(10))
+    briquesATrouver = enleveDoublonNum(briquesATrouver).slice(0, nbBriquesATrouver)
+
     const choixLigne2a = compteOccurences(briquesATrouver, 1) > 0
     const choixLigne2b = compteOccurences(briquesATrouver, 2) > 0
     const choixLigne4 = compteOccurences(briquesATrouver, 3) > 0
@@ -79,6 +91,8 @@ export default function CompleterScriptDiviseurs () {
     const choixLigne7a = compteOccurences(briquesATrouver, 9) > 0
     const choixLigne7b = compteOccurences(briquesATrouver, 10) > 0
 
+    /*
+    let optionsBriques = []
     if (!this.sup3) { // Si aucune liste n'est saisie
       optionsBriques = [randint(1, 4)]
     } else {
@@ -95,7 +109,17 @@ export default function CompleterScriptDiviseurs () {
       }
     }
     const briqueInitiale = optionsBriques[0]
+    */
 
+    const briqueInitiale = gestionnaireFormulaireTexte({
+      max: 4,
+      defaut: 5,
+      melange: 5,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup2
+    })
+
+    /*
     optionsBriques = []
     if (!this.sup4) { // Si aucune liste n'est saisie
       optionsBriques = [randint(1, 3)]
@@ -113,100 +137,113 @@ export default function CompleterScriptDiviseurs () {
       }
     }
     const choixScript = optionsBriques[0]
+    */
 
-    const tableauTouches = []
-    for (let i = 1; i < 27; i++) tableauTouches.push(String.fromCharCode(64 + i).toLowerCase())
-    for (let i = 0; i < 10; i++) tableauTouches.push(i)
-    tableauTouches.push('espace')
-    tableauTouches.push('flèche haut')
-    tableauTouches.push('flèche bas')
-    tableauTouches.push('flèche droite')
-    tableauTouches.push('flèche gauche')
-    const touchePressee = choice(tableauTouches)
+    const choixScript = gestionnaireFormulaireTexte({
+      max: 3,
+      defaut: 4,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup3
+    })
 
-    const nb1 = randint(1, 26, [23, 9, 15, 17]) // Pour éviter I,O,Q et W
-    const var1 = lettreDepuisChiffre(nb1)
-    let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=1]\n'
-    switch (briqueInitiale) {
-      case 1 :
-        texteScratch += '\\blockinit{quand \\greenflag est cliqué}\n'
-        break
-      case 2 :
-        texteScratch += '\\blockinit{quand ce sprite est cliqué}\n'
-        break
-      case 3 :
-        texteScratch += `\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`
-        break
-      case 4 :
-        texteScratch += '\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n'
-        break
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const tableauTouches = []
+      for (let i = 1; i < 27; i++) tableauTouches.push(String.fromCharCode(64 + i).toLowerCase())
+      for (let i = 0; i < 10; i++) tableauTouches.push(i)
+      tableauTouches.push('espace')
+      tableauTouches.push('flèche haut')
+      tableauTouches.push('flèche bas')
+      tableauTouches.push('flèche droite')
+      tableauTouches.push('flèche gauche')
+      const touchePressee = choice(tableauTouches)
+
+      const nb1 = randint(1, 26, [23, 9, 15, 17]) // Pour éviter I,O,Q et W
+      const var1 = lettreDepuisChiffre(nb1)
+      let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=1]\n'
+      switch (briqueInitiale[i]) {
+        case 1 :
+          texteScratch += '\\blockinit{quand \\greenflag est cliqué}\n'
+          break
+        case 2 :
+          texteScratch += '\\blockinit{quand ce sprite est cliqué}\n'
+          break
+        case 3 :
+          texteScratch += `\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`
+          break
+        case 4 :
+          texteScratch += '\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n'
+          break
+      }
+      const texteSansTrou = [texteScratch]
+      texteSansTrou.push(`\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalnum{1}}\n`)
+      texteScratch += `\\blockvariable{mettre \\selectmenu{${choixLigne2a ? ' ................ ' : var1}} à ${choixLigne2b ? '\\ovalnum{ ................ }' : '\\ovalnum{1}'}}\n`
+
+      texteSansTrou.push('\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n')
+      texteScratch += texteSansTrou[2]
+
+      texteSansTrou.push('\\blockrepeat{répéter \\ovalsensing{réponse} fois}\n{\n')
+      texteScratch += choixLigne4
+        ? '\\blockrepeat{répéter \\ovalnum{ ................ } fois}\n{\n'
+        : texteSansTrou[3]
+
+      texteSansTrou.push(`\\blockif{si \\booloperator{\\ovaloperator{\\ovalsensing{réponse} modulo \\ovalmove{${var1}}} = \\ovalnum{0}} alors}\n`)
+
+      texteScratch += '\\blockif{si \\booloperator{\\ovaloperator{'
+      texteScratch += choixLigne5a ? '\\ovalnum{ ................ }' : '\\ovalsensing{réponse}'
+      texteScratch += ' modulo '
+      texteScratch += choixLigne5b ? '\\ovalnum{ ................ }' : `\\ovalmove{${var1}}`
+      texteScratch += '} =  '
+      texteScratch += choixLigne5c ? '\\ovalnum{ ................ }}' : '\\ovalnum{0}}'
+      texteScratch += '  alors}\n'
+
+      switch (choixScript[i]) {
+        case 1 : // .... est un multiple de ....
+          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalsensing{réponse} et \\ovaloperator{regrouper \\ovalnum{ est un multiple de } et \\ovalmove{${var1}}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`)
+          texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalsensing{réponse}'} et \\ovaloperator{regrouper \\ovalnum{${choixLigne6Centre ? ' ................ ' : ' est un multiple de '}} et ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalmove{' + var1 + '}'}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
+          break
+        case 2 : // .... divise ....
+          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ divise } et \\ovalsensing{réponse}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`)
+          texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalmove{' + var1 + '}'} et \\ovaloperator{regrouper \\ovalnum{${choixLigne6Centre ? ' ................ ' : ' divise '}} et ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalsensing{réponse}'}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
+          break
+        case 3 : // .... est un diviseur de  ....
+          texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ est un diviseur de } et \\ovalsensing{réponse}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`)
+          texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalmove{' + var1 + '}'} et \\ovaloperator{regrouper \\ovalnum{${choixLigne6Centre ? ' ................ ' : ' est un diviseur de '}} et ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalsensing{réponse}'}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
+          break
+      }
+      texteSansTrou.push(`\\blockvariable{ajouter \\ovalnum{1} à \\selectmenu{${var1}}}\n`)
+      texteScratch += `\\blockvariable{ajouter ${choixLigne7a ? '\\ovalnum{ ................ }' : '\\ovalnum{1}'} à \\selectmenu{${choixLigne7b ? ' ................ ' : var1}}}\n`
+
+      texteSansTrou.push('}\n\\end{scratch}')
+
+      texteScratch += texteSansTrou[7]
+      texteScratch = scratchblock(texteScratch)
+
+      texte = texteScratch
+      texteCorr = scratchblock(texteSansTrou.join(''))
+
+      if (context.isAmc) {
+        this.autoCorrection = [{
+          enonce: this.consigne + '<br>' + texte + '<br>',
+          propositions: [{ statut: 3, sanscadre: true }]
+        }]
+      }
+
+      if (this.questionJamaisPosee(i, texte)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
-    const texteSansTrou = [texteScratch]
-    texteSansTrou.push(`\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalnum{1}}\n`)
-    texteScratch += `\\blockvariable{mettre \\selectmenu{${choixLigne2a ? ' ................ ' : var1}} à ${choixLigne2b ? '\\ovalnum{ ................ }' : '\\ovalnum{1}'}}\n`
-
-    texteSansTrou.push('\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n')
-    texteScratch += texteSansTrou[2]
-
-    texteSansTrou.push('\\blockrepeat{répéter \\ovalsensing{réponse} fois}\n{\n')
-    texteScratch += choixLigne4
-      ? '\\blockrepeat{répéter \\ovalnum{ ................ } fois}\n{\n'
-      : texteSansTrou[3]
-
-    texteSansTrou.push(`\\blockif{si \\booloperator{\\ovaloperator{\\ovalsensing{réponse} modulo \\ovalmove{${var1}}} = \\ovalnum{0}} alors}\n`)
-
-    texteScratch += '\\blockif{si \\booloperator{\\ovaloperator{'
-    texteScratch += choixLigne5a ? '\\ovalnum{ ................ }' : '\\ovalsensing{réponse}'
-    texteScratch += ' modulo '
-    texteScratch += choixLigne5b ? '\\ovalnum{ ................ }' : `\\ovalmove{${var1}}`
-    texteScratch += '} =  '
-    texteScratch += choixLigne5c ? '\\ovalnum{ ................ }}' : '\\ovalnum{0}}'
-    texteScratch += '  alors}\n'
-
-    switch (choixScript) {
-      case 1 : // .... est un multiple de ....
-        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalsensing{réponse} et \\ovaloperator{regrouper \\ovalnum{ est un multiple de } et \\ovalmove{${var1}}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`)
-        texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalsensing{réponse}'} et \\ovaloperator{regrouper \\ovalnum{${choixLigne6Centre ? ' ................ ' : ' est un multiple de '}} et ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalmove{' + var1 + '}'}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
-        break
-      case 2 : // .... divise ....
-        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ divise } et \\ovalsensing{réponse}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`)
-        texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalmove{' + var1 + '}'} et \\ovaloperator{regrouper \\ovalnum{${choixLigne6Centre ? ' ................ ' : ' divise '}} et ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalsensing{réponse}'}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
-        break
-      case 3 : // .... est un diviseur de  ....
-        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ est un diviseur de } et \\ovalsensing{réponse}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`)
-        texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalmove{' + var1 + '}'} et \\ovaloperator{regrouper \\ovalnum{${choixLigne6Centre ? ' ................ ' : ' est un diviseur de '}} et ${choixLigne6Extremes ? '\\ovalnum{ ................ }' : '\\ovalsensing{réponse}'}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
-        break
-    }
-    texteSansTrou.push(`\\blockvariable{ajouter \\ovalnum{1} à \\selectmenu{${var1}}}\n`)
-    texteScratch += `\\blockvariable{ajouter ${choixLigne7a ? '\\ovalnum{ ................ }' : '\\ovalnum{1}'} à \\selectmenu{${choixLigne7b ? ' ................ ' : var1}}}\n`
-
-    texteSansTrou.push('}\n\\end{scratch}')
-
-    texteScratch += texteSansTrou[7]
-    texteScratch = scratchblock(texteScratch)
-
-    const texte = texteScratch
-    const texteCorr = scratchblock(texteSansTrou.join(''))
-
-    if (context.isAmc) {
-      this.autoCorrection = [{
-        enonce: this.consigne + '<br>' + texte + '<br>',
-        propositions: [{ statut: 3, sanscadre: true }]
-      }]
-    }
-
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
     'Brique(s) à trouver',
-    'Nombres séparés par des tirets\n1 : Ligne 2 (variable)\n2 : Ligne 2 (nombre)\n3 : Ligne 4\n4 : Ligne 5 (réponse)\n5 : Ligne 5 (variable)\n6 : Ligne 5 (nombre)\n7 : Ligne 6 (variable et réponse)\n8 : Ligne 6 (mot(s))\n9 : Ligne 7 (nombre)\n10 : Ligne 7 (variable)'
+    'Nombres séparés par des tirets\n1 : Ligne 2 (variable)\n2 : Ligne 2 (nombre)\n3 : Ligne 4\n4 : Ligne 5 (réponse)\n5 : Ligne 5 (variable)\n6 : Ligne 5 (nombre)\n7 : Ligne 6 (variable et réponse)\n8 : Ligne 6 (mot(s))\n9 : Ligne 7 (nombre)\n10 : Ligne 7 (variable)\n11 : Tous ces choix'
   ]
-  this.besoinFormulaire2Numerique = [
-    'Nombre de briques à trouver', 10,
-    'Choix entre 1 et 10.\nSi ce choix est inférieur au nombre de briques à trouver, alors les briques seront choisies aléatoirement parmi celles à trouver.\nSi ce choix est supérieur au nombre de briques à trouver, alors les briques à trouver seront complétées par des briques choisies aléatoirement parmi les restantes.'
-  ]
+  // 'Choix entre 1 et 10. Si ce choix est inférieur au nombre de briques à trouver, alors les briques seront choisies aléatoirement parmi celles à trouver. Si ce choix est supérieur au nombre de briques à trouver, alors les briques à trouver seront complétées par des briques choisies aléatoirement parmi les restantes.'
+  this.besoinFormulaire2Numerique = ['Nombre de briques à trouver', 10]
   this.besoinFormulaire3Texte = [
     'Choix sur la brique intiale',
     'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'

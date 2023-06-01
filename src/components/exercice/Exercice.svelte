@@ -2,9 +2,8 @@
   import { mathaleaHandleParamOfOneExercice, mathaleaLoadExerciceFromUuid } from "../../lib/mathalea"
   import { onMount, SvelteComponent } from "svelte"
   import { globalOptions } from "../store"
-    import type { InterfaceParams } from "src/lib/types";
+  import type { InterfaceParams } from "src/lib/types"
 
-  // paramsExercice est de type {url, nbQuestions, sup, sup2, sup3, sup4, duration}
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -27,13 +26,14 @@
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
       exercice.numeroExercice = indiceExercice
-      if (exercice.typeExercice && exercice.typeExercice.includes('html')) {
+      if (exercice.typeExercice && exercice.typeExercice.includes("html")) {
+        mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
         optionsComponent = { exercice }
         ComponentExercice = (await import("./ExerciceHtml.svelte")).default
       } else {
         mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
         if (paramsExercice.duration) exercice.duree = paramsExercice.duration
-        optionsComponent = { exercice }
+        optionsComponent = { exercice, isCorrectionVisible }
         if ($globalOptions.v === "eleve") {
           ComponentExercice = (await import("./ExerciceVueEleve.svelte")).default
         } else {
@@ -43,21 +43,21 @@
     }
   })
 
-function handleStringFromUrl (text: string): boolean|number|string {
-  if (text === 'true' || text === 'false') {
-    // "true"=>true
-    return text === 'true'
-  } else if (/^\d+$/.test(text)) {
-    // "17"=>17
-    return parseInt(text)
-  } else {
-    return text
+  function handleStringFromUrl(text: string): boolean | number | string {
+    if (text === "true" || text === "false") {
+      // "true"=>true
+      return text === "true"
+    } else if (/^\d+$/.test(text)) {
+      // "17"=>17
+      return parseInt(text)
+    } else {
+      return text
+    }
   }
-}
 </script>
 
 <div class="z-0 flex-1">
-  <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} {isCorrectionVisible} />
+  <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} />
 </div>
 
 <style>

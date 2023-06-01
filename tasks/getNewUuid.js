@@ -5,6 +5,7 @@
 
 import fs from 'fs'
 import path from 'path'
+import { uuidOk } from './fileCheck.js'
 
 /**
  * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités)
@@ -48,11 +49,7 @@ for (let url of allExercices) {
   url = '../' + url
   try {
     const { uuid } = await import(url)
-    if (uuid === undefined) {
-      console.log(url + 'n\'a pas d\'UUID')
-    } else if (uuids.has(uuid)) {
-      console.log(uuid + ' en doublon !!!!!!!')
-    }
+    uuidOk(uuid, url)
     uuids.add(uuid)
   } catch (error) {
     console.log(error)
@@ -65,4 +62,6 @@ while (uuids.has(uuid)) {
   uuid = createUuid
 }
 console.log(errors)
-console.log(uuid)
+console.log('Le nouvel uuid généré est :', uuid)
+console.log('Vous pouvez maintenant ajouter la ligne suivante au nouvel exercice :')
+console.log(`export const uuid = '${uuid}'`)

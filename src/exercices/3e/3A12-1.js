@@ -45,7 +45,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const listeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, random: 4, defaut: 4, nbQuestions: this.nbQuestions, shuffle: false })
+    const listeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, shuffle: false })
 
     const nombrePremier = [2, 3, 5, 7, 11]
 

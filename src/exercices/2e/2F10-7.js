@@ -68,7 +68,7 @@ export default function SignefonctionaffineVariation () {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
 
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
               tabInit: [
                 [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -144,7 +144,7 @@ export default function SignefonctionaffineVariation () {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
 
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
               tabInit: [
                 [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -183,7 +183,7 @@ export default function SignefonctionaffineVariation () {
             ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
           }
 
-          texte += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texte += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
             tabInit: [
               [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

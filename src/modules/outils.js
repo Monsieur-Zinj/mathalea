@@ -297,6 +297,7 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
  * @param {number | undefined} melange la valeur utilisée pour l'option mélange
  * @param {boolean} [enleveDoublons=false]  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
+ * @param {number[]} exclus liste de valeurs à exclure entre min et max
  */
 export function gestionnaireFormulaireTexte ({
   saisie,
@@ -307,11 +308,16 @@ export function gestionnaireFormulaireTexte ({
   shuffle = true,
   nbQuestions,
   melange,
-  enleveDoublons = false
+  enleveDoublons = false,
+  exclus
 } = {}) {
+  if (exclus) {
+    exclus = exclus.filter((element) => element >= min && element <= max)
+  }
   if (max == null || isNaN(max) || max < min) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre max de type number')
-  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error('La fonction gestionnaireFormulaireTexte réclame un paramètre defaut compris entre min(1) et max')
-  let listeIndex
+  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error(`La fonction gestionnaireFormulaireTexte réclame un paramètre defaut (ici, ${defaut}) compris entre min (ici, ${min}) et max (ici, ${max})`)
+  let listeIndex, listeIndexProvisoire
+  listeIndex = []
 
   if (!saisie) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
@@ -319,18 +325,19 @@ export function gestionnaireFormulaireTexte ({
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
       listeIndex = [contraindreValeur(min, Math.max(max, melange ?? max), saisie, defaut)]
     } else {
-      listeIndex = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-      if (listeIndex[listeIndex.length - 1] === '') {
-        listeIndex.pop()
-      }
-      for (let i = 0; i < listeIndex.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        listeIndex[i] = contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
+      listeIndexProvisoire = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      for (let i = 0; i < listeIndexProvisoire.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+        if (!isNaN(parseInt(listeIndexProvisoire[i]))) { listeIndex.push(contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut)) } // parseInt en fait un tableau d'entiers
       }
     }
   }
   if (melange != null && compteOccurences(listeIndex, melange)) {
     listeIndex = rangeMinMax(min, max)
   }
+  if (exclus && exclus.length > 0) {
+    listeIndex = listeIndex.filter((element) => !exclus.includes(element))
+  }
+
   listeIndex = shuffle ? combinaisonListes(listeIndex, nbQuestions) : combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
 
   const Max = Math.max(...listeIndex)
@@ -473,9 +480,9 @@ export function ecrireNombre2D (x, y, n) {
 export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
   let result = []
   let temp = []
-  for (const i in E1) {
-    for (const j in E2) {
-      result.push([E1[i], E2[j]])
+  for (const i of E1) {
+    for (const j of E2) {
+      result.push([i, j])
     }
   }
 
@@ -922,6 +929,16 @@ export function tridictionnaire (dict) {
   }
 
   return tempDict
+}
+
+/**
+ * Supprime les valeurs d'en array et renvoie l'array filtré
+ * @param {any[]} valeurs à supprimer de l'array
+ * @param {any[]} array à filtrer
+ * @returns array filtré
+ */
+export function filtrer (valeurs, array) {
+  return array.filter((valeur) => !valeurs.includes(valeur))
 }
 
 /**
@@ -1876,6 +1893,7 @@ export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
  * @returns {number[]} - Liste des facteurs premiers
  */
 export function obtenirListeFacteursPremiers (n) {
+  if (n === 1 || n === 0) return [] // 1 n'est pas premier, mais, sinon, ça retourne [NaN]
   const facteurs = []
   const signe = n < 0 ? -1 : 1
   for (let i = 2; i <= Math.abs(n); i++) {
@@ -1896,6 +1914,7 @@ export function obtenirListeFacteursPremiers (n) {
  */
 
 export function factorisation (n) {
+  if (n === 1) return [1]
   const liste = obtenirListeFacteursPremiers(n)
   const facto = []
   let index = 0
@@ -1949,6 +1968,7 @@ export function texFactorisation (n, puissancesOn = true) {
  * @author Jean-Claude Lhote
  */
 export function extraireRacineCarree (n) {
+  if (n === 1) return [[1], [1]]
   const facto = factorisation(n)
   let radical = 1
   let facteur = 1
@@ -2663,7 +2683,7 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tai
   // Pour diapCorr, on numérote les questions même si un exercice n'en comporte qu'une
   if (liste.length > 1 || context.vue === 'diapCorr') {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};" ${classeOl ? `class = ${classeOl}` : ''}>` : result = `<ol ${classeOl ? `class = ${classeOl}` : ''}>`
-    for (const i in liste) {
+    for (let i = 0; i < liste.length; i++) {
       result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''} ${dataTaille(tailleDiaporama)}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
     result += '</ol>'

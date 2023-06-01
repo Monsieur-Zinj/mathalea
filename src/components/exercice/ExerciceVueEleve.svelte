@@ -11,6 +11,7 @@
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   import type { MathfieldElement } from "mathlive"
+  import { sendToCapytaleSaveStudentAssignment } from "../../lib/handleCapytale"
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -43,17 +44,17 @@
   }
 
   if ($globalOptions.recorder !== undefined) {
-    headerExerciceProps.randomReady = false
+    // headerExerciceProps.randomReady = false
     interactifReady = false
   }
 
   $: {
     if (isInteractif && buttonScore) initButtonScore()
 
-    if (!$globalOptions.isSolutionAccessible) {
-      headerExerciceProps.correctionReady = false
-      headerExerciceProps.randomReady = false
-    }
+    // if (!$globalOptions.isSolutionAccessible) {
+    //   headerExerciceProps.correctionReady = false
+    //   headerExerciceProps.randomReady = false
+    // }
     // headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps = headerExerciceProps
   }
@@ -167,9 +168,13 @@
       }
       return l
     })
-    const url = new URL(window.location.href)
-    const iframe = url.searchParams.get("iframe")
-    window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: "mathalea:score", iframe }, "*")
+    if ($globalOptions.recorder === "moodle") {
+      const url = new URL(window.location.href)
+      const iframe = url.searchParams.get("iframe")
+      window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: "mathalea:score", iframe }, "*")
+    } else if ($globalOptions.recorder === "capytale") {
+      sendToCapytaleSaveStudentAssignment()
+    }
   }
 
   function initButtonScore() {
@@ -280,7 +285,7 @@
           </div>
         {/if}
         <button
-          class="mx-2 tooltip tooltip-right"
+          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "ml-2 tooltip tooltip-right " : "hidden"}
           data-tip="Nouvel énoncé"
           type="button"
           on:click={() => {
@@ -290,7 +295,7 @@
           <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
         </button>
         <button
-          class="w-5 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && headerExerciceProps.interactifReady ? '' : 'hidden'}"
+          class={$globalOptions.isInteractiveFree && exercice.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={() => {
@@ -325,15 +330,6 @@
               </p>
             </div>
           {/if}
-          {#if isCorrectionVisible}
-            <div
-              class="{exercice.consigneCorrection.length !== 0
-                ? ''
-                : 'hidden'} bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2 ml-2 lg:mx-5"
-            >
-              {@html exercice.consigneCorrection}
-            </div>
-          {/if}
         </div>
         <div style="columns: {columnsCount.toString()}">
           <ul
@@ -351,6 +347,16 @@
                     class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
                     id="correction${indiceExercice}Q${i}"
                   >
+                    <div
+                      class={exercice.consigneCorrection.length !== 0 ? "container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3" : "hidden"}
+                    >
+                      <div class="{exercice.consigneCorrection.length !== 0 ? 'container absolute top-4 -left-4' : 'hidden'} ">
+                        <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                      </div>
+                      <div class="">
+                        {@html exercice.consigneCorrection}
+                      </div>
+                    </div>
                     <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
                       {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                     </div>

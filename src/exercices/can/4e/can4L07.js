@@ -35,7 +35,7 @@ export default function ReduireExp () {
           this.question = `Écrire le plus simplement possible : <br>
           
           $${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}$.`
-          this.correction = `$${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}=(${a}+${b})x+${c}=${texNombre(calcul(a + b))}x+${texNombre(c)}$=`
+          this.correction = `$${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}=(${a}+${b})x+${c}=${texNombre(calcul(a + b))}x+${texNombre(c)}$`
           this.reponse = printlatex(`${texNombre(calcul(a + b))}x+${texNombre(c)}`)
         }
         if (choix === 2) {

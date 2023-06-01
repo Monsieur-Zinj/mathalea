@@ -68,6 +68,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
     const unite = 'm'
     const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
     const listeDeK = combinaisonListes([0, 1, 2], this.nbQuestions)
+    let hectare = false
     for (let i = 0,
       a,
       k,
@@ -89,6 +90,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
       } else {
         typesDeQuestions = randint(1, 5)
       }
+      hectare = hectare || typesDeQuestions === 5
       // k = randint(0,2); // Choix du préfixe
       k = listeDeK[i]
       if (typesDeQuestions === 1) {
@@ -136,10 +138,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
           [' k', '\\times100\\times100\\times100', 1000000]
         ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
         resultat = a.mul(prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        resultat2 = resultat.div(10)
-        resultat3 = resultat.mul(10)
-        resultat4 = resultat.mul(100)
-        resultat5 = resultat.div(100)
         texte =
           '$ ' +
           texNombre(a, 2) +
@@ -165,7 +163,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeMulti[k][2]
-        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, true)
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, 2, true)
       } else if (div && typesDeQuestions < 4) {
         /* prefixeDiv = [
           [' d', '\\div10\\div10', 100],
@@ -179,10 +177,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
         ]
         k = randint(0, 1) // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
         resultat = a.div(prefixeDiv[k][2]) // Attention aux notations scientifiques pour 10e-8
-        resultat2 = resultat.div(10)
-        resultat3 = resultat.mul(10)
-        resultat4 = resultat.mul(100)
-        resultat5 = resultat.div(100)
         texte =
           '$ ' +
           texNombre(a, 2) +
@@ -208,7 +202,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeDiv[k][2]
-        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, true)
+        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, 2, true)
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
         let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l'un à l'autre
@@ -218,10 +212,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
         const unite2 = unite1 + ecart
         if (randint(0, 1) > 0) {
           resultat = a.mul(Math.pow(10, 2 * ecart))
-          resultat2 = resultat.div(10)
-          resultat3 = resultat.mul(10)
-          resultat4 = resultat.mul(100)
-          resultat5 = resultat.div(100)
           texte =
             '$ ' +
             texNombre(a, 2) +
@@ -248,13 +238,9 @@ export default function ExerciceConversionsAires (niveau = 1) {
             '^2' +
             '$'
           prefixe = Math.pow(10, 2 * ecart)
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], true)
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], 2, true)
         } else {
           resultat = a.div(Math.pow(10, 2 * ecart))
-          resultat2 = resultat.div(10)
-          resultat3 = resultat.div(100)
-          resultat4 = resultat.mul(10)
-          resultat5 = resultat.mul(100)
           texte =
             '$ ' +
             texNombre(a, 2) +
@@ -281,24 +267,15 @@ export default function ExerciceConversionsAires (niveau = 1) {
             '^2' +
             '$'
           prefixe = Math.pow(10, 2 * ecart)
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], true)
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], 2, true)
         }
       } else if (typesDeQuestions === 5) {
-        // Pour typesDeQuestions==5
-        /* prefixeMulti = [
-          ['ha', '\\times100\\times100', 10000],
-          ['a', '\\times10\\times10', 100]
-        ] */
         prefixeMulti = [
           ['ha', '\\times100\\times100', 10000],
           ['a', '\\times100', 100]
         ]
         k = randint(0, 1)
         resultat = a.mul(prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        resultat2 = resultat.div(10)
-        resultat3 = resultat.mul(10)
-        resultat4 = resultat.mul(100)
-        resultat5 = resultat.div(100)
         texte =
           '$ ' +
           texNombre(a, 2) +
@@ -322,9 +299,14 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeMulti[k][2]
-        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite, true)
+        //    texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite, true, false, true)
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite, 2, true, false, true)
       }
       this.autoCorrection[i].enonce = `${texte}\n`
+      resultat2 = resultat.div(10)
+      resultat3 = resultat.mul(10)
+      resultat4 = resultat.mul(100)
+      resultat5 = resultat.div(100)
       this.autoCorrection[i].propositions = [{
         texte: `$${texNombre(resultat, 10)}$`,
         statut: true
@@ -367,7 +349,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           )
         }
         if (this.sup4 && i === this.nbQuestions - 1) {
-          texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true, true)
+          texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true, true, hectare)
         }
 
         this.listeQuestions.push(texte)
@@ -378,14 +360,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
     }
     if (context.vue === 'latex') this.listePackages = ['arydshln'] // pour les lignes en pointillés
     listeQuestionsToContenu(this)
-    /*
-    if (context.vue === 'latex' && this.sup4) {
-      this.contenu += '\n\n' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
-    } else if (context.vue !== 'diap' && context.isHtml && this.sup4) {
-      const options = { eleId: numeroExercice, widthmincol1: '300px', widthmincol2: '200px' }
-      this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
-    }
-    */
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
@@ -397,7 +371,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.besoinFormulaire4CaseACocher = ['Avec tableau']
 }
 
-function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false) {
+function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false, hectare = false) {
   const tabRep = function (nbre, uniteNbre) {
     const res = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
     switch (uniteNbre.replaceAll(' ', '')) {
@@ -442,7 +416,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     return res
   }
 
-  const createTab = function (aT, rT, first, end, ligne, correction = false) {
+  const createTab = function (aT, rT, first, end, ligne, correction = false, hectare = false) {
     let texte = '$\\def\\arraystretch{1.5}\\begin{array}{|'
     for (let i = first; i <= end; i++) {
       texte += 'c|'
@@ -452,6 +426,12 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     texte += '\\hline '
     for (let i = first; i < end; i++) {
       texte += `${headers2[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
+    }
+    if (hectare) {
+      const headers3 = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\text{ha}', '\\text{a}', '\\text{ca}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
+      for (let i = first; i < end; i++) {
+        texte += `${headers3[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
+      }
     }
     texte += ' \\hline '
 
@@ -482,6 +462,6 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
   const minTab2 = rTab[0] !== '' || rTab[1] !== '' ? 0 : rTab[2] !== '' || rTab[3] !== '' || force ? 2 : 4
   const maxTab1 = aTab[21] !== '' || aTab[20] !== '' ? 21 : aTab[19] !== '' || aTab[18] !== '' || force ? 19 : 17
   const maxTab2 = rTab[21] !== '' || rTab[20] !== '' ? 21 : rTab[19] !== '' || rTab[18] !== '' || force ? 19 : 17
-  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2) / 2, (1 + Math.max(maxTab1, maxTab2)) / 2, ligne, correction)
+  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2) / 2, (1 + Math.max(maxTab1, maxTab2)) / 2, ligne, correction, hectare)
   return texte
 }

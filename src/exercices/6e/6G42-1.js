@@ -86,7 +86,7 @@ export default function LireFacePaveDroit () {
 
     const typesDeQuestionsIndisponibles = gestionnaireFormulaireTexte({
       max: 6,
-      defaut: 7,
+      defaut: randint(1, 6),
       nbQuestions: this.nbQuestions,
       shuffle: false,
       saisie: this.sup2,
@@ -218,8 +218,8 @@ export default function LireFacePaveDroit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre de faces à trouver', 6, 'Entre 1 et 6']
+  this.besoinFormulaireNumerique = ['Nombre de faces à trouver (entre 1 et 6)', 6]
   this.besoinFormulaire2Texte = ['Faces à exclure du choix', 'Nombres séparés par des tirets\n1 : de devant\n2 : de derrière\n3 : de gauche\n4 : de droite\n5 : du dessus\n6 : du dessous\n7 : aucune à exclure']
   this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique']
-  this.besoinFormulaire4Numerique = ['Nombre de réponses dans le QCM', 6, 'Entre 2 et 6']
+  this.besoinFormulaire4Numerique = ['Nombre de réponses dans le QCM (entre 2 et 6)', 6]
 }

@@ -1,14 +1,13 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
-import { courbe, repere } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, abs, rienSi1, reduireAxPlusB, ecritureParentheseSiNegatif, simplificationDeFractionAvecEtapes, texFractionReduite, ecritureAlgebriqueSauf1, choice, combinaisonListes, ecritureAlgebrique } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
-
+export const dateDeModificationImportante = '18/05/2023'
 /**
-* @author Stéphane Guyon
-* 2F10-3
+* @author Stéphane Guyon mise à jour et ajout de cas Gilles Mora
+* 2F10-6
 */
 export const uuid = 'b72b0'
 export const ref = '2F10-6'
@@ -22,88 +21,173 @@ export default function Variationsfonctionaffine () {
   this.video = ''
   this.spacing = 1
   this.spacingCorr = 1
-  this.sup = 1
+  this.sup = 4
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
-    // let typesDeQuestionsDisponibles = []
-    // typesDeQuestionsDisponibles = [1, 2]// On complète selon le nb de cas dans l'exo (switch)
+    let typesDeQuestionsDisponibles = []
+    if (this.sup === 1) {
+      typesDeQuestionsDisponibles = [1]
+    }
+    if (this.sup === 2) {
+      typesDeQuestionsDisponibles = [2]
+    }
+    if (this.sup === 3) {
+      typesDeQuestionsDisponibles = [3]
+    }
+    if (this.sup === 4) {
+      typesDeQuestionsDisponibles = [1, 2, 3]
+    }
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
-    for (let i = 0, a, b, t, monRepere, maCourbe, ligne1, texte, texteCorr, cpt = 0;
+    for (let i = 0, a, b, c, d, fc, fd, ligne1, typesDeQuestions, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
-      // typesDeQuestions = listeTypeDeQuestions[i]
-      if (this.sup === 1) {
-        a = randint(1, 4) * choice([-1, 1])// coefficient a de la fonction affine
-        b = randint(0, 4) * choice([-1, 1])// coefficient b de la fonction affine
-
-        if (a === 0 && b === 0) { // On évite la fonction nulle
-          a = 1
-        }
-
-        texte = 'Déterminer le sens de variation de la fonction $f$ définie sur $\\mathbb R$ par'
-        if (b < 0) {
-          t = randint(1, 3)
-          if (t > 1 && a !== 1) { texte += `$f(x)=${b} ${ecritureAlgebrique(a)}x$. <br>` }
-          if (t > 1 && a === 1) { texte += `$f(x)=${b}${ecritureAlgebriqueSauf1(a)}x$.<br>` }
-          if (t > 1) {
-            texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$, '
-            texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>`
-            texteCorr += `On a donc : $f(x)=${reduireAxPlusB(a, b)}$.<br>`
+      const nom = [
+        ['f'], ['g'], ['h'], ['u'],
+        ['v'], ['w']
+      ]
+      const nomF = choice(nom)
+      typesDeQuestions = listeTypeDeQuestions[i]
+      switch (typesDeQuestions) {
+        case 1:
+          a = randint(-10, 10, 0) // coefficient a de la fonction affine
+          b = randint(-10, 10) // coefficient b de la fonction affine
+          texte = `Déterminer le sens de variation de la fonction $${nomF}$ définie sur $\\mathbb R$ par : `
+          if (choice([true, false])) {
+            texte += `$${nomF}(x)=${reduireAxPlusB(a, b)}$.`
+          } else {
+            texte += `$${b === 0 ? `${nomF}(x)=${rienSi1(a)}x` : `${nomF}(x)=${b}${ecritureAlgebriqueSauf1(a)}x`}$.`
           }
-          if (t === 1) { texte += `$f(x)=${reduireAxPlusB(a, b)}$.<br>` }
-        } else {
-          texte += `$f(x)=${reduireAxPlusB(a, b)}$.<br>`
-          texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$, '
-          texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>`
-        }
+          texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
+          texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>
+        On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br> 
+          Son sens de variation dépend du signe de $a$.<br>`
+          if (a > 0) {
+            texteCorr += `Comme $a=${a}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>`
+            ligne1 = ['Var', 10, '-/', 30, '+/', 30]
+          } else {
+            texteCorr += `Comme $a=${a}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
 
-        // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
-        texteCorr += 'On sait qu\'une fonction affine est monotone sur $\\mathbb{R}$.<br> '
-        texteCorr += 'Son sens de variation dépend du signe de $a$.<br>'
-        if (a > 0) {
-          texteCorr += `Comme $~a~=${a}>0$ , la fonction $f$ est strictement croissante sur $\\mathbb{R}$.<br>`
-        } else {
-          texteCorr += `Comme $~a~=${a}<0$ , la fonction $f$ est strictement décroissante sur $\\mathbb{R}$.<br>`
-
-          ligne1 = ['Var', 10, '+/', 30, '-/', 30]
-        }
-        texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
-        texteCorr += mathalea2d({ xmin: -2, ymin: -6.1, xmax: 15, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-          tabInit: [
-            [
+            ligne1 = ['Var', 10, '+/', 30, '-/', 30]
+          }
+          texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
+          texteCorr += mathalea2d({ xmin: -2, ymin: -5.1, xmax: 15, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            tabInit: [
+              [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-              ['$x$', 2, 30], [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 100]
+                ['$x$', 2, 30], [`$${nomF}(x)$`, 2, 50]
+              ],
+              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+              ['$-\\infty$', 30, '$+\\infty$', 30]
             ],
-            // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-            ['$-\\infty$', 30, '$+\\infty$', 30]
-          ],
-          // tabLines ci-dessous contient les autres lignes du tableau.
-          tabLines: [ligne1],
-          colorBackground: '',
-          espcl: 3.5, // taille en cm entre deux antécédents
-          deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-          lgt: 8, // taille de la première colonne en cm
-          hauteurLignes: [15, 25]
-        }))
+            // tabLines ci-dessous contient les autres lignes du tableau.
+            tabLines: [ligne1],
+            colorBackground: '',
+            espcl: 3, // taille en cm entre deux antécédents
+            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+            lgt: 3, // taille de la première colonne en cm
+            hauteurLignes: [15, 20]
+          }))
+          break
 
-        texteCorr += 'Pour illustrer la situation, on peut représenter graphiquement la fonction :<br><br>'
-        const f = x => a * x + b
-        monRepere = repere({ xMin: -5, grilleXMin: -5 })
-        maCourbe = courbe(f, { repere: monRepere })
-        // this.spacing = (context.isHtml) ? 2 : 1
-        texteCorr += mathalea2d({
-          xmin: -7,
-          ymin: -5,
-          xmax: 6,
-          ymax: 6
-        }, monRepere, maCourbe)
+        case 2:
+          a = randint(-10, 10, 0) // coefficient a de la fonction affine
+          b = randint(-10, 10) // coefficient b de la fonction affine
+          d = choice([abs(a) + 1, abs(b) + 1]) // dénominateur
+          while (d === 1) {
+            a = randint(-10, 10, 0) // coefficient a de la fonction affine
+            b = randint(-10, 10) // coefficient b de la fonction affine
+            d = choice([abs(a) + 1, abs(b) + 1])
+          } // dénominateur
+          texte = `Déterminer le sens de variation de la fonction $${nomF}$ définie sur $\\mathbb R$ par : `
+          if (choice([true, false])) {
+            texte += `$${nomF}(x)=\\dfrac{${reduireAxPlusB(a, b)}}{${d}}$.`
+          } else {
+            texte += `$${b === 0 ? `${nomF}(x)=\\dfrac{${rienSi1(a)}x}{${d}}` : `${nomF}(x)=\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${d}}`}$.`
+          }
+          texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
+          texteCorr += `avec $a=\\dfrac{${a}}{${d}}${simplificationDeFractionAvecEtapes(a, d)}$ et $b=\\dfrac{${b}}{${d}}${simplificationDeFractionAvecEtapes(b, d)}$. <br>
+        On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br> 
+          Son sens de variation dépend du signe de $a$.<br>`
+          if (a > 0) {
+            texteCorr += `Comme $a=${texFractionReduite(a, d)}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>`
+            ligne1 = ['Var', 10, '-/', 30, '+/', 30]
+          } else {
+            texteCorr += `Comme $a=${texFractionReduite(a, d)}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
+
+            ligne1 = ['Var', 10, '+/', 30, '-/', 30]
+          }
+          texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
+          texteCorr += mathalea2d({ xmin: -2, ymin: -5.1, xmax: 15, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            tabInit: [
+              [
+              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 30], [`$${nomF}(x)$`, 2, 50]
+              ],
+              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+              ['$-\\infty$', 30, '$+\\infty$', 30]
+            ],
+            // tabLines ci-dessous contient les autres lignes du tableau.
+            tabLines: [ligne1],
+            colorBackground: '',
+            espcl: 3, // taille en cm entre deux antécédents
+            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+            lgt: 3, // taille de la première colonne en cm
+            hauteurLignes: [15, 20]
+          }))
+          break
+
+        case 3:
+          a = randint(-10, 10, 0) // coefficient a de la fonction affine
+          b = randint(-10, 10) // coefficient b de la fonction affine
+          c = randint(-10, 5)
+          d = randint(c + 1, 10)
+          fc = a * c + b
+          fd = a * d + b
+          texte = `Dresser le tableau de variations de la fonction $${nomF}$ définie sur $[${c}\\,;\\,${d}]$ par : `
+          if (choice([true, false])) {
+            texte += `$${nomF}(x)=${reduireAxPlusB(a, b)}$.`
+          } else {
+            texte += `$${b === 0 ? `${nomF}(x)=${rienSi1(b)}x` : `${nomF}(x)=${b}${ecritureAlgebriqueSauf1(a)}x`}$.`
+          }
+          texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
+          texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>
+          On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br> 
+            Son sens de variation dépend du signe de $a$.<br>`
+          if (a > 0) {
+            texteCorr += `Comme $a=${a}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>
+            `
+            ligne1 = ['Var', 10, `-/$${fc}$`, 30, `+/$${fd}$`, 30]
+          } else {
+            texteCorr += `Comme $a=${a}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
+
+            ligne1 = ['Var', 10, `+/$${fc}$`, 30, `-/$${fd}$`, 30]
+          }
+          texteCorr += `De plus, $${nomF}(${c})=${a === 1 ? '' : `${a}\\times`} ${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(b)}=${fc}$ et $${nomF}(${d})=${a === 1 ? '' : `${a}\\times`}${ecritureParentheseSiNegatif(d)}${ecritureAlgebrique(b)}=${fd}$.<br>`
+          texteCorr += 'On obtient ainsi le tableau de variations :<br><br>'
+          texteCorr += mathalea2d({ xmin: -2, ymin: -5.1, xmax: 15, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            tabInit: [
+              [
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 30], [`$${nomF}(x)$`, 2, 50]
+              ],
+              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+              [`$${c}$`, 30, `$${d}$`, 30]
+            ],
+            // tabLines ci-dessous contient les autres lignes du tableau.
+            tabLines: [ligne1],
+            colorBackground: '',
+            espcl: 3, // taille en cm entre deux antécédents
+            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+            lgt: 3, // taille de la première colonne en cm
+            hauteurLignes: [15, 20]
+          }))
+          break
       }
 
-      if (this.questionJamaisPosee(i, this.sup, a, b)) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -114,4 +198,5 @@ export default function Variationsfonctionaffine () {
 
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireNumerique = ['Types de question ', 4, '1 : Avec des  entiers\n2 : Avec des fractions\n3 : Sur un intervalle borné\n4 : Mélange des cas précédents']
 }

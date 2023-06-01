@@ -35,12 +35,13 @@
 <div class="flex flex-row justify-start items-center {classAddenda}">
   <button type="button" class="flex justify-center items-center" on:click={toggle} disabled={isDisabled}>
     <i
-      class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-{buttonSize} {value
+      class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-{buttonSize} translate-y-[0.15rem] {value
         ? 'bx-toggle-right'
         : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
       on:click
       on:keydown
+      on:change
     />
   </button>
   <div class="{textSize === 'xs' ? 'pl-1' : 'pl-2'} inline-block text-{textSize} font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled ? 'text-opacity-10' : 'text-opacity-70'}">

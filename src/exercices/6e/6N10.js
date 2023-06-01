@@ -32,7 +32,7 @@ export default function ÉcrirePetitsNombresEntiers () {
   this.sup = 4 // Valeur du paramètre par défaut
   this.besoinFormulaire2Texte = ['Demande particulière', 'Nombres séparés par des tirets\n0 : Aucune demande particulière.\n1 : Au moins un nombre se termine par 80.\n2 : Au moins un nombre contient entre 81 et 99.\n3 : Au moins un nombre se termine par un multiple de 100.\n4 : Au moins un nombre commence par mille.\n5 : Au moins un nombre ne possède ni centaines ou ni centaines de mille.']
   this.sup2 = 0 // Valeur du paramètre par défaut
-  this.besoinFormulaire3Numerique = ['Type d\'exercices', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
+  this.besoinFormulaire3Numerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
   this.sup3 = 1 // Valeur du paramètre par défaut
 
   this.nbCols = 1
@@ -114,7 +114,6 @@ export default function ÉcrirePetitsNombresEntiers () {
     for (let i = OptionsDisponibles.length; i < this.nbQuestions; i++) { // On finit de remplir le tableau par des zéros (aucune demande particulière)
       OptionsDisponibles[i] = 0
     }
-    console.log(OptionsDisponibles)
     const listeOptions = shuffle(OptionsDisponibles)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

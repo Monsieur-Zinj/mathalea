@@ -1,10 +1,15 @@
 import { writable, get } from 'svelte/store'
-import type { InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice } from '../lib/types'
+import type { CallerComponentType, InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice } from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
  */
 export const freezeUrl = writable<Boolean>(false)
+
+/**
+ * Pour signaler que MathALÉA est dans une iframe
+ */
+export const isInIframe = writable<Boolean>(false)
 
 /**
  * exercicesParams est un tableau d'objets décrivant les exercices
@@ -20,13 +25,14 @@ export const exercicesParams = writable<InterfaceParams[]>([])
  * * setInteractive : uniquement pour la vue eleve (0 : pas d'interactivité, 1 : tout interactif, 2 : au choix exercice par exercice)
  * * isSolutionAccessible : uniquement pour la vue eleve, pour savoir si les corrections sont disponibles ou pas
  * * isInteractiveFree : uniquement pour la vue eleve, pour savoir si l'élève peut changer l'interactivité ou pas
+ * * oneShot : uniquement pour la vue eleve, pour savoir si l'élève peut répondre une ou plusieurs fois en interactif.
  * globalOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
  * Il permet de sauvegarder le type de vue (v=...)
  *
  * Le paramètre 'es' est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions
  */
-export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'liste_exos', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true })
+export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'liste_exos', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true, oneShot: false })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
@@ -48,6 +54,9 @@ export const isExportMenuVisible = writable<boolean>(false)
 
 // pour garder trace du statut d'ouverture du menu de choix
 export const isSideMenuVisible = writable<boolean>(true)
+
+// pour garder trace de la page appelant l'export
+export const callerComponent = writable<CallerComponentType>('')
 
 /**
  * Déplace un exercice dans exercicesParams
@@ -113,23 +122,23 @@ export function updateGlobalOptionsInURL (url: URL) {
     } else {
       url.searchParams.delete('title')
     }
-    if (options.iframe !== undefined) {
+    if (options.iframe !== undefined && options.iframe.length > 0) {
       url.searchParams.append('iframe', options.iframe)
+    } else {
+      url.searchParams.delete('iframe')
     }
     if (options.answers !== undefined && options.answers.length > 0) {
       url.searchParams.append('answers', JSON.stringify(options.answers))
+    } else {
+      url.searchParams.delete('answers')
     }
     if (typeof options !== 'undefined') {
       let es = presModeId.indexOf(options.presMode).toString()
       es += options.setInteractive
       es += options.isSolutionAccessible ? '1' : '0'
       es += options.isInteractiveFree ? '1' : '0'
+      es += options.oneShot ? '1' : '0'
       url.searchParams.append('es', es)
-    }
-    if (options.recorder) {
-      url.searchParams.append('recorder', options.recorder)
-    } else {
-      url.searchParams.delete('recorder')
     }
     if (options.done) {
       url.searchParams.append('done', options.done)
@@ -139,6 +148,15 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('title')
     url.searchParams.delete('es')
+    url.searchParams.delete('iframe')
+    url.searchParams.delete('answers')
+    url.searchParams.delete('recorder')
+    url.searchParams.delete('done')
+  }
+  if (options.recorder) {
+    url.searchParams.append('recorder', options.recorder)
+  } else {
+    url.searchParams.delete('recorder')
   }
   if (options.v === 'can' || options.v === 'diaporama') {
     if (selectedExexercicesStore) {
