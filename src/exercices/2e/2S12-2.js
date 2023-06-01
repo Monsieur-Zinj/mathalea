@@ -179,7 +179,7 @@ export default function EvolutionsSuccesives () {
           if (CM < 1) {
             texteCorr += `<br><br>Or $CM = ${texNombre(CM, 4)} = 1 - ${texNombre(Math.abs(p), 4)} = 1-\\dfrac{${texNombre(t, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br>Le nombre d'habitants de cette ville a ${nom} de $${texNombre(taux.abs(), 2)}~\\%$ entre $2021$ et $2023$.`
+          texteCorr += `<br>Le nombre d'habitants de cette ville a ${nom} de $${texNombre(taux.abs(), 2)}~\\%$ entre $2021$ et $2022$.`
           setReponse(this, i, taux)
           break
         case 3 :
@@ -217,7 +217,7 @@ export default function EvolutionsSuccesives () {
           if (taux.isNeg()) {
             nom = 'diminué'
           }
-          texte = `Le nombre d'adhérents d'une association a ${nom1} de $${t1}~\\%$ entre $2020$ et $2021$ puis a ${nom2} de $${t2}~\\%$ entre $2020$ et $2021$.<br>Quel est le taux d'évolution global du nombre d'adhérents ?`
+          texte = `Le nombre d'adhérents d'une association a ${nom1} de $${t1}~\\%$ entre $2020$ et $2021$ puis a ${nom2} de $${t2}~\\%$ entre $2021$ et $2022$.<br>Quel est le taux d'évolution global du nombre d'adhérents ?`
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })
           texteCorr = 'Pour déterminer le taux d\'évolution global, on commence par calculer le coefficient multiplicateur global.'
           texteCorr += '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'

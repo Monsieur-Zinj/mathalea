@@ -63,9 +63,9 @@ export default function PerimetreAireDisques (pa = 3) {
       }
       switch (interactivite(this)) {
         case 'AMC' :
-          this.consigne += '<br>Donner la valeur exacte et une valeur approchée au dixième près.'
+          this.consigne += '\\\\\nDonner la valeur exacte et une valeur approchée au dixième près.'
           break
-        default : this.consigne += '<br>Donner la valeur exacte et une valeur approchée au dixième près.'
+        default : this.consigne += `${context.isHtml ? '<br>' : '\\\\\n'} la valeur exacte et une valeur approchée au dixième près.`
       }
       if (this.sup === 1) {
       // si on ne demande pas les aires

@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, choice, texNombre, texTexte, sp } fro
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import Decimal from 'decimal.js'
 export const titre = 'Convertir des volumes'
 export const amcReady = true
@@ -11,7 +12,7 @@ export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
-export const dateDeModifImportante = '14/05/2022'
+export const dateDeModifImportante = '31/05/2023'
 
 /**
  * Conversions de volumes.
@@ -29,13 +30,12 @@ export const dateDeModifImportante = '14/05/2022'
  */
 export const uuid = '33ac2'
 export const ref = '6M31'
-export default function ExerciceConversionsVolumes (niveau = 1) {
+export default function ExerciceConversionsVolumes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = niveau // Niveau de difficulté de l`exercice
+  this.sup = 1 // Niveau de difficulté de l`exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
   this.titre = titre
-  this.consigne = 'Compléter :'
   this.spacing = 2
   this.nbColsCorr = 1
   this.amcReady = amcReady
@@ -49,6 +49,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
     return a
   }
   this.nouvelleVersion = function () {
+    this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
@@ -76,6 +77,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         resultat2,
         resultat3,
         resultat4,
+        resultat5,
         typesDeQuestions,
         texte,
         texteCorr,
@@ -85,11 +87,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
     ) {
       this.autoCorrection[i] = {}
       // On limite le nombre d`essais pour chercher des valeurs nouvelles
-      if (this.sup < 5) {
-        typesDeQuestions = this.sup
-      } else {
-        typesDeQuestions = randint(1, 4)
-      }
+      typesDeQuestions = this.sup < 5 ? this.sup : randint(1, 4)
       k = randint(0, 2) // Choix du préfixe
       if (typesDeQuestions === 1) {
         // niveau 1
@@ -100,7 +98,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       } else if (typesDeQuestions === 3) {
         div = choice([true, false]) // Avec des multiplications ou des divisions
       } else if (typesDeQuestions === 4) {
-        div = choice([true, false]) // Avec des multiplications ou des divisions sans toujours revenir au m^2
+        div = choice([true, false]) // Avec des multiplications ou des divisions sans toujours revenir au m^3
       }
 
       if (this.sup2) {
@@ -123,12 +121,9 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       }
 
       if (!div && typesDeQuestions < 4) {
-        // Si il faut multiplier pour convertir
+        // S'il faut multiplier pour convertir
 
         resultat = a.mul(prefixeMulti[k][2])
-        resultat2 = a.mul(10 ** (k + 1))
-        resultat3 = a.mul(10 ** (k - 2))
-        resultat4 = a.mul(10 ** ((k + 2)))
         texte =
           '$ ' +
           texNombre(a, 3) +
@@ -154,13 +149,11 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           texTexte(unite) +
           '^3' +
           '$'
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, true)
       } else if (div && typesDeQuestions < 4) {
         k = randint(0, 1) // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
         // Le commentaire précédent est sans objet avec Decimal, on peut afficher ici 20 chiffres après la virgule sans passer en notation scientifique !
         resultat = a.div(prefixeMulti[k][2])
-        resultat2 = a.div(10 ** (k + 1))
-        resultat3 = a.div(10 ** (k - 2))
-        resultat4 = a.div(10 ** (k + 2))
         texte =
           '$ ' +
           texNombre(a, 3) +
@@ -186,6 +179,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           texTexte(unite) +
           '^3' +
           '$'
+        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, true)
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
         let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l`un à l`autre
@@ -209,9 +203,6 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
               break
           }
           resultat = a.mul(10 ** (3 * ecart))
-          resultat2 = a.mul(10 ** (2 * ecart))
-          resultat3 = a.mul(10 ** (ecart))
-          resultat4 = a.div(10 ** (3 * ecart))
           texte =
             '$ ' +
             texNombre(a, 3) +
@@ -236,6 +227,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
             texTexte(listeUnite[unite1]) +
             '^3' +
             '$'
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], true)
         } else {
           switch (ecart) {
             case 1:
@@ -249,9 +241,6 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
               break
           }
           resultat = a.div(10 ** (3 * ecart))
-          resultat2 = a.div(10 ** (2 * ecart))
-          resultat3 = a.div(10 ** ecart)
-          resultat4 = a.mul(10 ** (3 * ecart))
           texte =
             '$ ' +
             texNombre(a, 3) +
@@ -276,17 +265,15 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
             texTexte(listeUnite[unite2]) +
             '^3' +
             '$'
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], true)
         }
       }
-      // else if(typesDeQuestions==5) { // Pour typesDeQuestions==5
-      // prefixeMulti = [[`L`,0.001],[`dL`,0.0001],[`cL`,0.00001],[`mL`,0.000001]];
-      // k = randint(0,1)
-      // resultat = arrondi((a*prefixeMulti[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux, 12)
-      // texte = `$ `+ texNombre(a, 3) + texTexte(prefixeMulti[k][0]) + ` = \\dotfill ` + texTexte(unite)  + `^3` + `$`;
-      // texteCorr = `$ `+ texNombre(a, 3) + texTexte(prefixeMulti[k][0]) + ` =  ` + texNombre(a, 3) + `\\times` + texNombre(prefixeMulti[k][1]) + texTexte(unite)  + `^3`
-      //  + ` = ` + texNombre(resultat, 3) + texTexte(unite)+ `^2` + `$`;
-      // }
+
       this.autoCorrection[i].enonce = `${texte}\n`
+      resultat2 = resultat.div(10)
+      resultat3 = resultat.mul(10)
+      resultat4 = resultat.mul(100)
+      resultat5 = resultat.div(100)
       this.autoCorrection[i].propositions = [{
         texte: `$${texNombre(resultat, 20)}$`,
         statut: true
@@ -301,6 +288,10 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       },
       {
         texte: `$${texNombre(resultat4, 20)}$`,
+        statut: false
+      },
+      {
+        texte: `$${texNombre(resultat5, 20)}$`,
         statut: false
       }
       ]
@@ -321,6 +312,9 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
             '................................................'
           )
         }
+        if (this.sup4 && i === this.nbQuestions - 1) {
+          texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true, true)
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -331,9 +325,100 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
-    4,
-    '1 : Conversions en mètres-cubes avec des multiplications\n2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions'
+    5,
+    '1 : Conversions en mètres-cubes avec des multiplications\n2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n5 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  if (context.isHtml) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  if (context.isHtml && !(context.vue === 'diap')) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  this.besoinFormulaire4CaseACocher = ['Avec tableau', false]
+}
+
+function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false) {
+  const tabRep = function (nbre, uniteNbre) {
+    const res = []
+    for (let ee = 0; ee < 33; ee++) res.push('')
+    switch (uniteNbre.replaceAll(' ', '')) {
+      case 'km':
+        for (let i = 0; i < 33; i++) {
+          res[i] = (8 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 8 - i)) + (8 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'hm':
+      case 'ha':
+        for (let i = 0; i < 33; i++) {
+          res[i] = (11 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) + (11 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'dam':
+      case 'a':
+        for (let i = 0; i < 33; i++) {
+          res[i] = (14 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 14 - i)) + (14 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'm':
+        for (let i = 0; i < 33; i++) {
+          res[i] = (17 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) + (17 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'dm':
+        for (let i = 0; i < 33; i++) {
+          res[i] = (20 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 20 - i)) + (20 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'cm':
+        for (let i = 0; i < 33; i++) {
+          res[i] = (23 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 23 - i)) + (23 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'mm':
+        for (let i = 0; i < 33; i++) {
+          res[i] = (26 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 26 - i)) + (26 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+    }
+    return res
+  }
+
+  const createTab = function (aT, rT, first, end, ligne, correction = false) {
+    let texte = '$\\def\\arraystretch{1.5}\\begin{array}{|'
+    for (let i = first; i <= end; i++) {
+      texte += 'c|'
+    }
+    texte += '}'
+    const headers2 = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\text{km}^3', '\\text{hm}^3', '\\text{dam}^3', '\\text{m}^3', '\\text{dm}^3', '\\text{cm}^3', '\\text{mm}^3', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
+    texte += '\\hline '
+    for (let i = first; i < end; i++) {
+      texte += `${headers2[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
+    }
+    texte += ' \\hline '
+
+    for (let i = first; i < end; i++) {
+      texte += '\\begin{array}{c:c:c}'
+      texte += `${aT[3 * i]} & ${aT[3 * i + 1]}& ${aT[3 * i + 2]}  \\\\`
+      texte += !correction ? ` ${rT[3 * i]} & ${rT[3 * i + 1]}& ${rT[3 * i + 2]}  \\\\` : ''
+      texte += '\\end{array}'
+      texte += (i !== end - 1 ? ' & ' : '')
+    }
+    for (let k = 3; k <= ligne; k++) {
+      texte += '\\\\ \\hline '
+      for (let i = first; i < end; i++) {
+        texte += '\\begin{array}{c:c:c}'
+        texte += ' & & \\\\'
+        texte += '\\end{array}'
+        texte += (i !== end - 1 ? ' & ' : '')
+      }
+    }
+    texte += '\\\\ \\hline '
+
+    texte += ' \\end{array}$'
+    return texte
+  }
+  const aTab = tabRep(a, uniteA)
+  const rTab = tabRep(r, uniteR)
+  const minTab1 = aTab[0] !== '' || aTab[1] !== '' || aTab[2] !== '' ? 0 : aTab[3] !== '' || aTab[4] !== '' || aTab[5] !== '' || force ? 3 : 6
+  const minTab2 = rTab[0] !== '' || rTab[1] !== '' || rTab[2] !== '' ? 0 : rTab[3] !== '' || rTab[4] !== '' || rTab[5] !== '' || force ? 3 : 6
+  const maxTab1 = aTab[32] !== '' || aTab[31] !== '' || aTab[30] !== '' ? 21 : aTab[29] !== '' || aTab[28] !== '' || aTab[27] !== '' || force ? 30 : 27
+  const maxTab2 = rTab[32] !== '' || rTab[31] !== '' || rTab[30] !== '' ? 21 : rTab[29] !== '' || rTab[28] !== '' || rTab[27] !== '' || force ? 30 : 27
+  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2) / 3, Math.max(maxTab1, maxTab2) / 3, ligne, correction)
+  return texte
 }

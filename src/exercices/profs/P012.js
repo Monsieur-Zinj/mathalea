@@ -30,12 +30,12 @@ export default function Camemberts () {
     if (this.sup === '') {
       this.sup = '2-3-4-5'
     }
-    const nbParts = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 12, defaut: 6, nbQuestions: this.nbQuestions })
-    const nbDisques = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 5, defaut: 2, nbQuestions: this.nbQuestions })
+    const secteurs = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 12, defaut: 6, nbQuestions: this.nbQuestions,shuffle:false })
+    const unites = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 5, defaut: 2, nbQuestions: this.nbQuestions,shuffle:false })
     this.contenu = ''
 
-    const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
-    const unites = combinaisonListesSansChangerOrdre(nbDisques, this.nbQuestions)
+    //const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
+    //const unites = combinaisonListesSansChangerOrdre(nbDisques, this.nbQuestions)
     let f
     const fenetre = { xmin: -2.5, xmax: 35, ymin: -2.5, ymax: 2.5, pixelsParCm: 20, scale: 0.5 }
     for (let i = 0; i < this.nbQuestions; i++) {

@@ -6,7 +6,6 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
   choice,
-  combinaisonListes,
   contraindreValeur,
   ecritureParentheseSiNegatif,
   gestionnaireFormulaireTexte,
@@ -59,10 +58,9 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       'expressionParValeurs',
       'expressionParGraphique'
     ]
-    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: 9 })
-    const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
+    const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: 9 })
     const antecedents = []
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texteAMC, valeurAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const elementAmc = {}
       const nomFonction = String.fromCharCode(102 + i)
       this.sup = contraindreValeur(1, 3, this.sup, 1)
@@ -89,7 +87,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       }
       let imageString, formatInteractif
       //
-      const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1]))
+      const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1, 2 * antecedent0]))
       const image0 = coefficient instanceof FractionEtendue ? coefficient.num : coefficient * antecedent0
       if (coefficient instanceof FractionEtendue) {
         image = coefficient.multiplieEntier(antecedent)
@@ -160,21 +158,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
-                    valeur: image,
-                    param: {
-                      signe: true
-                    }
-                  }
-                }
-                ]
-              }
-            ]
+            texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
+            valeurAMC = image
           } else setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParValeurs':
@@ -190,21 +175,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `Donc $${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
-                    valeur: image,
-                    param: {
-                      signe: true
-                    }
-                  }
-                }
-                ]
-              }
-            ]
+            texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
+            valeurAMC = image
           } else setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParGraphique':
@@ -221,21 +193,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${image0}$ et $${nomFonction}(x)=ax$ on en déduit $a\\times ${antecedent0} = ${image0}$ soit $a=\\dfrac{${image0}}{${antecedent0}}${coefficient instanceof FractionEtendue ? '' : '=' + coefficientString}$.<br>`
           texteCorr += `Ainsi $${nomFonction}(${antecedent})=${coefficientString}\\times ${ecritureParentheseSiNegatif(antecedent)}=${imageString}$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `image de $${antecedent}$ par $${nomFonction}$`,
-                    valeur: image,
-                    param: {
-                      signe: true
-                    }
-                  }
-                }
-                ]
-              }
-            ]
+            texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
+            valeurAMC = image
           } else setReponse(this, i, image, { formatInteractif })
           break
         case 'antecedentParExpression':
@@ -250,21 +209,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `${antecedent}$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
-                    valeur: antecedent,
-                    param: {
-                      signe: true
-                    }
-                  }
-                }
-                ]
-              }
-            ]
+            texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
+            valeurAMC = antecedent
           } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParValeurs':
@@ -283,21 +229,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `${antecedent}$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
-                    valeur: antecedent,
-                    param: {
-                      signe: true
-                    }
-                  }
-                }
-                ]
-              }
-            ]
+            texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
+            valeurAMC = antecedent
           } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParGraphique':
@@ -323,21 +256,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `${antecedent}$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `antécédent de $${imageString}$ par $${nomFonction}$`,
-                    valeur: antecedent,
-                    param: {
-                      signe: true
-                    }
-                  }
-                }
-                ]
-              }
-            ]
+            texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
+            valeurAMC = antecedent
           } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'expressionParValeurs':
@@ -355,21 +275,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `$.<br>Donc $${nomFonction}(x)=${coefficientString}x$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`,
-                    valeur: coefficient,
-                    param: {
-                      signe: true
-                    }
-                  }
-                }
-                ]
-              }
-            ]
+            texteAMC = `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
+            valeurAMC = coefficient
           } else {
             setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
@@ -397,32 +304,38 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           }
           texteCorr += `$.<br>Donc $${nomFonction}(x)=${coefficientString}x$.`
           if (context.isAmc) {
-            elementAmc.propositions = [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  reponse: {
-                    texte: `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`,
-                    valeur: coefficient,
-                    param: {
-                      signe: true
-                    }
-                  }
-                }
-                ]
-              }
-            ]
+            texteAMC = `Coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
+            valeurAMC = coefficient
           } else {
             setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
           }
           break
       }
+      const JCAMC = false // Si besoin de prendre en compte une info supplémentaire avant les cases à cocher dans AMC
+
       if (this.questionJamaisPosee(i, coefficient, antecedent0, image0)) {
         if (context.isAmc) {
+          elementAmc.propositions = [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                reponse: {
+                  texte: JCAMC ? texteAMC : '',
+                  valeur: valeurAMC,
+                  param: {
+                    signe: true,
+                    digits: 2 // Ainsi, les réponses décimales auront toujours 2 digits et les réponses fractionnaires auront 2 digits pour le numérateur ET le dénominateur.
+                  }
+                }
+              }
+              ]
+            }
+          ]
           elementAmc.enonce = texte + '\\\\'
-          elementAmc.enonceApresNumQuestion = false
+          elementAmc.enonceAvant = false
+          elementAmc.enonceApresNumQuestion = true
           elementAmc.propositions[0].propositions[0].texte = texteCorr
-          elementAmc.options = { multicolsAll: true, barreseparation: true }
+          elementAmc.options = { multicolsAll: true }
           this.autoCorrection[i] = elementAmc
         }
         this.listeQuestions.push(texte)

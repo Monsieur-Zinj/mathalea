@@ -1,6 +1,6 @@
 import exerciceComparerDeuxFractions from '../../5e/5N14.js'
 export { interactifReady, interactifType, amcType, amcReady } from '../../5e/5N14.js'
-export const titre = 'Comprarer deux fractions (dénominateurs multiples)'
+export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 export const dateDePublication = '04/11/2022'
 
 /*!

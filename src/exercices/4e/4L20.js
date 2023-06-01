@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, lampeMessage, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, lampeMessage } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
@@ -136,49 +136,7 @@ export default function ExerciceEquation1 () {
           a
         )}$.`
         reponse = fraction(c - b, a).simplifie()
-        if (!context.isAmc) {
-          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
-        } else {
-          this.autoCorrection[i] = {
-            enonce: `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible`,
-            propositions: [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: texteCorr,
-                  statut: '',
-                  reponse: {
-                    texte: 'Numérateur ',
-                    valeur: [reponse.s * Math.abs(reponse.n)],
-                    param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.n)),
-                      decimals: 0,
-                      signe: this.sup,
-                      approx: 0
-                    }
-                  }
-                }]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: 'Dénominateur',
-                    valeur: [reponse.d],
-                    param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.d),
-                      decimals: 0,
-                      signe: false,
-                      approx: 0
-                    }
-                  }
-                }]
-              }
-            ]
-          }
-        }
+        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
       if (listeTypeDeQuestions[i] === 'x+b=c') {
         if (!this.sup && c < b) {
@@ -201,32 +159,7 @@ export default function ExerciceEquation1 () {
         texteCorr += `$x=${c - b}$`
         texteCorr += `<br> La solution est $${c - b}$.`
         reponse = c - b
-        if (!context.isAmc) {
-          setReponse(this, i, fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
-        } else {
-          this.autoCorrection[i] = {
-            enonce: `Résoudre ${texte} et coder la solution`,
-            propositions: [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: texteCorr,
-                  statut: '',
-                  reponse: {
-                    texte: 'Solution : ',
-                    valeur: [reponse],
-                    param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(reponse),
-                      decimals: 0,
-                      signe: this.sup,
-                      approx: 0
-                    }
-                  }
-                }]
-              }
-            ]
-          }
-        }
+        setReponse(this, i, fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
       }
       if (listeTypeDeQuestions[i] === 'ax=b') {
         do {
@@ -252,49 +185,7 @@ export default function ExerciceEquation1 () {
         }
         texteCorr += `<br> La solution est $${texFractionReduite(b, a)}$.`
         reponse = fraction(b, a).simplifie()
-        if (!context.isAmc) {
-          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
-        } else {
-          this.autoCorrection[i] = {
-            enonce: `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible`,
-            propositions: [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: texteCorr,
-                  statut: '',
-                  reponse: {
-                    texte: 'Numérateur ',
-                    valeur: [reponse.s * Math.abs(reponse.n)],
-                    param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.n)),
-                      decimals: 0,
-                      signe: this.sup,
-                      approx: 0
-                    }
-                  }
-                }]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: 'Dénominateur',
-                    valeur: [reponse.d],
-                    param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.d),
-                      decimals: 0,
-                      signe: false,
-                      approx: 0
-                    }
-                  }
-                }]
-              }
-            ]
-          }
-        }
+        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
       if (listeTypeDeQuestions[i] === 'ax+b=cx+d') {
         do {
@@ -372,11 +263,16 @@ export default function ExerciceEquation1 () {
           a - c
         )}$.`
         reponse = fraction(d - b, a - c).simplifie()
-        if (!context.isAmc) {
-          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
-        } else {
+        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+      }
+
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
+        this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
+        if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible`,
+            enonce: '', // `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible`,
             propositions: [
               {
                 type: 'AMCNum',
@@ -384,30 +280,10 @@ export default function ExerciceEquation1 () {
                   texte: texteCorr,
                   statut: '',
                   reponse: {
-                    texte: 'Numérateur ',
-                    valeur: [reponse.s * Math.abs(reponse.n)],
+                    texte: (listeTypeDeQuestions[i] === 'x+b=c') ? `Résoudre ${texte}.` : `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible.`,
+                    valeur: [reponse],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.n)),
-                      decimals: 0,
-                      signe: this.sup,
-                      approx: 0
-                    }
-                  }
-                }]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: 'Dénominateur',
-                    valeur: [reponse.d],
-                    param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.d),
-                      decimals: 0,
-                      signe: false,
-                      approx: 0
+                      signe: this.sup
                     }
                   }
                 }]
@@ -415,12 +291,6 @@ export default function ExerciceEquation1 () {
             ]
           }
         }
-      }
-
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
-        this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
         i++
       }
       cpt++

@@ -66,7 +66,7 @@ export default function ArrondirUneValeur () {
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestion[i]) {
-        case 1:
+        case 1: // arrondir un nombre simplement
           m = randint(0, 9)
           c = randint(0, 9)
           d = randint(0, 9)
@@ -82,7 +82,7 @@ export default function ArrondirUneValeur () {
           texte = `$${nb}$`
 
           break
-        case 2:
+        case 2: // arrondir une fraction
           den = choice([7, 9, 11, 13])
           num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
           n = num / den
@@ -92,7 +92,7 @@ export default function ArrondirUneValeur () {
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
           texte = ` $${nb}\\quad (\\text{Quand on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${num}\\div ${den}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}.$`
           break
-        case 3:
+        case 3: // arrondir une racine carrée
           rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
           n = Math.sqrt(rac)
           nb = `\\sqrt{${rac}}`
@@ -101,16 +101,17 @@ export default function ArrondirUneValeur () {
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
           texte = ` $${nb}\\quad (\\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nb}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}.)$`
           break
-        case 4:
+        case 4: // arrondir un calcul de longueur avec un cosinus
           v = randint(11, 99) / 10
           angle = randint(1, 89, 60)
           if (choice([true, false])) {
             n = v * degCos(angle)
-            nb = `${texNombre(v)}\\cos(${angle})`
+            nb = `${texNombre(v)}\\cos(${angle}\\degree)`
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
-          } else {
+            nbSansDegree = nb.replace('\\degree', '')
+          } else { // arrondir un calcul de longueur avec une division par cosinus
             n = v / degCos(angle)
             nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}\\degree)}`
             nbSansDegree = nb.replace('\\degree', '')
