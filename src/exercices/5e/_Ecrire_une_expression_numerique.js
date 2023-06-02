@@ -81,7 +81,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           texteCorr = `${expf} s'écrit : ${expn}.`
           break
         case 2:
-          if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
+          if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
           this.consigne = 'Traduire le calcul par une phrase en français.'
           texte = `${expn}`
           expf = 'l' + expf.substring(1)
@@ -119,14 +119,14 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
           break
         case 4:
-          if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
+          if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
           this.consigne = ''
           if (!this.litteral) texte = `${expn}`
           else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
           else texte = `Pour $x=${val1}$, calculer ${expn}.`
           if (!this.litteral) texteCorr = `${expc}`
-          else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
-          else texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
+          else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
+          else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
           reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           break
       }
