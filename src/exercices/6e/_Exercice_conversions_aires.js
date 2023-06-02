@@ -427,14 +427,42 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     for (let i = first; i < end; i++) {
       texte += `${headers2[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
     }
+
+    /*
     if (hectare) {
-      const headers3 = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\text{ha}', '\\text{a}', '\\text{ca}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
+      const headers3 = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\textha}', '\\texta}', '\\textca}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
       for (let i = first; i < end; i++) {
         texte += `${headers3[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
       }
     }
     texte += ' \\hline '
 
+    */
+    // texte += '\\\\'
+    if (hectare) {
+      for (let i = first; i < first + 3; i++) {
+        texte += '\\begin{array}{c c}'
+        texte += '\\hspace*{0.4cm} & \\hspace*{0.4cm} \\\\'
+        texte += '\\end{array}&'
+      }
+      texte += '\\begin{array}{c:c}'
+      texte += '\\hspace*{0.4cm} & ha\\\\'
+      texte += '\\end{array}&'
+      texte += '\\begin{array}{c:c}'
+      texte += '\\hspace*{0.2cm} & a\\\\'
+      texte += '\\end{array}&'
+      texte += '\\begin{array}{c:c}'
+      texte += '\\hspace*{0.4cm} & ca\\\\'
+      texte += '\\end{array}&'
+
+      for (let i = first + 6; i < end; i++) {
+        texte += '\\begin{array}{c c}'
+        texte += '\\hspace*{0.4cm} & \\hspace*{0.4cm} \\\\'
+        texte += '\\end{array}'
+        texte += (i !== end - 1 ? ' & ' : '')
+      }
+      texte += '\\\\ \\hline'
+    }
     for (let i = first; i < end; i++) {
       texte += '\\begin{array}{c:c}'
       texte += `${aT[2 * i]} & ${aT[2 * i + 1]}  \\\\`
