@@ -12,11 +12,10 @@ import {
   texFractionReduite,
   ecritureAlgebrique,
   miseEnEvidence,
-  combinaisonListes,
   rienSi1,
   reduireAxPlusB,
   ecritureAlgebriqueSauf1,
-  gestionnaireFormulaireTexte
+  gestionnaireFormulaireTexte, shuffle2tableaux, choice
 } from '../../modules/outils.js'
 export const dateDePublication = '25/05/2023'
 export const titre = 'Étudier la position relative de deux courbes'
@@ -35,15 +34,23 @@ export default function PositionRelative () {
   this.titre = titre
   this.nbQuestions = 1
   this.listePackages = ['tkz-tab']
+  this.besoinFormulaireTexte = [
+    'Choix des fonctions',
+    '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange'
+  ]
+  this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
+
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, defaut: 5, listeOfCase: ['affines', 'polynômeEtAffine1', 'polynômeEtAffine2', 'polynômeEtAffine3'], shuffle: false, nbQuestions: this.nbQuestions })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 2, melange: 3, defaut: 3, listeOfCase: ['affines', 'polynômeEtAffine'], shuffle: false, nbQuestions: this.nbQuestions })
     const sousChoix = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 1, listeOfCase: [true, false], nbQuestions: this.nbQuestions, shuffle: false })
-    for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions, remarque, ligne1, ligne2, ligne3, a, b, c, d; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      remarque = `${texteGras('Remarque :')} vous pouvez vérifier ce résultat en représentant les courbes sur votre calculatrice graphique.`
+    shuffle2tableaux(listeTypeDeQuestions, sousChoix)
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let a, b, c, d // les coefficients des fonctions
+      let ligne1, ligne2, ligne3 // les lignes du tableau de signes
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      const remarque = `${texteGras('Remarque :')} vous pouvez vérifier ce résultat en représentant les courbes sur votre calculatrice graphique.`
       switch (typesDeQuestions) {
         case 'affines':// position relative avec deux fonctions affines
           if (sousChoix[i]) {
@@ -117,31 +124,33 @@ export default function PositionRelative () {
             texteCorr += `<br>${remarque}`
           }
           break
-        case 'polynômeEtAffine1':// position relative avec un poly degré 2 et une fonction affine (cas etude du signe de x^2 +/- a)
-          if (souschoix[i]) {
-            b = randint(-9, 9, 0)
-            c = randint(-10, 10)
-            d = randint(-10, 10, 0)
-            texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, 1, b, c)}$ et $g(x)=${reduireAxPlusB(b, d)}$. <br>
+        case 'polynômeEtAffine': {
+          const alea = choice([1, 2, 3])
+          if (alea === 1) { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de x^2 +/- a)
+            if (sousChoix[i]) { // avec question intermédiaire
+              b = randint(-9, 9, 0)
+              c = randint(-10, 10)
+              d = randint(-10, 10, 0)
+              texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, 1, b, c)}$ et $g(x)=${reduireAxPlusB(b, d)}$. <br>
             On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-            if (c - d > 0) {
-              texte += `
+              if (c - d > 0) {
+                texte += `
                 ${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$, $f(x) - g(x)=${reduirePolynomeDegre3(0, 1, 0, c - d)}$.<br>`
-            }
-            if (c - d === 0) {
-              texte += `
+              }
+              if (c - d === 0) {
+                texte += `
                 ${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$, $f(x) - g(x)=${reduirePolynomeDegre3(0, 1, 0, c - d)}$.<br>`
-            }
-            if (c - d < 0) {
-              texte += `${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$,
+              }
+              if (c - d < 0) {
+                texte += `${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$,
                 $f(x)-g(x)=(x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})(x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})$.<br>
                 `
-            }
+              }
 
-            texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
+              texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
         ${numAlpha(2)} Quelle interprétation graphique peut-on en donner ?`
 
-            texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
+              texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
             $\\begin{aligned}
             f(x) - g(x)&=(${reduirePolynomeDegre3(0, 1, b, c)})-(${reduireAxPlusB(b, d)})\\\\
             &=${reduirePolynomeDegre3(0, 1, b, c)}${b > 0 ? '' : '+'}${reduireAxPlusB(-b, -d)}\\\\
@@ -149,23 +158,23 @@ export default function PositionRelative () {
             \\end{aligned}$
             <br>
            `
-            ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-            ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-            ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-            if (c - d > 0) {
-              texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}>0$.<br>
+              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+              ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+              ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+              if (c - d > 0) {
+                texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}>0$.<br>
                 ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)>0$, soit $f(x)>g(x)$. <br>
                 Graphiquement,  $\\mathscr{C}_f$ est toujours au dessus de $\\mathscr{C}_g$.`
-              texteCorr += `<br>${remarque}`
-            }
-            if (c - d === 0) {
-              texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}\\geqslant 0$.<br>
+                texteCorr += `<br>${remarque}`
+              }
+              if (c - d === 0) {
+                texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}\\geqslant 0$.<br>
                 ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)\\geqslant0$, soit $f(x)\\geqslant g(x)$. <br>
                 Graphiquement, $\\mathscr{C}_f$ et $\\mathscr{C}_g$ ont un point d'intersection (de coordonnées $(0\\,;\\${d})) et $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$.  .`
-              texteCorr += `<br>${remarque}`
-            }
-            if (c - d < 0) {
-              texteCorr += `  $${reduirePolynomeDegre3(0, 1, 0, c - d)}$ est de la forme $a^2-b^2$ avec $a=x$ et $b=${extraireRacineCarree(d - c)[0]}$.<br>
+                texteCorr += `<br>${remarque}`
+              }
+              if (c - d < 0) {
+                texteCorr += `  $${reduirePolynomeDegre3(0, 1, 0, c - d)}$ est de la forme $a^2-b^2$ avec $a=x$ et $b=${extraireRacineCarree(d - c)[0]}$.<br>
                   Comme $a^2-b^2=(a-b)(a+b)$, on en déduit $${reduirePolynomeDegre3(0, 1, 0, c - d)}=(x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})(x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})$.<br>
                   Ainsi, pour tout $x$ de $\\mathbb R$,
                   $f(x)-g(x)=(x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})(x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})$.<br>
@@ -174,34 +183,34 @@ export default function PositionRelative () {
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
 
-              texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-                tabInit: [
-                  [
-                    ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                      ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                    ],
+                    ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
                   ],
-                  ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
-                ],
-                tabLines: [ligne1, ligne2, ligne3],
-                colorBackground: '',
-                espcl: 3.5,
-                deltacl: 0.8,
-                lgt: 10,
-                hauteurLignes: [15, 15, 15, 15]
-              }))
-              texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)<0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
+                  tabLines: [ligne1, ligne2, ligne3],
+                  colorBackground: '',
+                  espcl: 3.5,
+                  deltacl: 0.8,
+                  lgt: 10,
+                  hauteurLignes: [15, 15, 15, 15]
+                }))
+                texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)<0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                   $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
-              texteCorr += `<br>${remarque}`
-            }
-          } else { // sans question intermédiaire
-            b = randint(-9, 9, 0)
-            c = randint(-10, 10)
-            d = randint(-10, 10, 0)
-            texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par :$f(x)=${reduirePolynomeDegre3(0, 1, b, c)}$ et $g(x)=${reduireAxPlusB(b, d)}$. <br>
+                texteCorr += `<br>${remarque}`
+              }
+            } else { // sans question intermédiaire
+              b = randint(-9, 9, 0)
+              c = randint(-10, 10)
+              d = randint(-10, 10, 0)
+              texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par :$f(x)=${reduirePolynomeDegre3(0, 1, b, c)}$ et $g(x)=${reduireAxPlusB(b, d)}$. <br>
               On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-            texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
-            texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
+              texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
+              texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
             Plus précisément, si $f(x)-g(x)>0$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$, sinon, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.<br>`
-            texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
+              texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
             $\\begin{aligned}
             f(x) - g(x)&=(${reduirePolynomeDegre3(0, 1, b, c)})-(${reduireAxPlusB(b, d)})\\\\
             &=${reduirePolynomeDegre3(0, 1, b, c)}${b > 0 ? '' : '+'}${reduireAxPlusB(-b, -d)}\\\\
@@ -209,23 +218,23 @@ export default function PositionRelative () {
             \\end{aligned}$
             <br>
            `
-            ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-            ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-            ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-            if (c - d > 0) {
-              texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}>0$.<br>
+              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+              ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+              ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+              if (c - d > 0) {
+                texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}>0$.<br>
                  On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)>0$, soit $f(x)>g(x)$. <br>
                 Graphiquement,  $\\mathscr{C}_f$ est toujours au dessus de $\\mathscr{C}_g$.`
-              texteCorr += `<br>${remarque}`
-            }
-            if (c - d === 0) {
-              texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}\\geqslant 0$.<br>
+                texteCorr += `<br>${remarque}`
+              }
+              if (c - d === 0) {
+                texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, 1, 0, c - d)}\\geqslant 0$.<br>
                 On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)\\geqslant0$, soit $f(x)\\geqslant g(x)$. <br>
                 Graphiquement, $\\mathscr{C}_f$ et $\\mathscr{C}_g$ ont un point d'intersection (de coordonnées $(0\\,;\\${d})) et $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$.  .`
-              texteCorr += `<br>${remarque}`
-            }
-            if (c - d < 0) {
-              texteCorr += `  $${reduirePolynomeDegre3(0, 1, 0, c - d)}$ est de la forme $a^2-b^2$ avec $a=x$ et $b=${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$.<br>
+                texteCorr += `<br>${remarque}`
+              }
+              if (c - d < 0) {
+                texteCorr += `  $${reduirePolynomeDegre3(0, 1, 0, c - d)}$ est de la forme $a^2-b^2$ avec $a=x$ et $b=${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$.<br>
                   Comme $a^2-b^2=(a-b)(a+b)$, on en déduit $${reduirePolynomeDegre3(0, 1, 0, c - d)}=(x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})(x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})$.<br>
                   Ainsi, pour tout $x$ de $\\mathbb R$,
                   $f(x)-g(x)=(x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})(x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})$.<br>
@@ -234,52 +243,50 @@ export default function PositionRelative () {
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
 
-              texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-                tabInit: [
-                  [
-                    ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                      ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                    ],
+                    ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
                   ],
-                  ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
-                ],
-                tabLines: [ligne1, ligne2, ligne3],
-                colorBackground: '',
-                espcl: 3.5,
-                deltacl: 0.8,
-                lgt: 10,
-                hauteurLignes: [15, 15, 15, 15]
-              }))
-              texteCorr += `<br> Comme $f(x)-g(x)<0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
+                  tabLines: [ligne1, ligne2, ligne3],
+                  colorBackground: '',
+                  espcl: 3.5,
+                  deltacl: 0.8,
+                  lgt: 10,
+                  hauteurLignes: [15, 15, 15, 15]
+                }))
+                texteCorr += `<br> Comme $f(x)-g(x)<0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                   $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
-              texteCorr += `<br>${remarque}`
+                texteCorr += `<br>${remarque}`
+              }
             }
-          }
-          break
-
-        case 'polynômeEtAffine2':// position relative avec un poly degré 2 et une fonction affine (cas etude du signe de -x^2 +/- a)
-          if (sousChoix[i]) {
-            b = randint(-9, 9, 0)
-            c = randint(-10, 10)
-            d = randint(-10, 10, 0)
-            texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, -1, b, -c)}$ et $g(x)=${reduireAxPlusB(b, -d)}$. <br>
+          } else if (alea === 2) { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de -x^2 +/- a)
+            if (sousChoix[i]) { // avec question intermédiaire
+              b = randint(-9, 9, 0)
+              c = randint(-10, 10)
+              d = randint(-10, 10, 0)
+              texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, -1, b, -c)}$ et $g(x)=${reduireAxPlusB(b, -d)}$. <br>
               On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-            if (c - d > 0) {
-              texte += `
+              if (c - d > 0) {
+                texte += `
                   ${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$, $f(x) - g(x)=${reduirePolynomeDegre3(0, -1, 0, d - c)}$.<br>`
-            }
-            if (c - d === 0) {
-              texte += `
+              }
+              if (c - d === 0) {
+                texte += `
                   ${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$, $f(x) - g(x)=${reduirePolynomeDegre3(0, -1, 0, d - c)}$.<br>`
-            }
-            if (c - d < 0) {
-              texte += `${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$,
+              }
+              if (c - d < 0) {
+                texte += `${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$,
                   $f(x)-g(x)=(${d - c === 1 || d - c === 4 || d - c === 9 || d - c === 16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x)(${d - c === 1 || d - c === 4 || c - d === 9 || c - d === 16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x)$.<br>
                   `
-            }
+              }
 
-            texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
+              texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
           ${numAlpha(2)} Quelle interprétation graphique peut-on en donner ?`
 
-            texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
+              texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
               $\\begin{aligned}
               f(x) - g(x)&=(${reduirePolynomeDegre3(0, -1, b, -c)})-(${reduireAxPlusB(b, -d)})\\\\
               &=${reduirePolynomeDegre3(0, -1, b, -c)}${b > 0 ? '' : '+'}${reduireAxPlusB(-b, d)}\\\\
@@ -287,23 +294,23 @@ export default function PositionRelative () {
               \\end{aligned}$
               <br>
              `
-            ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-            ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-            ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-            if (c - d > 0) {
-              texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}<0$.<br>
+              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+              ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
+              ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              if (c - d > 0) {
+                texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}<0$.<br>
                   ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)<0$, soit $f(x) < g(x)$. <br>
                   Graphiquement,  $\\mathscr{C}_f$ est toujours en dessous de $\\mathscr{C}_g$.`
-              texteCorr += `<br>${remarque}`
-            }
-            if (c - d === 0) {
-              texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}\\leqslant 0$.<br>
+                texteCorr += `<br>${remarque}`
+              }
+              if (c - d === 0) {
+                texteCorr += `${numAlpha(1)}  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}\\leqslant 0$.<br>
                   ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)\\leqslant0$, soit $f(x)\\leqslant g(x)$. <br>
                   Graphiquement, $\\mathscr{C}_f$ et $\\mathscr{C}_g$ ont un point d'intersection (de coordonnées $(0\\,;\\${-d})) et $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.  .`
-              texteCorr += `<br>${remarque}`
-            }
-            if (c - d < 0) {
-              texteCorr += `  $${d - c}-x^2$ est de la forme $a^2-b^2$ avec $a=${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et $b=x$.<br>
+                texteCorr += `<br>${remarque}`
+              }
+              if (c - d < 0) {
+                texteCorr += `  $${d - c}-x^2$ est de la forme $a^2-b^2$ avec $a=${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et $b=x$.<br>
                     Comme $a^2-b^2=(a-b)(a+b)$, on en déduit $${d - c}-x^2=(${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x)(${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x)$.<br>
                     Ainsi, pour tout $x$ de $\\mathbb R$,
                     $f(x)-g(x)=
@@ -313,34 +320,34 @@ export default function PositionRelative () {
                   $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                    $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
 
-              texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-                tabInit: [
-                  [
-                    ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                      ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                    ],
+                    ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
                   ],
-                  ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
-                ],
-                tabLines: [ligne1, ligne2, ligne3],
-                colorBackground: '',
-                espcl: 3.5,
-                deltacl: 0.8,
-                lgt: 10,
-                hauteurLignes: [15, 15, 15, 15]
-              }))
-              texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)>0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
+                  tabLines: [ligne1, ligne2, ligne3],
+                  colorBackground: '',
+                  espcl: 3.5,
+                  deltacl: 0.8,
+                  lgt: 10,
+                  hauteurLignes: [15, 15, 15, 15]
+                }))
+                texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)>0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                     $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
-              texteCorr += `<br>${remarque}`
-            }
-          } else { // sans question intermédiaire
-            b = randint(-9, 9, 0)
-            c = randint(-10, 10)
-            d = randint(-10, 10, 0)
-            texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, -1, b, -c)}$ et $g(x)=${reduireAxPlusB(b, -d)}$. <br>
+                texteCorr += `<br>${remarque}`
+              }
+            } else { // sans question intermédiaire
+              b = randint(-9, 9, 0)
+              c = randint(-10, 10)
+              d = randint(-10, 10, 0)
+              texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, -1, b, -c)}$ et $g(x)=${reduireAxPlusB(b, -d)}$. <br>
             On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-            texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
-            texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
+              texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
+              texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
             Plus précisément, si $f(x)-g(x)>0$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$, sinon, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.<br>`
-            texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
+              texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
             $\\begin{aligned}
             f(x) - g(x)&=(${reduirePolynomeDegre3(0, -1, b, -c)})-(${reduireAxPlusB(b, -d)})\\\\
             &=${reduirePolynomeDegre3(0, -1, b, -c)}${b > 0 ? '' : '+'}${reduireAxPlusB(-b, d)}\\\\
@@ -348,22 +355,22 @@ export default function PositionRelative () {
             \\end{aligned}$
             <br>
            `
-            ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-            ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-            ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-            if (c - d > 0) {
-              texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}<0$.<br>
+              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+              ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
+              ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              if (c - d > 0) {
+                texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}<0$.<br>
                 ${numAlpha(2)} On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)<0$, soit $f(x) < g(x)$. <br>
                 Graphiquement,  $\\mathscr{C}_f$ est toujours en dessous de $\\mathscr{C}_g$.`
-            }
-            if (c - d === 0) {
-              texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}\\leqslant 0$.<br>
+              }
+              if (c - d === 0) {
+                texteCorr += `  Pour tout $x$ de $\\mathbb R$, $${reduirePolynomeDegre3(0, -1, 0, d - c)}\\leqslant 0$.<br>
                  On en déduit que pour tout $x$ de $\\mathbb R$, $f(x)-g(x)\\leqslant0$, soit $f(x)\\leqslant g(x)$. <br>
                 Graphiquement, $\\mathscr{C}_f$ et $\\mathscr{C}_g$ ont un point d'intersection (de coordonnées $(0\\,;\\${-d})) et $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.  .`
-              texteCorr += `<br>${remarque}`
-            }
-            if (c - d < 0) {
-              texteCorr += `  $${d - c}-x^2$ est de la forme $a^2-b^2$ avec $a=${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et $b=x$.<br>
+                texteCorr += `<br>${remarque}`
+              }
+              if (c - d < 0) {
+                texteCorr += `  $${d - c}-x^2$ est de la forme $a^2-b^2$ avec $a=${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et $b=x$.<br>
                   Comme $a^2-b^2=(a-b)(a+b)$, on en déduit $${d - c}-x^2=(${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x)(${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x)$.<br>
                   Ainsi, pour tout $x$ de $\\mathbb R$,
                   $f(x)-g(x)=
@@ -373,39 +380,37 @@ export default function PositionRelative () {
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
 
-              texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-                tabInit: [
-                  [
-                    ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                      ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                    ],
+                    ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
                   ],
-                  ['$-\\infty$', 30, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$`, 20, `$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 20, '$+\\infty$', 30]
-                ],
-                tabLines: [ligne1, ligne2, ligne3],
-                colorBackground: '',
-                espcl: 3.5,
-                deltacl: 0.8,
-                lgt: 10,
-                hauteurLignes: [15, 15, 15, 15]
-              }))
-              texteCorr += `<br> Comme $f(x)-g(x)>0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
+                  tabLines: [ligne1, ligne2, ligne3],
+                  colorBackground: '',
+                  espcl: 3.5,
+                  deltacl: 0.8,
+                  lgt: 10,
+                  hauteurLignes: [15, 15, 15, 15]
+                }))
+                texteCorr += `<br> Comme $f(x)-g(x)>0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                   $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
-              texteCorr += `<br>${remarque}`
+                texteCorr += `<br>${remarque}`
+              }
             }
-          }
-          break
-
-        case 'polynômeEtAffine3':// position relative avec un poly degré 2 et une fonction affine (cas etude du signe de ax^2 +bx)
-          if (sousChoix[i]) {
-            a = randint(-3, 3, 0)
-            b = randint(-9, 9, 0)
-            c = randint(-10, 10)
-            d = randint(-10, 10, [0, b])
-            texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$ et $g(x)=${reduireAxPlusB(d, c)}$. <br>
+          } else { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de ax^2 +bx)
+            if (!sousChoix[i]) { // sans question intermédiaire
+              a = randint(-3, 3, 0)
+              b = randint(-9, 9, 0)
+              c = randint(-10, 10)
+              d = randint(-10, 10, [0, b])
+              texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$ et $g(x)=${reduireAxPlusB(d, c)}$. <br>
               On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-            texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
-            texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
+              texte += 'Étudier la position relative des deux courbes $\\mathscr{C}_f$ et $\\mathscr{C}_g$.'
+              texteCorr = `La position relative des deux courbes est donnée par l'étude du signe de la différence : $f(x)-g(x)$.<br>
             Plus précisément, si $f(x)-g(x)>0$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$, sinon, $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$.<br>`
-            texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
+              texteCorr += `  Pour tout $x$ de $\\mathbb R$, <br>
               $\\begin{aligned}
               f(x) - g(x)&=(${reduirePolynomeDegre3(0, a, b, c)}) -(${reduireAxPlusB(d, c)})\\\\
               &=${reduirePolynomeDegre3(0, a, b, c)}${d > 0 ? '' : '+'}${reduireAxPlusB(-d, -c)}\\\\
@@ -414,79 +419,79 @@ export default function PositionRelative () {
               \\end{aligned}$
               <br>
              `
-            if ((a > 0) && ((d - b) / a > 0)) {
-              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-              ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-            }
-            if ((a > 0) && ((d - b) / a < 0)) {
-              ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-            }
-            if ((a < 0) && ((d - b) / a > 0)) {
-              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-              ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-            }
-            if ((a < 0) && ((d - b) / a < 0)) {
-              ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
-              ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-            }
+              if ((a > 0) && ((d - b) / a > 0)) {
+                ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+                ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+                ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+              }
+              if ((a > 0) && ((d - b) / a < 0)) {
+                ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+                ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+                ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+              }
+              if ((a < 0) && ((d - b) / a > 0)) {
+                ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+                ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
+                ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              }
+              if ((a < 0) && ((d - b) / a < 0)) {
+                ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+                ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
+                ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              }
 
-            texteCorr += `  $x$ s'annule en $0$ et $${rienSi1(a)}x${ecritureAlgebrique(b - d)}$ s'annule en $${texFractionReduite(d - b, a)}$.<br>
+              texteCorr += `  $x$ s'annule en $0$ et $${rienSi1(a)}x${ecritureAlgebrique(b - d)}$ s'annule en $${texFractionReduite(d - b, a)}$.<br>
               On obtient le tableau de signes : <br>
               
               `
 
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-              tabInit: [
-                [
-                  ['$x$', 2.5, 30],
-                  ['$x$', 2, 75],
-                  [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+              texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+                tabInit: [
+                  [
+                    ['$x$', 2.5, 30],
+                    ['$x$', 2, 75],
+                    [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                  ],
+                  ['$-\\infty$', 30, `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, '$+\\infty$', 30]
                 ],
-                ['$-\\infty$', 30, `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, '$+\\infty$', 30]
-              ],
-              tabLines: [ligne1, ligne2, ligne3],
-              colorBackground: '',
-              espcl: 3.5,
-              deltacl: 0.8,
-              lgt: 10,
-              hauteurLignes: [15, 15, 15, 15]
-            }))
-            if (a < 0) {
-              texteCorr += `<br> Comme $f(x)-g(x)>0$ pour
+                tabLines: [ligne1, ligne2, ligne3],
+                colorBackground: '',
+                espcl: 3.5,
+                deltacl: 0.8,
+                lgt: 10,
+                hauteurLignes: [15, 15, 15, 15]
+              }))
+              if (a < 0) {
+                texteCorr += `<br> Comme $f(x)-g(x)>0$ pour
               $x\\in\\left]${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'} \\,;\\,
               ${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\right[$, $\\mathscr{C}_f$ est au dessus de
                 $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                     $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur $\\left]-\\infty\\,;\\,
                     ${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}\\right[$
                       et sur $\\left]${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\,;\\,+\\infty \\right[$.`
-              texteCorr += `<br>${remarque}`
-            } else {
-              texteCorr += `<br> Comme $f(x)-g(x)<0$ pour
+                texteCorr += `<br>${remarque}`
+              } else {
+                texteCorr += `<br> Comme $f(x)-g(x)<0$ pour
               $x\\in\\left]${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'} \\,;\\,
               ${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\right[$, $\\mathscr{C}_f$ est en dessous de
                 $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                     $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur $\\left]-\\infty\\,;\\,
                     ${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}\\right[$
                       et sur $\\left]${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\,;\\,+\\infty \\right[$.`
-              texteCorr += `<br>${remarque}`
-            }
-          } else { // sans question intermédiaire
-            a = randint(-3, 3, 0)
-            b = randint(-9, 9, 0)
-            c = randint(-10, 10)
-            d = randint(-10, 10, [0, b])
-            texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$ et $g(x)=${reduireAxPlusB(d, c)}$. <br>
+                texteCorr += `<br>${remarque}`
+              }
+            } else { // avec question intermédiaire
+              a = randint(-3, 3, 0)
+              b = randint(-9, 9, 0)
+              c = randint(-10, 10)
+              d = randint(-10, 10, [0, b])
+              texte = `Soient $f$ et $g$ deux fonctions définies sur $\\mathbb R$ respectivement par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$ et $g(x)=${reduireAxPlusB(d, c)}$. <br>
           On note $\\mathscr{C}_f$ et $\\mathscr{C}_g$ leur courbe représentative.<br>`
-            texte += `${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$, $f(x) - g(x)=x(${rienSi1(a)}x${ecritureAlgebrique(b - d)})$.<br>`
-            texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
+              texte += `${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$, $f(x) - g(x)=x(${rienSi1(a)}x${ecritureAlgebrique(b - d)})$.<br>`
+              texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
       ${numAlpha(2)} Quelle interprétation graphique peut-on en donner ?`
 
-            texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
+              texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
           $\\begin{aligned}
           f(x) - g(x)&=(${reduirePolynomeDegre3(0, a, b, c)}) -(${reduireAxPlusB(d, c)})\\\\
           &=${reduirePolynomeDegre3(0, a, b, c)}${d > 0 ? '' : '+'}${reduireAxPlusB(-d, -c)}\\\\
@@ -495,69 +500,70 @@ export default function PositionRelative () {
           \\end{aligned}$
           <br>
          `
-            if ((a > 0) && ((d - b) / a > 0)) {
-              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-              ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-            }
-            if ((a > 0) && ((d - b) / a < 0)) {
-              ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-            }
-            if ((a < 0) && ((d - b) / a > 0)) {
-              ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
-              ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-            }
-            if ((a < 0) && ((d - b) / a < 0)) {
-              ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
-              ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
-              ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-            }
+              if ((a > 0) && ((d - b) / a > 0)) {
+                ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+                ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+                ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+              }
+              if ((a > 0) && ((d - b) / a < 0)) {
+                ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+                ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+                ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+              }
+              if ((a < 0) && ((d - b) / a > 0)) {
+                ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
+                ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
+                ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              }
+              if ((a < 0) && ((d - b) / a < 0)) {
+                ligne1 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
+                ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
+                ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+              }
 
-            texteCorr += ` ${numAlpha(1)} $x$ s'annule en $0$ et $${rienSi1(a)}x${ecritureAlgebrique(b - d)}$ s'annule en $${texFractionReduite(d - b, a)}$.<br>
+              texteCorr += ` ${numAlpha(1)} $x$ s'annule en $0$ et $${rienSi1(a)}x${ecritureAlgebrique(b - d)}$ s'annule en $${texFractionReduite(d - b, a)}$.<br>
           On obtient le tableau de signes : <br>
           
           `
 
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-              tabInit: [
-                [
-                  ['$x$', 2.5, 30],
-                  ['$x$', 2, 75],
-                  [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+              texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+                tabInit: [
+                  [
+                    ['$x$', 2.5, 30],
+                    ['$x$', 2, 75],
+                    [`$${rienSi1(a)}x${ecritureAlgebrique(b - d)}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
+                  ],
+                  ['$-\\infty$', 30, `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, '$+\\infty$', 30]
                 ],
-                ['$-\\infty$', 30, `$${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, `$${(d - b) / a > 0 ? `${texFractionReduite(d - b, a)}` : '0'}$`, 20, '$+\\infty$', 30]
-              ],
-              tabLines: [ligne1, ligne2, ligne3],
-              colorBackground: '',
-              espcl: 3.5,
-              deltacl: 0.8,
-              lgt: 10,
-              hauteurLignes: [15, 15, 15, 15]
-            }))
-            if (a < 0) {
-              texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)>0$ pour
+                tabLines: [ligne1, ligne2, ligne3],
+                colorBackground: '',
+                espcl: 3.5,
+                deltacl: 0.8,
+                lgt: 10,
+                hauteurLignes: [15, 15, 15, 15]
+              }))
+              if (a < 0) {
+                texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)>0$ pour
           $x\\in\\left]${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'} \\,;\\,
           ${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\right[$, $\\mathscr{C}_f$ est au dessus de
             $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                 $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur $\\left]-\\infty\\,;\\,
                 ${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}\\right[$
                   et sur $\\left]${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\,;\\,+\\infty \\right[$.`
-              texteCorr += `<br>${remarque}`
-            } else {
-              texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)<0$ pour
+                texteCorr += `<br>${remarque}`
+              } else {
+                texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)<0$ pour
           $x\\in\\left]${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'} \\,;\\,
           ${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\right[$, $\\mathscr{C}_f$ est en dessous de
             $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                 $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur $\\left]-\\infty\\,;\\,
                 ${(d - b) / a < 0 ? `${texFractionReduite(d - b, a)}` : '0'}\\right[$
                   et sur $\\left]${(d - b) / a < 0 ? '0' : `${texFractionReduite(d - b, a)}`}\\,;\\,+\\infty \\right[$.`
-              texteCorr += `<br>${remarque}`
+                texteCorr += `<br>${remarque}`
+              }
             }
           }
-          break
+        }
       }
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -569,9 +575,4 @@ export default function PositionRelative () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Choix des fonctions',
-    '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Idem 2 variation 1\n4 : Idem 2 variation 2\n5 : Mélange'
-  ]
-  this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
 }
