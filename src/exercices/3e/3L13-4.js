@@ -182,7 +182,7 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
           break
         }
       }
-      exercice.texte += numeroquestion
+      // exercice.texte += numeroquestion
       if (this.questionJamaisPosee(i, i)) {
         this.listeQuestions.push(exercice.texte.replaceAll('\n\n', '<br>'))
         this.listeCorrections.push(exercice.texteCorr.replaceAll('\n\n', '<br>'))
