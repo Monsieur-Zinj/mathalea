@@ -7229,8 +7229,8 @@ export function DroiteGraduee ({
   else if (thickSec) factor = 1 / thickSecDist
   else factor = 1 / thickDistance
 
-  const Min2 = Math.round((Min + thickOffset) * factor) // début des graduations (ne coïncide pas nécéssairement avec le début de la droite)
-  const Max2 = Math.round((Max - thickOffset) * factor) // fin des graduations
+  const Min2 = Math.ceil((Min + thickOffset) * factor) // début des graduations (ne coïncide pas nécéssairement avec le début de la droite)
+  const Max2 = Math.floor((Max - thickOffset) * factor) // fin des graduations
   const pas1 = Math.round(thickDistance * factor)
   const pas2 = Math.round(thickSecDist * factor)
   for (let j = Min2; j <= Max2; j++) {
