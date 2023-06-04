@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, calcul, texNombre, texFraction, stringNombre, arrondi } from '../../modules/outils.js'
 
@@ -60,7 +60,8 @@ export default function FractionDuneQuantite () {
           texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, 'largeur15 inline', { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
-            texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 15, ymax: 5 }, frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue'))
+            const figure = frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue')
+            texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${texFraction(1, den)}$ d'heure, soit $${calcul(60 / den, 0)}$ minutes.<br>`
           texteCorr += `Ici, il y a $${texFraction(num, den)}$ d'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60 / den, 0)}=${calcul(num * 60 / den, 0)}$.<br>`
@@ -75,7 +76,8 @@ export default function FractionDuneQuantite () {
           texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, 'largeur15 inline', { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
-            texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 15, ymax: 5 }, frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue'))
+            const figure = frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue')
+            texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${texFraction(1, den)}$ d'heure, soit $${calcul(60 / den, 0)}$ minutes.<br>`
           texteCorr += `Ici, il y a $${texFraction(num, den)}$ d'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60 / den, 0)}=${calcul(num * 60 / den, 0)}$.<br>`
@@ -114,7 +116,8 @@ export default function FractionDuneQuantite () {
           }
           if (this.sup2) {
             texte += 'La tablette de chocolat est représentée ci-dessous :<br>'
-            texte += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 5, ymax: 7 }, frac2.representationIrred(0, 0, 4, 0, 'baton', 'brown'))
+            const figure = frac2.representationIrred(0, 0, 4, 0, 'baton', 'brown')
+            texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           break
         case 4:
@@ -141,7 +144,8 @@ export default function FractionDuneQuantite () {
           setReponse(this, index + 1, calcul(longueur / 100 - numIrred * longueur / 100 / denIrred, 3))
           if (this.sup2) {
             texte += 'Ce bâton est représenté ci-dessous :<br>'
-            texte += mathalea2d({ xmin: -0.5, ymin: 0, xmax: 10, ymax: 2 }, frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${stringNombre(calcul(longueur / 100, 1))}`))
+            const figure = frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${stringNombre(calcul(longueur / 100, 1))}`)
+            texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `$${texFraction(1, denIrred)}$ de $${texNombre(longueur / 100, 1)}$ représente $${texNombre(longueur / 100, 1)} \\div ${denIrred} = ${texNombre(longueur / 100 / denIrred, 3)}$.<br>`
           texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombre(longueur / 100 / denIrred, 3)}=${texNombre(numIrred * longueur / 100 / denIrred, 3)}$ m.<br>`
