@@ -241,7 +241,7 @@ export default function ReconnaitreDesSolides () {
             c4.pointilles = 0
             c4.opacite = 1
             cylindre.c2d = []
-            cylindre.c2d.push(c1, c2, c3, c4, g, arete3d(point3d(-1, 0, 1), point3d(4, 0, 1), 'red', false).c2d)
+            cylindre.c2d.push(c1, c2, c3, c4, ...g, arete3d(point3d(-1, 0, 1), point3d(4, 0, 1), 'red', false).c2d)
           } else {
             cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
           }
