@@ -146,7 +146,7 @@ export default function LireFacePaveDroit () {
       for (let ee = 0; ee < Math.min(choixFace.length, this.sup); ee++) {
         indiceQuestion = i * Math.min(choixFace.length, this.sup) + ee
 
-        enonceAMC = this.sup === 1 ? '' : (((ee === 0) ? '' : '<br>') + numAlpha(ee))
+        enonceAMC = this.sup === 1 ? '' : (((ee === 0 || context.isAmc) ? '' : '<br>') + numAlpha(ee))
 
         enonceAMC += `Comment peut se nommer la face ${facesPossibles[choixFace[ee]][0]} du pavé droit ${nomSolide} ?`
         texte += enonceAMC
