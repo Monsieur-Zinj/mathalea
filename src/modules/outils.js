@@ -344,9 +344,9 @@ export function gestionnaireFormulaireTexte ({
   if (enleveDoublons) listeIndex = enleveDoublonNum(listeIndex)
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
     if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
-    return listeIndex.map((el) => listeOfCase[el - min])
+    return listeIndex.map((el) => listeOfCase[el - min]).slice(0, nbQuestions)
   }
-  return listeIndex
+  return listeIndex.slice(0, nbQuestions)
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
