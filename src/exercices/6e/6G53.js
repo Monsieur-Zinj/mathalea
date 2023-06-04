@@ -32,9 +32,9 @@ export default class MesurerDistancePointDroite extends Exercice {
       const O = point(0, 0)
       const B = point(randint(-4, 4, [0]), randint(-3, 4, [0]))
       const d = droite(O, B, '(d)')
-      let A = point(randint(-4, 4), randint(-3, 4), choisitLettresDifferentes(1, 'OH'))
+      let A = point(randint(-4, 4), randint(-3, 4), choisitLettresDifferentes(1, 'OH')[0])
       while (distancePointDroite(A, d) < 1) {
-        A = point(randint(-4, 4), randint(-3, 4), choisitLettresDifferentes(1, 'OH'))
+        A = point(randint(-4, 4), randint(-3, 4), choisitLettresDifferentes(1, 'OH')[0])
       }
       const traceA = tracePoint(A)
       traceA.taille = context.isHtml ? 2 : 1
