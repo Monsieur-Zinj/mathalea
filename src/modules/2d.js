@@ -732,7 +732,8 @@ export function LabelPoint (...points) {
       } else {
         A = unPoint
       }
-      code += `\t\\draw (${arrondi(A.x)},${arrondi(A.y)}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
+
+      code += A.nom === '' ? '' : `\t\\draw (${arrondi(A.x)},${arrondi(A.y)}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
     }
     return code
   }

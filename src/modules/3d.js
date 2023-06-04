@@ -960,6 +960,7 @@ function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, co
     ptsBase.push(rotation3d(pt1, droite3d(this.centre, vecteur3d(this.sommet, this.centre)), ee * 360 / (nbSommets)))
   }
   const p = polygone3d(ptsBase, this.color)
+  // this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
   this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
 }
 
@@ -1441,9 +1442,9 @@ class Pyramide3d {
       const premierPlan = [this.sommet.c2d]
       for (let i = angleReference[0]; i < angleReference[1]; i++) {
         premierPlan.push(this.base.listePoints[i % this.base.listePoints.length].c2d)
+      // ok
       }
       const faceAv = polygone(premierPlan, this.colorCone)
-      // faceAv.isVisible = false
       faceAv.couleurDeRemplissage = colorToLatexOrHTML(this.colorCone)
       this.c2d.push(faceAv)
     }
