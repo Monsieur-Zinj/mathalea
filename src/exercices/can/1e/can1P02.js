@@ -38,8 +38,8 @@ export default function LectureProbabilite () {
     for (let i = 0, cpt = 0, pA, pB, pAC, pBC, omega, texte, texteCorr, choix, nom1, nom2, objets; i < this.nbQuestions && cpt < 50;) {
       objets = []
       // On choisit les probas de l'arbre
-      nom1 = choisitLettresDifferentes(1, 'D')
-      nom2 = choisitLettresDifferentes(1, nom1 + 'D')
+      nom1 = choisitLettresDifferentes(1, 'D')[0]
+      nom2 = choisitLettresDifferentes(1, nom1 + 'D')[0]
       pA = (new Decimal(randint(1, 9, 5))).div(10)
 
       pB = new Decimal(1 - pA)

@@ -57,9 +57,9 @@ export default function ConstruireSectionPaveDroit () {
 
       switch (choix) {
         case 1 : // Parallèle à arête verticale - Cas 1
-          Z = pointSurSegment(sommetsPave[2].c2d, sommetsPave[3].c2d, placeDuPoint1 * longueur(sommetsPave[2].c2d, sommetsPave[3].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide))
+          Z = pointSurSegment(sommetsPave[2].c2d, sommetsPave[3].c2d, placeDuPoint1 * longueur(sommetsPave[2].c2d, sommetsPave[3].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide)[0])
           areteZ = nomSolide[3] + nomSolide[2]
-          Y = pointSurSegment(sommetsPave[6].c2d, sommetsPave[7].c2d, placeDuPoint2 * longueur(sommetsPave[6].c2d, sommetsPave[7].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide + Z.nom))
+          Y = pointSurSegment(sommetsPave[6].c2d, sommetsPave[7].c2d, placeDuPoint2 * longueur(sommetsPave[6].c2d, sommetsPave[7].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide + Z.nom)[0])
           areteY = nomSolide[7] + nomSolide[6]
           ZCorr = translation(Z, vecteur(sommetsPave[2].c2d, sommetsPave[1].c2d))
           YCorr = translation(Y, vecteur(sommetsPave[2].c2d, sommetsPave[1].c2d))
@@ -67,14 +67,14 @@ export default function ConstruireSectionPaveDroit () {
           else choixAreteParallele = [0, 3]
           break
         case 2 : // Parallèle à arête verticale - Cas 2
-          Z = pointSurSegment(sommetsPave[2].c2d, sommetsPave[3].c2d, placeDuPoint1 * longueur(sommetsPave[2].c2d, sommetsPave[3].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide))
+          Z = pointSurSegment(sommetsPave[2].c2d, sommetsPave[3].c2d, placeDuPoint1 * longueur(sommetsPave[2].c2d, sommetsPave[3].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide)[0])
           areteZ = nomSolide[3] + nomSolide[2]
           placeDuPoint2 = randint(2, 8) / 10
           if (placeDuPoint1 > 0.5) {
-            Y = pointSurSegment(sommetsPave[2].c2d, sommetsPave[6].c2d, placeDuPoint2 * longueur(sommetsPave[2].c2d, sommetsPave[6].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide + Z.nom))
+            Y = pointSurSegment(sommetsPave[2].c2d, sommetsPave[6].c2d, placeDuPoint2 * longueur(sommetsPave[2].c2d, sommetsPave[6].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide + Z.nom)[0])
             areteY = nomSolide[2] + nomSolide[6]
           } else {
-            Y = pointSurSegment(sommetsPave[3].c2d, sommetsPave[7].c2d, placeDuPoint2 * longueur(sommetsPave[3].c2d, sommetsPave[7].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide + Z.nom))
+            Y = pointSurSegment(sommetsPave[3].c2d, sommetsPave[7].c2d, placeDuPoint2 * longueur(sommetsPave[3].c2d, sommetsPave[7].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide + Z.nom)[0])
             areteY = nomSolide[7] + nomSolide[3]
           }
           ZCorr = translation(Z, vecteur(sommetsPave[2].c2d, sommetsPave[1].c2d))
@@ -84,9 +84,9 @@ export default function ConstruireSectionPaveDroit () {
           break
         case 3 : // Parallèle à l'arête horizontale de la face de devant - Cas 1
           placeDuPoint2 = randint(2, 8) / 10
-          Z = pointSurSegment(sommetsPave[1].c2d, sommetsPave[2].c2d, placeDuPoint1 * longueur(sommetsPave[1].c2d, sommetsPave[2].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide), 'right')
+          Z = pointSurSegment(sommetsPave[1].c2d, sommetsPave[2].c2d, placeDuPoint1 * longueur(sommetsPave[1].c2d, sommetsPave[2].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide)[0], 'right')
           areteZ = nomSolide[1] + nomSolide[2]
-          Y = pointSurSegment(sommetsPave[2].c2d, sommetsPave[6].c2d, placeDuPoint2 * longueur(sommetsPave[2].c2d, sommetsPave[6].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide + Z.nom), 'right')
+          Y = pointSurSegment(sommetsPave[2].c2d, sommetsPave[6].c2d, placeDuPoint2 * longueur(sommetsPave[2].c2d, sommetsPave[6].c2d), choisitLettresDifferentes(1, 'OQWXD' + nomSolide + Z.nom)[0], 'right')
           areteY = nomSolide[2] + nomSolide[6]
           ZCorr = translation(Z, vecteur(sommetsPave[1].c2d, sommetsPave[0].c2d))
           YCorr = translation(Y, vecteur(sommetsPave[1].c2d, sommetsPave[0].c2d))
