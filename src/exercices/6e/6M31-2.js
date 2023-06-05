@@ -5,11 +5,14 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { min } from 'mathjs'
 import Decimal from 'decimal.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
+import { context } from '../../modules/context.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Convertir des volumes ou des capacités'
-export const amcReady = true
-export const amcType = 'AMCNum'
+// export const amcReady = true
+// export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = ['qcm', 'mathLive']
+export const dateDeModifImportante = '05/06/2023'
 
 /**
  * Conversions d'unités de volumes vers les unités de capacité ou inversement.
@@ -25,22 +28,24 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'f4d29'
 export const ref = '6M31-2'
-export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
+export default function UnitesDeVolumesEtDeCapacite () {
+  Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = niveau // Niveau de difficulté de l'exercice
+  this.sup = 1 // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
-  this.titre = titre
-  this.consigne = 'Compléter : '
+  this.sup3 = 4
+  this.sup4 = 2
   this.spacing = 2
   this.nbQuestions = 8
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
+    this.consigne = (this.interactif && this.sup4 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
+    this.interactifType = this.sup4 === 2 ? 'mathLive' : 'qcm'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let listeTypeDeQuestions
-    this.sup = parseInt(this.sup)
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(
         ['dam3toL', 'm3toL', 'dm3toL', 'cm3toL'],
@@ -68,14 +73,14 @@ export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
         this.nbQuestions
       )
     }
-    let listeDeN = []; let bonusDecimalesAMC, resultat
+    let listeDeN = []; let bonusDecimalesAMC, resultat, resultat2, resultat3, resultat4, resultat5
     if (this.sup2) {
       listeDeN = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
       listeDeN = combinaisonListes([1, 2, 3, 4, 5, 6], this.nbQuestions)
     }
     for (
-      let i = 0, n, texte, texteCorr, cpt = 0;
+      let i = 0, n, uniteFinale, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -118,110 +123,127 @@ export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
       }
       switch (listeTypeDeQuestions[i]) {
         case 'dam3toL':
-          if (this.interactif) {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
-          } else {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=\\dotfill${sp()}\\text{L}$`
-          }
+          texte = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = n < 1000 ? randint(0, 1) : 0 // Sinon, cela fait trop de digits
-          resultat = n * 1000000
+          // resultat = n * 1000000
+          resultat = n.mul(1000000)
           setReponse(this, i, resultat, { digits: min(nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, 10), decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=${texNombre(n, 3)}\\times1${sp()}000\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
-          texteCorr += !this.sup4 ? '' : '<br>' + buildTab(n, 'dam', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dam', resultat, 'dm', 2, true, true)
 
           break
         case 'm3toL':
-          if (this.interactif) {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{m}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
-          } else {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{m}^3=\\dotfill${sp()}\\text{L}$`
-          }
+          texte = `$${texNombre(n, 3)}${sp()}\\text{m}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
-          resultat = n * 1000
+          // resultat = n * 1000
+          resultat = n.mul(1000)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{m}^3=${texNombre(n, 3)}\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
-          texteCorr += !this.sup4 ? '' : '<br>' + buildTab(n, 'm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'm', resultat, 'dm', 2, true, true)
           break
         case 'dm3toL':
-          if (this.interactif) {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
-          } else {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=\\dotfill${sp()}\\text{L}$`
-          }
+          texte = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
-          resultat = n
+          // resultat = n
+          resultat = n.mul(1)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(resultat, 3)}${sp()}\\text{L}$`
-          texteCorr += !this.sup4 ? '' : '<br>' + buildTab(n, 'dm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'dm', 2, true, true)
           break
         case 'cm3toL':
-          if (this.interactif) {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
-          } else {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=\\dotfill${sp()}\\text{L}$`
-          }
+          texte = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.div(1000)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=${texNombre(n, 3)}\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 6)}${sp()}\\text{L}$`
-          texteCorr += !this.sup4 ? '' : '<br>' + buildTab(n, 'cm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'cm', resultat, 'dm', 2, true, true)
           break
         case 'mm3toL':
-          if (this.interactif) {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
-          } else {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=\\dotfill${sp()}\\text{L}$`
-          }
+          texte = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.div(1000000)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=${texNombre(n, 3)}\\div1${sp()}000\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 9)}${sp()}\\text{L}$`
-          texteCorr += !this.sup4 ? '' : '<br>' + buildTab(n, 'mm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'mm', resultat, 'dm', 2, true, true)
           break
         case 'Ltodm3':
-          if (this.interactif) {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{L}=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `$${sp(3)}\\text{dm}^3$`
-          } else {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{dm}^3$`
-          }
+          texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{dm}^3$`
           bonusDecimalesAMC = randint(0, 1)
-          resultat = n
+          // resultat = n
+          resultat = n.mul(1)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(resultat, 3)}${sp()}\\text{dm}^3$`
-          texteCorr += !this.sup4 ? '' : '<br>' + buildTab(n, 'dm', resultat, 'dm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'dm', 2, true, true)
           break
         case 'Ltocm3':
-          if (this.interactif) {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{L}=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `$${sp(3)}\\text{cm}^3$`
-          } else {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{cm}^3$`
-          }
+          texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{cm}^3$`
           bonusDecimalesAMC = randint(0, 1)
-          resultat = n * 1000
+          // resultat = n * 1000
+          resultat = n.mul(1000)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 0)}${sp()}\\text{dm}^3=${texNombre(n, 0)}\\times1${sp()}000${sp()}\\text{cm}^3=${texNombre(n * 1000)}${sp()}\\text{cm}^3$`
-          texteCorr += !this.sup4 ? '' : '<br>' + buildTab(n, 'dm', resultat, 'cm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'cm', 2, true, true)
           break
         case 'Ltom3':
-          if (this.interactif) {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{L}=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `$${sp(3)}\\text{m}^3$`
-          } else {
-            texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{m}^3$`
-          }
+          texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{m}^3$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.div(1000)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(n, 3)}\\div1${sp()}000${sp()}\\text{m}^3=${texNombre(resultat, 6)}${sp()}\\text{m}^3$`
-          texteCorr += !this.sup4 ? '' : '<br>' + buildTab(n, 'dm', resultat, 'm', 2, true, true)
+          texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'm', 2, true, true)
           break
       }
 
-      if (this.sup3 && i === this.nbQuestions - 1) {
+      this.autoCorrection[i].enonce = `${texte}\n`
+      resultat2 = resultat.div(1000)
+      resultat3 = resultat.mul(1000)
+      resultat4 = resultat.mul(1000000)
+      resultat5 = resultat.div(1000000)
+      this.autoCorrection[i].propositions = [{
+        texte: `$${texNombre(resultat, 20)}$`,
+        statut: true
+      },
+      {
+        texte: `$${texNombre(resultat2, 20)}$`,
+        statut: false
+      },
+      {
+        texte: `$${texNombre(resultat3, 20)}$`,
+        statut: false
+      },
+      {
+        texte: `$${texNombre(resultat4, 20)}$`,
+        statut: false
+      },
+      {
+        texte: `$${texNombre(resultat5, 20)}$`,
+        statut: false
+      }
+      ]
+      if (this.interactif && this.interactifType === 'qcm') {
+        texte += propositionsQcm(this, i).texte
+      } else if (this.interactif && this.interactifType === 'mathLive') {
+        uniteFinale = listeTypeDeQuestions[i].split('to')[1]
+        uniteFinale = uniteFinale === 'L' ? '$\\text{L}$' : `$\\text{${uniteFinale.split('3')[0]}}^3$`
+        texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true, texteApres: uniteFinale })}$`)
+        setReponse(this, i, resultat)
+      }
+
+      if ((this.sup3 === 1 || this.sup3 === 3) && i === this.nbQuestions - 1) {
         texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(8, this.nbQuestions), true, false)
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, uniteFinale, resultat)) {
         // Si la question n'a jamais été posée, on en crée une autre
+        if (context.vue === 'diap') {
+          texte = texte.replace('= \\dotfill', '\\text{ en }')
+        }
+        if (context.isHtml) {
+          texte = texte.replace(
+            '\\dotfill',
+            '................................................'
+          )
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -236,8 +258,9 @@ export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
     '1 : Unités de volume vers litres\n2 : Litres vers unités de volume\n3 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  this.besoinFormulaire3CaseACocher = ['Avec tableau dans l\'énoncé', false]
+  this.besoinFormulaire3Numerique = ['Avec tableau', 4, 'Uniquement dans l\'énoncé\nUniquement dans la correction\nDans l\'énoncé et dans la correction\nNi dans l\'enoncé, ni dans la correction']
   this.besoinFormulaire4CaseACocher = ['Avec tableau dans la correction', false]
+  if (!(context.vue === 'diap')) this.besoinFormulaire4Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique']
 }
 
 function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false) {
@@ -335,13 +358,6 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
   }
   const aTab = tabRep(a, uniteA)
   const rTab = tabRep(r, uniteR)
-  /*
-  const minTab1 = aTab[0] !== '' || aTab[1] !== '' || aTab[2] !== '' ? 0 : aTab[3] !== '' || aTab[4] !== '' || aTab[5] !== '' || force ? 3 : 6
-  const minTab2 = rTab[0] !== '' || rTab[1] !== '' || rTab[2] !== '' ? 0 : rTab[3] !== '' || rTab[4] !== '' || rTab[5] !== '' || force ? 3 : 6
-  const maxTab1 = aTab[20] !== '' || aTab[19] !== '' || aTab[18] !== '' ? 21 : aTab[17] !== '' || aTab[16] !== '' || aTab[15] !== '' || force ? 18 : 15
-  const maxTab2 = rTab[20] !== '' || rTab[19] !== '' || rTab[18] !== '' ? 21 : rTab[17] !== '' || rTab[16] !== '' || rTab[15] !== '' || force ? 18 : 15
-  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2) / 3, Math.max(maxTab1, maxTab2) / 3, ligne, correction, vierge)
-  */
   const texte = createTab(aTab, rTab, 0, 6, ligne, correction)
   return texte
 }

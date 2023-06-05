@@ -50,7 +50,7 @@ export default function ExerciceConversionsVolumes () {
   }
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
-    this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
+    this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
