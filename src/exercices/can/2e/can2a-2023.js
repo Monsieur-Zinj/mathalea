@@ -333,7 +333,7 @@ export default function SujetCAN2023Seconde () {
             reponse = a * b - c
             texteCorr = ` L'algorithme retourne $${a}\\times${b}-${c}=${miseEnEvidence(reponse)}$. `
             this.canEnonce = texte
-            this.canReponseACompleter = `Que renvoie  $\\texttt{calcul(${a})}$ ?<br>
+            this.canReponseACompleter = `Que renvoie  $\\texttt{calcul(${a},${b})}$ ?<br>
             $\\ldots$`
           }
 
