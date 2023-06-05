@@ -102,8 +102,8 @@
   </div>
   <div class="flex flex-col md:flex-row w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <!-- Sidebar -->
-    <div class="mt-6 md:mt-8 lg:mt-0">
-      <SideMenu bind:isMenuOpen bind:sidebarWidth referentiels={[sideMenuListReferentiel]} />
+    <div id="choiceMenuWrapper" class="mt-6 md:mt-8 lg:mt-0">
+      <SideMenu bind:isMenuOpen isMenuCloseable={$exercicesParams.length !== 0} bind:sidebarWidth referentiels={[sideMenuListReferentiel]} />
     </div>
     <!-- Dragbar -->
     <div
@@ -161,7 +161,7 @@
 
 <style>
   #exercisesWrapper {
-    height: calc(100vh - 14rem);
+    height: calc(100vh - 4rem);
     min-height: 100%;
   }
 </style>

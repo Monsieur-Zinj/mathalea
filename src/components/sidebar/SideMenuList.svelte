@@ -13,7 +13,7 @@
   let isMenuDeployed: boolean = true
 </script>
 
-<div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-5">
+<div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6">
   <div class=" font-bold text-xl text-coopmaths-struct">{ref.title}</div>
   <div class={moreThanOne ? "flex" : "flex md:hidden"}>
     <button
@@ -39,11 +39,9 @@
     {/each}
   {:else if ref.type === "exercices"}
     {#each ref.content as item, i}
-      <!-- {#each Array.from(toMap(entries), ([key, obj]) => ({ key, obj })) as item, i} -->
       <li>
         <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
       </li>
-      <!-- {/each} -->
     {/each}
   {:else}
     <li class="italic font-light">Référentiel de type inconnu...</li>
