@@ -12,7 +12,9 @@
   import Button from "./forms/Button.svelte"
   import ButtonsDeck from "./outils/ButtonsDeck.svelte"
   import NavBarIframe from "./header/NavBarIframe.svelte"
+  import ModalSettingsCapytale from "./modal/ModalSettingsCapytale.svelte"
 
+  let showSettingsDialog = false
   let isMenuOpen: boolean = true
   let divExercices: HTMLDivElement
   // Récupération des informations de l'URL
@@ -130,7 +132,15 @@
           />
         </div>
         <div slot="export-buttons" class="flex flex-row justify-start items-center space-x-4">
-          <Button title="" icon="bx-cog" classDeclaration="text-3xl" />
+          <Button
+            title=""
+            icon="bx-cog"
+            classDeclaration="text-3xl"
+            isDisabled={$exercicesParams.length === 0}
+            on:click={() => {
+              showSettingsDialog = true
+            }}
+          />
         </div>
       </ButtonsDeck>
       <!-- Affichage des exercices -->
@@ -157,6 +167,10 @@
       {/if}
     </div>
   </div>
+  <ModalSettingsCapytale bind:showSettingsDialog>
+    <div slot="header">Réglages de l'affichage des exercices</div>
+    <div slot="content">Blabla</div>
+  </ModalSettingsCapytale>
 </div>
 
 <style>
