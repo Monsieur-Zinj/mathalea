@@ -12,7 +12,7 @@ export const titre = 'Convertir des volumes ou des capacités'
 // export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
-export const dateDeModifImportante = '04/06/2023'
+export const dateDeModifImportante = '05/06/2023'
 
 /**
  * Conversions d'unités de volumes vers les unités de capacité ou inversement.
@@ -29,6 +29,7 @@ export const dateDeModifImportante = '04/06/2023'
 export const uuid = 'f4d29'
 export const ref = '6M31-2'
 export default function UnitesDeVolumesEtDeCapacite () {
+  Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
