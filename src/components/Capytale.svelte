@@ -135,7 +135,36 @@
 <div class="scrollbar-hide h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent" on:mousemove={resizing}>
   <!-- En-tête -->
   <div id="headerCapytale" class="bg-coopmaths-canvas">
-    <NavBarIframe />
+    <NavBarIframe>
+      <div slot="buttons" class="w-full">
+        <ButtonsDeck>
+          <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
+            <Button title="" icon="bx-zoom-out" classDeclaration="text-3xl" on:click={zoomOut} />
+            <Button title="" icon="bx-zoom-in" classDeclaration="text-3xl" on:click={zoomIn} />
+            <Button title="" icon="bx-refresh" classDeclaration="text-3xl" on:click={newDataForAll} />
+            <Button
+              title=""
+              icon="bx-trash"
+              classDeclaration="text-3xl"
+              on:click={() => {
+                $exercicesParams.length = 0
+              }}
+            />
+          </div>
+          <div slot="export-buttons" class="flex flex-row justify-start items-center space-x-4">
+            <Button
+              title=""
+              icon="bx-cog"
+              classDeclaration="text-3xl"
+              isDisabled={$exercicesParams.length === 0}
+              on:click={() => {
+                showSettingsDialog = true
+              }}
+            />
+          </div>
+        </ButtonsDeck>
+      </div>
+    </NavBarIframe>
   </div>
   <div class="flex flex-col md:flex-row w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <!-- Sidebar -->
@@ -152,32 +181,6 @@
     />
     <!-- Barre des boutons de réglages -->
     <div class="w-full">
-      <ButtonsDeck>
-        <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
-          <Button title="" icon="bx-zoom-out" classDeclaration="text-3xl" on:click={zoomOut} />
-          <Button title="" icon="bx-zoom-in" classDeclaration="text-3xl" on:click={zoomIn} />
-          <Button title="" icon="bx-refresh" classDeclaration="text-3xl" on:click={newDataForAll} />
-          <Button
-            title=""
-            icon="bx-trash"
-            classDeclaration="text-3xl"
-            on:click={() => {
-              $exercicesParams.length = 0
-            }}
-          />
-        </div>
-        <div slot="export-buttons" class="flex flex-row justify-start items-center space-x-4">
-          <Button
-            title=""
-            icon="bx-cog"
-            classDeclaration="text-3xl"
-            isDisabled={$exercicesParams.length === 0}
-            on:click={() => {
-              showSettingsDialog = true
-            }}
-          />
-        </div>
-      </ButtonsDeck>
       <!-- Affichage des exercices -->
       {#if $exercicesParams.length !== 0}
         <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full min-h-[calc(100vh-7rem)] overflow-y-auto" bind:this={divExercices}>
