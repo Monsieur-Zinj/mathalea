@@ -1,6 +1,6 @@
 
-import { point3d, polygone3d, prisme3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cone3d, cylindre3d, pyramide3d, sphere3d } from '../../modules/3d.js'
-import { segment, cone as cone2d, point, milieu, homothetie, tracePoint } from '../../modules/2d.js'
+import { point3d, polygone3d, prisme3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cone3d, cylindre3d, pyramide3d } from '../../modules/3d.js'
+import { segment, cone as cone2d, point, milieu, homothetie, tracePoint, sphere2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -314,8 +314,8 @@ export default function ReconnaitreDesSolides () {
           break
         }
         case 'sphère': // sphère
-          sphere = sphere3d(point3d(0, 0, 0), 2, 'black', 'black')
-          objets.push(...sphere.c2d)
+          sphere = sphere2d({ centre: point(0, 0), Rx: 2, color: 'black' })
+          objets.push(sphere)
           this.reponse = solides[choix - 1]
           this.correction = premiereLettreEnMajuscule(solides[choix - 1]) + '.'
 

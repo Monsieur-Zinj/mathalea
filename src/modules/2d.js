@@ -4803,6 +4803,81 @@ export function Cone ({
   }
 }
 
+export function Sphere2d ({
+  centre,
+  Rx,
+  couleurDeRemplissage = 'none',
+  color = 'black',
+  opaciteDeRemplissage = 0.2
+}) {
+  ObjetMathalea2D.call(this, {})
+  const grandCercle = new Cercle(centre, Rx, color, couleurDeRemplissage)
+  this.centre = centre
+  this.color = color
+  this.couleurDeRemplissage = couleurDeRemplissage
+  this.opaciteDeRemplissage = opaciteDeRemplissage
+  const objets = [grandCercle,
+    semiEllipse({
+      centre,
+      Rx,
+      Ry: Rx / 3,
+      hemisphere: 'nord',
+      rayon: false,
+      pointilles: 1,
+      couleurDeRemplissage,
+      color: this.color,
+      opaciteDeRemplissage
+    }),
+    semiEllipse({
+      centre,
+      Rx,
+      Ry: Rx / 3,
+      hemisphere: 'sud',
+      rayon: false,
+      pointilles: false,
+      couleurDeRemplissage,
+      color: this.color,
+      opaciteDeRemplissage
+    })
+  ]
+  let xMin = 1000
+  let yMin = 1000
+  let yMax = -1000
+  let xMax = -1000
+  for (const obj of objets) {
+    xMin = Math.min(xMin, obj.bordures[0])
+    yMin = Math.min(yMin, obj.bordures[1])
+    xMax = Math.max(xMax, obj.bordures[2])
+    yMax = Math.max(yMax, obj.bordures[3])
+  }
+  this.bordures = [xMin, yMin, xMax, yMax]
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      objet.color = colorToLatexOrHTML(this.color)
+      code += objet.svg(coeff) + '\n'
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      objet.color = this.color
+      code += objet.tikz() + '\n\t'
+    }
+    return code
+  }
+}
+
+export function sphere2d ({
+  centre,
+  Rx,
+  couleurDeRemplissage = 'none',
+  color = 'black',
+  opaciteDeRemplissage = 0.2
+}) {
+  return new Sphere2d({ centre, Rx, couleurDeRemplissage, color, opaciteDeRemplissage })
+}
 // Cette fonction donne un rendu correct que si la hauteur est suffisamment grande
 export function cone ({
   centre,
