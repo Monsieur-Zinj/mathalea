@@ -11,6 +11,7 @@
   import Exercice from "./exercice/Exercice.svelte"
   import Button from "./forms/Button.svelte"
   import ButtonsDeck from "./outils/ButtonsDeck.svelte"
+  import NavBarIframe from "./header/NavBarIframe.svelte"
 
   let isMenuOpen: boolean = true
   let divExercices: HTMLDivElement
@@ -42,7 +43,6 @@
   let sideMenuListReferentiel: ReferentielForList = { title: "Choix des exercices", content: [], type: "exercices" }
   let itemsSelected = []
   const arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
-  //   console.log(arrayReferentielFiltre)
   sideMenuListReferentiel.content = [...arrayReferentielFiltre]
 
   /**
@@ -96,18 +96,16 @@
 <svelte:window on:mouseup={stopResizing} />
 
 <div class="scrollbar-hide h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent" on:mousemove={resizing}>
-  <!-- <Header /> -->
-  <!-- {#if isNavBarVisible}
-    <div id="headerStart" class="shrink-0 z-40 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
-      <NavBarV2 subtitle="Outils pour la classe" subtitleType="design" />
-    </div>
-  {/if} -->
+  <!-- En-tête -->
+  <div id="headerCapytale" class="bg-coopmaths-canvas">
+    <NavBarIframe />
+  </div>
   <div class="flex flex-col md:flex-row w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+    <!-- Sidebar -->
     <div class="mt-6 md:mt-8 lg:mt-0">
       <SideMenu bind:isMenuOpen bind:sidebarWidth referentiels={[sideMenuListReferentiel]} />
     </div>
-
-    <!-- drag bar -->
+    <!-- Dragbar -->
     <div
       id="dragbar"
       class="hidden {isMenuOpen
@@ -115,6 +113,7 @@
         : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
       on:mousedown={startResizing.bind(this, "moving")}
     />
+    <!-- Barre des boutons de réglages -->
     <div class="w-full">
       <ButtonsDeck>
         <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
@@ -134,6 +133,7 @@
           <Button title="" icon="bx-cog" classDeclaration="text-3xl" />
         </div>
       </ButtonsDeck>
+      <!-- Affichage des exercices -->
       {#if $exercicesParams.length !== 0}
         <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full min-h-[calc(100vh-7rem)] overflow-y-auto" bind:this={divExercices}>
           <div class="flex-1 md:mt-9 lg:mt-0">
@@ -151,7 +151,7 @@
               <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
               <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
             </div>
-            <div class="font-extralight text-[50px]">Sélectionner les outils</div>
+            <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
           </div>
         </div>
       {/if}
