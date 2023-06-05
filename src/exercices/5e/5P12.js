@@ -15,8 +15,6 @@ export default function PartagerSelonUnRatio () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 1
-  this.nbCols = 2
-  this.nbColsCorr = 2
   this.sup = 1
   this.correctionDetailleeDisponible = true
 

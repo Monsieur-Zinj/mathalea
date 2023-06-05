@@ -967,37 +967,46 @@ class FractionEtendue extends Fraction {
       }
     } else {
       let diviseur
-      if (this.denIrred % 6 === 0) { diviseur = 6 } else if (this.denIrred % 5 === 0) { diviseur = 5 } else if (this.denIrred % 4 === 0) { diviseur = 4 } else if (this.denIrred % 3 === 0) { diviseur = 3 } else if (this.denIrred % 2 === 0) { diviseur = 2 } else { diviseur = 1 }
+      if (this.denIrred % 6 === 0) {
+        diviseur = 6
+      } else if (this.denIrred % 5 === 0) {
+        diviseur = 5
+      } else if (this.denIrred % 4 === 0) {
+        diviseur = 4
+      } else if (this.denIrred % 3 === 0) {
+        diviseur = 3
+      } else if (this.denIrred % 2 === 0) {
+        diviseur = 2
+      } else {
+        diviseur = 1
+      }
       const tailleCarres = Math.max(rayon / diviseur, 1)
       for (k = 0; k < n; k++) {
         for (let j = 0; j < diviseur; j++) {
-          for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
+          for (let h = 0; h < this.denIrred / diviseur; h++) {
             O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
             C = translation(O, vecteur(tailleCarres, 0))
             dep = carre(O, C, 'black')
-
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
         }
-        num -= this.d
+        num -= this.denIrred
       }
       if (num > 0) {
         for (let j = 0; j < diviseur; j++) {
-          for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
-            O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+          for (let h = 0; h < this.denIrred / diviseur; h++) {
+            O = point(x + n * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
             C = translation(O, vecteur(tailleCarres, 0))
             dep = carre(O, C, 'black')
-
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
-          O = point(x + k * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
+          O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
           C = translation(O, vecteur(tailleCarres, 0))
           dep = carre(O, C, 'black')
-
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
@@ -1115,11 +1124,23 @@ class FractionEtendue extends Fraction {
       }
     } else { // Type barre
       let diviseur
-      if (this.den % 6 === 0) { diviseur = 6 } else if (this.den % 5 === 0) { diviseur = 5 } else if (this.den % 4 === 0) { diviseur = 4 } else if (this.den % 3 === 0) { diviseur = 3 } else if (this.den % 2 === 0) { diviseur = 2 } else { diviseur = 1 }
+      if (this.den % 6 === 0) {
+        diviseur = 6
+      } else if (this.den % 5 === 0) {
+        diviseur = 5
+      } else if (this.den % 4 === 0) {
+        diviseur = 4
+      } else if (this.den % 3 === 0) {
+        diviseur = 3
+      } else if (this.den % 2 === 0) {
+        diviseur = 2
+      } else {
+        diviseur = 1
+      }
       const tailleCarres = Math.max(rayon / diviseur, 1)
-      for (k = 0; k < n; k++) {
-        for (let j = 0; j < diviseur; j++) {
-          for (let h = 0; h < arrondi(this.den / diviseur); h++) {
+      for (k = 0; k < n; k++) { // on fait autant de plaques que d'unités entières
+        for (let j = 0; j < diviseur; j++) { // on fait this.den carrés répartis sur this.den/diviseur lignes de diviseur de long
+          for (let h = 0; h < this.den / diviseur; h++) {
             O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
             C = translation(O, vecteur(tailleCarres, 0))
             dep = carre(O, C, 'black')
@@ -1131,21 +1152,20 @@ class FractionEtendue extends Fraction {
         }
         num -= this.den
       }
-      if (num > 0) {
+      console.log(objets)
+      if (num > 0) { // il reste une portion d'unité à faire après n unités.
         for (let j = 0; j < diviseur; j++) {
-          for (let h = 0; h < arrondi(this.den / diviseur); h++) {
-            O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+          for (let h = 0; h < this.den / diviseur; h++) {
+            O = point(x + n * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
             C = translation(O, vecteur(tailleCarres, 0))
             dep = carre(O, C, 'black')
-
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
-          O = point(x + k * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
+          O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
           C = translation(O, vecteur(tailleCarres, 0))
           dep = carre(O, C, 'black')
-
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)

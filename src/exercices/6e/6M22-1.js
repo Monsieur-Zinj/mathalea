@@ -1,7 +1,7 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, arrondi, texNombre, randint, interactivite, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, texNombre, randint, interactivite, stringNombre, sp, miseEnEvidence } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -37,7 +37,7 @@ export default function PerimetreAireDisques (pa = 3) {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    for (let i = 0, cpt = 0, r, type, A, C, M, B, S, texte, texteCorr, reponseL1, reponseL2, reponseA1, reponseA2; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0, r, type, A, C, M, B, S, texte, texteCorr, reponseL1, reponseL2, reponseA1, reponseA2, reponseL2bis, reponseA2bis; i < this.nbQuestions && cpt < 50;) {
       if (this.sup2) r = randint(2, 9)
       else r = arrondi(randint(2, 8) + randint(1, 9) / 10, 1)
       A = point(r + 0.5, r + 0.5)
@@ -53,89 +53,54 @@ export default function PerimetreAireDisques (pa = 3) {
       texte = mathalea2d({ xmin: 0, ymin: 0, xmax: 2 * r + 1, ymax: 2 * r + 1, pixelsParCm: arrondi(50 / r), scale: arrondi(2.4 / r, 2) }, C, tracePoint(A), S, afficheLongueurSegment(S.extremite1, S.extremite2), latexParPoint('\\mathcal{C}_1', pointAdistance(A, 1.25 * r, 135), 'black', 20, 0, ''))
 
       if (this.sup === 1) {
-        this.consigne = this.nbQuestions > 1 ? 'Calculer le périmètre des cercles suivants.' : 'Calculer le périmètre du cercle suivant.'
+        this.consigne = this.nbQuestions > 1 ? 'Calculer le périmètre (en $\\text{cm}$) des cercles suivants.' : 'Calculer le périmètre (en $\\text{cm}$) du cercle suivant.'
       }
       if (this.sup === 2) {
-        this.consigne = this.nbQuestions > 1 ? "Calculer l'aire des disques suivants." : "Calculer l'aire du disque suivant."
+        this.consigne = this.nbQuestions > 1 ? "Calculer l'aire (en $\\text{cm}^2$) des disques suivants." : "Calculer l'aire (en $\\text{cm}^2$) du disque suivant."
       }
       if (this.sup === 3) {
-        this.consigne = this.nbQuestions > 1 ? "Calculer le périmètre et l'aire des disques suivants." : "Calculer le périmètre et l'aire du disque suivant."
+        this.consigne = this.nbQuestions > 1 ? "Calculer le périmètre (en $\\text{cm}$) et l'aire (en $\\text{cm}^2$) des disques suivants." : "Calculer le périmètre (en $\\text{cm}$) et l'aire (en $\\text{cm}^2$) du disque suivant."
       }
+      reponseL1 = this.sup === 2 ? 0 : arrondi(2 * r, 2)
+      reponseL2 = this.sup === 2 ? 0 : arrondi(Math.trunc(2 * r * Math.PI * 10) / 10)
+      reponseL2bis = this.sup === 2 ? 0 : arrondi(reponseL2 + 0.1)
+      reponseA1 = this.sup === 1 ? 0 : arrondi(r * r, 2)
+      reponseA2 = this.sup === 1 ? 0 : arrondi(Math.trunc(r * r * Math.PI * 10) / 10)
+      reponseA2bis = this.sup === 1 ? 0 : arrondi(reponseA2 + 0.1)
+
       switch (interactivite(this)) {
         case 'AMC' :
           this.consigne += '\\\\\nDonner la valeur exacte et une valeur approchée au dixième près.'
           break
-        default : this.consigne += `${context.isHtml ? '<br>' : '\\\\\n'} la valeur exacte et une valeur approchée au dixième près.`
+        default : this.consigne += `${context.isHtml ? '<br>' : '\\\\\n'} On donnera la valeur exacte puis une valeur approchée au dixième près.`
       }
-      if (this.sup === 1) {
-      // si on ne demande pas les aires
-        if (i % 2 === 0) {
-          texteCorr = `$\\mathcal{P}_1=2\\times${texNombre(r)}\\times \\pi=${texNombre(2 * r)
+
+      texteCorr = this.sup === 2
+        ? ''
+        : `$\\mathcal{P}_1=${i % 2 === 0 ? '2\\times' + texNombre(r) : texNombre(2 * r)}\\times \\pi=${texNombre(2 * r)
         }\\pi\\approx${texNombre(
-          arrondi(2 * r * Math.PI, 1)
-        )}$ cm<br>`
-        } else {
-          texteCorr = `$\\mathcal{P}_1=${texNombre(2 * r)}\\times \\pi=${texNombre(2 * r)
-        }\\pi\\approx${texNombre(
-          arrondi(2 * r * Math.PI, 1)
-        )}$ cm<br>`
-        }
-        reponseL1 = arrondi(2 * r, 2)
-        reponseL2 = arrondi(2 * r * Math.PI, 1)
-        reponseA1 = 0
-        reponseA2 = 0
-      }
-      if (this.sup === 2) {
-        if (i % 2 === 0) {
-          texteCorr = `$\\mathcal{A}_1=${texNombre(r)}\\times ${texNombre(r)}\\times\\pi=${texNombre(r * r)
-        }\\pi\\approx${texNombre(
-          arrondi(r * r * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-        } else {
-          texteCorr = `$\\mathcal{A}_1=\\dfrac{${texNombre(2 * r)}}{2}\\times \\dfrac{${texNombre(2 * r)}}{2}\\times\\pi=${texNombre(r * r)
-          }\\pi\\approx${texNombre(
-            arrondi(r * r * Math.PI, 1)
-          )}~\\text{cm}^2$<br>`
-        }
-        reponseA1 = arrondi(r * r, 2)
-        reponseA2 = arrondi(r * r * Math.PI, 1)
-        reponseL1 = 0
-        reponseL2 = 0
-      }
-      if (this.sup === 3) {
-        if (i % 2 === 0) {
-          texteCorr = `$\\mathcal{P}_1=2\\times${texNombre(r)}\\times \\pi=${texNombre(2 * r)
-        }\\pi\\approx${texNombre(
-          arrondi(2 * r * Math.PI, 1)
-        )}$ cm<br>`
-          texteCorr += '<br>'
-          texteCorr += `$\\mathcal{A}_1=${texNombre(r)}\\times ${texNombre(r)}\\times \\pi=${texNombre(r * r)
-        }\\pi\\approx${texNombre(
-          arrondi(r * r * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-        } else {
-          texteCorr = `$\\mathcal{P}_1=${texNombre(2 * r)}\\times \\pi=${texNombre(2 * r)
-          }\\pi\\approx${texNombre(
-            arrondi(2 * r * Math.PI, 1)
-          )}$ cm<br>`
-          texteCorr += '<br>'
-          texteCorr += `$\\mathcal{A}_1=\\dfrac{${texNombre(2 * r)}}{2}\\times \\dfrac{${texNombre(2 * r)}}{2}\\times\\pi=${texNombre(r * r)
-          }\\pi\\approx${texNombre(
-            arrondi(r * r * Math.PI, 1)
-          )}~\\text{cm}^2$<br>`
-        }
-        reponseL1 = arrondi(2 * r, 2)
-        reponseL2 = arrondi(2 * r * Math.PI, 1)
-        reponseA1 = arrondi(r * r, 2)
-        reponseA2 = arrondi(r * r * Math.PI, 1)
-      }
+          arrondi(2 * r * Math.PI, 2)
+        )}${sp()}\\text{cm}$<br>`
+      texteCorr += this.sup === 2
+        ? ''
+        : `Les valeurs approchées au dixième de $\\text{cm}$ du périmètre de ce disque sont $${miseEnEvidence(texNombre(reponseL2))}${sp()}\\text{cm}$ et $${miseEnEvidence(texNombre(reponseL2bis))}${sp()}\\text{cm}$.<br>`
+      texteCorr += this.sup === 1
+        ? ''
+        : `$\\mathcal{A}_1=${i % 2 === 0 ? texNombre(r) + '\\times' + texNombre(r) : '\\dfrac{' + texNombre(2 * r) + '}{2}\\times \\dfrac{' + texNombre(2 * r) + '}{2}'}\\times \\pi=${texNombre(r * r)
+            }\\pi\\approx${texNombre(
+          arrondi(r * r * Math.PI, 2)
+        )}${sp()}\\text{cm}^2$<br>`
+      texteCorr += this.sup === 1
+        ? ''
+        : `Les valeurs approchées au dixième de $\\text{cm}^2$ de l'aire de ce disque sont $${miseEnEvidence(texNombre(reponseA2))}${sp()}\\text{cm}^2$ et $${miseEnEvidence(texNombre(reponseA2bis))}${sp()}\\text{cm}^2$.<br>`
+
       if (this.questionJamaisPosee(i, r, type)) {
         if (this.sup === 1) {
           if (context.isHtml && this.interactif) {
-            setReponse(this, 2 * i, stringNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, reponseL2, { formatInteractif: 'calcul' })
+            setReponse(this, 2 * i, [stringNombre(reponseL1) + '\\pi', stringNombre(reponseL1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseL1)], { formatInteractif: 'texte' })
+            setReponse(this, 2 * i + 1, [reponseL2, reponseL2bis], { formatInteractif: 'calcul' })
             texte += 'Périmètre : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm' })
-            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm' })
+            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline nospacebefore', { texteApres: ' cm' })
           } else {
             this.autoCorrection[i] = {
               enonce: 'Calculer le périmètre du cercle suivant :<br>' + texte,
@@ -154,9 +119,7 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           decimals: this.sup2 ? 0 : 1,
-                          signe: false,
-                          approx: 1,
-                          scoreapprox: 0.667
+                          signe: false
                         }
                       }
                     }
@@ -168,14 +131,13 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Périmètre en cm (valeur arrondie à 0,1 près)',
+                        texte: 'Périmètre en cm (valeur approchée à 0,1 près)',
                         valeur: [reponseL2],
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           signe: false,
                           decimals: 1,
-                          approx: 1,
-                          scoreapprox: 0.667
+                          aussiCorrect: reponseL2bis
                         }
                       }
                     }
@@ -186,10 +148,10 @@ export default function PerimetreAireDisques (pa = 3) {
           }
         } else if (this.sup === 2) {
           if (context.isHtml && this.interactif) {
-            setReponse(this, 2 * i, stringNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, reponseA2, { formatInteractif: 'calcul' })
+            setReponse(this, 2 * i, [stringNombre(reponseA1) + '\\pi', stringNombre(reponseA1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseA1)], { formatInteractif: 'texte' })
+            setReponse(this, 2 * i + 1, [reponseA2, reponseA2bis], { formatInteractif: 'calcul' })
             texte += 'Aire : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm²' })
-            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm²' })
+            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline nospacebefore', { texteApres: ' cm²' })
           } else {
             this.autoCorrection[i] = {
               enonce: "Calculer l'aire du cercle suivant :<br>" + texte,
@@ -208,9 +170,7 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           signe: false,
-                          decimals: this.sup2 ? 0 : 1,
-                          approx: 1,
-                          scoreapprox: 0.667
+                          decimals: this.sup2 ? 0 : 1
                         }
                       }
                     }
@@ -222,14 +182,13 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Aire en cm² (valeur arrondie à 0,1 près)',
+                        texte: 'Aire en cm² (valeur approchée à 0,1 près)',
                         valeur: [reponseA2],
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           signe: false,
                           decimals: 1,
-                          approx: 1,
-                          scoreapprox: 0.667
+                          aussiCorrect: reponseA2bis
                         }
                       }
                     }
@@ -240,14 +199,14 @@ export default function PerimetreAireDisques (pa = 3) {
           }
         } else {
           if (context.isHtml && this.interactif) {
-            setReponse(this, 4 * i, stringNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
-            setReponse(this, 4 * i + 1, reponseL2, { formatInteractif: 'calcul' })
-            setReponse(this, 4 * i + 2, stringNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
-            setReponse(this, 4 * i + 3, reponseA2, { formatInteractif: 'calcul' })
+            setReponse(this, 4 * i, [stringNombre(reponseL1) + '\\pi', stringNombre(reponseL1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseL1)], { formatInteractif: 'texte' })
+            setReponse(this, 4 * i + 1, [reponseL2, reponseL2bis], { formatInteractif: 'calcul' })
+            setReponse(this, 4 * i + 2, [stringNombre(reponseA1) + '\\pi', stringNombre(reponseA1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseA1)], { formatInteractif: 'texte' })
+            setReponse(this, 4 * i + 3, [reponseA2, reponseA2bis], { formatInteractif: 'calcul' })
             texte += 'Périmètre : ' + ajouteChampTexteMathLive(this, 4 * i, 'largeur10 inline')
-            texte += ' cm $\\approx $' + ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur10 inline') + ' cm'
+            texte += ' cm $\\approx $' + ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur10 inline nospacebefore') + ' cm'
             texte += '<br>Aire : ' + ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur10 inline')
-            texte += ' cm² $\\approx $' + ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur10 inline') + ' cm²'
+            texte += ' cm² $\\approx $' + ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur10 inline nospacebefore') + ' cm²'
           } else {
             this.autoCorrection[i] = {
               enonce: "Calculer le périmètre et l'aire du cercle suivant :<br>" + texte,
@@ -265,10 +224,7 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           decimals: this.sup2 ? 0 : 1,
-                          signe: false,
-                          approx: 1,
-                          scoreapprox: 0.667
-
+                          signe: false
                         }
                       }
                     }
@@ -280,14 +236,13 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Périmètre en cm (valeur arrondie à 0,1 près)',
+                        texte: 'Périmètre en cm (valeur approchée à 0,1 près)',
                         valeur: [reponseL2],
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           decimals: 1,
                           signe: false,
-                          approx: 1,
-                          scoreapprox: 0.667
+                          aussiCorrect: reponseL2bis
                         }
                       }
                     }
@@ -304,9 +259,7 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           decimals: this.sup2 ? 0 : 1,
-                          signe: false,
-                          approx: 1,
-                          scoreapprox: 0.667
+                          signe: false
                         }
                       }
                     }
@@ -320,13 +273,12 @@ export default function PerimetreAireDisques (pa = 3) {
                       texte: texteCorr,
                       reponse: {
                         valeur: [reponseA2],
-                        texte: 'Aire en cm² (valeur arrondie au dixième)',
+                        texte: 'Aire en cm² (valeur approchée au dixième)',
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           decimals: 1,
                           signe: false,
-                          approx: 1,
-                          scoreapprox: 0.667
+                          aussiCorrect: reponseA2bis
                         }
                       }
                     }

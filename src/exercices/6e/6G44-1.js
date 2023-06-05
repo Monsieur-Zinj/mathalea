@@ -37,30 +37,6 @@ export default function ReconnaitreDesSolides () {
     this.autoCorrection = []
     this.nbQuestions = Math.min(this.nbQuestions, 50) // Comme il n'y a que 70 questions différentes on limite pour éviter que la boucle ne cherche trop longtemps
     this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? 'Donner le nom de ce solide.' : 'Donner le nom de chacun des solides.'
-    /*
-    const listeDesProblemes = []
-    if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
-      listeDesProblemes.push('1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2', '1', '2', '3', '4', '5')
-    } else if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-      if (this.sup >= 1 && this.sup <= 7) {
-        listeDesProblemes.push(this.sup)
-      } else {
-        listeDesProblemes.push('1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '3', '4', '5')
-      }
-    } else {
-      const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-      for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        const type = quests[i].split(',')
-        const choixtp = parseInt(type[0])
-        if (choixtp >= 1 && choixtp <= 7) {
-          listeDesProblemes.push(quests[i])
-        } else {
-          listeDesProblemes.push('1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '3', '4', '5')
-        }
-      }
-    }
-    const typeDeQuestion = combinaisonListes(listeDesProblemes, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    */
 
     const typeDeQuestion = gestionnaireFormulaireTexte({
       max: 7,
@@ -189,7 +165,6 @@ export default function ReconnaitreDesSolides () {
             cone = cone3d(point3d(0, 0, 0), point3d(0, -7, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)), 'black', true, 'black', 'white')
             for (let kk = 15; kk < 25; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
-              // console.log(cone.c2d[kk])
             }
             // c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
             // c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0)
@@ -204,14 +179,12 @@ export default function ReconnaitreDesSolides () {
             cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)), 'black', true, 'black', 'white')
             for (let kk = 3; kk < 3 + 17; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
-              // console.log(cone.c2d[kk])
             }
             objets.push(...cone.c2d)
           } else {
             cone = cone2d({ centre: point(0, 0), Rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
             const t = tracePoint(cone.centre)
             const g = homothetie(segment(cone.centre, cone.sommet), milieu(cone.centre, cone.sommet), 1.5)
-            // g.color = colorToLatexOrHTML('red')
             g.pointilles = 2
             objets.push(cone, g, t)
           }
@@ -222,8 +195,6 @@ export default function ReconnaitreDesSolides () {
         case 'cylindre': // cylindre
           if (axe === 3) {
             cylindre = cylindre3d(point3d(0, 0, 2), point3d(0, -3, 2), vecteur3d(1, 0, 0), vecteur3d(1, 0, 0))
-            /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
-            c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
             const c1 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'black', 110, 280)
             const c2 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'black', 280, 360 + 110)
             const c3 = arc3d(point3d(0, -0.5, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'black', 110, 280)
@@ -244,7 +215,7 @@ export default function ReconnaitreDesSolides () {
             c3.pointilles = 0
             c3.opacite = 1
             cylindre.c2d = []
-            cylindre.c2d.push(c1, c2, c3, c4, g, arete3d(point3d(0, 4, 1), point3d(0, -4, 1), 'red', false).c2d)
+            cylindre.c2d.push(c1, c2, c3, c4, ...g, arete3d(point3d(0, 4, 1), point3d(0, -4, 1), 'red', false).c2d)
           } else if (axe === 2) {
             // base sur le plan YZ
             cylindre = cylindre3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, 1, 0), vecteur3d(0, 1, 0))
@@ -270,7 +241,7 @@ export default function ReconnaitreDesSolides () {
             c4.pointilles = 0
             c4.opacite = 1
             cylindre.c2d = []
-            cylindre.c2d.push(c1, c2, c3, c4, g, arete3d(point3d(-1, 0, 1), point3d(4, 0, 1), 'red', false).c2d)
+            cylindre.c2d.push(c1, c2, c3, c4, ...g, arete3d(point3d(-1, 0, 1), point3d(4, 0, 1), 'red', false).c2d)
           } else {
             cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
           }

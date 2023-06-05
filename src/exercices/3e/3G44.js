@@ -243,16 +243,16 @@ export default function CalculPythagoreEspace () {
         case 5: // Dans un cylindre
           r = randint(4, 10)
           h = randint(5, 15, [r])
-          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
+          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX')[0], 'left')
           if (choice([0, 1, 2]) === 0) {
             B = point3d(r, 0, 0)
-            D = point3d(0, 0, h, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
+            D = point3d(0, 0, h, true, choisitLettresDifferentes(1, 'OQWX' + A.label)[0], 'left')
           } else if (choice([0, 1]) === 0) {
             B = point3d(0, r, 0)
-            D = point3d(h, 0, 0, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
+            D = point3d(h, 0, 0, true, choisitLettresDifferentes(1, 'OQWX' + A.label)[0], 'left')
           } else {
             B = point3d(0, 0, r)
-            D = point3d(0, h, 0, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
+            D = point3d(0, h, 0, true, choisitLettresDifferentes(1, 'OQWX' + A.label)[0], 'left')
           }
           v = vecteur3d(A, B)
           solideDessine = cylindre3d(A, D, v, v, 'blue', false, true, true, 'black')
@@ -265,7 +265,7 @@ export default function CalculPythagoreEspace () {
           }
 
           ptBase2 = rotation3d(translation3d(D, v), droite3d(A, vecteur3d(A, D)), solideDessine.angleDepart + 10 * anglesPossibles[indiceAngleChoisi])
-          ptBase2.c2d.nom = choisitLettresDifferentes(1, 'OQWX' + A.label + D.label)
+          ptBase2.c2d.nom = choisitLettresDifferentes(1, 'OQWX' + A.label + D.label)[0]
           longueurATrouver = A.label + ptBase2.c2d.nom
           segmentATrouver = segment(A.c2d, ptBase2.c2d, '#f15929')
           segmentATrouver.epaisseur = 2
@@ -286,9 +286,9 @@ export default function CalculPythagoreEspace () {
         case 6: // Dans une pyramide à base régulière
           r = randint(4, 10)
           h = randint(5, 15, [r])
-          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
+          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX')[0], 'left')
           B = point3d(r, 0, 0)
-          D = point3d(0, 0, h * (1), true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
+          D = point3d(0, 0, h * (1), true, choisitLettresDifferentes(1, 'OQWX' + A.label)[0], 'left')
           v = vecteur3d(A, B)
           ptsBase = [B]
           nbSommets = choice([3, 5, 6, 7])
@@ -318,9 +318,9 @@ export default function CalculPythagoreEspace () {
         case 7: // Dans un cône
           r = randint(4, 10)
           h = randint(5, 15, [r])
-          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
+          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX')[0], 'left')
           B = point3d(r, 0, 0)
-          D = point3d(0, 0, h, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
+          D = point3d(0, 0, h, true, choisitLettresDifferentes(1, 'OQWX' + A.label)[0], 'left')
           v = vecteur3d(A, B)
           ptsBase = [B]
           nbSommets = 36
@@ -337,7 +337,7 @@ export default function CalculPythagoreEspace () {
           texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), [...solideDessine.c2d, segmentATrouver])
 
           ptBase = p.listePoints2d[numeroSommet]
-          ptBase.nom = choisitLettresDifferentes(1, 'OQWX' + A.label + D.label)
+          ptBase.nom = choisitLettresDifferentes(1, 'OQWX' + A.label + D.label)[0]
           ptBase.positionLabel = 'below'
           longueurATrouver = D.label + ptBase.nom
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver, new CodageAngleDroit3D(D, A, p.listePoints[numeroSommet], 'green', 2))
