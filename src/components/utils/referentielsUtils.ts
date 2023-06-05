@@ -1,8 +1,8 @@
 
 import type { InterfaceReferentiel } from 'src/lib/types'
-import referentiel from '../json/referentiel2022.json'
-import referentielStatic from '../json/referentielStatic.json'
-import codeList from '../json/codeToLevelList.json'
+import referentiel from '../../json/referentiel2022.json'
+import referentielStatic from '../../json/referentielStatic.json'
+import codeList from '../../json/codeToLevelList.json'
 import { findPropPaths, findDuplicates } from './searching'
 import { toMap } from './toMap'
 import { isRecent } from './handleDate'

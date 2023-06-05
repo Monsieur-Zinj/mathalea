@@ -2,26 +2,19 @@
   import type ReferentielForList from "src/lib/types"
   import type ReferentielTypes from "src/lib/types"
   import NiveauListeExos from "./NiveauListeExos.svelte"
-  import EntreeListeOutils from "./EntreeListeExos.svelte"
+  import EntreeListeOutils from "../outils/EntreeListeOutils.svelte"
   import codeList from "../../json/codeToLevelList.json"
   import { toMap } from "../utils/toMap"
+  import { codeToLevelTitle } from "../utils/referentielsUtils"
+  import { onMount } from "svelte"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
 
   let isMenuDeployed: boolean = true
-
-  /**
-   * Retrouve le titre d'un niveau basé sur son
-   * @param levelId
-   */
-  function codeToLevelTitle(code: string) {
-    if (codeList[code]) {
-      return codeList[code]
-    } else {
-      return code
-    }
-  }
+  onMount(() => {
+    console.log(ref)
+  })
 </script>
 
 <div class="w-[100vw] flex flex-row justify-between items-center px-6 py-2 md:py-5">
