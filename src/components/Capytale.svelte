@@ -112,7 +112,7 @@
 
   function handleEleveVueSetUp() {
     handleSeed()
-    let url = document.URL.split("?")[0]
+    let url = new URL("https://coopmaths.fr/alea/")
     for (const [i, exo] of $exercicesParams.entries()) {
       if (i === 0) {
         url += `?uuid=${exo.uuid}&id=${exo.id}`
