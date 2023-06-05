@@ -2,10 +2,11 @@ import { globalOptions } from '../store'
 import { get } from 'svelte/store'
 /**
    * Construit les éléments à ajouter à l'URL afin d'accéder à la vue élève
+   * @param {boolean} needForFullURL tag pour savoir si l'URL doit être fabriquée en entier depuis le caractère `?`
    * @returns {string} chaîne à ajouter
    * @author sylvain
    */
-export function buildUrlAddendumForEsParam () {
+export function buildUrlAddendumForEsParam (needForFullURL = true) {
   const options = get(globalOptions)
   const presentationMode = new Map([
     ['liste_exos', 0],
@@ -13,7 +14,7 @@ export function buildUrlAddendumForEsParam () {
     ['liste_questions', 2],
     ['une_question_par_page', 3]
   ])
-  let addendum = '&v=eleve&title=' + options.title
+  let addendum = needForFullURL ? '&v=eleve&title=' + options.title : ''
   // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot
   addendum += '&es=' + presentationMode.get(options.presMode)
   addendum += options.setInteractive

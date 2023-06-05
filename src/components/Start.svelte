@@ -17,7 +17,7 @@
   import type { InterfaceReferentiel, ReferentielForList } from "src/lib/types"
   import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
   import handleCapytale from "../lib/handleCapytale"
-  import SideMenuList from "./outils/SideMenuList.svelte"
+  // import SideMenuList from "./sidebar/SideMenuList.svelte"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
@@ -27,7 +27,7 @@
   let setAllInteractifClicked: boolean = false
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
-  let testSideMenuList: ReferentielForList = { title: "Choix des exos", content: [], type: "exercices" }
+  // let testSideMenuList: ReferentielForList = { title: "Choix des exos", content: [], type: "exercices" }
 
   /**
    * Pour afficher les menus de boutons lorsqu'il n'y a pas assez de place pour les afficher tous
@@ -214,7 +214,7 @@
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
-    testSideMenuList.content = [...arrayReferentielFiltre]
+    // testSideMenuList.content = [...arrayReferentielFiltre]
   }
   updateReferentiel()
 
