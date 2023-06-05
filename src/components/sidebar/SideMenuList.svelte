@@ -6,18 +6,14 @@
   import codeList from "../../json/codeToLevelList.json"
   import { toMap } from "../utils/toMap"
   import { codeToLevelTitle } from "../utils/referentielsUtils"
-  import { onMount } from "svelte"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
 
   let isMenuDeployed: boolean = true
-  onMount(() => {
-    console.log(ref)
-  })
 </script>
 
-<div class="w-[100vw] flex flex-row justify-between items-center px-6 py-2 md:py-5">
+<div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-5">
   <div class=" font-bold text-xl text-coopmaths-struct">{ref.title}</div>
   <div class={moreThanOne ? "flex" : "flex md:hidden"}>
     <button
@@ -34,7 +30,7 @@
     </button>
   </div>
 </div>
-<ul class={isMenuDeployed ? "flex flex-col pl-4 " : "hidden"}>
+<ul class={isMenuDeployed ? "w-full flex flex-col pl-4 " : "hidden"}>
   {#if ref.type === "outils"}
     {#each ref.content as item, i}
       <li>
