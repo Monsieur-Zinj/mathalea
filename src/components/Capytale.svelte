@@ -129,7 +129,9 @@
               $exercicesParams.length = 0
             }}
           />
-          <!-- <Button title="" icon="bx-fullscreen" classDeclaration="text-3xl" /> -->
+        </div>
+        <div slot="export-buttons" class="flex flex-row justify-start items-center space-x-4">
+          <Button title="" icon="bx-cog" classDeclaration="text-3xl" />
         </div>
       </ButtonsDeck>
       {#if $exercicesParams.length !== 0}
