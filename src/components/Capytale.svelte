@@ -210,7 +210,7 @@
     <div slot="content">
       <div class="pt-2 pl-2 grid grid-flow-row md:grid-cols-2 gap-4">
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
+          <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
           <div class="pl-4 flex flex-col">
             <input
               type="text"
@@ -221,7 +221,7 @@
           </div>
         </div>
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
+          <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
           <FormRadio
             title="présentation"
             bind:valueSelected={$globalOptions.presMode}
@@ -234,7 +234,7 @@
           />
         </div>
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>
+          <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>
           <FormRadio
             title="Interactif"
             bind:valueSelected={$globalOptions.setInteractive}
@@ -260,14 +260,14 @@
           </div>
         </div>
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Données</div>
+          <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Données</div>
           <div class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light">Tous les élèves auront des pages :</div>
           <div class="flex flex-row justify-start items-center px-4">
             <ButtonToggle titles={["identiques", "différentes"]} bind:value={isDataRandom} on:click={handleSeed} />
           </div>
         </div>
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light {$globalOptions.setInteractive !== '0' ? 'text-opacity-20' : 'text-opacity-100'}">
+          <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light {$globalOptions.setInteractive !== '0' ? 'text-opacity-20' : 'text-opacity-100'}">
             Correction
           </div>
           <div class="flex flex-row justify-start items-center px-4">

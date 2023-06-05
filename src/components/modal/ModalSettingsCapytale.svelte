@@ -9,7 +9,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog bind:this={dialog} on:close={() => (showSettingsDialog = false)} on:click|self={() => dialog.close()} class="rounded-xl">
   <div on:click|stopPropagation class="relative p-8">
-    <div class="text-3xl text-coopmaths-struct font-light mb-6">
+    <div class="text-4xl text-coopmaths-struct font-light mb-6">
       <slot name="header" />
     </div>
     <slot name="content" />
