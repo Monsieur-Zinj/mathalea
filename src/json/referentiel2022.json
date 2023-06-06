@@ -6408,11 +6408,13 @@
         "uuid": "f4d29",
         "url": "6e/6M31-2.js",
         "titre": "Convertir des volumes ou des capacités",
+        "dateModification": "05/06/2023",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive",
-          "amc": true,
-          "amcType": "AMCNum"
+          "interactifType": [
+            "qcm",
+            "mathLive"
+          ]
         }
       },
       "6M31": {
@@ -6420,7 +6422,7 @@
         "uuid": "33ac2",
         "url": "6e/6M31.js",
         "titre": "Convertir des volumes",
-        "dateModification": "14/05/2022",
+        "dateModification": "31/05/2023",
         "tags": {
           "interactif": true,
           "interactifType": [
@@ -10034,11 +10036,13 @@
         "id": "3F21-3",
         "uuid": "056fa",
         "url": "3e/3F21-3.js",
-        "titre": "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine",
-        "dateModification": "08/05/2023",
+        "titre": "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire",
+        "dateModification": "28/05/2023",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive"
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCHybride"
         }
       },
       "3F21": {
@@ -11209,6 +11213,14 @@
         "url": "2e/2G24-1.js",
         "titre": "Déterminer les coordonnées d'un vecteur à partir des coordonnées de deux points",
         "tags": {}
+      },
+      "2G24-2": {
+        "id": "2G24-2",
+        "uuid": "49570",
+        "url": "2e/2G24-2.js",
+        "titre": "Calculer les coordonnées de la somme de deux vecteurs",
+        "datePublication": "21/05/2023",
+        "tags": {}
       }
     },
     "2G3": {
@@ -11288,7 +11300,7 @@
         "id": "2N10-1",
         "uuid": "507cf",
         "url": "2e/2N10-1.js",
-        "titre": "Lire l’abscisse décimale d’un point repéré par une fraction",
+        "titre": "Lire l’abscisse décimale d’un point",
         "dateModification": "27/10/2021",
         "tags": {
           "interactif": true,
@@ -11472,7 +11484,7 @@
         "uuid": "74939",
         "url": "2e/2N20-6.js",
         "titre": "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
-        "dateModification": "14/11/2021",
+        "dateModification": "02/06/2023",
         "tags": {}
       },
       "2N20-7": {
@@ -11841,8 +11853,15 @@
         "id": "2N50-1",
         "uuid": "622b9",
         "url": "2e/2N50-1.js",
-        "titre": "Mettre en équation un problème sans objectif de résolution",
-        "tags": {}
+        "titre": "Mettre en équation un problème et le résoudre",
+        "datePublication": "15/02/2022",
+        "dateModification": "05/06/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCNum"
+        }
       },
       "2N50-2": {
         "id": "2N50-2",
@@ -11983,6 +12002,14 @@
           "amc": true,
           "amcType": "qcmMono"
         }
+      },
+      "2N60-6": {
+        "id": "2N60-6",
+        "uuid": "53e8f",
+        "url": "2e/2N60-6.js",
+        "titre": "Étudier la position relative de deux courbes",
+        "datePublication": "25/05/2023",
+        "tags": {}
       },
       "2N61-2": {
         "id": "2N61-2",

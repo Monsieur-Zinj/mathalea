@@ -12,12 +12,14 @@
         {/each}
       </slot>
     </div>
-    <div id="exportButtonsBar">
-      <slot name="export-buttons">
-        {#each exportButtonsList as button}
-          <i class="bx bx-sm px-2 {button.bxName} hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-        {/each}
-      </slot>
-    </div>
+    {#if $$slots["export-buttons"]}
+      <div id="exportButtonsBar">
+        <slot name="export-buttons">
+          {#each exportButtonsList as button}
+            <i class="bx bx-sm px-2 {button.bxName} hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+          {/each}
+        </slot>
+      </div>
+    {/if}
   </div>
 </div>

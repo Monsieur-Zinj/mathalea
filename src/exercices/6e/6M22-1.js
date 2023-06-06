@@ -166,7 +166,7 @@ export default function PerimetreAireDisques (pa = 3) {
                       texte: texteCorr,
                       reponse: {
                         valeur: [reponseA1],
-                        texte: 'Aire en cm² (valeur exacte en nombre de $\\pi$)\\\\',
+                        texte: 'Aire en cm\\up{2} (valeur exacte en nombre de $\\pi$)\\\\',
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           signe: false,
@@ -182,7 +182,7 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Aire en cm² (valeur approchée à 0,1 près)',
+                        texte: 'Aire en cm\\up{2} (valeur approchée à 0,1 près)',
                         valeur: [reponseA2],
                         param: {
                           digits: this.sup2 ? 3 : 4,
@@ -254,7 +254,7 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Aire en cm² (valeur exacte en nombre de $\\pi$)\\\\',
+                        texte: 'Aire en cm\\up{2} (valeur exacte en nombre de $\\pi$)\\\\',
                         valeur: [reponseA1],
                         param: {
                           digits: this.sup2 ? 2 : 3,
@@ -273,7 +273,7 @@ export default function PerimetreAireDisques (pa = 3) {
                       texte: texteCorr,
                       reponse: {
                         valeur: [reponseA2],
-                        texte: 'Aire en cm² (valeur approchée au dixième)',
+                        texte: 'Aire en cm\\up{2} (valeur approchée au dixième)',
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           decimals: 1,

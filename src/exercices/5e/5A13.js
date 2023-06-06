@@ -102,11 +102,10 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       let produitRestant = 1
       let debutDecomposition = ''
       let decompositionFinale = ''
-      // texteCorr += facteurs
       for (let k = 0; k < facteurs.length - 1; k++) {
         if (!this.sup3 && !this.sup4) {
           if (!this.correctionDetaillee) {
-            texteCorr += facteurs[k] + ' \\times  '
+            texteCorr += facteurs[k] + ' \\times '
           } else {
             debutDecomposition += facteurs[k] + ' \\times  '
             for (let j = k + 1; j < facteurs.length; j++) {
@@ -119,17 +118,16 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
         }
         reponse += facteurs[k] + '\\times'
       }
+      if (!this.correctionDetaillee) texteCorr += '$'
       if (!this.sup3 && !this.sup4) {
         if (!this.correctionDetaillee) {
           texteCorr += facteurs[facteurs.length - 1]
         }
       } else {
-        texteCorr += texFactorisation(n, true)
+        texteCorr += '$' + texFactorisation(n, true) + '$'
       }
-      if (!this.correctionDetaillee) {
-        texteCorr += ' $'
-      } else {
-        texteCorr += texteEnCouleurEtGras(`Donc la décomposition en produit de facteurs premiers de $\\mathbf{${texNombre(n)}}$ vaut $\\mathbf{${decompositionFinale}}$`)
+      if (this.correctionDetaillee) {
+        texteCorr += '<br>' + texteEnCouleurEtGras(`Donc la décomposition en produit de facteurs premiers de $\\mathbf{${texNombre(n)}}$ vaut $\\mathbf{${decompositionFinale}}$`)
       }
       reponse += facteurs[facteurs.length - 1]
       texte += ajouteChampTexteMathLive(this, i)
