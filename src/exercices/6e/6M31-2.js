@@ -8,8 +8,8 @@ import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Convertir des volumes ou des capacités'
-// export const amcReady = true
-// export const amcType = 'AMCNum'
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const dateDeModifImportante = '05/06/2023'
