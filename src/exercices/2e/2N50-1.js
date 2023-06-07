@@ -207,8 +207,7 @@ export default class ProblemesEnEquation extends Exercice {
           equation = `${b}*x+${a}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: true, substeps: false, comment: false })
           enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et tous ses autres côtés ont même longueur.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
-          enonce += `Quelle est la longueur des côtés de même longueur ?<br>
-          Pour résoudre ce problème, on pourra noter $x$ la longueur des côtés de même longueur.`
+          enonce += ' Quelle est la longueur des côtés de même longueur ? '
           intro = 'Posons $x$  la longueur des côtés de même longueur.<br>'
           intro += `Un ${polygones[b - 2]} possède ${b + 1} côtés, donc celui-ci possède ${b} côtés de même longueur.<br>`
           intro += 'L\'énoncé se traduit par l\'équation suivante :<br>'

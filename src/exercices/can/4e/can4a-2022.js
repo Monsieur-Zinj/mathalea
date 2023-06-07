@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
+import { context } from '../../../modules/context.js'
 import {
-  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit, latexParCoordonnees
+  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, arrondi, randint, texNombre, stringNombre, shuffle, ecritureParentheseSiNegatif, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
@@ -531,8 +532,9 @@ export default function SujetCAN2022quatrieme () {
           })
 
           A = point(a, b)
-          o = latexParCoordonnees('\\text{O}', -0.3, -0.4, 'black', 15, 10, '', 7)
-          lA = latexParCoordonnees('A', a + 0.2, b + 0.2, 'red', 15, 10, '', 10)
+          o = texteParPosition('O', -0.4, -0.6, 'milieu', 'black')//, context.isHtml ? 1 : 0.7
+          // o = latexParCoordonnees('\\text{O}', -0.3, -0.4, 'black', 15, 10, '', 7)
+          lA = texteParPosition('A', a - 0.4, b - 0.2, 'milieu', 'red', context.isHtml ? 2 : 0.7)//
           traceA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
           traceA.taille = 4
           traceA.epaisseur = 2
