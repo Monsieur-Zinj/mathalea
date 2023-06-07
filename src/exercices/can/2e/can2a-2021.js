@@ -83,11 +83,11 @@ export default function SujetCAN2021Seconde () {
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
           reponse = calcul(a * p / 100)
-          texte = `$${p}\\%$ de $${a}= $`
+          texte = `$${p}\\,\\%$ de $${a}= $`
 
-          texteCorr = `          Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
-            Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
-            $${p}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
+          texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
+            Comme $10\\,\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\,\\%$  d'une quantité, on la divise par $10$), alors
+            $${p}\\,\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
            `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -365,7 +365,7 @@ export default function SujetCAN2021Seconde () {
                 `${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}`]
             texte = `Décomposer $${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}$ en produits de facteurs premiers.`
 
-            texteCorr = `$${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}=${listeFacteurs16[0]}\\times ${listeFacteurs16[0]}\\times ${listeFacteurs16[2]}=${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}$`
+            texteCorr = `$${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}=${listeFacteurs16[0]}\\times ${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}=${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}$`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -437,9 +437,7 @@ export default function SujetCAN2021Seconde () {
             texteParPosition(`${stringNombre(a)} cm`, milieu(C, B).x + 0.5, milieu(C, B).y + 0.2),
             labelPoint(A, B, C, D, E), segment(B, E), segment(D, E), segment(A, D), segment(A, B))
           reponse = c
-          texte = `$(AD)//(EB)$.<br>
-           $A$, $C$ et $B$ sont alignés <br>
-           $D$, $C$ et $E$ sont alignés.<br>
+          texte = `$A$, $C$ et $B$ sont alignés, et $D$, $C$ et $E$ sont alignés. De plus, $(AD)//(EB)$.
            <br>`
           texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ACD$ est un agrandissement du triangle $EBC$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${k}$.<br>
@@ -460,19 +458,19 @@ export default function SujetCAN2021Seconde () {
             a = randint(18, 25) * 10
             b = choice([20, 25])
             reponse = a * 100 / b
-            texte = `$${b} \\%$ des élèves d'un lycée sont externes. <br>
+            texte = `$${b}\\,\\%$ des élèves d'un lycée sont externes. <br>
           Il y a $${a}$ externes. Combien y a-t-il d'élèves dans ce lycée ? 
       `
-            texteCorr = ` Comme $100 \\%$ est égal à $${100 / b}$ fois $${b} \\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
+            texteCorr = ` Comme $100\\,\\%$ est égal à $${100 / b}$ fois $${b}\\,\\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
           }
           if (choix === 'b') {
             a = randint(8, 15) * 10
             b = 10
             reponse = a * 10
-            texte = `$${b} \\%$ des élèves d'un lycée sont externes. <br>
+            texte = `$${b}\\,\\%$ des élèves d'un lycée sont externes. <br>
             Il y a $${a}$ externes. Combien y a-t-il d'élèves dans ce lycée ? 
         `
-            texteCorr = ` Comme $100 \\%$ est égal à $${100 / b}$ fois $${b} \\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
+            texteCorr = ` Comme $100\\,\\%$ est égal à $${100 / b}$ fois $${b}\\,\\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
