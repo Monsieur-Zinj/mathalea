@@ -8,8 +8,8 @@ import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Convertir des volumes ou des capacités'
-// export const amcReady = true
-// export const amcType = 'AMCNum'
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const dateDeModifImportante = '05/06/2023'
@@ -73,7 +73,7 @@ export default function UnitesDeVolumesEtDeCapacite () {
         this.nbQuestions
       )
     }
-    let listeDeN = []; let bonusDecimalesAMC, resultat, resultat2, resultat3, resultat4, resultat5
+    let listeDeN = []; let bonusDecimalesAMC, resultat, resultatFaux
     if (this.sup2) {
       listeDeN = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
@@ -125,7 +125,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
         case 'dam3toL':
           texte = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = n < 1000 ? randint(0, 1) : 0 // Sinon, cela fait trop de digits
-          // resultat = n * 1000000
           resultat = n.mul(1000000)
           setReponse(this, i, resultat, { digits: min(nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, 10), decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=${texNombre(n, 3)}\\times1${sp()}000\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
@@ -135,7 +134,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
         case 'm3toL':
           texte = `$${texNombre(n, 3)}${sp()}\\text{m}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
-          // resultat = n * 1000
           resultat = n.mul(1000)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{m}^3=${texNombre(n, 3)}\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
@@ -144,7 +142,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
         case 'dm3toL':
           texte = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
-          // resultat = n
           resultat = n.mul(1)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(resultat, 3)}${sp()}\\text{L}$`
@@ -169,7 +166,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
         case 'Ltodm3':
           texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{dm}^3$`
           bonusDecimalesAMC = randint(0, 1)
-          // resultat = n
           resultat = n.mul(1)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(resultat, 3)}${sp()}\\text{dm}^3$`
@@ -178,7 +174,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
         case 'Ltocm3':
           texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{cm}^3$`
           bonusDecimalesAMC = randint(0, 1)
-          // resultat = n * 1000
           resultat = n.mul(1000)
           setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 0)}${sp()}\\text{dm}^3=${texNombre(n, 0)}\\times1${sp()}000${sp()}\\text{cm}^3=${texNombre(n * 1000)}${sp()}\\text{cm}^3$`
@@ -195,28 +190,25 @@ export default function UnitesDeVolumesEtDeCapacite () {
       }
 
       this.autoCorrection[i].enonce = `${texte}\n`
-      resultat2 = resultat.div(1000)
-      resultat3 = resultat.mul(1000)
-      resultat4 = resultat.mul(1000000)
-      resultat5 = resultat.div(1000000)
+      resultatFaux = combinaisonListes([resultat.div(1000000), resultat.div(10000), resultat.div(1000), resultat.mul(1000000), resultat.mul(10000), resultat.mul(1000)], 6)
       this.autoCorrection[i].propositions = [{
         texte: `$${texNombre(resultat, 20)}$`,
         statut: true
       },
       {
-        texte: `$${texNombre(resultat2, 20)}$`,
+        texte: `$${texNombre(resultatFaux[0], 20)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat3, 20)}$`,
+        texte: `$${texNombre(resultatFaux[1], 20)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat4, 20)}$`,
+        texte: `$${texNombre(resultatFaux[2], 20)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat5, 20)}$`,
+        texte: `$${texNombre(resultatFaux[3], 20)}$`,
         statut: false
       }
       ]
@@ -259,7 +251,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   this.besoinFormulaire3Numerique = ['Avec tableau', 4, 'Uniquement dans l\'énoncé\nUniquement dans la correction\nDans l\'énoncé et dans la correction\nNi dans l\'enoncé, ni dans la correction']
-  this.besoinFormulaire4CaseACocher = ['Avec tableau dans la correction', false]
   if (!(context.vue === 'diap')) this.besoinFormulaire4Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique']
 }
 

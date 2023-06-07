@@ -46,7 +46,7 @@ export default function VolumesPavesParDenombrement () {
       barres = []
       plaques = []
 
-      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: l + 0.9 * p, ymax: h + 0.6 * p }, ...monPave.c2d)
+      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: l + 0.9 * p, ymax: h + 0.6 * p, scale: context.isHtml ? 1 : 0.6 }, ...monPave.c2d)
       if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur25')
       for (let i = 0; i < h - 1; i++) {
         plaques.push(...plaque3d(0, 0, i * 1.5, 1, l, p).c2d)

@@ -68,8 +68,6 @@ export default function CalculDAngle () {
     for (let i = 0; i < this.nbQuestions; i++) {
       // let mEp = (this.sup && !context.isHtml) ? '<br>' : ''
       const mEp = ''
-      // const mEp2 = (this.correctionDetaillee && !context.isHtml) ? '<br>' : ''
-      const mEp2 = ''
       const nom = creerNomDePolygone(3, 'QD')
       let texte = ''
       let texteCorr = ''
@@ -249,14 +247,14 @@ export default function CalculDAngle () {
       if (this.correctionDetaillee && !context.isHtml) texteCorr += '\\begin{minipage}{.5\\linewidth}\n'
       switch (choixRapportTrigo) {
         case 'Acos': // AB=BCxcos(B)
-          texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, ${mEp2}le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
+          texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ab), texNombre2(bc))}$<br>`
           texteCorr += `$\\widehat{${nom}}=\\arccos\\left(${texFraction(texNombre2(ab), texNombre2(bc))}\\right)\\approx ${angleABC}\\degree$<br>`
           break
         case 'Asin':
-          texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$ ${mEp2},le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
+          texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\sin\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ac), texNombre2(bc))}$<br>`
@@ -264,7 +262,7 @@ export default function CalculDAngle () {
 
           break
         case 'Atan':
-          texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, ${mEp2}la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
+          texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\tan\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ac), texNombre2(ab))}$<br>`
