@@ -1,11 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, labelPoint, segment, polygone, translation2Points, similitude, codageSegments, grille, seyes } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, enleveDoublonNum, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { point, labelPoint, segment, polygone, translation2Points, similitude, grille, seyes } from '../../modules/2d.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+
+export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, nouveau paramètre, couleur appropriée dans la correction, AMC
+
 /**
- * fonction servant à plusieurs exercice autour du cube et du pavé droit
- * références : 6G42 et 6G43
+ * fonction servant à plusieurs exercices autour du cube et du pavé droit
+ * références : 6G42
  * @author Jean-Claude Lhote
  */
 export default function Solide6e () {
@@ -15,31 +18,35 @@ export default function Solide6e () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
+  this.sup3 = 5
   this.titre = ''
   this.nouvelleVersion = function () {
-    let typesDeQuestionsDisponibles
-    if (this.sup === 3) typesDeQuestionsDisponibles = [1, 2]
-    else typesDeQuestionsDisponibles = [parseInt(this.sup)]
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+    const typesDeQuestionsDisponibles = this.sup === 3 ? [1, 2] : [this.sup]
 
-    if (this.type === 'vocabulaire') {
-      for (let n = 0; n < typesDeQuestionsDisponibles.length; n++) { typesDeQuestionsDisponibles[n] += 2 }
-    }
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
     )
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    let Xmin, Xmax, Ymin, Ymax, ppc, sc
 
-    if (parseInt(this.sup2) === 1) sc = 0.5
-    else sc = 0.8
+    const listeDeProblemes = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: this.nbQuestions
+    })
+
+    let Xmin, Xmax, Ymin, Ymax, ppc
+
+    const sc = this.sup2 === 1 ? 0.5 : 0.8
 
     let A; let B; let C; let D; let E; let F; let G; let H
     let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH
     let coeffpersp
-    let codesseg = []
-    let enonce
+    // let codesseg = []
     let correction
     let carreaux; let g
     let objetsEnonce = []
@@ -47,7 +54,7 @@ export default function Solide6e () {
     let p
     let listeDeNomsDePolygones
     for (
-      let i = 0, texte, cpt = 0;
+      let i = 0, texte, resultatCorrect, resultatFaux, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -55,69 +62,105 @@ export default function Solide6e () {
       const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
       const anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135])
-      if (anglepersp % 10 === 0) coeffpersp = 0.6
-      else coeffpersp = 0.4
+      coeffpersp = anglepersp % 10 === 0 ? 0.6 : 0.4
       objetsCorrection = []
       objetsEnonce = []
       switch (listeTypeDeQuestions[i]) {
         case 1: // cube
-          enonce = `${nom} est un cube.<br>`
-          if (context.isHtml) enonce += ' Reproduire la figure ci-dessous sur le cahier.<br>'
-          enonce += ' Repasse tous les segments de même longueur dans une même couleur.<br>'
+          texte = `$${nom}$ est un cube.<br>`
+          //  if (context.isHtml) texte += ' Reproduire la figure ci-dessous sur le cahier.<br>'
+          // texte += ' Repasse tous les segments de même longueur dans une même couleur.<br>'
           correction = `Le cube ${nom}.<br>`
           break
 
         case 2:
-          enonce = `${nom} est un pavé droit.<br>`
-          if (context.isHtml) enonce += ' Reproduire la figure ci-dessous sur le cahier.<br>'
-          enonce += ' Repasse tous les segments de même longueur dans une même couleur.<br>'
+          texte = `$${nom}$ est un pavé droit.<br>`
+          // if (context.isHtml) texte += ' Reproduire la figure ci-dessous sur le cahier.<br>'
+          // texte += ' Repasse tous les segments de même longueur dans une même couleur.<br>'
           correction = `Le pavé droit ${nom}.<br>`
           break
-
-        case 3:
-          enonce = `${nom} est un cube.<br>`
-          break
-
-        case 4:
-          enonce = `${nom} est un pavé droit.<br>`
-          break
       }
-      const aretesParalleles = [[[0, 1], [3, 2], [4, 5], [7, 6]], [[0, 3], [1, 2], [4, 7], [5, 6]], [[0, 4], [1, 5], [2, 6], [3, 7]]]
-      const facesParalleles = [[[0, 1, 2, 3], [4, 5, 6, 7]], [[0, 4, 7, 3], [1, 5, 6, 2]], [[0, 1, 5, 4], [3, 2, 6, 7]]]
-      const aretesPerp = [[[0, 1], [0, 4], [0, 3], [1, 5], [1, 2]], [[0, 4], [0, 1], [0, 3], [4, 5], [4, 7]], [[0, 3], [0, 1], [0, 4], [3, 2], [3, 7]], [[1, 2], [1, 0], [1, 5], [2, 3], [2, 6]], [[1, 5], [1, 0], [1, 2],
-        [5, 4], [5, 6]], [[5, 4], [5, 1], [5, 6], [4, 0], [4, 7]], [[5, 6], [5, 1], [5, 4], [6, 2], [6, 7]],
-      [[6, 2], [6, 5], [6, 7], [2, 1], [2, 3]], [[2, 3], [2, 1], [2, 6], [3, 0], [3, 7]], [[3, 7], [3, 2], [3, 0], [7, 4], [7, 6]], [[7, 4], [4, 0], [4, 5], [7, 3], [7, 6]], [[7, 6], [6, 2], [6, 5], [7, 3], [7, 4]]]
-      const facesPerp = [[[0, 1, 2, 3], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0], [0, 1, 5, 4]], [[1, 5, 6, 2], [0, 1, 2, 3], [2, 6, 7, 3], [5, 6, 7, 4], [1, 5, 4, 0]], [[0, 1, 5, 4], [1, 5, 6, 2], [4, 5, 6, 7], [0, 4, 7, 3], [0, 1, 2, 3]],
-        [[4, 5, 6, 7], [0, 1, 5, 4], [1, 5, 6, 2], [2, 6, 7, 3], [0, 4, 7, 3]], [[0, 4, 7, 3], [0, 1, 2, 3], [0, 1, 5, 4], [4, 5, 6, 7], [3, 2, 6, 7]], [[3, 2, 6, 7], [0, 1, 2, 3], [1, 5, 6, 2], [4, 5, 6, 7], [0, 4, 7, 3]]]
+      const aretesParalleles = [[[0, 1], [2, 3], [4, 5], [6, 7]], [[0, 3], [1, 2], [4, 7], [5, 6]], [[0, 4], [1, 5], [2, 6], [3, 7]]]
+      const facesParalleles = [[[0, 1, 2, 3], [4, 5, 6, 7]], [[3, 7, 4, 0], [1, 5, 6, 2]], [[0, 1, 5, 4], [2, 6, 7, 3]]]
+      const aretesPerp = [[[0, 1], [0, 4], [0, 3], [1, 5], [1, 2]], [[0, 4], [0, 1], [0, 3], [4, 5], [4, 7]], [[0, 3], [0, 1], [0, 4], [2, 3], [3, 7]], [[1, 2], [0, 1], [1, 5], [2, 3], [2, 6]], [[1, 5], [0, 1], [1, 2],
+        [4, 5], [5, 6]], [[4, 5], [1, 5], [5, 6], [0, 4], [4, 7]], [[5, 6], [1, 5], [4, 5], [2, 6], [6, 7]],
+      [[2, 6], [6, 5], [6, 7], [1, 2], [2, 3]], [[2, 3], [1, 2], [2, 6], [0, 3], [3, 7]], [[3, 7], [2, 3], [0, 3], [4, 7], [6, 7]], [[4, 7], [0, 4], [4, 5], [7, 3], [6, 7]], [[6, 7], [2, 6], [6, 5], [7, 3], [4, 7]]]
+      const facesPerp = [[[0, 1, 2, 3], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0], [0, 1, 5, 4]], [[1, 5, 6, 2], [0, 1, 2, 3], [2, 6, 7, 3], [4, 5, 6, 7], [0, 1, 5, 4]], [[0, 1, 5, 4], [1, 5, 6, 2], [4, 5, 6, 7], [3, 7, 4, 0], [0, 1, 2, 3]],
+        [[4, 5, 6, 7], [0, 1, 5, 4], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0]], [[3, 7, 4, 0], [0, 1, 2, 3], [0, 1, 5, 4], [4, 5, 6, 7], [2, 6, 7, 3]], [[2, 6, 7, 3], [0, 1, 2, 3], [1, 5, 6, 2], [4, 5, 6, 7], [3, 7, 4, 0]]]
+      const toutesLesFaces = [[0, 1, 2, 3], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0], [0, 1, 5, 4], [4, 5, 6, 7]]
       let k, l, s
-
-      switch (randint(1, 4)) {
-        case 1: // citer les arêtes parallèles à une arrête donnée
+      // let typesDeQuestionsDisponibles = randint(1, 4)
+      // typesDeQuestionsDisponibles = i % 4 + 1
+      // typesDeQuestionsDisponibles = 4
+      let nomFace, nomArete
+      switch (listeDeProblemes[i]) {
+        case 1: // citer les arêtes parallèles à une arête donnée
           [k, l, s] = [randint(0, 2), randint(0, 3), randint(0, 1)]
-          enonce += `Citer toutes les arêtes parallèles à [$${nom[aretesParalleles[k][l][s]] + nom[aretesParalleles[k][l][(s + 1) % 2]]}$].<br>`
+          texte += this.interactif
+            ? `Parmi les arêtes proposées, citer toutes celles parallèles à [$${nom[aretesParalleles[k][l][s]] + nom[aretesParalleles[k][l][(s + 1) % 2]]}$].<br>`
+            : `Citer toutes les arêtes parallèles à [$${nom[aretesParalleles[k][l][s]] + nom[aretesParalleles[k][l][(s + 1) % 2]]}$].<br>`
           correction = `Les arêtes parallèles à [$${nom[aretesParalleles[k][l][s]] + nom[aretesParalleles[k][l][(s + 1) % 2]]}$] sont [$${nom[aretesParalleles[k][(l + 1) % 4][s]] + nom[aretesParalleles[k][(l + 1) % 4][(s + 1) % 2]]}$], [$${nom[aretesParalleles[k][(l + 2) % 4][s]] + nom[aretesParalleles[k][(l + 2) % 4][(s + 1) % 2]]}$] et [$${nom[aretesParalleles[k][(l + 3) % 4][s]] + nom[aretesParalleles[k][(l + 3) % 4][(s + 1) % 2]]}$].<br>`
+          resultatCorrect = [`[$${nom[aretesParalleles[k][(l + 1) % 4][s]] + nom[aretesParalleles[k][(l + 1) % 4][(s + 1) % 2]]}$]`, `[$${nom[aretesParalleles[k][(l + 2) % 4][s]] + nom[aretesParalleles[k][(l + 2) % 4][(s + 1) % 2]]}$]`, `[$${nom[aretesParalleles[k][(l + 3) % 4][s]] + nom[aretesParalleles[k][(l + 3) % 4][(s + 1) % 2]]}$]`]
+          resultatFaux = []
+          for (let ee = 0; ee < 3; ee++) {
+            if (ee !== k) {
+              for (let ff = 0; ff < 4; ff++) {
+                resultatFaux.push(`[$${nom[aretesParalleles[ee][ff][s]] + nom[aretesParalleles[ee][ff][(s + 1) % 2]]}$]`)
+              }
+            }
+          }
           break
 
         case 2: // citer la face parallèle à une face donnée
           [k, l, s] = [randint(0, 2), randint(0, 1), randint(0, 3)]
-          enonce += `Quelle est la face parallèle à $${nom[facesParalleles[k][l][s]] + nom[facesParalleles[k][l][(s + 1) % 4]] + nom[facesParalleles[k][l][(s + 2) % 4]] + nom[facesParalleles[k][l][(s + 3) % 4]]}$ ?<br>`
+          texte += `Quelle est la face parallèle à $${nom[facesParalleles[k][l][s]] + nom[facesParalleles[k][l][(s + 1) % 4]] + nom[facesParalleles[k][l][(s + 2) % 4]] + nom[facesParalleles[k][l][(s + 3) % 4]]}$ ?<br>`
           correction = `La face parallèle à $${nom[facesParalleles[k][l][s]] + nom[facesParalleles[k][l][(s + 1) % 4]] + nom[facesParalleles[k][l][(s + 2) % 4]] + nom[facesParalleles[k][l][(s + 3) % 4]]}$ est la face $${nom[facesParalleles[k][(l + 1) % 2][s]] + nom[facesParalleles[k][(l + 1) % 2][(s + 1) % 4]] + nom[facesParalleles[k][(l + 1) % 2][(s + 2) % 4]] + nom[facesParalleles[k][(l + 1) % 2][(s + 3) % 4]]}$.<br>`
+          resultatCorrect = [`$${nom[facesParalleles[k][(l + 1) % 2][s]] + nom[facesParalleles[k][(l + 1) % 2][(s + 1) % 4]] + nom[facesParalleles[k][(l + 1) % 2][(s + 2) % 4]] + nom[facesParalleles[k][(l + 1) % 2][(s + 3) % 4]]}$`]
+          resultatFaux = []
+          for (let ee = 0; ee < 3; ee++) {
+            if (ee !== k) {
+              for (let ff = 0; ff < 2; ff++) {
+                resultatFaux.push(`$${nom[facesParalleles[ee][ff][s]] + nom[facesParalleles[ee][ff][(s + 1) % 4]] + nom[facesParalleles[ee][ff][(s + 2) % 4]] + nom[facesParalleles[ee][ff][(s + 3) % 4]]}$`)
+              }
+            }
+          }
           break
 
         case 3: // citer les arêtes perpendiculaires à une arête donnée
           [k, l, s] = [randint(0, 11), 0, randint(0, 1)]
-          enonce += `Quelles sont les arêtes perpendiculaires à l'arête [$${nom[aretesPerp[k][l][s]] + nom[aretesPerp[k][l][(s + 1) % 2]]}$] ?<br>`
+          texte += this.interactif
+            ? `Parmi les arêtes proposées, citer toutes celles perpendiculaires à l'arête [$${nom[aretesPerp[k][l][s]] + nom[aretesPerp[k][l][(s + 1) % 2]]}$].<br>`
+            : `Quelles sont les arêtes perpendiculaires à l'arête [$${nom[aretesPerp[k][l][s]] + nom[aretesPerp[k][l][(s + 1) % 2]]}$] ?<br>`
           correction = `Les arêtes perpendiculaires à l'arête [$${nom[aretesPerp[k][l][s]] + nom[aretesPerp[k][l][(s + 1) % 2]]}$] sont [$${nom[aretesPerp[k][1][s]] + nom[aretesPerp[k][1][(s + 1) % 2]]}$], [$${nom[aretesPerp[k][2][s]] + nom[aretesPerp[k][2][(s + 1) % 2]]}$], [$${nom[aretesPerp[k][3][s]] + nom[aretesPerp[k][3][(s + 1) % 2]]}$] et [$${nom[aretesPerp[k][4][s]] + nom[aretesPerp[k][4][(s + 1) % 2]]}$].`
+          resultatCorrect = [`[$${nom[aretesPerp[k][1][s]] + nom[aretesPerp[k][1][(s + 1) % 2]]}$]`, `[$${nom[aretesPerp[k][2][s]] + nom[aretesPerp[k][2][(s + 1) % 2]]}$]`, `[$${nom[aretesPerp[k][3][s]] + nom[aretesPerp[k][3][(s + 1) % 2]]}$]`, `[$${nom[aretesPerp[k][4][s]] + nom[aretesPerp[k][4][(s + 1) % 2]]}$]`]
+          resultatFaux = []
+          for (let ee = 0; ee < 3; ee++) {
+            if (ee !== k) {
+              for (let ff = 1; ff < 5; ff++) {
+                nomArete = `[$${nom[aretesPerp[ee][ff][s]] + nom[aretesPerp[ee][ff][(s + 1) % 2]]}$]`
+                if ((resultatCorrect.indexOf(nomArete) === -1) && (nomArete !== `[$${nom[aretesPerp[k][l][s]] + nom[aretesPerp[k][l][(s + 1) % 2]]}$]`)) resultatFaux.push(nomArete)
+              }
+            }
+          }
           break
 
         case 4: // citer les faces perpendiculaires à une face donnée
           [k, l, s] = [randint(0, 5), 0, randint(0, 3)]
-          enonce += `Quelles sont les faces perpendiculaires à la face $${nom[facesPerp[k][l][s]] + nom[facesPerp[k][l][(s + 1) % 4]] + nom[facesPerp[k][l][(s + 2) % 4]] + nom[facesPerp[k][l][(s + 3) % 4]]}$ ?<br>`
+          texte += `Quelles sont les faces perpendiculaires à la face $${nom[facesPerp[k][l][s]] + nom[facesPerp[k][l][(s + 1) % 4]] + nom[facesPerp[k][l][(s + 2) % 4]] + nom[facesPerp[k][l][(s + 3) % 4]]}$ ?<br>`
           correction = `Les faces perpendiculaires à la face $${nom[facesPerp[k][l][s]] + nom[facesPerp[k][l][(s + 1) % 4]] + nom[facesPerp[k][l][(s + 2) % 4]] + nom[facesPerp[k][l][(s + 3) % 4]]}$ `
           correction += `sont les faces $${nom[facesPerp[k][l + 1][s]] + nom[facesPerp[k][l + 1][(s + 1) % 4]] + nom[facesPerp[k][l + 1][(s + 2) % 4]] + nom[facesPerp[k][l + 1][(s + 3) % 4]]}$, `
           correction += `$${nom[facesPerp[k][l + 2][s]] + nom[facesPerp[k][l + 2][(s + 1) % 4]] + nom[facesPerp[k][l + 2][(s + 2) % 4]] + nom[facesPerp[k][l + 2][(s + 3) % 4]]}$, `
           correction += `$${nom[facesPerp[k][l + 3][s]] + nom[facesPerp[k][l + 3][(s + 1) % 4]] + nom[facesPerp[k][l + 3][(s + 2) % 4]] + nom[facesPerp[k][l + 3][(s + 3) % 4]]}$ et `
           correction += `$${nom[facesPerp[k][l + 4][s]] + nom[facesPerp[k][l + 4][(s + 1) % 4]] + nom[facesPerp[k][l + 4][(s + 2) % 4]] + nom[facesPerp[k][l + 4][(s + 3) % 4]]}$.`
+          resultatCorrect = []
+          for (let ee = 1; ee < 5; ee++) {
+            resultatCorrect.push(`$${nom[facesPerp[k][l + ee][s]] + nom[facesPerp[k][l + ee][(s + 1) % 4]] + nom[facesPerp[k][l + ee][(s + 2) % 4]] + nom[facesPerp[k][l + ee][(s + 3) % 4]]}$`)
+          }
+          resultatFaux = []
+          for (let ee = 0; ee < 6; ee++) {
+            nomFace = `$${nom[toutesLesFaces[ee][s]] + nom[toutesLesFaces[ee][(s + 1) % 4]] + nom[toutesLesFaces[ee][(s + 2) % 4]] + nom[toutesLesFaces[ee][(s + 3) % 4]]}$`
+            if ((resultatCorrect.indexOf(nomFace) === -1) && (nomFace !== `$${nom[facesPerp[k][l][s]] + nom[facesPerp[k][l][(s + 1) % 4]] + nom[facesPerp[k][l][(s + 2) % 4]] + nom[facesPerp[k][l][(s + 3) % 4]]}$`)) resultatFaux.push(nomFace)
+          }
           break
       }
 
@@ -220,15 +263,9 @@ export default function Solide6e () {
       Ymax = Math.max(D.y, H.y) + 1
       ppc = 20
 
-      if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
-      else g = ''
-      if (parseInt(this.sup2) === 2) {
-        carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
-        sc = 0.8
-      } else {
-        carreaux = ''
-        sc = 0.5
-      }
+      g = this.sup2 < 3 ? grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) : ''
+      carreaux = this.sup2 === 2 ? seyes(Xmin, Ymin, Xmax, Ymax) : ''
+
       objetsEnonce.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H), p,
         g,
         carreaux
@@ -243,35 +280,206 @@ export default function Solide6e () {
         scale: sc
       }
 
-      enonce += mathalea2d(params, objetsEnonce)
-      if (listeTypeDeQuestions[i] === 1) {
-        codesseg = [codageSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codageSegments('||', 'green', B, F, C, G, D, H)]
-        AB.color = colorToLatexOrHTML('green')
-        BC.color = colorToLatexOrHTML('green')
-        CD.color = colorToLatexOrHTML('green')
-        DA.color = colorToLatexOrHTML('green')
-        EF.color = colorToLatexOrHTML('green')
-        FG.color = colorToLatexOrHTML('green')
-        GH.color = colorToLatexOrHTML('green')
-        HE.color = colorToLatexOrHTML('green')
-        AE.color = colorToLatexOrHTML('green')
-        BF.color = colorToLatexOrHTML('green')
-        CG.color = colorToLatexOrHTML('green')
-        DH.color = colorToLatexOrHTML('green')
-      } else {
-        codesseg = [codageSegments('||', 'green', A, B, C, D, E, F, G, H), codageSegments('O', 'red', A, E, B, F, C, G, D, H), codageSegments('×', 'blue', D, A, B, C, F, G, H, E)]
-        AB.color = colorToLatexOrHTML('green')
-        BC.color = colorToLatexOrHTML('blue')
-        CD.color = colorToLatexOrHTML('green')
-        DA.color = colorToLatexOrHTML('blue')
-        EF.color = colorToLatexOrHTML('green')
-        FG.color = colorToLatexOrHTML('blue')
-        GH.color = colorToLatexOrHTML('green')
-        HE.color = colorToLatexOrHTML('blue')
-        AE.color = colorToLatexOrHTML('red')
-        BF.color = colorToLatexOrHTML('red')
-        CG.color = colorToLatexOrHTML('red')
-        DH.color = colorToLatexOrHTML('red')
+      texte += mathalea2d(params, objetsEnonce)
+      // if (listeTypeDeQuestions[i] === 1) {
+      // codesseg = typesDeQuestionsDisponibles === 1 ? vide2d : [codageSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codageSegments('||', 'green', B, F, C, G, D, H)]
+      switch (typesDeQuestionsDisponibles) {
+        case 1 :
+          switch (k) {
+            case 0 :
+              AB.color = l === 0 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              CD.color = l === 1 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              EF.color = l === 2 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              GH.color = l === 3 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              break
+            case 1 :
+              BC.color = l === 1 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              DA.color = l === 0 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              FG.color = l === 3 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              HE.color = l === 2 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              break
+            case 2 :
+              BF.color = l === 1 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              CG.color = l === 2 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              DH.color = l === 3 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              AE.color = l === 0 ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('#f15929')
+              break
+          }
+          break
+        case 2 :
+          switch (k) {
+            case 0 :
+              AB.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              BC.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              CD.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              DA.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              EF.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              FG.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              GH.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              HE.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              break
+            case 1 :
+              DH.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              HE.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              AE.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              DA.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              BF.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              FG.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              CG.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              BC.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              break
+            case 2 :
+              AB.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              BF.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              EF.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              AE.color = l !== 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              CG.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              GH.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              DH.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              CD.color = l === 0 ? colorToLatexOrHTML('#f15929') : colorToLatexOrHTML('blue')
+              break
+          }
+          break
+        case 3 :
+          switch (k) {
+            case 0 :
+              AB.color = colorToLatexOrHTML('blue')
+              AE.color = colorToLatexOrHTML('#f15929')
+              DA.color = colorToLatexOrHTML('#f15929')
+              BF.color = colorToLatexOrHTML('#f15929')
+              BC.color = colorToLatexOrHTML('#f15929')
+              break
+            case 1 :
+              AE.color = colorToLatexOrHTML('blue')
+              AB.color = colorToLatexOrHTML('#f15929')
+              DA.color = colorToLatexOrHTML('#f15929')
+              EF.color = colorToLatexOrHTML('#f15929')
+              HE.color = colorToLatexOrHTML('#f15929')
+              break
+            case 2 :
+              DA.color = colorToLatexOrHTML('blue')
+              AB.color = colorToLatexOrHTML('#f15929')
+              AE.color = colorToLatexOrHTML('#f15929')
+              CD.color = colorToLatexOrHTML('#f15929')
+              DH.color = colorToLatexOrHTML('#f15929')
+              break
+            case 3 :
+              BC.color = colorToLatexOrHTML('blue')
+              AB.color = colorToLatexOrHTML('#f15929')
+              BF.color = colorToLatexOrHTML('#f15929')
+              CD.color = colorToLatexOrHTML('#f15929')
+              CG.color = colorToLatexOrHTML('#f15929')
+              break
+            case 4 :
+              BF.color = colorToLatexOrHTML('blue')
+              AB.color = colorToLatexOrHTML('#f15929')
+              BC.color = colorToLatexOrHTML('#f15929')
+              EF.color = colorToLatexOrHTML('#f15929')
+              FG.color = colorToLatexOrHTML('#f15929')
+              break
+            case 5 :
+              EF.color = colorToLatexOrHTML('blue')
+              BF.color = colorToLatexOrHTML('#f15929')
+              FG.color = colorToLatexOrHTML('#f15929')
+              AE.color = colorToLatexOrHTML('#f15929')
+              HE.color = colorToLatexOrHTML('#f15929')
+              break
+            case 6 :
+              FG.color = colorToLatexOrHTML('blue')
+              BF.color = colorToLatexOrHTML('#f15929')
+              EF.color = colorToLatexOrHTML('#f15929')
+              CG.color = colorToLatexOrHTML('#f15929')
+              GH.color = colorToLatexOrHTML('#f15929')
+              break
+            case 7 :
+              CG.color = colorToLatexOrHTML('blue')
+              FG.color = colorToLatexOrHTML('#f15929')
+              GH.color = colorToLatexOrHTML('#f15929')
+              BC.color = colorToLatexOrHTML('#f15929')
+              CD.color = colorToLatexOrHTML('#f15929')
+              break
+            case 8 :
+              CD.color = colorToLatexOrHTML('blue')
+              BC.color = colorToLatexOrHTML('#f15929')
+              CG.color = colorToLatexOrHTML('#f15929')
+              DA.color = colorToLatexOrHTML('#f15929')
+              DH.color = colorToLatexOrHTML('#f15929')
+              break
+            case 9 :
+              DH.color = colorToLatexOrHTML('blue')
+              CD.color = colorToLatexOrHTML('#f15929')
+              DA.color = colorToLatexOrHTML('#f15929')
+              HE.color = colorToLatexOrHTML('#f15929')
+              GH.color = colorToLatexOrHTML('#f15929')
+              break
+            case 10 :
+              HE.color = colorToLatexOrHTML('blue')
+              AE.color = colorToLatexOrHTML('#f15929')
+              EF.color = colorToLatexOrHTML('#f15929')
+              DH.color = colorToLatexOrHTML('#f15929')
+              GH.color = colorToLatexOrHTML('#f15929')
+              break
+            case 11 :
+              GH.color = colorToLatexOrHTML('blue')
+              CG.color = colorToLatexOrHTML('#f15929')
+              FG.color = colorToLatexOrHTML('#f15929')
+              DH.color = colorToLatexOrHTML('#f15929')
+              HE.color = colorToLatexOrHTML('#f15929')
+              break
+          }
+          break
+        case 4 :
+          AB.color = colorToLatexOrHTML('#f15929')
+          BC.color = colorToLatexOrHTML('#f15929')
+          CD.color = colorToLatexOrHTML('#f15929')
+          DA.color = colorToLatexOrHTML('#f15929')
+          EF.color = colorToLatexOrHTML('#f15929')
+          FG.color = colorToLatexOrHTML('#f15929')
+          GH.color = colorToLatexOrHTML('#f15929')
+          HE.color = colorToLatexOrHTML('#f15929')
+          AE.color = colorToLatexOrHTML('#f15929')
+          BF.color = colorToLatexOrHTML('#f15929')
+          CG.color = colorToLatexOrHTML('#f15929')
+          DH.color = colorToLatexOrHTML('#f15929')
+          switch (k) {
+            case 0 :
+              AB.color = colorToLatexOrHTML('blue')
+              BC.color = colorToLatexOrHTML('blue')
+              CD.color = colorToLatexOrHTML('blue')
+              DA.color = colorToLatexOrHTML('blue')
+              break
+            case 1 :
+              BF.color = colorToLatexOrHTML('blue')
+              FG.color = colorToLatexOrHTML('blue')
+              CG.color = colorToLatexOrHTML('blue')
+              BC.color = colorToLatexOrHTML('blue')
+              break
+            case 2 :
+              AB.color = colorToLatexOrHTML('blue')
+              BF.color = colorToLatexOrHTML('blue')
+              EF.color = colorToLatexOrHTML('blue')
+              AE.color = colorToLatexOrHTML('blue')
+              break
+            case 3 :
+              EF.color = colorToLatexOrHTML('blue')
+              FG.color = colorToLatexOrHTML('blue')
+              GH.color = colorToLatexOrHTML('blue')
+              HE.color = colorToLatexOrHTML('blue')
+              break
+            case 4 :
+              DH.color = colorToLatexOrHTML('blue')
+              HE.color = colorToLatexOrHTML('blue')
+              AE.color = colorToLatexOrHTML('blue')
+              DA.color = colorToLatexOrHTML('blue')
+              break
+            case 5 :
+              CG.color = colorToLatexOrHTML('blue')
+              GH.color = colorToLatexOrHTML('blue')
+              DH.color = colorToLatexOrHTML('blue')
+              CD.color = colorToLatexOrHTML('blue')
+              break
+          }
+          break
       }
 
       objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
@@ -279,11 +487,39 @@ export default function Solide6e () {
         carreaux
       )
 
-      if (listeTypeDeQuestions[i] < 3) correction += mathalea2d(params, objetsCorrection, codesseg)
-
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (listeTypeDeQuestions[i] < 3) correction += mathalea2d(params, objetsCorrection)
+      if (this.interactif) {
+        resultatCorrect = combinaisonListes(resultatCorrect, resultatCorrect.length)
+        resultatFaux = enleveDoublonNum(resultatFaux)
+        resultatFaux = combinaisonListes(resultatFaux, resultatFaux.length)
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions = [{
+          texte: resultatCorrect[0],
+          statut: true
+        },
+        {
+          texte: resultatCorrect.length > 1 ? resultatCorrect[1] : resultatFaux[3],
+          statut: resultatCorrect.length > 1
+        },
+        {
+          texte: resultatFaux[0],
+          statut: false
+        },
+        {
+          texte: typesDeQuestionsDisponibles === 4 ? resultatCorrect[2] : resultatFaux[1],
+          statut: typesDeQuestionsDisponibles === 4
+        },
+        {
+          texte: typesDeQuestionsDisponibles === 4 ? resultatCorrect[3] : resultatFaux[2],
+          statut: typesDeQuestionsDisponibles === 4
+        }
+        ]
+        texte += propositionsQcm(this, i).texte
+      }
+      if (this.questionJamaisPosee(i, texte, k, l, s)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(enonce + '<br>')
+        this.listeQuestions.push(texte + '<br>')
         this.listeCorrections.push(correction + '<br>')
         i++
       }
@@ -298,4 +534,5 @@ export default function Solide6e () {
     3,
     ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
+  this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Arêtes parallèles\n2: Faces parallèles\n3: Arêtes perpendiculaires\n4: Faces perpendiculaires\n5 : Mélange']
 }

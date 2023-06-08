@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texTexte, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, texTexte, sp, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -87,10 +87,7 @@ export default function ExerciceConversionsVolumes () {
         k,
         div,
         resultat,
-        resultat2,
-        resultat3,
-        resultat4,
-        resultat5,
+        resultatFaux,
         typesDeQuestions,
         texte,
         texteCorr,
@@ -283,28 +280,25 @@ export default function ExerciceConversionsVolumes () {
       }
 
       this.autoCorrection[i].enonce = `${texte}\n`
-      resultat2 = resultat.div(10)
-      resultat3 = resultat.mul(10)
-      resultat4 = resultat.mul(100)
-      resultat5 = resultat.div(100)
+      resultatFaux = combinaisonListes([resultat.div(10), resultat.div(100), resultat.div(1000), resultat.mul(10), resultat.mul(100), resultat.mul(1000)], 6)
       this.autoCorrection[i].propositions = [{
         texte: `$${texNombre(resultat, 20)}$`,
         statut: true
       },
       {
-        texte: `$${texNombre(resultat2, 20)}$`,
+        texte: `$${texNombre(resultatFaux[0], 20)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat3, 20)}$`,
+        texte: `$${texNombre(resultatFaux[1], 20)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat4, 20)}$`,
+        texte: `$${texNombre(resultatFaux[2], 20)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat5, 20)}$`,
+        texte: `$${texNombre(resultatFaux[3], 20)}$`,
         statut: false
       }
       ]
