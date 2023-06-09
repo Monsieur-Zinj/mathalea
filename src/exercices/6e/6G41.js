@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
 import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
@@ -56,13 +57,12 @@ export default function RepresenterUnSolide () {
     let A; let B; let C; let D; let E; let F; let G; let H; let I
     let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH; let IA; let IB; let IE; let IF; let BD; let FH
     let coeffpersp
-    let enonce
     let correction
     let carreaux; let g
     let objetsEnonce = []
     let objetsCorrection = []
     let listeDeNomsDePolygones
-    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, enonce, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (i % 2 === 0) listeDeNomsDePolygones = ['QD']
       const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
@@ -74,26 +74,23 @@ export default function RepresenterUnSolide () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // cube
           enonce = `$${nom}$ est un cube.<br>`
-          enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
-          correction = 'Figure complétée :<br>'
           break
 
         case 2: // pavé droit
           enonce = `$${nom}$ est un pavé droit.<br>`
-          enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
-          correction = 'Figure complétée :<br>'
           break
 
         case 4: // prisme
-          enonce = 'On considère un prisme à base triangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
-          correction = 'Figure complétée :<br>'
+          enonce = 'On considère un prisme à base triangulaire.<br>'
           break
 
         case 6: // pyramide
-          enonce = 'On considère une pyramide à base rectangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
-          correction = 'Figure complétée :<br>'
+          enonce = 'On considère une pyramide à base rectangulaire.<br>'
           break
       }
+      enonce += context.isHtml ? 'Reproduire et compléter ' : 'Compléter '
+      enonce += 'la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+      correction = 'Figure complétée :<br>'
 
       switch (listeTypeDeQuestions[i] % 2) {
         case 1:
