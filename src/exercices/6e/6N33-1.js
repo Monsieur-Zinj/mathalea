@@ -68,15 +68,15 @@ export default function PourcentageDunNombre () {
             texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=(${n}\\div100)\\times${p}=${texNombre(calcul(n / 100))}\\times${p}=${texNombre(calcul((p * n) / 100))}$`
             texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=${texNombre(calcul(p / 100))}\\times${n}=${texNombre(calcul((p * n) / 100))}$`
             if (p === 60) {
-              texteCorr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $50~\\%~\\text{de }${n}$
+              texteCorr += `<br>$${p}~\\%~\\text{de }${n}$, c'est $50~\\%~\\text{de }${n}$
 plus $10 ~\\%~\\text{de }${n} $ soit la moitié de $ ${n} \\text{ plus } 10 ~\\%~\\text{de }${n} $ :
 $${p}~\\%~\\text{de }${n}=${n}\\div${2} + ${n}\\div${10} =  ${texNombre(calcul(n * 0.6))}$`
             } else if (p === 90) {
-              texteCorr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $${n}$
+              texteCorr += `<br>$${p}~\\%~\\text{de }${n}$, c'est $${n}$
 moins $10 ~\\%~\\text{de }${n} $ :
 $${p}~\\%~\\text{de }${n}=${n} - ${n}\\div${10} =  ${texNombre(calcul(n * 0.9))}$`
             } else if (p > 10) {
-              texteCorr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $ ${calcul(p / 10)} $ fois $ 10 ~\\%~\\text{de }${n} $ :
+              texteCorr += `<br>$${p}~\\%~\\text{de }${n}$, c'est $ ${calcul(p / 10)} $ fois $ 10 ~\\%~\\text{de }${n} $ :
 $${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNombre(calcul((p * n) / 100))}$`
             }
           }
@@ -105,13 +105,14 @@ $${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNomb
   ]
   this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes']
   this.besoinFormulaire3CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-  this.besoinFormulaire4Texte = ['choix des pourcentages (nombres séparés par des tirets', `1: 10%
-2: 20%
-3: 25%
-4: 30%
-5: 40%
-6: 50%
-7: 60%
-8: 90%
-9: Mélange`]
+  this.besoinFormulaire4Texte = ['Choix des pourcentages', `Nombres séparés par des tirets
+1 : 10%
+2 : 20%
+3 : 25%
+4 : 30%
+5 : 40%
+6 : 50%
+7 : 60%
+8 : 90%
+9 : Mélange`]
 }
