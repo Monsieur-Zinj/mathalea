@@ -6086,7 +6086,13 @@
         "uuid": "b36df",
         "url": "6e/6G42.js",
         "titre": "Connaître les propriétés du cube et du pavé droit",
-        "tags": {}
+        "dateModification": "07/06/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm",
+          "amc": true,
+          "amcType": "qcmMono"
+        }
       },
       "6G43": {
         "id": "6G43",
@@ -6104,7 +6110,7 @@
         "id": "6G44-1",
         "uuid": "051aa",
         "url": "6e/6G44-1.js",
-        "titre": "Reconnaitre des solides",
+        "titre": "Reconnaître des solides",
         "datePublication": "24/09/2022",
         "dateModification": "08/05/2023",
         "tags": {
@@ -6414,7 +6420,9 @@
           "interactifType": [
             "qcm",
             "mathLive"
-          ]
+          ],
+          "amc": true,
+          "amcType": "qcmMono"
         }
       },
       "6M31": {
@@ -11220,6 +11228,14 @@
         "url": "2e/2G24-2.js",
         "titre": "Calculer les coordonnées de la somme de deux vecteurs",
         "datePublication": "21/05/2023",
+        "tags": {}
+      },
+      "2G24-3": {
+        "id": "2G24-3",
+        "uuid": "14a2c",
+        "url": "2e/2G24-3.js",
+        "titre": "Calculer les coordonnées de la différence de deux vecteurs",
+        "datePublication": "28/05/2023",
         "tags": {}
       }
     },
