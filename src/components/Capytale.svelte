@@ -16,6 +16,7 @@
   import ModalSettingsCapytale from "./modal/ModalSettingsCapytale.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
   import ButtonToggle from "./forms/ButtonToggle.svelte"
+  import InputText from "./forms/InputText.svelte"
 
   let showSettingsDialog = false
   let isMenuOpen: boolean = true
@@ -45,10 +46,11 @@
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
   // Construction pour affichage dans SideMenu du tableau des entrées du référentiel
-  let sideMenuListReferentiel: ReferentielForList = { title: "Choix des exercices", content: [], type: "exercices" }
+  // let sideMenuListReferentiel: ReferentielForList = { title: "Choix des exercices", content: [], type: "exercices" }
   let itemsSelected = []
-  const arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
-  sideMenuListReferentiel.content = [...arrayReferentielFiltre]
+  let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
+  // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
+  $: sideMenuListReferentiel = { title: "Choix des exercices", content: [...arrayReferentielFiltre], type: "exercices" }
 
   /**
    * Gestion du redimentionnement de la largeur du menu des choix
@@ -98,7 +100,7 @@
   }
 
   // Gestion de la graine
-  let isDataRandom: boolean = false
+  let isDataRandom: boolean = true
   function handleSeed() {
     for (const param of $exercicesParams) {
       if (!isDataRandom && param.alea === undefined) {
@@ -111,7 +113,6 @@
   }
 
   function handleEleveVueSetUp() {
-    handleSeed()
     let url = new URL("https://coopmaths.fr/alea/")
     for (const [i, exo] of $exercicesParams.entries()) {
       if (i === 0) {
@@ -128,6 +129,24 @@
     url += "&es=" + buildUrlAddendumForEsParam(false)
     window.open(url, "_blank").focus()
   }
+
+  let modal
+  function validateSettings() {
+    modal.closeModal()
+  }
+
+  let urlFeuilleEleve: string = ""
+
+  function updateFilters(filters) {
+    let itemsAccepted = [...filters.levels]
+    if (filters.types.includes("static")) {
+      itemsAccepted = [...itemsAccepted, "static"]
+    }
+    // console.log(itemsAccepted)
+    isAmcOnlySelected = filters.types.includes("amc")
+    isInteractiveOnlySelected = filters.types.includes("interactif")
+    arrayReferentielFiltre = updateReferentiel(isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted)
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -138,29 +157,59 @@
     <NavBarIframe>
       <div slot="buttons" class="w-full">
         <ButtonsDeck>
-          <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
-            <Button title="" icon="bx-zoom-out" classDeclaration="text-3xl" on:click={zoomOut} />
-            <Button title="" icon="bx-zoom-in" classDeclaration="text-3xl" on:click={zoomIn} />
-            <Button title="" icon="bx-refresh" classDeclaration="text-3xl" on:click={newDataForAll} />
+          <div slot="setup-buttons" class="flex flex-row justify-center items-center space-x-4">
+            <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte"><Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomOut} /></div>
+            <div class="tooltip tooltip-bottom" data-tip="Augmenter la taille du texte"><Button title="" icon="bx-zoom-in" classDeclaration="flex items-center text-3xl" on:click={zoomIn} /></div>
+            <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés"><Button title="" icon="bx-refresh" classDeclaration="flex items-center text-3xl" on:click={newDataForAll} /></div>
+            <div class="tooltip tooltip-bottom" data-tip="Supprimer tous les exercices">
+              <Button
+                title=""
+                icon="bx-trash"
+                classDeclaration="text-3xl"
+                on:click={() => {
+                  $exercicesParams.length = 0
+                }}
+              />
+            </div>
+          </div>
+          <div slot="input" class="flex flex-row items-center space-x-4">
+            <InputText title="Importer les exercices d'une feuille élève" placeholder="Lien" bind:value={urlFeuilleEleve} classAddenda="w-50" />
             <Button
-              title=""
-              icon="bx-trash"
-              classDeclaration="text-3xl"
+              classDeclaration="text-sm py-1 px-2 rounded-md h-7"
+              title="Ajouter"
+              icon=""
+              isDisabled={urlFeuilleEleve.length === 0}
               on:click={() => {
-                $exercicesParams.length = 0
+                // exemple URL vue élève
+                // http://localhost:5173/alea/?uuid=01873&id=6C20&uuid=99522&id=6C22&uuid=64422&id=6C23&v=confeleve&v=eleve&title=&es=11101
+                let url = urlFeuilleEleve.replace("&v=confeleve", "")
+                url = url.replace("&v=eleve", "&recorder=capytale")
+                const options = mathaleaUpdateExercicesParamsFromUrl(url)
+                if (options !== null) {
+                  globalOptions.update(() => {
+                    return options
+                  })
+                } else {
+                  alert("URL non valide !")
+                }
+                console.log("Après chargement :")
+                console.log($globalOptions)
+                urlFeuilleEleve = ""
               }}
             />
           </div>
-          <div slot="export-buttons" class="flex flex-row justify-start items-center space-x-4">
-            <Button
-              title=""
-              icon="bx-cog"
-              classDeclaration="text-3xl"
-              isDisabled={$exercicesParams.length === 0}
-              on:click={() => {
-                showSettingsDialog = true
-              }}
-            />
+          <div slot="export-buttons" class="flex flex-row justify-center items-center space-x-4">
+            <div class="tooltip tooltip-bottom" data-tip="Régler l'affichage du mode élève">
+              <Button
+                title=""
+                icon="bx-cog"
+                classDeclaration="text-3xl"
+                isDisabled={$exercicesParams.length === 0}
+                on:click={() => {
+                  showSettingsDialog = true
+                }}
+              />
+            </div>
           </div>
         </ButtonsDeck>
       </div>
@@ -169,7 +218,15 @@
   <div class="flex flex-col md:flex-row w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <!-- Sidebar -->
     <div id="choiceMenuWrapper" class="mt-6 md:mt-8 lg:mt-0">
-      <SideMenu bind:isMenuOpen isMenuCloseable={$exercicesParams.length !== 0} bind:sidebarWidth referentiels={[sideMenuListReferentiel]} />
+      <SideMenu
+        bind:isMenuOpen
+        isMenuCloseable={$exercicesParams.length !== 0}
+        bind:sidebarWidth
+        referentiels={[sideMenuListReferentiel]}
+        on:filters={(e) => {
+          updateFilters(e.detail)
+        }}
+      />
     </div>
     <!-- Dragbar -->
     <div
@@ -205,21 +262,10 @@
       {/if}
     </div>
   </div>
-  <ModalSettingsCapytale bind:showSettingsDialog>
+  <ModalSettingsCapytale bind:showSettingsDialog bind:this={modal}>
     <div slot="header">Réglages de l'affichage des exercices</div>
     <div slot="content">
-      <div class="pt-2 pl-2 grid grid-flow-row md:grid-cols-2 gap-4">
-        <div class="pb-2">
-          <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
-          <div class="pl-4 flex flex-col">
-            <input
-              type="text"
-              class="w-1/2 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
-              bind:value={$globalOptions.title}
-            />
-            <div class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title.length === 0 ? '' : 'invisible'}">Pas de bandeau si laissé vide.</div>
-          </div>
-        </div>
+      <div class="pt-2 pl-2 grid grid-flow-row lg:grid-cols-2 gap-4">
         <div class="pb-2">
           <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
           <FormRadio
@@ -275,11 +321,14 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="flex flex-row justify-end">
-        <div class="pt-4 pb-8 px-4">
-          <Button on:click={handleEleveVueSetUp} title="Visualiser" />
-        </div>
+    <div slot="buttons" class="flex flex-row justify-end space-x-4 w-full">
+      <div class="pt-4 pb-8 px-4">
+        <Button on:click={validateSettings} title="Valider" />
+      </div>
+      <div class="pt-4 pb-8 px-4">
+        <Button on:click={handleEleveVueSetUp} title="Aperçu" />
       </div>
     </div>
   </ModalSettingsCapytale>

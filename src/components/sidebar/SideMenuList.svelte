@@ -6,9 +6,20 @@
   import codeList from "../../json/codeToLevelList.json"
   import { toMap } from "../utils/toMap"
   import { codeToLevelTitle } from "../utils/referentielsUtils"
+  import SearchExercice from "./SearchExercice.svelte"
+  import { onMount } from "svelte"
+  import { toObject } from "../utils/toObj"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
+  let refAsObject: object = {}
+  onMount(() => {
+    for (const entry of ref.content) {
+      Object.assign(refAsObject, { [entry.key]: toObject(entry.obj) })
+    }
+    console.log("from SideMenuList : ")
+    console.log(refAsObject)
+  })
 
   let isMenuDeployed: boolean = true
 </script>
@@ -38,6 +49,7 @@
       </li>
     {/each}
   {:else if ref.type === "exercices"}
+    <SearchExercice referentiel={refAsObject} on:filters />
     {#each ref.content as item, i}
       <li>
         <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
