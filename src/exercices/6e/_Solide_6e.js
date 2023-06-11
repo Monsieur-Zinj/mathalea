@@ -89,9 +89,6 @@ export default function Solide6e () {
         [[4, 5, 6, 7], [0, 1, 5, 4], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0]], [[3, 7, 4, 0], [0, 1, 2, 3], [0, 1, 5, 4], [4, 5, 6, 7], [2, 6, 7, 3]], [[2, 6, 7, 3], [0, 1, 2, 3], [1, 5, 6, 2], [4, 5, 6, 7], [3, 7, 4, 0]]]
       const toutesLesFaces = [[0, 1, 2, 3], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0], [0, 1, 5, 4], [4, 5, 6, 7]]
       let k, l, s
-      // let typesDeQuestionsDisponibles = randint(1, 4)
-      // typesDeQuestionsDisponibles = i % 4 + 1
-      // typesDeQuestionsDisponibles = 4
       let nomFace, nomArete
       switch (listeDeProblemes[i]) {
         case 1: // citer les arêtes parallèles à une arête donnée
@@ -281,9 +278,8 @@ export default function Solide6e () {
       }
 
       texte += mathalea2d(params, objetsEnonce)
-      // if (listeTypeDeQuestions[i] === 1) {
       // codesseg = typesDeQuestionsDisponibles === 1 ? vide2d : [codageSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codageSegments('||', 'green', B, F, C, G, D, H)]
-      switch (typesDeQuestionsDisponibles) {
+      switch (listeDeProblemes[i]) {
         case 1 :
           switch (k) {
             case 0 :
@@ -487,7 +483,7 @@ export default function Solide6e () {
         carreaux
       )
 
-      if (listeTypeDeQuestions[i] < 3) correction += mathalea2d(params, objetsCorrection)
+      correction += mathalea2d(params, objetsCorrection)
       if (this.interactif) {
         resultatCorrect = combinaisonListes(resultatCorrect, resultatCorrect.length)
         resultatFaux = enleveDoublonNum(resultatFaux)
@@ -507,12 +503,12 @@ export default function Solide6e () {
           statut: false
         },
         {
-          texte: typesDeQuestionsDisponibles === 4 ? resultatCorrect[2] : resultatFaux[1],
-          statut: typesDeQuestionsDisponibles === 4
+          texte: listeDeProblemes[i] === 4 ? resultatCorrect[2] : resultatFaux[1],
+          statut: listeDeProblemes[i] === 4
         },
         {
-          texte: typesDeQuestionsDisponibles === 4 ? resultatCorrect[3] : resultatFaux[2],
-          statut: typesDeQuestionsDisponibles === 4
+          texte: listeDeProblemes[i] === 4 ? resultatCorrect[3] : resultatFaux[2],
+          statut: listeDeProblemes[i] === 4
         }
         ]
         texte += propositionsQcm(this, i).texte
