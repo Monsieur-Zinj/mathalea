@@ -11237,6 +11237,14 @@
         "titre": "Calculer les coordonnées de la différence de deux vecteurs",
         "datePublication": "28/05/2023",
         "tags": {}
+      },
+      "2G24-4": {
+        "id": "2G24-4",
+        "uuid": "68693",
+        "url": "2e/2G24-4.js",
+        "titre": "Calculer les coordonnées du produit d'un vecteur par un réel",
+        "datePublication": "28/05/2023",
+        "tags": {}
       }
     },
     "2G3": {
