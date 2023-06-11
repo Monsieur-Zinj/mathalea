@@ -110,6 +110,7 @@ export default class ProblemesEnEquation extends Exercice {
       shuffle: true,
       nbQuestions: this.nbQuestions
     })
+    for (let i = 0, cpt = 0, uniteOptions, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
       // const n = 0 // un paramètre entier qui peut servir dans certains cas.
       const produit = choice(['fraises', 'pêches', 'poires', 'pommes', 'mangues', 'prunes', 'citrons'])
