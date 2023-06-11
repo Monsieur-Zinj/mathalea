@@ -13,7 +13,7 @@ export default function Reglages6M22 () {
   ExercicePerimetresEtAires.call(this)
   this.titre = titre
   this.sup = '4-5'
-  this.exo = 'WithDisk'
+  this.exo = 'OnlyDisk'
   this.besoinFormulaireTexte = [
     'Types de figures',
     'Nombres séparés par des tirets\n4 : Disque\n5 : Demi-disque'
