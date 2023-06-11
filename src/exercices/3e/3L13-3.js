@@ -15,6 +15,7 @@ import {
   ecritureAlgebrique,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
+  nombreDeChiffresDe,
   prenom,
   sp,
   stringNombre,
@@ -31,7 +32,8 @@ export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum'
+export const amcType = 'AMCHybride' // type de question AMC
+
 export const dateDePublication = '15/02/2022'
 export const dateDeModifImportante = '06/04/2023'
 /**
@@ -436,6 +438,38 @@ export default class ProblemesEnEquation extends Exercice {
       texteCorr += resolution.texteCorr
       texteCorr += verification
       texteCorr += conclusion
+
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte + 'ddddddd<br>',
+          enonceAvant: false,
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                enonce: texte + '<br>Mettre le problème en équation ci-dessous et la résoudre.',
+                statut: 3,
+                pointilles: true
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Réponse au problème : ',
+                  valeur: [x],
+                  param: {
+                    digits: Math.max(nombreDeChiffresDe(x), 2),
+                    signe: true
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
 
       if (this.questionJamaisPosee(i, x, a, b, d)) {
         this.listeQuestions.push(texte)
