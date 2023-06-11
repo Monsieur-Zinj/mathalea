@@ -590,7 +590,7 @@ export default class nomExercice extends Exercice {
           texteCorr = 'Tous les carrés sont des parallélogrammes, des losanges et des rectangles.'
           break
         case 'reciproque1':
-          texte = 'Si un quadrilatère a deux côtés opposés parallèles alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés opposés parallèles alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -613,10 +613,10 @@ export default class nomExercice extends Exercice {
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère a deux côtés opposés parallèles alors c\'est un trapèze.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés opposés parallèles alors c\'est un trapèze.'
           break
         case 'reciproque2':
-          texte = 'Si un quadrilatère a deux côtés opposés de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés opposés de même longueur alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -639,10 +639,10 @@ export default class nomExercice extends Exercice {
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère a deux côtés opposés de même longueur alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés opposés de même longueur alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque3':
-          texte = 'Si un quadrilatère a deux côtés consécutifs perpendiculaires alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -665,10 +665,10 @@ export default class nomExercice extends Exercice {
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère a deux côtés consécutifs perpendiculaires alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque4':
-          texte = 'Si un quadrilatère a deux côtés consécutifs de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs de même longueur alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -691,10 +691,10 @@ export default class nomExercice extends Exercice {
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère a deux côtés consécutifs de même longueur alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs de même longueur alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque5':
-          texte = 'Si un quadrilatère a deux côtés consécutifs perpendiculaires et de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires et de même longueur alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -717,7 +717,7 @@ export default class nomExercice extends Exercice {
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère a deux côtés consécutifs perpendiculaires de même longueur alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires de même longueur alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque6':
           texte = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires alors on est sûr que...'
@@ -798,7 +798,7 @@ export default class nomExercice extends Exercice {
           texteCorr = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires et de même longueur alors on est sûr que c\'est un rectangle, un losange et donc un carré.'
           break
         case 'reciproque9':
-          texte = 'Si un quadrilatère a ses diagonales perpendiculaires alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -821,10 +821,10 @@ export default class nomExercice extends Exercice {
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère a ses diagonales perpendiculaires alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque10':
-          texte = 'Si un quadrilatère a ses diagonales de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses diagonales de même longueur alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -847,7 +847,7 @@ export default class nomExercice extends Exercice {
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère a ses diagonales de même longueur alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a ses diagonales de même longueur alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque11':
           texte = 'Si un parallélogramme a ses diagonales perpendiculaires alors on est sûr que...'
@@ -902,7 +902,7 @@ export default class nomExercice extends Exercice {
           texteCorr = 'Si un parallélogramme a ses diagonales de même longueur alors c\'est un rectangle.'
           break
         case 'reciproque13':
-          texte = 'Si un quadrilatère a ses angles opposés de même mesure alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses angles opposés de même mesure alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -928,7 +928,7 @@ export default class nomExercice extends Exercice {
           texteCorr = 'Tous les parallélogrammes ont leurs angles opposés de même mesure donc cela ne nous suffit pas pour en déduire que c\'est un parallélogramme particulier.'
           break
         case 'reciproque14':
-          texte = 'Si un quadrilatère a ses angles consécutifs supplémentaires alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses angles consécutifs supplémentaires alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -980,7 +980,7 @@ export default class nomExercice extends Exercice {
           texteCorr = 'Si un parallélogramme a ses diagonales perpendiculaires et de même longueur alors c\'est un rectangle et un losange donc c\'est un carré.'
           break
         case 'reciproque16':
-          texte = 'Si un quadrilatère a ses diagonales perpendiculaires et de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires et de même longueur alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
