@@ -331,7 +331,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
               ]
             }
           ]
-          elementAmc.enonce = texte + '\\\\'
+          elementAmc.enonce = texte + (valeurAMC instanceof FractionEtendue ? ' On donnera la réponse sous forme d\'une fraction irréductible.' : '') + '\\\\'
           elementAmc.enonceAvant = false
           elementAmc.enonceApresNumQuestion = true
           elementAmc.propositions[0].propositions[0].texte = texteCorr
