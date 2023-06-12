@@ -211,7 +211,7 @@ export default function SujetCAN2023CM2 () {
         case 12:{
           const ecritureDecimaleProduitEntierParDixiemesOuCentiemes = myCan.ecritureDecimaleProduitEntierParDixiemesOuCentiemes()
           texte = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texte
-          texteCorr = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texte
+          texteCorr = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texteCorr
           setReponse(this, index, ecritureDecimaleProduitEntierParDixiemesOuCentiemes.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1

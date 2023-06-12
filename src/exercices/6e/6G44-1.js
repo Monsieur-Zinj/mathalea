@@ -7,7 +7,7 @@ import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures, vide2d } from '../../modules/2dGeneralites.js'
-export const titre = 'Reconnaitre des solides'
+export const titre = 'Reconnaître des solides'
 export const dateDePublication = '24/09/2022'
 export const dateDeModifImportante = '08/05/2023'
 export const interactifReady = true

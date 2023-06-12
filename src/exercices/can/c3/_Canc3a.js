@@ -296,6 +296,7 @@ export default class ClasseCan2023 {
       b = choice([20, 25, 30, 35])
       c = choice([45, 50, 55])
       sortie.texte = context.isHtml ? `$${b}\\text{ min }+${c} \\text{ min }=\\ldots \\text{ h } \\ldots \\text{ min }$` : `\\Temps{;;;;${b};}+ \\Temps{;;;;${c};}`
+      sortie.reponse = b + c - 60
     }
     if (b > c) {
       sortie.texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>

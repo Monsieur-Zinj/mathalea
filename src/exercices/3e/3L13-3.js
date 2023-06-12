@@ -15,7 +15,9 @@ import {
   ecritureAlgebrique,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
+  nombreDeChiffresDe,
   prenom,
+  sp,
   stringNombre,
   texNombre,
   texPrix
@@ -23,12 +25,15 @@ import {
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Grandeur from '../../modules/Grandeur.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum'
+export const amcType = 'AMCHybride' // type de question AMC
+
 export const dateDePublication = '15/02/2022'
 export const dateDeModifImportante = '06/04/2023'
 /**
@@ -107,12 +112,13 @@ export default class ProblemesEnEquation extends Exercice {
       shuffle: true,
       nbQuestions: this.nbQuestions
     })
-    for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0, uniteOptions, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
       // const n = 0 // un paramètre entier qui peut servir dans certains cas.
       const produit = choice(['fraises', 'pêches', 'poires', 'pommes', 'mangues', 'prunes', 'citrons'])
       const polygones = ['triangle', 'quadrilatère', 'pentagone', 'hexagone']
       const clubs = ['ciné-club', 'club de fitness', 'club de ski']
+      uniteOptions = ['', '', '']
       switch (listeDeProblemes[i]) {
         case 1: // basket
           variables = aleaVariables(
@@ -137,6 +143,7 @@ export default class ProblemesEnEquation extends Exercice {
           conclusion = `<br>L'équipe a donc marqué ${x} paniers à trois points.`
           figure = ''
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          // uniteOptions[2] = 'paniers à trois points'
           break
         case 2: // basket2
           variables = aleaVariables(
@@ -161,6 +168,7 @@ export default class ProblemesEnEquation extends Exercice {
           conclusion = `<br>L'équipe a donc marqué ${x} paniers à deux points.`
           figure = ''
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          // uniteOptions[2] = 'paniers à deux points'
           break
 
         case 3: // achats
@@ -185,6 +193,7 @@ export default class ProblemesEnEquation extends Exercice {
           conclusion = `<br>Le prix d'un kilogramme de ${produit} est donc de $${texNombre(x)}$ €.`
           figure = ''
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          uniteOptions[2] = '€'
           break
         case 4: // polygone
           variables = aleaVariables(
@@ -203,13 +212,14 @@ export default class ProblemesEnEquation extends Exercice {
           equation = `${b}*x+${a}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: true, substeps: false, comment: true })
           enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et tous ses autres côtés ont même longueur.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
-          enonce += 'Quelle est la longueur des côtés de même longueur ?'
+          enonce += 'Quelle est la longueur' + (context.isAmc ? ', en cm,' : '') + ' des côtés de même longueur ?'
           intro = 'Posons $x$ la longueur des côtés de même longueur.<br>'
           intro += `Un ${polygones[b - 2]} possède ${b + 1} côtés, donc celui-ci possède ${b} côtés de même longueur.<br>`
           intro += 'L\'énoncé se traduit par l\'équation suivante :<br>'
-          conclusion = `<br>Les côtés de même longueur mesure donc $${texNombre(x)}$ cm.`
+          conclusion = `<br>Les côtés de même longueur mesurent donc $${texNombre(x)}$ cm.`
           figure = ''
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'cm'), '']
           break
         case 5: // programmes
           variables = aleaVariables(
@@ -340,7 +350,7 @@ export default class ProblemesEnEquation extends Exercice {
             enonce += `Sa base est plus petite que les côtés égaux de $${-c}$ mm.`
           }
           if (choice([true, false])) {
-            enonce += '<br>Quelle est la mesure de sa base ? (la figure n\'est pas en vraie grandeur)'
+            enonce += '<br>Quelle est la mesure de sa base' + (context.isAmc ? ', en mm' : '') + ' ? (La figure n\'est pas en vraie grandeur.)'
             intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(-c)}$.<br>`
             intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
             equation = `2*(x${ecritureAlgebrique(-c)})+x=${d}`
@@ -358,6 +368,7 @@ export default class ProblemesEnEquation extends Exercice {
           if (c > 0) figure = this.triangleIsocele2()
           else figure = this.triangleIsocele1()
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
           break
         case 10: // Thales
           variables = variables = aleaVariables(
@@ -378,7 +389,7 @@ export default class ProblemesEnEquation extends Exercice {
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           figure = this.figureThales(a, b, c, '')
           enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles.'
-          enonce += ` $AB=${c}\\text{mm}$, $AC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $OC$.`
+          enonce += ` $AB=${c}\\text{mm}$, $AC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $OC$${context.isAmc ? ', en mm.' : '.'}`
           intro = 'Dans cette configuration de Thales, on a l\'égalité suivante : $\\dfrac{OC}{OA}=\\dfrac{CD}{AB}$.<br>'
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $OC\\times AB = CD\\times OA$.<br>'
           intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtiens l\'équation suivante :<br>'
@@ -389,6 +400,7 @@ export default class ProblemesEnEquation extends Exercice {
             <br>
             D'autre part : $${resolution.verifRightSide.printExpression}=${resolution.verifRightSide.printResult}$
             `
+          uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
           break
         case 11: // Thales2
           variables = variables = aleaVariables(
@@ -409,16 +421,17 @@ export default class ProblemesEnEquation extends Exercice {
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           figure = this.figureThales(a, '', c, b)
           enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles.'
-          enonce += ` $AB=${c}\\text{mm}$, $OC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $AC$.`
+          enonce += ` $AB=${c}\\text{mm}$, $OC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $AC$${context.isAmc ? ', en mm.' : '.'}`
           intro = 'Dans cette configuration de Thales, on a l\'égalité suivante : $\\dfrac{OA}{OC}=\\dfrac{AB}{CD}$.<br>'
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $CD\\times OA = OC\\times AB$.<br>'
           intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtiens l\'équation suivante :<br>'
           conclusion = `<br>donc $CA=${x}\\text{mm}$.<br>`
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
           break
       }
 
-      texte = enonce + figure + ajouteChampTexteMathLive(this, i, 'largeur10')
+      texte = enonce + figure + ajouteChampTexteMathLive(this, i, 'largeur10 inline' + uniteOptions[0], { texteApres: sp(2) + uniteOptions[2] })
       texteCorr = intro
       texteCorr += `$${resolution.equation}$`
       texteCorr += '<br>Résolvons l\'équation :<br>'
@@ -426,10 +439,43 @@ export default class ProblemesEnEquation extends Exercice {
       texteCorr += verification
       texteCorr += conclusion
 
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte + 'ddddddd<br>',
+          enonceAvant: false,
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                enonce: texte + '<br>Mettre le problème en équation ci-dessous et la résoudre.',
+                statut: 3,
+                pointilles: true
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Réponse au problème : ',
+                  valeur: [x],
+                  param: {
+                    digits: Math.max(nombreDeChiffresDe(x), 2),
+                    signe: true
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
+
       if (this.questionJamaisPosee(i, x, a, b, d)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, x, { formatInteractif: 'calcul' })
+        if (uniteOptions[0] === '') setReponse(this, i, x, { formatInteractif: 'calcul' })
+        else setReponse(this, i, uniteOptions[1], { formatInteractif: 'unites' })
         i++
       }
       cpt++

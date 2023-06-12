@@ -3,7 +3,7 @@
   export let exportButtonsList = [{ bxName: "bx-slideshow" }, { bxName: "bxs-graduation" }]
 </script>
 
-<div class="flex justify-center">
+<div class="flex flex-col md:flex-row justify-center items-center">
   <div class="w-[70%] z-50 flex flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div id="setupButtonsBar">
       <slot name="setup-buttons">
@@ -12,6 +12,11 @@
         {/each}
       </slot>
     </div>
+    {#if $$slots["input"]}
+      <div id="input">
+        <slot name="input" />
+      </div>
+    {/if}
     {#if $$slots["export-buttons"]}
       <div id="exportButtonsBar">
         <slot name="export-buttons">

@@ -34,7 +34,7 @@ export default function FonctionsAffinesOuLineaires () {
   this.sup3 = '3'
   this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
   this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Expression par graphique fonctions affines uniquement (formule des accroissements)\n10: Expression par valeurs fonctions affines uniquement (formule des accroissements)\n11: Mélange']
-  this.besoinFormulaire3Texte = ['Type de fonction', 'nombres séparés par des tirets\n1: Linéaire\n2: Affine\n3: Mélange']
+  this.besoinFormulaire3Texte = ['Type de fonction', 'Nombres séparés par des tirets\n1: Linéaire\n2: Affine\n3: Mélange']
   this.nouvelleVersion = function () {
     fonctionsAffines.interactif = this.interactif
     fonctionsAffines.nbQuestions = this.nbQuestions

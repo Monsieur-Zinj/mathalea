@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Tracer des droites graduées'
@@ -34,27 +34,28 @@ export default function FeuilleDAxesGradues () {
   this.listePackages = ['tkz-euclide']
 
   this.nouvelleVersion = function () {
-    const pas = parseInt(this.sup)
+    const pas = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, defaut: 10, melange: 11, nbQuestions: this.nbQuestions, shuffle: false })
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
     for (let i = 0, texte; i < this.nbQuestions; i++) {
-      texte = mathalea2d({ xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 }, droiteGraduee({
-        Unite: 4,
-        Min: 0,
-        Max: 4.7,
-        x: 0,
-        y: 0,
-        thickSecDist: 1 / pas,
-        thickSec: true,
-        labelsPrincipaux: false,
-        thickDistance: 1
-      }))
+      texte = mathalea2d({ xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 },
+        droiteGraduee({
+          Unite: 4,
+          Min: 0,
+          Max: 4.7,
+          x: 0,
+          y: 0,
+          thickSecDist: 1 / pas[i],
+          thickSec: true,
+          labelsPrincipaux: false,
+          thickDistance: 1
+        }))
       this.listeQuestions.push(texte)
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Nombres de parts', 10, '']
+  this.besoinFormulaireTexte = ['Nombres de parts', '1: unité\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n6: sixièmes\n7: septièmes\n8: huitièmes\n9: neuvièmes\n10: dixièmes\n11: mélange']
 }

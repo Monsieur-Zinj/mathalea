@@ -271,7 +271,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
    * avec tous les exercices et les options
    * @returns vue
    */
-export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions {
+export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.location.href): InterfaceGlobalOptions {
   let urlNeedToBeFreezed = false
   let v = ''
   let z = '1'
@@ -290,7 +290,13 @@ export function mathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   let isSolutionAccessible = true
   let isInteractiveFree = true
   let oneShot = false
-  let url = new URL(window.location.href)
+  let url: URL
+  try {
+    url = new URL(urlString)
+  } catch (error) {
+    return null
+  }
+  // let url = new URL(urlString)
   if (isCrypted(url)) {
     urlNeedToBeFreezed = true
   }
