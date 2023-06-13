@@ -109,7 +109,7 @@ class Latex {
           contentCorr += '\n\\end{EXO}\n'
           content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${exercice.id.replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
-          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, exercice.listeAvecNumerotation), exercice.nbCols)
           content += '\n\\end{EXO}\n'
         }
       }
@@ -183,12 +183,19 @@ function writeIntroduction (introduction = ''): string {
   return content
 }
 
-function writeQuestions (questions: string[], spacing = 1): string {
+function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolean): string {
   let content = ''
   if (questions !== undefined && questions.length > 1) {
     content += '\n\\begin{enumerate}'
+    const specs:string[] = []
     if (spacing !== 1) {
-      content += `[itemsep=${spacing}em]`
+      specs.push(`itemsep=${spacing}em`)
+    }
+    if (!numbersNeeded) {
+      specs.push('label={}')
+    }
+    if (specs.length !== 0) {
+      content += '[' + specs.join(',') + ']'
     }
     for (const question of questions) {
       content += '\n\t\\item ' + format(question)

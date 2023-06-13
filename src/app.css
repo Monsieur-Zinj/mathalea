@@ -368,3 +368,70 @@ div[id^="aide-content-"]{
 input[id^="checkEx"] {
   @apply cursor-pointer border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded
 }
+
+/* 
+888      d8b          888                      
+888      Y8P          888                      
+888                   888                      
+888      888 .d8888b  888888  .d88b.  .d8888b  
+888      888 88K      888    d8P  Y8b 88K      
+888      888 "Y8888b. 888    88888888 "Y8888b. 
+888      888      X88 Y88b.  Y8b.          X88 
+88888888 888  88888P'  "Y888  "Y8888   88888P' 
+ */
+
+ ul.none {
+  @apply list-none list-inside
+ }
+
+ ul.puces {
+  @apply list-none list-inside ml-4
+ }
+ ul.puces   li::marker {
+  content: "\1F784\00A0";
+  @apply text-coopmaths-struct
+ }
+
+ ul.carres {
+  @apply list-none list-inside ml-4
+ }
+ ul.carres  li::marker {
+  content: "\25AA\00A0";
+  @apply text-coopmaths-struct
+ }
+
+ ul.qcm {
+  @apply list-none list-inside ml-4
+ }
+ ul.qcm li::marker {
+  content: "\25A1\00A0";
+  @apply text-coopmaths-struct
+ }
+
+ ul.fleches {
+  @apply list-none list-inside ml-4
+ }
+ ul.fleches li::marker {
+  content: "\25B8\00A0";
+  @apply text-coopmaths-struct
+ }
+
+ ol.nombres {
+  @apply list-decimal list-inside ml-4 marker:text-coopmaths-struct
+ }
+
+ ol.alpha {
+  @apply list-[lower-alpha] list-inside ml-4  marker:text-coopmaths-struct
+ }
+
+ ol.Alpha {
+  @apply list-[upper-alpha] list-inside ml-4  marker:text-coopmaths-struct
+ }
+
+ol.roman {
+ @apply list-[lower-roman] list-inside ml-4  marker:text-coopmaths-struct
+}
+
+ol.Roman {
+ @apply list-[upper-roman] list-inside ml-4  marker:text-coopmaths-struct
+}

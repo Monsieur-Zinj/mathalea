@@ -46,6 +46,7 @@ class Exercice {
   nbColsCorrModifiable?: boolean
   spacingModifiable?: boolean
   spacingCorrModifiable?: boolean
+  listeAvecNumerotation?: boolean
   beamer?: boolean
   tailleDiaporama?: number
   nbQuestions?: number

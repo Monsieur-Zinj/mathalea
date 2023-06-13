@@ -49,6 +49,7 @@ export default function FactoriserIdentitesRemarquables3 () {
   this.sup = 4
   this.sup2 = true
   this.tailleDiaporama = 3
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'

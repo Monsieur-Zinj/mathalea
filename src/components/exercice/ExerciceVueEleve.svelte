@@ -336,9 +336,9 @@
         </div>
         <div style="columns: {columnsCount.toString()}">
           <ul
-            class="{exercice.listeQuestions.length > 1
-              ? 'list-decimal'
-              : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+            class="{exercice.listeQuestions.length === 1 || !exercice.listeAvecNumerotation
+              ? 'list-none'
+              : 'list-decimal'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             {#each exercice.listeQuestions as item, i (i)}
               <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-4 mb-2 lg:mb-4">
