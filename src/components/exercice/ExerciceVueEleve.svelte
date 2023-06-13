@@ -72,7 +72,7 @@
     document.addEventListener("removeAllInteractif", removeAllInteractif)
     updateDisplay()
     setTimeout(() => {
-      if ($globalOptions.done === "1") {
+      if ($globalOptions.done === "1" && $globalOptions.recorder !== 'capytale') {
         const fields = document.querySelectorAll("math-field")
         fields.forEach((field) => {
           field.setAttribute("disabled", "true")
@@ -162,6 +162,8 @@
       l[exercice.numeroExercice] = {
         uuid: exercice.uuid,
         title: exercice.titre,
+        indice: exercice.numeroExercice,
+        state: 'done',
         alea: exercice.seed,
         answers: exercice.answers,
         ...exerciceInteractif(exercice, divScore, buttonScore),
@@ -179,6 +181,7 @@
 
   function initButtonScore() {
     buttonScore.classList.remove(...buttonScore.classList)
+    buttonScore.id = `buttonScoreEx${indiceExercice}`
     buttonScore.classList.add(
       "inline-block",
       "px-6",

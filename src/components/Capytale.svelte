@@ -192,8 +192,8 @@
                 } else {
                   alert("URL non valide !")
                 }
-                console.log("Après chargement :")
-                console.log($globalOptions)
+                // console.log("Après chargement :")
+                // console.log($globalOptions)
                 urlFeuilleEleve = ""
               }}
             />
