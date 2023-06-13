@@ -1,10 +1,7 @@
 <script lang="ts">
-  import type ReferentielForList from "src/lib/types"
-  import type ReferentielTypes from "src/lib/types"
+  import type { ReferentielForList } from "src/lib/types"
   import NiveauListeExos from "./NiveauListeExos.svelte"
   import EntreeListeOutils from "../outils/EntreeListeOutils.svelte"
-  import codeList from "../../json/codeToLevelList.json"
-  import { toMap } from "../utils/toMap"
   import { codeToLevelTitle } from "../utils/referentielsUtils"
   import SearchExercice from "./SearchExercice.svelte"
   import { onMount } from "svelte"
@@ -17,8 +14,8 @@
     for (const entry of ref.content) {
       Object.assign(refAsObject, { [entry.key]: toObject(entry.obj) })
     }
-    console.log("from SideMenuList : ")
-    console.log(refAsObject)
+    // console.log("from SideMenuList : ")
+    // console.log(refAsObject)
   })
 
   let isMenuDeployed: boolean = true

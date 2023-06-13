@@ -42,6 +42,9 @@
     if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
+  // Pour envoyer le haschanged à Capytale
+  globalOptions.subscribe(() => mathaleaUpdateUrlFromExercicesParams())
+
   // Constitution du référentiel pour afficher les exercices
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
