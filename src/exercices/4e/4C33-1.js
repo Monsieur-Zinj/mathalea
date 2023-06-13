@@ -39,8 +39,24 @@ export default function PuissancesDunRelatif1 () {
   this.correctionDetailleeDisponible = true
   this.nbColsCorr = 1
   this.sup = 5
+  this.listeAvecNumerotation = false
 
   this.listePackages = 'bclogo'
+
+  // une fonction pour des infos supp sur les exposants
+  function remarquesPuissances (base, baseUtile, exposant) {
+    let sortie = ''
+    if (base < 0 && exposant % 2 === 0) {
+      sortie += '<br>'
+      sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant pair de deux nombres opposés sont égales, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${baseUtile}^{${exposant}}$.`
+    };
+    if (base < 0 && exposant % 2 === 1) {
+      sortie += '<br>'
+      sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${baseUtile}^{${exposant}}$.`
+    };
+
+    return sortie
+  }
 
   this.nouvelleVersion = function (numeroExercice) {
     this.sup = Number(this.sup)
@@ -99,21 +115,6 @@ export default function PuissancesDunRelatif1 () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      // une fonction pour des infos supp sur les exposants
-      function remarquesPuissances (base, baseUtile, exposant) {
-        let sortie = ''
-        if (base < 0 && exposant % 2 === 0) {
-          sortie += '<br>'
-          sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant pair de deux nombres opposés sont égales, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${baseUtile}^{${exposant}}$.`
-        };
-        if (base < 0 && exposant % 2 === 1) {
-          sortie += '<br>'
-          sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${baseUtile}^{${exposant}}$.`
-        };
-
-        return sortie
-      };
-
       typesDeQuestions = listeTypeDeQuestions[i]
 
       base = randint(2, 9) * choice([-1, 1]) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances

@@ -32,6 +32,7 @@ export default function FeuilleDAxesGradues () {
   this.spacingModifiable = false
   this.spacingCorrModifiable = false
   this.listePackages = ['tkz-euclide']
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     const pas = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, defaut: 10, melange: 11, nbQuestions: this.nbQuestions, shuffle: false })

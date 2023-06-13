@@ -25,6 +25,8 @@ export default function RepetitionScratch () {
   this.listePackages = 'scratch3'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
+  this.listeAvecNumerotation = false
+
   this.nouvelleVersion = function () {
     let prog = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
     prog += "\\blockpen{stylo en position d'écriture}\n"
