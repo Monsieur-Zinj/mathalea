@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { exercicesParams } from "../store"
+  import type { InterfaceParams } from "src/lib/types";
+  import { exercicesParams, globalOptions } from "../store"
   import { isRecent } from "../utils/handleDate"
 
   import renderMathInElement from "katex/dist/contrib/auto-render.js"
@@ -54,6 +55,10 @@
       url: exercice.get("url"),
       id: exercice.get("id"),
       uuid: exercice.get("uuid"),
+      interactif: '0'
+    } as InterfaceParams
+    if ($globalOptions.recorder === 'capytale') {
+      newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
   }
