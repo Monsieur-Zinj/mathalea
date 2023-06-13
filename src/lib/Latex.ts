@@ -329,10 +329,6 @@ export function format (text: string): string {
     .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
     .replace(/<br>/g, '\\\\')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
-    .replaceAll(' ?', '\\,?')
-    .replaceAll(' !', '\\,!')
-    .replaceAll(' :', '\\,:')
-    .replaceAll(' ;', '\\,;')
 }
 
 export default Latex
