@@ -72,7 +72,7 @@
     document.addEventListener("removeAllInteractif", removeAllInteractif)
     updateDisplay()
     setTimeout(() => {
-      if ($globalOptions.done === "1" && $globalOptions.recorder !== 'capytale') {
+      if ($globalOptions.done === "1" && $globalOptions.recorder !== "capytale") {
         const fields = document.querySelectorAll("math-field")
         fields.forEach((field) => {
           field.setAttribute("disabled", "true")
@@ -119,6 +119,25 @@
       mathaleaRenderDiv(divExercice)
       adjustMathalea2dFiguresWidth()
     }
+    // affectation du zoom pour les figures scratch
+    const scratchDivs = divExercice.getElementsByClassName("scratchblocks")
+    for (const scratchDiv of scratchDivs) {
+      const svgDivs = scratchDiv.getElementsByTagName("svg")
+      for (const svg of svgDivs) {
+        if (svg.hasAttribute("data-width") === false) {
+          const originalWidth = svg.getAttribute("width")
+          svg.dataset.width = originalWidth
+        }
+        if (svg.hasAttribute("data-height") === false) {
+          const originalHeight = svg.getAttribute("height")
+          svg.dataset.height = originalHeight
+        }
+        const w = svg.getAttribute("data-width") * $globalOptions.z
+        const h = svg.getAttribute("data-height") * $globalOptions.z
+        svg.setAttribute("width", w)
+        svg.setAttribute("height", h)
+      }
+    }
     document.dispatchEvent(exercicesAffiches)
   })
 
@@ -163,7 +182,7 @@
         uuid: exercice.uuid,
         title: exercice.titre,
         indice: exercice.numeroExercice,
-        state: 'done',
+        state: "done",
         alea: exercice.seed,
         answers: exercice.answers,
         ...exerciceInteractif(exercice, divScore, buttonScore),
@@ -317,18 +336,18 @@
           </div>
         {/if}
       </div>
-      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative w-full" style="font-size: {($globalOptions.z || 1).toString()}rem">
+      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative w-full" style="font-size: {($globalOptions.z || 1).toString()}rem;  line-height: calc({$globalOptions.z || 1});">
         <div class="flex flex-col w-full">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>
-              <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              <p class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.consigne}
               </p>
             </div>
           {/if}
           {#if exercice.introduction}
             <div>
-              <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              <p class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.introduction}
               </p>
             </div>
