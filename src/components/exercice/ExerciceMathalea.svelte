@@ -347,17 +347,17 @@
             <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus" />
           </button>
         </div>
-        <article class="lg:text-base relative" style="font-size: {($globalOptions.z || 1).toString()}rem">
+        <article class="lg:text-base relative" style="font-size: {($globalOptions.z || 1).toString()}rem; line-height: calc({$globalOptions.z || 1});">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>
-              <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              <p class=" mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.consigne}
               </p>
             </div>
           {/if}
           {#if exercice.introduction}
             <div>
-              <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              <p class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.introduction}
               </p>
             </div>
