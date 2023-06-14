@@ -327,12 +327,14 @@
   }
 
   function zoomMinus() {
-    zoom -= 0.1
+    // zoom -= 0.1
+    zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
     updateSize()
   }
 
   function zoomPlus() {
-    zoom += 0.1
+    // zoom += 0.1
+    zoom = Number.parseFloat((zoom + 0.1).toFixed(1))
     updateSize()
   }
 
