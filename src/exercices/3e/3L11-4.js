@@ -25,6 +25,7 @@ export default function FactoriserParNombreOux () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  this.listeAvecNumerotation = false
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
 
   this.nouvelleVersion = function () {

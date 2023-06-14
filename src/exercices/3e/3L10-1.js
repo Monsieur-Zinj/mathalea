@@ -28,6 +28,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'

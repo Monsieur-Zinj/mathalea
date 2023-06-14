@@ -48,6 +48,7 @@ export default function ExerciceDevelopper () {
   this.spacingCorr = 2
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

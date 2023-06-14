@@ -24,6 +24,8 @@ export default function NombreDeFacesEtDAretes () {
   this.nbQuestions = 4
   this.formatChampTexte = 'largeur15 inline'
   this.sup = 3
+  this.listeAvecNumerotation = false
+
   this.nouvelleVersion = function () {
     if (this.version === 3) {
       this.sup = 3

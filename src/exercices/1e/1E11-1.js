@@ -20,6 +20,7 @@ export default function CalculerDiscriminant () {
   this.besoinFormulaireNumerique = ['Niveaux de difficulté', 4, '1 : Coefficients entiers positifs\n2 : Coefficients entiers relatifs\n3 : Coefficients rationnels\n4 : Mélange']
   this.nbQuestions = 5
   this.sup = 2
+  this.listeAvecNumerotation = false
   this.nouvelleVersion = function () {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     this.autoCorrection = []

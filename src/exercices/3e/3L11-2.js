@@ -27,6 +27,7 @@ export default function ReductionSiPossible () {
   this.tailleDiaporama = 3
   this.sup = false
   this.sup2 = false
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes, si cela est possible.' : 'Réduire l\'expression suivante, si cela est possible.'

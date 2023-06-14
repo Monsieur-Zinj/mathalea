@@ -19,6 +19,8 @@ export default function PerimetreCarreRectangle () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.interactifType = ''
+  this.listeAvecNumerotation = false
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.autoCorrection[0] = {}

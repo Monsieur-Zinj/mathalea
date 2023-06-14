@@ -31,6 +31,7 @@ export default function DoubleDistributivite () {
   this.sup = 1
   this.sup2 = true
   this.tailleDiaporama = 3
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'

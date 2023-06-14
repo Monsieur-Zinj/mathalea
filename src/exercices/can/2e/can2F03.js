@@ -19,6 +19,8 @@ export default function SigneFonctionAffine () {
   this.date = 1635094684684
   this.nbQuestions = 1
   this.tailleDiaporama = 2
+  this.listeAvecNumerotation = false
+
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []

@@ -27,6 +27,7 @@ export default function ProblemeCourse () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = false
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

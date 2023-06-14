@@ -19,6 +19,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.video = '' // Id YouTube ou url
   this.spacing = 4
   this.spacingCorr = 4
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

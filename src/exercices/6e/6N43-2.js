@@ -26,6 +26,7 @@ export default function TableauCriteresDeDivisibilite () {
   this.nbColsCorr = 1
   this.nbCols = 1
   this.sup = false
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.modeQcm = this.interactif

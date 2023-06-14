@@ -42,6 +42,7 @@ export default function ReperageSurLaSphere () {
   this.sup2 = false
   this.sup3 = false
   this.sup4 = false
+  this.listeAvecNumerotation = false
   const inclinaison = 5
   const O = point3d(0, 0, 0, false, 'O')
 
