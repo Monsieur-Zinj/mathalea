@@ -279,7 +279,7 @@ export function getPicsNames (exosContentList: Exo[]) {
   const regExpImageName = /(?<name>.*?)\.(?<format>.*)$/gm
   for (const exo of exosContentList) {
     let pics: RegExpMatchArray[]
-    if (exo.content.matchAll(regExpImage) !== undefined) {
+    if (exo.content && exo.content.matchAll(regExpImage) !== undefined) {
       pics = [...exo.content.matchAll(regExpImage)]
       picsList.push(pics)
     } else {
