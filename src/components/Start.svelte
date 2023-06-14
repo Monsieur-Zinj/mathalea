@@ -345,15 +345,20 @@
     })
     const scratchDivs = document.getElementsByClassName("scratchblocks")
     for (const scratchDiv of scratchDivs) {
-      const svgDivs = scratchDiv.querySelectorAll("svg")
+      const svgDivs = scratchDiv.getElementsByTagName("svg")
       for (const svg of svgDivs) {
-        const scale = ($globalOptions.z - 1) * 0.2 + 1
-        // console.log("scale : " + scale)
-        svg.setAttribute("style", `transform: scale(${scale})`)
-        // const w = svg.getAttribute("width") * scale
-        // const h = svg.getAttribute("height") * scale
-        // svg.setAttribute("width", w)
-        // svg.setAttribute("height", h)
+        if (svg.hasAttribute("data-width") === false) {
+          const originalWidth = svg.getAttribute("width")
+          svg.dataset.width = originalWidth
+        }
+        if (svg.hasAttribute("data-height") === false) {
+          const originalHeight = svg.getAttribute("height")
+          svg.dataset.height = originalHeight
+        }
+        const w = svg.getAttribute("data-width") * $globalOptions.z
+        const h = svg.getAttribute("data-height") * $globalOptions.z
+        svg.setAttribute("width", w)
+        svg.setAttribute("height", h)
       }
     }
   }

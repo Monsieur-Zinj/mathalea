@@ -119,6 +119,25 @@
       mathaleaRenderDiv(divExercice)
       adjustMathalea2dFiguresWidth()
     }
+    // affectation du zoom pour les figures scratch
+    const scratchDivs = divExercice.getElementsByClassName("scratchblocks")
+    for (const scratchDiv of scratchDivs) {
+      const svgDivs = scratchDiv.getElementsByTagName("svg")
+      for (const svg of svgDivs) {
+        if (svg.hasAttribute("data-width") === false) {
+          const originalWidth = svg.getAttribute("width")
+          svg.dataset.width = originalWidth
+        }
+        if (svg.hasAttribute("data-height") === false) {
+          const originalHeight = svg.getAttribute("height")
+          svg.dataset.height = originalHeight
+        }
+        const w = svg.getAttribute("data-width") * $globalOptions.z
+        const h = svg.getAttribute("data-height") * $globalOptions.z
+        svg.setAttribute("width", w)
+        svg.setAttribute("height", h)
+      }
+    }
     document.dispatchEvent(exercicesAffiches)
   })
 
