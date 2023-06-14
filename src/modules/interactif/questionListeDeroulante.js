@@ -65,8 +65,10 @@ export function verifQuestionListeDeroulante (exercice, i) {
 export const choixDeroulant = (exercice, i, c, choix, type = 'nombre', style = '') => {
   if (!exercice.interactif || !context.isHtml) return ''
   if (style) style = `style="${style}"`
+
   let result = `<select class="ui fluid mx-2 dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" ${style} data-choix="${c}">
       <option> Choisir ${type === 'nombre' ? 'un nombre' : type} </option>`
+
   for (const a of choix) {
     result += `<option>${a}</option>`
   }
