@@ -343,6 +343,19 @@
       params.z = zoom.toString()
       return params
     })
+    const scratchDivs = document.getElementsByClassName("scratchblocks")
+    for (const scratchDiv of scratchDivs) {
+      const svgDivs = scratchDiv.querySelectorAll("svg")
+      for (const svg of svgDivs) {
+        const scale = ($globalOptions.z - 1) * 0.2 + 1
+        // console.log("scale : " + scale)
+        svg.setAttribute("style", `transform: scale(${scale})`)
+        // const w = svg.getAttribute("width") * scale
+        // const h = svg.getAttribute("height") * scale
+        // svg.setAttribute("width", w)
+        // svg.setAttribute("height", h)
+      }
+    }
   }
 
   function toggleSideMenu() {
