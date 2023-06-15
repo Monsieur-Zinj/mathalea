@@ -3,7 +3,7 @@
   import SideMenuList from "./SideMenuList.svelte"
   export let referentiels: ReferentielForList[] = []
   export let isMenuOpen: boolean = true
-  export let sidebarWidth: number = 400
+  export let sidebarWidth: number = 300
   export let isMenuCloseable: boolean = false
   let isMenuDeployed: boolean = true
 </script>
