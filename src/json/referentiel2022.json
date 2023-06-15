@@ -6198,7 +6198,11 @@
         "uuid": "0e016",
         "url": "6e/6I11.js",
         "titre": "Note la couleur (scratch)",
-        "tags": {}
+        "dateModification": "14/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "listeDeroulante"
+        }
       },
       "6I12": {
         "id": "6I12",
