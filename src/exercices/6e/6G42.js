@@ -3,7 +3,7 @@ export const titre = 'Connaître les propriétés du cube et du pavé droit'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
-export const amcType = 'qcmMono'
+export const amcType = 'qcmMult'
 
 export const dateDeModifImportante = '07/06/2023'
 

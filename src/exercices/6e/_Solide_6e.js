@@ -1,3 +1,4 @@
+import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, enleveDoublonNum, gestionnaireFormulaireTexte } from '../../modules/outils.js'
@@ -484,7 +485,7 @@ export default function Solide6e () {
       )
 
       correction += mathalea2d(params, objetsCorrection)
-      if (this.interactif) {
+      if (this.interactif || context.isAmc) {
         resultatCorrect = combinaisonListes(resultatCorrect, resultatCorrect.length)
         resultatFaux = enleveDoublonNum(resultatFaux)
         resultatFaux = combinaisonListes(resultatFaux, resultatFaux.length)
