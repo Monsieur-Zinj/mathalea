@@ -13,6 +13,7 @@
   import Footer from "./Footer.svelte"
 
   let isNavBarVisible: boolean = true
+  let divExercices: HTMLDivElement
   $: isMenuOpen = $isSideMenuVisible
 
   /**
@@ -95,6 +96,31 @@
           : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
         on:mousedown={startResizing.bind(this, "moving")}
       />
+
+      <!-- Affichage des exercices -->
+      <div class="w-full">
+        {#if $exercicesParams.length !== 0}
+          <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full min-h-[calc(100vh-7rem)] overflow-y-auto" bind:this={divExercices}>
+            <div class="flex-1 md:mt-9 lg:mt-0">
+              {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+                <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+                  <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+                </div>
+              {/each}
+            </div>
+          </div>
+        {:else}
+          <div class="relative flex flex-col h-[calc(100vh-7em)] justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
+            <div class="animate-pulse h-full flex flex-col md:flex-row justify-start space-x-6 items-center">
+              <div class="mt-[10px]">
+                <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
+                <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+              </div>
+              <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
+            </div>
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 </div>
