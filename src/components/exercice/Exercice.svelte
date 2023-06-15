@@ -43,17 +43,6 @@
     }
   })
 
-  function handleStringFromUrl(text: string): boolean | number | string {
-    if (text === "true" || text === "false") {
-      // "true"=>true
-      return text === "true"
-    } else if (/^\d+$/.test(text)) {
-      // "17"=>17
-      return parseInt(text)
-    } else {
-      return text
-    }
-  }
 </script>
 
 <div class="z-0 flex-1">
