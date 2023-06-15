@@ -8,12 +8,14 @@
   const urlParams = new URLSearchParams(window.location.search)
   let zoom = parseInt(urlParams.get("z")) || 1
   function zoomMinus() {
-    zoom -= 0.25
+    // zoom -= 0.1
+    zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
     updateSize()
   }
 
   function zoomPlus() {
-    zoom += 0.25
+    // zoom += 0.1
+    zoom = Number.parseFloat((zoom + 0.1).toFixed(1))
     updateSize()
   }
 
@@ -23,7 +25,7 @@
       return params
     })
     // affectation du zoom pour les figures scratch
-    const scratchDivs = divExercice.getElementsByClassName("scratchblocks")
+    const scratchDivs = document.getElementsByClassName("scratchblocks")
     for (const scratchDiv of scratchDivs) {
       const svgDivs = scratchDiv.getElementsByTagName("svg")
       for (const svg of svgDivs) {
