@@ -58,15 +58,17 @@ export function verifQuestionListeDeroulante (exercice, i) {
  * @param {number} i le numéro de la question
  * @param {number} c le numéro de la liste pour un exercice en comportant plusieurs afin de permettre des test d'association
  * @param {array} choix Les différentes propositions de la liste
- * @param {string} type 'nombre' si les choix sont des nombres à choisir, sinon on demande une 'réponse'
+ * @param {string} [type='nombre'] 'nombre' si les choix sont des nombres à choisir, sinon on demande ce qu'on veut
  * @author Rémi Angot
  * @returns {string} le code html de la liste
  */
 export const choixDeroulant = (exercice, i, c, choix, type = 'nombre', style = '') => {
   if (!exercice.interactif || !context.isHtml) return ''
   if (style) style = `style="${style}"`
+
   let result = `<select class="ui fluid mx-2 dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" ${style} data-choix="${c}">
-      <option> Choisir ${type === 'nombre' ? 'un nombre' : 'une réponse'} </option>`
+      <option> Choisir ${type === 'nombre' ? 'un nombre' : type} </option>`
+
   for (const a of choix) {
     result += `<option>${a}</option>`
   }
