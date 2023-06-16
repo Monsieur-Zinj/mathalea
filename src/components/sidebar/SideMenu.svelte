@@ -9,10 +9,10 @@
 </script>
 
 <aside
-  class="flex-1 flex grow md:min-h-screen overflow-y-auto h-screen z-30 relative transition-all duration-500 transform bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark pr-4
+  class="flex-1 flex grow md:min-h-screen overflow-y-auto h-screen z-50 relative transition-all duration-500 transform bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark pr-4
   {isMenuOpen ? '-translate-x-0' : '-translate-x-full'}"
 >
-  <div style={isMenuOpen ? `width:${sidebarWidth}px;` : "width: 0px;"} class="overflow-y-auto overflow-x-hidden">
+  <div style={isMenuOpen ? `width:${sidebarWidth}px;` : "width: 0px;"}>
     <div class="flex flex-col grow items-start {isMenuDeployed ? 'pb-6' : 'pb-0'} md:pb-2 pt-2 md:pt-4 ml-0 md:mx-0">
       {#each referentiels as ref, i}
         <SideMenuList {ref} moreThanOne={referentiels.length > 1} on:filters />

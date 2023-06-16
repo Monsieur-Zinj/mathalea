@@ -72,7 +72,7 @@
     {/if}
 
     <!-- Menu + Contenu -->
-    <div class="flex-1 flex grow flex-col md:flex-row min-h-creen h-full overflow-y-hidden bg-coopmaths-canvas">
+    <div class="flex-1 flex grow flex-col md:flex-row h-full overflow-y-hidden bg-coopmaths-canvas">
       <!-- Menu Choix Exos et Ressources -->
       <div class="mt-6 sm:mt-0">
         <div id="choiceMenuWrapper" class="flex-1 overflow-y-hidden">
@@ -98,31 +98,38 @@
       />
 
       <!-- Affichage des exercices -->
-      <div class="flex-1 relative flex grow flex-col w-full min-h-full h-full px-6 overflow-y-scroll">
+      <div class="flex-1 relative w-full min-h-full px-6 overflow-y-auto bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         {#if $exercicesParams.length !== 0}
-          <div id="exercisesWrapper" bind:this={divExercices}>
-            <div class="flex-1 md:mt-9 lg:mt-0">
-              {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-                <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
-                  <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
-                </div>
-              {/each}
+          <div id="exercisesWrapper" class="flex flex-col justify-between h-full" bind:this={divExercices}>
+            <div class="flex-1">
+              <div class="flex flex-col h-full md:mt-9 lg:mt-0">
+                {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+                  <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+                    <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+                  </div>
+                {/each}
+                <!-- Pied de page -->
+              </div>
             </div>
+            <Footer />
           </div>
         {:else}
-          <div class="relative flex flex-col h-full justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
-            <div class="animate-pulse h-full flex flex-col md:flex-row justify-start space-x-6 items-center">
-              <div class="mt-[10px]">
-                <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
-                <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+          <div class="relative flex-1 h-full">
+            <div class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
+              <div class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center">
+                <div class="mt-[10px]">
+                  <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
+                  <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+                </div>
+                <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
               </div>
-              <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
+              <!-- Pied de page -->
+              <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
+                <Footer />
+              </div>
             </div>
           </div>
         {/if}
-
-        <!-- Pied de page -->
-        <Footer />
       </div>
     </div>
   </div>
