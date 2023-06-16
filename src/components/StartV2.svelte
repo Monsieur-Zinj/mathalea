@@ -98,7 +98,7 @@
       />
 
       <!-- Affichage des exercices -->
-      <div class="flex-1 relative w-full min-h-full px-6 overflow-y-auto bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+      <div class="flex-1 relative overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         {#if $exercicesParams.length !== 0}
           <div id="exercisesWrapper" class="flex flex-col justify-between h-full" bind:this={divExercices}>
             <div class="flex-1">
