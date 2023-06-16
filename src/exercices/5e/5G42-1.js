@@ -14,12 +14,13 @@ export const interactifType = 'qcm'
  * QCM sur les parallélogrammes particuliers
  * @author Rémi Angot
 */
-export default class nomExercice extends Exercice {
+export default class QcmProprietesParallelogrammesParticuliers extends Exercice {
   constructor () {
     super()
     this.consigne = ''
     this.nbQuestions = 4
-    this.sup = 3
+    this.sup = 3 // Mélange de questions directes et indirectes
+    this.sup2 = false // Par défaut on n'écrit pas « non croisé » dans les énoncés
   }
 
   nouvelleVersion () {
@@ -1015,6 +1016,9 @@ export default class nomExercice extends Exercice {
       if (!context.isHtml) {
         texteCorr = propositionsQcm(this, i).texteCorr
       }
+      if (this.sup2 === false) {
+        texte = texte.replaceAll(' non croisé', '')
+      }
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i])) {
@@ -1027,5 +1031,6 @@ export default class nomExercice extends Exercice {
 
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
     this.besoinFormulaireNumerique = ['Type de questions', 3, '1: Si un quadrilatère est un ... alors ...\n2: Si un parallélogramme a ... alors c\'est un ...\n3: Mélange des deux cas précédents']
+    this.besoinFormulaire2CaseACocher = ['Préciser « non croisé »']
   }
 }
