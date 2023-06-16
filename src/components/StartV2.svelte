@@ -98,29 +98,32 @@
       />
 
       <!-- Affichage des exercices -->
-      <!-- <div class="flex-1 flex w-full overflow-y-hidden"> -->
-      {#if $exercicesParams.length !== 0}
-        <div id="exercisesWrapper" class="flex-1 relative flex flex-col w-full px-6 overflow-y-scroll" bind:this={divExercices}>
-          <div class="flex-1 md:mt-9 lg:mt-0">
-            {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-              <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
-                <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
-              </div>
-            {/each}
-          </div>
-        </div>
-      {:else}
-        <div class="relative flex flex-col justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
-          <div class="animate-pulse h-full flex flex-col md:flex-row justify-start space-x-6 items-center">
-            <div class="mt-[10px]">
-              <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
-              <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+      <div class="flex-1 relative flex grow flex-col w-full min-h-full h-full px-6 overflow-y-scroll">
+        {#if $exercicesParams.length !== 0}
+          <div id="exercisesWrapper" bind:this={divExercices}>
+            <div class="flex-1 md:mt-9 lg:mt-0">
+              {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+                <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+                  <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+                </div>
+              {/each}
             </div>
-            <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
           </div>
-        </div>
-      {/if}
-      <!-- </div> -->
+        {:else}
+          <div class="relative flex flex-col h-full justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
+            <div class="animate-pulse h-full flex flex-col md:flex-row justify-start space-x-6 items-center">
+              <div class="mt-[10px]">
+                <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
+                <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+              </div>
+              <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
+            </div>
+          </div>
+        {/if}
+
+        <!-- Pied de page -->
+        <Footer />
+      </div>
     </div>
   </div>
 </div>
