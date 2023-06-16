@@ -62,20 +62,20 @@
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class="scrollbar-hide {$darkMode.isActive ? 'dark' : ''}" id="startComponent" on:mousemove={resizing}>
-  <div class="w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<div class={$darkMode.isActive ? "dark" : ""} id="startComponent" on:mousemove={resizing}>
+  <div class="flex flex-col scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <!-- Entête -->
     {#if isNavBarVisible}
-      <div id="headerStart" class="shrink-0 z-50 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
+      <div id="headerStart" class="sticky top-0 shrink-0 z-50 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
         <NavBarV2 subtitle="Conception de document" subtitleType="design" />
       </div>
     {/if}
 
     <!-- Menu + Contenu -->
-    <div class="flex flex-col md:flex-row bg-coopmaths-canvas">
+    <div class="flex-1 flex grow flex-col md:flex-row min-h-creen h-full overflow-y-hidden bg-coopmaths-canvas">
       <!-- Menu Choix Exos et Ressources -->
       <div class="mt-6 sm:mt-0">
-        <div id="choiceMenuWrapper" class="flex-1 overflow-y-auto">
+        <div id="choiceMenuWrapper" class="flex-1 overflow-y-hidden">
           <SideMenu
             bind:isMenuOpen
             isMenuCloseable={$exercicesParams.length !== 0}
@@ -98,29 +98,29 @@
       />
 
       <!-- Affichage des exercices -->
-      <div class="w-full">
-        {#if $exercicesParams.length !== 0}
-          <div id="exercisesWrapper" class="relative flex flex-col w-full px-6 overflow-y-auto" bind:this={divExercices}>
-            <div class="flex-1 md:mt-9 lg:mt-0">
-              {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-                <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
-                  <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
-                </div>
-              {/each}
-            </div>
-          </div>
-        {:else}
-          <div class="relative flex flex-col justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
-            <div class="animate-pulse h-full flex flex-col md:flex-row justify-start space-x-6 items-center">
-              <div class="mt-[10px]">
-                <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
-                <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+      <!-- <div class="flex-1 flex w-full overflow-y-hidden"> -->
+      {#if $exercicesParams.length !== 0}
+        <div id="exercisesWrapper" class="flex-1 relative flex flex-col w-full px-6 overflow-y-scroll" bind:this={divExercices}>
+          <div class="flex-1 md:mt-9 lg:mt-0">
+            {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+              <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+                <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
               </div>
-              <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
-            </div>
+            {/each}
           </div>
-        {/if}
-      </div>
+        </div>
+      {:else}
+        <div class="relative flex flex-col justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
+          <div class="animate-pulse h-full flex flex-col md:flex-row justify-start space-x-6 items-center">
+            <div class="mt-[10px]">
+              <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
+              <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+            </div>
+            <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
+          </div>
+        </div>
+      {/if}
+      <!-- </div> -->
     </div>
   </div>
 </div>
