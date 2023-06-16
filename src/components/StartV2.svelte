@@ -62,11 +62,11 @@
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class={$darkMode.isActive ? "dark" : ""} id="startComponent" on:mousemove={resizing}>
-  <div class="scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<div class="scrollbar-hide {$darkMode.isActive ? 'dark' : ''}" id="startComponent" on:mousemove={resizing}>
+  <div class="w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <!-- Entête -->
     {#if isNavBarVisible}
-      <div id="headerStart" class="shrink-0 z-40 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
+      <div id="headerStart" class="shrink-0 z-50 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
         <NavBarV2 subtitle="Conception de document" subtitleType="design" />
       </div>
     {/if}
@@ -75,7 +75,7 @@
     <div class="flex flex-col md:flex-row bg-coopmaths-canvas">
       <!-- Menu Choix Exos et Ressources -->
       <div class="mt-6 sm:mt-0">
-        <div id="choiceMenuWrapper">
+        <div id="choiceMenuWrapper" class="flex-1 overflow-y-auto">
           <SideMenu
             bind:isMenuOpen
             isMenuCloseable={$exercicesParams.length !== 0}
@@ -93,14 +93,14 @@
         id="dragbar"
         class="hidden {isMenuOpen
           ? 'md:flex'
-          : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
+          : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
         on:mousedown={startResizing.bind(this, "moving")}
       />
 
       <!-- Affichage des exercices -->
       <div class="w-full">
         {#if $exercicesParams.length !== 0}
-          <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full min-h-[calc(100vh-7rem)] overflow-y-auto" bind:this={divExercices}>
+          <div id="exercisesWrapper" class="relative flex flex-col w-full px-6 overflow-y-auto" bind:this={divExercices}>
             <div class="flex-1 md:mt-9 lg:mt-0">
               {#each $exercicesParams as paramsExercice, i (paramsExercice)}
                 <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
@@ -110,7 +110,7 @@
             </div>
           </div>
         {:else}
-          <div class="relative flex flex-col h-[calc(100vh-7em)] justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
+          <div class="relative flex flex-col justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
             <div class="animate-pulse h-full flex flex-col md:flex-row justify-start space-x-6 items-center">
               <div class="mt-[10px]">
                 <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>

@@ -9,7 +9,7 @@
 </script>
 
 <aside
-  class="z-50 relative transition-all duration-500 transform bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:min-h-full md:h-screen
+  class="z-50 relative transition-all duration-500 transform bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:min-h-screen overflow-y-auto h-full
   {isMenuOpen ? '-translate-x-0' : '-translate-x-full'}"
 >
   <div style={isMenuOpen ? `width:${sidebarWidth}px;` : "width: 0px;"} class="overflow-y-auto overflow-x-hidden">
