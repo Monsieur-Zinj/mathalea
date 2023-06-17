@@ -14,6 +14,9 @@
   import FullScreenIcon from "./icons/TwoStatesIcon.svelte"
   import Footer from "./Footer.svelte"
   import SideMenuList from "./sidebar/SideMenuList.svelte"
+  import LatexIcon from "./icons/LatexIcon.svelte"
+  import AmcIcon from "./icons/AmcIcon.svelte"
+  import MoodleIcon from "./icons/MoodleIcon.svelte"
 
   let isNavBarVisible: boolean = true
   let divExercices: HTMLDivElement
@@ -235,9 +238,13 @@
       <!-- Affichage Partie Droite -->
       <div class="flex-1 overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <!-- Barre de boutons -->
-        <div style={`width: calc(96vw - ${isMenuOpen ? sidebarWidth : 20}px);`} class={`absolute top-0 bg-coopmaths-canvas border border-green-400`} id="barre-boutons">
-          <ButtonsDeck barWidthPercentage={100}>
-            <div slot="setup-buttons" class="border border-pink-400 flex flex-row justify-start items-center space-x-4">
+        <div
+          style={`width: calc(96vw - ${isMenuOpen ? sidebarWidth : 20}px);`}
+          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex justify-center absolute top-0 bg-coopmaths-canvas"}
+          id="barre-boutons"
+        >
+          <ButtonsDeck barWidthPercentage={80}>
+            <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
               <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte"><Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomMinus} /></div>
               <div class="tooltip tooltip-bottom" data-tip="Augmenter la taille du texte"><Button title="" icon="bx-zoom-in" classDeclaration="flex items-center text-3xl" on:click={zoomPlus} /></div>
 
@@ -250,11 +257,6 @@
                 class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
               >
-                <!-- <i
-                class="bx px-2 tooltip-top tooltip-neutral hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
-                  ? 'bxs-edit'
-                  : 'bx-edit'}"
-              /> -->
                 <div class="px-2">
                   <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={7} />
                 </div>
@@ -298,7 +300,7 @@
                 </div>
               </button>
             </div>
-            <div slot="export-buttons" class="border border-purple-400 flex flex-row justify-end items-center">
+            <div slot="export-buttons" class="flex flex-row justify-end items-center space-x-4">
               <div class="tooltip tooltip-bottom" data-tip="Diaporama">
                 <Button
                   title=""
@@ -316,7 +318,7 @@
               </div>
               <button
                 type="button"
-                class="tooltip tooltip-top tooltip-neutral"
+                class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip="Lien pour les élèves"
                 on:click={() => {
                   $callerComponent = ""
@@ -334,12 +336,57 @@
                   </div>
                 </div>
               </button>
+              <button
+                type="button"
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip="LaTeX"
+                on:click={() => {
+                  // handleMenuVisibility("export")
+                  $callerComponent = ""
+                  globalOptions.update((params) => {
+                    params.v = "latex"
+                    return params
+                  })
+                }}
+              >
+                <LatexIcon class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest" />
+              </button>
+              <button
+                type="button"
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip="AMC"
+                on:click={() => {
+                  // handleMenuVisibility("export")
+                  $callerComponent = ""
+                  globalOptions.update((params) => {
+                    params.v = "amc"
+                    return params
+                  })
+                }}
+              >
+                <AmcIcon class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+              </button>
+              <button
+                type="button"
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip="LaTeX"
+                on:click={() => {
+                  // handleMenuVisibility("export")
+                  $callerComponent = ""
+                  globalOptions.update((params) => {
+                    params.v = "moodle"
+                    return params
+                  })
+                }}
+              >
+                <MoodleIcon class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+              </button>
             </div>
           </ButtonsDeck>
         </div>
         <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
-          <div id="exercisesWrapper" class="flex flex-col justify-between h-full mt-10" bind:this={divExercices}>
+          <div id="exercisesWrapper" class="flex flex-col justify-between h-full mt-28 xl:mt-14" bind:this={divExercices}>
             <div class="flex-1">
               <div class="flex flex-col h-full md:mt-9 lg:mt-0">
                 {#each $exercicesParams as paramsExercice, i (paramsExercice)}
@@ -373,9 +420,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  :root {
-    --buttonbar-width: calc({`100%-${sidebarWidth}px`});
-  }
-</style>

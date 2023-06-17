@@ -4,8 +4,8 @@
   export let barWidthPercentage: number = 70
 </script>
 
-<div class="w-[{barWidthPercentage}%] flex flex-col md:flex-row justify-center items-center">
-  <div class="w-full border border-gray-400 z-50 flex flex-col xl:flex-row px-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<div style={`width: ${barWidthPercentage}% ;`} class=" flex flex-col md:flex-row justify-center items-center">
+  <div class="w-full z-50 flex flex-col xl:flex-row px-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div id="setupButtonsBar">
       <slot name="setup-buttons">
         {#each setupButtonsList as button}
