@@ -11,6 +11,7 @@
   import ButtonsDeck from "./outils/ButtonsDeck.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
   import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
+  import FullScreenIcon from "./icons/TwoStatesIcon.svelte"
   import Footer from "./Footer.svelte"
 
   let isNavBarVisible: boolean = true
@@ -268,39 +269,33 @@
                   }}
                 />
               </div>
-
-              {#if $globalOptions.v === "l"}
-                <div class="flex flex-row justify-end items-center">
-                  <button
-                    type="button"
-                    on:click={() => {
-                      // handleMenuVisibility("settings")
-                      quitFullScreen()
-                    }}
-                    class="tooltip tooltip-bottom tooltip-neutral"
-                    data-tip="Quitter le plein écran"
-                  >
+              <button
+                type="button"
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip={$globalOptions.v !== "l" ? "Plein écran" : "Quitter le plein écran"}
+                on:click={() => {
+                  // handleMenuVisibility("settings")
+                  if ($globalOptions.v === "l") {
+                    quitFullScreen()
+                  } else {
+                    fullScreen()
+                  }
+                }}
+              >
+                <div class="px-2">
+                  <FullScreenIcon isOnStateActive={$globalOptions.v !== "l"}>
                     <i
-                      class="bx bx-sm ml-2 bx-md px-2 bx-exit-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                      slot="icon_to_switch_on"
+                      class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                     />
-                  </button>
+
+                    <i
+                      slot="icon_to_switch_off"
+                      class="bx bx-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                    />
+                  </FullScreenIcon>
                 </div>
-              {/if}
-              {#if $globalOptions.v !== "l"}
-                <button
-                  type="button"
-                  class="tooltip tooltip-bottom tooltip-neutral"
-                  data-tip="Plein écran"
-                  on:click={() => {
-                    // handleMenuVisibility("settings")
-                    globalOptions.update((params) => {
-                      params.v = "l"
-                      return params
-                    })
-                  }}
-                  ><i class="bx bx-sm px-2 bx-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                </button>
-              {/if}
+              </button>
             </div>
             <div slot="export-buttons" class="border border-purple-400 flex flex-row justify-end items-center">
               <div class="tooltip tooltip-bottom" data-tip="Diaporama">
