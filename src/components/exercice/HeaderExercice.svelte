@@ -22,7 +22,6 @@
   let isSettingsVisible = false
   let isContentVisible = true
   let isCorrectionVisible = false
-  let isMessagesVisible = true
 
   const dispatch = createEventDispatcher()
 

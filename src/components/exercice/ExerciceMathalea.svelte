@@ -87,7 +87,7 @@
     numberOfAnswerFields = answerFields.length
   }
 
-  onDestroy( () => {
+  onDestroy(() => {
     // Détruit l'objet exercice pour libérer la mémoire
     exercice = null
   })
@@ -115,6 +115,25 @@
         }
       }
       mathaleaRenderDiv(divExercice)
+    }
+    // affectation du zoom pour les figures scratch
+    const scratchDivs = divExercice.getElementsByClassName("scratchblocks")
+    for (const scratchDiv of scratchDivs) {
+      const svgDivs = scratchDiv.getElementsByTagName("svg")
+      for (const svg of svgDivs) {
+        if (svg.hasAttribute("data-width") === false) {
+          const originalWidth = svg.getAttribute("width")
+          svg.dataset.width = originalWidth
+        }
+        if (svg.hasAttribute("data-height") === false) {
+          const originalHeight = svg.getAttribute("height")
+          svg.dataset.height = originalHeight
+        }
+        const w = svg.getAttribute("data-width") * $globalOptions.z
+        const h = svg.getAttribute("data-height") * $globalOptions.z
+        svg.setAttribute("width", w)
+        svg.setAttribute("height", h)
+      }
     }
     document.dispatchEvent(exercicesAffiches)
   })
@@ -347,26 +366,26 @@
             <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus" />
           </button>
         </div>
-        <article class="lg:text-base relative" style="font-size: {($globalOptions.z || 1).toString()}rem">
+        <article class="lg:text-base relative" style="font-size: {($globalOptions.z || 1).toString()}rem; line-height: calc({$globalOptions.z || 1});">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>
-              <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              <p class=" mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.consigne}
               </p>
             </div>
           {/if}
           {#if exercice.introduction}
             <div>
-              <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              <p class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.introduction}
               </p>
             </div>
           {/if}
           <div style="columns: {columnsCount.toString()}" class="mb-5">
             <ul
-              class="{exercice.listeQuestions.length > 1
-                ? 'list-decimal'
-                : 'list-none'} w-full list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+              class="{exercice.listeQuestions.length === 1 || !exercice.listeAvecNumerotation
+                ? 'list-none'
+                : 'list-decimal'} w-full list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container w-full grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">

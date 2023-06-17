@@ -26,6 +26,7 @@ export default function OpposeExpression () {
   this.nbQuestions = 6
   this.sup = '1-2-3-4'
   this.tailleDiaporama = 3
+  this.listeAvecNumerotation = false
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions

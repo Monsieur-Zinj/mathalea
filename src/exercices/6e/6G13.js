@@ -524,7 +524,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       if (listeTypeDeQuestions[i] === 'Carré1diag') texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`
       if (listeTypeDeQuestions[i] === 'Rectangle1diag') texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 2)}~\\text{cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`
       if (listeTypeDeQuestions[i] === 'Parallélogramme') texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$, $${A.nom + D.nom} = ${texNombre(segment(A, D).longueur, 2)}~\\text{cm}$ et $${D.nom + C.nom} = ${texNombre(segment(D, C).longueur, 2)}~\\text{cm}$`
-      texte += '.<br>'
+      texte += '.'
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       const xmin = Math.min(A.x, B.x, C.x, D.x) - 2
       const xmax = Math.max(A.x, B.x, C.x, D.x) + 2

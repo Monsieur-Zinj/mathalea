@@ -26,6 +26,7 @@ export default function ConstruireUnDiagramme () {
   this.sup2 = 1
   this.sup3 = 1
   this.sup4 = true
+  this.listeAvecNumerotation = false
 
   //  this.sup3 = false;
   this.nouvelleVersion = function () {

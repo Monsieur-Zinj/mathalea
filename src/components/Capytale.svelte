@@ -1,13 +1,11 @@
 <script lang="ts">
   import { exercicesParams, globalOptions } from "./store"
   import SideMenu from "./sidebar/SideMenu.svelte"
-  import SideMenuList from "./sidebar/SideMenuList.svelte"
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams, mathaleaGenerateSeed } from "../lib/mathalea"
   import { buildUrlAddendumForEsParam } from "./utils/urls"
   import handleCapytale from "../lib/handleCapytale"
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
-  import type { InterfaceReferentiel, ReferentielForList } from "src/lib/types"
   import { updateReferentiel } from "./utils/referentielsUtils"
   import Exercice from "./exercice/Exercice.svelte"
   import Button from "./forms/Button.svelte"
@@ -42,12 +40,14 @@
     if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
+  // Pour envoyer le haschanged à Capytale
+  globalOptions.subscribe(() => mathaleaUpdateUrlFromExercicesParams())
+
   // Constitution du référentiel pour afficher les exercices
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
   // Construction pour affichage dans SideMenu du tableau des entrées du référentiel
-  // let sideMenuListReferentiel: ReferentielForList = { title: "Choix des exercices", content: [], type: "exercices" }
-  let itemsSelected = []
+  let itemsSelected: string[] = []
   let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
   // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
   $: sideMenuListReferentiel = { title: "Choix des exercices", content: [...arrayReferentielFiltre], type: "exercices" }
@@ -113,7 +113,7 @@
   }
 
   function handleEleveVueSetUp() {
-    let url = new URL("https://coopmaths.fr/alea/")
+    let url = 'https://coopmaths.fr/alea/'
     for (const [i, exo] of $exercicesParams.entries()) {
       if (i === 0) {
         url += `?uuid=${exo.uuid}&id=${exo.id}`
@@ -130,7 +130,7 @@
     window.open(url, "_blank").focus()
   }
 
-  let modal
+  let modal: ModalSettingsCapytale
   function validateSettings() {
     modal.closeModal()
   }
@@ -192,8 +192,8 @@
                 } else {
                   alert("URL non valide !")
                 }
-                console.log("Après chargement :")
-                console.log($globalOptions)
+                // console.log("Après chargement :")
+                // console.log($globalOptions)
                 urlFeuilleEleve = ""
               }}
             />

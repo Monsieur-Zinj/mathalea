@@ -26,6 +26,7 @@ export default function AntecedentGraphique () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

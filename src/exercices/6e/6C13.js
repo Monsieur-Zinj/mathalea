@@ -27,6 +27,7 @@ export default function VocabulaireEtOperations () {
   this.sup = 4
   this.sup2 = false
   this.spacing = 2
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     let decimal

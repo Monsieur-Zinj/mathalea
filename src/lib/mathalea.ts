@@ -4,6 +4,7 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 // @ts-ignore
 import Exercice from '../exercices/Exercice.js'
 import type TypeExercice from '../components/utils/typeExercice.js'
+// import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store.js'
 import { get } from 'svelte/store'
@@ -486,6 +487,10 @@ export function mathaleaFormatExercice (texte = '') {
     .replace(/\\dotfill/g, '..............................')
     .replace(/\\not=/g, '≠')
     .replace(/\\ldots/g, '....')
+    .replaceAll(' ?', '&nbsp;?')
+    .replaceAll(' !', '&nbsp;!')
+    .replaceAll(' ;', '&nbsp;;')
+    .replaceAll(' :', '&nbsp;:')
 }
 
 /**

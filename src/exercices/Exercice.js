@@ -55,6 +55,7 @@ export default function Exercice () {
   this.spacingModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX.
   this.spacingCorrModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX.
   // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
+  this.listeAvecNumerotation = true // booléen pour eterminer si la liste des questions/corrections dans un exercice comporter une numérotation ou pas.
 
   // ////////////////////////////////////////////
   // Gestion de la sortie autre que LateX

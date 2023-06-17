@@ -6198,7 +6198,11 @@
         "uuid": "0e016",
         "url": "6e/6I11.js",
         "titre": "Note la couleur (scratch)",
-        "tags": {}
+        "dateModification": "14/05/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "listeDeroulante"
+        }
       },
       "6I12": {
         "id": "6I12",
@@ -9507,7 +9511,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCNum"
+          "amcType": "AMCHybride"
         }
       },
       "4L14-0": {
@@ -10745,7 +10749,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCNum"
+          "amcType": "AMCHybride"
         }
       },
       "3L13-4": {

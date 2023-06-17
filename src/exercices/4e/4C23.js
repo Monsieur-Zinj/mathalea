@@ -33,6 +33,7 @@ export default function SommeOuProduitFractions () {
   this.sup = 1
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = false
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function (numeroExercice) {
     this.sup = parseInt(this.sup)

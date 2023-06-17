@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, texteGras, randint, combinaisonListes, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, pgcd, texteGras, randint, combinaisonListes, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
 import { repere, droite, point, tracePoint, labelPoint, texteParPosition } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 export const titre = 'Représentation graphique d\'une fonction affine'
@@ -113,7 +113,12 @@ export default function Representerfonctionaffine () {
         case 2: // cas du coefficient directeur fractionnaire
           { a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
             b = randint(-5, 5, [0]) // ordonnée à l'origine non nulle
-            d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+            d = randint(2, 5) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+            while (pgcd(a, d) !== 1) {
+              a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
+              b = randint(-5, 5, [0]) // ordonnée à l'origine non nulle
+              d = randint(2, 5)
+            }
             f = (x) => a / d * x + b
             xA = 0 // Abscisse de A
             yA = f(xA)// Ordonnée de A

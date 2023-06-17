@@ -21,6 +21,7 @@ export default function TableDoubleDistributivite () {
   this.nbQuestions = 5
   this.sup = 1
   this.tailleDiaporama = 3
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Dans chaque cas, compléter les tables de multiplication, écrire le développement obtenu et le réduire.' : 'Compléter la table de multiplication, écrire le développement obtenu et le réduire.'

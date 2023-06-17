@@ -21,6 +21,8 @@ export default function DeterminantVecteur () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
+  this.listeAvecNumerotation = false
+
   this.nouvelleVersion = function () {
     const vx = randint(-5, 5)
     const vy = randint(-5, 5)

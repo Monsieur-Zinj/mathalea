@@ -28,7 +28,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
   this.consigne = ''
   this.nbQuestions = 3
   this.nbQuestionsModifiable = false
-  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.correctionDetailleeDisponible = true
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
@@ -245,21 +244,17 @@ export default function ReconnaitreQuadrilatereParticulier () {
         ordered: true,
         lastChoice: 5
       }
+      // 0: losange, 1: rectangle, 2: carré, 3: trapèze, 4: parallélogramme
       if (listeDeQuestions[i] === 'losange1' || listeDeQuestions[i] === 'losange2') {
         this.autoCorrection[i].propositions[0].statut = true
-        this.autoCorrection[i].propositions[3].statut = true
-        this.autoCorrection[i].propositions[4].statut = true
       }
       if (listeDeQuestions[i] === 'rectangle1' || listeDeQuestions[i] === 'rectangle2') {
         this.autoCorrection[i].propositions[1].statut = true
-        this.autoCorrection[i].propositions[3].statut = true
-        this.autoCorrection[i].propositions[4].statut = true
       }
       if (listeDeQuestions[i] === 'carre1' || listeDeQuestions[i] === 'carre2' || listeDeQuestions[i] === 'carre3') {
         this.autoCorrection[i].propositions[0].statut = true
         this.autoCorrection[i].propositions[1].statut = true
         this.autoCorrection[i].propositions[2].statut = true
-        this.autoCorrection[i].propositions[3].statut = true
         this.autoCorrection[i].propositions[4].statut = true
       }
       if (this.interactif) {

@@ -21,6 +21,8 @@ export default function TranslationVecteur () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
+  this.listeAvecNumerotation = false
+
   this.nouvelleVersion = function () {
     const xA = randint(-5, 5)
     const yA = randint(-5, 5)

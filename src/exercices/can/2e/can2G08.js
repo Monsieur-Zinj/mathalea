@@ -21,6 +21,8 @@ export default function CoordonneesVecteur2 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
+  this.listeAvecNumerotation = false
+
   this.nouvelleVersion = function () {
     const a = randint(-6, 6, [0, 1, -1])
     const b = randint(2, 10)

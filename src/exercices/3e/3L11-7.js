@@ -30,6 +30,7 @@ export default function CarreDoubleDistributivite () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.sup = true
   this.tailleDiaporama = 3
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'

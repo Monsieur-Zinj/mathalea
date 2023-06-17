@@ -77,6 +77,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
   this.spacingCorr = context.isHtml ? 3 : 1
   this.amcReady = amcReady
   this.amcType = amcType
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     let reponse
