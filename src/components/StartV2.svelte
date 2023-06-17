@@ -13,6 +13,7 @@
   import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
   import FullScreenIcon from "./icons/TwoStatesIcon.svelte"
   import Footer from "./Footer.svelte"
+  import SideMenuList from "./sidebar/SideMenuList.svelte"
 
   let isNavBarVisible: boolean = true
   let divExercices: HTMLDivElement
@@ -234,7 +235,7 @@
       <!-- Affichage Partie Droite -->
       <div class="flex-1 overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <!-- Barre de boutons -->
-        <div class="absolute top-0 w-[95%] bg-coopmaths-canvas border border-green-400" id="barre-boutons">
+        <div style={`width: calc(96vw - ${isMenuOpen ? sidebarWidth : 20}px);`} class={`absolute top-0 bg-coopmaths-canvas border border-green-400`} id="barre-boutons">
           <ButtonsDeck barWidthPercentage={100}>
             <div slot="setup-buttons" class="border border-pink-400 flex flex-row justify-start items-center space-x-4">
               <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte"><Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomMinus} /></div>
@@ -372,3 +373,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  :root {
+    --buttonbar-width: calc({`100%-${sidebarWidth}px`});
+  }
+</style>
