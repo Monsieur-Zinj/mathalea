@@ -1,10 +1,11 @@
 <script lang="ts">
   export let setupButtonsList = [{ bxName: "bx-zoom-in" }, { bxName: "bx-zoom-out" }, { bxName: "bx-refresh" }, { bxName: "bx-trash" }, { bxName: "bx-fullScreen" }]
   export let exportButtonsList = [{ bxName: "bx-slideshow" }, { bxName: "bxs-graduation" }]
+  export let barWidthPercentage: number = 70
 </script>
 
-<div class="flex flex-col md:flex-row justify-center items-center">
-  <div class="w-[70%] z-50 flex flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<div class="w-[{barWidthPercentage}%] flex flex-col md:flex-row justify-center items-center">
+  <div class="w-full border border-gray-400 z-50 flex flex-col xl:flex-row px-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div id="setupButtonsBar">
       <slot name="setup-buttons">
         {#each setupButtonsList as button}

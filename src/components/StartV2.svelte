@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent } from "./store"
   import SideMenu from "./sidebar/SideMenu.svelte"
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams, mathaleaGenerateSeed } from "../lib/mathalea"
   import { buildUrlAddendumForEsParam } from "./utils/urls"
@@ -10,6 +10,7 @@
   import Button from "./forms/Button.svelte"
   import ButtonsDeck from "./outils/ButtonsDeck.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
+  import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
   import Footer from "./Footer.svelte"
 
   let isNavBarVisible: boolean = true
@@ -70,8 +71,6 @@
   /**
    * Gestion du référentiel
    */
-  let isInteractiveOnlySelected: boolean = false
-  let isAmcOnlySelected: boolean = false
   // Construction pour affichage dans SideMenu du tableau des entrées du référentiel
   let itemsSelected: string[] = []
   let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
@@ -81,6 +80,8 @@
   /**
    * Gestion des filtres
    */
+  let isInteractiveOnlySelected: boolean = false
+  let isAmcOnlySelected: boolean = false
   function updateFilters(filters) {
     let itemsAccepted = [...filters.levels]
     if (filters.types.includes("static")) {
@@ -154,6 +155,43 @@
     isInitialUrlHandled = true
     zoom = Number(urlOptions.z)
   }
+
+  /**
+   * Gestion de l'interactivité
+   */
+  let setAllInteractifClicked: boolean = false
+  function setAllInteractif() {
+    const setAllInteractif = new window.Event("setAllInteractif", {
+      bubbles: true,
+    })
+    setAllInteractifClicked = true
+    document.dispatchEvent(setAllInteractif)
+  }
+
+  function removeAllInteractif() {
+    const removeAllInteractif = new window.Event("removeAllInteractif", {
+      bubbles: true,
+    })
+    setAllInteractifClicked = false
+    document.dispatchEvent(removeAllInteractif)
+  }
+
+  /**
+   *  Gestion du plain écran
+   */
+  function quitFullScreen() {
+    globalOptions.update((params) => {
+      delete params.v
+      return params
+    })
+  }
+
+  function fullScreen() {
+    globalOptions.update((params) => {
+      params.v = "l"
+      return params
+    })
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -166,7 +204,7 @@
       </div>
     {/if}
 
-    <!-- Menu + Contenu -->
+    <!-- Affichage Partie Gauche : Menu + Contenu -->
     <div class="flex-1 flex grow flex-col md:flex-row h-full overflow-y-hidden bg-coopmaths-canvas">
       <!-- Menu Choix Exos et Ressources -->
       <div class="mt-6 sm:mt-0">
@@ -192,14 +230,33 @@
         on:mousedown={startResizing.bind(this, "moving")}
       />
 
-      <!-- Affichage des exercices -->
+      <!-- Affichage Partie Droite -->
       <div class="flex-1 relative overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <!-- Barre de boutons -->
-        <div class="absolute top-0 w-full bg-coopmaths-canvas" id="barre-boutons">
-          <ButtonsDeck>
-            <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
+        <div class="absolute top-0 w-[95%] bg-coopmaths-canvas border border-green-400" id="barre-boutons">
+          <ButtonsDeck barWidthPercentage={100}>
+            <div slot="setup-buttons" class="border border-pink-400 flex flex-row justify-start items-center space-x-4">
               <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte"><Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomMinus} /></div>
               <div class="tooltip tooltip-bottom" data-tip="Augmenter la taille du texte"><Button title="" icon="bx-zoom-in" classDeclaration="flex items-center text-3xl" on:click={zoomPlus} /></div>
+
+              <button
+                type="button"
+                on:click={() => {
+                  setAllInteractifClicked ? removeAllInteractif() : setAllInteractif()
+                  // handleMenuVisibility("settings")
+                }}
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
+              >
+                <!-- <i
+                class="bx px-2 tooltip-top tooltip-neutral hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
+                  ? 'bxs-edit'
+                  : 'bx-edit'}"
+              /> -->
+                <div class="px-2">
+                  <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={7} />
+                </div>
+              </button>
               <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés"><Button title="" icon="bx-refresh" classDeclaration="flex items-center text-3xl" on:click={newDataForAll} /></div>
               <div class="tooltip tooltip-bottom" data-tip="Supprimer tous les exercices">
                 <Button
@@ -211,12 +268,82 @@
                   }}
                 />
               </div>
+
+              {#if $globalOptions.v === "l"}
+                <div class="flex flex-row justify-end items-center">
+                  <button
+                    type="button"
+                    on:click={() => {
+                      // handleMenuVisibility("settings")
+                      quitFullScreen()
+                    }}
+                    class="tooltip tooltip-bottom tooltip-neutral"
+                    data-tip="Quitter le plein écran"
+                  >
+                    <i
+                      class="bx bx-sm ml-2 bx-md px-2 bx-exit-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                    />
+                  </button>
+                </div>
+              {/if}
+              {#if $globalOptions.v !== "l"}
+                <button
+                  type="button"
+                  class="tooltip tooltip-bottom tooltip-neutral"
+                  data-tip="Plein écran"
+                  on:click={() => {
+                    // handleMenuVisibility("settings")
+                    globalOptions.update((params) => {
+                      params.v = "l"
+                      return params
+                    })
+                  }}
+                  ><i class="bx bx-sm px-2 bx-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                </button>
+              {/if}
+            </div>
+            <div slot="export-buttons" class="border border-purple-400 flex flex-row justify-end items-center">
+              <div class="tooltip tooltip-bottom" data-tip="Diaporama">
+                <Button
+                  title=""
+                  icon="bx-slideshow"
+                  classDeclaration="flex items-center text-3xl"
+                  on:click={() => {
+                    $callerComponent = ""
+                    // handleMenuVisibility("export")
+                    globalOptions.update((params) => {
+                      params.v = "diaporama"
+                      return params
+                    })
+                  }}
+                />
+              </div>
+              <button
+                type="button"
+                class="tooltip tooltip-top tooltip-neutral"
+                data-tip="Lien pour les élèves"
+                on:click={() => {
+                  $callerComponent = ""
+                  // handleMenuVisibility("export")
+                  globalOptions.update((params) => {
+                    params.v = "confeleve"
+                    return params
+                  })
+                }}
+              >
+                <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+                  <i class="bx text-3xl bx-link" />
+                  <div class="absolute -bottom-1 -right-1">
+                    <i class="scale-75 bx bx-xs bxs-graduation" />
+                  </div>
+                </div>
+              </button>
             </div>
           </ButtonsDeck>
         </div>
         <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
-          <div id="exercisesWrapper" class="flex flex-col justify-between h-full" bind:this={divExercices}>
+          <div id="exercisesWrapper" class="flex flex-col justify-between h-full mt-10" bind:this={divExercices}>
             <div class="flex-1">
               <div class="flex flex-col h-full md:mt-9 lg:mt-0">
                 {#each $exercicesParams as paramsExercice, i (paramsExercice)}
