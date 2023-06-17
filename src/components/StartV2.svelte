@@ -17,6 +17,38 @@
   $: isMenuOpen = $isSideMenuVisible
 
   /**
+   * Démarrage
+   */
+  // À la construction du component ou à la navigation dans l'historique du navigateur
+  // on met à jour l'url headerStart
+  onMount(() => {
+    // On analyse l'url pour mettre à jour l'affichage
+    urlToDisplay()
+    if ($globalOptions.recorder === "capytale") {
+      handleCapytale()
+    }
+  })
+  addEventListener("popstate", urlToDisplay)
+
+  // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
+  $: {
+    if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    if ($globalOptions.v === "l") {
+      // $isSideMenuVisible = false
+      isNavBarVisible = false
+    } else if ($globalOptions.v === "l2") {
+      // $isSideMenuVisible = false
+      isNavBarVisible = true
+    } else if ($globalOptions.v === "eleve") {
+      // $isSideMenuVisible = false
+      isNavBarVisible = false
+    } else {
+      // $isSideMenuVisible = true
+      isNavBarVisible = true
+    }
+  }
+
+  /**
    * Gestion du redimentionnement de la largeur du menu des choix
    */
   let expanding = null
@@ -59,6 +91,69 @@
     isInteractiveOnlySelected = filters.types.includes("interactif")
     arrayReferentielFiltre = updateReferentiel(isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted)
   }
+
+  /**
+   * Gestion de la taille des éléments affichés
+   */
+
+  let zoom: number = 1
+  function zoomMinus() {
+    // zoom -= 0.1
+    zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
+    updateSize()
+  }
+
+  function zoomPlus() {
+    // zoom += 0.1
+    zoom = Number.parseFloat((zoom + 0.1).toFixed(1))
+    updateSize()
+  }
+
+  function updateSize() {
+    globalOptions.update((params) => {
+      params.z = zoom.toString()
+      return params
+    })
+    const scratchDivs = document.getElementsByClassName("scratchblocks")
+    for (const scratchDiv of scratchDivs) {
+      const svgDivs = scratchDiv.getElementsByTagName("svg")
+      for (const svg of svgDivs) {
+        if (svg.hasAttribute("data-width") === false) {
+          const originalWidth = svg.getAttribute("width")
+          svg.dataset.width = originalWidth
+        }
+        if (svg.hasAttribute("data-height") === false) {
+          const originalHeight = svg.getAttribute("height")
+          svg.dataset.height = originalHeight
+        }
+        const w = svg.getAttribute("data-width") * $globalOptions.z
+        const h = svg.getAttribute("data-height") * $globalOptions.z
+        svg.setAttribute("width", w)
+        svg.setAttribute("height", h)
+      }
+    }
+  }
+
+  /**
+   * Gestion des données
+   */
+  function newDataForAll() {
+    // console.log($globalOptions, $exercicesParams)
+    const newDataForAll = new window.Event("newDataForAll", {
+      bubbles: true,
+    })
+    document.dispatchEvent(newDataForAll)
+  }
+  // Récupération des informations de l'URL
+  let isInitialUrlHandled = false
+  function urlToDisplay() {
+    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
+    globalOptions.update(() => {
+      return urlOptions
+    })
+    isInitialUrlHandled = true
+    zoom = Number(urlOptions.z)
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -99,6 +194,27 @@
 
       <!-- Affichage des exercices -->
       <div class="flex-1 relative overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+        <!-- Barre de boutons -->
+        <div class="absolute top-0 w-full bg-coopmaths-canvas" id="barre-boutons">
+          <ButtonsDeck>
+            <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
+              <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte"><Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomMinus} /></div>
+              <div class="tooltip tooltip-bottom" data-tip="Augmenter la taille du texte"><Button title="" icon="bx-zoom-in" classDeclaration="flex items-center text-3xl" on:click={zoomPlus} /></div>
+              <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés"><Button title="" icon="bx-refresh" classDeclaration="flex items-center text-3xl" on:click={newDataForAll} /></div>
+              <div class="tooltip tooltip-bottom" data-tip="Supprimer tous les exercices">
+                <Button
+                  title=""
+                  icon="bx-trash"
+                  classDeclaration="text-3xl"
+                  on:click={() => {
+                    $exercicesParams.length = 0
+                  }}
+                />
+              </div>
+            </div>
+          </ButtonsDeck>
+        </div>
+        <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
           <div id="exercisesWrapper" class="flex flex-col justify-between h-full" bind:this={divExercices}>
             <div class="flex-1">
