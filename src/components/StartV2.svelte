@@ -205,7 +205,7 @@
     {/if}
 
     <!-- Affichage Partie Gauche : Menu + Contenu -->
-    <div class="flex-1 flex grow flex-col md:flex-row h-full overflow-y-hidden bg-coopmaths-canvas">
+    <div class="flex-1 relative flex grow flex-col md:flex-row h-full overflow-y-hidden bg-coopmaths-canvas">
       <!-- Menu Choix Exos et Ressources -->
       <div class="mt-6 sm:mt-0">
         <div id="choiceMenuWrapper" class="flex-1 overflow-y-hidden">
@@ -231,7 +231,7 @@
       />
 
       <!-- Affichage Partie Droite -->
-      <div class="flex-1 relative overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+      <div class="flex-1 overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <!-- Barre de boutons -->
         <div class="absolute top-0 w-[95%] bg-coopmaths-canvas border border-green-400" id="barre-boutons">
           <ButtonsDeck barWidthPercentage={100}>
