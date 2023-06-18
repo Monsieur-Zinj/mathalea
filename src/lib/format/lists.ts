@@ -6,7 +6,7 @@ type List<T> = {
   /**
    * Entrée de la liste ou déclaration d'une autre liste
    */
-  items: string[] | T,
+  items: (string|T)[],
   /**
    * Style pour les puces ou les numérotations. Sera ajouté à `class` et traité par `app.css`
    */
@@ -20,19 +20,15 @@ type List<T> = {
    */
   introduction?: string,
 }
-
-function isNonEmptyArrayOfStrings (value: unknown): value is string[] {
-  return Array.isArray(value) && value.length > 0 && value.every(item => typeof item === 'string')
-}
-
 interface NestedList extends List<NestedList>{}
+
 /**
  * Contruit une liste formattée suivant un style à partir d'un tableau de chaînes de caractères comme entrées.
  * @param {NestedList} list Objet décrivant la liste
- * @returns {string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
+ * @returns {HTMLUListElement|HTMLOListElement|string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
  * @author sylvain
  */
-export function createList (list: NestedList) :string {
+export function createList (list: NestedList) :HTMLUListElement|HTMLOListElement|string {
   let theList: HTMLUListElement|HTMLOListElement|string
   if (context.isHtml) {
     switch (list.style) {
@@ -55,15 +51,19 @@ export function createList (list: NestedList) :string {
         break
     }
     theList.setAttribute('class', list.style + ' ' + list.classOptions)
-    let li: HTMLLIElement
-    if (isNonEmptyArrayOfStrings(list.items)) {
-      for (const item of list.items) {
-        li = document.createElement('li')
-        li.appendChild(document.createTextNode(item))
-        theList.appendChild(li)
+
+    for (const item of list.items) {
+      const li: HTMLLIElement = document.createElement('li')
+      if (typeof item === 'string') { li.appendChild(document.createTextNode(item)) } else {
+        if (item.introduction) {
+          li.appendChild(document.createTextNode(item.introduction))
+        }
+        li.appendChild(createList(item))
       }
+      theList.appendChild(li)
     }
-    theList = theList.outerHTML
+
+    // theList = theList.outerHTML
   } else {
     theList = ''
     let label: string
@@ -120,9 +120,12 @@ export function createList (list: NestedList) :string {
       closingTag = '\\end{enumerate}' + lineEnd
     }
     theList += openingTag
-    if (isNonEmptyArrayOfStrings(list.items)) {
-      for (const item of list.items) {
-        theList += lineStart + item + lineEnd
+    for (const item of list.items) {
+      if (typeof item === 'string') { theList += lineStart + item + lineEnd } else {
+        if (item.introduction) {
+          theList += lineStart + item.introduction + lineEnd
+          theList += createList(item)
+        }
       }
     }
     theList += closingTag

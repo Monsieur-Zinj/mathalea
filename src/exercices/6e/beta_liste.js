@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { randint } from '../../modules/outils.js'
 import { createList } from '../../lib/format/lists.ts'
+import { context } from '../../modules/context.js'
 export const titre = 'Somme de deux entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,20 +26,40 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    const fooList = {
+      items: [
+        'bonjour',
+        'le',
+        'monde'
+      ],
+      style: 'fleches',
+      classOptions: 'space-y-2 pt-2',
+      introduction: "Où l'on dit bonjour :"
+    }
+    const bazList = {
+      items: [
+        'inner foo',
+        'inner bar',
+        fooList,
+        'inner baz'
+      ],
+      style: 'puces',
+      classOptions: 'space-y-2 pt-2',
+      introduction: 'My inner list :'
+    }
     const mesEntrees = [
       'foo',
+      fooList,
       'bar',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est est, porttitor quis ornare non, iaculis ut dolor. Vestibulum ipsum neque, varius ut lorem quis, posuere lobortis quam.',
-      'boz'
+      'baz',
+      bazList,
+      'qux'
     ]
-    const listTypes = ['none', 'puces', 'carres', 'qcm', 'fleches', 'nombres', 'alpha', 'Alpha', 'roman', 'Roman']
     const a = randint(1, 10)
     const b = randint(1, 10)
     this.question = `$${a} + ${b} = ?$`
-    for (const type of listTypes) {
-      const maListe = createList({ items: mesEntrees, style: type, classOptions: 'space-y-4' })
-      this.question += maListe
-    }
+    const maListe = context.isHtml ? createList({ items: mesEntrees, style: 'roman', classOptions: 'space-y-4 pt-4' }).outerHTML : createList({ items: mesEntrees, style: 'roman', classOptions: 'space-y-4 pt-4' })
+    this.question += maListe
     this.correction = `$${a} + ${b} = ${a + b}$`
     this.reponse = a + b
   }
