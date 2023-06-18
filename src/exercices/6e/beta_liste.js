@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint } from '../../modules/outils.js'
-import { createList } from '../../lib/format/lists'
+import { createList } from '../../lib/format/lists.ts'
 export const titre = 'Somme de deux entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,7 +36,7 @@ export default class NomExercice extends Exercice {
     const b = randint(1, 10)
     this.question = `$${a} + ${b} = ?$`
     for (const type of listTypes) {
-      const maListe = createList(mesEntrees, type, 'space-y-4')
+      const maListe = createList({ items: mesEntrees, style: type, classOptions: 'space-y-4' })
       this.question += maListe
     }
     this.correction = `$${a} + ${b} = ${a + b}$`
