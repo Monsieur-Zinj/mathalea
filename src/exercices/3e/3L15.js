@@ -16,7 +16,7 @@ export const ref = '3L15'
 export default function ExerciceEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les équations suivantes.'
+  this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
   this.nbQuestions = 6
   this.nbCols = 2
   this.nbColsCorr = 1

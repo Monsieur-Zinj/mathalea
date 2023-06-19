@@ -6,7 +6,7 @@ import {
   randint,
   combinaisonListes,
   texFractionReduite,
-  texFraction, choice, texteEnCouleurEtGras, contraindreValeur
+  texFraction, choice, texteEnCouleurEtGras, contraindreValeur, miseEnEvidence
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -34,7 +34,7 @@ export default function ResoudreUneEquationProduitNul () {
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
+  this.sup = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
   this.spacing = 1
   this.tailleDiaporama = 3
@@ -193,7 +193,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${texFraction(d, c)}$`
           if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=-${texFractionReduite(d, c)}$` }
           if (b * c === d * a) {
-            setReponse(this, i, `$=-${texFractionReduite(d, c)}$`)
+            setReponse(this, i, `$-${texFractionReduite(d, c)}$`)
             solution1 = fraction(-d, c).simplifie()
             solution2 = fraction(-d, c).simplifie()
           } else {
@@ -246,6 +246,8 @@ export default function ResoudreUneEquationProduitNul () {
           break
         }
       }
+      if (listeTypeDeQuestions[i] !== 5 && listeTypeDeQuestions[i] !== 6) texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(solution1)}$ et $${miseEnEvidence(solution2)}$.`
+      else texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence('-' + texFractionReduite(b, a))}$ et $${miseEnEvidence((listeTypeDeQuestions[i] === 5 ? '-' : '') + texFractionReduite(d, c))}$.`
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25')
       }
@@ -262,11 +264,6 @@ export default function ResoudreUneEquationProduitNul () {
             enonceApresNumQuestion: false, // New (12/2022) EE : ce champ est facultatif et permet (si true) de mettre le champ 'enonce' à côté du numéro de question (et non avant par défaut). Ne fonctionne (pour l'instant) que si la première question est AMCNum (pas de besoin autre pour l'instant).
             melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
             options: { multicols: true, barreseparation: false, multicolsAll: false, avecSymboleMult: false, numerotationEnonce: false }, // facultatif.
-            // multicols (par défaut à false) provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
-            // barreseparation (par défaut à false) permet de mettre une barre de séparation entre les deux colonnes.
-            // multicolsAll (par défaut à false) permet le multicolonnage sur 2 colonnes en incluant l'énoncé. multicolsAll annule multicols.
-            // avecSymboleMult (par défaut à false) permet en cas de QCMMult d'avoir un numéro de question ET le symbole indiquant un choix multiple possible et non unique.
-            // numerotationEnonce (par défaut à false) permet de mettre un numéro devant l'énoncé (s'il devait en manquer un).
             propositions: [
               {
                 type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
@@ -327,13 +324,11 @@ export default function ResoudreUneEquationProduitNul () {
           }
         }
 
-        // alert(this.listeQuestions)
-        // alert(this.listeCorrections)
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 8, '1 : Coefficients de x = 1\n2 : Un coefficient de x >1 et l\'autre =1\n3 : Coefficient de x>1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 8, '1 : Coefficients de x = 1\n2 : Un coefficient de x > 1 et l\'autre = 1\n3 : Coefficient de x > 1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout']
 }
