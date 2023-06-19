@@ -850,7 +850,7 @@ export function shuffle (array) {
   let randomIndex
 
   // While there remain elements to shuffle...
-  const arrayBis = array.slice()
+  const arrayBis = [...array]
   while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex)
@@ -1019,8 +1019,8 @@ function cleExisteEtContient (v, val) {
  * @author Rémi Angot
  */
 export function combinaisonListes (liste, tailleMinimale) {
-  if (liste.length === 0) return []
-  let l = shuffle(liste)
+  if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
+  let l = shuffle(liste) // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
     l = l.concat(shuffle(liste))
   }
@@ -1038,8 +1038,8 @@ export function combinaisonListes (liste, tailleMinimale) {
  * @author Eric Elter
  */
 export function combinaisonListes2 (liste, tailleMinimale) {
-  if (liste.length === 0) return []
-  let l = liste
+  if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
+  let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
     l = l.concat(choice(liste))
   }
@@ -1048,10 +1048,12 @@ export function combinaisonListes2 (liste, tailleMinimale) {
 
 export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
   // Concatène liste à elle même en changeant
-  while (liste.length < tailleMinimale) {
-    liste = liste.concat(liste)
+  if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
+  let l = [...liste] // on ne modifie pas la liste passée en argument !
+  while (l.length < tailleMinimale) {
+    l = l.concat(liste)
   }
-  return liste
+  return l
 }
 
 /** Renvoie une liste exhaustive de tableaux contenant les mêmes élèments que tab mais jamais dans le même ordre
