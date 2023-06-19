@@ -9,7 +9,8 @@
 </script>
 
 <div
-  class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas text-xs px-1 py-[1px] shadow-sm"
+  id="exo-{indice}"
+  class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas text-xs px-1 py-[1px] shadow-sm cursor-move"
 >
   {text}
   <button class="ml-2 bg-transparent hover focus:outline-none cursor-pointer" on:click={remove}>
