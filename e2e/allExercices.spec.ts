@@ -21,17 +21,12 @@ function TestAllPages (ids) {
       })
       // Correction
       const buttonNewData = page.locator('.bx-check-circle').first()
-      await buttonNewData.highlight()
-      await page.pause()
       await buttonNewData.click()
       // Paramètres
         const  buttonParam = page.locator('.bx-cog').first()
-        await buttonParam.highlight()
       await buttonParam.click()
       // Actualier
 const buttonRefresh = page.locator('div:visible>i.bx-refresh').first()
-      await buttonRefresh.highlight()
-      await page.pause()
       await buttonRefresh.click() // { clickCount: 3 }
       expect(messages.length).toBe(0)
     })
