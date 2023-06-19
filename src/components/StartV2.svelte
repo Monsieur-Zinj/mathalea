@@ -17,6 +17,7 @@
   import LatexIcon from "./icons/LatexIcon.svelte"
   import AmcIcon from "./icons/AmcIcon.svelte"
   import MoodleIcon from "./icons/MoodleIcon.svelte"
+  import ChipsList from "./setup/ChipsList.svelte"
 
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
@@ -398,7 +399,9 @@
           </ButtonsDeck>
 
           <!-- Barre des chips -->
-          <div class="{chipsListDisplayed ? 'flex flex-row justify-start items-center w-full h-24 bg-green-500' : 'hidden'} ">Test</div>
+          <div class="{chipsListDisplayed ? 'flex flex-row justify-start items-center w-full p-6 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : 'hidden'} ">
+            <ChipsList />
+          </div>
         </div>
         <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
