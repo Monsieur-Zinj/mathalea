@@ -137,6 +137,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     let resultat
     let lresultat
     let decalage
+    let chiffreop1, chiffreop2
     if (base ? base === 10 : true) {
       decalage = Math.max(dec1, dec2)
       sop1 = (operande1.mul(10 ** dec1)).toString()
@@ -174,7 +175,9 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
     // les deux operandes ont le même nombre de chiffres
     for (let i = longueuroperandes - 1; i > 0; i--) { // on construit la chaine des retenues.
-      if (parseInt(sop1[i], base) + parseInt(sop2[i], base) + parseInt(retenues[0] > 0 ? retenues[0] : 0) > base - 1) {
+      chiffreop1 = isNaN(parseInt(sop1[i], base)) ? 0 : parseInt(sop1[i], base)
+      chiffreop2 = isNaN(parseInt(sop2[i], base)) ? 0 : parseInt(sop2[i], base)
+      if (chiffreop1 + chiffreop2 + parseInt(retenues[0] > 0 ? retenues[0] : 0) > base - 1) {
         retenues = `1${retenues}`
       } else {
         retenues = ` ${retenues}`
@@ -187,11 +190,12 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     for (let i = 0; i < longueuroperandes + 1 - lresultat; i++) {
       sresultat = ` ${sresultat}`
     }
+
     for (let i = 0; i < longueuroperandes + 1; i++) {
       if (sop1[i] !== ' ') objets.push(texteParPosition(sop1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
       if (sop2[i] !== ' ') objets.push(texteParPosition(sop2[i], i * 0.6, 3, 'milieu', 'black', 1.2, 'middle', false))
       objets.push(segment(0, 2, (longueuroperandes + 1) * 0.6, 2))
-      if (retenues[i] !== ' ' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6, 2.5, 'milieu', 'red', 0.8, 'middle', false))
+      if (retenues[i] !== ' ' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6, 4.5, 'milieu', 'red', 0.8, 'middle', false))
       if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 1, 'milieu', 'black', 1.2, 'middle', false))
     }
     if (decalage !== 0) {
@@ -211,6 +215,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     let resultat
     let lresultat
     let decalage
+    let chiffreop1, chiffreop2
     if (base ? base === 10 : true) {
       const dec1 = nombreDeChiffresApresLaVirgule(operande1)
       const dec2 = nombreDeChiffresApresLaVirgule(operande2)
@@ -245,9 +250,11 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       }
     }
 
-    // les deux operande ont le même nomre de chiffres
+    // les deux opérandes ont le même nombre de chiffres
     for (let i = longueuroperandes - 1; i >= lop1 - lop2; i--) { // on construit la chaine des retenues.
-      if (parseInt(sop1[i], base) < (parseInt(sop2[i], base) + parseInt(retenues.charAt(0), base))) {
+      chiffreop1 = isNaN(parseInt(sop1[i], base)) ? 0 : parseInt(sop1[i], base)
+      chiffreop2 = isNaN(parseInt(sop2[i], base)) ? 0 : parseInt(sop2[i], base)
+      if (chiffreop1 < (chiffreop2 + parseInt(retenues.charAt(0), base))) {
         retenues = `1${retenues}`
       } else {
         retenues = `0${retenues}`
@@ -273,7 +280,8 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       const hauteur = Array.apply(null, Array(longueuroperandes + 1)).map(function () { return 0 })
       const ArrsOp1 = Array.apply(null, Array(sop1.length)).map(function (x, i) { return sop1[i] })
       for (let i = longueuroperandes; i >= 0; i--) {
-        const additOp1 = new Decimal(parseInt(sresultat[i] === ' ' ? '0' : sresultat[i]) + parseInt(sop2[i] === ' ' ? '0' : sop2[i]))
+        chiffreop2 = isNaN(parseInt(sop2[i], base)) ? 0 : parseInt(sop2[i], base)
+        const additOp1 = new Decimal(parseInt(sresultat[i] === ' ' ? '0' : sresultat[i], base) + chiffreop2)
         if (ArrsOp1[i] !== ' ') objets.push(texteParPosition(ArrsOp1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
         if (retenuesOn && additOp1.sub(parseInt(ArrsOp1[i])).abs() > 0.5) {
           // retenu à mettre ou cassage
