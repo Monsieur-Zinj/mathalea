@@ -6,6 +6,7 @@
   import SearchExercice from "./SearchExercice.svelte"
   import { onMount } from "svelte"
   import { toObject } from "../utils/toObj"
+  import EntreeListeRessources from "./EntreeListeRessources.svelte"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
@@ -18,7 +19,7 @@
     // console.log(refAsObject)
   })
 
-  export let isMenuDeployed: boolean = true
+  export let isMenuDeployed: boolean = false
 </script>
 
 <div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6">
@@ -55,7 +56,7 @@
   {:else if ref.type === "ressources"}
     {#each ref.content as item, i}
       <li>
-        {item.obj.get("titre")}
+        <EntreeListeRessources ressource={item.obj} />
       </li>
     {/each}
   {:else}
