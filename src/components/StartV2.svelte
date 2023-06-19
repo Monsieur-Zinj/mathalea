@@ -240,7 +240,7 @@
         <!-- Barre de boutons -->
         <div
           style={`width: calc(96vw - ${isMenuOpen ? sidebarWidth : 20}px);`}
-          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex justify-center absolute top-0 bg-coopmaths-canvas"}
+          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex justify-center absolute top-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"}
           id="barre-boutons"
         >
           <ButtonsDeck barWidthPercentage={80}>
