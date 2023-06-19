@@ -20,10 +20,10 @@ function TestAllPages (ids) {
         }
       })
       // Correction
-      const buttonNewData = page.locator('.bx-check-circle').first()
+      const buttonNewData = page.locator('i.bx-check-circle').first()
       await buttonNewData.click()
       // Paramètres
-        const  buttonParam = page.locator('.bx-cog').first()
+        const  buttonParam = page.locator('i.bx-cog').first()
       await buttonParam.click()
       // Actualier
 const buttonRefresh = page.locator('div:visible>i.bx-refresh').first()
