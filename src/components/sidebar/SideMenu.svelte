@@ -5,7 +5,7 @@
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
   export let isMenuCloseable: boolean = false
-  let isMenuDeployed: boolean = true
+  // let isMenuDeployed: boolean = true
 </script>
 
 <aside
@@ -13,9 +13,9 @@
   {isMenuOpen ? '-translate-x-0  pr-4 overflow-y-auto' : '-translate-x-full'}"
 >
   <div style={isMenuOpen ? `width:${sidebarWidth}px;` : "width: 2.5rem;"}>
-    <div class="{isMenuOpen ? 'flex' : 'hidden'} flex-col items-start {isMenuDeployed ? 'pb-6' : 'pb-2'} pt-2 md:pt-4 ml-0 md:mx-0">
+    <div class="{isMenuOpen ? 'flex' : 'hidden'} flex-col items-start pb-4 pt-2 md:pt-4 ml-0 md:mx-0">
       {#each referentiels as ref, i}
-        <SideMenuList {ref} moreThanOne={referentiels.length > 1} on:filters />
+        <SideMenuList {ref} moreThanOne={referentiels.length > 1} isMenuDeployed={ref.type === "exercices" ? true : false} on:filters />
       {/each}
     </div>
     <div
