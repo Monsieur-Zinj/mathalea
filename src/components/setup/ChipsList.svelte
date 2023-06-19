@@ -1,7 +1,7 @@
 <script lang="ts">
   import Sortable from "sortablejs"
   import ChipExo from "./ChipExo.svelte"
-  import { exercicesParams } from "../store"
+  import { exercicesParams, moveExercice } from "../store"
   import { onMount } from "svelte"
 
   let listeIdPourLesChips: string[] = []
@@ -18,9 +18,9 @@
     const sortable = Sortable.create(chipsList, {
       animation: 150,
       onEnd: (evt) => {
-        const eltID = evt.item.id
-        console.log("elt index : " + eltID)
-        console.log("old index : " + evt.oldIndex + " / new index : " + evt.newIndex)
+        exercicesParams.update((l) => {
+          return moveExercice(l, evt.oldIndex, evt.newIndex)
+        })
       },
     })
   })
