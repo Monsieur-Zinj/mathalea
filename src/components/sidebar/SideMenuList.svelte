@@ -18,7 +18,7 @@
     // console.log(refAsObject)
   })
 
-  let isMenuDeployed: boolean = true
+  export let isMenuDeployed: boolean = true
 </script>
 
 <div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6">

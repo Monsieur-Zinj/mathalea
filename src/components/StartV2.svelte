@@ -212,10 +212,10 @@
     {/if}
 
     <!-- Affichage Partie Gauche : Menu + Contenu -->
-    <div class="flex-1 relative flex grow flex-col md:flex-row h-full overflow-y-hidden bg-coopmaths-canvas">
+    <div class="flex-1 relative flex grow flex-col md:flex-row h-full sm:overflow-y-hidden bg-coopmaths-canvas">
       <!-- Menu Choix Exos et Ressources -->
       <div class="mt-6 sm:mt-0">
-        <div id="choiceMenuWrapper" class="flex-1 overflow-y-hidden">
+        <div id="choiceMenuWrapper" class="flex-1 sm:overflow-y-hidden">
           <SideMenu
             bind:isMenuOpen
             isMenuCloseable={$exercicesParams.length !== 0}
@@ -239,10 +239,10 @@
 
       <!-- Affichage Partie Droite -->
       <div class="flex-1 overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-        <!-- Barre de boutons -->
+        <!-- Barre de boutons  -->
         <div
-          style={`width: calc(96vw - ${isMenuOpen ? sidebarWidth : 20}px);`}
-          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex flex-col justify-center items-center absolute top-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"}
+          style="--sidebarWidth:{sidebarWidth}; --isMenuOpen:{isMenuOpen ? 1 : 0}"
+          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex flex-col justify-center items-center md:absolute md:top-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"}
           id="barre-boutons"
         >
           <ButtonsDeck barWidthPercentage={80}>
@@ -405,7 +405,7 @@
         </div>
         <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
-          <div id="exercisesWrapper" class="flex flex-col justify-between h-full mt-28 xl:mt-14" bind:this={divExercices}>
+          <div id="exercisesWrapper" class="flex flex-col justify-between h-full mt-0 sm:mt-28 xl:mt-14" bind:this={divExercices}>
             <div class="flex-1">
               <div class="flex flex-col h-full md:mt-9 lg:mt-0">
                 {#each $exercicesParams as paramsExercice, i (paramsExercice)}
@@ -439,3 +439,16 @@
     </div>
   </div>
 </div>
+
+<style>
+  @media (min-width: 768px) {
+    #barre-boutons {
+      width: calc(96vw - (var(--isMenuOpen) * var(--sidebarWidth) * 1px + (1 - var(--isMenuOpen)) * 20px));
+    }
+  }
+  @media (max-width: 768px) {
+    #barre-boutons {
+      width: 90vw;
+    }
+  }
+</style>
