@@ -19,6 +19,7 @@
   import MoodleIcon from "./icons/MoodleIcon.svelte"
 
   let isNavBarVisible: boolean = true
+  let chipsListDisplayed: boolean = false
   let divExercices: HTMLDivElement
   $: isMenuOpen = $isSideMenuVisible
 
@@ -240,14 +241,17 @@
         <!-- Barre de boutons -->
         <div
           style={`width: calc(96vw - ${isMenuOpen ? sidebarWidth : 20}px);`}
-          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex justify-center absolute top-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"}
+          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex flex-col justify-center items-center absolute top-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"}
           id="barre-boutons"
         >
           <ButtonsDeck barWidthPercentage={80}>
             <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
-              <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte"><Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomMinus} /></div>
-              <div class="tooltip tooltip-bottom" data-tip="Augmenter la taille du texte"><Button title="" icon="bx-zoom-in" classDeclaration="flex items-center text-3xl" on:click={zoomPlus} /></div>
-
+              <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte">
+                <Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomMinus} />
+              </div>
+              <div class="tooltip tooltip-bottom" data-tip="Augmenter la taille du texte">
+                <Button title="" icon="bx-zoom-in" classDeclaration="flex items-center text-3xl" on:click={zoomPlus} />
+              </div>
               <button
                 type="button"
                 on:click={() => {
@@ -261,6 +265,16 @@
                   <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={7} />
                 </div>
               </button>
+              <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
+                <Button
+                  title=""
+                  icon="bx-transfer"
+                  classDeclaration="flex items-center text-3xl"
+                  on:click={() => {
+                    chipsListDisplayed = !chipsListDisplayed
+                  }}
+                />
+              </div>
               <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés"><Button title="" icon="bx-refresh" classDeclaration="flex items-center text-3xl" on:click={newDataForAll} /></div>
               <div class="tooltip tooltip-bottom" data-tip="Supprimer tous les exercices">
                 <Button
@@ -291,7 +305,6 @@
                       slot="icon_to_switch_on"
                       class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                     />
-
                     <i
                       slot="icon_to_switch_off"
                       class="bx bx-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -383,6 +396,9 @@
               </button>
             </div>
           </ButtonsDeck>
+
+          <!-- Barre des chips -->
+          <div class="{chipsListDisplayed ? 'flex flex-row justify-start items-center w-full h-24 bg-green-500' : 'hidden'} ">Test</div>
         </div>
         <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
