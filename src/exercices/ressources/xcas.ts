@@ -1,7 +1,7 @@
 import { xcas } from '../../modules/outils.js'
 import { mathaleaRenderDiv } from '../../lib/mathalea.js'
 import { createButon, createTextInput } from './components.js'
-
+export const uuid = '83573'
 class xCas {
   typeExercice: string
   titre: string

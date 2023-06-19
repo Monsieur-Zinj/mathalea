@@ -15,7 +15,7 @@
   <div style={isMenuOpen ? `width:${sidebarWidth}px;` : "width: 2.5rem;"}>
     <div class="{isMenuOpen ? 'flex' : 'hidden'} flex-col items-start {isMenuDeployed ? 'pb-6' : 'pb-2'} pt-2 md:pt-4 ml-0 md:mx-0">
       {#each referentiels as ref, i}
-        <SideMenuList {ref} moreThanOne={referentiels.length > 1} on:filters bind:isMenuDeployed />
+        <SideMenuList {ref} moreThanOne={referentiels.length > 1} on:filters />
       {/each}
     </div>
     <div

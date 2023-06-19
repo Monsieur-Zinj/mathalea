@@ -18,6 +18,9 @@
   import AmcIcon from "./icons/AmcIcon.svelte"
   import MoodleIcon from "./icons/MoodleIcon.svelte"
   import ChipsList from "./setup/ChipsList.svelte"
+  import rawRessourcesReferentiel from "../json/referentielRessources.json"
+  import { toMap } from "./utils/toMap"
+  import type { ReferentielForList } from "src/lib/types"
 
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
@@ -83,7 +86,8 @@
   let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
   // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
   $: sideMenuListReferentiel = { title: "Choix des exercices", content: [...arrayReferentielFiltre], type: "exercices" }
-
+  const ressourcesContent = Array.from(toMap({ ...rawRessourcesReferentiel }), ([key, obj]) => ({ key, obj }))
+  const ressourcesReferentiel: ReferentielForList = { title: "Choix des ressources", content: [...ressourcesContent], type: "ressources" }
   /**
    * Gestion des filtres
    */
@@ -220,7 +224,7 @@
             bind:isMenuOpen
             isMenuCloseable={$exercicesParams.length !== 0}
             bind:sidebarWidth
-            referentiels={[sideMenuListReferentiel]}
+            referentiels={[sideMenuListReferentiel, ressourcesReferentiel]}
             on:filters={(e) => {
               updateFilters(e.detail)
             }}

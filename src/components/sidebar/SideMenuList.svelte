@@ -52,6 +52,12 @@
         <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
       </li>
     {/each}
+  {:else if ref.type === "ressources"}
+    {#each ref.content as item, i}
+      <li>
+        {item.obj.get("titre")}
+      </li>
+    {/each}
   {:else}
     <li class="italic font-light">Référentiel de type inconnu...</li>
   {/if}
