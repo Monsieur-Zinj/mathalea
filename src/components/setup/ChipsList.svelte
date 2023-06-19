@@ -26,7 +26,10 @@
   })
 </script>
 
-<div class="flex flex-row p-0 items-center overflow-x-auto whitespace-nowrap space-x-2" id="chips-list">
+<div
+  class="w-full grid justify-items-stretch place-content-stretch grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-10 gap-2 p-0 items-center overflow-x-auto whitespace-nowrap"
+  id="chips-list"
+>
   {#each listeIdPourLesChips as id, indice (indice)}
     <ChipExo text={id} {indice} />
   {/each}

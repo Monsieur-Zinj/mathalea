@@ -270,7 +270,7 @@
                 <Button
                   title=""
                   icon="bx-transfer"
-                  classDeclaration="flex items-center text-3xl"
+                  classDeclaration="flex items-center text-3xl rotate-90"
                   on:click={() => {
                     chipsListDisplayed = !chipsListDisplayed
                   }}
