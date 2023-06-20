@@ -70,7 +70,8 @@ export const deviceType = () => {
  *
  * - S'ils existent, on sauvegarde leurs valeurs initiales dans le data-set (si besoin)
  *  et on applique le facteur d'échelle
- * - S'ils n'existent pas, on travaillent avec le style directement (`width` et `height` en pixels).
+ * - S'ils n'existent pas, on travaillent avec le style directement
+ * (`width` et `height` peuvent avoir des unités différentes).
  * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
  * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
  */
