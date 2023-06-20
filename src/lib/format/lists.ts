@@ -28,7 +28,7 @@ interface NestedList extends List<NestedList>{}
  * @returns {HTMLUListElement|HTMLOListElement|string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
  * @author sylvain
  */
-export function createList (list: NestedList) :HTMLUListElement|HTMLOListElement|string {
+export function createList (list: NestedList, shift: string = '') :HTMLUListElement|HTMLOListElement|string {
   let theList: HTMLUListElement|HTMLOListElement|string
   if (context.isHtml) {
     switch (list.style) {
@@ -106,27 +106,33 @@ export function createList (list: NestedList) :HTMLUListElement|HTMLOListElement
     }
     const lineStart:string = list.style === 'none' ? '' : '\t\\item '
     const lineEnd: string = list.style === 'none' ? '\\par\n' : '\n'
+    const lineBreak : string = shift.length === 0 ? '\n' : ''
     if (unorderedListTypes.includes(list.style)) {
-      openingTag = '\n\\begin{itemize}'
+      openingTag = lineBreak + shift + '\\begin{itemize}'
       if (label.length !== 0) {
         openingTag += '[label=' + label + ']' + lineEnd
       }
-      closingTag = '\\end{itemize}' + lineEnd
+      closingTag = shift + '\\end{itemize}' + lineEnd
     } else if (orderedListTypes.includes(list.style)) {
-      openingTag = '\n\\begin{enumerate}'
+      openingTag = lineBreak + shift + '\\begin{enumerate}'
       if (label.length !== 0) {
         openingTag += '[label=' + label + ']' + lineEnd
       }
-      closingTag = '\\end{enumerate}' + lineEnd
+      closingTag = shift + '\\end{enumerate}' + lineEnd
     }
     theList += openingTag
     for (const item of list.items) {
-      if (typeof item === 'string') { theList += lineStart + item + lineEnd } else {
+      if (typeof item === 'string') { theList += shift + lineStart + item + lineEnd } else {
         if (item.introduction) {
-          theList += lineStart + item.introduction + lineEnd
-          theList += createList(item)
+          theList += shift + lineStart + item.introduction + lineEnd
+          theList += createList(item, shift + '\t')
+        } else {
+          theList += shift + lineStart
+          theList += '\n' + createList(item, shift + '\t')
         }
+        // shift += '\t'
       }
+      // shift = shift.replace('\t', '')
     }
     theList += closingTag
   }

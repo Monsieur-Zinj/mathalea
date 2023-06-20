@@ -30,8 +30,16 @@ export default class NomExercice extends Exercice {
     const b = randint(1, 10)
     // this.question = 'Développer les expressions suivantes :'
     // const expressions = [`$A=(${a}x + ${b})^2$`, `$B=(${a}x - ${b})^2$`, `$C=(${a}x + ${b})(${a}x - ${b})$`]
+    const entreesNiveau3 = [
+      'test1', 'test2', 'test3', 'test4'
+    ]
+    const basePourNiveau3 = {
+      items: entreesNiveau3,
+      style: 'puces'
+    }
     const entreesNiveau2 = [
       'mon premier sous-point',
+      basePourNiveau3,
       'mon deuxième sous-point'
     ]
     const basePourNiveau2 = {
