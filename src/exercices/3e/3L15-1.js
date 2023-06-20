@@ -50,7 +50,7 @@ export default function ResoudreEquatioeX2EgalA () {
         case 1: a = randint(1, 20) // x²=a*a donc x=a ou -a.
           texte = `$x^2=${a * a}$`
           texteCorr = `$x^2=${a * a}$ équivaut à $x = \\sqrt{${a * a}}$ ou $x = -\\sqrt{${a * a}}$.<br>Soit $x = ${a}$ ou $x = -${a}$.<br>`
-          texteCorr += `Les solutions sont donc $${miseEnEvidence(a)}$ et $${miseEnEvidence('-' + a)}$.<br>`
+          texteCorr += `Les solutions de l'équation sont donc $${miseEnEvidence(a)}$ et $${miseEnEvidence('-' + a)}$.<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - ${a * a}=0$, c'est-à-dire $x^2 - ${a}^{2}=0$.<br>Soit $(x - ${a})(x + ${a})=0$ qui donne les deux solutions ci-dessus. `
           setReponse(this, i, [`${a};${-a}`, `${-a};${a}`])
           break
@@ -61,7 +61,7 @@ export default function ResoudreEquatioeX2EgalA () {
           a = ns * 1000 + ds // Pour avoir un marqueur de question unique (les doublons sont testés avec la variable a)
           texte = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$`
           texteCorr = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$ équivaut à $x = \\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$ ou $x = -\\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$.<br>Soit $x = \\dfrac{${ns}}{${ds}}$ ou $x = -\\dfrac{${ns}}{${ds}}$.<br>`
-          texteCorr += `Les solutions sont donc $${miseEnEvidence(`\\dfrac{${ns}}{${ds}}`)}$ et $${miseEnEvidence(`-\\dfrac{${ns}}{${ds}}`)}$.<br>`
+          texteCorr += `Les solutions de l'équation sont donc $${miseEnEvidence(`\\dfrac{${ns}}{${ds}}`)}$ et $${miseEnEvidence(`-\\dfrac{${ns}}{${ds}}`)}$.<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - \\dfrac{${ns * ns}}{${ds * ds}}=0$, c'est-à-dire $x^2 - (\\dfrac{${ns}}{${ds}})^{2}=0$.<br>Soit $(x - \\dfrac{${ns}}{${ds}})(x + \\dfrac{${ns}}{${ds}})=0$ qui donne les deux solutions ci-dessus. `
           setReponse(this, i, [`\\dfrac{${ns}}{${ds}};-\\dfrac{${ns}}{${ds}}`, `-\\dfrac{${ns}}{${ds}};\\dfrac{${ns}}{${ds}}`])
           break
@@ -69,7 +69,7 @@ export default function ResoudreEquatioeX2EgalA () {
         case 3: a = randint(2, 50, [4, 9, 16, 25, 36, 49]) // solution irrationnelles
           texte = `$x^2=${a}$`
           texteCorr = `$x^2=${a}$ équivaut à $x = \\sqrt{${a}}$ ou $x = -\\sqrt{${a}}$.<br>`
-          texteCorr += `Les solutions sont donc $${miseEnEvidence(`\\sqrt{${a}}`)}$ et $${miseEnEvidence(`-\\sqrt{${a}}`)}$.<br>`
+          texteCorr += `Les solutions de l'équation sont donc $${miseEnEvidence(`\\sqrt{${a}}`)}$ et $${miseEnEvidence(`-\\sqrt{${a}}`)}$.<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - ${a}=0$, c'est-à-dire $x^2 - (\\sqrt{${a}})^{2}=0$.<br>Soit $(x - \\sqrt{${a}})(x + \\sqrt{${a}})=0$ qui donne les deux solutions ci-dessus. `
           setReponse(this, i, [`\\sqrt{${a}};-\\sqrt{${a}}`, `-\\sqrt{${a}};\\sqrt{${a}}`])
           break

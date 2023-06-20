@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, texFraction, texFractionReduite, randint, pgcd, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, texFraction, texFractionReduite, randint, pgcd, choice, miseEnEvidence } from '../../modules/outils.js'
 export const titre = 'Résoudre une équation du second degré se ramenant au premier degré'
 
 /**
@@ -45,7 +45,8 @@ export default function ExerciceEquations () {
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      // switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch ('bcx2+a=bx(cx+d)') {
         case 'ax2+bx':
           a = randint(-9, 9, 0)
           b = randint(-9, 9, 0)
@@ -75,11 +76,12 @@ export default function ExerciceEquations () {
           texteCorr += '<br>'
           texteCorr += `$${rienSi1(a)}x = ${-b} \\quad \\text{ou} \\quad ${rienSi1(a)}x = ${b}$ `
           texteCorr += '<br>'
-          if (pgcd(a, b) !== 1) {
+          if (pgcd(a, b) === 1) {
             texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `
           } else {
             texteCorr += `$x = ${texFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}=${texFractionReduite(b, a)}$ `
           }
+          texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(texFractionReduite(-b, a))}$ et $${miseEnEvidence(texFractionReduite(b, a))}$.`
           break
         case 'ax2=b2':
           a = randint(1, 10)
@@ -100,6 +102,7 @@ export default function ExerciceEquations () {
           } else {
             texteCorr += `$x = ${texFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}=${texFractionReduite(b, a)}$ `
           }
+          texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(texFractionReduite(-b, a))}$ et $${miseEnEvidence(texFractionReduite(b, a))}$.`
           break
         case 'bcx2+a=bx(cx+d)':
           a = randint(1, 10)
@@ -113,11 +116,10 @@ export default function ExerciceEquations () {
             texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(d * b)}x $`
             texteCorr += '<br>'
             texteCorr += `$ ${a} = ${rienSi1(d * b)}x $`
-            texteCorr += '<br>'
-            texteCorr += `$ ${texFraction(a, d * b)} = x $`
+            if (d * b !== 1) texteCorr += `<br>$ ${texFraction(a, d * b)} = x $`
             if ((a < 0 && d * b < 0) || pgcd(a, d * b) !== 1) {
               texteCorr += '<br>'
-              texteCorr += ` $ x = ${texFractionReduite(a, d * b)} $`
+              texteCorr += ` $ ${texFractionReduite(a, d * b)} = x $`
             }
           } else {
             texte = `$ ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} $`
@@ -126,30 +128,31 @@ export default function ExerciceEquations () {
             texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(b * d)}x = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)}$`
             texteCorr += '<br>'
             texteCorr += `$ ${rienSi1(b * d)}x = ${a} $`
-            texteCorr += '<br>'
-            texteCorr += `$ x = ${texFraction(a, b * d)}$`
+            if (d * b !== 1) texteCorr += `<br>$ x = ${texFraction(a, d * b)}$`
             if ((a < 0 && b * d < 0) || pgcd(a, b * d) !== 1) {
               texteCorr += '<br>'
               texteCorr += ` $ x = ${texFractionReduite(a, b * d)} $`
             }
           }
-
+          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(texFractionReduite(a, b * d))}$.`
           break
         case '(ax+b)2=0':
-          a = randint(1, 10)
-          b = randint(1, 10)
+          a = randint(-5, 5, [0])
+          b = randint(-5, 5, [0])
+          // a = randint(1, 5)
+          // b = randint(1, 5)
           texte = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})^2 = 0 $`
           texteCorr = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})^2 = 0 $`
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a)}x ${ecritureAlgebrique(b)} = 0$`
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a)}x = ${-b} $`
-          texteCorr += '<br>'
-          texteCorr += `$ x = ${texFraction(-b, a)}$`
+          if (a !== 1) texteCorr += `<br>$ x = ${texFraction(-b, a)}$`
           if ((-b < 0 && a < 0) || pgcd(a, b) !== 1) {
             texteCorr += '<br>'
             texteCorr += ` $ x = ${texFractionReduite(-b, a)} $`
           }
+          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(texFractionReduite(-b, a))}$.`
           break
         case '(ax+b)(cx+d)=acx2':
           a = randint(1, 5)
@@ -172,7 +175,7 @@ export default function ExerciceEquations () {
             texteCorr += '<br>'
             texteCorr += `$ x = ${texFractionReduite(-b * d, a * d + b * c)}$`
           }
-
+          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(texFractionReduite(-b * d, a * d + b * c))}$.`
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -203,5 +206,6 @@ function ax2plusbx (a, b) {
     texteCorr += ` = ${texFractionReduite(-b, a)} `
   }
   texteCorr += '$'
+  texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(0)}$ et $${miseEnEvidence(texFractionReduite(-b, a))}$.`
   return [texte, texteCorr]
 }
