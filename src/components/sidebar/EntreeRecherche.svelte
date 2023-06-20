@@ -2,7 +2,27 @@
   import { exercicesParams } from "../store"
   import { isRecent } from "../utils/handleDate"
 
-  export let exercice
+  import renderMathInElement from "katex/dist/contrib/auto-render.js"
+
+  export let exercice: Map<string, string | Map>
+
+  let nomDeExercice: HTMLDivElement
+  $: {
+    if (nomDeExercice && nomDeExercice.outerText.includes("$")) {
+      renderMathInElement(nomDeExercice, {
+        delimiters: [
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
+        ],
+        // Les accolades permettent d'avoir une formule non coupée
+        preProcess: (chaine: string) => "{" + chaine.replaceAll(String.fromCharCode(160), "\\,") + "}",
+        throwOnError: true,
+        errorColor: "#CC0000",
+        strict: "warn",
+        trust: false,
+      })
+    }
+  }
 
   /*--------------------------------------------------------------
     Gestions des exercices via la liste
