@@ -440,7 +440,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     */
     // texte += '\\\\'
     if (hectare) {
-      for (let i = first; i < first + 3; i++) {
+      for (let i = first; i < first + 2; i++) {
         texte += '\\begin{array}{c c}'
         texte += '\\hspace*{0.4cm} & \\hspace*{0.4cm} \\\\'
         texte += '\\end{array}&'
@@ -455,7 +455,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
       texte += '\\hspace*{0.4cm} & ca\\\\'
       texte += '\\end{array}&'
 
-      for (let i = first + 6; i < end; i++) {
+      for (let i = first + 4; i < end; i++) {
         texte += '\\begin{array}{c c}'
         texte += '\\hspace*{0.4cm} & \\hspace*{0.4cm} \\\\'
         texte += '\\end{array}'
