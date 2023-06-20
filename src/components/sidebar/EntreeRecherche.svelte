@@ -96,7 +96,7 @@
       addToList(exercice)
     }}
   >
-    <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1">
+    <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1" bind:this={nomDeExercice}>
       {#if exercice.lieu}
         <span class="font-bold">{exercice.typeExercice.toUpperCase()} {exercice.mois || ""} {exercice.annee} - {exercice.lieu} - {exercice.numeroInitial}</span>
         <div>
