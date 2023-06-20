@@ -62,3 +62,34 @@ export const deviceType = () => {
   }
   return 'desktop'
 }
+
+export const resizeTags = (tags: HTMLOrSVGElement[], factor:number = 1) => {
+  for (const tag of tags) {
+    const widthAttributeExists: boolean = tag.hasAttribute('width')
+    const heightAttributeExists: boolean = tag.hasAttribute('height')
+    if (tag.hasAttribute('data-width') === false) {
+      let originalWidth: number
+      if (widthAttributeExists) {
+        originalWidth = tag.getAttribute('width')
+      } else {
+        originalWidth = remToPixels(parseFloat(tag.style.width.replace('rem', '')))
+      }
+      tag.dataset.width = originalWidth
+    }
+    if (tag.hasAttribute('data-height') === false) {
+      let originalHeight:number
+      if (heightAttributeExists) {
+        originalHeight = tag.getAttribute('height')
+      } else {
+        originalHeight = remToPixels(parseFloat(tag.style.height.replace('rem', '')))
+      }
+      tag.dataset.height = originalHeight
+    }
+    const w = tag.getAttribute('data-width') * factor
+    const h = tag.getAttribute('data-height') * factor
+    if (widthAttributeExists && heightAttributeExists) {
+      tag.setAttribute('width', w)
+      tag.setAttribute('height', h)
+    } else { tag.setAttribute('style', 'width:' + w + 'px; height:' + h + 'px;') }
+  }
+}
