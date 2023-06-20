@@ -1,10 +1,6 @@
 <script lang="ts">
   import { exercicesParams } from "../store"
-  import { onMount } from "svelte"
   export let ressource
-  onMount(() => {
-    console.log(ressource)
-  })
 
   /*--------------------------------------------------------------
     Gestions des ressources via la liste
@@ -30,12 +26,12 @@
   function addToList() {
     console.log("Ressource cliquée :")
     console.log(ressource)
-    // const newRessource = {
-    //   url: ressource.url,
-    //   id: ressource.id,
-    //   uuid: ressource.uuid,
-    // }
-    // exercicesParams.update((list) => [...list, newRessource])
+    const newRessource = {
+      url: ressource.get("url"),
+      id: ressource.get("id"),
+      uuid: ressource.get("uuid"),
+    }
+    exercicesParams.update((list) => [...list, newRessource])
   }
   /**
    * Retirer la ressource de la liste (si plusieurs occurences
