@@ -26,39 +26,29 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    const fooList = {
-      items: [
-        'bonjour',
-        'le',
-        'monde'
-      ],
-      style: 'fleches',
-      classOptions: 'space-y-2 pt-2',
-      introduction: "Où l'on dit bonjour :"
-    }
-    const bazList = {
-      items: [
-        'inner foo',
-        'inner bar',
-        fooList,
-        'inner baz'
-      ],
-      style: 'puces',
-      classOptions: 'space-y-2 pt-2',
-      introduction: 'My inner list :'
-    }
-    const mesEntrees = [
-      'foo',
-      fooList,
-      'bar',
-      'baz',
-      bazList,
-      'qux'
-    ]
     const a = randint(1, 10)
     const b = randint(1, 10)
-    this.question = `$${a} + ${b} = ?$`
-    const maListe = context.isHtml ? createList({ items: mesEntrees, style: 'roman', classOptions: 'space-y-4 pt-4' }).outerHTML : createList({ items: mesEntrees, style: 'roman', classOptions: 'space-y-4 pt-4' })
+    // this.question = 'Développer les expressions suivantes :'
+    // const expressions = [`$A=(${a}x + ${b})^2$`, `$B=(${a}x - ${b})^2$`, `$C=(${a}x + ${b})(${a}x - ${b})$`]
+    const entreesNiveau2 = [
+      'mon premier sous-point',
+      'mon deuxième sous-point'
+    ]
+    const basePourNiveau2 = {
+      items: entreesNiveau2,
+      style: 'alpha',
+      classOptions: 'space-y-2 pt-2',
+      introduction: 'Une sous-liste'
+    }
+    const entrees = [
+      'mon premier point',
+      'mon deuxième point',
+      basePourNiveau2,
+      'mon troisième point'
+    ]
+    const basePourListe = { items: entrees, style: 'nombres', classOptions: 'space-y-4 pt-4' }
+    const maListe = context.isHtml ? createList(basePourListe).outerHTML : createList(basePourListe)
+    this.question = 'Voici des points importants :'
     this.question += maListe
     this.correction = `$${a} + ${b} = ${a + b}$`
     this.reponse = a + b
