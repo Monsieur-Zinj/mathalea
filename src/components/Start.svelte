@@ -344,11 +344,13 @@
       params.z = zoom.toString()
       return params
     })
+    // figures Scratch
     const scratchDivs = document.getElementsByClassName("scratchblocks")
     for (const scratchDiv of scratchDivs) {
       const svgDivs = scratchDiv.getElementsByTagName("svg")
       resizeTags(svgDivs, $globalOptions.z)
     }
+    // QCM
     const checkboxes = document.querySelectorAll("[id^=checkEx")
     resizeTags(checkboxes, $globalOptions.z)
   }
