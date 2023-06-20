@@ -178,7 +178,7 @@ export function propositionsQcm (exercice, i) {
     texte = '<div>'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
       texte += `<div class="ex${exercice.numeroExercice} my-3 ${vertical ? '' : 'inline'}">
-      <input type="checkbox" tabindex="0" style="height: 10px; width: 1rem;"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
+      <input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div>
       </div>`
