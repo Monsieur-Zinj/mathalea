@@ -3,18 +3,21 @@
       "id": "video",
       "uuid": "62a0b",
       "titre": "Vidéo",
-      "url": "ressources/video.ts"
+      "url": "ressources/video.ts",
+      "tags": {}
     },
     "iframe": {
       "id": "iframe",
       "uuid": "62195",
       "titre": "Iframe",
-      "url": "ressources/iframe.ts"
+      "url": "ressources/iframe.ts",
+      "tags": {}
     },
     "xcas": {
       "id": "xcas",
       "uuid": "83573",
       "titre": "XCas",
-      "url": "ressources/xcas.ts"
+      "url": "ressources/xcas.ts",
+      "tags": {}
     }
   }

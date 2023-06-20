@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { InterfaceParams } from "src/lib/types";
+  import type { InterfaceParams } from "src/lib/types"
   import { exercicesParams, globalOptions } from "../store"
   import { isRecent } from "../utils/handleDate"
 
@@ -55,10 +55,10 @@
       url: exercice.get("url"),
       id: exercice.get("id"),
       uuid: exercice.get("uuid"),
-      interactif: '0'
+      interactif: "0",
     } as InterfaceParams
-    if ($globalOptions.recorder === 'capytale') {
-      newExercise.interactif = '1'
+    if ($globalOptions.recorder === "capytale") {
+      newExercise.interactif = "1"
     }
     exercicesParams.update((list) => [...list, newExercise])
   }

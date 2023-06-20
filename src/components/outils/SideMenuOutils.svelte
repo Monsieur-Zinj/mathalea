@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type { ReferentielForList, InterfaceReferentiel } from "src/lib/types"
-  import EntreeListeOutils from "./EntreeListeOutils.svelte"
+  import type { ReferentielForList } from "src/lib/types"
   import SideMenuList from "./SideMenuListOutils.svelte"
   export let referentiels: ReferentielForList[] = []
   export let isMenuOpen: boolean = true

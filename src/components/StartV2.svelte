@@ -18,7 +18,7 @@
   import AmcIcon from "./icons/AmcIcon.svelte"
   import MoodleIcon from "./icons/MoodleIcon.svelte"
   import ChipsList from "./setup/ChipsList.svelte"
-  import rawRessourcesReferentiel from "../json/referentielRessources.json"
+  import referentielRessources from "../json/referentielRessources.json"
   import { toMap } from "./utils/toMap"
   import type { ReferentielForList } from "src/lib/types"
 
@@ -85,9 +85,18 @@
   let itemsSelected: string[] = []
   let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
   // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
-  $: sideMenuListReferentiel = { title: "Choix des exercices", content: [...arrayReferentielFiltre], type: "exercices" }
-  const ressourcesContent = Array.from(toMap({ ...rawRessourcesReferentiel }), ([key, obj]) => ({ key, obj }))
-  const ressourcesReferentiel: ReferentielForList = { title: "Choix des ressources", content: [...ressourcesContent], type: "ressources" }
+  $: exercisesReferentielForSideMenu = { title: "Choix des exercices", content: [...arrayReferentielFiltre], type: "exercices" }
+  // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
+  // let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
+  // for (const [key, value] of Object.entries(referentielOutils)) {
+  //   arrayReferentiel.content.push(value)
+  // }
+  const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
+  const ressourcesReferentielForSideMenu: ReferentielForList = { title: "Choix des ressources", content: [...ressourcesReferentielArray], type: "ressources" }
+  // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
+  //   ressourcesReferentiel.content.push(value)
+  // }
+
   /**
    * Gestion des filtres
    */
@@ -224,7 +233,7 @@
             bind:isMenuOpen
             isMenuCloseable={$exercicesParams.length !== 0}
             bind:sidebarWidth
-            referentiels={[sideMenuListReferentiel, ressourcesReferentiel]}
+            referentiels={[exercisesReferentielForSideMenu, ressourcesReferentielForSideMenu]}
             on:filters={(e) => {
               updateFilters(e.detail)
             }}
