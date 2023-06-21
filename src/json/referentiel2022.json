@@ -5128,13 +5128,6 @@
           "interactifType": "custom"
         }
       },
-      "6C10-8": {
-        "id": "6C10-8",
-        "uuid": "fe6e0",
-        "url": "6e/6C10-8.js",
-        "titre": "Message secret à décoder avec les tables de multiplication",
-        "tags": {}
-      },
       "6C10": {
         "id": "6C10",
         "uuid": "cfa6a",
@@ -6091,7 +6084,7 @@
           "interactif": true,
           "interactifType": "qcm",
           "amc": true,
-          "amcType": "qcmMono"
+          "amcType": "qcmMult"
         }
       },
       "6G43": {
@@ -11248,7 +11241,10 @@
         "url": "2e/2G24-4.js",
         "titre": "Calculer les coordonnées du produit d'un vecteur par un réel",
         "datePublication": "28/05/2023",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "2G3": {
