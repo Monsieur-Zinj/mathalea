@@ -12,6 +12,7 @@
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   import type { MathfieldElement } from "mathlive"
   import { sendToCapytaleSaveStudentAssignment } from "../../lib/handleCapytale"
+  import Button from "../forms/Button.svelte"
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -306,7 +307,17 @@
             </button>
           </div>
         {/if}
-        <button
+        <div class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex ml-2" : "hidden"}>
+          <Button
+            title="Nouvel Énoncé"
+            icon=""
+            classDeclaration="py-[2px] px-2 text-[0.7rem] rounded-lg"
+            on:click={() => {
+              newData()
+            }}
+          />
+        </div>
+        <!-- <button
           class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "ml-2 tooltip tooltip-right " : "hidden"}
           data-tip="Nouvel énoncé"
           type="button"
@@ -315,7 +326,7 @@
           }}
         >
           <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
-        </button>
+        </button> -->
         <button
           class={$globalOptions.isInteractiveFree && exercice.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
