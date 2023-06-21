@@ -5,6 +5,7 @@
   export let classDeclaration: string = "p-2 rounded-xl"
   export let icon: string = ""
   export let idLabel: string = getUniqueStringBasedOnTimeStamp("btn-")
+  export let inverted: boolean = false
 </script>
 
 <!-- 
@@ -34,7 +35,7 @@
   <button
     type="button"
     id={idLabel}
-    class="{classDeclaration} text-coopmaths-action  dark:text-coopmathsdark-action 
+    class="{classDeclaration} text-coopmaths-action dark:text-coopmathsdark-action
       {isDisabled ? ' text-opacity-10 dark:text-opacity-10' : 'hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
     disabled={isDisabled}
     on:click
@@ -45,8 +46,10 @@
   <button
     type="button"
     id={idLabel}
-    class=" {classDeclaration} text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action dark:bg-coopmathsdark-action
-      {isDisabled ? ' dark:bg-coopmathsdark-action bg-opacity-10 dark:bg-opacity-10' : ' hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest'}"
+    class=" {classDeclaration} {inverted
+      ? 'text-coopmaths-action dark:text-coopmathsdark-action bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border border-coopmaths-action hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:text-coopmaths-canvas dark:hover:text-coopmathsdark-canvas'
+      : 'text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action dark:bg-coopmathsdark-action hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest'}
+      {isDisabled ? ' dark:bg-coopmathsdark-action bg-opacity-10 dark:bg-opacity-10' : ' '}"
     disabled={isDisabled}
     on:click
   >

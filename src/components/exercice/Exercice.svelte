@@ -42,12 +42,9 @@
       }
     }
   })
-
 </script>
 
-<div class="z-0 flex-1">
-  <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} />
-</div>
+<svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} />
 
 <style>
 </style>

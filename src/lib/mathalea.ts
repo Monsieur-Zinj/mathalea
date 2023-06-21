@@ -291,6 +291,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let isSolutionAccessible = true
   let isInteractiveFree = true
   let oneShot = false
+  let twoColumns = false
   let url: URL
   try {
     url = new URL(urlString)
@@ -384,15 +385,16 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   }
   /**
    * es permet de résumer les réglages de la vue élève
-   * Il est de la forme 21011
-   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot
+   * Il est de la forme 210110
+   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns
    */
-  if (es && es.length === 5) {
+  if (es && es.length === 6) {
     presMode = presModeId[parseInt(es.charAt(0))]
     setInteractive = es.charAt(1)
     isSolutionAccessible = es.charAt(2) === '1'
     isInteractiveFree = es.charAt(3) === '1'
     oneShot = es.charAt(4) === '1'
+    twoColumns = es.charAt(5) === '1'
   }
   return {
     v,
@@ -409,6 +411,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     isSolutionAccessible,
     isInteractiveFree,
     oneShot,
+    twoColumns,
     recorder,
     done,
     iframe,

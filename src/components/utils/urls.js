@@ -15,12 +15,13 @@ export function buildUrlAddendumForEsParam (needForFullURL = true) {
     ['une_question_par_page', 3]
   ])
   let addendum = needForFullURL ? '&v=eleve&title=' + options.title : ''
-  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot
+  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns
   addendum += '&es=' + presentationMode.get(options.presMode)
   addendum += options.setInteractive
   addendum += options.isSolutionAccessible ? '1' : '0'
   addendum += options.isInteractiveFree ? '1' : '0'
   addendum += options.oneShot ? '1' : '0'
+  addendum += options.twoColumns ? '1' : '0'
   return addendum
 }
 
