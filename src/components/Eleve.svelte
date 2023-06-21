@@ -336,7 +336,7 @@
       </div>
     </div>
     <!-- Exercices -->
-    <div class="px-8">
+    <div class="px-2 lg:px-8">
       {#if $globalOptions.presMode === "un_exo_par_page"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
