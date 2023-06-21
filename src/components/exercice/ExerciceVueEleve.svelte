@@ -283,8 +283,61 @@
   <div class="flex flex-col-reverse lg:flex-row">
     <div class="flex flex-col justify-start items-start" id="exercice{indiceExercice}">
       <div class="flex flex-row justify-start items-center mt-2">
+        <div class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex ml-2" : "hidden"}>
+          <Button
+            title="Nouvel Énoncé"
+            icon="bx-refresh"
+            classDeclaration="py-[2px] px-2 text-[0.7rem]"
+            inverted={true}
+            on:click={() => {
+              newData()
+            }}
+          />
+        </div>
+        <!-- <button
+          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex ml-2 tooltip tooltip-right " : "hidden"}
+          data-tip="Nouvel énoncé"
+          type="button"
+          on:click={() => {
+            newData()
+          }}
+        >
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
+        </button> -->
+
+        <!-- {#if $globalOptions.isSolutionAccessible && !isInteractif} -->
+        <!-- <div class="ml-2">
+            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} textSize="xs" buttonSize="xs" bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
+          </div> -->
+        <div class={$globalOptions.isSolutionAccessible && !isInteractif ? "flex ml-2" : "hidden"}>
+          <Button
+            title={isCorrectionVisible ? "Masquer la correction" : "Voir la correction"}
+            icon={isCorrectionVisible ? "bx-hide" : "bx-show"}
+            classDeclaration="py-[2px] px-2 text-[0.7rem] w-36"
+            inverted={true}
+            on:click={() => {
+              isCorrectionVisible = !isCorrectionVisible
+              adjustMathalea2dFiguresWidth()
+            }}
+          />
+        </div>
+        <!-- {/if} -->
+
+        <button
+          class={$globalOptions.isInteractiveFree && exercice.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
+          data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
+          type="button"
+          on:click={() => {
+            isInteractif = !isInteractif
+            exercice.interactif = isInteractif
+            $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
+            updateDisplay()
+          }}
+        >
+          <InteractivityIcon isOnStateActive={isInteractif} size={4} />
+        </button>
         {#if $globalOptions.recorder === undefined}
-          <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs pl-0 md:pl-2">
+          <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs">
             <button
               class={columnsCount > 1 ? "visible" : "invisible"}
               type="button"
@@ -305,45 +358,6 @@
             >
               <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus" />
             </button>
-          </div>
-        {/if}
-        <div class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex ml-2" : "hidden"}>
-          <Button
-            title="Nouvel Énoncé"
-            icon=""
-            classDeclaration="py-[2px] px-2 text-[0.7rem] rounded-lg"
-            on:click={() => {
-              newData()
-            }}
-          />
-        </div>
-        <!-- <button
-          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex ml-2 tooltip tooltip-right " : "hidden"}
-          data-tip="Nouvel énoncé"
-          type="button"
-          on:click={() => {
-            newData()
-          }}
-        >
-          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
-        </button> -->
-        <button
-          class={$globalOptions.isInteractiveFree && exercice.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
-          data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
-          type="button"
-          on:click={() => {
-            isInteractif = !isInteractif
-            exercice.interactif = isInteractif
-            $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
-            updateDisplay()
-          }}
-        >
-          <InteractivityIcon isOnStateActive={isInteractif} size={4} />
-        </button>
-
-        {#if $globalOptions.isSolutionAccessible && !isInteractif}
-          <div class="ml-2">
-            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} textSize="xs" buttonSize="xs" bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
           </div>
         {/if}
       </div>
