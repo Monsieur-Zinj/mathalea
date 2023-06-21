@@ -73,7 +73,7 @@ export default function CompleterScriptDiviseurs () {
       max: 10,
       defaut: 11,
       melange: 11,
-      nbQuestions: 1,
+      nbQuestions: 999,
       saisie: this.sup
     })
 
