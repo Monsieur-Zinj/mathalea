@@ -53,8 +53,7 @@ export default function ExerciceEquations () {
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, indiceQ = 0, fracReponse, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-      switch ('ax2=b2') {
+      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'ax2+bx':
           a = this.sup2 ? randint(2, 9) : randint(-9, 9, [0, -1, 1]) // Le cas 1 (ou -1) est traité ensuite
           b = this.sup2 ? randint(2, 9) : randint(-9, 9, [0, -1, 1])
