@@ -366,13 +366,17 @@
           </div>
         {/each}
       {:else if $globalOptions.presMode === "liste_exos"}
-        {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-          <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
-        {/each}
+        <div id="exercises-list" class="p-4 columns-1 {$globalOptions.twoColumns ? 'md:columns-2' : ''}">
+          {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+            <div class="break-inside-avoid-column">
+              <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
+            </div>
+          {/each}
+        </div>
       {:else if $globalOptions.presMode === "liste_questions"}
-        <div class={$globalOptions.title.length === 0 ? "mt-6" : ""}>
+        <div class="columns-1 {$globalOptions.title.length === 0 ? 'mt-6' : ''} {$globalOptions.twoColumns ? 'md:columns-2' : ''}">
           {#each questions as question, k (question)}
-            <div class="pb-4 flex flex-col items-start justify-start relative" id={`exercice${indiceExercice[k]}Q${k}`}>
+            <div class="pb-4 flex flex-col items-start justify-start relative break-inside-avoid-column" id={`exercice${indiceExercice[k]}Q${k}`}>
               <div class="flex flex-row justify-start items-center">
                 <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
                 {#if exercices[indiceExercice[k]].interactif}
@@ -381,7 +385,7 @@
                   <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} classAddenda="ml-4" on:click={() => switchCorrectionVisible(k)} />
                 {/if}
               </div>
-              <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
+              <div class="container grid grid-cols-1 {$globalOptions.twoColumns ? '' : 'lg:grid-cols-2'} gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
                 <div class="flex flex-col my-2 py-2">
                   <div class="text-coopmaths-corpus pl-2 pb-2">
                     {@html consignes[k]}
