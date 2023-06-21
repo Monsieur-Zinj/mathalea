@@ -318,7 +318,7 @@
           />
         </div>
         <!-- <button
-          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "ml-2 tooltip tooltip-right " : "hidden"}
+          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex ml-2 tooltip tooltip-right " : "hidden"}
           data-tip="Nouvel énoncé"
           type="button"
           on:click={() => {
