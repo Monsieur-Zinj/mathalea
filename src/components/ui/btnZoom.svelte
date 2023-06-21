@@ -1,6 +1,7 @@
 <script lang="ts">
   import { mathaleaUpdateUrlFromExercicesParams } from "../../lib/mathalea"
   import { exercicesParams, globalOptions } from "../store"
+  import { resizeTags } from "../utils/measures"
 
   export let size: "xs" | "sm" | "md" | "lg" | "bx-sm md:bx-md" = "sm"
   export let isBorderTransparent: boolean = false

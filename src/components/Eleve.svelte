@@ -507,5 +507,7 @@
       {/if}
     </div>
   </div>
-  <Footer2 />
+  <div class="flex justify-center w-full">
+    <Footer2 />
+  </div>
 </section>
