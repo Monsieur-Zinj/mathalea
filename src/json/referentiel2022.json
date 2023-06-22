@@ -6091,7 +6091,7 @@
           "interactif": true,
           "interactifType": "qcm",
           "amc": true,
-          "amcType": "qcmMono"
+          "amcType": "qcmMult"
         }
       },
       "6G43": {
@@ -11248,7 +11248,10 @@
         "url": "2e/2G24-4.js",
         "titre": "Calculer les coordonnées du produit d'un vecteur par un réel",
         "datePublication": "28/05/2023",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "2G3": {

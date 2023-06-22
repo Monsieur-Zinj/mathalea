@@ -1,7 +1,6 @@
 import { exercicesParams, globalOptions } from '../../components/store'
 import { get } from 'svelte/store'
 import { createButon, createIButton, createTextInput } from './components'
-export const uuid = '62a0b'
 
 class ressourceVideo {
   typeExercice: string
