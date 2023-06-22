@@ -106,7 +106,7 @@ export default function ÉcrirePetitsNombresEntiers () {
       min: 0,
       max: 5,
       defaut: randint(0, 5),
-      nbQuestions: 1,
+      nbQuestions: 999,
       saisie: this.sup2,
       shuffle: false
     })

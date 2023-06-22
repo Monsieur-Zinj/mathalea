@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
 import { randint } from '../../modules/outils.js'
+<<<<<<< HEAD
 import { createList } from '../../lib/format/lists.js'
+=======
+import { createList } from '../../lib/format/lists.ts'
+import { context } from '../../modules/context.js'
+>>>>>>> main
 export const titre = 'Somme de deux entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,20 +30,38 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    const mesEntrees = [
-      'foo',
-      'bar',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est est, porttitor quis ornare non, iaculis ut dolor. Vestibulum ipsum neque, varius ut lorem quis, posuere lobortis quam.',
-      'boz'
-    ]
-    const listTypes = ['none', 'puces', 'carres', 'qcm', 'fleches', 'nombres', 'alpha', 'Alpha', 'roman', 'Roman']
     const a = randint(1, 10)
     const b = randint(1, 10)
-    this.question = `$${a} + ${b} = ?$`
-    for (const type of listTypes) {
-      const maListe = createList(mesEntrees, type, 'space-y-4')
-      this.question += maListe
+    // this.question = 'Développer les expressions suivantes :'
+    // const expressions = [`$A=(${a}x + ${b})^2$`, `$B=(${a}x - ${b})^2$`, `$C=(${a}x + ${b})(${a}x - ${b})$`]
+    const entreesNiveau3 = [
+      'test1', 'test2', 'test3', 'test4'
+    ]
+    const basePourNiveau3 = {
+      items: entreesNiveau3,
+      style: 'puces'
     }
+    const entreesNiveau2 = [
+      'mon premier sous-point',
+      basePourNiveau3,
+      'mon deuxième sous-point'
+    ]
+    const basePourNiveau2 = {
+      items: entreesNiveau2,
+      style: 'alpha',
+      classOptions: 'space-y-2 pt-2',
+      introduction: 'Une sous-liste'
+    }
+    const entrees = [
+      'mon premier point',
+      'mon deuxième point',
+      basePourNiveau2,
+      'mon troisième point'
+    ]
+    const basePourListe = { items: entrees, style: 'nombres', classOptions: 'space-y-4 pt-4' }
+    const maListe = context.isHtml ? createList(basePourListe).outerHTML : createList(basePourListe)
+    this.question = 'Voici des points importants :'
+    this.question += maListe
     this.correction = `$${a} + ${b} = ${a + b}$`
     this.reponse = a + b
   }

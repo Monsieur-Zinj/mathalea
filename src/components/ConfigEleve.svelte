@@ -105,6 +105,13 @@
               { label: "Une page par question", value: "une_question_par_page" },
             ]}
           />
+          <div class="pl-4 pt-2">
+            <ButtonToggle
+              isDisabled={$globalOptions.presMode === "un_exo_par_page" || $globalOptions.presMode === "une_question_par_page"}
+              titles={["Texte sur deux colonnes", "Texte sur une colonne"]}
+              bind:value={$globalOptions.twoColumns}
+            />
+          </div>
         </div>
         <div class="pb-2">
           <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>

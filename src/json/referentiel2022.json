@@ -5128,13 +5128,6 @@
           "interactifType": "custom"
         }
       },
-      "6C10-8": {
-        "id": "6C10-8",
-        "uuid": "fe6e0",
-        "url": "6e/6C10-8.js",
-        "titre": "Message secret à décoder avec les tables de multiplication",
-        "tags": {}
-      },
       "6C10": {
         "id": "6C10",
         "uuid": "cfa6a",
