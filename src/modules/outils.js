@@ -3508,7 +3508,6 @@ export function obtenirListeNombresPremiers (n = 300) {
  * @author Rémi Angot
  */
 export function decompositionFacteursPremiers (n) {
-  console.log('liste des facteurs premiers pour -72 : ', obtenirListeFacteursPremiers(-72))
   let decomposition = ''
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
@@ -3524,7 +3523,7 @@ export function decompositionFacteursPremiers (n) {
  * @param {boolean} inférieur si true, commence la recherche à 2 en croissant sinon commence à n+1
  * @returns {number}
  */
-export function premierAvec (n, listeAEviter, inférieur = true) {
+export function premierAvec (n, listeAEviter = [], inférieur = true) {
   if (n < 2) throw Error(`Impossible de trouver un nombre premier avec ${n}`)
   let candidat = inferieur ? 2 : n + 1
   do {

@@ -21,7 +21,6 @@ type List<T> = {
   introduction?: string,
 }
 interface NestedList extends List<NestedList>{}
-
 /**
  * Contruit une liste formattée suivant un style à partir d'un tableau de chaînes de caractères comme entrées.
  * @param {NestedList} list Objet décrivant la liste
@@ -54,11 +53,13 @@ export function createList (list: NestedList, shift: string = '') :HTMLUListElem
 
     for (const item of list.items) {
       const li: HTMLLIElement = document.createElement('li')
-      if (typeof item === 'string') { li.appendChild(document.createTextNode(item)) } else {
+      if (typeof item === 'string') {
+        li.appendChild(document.createTextNode(item))
+      } else {
         if (item.introduction) {
           li.appendChild(document.createTextNode(item.introduction))
         }
-        li.appendChild(createList(item))
+        li.appendChild(createList(item) as HTMLUListElement|HTMLOListElement)
       }
       theList.appendChild(li)
     }
