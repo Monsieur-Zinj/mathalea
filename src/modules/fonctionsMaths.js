@@ -1,4 +1,4 @@
-import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max, polynomialRoot, round, acos, abs } from 'mathjs'
+import { number, add, unequal, largerEq, fraction, equal, multiply, inv, max, polynomialRoot, round, acos, abs } from 'mathjs'
 import FractionEtendue from './FractionEtendue.js'
 import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
@@ -194,127 +194,172 @@ export function expTrinome (a, b, c) {
 }
 
 /**
- * inspiré de l'article 'Algorithme de calcul d'une courbe spline de lissage'
- * de cet article 'spline' de wikipedia : https://fr.wikipedia.org/wiki/Spline
- * ça fonctionne quand les noeuds sont 'bien répartis'... ce qui n'est pas évident...
- * Les noeuds sont des couples (x,y)
- * On lui préférera la Spline de Catmull-Rom ci-dessous.
- * Adaptation pour Mathalea
+ * Les noeuds sont des objets : {x,y, nombreDerive} attention à les donner dans l'ordre des x croissants
  * @author Jean-Claude Lhote
  */
 class Spline {
-  constructor (tabNoeuds) {
-    const x = []
-    const y = []
-    const h = []
-    const F = matrix()
-    const R = matrix()
-
-    let n
-    for (let i = 0; i < tabNoeuds.length; i++) {
-      x[i] = tabNoeuds[i][0]
-      y[i] = tabNoeuds[i][1]
+  /**
+   * Passer au moins deux noeuds, sinon ça ne peut pas fonctionner
+   * @param {x: number, y:number,nombreDerive:number}[] noeuds la liste des noeuds avec leur nombre dérivé
+   */
+  constructor (noeuds) {
+    this.polys = []
+    this.x = []
+    this.y = []
+    if (noeuds.length < 2) { // on ne peut pas interpoler une courbe avec moins de 2 noeuds
+      window.notify('Spline : nombre de noeuds insuffisant', { noeuds })
     }
-    if (trieCouples(x, y)) { // On mets les couples (x,y) dans l'ordre des x croissants.
-      n = x.length
+    if (!trieNoeuds(noeuds)) return // les noeuds comportent une anomalie : deux valeur de x identiques
+    for (let i = 0; i < noeuds.length - 1; i++) {
+      const x0 = noeuds[i].x
+      const y0 = noeuds[i].y
+      const d0 = noeuds[i].nombreDerive
+      const x1 = noeuds[i + 1].x
+      const y1 = noeuds[i + 1].y
+      const d1 = noeuds[i + 1].nombreDerive
+      const ligne1 = [x0 ** 3, x0 ** 2, x0, 1]
+      const ligne2 = [x1 ** 3, x1 ** 2, x1, 1]
+      const ligne3 = [3 * x0 ** 2, 2 * x0, 1, 0]
+      const ligne4 = [3 * x1 ** 2, 2 * x1, 1, 0]
+      const matrice = [ligne1, ligne2, ligne3, ligne4]
+      const matriceInverse = inv(matrice)
+      const vecteur = [y0, y1, d0, d1]
+      this.polys.push(new Polynome({ isUseFraction: false, coeffs: multiply(matriceInverse, vecteur).reverse().map(coef => round(coef, 3)) }))
+    }
+    for (let i = 0; i < noeuds.length; i++) {
+      this.x.push(noeuds[i].x)
+      this.y.push(noeuds[i].y)
+    }
+    this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
+    // this.step = step // on en a besoin pour la dérivée...
+    this.fonctions = this.convertPolyFunction()
+  }
+
+  /**
+   * convertit les polynomes en fonctions
+   * @returns {Function[]}
+   */
+  convertPolyFunction () {
+    const f = []
+    for (let i = 0; i < this.n - 1; i++) {
+      f.push(this.polys[i].fonction)
+    }
+    return f
+  }
+
+  solve (y) {
+    const antecedents = []
+    for (let i = 0; i < this.polys.length; i++) {
+      const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
+      // Algebrite n'aime pas beaucoup les coefficients decimaux...
+      try {
+        const liste = polynomialRoot(...polEquation.monomes)
+        for (const valeur of liste) {
+          let arr
+          if (typeof valeur === 'number') {
+            arr = round(valeur, 3)
+          } else { // complexe !
+            const module = valeur.toPolar().r
+            if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
+              arr = 0
+            } else {
+              if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
+                arr = round(valeur.re, 3) // on prend la partie réelle
+              } else {
+                arr = null // c'est une vraie racine complexe, du coup, on prend null
+              }
+            }
+          }
+          if (arr !== null && arr >= this.x[i] && arr <= this.x[i + 1]) {
+            if (!antecedents.includes(arr)) {
+              antecedents.push(arr)
+            }
+          }
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    return antecedents
+  }
+
+  get fonction () {
+    return x => this.image(x)
+  }
+
+  image (x) {
+    let trouveK = false
+    let k = 0
+    for (let i = 0; i < this.n - 1; i++) {
+      if (x >= this.x[i] && x <= this.x[i + 1]) {
+        k = i
+        trouveK = true
+        break
+      }
+    }
+    if (!trouveK) {
+      const intervalle = `D = [${this.x[0]} ; ${this.x[this.n - 1]}]`
+      window.notify('SplineCatmullRom : la valeur de x fournie n\'est pas dans lìntervalle de définition de la fonction', { x, intervalle })
+      return NaN
     } else {
-      console.log('il y a un problème avec ce tableau des noeuds')
-      return false
+      return this.fonctions[k](x)
     }
-    for (let i = 0; i < n; i++) {
-      console.log('(', x[i], ';', y[i], ')')
-    }
-    for (let i = 0; i < n - 1; i++) {
-      h[i] = x[i + 1] - x[i] // on calcule les amplitudes des intervalles.
-    }
-    console.log(' Les intervalles :\n ', h)
-    F.resize([n], 0)
-    for (let i = 2; i < n; i++) { // On construit la matrice des dérivées secondes
-      F._data[i - 1] = (y[i] - y[i - 1]) / h[i - 1] - (y[i - 1] - y[i - 2]) / h[i - 2]
-    }
-    console.log('La matrice des dérivéées secondes :\n', F)
-    R.resize([n, n], 0)
-    for (let i = 1; i <= n; i++) { // On construit la matrice carrée de calcul
-      if (i === 1) {
-        R._data[0][0] = 1 // seul le premier élément de la première ligne n'est pas nul
-      } else if (i === n) {
-        R._data[n - 1][n - 1] = 1 // seul le dernier élément de la dernière ligne n'est pas nul
-      } else { // on Construit les diagonales n = 2 .. n-1
-        R._data[i - 1][i - 1] = (h[i - 2] + h[i - 1]) / 3
-        R._data[i - 1][i] = h[i - 1] / 6
-        R._data[i - 1][i - 2] = h[i - 2] / 6
-      }
-    }
-    console.log('LA matrice R :\n', R)
-    const Rinv = inv(R)
-    console.log('La matrice inverse de R :\n', Rinv)
-    const M = multiply(Rinv, F)
-    console.log('La matrice M = Rinv*F :\n', M)
-    const C = matrix()
-    const C2 = matrix()
-    C.resize([n - 1], 0)
-    C2.resize([n - 1], 0)
-    for (let i = 1; i <= n - 1; i++) {
-      C._data[i - 1] = (y[i] - y[i - 1]) / h[i - 1] - h[i - 1] * (M._data[i] - M._data[i - 1]) / 6
-      C2._data[i - 1] = y[i - 1] - M._data[i - 1] * h[i - 1] * h[i - 1] / 6
-    }
-    console.log('La matrice C :\n', C)
-    console.log('La matrice C2 :\n', C2)
-    this.F = F
-    this.R = R
-    this.M = M
-    this.h = h
-    this.C = C
-    this.C2 = C2
-    this.x = x
-    this.y = y
+  }
 
-    this.image = function (X) {
-      let trouveK = false
-      let k = 0; let f
-      for (let i = 2; i <= n; i++) {
-        if (X >= x[i - 2] && X <= x[i - 1]) {
-          k = i
-          trouveK = true
-          break
-        }
-      }
-      if (!trouveK) {
-        return false
-      } else {
-        const i = k
-        f = a => (F._data[i - 1] * (a - x[i - 2]) ** 3 + F._data[i - 2] * (x[i - 1] - a) ** 3) / (6 * h[i - 1]) + (y[i - 1] / h[i - 1] - F._data[i - 1] * h[i - 1] / 6) * (a - x[i - 2]) + (y[i - 2] / h[i - 1] - F._data[i - 2] * h[i - 1] / 6) * (x[i - 1] - a)
-        return f(X)
-      }
+  /**
+   * retourne un array de polynomes dérivés (degré 2) de ceux de la Spline
+   * la fonction est continue, mais les dérivées à gauche et à droite des noeuds ne seront pas identiques
+   * donc on ne peut pas en faire une Spline.
+   */
+  get derivees () {
+    const derivees = []
+    for (let i = 0; i < this.polys.length; i++) {
+      derivees.push(this.polys[i].derivee())
     }
+    return derivees
+  }
 
-    // une autre façon de calculer l'image... laquelle est la plus rapide ?
-    /*  this.image = function (X) {
-      let trouveK = false
-      let k = 0
-      for (let i = 0; i < n - 1; i++) {
-        if (X > x[i] && X < x[i + 1]) {
-          k = i
-          trouveK = true
-          break
-        } else if (egal(X, x[i])) {
-          return y[i]
-        } else if (egal(X, x[i + 1])) {
-          return y[i + 1]
-        }
-      }
-      if (!trouveK) {
-        return false
-      } else {
-        return (M._data[k - 1] * (x[k] - X) ** 3 + M._data[k] * (X - x[k - 1]) ** 3) / (6 * h[k - 1]) + C._data[k - 1] * (X - x[k - 1]) + C2._data[k - 1]
-      }
-    }
-*/
+  courbe ({
+    repere,
+    step = 0.1,
+    color = 'black',
+    epaisseur = 1
+  } = {}) {
+    return new Trace(this, {
+      repere,
+      step,
+      color,
+      epaisseur
+    })
   }
 }
 
-export function spline (tabNoeuds) {
-  return new Spline(tabNoeuds)
+export function spline (noeuds) {
+  return new Spline(noeuds)
+}
+/**
+ * Fonction qui trie des noeuds pour Spline afin de les remettre dans l'ordre des x croissant
+ * @param @param {x: number, y:number,nombreDerive:number}[]
+ * @author Jean-Claude Lhote
+ */
+export function trieNoeuds (noeuds) {
+  let xInter, yInter
+  for (let i = 0; i < noeuds.length - 1; i++) {
+    for (let j = i + 1; j < noeuds.length; j++) {
+      if (noeuds[i].x > noeuds[j].x) {
+        xInter = noeuds[i].x
+        noeuds[i].x = noeuds[j].x
+        noeuds[j].x = xInter
+        yInter = noeuds[i].y
+        noeuds[i].y = noeuds[j].y
+        noeuds[j].y = yInter
+      } else if (egal(noeuds[i].x, noeuds[j].x)) {
+        window.notify('Deux couples ont la même valeur de x ! je ne peux pas trier', { noeuds })
+        return false
+      }
+    }
+  }
+  return true
 }
 
 /**
@@ -739,7 +784,7 @@ export class Polynome {
   add (p) {
     const isUseFraction = this.isUseFraction
     if (typeof p === 'number' || p.type === 'Fraction') {
-      const coeffs = this.monomes
+      const coeffs = [...this.monomes]
       coeffs[0] = add(this.monomes[0], p)
       return new Polynome({ isUseFraction, coeffs })
     } else if (p instanceof Polynome) {
