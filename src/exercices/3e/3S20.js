@@ -58,7 +58,7 @@ export default function FonctionsProbabilite2 () {
           // n[3]=randint(1,4)+2;
           // n[4]=randint(2,5);
           somme1 = n[p] + n[q] + n[r] // +n[3]+n[4];
-          texte = `Dans le frigo il y a ${somme1} yaourts. ${n[p]} sont ${qualites[0][p]}, ${n[q]} sont ${qualites[0][q]} et ${n[r]} sont ${qualites[0][r]}.<br>` //  ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `;
+          texte = `Dans le frigo, il y a ${somme1} yaourts. ${n[p]} sont ${qualites[0][p]}, ${n[q]} sont ${qualites[0][q]} et ${n[r]} sont ${qualites[0][r]}.<br>` //  ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `;
           texte += `${quidame} en choisit un au hasard. Son frère ${quidam} en choisit un au hasard à son tour.<br>`
           texte += numAlpha(0) + ' Combien d\'issues possède cette experience aléatoire ? Donner un exemple d\'issue.<br>'
           texte += numAlpha(1) + ' Est-ce une expérience en situation d\'équiprobabilité ? Justifier.<br>'
@@ -72,7 +72,7 @@ export default function FonctionsProbabilite2 () {
           for (const j of [p, q, r]) {
             for (const k of [p, q, r]) { texteCorr += `(${Initiale[j]},${Initiale[k]}) ` }
           }
-          texteCorr += '<br>'
+          texteCorr += '.<br>'
           if (n[0] === n[1] && n[1] === n[2]) {
             texteCorr += numAlpha(1) + ` Comme le nombre de yaourts de chaque sorte est le même, alors ${quidame} a la même probabilité de choisir n'importe quel parfum, mais ensuite son frère aura un yaourt de moins de l'un des parfums. Il est donc moins probable qu'il choisisse le même parfum que sa sœur que l'un des deux autres parfums.<br>`
             texteCorr += `l'issue (${Initiale[p]},${Initiale[p]}) est donc moins probable que l'issue (${Initiale[p]},${Initiale[q]}). Ce n'est donc pas une situation d'équiprobabilité.`
@@ -80,16 +80,16 @@ export default function FonctionsProbabilite2 () {
             texteCorr += numAlpha(1) + ` Comme le nombre de yaourts est différent d'un parfum à l'autre, ${quidame} n'a pas la même probabilité de choisir n'importe quel parfum. On en déduit qu'il est impossible que les issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) aient la même probabilité.<br>`
           }
           texteCorr += numAlpha(2) + ` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est : $${texFraction(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$.<br>`
-          texteCorr += `Ensuite il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est : $${texFraction(n[p] - 1, somme1 - 1)}${simplificationDeFractionAvecEtapes(n[p] - 1, somme1 - 1)}$.<br>`
+          texteCorr += `Ensuite, il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est : $${texFraction(n[p] - 1, somme1 - 1)}${simplificationDeFractionAvecEtapes(n[p] - 1, somme1 - 1)}$.<br>`
           texteCorr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${texFraction(n[p], somme1)}\\times${texFraction(n[p] - 1, somme1 - 1)}=${texFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}$.<br>`
-          texteCorr += numAlpha(3) + ` Les probabilités des issues (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) peuvent être calculées de la même façon qu'à la question c) :<br>`
-          texteCorr += `$${texFraction(n[q], somme1)}\\times${texFraction(n[q] - 1, somme1 - 1)}=${texFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}$.<br>`
+          texteCorr += numAlpha(3) + ` Les probabilités des issues (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) peuvent être respectivement calculées de la même façon qu'à la question c) :<br>`
+          texteCorr += `$${texFraction(n[q], somme1)}\\times${texFraction(n[q] - 1, somme1 - 1)}=${texFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}$,<br>`
           texteCorr += `$${texFraction(n[r], somme1)}\\times${texFraction(n[r] - 1, somme1 - 1)}=${texFraction(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`
           texteCorr += `La probabilité qu'ils choisissent le même parfum est la somme des probabilités des issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}), soit :<br>`
-          texteCorr += `$${texFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}+${texFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}+${texFraction(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}=${texFraction(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$<br>`
+          texteCorr += `$${texFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}+${texFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}+${texFraction(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}=${texFraction(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`
           texteCorr += numAlpha(4) + ' Choisir des parfums différents est l\'événement contraire de l\'événement dont on a calculé la probabilité à la question d).<br>'
           fra1 = fractionSimplifiee(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))
-          texteCorr += `La probabilité de cet événement est donc : $1-${texFraction(fra1[0], fra1[1])}=${texFraction(fra1[1], fra1[1])}-${texFraction(fra1[0], fra1[1])}=${texFraction(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$`
+          texteCorr += `La probabilité de cet événement est donc : $1-${texFraction(fra1[0], fra1[1])}=${texFraction(fra1[1], fra1[1])}-${texFraction(fra1[0], fra1[1])}=${texFraction(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$.`
           break
         case 1:
           p = randint(0, 3)
@@ -110,31 +110,31 @@ export default function FonctionsProbabilite2 () {
           texteCorr += numAlpha(0) + ` On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet, pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a deux couleurs (rouge et noire) et le nombre de cartes rouges est le même que le nombre de cartes noires : ${q / 2}.<br>`
           texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${texFraction(q / 2, q)}=${texFraction(1, 2)}$.<br>`
           texteCorr += numAlpha(1) + ` Il y a 4 ${Initiale[r]}`
-          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texte += 's' }
+          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
           texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${texFraction(4, q)}=${texFractionReduite(4, q)}$.<br>`
           texteCorr += `    Comme la deuxième carte est tirée dans le jeu complet (après remise de la première), la probabilité de tirer un ${Initiale[r]} est la même pour cette carte.<br>`
           texteCorr += `    La probabilité de tirer 2 ${Initiale[r]}`
-          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texte += 's' }
+          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
           texteCorr += ` est donc : $${texFractionReduite(4, q)}\\times${texFractionReduite(4, q)}=${texFractionReduite(16, q * q)}$.<br>`
           texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${texFraction(q / 4, q)}=${texFraction(1, 4)}$.<br>`
           texteCorr += `    Comme la deuxième carte est tirée dans le jeu complet (après remise de la première) la probabilité de tirer un ${qualites[1][p]} est la même pour cette carte.<br>`
-          texteCorr += `    La probabilité de tirer 2 ${qualites[1][p]}s est donc $${texFraction(1, 4)}\\times${texFraction(1, 4)}=${texFraction(1, 16)}$.<br>`
+          texteCorr += `    La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFraction(1, 4)}\\times${texFraction(1, 4)}=${texFraction(1, 16)}$.<br>`
           texteCorr += 'Partie 2.<br>'
           texteCorr += numAlpha(0) + ` On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet, pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a maintenant une carte en moins dans la couleur désirée, soit  ${q / 2 - 1}, et il y a une carte en moins dans le jeu, soit ${q - 1}.<br>`
           texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${texFraction(q / 2 - 1, q - 1)}$.<br>`
           texteCorr += numAlpha(1) + ` Il y a 4 ${Initiale[r]}`
-          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texte += 's' }
+          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
           texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${texFraction(4, q)}=${texFractionReduite(4, q)}$.<br>`
           texteCorr += `    Pour que l'événement se réalise la deuxième carte est tirée dans les ${q - 1} cartes restantes dans lesquelles il manque un ${Initiale[r]}.<br>`
           texteCorr += `    La probabilité de tirer un deuxième ${Initiale[r]} est donc : $${texFraction(3, q - 1)}$.`
           if (q === 52) { texteCorr += `$=${texFraction(1, 17)}$.` }
           texteCorr += `<br> La probabilité de tirer 2 ${Initiale[r]}`
-          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texte += 's' }
+          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
           texteCorr += ` est donc : $${texFractionReduite(4, q)}\\times${texFractionReduite(3, q - 1)}=${texFractionReduite(12, q * (q - 1))}$.<br>`
           texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${texFraction(q / 4, q)}=${texFraction(1, 4)}$.<br>`
           texteCorr += `    Pour que l'événement se réalise, la deuxième carte est tirée dans les ${q - 1} cartes restantes dans lesquelles il manque un ${qualites[1][p]}.<br>`
           texteCorr += `    La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${texFraction(q / 4 - 1, q - 1)}$.`
-          if (q === 52) { texteCorr += `$=${texFraction(4, 17)}$<br>La probabilité de tirer 2 ${qualites[1][p]}s est donc $${texFraction(1, 4)}\\times${texFraction(4, 17)}=${texFraction(1, 17)}$.` } else { texteCorr += `<br>La probabilité de tirer 2 ${qualites[1][p]}s est donc $${texFraction(1, 4)}\\times${texFractionReduite(7, 31)}=${texFraction(7, 124)}$.` }
+          if (q === 52) { texteCorr += `$=${texFraction(4, 17)}$<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFraction(1, 4)}\\times${texFraction(4, 17)}=${texFraction(1, 17)}$.` } else { texteCorr += `<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFraction(1, 4)}\\times${texFractionReduite(7, 31)}=${texFraction(7, 124)}$.` }
           break
         case 2:
           n[0] = randint(2, 5); m[0] = randint(2, 5)
@@ -187,18 +187,19 @@ export default function FonctionsProbabilite2 () {
           texteCorr += 'On en déduit que la probabilité de choisir des chaussettes et un T-shirt de la même couleur est :<br>'
           texteCorr += `$${texFraction(p1[0], p1[1])}+${texFraction(p2[0], p2[1])}+${texFraction(p3[0], p3[1])}=`
           if (p1[1] === p2[1] && p2[1] === p3[1]) {
-            texteCorr += `\\dfrac{${p1[0]}+${p2[0]}+${p3[0]}}{${p1[1]}}=${texFraction(p1[0] + p2[0] + p3[0], p1[1])}${simplificationDeFractionAvecEtapes(p1[0] + p2[0] + p3[0], p1[1])}$<br>`
+            texteCorr += `\\dfrac{${p1[0]}+${p2[0]}+${p3[0]}}{${p1[1]}}=${texFraction(p1[0] + p2[0] + p3[0], p1[1])}${simplificationDeFractionAvecEtapes(p1[0] + p2[0] + p3[0], p1[1])}$`
             fra1 = fractionSimplifiee(p1[0] + p2[0] + p3[0], p1[1])
           } else {
             den = ppcm(p1[1], ppcm(p2[1], p3[1]))
             e = den / p1[1]
             f = den / p2[1]
             g = den / p3[1]
-            texteCorr += `${texFraction(p1[0] * e, den)}+${texFraction(p2[0] * f, den)}+${texFraction(p3[0] * g, den)}=${texFraction(p1[0] * e + p2[0] * f + p3[0] * g, den)}${simplificationDeFractionAvecEtapes(p1[0] * e + p2[0] * f + p3[0] * g, den)}$<br>`
+            texteCorr += `${texFraction(p1[0] * e, den)}+${texFraction(p2[0] * f, den)}+${texFraction(p3[0] * g, den)}=${texFraction(p1[0] * e + p2[0] * f + p3[0] * g, den)}${simplificationDeFractionAvecEtapes(p1[0] * e + p2[0] * f + p3[0] * g, den)}$`
             fra1 = fractionSimplifiee(p1[0] * e + p2[0] * f + p3[0] * g, den)
           }
+          texteCorr += '.<br>'
           texteCorr += numAlpha(2) + ' L\'événement "choisir des chaussettes et un T-shirt de couleurs différentes" est l\'événement contraire de l\'événement "choisir des chaussettes et un T-shirt de même couleur".<br>'
-          texteCorr += `Donc sa probabilité est : $1-${texFraction(fra1[0], fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${texFraction(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$<br>`
+          texteCorr += `Donc sa probabilité est : $1-${texFraction(fra1[0], fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${texFraction(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$.<br>`
           break
         case 3:
           quidam = prenomM()
@@ -259,7 +260,7 @@ export default function FonctionsProbabilite2 () {
           // tableau des probas
           texteCorr += '$\\def\\arraystretch{2.5}\\begin{array}{|c'
           for (let j = 1; j <= somme1; j++) { texteCorr += '|c' }
-          texteCorr += '} \\hline  \\text{résultats}'
+          texteCorr += '} \\hline  \\text{Résultats}'
           for (let j = 2; j <= somme1; j++) { texteCorr += '&' + j }
           texteCorr += ' \\\\\\hline \\text{Probabilité}'
           for (let j = 2; j <= somme1; j++) { texteCorr += `& \\textcolor {${Couleurs[j % 10]}}` + `{\\dfrac{${fra1[j - 2]}}{${p1[0]}}}` }
@@ -339,7 +340,7 @@ export default function FonctionsProbabilite2 () {
               for (let j = 2; j < r / 2; j++) {
                 texteCorr += `$\\textcolor {${Couleurs[(j) % 10]}}{${texFraction(fra1[j - 2], p1[0])}}\\ne \\textcolor {${Couleurs[(j) % 10]}}{${texFraction(fra2[j - 2], p1[1])}}$ ; `
               }
-              texteCorr += `et $\\textcolor {${Couleurs[(r / 2) % 10]}}{${texFraction(fra1[r / 2], p1[0])}}\\ne \\textcolor {${Couleurs[(r / 2) % 10]}}{${texFraction(fra2[r / 2], p1[1])}}$.`
+              texteCorr += `$\\textcolor {${Couleurs[(r / 2) % 10]}}{${texFraction(fra1[r / 2], p1[0])}}\\ne \\textcolor {${Couleurs[(r / 2) % 10]}}{${texFraction(fra2[r / 2], p1[1])}}$.`
             }
           }
           break
