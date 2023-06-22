@@ -37,10 +37,10 @@
   "homepage": "https://github.com/mathalea/mathalea",
   "scripts": {
     "start": "vite",
-    "build": "vite build",
-    "build2": "node --loader ts-node/esm tasks/buildJson.js && vite build",
+    "build2": "vite build",
+    "build": "node --loader ts-node/esm tasks/buildJson.js && vite build",
     "build:dicos": "node --loader ts-node/esm tasks/buildJson.js",
-    "makeJson": "node --loader ts-node/esm tasks/buildJson.js",
+    "makeJson": "node --loader ts-node/esm tasks/makeJson.js",
     "getNewUuid": "node --loader ts-node/esm tasks/getNewUuid.js",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
