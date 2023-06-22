@@ -68,7 +68,7 @@ export default function QuestionsMasses () {
       const QuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,
         defaut: 9,
-        nbQuestions: 1,
+        nbQuestions: 999,
         melange: 9,
         saisie: this.sup,
         shuffle: this.sup2,

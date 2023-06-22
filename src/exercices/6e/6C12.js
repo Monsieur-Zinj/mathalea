@@ -55,29 +55,10 @@ export default class QuestionsPrix extends Exercice {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      /*
-      let QuestionsDisponibles = []
-
-      if (!this.sup) { // Si aucune liste n'est saisie
-        QuestionsDisponibles = rangeMinMax(1, 8)
-      } else {
-        if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-          QuestionsDisponibles[0] = contraindreValeur(1, 9, this.sup, 9)
-        } else {
-          QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-          for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-            QuestionsDisponibles[i] = contraindreValeur(1, 9, parseInt(QuestionsDisponibles[i]), 9) // parseInt en fait un tableau d'entiers
-          }
-        }
-      }
-      if (compteOccurences(QuestionsDisponibles, 9) > 0) QuestionsDisponibles = rangeMinMax(1, 8) // Teste si l'utilisateur a choisi tout
-      enleveDoublonNum(QuestionsDisponibles)
-      if (this.sup2) QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, QuestionsDisponibles.length)
-      */
       const QuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,
         defaut: 9,
-        nbQuestions: this.nbQuestions,
+        nbQuestions: 999,
         melange: 9,
         saisie: this.sup,
         shuffle: this.sup2,

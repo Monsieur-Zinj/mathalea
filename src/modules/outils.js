@@ -294,7 +294,7 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
  * La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
  * @param {boolean} [shuffle=true] si true, alors on brasse la liste en sortie sinon on garde l'ordre
- * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
+ * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie. Si 999, alors le nbQuestions correspond à la longueur de saisie.
  * @param {number | undefined} melange la valeur utilisée pour l'option mélange
  * @param {boolean} [enleveDoublons=false]  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
  * @param {number[]} exclus liste de valeurs à exclure entre min et max
@@ -337,7 +337,7 @@ export function gestionnaireFormulaireTexte ({
   if (exclus && exclus.length > 0) {
     listeIndex = listeIndex.filter((element) => !exclus.includes(element))
   }
-
+  if (nbQuestions === 999) nbQuestions = listeIndex.length
   listeIndex = shuffle ? combinaisonListes(listeIndex, nbQuestions) : combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
 
   const Max = Math.max(...listeIndex)
