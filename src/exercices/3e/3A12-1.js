@@ -60,7 +60,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           if (this.interactif && !context.isAmc) {
             texte = `Un fleuriste dispose de ${var1 * objet} iris et de ${var2 * objet} roses. <br>`
             texte += 'Il veut, en utilisant toutes ses fleurs, réaliser un maximum de bouquets '
-            texte += 'contenant tous le même nombre diris et le même nombre de roses. <br>'
+            texte += 'contenant tous le même nombre d\'iris et le même nombre de roses. <br>'
             texte += 'Donner le nombre maximal de bouquets que le fleuriste peut réaliser '
             texte += 'et la composition du bouquet.<br><br>'
             texteA = numAlpha(0) + `Nombre maximal de bouquets :${sp(20)}`
