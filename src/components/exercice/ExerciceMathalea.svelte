@@ -10,8 +10,8 @@
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
   import { uuidCount, exercisesUuidRanking } from "../utils/counts"
-
   import type { Mathfield } from "mathlive"
+
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -31,18 +31,18 @@
   // const ranks: number[] = exercisesUuidRanking($exercicesParams)
   // const counts = uuidCount($exercicesParams)
   // const insert: string = `${counts[exercice.uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""}`
-  // const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}${insert}` : exercice.titre
+  // const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
 
-  // /!\ ce qui suit ne fonctionne pas...
   let ranks: number[]
   let counts
-  let insert: string
+  let titleExtra: string
   let title: string
   $: {
     ranks = exercisesUuidRanking($exercicesParams)
     counts = uuidCount($exercicesParams)
-    insert = `${counts[exercice.uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""}`
-    title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}${insert}` : exercice.titre
+    titleExtra = counts[$exercicesParams[indiceExercice].uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""
+    title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}${titleExtra}` : exercice.titre
+    // title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
   }
 
   // Evènement indispensable pour pointCliquable par exemple
@@ -52,6 +52,7 @@
 
   let headerExerciceProps: {
     title: string
+    titleExtra: string
     isInteractif: boolean
     settingsReady?: boolean
     isSortable?: boolean
@@ -94,6 +95,7 @@
     headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps.correctionExists = exercice.listeCorrections.length > 0
     headerExerciceProps.title = title
+    headerExerciceProps.titleExtra = titleExtra
     headerExerciceProps = headerExerciceProps
   }
 
