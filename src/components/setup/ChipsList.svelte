@@ -4,6 +4,7 @@
   import { exercicesParams, moveExercice } from "../store"
   import { onMount } from "svelte"
   import { uuidCount, exercisesUuidRanking } from "../utils/counts"
+  import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
 
   // let idListForChips: string[] = []
   // $: idListForChips = $exercicesParams.map((p) => {
@@ -18,10 +19,13 @@
       ranks = exercisesUuidRanking($exercicesParams)
       counts = uuidCount($exercicesParams)
       const insert: string = `${counts[ex.uuid] > 1 ? " [" + ranks[i] + "]" : ""}`
+      const keyValue = getUniqueStringBasedOnTimeStamp(i)
       const obj = {
         ref: ex.id ?? ex.uuid,
         title: `${ex.id ?? ex.uuid}${insert}`,
+        key: keyValue,
       }
+      console.log(obj)
       lIFC.push(obj)
     }
     listIdsForChips = lIFC
@@ -48,7 +52,7 @@
   class="w-full grid justify-items-stretch place-content-stretch grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-10 gap-2 p-0 items-center overflow-x-auto whitespace-nowrap"
   id="chips-list"
 >
-  {#each listIdsForChips as id, indice (id.ref + indice)}
+  {#each listIdsForChips as id, indice (id.key)}
     <ChipExo text={id.title} {indice} />
   {/each}
 </div>
