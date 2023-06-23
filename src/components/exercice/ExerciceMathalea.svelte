@@ -27,17 +27,22 @@
   let isMessagesVisible = true
   let interactifReady = exercice.interactifReady
   let isExerciceChecked = false
+  const ranks: number[] = exercisesUuidRanking($exercicesParams)
+  const counts = uuidCount($exercicesParams)
+  const insert: string = `${counts[exercice.uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""}`
+  const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}${insert}` : exercice.titre
 
-  let ranks: number[]
-  let counts
-  let insert: string
-  let title: string
-  $: {
-    ranks = exercisesUuidRanking($exercicesParams)
-    counts = uuidCount($exercicesParams)
-    insert = `${counts[exercice.uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""}`
-    title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}${insert}` : exercice.titre
-  }
+  // /!\ ce qui suit ne fonctionne pas...
+  // let ranks: number[]
+  // let counts
+  // let insert: string
+  // let title: string
+  // $: {
+  //   ranks = exercisesUuidRanking($exercicesParams)
+  //   counts = uuidCount($exercicesParams)
+  //   insert = `${counts[exercice.uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""}`
+  //   title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}${insert}` : exercice.titre
+  // }
 
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event("exercicesAffiches", {
