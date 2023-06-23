@@ -3,6 +3,7 @@
   import ChipExo from "./ChipExo.svelte"
   import { exercicesParams, moveExercice } from "../store"
   import { onMount } from "svelte"
+  import { uuidCount, exercisesUuidRanking } from "../utils/counts"
 
   // let idListForChips: string[] = []
   // $: idListForChips = $exercicesParams.map((p) => {
@@ -11,14 +12,15 @@
   let listIdsForChips: string[] = []
   $: {
     let lIFC = []
+    let ranks: number[]
+    let counts
     for (const [i, ex] of $exercicesParams.entries()) {
-      const codesList: string[] = $exercicesParams.map((p) => p.uuid)
+      ranks = exercisesUuidRanking($exercicesParams)
+      counts = uuidCount($exercicesParams)
+      const insert: string = `${counts[ex.uuid] > 1 ? " [" + ranks[i] + "]" : ""}`
       const obj = {
         ref: ex.id ?? ex.uuid,
-        index: i,
-        count: codesList.filter((c) => {
-          return c === ex.uuid
-        }).length,
+        title: `${ex.id ?? ex.uuid}${insert}`,
       }
       lIFC.push(obj)
     }
@@ -47,6 +49,6 @@
   id="chips-list"
 >
   {#each listIdsForChips as id, indice (id.ref + indice)}
-    <ChipExo text={id.ref + `${id.count > 1 ? " [" + id.index + "]" : ""}`} {indice} />
+    <ChipExo text={id.title} {indice} />
   {/each}
 </div>
