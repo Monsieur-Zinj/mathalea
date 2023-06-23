@@ -4,14 +4,8 @@
   import { exercicesParams, moveExercice } from "../store"
   import { onMount } from "svelte"
 
-  let listeIdPourLesChips: string[] = []
-  $: {
-    listeIdPourLesChips = []
-    for (const ex of $exercicesParams) {
-      listeIdPourLesChips.push(ex.id ?? ex.uuid)
-    }
-    listeIdPourLesChips = listeIdPourLesChips
-  }
+  let idListForChips: string[] = []
+  $: idListForChips = $exercicesParams.map((p) => p.id ?? p.uuid)
   let chipsList: HTMLDivElement
   onMount(() => {
     chipsList = document.getElementById("chips-list")
@@ -30,7 +24,7 @@
   class="w-full grid justify-items-stretch place-content-stretch grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-10 gap-2 p-0 items-center overflow-x-auto whitespace-nowrap"
   id="chips-list"
 >
-  {#each listeIdPourLesChips as id, indice (indice)}
+  {#each idListForChips as id, indice (id + indice)}
     <ChipExo text={id} {indice} />
   {/each}
 </div>
