@@ -105,6 +105,7 @@
   "fd4d8": "6e/6C10-5.js",
   "26bb9": "6e/6C10-7a.js",
   "08680": "6e/6C10-7b.js",
+  "fe6e0": "6e/6C10-8.js",
   "cfa6a": "6e/6C10.js",
   "4e35d": "6e/6C11-2.js",
   "d0cd7": "6e/6C11-3.js",
@@ -509,6 +510,7 @@
   "d8bf2": "3e/3A13-2.js",
   "d9cf3": "3e/3A13-3.js",
   "b0cee": "3e/3A13-4.js",
+  "2e22a": "3e/3A14-0.js",
   "77d18": "3e/3F1-act.js",
   "0eecd": "3e/3F10-1.js",
   "ba520": "3e/3F10-2.js",
@@ -585,7 +587,6 @@
   "6516e": "3e/3L13-2.js",
   "cd2f2": "3e/3L13-4.js",
   "f239f": "3e/3L13.js",
-  "a8e6c": "3e/3L14-1.js",
   "ecf62": "3e/3L14.js",
   "57f44": "3e/3L15-1.js",
   "231d2": "3e/3L15.js",
@@ -608,6 +609,7 @@
   "277d3": "2e/2F12-2.js",
   "ec059": "2e/2F20-2.js",
   "5621b": "2e/2F21-1.js",
+  "4dced": "2e/2F23-1.js",
   "6e82d": "2e/2F25-1.js",
   "1e362": "2e/2F25-2.js",
   "05b52": "2e/2F30-1.js",
@@ -1176,5 +1178,6 @@
   "6fb13": "profs/P019.js",
   "de353": "profs/P020.js",
   "57cf4": "beta/betaModele00_simple_Course_au_Nombres.js",
+  "a2ac2": "beta/betaSpline.js",
   "efeee": "beta/betaTexNombre.js"
 }
