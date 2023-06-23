@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice } from "../store"
+  import { globalOptions, resultsByExercice, exercicesParams } from "../store"
   import { afterUpdate, onMount, tick, onDestroy } from "svelte"
   import type TypeExercice from "../utils/typeExercice"
   import seedrandom from "seedrandom"
@@ -7,9 +7,10 @@
   import { loadMathLive } from "../../modules/loaders"
   import { mathaleaFormatExercice, mathaleaHandleExerciceSimple, mathaleaHandleSup, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from "../../lib/mathalea"
   import { exerciceInteractif } from "../../lib/interactif/interactif"
-  import { exercicesParams } from "../store"
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
+  import { uuidCount, exercisesUuidRanking } from "../utils/counts"
+
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -26,8 +27,11 @@
   let isMessagesVisible = true
   let interactifReady = exercice.interactifReady
   let isExerciceChecked = false
-
-  const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
+  const ranks: number[] = exercisesUuidRanking($exercicesParams)
+  const counts = uuidCount($exercicesParams)
+  const insert: string = `${counts[exercice.uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""}`
+  // const insert = ""
+  const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}${insert}` : exercice.titre
 
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event("exercicesAffiches", {
@@ -99,6 +103,8 @@
     updateDisplay()
     await tick()
     countMathField()
+    console.log(ranks)
+    console.log(counts)
   })
 
   afterUpdate(async () => {
