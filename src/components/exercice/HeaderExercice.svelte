@@ -5,9 +5,12 @@
   import { globalOptions } from "../store"
   import { exercicesParams } from "../store"
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
+  import uuidsRessources from "../../json/uuidsRessources.json"
+  import refProfs from "../../json/referentielProfs.json"
+  import { toMap } from "../utils/toMap"
   export let title: string
-  export let titleExtra: string
-  export let category: string = "Exercice"
+  // export let titleExtra: string
+  // export let category: string
   export let randomReady = true
   export let settingsReady = true
   export let correctionReady = true
@@ -24,6 +27,17 @@
   let isContentVisible = true
   let isCorrectionVisible = false
 
+  // Éttablissement de la catégorie
+  const ressourcesUuids = Object.keys({ ...uuidsRessources })
+  const profsUuids = Array.from(toMap({ ...refProfs }).values()).map((e) => e.get("uuid"))
+  let category: string
+  if (ressourcesUuids.includes($exercicesParams[indiceExercice].uuid)) {
+    category = "Ressource"
+  } else if (profsUuids.includes($exercicesParams[indiceExercice].uuid)) {
+    category = "Outil"
+  } else {
+    category = "Exercice"
+  }
   const dispatch = createEventDispatcher()
 
   function switchInteractif() {

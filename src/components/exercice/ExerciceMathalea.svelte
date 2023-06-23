@@ -11,6 +11,7 @@
   import Settings from "./Settings.svelte"
   import { uuidCount, exercisesUuidRanking } from "../utils/counts"
   import type { Mathfield } from "mathlive"
+  import uuidsRessources from "../../json/uuidsRessources.json"
 
   export let exercice: TypeExercice
   export let indiceExercice: number
@@ -50,9 +51,13 @@
     bubbles: true,
   })
 
+  const ressourcesUuids = Object.keys({ ...uuidsRessources })
+  const category = ressourcesUuids.includes(exercice.uuid) ? "Ressource" : "Exercice"
+
   let headerExerciceProps: {
     title: string
     titleExtra: string
+    category: string
     isInteractif: boolean
     settingsReady?: boolean
     isSortable?: boolean
@@ -96,6 +101,7 @@
     headerExerciceProps.correctionExists = exercice.listeCorrections.length > 0
     headerExerciceProps.title = title
     headerExerciceProps.titleExtra = titleExtra
+    headerExerciceProps.category = category
     headerExerciceProps = headerExerciceProps
   }
 
@@ -335,6 +341,9 @@
 
 <div class="z-0 flex-1" bind:this={divExercice}>
   <HeaderExercice
+    {...headerExerciceProps}
+    {indiceExercice}
+    {indiceLastExercice}
     on:clickVisible={(event) => {
       isVisible = event.detail.isVisible
     }}
@@ -362,9 +371,6 @@
       updateDisplay()
     }}
     on:clickNewData={newData}
-    {...headerExerciceProps}
-    {indiceExercice}
-    {indiceLastExercice}
     interactifReady={exercice.interactifReady && !isCorrectionVisible && headerExerciceProps.interactifReady}
     on:clickMessages={(event) => {
       isMessagesVisible = event.detail.isMessagesVisible

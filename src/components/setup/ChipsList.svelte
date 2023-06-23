@@ -25,7 +25,6 @@
         title: `${ex.id ?? ex.uuid}${insert}`,
         key: keyValue,
       }
-      console.log(obj)
       lIFC.push(obj)
     }
     listIdsForChips = lIFC

@@ -63,6 +63,3 @@
     </div>
   </h1>
 </div>
-
-<style>
-</style>
