@@ -9,6 +9,7 @@
   import refProfs from "../../json/referentielProfs.json"
   import { toMap } from "../utils/toMap"
   export let title: string
+  export let id: string
   // export let titleExtra: string
   // export let category: string
   export let randomReady = true
@@ -79,7 +80,7 @@
     class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 mt-4 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
   >
     <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center" id="exercice{indiceExercice}">
-      <div class="flex flex-row items-center font-bold text-sm md:text-base lg:text-xl pb-2 lg:pb-0">
+      <div class="flex flex-row items-center font-bold text-sm md:text-base lg:text-xl pb-1 lg:pb-0">
         <div
           class="{$exercicesParams.length <= 1
             ? 'hidden'
@@ -87,10 +88,10 @@
         >
           {indiceExercice + 1}
         </div>
-        {category}&#8239
+        {category}&#8239<span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{id}
       </div>
-      <div class="flex flex-row font-normal text-sm md:text-base xl:text-lg pl-2">
-        <div><span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{title}</div>
+      <div class="flex flex-row font-normal text-sm md:text-base xl:text-lg pl-0 lg:pl-4">
+        {title}
         <!-- <div class="italic ml-2 font-light text-coopmaths-warn-900">{titleExtra}</div> -->
       </div>
     </div>
