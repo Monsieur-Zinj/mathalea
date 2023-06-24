@@ -52,6 +52,7 @@ class ressourceVideo {
     if (get(globalOptions).v === 'eleve') {
       this.fieldUrl.remove()
       this.button.remove()
+      this.iTooltip.remove()
     }
     if (this.sup !== undefined) {
       this.iframe.src = decodeURIComponent(this.sup)
