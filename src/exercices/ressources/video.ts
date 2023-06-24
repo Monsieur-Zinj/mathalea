@@ -1,6 +1,7 @@
 import { exercicesParams, globalOptions } from '../../components/store'
 import { get } from 'svelte/store'
 import { createButon, createIButton, createTextInput } from './components'
+import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time'
 
 class ressourceVideo {
   typeExercice: string
@@ -23,7 +24,10 @@ class ressourceVideo {
     this.iframe.setAttribute('frameborder', '0')
     this.iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share')
     this.iframe.setAttribute('allowfullscreen', '')
-    this.iframe.classList.add('my-10')
+    // constitution d'une ID pour mise en forme dans app.css
+    this.iframe.setAttribute('id', 'iframe-video' + getUniqueStringBasedOnTimeStamp('-'))
+    // /!\ pas de mise en formee ici !!!
+    // this.iframe.classList.add('my-10')
     this.fieldUrl = createTextInput({ placeholder: 'URL', autoCorrect: false })
     this.button = createButon()
     const tooltip = `Formats supportés : 

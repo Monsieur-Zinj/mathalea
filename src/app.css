@@ -369,6 +369,22 @@ input[id^="checkEx"] {
   @apply cursor-pointer border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded
 }
 
+iframe[id^="iframe-video-"] {
+ @apply my-10
+}
+
+button[id^="html-insert-button-"] {
+  @apply text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action dark:bg-coopmathsdark-action hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest px-2 py-1 rounded-sm mx-2
+}
+
+input[id^="html-insert-text-input-"] {
+  @apply text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 px-2 py-1 w-3/5 lg:w-2/5
+}
+
+i[id^="html-insert-info-"] {
+  @apply flex px-2  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
+}
+
 /* 
 888      d8b          888                      
 888      Y8P          888                      

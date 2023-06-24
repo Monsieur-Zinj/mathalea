@@ -35,6 +35,6 @@
 {:else}
   <HeaderExercice {...headerExerciceProps} />
 {/if}
-<section class="m-10">
+<section id="insert-html-{indiceExercice}" class="mt-6 mb-2 ml-2 lg:mx-5">
   <div bind:this={divExercice} />
 </section>
