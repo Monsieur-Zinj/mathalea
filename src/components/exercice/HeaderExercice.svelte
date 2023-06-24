@@ -88,7 +88,10 @@
         >
           {indiceExercice + 1}
         </div>
-        {category}&#8239<span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{id}
+        {category}&#8239
+        {#if id.length !== 0}
+          <span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{id}
+        {/if}
       </div>
       <div class="flex flex-row font-normal text-sm md:text-base xl:text-lg pl-0 lg:pl-4">
         {title}

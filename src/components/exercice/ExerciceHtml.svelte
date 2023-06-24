@@ -12,6 +12,7 @@
 
   let headerExerciceProps = {
     title: exercice.titre,
+    id: "",
     indiceExercice,
     indiceLastExercice,
     interactifReady: false,
