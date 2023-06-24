@@ -45,7 +45,7 @@
  -->
 
 <div class="z-0 flex-1">
-  <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-start' : 'flex-row items-center'}">
+  <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-start' : 'flex-row items-center'}">
     <!-- titre -->
     <div class="flex flex-row justify-start items-start" id="exerciceHeader{indiceExercice}">
       <div class={showNumber && $globalOptions.presMode === "liste_exos" ? "flex" : "hidden"}>

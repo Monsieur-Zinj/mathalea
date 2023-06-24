@@ -12,6 +12,7 @@
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   import type { MathfieldElement } from "mathlive"
   import { sendToCapytaleSaveStudentAssignment } from "../../lib/handleCapytale"
+  import Button from "../forms/Button.svelte"
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -276,14 +277,67 @@
   }
 </script>
 
-<div class="z-0 flex-1 w-full" bind:this={divExercice}>
+<div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
   <HeaderExerciceVueEleve {...headerExerciceProps} {indiceExercice} showNumber={indiceLastExercice > 1} />
 
   <div class="flex flex-col-reverse lg:flex-row">
     <div class="flex flex-col justify-start items-start" id="exercice{indiceExercice}">
-      <div class="flex flex-row justify-start items-center mt-2">
+      <div class="flex flex-row justify-start items-center {indiceLastExercice > 1 && $globalOptions.presMode !== 'un_exo_par_page' ? 'ml-2 lg:ml-6' : 'ml-2'} mb-2 lg:mb-6">
+        <div class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex" : "hidden"}>
+          <Button
+            title="Nouvel Énoncé"
+            icon="bx-refresh"
+            classDeclaration="py-[2px] px-2 text-[0.7rem]"
+            inverted={true}
+            on:click={() => {
+              newData()
+            }}
+          />
+        </div>
+        <!-- <button
+          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex ml-2 tooltip tooltip-right " : "hidden"}
+          data-tip="Nouvel énoncé"
+          type="button"
+          on:click={() => {
+            newData()
+          }}
+        >
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
+        </button> -->
+
+        <!-- {#if $globalOptions.isSolutionAccessible && !isInteractif} -->
+        <!-- <div class="ml-2">
+            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} textSize="xs" buttonSize="xs" bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
+          </div> -->
+        <div class={$globalOptions.isSolutionAccessible && !isInteractif ? "flex ml-2" : "hidden"}>
+          <Button
+            title={isCorrectionVisible ? "Masquer la correction" : "Voir la correction"}
+            icon={isCorrectionVisible ? "bx-hide" : "bx-show"}
+            classDeclaration="py-[2px] px-2 text-[0.7rem] w-36"
+            inverted={true}
+            on:click={() => {
+              isCorrectionVisible = !isCorrectionVisible
+              adjustMathalea2dFiguresWidth()
+            }}
+          />
+        </div>
+        <!-- {/if} -->
+
+        <button
+          class={$globalOptions.isInteractiveFree && exercice.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
+          data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
+          type="button"
+          on:click={() => {
+            isInteractif = !isInteractif
+            exercice.interactif = isInteractif
+            $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
+            updateDisplay()
+          }}
+        >
+          <InteractivityIcon isOnStateActive={isInteractif} size={4} />
+        </button>
         {#if $globalOptions.recorder === undefined}
-          <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs pl-0 md:pl-2">
+          <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs">
             <button
               class={columnsCount > 1 ? "visible" : "invisible"}
               type="button"
@@ -306,48 +360,19 @@
             </button>
           </div>
         {/if}
-        <button
-          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "ml-2 tooltip tooltip-right " : "hidden"}
-          data-tip="Nouvel énoncé"
-          type="button"
-          on:click={() => {
-            newData()
-          }}
-        >
-          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
-        </button>
-        <button
-          class={$globalOptions.isInteractiveFree && exercice.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
-          data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
-          type="button"
-          on:click={() => {
-            isInteractif = !isInteractif
-            exercice.interactif = isInteractif
-            $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
-            updateDisplay()
-          }}
-        >
-          <InteractivityIcon isOnStateActive={isInteractif} size={4} />
-        </button>
-
-        {#if $globalOptions.isSolutionAccessible && !isInteractif}
-          <div class="ml-2">
-            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} textSize="xs" buttonSize="xs" bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
-          </div>
-        {/if}
       </div>
       <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative w-full" style="font-size: {($globalOptions.z || 1).toString()}rem;  line-height: calc({$globalOptions.z || 1});">
         <div class="flex flex-col w-full">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>
-              <p class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.consigne}
               </p>
             </div>
           {/if}
           {#if exercice.introduction}
             <div>
-              <p class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+              <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.introduction}
               </p>
             </div>

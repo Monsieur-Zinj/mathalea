@@ -26,9 +26,9 @@ export const interactifType = ['qcm', 'mathLive']
  * @author Rémi Angot
  * Référence 6M23
  */
-export default function ExerciceConversionsAires (niveau = 1) {
+export default function ExerciceConversionsAires () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = niveau // Niveau de difficulté de l'exercice
+  this.sup = 1 // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
   this.sup4 = false // tableau
@@ -38,6 +38,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.nbQuestions = 1
 
   this.nouvelleVersion = function (numeroExercice) {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
@@ -440,7 +441,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     */
     // texte += '\\\\'
     if (hectare) {
-      for (let i = first; i < first + 3; i++) {
+      for (let i = first; i < first + 2; i++) {
         texte += '\\begin{array}{c c}'
         texte += '\\hspace*{0.4cm} & \\hspace*{0.4cm} \\\\'
         texte += '\\end{array}&'
@@ -455,7 +456,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
       texte += '\\hspace*{0.4cm} & ca\\\\'
       texte += '\\end{array}&'
 
-      for (let i = first + 6; i < end; i++) {
+      for (let i = first + 4; i < end; i++) {
         texte += '\\begin{array}{c c}'
         texte += '\\hspace*{0.4cm} & \\hspace*{0.4cm} \\\\'
         texte += '\\end{array}'

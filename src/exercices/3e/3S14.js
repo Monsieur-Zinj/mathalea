@@ -232,7 +232,7 @@ export default function CalculerCaracteristiques () {
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] = numAlpha(questind) + 'Calculer la médiane des temperatures.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
+              texteAMC[questind] = numAlpha(questind) + 'Calculer la médiane des températures.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
               texte += texteAMC[questind]
 
               const [mediane, medianeCorr] = OutilsStats.computeMediane(temperatures)

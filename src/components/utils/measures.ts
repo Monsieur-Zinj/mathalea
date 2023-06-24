@@ -62,3 +62,56 @@ export const deviceType = () => {
   }
   return 'desktop'
 }
+
+/**
+ * Change la taille de tous les divs passés en paramètres.
+ *
+ * On teste l'existence des attributs directs `width` et`height`.
+ *
+ * - S'ils existent, on sauvegarde leurs valeurs initiales dans le data-set (si besoin)
+ *  et on applique le facteur d'échelle
+ * - S'ils n'existent pas, on travaillent avec le style directement
+ * (`width` et `height` peuvent avoir des unités différentes).
+ * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
+ * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
+ */
+export const resizeTags = (tags: HTMLOrSVGElement[], factor:number = 1) => {
+  let widthUnit, heightUnit: string
+  for (const tag of tags) {
+    const widthAttributeExists: boolean = tag.hasAttribute('width')
+    const heightAttributeExists: boolean = tag.hasAttribute('height')
+    if (tag.hasAttribute('data-width') === false) {
+      let originalWidth: number
+      if (widthAttributeExists) {
+        originalWidth = tag.getAttribute('width')
+      } else {
+        widthUnit = tag.style.width.match(/\D/g).join('')
+        originalWidth = parseFloat(tag.style.width.replace(widthUnit, ''))
+      }
+      tag.dataset.width = originalWidth
+    }
+    if (!widthAttributeExists && tag.hasAttribute('data-width-unit') === false) {
+      tag.dataset.widthUnit = widthUnit
+    }
+    if (tag.hasAttribute('data-height') === false) {
+      let originalHeight:number
+      if (heightAttributeExists) {
+        originalHeight = tag.getAttribute('height')
+      } else {
+        heightUnit = tag.style.height.match(/\D/g).join('')
+        originalHeight = parseFloat(tag.style.height.replace(heightUnit, ''))
+      }
+      tag.dataset.height = originalHeight
+    }
+
+    if (!heightAttributeExists && tag.hasAttribute('data-height-unit') === false) {
+      tag.dataset.heightUnit = heightUnit
+    }
+    const w = tag.getAttribute('data-width') * factor
+    const h = tag.getAttribute('data-height') * factor
+    if (widthAttributeExists && heightAttributeExists) {
+      tag.setAttribute('width', w)
+      tag.setAttribute('height', h)
+    } else { tag.setAttribute('style', 'width:' + w + tag.dataset.widthUnit + '; height:' + h + tag.dataset.heightUnit + ';') }
+  }
+}

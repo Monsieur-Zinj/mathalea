@@ -1,18 +1,36 @@
 import { context } from '../../modules/context.js'
-const unorderedListTypes: string = ['puces', 'carres', 'qcm', 'fleches']
-const orderedListTypes: string = ['nombres', 'alpha', 'Alpha', 'roman', 'Roman']
+const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
+const orderedListTypes: string[] = ['nombres', 'alpha', 'Alpha', 'roman', 'Roman']
+type ListStyle = 'none'|'puces'|'carres'|'qcm'|'fleches'|'nombres'|'alpha'|'Alpha'|'roman'|'Roman'
+type List<T> = {
+  /**
+   * Entrée de la liste ou déclaration d'une autre liste
+   */
+  items: (string|T)[],
+  /**
+   * Style pour les puces ou les numérotations. Sera ajouté à `class` et traité par `app.css`
+   */
+  style: ListStyle,
+  /**
+   * Options (optionnelles) de mise en forme pour la liste à ajouter `class`
+   */
+  classOptions?: string,
+  /**
+   * Texte (optionnel) précédent la liste
+   */
+  introduction?: string,
+}
+interface NestedList extends List<NestedList>{}
 /**
  * Contruit une liste formattée suivant un style à partir d'un tableau de chaînes de caractères comme entrées.
- * @param {string[]} items taleau des entrées de la liste
- * @param {string} style type de liste (au choix entre `none`, `puces`, `carres`, `qcm`, `fleches`, `nombres`, `alpha`, `Alpha`, `roman`, `Roman`)
- * @param {string} classOptions addenda à la définition de la classe
- * @returns {string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
+ * @param {NestedList} list Objet décrivant la liste
+ * @returns {HTMLUListElement|HTMLOListElement|string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
  * @author sylvain
  */
-export function createList (items: string[], style: 'none'|'puces'|'carres'|'qcm'|'fleches'|'nombres'|'alpha'|'Alpha'|'roman'|'Roman', classOptions:string = '') :string {
+export function createList (list: NestedList, shift: string = '') :HTMLUListElement|HTMLOListElement|string {
   let theList: HTMLUListElement|HTMLOListElement|string
   if (context.isHtml) {
-    switch (style) {
+    switch (list.style) {
       case 'none':
       case 'puces':
       case 'carres':
@@ -31,20 +49,28 @@ export function createList (items: string[], style: 'none'|'puces'|'carres'|'qcm
         theList = document.createElement('ul')
         break
     }
-    theList.setAttribute('class', style + ' ' + classOptions)
-    let li: HTMLLIElement
-    for (const item of items) {
-      li = document.createElement('li')
-      li.appendChild(document.createTextNode(item))
+    theList.setAttribute('class', list.style + ' ' + list.classOptions)
+
+    for (const item of list.items) {
+      const li: HTMLLIElement = document.createElement('li')
+      if (typeof item === 'string') {
+        li.appendChild(document.createTextNode(item))
+      } else {
+        if (item.introduction) {
+          li.appendChild(document.createTextNode(item.introduction))
+        }
+        li.appendChild(createList(item) as HTMLUListElement|HTMLOListElement)
+      }
       theList.appendChild(li)
     }
-    theList = theList.outerHTML
+
+    // theList = theList.outerHTML
   } else {
     theList = ''
     let label: string
     let openingTag:string
     let closingTag:string
-    switch (style) {
+    switch (list.style) {
       case 'none':
         label = ''
         openingTag = ''
@@ -79,24 +105,35 @@ export function createList (items: string[], style: 'none'|'puces'|'carres'|'qcm
         label = '\\Roman*.'
         break
     }
-    const lineStart:string = style === 'none' ? '' : '\t\\item '
-    const lineEnd: string = style === 'none' ? '\\par\n' : '\n'
-    if (unorderedListTypes.includes(style)) {
-      openingTag = '\n\\begin{itemize}'
+    const lineStart:string = list.style === 'none' ? '' : '\t\\item '
+    const lineEnd: string = list.style === 'none' ? '\\par\n' : '\n'
+    const lineBreak : string = shift.length === 0 ? '\n' : ''
+    if (unorderedListTypes.includes(list.style)) {
+      openingTag = lineBreak + shift + '\\begin{itemize}'
       if (label.length !== 0) {
         openingTag += '[label=' + label + ']' + lineEnd
       }
-      closingTag = '\\end{itemize}' + lineEnd
-    } else if (orderedListTypes.includes(style)) {
-      openingTag = '\n\\begin{enumerate}'
+      closingTag = shift + '\\end{itemize}' + lineEnd
+    } else if (orderedListTypes.includes(list.style)) {
+      openingTag = lineBreak + shift + '\\begin{enumerate}'
       if (label.length !== 0) {
         openingTag += '[label=' + label + ']' + lineEnd
       }
-      closingTag = '\\end{enumerate}' + lineEnd
+      closingTag = shift + '\\end{enumerate}' + lineEnd
     }
     theList += openingTag
-    for (const item of items) {
-      theList += lineStart + item + lineEnd
+    for (const item of list.items) {
+      if (typeof item === 'string') { theList += shift + lineStart + item + lineEnd } else {
+        if (item.introduction) {
+          theList += shift + lineStart + item.introduction + lineEnd
+          theList += createList(item, shift + '\t')
+        } else {
+          theList += shift + lineStart
+          theList += '\n' + createList(item, shift + '\t')
+        }
+        // shift += '\t'
+      }
+      // shift = shift.replace('\t', '')
     }
     theList += closingTag
   }

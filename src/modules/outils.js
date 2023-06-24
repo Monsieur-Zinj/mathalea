@@ -294,7 +294,7 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
  * La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
  * @param {boolean} [shuffle=true] si true, alors on brasse la liste en sortie sinon on garde l'ordre
- * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
+ * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie. Si 999, alors le nbQuestions correspond à la longueur de saisie.
  * @param {number | undefined} melange la valeur utilisée pour l'option mélange
  * @param {boolean} [enleveDoublons=false]  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
  * @param {number[]} exclus liste de valeurs à exclure entre min et max
@@ -337,7 +337,7 @@ export function gestionnaireFormulaireTexte ({
   if (exclus && exclus.length > 0) {
     listeIndex = listeIndex.filter((element) => !exclus.includes(element))
   }
-
+  if (nbQuestions === 999) nbQuestions = listeIndex.length
   listeIndex = shuffle ? combinaisonListes(listeIndex, nbQuestions) : combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
 
   const Max = Math.max(...listeIndex)
@@ -850,7 +850,7 @@ export function shuffle (array) {
   let randomIndex
 
   // While there remain elements to shuffle...
-  const arrayBis = array.slice()
+  const arrayBis = [...array]
   while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex)
@@ -1019,8 +1019,8 @@ function cleExisteEtContient (v, val) {
  * @author Rémi Angot
  */
 export function combinaisonListes (liste, tailleMinimale) {
-  if (liste.length === 0) return []
-  let l = shuffle(liste)
+  if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
+  let l = shuffle(liste) // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
     l = l.concat(shuffle(liste))
   }
@@ -1038,8 +1038,8 @@ export function combinaisonListes (liste, tailleMinimale) {
  * @author Eric Elter
  */
 export function combinaisonListes2 (liste, tailleMinimale) {
-  if (liste.length === 0) return []
-  let l = liste
+  if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
+  let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
     l = l.concat(choice(liste))
   }
@@ -1048,10 +1048,12 @@ export function combinaisonListes2 (liste, tailleMinimale) {
 
 export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
   // Concatène liste à elle même en changeant
-  while (liste.length < tailleMinimale) {
-    liste = liste.concat(liste)
+  if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
+  let l = [...liste] // on ne modifie pas la liste passée en argument !
+  while (l.length < tailleMinimale) {
+    l = l.concat(liste)
   }
-  return liste
+  return l
 }
 
 /** Renvoie une liste exhaustive de tableaux contenant les mêmes élèments que tab mais jamais dans le même ordre
@@ -3506,7 +3508,6 @@ export function obtenirListeNombresPremiers (n = 300) {
  * @author Rémi Angot
  */
 export function decompositionFacteursPremiers (n) {
-  console.log('liste des facteurs premiers pour -72 : ', obtenirListeFacteursPremiers(-72))
   let decomposition = ''
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
@@ -3522,7 +3523,7 @@ export function decompositionFacteursPremiers (n) {
  * @param {boolean} inférieur si true, commence la recherche à 2 en croissant sinon commence à n+1
  * @returns {number}
  */
-export function premierAvec (n, listeAEviter, inférieur = true) {
+export function premierAvec (n, listeAEviter = [], inférieur = true) {
   if (n < 2) throw Error(`Impossible de trouver un nombre premier avec ${n}`)
   let candidat = inferieur ? 2 : n + 1
   do {

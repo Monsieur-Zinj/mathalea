@@ -120,6 +120,30 @@ async function handleProfs () {
 }
 
 /**
+ * On gère les ressources du répertoires exercices/beta
+ */
+async function handleBeta () {
+  const dir = path.join('./src', 'exercices', 'beta')
+  const files = fs.readdirSync(dir)
+  for await (const file of files) {
+    let url = path.join(dir, file)
+    /** On ignore les fichiers qui commencent par _ qui sont des méta-exercices */
+    if (fs.statSync(url).isDirectory() || file.charAt(0) === '_') continue
+    url = path.join('../', url).replaceAll('\\', '/')
+    try {
+      const { uuid } = await import(url)
+      url = url.replace('../src/exercices/', '')
+      url = url.replace('..\\src\\exercices\\', '')
+      if (uuidOk(uuid, url, uuidUrls)) {
+        uuidUrls[uuid] = url
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+/**
  * Le rangement des exercices dans une catégorie suit une règle par rapport au nom du fichier
  * mais cette règle dépend, hélas, des niveaux
  */
@@ -156,6 +180,7 @@ function categoryCanByNiveau (niveau, ref) {
 await handleLevels()
 await handleCanLevels()
 await handleProfs()
+await handleBeta()
 
 const uuidUrlsAvecRessources = { ...uuidsRessources, ...uuidUrls }
 

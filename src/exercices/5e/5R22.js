@@ -34,6 +34,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
   this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

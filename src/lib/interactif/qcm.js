@@ -61,17 +61,20 @@ export function verifQuestionQcm (exercice, i) {
   if (eltFeedback) { eltFeedback.innerHTML = '' }
   if (resultat === 'KO') {
     // Juste mais incomplet
-    if (nbBonnesReponses > 0 && nbBonnesReponses < nbBonnesReponsesAttendues) {
-      message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''} mais c'est incomplet.`
+    if (nbBonnesReponses > 0 && nbMauvaisesReponses === 0 && nbBonnesReponses < nbBonnesReponsesAttendues) {
+      message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''}`
     } else if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) { // Du juste et du faux
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     } else if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) { // Que du faux
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     } else { // Aucune réponse
-      message = 'Aucune réponse fournie'
+      message = ''
     }
   } else {
     message = 'Bravo !'
+  }
+  if (nbBonnesReponsesAttendues > nbBonnesReponses) {
+    message += `<br>${nbBonnesReponsesAttendues - nbBonnesReponses} bonne${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} manquante${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''}`
   }
   messageFeedback({
     id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,

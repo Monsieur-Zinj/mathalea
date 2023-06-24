@@ -10,6 +10,7 @@
   import { exercicesParams } from "../store"
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
+  import type { Mathfield } from "mathlive";
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -143,8 +144,20 @@
     if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
     exercice.applyNewSeed()
     if (buttonScore) initButtonScore()
+    // On garde en mémoire les corrections déjà visualisées
     if (isCorrectionVisible) {
       window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
+    }
+    // On réinitialise les champs de réponse
+    const champTexteEx = document.querySelectorAll(`[id^='champTexteEx${indiceExercice}']`) as NodeListOf<HTMLInputElement>
+    for (const champTexte of champTexteEx) {
+      // @ts-ignore
+      champTexte.setValue("")
+      champTexte.readOnly = false
+    }
+    const smileys = document.querySelectorAll(`[id^='resultatCheckEx${indiceExercice}']`)
+    for (const smiley of smileys) {
+      smiley.innerHTML = ""
     }
     updateDisplay()
   }

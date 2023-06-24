@@ -4,7 +4,7 @@ export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Additionner ou soustraire des fractions de même dénominateur'
+export const titre = 'Calculs simples avec des fractions'
 
 export const uuid = '64422'
 export const ref = '6C23'

@@ -5307,7 +5307,7 @@
         "id": "6C23",
         "uuid": "64422",
         "url": "6e/6C23.js",
-        "titre": "Additionner ou soustraire des fractions de même dénominateur",
+        "titre": "Calculs simples avec des fractions",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6091,7 +6091,7 @@
           "interactif": true,
           "interactifType": "qcm",
           "amc": true,
-          "amcType": "qcmMono"
+          "amcType": "qcmMult"
         }
       },
       "6G43": {
@@ -9849,6 +9849,13 @@
           "amc": true,
           "amcType": "AMCOpen"
         }
+      },
+      "3A14-0": {
+        "id": "3A14-0",
+        "uuid": "2e22a",
+        "url": "3e/3A14-0.js",
+        "titre": "Arithmétique & volumes",
+        "tags": {}
       }
     },
     "3F1": {
@@ -10772,18 +10779,6 @@
           "amcType": "AMCHybride"
         }
       },
-      "3L14-1": {
-        "id": "3L14-1",
-        "uuid": "a8e6c",
-        "url": "3e/3L14-1.js",
-        "titre": "Résoudre une équation produit nul (niveau 2)",
-        "tags": {
-          "interactif": true,
-          "interactifType": "mathLive",
-          "amc": true,
-          "amcType": "AMCHybride"
-        }
-      },
       "3L14": {
         "id": "3L14",
         "uuid": "ecf62",
@@ -10812,7 +10807,11 @@
         "uuid": "231d2",
         "url": "3e/3L15.js",
         "titre": "Résoudre une équation du second degré se ramenant au premier degré",
-        "tags": {}
+        "dateModification": "21/06/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "3P1": {
@@ -11037,6 +11036,16 @@
         "datePublication": "14/02/2023",
         "tags": {}
       },
+      "2F23-1": {
+        "id": "2F23-1",
+        "uuid": "4dced",
+        "url": "2e/2F23-1.js",
+        "titre": "Utiliser les différentes formes d'un polynôme du second degré",
+        "datePublication": "20/06/2023",
+        "tags": {
+          "interactif": false
+        }
+      },
       "2F25-1": {
         "id": "2F25-1",
         "uuid": "6e82d",
@@ -11049,6 +11058,7 @@
         "uuid": "1e362",
         "url": "2e/2F25-2.js",
         "titre": "Étudier la parité d'une fonction",
+        "dateModification": "19/06/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -11248,7 +11258,10 @@
         "url": "2e/2G24-4.js",
         "titre": "Calculer les coordonnées du produit d'un vecteur par un réel",
         "datePublication": "28/05/2023",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "2G3": {
