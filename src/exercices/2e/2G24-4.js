@@ -16,10 +16,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées du produit d\'un vecteur par un réel'
 export const dateDePublication = '28/05/2023'
+export const dateDeModificationImportante = '14/06/2023'
 
 /**
  * Produit d'un vecteur par un réel
- * @author Stéphan Grignon
+ * @author Stéphan Grignon & Jean-Claude Lhote
  */
 export const uuid = '68693'
 export const ref = '2G24-4'
@@ -53,6 +54,7 @@ export default function Calculercoordonneesproduitvecteurs () {
             vy = randint(-9, 9)
           } // Second vecteur jamais nul
           const k = randint(-9, 9, [-1, 0, 1])
+          // wx et wy sont entier tout comme dans 't3' mais on uniformise avec 't2' la réponse pour l'interactif
           wx = new FractionEtendue(ux + k * vx, 1)
           wy = new FractionEtendue(uy + k * vy, 1)
 
@@ -81,11 +83,11 @@ export default function Calculercoordonneesproduitvecteurs () {
           const k = new FractionEtendue(frac1[0], frac1[1])
           const a = choice([-1, 1])
           const frac2 = choice(listeFractions1)
-          // const frac3 = choice(listeFractions1, [frac1, frac2]) // retirer le commentaire si on veut vy fractionnaire
           const vx = new FractionEtendue(frac2[0], frac2[1])
-          const vy = new FractionEtendue(randint(-9, 9, [0]), 1) // à remplacer par new FractionEtendue(frac3[0], frac3[1])
+          const vy = new FractionEtendue(randint(-9, 9, [0]), 1)
           wx = vx.produitFraction(k.multiplieEntier(a)).ajouteEntier(ux).simplifie()
           wy = vy.produitFraction(k.multiplieEntier(a)).ajouteEntier(uy).simplifie()
+
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}${signe(a)}${k.texFraction}\\overrightarrow{v}$.`
 
@@ -122,7 +124,6 @@ export default function Calculercoordonneesproduitvecteurs () {
           const xD = randint(-9, 9, xC)
           const yD = randint(-9, 9, [yC, xD])
           const k = randint(-9, 9, [-1, 0, 1])
-          // wx et wy sont entier tout comme dans 't1' mais on uniformise la réponse
           wx = new FractionEtendue((xB - xA) + k * (xD - xC), 1)
           wy = new FractionEtendue((yB - yA) + k * (yD - yC), 1)
 
@@ -144,17 +145,14 @@ export default function Calculercoordonneesproduitvecteurs () {
             texteCorr += `$${k}\\overrightarrow{CD}\\begin{pmatrix}${k}\\times${ecritureParentheseSiNegatif(xD - xC)}\\\\${k}\\times${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$ soit $${k}\\overrightarrow{CD}\\begin{pmatrix}${k * (xD - xC)}\\\\${k * (yD - yC)}\\end{pmatrix}$.<br><br>`
             texteCorr += `$\\overrightarrow{AB}${ecritureAlgebrique(k)}\\overrightarrow{CD}\\begin{pmatrix}${xB - xA}+${ecritureParentheseSiNegatif(k * (xD - xC))}\\\\${yB - yA}+${ecritureParentheseSiNegatif(k * (yD - yC))}\\end{pmatrix}$.<br><br>`
             texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+          } else {
+            texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${xB - xA}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
           }
-          texteCorr += `$\\overrightarrow{w}\\begin{pmatrix}${xB - xA}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
         }
           break
       }
-      // les arguments passés à cette fonction ne doive contenir que les variables qui changent d'une question à l'autre
-      // listeFractions1 est une constante qui n'a par exemple rien à faire ici
-      // ux,uy ne sont pas assignés dans le cas t3, donc considère le comme une constante d'une question à l'autre
-      // en fait on peut uniquement conserver wx et wy comme éléments distinctifs.
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br>composante x de W :' })
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br>composante y de W :' })
+      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Composante sur $x$ de $\\overrightarrow{w}$ :' })
+      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Composante sur $y$ de $\\overrightarrow{w}$ :' })
       setReponse(this, 2 * i, wx, { formatInteractif: 'fractionEgale' })
       setReponse(this, 2 * i + 1, wy, { formatInteractif: 'fractionEgale' })
       if (this.questionJamaisPosee(i, wx, wy)) { // Si la question n'a jamais été posée, on en créé une autre
@@ -166,6 +164,5 @@ export default function Calculercoordonneesproduitvecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  // j'ai transformé le type de formulaire pour qu'on puisse sélectionner une liste de valeurs plutôt qu'une seule ou mélange
   this.besoinFormulaireTexte = ['Situations différentes ', '1 : Coordonnées entières\n2 : Coordonnées en écriture fractionnaire\n3 : À partir de quatre points\n4 : Mélange']
 }
