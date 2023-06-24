@@ -76,11 +76,18 @@
 
 <div class="z-0 flex-1">
   <h1
-    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
+    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 mt-4 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
   >
     <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center" id="exercice{indiceExercice}">
       <div class="flex font-bold text-sm md:text-base lg:text-xl">
-        {category}&#8239;{indiceExercice + 1}
+        <div
+          class="{$exercicesParams.length <= 1
+            ? 'hidden'
+            : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal translate-y-1 mr-4"
+        >
+          {indiceExercice + 1}
+        </div>
+        {category}&#8239
       </div>
       <div class="flex flex-row font-normal text-sm md:text-base xl:text-lg pl-2">
         <div><span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{title}</div>
