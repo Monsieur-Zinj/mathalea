@@ -79,11 +79,11 @@
     class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 mt-4 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
   >
     <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center" id="exercice{indiceExercice}">
-      <div class="flex font-bold text-sm md:text-base lg:text-xl">
+      <div class="flex flex-row items-center font-bold text-sm md:text-base lg:text-xl pb-2 lg:pb-0">
         <div
           class="{$exercicesParams.length <= 1
             ? 'hidden'
-            : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal translate-y-1 mr-4"
+            : 'flex'} items-center justify-center h-4 lg:h-8 w-4 lg:w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-xs lg:text-lg mr-2 lg:mr-4"
         >
           {indiceExercice + 1}
         </div>
