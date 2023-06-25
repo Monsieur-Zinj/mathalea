@@ -93,7 +93,7 @@
           {id}<span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>
         {/if}
       </div>
-      <div class="flex flex-row font-normal text-sm md:text-base xl:text-lg pl-0 lg:pl-0">
+      <div class="flex flex-row font-normal text-sm md:text-base xl:text-lg pl-0 {id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}">
         {title}
         <!-- <div class="italic ml-2 font-light text-coopmaths-warn-900">{titleExtra}</div> -->
       </div>
