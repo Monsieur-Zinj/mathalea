@@ -255,7 +255,7 @@
         <!-- Barre de boutons  -->
         <div
           style="--sidebarWidth:{sidebarWidth}; --isMenuOpen:{isMenuOpen ? 1 : 0}"
-          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex flex-col justify-center items-center md:absolute md:top-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"}
+          class={$exercicesParams.length === 0 ? "hidden" : "z-50 flex flex-col justify-center items-center md:fixed md:top-28 md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"}
           id="barre-boutons"
         >
           <ButtonsDeck barWidthPercentage={80}>
@@ -410,15 +410,14 @@
               </button>
             </div>
           </ButtonsDeck>
-
-          <!-- Barre des chips -->
-          <div class="{chipsListDisplayed ? 'flex flex-row justify-start items-center w-full p-6 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : 'hidden'} ">
-            <ChipsList />
-          </div>
         </div>
         <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
           <div id="exercisesWrapper" class="flex flex-col justify-between h-full mt-0 sm:mt-28 xl:mt-14" bind:this={divExercices}>
+            <!-- Barre des chips -->
+            <div class="{chipsListDisplayed ? 'flex flex-row justify-start items-center w-full p-6 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : 'hidden'} ">
+              <ChipsList />
+            </div>
             <div class="flex-1">
               <div class="flex flex-col h-full md:mt-9 lg:mt-0">
                 {#each $exercicesParams as paramsExercice, i (paramsExercice)}
@@ -461,7 +460,7 @@
   }
   @media (max-width: 768px) {
     #barre-boutons {
-      width: 90vw;
+      width: 95vw;
     }
   }
 </style>
