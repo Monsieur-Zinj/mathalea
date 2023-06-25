@@ -1,3 +1,4 @@
+import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time.js'
 import { context } from '../../modules/context.js'
 const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
 const orderedListTypes: string[] = ['nombres', 'alpha', 'Alpha', 'roman', 'Roman']
@@ -55,6 +56,12 @@ export function createList (list: NestedList, shift: string = '') :HTMLUListElem
       const li: HTMLLIElement = document.createElement('li')
       if (typeof item === 'string') {
         li.appendChild(document.createTextNode(item))
+      } else if (typeof item === 'object' && item.description !== undefined) {
+        const span: HTMLSpanElement = document.createElement('span')
+        span.setAttribute('id', 'list-item-description' + getUniqueStringBasedOnTimeStamp('-'))
+        span.appendChild(document.createTextNode(item.description))
+        li.appendChild(span)
+        li.appendChild(document.createTextNode(item.text))
       } else {
         if (item.introduction) {
           li.appendChild(document.createTextNode(item.introduction))
@@ -123,7 +130,11 @@ export function createList (list: NestedList, shift: string = '') :HTMLUListElem
     }
     theList += openingTag
     for (const item of list.items) {
-      if (typeof item === 'string') { theList += shift + lineStart + item + lineEnd } else {
+      if (typeof item === 'string') {
+        theList += shift + lineStart + item + lineEnd
+      } else if (typeof item === 'object' && item.description !== undefined) {
+        theList += shift + lineStart + '\\textbf{' + item.description + '}' + item.text + lineEnd
+      } else {
         if (item.introduction) {
           theList += shift + lineStart + item.introduction + lineEnd
           theList += createList(item, shift + '\t')

@@ -397,6 +397,10 @@ ul.xcas-help {
   @apply pl-0 list-inside mb-4
 }
 
+ul.xcas-help li span[id^='list-item-description-'] {
+  @apply font-mono bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
+}
+
 div[id^="xcas-results-"] {
   @apply px-5 py-2
 }

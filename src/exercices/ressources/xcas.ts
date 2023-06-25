@@ -25,13 +25,20 @@ class xCas {
     intro.innerHTML = '<h1 id="h1-xcas">Fonctions utiles</h1>'
     const commandsList: List = {
       items: [
-        'ifactor : décomposition en produit de facteurs premiers',
-        'idivis : liste des diviseurs',
-        'gcd : PGCD',
-        'lcm : PPCM',
-        'simplify : simplifie une expression',
-        'expand : développe une expression',
-        'factor : factorise une expression'
+        // 'ifactor : décomposition en produit de facteurs premiers',
+        // 'idivis : liste des diviseurs',
+        // 'gcd : PGCD',
+        // 'lcm : PPCM',
+        // 'simplify : simplifie une expression',
+        // 'expand : développe une expression',
+        // 'factor : factorise une expression',
+        { description: 'ifactor', text: ' : décomposition en produit de facteurs premiers' },
+        { description: 'idivis', text: ' : liste des diviseurs' },
+        { description: 'gcd', text: ' : PGCD' },
+        { description: 'lcm', text: ' : PPCM' },
+        { description: 'simplify', text: ' : simplifie une expression' },
+        { description: 'expand', text: ' : développe une expression' },
+        { description: 'factor', text: ' : factorise une expression' }
       ],
       style: 'puces',
       classOptions: 'xcas-help'
