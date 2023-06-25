@@ -2,7 +2,7 @@ import { context } from '../../modules/context.js'
 const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
 const orderedListTypes: string[] = ['nombres', 'alpha', 'Alpha', 'roman', 'Roman']
 type ListStyle = 'none'|'puces'|'carres'|'qcm'|'fleches'|'nombres'|'alpha'|'Alpha'|'roman'|'Roman'
-type List<T> = {
+export type List<T> = {
   /**
    * Entrée de la liste ou déclaration d'une autre liste
    */
@@ -20,7 +20,7 @@ type List<T> = {
    */
   introduction?: string,
 }
-interface NestedList extends List<NestedList>{}
+export interface NestedList extends List<NestedList>{}
 /**
  * Contruit une liste formattée suivant un style à partir d'un tableau de chaînes de caractères comme entrées.
  * @param {NestedList} list Objet décrivant la liste

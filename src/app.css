@@ -385,6 +385,22 @@ i[id^="html-insert-info-"] {
   @apply flex px-2  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
 }
 
+span.code {
+  @apply font-mono bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
+}
+
+h1[id="h1-xcas"] {
+  @apply mt-2 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-xl md:text-lg font-light
+}
+
+ul.xcas-help {
+  @apply pl-0 list-inside mb-4
+}
+
+div[id^="xcas-results-"] {
+  @apply px-5 py-2
+}
+
 /* 
 888      d8b          888                      
 888      Y8P          888                      
