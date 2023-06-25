@@ -23,6 +23,8 @@
 
   onMount(async () => {
     divExercice.appendChild(exercice.html)
+    const exercicesAffiches = new window.Event("addedToDom", { bubbles: true })
+    divExercice.children[0].dispatchEvent(exercicesAffiches)
   })
 
   $: {

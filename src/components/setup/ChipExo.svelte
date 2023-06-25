@@ -10,9 +10,9 @@
 
 <div
   id="exo-{indice}"
-  class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas text-xs px-1 py-[1px] shadow-sm cursor-move"
+  class="inline-flex items-center justify-center rounded-full bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas text-xs px-1 py-[1px] shadow-sm cursor-move text-ellipsis whitespace-nowrap overflow-hidden"
 >
-  {text}
+  {text.replaceAll('_', ' ')}
   <button class="ml-2 bg-transparent hover focus:outline-none cursor-pointer" on:click={remove}>
     <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-x font-semibold text-base" />
   </button>

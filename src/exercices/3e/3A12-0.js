@@ -372,7 +372,7 @@ export default class EngrenagesAnimes extends Exercice {
             button.classList.add('px-6', 'py-2.5', 'mr-10', 'my-5', 'ml-6', 'bg-coopmaths', 'text-white', 'font-medium', 'text-xs', 'leading-tight', 'uppercase', 'rounded', 'shadow-md',
               'transform', 'hover:scale-110', 'hover:bg-coopmaths-dark', 'hover:shadow-lg', 'focus:bg-coopmaths-dark', 'focus:shadow-lg', 'focus:outline-none', 'focus:ring-0', 'active:bg-coopmaths-dark', 'active:shadow-lg', 'transition', 'duration-150', 'ease-in-out')
           }
-          document.removeEventListener('exerciceAffiches', remiseAZero)
+          document.removeEventListener('exercicesAffiches', remiseAZero)
           document.removeEventListener('exercicesAffiches', insertInDom)
         }
       }

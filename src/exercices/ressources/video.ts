@@ -17,13 +17,21 @@ class ressourceVideo {
     this.typeExercice = 'html'
     this.titre = 'Vidéo'
     this.container = document.createElement('div')
+    this.container.setAttribute('overflow', 'auto')
     this.iframe = document.createElement('iframe')
-    this.iframe.setAttribute('width', '560')
+    this.iframe.setAttribute('width', '500')
     this.iframe.setAttribute('height', '315')
     this.iframe.setAttribute('title', 'YouTube video player')
     this.iframe.setAttribute('frameborder', '0')
     this.iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share')
     this.iframe.setAttribute('allowfullscreen', '')
+    const updateVideoSize = () => {
+      this.iframe.setAttribute('width', '100%')
+      this.iframe.setAttribute('height', this.iframe.offsetWidth * 0.75 + '')
+    }
+    window.addEventListener('resize', updateVideoSize)
+    this.container.addEventListener('addedToDom', updateVideoSize)
+
     // constitution d'une ID pour mise en forme dans app.css
     this.iframe.setAttribute('id', 'iframe-video' + getUniqueStringBasedOnTimeStamp('-'))
     // /!\ pas de mise en formee ici !!!
