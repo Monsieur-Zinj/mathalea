@@ -84,7 +84,7 @@
         <div
           class="{$exercicesParams.length <= 1
             ? 'hidden'
-            : 'flex'} items-center justify-center h-4 lg:h-8 w-4 lg:w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-xs lg:text-lg mr-2 lg:mr-4"
+            : 'flex'} items-center justify-center h-4 lg:h-8 w-4 lg:w-6 bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas font-light text-xs lg:text-lg mr-2 lg:mr-4"
         >
           {indiceExercice + 1}
         </div>
