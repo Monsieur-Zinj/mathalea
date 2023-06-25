@@ -225,10 +225,10 @@
     {/if}
 
     <!-- Affichage Partie Gauche : Menu + Contenu -->
-    <div class="flex-1 relative flex grow flex-col md:flex-row h-full sm:overflow-y-hidden bg-coopmaths-canvas">
+    <div class="flex-1 relative flex flex-col md:flex-row h-full bg-coopmaths-canvas">
       <!-- Menu Choix Exos et Ressources -->
       <div class="mt-6 sm:mt-0">
-        <div id="choiceMenuWrapper" class="flex-1 sm:overflow-y-hidden">
+        <div id="choiceMenuWrapper" class="sm:h-[calc(100vh-7rem)] sticky top-16 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
           <SideMenu
             bind:isMenuOpen
             isMenuCloseable={$exercicesParams.length !== 0}
@@ -251,7 +251,7 @@
       />
 
       <!-- Affichage Partie Droite -->
-      <div class="flex-1 overflow-y-auto w-full min-h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+      <div class="w-full h-screen sm:h-[calc(100vh-7rem)] sticky top-16 overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <!-- Barre de boutons  -->
         <div
           style="--sidebarWidth:{sidebarWidth}; --isMenuOpen:{isMenuOpen ? 1 : 0}"
