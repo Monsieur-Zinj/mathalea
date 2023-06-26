@@ -76,12 +76,12 @@ export default function ProbabilitesConditionnelles () {
           objets.push(segment(B, A4, 'blue'))
           objets.push(latexParCoordonnees('A', 5, 5.2, 'black', 20, 12, 'white', 10)) // 1er noeud Avion) = A
           objets.push(latexParCoordonnees('\\bar A', 5, 1.3, 'black', 20, 12, 'white', 10))// 1er noeud événement contraire \bar A
-          objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
-          objets.push(latexParCoordonnees(texProba(a / 100, this.sup), 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de A, ici ${a}
-          objets.push(latexParCoordonnees(texProba(1 - a / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar A 1-${a}
-          objets.push(latexParCoordonnees(texProba(1 - v / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
-          objets.push(latexParCoordonnees(texProba(v / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
-          objets.push(latexParCoordonnees(`P(A\\cap V)=${texProba(av / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B \\cap A
+          objets.push(latexParCoordonnees('\\Omega', 0, 2.3, 'black', 20, 12, 'white', 10))// Univers, point de départ de l'arbre Omega
+          objets.push(latexParCoordonnees(texProba(a / 100, this.sup), 2.5, 4.1, 'black', 20, 20, '', 6))// proba de A, ici ${a}
+          objets.push(latexParCoordonnees(texProba(1 - a / 100, this.sup), 2.5, 2.1, 'black', 20, 20, '', 6))// proba de \\bar A 1-${a}
+          objets.push(latexParCoordonnees(texProba(1 - v / 100, this.sup), 6.8, 0.9, 'black', 20, 20, '', 6))// proba de \\bar B sachant \\bar A
+          objets.push(latexParCoordonnees(texProba(v / 100, this.sup), 6.8, 2.7, 'black', 20, 20, '', 6))// proba de B sachant \\bar A
+          objets.push(latexParCoordonnees(`P(A\\cap V)=${texProba(av / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, '', 10))// proba de B \\cap A
 
           objets.push(latexParCoordonnees('V', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
           objets.push(latexParCoordonnees('\\bar V', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
@@ -147,12 +147,12 @@ export default function ProbabilitesConditionnelles () {
           objets.push(segment(B, A4, 'blue'))
           objets.push(latexParCoordonnees('C', 5, 5.2, 'black', 20, 12, 'white', 10)) // 1er noeud  = C
           objets.push(latexParCoordonnees('\\bar C', 5, 1.3, 'black', 20, 12, 'white', 10))// 1er noeud événement contraire \bar C
-          objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
-          objets.push(latexParCoordonnees(texProba(c / 100, this.sup), 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de C, ici ${c}
-          objets.push(latexParCoordonnees(texProba(1 - c / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar C 1-${c}
-          objets.push(latexParCoordonnees(texProba(1 - ec / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar E sachant \\bar C
-          objets.push(latexParCoordonnees(texProba(ec / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de E sachant \\bar C
-          objets.push(latexParCoordonnees(`P(C\\cap E)=${texProba(ce / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de C \\cap E
+          objets.push(latexParCoordonnees('\\Omega', 0, 2.3, 'black', 20, 12, 'white', 10))// Univers, point de départ de l'arbre Omega
+          objets.push(latexParCoordonnees(texProba(c / 100, this.sup), 2.5, 4.1, 'black', 20, 20, '', 6))// proba de C, ici ${c}
+          objets.push(latexParCoordonnees(texProba(1 - c / 100, this.sup), 2.5, 2.1, 'black', 20, 20, '', 6))// proba de \\bar C 1-${c}
+          objets.push(latexParCoordonnees(texProba(1 - ec / 100, this.sup), 6.8, 0.9, 'black', 20, 20, '', 6))// proba de \\bar E sachant \\bar C
+          objets.push(latexParCoordonnees(texProba(ec / 100, this.sup), 6.8, 2.7, 'black', 20, 20, '', 6))// proba de E sachant \\bar C
+          objets.push(latexParCoordonnees(`P(C\\cap E)=${texProba(ce / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, '', 10))// proba de C \\cap E
           objets.push(latexParCoordonnees('E', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
           objets.push(latexParCoordonnees('\\bar E', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
           objets.push(latexParCoordonnees('E', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A

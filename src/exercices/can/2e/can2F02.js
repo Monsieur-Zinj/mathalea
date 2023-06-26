@@ -44,7 +44,7 @@ export default function CalculImageQuotient () {
     this.question = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
 
         Calculer $f(${x})$ sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
-    if (a === 1 & c === 1) {
+    if (a === 1 && c === 1) {
       this.correction = `$f(${x})=\\dfrac{${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}}{${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
           =${texFractionReduite(e, f)}$.<br>
           `
@@ -54,7 +54,7 @@ export default function CalculImageQuotient () {
            On obtient le quotient que l'on simplifie éventuellement : $${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
     `)
     }
-    if (a === 1 & c !== 1) {
+    if (a === 1 && c !== 1) {
       this.correction = `$f(${x})=\\dfrac{${x}${ecritureAlgebrique(b)}}{${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
           =${texFractionReduite(e, f)}$.<br>
           `
@@ -64,7 +64,7 @@ export default function CalculImageQuotient () {
            On obtient le quotient que l'on simplifie éventuellement : $${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
     `)
     }
-    if (a !== 1 & c === 1) {
+    if (a !== 1 && c === 1) {
       this.correction = `$f(${x})=\\dfrac{${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}}{${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
           =${texFractionReduite(e, f)}$.<br>
           `
@@ -74,7 +74,7 @@ export default function CalculImageQuotient () {
            On obtient le quotient que l'on simplifie éventuellement : $${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
     `)
     }
-    if (a !== 1 & c !== 1) {
+    if (a !== 1 && c !== 1) {
       this.correction = `$f(${x})=\\dfrac{${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}}{${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
           =${texFractionReduite(e, f)}$.<br>
           `
