@@ -278,7 +278,6 @@
   "adac4": "6e/6S10-1.js",
   "17bce": "6e/6S10.js",
   "99d95": "6e/6S11.js",
-  "fc42d": "6e/beta_liste.js",
   "4828d": "5e/5A10.js",
   "a3870": "5e/5A11-1.js",
   "5618d": "5e/5A11-2.js",
@@ -510,7 +509,6 @@
   "d8bf2": "3e/3A13-2.js",
   "d9cf3": "3e/3A13-3.js",
   "b0cee": "3e/3A13-4.js",
-  "2e22a": "3e/3A14-0.js",
   "77d18": "3e/3F1-act.js",
   "0eecd": "3e/3F10-1.js",
   "ba520": "3e/3F10-2.js",
@@ -609,6 +607,7 @@
   "277d3": "2e/2F12-2.js",
   "ec059": "2e/2F20-2.js",
   "5621b": "2e/2F21-1.js",
+  "a2ac2": "beta/betaModeleSpline.js",
   "4dced": "2e/2F23-1.js",
   "6e82d": "2e/2F25-1.js",
   "1e362": "2e/2F25-2.js",
@@ -1178,6 +1177,5 @@
   "6fb13": "profs/P019.js",
   "de353": "profs/P020.js",
   "57cf4": "beta/betaModele00_simple_Course_au_Nombres.js",
-  "a2ac2": "beta/betaSpline.js",
   "efeee": "beta/betaTexNombre.js"
 }

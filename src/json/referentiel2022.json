@@ -9849,13 +9849,6 @@
           "amc": true,
           "amcType": "AMCOpen"
         }
-      },
-      "3A14-0": {
-        "id": "3A14-0",
-        "uuid": "2e22a",
-        "url": "3e/3A14-0.js",
-        "titre": "Arithmétique & volumes",
-        "tags": {}
       }
     },
     "3F1": {
@@ -11035,6 +11028,17 @@
         "titre": "Modéliser une situation à l'aide d'une fonction",
         "datePublication": "14/02/2023",
         "tags": {}
+      },
+      "2F22-1": {
+        "id": "2F22-1",
+        "uuid": "a2ac2",
+        "url": "2e/2F22-1.js",
+        "titre": "Recherche d'antécédents",
+        "datePublication": "22/06/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2F23-1": {
         "id": "2F23-1",
