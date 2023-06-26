@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice } from "../store"
+  import { globalOptions, resultsByExercice, exercicesParams } from "../store"
   import { afterUpdate, onMount, tick, onDestroy } from "svelte"
   import type TypeExercice from "../utils/typeExercice"
   import seedrandom from "seedrandom"
@@ -7,7 +7,6 @@
   import { loadMathLive } from "../../modules/loaders"
   import { mathaleaFormatExercice, mathaleaHandleExerciceSimple, mathaleaHandleSup, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from "../../lib/mathalea"
   import { exerciceInteractif } from "../../lib/interactif/interactif"
-  import { exercicesParams } from "../store"
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
   export let exercice: TypeExercice
@@ -26,16 +25,37 @@
   let isMessagesVisible = true
   let interactifReady = exercice.interactifReady
   let isExerciceChecked = false
+  // const ranks: number[] = exercisesUuidRanking($exercicesParams)
+  // const counts = uuidCount($exercicesParams)
+  // const insert: string = `${counts[exercice.uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""}`
+  // const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
 
-  const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
+  let ranks: number[]
+  let counts
+  let titleExtra: string
+  let title: string
+  const id: string = $exercicesParams[indiceExercice].id ? exercice.id.replace(".js", "") : ""
+  $: {
+    ranks = exercisesUuidRanking($exercicesParams)
+    counts = uuidCount($exercicesParams)
+    titleExtra = counts[$exercicesParams[indiceExercice].uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""
+    title = $exercicesParams[indiceExercice].id ? `${exercice.titre}${titleExtra}` : exercice.titre
+    // title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
+  }
 
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event("exercicesAffiches", {
     bubbles: true,
   })
 
+  const ressourcesUuids = Object.keys({ ...uuidsRessources })
+  const category = ressourcesUuids.includes(exercice.uuid) ? "Ressource" : "Exercice"
+
   let headerExerciceProps: {
     title: string
+    id: string
+    titleExtra: string
+    category: string
     isInteractif: boolean
     settingsReady?: boolean
     isSortable?: boolean
@@ -45,7 +65,8 @@
     randomReady?: boolean
     interactifReady?: boolean
   } = {
-    title,
+    // title,
+    id,
     isInteractif,
     interactifReady,
   }
@@ -77,6 +98,9 @@
     }
     headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps.correctionExists = exercice.listeCorrections.length > 0
+    headerExerciceProps.title = title
+    headerExerciceProps.titleExtra = titleExtra
+    headerExerciceProps.category = category
     headerExerciceProps = headerExerciceProps
   }
 
@@ -304,6 +328,9 @@
 
 <div class="z-0 flex-1" bind:this={divExercice}>
   <HeaderExercice
+    {...headerExerciceProps}
+    {indiceExercice}
+    {indiceLastExercice}
     on:clickVisible={(event) => {
       isVisible = event.detail.isVisible
     }}
@@ -331,9 +358,6 @@
       updateDisplay()
     }}
     on:clickNewData={newData}
-    {...headerExerciceProps}
-    {indiceExercice}
-    {indiceLastExercice}
     interactifReady={exercice.interactifReady && !isCorrectionVisible && headerExerciceProps.interactifReady}
     on:clickMessages={(event) => {
       isMessagesVisible = event.detail.isMessagesVisible

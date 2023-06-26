@@ -2,7 +2,27 @@
   import { exercicesParams } from "../store"
   import { isRecent } from "../utils/handleDate"
 
-  export let exercice
+  import renderMathInElement from "katex/dist/contrib/auto-render.js"
+
+  export let exercice: Map<string, string | Map>
+
+  let nomDeExercice: HTMLDivElement
+  $: {
+    if (nomDeExercice && nomDeExercice.outerText.includes("$")) {
+      renderMathInElement(nomDeExercice, {
+        delimiters: [
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
+        ],
+        // Les accolades permettent d'avoir une formule non coupée
+        preProcess: (chaine: string) => "{" + chaine.replaceAll(String.fromCharCode(160), "\\,") + "}",
+        throwOnError: true,
+        errorColor: "#CC0000",
+        strict: "warn",
+        trust: false,
+      })
+    }
+  }
 
   /*--------------------------------------------------------------
     Gestions des exercices via la liste
@@ -76,7 +96,7 @@
       addToList(exercice)
     }}
   >
-    <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1">
+    <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1" bind:this={nomDeExercice}>
       {#if exercice.lieu}
         <span class="font-bold">{exercice.typeExercice.toUpperCase()} {exercice.mois || ""} {exercice.annee} - {exercice.lieu} - {exercice.numeroInitial}</span>
         <div>

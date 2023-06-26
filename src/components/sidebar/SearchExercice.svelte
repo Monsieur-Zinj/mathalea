@@ -64,6 +64,11 @@
       idsList.push(exo.id)
     }
     idsList = sortArrayOfStringsWithHyphens(idsList)
+    idsList = idsList.sort((idA, idB) => {
+      const firstInA = parseInt(idA.slice())
+      const firstInB = parseInt(idB.slice())
+      return firstInB - firstInA
+    })
     let sortedList: InterfaceReferentiel[] = []
     for (const id of idsList) {
       for (const exo of exercisesList) {

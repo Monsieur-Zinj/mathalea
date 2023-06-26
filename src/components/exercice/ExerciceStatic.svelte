@@ -1,7 +1,7 @@
 <script lang="ts">
   import HeaderExercice from "./HeaderExercice.svelte"
   import referentielStatic from "../../json/referentielStatic.json"
-  import { globalOptions } from "../store"
+  import { globalOptions, exercicesParams } from "../store"
   export let uuid: string
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -25,7 +25,8 @@
 
   if (typeof exercice.png === "string") exercice.png = [exercice.png]
   if (typeof exercice.pngCor === "string") exercice.pngCor = [exercice.pngCor]
-  let headerExerciceProps = { title: "", isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible }
+  const id: string = $exercicesParams[indiceExercice].id ? exercice.id.replace(".js", "") : ""
+  let headerExerciceProps = { title: "", id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible }
   headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ""} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
 </script>
 

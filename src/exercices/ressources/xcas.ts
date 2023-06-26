@@ -1,7 +1,9 @@
 import { xcas } from '../../modules/outils.js'
 import { mathaleaRenderDiv } from '../../lib/mathalea.js'
 import { createButon, createTextInput } from './components.js'
-
+import { createList } from '../../lib/format/lists.js'
+import type { List } from '../../lib/format/lists.js'
+import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time.js'
 class xCas {
   typeExercice: string
   titre: string
@@ -10,25 +12,53 @@ class xCas {
     this.typeExercice = 'html xcas'
     this.titre = 'xCas'
     this.html = document.createElement('div')
+    let firstTime:boolean = true
     const intro = document.createElement('p')
     const field = createTextInput({ autoCorrect: false })
     const button = createButon({ title: 'Exécuter' })
+    const resultTitle = document.createElement('div')
     const result = document.createElement('div')
-    result.classList.add('p-2', 'mt-4')
-    result.style.lineHeight = '3'
-    this.html.append(intro, field, button, result)
-    intro.innerHTML = '<h1 class="my-2 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-xl md:text-l font-bold">Fonctions utiles</h1>'
-    intro.innerHTML += `<ul class="mt-2 mb-5">
-    <li>ifactor : décomposition en produit de facteurs premiers</li>
-    <li>idivis : liste des diviseurs</li>
-    <li>gcd : PGCD</li>
-    <li>lcm : PPCM</li>
-    <li>simplify : simplifie une expression</li>
-    <li>expand : développe une expression</li>
-    <li>factor : factorise une expression</li>
-  </ul>`
+    result.setAttribute('id', 'xcas-results' + getUniqueStringBasedOnTimeStamp('-'))
+    // result.classList.add('p-2', 'mt-4')
+    // result.style.lineHeight = '3'
+    this.html.append(intro, field, button, resultTitle, result)
+    intro.innerHTML = '<h1 id="h1-xcas">Fonctions utiles</h1>'
+    const commandsList: List = {
+      items: [
+        // 'ifactor : décomposition en produit de facteurs premiers',
+        // 'idivis : liste des diviseurs',
+        // 'gcd : PGCD',
+        // 'lcm : PPCM',
+        // 'simplify : simplifie une expression',
+        // 'expand : développe une expression',
+        // 'factor : factorise une expression',
+        { description: 'ifactor', text: ' : décomposition en produit de facteurs premiers' },
+        { description: 'idivis', text: ' : liste des diviseurs' },
+        { description: 'gcd', text: ' : PGCD' },
+        { description: 'lcm', text: ' : PPCM' },
+        { description: 'simplify', text: ' : simplifie une expression' },
+        { description: 'expand', text: ' : développe une expression' },
+        { description: 'factor', text: ' : factorise une expression' }
+      ],
+      style: 'puces',
+      classOptions: 'xcas-help'
+    }
+    intro.innerHTML += createList(commandsList).outerHTML
+    //   intro.innerHTML += `<ul class="mt-2 mb-5">
+    //   <li>ifactor : décomposition en produit de facteurs premiers</li>
+    //   <li>idivis : liste des diviseurs</li>
+    //   <li>gcd : PGCD</li>
+    //   <li>lcm : PPCM</li>
+    //   <li>simplify : simplifie une expression</li>
+    //   <li>expand : développe une expression</li>
+    //   <li>factor : factorise une expression</li>
+    // </ul>`
 
     button.addEventListener('click', () => {
+      if (firstTime) {
+        firstTime = false
+        resultTitle.innerHTML += '<h1 id="h1-xcas">Résultats</h1>'
+      }
       result.innerHTML += `${field.value} <span class="mx-2">➡︎</span> $${xcas(field.value)}$`
       result.innerHTML += '<br>'
       field.value = ''

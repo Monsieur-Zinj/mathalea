@@ -6,11 +6,14 @@
   import SearchExercice from "./SearchExercice.svelte"
   import { onMount } from "svelte"
   import { toObject } from "../utils/toObj"
+  import EntreeListeRessources from "./EntreeListeRessources.svelte"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
   let refAsObject: object = {}
   onMount(() => {
+    console.log(ref.title)
+    console.log(ref.content)
     for (const entry of ref.content) {
       Object.assign(refAsObject, { [entry.key]: toObject(entry.obj) })
     }
@@ -18,11 +21,11 @@
     // console.log(refAsObject)
   })
 
-  let isMenuDeployed: boolean = true
+  export let isMenuDeployed: boolean = false
 </script>
 
 <div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6">
-  <div class=" font-bold text-xl text-coopmaths-struct">{ref.title}</div>
+  <div class=" font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct">{ref.title}</div>
   <div class={moreThanOne ? "flex" : "flex md:hidden"}>
     <button
       type="button"
@@ -50,6 +53,12 @@
     {#each ref.content as item, i}
       <li>
         <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+      </li>
+    {/each}
+  {:else if ref.type === "ressources"}
+    {#each ref.content as item, i}
+      <li>
+        <EntreeListeRessources ressource={item.obj} />
       </li>
     {/each}
   {:else}

@@ -5,8 +5,13 @@
   import { globalOptions } from "../store"
   import { exercicesParams } from "../store"
   import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
+  import uuidsRessources from "../../json/uuidsRessources.json"
+  import refProfs from "../../json/referentielProfs.json"
+  import { toMap } from "../utils/toMap"
   export let title: string
-  export let category: string = "Exercice"
+  export let id: string
+  // export let titleExtra: string
+  // export let category: string
   export let randomReady = true
   export let settingsReady = true
   export let correctionReady = true
@@ -23,6 +28,17 @@
   let isContentVisible = true
   let isCorrectionVisible = false
 
+  // Éttablissement de la catégorie
+  const ressourcesUuids = Object.keys({ ...uuidsRessources })
+  const profsUuids = Array.from(toMap({ ...refProfs }).values()).map((e) => e.get("uuid"))
+  let category: string
+  if (ressourcesUuids.includes($exercicesParams[indiceExercice].uuid)) {
+    category = "Ressource"
+  } else if (profsUuids.includes($exercicesParams[indiceExercice].uuid)) {
+    category = "Outil"
+  } else {
+    category = "Exercice"
+  }
   const dispatch = createEventDispatcher()
 
   function switchInteractif() {
@@ -61,14 +77,25 @@
 
 <div class="z-0 flex-1">
   <h1
-    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
+    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 mt-4 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
   >
     <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center" id="exercice{indiceExercice}">
-      <div class="flex font-bold text-sm md:text-base lg:text-xl">
-        {category}&#8239;{indiceExercice + 1}
+      <div class="flex flex-row items-center font-bold text-sm md:text-base lg:text-xl pb-1 lg:pb-0">
+        <div
+          class="{$exercicesParams.length <= 1
+            ? 'hidden'
+            : 'flex'} items-center justify-center h-4 lg:h-8 w-4 lg:w-6 bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas font-light text-xs lg:text-lg mr-2 lg:mr-4"
+        >
+          {indiceExercice + 1}
+        </div>
+        {category}&#8239
+        {#if id.length !== 0}
+          {id}<span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>
+        {/if}
       </div>
-      <div class="flex font-normal text-sm md:text-base xl:text-lg pl-2">
-        <div><span class="hidden xl:inline-flex xl:mx-1 font-bold">&middot;</span>{title}</div>
+      <div class="flex flex-row font-normal text-sm md:text-base xl:text-lg pl-0 {id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}">
+        {title}
+        <!-- <div class="italic ml-2 font-light text-coopmaths-warn-900">{titleExtra}</div> -->
       </div>
     </div>
     <div class="print-hidden flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1">

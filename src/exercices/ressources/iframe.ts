@@ -1,7 +1,6 @@
 import { exercicesParams, globalOptions } from '../../components/store'
 import { get } from 'svelte/store'
 import { createButon, createTextInput } from './components'
-
 class ressourceVideo {
   typeExercice: string
   numeroExercice: number
