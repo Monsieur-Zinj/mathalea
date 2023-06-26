@@ -209,7 +209,7 @@ export function Plot (x, y, {
   this.opacite = opacite
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.svg = function (coeff) {
-    if (this.couleurDeRemplissage === '') {
+    if (this.couleurDeRemplissage[0] === '') {
       return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color[0]}" stroke-opacity="${this.opacite || 1}"/>`
     } else {
       return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
@@ -353,6 +353,7 @@ export function TracePoint (...points) {
             rayon: this.epaisseur * 0.05,
             couleurDeRemplissage: this.color[0]
           })
+          objetssvg.push(s1)
         }
       }
     }
@@ -9449,8 +9450,8 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
   this.y = y
   this.xscale = xscale
   this.yscale = yscale
-  if (textAbs === '') textAbs = this.x.toString()
-  if (textOrd === '') textOrd = this.y.toString()
+  if (textAbs == null) textAbs = this.x.toString().replace('.', ',')
+  if (textOrd == null) textOrd = this.y.toString().replace('.', ',')
   this.textAbs = textAbs
   this.textOrd = textOrd
   this.color = color
