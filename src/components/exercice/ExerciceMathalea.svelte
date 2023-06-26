@@ -9,6 +9,8 @@
   import { exerciceInteractif } from "../../lib/interactif/interactif"
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
+  import { exercisesUuidRanking, uuidCount } from "../utils/counts"
+  import uuidsRessources from "../../json/uuidsRessources.json"
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
