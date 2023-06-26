@@ -12,13 +12,9 @@
   export let moreThanOne: boolean = false
   let refAsObject: object = {}
   onMount(() => {
-    console.log(ref.title)
-    console.log(ref.content)
     for (const entry of ref.content) {
       Object.assign(refAsObject, { [entry.key]: toObject(entry.obj) })
     }
-    // console.log("from SideMenuList : ")
-    // console.log(refAsObject)
   })
 
   export let isMenuDeployed: boolean = false
