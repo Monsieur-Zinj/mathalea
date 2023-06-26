@@ -11,12 +11,50 @@
 <body class="flex-col h-full w-full font-sans">
   <div id="app">
     <div id="loading" class="hidden">
-      <div class="loader">
+      <!-- <div class="loader">
         <svg class="circular-loader" viewBox="25 25 50 50">
           <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
         </svg>
-      </div>
+      </div> -->
+      <section class="container">
+        <div id="cube">
+          <div class="front">
+            <span class="dot dot1"></span>
+          </div>
+          <div class="back">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>
+          </div>
+          <div class="right">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>  
+            <span class="dot dot3"></span>
+          </div>
+          <div class="left">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>  
+            <span class="dot dot3"></span>
+            <span class="dot dot4"></span>
+          </div>
+          <div class="top">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>  
+            <span class="dot dot3"></span>
+            <span class="dot dot4"></span>
+            <span class="dot dot5"></span>
+          </div>
+          <div class="bottom">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>  
+            <span class="dot dot3"></span>
+            <span class="dot dot4"></span>
+            <span class="dot dot5"></span>
+            <span class="dot dot6"></span>
+          </div>
+        </div>
+      </section>
     </div>
+    
   </div>
   <script type="module" src="/src/main"></script>
 </body>
@@ -156,10 +194,114 @@
       stroke: #1DA962;
     }
   }
-
-
-
   /* Fin du cercle de chargement */
+
+  h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+/* Dé en 3D animé
+Inspiré de SOURCE : https://codepen.io/SteveJRobertson/pen/zxEwrK
+*/
+#cube .front {
+  transform: 
+  rotateX(-54.7356deg) rotateY(45deg) translateZ(100px);
+}
+
+#cube .back {
+  transform: rotateX(-54.7356deg) rotateY(225deg) translateZ(100px);
+}
+
+#cube .right {
+  transform: rotateX(-54.7356deg) rotateY(135deg) translateZ(100px);
+}
+
+#cube .left {
+  transform: rotateX(-54.7356deg) rotateY(315deg) translateZ(100px);
+}
+
+#cube .top {
+  transform: rotateX(35.2644deg) rotateZ(-45deg) translateZ(100px);
+}
+
+#cube .bottom {
+  transform: rotateX(35.2644deg) rotateY(180deg) rotateZ(-45deg) translateZ(100px);
+}
+
+.container {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  margin: 0 auto 40px;
+  border: 1px solid #FFF;
+  
+  perspective: 1000px;
+  perspective-origin: 50% 100%;
+}
+
+@keyframes rotation {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+#cube {
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  
+  transform-style: preserve-3d;
+  animation: rotation 5s infinite linear;
+}
+
+#cube div {
+  background: hsla(14, 80%, 55%, 0.8);
+  display: block;
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  border: 2px solid #fff;
+  
+  margin: 0 auto;  
+  
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 500%;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.dot {
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 15px;  
+}
+
+.front .dot1 { top: 85px; left: 85px; }
+.back .dot1 { top: 45px; left: 45px; }
+.back .dot2 { top: 125px; left: 125px; }
+.right .dot1 { top: 45px; left: 45px; }
+.right .dot2 { top: 85px; left: 85px; }
+.right .dot3 { top: 125px; left: 125px; }
+.left .dot1 { top: 45px; left: 45px; }
+.left .dot2 { top: 45px; left: 125px; }
+.left .dot3 { top: 125px; left: 45px; }
+.left .dot4 { top: 125px; left: 125px; }
+.top .dot1 { top: 45px; left: 45px; }
+.top .dot2 { top: 45px; left: 125px; }
+.top .dot3 { top: 85px; left: 85px; }
+.top .dot4 { top: 125px; left: 45px; }
+.top .dot5 { top: 125px; left: 125px; }
+.bottom .dot1 { top: 45px; left: 45px; }
+.bottom .dot2 { top: 45px; left: 85px; }
+.bottom .dot3 { top: 45px; left: 125px; }
+.bottom .dot4 { top: 125px; left: 45px; }
+.bottom .dot5 { top: 125px; left: 85px; }
+.bottom .dot6 { top: 125px; left: 125px; }
 </style>
 
 </html>
