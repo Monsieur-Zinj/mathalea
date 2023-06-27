@@ -126,5 +126,12 @@
     "url": "profs/P020.js",
     "titre": "Encodeur de texte",
     "tags": {}
+  },
+  "P021": {
+    "id": "P021",
+    "uuid": "4c7ca",
+    "url": "profs/P021.js",
+    "titre": "Interpollation par splines avec tangentes",
+    "tags": {}
   }
 }
