@@ -479,7 +479,7 @@ export default function TableauCriteresDeDivisibilite () {
       texte = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n'
     }
     if (!context.isHtml && !this.modeQcm) {
-      texte = '$\\begin{array}{|l|c|c|c|c|}\n'
+      texte = '\n\n$\\begin{array}{|l|c|c|c|c|}\n'
     }
     if (!context.isAmc && !this.modeQcm) {
       texte += '\\hline\n'
