@@ -261,10 +261,11 @@ class Spline {
       // Algebrite n'aime pas beaucoup les coefficients decimaux...
       try {
         const liste = polynomialRoot(...polEquation.monomes)
+        console.log(`liste de solutions : ${liste}`)
         for (const valeur of liste) {
           let arr
           if (typeof valeur === 'number') {
-            arr = round(valeur, 3)
+            arr = round(valeur, 1)
           } else { // complexe !
             const module = valeur.toPolar().r
             if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
@@ -287,6 +288,7 @@ class Spline {
         console.log(e)
       }
     }
+    console.log(`antecedent: ${antecedents} `)
     return antecedents
   }
 

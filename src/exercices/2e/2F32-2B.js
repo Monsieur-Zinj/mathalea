@@ -131,8 +131,10 @@ export default class BetaModeleSpline extends Exercice {
         texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 3, 'inline largeur10')
       }
       // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
-      const solutionMax = maSpline.solve(Math.max(...nuage.map(el => el.y)))
-      const solutionMin = maSpline.solve(Math.min(...nuage.map(el => el.y)))
+      const solsMax = maSpline.solve(Math.max(...nuage.map(el => el.y)))
+      const solsMin = maSpline.solve(Math.min(...nuage.map(el => el.y)))
+      const solutionMax = solsMax.length === 1 ? solsMax[0] : 'On a un problème'
+      const solutionMin = solsMin.length === 1 ? solsMin[0] : 'On a un problème'
       setReponse(this, 4 * i, Math.max(...nuage.map(el => el.y)))
       setReponse(this, 4 * i + 1, solutionMax)
       setReponse(this, 4 * i + 2, Math.min(...nuage.map(el => el.y)))
