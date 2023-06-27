@@ -21,7 +21,7 @@ export interface LatexFileInfos {
   title: string
   reference: string
   subtitle: string
-  style: 'Coopmaths' | 'Classique' | 'Can'
+  style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can'
   nbVersions: number
 }
 
@@ -36,9 +36,10 @@ class Latex {
   }
 
   getContentsForAVersion (
-    style: 'Coopmaths' | 'Classique' | 'Can',
+    style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can',
     indiceVersion: number = 1
   ): { content: string; contentCorr: string } {
+    if (style === 'ProfMaquette') return { content: this.getContentForAVersionProfMaquette(), contentCorr: '' }
     let content = ''
     let contentCorr = ''
     for (const exercice of this.exercices) {
@@ -117,26 +118,73 @@ class Latex {
     return { content, contentCorr }
   }
 
-  getContents (style: 'Coopmaths' | 'Classique' | 'Can', nbVersions: number = 1): { content: string; contentCorr: string } {
-    const contents = { content: '', contentCorr: '' }
-    for (let i = 1; i < nbVersions + 1; i++) {
-      const contentVersion = this.getContentsForAVersion(style, i)
-      if (i > 1) {
-        contents.content += '\n\\clearpage'
-        contents.content += '\n\\setcounter{ExoMA}{0}'
-        contents.contentCorr += '\n\\clearpage'
-        contents.contentCorr += '\n\\setcounter{ExoMA}{0}'
-      }
-      if (nbVersions > 1) {
-        contents.content += `\n\\version{${i}}`
-        contents.contentCorr += `\n\\version{${i}}`
-        if (i > 1 && style === 'Can') {
-          contents.content += '\n\\setcounter{nbEx}{1}'
-          contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
+  getContentForAVersionProfMaquette (indiceVersion: number = 1): string {
+    let content = ''
+    for (const exercice of this.exercices) {
+      if (exercice.typeExercice === 'statique') continue
+      const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
+      exercice.seed = seed
+      if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
+      seedrandom(seed, { global: true })
+      exercice.nouvelleVersion()
+    }
+    for (const exercice of this.exercices) {
+      if (exercice.typeExercice === 'statique') {
+        if (exercice.content === '') {
+          content += '% Cet exercice n\'est pas disponible au format LaTeX'
+        } else {
+          content += '\n\\begin{exercice}\n'
+          content += exercice.content
+          content += '\n\\end{exercice}\n'
+          content += '\n\\begin{Solution}\n'
+          content += exercice.contentCorr
+          content += '\n\\end{Solution}\n'
         }
+      } else {
+        content += '\n\\begin{exercice}\n'
+        content += writeIntroduction(exercice.introduction)
+        content += '\n' + format(exercice.consigne)
+        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, exercice.listeAvecNumerotation), exercice.nbCols)
+        content += '\n\\end{exercice}\n'
+        content += '\n\\begin{Solution}'
+        content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, exercice.listeAvecNumerotation), exercice.nbColsCorr)
+        content += '\n\\end{Solution}\n'
+        console.log(exercice)
       }
-      contents.content += contentVersion.content
-      contents.contentCorr += contentVersion.contentCorr
+    }
+    return content
+  }
+
+  getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): { content: string; contentCorr: string } {
+    const contents = { content: '', contentCorr: '' }
+    if (style === 'ProfMaquette') {
+      for (let i = 1; i < nbVersions + 1; i++) {
+        const contentVersion = this.getContentForAVersionProfMaquette(i)
+        contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}`
+        contents.content += contentVersion
+        contents.content += '\n\\end{Maquette}'
+        contents.contentCorr = ''
+      }
+    } else {
+      for (let i = 1; i < nbVersions + 1; i++) {
+        const contentVersion = this.getContentsForAVersion(style, i)
+        if (i > 1) {
+          contents.content += '\n\\clearpage'
+          contents.content += '\n\\setcounter{ExoMA}{0}'
+          contents.contentCorr += '\n\\clearpage'
+          contents.contentCorr += '\n\\setcounter{ExoMA}{0}'
+        }
+        if (nbVersions > 1) {
+          contents.content += `\n\\version{${i}}`
+          contents.contentCorr += `\n\\version{${i}}`
+          if (i > 1 && style === 'Can') {
+            contents.content += '\n\\setcounter{nbEx}{1}'
+            contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
+          }
+        }
+        contents.content += contentVersion.content
+        contents.contentCorr += contentVersion.contentCorr
+      }
     }
     return contents
   }
@@ -151,10 +199,10 @@ class Latex {
     title: string
     reference: string
     subtitle: string
-    style: 'Coopmaths' | 'Classique' | 'Can'
+    style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can'
     nbVersions: number
   }) {
-    const contents = this.getContents(style, nbVersions)
+    const contents = this.getContents(style, nbVersions, title, subtitle, reference)
     const content = contents.content
     const contentCorr = contents.contentCorr
     let result = ''
@@ -166,11 +214,30 @@ class Latex {
       result += '\n\\pageDeGardeCan{nbEx}'
       result += '\n\\clearpage'
       result += content
+    } else if (style === 'ProfMaquette') {
+      result = '\\documentclass[a4paper,11pt,fleqn]{article}'
+      result += '\n\\usepackage{ProfCollege}'
+      result += '\n\\usepackage{ProfMaquette}'
+      result += '\n\\usepackage[margin=1cm]{geometry}'
+      result += '\n\\usepackage{enumitem}'
+      if (content.includes('pspicture')) {
+        result += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
+        result += '\n\\usepackage{pst-eucl}'
+        result += '\n\\usepackage{pst-text}'
+        result += '\n\\usepackage{pst-node,pst-all}'
+        result += '\n\\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}'
+      }
+      result += '\n\\begin{document}'
+      result += content
     } else {
       result = `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${preambule}\n\n\\Theme[${style}]{nombres}{${title}}{${reference}}{${subtitle}}\n\n\\begin{document}\n${content}`
     }
-    result += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
-    result += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
+    if (style === 'ProfMaquette') {
+      result += '\n\\end{document}'
+    } else {
+      result += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
+      result += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
+    }
     return result
   }
 }

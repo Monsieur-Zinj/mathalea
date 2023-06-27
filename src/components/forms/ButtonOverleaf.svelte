@@ -4,6 +4,7 @@
 
   export let latex: Latex
   export let latexFileInfos: LatexFileInfos
+  export let disabled: boolean
 
   let textForOverleafInput: HTMLInputElement
   let imagesUrls = [] as string[]
@@ -38,8 +39,11 @@
     <button
       id="btn_overleaf"
       type="submit"
+      {disabled}
       on:click={copyDocumentToOverleaf}
-      class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+      class={disabled ? 
+        "p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action-lightest  dark:bg-coopmathsdark-action-lightest "
+        :"p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"}
     >
       Compiler en PDF sur Overleaf.com
     </button>
