@@ -2,7 +2,7 @@ import { context } from '../../modules/context.js'
 const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
 const orderedListTypes: string[] = ['nombres', 'alpha', 'Alpha', 'roman', 'Roman']
 type ListStyle = 'none'|'puces'|'carres'|'qcm'|'fleches'|'nombres'|'alpha'|'Alpha'|'roman'|'Roman'
-type List<T> = {
+export type List<T> = {
   /**
    * Entrée de la liste ou déclaration d'une autre liste
    */
@@ -62,8 +62,6 @@ export function createList (list: NestedList, shift: string = '') :HTMLUListElem
       }
       theList.appendChild(li)
     }
-
-    // theList = theList.outerHTML
   } else {
     theList = ''
     let label: string
@@ -130,9 +128,7 @@ export function createList (list: NestedList, shift: string = '') :HTMLUListElem
           theList += shift + lineStart
           theList += '\n' + createList(item, shift + '\t')
         }
-        // shift += '\t'
       }
-      // shift = shift.replace('\t', '')
     }
     theList += closingTag
   }

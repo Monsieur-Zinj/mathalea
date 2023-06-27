@@ -19,19 +19,11 @@ class xCas {
     const resultTitle = document.createElement('div')
     const result = document.createElement('div')
     result.setAttribute('id', 'xcas-results' + getUniqueStringBasedOnTimeStamp('-'))
-    // result.classList.add('p-2', 'mt-4')
-    // result.style.lineHeight = '3'
     this.html.append(intro, field, button, resultTitle, result)
-    intro.innerHTML = '<h1 id="h1-xcas">Fonctions utiles</h1>'
+    // ToFix : Remettre ce titre quand la liste refonctionnera
+    // intro.innerHTML = '<h1 id="h1-xcas">Fonctions utiles</h1>'
     const commandsList: List = {
       items: [
-        // 'ifactor : décomposition en produit de facteurs premiers',
-        // 'idivis : liste des diviseurs',
-        // 'gcd : PGCD',
-        // 'lcm : PPCM',
-        // 'simplify : simplifie une expression',
-        // 'expand : développe une expression',
-        // 'factor : factorise une expression',
         { description: 'ifactor', text: ' : décomposition en produit de facteurs premiers' },
         { description: 'idivis', text: ' : liste des diviseurs' },
         { description: 'gcd', text: ' : PGCD' },
@@ -43,16 +35,8 @@ class xCas {
       style: 'puces',
       classOptions: 'xcas-help'
     }
-    intro.innerHTML += createList(commandsList).outerHTML
-    //   intro.innerHTML += `<ul class="mt-2 mb-5">
-    //   <li>ifactor : décomposition en produit de facteurs premiers</li>
-    //   <li>idivis : liste des diviseurs</li>
-    //   <li>gcd : PGCD</li>
-    //   <li>lcm : PPCM</li>
-    //   <li>simplify : simplifie une expression</li>
-    //   <li>expand : développe une expression</li>
-    //   <li>factor : factorise une expression</li>
-    // </ul>`
+    // ToFix
+    // intro.innerHTML += createList(commandsList)
 
     button.addEventListener('click', () => {
       if (firstTime) {
