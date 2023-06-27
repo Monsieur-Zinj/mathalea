@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
 import { boite } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -14,13 +14,13 @@ export const dateDePublication = '16/04/2022' // La date de publication initiale
  * @author Jean-Claude Lhote
  * Référence
 */
-type Cellule = { bordG: number, bordH: number }
-type Ligne = Cellule[]
-type Patron = Ligne[]
+/** type Cellule = { bordG, bordH } */
+/** type Ligne = Cellule[] */
+/** type Patron = Ligne[] */
 
 class ModelePatrons {
-  patrons: Patron[]
-  constructor (a: number, b: number, c: number) {
+  patrons
+  constructor (a, b, c) {
     this.patrons = [
       [
         [
@@ -146,8 +146,8 @@ class ModelePatrons {
     ]
   }
 }
+
 class FauxPatrons {
-  erzatz: {patron: Patron, fauxCube: boolean, collision: number[][]}[]
   constructor (a, b, c) {
     this.erzatz = [
       {
@@ -244,8 +244,6 @@ class FauxPatrons {
   }
 }
 export default class PatronsSolides extends Exercice {
-  sup: string
-  besoinFormulaireTexte: string[]
   constructor () {
     super()
     this.sup = '1-2-3' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -256,17 +254,17 @@ export default class PatronsSolides extends Exercice {
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
-    function formateGrille (modele: Patron) {
-      const largeurs: number[] = []
-      for (let x = 0, xMax: number; x < 5; x++) {
+    function formateGrille (modele) {
+      const largeurs = []
+      for (let x = 0, xMax; x < 5; x++) {
         xMax = 0
         for (let y = 0; y < 3; y++) {
           xMax = Math.max(xMax, modele[y][x].bordH || 0)
         }
         largeurs[x] = xMax
       }
-      const hauteurs: number[] = []
-      for (let y = 0, yMax: number; y < 3; y++) {
+      const hauteurs = []
+      for (let y = 0, yMax; y < 3; y++) {
         yMax = 0
         for (let x = 0; x < 5; x++) {
           yMax = Math.max(yMax, modele[y][x].bordG || 0)
@@ -275,14 +273,16 @@ export default class PatronsSolides extends Exercice {
       }
       return [largeurs, hauteurs]
     }
-    function dessinePatron (modele: Patron) {
-      const forme: object[] = []
+    function dessinePatron (modele) {
+      const forme = []
       const [largeurs, hauteurs] = formateGrille(modele)
       for (let x = 0, xOffset = 0; x < 5; x++) {
         if (largeurs[x] !== 0) {
           for (let y = 0, yOffset = 0; y < 3; y++) {
             if (hauteurs[y] !== 0) {
-              if (modele[y][x].bordG) forme.push(boite({ Xmin: xOffset, Ymin: yOffset, Xmax: xOffset + largeurs[x], Ymax: yOffset + hauteurs[y] }))
+              if (modele[y][x].bordG) {
+                forme.push(boite({ Xmin: xOffset, Ymin: yOffset, Xmax: xOffset + largeurs[x], Ymax: yOffset + hauteurs[y] }))
+              }
               yOffset += hauteurs[y]
             }
           }
@@ -304,7 +304,7 @@ export default class PatronsSolides extends Exercice {
       const nombreDeVrais = 5 - nombreDeFaux
       const vraisPatronsNumeros = shuffle(range(10)).slice(0, nombreDeVrais)
       const fauxPatronsNumeros = shuffle(range(5)).slice(0, nombreDeFaux)
-      let propositions: {patron: object[], trueOrfalse: boolean}[] = []
+      let propositions = []
       for (const indice of vraisPatronsNumeros) {
         propositions.push({ patron: dessinePatron(mesModeles.patrons[indice]), trueOrfalse: true })
       }
