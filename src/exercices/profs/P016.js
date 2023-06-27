@@ -15,7 +15,6 @@ export default function SimulateurDes () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = '6' // liste de dés
@@ -24,11 +23,18 @@ export default function SimulateurDes () {
 
   this.nouvelleVersion = function () {
     let texte
-    const liste = gestionnaireFormulaireTexte({ saisie: this.sup, min: 4, max: 100, defaut: 6, nbQuestions: this.nbQuestions })
+    const liste = gestionnaireFormulaireTexte({ saisie: this.sup, min: 4, max: 100, defaut: 6, shuffle: false, nbQuestions: this.sup.split('-').length })
     texte = 'Vous jetez les dés et vous obtenez : <br><br>'
-    for (let i = 0; i < liste.length; i++) {
-      texte += randint(1, liste[i]).toString()
-      texte += sp(3)
+    for (let j = 0; j < this.nbQuestions; j++) {
+      let somme = 0
+      texte += `tirage N°${j + 1} : ${sp(3)}`
+      for (let i = 0; i < liste.length; i++) {
+        const tirage = randint(1, liste[i])
+        somme += tirage
+        texte += `$${tirage.toString()}$`
+        texte += sp(3)
+      }
+      texte += `(somme des dés : $${somme}$)<br>`
     }
     this.listeQuestions = [texte]
     this.listeCorrections = ['']
