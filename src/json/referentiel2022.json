@@ -9849,13 +9849,6 @@
           "amc": true,
           "amcType": "AMCOpen"
         }
-      },
-      "3A14-0": {
-        "id": "3A14-0",
-        "uuid": "2e22a",
-        "url": "3e/3A14-0.js",
-        "titre": "Arithmétique & volumes",
-        "tags": {}
       }
     },
     "3F1": {

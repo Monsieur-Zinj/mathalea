@@ -3,6 +3,7 @@
   import { onMount, SvelteComponent } from "svelte"
   import { globalOptions } from "../store"
   import type { InterfaceParams } from "src/lib/types"
+  import uuidToUrl from '../../json/uuidsToUrl.json'
 
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
@@ -14,6 +15,7 @@
   let optionsComponent: object
 
   onMount(async () => {
+    const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
     if (
       paramsExercice.uuid.substring(0, 5) === "crpe-" ||
       paramsExercice.uuid.substring(0, 4) === "dnb_" ||
@@ -22,6 +24,9 @@
     ) {
       optionsComponent = { uuid: paramsExercice.uuid }
       ComponentExercice = (await import("./ExerciceStatic.svelte")).default
+    } else if (urlExercice && urlExercice.includes(".svelte")) {
+      // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
+      ComponentExercice = (await import(`../../exercicesInteractifs/${urlExercice.replace('.svelte', '')}.svelte`)).default
     } else {
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
