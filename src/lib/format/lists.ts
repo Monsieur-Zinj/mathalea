@@ -151,7 +151,11 @@ export function createList (list: NestedList, shift: string = '') :HTMLUListElem
     }
     theList += openingTag
     for (const item of list.items) {
-      if (typeof item === 'string') { theList += shift + lineStart + item + lineEnd } else {
+      if (typeof item === 'string') {
+        theList += shift + lineStart + item + lineEnd
+      } else if (isDescriptionItem(item)) {
+        theList += shift + '\\textbf{' + item.description + '}' + lineStart + item.text + lineEnd
+      } else {
         if (item.introduction) {
           theList += shift + lineStart + item.introduction + lineEnd
           theList += createList(item, shift + '\t')
