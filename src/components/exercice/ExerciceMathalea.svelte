@@ -310,7 +310,7 @@
           mathalea2dFigures[k].setAttribute("width", initialWidth)
           mathalea2dFigures[k].setAttribute("height", initialHeight)
         }
-        if (mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+        if (consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
           // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
           const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
           const newFigWidth = consigneDiv.clientWidth * 0.95
