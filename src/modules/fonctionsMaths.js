@@ -200,7 +200,7 @@ export function expTrinome (a, b, c) {
 class Spline {
   /**
    * Passer au moins deux noeuds, sinon ça ne peut pas fonctionner
-   * @param {x: number, y:number,deriveeGauche:number,deriveeDroit:number, isVisible:boolean}[] noeuds la liste des noeuds avec leurs nombres dérivés
+   * @param {x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}[] noeuds la liste des noeuds avec leurs nombres dérivés
    */
   constructor (noeuds) {
     this.polys = []
@@ -208,6 +208,7 @@ class Spline {
       window.notify('Spline : nombre de noeuds insuffisant', { noeuds })
     }
     if (!trieNoeuds(noeuds)) return // les noeuds comportent une anomalie : deux valeur de x identiques
+    this.noeuds = [...noeuds]
     for (let i = 0; i < noeuds.length - 1; i++) {
       const x0 = noeuds[i].x
       const y0 = noeuds[i].y
@@ -316,6 +317,23 @@ class Spline {
     return 'aucune' // normalement, il ne devrait jamais retourner cette valeur.
   }
 
+  /**
+   * retourne les min et max pour un repère contenant la courbe
+   * @param {{x: number, y:number,deriveeGauche:number,deriveeDroit:number, isVisible:boolean}[]} nuage les noeuds
+   * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
+   */
+  trouveMaxes () {
+    const xMin = Math.floor(Math.min(...this.noeuds.map(el => el.x)) - 1)
+    const yMin = Math.floor(Math.min(...this.noeuds.map(el => el.y)) - 1)
+    const xMax = Math.ceil(Math.max(...this.noeuds.map(el => el.x)) + 1)
+    const yMax = Math.ceil(Math.max(...this.noeuds.map(el => el.y)) + 1)
+    return { xMin, xMax, yMin, yMax }
+  }
+
+  /**
+   * retourne le minimum et le maximum de la fonction
+   * @returns {{yMin: number, yMax: number}}
+   */
   amplitude () {
     let yMin = 1000
     let yMax = -1000
@@ -518,7 +536,6 @@ export function trieNoeuds (noeuds) {
       }
     }
   }
-  console.log(`Noeuds après ${JSON.stringify(noeuds)}`)
   return true
 }
 
