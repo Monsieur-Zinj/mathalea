@@ -21,7 +21,7 @@ class xCas {
     result.setAttribute('id', 'xcas-results' + getUniqueStringBasedOnTimeStamp('-'))
     this.html.append(intro, field, button, resultTitle, result)
     // ToFix : Remettre ce titre quand la liste refonctionnera
-    // intro.innerHTML = '<h1 id="h1-xcas">Fonctions utiles</h1>'
+    intro.innerHTML = '<h1 id="h1-xcas">Fonctions utiles</h1>'
     const commandsList: List = {
       items: [
         { description: 'ifactor', text: ' : décomposition en produit de facteurs premiers' },
@@ -36,7 +36,7 @@ class xCas {
       classOptions: 'xcas-help'
     }
     // ToFix
-    // intro.innerHTML += createList(commandsList)
+    intro.innerHTML += createList(commandsList).outerHTML
 
     button.addEventListener('click', () => {
       if (firstTime) {
