@@ -1,12 +1,33 @@
+import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time.js'
 import { context } from '../../modules/context.js'
 const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
 const orderedListTypes: string[] = ['nombres', 'alpha', 'Alpha', 'roman', 'Roman']
 type ListStyle = 'none'|'puces'|'carres'|'qcm'|'fleches'|'nombres'|'alpha'|'Alpha'|'roman'|'Roman'
+export type DescriptionItem = {
+  /**
+   * Entête de la description
+   */
+  description: string,
+  /**
+   * Texte de la description
+   */
+  text: string
+}
+/**
+ * Vérifier si le type d'un objet est bien `DescriptionItem`
+ * (`typeof` ne fonctionnant pas pour les types maison)
+ * @see https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
+ * @param item Objet à controller
+ * @returns `true` sir l'objet est de type `DescriptionItem`
+ */
+export function isDescriptionItem (item: DescriptionItem): item is DescriptionItem {
+  return (item as DescriptionItem).description !== undefined
+}
 export type List<T> = {
   /**
    * Entrée de la liste ou déclaration d'une autre liste
    */
-  items: (string|T)[],
+  items: (string|DescriptionItem|T)[],
   /**
    * Style pour les puces ou les numérotations. Sera ajouté à `class` et traité par `app.css`
    */
@@ -54,7 +75,17 @@ export function createList (list: NestedList, shift: string = '') :HTMLUListElem
 
     for (const item of list.items) {
       const li: HTMLLIElement = document.createElement('li')
-      if (typeof item === 'string') { li.appendChild(document.createTextNode(item)) } else {
+      if (typeof item === 'string') {
+        li.appendChild(document.createTextNode(item))
+      } else if (isDescriptionItem(item)) {
+        const span = document.createElement('span')
+        span.setAttribute('id', 'list-item-description-' + getUniqueStringBasedOnTimeStamp('i'))
+        const description = document.createTextNode(item.description)
+        const text = document.createTextNode(item.text)
+        span.appendChild(description)
+        li.appendChild(span)
+        li.appendChild(text)
+      } else {
         if (item.introduction) {
           li.appendChild(document.createTextNode(item.introduction))
         }
