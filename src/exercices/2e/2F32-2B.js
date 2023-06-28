@@ -120,15 +120,15 @@ export default class BetaModeleSpline extends Exercice {
         color: 'blue'
       })
       const objetsEnonce = [repere1, courbe1]
-      let texteEnonce = 'On donne la courbe représentative d\'une fonction $f$. <br>'
+      let texteEnonce = `On donne la courbe représentative d\'une fonction $f$ définie sur l\'intervalle $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$. <br>`
       texteEnonce += `
       Déterminer les extremums de la fonction et préciser en quelles valeurs ils sont atteints.<br>`
       texteEnonce += mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce, o)
       if (this.interactif) {
-        texteEnonce += '<br>Le maximum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i, 'inline largeur10')
-        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 1, 'inline largeur10')
-        texteEnonce += '<br>Le minimum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i + 2, 'inline largeur10')
-        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 3, 'inline largeur10')
+        texteEnonce += '<br>Le maximum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i, 'inline largeur10 nospacebefore')
+        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 1, 'inline largeur10 nospacebefore')
+        texteEnonce += '<br>Le minimum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i + 2, 'inline largeur10 nospacebefore')
+        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 3, 'inline largeur10 nospacebefore')
       }
       // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
       const solsMax = maSpline.solve(Math.max(...nuage.map(el => el.y)))
