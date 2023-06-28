@@ -16,41 +16,14 @@
           <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
         </svg>
       </div> -->
-      <section class="container">
+      <section class="cube-container">
         <div id="cube">
-          <div class="front">
-            <span class="dot dot1"></span>
-          </div>
-          <div class="back">
-            <span class="dot dot1"></span>
-            <span class="dot dot2"></span>  
-            <span class="dot dot3"></span>
-            <span class="dot dot4"></span>
-            <span class="dot dot5"></span>
-            <span class="dot dot6"></span>
-          </div>
-          <div class="right">
-            <span class="dot dot1"></span>
-            <span class="dot dot2"></span>  
-            <span class="dot dot3"></span>
-          </div>
-          <div class="left">
-            <span class="dot dot1"></span>
-            <span class="dot dot2"></span>  
-            <span class="dot dot3"></span>
-            <span class="dot dot4"></span>
-          </div>
-          <div class="top">
-            <span class="dot dot1"></span>
-            <span class="dot dot2"></span>  
-            <span class="dot dot3"></span>
-            <span class="dot dot4"></span>
-            <span class="dot dot5"></span>
-          </div>
-          <div class="bottom">
-            <span class="dot dot1"></span>
-            <span class="dot dot2"></span>
-          </div>
+          <div class="face one">one</div>
+          <div class="face two">two</div>
+          <div class="face three">three</div>
+          <div class="face four">four</div>
+          <div class="face five">five</div>
+          <div class="face six">six</div>
         </div>
       </section>
     </div>
@@ -60,10 +33,6 @@
 </body>
 
 <style>
-  /* Cercle de chargement */
-  /* Utilisé au démarrage de l'app et au chargement de librairie lourde comme xCas */
-  /* SOURCE : https://codepen.io/aleksander351/pen/KzgKPo */
-
   #loading {
     left: 50% !important;
     margin-left: -100px;
@@ -74,128 +43,6 @@
     z-index: 9000 !important;
   }
 
-  #loading .loader {
-    position: relative;
-    margin: 0px auto;
-    width: 200px;
-    height: 200px;
-  }
-
-  #loading .loader:before {
-    content: '';
-    display: block;
-    padding-top: 100%;
-  }
-
-  .circular-loader {
-    -webkit-animation: rotate 2s linear infinite;
-    animation: rotate 2s linear infinite;
-    height: 100%;
-    -webkit-transform-origin: center center;
-    -ms-transform-origin: center center;
-    transform-origin: center center;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: auto;
-  }
-
-  .loader-path {
-    stroke-dasharray: 150, 200;
-    stroke-dashoffset: -10;
-    -webkit-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
-    animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
-    stroke-linecap: round;
-  }
-
-  @-webkit-keyframes rotate {
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes rotate {
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
-  }
-
-  @-webkit-keyframes dash {
-    0% {
-      stroke-dasharray: 1, 200;
-      stroke-dashoffset: 0;
-    }
-
-    50% {
-      stroke-dasharray: 89, 200;
-      stroke-dashoffset: -35;
-    }
-
-    100% {
-      stroke-dasharray: 89, 200;
-      stroke-dashoffset: -124;
-    }
-  }
-
-  @keyframes dash {
-    0% {
-      stroke-dasharray: 1, 200;
-      stroke-dashoffset: 0;
-    }
-
-    50% {
-      stroke-dasharray: 89, 200;
-      stroke-dashoffset: -35;
-    }
-
-    100% {
-      stroke-dasharray: 89, 200;
-      stroke-dashoffset: -124;
-    }
-  }
-
-  @-webkit-keyframes color {
-    0% {
-      stroke: #1DA962;
-    }
-
-    40% {
-      stroke: #1DA962;
-    }
-
-    66% {
-      stroke: #1DA962;
-    }
-
-    80%,
-    90% {
-      stroke: #1DA962;
-    }
-  }
-
-  @keyframes color {
-    0% {
-      stroke: #1DA962;
-    }
-
-    40% {
-      stroke: #1DA962;
-    }
-
-    66% {
-      stroke: #1DA962;
-    }
-
-    80%,
-    90% {
-      stroke: #1DA962;
-    }
-  }
-  /* Fin du cercle de chargement */
-
   h1 {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
@@ -205,7 +52,69 @@
 Inspiré de : https://codepen.io/SteveJRobertson/pen/zxEwrK
 et https://jsfiddle.net/nph3k39p/1/
 */
-#cube .front {
+:root {
+  --vect: calc((100vw / 10) * 0.57);
+}
+.cube-container {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: 0 auto 40px;
+  border: 1px solid #FFF;
+  
+  perspective: 1000px;
+  /* perspective-origin: 50% 100%; */
+}
+
+#cube {
+  position: relative;
+  margin: 100px auto;
+  height: calc(100vw / 10);
+  width: calc(100vw / 10);
+  animation: 4s rotateforever infinite linear;
+  transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  background: hsla(14, 80%, 55%, 0.8);
+  height: calc(100vw / 10);
+  width: calc(100vw / 10);
+  padding: 10px;
+  border: white 5px solid;
+  border-radius: 2rem;
+}
+
+.one {
+    transform: rotateX(-54.7356deg) rotateY(45deg) translateZ(var(--vect));
+}
+
+.two {
+    transform: rotateX(-54.7356deg) rotateY(135deg) translateZ(var(--vect));
+}
+
+.three {
+    transform: rotateX(-54.7356deg) rotateY(225deg) translateZ(var(--vect));
+}
+
+.four {
+    transform: rotateX(-54.7356deg) rotateY(315deg) translateZ(var(--vect));
+}
+
+.five {
+    transform: rotateX(35.2644deg) rotateZ(-45deg) translateZ(var(--vect));
+}
+
+.six {
+    transform: rotateX(35.2644deg) rotateY(180deg) rotateZ(-45deg) translateZ(var(--vect));
+}
+
+@keyframes rotateforever {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+  /* #cube .front {
   transform: rotateX(-54.7356deg) rotateY(45deg) translateZ(100px);
 }
 
@@ -229,9 +138,9 @@ et https://jsfiddle.net/nph3k39p/1/
   transform: rotateX(35.2644deg) rotateY(180deg) rotateZ(-45deg) translateZ(100px);
 }
 
-.container {
-  width: 200px;
-  height: 200px;
+.cube-container {
+  width: 100px;
+  height: 100px;
   position: relative;
   margin: 0 auto 40px;
   border: 1px solid #FFF;
@@ -251,6 +160,7 @@ et https://jsfiddle.net/nph3k39p/1/
   height: 100%;
   top: 0px;
   position: absolute;
+  background-color: aquamarine;
   
   transform-style: preserve-3d;
   animation: rotation 5s infinite linear;
@@ -260,8 +170,8 @@ et https://jsfiddle.net/nph3k39p/1/
   background: hsla(14, 80%, 55%, 0.8);
   display: block;
   position: absolute;
-  width: 200px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   border: 2px solid #fff;
   border-radius: 2rem;
   
@@ -270,7 +180,7 @@ et https://jsfiddle.net/nph3k39p/1/
   font-family: Arial, Helvetica, sans-serif;
   font-size: 500%;
   text-align: center;
-  padding: 50px 0;
+  padding: 10% 0;
 }
 
 .dot {
@@ -302,7 +212,7 @@ et https://jsfiddle.net/nph3k39p/1/
 .back .dot3 { top: 45px; left: 125px; }
 .back .dot4 { top: 125px; left: 45px; }
 .back .dot5 { top: 125px; left: 85px; }
-.back .dot6 { top: 125px; left: 125px; }
+.back .dot6 { top: 125px; left: 125px; } */
 </style>
 
 </html>
