@@ -3,7 +3,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, segment, axes, grille } from '../../modules/2d.js'
 
-export const titre = 'Déterminer les coordonnées milieu d\'un segment dans un repère'
+export const titre = 'Déterminer les coordonnées du milieu d\'un segment dans un repère'
 
 /**
  * 2G12-2
