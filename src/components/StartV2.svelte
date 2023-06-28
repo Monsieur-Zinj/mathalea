@@ -38,6 +38,9 @@
     if ($globalOptions.recorder === "capytale") {
       handleCapytale()
     }
+    // Réglage du vecteur de translation pour le dé au loading
+    const root = document.documentElement
+    root.style.setProperty("--vect", "calc((100vw / 10) * 0.5)")
   })
   addEventListener("popstate", urlToDisplay)
 
