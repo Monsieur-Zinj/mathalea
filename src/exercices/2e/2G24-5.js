@@ -39,7 +39,6 @@ export default function Calculercoordonneesegalitevecteurs () {
           const yA = randint(-9, 9, [0])
           const pr = choice(['A', 'B'])
           const se = choice(['A', 'B'], [pr])
-          let xB, yB
           if (pr === 'A') {
             xB = ux + xA
             yB = uy + yA
@@ -95,7 +94,6 @@ export default function Calculercoordonneesegalitevecteurs () {
           const yD = randint(-9, 9, [0])
           const pr = choice(['A', 'B'])
           const se = choice(['A', 'B'], [pr])
-          let xB, yB
           if (pr === 'A') {
             xB = ux + xC + xA - xD
             yB = uy + yC + yA - yD
@@ -164,7 +162,6 @@ export default function Calculercoordonneesegalitevecteurs () {
           const se = choice(['A', 'B'], [pr])
           const a = new FractionEtendue(xD - xC, k).simplifie()
           const b = new FractionEtendue(yD - yC, k).simplifie()
-          let xB, yB
           if (pr === 'A') {
             xB = new FractionEtendue(xD - xC + k * xA, k).simplifie()
             yB = new FractionEtendue(yD - yC + k * yA, k).simplifie()
@@ -190,7 +187,7 @@ export default function Calculercoordonneesegalitevecteurs () {
           } else {
             texteCorr += `$\\Leftrightarrow\\begin{cases}${xD - xC}=${k}(${xA}-x_B)\\\\[0.7em]${yD - yC}=${k}(${yA}-y_B)\\end{cases}$ `
             texteCorr += `$\\Leftrightarrow\\begin{cases}\\dfrac{${xD - xC}}{${k}}=${xA}-x_B\\\\[0.7em]\\dfrac{${yD - yC}}{${k}}=${yA}-y_B\\end{cases}$ `
-            texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xA}-${a.texParentheses}\\\\[0.7em]y_B=${yA}-${b.texParentheses}\\end{cases}$ `
+            texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xA}-${a.texFSP}\\\\[0.7em]y_B=${yA}-${b.texFSP}\\end{cases}$ `
           }
           texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xB.texFSD}\\\\[0.7em]y_B=${yB.texFSD}\\end{cases}$ soit $B\\left(${xB.texFSD};${yB.texFSD}\\right)$.`
           if (this.correctionDetaillee) {
@@ -214,7 +211,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             } else {
               texteCorr += `$\\begin{cases}${xD - xC}=${k}(${xA}-x_B)\\\\[0.7em]${yD - yC}=${k}(${yA}-y_B)\\end{cases}$ `
               texteCorr += `$\\Leftrightarrow\\begin{cases}\\dfrac{${xD - xC}}{${k}}=${xA}-x_B\\\\[0.7em]\\dfrac{${yD - yC}}{${k}}=${yA}-y_B\\end{cases}$ `
-              texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xA}-${a.texParentheses}\\\\[0.7em]y_B=${yA}-${b.texParentheses}\\end{cases}$<br><br>`
+              texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xA}-${a.texFSP}\\\\[0.7em]y_B=${yA}-${b.texFSP}\\end{cases}$<br><br>`
             }
             texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB.texFSD}\\\\[0.7em]y_B=${yB.texFSD}\\end{cases}$ soit $B\\left(${xB.texFSD};${yB.texFSD}\\right)$.`
           }
