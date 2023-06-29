@@ -21,7 +21,15 @@
 </script>
 
 <div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6">
-  <div class=" font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct">{ref.title}</div>
+  <button
+    type="button"
+    class=" font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct"
+    on:click={() => {
+      isMenuDeployed = !isMenuDeployed
+    }}
+  >
+    {ref.title}</button
+  >
   <div class={moreThanOne ? "flex" : "flex md:hidden"}>
     <button
       type="button"
