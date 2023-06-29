@@ -1,8 +1,7 @@
 <script lang="ts">
   import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent } from "./store"
   import SideMenu from "./sidebar/SideMenu.svelte"
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams, mathaleaGenerateSeed } from "../lib/mathalea"
-  import { buildUrlAddendumForEsParam } from "./utils/urls"
+  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { updateReferentiel } from "./utils/referentielsUtils"
@@ -13,14 +12,14 @@
   import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
   import FullScreenIcon from "./icons/TwoStatesIcon.svelte"
   import Footer from "./Footer.svelte"
-  import SideMenuList from "./sidebar/SideMenuList.svelte"
   import LatexIcon from "./icons/LatexIcon.svelte"
   import AmcIcon from "./icons/AmcIcon.svelte"
   import MoodleIcon from "./icons/MoodleIcon.svelte"
   import ChipsList from "./setup/ChipsList.svelte"
   import referentielRessources from "../json/referentielRessources.json"
   import { toMap } from "./utils/toMap"
-  import type { ReferentielForList } from "src/lib/types"
+  import type { ReferentielForList } from "../lib/types"
+  import handleCapytale from "../lib/handleCapytale";
 
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
@@ -110,7 +109,6 @@
     if (filters.types.includes("static")) {
       itemsAccepted = [...itemsAccepted, "static"]
     }
-    // console.log(itemsAccepted)
     isAmcOnlySelected = filters.types.includes("amc")
     isInteractiveOnlySelected = filters.types.includes("interactif")
     arrayReferentielFiltre = updateReferentiel(isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted)
