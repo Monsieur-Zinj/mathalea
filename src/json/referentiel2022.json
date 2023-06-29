@@ -9849,13 +9849,6 @@
           "amc": true,
           "amcType": "AMCOpen"
         }
-      },
-      "3A14-0": {
-        "id": "3A14-0",
-        "uuid": "2e22a",
-        "url": "3e/3A14-0.js",
-        "titre": "Arithmétique & volumes",
-        "tags": {}
       }
     },
     "3F1": {
@@ -11128,6 +11121,17 @@
           "amcType": "AMCHybride"
         }
       },
+      "2F32-2B": {
+        "id": "2F32-2B",
+        "uuid": "7761e",
+        "url": "2e/2F32-2B.js",
+        "titre": "Déterminer graphiquement les extremums",
+        "datePublication": "27/06/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
       "2F32-3": {
         "id": "2F32-3",
         "uuid": "acee0",
@@ -11199,7 +11203,7 @@
         "id": "2G12-2",
         "uuid": "4b25a",
         "url": "2e/2G12-2.js",
-        "titre": "Déterminer les coordonnées milieu d'un segment dans un repère",
+        "titre": "Déterminer les coordonnées du milieu d'un segment dans un repère",
         "tags": {}
       },
       "2G12-3": {
@@ -11273,6 +11277,14 @@
           "interactif": true,
           "interactifType": "mathLive"
         }
+      },
+      "2G24-5": {
+        "id": "2G24-5",
+        "uuid": "222f6",
+        "url": "2e/2G24-5.js",
+        "titre": "Calculer les coordonnées d'un point à partir d'une égalité vectorielle",
+        "datePublication": "12/06/2023",
+        "tags": {}
       }
     },
     "2G3": {
