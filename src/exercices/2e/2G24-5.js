@@ -1,3 +1,5 @@
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
@@ -8,6 +10,8 @@ import {
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un point à partir d\'une égalité vectorielle'
 export const dateDePublication = '12/06/2023'
 
@@ -40,11 +44,11 @@ export default function Calculercoordonneesegalitevecteurs () {
           const pr = choice(['A', 'B'])
           const se = choice(['A', 'B'], [pr])
           if (pr === 'A') {
-            xB = ux + xA
-            yB = uy + yA
+            xB = new FractionEtendue(ux + xA, 1)
+            yB = new FractionEtendue(uy + yA, 1)
           } else {
-            xB = xA - ux
-            yB = yA - uy
+            xB = new FractionEtendue(xA - ux, 1)
+            yB = new FractionEtendue(yA - uy, 1)
           }
 
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne le point $A(${xA};${yA})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
@@ -95,11 +99,11 @@ export default function Calculercoordonneesegalitevecteurs () {
           const pr = choice(['A', 'B'])
           const se = choice(['A', 'B'], [pr])
           if (pr === 'A') {
-            xB = ux + xC + xA - xD
-            yB = uy + yC + yA - yD
+            xB = new FractionEtendue(ux + xC + xA - xD, 1)
+            yB = new FractionEtendue(uy + yC + yA - yD, 1)
           } else {
-            xB = xD - xC + xA - ux
-            yB = yD - yC + yA - uy
+            xB = new FractionEtendue(xD - xC + xA - ux, 1)
+            yB = new FractionEtendue(yD - yC + yA - uy, 1)
           }
 
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points $A(${xA};${yA})$, $C(${xC};${yC})$, $D(${xD};${yD})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
@@ -218,6 +222,10 @@ export default function Calculercoordonneesegalitevecteurs () {
         }
           break
       }
+      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse $x$ de $B$ :' })
+      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée $y$ de $B$ :' })
+      setReponse(this, 2 * i, xB, { formatInteractif: 'fractionEgale' })
+      setReponse(this, 2 * i + 1, yB, { formatInteractif: 'fractionEgale' })
       if (this.questionJamaisPosee(i, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
