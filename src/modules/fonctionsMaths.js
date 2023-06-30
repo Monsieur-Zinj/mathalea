@@ -207,8 +207,11 @@ class Spline {
     if (noeuds.length < 2) { // on ne peut pas interpoler une courbe avec moins de 2 noeuds
       window.notify('Spline : nombre de noeuds insuffisant', { noeuds })
     }
-    if (!trieNoeuds(noeuds)) return // les noeuds comportent une anomalie : deux valeur de x identiques
-    this.noeuds = [...noeuds]
+    if (!trieNoeuds(noeuds)) {
+      window.notify('Il y a un problème avec ces noeuds (peut-être un doublon ?) ', { noeuds })
+      return
+    } // les noeuds comportent une anomalie : deux valeur de x identiques
+
     for (let i = 0; i < noeuds.length - 1; i++) {
       const x0 = noeuds[i].x
       const y0 = noeuds[i].y
@@ -216,22 +219,30 @@ class Spline {
       const x1 = noeuds[i + 1].x
       const y1 = noeuds[i + 1].y
       const d1 = noeuds[i + 1].deriveeGauche
-      const ligne1 = [x0 ** 3, x0 ** 2, x0, 1]
-      const ligne2 = [x1 ** 3, x1 ** 2, x1, 1]
-      const ligne3 = [3 * x0 ** 2, 2 * x0, 1, 0]
-      const ligne4 = [3 * x1 ** 2, 2 * x1, 1, 0]
-      const matrice = [ligne1, ligne2, ligne3, ligne4]
+      const matrice = [
+        [x0 ** 3, x0 ** 2, x0, 1],
+        [x1 ** 3, x1 ** 2, x1, 1],
+        [3 * x0 ** 2, 2 * x0, 1, 0],
+        [3 * x1 ** 2, 2 * x1, 1, 0]
+      ]
+      if (matrice.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
+        window.notify('Spline : Système impossible à résoudre il y a un problème avec les données ', { x0, y0, x1, y1, d0, d1 })
+        return
+      }
       if (det(matrice) === 0) {
         window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', { noeudGauche: noeuds[i], noeudDroit: noeuds[i + 1] })
         return
       }
+
       const matriceInverse = inv(matrice)
       const vecteur = [y0, y1, d0, d1]
       this.polys.push(new Polynome({ isUseFraction: false, coeffs: multiply(matriceInverse, vecteur).reverse().map(coef => round(coef, 3)) }))
     }
-    this.x = noeuds.map((noeud) => noeud.x)
-    this.y = noeuds.map((noeud) => noeud.y)
-    this.visible = noeuds.map((noeud) => noeud.isVisible) // On récupère la visibilité des noeuds pour la courbe
+    this.noeuds = [...noeuds]
+    this.n = this.noeuds.length
+    this.x = this.noeuds.map((noeud) => noeud.x)
+    this.y = this.noeuds.map((noeud) => noeud.y)
+    this.visible = this.noeuds.map((noeud) => noeud.isVisible) // On récupère la visibilité des noeuds pour la courbe
     this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
     // this.step = step // on en a besoin pour la dérivée...
     this.fonctions = this.convertPolyFunction()
@@ -261,7 +272,6 @@ class Spline {
       // Algebrite n'aime pas beaucoup les coefficients decimaux...
       try {
         const liste = polynomialRoot(...polEquation.monomes)
-        console.log(`liste de solutions : ${liste}`)
         for (const valeur of liste) {
           let arr
           if (typeof valeur === 'number') {
@@ -288,7 +298,6 @@ class Spline {
         console.log(e)
       }
     }
-    console.log(`antecedent: ${antecedents} `)
     return antecedents
   }
 
@@ -306,9 +315,7 @@ class Spline {
   trouveYPourNAntecedentsEntiers (n, yMin, yMax) {
     if (Number.isInteger(yMin) && Number.isInteger(yMax)) {
       for (let y = yMin; y <= yMax; y++) {
-        console.log(`Pour y = ${y}, nombre de solutions entières : ${this.nombreAntecedentsEntiers(y)} sur nombre de solutions ${this.nombreAntecedents(y)}`)
         if (this.nombreAntecedentsEntiers(y) === n && this.nombreAntecedents(y) === n) {
-          console.log(`je retourne ${y}`)
           return y
         }
       }
@@ -1252,4 +1259,52 @@ export function valeursTrigo ({ modulos = [-1, 1] }) {
   }
   const mesAnglesNiv3 = mesAngles.slice()
   return { liste1: mesAnglesNiv1, liste2: mesAnglesNiv2, liste3: mesAnglesNiv3 }
+}
+
+/**
+ * renvoie les solutions (intervalles) de f(x) < y (ou f(x)<=y ou f(x)>y ou f(x)>=y)
+ * @param {x=>function(x)}fonction une fonction x=>f(x)
+ * @param {number}y la valeur de y à atteindre
+ * @param {boolean} inferieur si true < si false >
+ * @param {boolean} strict si true < ou > sinon <= ou >=
+ * @param {{*}} options
+ * @param {number} options.toleance la marge de comparaison entre f(x) et y pour accepter que f(x)=y
+ * @param {number} options.step le pas de recherche en x.
+ * @return {{borneG: {x: number, included: boolean, y: number}, borneD: {x: number, included: boolean, y: number}}[]} le ou les intervalles dans une liste
+ */
+export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, strict = false, { step = 0.001 } = {}) {
+  const satisfy = function (image, y, inferieur, strict) {
+    if (inferieur) {
+      return strict ? y - image > 0 : y - image >= 0
+    } else {
+      return strict ? y - image < 0 : y - image <= 0
+    }
+  }
+  const solutions = []
+  let borneG = {}
+  let borneD = {}
+  for (let x = xMin; x <= xMax;) {
+    const image = fonction(round(x, 3))
+    if (borneG.x === undefined && satisfy(image, y, inferieur, strict)) { // c'est le premier x qui matche
+      borneG = { x, y: image, included: !strict }
+    } else if (satisfy(image, y, inferieur, strict)) { // les suivants qui matchent écrasent borneD
+      borneD = { x, y: image, included: !strict }
+    } else // ça ne matche pas ou plus
+    if (borneD.x !== undefined) { // il y a eu un intervalle, ça a matché et c'est terminé
+      solutions.push({
+        borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
+        borneD: { x: borneD.x, y: borneD.y, included: borneD.included }
+      })
+      borneG = {}
+      borneD = {} // on réinitialise pour le prochain intervalle
+    }
+    x += step // dans tous les cas, on avance
+  }
+  if (borneD.x !== undefined) { // le dernier intervalle n'a pas été mis dans les solutions car on est encore dedans
+    solutions.push({
+      borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
+      borneD: { x: borneD.x, y: borneD.y, included: borneD.included }
+    })
+  }
+  return solutions
 }
