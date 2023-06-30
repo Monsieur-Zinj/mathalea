@@ -21,11 +21,11 @@ if (typeof window.iMathAlea === 'undefined') {
 
   window.addEventListener('message', (event) => {
     // V3
-    if (event.data.action !== 'undefined' && event.data.action.startsWith('mathalea:')) {
+    if (typeof event.data.action !== 'undefined' && event.data.action.startsWith('mathalea:')) {
       if (typeof event.data.iframe !== 'undefined' && typeof window.iMathAlea[parseInt(event.data.iframe)] !== 'undefined') {
         const iframe = window.iMathAlea[parseInt(event.data.iframe)].iframe
         const question = window.iMathAlea[parseInt(event.data.iframe)].question
-        if ((event.data.action === 'mathalea:init' || event.data.action === 'mathalea:resize') && event.data.hauteurExercice !== 'undefined') {
+        if ((event.data.action === 'mathalea:init' || event.data.action === 'mathalea:resize') && typeof event.data.hauteurExercice !== 'undefined') {
           let hauteur = event.data.hauteurExercice
           hauteur += 50
           iframe.setAttribute('height', hauteur.toString())
@@ -51,7 +51,7 @@ if (typeof window.iMathAlea === 'undefined') {
         hauteur += 50
         iframe.setAttribute('height', hauteur.toString())
       }
-      if (event.data.score !== undefined) {
+      if (typeof event.data.score !== 'undefined') {
         question.querySelector('[name$="_answer"]').value = event.data.score + '|' + JSON.stringify(event.data.reponses)
         question.querySelector('[name$="_-submit"]')?.click()
       }
