@@ -1,4 +1,4 @@
-import { splineCatmullRom } from '../../modules/mathFonctions/splineCatmullRom.js'
+import { splineCatmullRom } from '../../modules/mathFonctions/SplineCatmullRom.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { courbe, repere } from '../../modules/2d.js'
