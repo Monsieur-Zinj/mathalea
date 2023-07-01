@@ -1,9 +1,20 @@
-import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, lettreDepuisChiffre, texteGras, simpNotPuissance, eclatePuissance, reorganiseProduitPuissance, modalPdf } from '../../modules/outils.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import {
+  choice,
+  combinaisonListes,
+  eclatePuissance,
+  lettreDepuisChiffre,
+  listeQuestionsToContenuSansNumero,
+  modalPdf,
+  randint,
+  simpNotPuissance,
+  texteGras
+} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Puissances : Le sens des règles de calculs'
 
 export const interactifReady = true
@@ -26,6 +37,32 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'bae57'
 export const ref = '4C33-1'
+
+/**
+ * Fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
+ * @param b1 base1
+ * @param b2 base2
+ * @param e exposant
+ * @param couleur1
+ * @param couleur2
+ * @author Sébastien Lozano
+ */
+export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
+  let str
+  switch (e) {
+    case 0:
+      return '1'
+    case 1:
+      return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`
+    default:
+      str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `
+      for (let i = 1; i < e; i++) {
+        str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`
+      }
+      return str
+  }
+}
+
 export default function PuissancesDunRelatif1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
@@ -49,11 +86,11 @@ export default function PuissancesDunRelatif1 () {
     if (base < 0 && exposant % 2 === 0) {
       sortie += '<br>'
       sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant pair de deux nombres opposés sont égales, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${baseUtile}^{${exposant}}$.`
-    };
+    }
     if (base < 0 && exposant % 2 === 1) {
       sortie += '<br>'
       sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${baseUtile}^{${exposant}}$.`
-    };
+    }
 
     return sortie
   }
@@ -172,7 +209,7 @@ export default function PuissancesDunRelatif1 () {
           } else {
             couleurExp0 = coul1
             couleurExp1 = coul0
-          };
+          }
 
           texte = `$${lettre}=\\dfrac{${baseUtile}^${exp[0]}}{${baseUtile}^${exp[1]}}$`
 

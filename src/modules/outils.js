@@ -3940,31 +3940,6 @@ export function decimalToScientifique (nbDecimal) {
 }
 
 /**
- * Fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
- * @param b1 base1
- * @param b2 base2
- * @param e exposant
- * @param couleur1
- * @param couleur2
- * @author Sébastien Lozano
- */
-export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
-  let str
-  switch (e) {
-    case 0:
-      return '1'
-    case 1:
-      return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`
-    default:
-      str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `
-      for (let i = 1; i < e; i++) {
-        str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`
-      }
-      return str
-  }
-}
-
-/**
  *
  * x le nombre dont on cherche l'ordre de grandeur
  * type = 0 pour la puissance de 10 inférieure, 1 pour la puissance de 10 supérieur et 2 pour la plus proche
