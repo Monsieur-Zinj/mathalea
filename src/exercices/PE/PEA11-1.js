@@ -1,6 +1,15 @@
-import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, valeurBase, texNombre, nombreAvecEspace, miseEnEvidence } from '../../modules/outils.js'
+import {
+  choice,
+  combinaisonListes,
+  listeQuestionsToContenu,
+  miseEnEvidence,
+  nombreAvecEspace,
+  randint,
+  texNombre
+} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 
 /**
@@ -14,6 +23,50 @@ export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 */
 export const uuid = 'a24a6'
 export const ref = 'PEA11-1'
+
+/**
+ * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
+ *
+ * @author Rémi Angot
+ */
+export function valeurBase (n) {
+  switch (n) {
+    case 'A':
+      return 10
+    case 'B':
+      return 11
+    case 'C':
+      return 12
+    case 'D':
+      return 13
+    case 'E':
+      return 14
+    case 'F':
+      return 15
+    default:
+      return parseInt(n)
+  }
+}
+
+export function baseValeur (n) {
+  switch (n) {
+    case 10:
+      return 'A'
+    case 11:
+      return 'B'
+    case 12:
+      return 'C'
+    case 13:
+      return 'D'
+    case 14:
+      return 'E'
+    case 15:
+      return 'F'
+    default:
+      return Number(n).toString()
+  }
+}
+
 export default function PasserDeLaBase12Ou16ALaBase10 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

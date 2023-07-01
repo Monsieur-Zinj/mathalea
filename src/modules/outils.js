@@ -977,15 +977,13 @@ export function texteExposant (texte) {
  * @author Rémi Angot
  */
 export function ecritureNombreRelatif (a) {
-  let result = ''
   if (a > 0) {
-    result = '(+' + a + ')'
+    return '(+' + a.toString() + ')'
   } else if (a < 0) {
-    result = '(' + a + ')'
-  } else { // ne pas mettre de parenthèses pour 0
-    result = '0'
+    return '(' + a.toString() + ')'
   }
-  return result
+  // ne pas mettre de parenthèses pour 0
+  return '0'
 }
 
 /**
@@ -1115,259 +1113,6 @@ export function calculAligne (numero, etapes) {
 }
 
 /**
- * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
- *
- * @author Rémi Angot
- */
-export function valeurBase (n) {
-  switch (n) {
-    case 'A':
-      return 10
-    case 'B':
-      return 11
-    case 'C':
-      return 12
-    case 'D':
-      return 13
-    case 'E':
-      return 14
-    case 'F':
-      return 15
-    default:
-      return parseInt(n)
-  }
-}
-
-export function baseValeur (n) {
-  switch (n) {
-    case 10:
-      return 'A'
-    case 11:
-      return 'B'
-    case 12:
-      return 'C'
-    case 13:
-      return 'D'
-    case 14:
-      return 'E'
-    case 15:
-      return 'F'
-    default:
-      return Number(n).toString()
-  }
-}
-
-/**
- * Convertit une chaine correspondant à un nombre écrit en base b en un nombre entier en base 10.
- * @param {} nombre
- * @param {number} b la base de départ
- */
-export function baseNVersBase10 (stringNombre, b) {
-  let result = 0
-  if (typeof stringNombre === 'number') {
-    stringNombre = stringNombre.toString()
-  } else if (stringNombre instanceof Decimal) {
-    stringNombre = stringNombre.toNumber().toString()
-  }
-  for (let i = 0; i < stringNombre.length; i++) {
-    result += b ** i * valeurBase(stringNombre.charAt(stringNombre.length - 1 - i))
-  }
-  return result
-}
-
-export function base10VersBaseN (nombre, b) {
-  // let puissanceMax = 0
-  // let chiffre
-  // let valeur
-  // let code = ''
-  // while (b ** (puissanceMax + 1) < nombre) {
-  //   puissanceMax++
-  // }
-  // for (let i = puissanceMax; i >= 0; i--) {
-  //   chiffre = 0
-  //   do {
-  //     valeur = chiffre * b ** i
-  //     chiffre++
-  //   } while (valeur + b ** i <= nombre)
-  //   chiffre--
-  //   code += baseValeur(chiffre)
-  //   nombre -= chiffre * b ** i
-  // }
-  // return code
-  if (nombre instanceof Decimal) return nombre.toNumber().toString(b).toUpperCase()
-  else return nombre.toString(b).toUpperCase()
-  // Il y avait un probleme avec 3 = (3)_3
-}
-
-/**
- *
- * @param {array} matrice M tableau 3x3 nombres
- * @param {array} vecteur A tableau 3 nombres
- * Fonction pouvant être utilisée en 2d avec des coordonnées homogènes
- * elle retourne le vecteur [x,y,z] résultat de M.A
- * @author Jean-Claude Lhote
- */
-
-export function produitMatriceVecteur3x3 (matrice, vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
-  const resultat = [0, 0, 0]
-  for (let j = 0; j < 3; j++) { // Chaque ligne de la matrice
-    for (let i = 0; i < 3; i++) { // On traite la ligne i de la matrice -> résultat = coordonnée i du vecteur résultat
-      resultat[j] += matrice[j][i] * vecteur[i]
-    }
-  }
-  return resultat
-}
-
-/**
- *
- * @param {array} matrice1 Matrice A
- * @param {array} matrice2 Matrice B
- * retourne la matrice A.B
- * @author Jean-Claude Lhote
- */
-
-export function produitMatriceMatrice3x3 (matrice1, matrice2) { // les deux matrices sont des tableaux 3x3  [[ligne 1],[ligne 2],[ligne 3]] et le résultat est de la même nature.
-  const resultat = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-  for (let j = 0; j < 3; j++) {
-    for (let i = 0; i < 3; i++) {
-      for (let k = 0; k < 3; k++) {
-        resultat[j][i] += matrice1[j][k] * matrice2[k][i]
-      }
-    }
-  }
-  return resultat
-}
-
-/**
- *
- * @param {array} point
- * calcule les coordonnées d'un point donné par ses coordonnées en repère orthonormal en repère (O,I,J) tel que IOJ=60°
- * @author Jean-Claude Lhote
- */
-export function changementDeBaseOrthoTri (point) {
-  if (point.length === 2) point.push(1)
-  return produitMatriceVecteur3x3([[1, -Math.cos(Math.PI / 3) / Math.sin(Math.PI / 3), 0], [0, 1 / Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
-}
-
-/**
- *
- * @param {array} point
- * Changement de base inverse de la fonction précédente
- * @author Jean-CLaude Lhote
- */
-export function changementDeBaseTriOrtho (point) {
-  if (point.length === 2) point.push(1)
-  return produitMatriceVecteur3x3([[1, Math.cos(Math.PI / 3), 0], [0, Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
-}
-
-/**
- *
- * @param {number} transformation Entier déterminant la transformation voulue
- ** 1=symétrie / passant par O
- **2=symétrie \ passant par O
- **3=symétrie _ passant par O
- **4=symétrie | passant par O
- **5= rotation 90° anti-horaire centre O
- **6= rotation 90° horaire centre O
- **7= symétrie centrale centre O
- **11= rotation 60° anti-horaire centre O
- **12= rotation 60° horaire centre O
- **13= rotation 120° anti-horaire centre O
- **14= rotation 120° horaire centre O
- **8= translation coordonnées de O = vecteur de translation
- **9= homothétie. centre O rapport k
- **10= homothétie. centre O rapport 1/k
- * @param {array} pointA Point dont on cherche l'image
- * @param {array} pointO Centre du repère local pour les symétries, centre pour les rotations et les homothéties
- * @param {array} vecteur Vecteur de la translation
- * @param {number} rapport rapport d'homothétie
- * @author Jean-Claude Lhote
- */
-export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
-  // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-  // nécessite d'être en repère orthonormal...
-  // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
-
-  const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
-  const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
-  const matriceSymYyPrime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
-  const matriceSymObl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
-  const matriceQuartDeTourDirect = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
-  const matriceQuartDeTourIndirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
-  const matriceSymCentrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
-  const matriceRotation60Direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-  const matriceRotation60Indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-  const matriceRotation120Direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-  const matriceRotation120Indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-
-  let pointA1 = [0, 0, 0]
-  let pointA2 = [0, 0, 0]
-
-  if (pointA.length === 2) pointA.push(1)
-  const x2 = pointO[0] // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
-  const y2 = pointO[1]
-  const u = vecteur[0] // (u,v) vecteur de translation.
-  const v = vecteur[1]
-  const k = rapport // rapport d'homothétie
-
-  const matriceChangementDeRepere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
-  const matriceChangementDeRepereInv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
-  const matriceTranslation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
-  const matriceHomothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
-  const matriceHomothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
-
-  let matrice
-
-  switch (transformation) {
-    case 1:
-      matrice = matriceSymObl1.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 2:
-      matrice = matriceSymObl2.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 3:
-      matrice = matriceSymxxprime.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 4:
-      matrice = matriceSymYyPrime.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 5:
-      matrice = matriceQuartDeTourDirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 6:
-      matrice = matriceQuartDeTourIndirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 7:
-      matrice = matriceSymCentrale.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 11:
-      matrice = matriceRotation60Direct.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 12:
-      matrice = matriceRotation60Indirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 13:
-      matrice = matriceRotation120Direct.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 14:
-      matrice = matriceRotation120Indirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 8:
-      matrice = matriceTranslation.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 9:
-      matrice = matriceHomothetie.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 10:
-      matrice = matriceHomothetie2.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-  }
-  pointA1 = matrice.multiplieVecteur(pointA)
-  pointA2 = matriceChangementDeRepere.multiplieVecteur(pointA1)
-  return pointA2
-}
-
-/**
  * Retourne le signe d'un nombre
  * @Example
  * // + ou -
@@ -1493,7 +1238,7 @@ export function pgcd (...args) {
 
 /**
  * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
- * * **ATTENTION Fonction clonée dans la classe FractionEtendue()**
+ * @deprecated : utiliser la class FractionEtendue à la place
  * @author Rémi Angot
  */
 export function fractionSimplifiee (n, d) {
@@ -1511,6 +1256,7 @@ export function fractionSimplifiee (n, d) {
 
 /**
  * Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier
+ * @deprecated : utiliser la class FractionEtendue à la place
  * @author Rémi Angot
  */
 export function texFractionReduite (n, d) {
@@ -1522,6 +1268,7 @@ export function texFractionReduite (n, d) {
 }
 
 /**
+ * @deprecated : utiliser la class FractionEtendue à la place
  * produitDeDeuxFractions(num1,den1,num2,den2) retourne deux chaines :
  * la première est la fraction résultat, la deuxième est le calcul mis en forme Latex avec simplification éventuelle
  * Applique une simplification si le numérateur de l'une est égal au dénominateur de l'autre.
@@ -1549,7 +1296,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 }
 
 /**
- *
+ * @deprecated utiliser la class FractionEtendue à la place
  * Simplifie une fraction en montrant les étapes
  * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
  * @author Rémi Angot
@@ -1862,9 +1609,11 @@ export function xcas (expression) {
 }
 
 /**
- * Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
- * Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
- * @author Rémi Angot modifié par Jean-Claude Lhote
+ * @deprecated !!! Utiliser la class Decimal pour faire des calculs sur les décimaux exacts :
+ * Cette fonction ne règle en rien le problème des flottants
+ * calcul(0.3) retourne le même 0.3 qui en fait est 0.299999999999999989
+ *
+ * @author Rémi Angot modifié par Jean-Claude Lhote mais en vain !
  */
 export function calcul (x, arrondir = 6) {
   const sansPrecision = (arrondir === undefined)
@@ -1883,7 +1632,7 @@ export function calcul (x, arrondir = 6) {
 }
 
 /**
- * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
+ * Utilise la class Decimal pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
  * Le 2e argument facultatif permet de préciser l'arrondi souhaité
  * @author Rémi Angot
  */
@@ -1893,29 +1642,6 @@ export function nombreDecimal (expression, arrondir = false) {
   } else {
     return stringNombre(new Decimal(expression), arrondir)
   }
-}
-
-/**
- * Formattage pour une sortie LaTeX entre $$
- * formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
- * Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
- * @author Frédéric PIOU
- */
-
-export function texNum (expression, formatFraction = false) {
-  if (typeof expression === 'object') {
-    const signe = expression.s === 1 ? '' : '-'
-    if (formatFraction) {
-      expression = expression.d !== 1 ? signe + texFraction(expression.n, expression.d) : signe + expression.n
-      expression = expression.replace(',', '{,}').replace('{{,}}', '{,}')
-    } else {
-      expression = texNombre(evaluate(format(expression)))
-    }
-    //  expression = expression.replace(',', '{,}').replace('{{,}}', '{,}') // Supprimé par EE car non fonctionnel dans le else qui précède.
-  } else {
-    expression = texNombre(parseFloat(Algebrite.eval(expression)))
-  }
-  return expression
 }
 
 /**
@@ -2050,25 +1776,6 @@ export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscul
     else lettres.push(lettreMinusculeDepuisChiffre(n))
   }
   return lettres
-}
-
-export function cesar (word, decal) {
-  let mot = ''
-  let code = 65
-  for (let x = 0; x < word.length; x++) {
-    code = word.charCodeAt(x) % 65
-    code = (code + decal) % 26 + 65
-    mot += String.fromCharCode(code)
-  }
-  return mot
-}
-
-export function codeCesar (mots, decal) {
-  const motsCodes = []
-  for (let x = 0; x < mots.length; x++) {
-    motsCodes.push(cesar(mots[x], decal))
-  }
-  return motsCodes
 }
 
 /**

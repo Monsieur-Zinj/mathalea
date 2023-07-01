@@ -1,17 +1,29 @@
-import Exercice from '../Exercice.js'
+import Algebrite from 'algebrite'
+import { abs, divide, evaluate, format, fraction, isInteger, max, multiply, pow, round, subtract } from 'mathjs'
+import {
+  arcPointPointAngle,
+  homothetie,
+  labelPoint,
+  point,
+  rotation,
+  segmentAvecExtremites,
+  texteSurArc,
+  texteSurSegment
+} from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import {
   choice,
-  randint,
-  listeQuestionsToContenu,
   choisitLettresDifferentes,
-  texNum,
   combinaisonListes,
-  gestionnaireFormulaireTexte
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+  texFraction,
+  texNombre
 } from '../../modules/outils.js'
-import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Homothétie (calculs)'
 // eslint-disable-next-line no-debugger
 // debugger
@@ -26,7 +38,31 @@ export const dateDeModifImportante = '29/01/2023' //  Par EE
 */
 export const uuid = '6f383'
 export const ref = '3G13'
-export default function CalculsHomothetie () {
+
+/**
+ * Formattage pour une sortie LaTeX entre $$
+ * formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
+ * Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
+ * @author Frédéric PIOU
+ */
+
+export function texNum (expression, formatFraction = false) {
+  if (typeof expression === 'object') {
+    const signe = expression.s === 1 ? '' : '-'
+    if (formatFraction) {
+      expression = expression.d !== 1 ? signe + texFraction(expression.n, expression.d) : signe + expression.n
+      expression = expression.replace(',', '{,}').replace('{{,}}', '{,}')
+    } else {
+      expression = texNombre(evaluate(format(expression)))
+    }
+    //  expression = expression.replace(',', '{,}').replace('{{,}}', '{,}') // Supprimé par EE car non fonctionnel dans le else qui précède.
+  } else {
+    expression = texNombre(parseFloat(Algebrite.eval(expression)))
+  }
+  return expression
+}
+
+export function CalculsHomothetie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 4 // Nombre de questions par défaut

@@ -1,9 +1,10 @@
-import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { graphiqueInterpole, point, polygoneRegulier, repere } from '../../modules/2d.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, cesar } from '../../modules/outils.js'
-import { point, polygoneRegulier, repere, graphiqueInterpole } from '../../modules/2d.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Spécial escape game'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,6 +16,26 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'be398'
 export const ref = '3F13-2'
+
+export function cesar (word, decal) {
+  let mot = ''
+  let code = 65
+  for (let x = 0; x < word.length; x++) {
+    code = word.charCodeAt(x) % 65
+    code = (code + decal) % 26 + 65
+    mot += String.fromCharCode(code)
+  }
+  return mot
+}
+
+export function codeCesar (mots, decal) {
+  const motsCodes = []
+  for (let x = 0; x < mots.length; x++) {
+    motsCodes.push(cesar(mots[x], decal))
+  }
+  return motsCodes
+}
+
 export default function PremierEscapeGameMathalea () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

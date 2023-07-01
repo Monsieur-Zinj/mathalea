@@ -1,11 +1,11 @@
 import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
+import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {
   randint,
   choice,
-  imagePointParTransformation,
   texFractionReduite,
   texNombre,
   numAlpha,
