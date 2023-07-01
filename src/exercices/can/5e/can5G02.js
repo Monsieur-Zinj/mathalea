@@ -5,7 +5,7 @@ import {
   // eslint-disable-next-line no-unused-vars
   point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom
 } from '../../../modules/2d.js'
-import { degTan } from '../../../modules/fonctionsMaths.js'
+import { degTan } from '../../../modules/mathFonctions/fonctionsMaths.js'
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -86,7 +86,7 @@ export default function AngleTriangleIsocele () {
           ymax = Math.max(A.y, B.y, C.y) + 3
           objets.push(pol[0], pol[1])
           objets.push(afficheMesureAngle(A, C, B, 'black', 2.5, 180 - 2 * a + '°'), codageSegments('||', 'blue', C, A, C, B))
-          this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br> 
+          this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br>
             `
           this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
@@ -101,7 +101,7 @@ export default function AngleTriangleIsocele () {
           ymax = Math.max(A.y, B.y, C.y) + 1
           objets.push(pol[0], pol[1])
           objets.push(afficheMesureAngle(A, C, B, 'black', 0.4, 180 - 2 * a + '°'), codageSegments('||', 'blue', C, A, C, B))
-          this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br> 
+          this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br>
               `
           this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 35, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' °' }

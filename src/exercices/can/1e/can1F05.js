@@ -4,7 +4,7 @@ import { randint, listeQuestionsToContenu, sp, texNombre, ecritureAlgebrique } f
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { calcule } from '../../../modules/fonctionsMaths.js'
+import { calcule } from '../../../modules/mathFonctions/fonctionsMaths.js'
 import Decimal from 'decimal.js'
 export const titre = 'Lire graphiquement les valeurs de $b$ et $c$ avec une parabole'
 export const interactifReady = true
@@ -82,7 +82,7 @@ export default function LectureGraphiqueParabolebEtc () {
       texteCorr = `Par lecture graphique, la fonction $f$ a deux racines $${x1}$ et $${x2}$.<br>
           Puisque le coefficient devant $x^2$ est $1$, la forme factorisée de $f(x)$ est $(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$.<br>
           Le développement de cette expression donne $x^2${ecritureAlgebrique(-x1 - x2)}x${ecritureAlgebrique(x1 * x2)}$.<br>
-         Ainsi, $b=${-x1 - x2}$ et $c=${x1 * x2}$. <br><br>      
+         Ainsi, $b=${-x1 - x2}$ et $c=${x1 * x2}$. <br><br>
           Autre méthode : <br>
           L'abscisse du sommet de la parabole est $${texNombre(absS, 1)}$ (on l'obtient par la moyenne des racines de $f$).<br>
           Comme l'abscisse du sommet est aussi donné par $-\\dfrac{b}{2a}$, alors $-\\dfrac{b}{2a}=${texNombre(absS, 1)}$.<br>

@@ -1,7 +1,7 @@
 import { labelPoint, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { combinaisonListes, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint } from '../../modules/outils.js'
-import { radians, degSin } from '../../modules/fonctionsMaths.js'
+import { radians, degSin } from '../../modules/mathFonctions/fonctionsMaths.js'
 import { point3d, arete3d } from '../../modules/3d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

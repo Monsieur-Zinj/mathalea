@@ -13,7 +13,7 @@ import {
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { degres, radians } from '../../modules/fonctionsMaths.js'
+import { degres, radians } from '../../modules/mathFonctions/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { choice, creerNomDePolygone, listeQuestionsToContenu, numAlpha, randint, texNombre } from '../../modules/outils.js'

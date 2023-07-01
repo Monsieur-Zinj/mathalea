@@ -14,7 +14,7 @@ import {
   miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import { calcule } from '../../modules/fonctionsMaths.js'
+import { calcule } from '../../modules/mathFonctions/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Trouver les coordonnées de l\'image d\'un point par une rotation et une homothétie'

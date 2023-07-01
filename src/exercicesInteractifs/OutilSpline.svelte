@@ -1,55 +1,55 @@
 <script>
-  import { fixeBordures, mathalea2d } from "../modules/2dGeneralites";
-  import HeaderExercice from "../components/exercice/HeaderExercice.svelte";
-  import { spline } from "../modules/fonctionsMaths";
-  import { repere } from "../modules/2d";
-  export let indiceExercice;
-  export let indiceLastExercice;
+  import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
+  import HeaderExercice from '../components/exercice/HeaderExercice.svelte'
+  import { spline } from '../modules/mathFonctions/fonctionsMaths.js'
+  import { repere } from '../modules/2d'
+  export let indiceExercice
+  export let indiceLastExercice
   const headerExerciceProps = {
-    title: "",
+    title: '',
     isInteractif: false,
     settingsReady: false,
     interactifReady: false,
     randomReady: false,
-    correctionReady: false,
-  };
+    correctionReady: false
+  }
   let noeuds = [
     { x: -3, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
     { x: -1, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     { x: 1, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-    { x: 3, y: 4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-  ];
+    { x: 3, y: 4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
+  ]
 
-  let contenu = "";
-  function refreshCourb() {
-    const f = spline(noeuds);
-    const { xMin, xMax, yMin, yMax } = f.trouveMaxes();
-    const r = repere({ xMin, xMax, yMin, yMax });
-    const c = f.courbe({ repere: r, ajouteNoeuds: true });
-    const objets = [r, c];
-    contenu = mathalea2d(Object.assign({}, fixeBordures(objets)), objets);
+  let contenu = ''
+  function refreshCourb () {
+    const f = spline(noeuds)
+    const { xMin, xMax, yMin, yMax } = f.trouveMaxes()
+    const r = repere({ xMin, xMax, yMin, yMax })
+    const c = f.courbe({ repere: r, ajouteNoeuds: true })
+    const objets = [r, c]
+    contenu = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
   }
 
-  function removeNoeud() {
-    if (noeuds.length < 4) return;
-    noeuds.pop();
-    noeuds = noeuds;
-    refreshCourb();
+  function removeNoeud () {
+    if (noeuds.length < 4) return
+    noeuds.pop()
+    noeuds = noeuds
+    refreshCourb()
   }
 
-  function addNoeud() {
+  function addNoeud () {
     noeuds.push({
       x: noeuds.at(-1).x + 1,
       y: noeuds.at(-1).y,
       deriveeGauche: 0,
       deriveeDroit: 0,
-      isVisible: true,
-    });
-    noeuds = noeuds;
-    refreshCourb();
+      isVisible: true
+    })
+    noeuds = noeuds
+    refreshCourb()
   }
 
-  refreshCourb();
+  refreshCourb()
 </script>
 
 <HeaderExercice

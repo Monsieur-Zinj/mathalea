@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, pgcd, egal } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { choisiDelta } from '../../modules/fonctionsMaths.js'
+import { choisiDelta } from '../../modules/mathFonctions/fonctionsMaths.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = false
 // export const interactifType = 'mathLive'
