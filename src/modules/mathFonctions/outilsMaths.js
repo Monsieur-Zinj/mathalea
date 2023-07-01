@@ -94,11 +94,11 @@ export function expTrinome (a, b, c) {
 
 /**
  * renvoie les solutions (intervalles) de f(x) < y (ou f(x)<=y ou f(x)>y ou f(x)>=y)
- * @param {x=>function(x)}fonction une fonction x=>f(x)
+ * @param {function}fonction une fonction x=>f(x)
  * @param {number}y la valeur de y à atteindre
  * @param {boolean} inferieur si true < si false >
  * @param {boolean} strict si true < ou > sinon <= ou >=
- * @param {{*}} options
+ * @param {Object} [options]
  * @param {number} options.toleance la marge de comparaison entre f(x) et y pour accepter que f(x)=y
  * @param {number} options.step le pas de recherche en x.
  * @return {{borneG: {x: number, included: boolean, y: number}, borneD: {x: number, included: boolean, y: number}}[]} le ou les intervalles dans une liste
