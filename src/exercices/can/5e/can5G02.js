@@ -1,3 +1,4 @@
+import { degTan } from '../../../modules/mathFonctions/trigo.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombre } from '../../../modules/outils.js'
@@ -5,7 +6,6 @@ import {
   // eslint-disable-next-line no-unused-vars
   point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom
 } from '../../../modules/2d.js'
-import { degTan } from '../../../modules/mathFonctions/fonctionsMaths.js'
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -14,7 +14,6 @@ import {
   miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import { calcule } from '../../modules/mathFonctions/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Trouver les coordonnées de l\'image d\'un point par une rotation et une homothétie'
@@ -470,7 +469,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${texNombre(punto[i][0], 2)};${texNombre(punto[i][1], 2)}$).<br>`
             break
           case 12: // rotation de 60°
 
@@ -498,7 +497,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${texNombre(punto[i][0], 2)};${texNombre((punto[i][1], 2))}$).<br>`
             break
 
           case 13: // rotation de 120°
@@ -527,7 +526,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${texNombre(punto[i][0], 2)};${texNombre(punto[i][1], 2)}$).<br>`
             break
 
           case 14: // rotation de 120°
@@ -556,7 +555,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${texNombre(punto[i][0], 2)};${texNombre(punto[i][1], 2)}$).<br>`
             break
         }
         if (this.interactif) {

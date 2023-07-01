@@ -1,8 +1,8 @@
 <script>
   import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
   import HeaderExercice from '../components/exercice/HeaderExercice.svelte'
-  import { spline } from '../modules/mathFonctions/fonctionsMaths.js'
   import { repere } from '../modules/2d'
+  import { spline } from '../modules/mathFonctions/Spline.js'
   export let indiceExercice
   export let indiceLastExercice
   const headerExerciceProps = {

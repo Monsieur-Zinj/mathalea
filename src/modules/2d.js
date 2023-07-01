@@ -4,8 +4,8 @@ import { abs, ceil, floor, Fraction, fraction, isNumeric, max, random, round } f
 import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
 import { context } from './context.js'
-import { degCos, degSin, radians } from './mathFonctions/fonctionsMaths.js'
 import FractionEtendue from './FractionEtendue.js'
+import { degCos, degSin, radians } from './mathFonctions/trigo.js'
 import {
   arrondi,
   calcul,

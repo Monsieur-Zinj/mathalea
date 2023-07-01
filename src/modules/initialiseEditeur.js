@@ -4,7 +4,6 @@ import { pointCliquable } from './2dinteractif.js'
 import { randint, texNombre, nombreDecimal, calcul, couleurAleatoire } from './outils.js'
 import { fraction } from './fractions.js'
 import { context } from './context.js'
-import { calcule } from './mathFonctions/fonctionsMaths.js'
 import Sval from 'sval'
 import Alea2iep from './Alea2iep.js'
 import { afficherTempo, afficherUnParUn, affiniteOrthoAnimee, apparitionAnimee, cacherParDiv, cacherTempo, homothetieAnimee, montrerParDiv, rotationAnimee, symetrieAnimee, translationAnimee } from './2dAnimation.js'
@@ -30,7 +29,6 @@ export default function InitialiseEditeur () {
   window.texNombre = texNombre
   window.nombreDecimal = nombreDecimal
   window.calcul = calcul
-  window.calcule = calcule
   window.fraction = fraction
   window.engrenage = engrenage
 
