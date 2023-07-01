@@ -134,8 +134,8 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
 }
 
 /**
- * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
- * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne!
+ * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne !
  * @author Mickael Guironnet
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
@@ -143,7 +143,7 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
  *          eleId : identifiant ID pour retrouver la colonne
  *          largeur1 : largeur de la première colonne en latex en pourcentage
  *          widthmincol1 : largeur de la première minimum en html en px
- *          widthmincol2 : largeur de la deuxième  minimum en html en px
+ *          widthmincol2 : largeur de la deuxième minimum en html en px
  *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
  * @return {string}
  */
@@ -215,7 +215,7 @@ export function centrage (texte) {
 
 /**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
- * @author Jean-Claude Lhote à partir du code de Eric Elter
+ * @author Jean-Claude Lhote à partir du code d'Eric Elter
  * @param {number|string} min borne inférieure
  * @param {number|string} max borne supérieure
  * @param {number|string} valeur la valeur à contraindre
@@ -238,10 +238,10 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {number} defaut obligatoirement compris entre min et max inclus ou alors égal à melange
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
  * La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
- * @param {boolean} [shuffle=true] si true, alors on brasse la liste en sortie sinon on garde l'ordre
+ * @param {boolean} [shuffle=true] si true, on brasse la liste en sortie sinon on garde l'ordre
  * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie. Si 999, alors le nbQuestions correspond à la longueur de saisie.
  * @param {number | undefined} melange la valeur utilisée pour l'option mélange
- * @param {boolean} [enleveDoublons=false]  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
+ * @param {boolean} [enleveDoublons=false]  si true, la liste en sortie ne peut pas contenir deux fois la même valeur
  * @param {number[]} exclus liste de valeurs à exclure entre min et max
  */
 export function gestionnaireFormulaireTexte ({
@@ -267,10 +267,10 @@ export function gestionnaireFormulaireTexte ({
   if (!saisie) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
   } else {
-    if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+    if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
       listeIndex = [contraindreValeur(min, Math.max(max, melange ?? max), saisie, defaut)]
     } else {
-      listeIndexProvisoire = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      listeIndexProvisoire = saisie.split('-')// Sinon on crée un tableau à partir des valeurs séparées par des tirets
       for (let i = 0; i < listeIndexProvisoire.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
         if (!isNaN(parseInt(listeIndexProvisoire[i]))) { listeIndex.push(contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut)) } // parseInt en fait un tableau d'entiers
       }
@@ -319,7 +319,7 @@ export function egal (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a < b
+ * Retourne true si le nombre a est inférieur à b
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
  * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
@@ -330,7 +330,7 @@ export function inferieur (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a ≥ b
+ * Retourne true si le nombre a est supérieur ou égal à b
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
  * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
@@ -341,7 +341,7 @@ export function superieurouegal (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a ≤ b
+ * Retourne true si le nombre a est inférieur ou égal à b
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
  * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
@@ -352,7 +352,7 @@ export function inferieurouegal (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a est entier ou "presque" entier
+ * Retourne true si le nombre a est entier ou "presque" entier
  * @param {number} a premier nombre
  * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
  * @return {boolean}
@@ -395,7 +395,7 @@ export function carreParfait (x) {
  * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
  * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
  * Si le nombre de couples possibles est inférieur à nombreDeCouplesMin alors
- * on concatène 2 fois la même liste mais avec des ordres différents.
+ * on concatène 2 fois la même liste, mais avec des ordres différents.
  * @param {string[]} E1 - Liste
  * @param {string[]} E2 - Liste
  * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
@@ -461,7 +461,7 @@ export function randint (min, max, listeAEviter = []) {
     }
   }
   if (Array.isArray(listeAEviter)) {
-    listeAEviter = listeAEviter.map(Number).filter(el => Math.round(el) === el) // on filtre les non nombres et les non-entiers
+    listeAEviter = listeAEviter.map(Number).filter(el => Math.round(el) === el) // on filtre les non-nombres et les non-entiers
   } else {
     window.notify('La liste d\'exclusion de randint n\'est pas d\'un type pris en compte', { listeAEviter })
     listeAEviter = []
@@ -498,7 +498,7 @@ export function enleveElement (array, item) {
 
 /**
  *
- * Compte les occurences d'un item dans un tableau
+ * Compter les occurences d'un item dans un tableau
  * @param {array} array
  * @param item
  * @Author Rémi Angot
@@ -510,7 +510,7 @@ export function compteOccurences (array, value) {
 }
 
 /**
- * Enlève toutes les occurences d'un élément d'un tableau donné mais sans modifier le tableau en paramètre et renvoie le tableau modifié
+ * Enlève toutes les occurences d'un élément d'un tableau donné, mais sans modifier le tableau en paramètre et renvoie le tableau modifié
  * @author Rémi Angot & Jean-Claude Lhote
  */
 
@@ -599,7 +599,7 @@ export function range (max, listeAEviter = []) {
 }
 
 /**
- * Retourne une liste entre 2 bornes sans appartenir à une liste donnée (par défaut des entiers mais on peut changer le pas)
+ * Retourne une liste entre 2 bornes sans appartenir à une liste donnée (par défaut des entiers, mais on peut changer le pas)
  * @param {min}
  * @param {max}
  * @param {listeAEviter}
@@ -661,7 +661,7 @@ export function compareFractions (a, b) {
 }
 
 /**
- * Fonction de comparaison à utiliser avec tableau.sort(compareNombres)
+ * Fonction de comparaison à utiliser avec <tableau.sort(compareNombres)>
  *
  *
  * @author Rémi Angot
@@ -682,7 +682,7 @@ export function numTrie (arr) {
 
 /**
  * retourne un tableau dans lequel les doublons ont été supprimés s'il y en a MAIS SANS TRI
- * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
+ * @param {array} arr Tableau duquel on veut supprimer les doublons numériques
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
@@ -913,7 +913,7 @@ export function combinaisonListes (liste, tailleMinimale) {
 
 /**
  * Concatène liste à elle-même en imposant à la nouvelle liste de contenir au moins tous les élements
- * de la liste initiale mais sans gestion de nombre de doublons au final.
+ * de la liste initiale, mais sans gestion de nombre de doublons.
  * @Example
  * combinaisonListes2([A,B,C],7)
  * // [B,C,B,B,C,A,B]
@@ -931,7 +931,7 @@ export function combinaisonListes2 (liste, tailleMinimale) {
 }
 
 export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
-  // Concatène liste à elle même en changeant
+  // Concatène liste à elle-même en changeant
   if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
   let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
@@ -941,7 +941,7 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 }
 
 /**
- * N'écrit pas un nombre s'il est égal à 1
+ * écrit le nombre, mais pas un nombre s'il est égal à 1
  * @Example
  * //rienSi1(1)+'x' -> x
  * //rienSi1(-1)+'x' -> -x
@@ -951,7 +951,7 @@ export function rienSi1 (a) {
   if (equal(a, 1)) return ''
   if (equal(a, -1)) return '-'
   if (a instanceof Fraction || a instanceof FractionEtendue) return a.toLatex()
-  if (Number(a) || a === 0) return stringNombre(a) // on retourne 0 ce sera pas joli, mais Number(0) est false !!!
+  if (Number(a) || a === 0) return stringNombre(a) // on retourne 0, ce ne sera pas joli, mais Number(0) est false !!!
   window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
 }
 
@@ -982,7 +982,7 @@ export function ecritureNombreRelatif (a) {
   } else if (a < 0) {
     return '(' + a.toString() + ')'
   }
-  // ne pas mettre de parenthèses pour 0
+  // ne pas mettre de parenthèses pour le nombre 0.
   return '0'
 }
 
@@ -996,7 +996,7 @@ export function ecritureNombreRelatifc (a) {
     result = miseEnEvidence('(+' + texNombre(a) + ')', 'blue')
   } else if (a < 0) {
     result = miseEnEvidence('(' + texNombre(a) + ')')
-  } else { // ne pas mettre de parenthèses pour 0
+  } else { // ne pas mettre de parenthèses pour le nnombre 0.
     result = miseEnEvidence('0', 'black')
   }
   return result
@@ -1040,7 +1040,7 @@ export function ecritureAlgebriqueSauf1 (a) {
 }
 
 /**
- * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
+ * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul).
  * @param {number} a
  */
 export function ecritureAlgebriquec (a) {
@@ -1077,7 +1077,7 @@ export function ecritureParentheseSiNegatif (a) {
     else return `(${texNombre(a, 8)})`
   } else {
     if (a >= 0) {
-      result = texNombre(a, 8) // j'ai passé a dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
+      result = texNombre(a, 8) // j'ai passé le nombre dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
     } else {
       result = `(${texNombre(a, 8)})`
     }
@@ -1099,7 +1099,7 @@ export function ecritureParentheseSiMoins (expr) {
 /**
  *
  * @author Jean-claude Lhote
- * @param {numero} 1=A, 2=B ..
+ * @param {numero} 1=A, 2=B ...
  * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
  */
 
@@ -1211,8 +1211,8 @@ export function abs (a) {
 // }
 
 /**
- * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
- * le nombre a est comparé à son arrondi à précision près. Si la différence est inférieure à epsilon, alors on retourne '=' sinon '\\approx'
+ * Retourne égal si la valeur est égale à l'arrondi souhaité ou environ égal si ce n'est pas le cas
+ * Le nombre a est comparé à son arrondi à précision près. Si la différence est inférieure à epsilon, alors on retourne '=' sinon '\\approx'
  * fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
  * @author Jean-Claude Lhote
  */
@@ -1237,7 +1237,7 @@ export function pgcd (...args) {
 }
 
 /**
- * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
+ * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur, dénominateur) réduite au maximum dans un tableau [numérateur,dénominateur]
  * @deprecated : utiliser la class FractionEtendue à la place
  * @author Rémi Angot
  */
@@ -1298,7 +1298,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 /**
  * @deprecated utiliser la class FractionEtendue à la place
  * Simplifie une fraction en montrant les étapes
- * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
+ * Le résultat est un string qui doit être entouré de $ pour le mode mathématique
  * @author Rémi Angot
  */
 export function simplificationDeFractionAvecEtapes (num, den) {
@@ -1337,7 +1337,7 @@ export function produitsEnCroix ([[a, b], [c, d]]) { // écrit une chaine pour a
 
 /**
  * Retourne la quatrième proportionnelle de 3 nombres en fonction d'une précision demandée
- * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
+ * Le résultat est un string qui doit être entouré de $ pour le mode mathématique
  * @author Jean-Claude Lhote
  */
 
@@ -1360,7 +1360,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
 }
 
 /**
- * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
+ * renvoie une chaine correspondant à l'écriture réduite d'ax+b selon les valeurs de a et b
  * La lettre par défaut utilisée est 'x' mais peut être tout autre chose.
  * @author Jean-Claude Lhote
  * @param {number} a
@@ -1383,7 +1383,7 @@ export function reduireAxPlusB (a, b) {
 }
 
 /**
- * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
+ * renvoie une chaine correspondant à l'écriture réduite d'ax^3+bx^2+cx+d selon les valeurs de a, b, c et d
  * @author Jean-Claude Lhote
  */
 export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
@@ -1558,7 +1558,7 @@ export function texFactorisation (n, puissancesOn = true) {
  *
  * @param {Entier} n
  * Extrait le plus grand nombre possible de la racine carrée de n
- * retourne le résulat [a,b] pour a²b=n
+ * retourne le résulat [a, b] pour a²b=n
  * @author Jean-Claude Lhote
  */
 export function extraireRacineCarree (n) {
@@ -1580,7 +1580,7 @@ export function extraireRacineCarree (n) {
 /**
  *
  * @param {Entier} n
- * retourne le code Latex de la racine carrée de n "réduite"
+ * retourne le code Latex de la racine carrée de n réduite
  * @author Jean-CLaude Lhote
  */
 export function texRacineCarree (n) {
@@ -1611,7 +1611,7 @@ export function xcas (expression) {
 /**
  * @deprecated !!! Utiliser la class Decimal pour faire des calculs sur les décimaux exacts :
  * Cette fonction ne règle en rien le problème des flottants
- * calcul(0.3) retourne le même 0.3 qui en fait est 0.299999999999999989
+ * `calcul(0.3)` retourne le même 0.3 qui en fait est 0.299999999999999989
  *
  * @author Rémi Angot modifié par Jean-Claude Lhote mais en vain !
  */
@@ -1711,7 +1711,7 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
       for (let i = 0; i < nbsommets; i++) {
         polygone += String.fromCharCode(premiersommet + i)
       }
-      cpt++ // Au bout de 20 essais on laisse tomber la liste à éviter
+      cpt++ // Au bout de 20 essais, on laisse tomber la liste à éviter
     }
   } else {
     console.log('Trop de questions donc plusieurs polygones peuvent avoir le même nom')
@@ -1737,7 +1737,7 @@ export function possedeUnCaractereInterdit (texte, listeAEviter) {
 
 /**
  * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de listeAEviter
- * toutes la liste des nombres est retournée si combien est supérieur à l'effectif disponible
+ * toute la liste des nombres est retournée si combien est supérieur à l'effectif disponible
  * les valeurs sont dans un ordre aléatoire.
  * @author Jean-Claude Lhote
  *
@@ -1840,7 +1840,7 @@ export function lettreIndiceeMinusculeDepuisChiffre (i) {
 /**
  * @author Rémi Angot
  * @Example
- * //0h24 est accepté
+ * //0 h 24 est accepté
  */
 export function minToHoraire (minutes) {
   let nbHour = parseInt(minutes / 60)
@@ -1858,7 +1858,7 @@ export function minToHoraire (minutes) {
 /**
  * @author Rémi Angot
  * @Example
- * //on écrira 24 minutes plutôt que 0h24
+ * //on écrira 24 minutes plutôt que 0 h 24
  */
 export function minToHour (minutes) {
   let nbHour = parseInt(minutes / 60)
@@ -2069,7 +2069,7 @@ export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts 
           break
         }
       }
-      if (!present) { // s'il n'est pas présent, on le push.
+      if (!present) { // s'il n'est pas présent, on le stocke.
         notes.push(candidat)
         i++
       }
