@@ -1,6 +1,6 @@
 import { abs, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
-import { degCos, degSin } from '../mathFonctions/fonctionsMaths.js'
+import { degCos, degSin } from '../mathFonctions/trigo.js'
 import { arrondi } from '../outils.js'
 /**
  * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)

@@ -1,6 +1,6 @@
+import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, ecritureAlgebrique, prettyTex } from '../../modules/outils.js'
-import { Polynome } from '../../modules/mathFonctions/fonctionsMaths.js'
 import { simplify, parse, derivative, fraction } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

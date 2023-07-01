@@ -2,7 +2,6 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, sp, ecritureParentheseSiNegatif, ecritureAlgebrique, rienSi1 } from '../../../modules/outils.js'
 import { repere, courbe, latexParCoordonnees, texteParPosition } from '../../../modules/2d.js'
-import { calcule } from '../../../modules/mathFonctions/fonctionsMaths.js'
 export const titre = 'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,10 +33,10 @@ export default function LectureGraphiqueTangente () {
           alpha = randint(0, 2)
           beta = randint(-2, 2)
           f = function (x) { // fonction dérivée
-            return calcule(2 * x - 2 * alpha)
+            return 2 * x - 2 * alpha
           }
           F = function (x) { // fonction
-            return calcule((x - alpha) ** 2 + beta)
+            return (x - alpha) ** 2 + beta
           }
           while (f(nbre) === 0) {
             nbre = randint(0, 3)
@@ -49,10 +48,10 @@ export default function LectureGraphiqueTangente () {
           alpha = randint(-2, 0)
           beta = randint(-2, 2)
           f = function (x) { // fonction dérivée
-            return calcule(2 * x - 2 * alpha)
+            return 2 * x - 2 * alpha
           }
           F = function (x) { // fonction
-            return calcule((x - alpha) ** 2 + beta)
+            return (x - alpha) ** 2 + beta
           }
           while (f(nbre) === 0) {
             nbre = randint(-2, 1)
@@ -154,10 +153,10 @@ export default function LectureGraphiqueTangente () {
           alpha = randint(0, 2)
           beta = randint(1, 4)
           f = function (x) { // fonction dérivée
-            return calcule(2 * x * (-1) + 2 * alpha)
+            return 2 * x * (-1) + 2 * alpha
           }
           F = function (x) { // fonction
-            return calcule((-1) * (x - alpha) ** 2 + beta)
+            return (-1) * (x - alpha) ** 2 + beta
           }
           while (f(nbre) === 0) { // pas de tangente horizontales à chercher
             nbre = randint(0, 2)
@@ -170,10 +169,10 @@ export default function LectureGraphiqueTangente () {
           beta = randint(0, 3)
         }
         f = function (x) { // fonction dérivée
-          return calcule(2 * x * (-1) + 2 * alpha)
+          return 2 * x * (-1) + 2 * alpha
         }
         F = function (x) { // fonction
-          return calcule((-1) * (x - alpha) ** 2 + beta)
+          return (-1) * (x - alpha) ** 2 + beta
         }
         while (f(nbre) === 0) { // pas de tangente horizontales à chercher
           nbre = randint(-2, 0)

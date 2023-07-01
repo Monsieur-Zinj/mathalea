@@ -4,7 +4,6 @@ import { randint, listeQuestionsToContenu, sp, texNombre, ecritureAlgebrique } f
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { calcule } from '../../../modules/mathFonctions/fonctionsMaths.js'
 import Decimal from 'decimal.js'
 export const titre = 'Lire graphiquement les valeurs de $b$ et $c$ avec une parabole'
 export const interactifReady = true
@@ -39,7 +38,7 @@ export default function LectureGraphiqueParabolebEtc () {
       o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
       absS = new Decimal(x1 + x2).div(2)// abscisse sommet
       f = function (x) {
-        return calcule(x ** 2 - (x1 + x2) * x + x1 * x2)
+        return x ** 2 - (x1 + x2) * x + x1 * x2
       }
       r = repere({
         yUnite: 1,
