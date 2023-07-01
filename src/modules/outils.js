@@ -2,7 +2,6 @@
 import Algebrite from 'algebrite'
 import Decimal from 'decimal.js'
 import { equal, evaluate, format, Fraction, gcd, isArray, isInteger, isPrime, round } from 'mathjs'
-import { texteParPosition } from './2d.js'
 import { context } from './context.js'
 import FractionEtendue from './FractionEtendue.js'
 import { fraction } from './fractions.js'
@@ -13,20 +12,6 @@ import { matriceCarree } from './MatriceCarree.js'
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
 const math = { format, evaluate }
-
-/**
- * Fonctions diverses pour la création des exercices
- * @module
- */
-
-export function interactivite (exercice) {
-  if (context.isHtml) {
-    if (exercice.interactif) return 'I-html'
-    else return 'html'
-  } else if (context.isAmc) return 'AMC'
-  else if (exercice.interactif) return 'I-latex'
-  else return 'latex'
-}
 
 /**
  * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
@@ -87,28 +72,6 @@ export function exerciceSimpleToContenu (exercice) {
 }
 
 /**
- * À documenter
- * @param {Exercice} exercice
- */
-export function listeDeChosesAImprimer (exercice) {
-  if (context.isHtml) {
-    exercice.contenu = htmlLigne(exercice.listeQuestions, exercice.spacing)
-    exercice.contenuCorrection = ''
-  } else {
-    // let vspace = ''
-    // if (exercice.vspace) {
-    //   vspace = `\\vspace{${exercice.vspace} cm}\n`
-    // }
-    if (document.getElementById('supprimer_reference').checked === true) {
-      exercice.contenu = texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-    } else {
-      exercice.contenu = `\n\\marginpar{\\footnotesize ${exercice.id}}` + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-    }
-    exercice.contenuCorrection = ''
-  }
-}
-
-/**
  * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
  * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
  * @param {Exercice} exercice
@@ -135,24 +98,6 @@ export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = tr
       exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
     }
   }
-}
-
-/**
- * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
- *
- * Uniquement en version LaTeX
- * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
- * @param {Exercice} exercice
- * @author Rémi Angot
- */
-export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
-  if (document.getElementById('supprimer_reference').checked === true) {
-    exercice.contenu = texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-  } else {
-    exercice.contenu = `\n\\marginpar{\\footnotesize ${exercice.id}` + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-  }
-  // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
-  exercice.contenuCorrection = texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
 }
 
 /**
@@ -374,17 +319,6 @@ export function egal (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a > b
- * @param {number} a premier nombre
- * @param {number} b deuxième nombre
- * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
- * @return {boolean}
- */
-export function superieur (a, b, tolerance = epsilon) {
-  return (a - b > tolerance)
-}
-
-/**
  * Retourne true si a < b
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
@@ -455,16 +389,6 @@ export const ppcm = (a, b) => {
 export function carreParfait (x) {
   if (estentier(Math.sqrt(x))) return true
   else return false
-}
-
-// Petite fonction pour écrire des nombres avec Mathalea2d en vue de poser des opérations...
-export function ecrireNombre2D (x, y, n) {
-  const nString = nombreAvecEspace(n)
-  const nombre2D = []
-  for (let k = 0; k < nString.length; k++) {
-    nombre2D.push(texteParPosition(nString[k], x + k * 0.8, y))
-  }
-  return nombre2D
 }
 
 /**
@@ -551,47 +475,6 @@ export function randint (min, max, listeAEviter = []) {
 }
 
 /**
- * Créé un string aléatoire
- *
- * strRandom({
- *  includeUpperCase: true,
- *  includeNumbers: true,
- *  length: 5,
- *  startsWithLowerCase: true
- * });
- *
- * // renvoie par exemple : "iL0v3"
- *
- * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
- */
-export function strRandom (o) {
-  let a = 10
-  const b = 'abcdefghijklmnopqrstuvwxyz'
-  let c = ''
-  let d = 0
-  let e = '' + b
-  if (o) {
-    if (o.startsWithLowerCase) {
-      c = b[Math.floor(Math.random() * b.length)]
-      d = 1
-    }
-    if (o.length) {
-      a = o.length
-    }
-    if (o.includeUpperCase) {
-      e += b.toUpperCase()
-    }
-    if (o.includeNumbers) {
-      e += '1234567890'
-    }
-  }
-  for (; d < a; d++) {
-    c += e[Math.floor(Math.random() * e.length)]
-  }
-  return c
-}
-
-/**
  * Enlève toutes les occurences d'un élément d'un tableau donné
  * @param liste
  * @param element
@@ -645,24 +528,25 @@ export function enleveElementBis (array, item = undefined) {
 }
 
 /**
- * Enlève l'élément index d'un tableau
+ * Enlève l'élément index d'un tableau attention ! modifie le tableau passé en argument ne retourne rien
+ * @param {Array<any>} le tableau à modifier
+ * @param {number} index de l'élément à retirer
  * @author Jean-Claude Lhote
  */
 export function enleveElementNo (array, index) {
-  array.splice(index, 1)
+  if (index >= 0 && index < array.length) array.splice(index, 1)
 }
 
 /**
  * Enlève l'élément index d'un tableau sans modifier le tableau et retourne le résultat
+ * @param {Array<any>} le tableau à modifier
+ * @param {number} index de l'élément à retirer
+ * @return {Array<any>} une copie du tableau modifié
  * @author Jean-Claude Lhote
  */
-export function enleveElementNoBis (array, index) {
-  const tableaucopie = []
-  for (let i = 0; i < array.length; i++) {
-    tableaucopie.push(array[i])
-  }
-  tableaucopie.splice(index, 1)
-  return tableaucopie
+export function nouveauTableauPriveDunElement (array, index) {
+  const tableaucopie = array.slice()
+  return tableaucopie.splice(index, 1)
 }
 
 /**
@@ -1056,29 +940,6 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
   return l
 }
 
-/** Renvoie une liste exhaustive de tableaux contenant les mêmes élèments que tab mais jamais dans le même ordre
- * Fonction fort utile quand reponse est une suite de nombres par exemple. Voir ligne 111 Exercice 3A10-6.
- * Gros défaut :  Si tab contient plus de 6 éléments, cette fonction est chronophage. A ne pas utiliser
- * @example reponse = diversesReponsesPossibles([3,4,5]) renvoie [[3,4,5],[3,5,4],[4,3,5],[4,5,3],[5,3,4],[5,4,3]]
- * et ensuite pour les tous les i : reponse[i]=reponse[i].join(';') et reponse contient alors toutes les réponses possibles
- * @author Eric Elter
- * Septembre 2022
- */
-export function diversesReponsesPossibles (tab) {
-  let tab2, tab3
-  const rep = []
-  if (tab.length === 1) return (tab)
-  for (let ee = 0; ee < tab.length; ee++) {
-    tab2 = tab.slice()
-    tab2.splice(ee, 1)
-    tab3 = diversesReponsesPossibles(tab2)
-    for (let k = 0; k < tab3.length; k++) {
-      rep.push([tab[ee]].concat(tab3[k]))
-    }
-  }
-  return rep
-}
-
 /**
  * N'écrit pas un nombre s'il est égal à 1
  * @Example
@@ -1106,22 +967,6 @@ export function texteExposant (texte) {
     return `<sup>${texte}</sup>`
   } else {
     return `\\up{${texte}}`
-  }
-}
-
-/**
- * Gère l'écriture de l'indice en mode text (ne doit pas s'utiliser entre $ $)
- * Pour le mode maths (entre $ $) on utilisera tout _3 pour mettre un indice 3 ou _{42} pour l'indice 42.
- * @param {string} texte
- * @Example
- * // `(d${texteIndice(3)})`
- * @author Jean-Claude Lhote
- */
-export function texteIndice (texte) {
-  if (context.isHtml) {
-    return `<sub>${texte}</sub>`
-  } else {
-    return `\\textsubscript{${texte}}`
   }
 }
 

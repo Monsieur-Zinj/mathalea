@@ -1,10 +1,27 @@
-import { pointAdistance, point, segment, rotation, cercle, tracePoint, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
-import Exercice from '../Exercice.js'
+import {
+  afficheLongueurSegment,
+  cercle,
+  latexParPoint,
+  point,
+  pointAdistance,
+  rotation,
+  segment,
+  tracePoint
+} from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, arrondi, texNombre, randint, interactivite, stringNombre, sp, miseEnEvidence } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
+import {
+  arrondi,
+  listeQuestionsToContenu,
+  miseEnEvidence,
+  randint,
+  sp,
+  stringNombre,
+  texNombre
+} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Calculer périmètre et aire de disques'
 export const interactifReady = true
@@ -24,6 +41,11 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'f9a02'
 export const ref = '6M22-1'
+
+/**
+ * Fonctions diverses pour la création des exercices
+ * @module
+ */
 export default function PerimetreAireDisques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -68,11 +90,10 @@ export default function PerimetreAireDisques (pa = 3) {
       reponseA2 = this.sup === 1 ? 0 : arrondi(Math.trunc(r * r * Math.PI * 10) / 10)
       reponseA2bis = this.sup === 1 ? 0 : arrondi(reponseA2 + 0.1)
 
-      switch (interactivite(this)) {
-        case 'AMC' :
-          this.consigne += '\\\\\nDonner la valeur exacte et une valeur approchée au dixième près.'
-          break
-        default : this.consigne += `${context.isHtml ? '<br>' : '\\\\\n'} On donnera la valeur exacte puis une valeur approchée au dixième près.`
+      if (context.isAmc) {
+        this.consigne += '\\\\\nDonner la valeur exacte et une valeur approchée au dixième près.'
+      } else {
+        this.consigne += `${context.isHtml ? '<br>' : '\\\\\n'} On donnera la valeur exacte puis une valeur approchée au dixième près.`
       }
 
       texteCorr = this.sup === 2
