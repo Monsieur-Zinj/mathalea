@@ -156,11 +156,13 @@ class Spline {
    * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
    */
   trouveMaxes () {
-    const xMin = Math.floor(Math.min(...this.noeuds.map(el => el.x)) - 1)
-    const yMin = Math.floor(Math.min(...this.noeuds.map(el => el.y)) - 1)
-    const xMax = Math.ceil(Math.max(...this.noeuds.map(el => el.x)) + 1)
-    const yMax = Math.ceil(Math.max(...this.noeuds.map(el => el.y)) + 1)
-    return { xMin, xMax, yMin, yMax }
+    if (Array.isArray(this.noeuds) && this.noeuds.length > 0) {
+      const xMin = Math.floor(Math.min(...this.noeuds.map(el => el.x)) - 1)
+      const yMin = Math.floor(Math.min(...this.noeuds.map(el => el.y)) - 1)
+      const xMax = Math.ceil(Math.max(...this.noeuds.map(el => el.x)) + 1)
+      const yMax = Math.ceil(Math.max(...this.noeuds.map(el => el.y)) + 1)
+      return { xMin, xMax, yMin, yMax }
+    }
   }
 
   /**

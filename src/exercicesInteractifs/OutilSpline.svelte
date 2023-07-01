@@ -2,7 +2,7 @@
   import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
   import HeaderExercice from '../components/exercice/HeaderExercice.svelte'
   import { repere } from '../modules/2d'
-  import { spline } from '../modules/mathFonctions/Spline.js'
+  import { spline, trieNoeuds } from '../modules/mathFonctions/Spline.js'
   export let indiceExercice
   export let indiceLastExercice
   const headerExerciceProps = {
@@ -22,12 +22,14 @@
 
   let contenu = ''
   function refreshCourb () {
-    const f = spline(noeuds)
-    const { xMin, xMax, yMin, yMax } = f.trouveMaxes()
-    const r = repere({ xMin, xMax, yMin, yMax })
-    const c = f.courbe({ repere: r, ajouteNoeuds: true })
-    const objets = [r, c]
-    contenu = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+    if (trieNoeuds(noeuds)) {
+      const f = spline(noeuds)
+      const { xMin, xMax, yMin, yMax } = f.trouveMaxes()
+      const r = repere({ xMin, xMax, yMin, yMax })
+      const c = f.courbe({ repere: r, ajouteNoeuds: true })
+      const objets = [r, c]
+      contenu = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+    }
   }
 
   function removeNoeud () {
