@@ -11,7 +11,7 @@ import { Polynome } from './Polynome.js'
 class Spline {
   /**
    * Passer au moins deux noeuds, sinon ça ne peut pas fonctionner
-   * @param {x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}[] noeuds la liste des noeuds avec leurs nombres dérivés
+   * @param {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>} noeuds la liste des noeuds avec leurs nombres dérivés
    */
   constructor (noeuds) {
     this.polys = []
@@ -153,7 +153,6 @@ class Spline {
 
   /**
    * retourne les min et max pour un repère contenant la courbe
-   * @param {{x: number, y:number,deriveeGauche:number,deriveeDroit:number, isVisible:boolean}[]} nuage les noeuds
    * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
    */
   trouveMaxes () {
@@ -318,7 +317,7 @@ class Spline {
    * @param {string} color
    * @param {number} epaisseur
    * @param {boolean} ajouteNoeuds
-   * @param {{*}} optionsNoeuds
+   * @param {Object} optionsNoeuds
    * @returns {Trace}
    */
   courbe ({
@@ -346,7 +345,7 @@ export function spline (noeuds) {
 
 /**
  * Fonction qui trie des noeuds pour Spline afin de les remettre dans l'ordre des x croissant
- * @param @param {x: number, y:number,nombreDerive:number}[]
+ * @param {Array<{x: number, y:number,nombreDerive:number}>} noeuds
  * @author Jean-Claude Lhote
  */
 export function trieNoeuds (noeuds) {
@@ -389,7 +388,7 @@ export class Trace extends ObjetMathalea2D {
    * @param {string} color la couleur
    * @param {number} epaisseur son épaisseur
    * @param {boolean} ajouteNoeuds si true, des points sont ajoutés aux endroits des noeuds
-   * @param {{*}} optionsNoeud
+   * @param {Object} optionsNoeud
    */
   constructor (spline, {
     repere,
