@@ -1,6 +1,6 @@
+import { splineCatmullRom } from '../../modules/mathFonctions/SplineCatmullRom.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
 import { courbe, repere } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { max, min } from 'mathjs'

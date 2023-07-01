@@ -5,7 +5,7 @@ import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { fractionLatexToMathjs } from '../../modules/fonctionsMaths.js'
+import { fractionLatexToMathjs } from '../../modules/mathFonctions/outilsMaths.js'
 import { context } from '../../modules/context.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg

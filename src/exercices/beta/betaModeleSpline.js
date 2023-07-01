@@ -1,8 +1,8 @@
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { spline } from '../../modules/fonctionsMaths.js'
 import { repere, lectureAntecedent } from '../../modules/2d.js'
 import { choice, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 

@@ -1,5 +1,5 @@
 import { repere } from '../../modules/2d.js'
-import { spline } from '../../modules/fonctionsMaths.js'
+import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 export const titre = 'Interpollation par splines avec tangentes'

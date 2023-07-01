@@ -2,7 +2,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombre, lettreMinusculeDepuisChiffre, miseEnEvidence, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
 import { repere, courbe } from '../../modules/2d.js'
-import { calcule } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Trouver l\'équation d\'une parabole'
 
@@ -50,7 +49,7 @@ export default function TrouverEquationParabole () {
           x2 = randint(-5, 5, x1)
           x3 = randint(-5, 5, [x1, x2])
           f = function (x) {
-            return calcule(a * x ** 2 + b * x + c)
+            return a * x ** 2 + b * x + c
           }
           texte += `qui passe par les points de coordonnées $(${-x1};${f(-x1)})$, $(0;${f(0)})$ et $(${x1};${f(x1)})$ ?<br>`
           texteCorr = `Soit $\\mathscr{${fName[i]}}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, comme $\\mathscr{${fName[i]}}(0)=${f(0)}$ nous en déduisons que $c=${miseEnEvidence(f(0), 'red')}$.<br>`
@@ -79,12 +78,12 @@ ${f(x1) - f(-x1)}=${2 * x1}b
           a = randint(-3, 3, 0)
           b = randint(-3, 3, 0) * 2 * a
           c = randint(-10, 10)
-          x1 = calcule(-b / (2 * a))
+          x1 = -b / (2 * a)
           x2 = randint(-5, 5, x1)
           x3 = randint(-5, 5, [x1, x2])
 
           f = function (x) {
-            return calcule(a * x ** 2 + b * x + c)
+            return a * x ** 2 + b * x + c
           }
           texte += `dont la parabole a pour sommet le point de coordonnées $(${x1};${f(x1)})$ et passe par le point de coordonnées $(${x2};${f(x2)})$ ?<br>`
           texteCorr = `D'après les coordonnées $(${x1};${f(x1)})$ du sommet, $\\mathscr{${fName[i]}}$ a pour forme canonique : $\\mathscr{${fName[i]}}(x)=a(x${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}$.<br>`
@@ -108,10 +107,10 @@ ${f(x1) - f(-x1)}=${2 * x1}b
           x2 = randint(1, 6, -x1)
           x3 = randint(-5, 5, [x1, x2])
           a = randint(-4, 4, 0)
-          b = calcule(-a * (x1 + x2))
+          b = -a * (x1 + x2)
           c = a * x1 * x2
           f = function (x) {
-            return calcule(a * x ** 2 + b * x + c)
+            return a * x ** 2 + b * x + c
           }
           texte += `qui s'annule en $x=${x1}$ et en $x=${x2}$ et dont la parabole passe par le point de coordonnées $(${x3};${f(x3)})$ ?<br>`
           texteCorr += `Comme $${x1}$ et $${x2}$ sont les deux solutions de l'équation $\\mathscr{${fName[i]}}(x)=0$, on peut factoriser $\\mathscr{${fName[i]}}(x)$ :<br>`
@@ -133,7 +132,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
       }
 
       if (Ymax - Ymin < 10) Yscale = 2
-      else Yscale = Math.max(1, calcule(Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5)) * 2
+      else Yscale = Math.max(1, Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5) * 2
       r = repere({
         xMin: -10,
         yMin: premierMultipleInferieur(Yscale, Ymin) - Yscale,
@@ -145,8 +144,8 @@ ${f(x1) - f(-x1)}=${2 * x1}b
         yLabelEcart: 0.8
       })
 
-      svgYmin = Math.min(calcule(Ymin / Yscale), -1)
-      svgYmax = Math.max(calcule(Ymax / Yscale), 1)
+      svgYmin = Math.min(Ymin / Yscale, -1)
+      svgYmax = Math.max(Ymax / Yscale, 1)
       F = x => a * x ** 2 + b * x + c
       texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm, scale: 0.6 }, courbe(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
       if (this.questionJamaisPosee(i, a, b, c)) {

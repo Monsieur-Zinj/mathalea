@@ -1,6 +1,6 @@
+import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, rienSi1, prettyTex } from '../../modules/outils.js'
-import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, divide } from 'mathjs'
 const math = { simplify, parse, derivative }
 export const titre = 'Dérivée d\'une composée affine'

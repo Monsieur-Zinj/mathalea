@@ -2,7 +2,6 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, sp, ecritureParentheseSiNegatif, ecritureAlgebrique, rienSi1 } from '../../../modules/outils.js'
 import { repere, courbe, latexParCoordonnees, texteParPosition } from '../../../modules/2d.js'
-import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,10 +33,10 @@ export default function LectureGraphiqueTangente () {
           alpha = randint(0, 2)
           beta = randint(-2, 2)
           f = function (x) { // fonction dérivée
-            return calcule(2 * x - 2 * alpha)
+            return 2 * x - 2 * alpha
           }
           F = function (x) { // fonction
-            return calcule((x - alpha) ** 2 + beta)
+            return (x - alpha) ** 2 + beta
           }
           while (f(nbre) === 0) {
             nbre = randint(0, 3)
@@ -49,10 +48,10 @@ export default function LectureGraphiqueTangente () {
           alpha = randint(-2, 0)
           beta = randint(-2, 2)
           f = function (x) { // fonction dérivée
-            return calcule(2 * x - 2 * alpha)
+            return 2 * x - 2 * alpha
           }
           F = function (x) { // fonction
-            return calcule((x - alpha) ** 2 + beta)
+            return (x - alpha) ** 2 + beta
           }
           while (f(nbre) === 0) {
             nbre = randint(-2, 1)
@@ -126,20 +125,20 @@ export default function LectureGraphiqueTangente () {
 
         this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
         On lit graphiquement $f(${nbre})=${F(nbre)}$ et $f'(${nbre})=${f(nbre)}$.<br>
-        L'équation réduite de la tangente est donc donnée par : 
+        L'équation réduite de la tangente est donc donnée par :
         $y=${f(nbre)}(x${ecritureAlgebrique(-nbre)})${ecritureAlgebrique(F(nbre))}$, soit `
         if (-nbre * f(nbre) + F(nbre) === 0) { this.correction += `$y=${rienSi1(f(nbre))}x$.` } else { this.correction += `$y=${rienSi1(f(nbre))}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.` }
 
         this.reponse = [`y=${f(nbre)}x+${-nbre * f(nbre) + F(nbre)}`]
         this.canEnonce = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
-        Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> 
+        Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br>
 
         `
         this.canEnonce += mathalea2d({ xmin: -6, xmax: 6, ymin: -3, ymax: 12, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
           r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
         )
         this.canEnonce += `<br>
-          
+        
         `
         this.canEnonce += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 8, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
           r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
@@ -154,10 +153,10 @@ export default function LectureGraphiqueTangente () {
           alpha = randint(0, 2)
           beta = randint(1, 4)
           f = function (x) { // fonction dérivée
-            return calcule(2 * x * (-1) + 2 * alpha)
+            return 2 * x * (-1) + 2 * alpha
           }
           F = function (x) { // fonction
-            return calcule((-1) * (x - alpha) ** 2 + beta)
+            return (-1) * (x - alpha) ** 2 + beta
           }
           while (f(nbre) === 0) { // pas de tangente horizontales à chercher
             nbre = randint(0, 2)
@@ -170,10 +169,10 @@ export default function LectureGraphiqueTangente () {
           beta = randint(0, 3)
         }
         f = function (x) { // fonction dérivée
-          return calcule(2 * x * (-1) + 2 * alpha)
+          return 2 * x * (-1) + 2 * alpha
         }
         F = function (x) { // fonction
-          return calcule((-1) * (x - alpha) ** 2 + beta)
+          return (-1) * (x - alpha) ** 2 + beta
         }
         while (f(nbre) === 0) { // pas de tangente horizontales à chercher
           nbre = randint(-2, 0)
@@ -245,12 +244,12 @@ export default function LectureGraphiqueTangente () {
 
         this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
       On lit graphiquement $f(${nbre})=${F(nbre)}$ et $f'(${nbre})=${f(nbre)}$.<br>
-      L'équation réduite de la tangente est donc donnée par : 
+      L'équation réduite de la tangente est donc donnée par :
       $y=${f(nbre)}(x${ecritureAlgebrique(-nbre)})${ecritureAlgebrique(F(nbre))}$, soit `
         if (-nbre * f(nbre) + F(nbre) === 0) { this.correction += `$y=${f(nbre)}x$.` } else { this.correction += `$y=${f(nbre)}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.` }
         this.reponse = [`y=${f(nbre)}x+${-nbre * f(nbre) + F(nbre)}`]
         this.canEnonce = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
-        Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> 
+        Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br>
         
         `
         this.canEnonce += mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 5, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },

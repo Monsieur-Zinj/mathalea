@@ -2,7 +2,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
 import { repere, courbe } from '../../modules/2d.js'
-import { calcule } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un trinôme'
 
@@ -78,7 +77,7 @@ export default function LireElementsCarac () {
       }
       // Les coeffs sont générés, on peut donc créer la fonction
       f = function (x) {
-        return calcule(a * x ** 2 + b * x + c)
+        return a * x ** 2 + b * x + c
       }
       texte += ` de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré représentée ci-dessous ?<br>`
       /** Génération du graphique
@@ -123,8 +122,8 @@ export default function LireElementsCarac () {
         yLabelEcart: 0.8
       })
 
-      svgYmin = Math.min(calcule(Ymin / Yscale), -1)
-      svgYmax = Math.max(calcule(Ymax / Yscale), 1)
+      svgYmin = Math.min(Ymin / Yscale, -1)
+      svgYmax = Math.max(Ymax / Yscale, 1)
 
       F = x => a * x ** 2 + b * x + c
 

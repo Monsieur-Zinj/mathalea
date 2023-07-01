@@ -3,7 +3,6 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
-import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Lire graphiquement un nombre dérivé'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -38,10 +37,10 @@ export default function LectureGraphiqueNombreDerivee () {
         beta = randint(-2, 2)
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
         f = function (x) {
-          return calcule(2 * a * x - 2 * a * alpha)
+          return 2 * a * x - 2 * a * alpha
         }
         F = function (x) {
-          return calcule(a * (x - alpha) ** 2 + beta)
+          return a * (x - alpha) ** 2 + beta
         }
 
         r = repere({
@@ -93,10 +92,10 @@ export default function LectureGraphiqueNombreDerivee () {
         beta = randint(-2, 2)
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
         f = function (x) {
-          return calcule(2 * a * x - 2 * a * alpha)
+          return 2 * a * x - 2 * a * alpha
         }
         F = function (x) {
-          return calcule(a * (x - alpha) ** 2 + beta)
+          return a * (x - alpha) ** 2 + beta
         }
 
         r = repere({
@@ -148,10 +147,10 @@ export default function LectureGraphiqueNombreDerivee () {
         frac = new FractionEtendue(-a, nbre * nbre)
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
         f = function (x) {
-          return calcule(-a / (x * x))
+          return -a / (x * x)
         }
         F = function (x) {
-          return calcule(a / x + b)
+          return a / x + b
         }
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br>
         
@@ -200,10 +199,10 @@ export default function LectureGraphiqueNombreDerivee () {
 
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
         f = function (x) {
-          return calcule(frac * Math.exp(frac * x))
+          return frac * Math.exp(frac * x)
         }
         F = function (x) {
-          return calcule(Math.exp(frac * x))
+          return Math.exp(frac * x)
         }
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br>
         
@@ -252,10 +251,10 @@ export default function LectureGraphiqueNombreDerivee () {
         frac = new FractionEtendue(fraction[0] * (-1), fraction[1])
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
         f = function (x) {
-          return calcule(frac * Math.exp(frac * x))
+          return frac * Math.exp(frac * x)
         }
         F = function (x) {
-          return calcule(Math.exp(frac * x))
+          return Math.exp(frac * x)
         }
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br>
         

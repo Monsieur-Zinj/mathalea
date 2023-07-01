@@ -4,7 +4,6 @@ import { randint, listeQuestionsToContenu, choice, sp, ecritureAlgebrique, rienS
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Lire graphiquement les valeurs de $a$ et $b$ dans $ax^2+b$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +40,7 @@ export default function LectureGraphiqueParaboleaEtb () {
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
           f = function (x) {
-            return calcule(a * x ** 2 + b)
+            return a * x ** 2 + b
           }
           if (b > 0) {
             r = repere({
@@ -118,7 +117,7 @@ export default function LectureGraphiqueParaboleaEtb () {
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
           f = function (x) {
-            return calcule(a * x ** 2 + b)
+            return a * x ** 2 + b
           }
           if (b > 0) {
             r = repere({
