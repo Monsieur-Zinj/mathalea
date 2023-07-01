@@ -1,8 +1,9 @@
+import { listeEntiersSommeConnue } from '../../modules/debarras/listeEntiersSommeConnue.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { diagrammeBarres } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { decompositionFacteursPremiers, listeEntiersSommeConnue, choice, randint, listeQuestionsToContenu, combinaisonListes, num } from '../../modules/outils.js'
+import { decompositionFacteursPremiers, choice, randint, listeQuestionsToContenu, combinaisonListes, num } from '../../modules/outils.js'
 import { multiply, divide, matrix, isPrime, sum, gcd, fraction, round } from 'mathjs'
 export const titre = 'Calculs de probabilités'
 
@@ -205,7 +206,7 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
     }
   }
   const texte = String.raw`Une urne contient des billes de différentes couleurs.
-          <br>        
+          <br>
           L'expérience consiste à tirer une bille au hasard,
           à noter sa couleur, puis à la remettre dans l'urne.
           <br>
@@ -255,7 +256,7 @@ function ratiosCalculsProbabilites () {
     calculs: `${etapesSimplificationFraction(choixRatio, sum(ratios), '', 0, true)}`,
     reponse: `$${fraction2Tex(fraction(choixRatio, sum(ratios)))}$`
   }
-  const texte = `Une urne contient des billes de couleurs différentes : des 
+  const texte = `Une urne contient des billes de couleurs différentes : des
           ${plurielsIssues.slice(0, plurielsIssues.length - 1).join(', des ')}
           et des ${plurielsIssues[plurielsIssues.length - 1]}
           dans le ratio $${ratios.join('{:}')}$.
@@ -357,7 +358,7 @@ function ratios2EpreuvesCalculsProbabilites () {
   for (let j = 0; j < urne.length; j++) {
     probabilites.push(`$${fraction2Tex(fraction(ratios[j], sum(ratios)))}$`)
   }
-  const texte = `Une urne contient des billes de couleurs différentes : des 
+  const texte = `Une urne contient des billes de couleurs différentes : des
           ${plurielsIssues.slice(0, plurielsIssues.length - 1).join(', des ')}
           et des ${plurielsIssues[plurielsIssues.length - 1]}
           dans le ratio $${ratios.join('{:}')}$.
