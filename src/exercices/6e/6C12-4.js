@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, prenomM, arrondi, prenomF, nomDuMois, jour, sp, minToHour, minToHoraire, minToHeuresMinutes, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, texNombre, miseEnEvidence, texPrix, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, prenomM, arrondi, prenomF, nomDuMois, jourAuHasard, sp, minToHour, minToHoraire, minToHeuresMinutes, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, texNombre, miseEnEvidence, texPrix, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
@@ -424,7 +424,7 @@ export default function ExerciceInformationsProblemes () {
             quidam2 = 'elle'
           }
           nb = randint(13, 21)
-          nb1 = jour() + ' ' + randint(2, 29) + ' ' + nomDuMois(randint(1, 12))
+          nb1 = jourAuHasard() + ' ' + randint(2, 29) + ' ' + nomDuMois(randint(1, 12))
           nb2 = nb * 60 + 5 * randint(2, 11)
           nb3 = (nb + 2) * 60 + 5 * randint(2, 11)
           reponse1 = minToHeuresMinutes(nb3 - nb2)

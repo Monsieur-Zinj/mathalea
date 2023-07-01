@@ -14,7 +14,7 @@ export const epsilon = 0.000001
 const math = { format, evaluate }
 
 /**
- * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
+ * Affecte les propriétés contenues et contenuCorrection (d'après les autres propriétés de l'exercice)
  * @param {Exercice} exercice
  */
 export function listeQuestionsToContenu (exercice) {
@@ -78,7 +78,7 @@ export function exerciceSimpleToContenu (exercice) {
  * @author Rémi Angot
  */
 export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
-  // En vue diapCorr, les questions doivent toujours être numérotées car venant d'exercices différents
+  // En vue diapCorr, les questions doivent toujours être numérotées, car venant d'exercices différents
   if (context.vue === 'diapCorr') {
     listeQuestionsToContenu(exercice, retourCharriot = true)
   } else {
@@ -101,7 +101,7 @@ export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = tr
 }
 
 /**
- * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
  * @author Rémi Angot
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
@@ -2138,7 +2138,7 @@ export function nomDuJour (n) {
  * @param n quantième du jour
  * @author Mireille Gain
  */
-export function jour () {
+export function jourAuHasard () {
   return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
 }
 
@@ -2508,36 +2508,7 @@ export function nombreAvecEspace (nb) {
  * @param {integer} exp
  * @returns {string} Écriture décimale avec espaces
  */
-/* export const scientifiqueToDecimal = (mantisse, exp) => {
-  mantisse = mantisse.toString()
-  let indiceVirguleDepart = mantisse.indexOf('.')
-  if (indiceVirguleDepart < 0) {
-    indiceVirguleDepart = mantisse.length
-  }
-  const indiceVirguleArrivee = indiceVirguleDepart + exp
-  let mantisseSansVirgule = mantisse.replace('.', '')
-  const indiceMax = mantisseSansVirgule.length - 1
-  // indiceMax est l'indice du chiffre des unités
-  if (indiceVirguleArrivee > indiceMax) {
-    // On ajoute des 0 à droite
-    for (let i = indiceMax + 1; i < indiceVirguleArrivee; i++) {
-      mantisseSansVirgule += '0'
-    }
-  } else if (indiceVirguleArrivee > 0 && indiceVirguleArrivee <= indiceMax) {
-    // On insère la virgule
-    mantisseSansVirgule = mantisseSansVirgule.substring(0, indiceVirguleArrivee) + ',' + mantisseSansVirgule.substring(indiceVirguleArrivee, mantisseSansVirgule.length)
-  } else {
-    // On ajoute des 0 à gauche
-    let partiGauche = '0,'
-    for (let i = 0; i < Math.abs(indiceVirguleArrivee); i++) {
-      partiGauche += '0'
-    }
-    mantisseSansVirgule = partiGauche + mantisseSansVirgule
-  }
-  return insereEspaceDansNombre(mantisseSansVirgule)
-}
-*/
-export const scientifiqueToDecimal = (mantisse, exp) => {
+export function scientifiqueToDecimal (mantisse, exp) {
   if (exp < -6) Decimal.set({ toExpNeg: exp - 1 })
   else if (exp > 20) Decimal.set({ toExpPos: exp + 1 })
   return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
@@ -2548,7 +2519,7 @@ export const scientifiqueToDecimal = (mantisse, exp) => {
  * @param {string |number} nb
  * @returns {string}
  */
-export const insereEspaceDansNombre = nb => {
+export function insereEspaceDansNombre (nb) {
   if (!Number.isNaN(nb)) {
     nb = nb.toString().replace('.', ',')
   } else {
@@ -2578,7 +2549,9 @@ export const insereEspaceDansNombre = nb => {
   return nb
 }
 
-export const insertCharInString = (string, index, char) => string.substring(0, index) + char + string.substring(index, string.length)
+export function insertCharInString (string, index, char) {
+  return string.substring(0, index) + char + string.substring(index, string.length)
+}
 
 /**
  * Destinée à être utilisée hors des $ $
@@ -3085,34 +3058,6 @@ export function premierAvec (n, listeAEviter = [], inférieur = true) {
 }
 
 /**
- * Renvoie la décomposition en produit de facteurs premiers d'un nombre avec les facteursABarrer barrés
- * @author Guillaume Valmont
- * @param {number} nombre
- * @param {number[]} facteursABarrer
- * @returns texte en LateX
- */
-export function decompositionFacteursPremiersBarres (nombreADecomposer, facteursABarrer) {
-  const decomposition = decompositionFacteursPremiersArray(nombreADecomposer)
-  const facteursBarres = []
-  let str = ''
-  for (const nombre of decomposition) {
-    let unNombreAEteBarre = false
-    for (let i = 0; i < facteursABarrer.length; i++) {
-      const facteurABarrer = facteursABarrer[i]
-      if (nombre === facteurABarrer && !facteursBarres.includes(i) && !unNombreAEteBarre) {
-        str += ` \\cancel{${facteurABarrer}} \\times `
-        facteursBarres.push(i)
-        unNombreAEteBarre = true
-      }
-    }
-    if (!unNombreAEteBarre) {
-      str += nombre + ' \\times '
-    }
-  }
-  return str.slice(0, -8)
-}
-
-/**
  * Retourne la liste des diviseurs d'un entier
  * @author Rémi Angot
  */
@@ -3261,36 +3206,6 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
 }
 
 /**
- * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d
- * sont des fractions dont le dénominateur est inférieur à 10 et pour laquelle l'image de 3 entiers compris entre -10 et 10
- * sont des entiers compris eux aussi entre -10 et 10
- * @author Jean-Claude Lhote
- */
-export function criblePolynomeEntier () {
-  let trouve = false
-  let coefs = [[]]
-  for (let i = 0, x1, x2, x3, fx1, fx2, fx3, d; ; i++) {
-    x1 = randint(-10, 10)
-    x2 = randint(-10, 10, [x1])
-    x3 = randint(-10, 10, [x1, x2])
-    fx1 = randint(-10, 10)
-    fx2 = randint(-10, 10)
-    fx3 = randint(-10, 10)
-    d = randint(0, 10)
-    coefs = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
-    if (coefs[0][1] !== 0 && coefs[0][1] < 10 && coefs[1][1] < 10 && coefs[2][1] < 10) trouve = true
-    if (trouve) {
-      coefs.push([x1, fx1])
-      coefs.push([x2, fx2])
-      coefs.push([x3, fx3])
-      coefs.push(d)
-      break
-    }
-  }
-  if (trouve) return coefs
-}
-
-/**
  * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
  * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
  * @author Jean-Claude Lhote
@@ -3301,17 +3216,6 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
-}
-
-/**
- * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
- * @author Jean-Claude Lhote
- */
-export function cherchePolynomeDegre3aExtremaFixes (x1, x2, y1, y2) {
-  const M = matriceCarree([[x1 ** 3, x1 ** 2, x1, 1], [x2 ** 3, x2 ** 2, x2, 1], [3 * x1 ** 2, 2 * x1, 1, 0], [3 * x2 ** 2, 2 * x2, 1, 0]])
-  const R = [y1, y2, 0, 0]
-  if (!egal(M.determinant(), 0)) return M.inverse().multiplieVecteur(R)
-  else return false
 }
 
 /**
@@ -3576,16 +3480,16 @@ export function modalTexteCourt (numeroExercice, texte, labelBouton = 'Aide', ic
  */
 export function modalYoutube (numeroExercice, idYoutube, titre, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
-  if (idYoutube.substr(0, 4) === 'http') {
+  if (idYoutube.substring(0, 4) === 'http') {
     if (idYoutube.slice(-4) === '.pdf') {
       contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><object type="application/pdf" data="${idYoutube}" width="560" height="315"> </object></p></div>`
     }
-    if (idYoutube.substr(0, 17) === 'https://youtu.be/') {
+    if (idYoutube.substring(0, 17) === 'https://youtu.be/') {
       contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
     } else {
       contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${idYoutube}" frameborder="0" allowfullscreen></iframe></p></div>`
     }
-  } else if (idYoutube.substr(0, 4) === '<ifr') {
+  } else if (idYoutube.substring(0, 4) === '<ifr') {
     contenu = `<div class="header">${titre}</div><div class="content"><p align="center">${idYoutube}</p></div>`
   } else {
     contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
@@ -3695,33 +3599,6 @@ export function listeDiviseurs (n) {
   return diviseurs
 }
 
-//= ================================================
-// fonctions de 3F1-act
-//= ================================================
-
-/**
- * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
- * @param {string} texte
- * @param {string} titrePopup
- * @param {string} textePopup
- * @author Sébastien Lozano
- */
-export function katexPopup (texte, titrePopup, textePopup) {
-  let contenu = ''
-  if (context.isHtml) {
-    contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>'
-    contenu += '<div class="ui special popup" >'
-    if (titrePopup !== '') {
-      contenu += '<div class="header">' + titrePopup + '</div>'
-    }
-    contenu += '<div>' + textePopup + '</div>'
-    contenu += '</div>'
-    return contenu
-  } else {
-    return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
-  }
-}
-
 export function katexPopupTest (texte, titrePopup, textePopup) {
   let contenu = ''
   if (context.isHtml) {
@@ -3739,34 +3616,6 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 }
 
 /**
- * Ecrit un string sans accents
- * @param {string} str
- * @author Sébastien Lozano
- * @source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
- */
-
-/* export function sansAccent(str) {
-  var accent = [
-    /[\300-\306]/g, /[\340-\346]/g,
-    /[\310-\313]/g, /[\350-\353]/g,
-    /[\314-\317]/g, /[\354-\357]/g,
-    /[\322-\330]/g, /[\362-\370]/g,
-    /[\331-\334]/g, /[\371-\374]/g,
-    /[\321]/g, /[\361]/g,
-    /[\307]/g, /[\347]/g,
-  ];
-  var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
-
-  //var str = this;
-  for (var i = 0; i < accent.length; i++) {
-    str = str.replace(accent[i], noaccent[i]);
-  }
-
-  return str;
-}
-*/
-
-/**
  * Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
  * ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
  * @param {number} numero
@@ -3778,7 +3627,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
  **/
 
 export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
-  // ToDo : gérer les popu avec la version 3
+  // ToDo : gérer les popup avec la version 3
   // Pour l'instant, ils sont supprimés
   // if (context.versionMathalea > 2) return texte
   switch (type) {
@@ -4198,271 +4047,6 @@ export function decompositionFacteursPremiersArray (n) {
     decomposition.push(liste[i])
   }
   return decomposition
-}
-
-/**
- * @class
- * @classdesc Classe Relatif - Méthodes utiles sur les relatifs
- * @param {...any} relatifs est un paramètre du reste
- * @author Sébastien Lozano
- */
-export function Relatif (...relatifs) {
-  // ; pas de use strict avec un paramètre du reste
-  this.relatifs = relatifs
-
-  /**
-   * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs,
-   * * Si 0 fait partie des relatifs on renvoie une erreur
-   * @return {array} Renvoie un tableau de -1 ou 1
-   * @example getSigneNumber(-1,-2,8,-9,4) renvoie [-1,-1,1,-1,1]
-   */
-  function getSigneNumber () {
-    const signes = []
-    try {
-      // port du string interdit !
-      relatifs.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-        if (element === 0) {
-          throw new RangeError(`${element} a été exclu des valeurs possibles.`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (relatifs.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      relatifs.forEach(function (element) {
-        if (element < 0) {
-          signes.push(-1)
-        }
-        if (element > 0) {
-          signes.push(1)
-        }
-      })
-    } catch (err) {
-      console.log(err.message)
-      console.log(err.stack)
-    }
-    return signes
-  }
-
-  /**
-   * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
-   * @return {array} Renvoie un tableau de strings valant 'négatif' ou 'positif'
-   * @example getSigneNumber(-1,-2,8,-9,4) renvoie le tableau de strings [négatif,négatif,positif,négatif,positif]
-   */
-  function getSigneString () {
-    const signesString = []
-    const signes = getSigneNumber()
-    signes.forEach(function (element) {
-      if (element === -1) {
-        signesString.push('négatif')
-      }
-      if (element === 1) {
-        signesString.push('positif')
-      }
-    })
-    return signesString
-  }
-
-  /**
-   *
-   * @param  {...any} n une liste de deux ou plus de nombres relatifs
-   * @return {number} Renvoie le signe du produit des nombres de cette liste. 1 ou -1
-   * @example getSigneProduitNumber(1,-4,-7) renvoie 1
-   */
-
-  function getSigneProduitNumber (...n) {
-    let produit = 1
-    try {
-      // port du string interdit !
-      n.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-        if (element === 0) {
-          throw new RangeError(`${element} a été exclu des valeurs possibles.`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      n.forEach(function (element) {
-        produit = produit * element
-      })
-      if (produit < 0) {
-        return -1
-      }
-      if (produit > 0) {
-        return 1
-      }
-    } catch (err) {
-      console.log(err.message)
-      console.log(err.stack)
-    }
-  }
-
-  /**
-   *
-   * @param  {...any} n une liste de deux ou plus de nombres relatifs
-   * @return {string} Renvoie un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
-   * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
-   */
-
-  function getSigneProduitString (...n) {
-    const produit = getSigneProduitNumber(...n)
-    if (produit === -1) {
-      return 'négatif'
-    }
-    if (produit === 1) {
-      return 'positif'
-    }
-  }
-
-  /**
-   *
-   * @param  {...any} n une liste de deux ou plus de nombres relatifs
-   * @return {string} Renvoie le nombre d'éléments négatifs des nombres de cette liste.
-   * * la liste d'entiers doit être passé dans un tableau
-   * @example getCardNegatifs([1,-4,-7]) renvoie 2
-   * @example getCardNegatifs([4,-5,7,7,-8,-9]) renvoie 3
-   */
-
-  function getCardNegatifs ([...n]) {
-    let card = 0
-    try {
-      // port du string interdit !
-      n.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-        if (element === 0) {
-          throw new RangeError(`${element} a été exclu des valeurs possibles.`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      n.forEach(function (element) {
-        if (element < 0) {
-          card = card + 1
-        }
-      })
-      return card
-    } catch (err) {
-      console.log(err.message)
-    }
-  }
-
-  /**
-   * Fonction locale
-   * @param {integer} n un entier désignant le cardinal de facteurs négatifs dans un produit
-   * @return un string au singulier ou au pluriel
-   * @example orth_facteurs_negatifs(0) ou orth_facteurs_negatifs(1) renvoie 'facteur negatif'
-   * @example orth_facteurs_negatifs(7) renvoie 'facteurs negatifs'
-   */
-  function orthographeFacteursNegatifs (n) {
-    if (n >= 2) {
-      return 'facteurs négatifs'
-    } else {
-      return 'facteur négatif'
-    }
-  }
-
-  /**
-   * @param  {...any} n une liste de deux ou plus de nombres relatifs qui constituent les facteurs du produit
-   * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
-   * @example setRegleProduitFacteurs([1,-2,-8,5]) renvoie le string 'Il y a 2 facteurs négatifs, le nombre de facteurs négatifs est pair donc le produit est positif.'
-   */
-
-  function setRegleSigneProduit (...n) {
-    try {
-      // port du string interdit !
-      n.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      if (n.length === 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          return 'Les deux facteurs ont le même signe donc le produit est positif.'
-        } else {
-          return 'Les deux facteurs ont un signe différent donc le produit est négatif.'
-        }
-      } else if (n.length > 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          if (getCardNegatifs(n) === 0) {
-            return 'Tous les facteurs sont positifs donc le produit est positif.'
-          } else {
-            return `Il y a ${getCardNegatifs(n)} ${orthographeFacteursNegatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`
-          }
-        } else {
-          return `Il y a ${getCardNegatifs(n)} ${orthographeFacteursNegatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`
-        }
-      }
-    } catch (err) {
-      console.log(err.message)
-    }
-  }
-
-  /**
-   *
-   * @param  {...any} num une liste de deux ou plus de nombres relatifs qui constituent les facteurs du numérateur
-   * @param  {...any} den une liste de deux ou plus de nombres relatifs qui constituent les facteurs du dénominateur
-   * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
-   * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
-   */
-
-  function setRegleSigneQuotient (...n) {
-    try {
-      // port du string interdit !
-      n.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      if (n.length === 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          return 'Le numérateur et le dénominateur ont le même signe donc le quotient est positif.'
-        } else {
-          return 'Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.'
-        }
-      } else if (n.length > 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          if (getCardNegatifs(n) === 0) {
-            return 'Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.'
-          } else {
-            // return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
-            return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`
-          }
-        } else {
-          // return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
-          return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`
-        }
-      }
-    } catch (err) {
-      console.log(err.message)
-    }
-  }
-
-  this.getSigneNumber = getSigneNumber
-  this.getSigneString = getSigneString
-  this.getSigneProduitNumber = getSigneProduitNumber
-  this.getSigneProduitString = getSigneProduitString
-  this.getCardNegatifs = getCardNegatifs
-  this.setRegleSigneProduit = setRegleSigneProduit
-  this.setRegleSigneQuotient = setRegleSigneQuotient
 }
 
 // Gestion du fichier à télécharger

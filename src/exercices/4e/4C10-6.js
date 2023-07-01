@@ -1,7 +1,8 @@
+import { Relatif } from '../../modules/Relatif.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu, randint, combinaisonListes,
-  Relatif, lettreDepuisChiffre, ecritureNombreRelatif,
+  lettreDepuisChiffre, ecritureNombreRelatif,
   texteEnCouleurEtGras
 } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'

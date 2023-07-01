@@ -1,21 +1,20 @@
-import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
-import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
+import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
+import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs.js'
 import {
-  listeQuestionsToContenu,
-  randint,
   combinaisonListesSansChangerOrdre,
-  texNombre,
-  nombreAvecEspace,
+  infoMessage,
+  lampeMessage,
+  listeDiviseurs,
+  listeQuestionsToContenu,
   modalPdf,
   modalVideo,
-  listeDiviseurs,
-  katexPopup,
+  nombreAvecEspace,
   numAlpha,
-  infoMessage,
-  lampeMessage
+  randint,
+  texNombre
 } from '../../modules/outils.js'
-import { SvgMachineDiag3F1ActMono, SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Fonctions : Notion et vocabulaire'
 
@@ -30,6 +29,30 @@ export const titre = 'Fonctions : Notion et vocabulaire'
  */
 export const uuid = '77d18'
 export const ref = '3F1-act'
+
+/**
+ * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
+ * @param {string} texte
+ * @param {string} titrePopup
+ * @param {string} textePopup
+ * @author Sébastien Lozano
+ */
+export function katexPopup (texte, titrePopup, textePopup) {
+  let contenu = ''
+  if (context.isHtml) {
+    contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>'
+    contenu += '<div class="ui special popup" >'
+    if (titrePopup !== '') {
+      contenu += '<div class="header">' + titrePopup + '</div>'
+    }
+    contenu += '<div>' + textePopup + '</div>'
+    contenu += '</div>'
+    return contenu
+  } else {
+    return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
+  }
+}
+
 export default function FonctionNotionVocabulaire () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1

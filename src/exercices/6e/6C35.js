@@ -2,7 +2,7 @@
 
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { rangeMinMax, choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range, deuxColonnes, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { rangeMinMax, choice, randint, objet, jourAuHasard, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range, deuxColonnes, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -137,7 +137,7 @@ export default function ModelisationProblemes () {
         case 1:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `${prenomF()} avait ${b1} ${objetM()} ${jour()}. `
+            colonne1 += `${prenomF()} avait ${b1} ${objetM()} ${jourAuHasard()}. `
             colonne1 += `<br>Le lendemain, elle en a trouvé ${c1} autres.`
             colonne1 += '<br>Combien cela lui en fait-il ?'
           } else {
