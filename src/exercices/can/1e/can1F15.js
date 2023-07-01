@@ -3,7 +3,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
-import { calcule } from '../../../modules/fonctionsMaths.js'
+import { calcule } from '../../../modules/mathFonctions/fonctionsMaths.js'
 export const titre = 'Lire graphiquement un nombre dérivé'
 export const interactifReady = true
 export const interactifType = 'mathLive'

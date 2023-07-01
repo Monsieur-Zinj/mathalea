@@ -4,7 +4,7 @@ import { randint, listeQuestionsToContenu, choice, sp, ecritureAlgebrique, rienS
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { calcule } from '../../../modules/fonctionsMaths.js'
+import { calcule } from '../../../modules/mathFonctions/fonctionsMaths.js'
 export const titre = 'Lire graphiquement les valeurs de $a$ et $b$ dans $ax^2+b$'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction, combinaisonListes, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { degCos } from '../../modules/fonctionsMaths.js'
+import { degCos } from '../../modules/mathFonctions/fonctionsMaths.js'
 
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC

@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { choice, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { degCos } from '../../modules/fonctionsMaths.js'
+import { degCos } from '../../modules/mathFonctions/fonctionsMaths.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

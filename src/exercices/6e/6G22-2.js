@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, combinaisonListes } from '../../modules/outils.js'
-import { degCos, degSin } from '../../modules/fonctionsMaths.js'
+import { degCos, degSin } from '../../modules/mathFonctions/fonctionsMaths.js'
 import { point, tracePoint, codageAngle, demiDroite, triangle2points1angle1longueur, texteParPoint, rotation, pointAdistance } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'

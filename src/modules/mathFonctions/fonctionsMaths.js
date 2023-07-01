@@ -1,8 +1,8 @@
 import { number, add, unequal, largerEq, fraction, equal, multiply, inv, max, polynomialRoot, round, acos, abs, det } from 'mathjs'
-import FractionEtendue from './FractionEtendue.js'
-import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
-import { ObjetMathalea2D, colorToLatexOrHTML } from './2dGeneralites.js'
-import { Courbe, Segment, point, tracePoint } from './2d.js'
+import FractionEtendue from '../FractionEtendue.js'
+import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from '../outils.js'
+import { ObjetMathalea2D, colorToLatexOrHTML } from '../2dGeneralites.js'
+import { Courbe, Segment, point, tracePoint } from '../2d.js'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
