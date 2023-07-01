@@ -70,6 +70,7 @@ class Spline {
     this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
     // this.step = step // on en a besoin pour la dérivée...
     this.fonctions = this.convertPolyFunction()
+    this.fonction = this.image.bind(this)
   }
 
   /**
