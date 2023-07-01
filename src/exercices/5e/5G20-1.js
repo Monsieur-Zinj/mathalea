@@ -1,6 +1,7 @@
+import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texEnumerateSansNumero, texNombre, modalTexteLong, lampeMessage, Triangles } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texEnumerateSansNumero, texNombre, modalTexteLong, lampeMessage } from '../../modules/outils.js'
 
 export const titre = 'Vocabulaire des triangles'
 

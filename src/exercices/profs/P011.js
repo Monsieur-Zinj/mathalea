@@ -1,8 +1,9 @@
+import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { polygoneAvecNom, codageSegments, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
-import { contraindreValeur, Triangles } from '../../modules/outils.js'
+import { contraindreValeur } from '../../modules/outils.js'
 
 export const titre = 'Construction animée d\'un triangle'
 export const ref = 'P011'
