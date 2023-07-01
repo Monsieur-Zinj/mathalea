@@ -9,7 +9,7 @@ export function nombreEnLettres (nb, type = 1) {
     partieDecimale = new Decimal(nb).sub(partieEntiere).toDP(3)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
     partieDecimale = partieDecimale.mul(10 ** nbDec).toNumber()
-    
+
     switch (nbDec) {
       case 1:
         if (partieDecimale > 1) decstring = ' dixièmes'
@@ -24,7 +24,7 @@ export function nombreEnLettres (nb, type = 1) {
         else decstring = ' millième'
         break
     }
-    
+
     if (type === 1) {
       nbstring = partieEntiereEnLettres(partieEntiere) + ' unités et ' + partieEntiereEnLettres(partieDecimale) + decstring
     } else if (nbDec === nombreDeChiffresDansLaPartieEntiere(partieDecimale)) {
@@ -44,7 +44,7 @@ export function nombreEnLettres (nb, type = 1) {
  *
  *
  * @param {int} nb
- 
+
  *
  */
 export function partieEntiereEnLettres (nb) {
@@ -1051,7 +1051,7 @@ export function partieEntiereEnLettres (nb) {
     998: 'neuf cent quatre-vingt-dix-huit',
     999: 'neuf cent quatre-vingt-dix-neuf'
   }
-  
+
   const nbString = nb.toString()
   let classeDesMilliards = ''
   if (nbString.substring(nbString.length - 12, nbString.length - 9).length > 0) {

@@ -1,7 +1,22 @@
+import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, nombreAvecEspace, modalPdf, modalVideo, listeDiviseurs, tikzMachineMaths, tikzMachineDiag, katexPopup, numAlpha, machineMathsVideo, infoMessage, lampeMessage } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  combinaisonListesSansChangerOrdre,
+  texNombre,
+  nombreAvecEspace,
+  modalPdf,
+  modalVideo,
+  listeDiviseurs,
+  katexPopup,
+  numAlpha,
+  infoMessage,
+  lampeMessage
+} from '../../modules/outils.js'
 import { SvgMachineDiag3F1ActMono, SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
+
 export const titre = 'Fonctions : Notion et vocabulaire'
 
 /**
@@ -36,7 +51,8 @@ export default function FonctionNotionVocabulaire () {
   if (context.isHtml) {
     pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
   } else { // sortie LaTeX
-  };
+  }
+
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
     let j, idDuDivDiag, idDuDivCorr
@@ -87,7 +103,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
       this.introduction += machineMathsVideo('assets/videos/machineMathsIntro.mp4')
     } else { // sortie LaTeX
       this.introduction += tikzMachineMaths('maths', '---', 'Proc\\acute{e}d\\acute{e}', 'de\\,calcul', 'ant\\acute{e}c\\acute{e}dent', '\\textit{x}', 'image', '\\textit{y}')
-    };
+    }
+
     for (let i = 0, x, y, z, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
@@ -115,7 +132,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += machineMathsVideo('assets/videos/machineMaths-f.mp4')
           } else { // sortie Latex avec Tikz
             texte += tikzMachineMaths('f', '---', 'P\\acute{e}rim\\grave{e}tre', 'd\'un\\,carr\\acute{e}', 'carr\\acute{e}\\,de', `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, 'P\\acute{e}rim\\grave{e}tre', '???\\,cm')
-          };
+          }
+
           // sous question a/
           if (context.isHtml) {
             texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `
@@ -129,7 +147,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
             texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est-à-dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`
             texteCorr += `On dit que ${4 * x} est l'image de ${x} par la fonction f.`
-          };
+          }
 
           // sous question b/
           y = randint(2, 99, [x]) // augmenter les possibles pour éviter les questions déjà posées?
@@ -143,7 +161,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += `\\item Combien vaut le côté si la machine renvoie  ${4 * y} cm ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d'un périmètre est une valeur du côté qui a pour image ce périmètre}`
             texteCorr += `\\item Si la machine renvoie un périmètre de ${4 * y} cm alors le côté du carré vaut $${4 * y}\\div 4 = ${y}$ cm.<br>`
             texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${4 * y} par la fonction f.`
-          };
+          }
 
           // sous question c/
           z = randint(2, 99, [x, y]) // augmenter les possibles pour éviter les questions déjà posées?
@@ -158,7 +176,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += `\\item Quelle est l'image de ${z} par la \\textbf{fonction f} \\footnote{\\textbf{Vocabulaire :} \\textit{fonction} est le nom que l'on donne à ces machines mathématiques}`
             texte += ` ? \\'{E}crire la réponse sous la forme $\\mathbf{f(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s'écrire $\\mathbf{f(4)=16}$}`
             texteCorr += `\\item L'image de ${z} par la fonction f vaut $f(${z})=4\\times ${z}=${4 * z}$.`
-          };
+          }
 
           // sous question d/
           if (context.isHtml) {
@@ -173,7 +191,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += '\\item  Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .'
             texte += ' \\\'{E}crire la réponse sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}'
             texteCorr += ' L\'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.'
-          };
+          }
 
           // sous question e/
           txtInfo = 'Voici le diagramme d\'une machine qui triple '
@@ -190,7 +208,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             txtInfo += '<br>' + tikzMachineDiag('t', 'x', [['\\times 3', '3x']])
             texteCorr += '\\item  C\'est une machine qui quadruple, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('f', 'x', [['\\times 4', '4x']])
-          };
+          }
+
           texte += infoMessage({
             titre: 'Exemple',
             texte: txtInfo,
@@ -209,7 +228,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += '\\item  L\'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.'
             texte += '\\end{enumerate}'
             texteCorr += '\\end{enumerate}'
-          };
+          }
+
           break
         case 2: // aire d'un carré de côté x
           j = 0 // pour la sous-numérotation
@@ -225,7 +245,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += machineMathsVideo('assets/videos/machineMaths-g.mp4')
           } else { // sortie Latex avec Tikz
             texte += tikzMachineMaths('g', '---', 'Aire', 'd\'un\\,carr\\acute{e}', 'carr\\acute{e}\\,de', `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, 'Aire', '???\\,cm^2')
-          };
+          }
+
           // sous question a/
           if (context.isHtml) {
             texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `
@@ -240,7 +261,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
             texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est-à-dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`
             texteCorr += `On dit que ${nombreAvecEspace(x * x)} est l'image de ${x} par la fonction g.`
-          };
+          }
 
           // sous question b/
           y = randint(2, 99, [x]) // augmenter les possibles pour éviter les questions déjà posées?
@@ -255,7 +276,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += 'avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d\'une aire est une valeur du côté qui a pour image cette aire}'
             texteCorr += `\\item Si la machine renvoie une aire de $${texNombre(y * y)}\\,cm^2$ alors le côté du carré vaut $\\sqrt{${texNombre(y * y)}}=${y}\\,cm$.<br>`
             texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${nombreAvecEspace(y * y)} par la fonction g.`
-          };
+          }
 
           // sous question c/
           z = randint(2, 99, [x, y]) // augmenter les possibles pour éviter les questions déjà posées?
@@ -272,7 +293,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += ' ? \\\'{E}crire la réponse sous la forme '
             texte += `$\\mathbf{g(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s'écrire \\textbf{g(4)=16}}`
             texteCorr += `\\item L'image de ${z} par la fonction g vaut $g(${z})=${z}\\times ${z}=${texNombre(z * z)}$.`
-          };
+          }
 
           // sous question d/
           if (context.isHtml) {
@@ -287,7 +308,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += '\\item Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .'
             texte += ' \\\'{E}crire la réponse sous la forme $\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s\'écrire $\\mathbf{g(4)=16}$}'
             texteCorr += ' L\'image de $x$ par la fonction g vaut $x^2$ donc $g(x)=x^2$.'
-          };
+          }
 
           // sous question e/
           txtInfo = 'Voici le diagramme d\'une machine qui double '
@@ -304,7 +325,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             txtInfo += '<br>' + tikzMachineDiag('g', 'x', [['\\times 2', '2x']])
             texteCorr += '\\item C\'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('g', 'x', [['\\times x', 'x^2']])
-          };
+          }
+
           texte += infoMessage({
             titre: 'Exemple',
             texte: txtInfo,
@@ -323,7 +345,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += '\\item L\'image de $x$ par la fonction g vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$.'
             texte += '\\end{enumerate}'
             texteCorr += '\\end{enumerate}'
-          };
+          }
+
           break
         case 3: // somme de 1 et du triple de x
           j = 0 // pour la sous-numérotation
@@ -333,7 +356,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte = '<br>'
           } else {
             texte = ''
-          };
+          }
 
           texte += 'La $\\mathbf{machine\\,h}$ renvoie la somme du triple du nombre de départ et de 1.'
           texte += '<br>'
@@ -343,7 +366,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += machineMathsVideo('assets/videos/machineMaths-h.mp4')
           } else { // sortie Latex avec Tikz
             texte += tikzMachineMaths('h', '---', 'Multiplier\\,par\\,3', 'Ajouter\\,1', 'nombre\\,de', `d\\acute{e}part\\,${x}`, 'nombre\\,de', 'sortie\\,?')
-          };
+          }
+
           // sous question a/
           if (context.isHtml) {
             texte += numAlpha(j) + ` Que renvoie la machine si le nombre de départ vaut  ${x} ? Formuler la réponse `
@@ -358,7 +382,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
             texteCorr += `\\item Si le nombre de départ vaut ${x} alors la machine renvoie $3\\times${x} + 1 = ${3 * x + 1}$<br>`
             texteCorr += `On dit que ${3 * x + 1} est l'image de ${x} par la fonction g.`
-          };
+          }
 
           // sous question b/
           y = randint(2, 99, [x]) // augmenter les possibles pour éviter les questions déjà posées?
@@ -373,7 +397,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += 'avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent d\'une valeur de sortie est une valeur du nombre de départ dont l\'image est ce nombre de sortie.}'
             texteCorr += `\\item Si la machine renvoie $${3 * y + 1}$ alors le nombre de départ vaut $(${3 * y + 1}-1)\\div 3=${y}$<br>`
             texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${3 * y + 1} par la fonction g.`
-          };
+          }
 
           // sous question c/
           z = randint(2, 99, [x, y]) // augmenter les possibles pour éviter les questions déjà posées?
@@ -390,7 +414,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += ' ? \\\'{E}crire la réponse sous la forme '
             texte += `$\\mathbf{h(${-z})=\\ldots}$ \\footnote{\\textbf{Notation : } 4 a pour image 16 par la fonction h peut s'écrire \\textbf{h(4)=16}}`
             texteCorr += `\\item L'image de ${-z} par la fonction h vaut $h(${-z})=3\\times (${-z})+1=${-3 * z + 1}$.`
-          };
+          }
 
           // sous question d/
           if (context.isHtml) {
@@ -407,7 +431,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += ' L\'image de $x$ par la fonction h vaut $3x + 1$ donc $h(x)=3x+1$.'
 
             j++ // incrémente la sous question
-          };
+          }
 
           // sous question e/
           txtInfo = 'Voici le diagramme d\'une machine qui double puis qui ajoute 5 '
@@ -424,7 +448,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             txtInfo += '<br>' + tikzMachineDiag('h', 'x', [['\\times 2', '2x'], ['+5', '2x+5']])
             texteCorr += '\\item C\'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('h', 'x', [['\\times 3', '3x'], ['+1', '3x+1']])
-          };
+          }
+
           texte += infoMessage({
             titre: 'Exemple',
             texte: txtInfo,
@@ -443,7 +468,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += '\\item L\'image de $x$ par la fonction h vaut $3\\times x +1= 3x + 1$ donc $h : x \\longmapsto 3\\times x + 1$ soit $h : x \\longmapsto 3x + 1$.'
             texte += '\\end{enumerate}'
             texteCorr += '\\end{enumerate}'
-          };
+          }
+
           break
         case 4: // nombre de diviseurs de x entier
           j = 0 // pour la sous-numérotation
@@ -453,7 +479,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte = '<br>'
           } else {
             texte = ''
-          };
+          }
+
           texte += 'La $\\mathbf{machine\\,d}$, qui n\'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.'
           texte += '<br>'
           // machine
@@ -462,7 +489,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += machineMathsVideo('assets/videos/machineMaths-d.mp4')
           } else { // sortie Latex avec Tikz
             texte += tikzMachineMaths('d', '---', 'nombre \\, total', 'de \\, diviseurs', 'nombre\\,de', `d\\acute{e}part\\,${x}`, 'nombre \\, de', 'diviseurs')
-          };
+          }
+
           // sous question a/
           if (context.isHtml) {
             texte += numAlpha(j) + ` Que renvoie la machine si le nombre de départ vaut  ${x} ? Formuler la réponse `
@@ -475,23 +503,26 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += 'avec le mot \\textbf{image} \\footnote{\\textbf{Image : } L\'image de la valeur à la sortie de la machine}'
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
             texteCorr += `\\item Pour trouver la liste des diviseurs de ${x} on cherche tous les produits de deux facteurs qui donnent ${x}<br>`
-          };
+          }
+
           if (listeDiviseurs(x).length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseurs(x).length / 2); m++) {
               texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
-            };
+            }
           } else {
             for (let m = 0; m < ((listeDiviseurs(x).length - 1) / 2); m++) {
               texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
-            };
+            }
+
             texteCorr += '$' + listeDiviseurs(x)[(listeDiviseurs(x).length - 1) / 2] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - 1) / 2] + '$<br>'
-          };
+          }
+
           texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${x}<br>`
           texteCorr += `La liste des diviseurs de ${x} est donc ` + listeDiviseurs(x) + '; Cette liste compte ' + listeDiviseurs(x).length + ' nombres. <br>'
           texteCorr += 'Donc ' + listeDiviseurs(x).length + ` est l'image de ${x} par la fonction d.`
           if (context.isHtml) {
             texteCorr += '<br>'
-          };
+          }
 
           // sous question b/
           x = randint(1, 9) // augmenter les possibles pour éviter les questions déjà posées?
@@ -512,7 +543,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += 'conviennent.<br>'
             texteCorr += '2 est premier donc 2 est \\textbf{un} antécédent de 2 par la fonction d.<br>'
             texteCorr += '7 est premier donc 7 est \\textbf{un autre} antécédent de 2 par la fonction d.'
-          };
+          }
 
           // sous question c/
           x = randint(51, 99) // augmenter les possibles pour éviter les questions déjà posées?
@@ -529,27 +560,31 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte += ' ? \\\'{E}crire la réponse sous la forme '
             texte += '$\\mathbf{d(' + (x) + ')=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction d peut s\'écrire \\textbf{d(4)=16}}'
             texteCorr += `\\item Pour trouver l'image de ${x} on peut par exemple chercher tous ses diviseurs et les compter<br>`
-          };
+          }
+
           if (listeDiviseurs(x).length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseurs(x).length / 2); m++) {
               texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
-            };
+            }
           } else {
             for (let m = 0; m < ((listeDiviseurs(x).length - 1) / 2); m++) {
               texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
-            };
+            }
+
             texteCorr += '$' + listeDiviseurs(x)[(listeDiviseurs(x).length - 1) / 2] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - 1) / 2] + '$<br>'
-          };
+          }
+
           texteCorr += `La liste des diviseurs de ${x} est donc `
           texteCorr += listeDiviseurs(x)[0]
           for (let k = 1; k < listeDiviseurs(x).length; k++) {
             texteCorr += ' ; ' + listeDiviseurs(x)[k]
-          };
+          }
+
           texteCorr += ' ; Cette liste compte ' + listeDiviseurs(x).length + ' nombres.<br> '
           texteCorr += 'Donc ' + listeDiviseurs(x).length + ` est l'image de ${x} par la fonction d.`
           if (context.isHtml) {
             texteCorr += '<br>'
-          };
+          }
 
           // sous question d/
           if (context.isHtml) {
@@ -566,23 +601,26 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           texteCorr += listeDiviseurs(9)[0]
           for (let k = 1; k < listeDiviseurs(9).length; k++) {
             texteCorr += ' ; ' + listeDiviseurs(9)[k]
-          };
+          }
+
           texteCorr += ' ; Cette liste compte ' + listeDiviseurs(9).length + ' nombres, '
           texteCorr += 'donc 9 est un antécédent de 3 par la fonction d.<br>'
           texteCorr += 'La liste des diviseurs de 25 est '
           texteCorr += listeDiviseurs(25)[0]
           for (let k = 1; k < listeDiviseurs(25).length; k++) {
             texteCorr += ' ; ' + listeDiviseurs(25)[k]
-          };
+          }
+
           texteCorr += ' ; Cette liste compte ' + listeDiviseurs(25).length + ' nombres, '
           texteCorr += 'donc 25 est un antécédent de 3 par la fonction d.<br>'
           texteCorr += 'Tu peux en trouver d\'autres, qu\'ont ils de commun ?'
           if (!context.isHtml) {
             texte += '\\end{enumerate}'
             texteCorr += '\\end{enumerate}'
-          };
+          }
+
           break
-      };
+      }
 
       if (this.questionJamaisPosee(i, typesDeQuestions, x, y, z)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -594,5 +632,5 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de fonction', 5, "1 : Périmètre d'un carré\n2 : Aire d'un carré\n3 : Somme de 1 et du triple du nombre de départ\n4 : Nombre de diviseurs d'un entier positif\n5 : Les quatre"]
+  this.besoinFormulaireNumerique = ['Type de fonction', 5, '1 : Périmètre d\'un carré\n2 : Aire d\'un carré\n3 : Somme de 1 et du triple du nombre de départ\n4 : Nombre de diviseurs d\'un entier positif\n5 : Les quatre']
 }

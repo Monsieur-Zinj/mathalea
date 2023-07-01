@@ -1,7 +1,17 @@
+import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikzMachineDiag, numAlpha, texCadreParOrange } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  combinaisonListesSansChangerOrdre,
+  texEnumerate,
+  miseEnEvidence,
+  itemize,
+  numAlpha
+} from '../../modules/outils.js'
 import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
+
 export const titre = 'Calculer, de manières différentes, des images par une fonction'
 
 /**
@@ -33,7 +43,8 @@ export default function FonctionsCalculsDImages () {
   if (context.isHtml) {
     pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
   } else { // sortie LaTeX
-  };
+  }
+
   this.nouvelleVersion = function (numeroExercice) {
     this.sup = Number(this.sup)
     let typesDeQuestions
@@ -55,7 +66,8 @@ export default function FonctionsCalculsDImages () {
       typesDeQuestionsDisponibles = [4] // f : x ---> ...
     } else if (this.sup === 5) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4] // mélange
-    };
+    }
+
     // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
@@ -112,7 +124,8 @@ export default function FonctionsCalculsDImages () {
             texte += texEnumerate([`Appliquer ce programme de calcul au nombre ${c}.`, 'Traduire ce calcul par une phrase contenant le mot image.'], this.spacing)
             // texteCorr +=
             texteCorr += texEnumerate([texCadreParOrange(itemize([`On choisit le nombre ${c}`, `On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a * c}$. `, `On ajoute ${b} au résultat obtenu : $${a * c}+${b}=${a * c + b}$.`])), `L'image de ${c} par cette fonction vaut ${a * c + b}.<br>On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction.`], this.spacing)
-          };
+          }
+
           break
         case 2:
           j = 0 // pour la sous-numérotation
@@ -143,7 +156,8 @@ export default function FonctionsCalculsDImages () {
 <br>$f(${miseEnEvidence(c)})= ${a * c + b}$`, `L'image de ${c} par la fonction $f$ vaut ${a * c + b}.
 <br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $f$.`
             ], this.spacing)
-          };
+          }
+
           break
         case 3:
           j = 0 // pour la sous-numérotation
@@ -174,7 +188,8 @@ export default function FonctionsCalculsDImages () {
 <br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c + b}$`, `L'image de ${c} par la fonction $g$ vaut ${a * c + b}.
 <br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`
             ], this.spacing)
-          };
+          }
+
           break
         case 4:
           texte = ''
@@ -205,12 +220,13 @@ export default function FonctionsCalculsDImages () {
             texte += texEnumerate([`Calculer l'image de ${c}.`, 'Traduire ce calcul par une phrase contenant le mot image.'], this.spacing)
             texteCorr = texEnumerate(
               [`Calculons l'image par $g$ de $x=$ ${c} :<br>` + tikzMachineDiag('h', c, [['\\times ' + a, (a * c)], ['+' + b, (a * c + b)]]),
-`L'image de ${c} par la fonction $g$ vaut ${a * c + b}.
+                `L'image de ${c} par la fonction $g$ vaut ${a * c + b}.
  <br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`
               ], this.spacing)
-          };
+          }
+
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -222,5 +238,5 @@ export default function FonctionsCalculsDImages () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Règle à travailler', 5, "1 : &Agrave; partir d'un programme de calcul\n2 : &Agrave; partir de l'expression algébrique sous forme f(x) = ...\n3 : &Agrave; partir de l'expression algébrique sous forme f : x --> ...\n4 : &Agrave; partir d'un diagramme\n5 : Mélange"]
+  this.besoinFormulaireNumerique = ['Règle à travailler', 5, '1 : &Agrave; partir d\'un programme de calcul\n2 : &Agrave; partir de l\'expression algébrique sous forme f(x) = ...\n3 : &Agrave; partir de l\'expression algébrique sous forme f : x --> ...\n4 : &Agrave; partir d\'un diagramme\n5 : Mélange']
 }
