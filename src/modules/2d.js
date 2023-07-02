@@ -424,10 +424,11 @@ export function TracePoint (...points) {
           objetstikz.push(s1)
         } else if (this.style === '.') {
           s1 = plot(A.x, A.y, {
-            couleur: this.color[1],
+            couleur: this.color[0],
             rayon: this.epaisseur * 0.05,
-            couleurDeRemplissage: this.color[1]
+            couleurDeRemplissage: this.color[0] // je mets la couleur html, car elle va être parsée par colorToLatexOrHtml à nouveau
           })
+          objetstikz.push(s1)
         }
       }
     }
