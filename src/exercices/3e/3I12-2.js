@@ -1,5 +1,6 @@
+import { lampeMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, contraindreValeur, gestionnaireFormulaireTexte, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, rangeMinMax, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { choice, combinaisonListes, contraindreValeur, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, rangeMinMax, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
@@ -147,7 +148,7 @@ export default function ComprendreScriptMultiples () {
         ['Comment se nomment les variables dans ce script ?', `Les variables de ce script se nomment ${texteEnCouleurEtGras(var1)} et ${texteEnCouleurEtGras(var2)}.`, 1],
         ['Que fait ce script ?', `Ce script demande deux nombres entiers à l'utilisateur, calcule le reste de la division euclidienne du
       ${diviseurEnPremier ? ' second nombre fourni par le premier ' : ' premier nombre fourni par le second '}
-      puis indique si 
+      puis indique si
       ${choixScript[i] === 1 ? (diviseurEnPremier ? ' le second nombre ' : ' le premier nombre ') : (diviseurEnPremier ? ' le premier nombre ' : ' le second nombre ')} ${choixScript[i] === 1 ? ' est un multiple ou pas du ' : choixScript[i] === 2 ? ' divise ou pas le ' : ' est un diviseur ou pas du '} ${choixScript[i] === 1 ? (diviseurEnPremier ? 'premier' : 'second') : (diviseurEnPremier ? 'second' : 'premier')} nombre.`, 3],
         [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb01} puis ensuite ${diviseurEnPremier ? nb01 : nb02}, que dit précisément le lutin au final ?`,
       `${choixScript[i] === 1 ? nb01 + ' est un multiple de ' + nb02 : choixScript[i] === 2 ? nb02 + ' divise ' + nb01 : nb02 + ' est un diviseur de ' + nb01}.`, 1],

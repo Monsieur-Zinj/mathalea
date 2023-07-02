@@ -1,5 +1,6 @@
+import { lampeMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras, numAlpha, nombreDeChiffresDansLaPartieDecimale, sp, choice, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras, numAlpha, nombreDeChiffresDansLaPartieDecimale, sp, choice, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'

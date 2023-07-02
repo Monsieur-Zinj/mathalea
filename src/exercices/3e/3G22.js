@@ -1,7 +1,8 @@
+import { katexPopup2 } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texteExposant, pgcd, fractionSimplifiee, texFractionReduite, texNombre, sp, katexPopup2, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texteExposant, pgcd, fractionSimplifiee, texFractionReduite, texNombre, sp, numAlpha } from '../../modules/outils.js'
 export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
 
 /**
@@ -201,7 +202,7 @@ export default function AgrandissementReduction () {
         texte += numAlpha(3) + ' Calculer le volume du cône de hauteur SO\'.<br>'
         texte += numAlpha(4) + ' Calculer le volume du tronc de cône (partie du cône située entre la base et la section).'
         if (context.isHtml) { texte += '<br>Le point O peut être déplacé et on peut changer l\'angle de vue &#x3C6; ' } else {
-          texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.7] \n\t 
+          texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.7] \n\t
           \\definecolor{hhhhhh}{rgb}{0,0,0}
           \\definecolor{phphph}{rgb}{0.5,0.5,0.5}
           \\definecolor{ofofof}{rgb}{0.5,0.5,0.5}

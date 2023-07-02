@@ -1,9 +1,9 @@
+import { lampeMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
 import {
   choice,
   deuxColonnes,
   gestionnaireFormulaireTexte,
-  lampeMessage,
   lettreMinusculeDepuisChiffre,
   listeQuestionsToContenu,
   randint,

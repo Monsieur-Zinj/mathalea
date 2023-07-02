@@ -1,4 +1,5 @@
-import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, modalYoutube, lampeMessage, texteGras } from '../../modules/outils.js'
+import { lampeMessage } from '../../lib/outils/message.js'
+import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, modalYoutube, texteGras } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -127,7 +128,7 @@ export default function ConjectureDeSyracuse () {
         stringIntro += '\\par\\vspace{0.5cm}'
       };
       stringIntro += `${texteGras('Algorithme de Syracuse :')}<br>`
-      stringIntro += `                
+      stringIntro += `
           On choisit un nombre entier strictement positif<br>
           $\\leadsto$ Si l'entier choisi est pair on le divise par 2.<br>
           $\\leadsto$ Si l'entier choisi est impair on le multiplie par 3 et on ajoute 1.<br>

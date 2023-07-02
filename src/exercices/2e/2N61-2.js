@@ -1,6 +1,7 @@
+import { lampeMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole, sp, texteGras, lampeMessage } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole, sp, texteGras } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'

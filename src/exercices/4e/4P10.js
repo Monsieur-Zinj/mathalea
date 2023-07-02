@@ -1,3 +1,4 @@
+import { katexPopup2 } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -13,7 +14,6 @@ import {
   texNombre,
   miseEnEvidence,
   texPrix,
-  katexPopup2,
   numAlpha,
   egalOuApprox, stringNombre, sp, gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

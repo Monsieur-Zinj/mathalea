@@ -1,8 +1,8 @@
+import { lampeMessage } from '../lib/outils/message.js'
 import {
   arrondi,
   choice,
   ecritureParentheseSiNegatif,
-  lampeMessage,
   nomDuMois,
   prenom,
   stringNombre,

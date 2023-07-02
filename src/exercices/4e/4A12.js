@@ -1,3 +1,4 @@
+import { warnMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
 import {
   combinaisonListes,
@@ -7,7 +8,6 @@ import {
   randint,
   texteEnCouleurEtGras,
   personne,
-  warnMessage,
   nombreDeChiffresDe,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
