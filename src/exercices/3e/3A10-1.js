@@ -1,8 +1,9 @@
 import { warnMessage } from '../../lib/outils/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
+import { cribleEratostheneN } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleurEtGras, cribleEratostheneN } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Indiquer si des nombres sont premiers ou pas' // EE : J'ai mis indiqué pour que ce titre convienne à AMC.
 export const interactifReady = true

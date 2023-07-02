@@ -1,6 +1,7 @@
+import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombre, lettreMinusculeDepuisChiffre, miseEnEvidence, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombre, lettreMinusculeDepuisChiffre, miseEnEvidence } from '../../modules/outils.js'
 import { repere, courbe } from '../../modules/2d.js'
 
 export const titre = 'Trouver l\'équation d\'une parabole'

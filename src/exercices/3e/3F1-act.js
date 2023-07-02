@@ -1,11 +1,11 @@
 import { infoMessage, lampeMessage } from '../../lib/outils/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
+import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { context } from '../../modules/context.js'
 import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
 import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs.js'
 import {
   combinaisonListesSansChangerOrdre,
-  listeDiviseurs,
   listeQuestionsToContenu,
   nombreAvecEspace,
   numAlpha,
@@ -526,21 +526,21 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += `\\item Pour trouver la liste des diviseurs de ${x} on cherche tous les produits de deux facteurs qui donnent ${x}<br>`
           }
 
-          if (listeDiviseurs(x).length % 2 === 0) { // si il y a un nombre pair de diviseurs
-            for (let m = 0; m < (listeDiviseurs(x).length / 2); m++) {
-              texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
+          if (listeDesDiviseurs(x).length % 2 === 0) { // si il y a un nombre pair de diviseurs
+            for (let m = 0; m < (listeDesDiviseurs(x).length / 2); m++) {
+              texteCorr += '$' + listeDesDiviseurs(x)[m] + '\\times' + listeDesDiviseurs(x)[(listeDesDiviseurs(x).length - m - 1)] + '$<br>'
             }
           } else {
-            for (let m = 0; m < ((listeDiviseurs(x).length - 1) / 2); m++) {
-              texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
+            for (let m = 0; m < ((listeDesDiviseurs(x).length - 1) / 2); m++) {
+              texteCorr += '$' + listeDesDiviseurs(x)[m] + '\\times' + listeDesDiviseurs(x)[(listeDesDiviseurs(x).length - m - 1)] + '$<br>'
             }
 
-            texteCorr += '$' + listeDiviseurs(x)[(listeDiviseurs(x).length - 1) / 2] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - 1) / 2] + '$<br>'
+            texteCorr += '$' + listeDesDiviseurs(x)[(listeDesDiviseurs(x).length - 1) / 2] + '\\times' + listeDesDiviseurs(x)[(listeDesDiviseurs(x).length - 1) / 2] + '$<br>'
           }
 
           texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${x}<br>`
-          texteCorr += `La liste des diviseurs de ${x} est donc ` + listeDiviseurs(x) + '; Cette liste compte ' + listeDiviseurs(x).length + ' nombres. <br>'
-          texteCorr += 'Donc ' + listeDiviseurs(x).length + ` est l'image de ${x} par la fonction d.`
+          texteCorr += `La liste des diviseurs de ${x} est donc ` + listeDesDiviseurs(x) + '; Cette liste compte ' + listeDesDiviseurs(x).length + ' nombres. <br>'
+          texteCorr += 'Donc ' + listeDesDiviseurs(x).length + ` est l'image de ${x} par la fonction d.`
           if (context.isHtml) {
             texteCorr += '<br>'
           }
@@ -583,26 +583,26 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += `\\item Pour trouver l'image de ${x} on peut par exemple chercher tous ses diviseurs et les compter<br>`
           }
 
-          if (listeDiviseurs(x).length % 2 === 0) { // si il y a un nombre pair de diviseurs
-            for (let m = 0; m < (listeDiviseurs(x).length / 2); m++) {
-              texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
+          if (listeDesDiviseurs(x).length % 2 === 0) { // si il y a un nombre pair de diviseurs
+            for (let m = 0; m < (listeDesDiviseurs(x).length / 2); m++) {
+              texteCorr += '$' + listeDesDiviseurs(x)[m] + '\\times' + listeDesDiviseurs(x)[(listeDesDiviseurs(x).length - m - 1)] + '$<br>'
             }
           } else {
-            for (let m = 0; m < ((listeDiviseurs(x).length - 1) / 2); m++) {
-              texteCorr += '$' + listeDiviseurs(x)[m] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - m - 1)] + '$<br>'
+            for (let m = 0; m < ((listeDesDiviseurs(x).length - 1) / 2); m++) {
+              texteCorr += '$' + listeDesDiviseurs(x)[m] + '\\times' + listeDesDiviseurs(x)[(listeDesDiviseurs(x).length - m - 1)] + '$<br>'
             }
 
-            texteCorr += '$' + listeDiviseurs(x)[(listeDiviseurs(x).length - 1) / 2] + '\\times' + listeDiviseurs(x)[(listeDiviseurs(x).length - 1) / 2] + '$<br>'
+            texteCorr += '$' + listeDesDiviseurs(x)[(listeDesDiviseurs(x).length - 1) / 2] + '\\times' + listeDesDiviseurs(x)[(listeDesDiviseurs(x).length - 1) / 2] + '$<br>'
           }
 
           texteCorr += `La liste des diviseurs de ${x} est donc `
-          texteCorr += listeDiviseurs(x)[0]
-          for (let k = 1; k < listeDiviseurs(x).length; k++) {
-            texteCorr += ' ; ' + listeDiviseurs(x)[k]
+          texteCorr += listeDesDiviseurs(x)[0]
+          for (let k = 1; k < listeDesDiviseurs(x).length; k++) {
+            texteCorr += ' ; ' + listeDesDiviseurs(x)[k]
           }
 
-          texteCorr += ' ; Cette liste compte ' + listeDiviseurs(x).length + ' nombres.<br> '
-          texteCorr += 'Donc ' + listeDiviseurs(x).length + ` est l'image de ${x} par la fonction d.`
+          texteCorr += ' ; Cette liste compte ' + listeDesDiviseurs(x).length + ' nombres.<br> '
+          texteCorr += 'Donc ' + listeDesDiviseurs(x).length + ` est l'image de ${x} par la fonction d.`
           if (context.isHtml) {
             texteCorr += '<br>'
           }
@@ -619,20 +619,20 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += '\\item Il faut trouver des nombres qui ont exactement 3 diviseurs.<br>'
           }
           texteCorr += 'La liste des diviseurs de 9 est '
-          texteCorr += listeDiviseurs(9)[0]
-          for (let k = 1; k < listeDiviseurs(9).length; k++) {
-            texteCorr += ' ; ' + listeDiviseurs(9)[k]
+          texteCorr += listeDesDiviseurs(9)[0]
+          for (let k = 1; k < listeDesDiviseurs(9).length; k++) {
+            texteCorr += ' ; ' + listeDesDiviseurs(9)[k]
           }
 
-          texteCorr += ' ; Cette liste compte ' + listeDiviseurs(9).length + ' nombres, '
+          texteCorr += ' ; Cette liste compte ' + listeDesDiviseurs(9).length + ' nombres, '
           texteCorr += 'donc 9 est un antécédent de 3 par la fonction d.<br>'
           texteCorr += 'La liste des diviseurs de 25 est '
-          texteCorr += listeDiviseurs(25)[0]
-          for (let k = 1; k < listeDiviseurs(25).length; k++) {
-            texteCorr += ' ; ' + listeDiviseurs(25)[k]
+          texteCorr += listeDesDiviseurs(25)[0]
+          for (let k = 1; k < listeDesDiviseurs(25).length; k++) {
+            texteCorr += ' ; ' + listeDesDiviseurs(25)[k]
           }
 
-          texteCorr += ' ; Cette liste compte ' + listeDiviseurs(25).length + ' nombres, '
+          texteCorr += ' ; Cette liste compte ' + listeDesDiviseurs(25).length + ' nombres, '
           texteCorr += 'donc 25 est un antécédent de 3 par la fonction d.<br>'
           texteCorr += 'Tu peux en trouver d\'autres, qu\'ont ils de commun ?'
           if (!context.isHtml) {

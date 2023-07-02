@@ -1,4 +1,5 @@
-import { ecritureParentheseSiNegatif, miseEnEvidence, pgcd, texNombre } from '../../modules/outils.js'
+import { ecritureParentheseSiNegatif, miseEnEvidence, texNombre } from '../../modules/outils.js'
+import { pgcd } from './primalite.js'
 
 /**
  * Fonction de comparaison à utiliser avec tableau.sort(compareFractions)

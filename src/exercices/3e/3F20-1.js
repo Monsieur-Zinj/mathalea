@@ -1,3 +1,4 @@
+import { pgcd } from '../../lib/outils/primalite.js'
 import { droite, point, polyline, repere, texteParPoint, tracePoint } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -12,7 +13,6 @@ import {
   ecritureParentheseSiNegatif,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  pgcd,
   premierAvec,
   randint, rangeMinMax, stringNombre,
   texNombre

@@ -1,8 +1,9 @@
 import { prenom } from '../../lib/outils/Personne.js'
+import { premierMultipleSuperieur } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, texPrix, numAlpha, premierMultipleSuperieur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, texPrix, numAlpha } from '../../modules/outils.js'
 import { point, segment, repere, courbe } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
 

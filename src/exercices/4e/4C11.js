@@ -1,8 +1,9 @@
+import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence, listeDesDiviseurs, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence, lettreDepuisChiffre } from '../../modules/outils.js'
 export const titre = 'Calculs utilisant les priorités opératoires'
 export const interactifReady = true
 export const interactifType = 'mathLive'

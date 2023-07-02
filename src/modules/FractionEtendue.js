@@ -1,11 +1,9 @@
 import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
+import { listeDesDiviseurs, obtenirListeFacteursPremiers, pgcd } from '../lib/outils/primalite.js'
 import {
   arrondi,
-  obtenirListeFacteursPremiers,
   quotientier,
   extraireRacineCarree,
-  listeDiviseurs,
-  pgcd,
   nombreDeChiffresDansLaPartieDecimale,
   calcul,
   miseEnEvidence,
@@ -1274,7 +1272,7 @@ class FractionEtendue extends Fraction {
       return [[n, d]]
     } else {
       const liste = []
-      for (const diviseur of listeDiviseurs(pgcd(n, d))) {
+      for (const diviseur of listeDesDiviseurs(pgcd(n, d))) {
         liste.push([n / diviseur, d / diviseur])
       }
       return liste

@@ -1,4 +1,5 @@
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
+import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -6,9 +7,7 @@ import {
   randint,
   texNombre,
   miseEnEvidence,
-  listeDiviseurs,
   numAlpha,
-  cribleEratostheneN,
   tableauColonneLigne
 } from '../../modules/outils.js'
 
@@ -269,8 +268,8 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       texteCorr += '<br>'
       texteCorr += numAlpha(2) + ` Enfin, voici la liste des $${(tabMultiplicitesb[0] + 1) * (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1)}$ diviseurs de $${texNombre(nombreADecomposerb)}$ issus du tableau ci-dessus : `
       texteCorr += '$1'
-      for (let w = 1; w < listeDiviseurs(nombreADecomposerb).length; w++) {
-        texteCorr += '\\text{ ; }' + texNombre(listeDiviseurs(nombreADecomposerb)[w])
+      for (let w = 1; w < listeDesDiviseurs(nombreADecomposerb).length; w++) {
+        texteCorr += '\\text{ ; }' + texNombre(listeDesDiviseurs(nombreADecomposerb)[w])
       }
       ;
       texteCorr += '.$'

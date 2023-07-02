@@ -1,5 +1,6 @@
+import { obtenirListeFacteursPremiers } from '../lib/outils/primalite.js'
 import { context } from './context.js'
-import { texNombre2, obtenirListeFacteursPremiers } from './outils.js'
+import { texNombre2 } from './outils.js'
 import { all, create } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'

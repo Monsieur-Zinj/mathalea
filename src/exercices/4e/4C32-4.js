@@ -1,5 +1,6 @@
+import { listeDesDiviseurs, texFactorisation } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, listeDiviseurs, texFactorisation, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
@@ -66,7 +67,7 @@ export default function CalculsPuissancesDe10 () {
         d = d * facteurs[k]
       }
       dexp = randint(1, 5) * choice([-1, 1])
-      diviseurs = listeDiviseurs(mantisse * c * d)
+      diviseurs = listeDesDiviseurs(mantisse * c * d)
       a = diviseurs[randint(1, diviseurs.length - 2)]
       aexp = randint(1, 5) * choice([-1, 1])
       b = mantisse * c * d / a
