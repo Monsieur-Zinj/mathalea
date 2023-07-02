@@ -1,6 +1,7 @@
+import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires.js'
 import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { randint, choice, texteCentre, choisitLettresDifferentes } from '../../../modules/outils.js'
+import { randint, choice, texteCentre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Trouver un coefficient de colinéarité (graphique)'

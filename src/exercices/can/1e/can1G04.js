@@ -1,6 +1,7 @@
+import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, texNombre, choisitLettresDifferentes } from '../../../modules/outils.js'
+import { randint, choice, texNombre } from '../../../modules/outils.js'
 import {
   point, labelPoint, afficheLongueurSegment, afficheMesureAngle, pointAdistance, segment
 } from '../../../modules/2d.js'

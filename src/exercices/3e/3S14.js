@@ -1,3 +1,4 @@
+import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -6,14 +7,11 @@ import {
   choice,
   combinaisonListes,
   gestionnaireFormulaireTexte,
-  listeDeNotes,
   listeQuestionsToContenu,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
   numAlpha,
-  randint,
-  tirerLesDes,
-  unMoisDeTemperature
+  randint
 } from '../../modules/outils.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import Exercice from '../Exercice.js'

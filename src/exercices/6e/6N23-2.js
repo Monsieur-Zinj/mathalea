@@ -1,3 +1,4 @@
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -6,7 +7,6 @@ import {
   randint,
   shuffle,
   calcul,
-  choisitLettresDifferentes,
   texNombre,
   numAlpha,
   nombreDeChiffresDansLaPartieEntiere,

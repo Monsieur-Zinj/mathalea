@@ -1,4 +1,5 @@
 import { infoMessage, lampeMessage } from '../../lib/outils/message.js'
+import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { context } from '../../modules/context.js'
 import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
 import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs.js'
@@ -6,8 +7,6 @@ import {
   combinaisonListesSansChangerOrdre,
   listeDiviseurs,
   listeQuestionsToContenu,
-  modalPdf,
-  modalVideo,
   nombreAvecEspace,
   numAlpha,
   randint,

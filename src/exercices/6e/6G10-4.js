@@ -1,6 +1,7 @@
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, choisitLettresDifferentes, texteEnCouleurEtGras, shuffle, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, texteEnCouleurEtGras, shuffle, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, pointAdistance, cercle, segment, pointIntersectionLC, droite, longueur, polygoneAvecNom } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -19,6 +20,27 @@ export const dateDePublication = '19/08/2022'
 */
 export const uuid = '03b49'
 export const ref = '6G10-4'
+function ajouterAlternatives (fonction, reponses) {
+  const copieReponses = []
+  for (const reponse of reponses) {
+    copieReponses.push(reponse)
+  }
+  for (const reponse of copieReponses) {
+    reponses.push(fonction(reponse))
+  }
+  return reponses
+}
+function longueurAlternative (longueur) {
+  return longueur.slice(1) + longueur.slice(0, 1)
+}
+// @todo relire la définition de cette fonction et la déplacer
+function segmentAlternatif (reponses) {
+  if (reponses[0] != null) {
+    return '[' + reponses[0].slice(2, 3) + reponses[0].slice(1, 2) + ']'
+  } else {
+    window.notify('segmentAlternatif n\'a pas de matière pour choisir', { reponses })
+  }
+}
 export default function VocabulaireDuCercle () {
   Exercice.call(this)
   this.titre = titre
@@ -221,23 +243,6 @@ export default function VocabulaireDuCercle () {
             reponses = [question.nature]
             texte += ajouteChampTexte(this, i * questions.length + j, 'inline largeur25 nospacebefore')
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
-          }
-
-          function ajouterAlternatives (fonction, reponses) {
-            const copieReponses = []
-            for (const reponse of reponses) {
-              copieReponses.push(reponse)
-            }
-            for (const reponse of copieReponses) {
-              reponses.push(fonction(reponse))
-            }
-            return reponses
-          }
-          function longueurAlternative (longueur) {
-            return longueur.slice(1) + longueur.slice(0, 1)
-          }
-          function segmentAlternatif (segment) {
-            return '[' + reponses[0].slice(2, 3) + reponses[0].slice(1, 2) + ']'
           }
         }
         texte += '<br>'

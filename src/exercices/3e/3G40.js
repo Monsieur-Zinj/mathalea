@@ -1,3 +1,4 @@
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { labelLatexPoint, labelPoint, texteParPoint, tracePoint } from '../../modules/2d.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import {
@@ -13,7 +14,6 @@ import {
 } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
 import {
-  choisitLettresDifferentes,
   combinaisonListes,
   listeQuestionsToContenuSansNumero,
   numAlpha,

@@ -1,7 +1,8 @@
 import { warnMessage } from '../../lib/outils/message.js'
+import { modalPdf } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, modalPdf, numAlpha, premiersEntreBornes, decompositionFacteursPremiersArray } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, numAlpha, premiersEntreBornes, decompositionFacteursPremiersArray } from '../../modules/outils.js'
 export const titre = 'Rendre irréductible une fraction'
 
 /**

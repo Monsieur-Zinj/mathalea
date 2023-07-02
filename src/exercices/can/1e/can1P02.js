@@ -1,6 +1,7 @@
+import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, choisitLettresDifferentes, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, sp } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
@@ -115,8 +116,8 @@ export default function LectureProbabilite () {
       texteCorr = `Les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre :<br>
       $\\bullet$ $P(${nom1})=${texNombre(pA, 2)}$
       $\\bullet$ $P(\\overline{${nom1}})=${texNombre(pB, 2)}$
-      $\\bullet$  $P_{${nom1}}(${nom2})=${texNombre(pAC, 2)}$ 
-      $\\bullet$ $P_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}$ 
+      $\\bullet$  $P_{${nom1}}(${nom2})=${texNombre(pAC, 2)}$
+      $\\bullet$ $P_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}$
       $\\bullet$ $P_{\\overline{${nom1}}}(${nom2})=${texNombre(pBC, 2)}$
       $\\bullet$ $P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}$.
       `

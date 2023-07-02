@@ -1,3 +1,4 @@
+import { modalPdf } from '../../lib/outils/modales.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -8,7 +9,6 @@ import {
   eclatePuissance,
   lettreDepuisChiffre,
   listeQuestionsToContenuSansNumero,
-  modalPdf,
   randint,
   simpNotPuissance,
   texteGras

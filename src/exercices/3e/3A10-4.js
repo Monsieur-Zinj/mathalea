@@ -1,3 +1,4 @@
+import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -5,8 +6,6 @@ import {
   randint,
   texNombre,
   miseEnEvidence,
-  modalPdf,
-  modalVideo,
   listeDiviseurs,
   numAlpha,
   cribleEratostheneN,

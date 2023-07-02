@@ -1,8 +1,8 @@
+import { modalTexteCourt } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {
-  modalTexteCourt,
   combinaisonListes,
   listeQuestionsToContenu,
   randint,

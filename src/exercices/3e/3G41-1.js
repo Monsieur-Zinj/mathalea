@@ -1,6 +1,7 @@
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choisitLettresDifferentes, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import { pave3d, point3d } from '../../modules/3d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { labelPoint, longueur, pointSurSegment, segment, tracePoint, translation, vecteur } from '../../modules/2d.js'

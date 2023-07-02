@@ -1,4 +1,5 @@
 import { warnMessage } from '../../lib/outils/message.js'
+import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -7,8 +8,6 @@ import {
   obtenirListeFacteursPremiers,
   texNombre,
   miseEnEvidence,
-  modalPdf,
-  modalVideo,
   cribleEratostheneN,
   premiersEntreBornes,
   gestionnaireFormulaireTexte
