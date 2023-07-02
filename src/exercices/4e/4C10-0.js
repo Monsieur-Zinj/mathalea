@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
+import { Relatif } from '../../modules/Relatif.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, Relatif, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const interactifReady = true

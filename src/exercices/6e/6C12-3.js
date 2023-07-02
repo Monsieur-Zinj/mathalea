@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jourAuHasard, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
@@ -591,7 +591,7 @@ export default function ExerciceInformationsProblemes () {
             quidam2 = 'elle'
           }
           nb = randint(13, 21)
-          nb1 = jour() + ' ' + randint(2, 29) + ' ' + nomDuMois(randint(1, 12))
+          nb1 = jourAuHasard() + ' ' + randint(2, 29) + ' ' + nomDuMois(randint(1, 12))
           nb2 = nb + ' h ' + 5 * randint(2, 11)
           nb3 = nb + 2 + ' h ' + 5 * randint(2, 11)
           nb4 = nb + 1 + ' h ' + 5 * randint(2, 11)

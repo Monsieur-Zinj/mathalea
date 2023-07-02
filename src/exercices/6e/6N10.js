@@ -1,6 +1,7 @@
+import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice, nombreEnLettres, shuffle, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice, shuffle, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'

@@ -1,9 +1,10 @@
 import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, ecritureAlgebrique, prettyTex } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, ecritureAlgebrique } from '../../modules/outils.js'
 import { simplify, parse, derivative, fraction } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { prettyTex } from './1AN14-4.js'
 const math = { simplify, parse, derivative, fraction }
 export const titre = 'Dérivée d\'un quotient'
 export const dateDePublication = '22/01/2022'

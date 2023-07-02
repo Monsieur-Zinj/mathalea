@@ -1,5 +1,6 @@
 import { simplify } from 'mathjs'
-import { listeQuestionsToContenu, randint, matriceCarree, abs, ppcm, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebriqueSauf1, ecritureAlgebrique } from '../../modules/outils.js'
+import { matriceCarree } from '../../modules/MatriceCarree.js'
+import { listeQuestionsToContenu, randint, abs, ppcm, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebriqueSauf1, ecritureAlgebrique } from '../../modules/outils.js'
 
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
@@ -12,7 +13,7 @@ const axby = (a, b, niveau) => niveau === 1
   : simplify(a + '*x+' + b + '*y').toString().replaceAll('*', '') // Ecriture avec factorisation ou parenthèse (niveau 2)
 
 const dessSysteme = (s, d, niveau) =>
-    `\\begin{cases} ${axby(s.a11, s.a12, niveau)} & =  ${d[0]} \\\\ 
+    `\\begin{cases} ${axby(s.a11, s.a12, niveau)} & =  ${d[0]} \\\\
                     ${axby(s.a21, s.a22, niveau)} & =  ${d[1]} \\end{cases}`
 
 /**

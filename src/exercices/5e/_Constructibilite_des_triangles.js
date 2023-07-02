@@ -1,5 +1,6 @@
+import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombre, texteEnCouleur, Triangles } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombre, texteEnCouleur } from '../../modules/outils.js'
 
 export const titre = 'Constructibilité des triangles via les longueurs'
 

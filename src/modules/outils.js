@@ -1,35 +1,20 @@
 /* globals UI */
 import Algebrite from 'algebrite'
 import Decimal from 'decimal.js'
-import { equal, evaluate, format, Fraction, gcd, isArray, isInteger, isPrime, matrix, parse, round } from 'mathjs'
-import { texteParPosition } from './2d.js'
+import { equal, evaluate, format, Fraction, gcd, isArray, isInteger, isPrime, round } from 'mathjs'
 import { context } from './context.js'
 import FractionEtendue from './FractionEtendue.js'
 import { fraction } from './fractions.js'
 import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
-import { loadScratchblocks } from './loaders.js'
+import { matriceCarree } from './MatriceCarree.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
 const math = { format, evaluate }
 
 /**
- * Fonctions diverses pour la création des exercices
- * @module
- */
-
-export function interactivite (exercice) {
-  if (context.isHtml) {
-    if (exercice.interactif) return 'I-html'
-    else return 'html'
-  } else if (context.isAmc) return 'AMC'
-  else if (exercice.interactif) return 'I-latex'
-  else return 'latex'
-}
-
-/**
- * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
+ * Affecte les propriétés contenues et contenuCorrection (d'après les autres propriétés de l'exercice)
  * @param {Exercice} exercice
  */
 export function listeQuestionsToContenu (exercice) {
@@ -87,35 +72,13 @@ export function exerciceSimpleToContenu (exercice) {
 }
 
 /**
- * À documenter
- * @param {Exercice} exercice
- */
-export function listeDeChosesAImprimer (exercice) {
-  if (context.isHtml) {
-    exercice.contenu = htmlLigne(exercice.listeQuestions, exercice.spacing)
-    exercice.contenuCorrection = ''
-  } else {
-    // let vspace = ''
-    // if (exercice.vspace) {
-    //   vspace = `\\vspace{${exercice.vspace} cm}\n`
-    // }
-    if (document.getElementById('supprimer_reference').checked === true) {
-      exercice.contenu = texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-    } else {
-      exercice.contenu = `\n\\marginpar{\\footnotesize ${exercice.id}}` + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-    }
-    exercice.contenuCorrection = ''
-  }
-}
-
-/**
  * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
  * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
  * @param {Exercice} exercice
  * @author Rémi Angot
  */
 export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
-  // En vue diapCorr, les questions doivent toujours être numérotées car venant d'exercices différents
+  // En vue diapCorr, les questions doivent toujours être numérotées, car venant d'exercices différents
   if (context.vue === 'diapCorr') {
     listeQuestionsToContenu(exercice, retourCharriot = true)
   } else {
@@ -138,25 +101,7 @@ export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = tr
 }
 
 /**
- * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
- *
- * Uniquement en version LaTeX
- * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
- * @param {Exercice} exercice
- * @author Rémi Angot
- */
-export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
-  if (document.getElementById('supprimer_reference').checked === true) {
-    exercice.contenu = texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-  } else {
-    exercice.contenu = `\n\\marginpar{\\footnotesize ${exercice.id}` + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-  }
-  // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
-  exercice.contenuCorrection = texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
-}
-
-/**
- * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
  * @author Rémi Angot
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
@@ -189,8 +134,8 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
 }
 
 /**
- * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
- * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne!
+ * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne !
  * @author Mickael Guironnet
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
@@ -198,7 +143,7 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
  *          eleId : identifiant ID pour retrouver la colonne
  *          largeur1 : largeur de la première colonne en latex en pourcentage
  *          widthmincol1 : largeur de la première minimum en html en px
- *          widthmincol2 : largeur de la deuxième  minimum en html en px
+ *          widthmincol2 : largeur de la deuxième minimum en html en px
  *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
  * @return {string}
  */
@@ -270,7 +215,7 @@ export function centrage (texte) {
 
 /**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
- * @author Jean-Claude Lhote à partir du code de Eric Elter
+ * @author Jean-Claude Lhote à partir du code d'Eric Elter
  * @param {number|string} min borne inférieure
  * @param {number|string} max borne supérieure
  * @param {number|string} valeur la valeur à contraindre
@@ -293,10 +238,10 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {number} defaut obligatoirement compris entre min et max inclus ou alors égal à melange
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
  * La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
- * @param {boolean} [shuffle=true] si true, alors on brasse la liste en sortie sinon on garde l'ordre
+ * @param {boolean} [shuffle=true] si true, on brasse la liste en sortie sinon on garde l'ordre
  * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie. Si 999, alors le nbQuestions correspond à la longueur de saisie.
  * @param {number | undefined} melange la valeur utilisée pour l'option mélange
- * @param {boolean} [enleveDoublons=false]  si true alors la liste en sortie ne peut pas contenir deux fois la même valeur
+ * @param {boolean} [enleveDoublons=false]  si true, la liste en sortie ne peut pas contenir deux fois la même valeur
  * @param {number[]} exclus liste de valeurs à exclure entre min et max
  */
 export function gestionnaireFormulaireTexte ({
@@ -322,10 +267,10 @@ export function gestionnaireFormulaireTexte ({
   if (!saisie) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
   } else {
-    if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+    if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
       listeIndex = [contraindreValeur(min, Math.max(max, melange ?? max), saisie, defaut)]
     } else {
-      listeIndexProvisoire = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      listeIndexProvisoire = saisie.split('-')// Sinon on crée un tableau à partir des valeurs séparées par des tirets
       for (let i = 0; i < listeIndexProvisoire.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
         if (!isNaN(parseInt(listeIndexProvisoire[i]))) { listeIndex.push(contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut)) } // parseInt en fait un tableau d'entiers
       }
@@ -374,18 +319,7 @@ export function egal (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a > b
- * @param {number} a premier nombre
- * @param {number} b deuxième nombre
- * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
- * @return {boolean}
- */
-export function superieur (a, b, tolerance = epsilon) {
-  return (a - b > tolerance)
-}
-
-/**
- * Retourne true si a < b
+ * Retourne true si le nombre a est inférieur à b
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
  * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
@@ -396,7 +330,7 @@ export function inferieur (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a ≥ b
+ * Retourne true si le nombre a est supérieur ou égal à b
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
  * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
@@ -407,7 +341,7 @@ export function superieurouegal (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a ≤ b
+ * Retourne true si le nombre a est inférieur ou égal à b
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
  * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
@@ -418,7 +352,7 @@ export function inferieurouegal (a, b, tolerance = epsilon) {
 }
 
 /**
- * Retourne true si a est entier ou "presque" entier
+ * Retourne true si le nombre a est entier ou "presque" entier
  * @param {number} a premier nombre
  * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
  * @return {boolean}
@@ -457,21 +391,11 @@ export function carreParfait (x) {
   else return false
 }
 
-// Petite fonction pour écrire des nombres avec Mathalea2d en vue de poser des opérations...
-export function ecrireNombre2D (x, y, n) {
-  const nString = nombreAvecEspace(n)
-  const nombre2D = []
-  for (let k = 0; k < nString.length; k++) {
-    nombre2D.push(texteParPosition(nString[k], x + k * 0.8, y))
-  }
-  return nombre2D
-}
-
 /**
  * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
  * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
  * Si le nombre de couples possibles est inférieur à nombreDeCouplesMin alors
- * on concatène 2 fois la même liste mais avec des ordres différents.
+ * on concatène 2 fois la même liste, mais avec des ordres différents.
  * @param {string[]} E1 - Liste
  * @param {string[]} E2 - Liste
  * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
@@ -537,7 +461,7 @@ export function randint (min, max, listeAEviter = []) {
     }
   }
   if (Array.isArray(listeAEviter)) {
-    listeAEviter = listeAEviter.map(Number).filter(el => Math.round(el) === el) // on filtre les non nombres et les non-entiers
+    listeAEviter = listeAEviter.map(Number).filter(el => Math.round(el) === el) // on filtre les non-nombres et les non-entiers
   } else {
     window.notify('La liste d\'exclusion de randint n\'est pas d\'un type pris en compte', { listeAEviter })
     listeAEviter = []
@@ -548,47 +472,6 @@ export function randint (min, max, listeAEviter = []) {
     }
   }
   return min + rand
-}
-
-/**
- * Créé un string aléatoire
- *
- * strRandom({
- *  includeUpperCase: true,
- *  includeNumbers: true,
- *  length: 5,
- *  startsWithLowerCase: true
- * });
- *
- * // renvoie par exemple : "iL0v3"
- *
- * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
- */
-export function strRandom (o) {
-  let a = 10
-  const b = 'abcdefghijklmnopqrstuvwxyz'
-  let c = ''
-  let d = 0
-  let e = '' + b
-  if (o) {
-    if (o.startsWithLowerCase) {
-      c = b[Math.floor(Math.random() * b.length)]
-      d = 1
-    }
-    if (o.length) {
-      a = o.length
-    }
-    if (o.includeUpperCase) {
-      e += b.toUpperCase()
-    }
-    if (o.includeNumbers) {
-      e += '1234567890'
-    }
-  }
-  for (; d < a; d++) {
-    c += e[Math.floor(Math.random() * e.length)]
-  }
-  return c
 }
 
 /**
@@ -615,7 +498,7 @@ export function enleveElement (array, item) {
 
 /**
  *
- * Compte les occurences d'un item dans un tableau
+ * Compter les occurences d'un item dans un tableau
  * @param {array} array
  * @param item
  * @Author Rémi Angot
@@ -627,7 +510,7 @@ export function compteOccurences (array, value) {
 }
 
 /**
- * Enlève toutes les occurences d'un élément d'un tableau donné mais sans modifier le tableau en paramètre et renvoie le tableau modifié
+ * Enlève toutes les occurences d'un élément d'un tableau donné, mais sans modifier le tableau en paramètre et renvoie le tableau modifié
  * @author Rémi Angot & Jean-Claude Lhote
  */
 
@@ -645,24 +528,25 @@ export function enleveElementBis (array, item = undefined) {
 }
 
 /**
- * Enlève l'élément index d'un tableau
+ * Enlève l'élément index d'un tableau attention ! modifie le tableau passé en argument ne retourne rien
+ * @param {Array<any>} le tableau à modifier
+ * @param {number} index de l'élément à retirer
  * @author Jean-Claude Lhote
  */
 export function enleveElementNo (array, index) {
-  array.splice(index, 1)
+  if (index >= 0 && index < array.length) array.splice(index, 1)
 }
 
 /**
  * Enlève l'élément index d'un tableau sans modifier le tableau et retourne le résultat
+ * @param {Array<any>} le tableau à modifier
+ * @param {number} index de l'élément à retirer
+ * @return {Array<any>} une copie du tableau modifié
  * @author Jean-Claude Lhote
  */
-export function enleveElementNoBis (array, index) {
-  const tableaucopie = []
-  for (let i = 0; i < array.length; i++) {
-    tableaucopie.push(array[i])
-  }
-  tableaucopie.splice(index, 1)
-  return tableaucopie
+export function nouveauTableauPriveDunElement (array, index) {
+  const tableaucopie = array.slice()
+  return tableaucopie.splice(index, 1)
 }
 
 /**
@@ -715,7 +599,7 @@ export function range (max, listeAEviter = []) {
 }
 
 /**
- * Retourne une liste entre 2 bornes sans appartenir à une liste donnée (par défaut des entiers mais on peut changer le pas)
+ * Retourne une liste entre 2 bornes sans appartenir à une liste donnée (par défaut des entiers, mais on peut changer le pas)
  * @param {min}
  * @param {max}
  * @param {listeAEviter}
@@ -777,7 +661,7 @@ export function compareFractions (a, b) {
 }
 
 /**
- * Fonction de comparaison à utiliser avec tableau.sort(compareNombres)
+ * Fonction de comparaison à utiliser avec <tableau.sort(compareNombres)>
  *
  *
  * @author Rémi Angot
@@ -798,7 +682,7 @@ export function numTrie (arr) {
 
 /**
  * retourne un tableau dans lequel les doublons ont été supprimés s'il y en a MAIS SANS TRI
- * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
+ * @param {array} arr Tableau duquel on veut supprimer les doublons numériques
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
@@ -1029,7 +913,7 @@ export function combinaisonListes (liste, tailleMinimale) {
 
 /**
  * Concatène liste à elle-même en imposant à la nouvelle liste de contenir au moins tous les élements
- * de la liste initiale mais sans gestion de nombre de doublons au final.
+ * de la liste initiale, mais sans gestion de nombre de doublons.
  * @Example
  * combinaisonListes2([A,B,C],7)
  * // [B,C,B,B,C,A,B]
@@ -1047,7 +931,7 @@ export function combinaisonListes2 (liste, tailleMinimale) {
 }
 
 export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
-  // Concatène liste à elle même en changeant
+  // Concatène liste à elle-même en changeant
   if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
   let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
@@ -1056,31 +940,8 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
   return l
 }
 
-/** Renvoie une liste exhaustive de tableaux contenant les mêmes élèments que tab mais jamais dans le même ordre
- * Fonction fort utile quand reponse est une suite de nombres par exemple. Voir ligne 111 Exercice 3A10-6.
- * Gros défaut :  Si tab contient plus de 6 éléments, cette fonction est chronophage. A ne pas utiliser
- * @example reponse = diversesReponsesPossibles([3,4,5]) renvoie [[3,4,5],[3,5,4],[4,3,5],[4,5,3],[5,3,4],[5,4,3]]
- * et ensuite pour les tous les i : reponse[i]=reponse[i].join(';') et reponse contient alors toutes les réponses possibles
- * @author Eric Elter
- * Septembre 2022
- */
-export function diversesReponsesPossibles (tab) {
-  let tab2, tab3
-  const rep = []
-  if (tab.length === 1) return (tab)
-  for (let ee = 0; ee < tab.length; ee++) {
-    tab2 = tab.slice()
-    tab2.splice(ee, 1)
-    tab3 = diversesReponsesPossibles(tab2)
-    for (let k = 0; k < tab3.length; k++) {
-      rep.push([tab[ee]].concat(tab3[k]))
-    }
-  }
-  return rep
-}
-
 /**
- * N'écrit pas un nombre s'il est égal à 1
+ * écrit le nombre, mais pas un nombre s'il est égal à 1
  * @Example
  * //rienSi1(1)+'x' -> x
  * //rienSi1(-1)+'x' -> -x
@@ -1090,7 +951,7 @@ export function rienSi1 (a) {
   if (equal(a, 1)) return ''
   if (equal(a, -1)) return '-'
   if (a instanceof Fraction || a instanceof FractionEtendue) return a.toLatex()
-  if (Number(a) || a === 0) return stringNombre(a) // on retourne 0 ce sera pas joli, mais Number(0) est false !!!
+  if (Number(a) || a === 0) return stringNombre(a) // on retourne 0, ce ne sera pas joli, mais Number(0) est false !!!
   window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
 }
 
@@ -1110,37 +971,19 @@ export function texteExposant (texte) {
 }
 
 /**
- * Gère l'écriture de l'indice en mode text (ne doit pas s'utiliser entre $ $)
- * Pour le mode maths (entre $ $) on utilisera tout _3 pour mettre un indice 3 ou _{42} pour l'indice 42.
- * @param {string} texte
- * @Example
- * // `(d${texteIndice(3)})`
- * @author Jean-Claude Lhote
- */
-export function texteIndice (texte) {
-  if (context.isHtml) {
-    return `<sub>${texte}</sub>`
-  } else {
-    return `\\textsubscript{${texte}}`
-  }
-}
-
-/**
  * Ajoute les parenthèses et le signe
  * @Example
  * //(+3) ou (-3)
  * @author Rémi Angot
  */
 export function ecritureNombreRelatif (a) {
-  let result = ''
   if (a > 0) {
-    result = '(+' + a + ')'
+    return '(+' + a.toString() + ')'
   } else if (a < 0) {
-    result = '(' + a + ')'
-  } else { // ne pas mettre de parenthèses pour 0
-    result = '0'
+    return '(' + a.toString() + ')'
   }
-  return result
+  // ne pas mettre de parenthèses pour le nombre 0.
+  return '0'
 }
 
 /**
@@ -1153,7 +996,7 @@ export function ecritureNombreRelatifc (a) {
     result = miseEnEvidence('(+' + texNombre(a) + ')', 'blue')
   } else if (a < 0) {
     result = miseEnEvidence('(' + texNombre(a) + ')')
-  } else { // ne pas mettre de parenthèses pour 0
+  } else { // ne pas mettre de parenthèses pour le nnombre 0.
     result = miseEnEvidence('0', 'black')
   }
   return result
@@ -1197,7 +1040,7 @@ export function ecritureAlgebriqueSauf1 (a) {
 }
 
 /**
- * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
+ * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul).
  * @param {number} a
  */
 export function ecritureAlgebriquec (a) {
@@ -1234,7 +1077,7 @@ export function ecritureParentheseSiNegatif (a) {
     else return `(${texNombre(a, 8)})`
   } else {
     if (a >= 0) {
-      result = texNombre(a, 8) // j'ai passé a dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
+      result = texNombre(a, 8) // j'ai passé le nombre dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
     } else {
       result = `(${texNombre(a, 8)})`
     }
@@ -1256,7 +1099,7 @@ export function ecritureParentheseSiMoins (expr) {
 /**
  *
  * @author Jean-claude Lhote
- * @param {numero} 1=A, 2=B ..
+ * @param {numero} 1=A, 2=B ...
  * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
  */
 
@@ -1267,259 +1110,6 @@ export function calculAligne (numero, etapes) {
   }
   script += `\\\\${miseEnEvidence(lettreDepuisChiffre(numero) + '&=' + etapes[etapes.length - 1])}$`
   return script
-}
-
-/**
- * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
- *
- * @author Rémi Angot
- */
-export function valeurBase (n) {
-  switch (n) {
-    case 'A':
-      return 10
-    case 'B':
-      return 11
-    case 'C':
-      return 12
-    case 'D':
-      return 13
-    case 'E':
-      return 14
-    case 'F':
-      return 15
-    default:
-      return parseInt(n)
-  }
-}
-
-export function baseValeur (n) {
-  switch (n) {
-    case 10:
-      return 'A'
-    case 11:
-      return 'B'
-    case 12:
-      return 'C'
-    case 13:
-      return 'D'
-    case 14:
-      return 'E'
-    case 15:
-      return 'F'
-    default:
-      return Number(n).toString()
-  }
-}
-
-/**
- * Convertit une chaine correspondant à un nombre écrit en base b en un nombre entier en base 10.
- * @param {} nombre
- * @param {number} b la base de départ
- */
-export function baseNVersBase10 (stringNombre, b) {
-  let result = 0
-  if (typeof stringNombre === 'number') {
-    stringNombre = stringNombre.toString()
-  } else if (stringNombre instanceof Decimal) {
-    stringNombre = stringNombre.toNumber().toString()
-  }
-  for (let i = 0; i < stringNombre.length; i++) {
-    result += b ** i * valeurBase(stringNombre.charAt(stringNombre.length - 1 - i))
-  }
-  return result
-}
-
-export function base10VersBaseN (nombre, b) {
-  // let puissanceMax = 0
-  // let chiffre
-  // let valeur
-  // let code = ''
-  // while (b ** (puissanceMax + 1) < nombre) {
-  //   puissanceMax++
-  // }
-  // for (let i = puissanceMax; i >= 0; i--) {
-  //   chiffre = 0
-  //   do {
-  //     valeur = chiffre * b ** i
-  //     chiffre++
-  //   } while (valeur + b ** i <= nombre)
-  //   chiffre--
-  //   code += baseValeur(chiffre)
-  //   nombre -= chiffre * b ** i
-  // }
-  // return code
-  if (nombre instanceof Decimal) return nombre.toNumber().toString(b).toUpperCase()
-  else return nombre.toString(b).toUpperCase()
-  // Il y avait un probleme avec 3 = (3)_3
-}
-
-/**
- *
- * @param {array} matrice M tableau 3x3 nombres
- * @param {array} vecteur A tableau 3 nombres
- * Fonction pouvant être utilisée en 2d avec des coordonnées homogènes
- * elle retourne le vecteur [x,y,z] résultat de M.A
- * @author Jean-Claude Lhote
- */
-
-export function produitMatriceVecteur3x3 (matrice, vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
-  const resultat = [0, 0, 0]
-  for (let j = 0; j < 3; j++) { // Chaque ligne de la matrice
-    for (let i = 0; i < 3; i++) { // On traite la ligne i de la matrice -> résultat = coordonnée i du vecteur résultat
-      resultat[j] += matrice[j][i] * vecteur[i]
-    }
-  }
-  return resultat
-}
-
-/**
- *
- * @param {array} matrice1 Matrice A
- * @param {array} matrice2 Matrice B
- * retourne la matrice A.B
- * @author Jean-Claude Lhote
- */
-
-export function produitMatriceMatrice3x3 (matrice1, matrice2) { // les deux matrices sont des tableaux 3x3  [[ligne 1],[ligne 2],[ligne 3]] et le résultat est de la même nature.
-  const resultat = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-  for (let j = 0; j < 3; j++) {
-    for (let i = 0; i < 3; i++) {
-      for (let k = 0; k < 3; k++) {
-        resultat[j][i] += matrice1[j][k] * matrice2[k][i]
-      }
-    }
-  }
-  return resultat
-}
-
-/**
- *
- * @param {array} point
- * calcule les coordonnées d'un point donné par ses coordonnées en repère orthonormal en repère (O,I,J) tel que IOJ=60°
- * @author Jean-Claude Lhote
- */
-export function changementDeBaseOrthoTri (point) {
-  if (point.length === 2) point.push(1)
-  return produitMatriceVecteur3x3([[1, -Math.cos(Math.PI / 3) / Math.sin(Math.PI / 3), 0], [0, 1 / Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
-}
-
-/**
- *
- * @param {array} point
- * Changement de base inverse de la fonction précédente
- * @author Jean-CLaude Lhote
- */
-export function changementDeBaseTriOrtho (point) {
-  if (point.length === 2) point.push(1)
-  return produitMatriceVecteur3x3([[1, Math.cos(Math.PI / 3), 0], [0, Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
-}
-
-/**
- *
- * @param {number} transformation Entier déterminant la transformation voulue
- ** 1=symétrie / passant par O
- **2=symétrie \ passant par O
- **3=symétrie _ passant par O
- **4=symétrie | passant par O
- **5= rotation 90° anti-horaire centre O
- **6= rotation 90° horaire centre O
- **7= symétrie centrale centre O
- **11= rotation 60° anti-horaire centre O
- **12= rotation 60° horaire centre O
- **13= rotation 120° anti-horaire centre O
- **14= rotation 120° horaire centre O
- **8= translation coordonnées de O = vecteur de translation
- **9= homothétie. centre O rapport k
- **10= homothétie. centre O rapport 1/k
- * @param {array} pointA Point dont on cherche l'image
- * @param {array} pointO Centre du repère local pour les symétries, centre pour les rotations et les homothéties
- * @param {array} vecteur Vecteur de la translation
- * @param {number} rapport rapport d'homothétie
- * @author Jean-Claude Lhote
- */
-export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
-  // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-  // nécessite d'être en repère orthonormal...
-  // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
-
-  const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
-  const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
-  const matriceSymYyPrime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
-  const matriceSymObl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
-  const matriceQuartDeTourDirect = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
-  const matriceQuartDeTourIndirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
-  const matriceSymCentrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
-  const matriceRotation60Direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-  const matriceRotation60Indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-  const matriceRotation120Direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-  const matriceRotation120Indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-
-  let pointA1 = [0, 0, 0]
-  let pointA2 = [0, 0, 0]
-
-  if (pointA.length === 2) pointA.push(1)
-  const x2 = pointO[0] // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
-  const y2 = pointO[1]
-  const u = vecteur[0] // (u,v) vecteur de translation.
-  const v = vecteur[1]
-  const k = rapport // rapport d'homothétie
-
-  const matriceChangementDeRepere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
-  const matriceChangementDeRepereInv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
-  const matriceTranslation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
-  const matriceHomothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
-  const matriceHomothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
-
-  let matrice
-
-  switch (transformation) {
-    case 1:
-      matrice = matriceSymObl1.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 2:
-      matrice = matriceSymObl2.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 3:
-      matrice = matriceSymxxprime.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 4:
-      matrice = matriceSymYyPrime.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 5:
-      matrice = matriceQuartDeTourDirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 6:
-      matrice = matriceQuartDeTourIndirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 7:
-      matrice = matriceSymCentrale.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 11:
-      matrice = matriceRotation60Direct.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 12:
-      matrice = matriceRotation60Indirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 13:
-      matrice = matriceRotation120Direct.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 14:
-      matrice = matriceRotation120Indirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 8:
-      matrice = matriceTranslation.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 9:
-      matrice = matriceHomothetie.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-    case 10:
-      matrice = matriceHomothetie2.multiplieMatriceCarree(matriceChangementDeRepereInv)
-      break
-  }
-  pointA1 = matrice.multiplieVecteur(pointA)
-  pointA2 = matriceChangementDeRepere.multiplieVecteur(pointA1)
-  return pointA2
 }
 
 /**
@@ -1621,8 +1211,8 @@ export function abs (a) {
 // }
 
 /**
- * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
- * le nombre a est comparé à son arrondi à précision près. Si la différence est inférieure à epsilon, alors on retourne '=' sinon '\\approx'
+ * Retourne égal si la valeur est égale à l'arrondi souhaité ou environ égal si ce n'est pas le cas
+ * Le nombre a est comparé à son arrondi à précision près. Si la différence est inférieure à epsilon, alors on retourne '=' sinon '\\approx'
  * fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
  * @author Jean-Claude Lhote
  */
@@ -1647,8 +1237,8 @@ export function pgcd (...args) {
 }
 
 /**
- * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
- * * **ATTENTION Fonction clonée dans la classe FractionEtendue()**
+ * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur, dénominateur) réduite au maximum dans un tableau [numérateur,dénominateur]
+ * @deprecated : utiliser la class FractionEtendue à la place
  * @author Rémi Angot
  */
 export function fractionSimplifiee (n, d) {
@@ -1666,6 +1256,7 @@ export function fractionSimplifiee (n, d) {
 
 /**
  * Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier
+ * @deprecated : utiliser la class FractionEtendue à la place
  * @author Rémi Angot
  */
 export function texFractionReduite (n, d) {
@@ -1677,6 +1268,7 @@ export function texFractionReduite (n, d) {
 }
 
 /**
+ * @deprecated : utiliser la class FractionEtendue à la place
  * produitDeDeuxFractions(num1,den1,num2,den2) retourne deux chaines :
  * la première est la fraction résultat, la deuxième est le calcul mis en forme Latex avec simplification éventuelle
  * Applique une simplification si le numérateur de l'une est égal au dénominateur de l'autre.
@@ -1704,9 +1296,9 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 }
 
 /**
- *
+ * @deprecated utiliser la class FractionEtendue à la place
  * Simplifie une fraction en montrant les étapes
- * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
+ * Le résultat est un string qui doit être entouré de $ pour le mode mathématique
  * @author Rémi Angot
  */
 export function simplificationDeFractionAvecEtapes (num, den) {
@@ -1745,7 +1337,7 @@ export function produitsEnCroix ([[a, b], [c, d]]) { // écrit une chaine pour a
 
 /**
  * Retourne la quatrième proportionnelle de 3 nombres en fonction d'une précision demandée
- * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
+ * Le résultat est un string qui doit être entouré de $ pour le mode mathématique
  * @author Jean-Claude Lhote
  */
 
@@ -1768,7 +1360,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
 }
 
 /**
- * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
+ * renvoie une chaine correspondant à l'écriture réduite d'ax+b selon les valeurs de a et b
  * La lettre par défaut utilisée est 'x' mais peut être tout autre chose.
  * @author Jean-Claude Lhote
  * @param {number} a
@@ -1791,7 +1383,7 @@ export function reduireAxPlusB (a, b) {
 }
 
 /**
- * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
+ * renvoie une chaine correspondant à l'écriture réduite d'ax^3+bx^2+cx+d selon les valeurs de a, b, c et d
  * @author Jean-Claude Lhote
  */
 export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
@@ -1966,7 +1558,7 @@ export function texFactorisation (n, puissancesOn = true) {
  *
  * @param {Entier} n
  * Extrait le plus grand nombre possible de la racine carrée de n
- * retourne le résulat [a,b] pour a²b=n
+ * retourne le résulat [a, b] pour a²b=n
  * @author Jean-Claude Lhote
  */
 export function extraireRacineCarree (n) {
@@ -1988,7 +1580,7 @@ export function extraireRacineCarree (n) {
 /**
  *
  * @param {Entier} n
- * retourne le code Latex de la racine carrée de n "réduite"
+ * retourne le code Latex de la racine carrée de n réduite
  * @author Jean-CLaude Lhote
  */
 export function texRacineCarree (n) {
@@ -2017,9 +1609,11 @@ export function xcas (expression) {
 }
 
 /**
- * Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
- * Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
- * @author Rémi Angot modifié par Jean-Claude Lhote
+ * @deprecated !!! Utiliser la class Decimal pour faire des calculs sur les décimaux exacts :
+ * Cette fonction ne règle en rien le problème des flottants
+ * `calcul(0.3)` retourne le même 0.3 qui en fait est 0.299999999999999989
+ *
+ * @author Rémi Angot modifié par Jean-Claude Lhote mais en vain !
  */
 export function calcul (x, arrondir = 6) {
   const sansPrecision = (arrondir === undefined)
@@ -2038,7 +1632,7 @@ export function calcul (x, arrondir = 6) {
 }
 
 /**
- * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
+ * Utilise la class Decimal pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
  * Le 2e argument facultatif permet de préciser l'arrondi souhaité
  * @author Rémi Angot
  */
@@ -2048,29 +1642,6 @@ export function nombreDecimal (expression, arrondir = false) {
   } else {
     return stringNombre(new Decimal(expression), arrondir)
   }
-}
-
-/**
- * Formattage pour une sortie LaTeX entre $$
- * formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
- * Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
- * @author Frédéric PIOU
- */
-
-export function texNum (expression, formatFraction = false) {
-  if (typeof expression === 'object') {
-    const signe = expression.s === 1 ? '' : '-'
-    if (formatFraction) {
-      expression = expression.d !== 1 ? signe + texFraction(expression.n, expression.d) : signe + expression.n
-      expression = expression.replace(',', '{,}').replace('{{,}}', '{,}')
-    } else {
-      expression = texNombre(evaluate(format(expression)))
-    }
-    //  expression = expression.replace(',', '{,}').replace('{{,}}', '{,}') // Supprimé par EE car non fonctionnel dans le else qui précède.
-  } else {
-    expression = texNombre(parseFloat(Algebrite.eval(expression)))
-  }
-  return expression
 }
 
 /**
@@ -2140,7 +1711,7 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
       for (let i = 0; i < nbsommets; i++) {
         polygone += String.fromCharCode(premiersommet + i)
       }
-      cpt++ // Au bout de 20 essais on laisse tomber la liste à éviter
+      cpt++ // Au bout de 20 essais, on laisse tomber la liste à éviter
     }
   } else {
     console.log('Trop de questions donc plusieurs polygones peuvent avoir le même nom')
@@ -2166,7 +1737,7 @@ export function possedeUnCaractereInterdit (texte, listeAEviter) {
 
 /**
  * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de listeAEviter
- * toutes la liste des nombres est retournée si combien est supérieur à l'effectif disponible
+ * toute la liste des nombres est retournée si combien est supérieur à l'effectif disponible
  * les valeurs sont dans un ordre aléatoire.
  * @author Jean-Claude Lhote
  *
@@ -2205,25 +1776,6 @@ export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscul
     else lettres.push(lettreMinusculeDepuisChiffre(n))
   }
   return lettres
-}
-
-export function cesar (word, decal) {
-  let mot = ''
-  let code = 65
-  for (let x = 0; x < word.length; x++) {
-    code = word.charCodeAt(x) % 65
-    code = (code + decal) % 26 + 65
-    mot += String.fromCharCode(code)
-  }
-  return mot
-}
-
-export function codeCesar (mots, decal) {
-  const motsCodes = []
-  for (let x = 0; x < mots.length; x++) {
-    motsCodes.push(cesar(mots[x], decal))
-  }
-  return motsCodes
 }
 
 /**
@@ -2288,7 +1840,7 @@ export function lettreIndiceeMinusculeDepuisChiffre (i) {
 /**
  * @author Rémi Angot
  * @Example
- * //0h24 est accepté
+ * //0 h 24 est accepté
  */
 export function minToHoraire (minutes) {
   let nbHour = parseInt(minutes / 60)
@@ -2306,7 +1858,7 @@ export function minToHoraire (minutes) {
 /**
  * @author Rémi Angot
  * @Example
- * //on écrira 24 minutes plutôt que 0h24
+ * //on écrira 24 minutes plutôt que 0 h 24
  */
 export function minToHour (minutes) {
   let nbHour = parseInt(minutes / 60)
@@ -2517,7 +2069,7 @@ export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts 
           break
         }
       }
-      if (!present) { // s'il n'est pas présent, on le push.
+      if (!present) { // s'il n'est pas présent, on le stocke.
         notes.push(candidat)
         i++
       }
@@ -2586,7 +2138,7 @@ export function nomDuJour (n) {
  * @param n quantième du jour
  * @author Mireille Gain
  */
-export function jour () {
+export function jourAuHasard () {
   return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
 }
 
@@ -2956,36 +2508,7 @@ export function nombreAvecEspace (nb) {
  * @param {integer} exp
  * @returns {string} Écriture décimale avec espaces
  */
-/* export const scientifiqueToDecimal = (mantisse, exp) => {
-  mantisse = mantisse.toString()
-  let indiceVirguleDepart = mantisse.indexOf('.')
-  if (indiceVirguleDepart < 0) {
-    indiceVirguleDepart = mantisse.length
-  }
-  const indiceVirguleArrivee = indiceVirguleDepart + exp
-  let mantisseSansVirgule = mantisse.replace('.', '')
-  const indiceMax = mantisseSansVirgule.length - 1
-  // indiceMax est l'indice du chiffre des unités
-  if (indiceVirguleArrivee > indiceMax) {
-    // On ajoute des 0 à droite
-    for (let i = indiceMax + 1; i < indiceVirguleArrivee; i++) {
-      mantisseSansVirgule += '0'
-    }
-  } else if (indiceVirguleArrivee > 0 && indiceVirguleArrivee <= indiceMax) {
-    // On insère la virgule
-    mantisseSansVirgule = mantisseSansVirgule.substring(0, indiceVirguleArrivee) + ',' + mantisseSansVirgule.substring(indiceVirguleArrivee, mantisseSansVirgule.length)
-  } else {
-    // On ajoute des 0 à gauche
-    let partiGauche = '0,'
-    for (let i = 0; i < Math.abs(indiceVirguleArrivee); i++) {
-      partiGauche += '0'
-    }
-    mantisseSansVirgule = partiGauche + mantisseSansVirgule
-  }
-  return insereEspaceDansNombre(mantisseSansVirgule)
-}
-*/
-export const scientifiqueToDecimal = (mantisse, exp) => {
+export function scientifiqueToDecimal (mantisse, exp) {
   if (exp < -6) Decimal.set({ toExpNeg: exp - 1 })
   else if (exp > 20) Decimal.set({ toExpPos: exp + 1 })
   return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
@@ -2996,7 +2519,7 @@ export const scientifiqueToDecimal = (mantisse, exp) => {
  * @param {string |number} nb
  * @returns {string}
  */
-export const insereEspaceDansNombre = nb => {
+export function insereEspaceDansNombre (nb) {
   if (!Number.isNaN(nb)) {
     nb = nb.toString().replace('.', ',')
   } else {
@@ -3026,7 +2549,9 @@ export const insereEspaceDansNombre = nb => {
   return nb
 }
 
-export const insertCharInString = (string, index, char) => string.substring(0, index) + char + string.substring(index, string.length)
+export function insertCharInString (string, index, char) {
+  return string.substring(0, index) + char + string.substring(index, string.length)
+}
 
 /**
  * Destinée à être utilisée hors des $ $
@@ -3533,34 +3058,6 @@ export function premierAvec (n, listeAEviter = [], inférieur = true) {
 }
 
 /**
- * Renvoie la décomposition en produit de facteurs premiers d'un nombre avec les facteursABarrer barrés
- * @author Guillaume Valmont
- * @param {number} nombre
- * @param {number[]} facteursABarrer
- * @returns texte en LateX
- */
-export function decompositionFacteursPremiersBarres (nombreADecomposer, facteursABarrer) {
-  const decomposition = decompositionFacteursPremiersArray(nombreADecomposer)
-  const facteursBarres = []
-  let str = ''
-  for (const nombre of decomposition) {
-    let unNombreAEteBarre = false
-    for (let i = 0; i < facteursABarrer.length; i++) {
-      const facteurABarrer = facteursABarrer[i]
-      if (nombre === facteurABarrer && !facteursBarres.includes(i) && !unNombreAEteBarre) {
-        str += ` \\cancel{${facteurABarrer}} \\times `
-        facteursBarres.push(i)
-        unNombreAEteBarre = true
-      }
-    }
-    if (!unNombreAEteBarre) {
-      str += nombre + ' \\times '
-    }
-  }
-  return str.slice(0, -8)
-}
-
-/**
  * Retourne la liste des diviseurs d'un entier
  * @author Rémi Angot
  */
@@ -3656,229 +3153,6 @@ export function itemize (tableauDeTexte) {
   return texte
 }
 
-/**
- * Utilise pgfplots pour tracer la courbe représentative de f dans le repère avec -10 < x < 10 et -8 < y < 8
- *
- * @param string expression de fonction
- * @author Rémi Angot
- */
-
-export function texGraphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
-  return `
-  \\pgfplotsset{width=10cm,
-      compat=1.9,
-      every axis/.append style={
-                    axis x line=middle,    % put the x axis in the middle
-                    axis y line=middle,    % put the y axis in the middle
-                    xlabel={$x$},          % default put x on x-axis
-                    ylabel={$y$},          % default put y on y-axis
-                    label style={font=\\tiny},
-                    tick label style={font=\\tiny},
-                    xlabel style={above right},
-            ylabel style={above right},
-            grid = major,
-            xtick distance=1,
-            ytick distance=1,
-                    }}
-
-  \\begin{tikzpicture}
-    \\begin{axis}[
-        xmin = ${xmin}, xmax = ${xmax}, ymin = ${ymin}, ymax = ${ymax},
-    ]
-    \\addplot [
-        ultra thick,
-        blue,
-        samples=100,
-        domain=${xmin}:${xmax},
-        ]{${f}};
-    \\end{axis}
-  \\end{tikzpicture}`
-}
-
-/**
- *  Classe MatriceCarree
- * Générateur de Matrice :
- * Si l'argument est un nombre, alors on s'en sert pour définir la taille de la matrice carrée qu'on rempli de zéros.
- * Sinon, c'est le tableau qui sert à remplir la Matrice
- *  @author Jean-Claude Lhote
- */
-export class MatriceCarree {
-  constructor (table) {
-    let ligne
-    this.table = []
-    if (typeof (table) === 'number') {
-      this.dim = table // si c'est un nombre qui est passé en argument, c'est la taille, et on rempli la table de 0
-      for (let i = 0; i < this.dim; i++) {
-        ligne = []
-        for (let j = 0; j < this.dim; j++) {
-          ligne.push(0)
-        }
-        this.table.push(ligne)
-      }
-    } else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
-      this.dim = table.length
-      this.table = table.slice()
-    }
-    /**
-     * Méthode : Calcule le déterminant de la matrice carrée
-     * @author Jean-Claude Lhote
-     */
-    this.determinant = function () {
-      const n = this.dim // taille de la matrice = nxn
-      let determinant = 0
-      let M
-      for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
-        // if (n==1) determinant=this.table[0][0]
-        if (n === 2) {
-          determinant = this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]
-        } else {
-          M = this.matriceReduite(0, i)
-          determinant += ((-1) ** i) * this.table[0][i] * M.determinant()
-        }
-      }
-      return determinant
-    }
-    /**
-     * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
-     * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
-     * @author Jean-Claude Lhote
-     */
-    this.matriceReduite = function (l, c) {
-      const resultat = []
-      let ligne
-      for (let i = 0; i < this.table.length; i++) {
-        if (i !== l) {
-          ligne = []
-          for (let j = 0; j < this.table.length; j++) {
-            if (j !== c) ligne.push(this.table[i][j])
-          }
-          if (ligne.length > 0) resultat.push(ligne)
-        }
-      }
-      return matriceCarree(resultat)
-    }
-    /**
-     * Méthode : m=M.cofacteurs() retourne la matrice des cofacteurs de M utilisée dans l'inversion de M.
-     */
-    this.cofacteurs = function () { // renvoie la matrice des cofacteurs.
-      const n = this.dim
-      let resultat = []
-      let ligne
-      let M
-      if (n > 2) {
-        for (let i = 0; i < n; i++) {
-          ligne = []
-          for (let j = 0; j < n; j++) {
-            M = this.matriceReduite(i, j)
-            ligne.push((-1) ** (i + j) * M.determinant())
-          }
-          resultat.push(ligne)
-        }
-      } else if (n === 2) {
-        resultat = [[this.table[1][1], -this.table[1][0]], [-this.table[0][1], this.table[0][0]]]
-      } else return false
-      return matriceCarree(resultat)
-    }
-    /**
-     * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
-     */
-    this.transposee = function () { // retourne la matrice transposée
-      const n = this.dim
-      const resultat = []
-      let ligne
-      for (let i = 0; i < n; i++) {
-        ligne = []
-        for (let j = 0; j < n; j++) {
-          ligne.push(this.table[j][i])
-        }
-        resultat.push(ligne)
-      }
-      return matriceCarree(resultat)
-    }
-    /**
-     * m=M.multiplieParReel(k) Multiplie tous les éléments de la matrice par k. Utilisée pour l'inversion de M
-     * @param {*} k
-     */
-    this.multiplieParReel = function (k) { // retourne k * la matrice
-      const n = this.dim
-      const resultat = []
-      let ligne
-      for (let i = 0; i < n; i++) {
-        ligne = []
-        for (let j = 0; j < n; j++) {
-          ligne.push(k * this.table[i][j])
-        }
-        resultat.push(ligne)
-      }
-      return matriceCarree(resultat)
-    }
-
-    /**
-     * Méthode : Calcule le produit d'une matrice nxn par un vecteur 1xn (matrice colonne): retourne un vecteur 1xn.
-     *
-     */
-    this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
-      const n = this.dim
-      const resultat = []
-      let somme
-      if (n === V.length) {
-        for (let i = 0; i < n; i++) {
-          somme = 0
-          for (let j = 0; j < n; j++) {
-            somme += this.table[i][j] * V[j]
-          }
-          resultat.push(somme)
-        }
-        return resultat
-      } else return false
-    }
-    /**
-     * Méthode : m=M.inverse() Retourne la matrice inverse de M. Utilisation : résolution de systèmes linéaires
-     */
-    this.inverse = function () { // retourne la matrice inverse (si elle existe)
-      const d = this.determinant()
-      if (!egal(d, 0)) {
-        return this.cofacteurs().transposee().multiplieParReel(1 / d)
-      } else return false
-    }
-    /**
-     * Méthode : m=M.multiplieMatriceCarree(P) : retourne m = M.P
-     *
-     */
-    this.multiplieMatriceCarree = function (M) {
-      const n = this.dim
-      const resultat = []
-      let ligne
-      let somme
-      for (let i = 0; i < n; i++) {
-        ligne = []
-        for (let j = 0; j < n; j++) {
-          somme = 0
-          for (let k = 0; k < n; k++) somme += this.table[i][k] * M.table[k][j]
-          ligne.push(somme)
-        }
-        resultat.push(ligne)
-      }
-      return matriceCarree(resultat)
-    }
-    this.toTex = function () {
-      let matrice = this.table
-      matrice = matrix(matrice)
-      matrice = matrice.toString()
-      matrice = parse(matrice).toTex().replaceAll('bmatrix', 'pmatrix')
-      return matrice
-    }
-  }
-}
-
-/**
- * Crée une nouvelle instance de la classe MatriceCarree à partir d'un tableau.
- *
- */
-export function matriceCarree (table) {
-  return new MatriceCarree(table)
-}
-
 // Fin de la classe MAtriceCarree
 
 /**
@@ -3932,36 +3206,6 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
 }
 
 /**
- * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d
- * sont des fractions dont le dénominateur est inférieur à 10 et pour laquelle l'image de 3 entiers compris entre -10 et 10
- * sont des entiers compris eux aussi entre -10 et 10
- * @author Jean-Claude Lhote
- */
-export function criblePolynomeEntier () {
-  let trouve = false
-  let coefs = [[]]
-  for (let i = 0, x1, x2, x3, fx1, fx2, fx3, d; ; i++) {
-    x1 = randint(-10, 10)
-    x2 = randint(-10, 10, [x1])
-    x3 = randint(-10, 10, [x1, x2])
-    fx1 = randint(-10, 10)
-    fx2 = randint(-10, 10)
-    fx3 = randint(-10, 10)
-    d = randint(0, 10)
-    coefs = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
-    if (coefs[0][1] !== 0 && coefs[0][1] < 10 && coefs[1][1] < 10 && coefs[2][1] < 10) trouve = true
-    if (trouve) {
-      coefs.push([x1, fx1])
-      coefs.push([x2, fx2])
-      coefs.push([x3, fx3])
-      coefs.push(d)
-      break
-    }
-  }
-  if (trouve) return coefs
-}
-
-/**
  * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
  * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
  * @author Jean-Claude Lhote
@@ -3972,17 +3216,6 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
-}
-
-/**
- * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
- * @author Jean-Claude Lhote
- */
-export function cherchePolynomeDegre3aExtremaFixes (x1, x2, y1, y2) {
-  const M = matriceCarree([[x1 ** 3, x1 ** 2, x1, 1], [x2 ** 3, x2 ** 2, x2, 1], [3 * x1 ** 2, 2 * x1, 1, 0], [3 * x2 ** 2, 2 * x2, 1, 0]])
-  const R = [y1, y2, 0, 0]
-  if (!egal(M.determinant(), 0)) return M.inverse().multiplieVecteur(R)
-  else return false
 }
 
 /**
@@ -4163,31 +3396,6 @@ export function decimalToScientifique (nbDecimal) {
 }
 
 /**
- * Fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
- * @param b1 base1
- * @param b2 base2
- * @param e exposant
- * @param couleur1
- * @param couleur2
- * @author Sébastien Lozano
- */
-export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
-  let str
-  switch (e) {
-    case 0:
-      return '1'
-    case 1:
-      return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`
-    default:
-      str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `
-      for (let i = 1; i < e; i++) {
-        str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`
-      }
-      return str
-  }
-}
-
-/**
  *
  * x le nombre dont on cherche l'ordre de grandeur
  * type = 0 pour la puissance de 10 inférieure, 1 pour la puissance de 10 supérieur et 2 pour la plus proche
@@ -4272,16 +3480,16 @@ export function modalTexteCourt (numeroExercice, texte, labelBouton = 'Aide', ic
  */
 export function modalYoutube (numeroExercice, idYoutube, titre, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
-  if (idYoutube.substr(0, 4) === 'http') {
+  if (idYoutube.substring(0, 4) === 'http') {
     if (idYoutube.slice(-4) === '.pdf') {
       contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><object type="application/pdf" data="${idYoutube}" width="560" height="315"> </object></p></div>`
     }
-    if (idYoutube.substr(0, 17) === 'https://youtu.be/') {
+    if (idYoutube.substring(0, 17) === 'https://youtu.be/') {
       contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
     } else {
       contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${idYoutube}" frameborder="0" allowfullscreen></iframe></p></div>`
     }
-  } else if (idYoutube.substr(0, 4) === '<ifr') {
+  } else if (idYoutube.substring(0, 4) === '<ifr') {
     contenu = `<div class="header">${titre}</div><div class="content"><p align="center">${idYoutube}</p></div>`
   } else {
     contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
@@ -4391,207 +3599,6 @@ export function listeDiviseurs (n) {
   return diviseurs
 }
 
-//= ================================================
-// fonctions de 3F1-act
-//= ================================================
-
-/**
- * Crée une machine mathématique Tikz pour la version LaTeX
- * @param {string} nom nom de la machine en mode maths!
- * @param {string} etape1 chaine en mode maths attention aux espaces et accents
- * @param {string} etape2 chaine en mode maths attention aux espaces et accents
- * @param {string} etape3 chaine en mode maths attention aux espaces et accents
- * @param {string} xLigne1 chaine en mode maths attention aux espaces et accents
- * @param {string} xLigne2 chaine en mode maths attention aux espaces et accents
- * @param {string} yLigne1 chaine en mode maths attention aux espaces et accents
- * @param {string} yLigne2 chaine en mode maths attention aux espaces et accents
- * @author Sébastien Lozano
- */
-
-export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
-  // tous les textes sont en mode maths !!!
-
-  return `
-  \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-  \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-  \\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
-  \\draw [line width=3pt,color=frvzsz] (2,4)-- (2,0);
-  \\draw [line width=3pt,color=frvzsz] (2,0)-- (-4,0);
-  \\draw [line width=3pt,color=frvzsz] (-4,0)-- (-4,4);
-  \\draw [line width=3pt,color=frvzsz] (-4,2)-- (-5,2);
-  \\draw [line width=3pt,color=frvzsz] (-5,2.4)-- (-5,1.6);
-  \\draw [->,line width=3pt,color=frvzsz] (2,2) -- (3,2);
-  \\node[text width=3cm,text centered, scale=1.8] at(-1,3.5){$\\mathbf{machine\\,${nom}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${xLigne1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${xLigne2}}$};
-  \\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
-  %\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-  \\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${yLigne1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${yLigne2}}$};
-  \\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
-  \\end{tikzpicture}
-  `
-}
-
-/**
- * Crée un diagramme tikz pour une machine maths
- * @param {string} nom nom de la fonction
- * @param {string} xAnt nom du nombre de départ
- * @param {array} etapesExpressions tableau contenant les etapes et le expressions algébriques
- * attention mode maths pour les chaines
- * @author Sébastien Lozano
- */
-export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
-  const xInit = -10
-  let saut = 0
-  const pas = 1
-  let sortie = ''
-  sortie += `
-  \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-  \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-  \\draw [line width=3pt,color=frvzsz] (` + xInit + ',0.5) -- (' + (xInit + pas) + ',0.5) -- (' + (xInit + pas) + ',-0.5) -- (' + xInit + `,-0.5) -- cycle;
-  \\node[text width=3cm,text centered, scale=1] at(` + (xInit + 0.5) + `,0){$${xAnt}$};
-  `
-  saut = saut + pas
-  for (let i = 0; i < etapesExpressions.length; i++) {
-    // si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere
-    // on affiche donc chaque fois avec le nom de la fonction
-    if (etapesExpressions.length === i + 1) {
-      // si il y a une operation et une expression algébrique
-      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
-        const wEtape = `${nom}(x)=${etapesExpressions[i][1]}}`.length
-        sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + `,0) circle(0.5);
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',0.5) -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',0.5) -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-0.5) -- (' + (xInit + saut + 5 * pas / 2) + `,-0.5) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=${etapesExpressions[i][1]}$};
-        `
-      }
-      // si il y a une operation et pas d'expression algébrique
-      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
-        const wEtape = `${nom}(x)=\\ldots`.length
-        sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=\\ldots$};
-        `
-      }
-      // si il n'y a pas d'operation mais une expression algébrique
-      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
-        const wEtape = `${nom}(x)=${etapesExpressions[i][1]}`.length
-        sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=${etapesExpressions[i][1]}$};
-        `
-      }
-      // si il n'y ni une operation et ni expression algébrique
-      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
-        const wEtape = `${nom}(x)=\\ldots`.length
-        sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=\\ldots$};
-        `
-      }
-    } else { // sinon c'est une étape intermédiaire
-      // si il y a une operation et une expression algébrique
-      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
-        const wEtape = `${etapesExpressions[i][1]}`.length
-        sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${etapesExpressions[i][1]}$};
-        `
-        saut = saut + 3 * pas + wEtape / 4
-      }
-      // si il y a une operation et pas d'expression algébrique
-      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
-        const wEtape = '\\ldots'.length
-        sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
-        `
-        saut = saut + 3 * pas + wEtape / 4
-      }
-      // si il n'y a pas d'operation mais une expression algébrique
-      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
-        const wEtape = `${etapesExpressions[i][1]}`.length
-        sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${etapesExpressions[i][1]}$};
-        `
-        saut = saut + 3 * pas + wEtape / 4
-      }
-      // si il n'y ni une operation et ni expression algébrique
-      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
-        const wEtape = '\\ldots'.length
-        sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
-        `
-        saut = saut + 3 * pas + wEtape / 4
-      }
-    }
-  }
-  sortie += `
-  \\end{tikzpicture}
-  `
-  return sortie
-}
-
-/**
- * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
- * @param {string} texte
- * @param {string} titrePopup
- * @param {string} textePopup
- * @author Sébastien Lozano
- */
-export function katexPopup (texte, titrePopup, textePopup) {
-  let contenu = ''
-  if (context.isHtml) {
-    contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>'
-    contenu += '<div class="ui special popup" >'
-    if (titrePopup !== '') {
-      contenu += '<div class="header">' + titrePopup + '</div>'
-    }
-    contenu += '<div>' + textePopup + '</div>'
-    contenu += '</div>'
-    return contenu
-  } else {
-    return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
-  }
-}
-
 export function katexPopupTest (texte, titrePopup, textePopup) {
   let contenu = ''
   if (context.isHtml) {
@@ -4609,34 +3616,6 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 }
 
 /**
- * Ecrit un string sans accents
- * @param {string} str
- * @author Sébastien Lozano
- * @source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
- */
-
-/* export function sansAccent(str) {
-  var accent = [
-    /[\300-\306]/g, /[\340-\346]/g,
-    /[\310-\313]/g, /[\350-\353]/g,
-    /[\314-\317]/g, /[\354-\357]/g,
-    /[\322-\330]/g, /[\362-\370]/g,
-    /[\331-\334]/g, /[\371-\374]/g,
-    /[\321]/g, /[\361]/g,
-    /[\307]/g, /[\347]/g,
-  ];
-  var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
-
-  //var str = this;
-  for (var i = 0; i < accent.length; i++) {
-    str = str.replace(accent[i], noaccent[i]);
-  }
-
-  return str;
-}
-*/
-
-/**
  * Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
  * ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
  * @param {number} numero
@@ -4648,7 +3627,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
  **/
 
 export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
-  // ToDo : gérer les popu avec la version 3
+  // ToDo : gérer les popup avec la version 3
   // Pour l'instant, ils sont supprimés
   // if (context.versionMathalea > 2) return texte
   switch (type) {
@@ -4688,67 +3667,6 @@ export function numAlphaNum (k, nospace = false) {
   k = k + 1
   if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + k + ')' + (nospace ? '' : '&nbsp;') + '</span>'
   else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
-}
-
-/**
- * crée un cadre orange autour d'un paragraphe
- * utilisé notamment dans 3F12 pour entourer les programmes de calcul
- * @param {string} texte paragraphe entouré par le cadre orange rectangulaire
- * @author Sébastien Lozano
- */
-
-export function texCadreParOrange (texte) {
-  // \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-  const sortie = `
-   
-   \\setlength{\\fboxrule}{1.5mm}
-   \\par\\vspace{0.25cm}
-   \\noindent\\fcolorbox{nombres}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{` + texte + `}}
-   \\par\\vspace{0.25cm}
-   `
-
-  return sortie
-}
-
-/**
- * affiche une video centrée dans une div
- * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
- * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
- * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
- * @param {string} urlVideo
- * @author Sébastien Lozano
- */
-
-export function machineMathsVideo (urlVideo) {
-  const video = `
-  <div style="text-align:center">
-  <video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
-    <source src="` + urlVideo + `">
-    Votre navigateur ne gère pas l'élément <code>video</code>.
-  </video>
-  </div>`
-
-  return video
-}
-
-/**
- * détecte si le navigateur et safari ou chrome et renvoie un booléen
- * @author Sébastien Lozano
- */
-export function detectSafariChromeBrowser () {
-  let isChrome = navigator.userAgent.indexOf('Chrome') > -1
-  // var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
-  // var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
-  let isSafari = navigator.userAgent.indexOf('Safari') > -1
-  const isOpera = navigator.userAgent.toLowerCase().indexOf('op') > -1
-  if ((isChrome) && (isSafari)) {
-    isSafari = false
-  }
-  if ((isChrome) && (isOpera)) {
-    isChrome = false
-  }
-
-  return (isChrome || isSafari)
 }
 
 /**
@@ -5131,1880 +4049,6 @@ export function decompositionFacteursPremiersArray (n) {
   return decomposition
 }
 
-/**
- * @class
- * @classdesc Classe Triangles - Méthodes utiles pour les triangles *
- * * @param {number} l1 une des longueurs du triangle
- * * @param {number} l2 une des longueurs du triangle
- * * @param {number} l3 une des longueurs du triangle
- * * @param {number} a1 un des angles du triangle
- * * @param {number} a2 un des angles du triangle
- * * @param {number} a3  un des angles du triangle
- * @author Sébastien Lozano
- */
-export function Triangles (l1, l2, l3, a1, a2, a3) {
-  const self = this
-
-  /**
-   * @constant {array} nomsPossibles liste de noms possibles pour un triangle
-   */
-  const nomsPossibles = ['AGE', 'AIL', 'AIR', 'ALU', 'AME', 'AMI', 'ANE', 'ARC', 'BAC', 'BAL', 'BAR', 'BEC', 'BEL', 'BIO', 'BIP', 'BIS', 'BLE', 'BOA', 'BOF', 'BOG', 'BOL', 'BUT', 'BYE', 'COQ', 'CRI', 'CRU', 'DUC', 'DUO', 'DUR', 'EAU', 'ECU', 'EGO', 'EPI', 'FER', 'FIL', 'FUN', 'GPS', 'ICE', 'JET', 'KIF', 'KIR', 'MAC', 'NEM', 'PAS', 'PIC', 'PIF', 'PIN', 'POT', 'RAI', 'RAP', 'RAT', 'RIF', 'SEL', 'TAF', 'TIC', 'TAC', 'TOC', 'TOP', 'UNI', 'WOK', 'YAK', 'YEN', 'ZEN', 'ZIG', 'ZAG']
-
-  /**
-   * @property {string} nom nom du triangle, tiré au hasard dans un tableau
-   */
-  this.nom = choice(nomsPossibles)
-
-  /**
-   * @return {string} Renvoie le nom du triangle tiré au hasard
-   * * les strings sont EN MODE MATHS le premier caractère du string est un $
-   * @example si triangle est une instance de la classe Triangle() triangle.getNom() renvoie le string '$AMI$' si AMI est le nom tiré au hasard
-   */
-  function getNom () {
-    return '$' + self.nom + '$'
-  }
-
-  /**
-   * @return {array} Renvoie un tableau contenant le nom des côtés, segments, du triangle tiré au hasard
-   * * les strings sont EN MODE MATHS le premier caractère du string est un $
-   * @example si triangle est une instance de la classe Triangle() triangle.getCotes() renvoie le tableau de strings ['$[AM]$','$[MI]$','$[IA]$'] dans cet ordre si AMI est le nom tiré au hasard
-   */
-  function getCotes () {
-    const cotes = []
-    const triangle = self.nom
-    const sommets = triangle.split('')
-    cotes[0] = '$[' + sommets[0] + '' + sommets[1] + ']$'
-    cotes[1] = '$[' + sommets[1] + '' + sommets[2] + ']$'
-    cotes[2] = '$[' + sommets[2] + '' + sommets[0] + ']$'
-
-    return cotes
-  }
-
-  /**
-   * @return {array} Renvoie un tableau contenant le nom des longueurs des côtés du triangle tiré au hasard
-   * * les strings sont EN MODE MATHS le premier caractère du string est un $
-   * @example si triangle est une instance de la classe Triangle() triangle.getCotes() renvoie le tableau de strings ['$AM$','$MI$','$IA$'] dans cet ordre si AMI est le nom tiré au hasard
-   */
-  function getLongueurs () {
-    const longueurs = []
-    const triangle = self.nom
-    const sommets = triangle.split('')
-    longueurs[0] = '$' + sommets[0] + '' + sommets[1] + '$'
-    longueurs[1] = '$' + sommets[1] + '' + sommets[2] + '$'
-    longueurs[2] = '$' + sommets[2] + '' + sommets[0] + '$'
-
-    return longueurs
-  }
-
-  /**
-   * @return {array} Renvoie un tableau avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance de la classe
-   */
-  function getLongueursValeurs () {
-    if ((typeof self.l1 === 'undefined') || (typeof self.l2 === 'undefined') || (typeof self.l3 === 'undefined')) {
-      // return false;
-      return ['L\'une des longueurs de l\'objet triangle n\'est pas définie']
-    }
-    const longueurs = []
-    longueurs[0] = self.l1
-    longueurs[1] = self.l2
-    longueurs[2] = self.l3
-
-    return longueurs
-  }
-
-  /**
-   * @return {array} Renvoie un tableau de strings avec les noms des angles du triangle.
-   * * les strings sont EN MODE MATHS le premier caractère du string est un $
-   */
-  function getAngles () {
-    const angles = []
-    const triangle = self.nom
-    const sommets = triangle.split('')
-    angles[0] = `$\\;\\widehat{${sommets[0] + sommets[1] + sommets[2]}}$`
-    angles[1] = `$\\;\\widehat{${sommets[1] + sommets[2] + sommets[0]}}$`
-    angles[2] = `$\\;\\widehat{${sommets[2] + sommets[0] + sommets[1]}}$`
-
-    return angles
-  }
-
-  /**
-   * @return {array} Renvoie un tableau avec les valeurs des angles du triangle passées en paramètre à l'instance de la classe
-   */
-  function getAnglesValeurs () {
-    if ((typeof self.a1 === 'undefined') || (typeof self.a2 === 'undefined') || (typeof self.a3 === 'undefined')) {
-      // return false;
-      return ['L\'un des angles de l\'objet triangle n\'est pas définie']
-    }
-    const angles = []
-    angles[0] = self.a1
-    angles[1] = self.a2
-    angles[2] = self.a3
-
-    return angles
-  }
-
-  /**
-   * @return {array} Renvoie un tableau de strings avec les noms des sommets du triangle.
-   * * les strings sont EN MODE MATHS le premier caractère du string est un $
-   */
-  function getSommets (math = true) {
-    const triangle = self.nom
-    const sommets = triangle.split('')
-    if (math === true) {
-      sommets[0] = '$' + sommets[0] + '$'
-      sommets[1] = '$' + sommets[1] + '$'
-      sommets[2] = '$' + sommets[2] + '$'
-    }
-    return sommets
-  }
-
-  /**
-   * @return {array} Renvoie le périmètre de l'instance de la classe Triangle() avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance
-   * @example let triangle = new Triangle();
-   * * triangle.l1 = 2;
-   * * triangle.l2 = 3;
-   * * triangle.l3 = 4
-   * * triangle.getPerimetre() renvoie 9
-   */
-  function getPerimetre () {
-    if ((typeof self.l1 === 'undefined') || (typeof self.l2 === 'undefined') || (typeof self.l3 === 'undefined')) {
-      // return false;
-      return 'L\'une des longueurs de l\'objet triangle n\'est pas définie'
-    } else {
-      return self.l1 + self.l2 + self.l3
-    }
-  }
-
-  /**
-   * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un vrai triangle ou non
-   * @example let triangle = new Triangle();
-   * * triangle.l1 = 2;
-   * * triangle.l2 = 3;
-   * * triangle.l3 = 7
-   * * triangle.isTrueTriangleLongueurs() renvoie false
-   * @example let triangle = new Triangle();
-   * * triangle.l1 = 2;
-   * * triangle.l2 = 3;
-   * * triangle.l3 = 4
-   * * triangle.isTrueTriangleLongueurs() renvoie true
-   */
-  function isTrueTriangleLongueurs () {
-    if ((typeof self.l1 === 'undefined') || (typeof self.l2 === 'undefined') || (typeof self.l3 === 'undefined')) {
-      return false
-      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-    }
-    const longueurs = [self.l1, self.l2, self.l3]
-    longueurs.sort(function (a, b) {
-      return a - b
-    })
-    if (longueurs[2] < longueurs[0] + longueurs[1]) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  /**
-   * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un triangle plat ou non
-   * @example let triangle = new Triangle();
-   * * triangle.l1 = 2;
-   * * triangle.l2 = 3;
-   * * triangle.l3 = 5
-   * * triangle.isTrueTriangleLongueurs() renvoie true
-   * @example let triangle = new Triangle();
-   * * triangle.l1 = 2;
-   * * triangle.l2 = 3;
-   * * triangle.l3 = 4
-   * * triangle.isTrueTriangleLongueurs() renvoie false
-   */
-  function isPlatTriangleLongueurs () {
-    if ((typeof self.l1 === 'undefined') || (typeof self.l2 === 'undefined') || (typeof self.l3 === 'undefined')) {
-      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-      return false
-    }
-    const longueurs = [self.l1, self.l2, self.l3]
-    longueurs.sort(function (a, b) {
-      return a - b
-    })
-    if (egal(longueurs[2], longueurs[0] + longueurs[1])) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  /**
-   * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un vrai triangle ou non
-   * @example let triangle = new Triangle();
-   * * triangle.a1 = 100;
-   * * triangle.a2 = 40;
-   * * triangle.a3 = 50
-   * * triangle.isTrueTriangleAngles() renvoie false
-   * @example let triangle = new Triangle();
-   * * triangle.a1 = 80;
-   * * triangle.a2 = 40;
-   * * triangle.a3 = 60
-   * * triangle.isTrueTriangleAngles() renvoie true
-   */
-
-  function isTrueTriangleAngles () {
-    // si l'un des angles n'est pas defini ça ne va pas
-    if ((typeof self.a1 === 'undefined') || (typeof self.a2 === 'undefined') || (typeof self.a3 === 'undefined')) {
-      return false
-      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-    }
-    // si l'un des angles est négatif ça ne va pas
-    if ((self.a1 < 0) || (self.a2 < 0) || (self.a3 < 0)) {
-      return false
-      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-    }
-    if ((self.a1 + self.a2 + self.a3) === 180) {
-      if ((self.a1 === 0 && self.a2 === 0) || (self.a2 === 0 && self.a3 === 0) || (self.a3 === 0 && self.a1 === 0)) {
-        return false
-      } else {
-        return true
-      }
-    } else {
-      return false
-    }
-  }
-
-  // renvoie un booleen selon que les trois angles forment un triangle plat ou non
-  /**
-   * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un triangle plat ou non
-   * @example let triangle = new Triangle();
-   * * triangle.a1 = 0;
-   * * triangle.a2 = 0;
-   * * triangle.a3 = 180
-   * * triangle.isTrueTriangleAngles() renvoie true
-   * @example let triangle = new Triangle();
-   * * triangle.a1 = 80;
-   * * triangle.a2 = 40;
-   * * triangle.a3 = 60
-   * * triangle.isTrueTriangleAngles() renvoie false
-   */
-  function isPlatTriangleAngles () {
-    if ((typeof self.a1 === 'undefined') || (typeof self.a2 === 'undefined') || (typeof self.a3 === 'undefined')) {
-      return false
-      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-    }
-    if ((self.a1 + self.a2 + self.a3) === 180) {
-      if ((self.a1 === 0 && self.a2 === 0) || (self.a2 === 0 && self.a3 === 0) || (self.a3 === 0 && self.a1 === 0)) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      return false
-    }
-  }
-
-  this.l1 = l1
-  this.l2 = l2
-  this.l3 = l3
-  this.a1 = a1
-  this.a2 = a2
-  this.a3 = a3
-  // this.nom = nom;
-  this.getNom = getNom
-  this.getCotes = getCotes
-  this.getLongueurs = getLongueurs
-  this.getLongueursValeurs = getLongueursValeurs
-  this.getAngles = getAngles
-  this.getAnglesValeurs = getAnglesValeurs
-  this.getSommets = getSommets
-  this.getPerimetre = getPerimetre
-  this.isTrueTriangleLongueurs = isTrueTriangleLongueurs
-  this.isPlatTriangleLongueurs = isPlatTriangleLongueurs
-  this.isTrueTriangleAngles = isTrueTriangleAngles
-  this.isPlatTriangleAngles = isPlatTriangleAngles
-  // this.isQuelconque = isQuelconque;
-}
-
-/**
- * @class
- * @classdesc Classe Relatif - Méthodes utiles sur les relatifs
- * @param {...any} relatifs est un paramètre du reste
- * @author Sébastien Lozano
- */
-export function Relatif (...relatifs) {
-  // ; pas de use strict avec un paramètre du reste
-  this.relatifs = relatifs
-
-  /**
-   * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs,
-   * * Si 0 fait partie des relatifs on renvoie une erreur
-   * @return {array} Renvoie un tableau de -1 ou 1
-   * @example getSigneNumber(-1,-2,8,-9,4) renvoie [-1,-1,1,-1,1]
-   */
-  function getSigneNumber () {
-    const signes = []
-    try {
-      // port du string interdit !
-      relatifs.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-        if (element === 0) {
-          throw new RangeError(`${element} a été exclu des valeurs possibles.`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (relatifs.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      relatifs.forEach(function (element) {
-        if (element < 0) {
-          signes.push(-1)
-        }
-        if (element > 0) {
-          signes.push(1)
-        }
-      })
-    } catch (err) {
-      console.log(err.message)
-      console.log(err.stack)
-    }
-    return signes
-  }
-
-  /**
-   * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
-   * @return {array} Renvoie un tableau de strings valant 'négatif' ou 'positif'
-   * @example getSigneNumber(-1,-2,8,-9,4) renvoie le tableau de strings [négatif,négatif,positif,négatif,positif]
-   */
-  function getSigneString () {
-    const signesString = []
-    const signes = getSigneNumber()
-    signes.forEach(function (element) {
-      if (element === -1) {
-        signesString.push('négatif')
-      }
-      if (element === 1) {
-        signesString.push('positif')
-      }
-    })
-    return signesString
-  }
-
-  /**
-   *
-   * @param  {...any} n une liste de deux ou plus de nombres relatifs
-   * @return {number} Renvoie le signe du produit des nombres de cette liste. 1 ou -1
-   * @example getSigneProduitNumber(1,-4,-7) renvoie 1
-   */
-
-  function getSigneProduitNumber (...n) {
-    let produit = 1
-    try {
-      // port du string interdit !
-      n.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-        if (element === 0) {
-          throw new RangeError(`${element} a été exclu des valeurs possibles.`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      n.forEach(function (element) {
-        produit = produit * element
-      })
-      if (produit < 0) {
-        return -1
-      }
-      if (produit > 0) {
-        return 1
-      }
-    } catch (err) {
-      console.log(err.message)
-      console.log(err.stack)
-    }
-  }
-
-  /**
-   *
-   * @param  {...any} n une liste de deux ou plus de nombres relatifs
-   * @return {string} Renvoie un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
-   * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
-   */
-
-  function getSigneProduitString (...n) {
-    const produit = getSigneProduitNumber(...n)
-    if (produit === -1) {
-      return 'négatif'
-    }
-    if (produit === 1) {
-      return 'positif'
-    }
-  }
-
-  /**
-   *
-   * @param  {...any} n une liste de deux ou plus de nombres relatifs
-   * @return {string} Renvoie le nombre d'éléments négatifs des nombres de cette liste.
-   * * la liste d'entiers doit être passé dans un tableau
-   * @example getCardNegatifs([1,-4,-7]) renvoie 2
-   * @example getCardNegatifs([4,-5,7,7,-8,-9]) renvoie 3
-   */
-
-  function getCardNegatifs ([...n]) {
-    let card = 0
-    try {
-      // port du string interdit !
-      n.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-        if (element === 0) {
-          throw new RangeError(`${element} a été exclu des valeurs possibles.`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      n.forEach(function (element) {
-        if (element < 0) {
-          card = card + 1
-        }
-      })
-      return card
-    } catch (err) {
-      console.log(err.message)
-    }
-  }
-
-  /**
-   * Fonction locale
-   * @param {integer} n un entier désignant le cardinal de facteurs négatifs dans un produit
-   * @return un string au singulier ou au pluriel
-   * @example orth_facteurs_negatifs(0) ou orth_facteurs_negatifs(1) renvoie 'facteur negatif'
-   * @example orth_facteurs_negatifs(7) renvoie 'facteurs negatifs'
-   */
-  function orthographeFacteursNegatifs (n) {
-    if (n >= 2) {
-      return 'facteurs négatifs'
-    } else {
-      return 'facteur négatif'
-    }
-  }
-
-  /**
-   * @param  {...any} n une liste de deux ou plus de nombres relatifs qui constituent les facteurs du produit
-   * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
-   * @example setRegleProduitFacteurs([1,-2,-8,5]) renvoie le string 'Il y a 2 facteurs négatifs, le nombre de facteurs négatifs est pair donc le produit est positif.'
-   */
-
-  function setRegleSigneProduit (...n) {
-    try {
-      // port du string interdit !
-      n.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      if (n.length === 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          return 'Les deux facteurs ont le même signe donc le produit est positif.'
-        } else {
-          return 'Les deux facteurs ont un signe différent donc le produit est négatif.'
-        }
-      } else if (n.length > 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          if (getCardNegatifs(n) === 0) {
-            return 'Tous les facteurs sont positifs donc le produit est positif.'
-          } else {
-            return `Il y a ${getCardNegatifs(n)} ${orthographeFacteursNegatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`
-          }
-        } else {
-          return `Il y a ${getCardNegatifs(n)} ${orthographeFacteursNegatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`
-        }
-      }
-    } catch (err) {
-      console.log(err.message)
-    }
-  }
-
-  /**
-   *
-   * @param  {...any} num une liste de deux ou plus de nombres relatifs qui constituent les facteurs du numérateur
-   * @param  {...any} den une liste de deux ou plus de nombres relatifs qui constituent les facteurs du dénominateur
-   * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
-   * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
-   */
-
-  function setRegleSigneQuotient (...n) {
-    try {
-      // port du string interdit !
-      n.forEach(function (element) {
-        if (typeof element === 'string') {
-          throw new TypeError(`${element} est un string !`)
-        }
-      })
-      // Quoi faire sans nombres ?
-      if (n.length === 0) {
-        throw new Error('C\'est mieux avec quelques nombres !')
-      }
-      if (n.length === 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          return 'Le numérateur et le dénominateur ont le même signe donc le quotient est positif.'
-        } else {
-          return 'Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.'
-        }
-      } else if (n.length > 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          if (getCardNegatifs(n) === 0) {
-            return 'Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.'
-          } else {
-            // return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
-            return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`
-          }
-        } else {
-          // return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
-          return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`
-        }
-      }
-    } catch (err) {
-      console.log(err.message)
-    }
-  }
-
-  this.getSigneNumber = getSigneNumber
-  this.getSigneString = getSigneString
-  this.getSigneProduitNumber = getSigneProduitNumber
-  this.getSigneProduitString = getSigneProduitString
-  this.getCardNegatifs = getCardNegatifs
-  this.setRegleSigneProduit = setRegleSigneProduit
-  this.setRegleSigneQuotient = setRegleSigneQuotient
-}
-
-export function nombreEnLettres (nb, type = 1) {
-  let partieEntiere, partieDecimale, nbstring, nbDec, decstring
-  if (estentier(nb)) return partieEntiereEnLettres(nb)
-  else {
-    partieEntiere = Math.floor(nb)
-    partieDecimale = new Decimal(nb).sub(partieEntiere).toDP(3)
-    nbDec = partieDecimale.toString().replace(/\d*\./, '').length
-    partieDecimale = partieDecimale.mul(10 ** nbDec).toNumber()
-
-    switch (nbDec) {
-      case 1:
-        if (partieDecimale > 1) decstring = ' dixièmes'
-        else decstring = ' dixième'
-        break
-      case 2:
-        if (partieDecimale > 1) decstring = ' centièmes'
-        else decstring = ' centième'
-        break
-      case 3:
-        if (partieDecimale > 1) decstring = ' millièmes'
-        else decstring = ' millième'
-        break
-    }
-
-    if (type === 1) {
-      nbstring = partieEntiereEnLettres(partieEntiere) + ' unités et ' + partieEntiereEnLettres(partieDecimale) + decstring
-    } else if (nbDec === nombreDeChiffresDansLaPartieEntiere(partieDecimale)) {
-      nbstring = partieEntiereEnLettres(partieEntiere) + ' virgule ' + partieEntiereEnLettres(partieDecimale)
-    } else {
-      nbstring = partieEntiereEnLettres(partieEntiere) + ' virgule '
-      for (let n = 0; n < nbDec - nombreDeChiffresDansLaPartieEntiere(partieDecimale); n++) {
-        nbstring += 'zéro-'
-      }
-      nbstring += partieEntiereEnLettres(partieDecimale)
-    }
-  }
-  return nbstring
-}
-
-/**
- *
- *
- * @param {int} nb
-
- *
- */
-export function partieEntiereEnLettres (nb) {
-  const dictionnaire = {
-    0: 'zéro',
-    '000': '',
-    1: 'un',
-    2: 'deux',
-    3: 'trois',
-    4: 'quatre',
-    5: 'cinq',
-    6: 'six',
-    7: 'sept',
-    8: 'huit',
-    9: 'neuf',
-    10: 'dix',
-    11: 'onze',
-    12: 'douze',
-    13: 'treize',
-    14: 'quatorze',
-    15: 'quinze',
-    16: 'seize',
-    17: 'dix-sept',
-    18: 'dix-huit',
-    19: 'dix-neuf',
-    20: 'vingt',
-    21: 'vingt et un',
-    22: 'vingt-deux',
-    23: 'vingt-trois',
-    24: 'vingt-quatre',
-    25: 'vingt-cinq',
-    26: 'vingt-six',
-    27: 'vingt-sept',
-    28: 'vingt-huit',
-    29: 'vingt-neuf',
-    30: 'trente',
-    31: 'trente et un',
-    32: 'trente-deux',
-    33: 'trente-trois',
-    34: 'trente-quatre',
-    35: 'trente-cinq',
-    36: 'trente-six',
-    37: 'trente-sept',
-    38: 'trente-huit',
-    39: 'trente-neuf',
-    40: 'quarante',
-    41: 'quarante et un',
-    42: 'quarante-deux',
-    43: 'quarante-trois',
-    44: 'quarante-quatre',
-    45: 'quarante-cinq',
-    46: 'quarante-six',
-    47: 'quarante-sept',
-    48: 'quarante-huit',
-    49: 'quarante-neuf',
-    50: 'cinquante',
-    51: 'cinquante et un',
-    52: 'cinquante-deux',
-    53: 'cinquante-trois',
-    54: 'cinquante-quatre',
-    55: 'cinquante-cinq',
-    56: 'cinquante-six',
-    57: 'cinquante-sept',
-    58: 'cinquante-huit',
-    59: 'cinquante-neuf',
-    60: 'soixante',
-    61: 'soixante et un',
-    62: 'soixante-deux',
-    63: 'soixante-trois',
-    64: 'soixante-quatre',
-    65: 'soixante-cinq',
-    66: 'soixante-six',
-    67: 'soixante-sept',
-    68: 'soixante-huit',
-    69: 'soixante-neuf',
-    70: 'soixante-dix',
-    71: 'soixante et onze',
-    72: 'soixante-douze',
-    73: 'soixante-treize',
-    74: 'soixante-quatorze',
-    75: 'soixante-quinze',
-    76: 'soixante-seize',
-    77: 'soixante-dix-sept',
-    78: 'soixante-dix-huit',
-    79: 'soixante-dix-neuf',
-    80: 'quatre-vingts',
-    81: 'quatre-vingt-un',
-    82: 'quatre-vingt-deux',
-    83: 'quatre-vingt-trois',
-    84: 'quatre-vingt-quatre',
-    85: 'quatre-vingt-cinq',
-    86: 'quatre-vingt-six',
-    87: 'quatre-vingt-sept',
-    88: 'quatre-vingt-huit',
-    89: 'quatre-vingt-neuf',
-    90: 'quatre-vingt-dix',
-    91: 'quatre-vingt-onze',
-    92: 'quatre-vingt-douze',
-    93: 'quatre-vingt-treize',
-    94: 'quatre-vingt-quatorze',
-    95: 'quatre-vingt-quinze',
-    96: 'quatre-vingt-seize',
-    97: 'quatre-vingt-dix-sept',
-    98: 'quatre-vingt-dix-huit',
-    99: 'quatre-vingt-dix-neuf',
-    100: 'cent',
-    101: 'cent un',
-    102: 'cent deux',
-    103: 'cent trois',
-    104: 'cent quatre',
-    105: 'cent cinq',
-    106: 'cent six',
-    107: 'cent sept',
-    108: 'cent huit',
-    109: 'cent neuf',
-    110: 'cent dix',
-    111: 'cent onze',
-    112: 'cent douze',
-    113: 'cent treize',
-    114: 'cent quatorze',
-    115: 'cent quinze',
-    116: 'cent seize',
-    117: 'cent dix-sept',
-    118: 'cent dix-huit',
-    119: 'cent dix-neuf',
-    120: 'cent vingt',
-    121: 'cent vingt et un',
-    122: 'cent vingt-deux',
-    123: 'cent vingt-trois',
-    124: 'cent vingt-quatre',
-    125: 'cent vingt-cinq',
-    126: 'cent vingt-six',
-    127: 'cent vingt-sept',
-    128: 'cent vingt-huit',
-    129: 'cent vingt-neuf',
-    130: 'cent trente',
-    131: 'cent trente et un',
-    132: 'cent trente-deux',
-    133: 'cent trente-trois',
-    134: 'cent trente-quatre',
-    135: 'cent trente-cinq',
-    136: 'cent trente-six',
-    137: 'cent trente-sept',
-    138: 'cent trente-huit',
-    139: 'cent trente-neuf',
-    140: 'cent quarante',
-    141: 'cent quarante et un',
-    142: 'cent quarante-deux',
-    143: 'cent quarante-trois',
-    144: 'cent quarante-quatre',
-    145: 'cent quarante-cinq',
-    146: 'cent quarante-six',
-    147: 'cent quarante-sept',
-    148: 'cent quarante-huit',
-    149: 'cent quarante-neuf',
-    150: 'cent cinquante',
-    151: 'cent cinquante et un',
-    152: 'cent cinquante-deux',
-    153: 'cent cinquante-trois',
-    154: 'cent cinquante-quatre',
-    155: 'cent cinquante-cinq',
-    156: 'cent cinquante-six',
-    157: 'cent cinquante-sept',
-    158: 'cent cinquante-huit',
-    159: 'cent cinquante-neuf',
-    160: 'cent soixante',
-    161: 'cent soixante et un',
-    162: 'cent soixante-deux',
-    163: 'cent soixante-trois',
-    164: 'cent soixante-quatre',
-    165: 'cent soixante-cinq',
-    166: 'cent soixante-six',
-    167: 'cent soixante-sept',
-    168: 'cent soixante-huit',
-    169: 'cent soixante-neuf',
-    170: 'cent soixante-dix',
-    171: 'cent soixante et onze',
-    172: 'cent soixante-douze',
-    173: 'cent soixante-treize',
-    174: 'cent soixante-quatorze',
-    175: 'cent soixante-quinze',
-    176: 'cent soixante-seize',
-    177: 'cent soixante-dix-sept',
-    178: 'cent soixante-dix-huit',
-    179: 'cent soixante-dix-neuf',
-    180: 'cent quatre-vingts',
-    181: 'cent quatre-vingt-un',
-    182: 'cent quatre-vingt-deux',
-    183: 'cent quatre-vingt-trois',
-    184: 'cent quatre-vingt-quatre',
-    185: 'cent quatre-vingt-cinq',
-    186: 'cent quatre-vingt-six',
-    187: 'cent quatre-vingt-sept',
-    188: 'cent quatre-vingt-huit',
-    189: 'cent quatre-vingt-neuf',
-    190: 'cent quatre-vingt-dix',
-    191: 'cent quatre-vingt-onze',
-    192: 'cent quatre-vingt-douze',
-    193: 'cent quatre-vingt-treize',
-    194: 'cent quatre-vingt-quatorze',
-    195: 'cent quatre-vingt-quinze',
-    196: 'cent quatre-vingt-seize',
-    197: 'cent quatre-vingt-dix-sept',
-    198: 'cent quatre-vingt-dix-huit',
-    199: 'cent quatre-vingt-dix-neuf',
-    200: 'deux cents',
-    201: 'deux cent un',
-    202: 'deux cent deux',
-    203: 'deux cent trois',
-    204: 'deux cent quatre',
-    205: 'deux cent cinq',
-    206: 'deux cent six',
-    207: 'deux cent sept',
-    208: 'deux cent huit',
-    209: 'deux cent neuf',
-    210: 'deux cent dix',
-    211: 'deux cent onze',
-    212: 'deux cent douze',
-    213: 'deux cent treize',
-    214: 'deux cent quatorze',
-    215: 'deux cent quinze',
-    216: 'deux cent seize',
-    217: 'deux cent dix-sept',
-    218: 'deux cent dix-huit',
-    219: 'deux cent dix-neuf',
-    220: 'deux cent vingt',
-    221: 'deux cent vingt et un',
-    222: 'deux cent vingt-deux',
-    223: 'deux cent vingt-trois',
-    224: 'deux cent vingt-quatre',
-    225: 'deux cent vingt-cinq',
-    226: 'deux cent vingt-six',
-    227: 'deux cent vingt-sept',
-    228: 'deux cent vingt-huit',
-    229: 'deux cent vingt-neuf',
-    230: 'deux cent trente',
-    231: 'deux cent trente et un',
-    232: 'deux cent trente-deux',
-    233: 'deux cent trente-trois',
-    234: 'deux cent trente-quatre',
-    235: 'deux cent trente-cinq',
-    236: 'deux cent trente-six',
-    237: 'deux cent trente-sept',
-    238: 'deux cent trente-huit',
-    239: 'deux cent trente-neuf',
-    240: 'deux cent quarante',
-    241: 'deux cent quarante et un',
-    242: 'deux cent quarante-deux',
-    243: 'deux cent quarante-trois',
-    244: 'deux cent quarante-quatre',
-    245: 'deux cent quarante-cinq',
-    246: 'deux cent quarante-six',
-    247: 'deux cent quarante-sept',
-    248: 'deux cent quarante-huit',
-    249: 'deux cent quarante-neuf',
-    250: 'deux cent cinquante',
-    251: 'deux cent cinquante et un',
-    252: 'deux cent cinquante-deux',
-    253: 'deux cent cinquante-trois',
-    254: 'deux cent cinquante-quatre',
-    255: 'deux cent cinquante-cinq',
-    256: 'deux cent cinquante-six',
-    257: 'deux cent cinquante-sept',
-    258: 'deux cent cinquante-huit',
-    259: 'deux cent cinquante-neuf',
-    260: 'deux cent soixante',
-    261: 'deux cent soixante et un',
-    262: 'deux cent soixante-deux',
-    263: 'deux cent soixante-trois',
-    264: 'deux cent soixante-quatre',
-    265: 'deux cent soixante-cinq',
-    266: 'deux cent soixante-six',
-    267: 'deux cent soixante-sept',
-    268: 'deux cent soixante-huit',
-    269: 'deux cent soixante-neuf',
-    270: 'deux cent soixante-dix',
-    271: 'deux cent soixante et onze',
-    272: 'deux cent soixante-douze',
-    273: 'deux cent soixante-treize',
-    274: 'deux cent soixante-quatorze',
-    275: 'deux cent soixante-quinze',
-    276: 'deux cent soixante-seize',
-    277: 'deux cent soixante-dix-sept',
-    278: 'deux cent soixante-dix-huit',
-    279: 'deux cent soixante-dix-neuf',
-    280: 'deux cent quatre-vingts',
-    281: 'deux cent quatre-vingt-un',
-    282: 'deux cent quatre-vingt-deux',
-    283: 'deux cent quatre-vingt-trois',
-    284: 'deux cent quatre-vingt-quatre',
-    285: 'deux cent quatre-vingt-cinq',
-    286: 'deux cent quatre-vingt-six',
-    287: 'deux cent quatre-vingt-sept',
-    288: 'deux cent quatre-vingt-huit',
-    289: 'deux cent quatre-vingt-neuf',
-    290: 'deux cent quatre-vingt-dix',
-    291: 'deux cent quatre-vingt-onze',
-    292: 'deux cent quatre-vingt-douze',
-    293: 'deux cent quatre-vingt-treize',
-    294: 'deux cent quatre-vingt-quatorze',
-    295: 'deux cent quatre-vingt-quinze',
-    296: 'deux cent quatre-vingt-seize',
-    297: 'deux cent quatre-vingt-dix-sept',
-    298: 'deux cent quatre-vingt-dix-huit',
-    299: 'deux cent quatre-vingt-dix-neuf',
-    300: 'trois cents',
-    301: 'trois cent un',
-    302: 'trois cent deux',
-    303: 'trois cent trois',
-    304: 'trois cent quatre',
-    305: 'trois cent cinq',
-    306: 'trois cent six',
-    307: 'trois cent sept',
-    308: 'trois cent huit',
-    309: 'trois cent neuf',
-    310: 'trois cent dix',
-    311: 'trois cent onze',
-    312: 'trois cent douze',
-    313: 'trois cent treize',
-    314: 'trois cent quatorze',
-    315: 'trois cent quinze',
-    316: 'trois cent seize',
-    317: 'trois cent dix-sept',
-    318: 'trois cent dix-huit',
-    319: 'trois cent dix-neuf',
-    320: 'trois cent vingt',
-    321: 'trois cent vingt et un',
-    322: 'trois cent vingt-deux',
-    323: 'trois cent vingt-trois',
-    324: 'trois cent vingt-quatre',
-    325: 'trois cent vingt-cinq',
-    326: 'trois cent vingt-six',
-    327: 'trois cent vingt-sept',
-    328: 'trois cent vingt-huit',
-    329: 'trois cent vingt-neuf',
-    330: 'trois cent trente',
-    331: 'trois cent trente et un',
-    332: 'trois cent trente-deux',
-    333: 'trois cent trente-trois',
-    334: 'trois cent trente-quatre',
-    335: 'trois cent trente-cinq',
-    336: 'trois cent trente-six',
-    337: 'trois cent trente-sept',
-    338: 'trois cent trente-huit',
-    339: 'trois cent trente-neuf',
-    340: 'trois cent quarante',
-    341: 'trois cent quarante et un',
-    342: 'trois cent quarante-deux',
-    343: 'trois cent quarante-trois',
-    344: 'trois cent quarante-quatre',
-    345: 'trois cent quarante-cinq',
-    346: 'trois cent quarante-six',
-    347: 'trois cent quarante-sept',
-    348: 'trois cent quarante-huit',
-    349: 'trois cent quarante-neuf',
-    350: 'trois cent cinquante',
-    351: 'trois cent cinquante et un',
-    352: 'trois cent cinquante-deux',
-    353: 'trois cent cinquante-trois',
-    354: 'trois cent cinquante-quatre',
-    355: 'trois cent cinquante-cinq',
-    356: 'trois cent cinquante-six',
-    357: 'trois cent cinquante-sept',
-    358: 'trois cent cinquante-huit',
-    359: 'trois cent cinquante-neuf',
-    360: 'trois cent soixante',
-    361: 'trois cent soixante et un',
-    362: 'trois cent soixante-deux',
-    363: 'trois cent soixante-trois',
-    364: 'trois cent soixante-quatre',
-    365: 'trois cent soixante-cinq',
-    366: 'trois cent soixante-six',
-    367: 'trois cent soixante-sept',
-    368: 'trois cent soixante-huit',
-    369: 'trois cent soixante-neuf',
-    370: 'trois cent soixante-dix',
-    371: 'trois cent soixante et onze',
-    372: 'trois cent soixante-douze',
-    373: 'trois cent soixante-treize',
-    374: 'trois cent soixante-quatorze',
-    375: 'trois cent soixante-quinze',
-    376: 'trois cent soixante-seize',
-    377: 'trois cent soixante-dix-sept',
-    378: 'trois cent soixante-dix-huit',
-    379: 'trois cent soixante-dix-neuf',
-    380: 'trois cent quatre-vingts',
-    381: 'trois cent quatre-vingt-un',
-    382: 'trois cent quatre-vingt-deux',
-    383: 'trois cent quatre-vingt-trois',
-    384: 'trois cent quatre-vingt-quatre',
-    385: 'trois cent quatre-vingt-cinq',
-    386: 'trois cent quatre-vingt-six',
-    387: 'trois cent quatre-vingt-sept',
-    388: 'trois cent quatre-vingt-huit',
-    389: 'trois cent quatre-vingt-neuf',
-    390: 'trois cent quatre-vingt-dix',
-    391: 'trois cent quatre-vingt-onze',
-    392: 'trois cent quatre-vingt-douze',
-    393: 'trois cent quatre-vingt-treize',
-    394: 'trois cent quatre-vingt-quatorze',
-    395: 'trois cent quatre-vingt-quinze',
-    396: 'trois cent quatre-vingt-seize',
-    397: 'trois cent quatre-vingt-dix-sept',
-    398: 'trois cent quatre-vingt-dix-huit',
-    399: 'trois cent quatre-vingt-dix-neuf',
-    400: 'quatre cents',
-    401: 'quatre cent un',
-    402: 'quatre cent deux',
-    403: 'quatre cent trois',
-    404: 'quatre cent quatre',
-    405: 'quatre cent cinq',
-    406: 'quatre cent six',
-    407: 'quatre cent sept',
-    408: 'quatre cent huit',
-    409: 'quatre cent neuf',
-    410: 'quatre cent dix',
-    411: 'quatre cent onze',
-    412: 'quatre cent douze',
-    413: 'quatre cent treize',
-    414: 'quatre cent quatorze',
-    415: 'quatre cent quinze',
-    416: 'quatre cent seize',
-    417: 'quatre cent dix-sept',
-    418: 'quatre cent dix-huit',
-    419: 'quatre cent dix-neuf',
-    420: 'quatre cent vingt',
-    421: 'quatre cent vingt et un',
-    422: 'quatre cent vingt-deux',
-    423: 'quatre cent vingt-trois',
-    424: 'quatre cent vingt-quatre',
-    425: 'quatre cent vingt-cinq',
-    426: 'quatre cent vingt-six',
-    427: 'quatre cent vingt-sept',
-    428: 'quatre cent vingt-huit',
-    429: 'quatre cent vingt-neuf',
-    430: 'quatre cent trente',
-    431: 'quatre cent trente et un',
-    432: 'quatre cent trente-deux',
-    433: 'quatre cent trente-trois',
-    434: 'quatre cent trente-quatre',
-    435: 'quatre cent trente-cinq',
-    436: 'quatre cent trente-six',
-    437: 'quatre cent trente-sept',
-    438: 'quatre cent trente-huit',
-    439: 'quatre cent trente-neuf',
-    440: 'quatre cent quarante',
-    441: 'quatre cent quarante et un',
-    442: 'quatre cent quarante-deux',
-    443: 'quatre cent quarante-trois',
-    444: 'quatre cent quarante-quatre',
-    445: 'quatre cent quarante-cinq',
-    446: 'quatre cent quarante-six',
-    447: 'quatre cent quarante-sept',
-    448: 'quatre cent quarante-huit',
-    449: 'quatre cent quarante-neuf',
-    450: 'quatre cent cinquante',
-    451: 'quatre cent cinquante et un',
-    452: 'quatre cent cinquante-deux',
-    453: 'quatre cent cinquante-trois',
-    454: 'quatre cent cinquante-quatre',
-    455: 'quatre cent cinquante-cinq',
-    456: 'quatre cent cinquante-six',
-    457: 'quatre cent cinquante-sept',
-    458: 'quatre cent cinquante-huit',
-    459: 'quatre cent cinquante-neuf',
-    460: 'quatre cent soixante',
-    461: 'quatre cent soixante et un',
-    462: 'quatre cent soixante-deux',
-    463: 'quatre cent soixante-trois',
-    464: 'quatre cent soixante-quatre',
-    465: 'quatre cent soixante-cinq',
-    466: 'quatre cent soixante-six',
-    467: 'quatre cent soixante-sept',
-    468: 'quatre cent soixante-huit',
-    469: 'quatre cent soixante-neuf',
-    470: 'quatre cent soixante-dix',
-    471: 'quatre cent soixante et onze',
-    472: 'quatre cent soixante-douze',
-    473: 'quatre cent soixante-treize',
-    474: 'quatre cent soixante-quatorze',
-    475: 'quatre cent soixante-quinze',
-    476: 'quatre cent soixante-seize',
-    477: 'quatre cent soixante-dix-sept',
-    478: 'quatre cent soixante-dix-huit',
-    479: 'quatre cent soixante-dix-neuf',
-    480: 'quatre cent quatre-vingts',
-    481: 'quatre cent quatre-vingt-un',
-    482: 'quatre cent quatre-vingt-deux',
-    483: 'quatre cent quatre-vingt-trois',
-    484: 'quatre cent quatre-vingt-quatre',
-    485: 'quatre cent quatre-vingt-cinq',
-    486: 'quatre cent quatre-vingt-six',
-    487: 'quatre cent quatre-vingt-sept',
-    488: 'quatre cent quatre-vingt-huit',
-    489: 'quatre cent quatre-vingt-neuf',
-    490: 'quatre cent quatre-vingt-dix',
-    491: 'quatre cent quatre-vingt-onze',
-    492: 'quatre cent quatre-vingt-douze',
-    493: 'quatre cent quatre-vingt-treize',
-    494: 'quatre cent quatre-vingt-quatorze',
-    495: 'quatre cent quatre-vingt-quinze',
-    496: 'quatre cent quatre-vingt-seize',
-    497: 'quatre cent quatre-vingt-dix-sept',
-    498: 'quatre cent quatre-vingt-dix-huit',
-    499: 'quatre cent quatre-vingt-dix-neuf',
-    500: 'cinq cents',
-    501: 'cinq cent un',
-    502: 'cinq cent deux',
-    503: 'cinq cent trois',
-    504: 'cinq cent quatre',
-    505: 'cinq cent cinq',
-    506: 'cinq cent six',
-    507: 'cinq cent sept',
-    508: 'cinq cent huit',
-    509: 'cinq cent neuf',
-    510: 'cinq cent dix',
-    511: 'cinq cent onze',
-    512: 'cinq cent douze',
-    513: 'cinq cent treize',
-    514: 'cinq cent quatorze',
-    515: 'cinq cent quinze',
-    516: 'cinq cent seize',
-    517: 'cinq cent dix-sept',
-    518: 'cinq cent dix-huit',
-    519: 'cinq cent dix-neuf',
-    520: 'cinq cent vingt',
-    521: 'cinq cent vingt et un',
-    522: 'cinq cent vingt-deux',
-    523: 'cinq cent vingt-trois',
-    524: 'cinq cent vingt-quatre',
-    525: 'cinq cent vingt-cinq',
-    526: 'cinq cent vingt-six',
-    527: 'cinq cent vingt-sept',
-    528: 'cinq cent vingt-huit',
-    529: 'cinq cent vingt-neuf',
-    530: 'cinq cent trente',
-    531: 'cinq cent trente et un',
-    532: 'cinq cent trente-deux',
-    533: 'cinq cent trente-trois',
-    534: 'cinq cent trente-quatre',
-    535: 'cinq cent trente-cinq',
-    536: 'cinq cent trente-six',
-    537: 'cinq cent trente-sept',
-    538: 'cinq cent trente-huit',
-    539: 'cinq cent trente-neuf',
-    540: 'cinq cent quarante',
-    541: 'cinq cent quarante et un',
-    542: 'cinq cent quarante-deux',
-    543: 'cinq cent quarante-trois',
-    544: 'cinq cent quarante-quatre',
-    545: 'cinq cent quarante-cinq',
-    546: 'cinq cent quarante-six',
-    547: 'cinq cent quarante-sept',
-    548: 'cinq cent quarante-huit',
-    549: 'cinq cent quarante-neuf',
-    550: 'cinq cent cinquante',
-    551: 'cinq cent cinquante et un',
-    552: 'cinq cent cinquante-deux',
-    553: 'cinq cent cinquante-trois',
-    554: 'cinq cent cinquante-quatre',
-    555: 'cinq cent cinquante-cinq',
-    556: 'cinq cent cinquante-six',
-    557: 'cinq cent cinquante-sept',
-    558: 'cinq cent cinquante-huit',
-    559: 'cinq cent cinquante-neuf',
-    560: 'cinq cent soixante',
-    561: 'cinq cent soixante et un',
-    562: 'cinq cent soixante-deux',
-    563: 'cinq cent soixante-trois',
-    564: 'cinq cent soixante-quatre',
-    565: 'cinq cent soixante-cinq',
-    566: 'cinq cent soixante-six',
-    567: 'cinq cent soixante-sept',
-    568: 'cinq cent soixante-huit',
-    569: 'cinq cent soixante-neuf',
-    570: 'cinq cent soixante-dix',
-    571: 'cinq cent soixante et onze',
-    572: 'cinq cent soixante-douze',
-    573: 'cinq cent soixante-treize',
-    574: 'cinq cent soixante-quatorze',
-    575: 'cinq cent soixante-quinze',
-    576: 'cinq cent soixante-seize',
-    577: 'cinq cent soixante-dix-sept',
-    578: 'cinq cent soixante-dix-huit',
-    579: 'cinq cent soixante-dix-neuf',
-    580: 'cinq cent quatre-vingts',
-    581: 'cinq cent quatre-vingt-un',
-    582: 'cinq cent quatre-vingt-deux',
-    583: 'cinq cent quatre-vingt-trois',
-    584: 'cinq cent quatre-vingt-quatre',
-    585: 'cinq cent quatre-vingt-cinq',
-    586: 'cinq cent quatre-vingt-six',
-    587: 'cinq cent quatre-vingt-sept',
-    588: 'cinq cent quatre-vingt-huit',
-    589: 'cinq cent quatre-vingt-neuf',
-    590: 'cinq cent quatre-vingt-dix',
-    591: 'cinq cent quatre-vingt-onze',
-    592: 'cinq cent quatre-vingt-douze',
-    593: 'cinq cent quatre-vingt-treize',
-    594: 'cinq cent quatre-vingt-quatorze',
-    595: 'cinq cent quatre-vingt-quinze',
-    596: 'cinq cent quatre-vingt-seize',
-    597: 'cinq cent quatre-vingt-dix-sept',
-    598: 'cinq cent quatre-vingt-dix-huit',
-    599: 'cinq cent quatre-vingt-dix-neuf',
-    600: 'six cents',
-    601: 'six cent un',
-    602: 'six cent deux',
-    603: 'six cent trois',
-    604: 'six cent quatre',
-    605: 'six cent cinq',
-    606: 'six cent six',
-    607: 'six cent sept',
-    608: 'six cent huit',
-    609: 'six cent neuf',
-    610: 'six cent dix',
-    611: 'six cent onze',
-    612: 'six cent douze',
-    613: 'six cent treize',
-    614: 'six cent quatorze',
-    615: 'six cent quinze',
-    616: 'six cent seize',
-    617: 'six cent dix-sept',
-    618: 'six cent dix-huit',
-    619: 'six cent dix-neuf',
-    620: 'six cent vingt',
-    621: 'six cent vingt et un',
-    622: 'six cent vingt-deux',
-    623: 'six cent vingt-trois',
-    624: 'six cent vingt-quatre',
-    625: 'six cent vingt-cinq',
-    626: 'six cent vingt-six',
-    627: 'six cent vingt-sept',
-    628: 'six cent vingt-huit',
-    629: 'six cent vingt-neuf',
-    630: 'six cent trente',
-    631: 'six cent trente et un',
-    632: 'six cent trente-deux',
-    633: 'six cent trente-trois',
-    634: 'six cent trente-quatre',
-    635: 'six cent trente-cinq',
-    636: 'six cent trente-six',
-    637: 'six cent trente-sept',
-    638: 'six cent trente-huit',
-    639: 'six cent trente-neuf',
-    640: 'six cent quarante',
-    641: 'six cent quarante et un',
-    642: 'six cent quarante-deux',
-    643: 'six cent quarante-trois',
-    644: 'six cent quarante-quatre',
-    645: 'six cent quarante-cinq',
-    646: 'six cent quarante-six',
-    647: 'six cent quarante-sept',
-    648: 'six cent quarante-huit',
-    649: 'six cent quarante-neuf',
-    650: 'six cent cinquante',
-    651: 'six cent cinquante et un',
-    652: 'six cent cinquante-deux',
-    653: 'six cent cinquante-trois',
-    654: 'six cent cinquante-quatre',
-    655: 'six cent cinquante-cinq',
-    656: 'six cent cinquante-six',
-    657: 'six cent cinquante-sept',
-    658: 'six cent cinquante-huit',
-    659: 'six cent cinquante-neuf',
-    660: 'six cent soixante',
-    661: 'six cent soixante et un',
-    662: 'six cent soixante-deux',
-    663: 'six cent soixante-trois',
-    664: 'six cent soixante-quatre',
-    665: 'six cent soixante-cinq',
-    666: 'six cent soixante-six',
-    667: 'six cent soixante-sept',
-    668: 'six cent soixante-huit',
-    669: 'six cent soixante-neuf',
-    670: 'six cent soixante-dix',
-    671: 'six cent soixante et onze',
-    672: 'six cent soixante-douze',
-    673: 'six cent soixante-treize',
-    674: 'six cent soixante-quatorze',
-    675: 'six cent soixante-quinze',
-    676: 'six cent soixante-seize',
-    677: 'six cent soixante-dix-sept',
-    678: 'six cent soixante-dix-huit',
-    679: 'six cent soixante-dix-neuf',
-    680: 'six cent quatre-vingts',
-    681: 'six cent quatre-vingt-un',
-    682: 'six cent quatre-vingt-deux',
-    683: 'six cent quatre-vingt-trois',
-    684: 'six cent quatre-vingt-quatre',
-    685: 'six cent quatre-vingt-cinq',
-    686: 'six cent quatre-vingt-six',
-    687: 'six cent quatre-vingt-sept',
-    688: 'six cent quatre-vingt-huit',
-    689: 'six cent quatre-vingt-neuf',
-    690: 'six cent quatre-vingt-dix',
-    691: 'six cent quatre-vingt-onze',
-    692: 'six cent quatre-vingt-douze',
-    693: 'six cent quatre-vingt-treize',
-    694: 'six cent quatre-vingt-quatorze',
-    695: 'six cent quatre-vingt-quinze',
-    696: 'six cent quatre-vingt-seize',
-    697: 'six cent quatre-vingt-dix-sept',
-    698: 'six cent quatre-vingt-dix-huit',
-    699: 'six cent quatre-vingt-dix-neuf',
-    700: 'sept cents',
-    701: 'sept cent un',
-    702: 'sept cent deux',
-    703: 'sept cent trois',
-    704: 'sept cent quatre',
-    705: 'sept cent cinq',
-    706: 'sept cent six',
-    707: 'sept cent sept',
-    708: 'sept cent huit',
-    709: 'sept cent neuf',
-    710: 'sept cent dix',
-    711: 'sept cent onze',
-    712: 'sept cent douze',
-    713: 'sept cent treize',
-    714: 'sept cent quatorze',
-    715: 'sept cent quinze',
-    716: 'sept cent seize',
-    717: 'sept cent dix-sept',
-    718: 'sept cent dix-huit',
-    719: 'sept cent dix-neuf',
-    720: 'sept cent vingt',
-    721: 'sept cent vingt et un',
-    722: 'sept cent vingt-deux',
-    723: 'sept cent vingt-trois',
-    724: 'sept cent vingt-quatre',
-    725: 'sept cent vingt-cinq',
-    726: 'sept cent vingt-six',
-    727: 'sept cent vingt-sept',
-    728: 'sept cent vingt-huit',
-    729: 'sept cent vingt-neuf',
-    730: 'sept cent trente',
-    731: 'sept cent trente et un',
-    732: 'sept cent trente-deux',
-    733: 'sept cent trente-trois',
-    734: 'sept cent trente-quatre',
-    735: 'sept cent trente-cinq',
-    736: 'sept cent trente-six',
-    737: 'sept cent trente-sept',
-    738: 'sept cent trente-huit',
-    739: 'sept cent trente-neuf',
-    740: 'sept cent quarante',
-    741: 'sept cent quarante et un',
-    742: 'sept cent quarante-deux',
-    743: 'sept cent quarante-trois',
-    744: 'sept cent quarante-quatre',
-    745: 'sept cent quarante-cinq',
-    746: 'sept cent quarante-six',
-    747: 'sept cent quarante-sept',
-    748: 'sept cent quarante-huit',
-    749: 'sept cent quarante-neuf',
-    750: 'sept cent cinquante',
-    751: 'sept cent cinquante et un',
-    752: 'sept cent cinquante-deux',
-    753: 'sept cent cinquante-trois',
-    754: 'sept cent cinquante-quatre',
-    755: 'sept cent cinquante-cinq',
-    756: 'sept cent cinquante-six',
-    757: 'sept cent cinquante-sept',
-    758: 'sept cent cinquante-huit',
-    759: 'sept cent cinquante-neuf',
-    760: 'sept cent soixante',
-    761: 'sept cent soixante et un',
-    762: 'sept cent soixante-deux',
-    763: 'sept cent soixante-trois',
-    764: 'sept cent soixante-quatre',
-    765: 'sept cent soixante-cinq',
-    766: 'sept cent soixante-six',
-    767: 'sept cent soixante-sept',
-    768: 'sept cent soixante-huit',
-    769: 'sept cent soixante-neuf',
-    770: 'sept cent soixante-dix',
-    771: 'sept cent soixante et onze',
-    772: 'sept cent soixante-douze',
-    773: 'sept cent soixante-treize',
-    774: 'sept cent soixante-quatorze',
-    775: 'sept cent soixante-quinze',
-    776: 'sept cent soixante-seize',
-    777: 'sept cent soixante-dix-sept',
-    778: 'sept cent soixante-dix-huit',
-    779: 'sept cent soixante-dix-neuf',
-    780: 'sept cent quatre-vingts',
-    781: 'sept cent quatre-vingt-un',
-    782: 'sept cent quatre-vingt-deux',
-    783: 'sept cent quatre-vingt-trois',
-    784: 'sept cent quatre-vingt-quatre',
-    785: 'sept cent quatre-vingt-cinq',
-    786: 'sept cent quatre-vingt-six',
-    787: 'sept cent quatre-vingt-sept',
-    788: 'sept cent quatre-vingt-huit',
-    789: 'sept cent quatre-vingt-neuf',
-    790: 'sept cent quatre-vingt-dix',
-    791: 'sept cent quatre-vingt-onze',
-    792: 'sept cent quatre-vingt-douze',
-    793: 'sept cent quatre-vingt-treize',
-    794: 'sept cent quatre-vingt-quatorze',
-    795: 'sept cent quatre-vingt-quinze',
-    796: 'sept cent quatre-vingt-seize',
-    797: 'sept cent quatre-vingt-dix-sept',
-    798: 'sept cent quatre-vingt-dix-huit',
-    799: 'sept cent quatre-vingt-dix-neuf',
-    800: 'huit cents',
-    801: 'huit cent un',
-    802: 'huit cent deux',
-    803: 'huit cent trois',
-    804: 'huit cent quatre',
-    805: 'huit cent cinq',
-    806: 'huit cent six',
-    807: 'huit cent sept',
-    808: 'huit cent huit',
-    809: 'huit cent neuf',
-    810: 'huit cent dix',
-    811: 'huit cent onze',
-    812: 'huit cent douze',
-    813: 'huit cent treize',
-    814: 'huit cent quatorze',
-    815: 'huit cent quinze',
-    816: 'huit cent seize',
-    817: 'huit cent dix-sept',
-    818: 'huit cent dix-huit',
-    819: 'huit cent dix-neuf',
-    820: 'huit cent vingt',
-    821: 'huit cent vingt et un',
-    822: 'huit cent vingt-deux',
-    823: 'huit cent vingt-trois',
-    824: 'huit cent vingt-quatre',
-    825: 'huit cent vingt-cinq',
-    826: 'huit cent vingt-six',
-    827: 'huit cent vingt-sept',
-    828: 'huit cent vingt-huit',
-    829: 'huit cent vingt-neuf',
-    830: 'huit cent trente',
-    831: 'huit cent trente et un',
-    832: 'huit cent trente-deux',
-    833: 'huit cent trente-trois',
-    834: 'huit cent trente-quatre',
-    835: 'huit cent trente-cinq',
-    836: 'huit cent trente-six',
-    837: 'huit cent trente-sept',
-    838: 'huit cent trente-huit',
-    839: 'huit cent trente-neuf',
-    840: 'huit cent quarante',
-    841: 'huit cent quarante et un',
-    842: 'huit cent quarante-deux',
-    843: 'huit cent quarante-trois',
-    844: 'huit cent quarante-quatre',
-    845: 'huit cent quarante-cinq',
-    846: 'huit cent quarante-six',
-    847: 'huit cent quarante-sept',
-    848: 'huit cent quarante-huit',
-    849: 'huit cent quarante-neuf',
-    850: 'huit cent cinquante',
-    851: 'huit cent cinquante et un',
-    852: 'huit cent cinquante-deux',
-    853: 'huit cent cinquante-trois',
-    854: 'huit cent cinquante-quatre',
-    855: 'huit cent cinquante-cinq',
-    856: 'huit cent cinquante-six',
-    857: 'huit cent cinquante-sept',
-    858: 'huit cent cinquante-huit',
-    859: 'huit cent cinquante-neuf',
-    860: 'huit cent soixante',
-    861: 'huit cent soixante et un',
-    862: 'huit cent soixante-deux',
-    863: 'huit cent soixante-trois',
-    864: 'huit cent soixante-quatre',
-    865: 'huit cent soixante-cinq',
-    866: 'huit cent soixante-six',
-    867: 'huit cent soixante-sept',
-    868: 'huit cent soixante-huit',
-    869: 'huit cent soixante-neuf',
-    870: 'huit cent soixante-dix',
-    871: 'huit cent soixante et onze',
-    872: 'huit cent soixante-douze',
-    873: 'huit cent soixante-treize',
-    874: 'huit cent soixante-quatorze',
-    875: 'huit cent soixante-quinze',
-    876: 'huit cent soixante-seize',
-    877: 'huit cent soixante-dix-sept',
-    878: 'huit cent soixante-dix-huit',
-    879: 'huit cent soixante-dix-neuf',
-    880: 'huit cent quatre-vingts',
-    881: 'huit cent quatre-vingt-un',
-    882: 'huit cent quatre-vingt-deux',
-    883: 'huit cent quatre-vingt-trois',
-    884: 'huit cent quatre-vingt-quatre',
-    885: 'huit cent quatre-vingt-cinq',
-    886: 'huit cent quatre-vingt-six',
-    887: 'huit cent quatre-vingt-sept',
-    888: 'huit cent quatre-vingt-huit',
-    889: 'huit cent quatre-vingt-neuf',
-    890: 'huit cent quatre-vingt-dix',
-    891: 'huit cent quatre-vingt-onze',
-    892: 'huit cent quatre-vingt-douze',
-    893: 'huit cent quatre-vingt-treize',
-    894: 'huit cent quatre-vingt-quatorze',
-    895: 'huit cent quatre-vingt-quinze',
-    896: 'huit cent quatre-vingt-seize',
-    897: 'huit cent quatre-vingt-dix-sept',
-    898: 'huit cent quatre-vingt-dix-huit',
-    899: 'huit cent quatre-vingt-dix-neuf',
-    900: 'neuf cents',
-    901: 'neuf cent un',
-    902: 'neuf cent deux',
-    903: 'neuf cent trois',
-    904: 'neuf cent quatre',
-    905: 'neuf cent cinq',
-    906: 'neuf cent six',
-    907: 'neuf cent sept',
-    908: 'neuf cent huit',
-    909: 'neuf cent neuf',
-    910: 'neuf cent dix',
-    911: 'neuf cent onze',
-    912: 'neuf cent douze',
-    913: 'neuf cent treize',
-    914: 'neuf cent quatorze',
-    915: 'neuf cent quinze',
-    916: 'neuf cent seize',
-    917: 'neuf cent dix-sept',
-    918: 'neuf cent dix-huit',
-    919: 'neuf cent dix-neuf',
-    920: 'neuf cent vingt',
-    921: 'neuf cent vingt et un',
-    922: 'neuf cent vingt-deux',
-    923: 'neuf cent vingt-trois',
-    924: 'neuf cent vingt-quatre',
-    925: 'neuf cent vingt-cinq',
-    926: 'neuf cent vingt-six',
-    927: 'neuf cent vingt-sept',
-    928: 'neuf cent vingt-huit',
-    929: 'neuf cent vingt-neuf',
-    930: 'neuf cent trente',
-    931: 'neuf cent trente et un',
-    932: 'neuf cent trente-deux',
-    933: 'neuf cent trente-trois',
-    934: 'neuf cent trente-quatre',
-    935: 'neuf cent trente-cinq',
-    936: 'neuf cent trente-six',
-    937: 'neuf cent trente-sept',
-    938: 'neuf cent trente-huit',
-    939: 'neuf cent trente-neuf',
-    940: 'neuf cent quarante',
-    941: 'neuf cent quarante et un',
-    942: 'neuf cent quarante-deux',
-    943: 'neuf cent quarante-trois',
-    944: 'neuf cent quarante-quatre',
-    945: 'neuf cent quarante-cinq',
-    946: 'neuf cent quarante-six',
-    947: 'neuf cent quarante-sept',
-    948: 'neuf cent quarante-huit',
-    949: 'neuf cent quarante-neuf',
-    950: 'neuf cent cinquante',
-    951: 'neuf cent cinquante et un',
-    952: 'neuf cent cinquante-deux',
-    953: 'neuf cent cinquante-trois',
-    954: 'neuf cent cinquante-quatre',
-    955: 'neuf cent cinquante-cinq',
-    956: 'neuf cent cinquante-six',
-    957: 'neuf cent cinquante-sept',
-    958: 'neuf cent cinquante-huit',
-    959: 'neuf cent cinquante-neuf',
-    960: 'neuf cent soixante',
-    961: 'neuf cent soixante et un',
-    962: 'neuf cent soixante-deux',
-    963: 'neuf cent soixante-trois',
-    964: 'neuf cent soixante-quatre',
-    965: 'neuf cent soixante-cinq',
-    966: 'neuf cent soixante-six',
-    967: 'neuf cent soixante-sept',
-    968: 'neuf cent soixante-huit',
-    969: 'neuf cent soixante-neuf',
-    970: 'neuf cent soixante-dix',
-    971: 'neuf cent soixante et onze',
-    972: 'neuf cent soixante-douze',
-    973: 'neuf cent soixante-treize',
-    974: 'neuf cent soixante-quatorze',
-    975: 'neuf cent soixante-quinze',
-    976: 'neuf cent soixante-seize',
-    977: 'neuf cent soixante-dix-sept',
-    978: 'neuf cent soixante-dix-huit',
-    979: 'neuf cent soixante-dix-neuf',
-    980: 'neuf cent quatre-vingts',
-    981: 'neuf cent quatre-vingt-un',
-    982: 'neuf cent quatre-vingt-deux',
-    983: 'neuf cent quatre-vingt-trois',
-    984: 'neuf cent quatre-vingt-quatre',
-    985: 'neuf cent quatre-vingt-cinq',
-    986: 'neuf cent quatre-vingt-six',
-    987: 'neuf cent quatre-vingt-sept',
-    988: 'neuf cent quatre-vingt-huit',
-    989: 'neuf cent quatre-vingt-neuf',
-    990: 'neuf cent quatre-vingt-dix',
-    991: 'neuf cent quatre-vingt-onze',
-    992: 'neuf cent quatre-vingt-douze',
-    993: 'neuf cent quatre-vingt-treize',
-    994: 'neuf cent quatre-vingt-quatorze',
-    995: 'neuf cent quatre-vingt-quinze',
-    996: 'neuf cent quatre-vingt-seize',
-    997: 'neuf cent quatre-vingt-dix-sept',
-    998: 'neuf cent quatre-vingt-dix-huit',
-    999: 'neuf cent quatre-vingt-dix-neuf'
-  }
-
-  const nbString = nb.toString()
-  let classeDesMilliards = ''
-  if (nbString.substring(nbString.length - 12, nbString.length - 9).length > 0) {
-    classeDesMilliards = dictionnaire[nbString.substring(nbString.length - 12, nbString.length - 9).replace(/^0{1,2}/, '')].replaceAll(' ', '-')
-  }
-  let classeDesMillions = ''
-  if (nbString.substring(nbString.length - 9, nbString.length - 6).length > 0) {
-    classeDesMillions = dictionnaire[nbString.substring(nbString.length - 9, nbString.length - 6).replace(/^0{1,2}/, '')].replaceAll(' ', '-')
-  }
-  let classeDesMilliers = ''
-  if (nbString.substring(nbString.length - 6, nbString.length - 3) === '080' || nbString.substring(nbString.length - 6, nbString.length - 3) === '80') {
-    classeDesMilliers = 'quatre-vingt'
-  } else if (nbString.substring(nbString.length - 5, nbString.length - 3) === '00' && nbString.substring(nbString.length - 6, nbString.length - 5) !== '1') {
-    classeDesMilliers = dictionnaire[nbString.substring(nbString.length - 6, nbString.length - 3).replace(/^0{1,2}/, '')].replaceAll(' ', '-').replace('cents', 'cent')
-  } else if (nbString.substring(nbString.length - 6, nbString.length - 3).length > 0) {
-    classeDesMilliers = dictionnaire[nbString.substring(nbString.length - 6, nbString.length - 3).replace(/^0{1,2}/, '')].replaceAll(' ', '-')
-  }
-  let classeDesUnites = ''
-  if (nbString.substring(nbString.length - 3, nbString.length).length > 0) {
-    classeDesUnites = dictionnaire[nbString.substring(nbString.length - 3, nbString.length).replace(/^0{1,2}/, '')].replaceAll(' ', '-')
-  }
-  let result = ''
-  if (classeDesMilliards.length > 1) {
-    classeDesMilliards === 'un' ? result += classeDesMilliards + '-milliard' : result += classeDesMilliards + '-milliards'
-    if (classeDesMillions !== 'zéro' || classeDesMilliers !== 'zéro' || classeDesUnites !== 'zéro') {
-      result += '-'
-    }
-  }
-  if (classeDesMillions.length > 1 && classeDesMillions !== 'zéro') {
-    classeDesMillions === 'un' ? result += classeDesMillions + '-million' : result += classeDesMillions + '-millions'
-    if (classeDesMilliers !== 'zéro' || classeDesUnites !== 'zéro') {
-      result += '-'
-    }
-  }
-  if (classeDesMilliers.length > 1 && classeDesMilliers !== 'zéro') {
-    classeDesMilliers === 'un' ? result += 'mille' : result += classeDesMilliers + '-mille'
-    if (classeDesUnites !== 'zéro') {
-      result += '-'
-    }
-  }
-  if (classeDesUnites.length > 1 && classeDesUnites !== 'zéro') {
-    result += classeDesUnites
-  }
-  result = result.replace('deux-cents-mille', 'deux-cent-mille')
-  result = result.replace('trois-cents-mille', 'trois-cent-mille')
-  result = result.replace('quatre-cents-mille', 'quatre-cent-mille')
-  result = result.replace('cinq-cents-mille', 'cinq-cent-mille')
-  result = result.replace('six-cents-mille', 'six-cent-mille')
-  result = result.replace('sept-cents-mille', 'sept-cent-mille')
-  result = result.replace('huit-cents-mille', 'huit-cent-mille')
-  result = result.replace('neuf-cents-mille', 'neuf-cent-mille')
-  return result
-}
-
-/**
- * @author Jean-Claude Lhote
- * @param {number} min Valeur minimum pour la solution
- * @param {number} max Valeur maximum pour la solution
- * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante
- * @returns {array} [tirage=[a,b,c,d,e],solution (compris entre min et max),operationsSuccessives=[string1,string2,string3,string4,string5],expression]
- * les string1 à 5 ainsi que l'expresion sont ) mettre en mode maths.
- * sert dans les exercices CM019,
- */
-export function TrouverSolutionMathador (
-  min,
-  max,
-  A = 1,
-  B = 4,
-  C = 8,
-  D = 3,
-  E = 5
-) {
-  let eureka
-  let a
-  let b
-  let c
-  let d
-  let e
-  let tirage
-  let nombresRestants
-  let operationsRestantes
-  let expressionEnCoursF
-  let expressionEnCoursD
-  let op
-  let part1f
-  let part2f
-  let part1d
-  let part2d
-  let operationsSuccessives = []
-  let solution
-  const listeChoix = [
-    1,
-    2,
-    2,
-    3,
-    3,
-    4,
-    4,
-    4,
-    4,
-    5,
-    6,
-    6,
-    6,
-    6,
-    7,
-    7,
-    8,
-    8,
-    8,
-    8,
-    9,
-    9,
-    9,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20
-  ]
-  eureka = false
-  const nbDetermines = arguments.length - 2
-  while (eureka === false) {
-    tirage = []
-
-    if (nbDetermines < 1) a = parseInt(choice(listeChoix))
-    else a = A
-    if (nbDetermines < 2) {
-      b = parseInt(choice(listeChoix, [13, 14, 15, 16, 17, 18, 19, 20, a]))
-    } else b = B
-    if (nbDetermines < 3) {
-      c = parseInt(
-        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
-      )
-    } else c = C
-    if (nbDetermines < 4) {
-      d = parseInt(
-        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
-      )
-    } else d = D
-    if (nbDetermines < 5) {
-      e = parseInt(choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20]))
-    } else e = E
-    tirage.push(a, b, c, d, e)
-    nombresRestants = shuffle(tirage)
-    operationsRestantes = ['\\times', '+', '-', '\\div']
-    operationsRestantes = shuffle(operationsRestantes)
-    expressionEnCoursF = [
-      `${nombresRestants[0]}`,
-      `${nombresRestants[1]}`,
-      `${nombresRestants[2]}`,
-      `${nombresRestants[3]}`,
-      `${nombresRestants[4]}`
-    ]
-    expressionEnCoursD = [
-      `${nombresRestants[0]}`,
-      `${nombresRestants[1]}`,
-      `${nombresRestants[2]}`,
-      `${nombresRestants[3]}`,
-      `${nombresRestants[4]}`
-    ]
-
-    while (nombresRestants.length > 1) {
-      b = nombresRestants.pop()
-      a = nombresRestants.pop()
-      part2f = expressionEnCoursF.pop()
-      part1f = expressionEnCoursF.pop()
-      part2d = expressionEnCoursD.pop()
-      part1d = expressionEnCoursD.pop()
-
-      op = operationsRestantes.pop()
-      if (op === '\\times') {
-        c = a * b
-        expressionEnCoursF.push(`${part1f}${op}${part2f}`)
-        expressionEnCoursD.push(`${part1d}${op}${part2d}`)
-        nombresRestants.push(c)
-      } else if (op === '\\div') {
-        if (a % b === 0) {
-          c = a / b
-          if (part1f[0] === '\\') {
-            part1f = part1f.substring(6, part1f.length)
-            part1f = part1f.substring(0, part1f.length - 7)
-          }
-          if (part2f[0] === '\\') {
-            part2f = part2f.substring(6, part2f.length)
-            part2f = part2f.substring(0, part2f.length - 7)
-          }
-          expressionEnCoursF.push(`\\dfrac{${part1f}}{${part2f}}`)
-          expressionEnCoursD.push(`${part1d}${op}${part2d}`)
-          nombresRestants.push(c)
-        } else break
-      } else if (op === '-') {
-        if (a > b) {
-          c = a - b
-          expressionEnCoursF.push(
-            `\\left(${part1f}${op}${part2f}\\right)`
-          )
-          expressionEnCoursD.push(
-            `\\left(${part1d}${op}${part2d}\\right)`
-          )
-          nombresRestants.push(c)
-        } else break
-      } else if (op === '+') {
-        c = a + b
-        if (part2f.substring(0, 2) === '\\l') {
-          part2f = part2f.substring(6, part2f.length)
-          part2f = part2f.substring(0, part2f.length - 7)
-        }
-        expressionEnCoursF.push(`\\left(${part1f}${op}${part2f}\\right)`)
-        if (part2d.substring(0, 2) === '\\l') {
-          part2d = part2d.substring(6, part2d.length)
-          part2d = part2d.substring(0, part2d.length - 7)
-        }
-        expressionEnCoursD.push(`\\left(${part1d}${op}${part2d}\\right)`)
-        nombresRestants.push(c)
-      }
-      operationsSuccessives.push(`${a}` + op + `${b}=${c}`)
-    }
-
-    if (nombresRestants.length === 1 && operationsRestantes.length === 0) {
-      solution = nombresRestants[0]
-      if (solution >= min && solution <= max) {
-        eureka = true
-        if (
-          expressionEnCoursF[0][0] === '\\' &&
-          expressionEnCoursF[0][1] === 'l'
-        ) {
-          expressionEnCoursF[0] = expressionEnCoursF[0].substring(
-            6,
-            expressionEnCoursF[0].length
-          )
-          expressionEnCoursF[0] = expressionEnCoursF[0].substring(
-            0,
-            expressionEnCoursF[0].length - 7
-          )
-        }
-        if (
-          expressionEnCoursD[0][0] === '\\' &&
-          expressionEnCoursD[0][1] === 'l'
-        ) {
-          expressionEnCoursD[0] = expressionEnCoursD[0].substring(
-            6,
-            expressionEnCoursD[0].length
-          )
-          expressionEnCoursD[0] = expressionEnCoursD[0].substring(
-            0,
-            expressionEnCoursD[0].length - 7
-          )
-        }
-        return [
-          tirage,
-          solution,
-          operationsSuccessives,
-          expressionEnCoursF,
-          expressionEnCoursD
-        ]
-      } else operationsSuccessives = []
-    } else operationsSuccessives = []
-  }
-}
-
 // Gestion du fichier à télécharger
 export function telechargeFichier (text, filename) {
   const element = document.createElement('a')
@@ -7020,1210 +4064,6 @@ export function telechargeFichier (text, filename) {
 
 // Gestion des styles LaTeX
 
-/**
- * Renvoie un texte avec le préambule d'un fichier LaTeX
- * @param {string} Le titre de l'entête
- * @author Rémi Angot
- */
-export function introLatex (entete = 'Exercices', listePackages = '') {
-  let isImpressionRectoVerso = false
-  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
-  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
-  if (entete === '') {
-    entete = 'Exercices'
-  }
-  return `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
-\\usepackage[a4paper,left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-%\\usepackage[utf8]{inputenc}
-%\\usepackage[T1]{fontenc}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% EXIT WARNING DÛ À LA COMPILATION XETEX %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\\usepackage{ifxetex}
-
-\\ifxetex
-  \\usepackage{fontspec}
-\\else
-  \\usepackage[T1]{fontenc}
-  \\usepackage[utf8]{inputenc}
-  \\usepackage{lmodern}
-\\fi
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\\usepackage[french]{babel}
-\\usepackage{multicol}
-\\usepackage{calc}
-\\usepackage{enumerate}
-\\usepackage{enumitem}
-\\usepackage{graphicx}
-\\usepackage{tabularx}
-%\\usepackage[autolanguage]{numprint}
-\\usepackage[autolanguage,np]{numprint}
-\\usepackage{hyperref}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs}
-\\usepackage{cancel}
-\\usepackage{textcomp}
-\\usepackage{gensymb}
-\\usepackage{eurosym}
-%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}
-\\pagestyle{fancy}
-\\usepackage{fancybox}
-\\usepackage{setspace}
-\\usepackage{colortbl}
-\\usepackage{xcolor}
-  \\definecolor{nombres}{cmyk}{0,.8,.95,0}
-  \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
-  \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
-  \\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
-  \\definecolor{geo}{cmyk}{.62,.1,0,0}
-  \\definecolor{algo}{cmyk}{.69,.02,.36,0}
-\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{pgf,tikz}
-\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
-
-
-\\setlength{\\parindent}{0mm}
-\\renewcommand{\\arraystretch}{1.5}
-\\newcounter{exo}
-\\setcounter{exo}{0}
-\\newcommand{\\exo}[1]{
-  \\stepcounter{exo}
-  \\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
-}
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
-\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
-\\setlength{\\fboxsep}{3mm}
-\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{\\clearpage}
-\\fancyhead[C]{\\textbf{${entete}}}
-\\fancyfoot{}
-\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
-\\setlength{\\headheight}{14.5pt}
-\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}
-
-${preambulePersonnalise(listePackages)}
-
-
-\\begin{document}
-
-`
-}
-
-/**
- * Renvoie un texte avec le préambule d'un fichier LaTeX
- * @param {string} Le titre de l'entête
- * @author Rémi Angot
- */
-export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
-  let isImpressionRectoVerso = false
-  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
-  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
-  if (entete === '') {
-    entete = 'Course aux nombres'
-  }
-  // return `\\documentclass[12pt, landscape]{article}
-  return `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
-\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-%\\usepackage[utf8]{inputenc}
-%\\usepackage[T1]{fontenc}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% EXIT WARNING DÛ À LA COMPILATION XETEX %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\\usepackage{ifxetex}
-
-\\ifxetex
-  \\usepackage{fontspec}
-\\else
-  \\usepackage[T1]{fontenc}
-  \\usepackage[utf8]{inputenc}
-  \\usepackage{lmodern}
-\\fi
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\\usepackage[french]{babel}
-\\usepackage{multicol}
-\\usepackage{calc}
-\\usepackage{enumerate}
-\\usepackage{enumitem}
-\\usepackage{graphicx}
-\\usepackage{tabularx}
-%\\usepackage[autolanguage]{numprint}
-\\usepackage[autolanguage,np]{numprint}
-\\usepackage{hyperref}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs}
-\\usepackage{cancel}
-\\usepackage{textcomp}
-\\usepackage{gensymb}
-\\usepackage{eurosym}
-%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}
-\\pagestyle{fancy}
-\\usepackage{fancybox}
-\\usepackage{setspace}
-\\usepackage{colortbl}
-\\usepackage{xcolor}
-  \\definecolor{nombres}{cmyk}{0,.8,.95,0}
-  \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
-  \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
-  \\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
-  \\definecolor{geo}{cmyk}{.62,.1,0,0}
-  \\definecolor{algo}{cmyk}{.69,.02,.36,0}
-\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{pgf,tikz}
-\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
-
-\\setlength{\\parindent}{0mm}
-\\renewcommand{\\arraystretch}{1.5}
-\\newcounter{exo}
-\\setcounter{exo}{0}
-\\newcommand{\\exo}[1]{
-  \\stepcounter{exo}
-  \\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
-}
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
-\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
-\\setlength{\\fboxsep}{3mm}
-\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
-\\fancyhead[C]{}
-\\fancyfoot{}
-\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
-\\setlength{\\headheight}{14.5pt}
-
-\\fancypagestyle{premierePage}
-{
-  \\fancyhead[C]{\\textsc{${entete}}}
-}
-\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}
-
-${preambulePersonnalise(listePackages)}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SPÉCIFIQUE SUJETS CAN                  %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\\usepackage{longtable}
-
-\\tikzset{
-  mybox/.style={
-    rectangle,
-    drop shadow,
-    inner sep=17pt,
-    draw=gray,
-    shade,
-    top color=gray,
-    every shadow/.append style={fill=gray!40},
-    bottom color=gray!20
-    }
-  }
-  
-  \\newcommand\\MyBox[2][]{%
-    \\tikz\\node[mybox,#1] {#2};
-  }
-  % Un compteur pour les questions CAN
-  \\newcounter{nbEx}
-  % Pour travailler avec les compteurs
-  \\usepackage{totcount}
-  \\regtotcounter{nbEx}
-
-  % Une checkmark !
-  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
-  % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
-  \\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
-
-  \\newcommand{\\ruban}{(0,0)
-    ++(0:0.57735*\\arete-0.57735*\\epaisseur+2*\\rayon)
-    ++(-30:\\epaisseur-1.73205*\\rayon)
-    arc (60:0:\\rayon)   -- ++(90:\\epaisseur)
-    arc (0:60:\\rayon)   -- ++(150:\\arete)
-    arc (60:120:\\rayon) -- ++(210:\\epaisseur)
-    arc (120:60:\\rayon) -- cycle}
-
-  \\newcommand{\\dureeCan}{[Temps total à modifier juste après le \\textbackslash begin\\{document\\}]}
-
-  \\newcommand{\\titreSujetCan}{\\textbf{[Ligne ci-dessous à modifier juste après le \\textbackslash begin\\{document\\}]\\\\Sujet niveau NN - Mois Année}}
-
-  \\newcommand{\\mobiusCan}{
-    % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
-    \\begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.2]
-      \\shadedraw \\ruban;
-      \\shadedraw [rotate=120] \\ruban;
-      \\shadedraw [rotate=-120] \\ruban;
-      \\draw (-60:4) node[scale=5,rotate=30]{CAN};
-      \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
-      \\clip (0,-6) rectangle (6,6); % pour croiser
-      \\shadedraw  \\ruban;
-      \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
-    \\end{tikzpicture}
-  }
-  
-  \\newcommand{\\pageDeGardeCan}[1]{
-    % #1 --> nom du compteur pour le nombre de questions
-
-    %\\vspace*{10mm}
-    \\textsc{Nom} : \\makebox[.35\\linewidth]{\\dotfill} \\hfill \\textsc{Prénom} : \\makebox[.35\\linewidth]{\\dotfill}
-
-    \\vspace{10mm}
-    \\textsc{Classe} : \\makebox[.33\\linewidth]{\\dotfill} \\hfill
-    \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{#1}}
-    \\par\\medskip \\hrulefill \\par
-    \\checkmark \\textit{\\textbf{Durée :  \\dureeCan~minutes}}
-
-    \\smallskip
-    \\checkmark \\textit{L'épreuve comporte \\total{#1} questions.}
-
-    \\smallskip
-    \\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
-
-    \\smallskip
-    \\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
-    \\par \\hrulefill \\par\\vspace{5mm}
-    \\begin{center}
-      \\textsc{\\titreSujetCan}
-      \\par\\vspace{5mm}
-      \\mobiusCan
-    \\end{center}
-  }
-
-  % Structure globale pour les tableaux des livrets CAN
-  \\newcommand{\\structureTableauCan}[1]{
-    % #1 --> corps de tableau
-    \\renewcommand*{\\arraystretch}{2.5}
-    \\begin{spacing}{1}
-        \\begin{longtable}{|>{\\columncolor{gray!20}\\centering}m{0.05\\textwidth}|>{\\centering}m{0.45\\textwidth}|>{\\centering}m{0.35\\textwidth}|>{\\centering}p{0.1\\textwidth}|}%
-            \\hline
-            \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-            %\\endfirsthead
-            %\\hline
-            %\\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-            %\\endhead
-            #1
-        \\end{longtable}
-    \\end{spacing}
-    \\renewcommand*{\\arraystretch}{1}
-  }
-
-\\begin{document}
-\\thispagestyle{premierePage}
-% Décomenter et modifier les deux lignes suivantes pour ajuster les textes
-%\\renewcommand{\\dureeCan}{ma durée en minutes ici}
-%\\renewcommand{\\titreSujetCan}{\\textbf{mon titre ici}}
-`
-}
-
-/**
- * Renvoie un texte avec le préambule d'un fichier LaTeX avec le style CoopMaths
- * @author Rémi Angot
- */
-export function introLatexCoop (listePackages) {
-  let isImpressionRectoVerso = false
-  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
-  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
-  const introLatexCoop = `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
-\\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
-%\\usepackage[utf8]{inputenc}
-%\\usepackage[T1]{fontenc}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% EXIT WARNING DÛ À LA COMPILATION XETEX %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\\usepackage{ifxetex}
-
-\\ifxetex
-  \\usepackage{fontspec}
-\\else
-  \\usepackage[T1]{fontenc}
-  \\usepackage[utf8]{inputenc}
-  \\usepackage{lmodern}
-\\fi
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\\usepackage[french]{babel}
-\\usepackage{hyperref}
-\\usepackage{multicol}
-\\usepackage{calc}
-\\usepackage{enumerate}
-\\usepackage{enumitem}
-\\usepackage{graphicx}
-\\usepackage{tabularx}
-%\\usepackage[autolanguage]{numprint}
-\\usepackage[autolanguage,np]{numprint}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs}
-\\usepackage{cancel}
-\\usepackage{textcomp}
-\\usepackage{gensymb}
-\\usepackage{eurosym}
-%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}
-\\pagestyle{fancy}
-\\usepackage{fancybox}
-\\usepackage{setspace}
-\\usepackage{xcolor}
-\\usepackage{pgf,tikz} % Pour les images et figures gÃ©omÃ©triques
-\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
-
-\\renewcommand{\\headrulewidth}{0pt}
-\\renewcommand{\\footrulewidth}{0pt}
-\\fancyhead[L]{}
-\\fancyhead[R]{}
-
-%%% COULEURS %%%
-
-\\definecolor{nombres}{cmyk}{0,.8,.95,0}
-\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
-\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
-\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
-\\definecolor{geo}{cmyk}{.62,.1,0,0}
-\\definecolor{algo}{cmyk}{.69,.02,.36,0}
-\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{colortbl}
-\\arrayrulecolor{couleur_theme} % Couleur des filets des tableaux
-
-%%% MISE EN PAGE %%%
-
-\\setlength{\\parindent}{0mm}
-\\renewcommand{\\arraystretch}{1.5}
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
-\\setlength{\\fboxsep}{3mm}
-
-\\setlength{\\headheight}{14.5pt}
-
-\\spaceskip=2\\fontdimen2\\font plus 3\\fontdimen3\\font minus3\\fontdimen4\\font\\relax %Pour doubler l'espace entre les mots
-\\newcommand{\\numb}[1]{ % Dessin autour du numéro d'exercice
-\\begin{tikzpicture}[overlay,yshift=-.3cm,scale=.8]
-\\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
-\\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
-\\node[couleur_numerotation]  at (.5,0) { \\large \\bfseries #1};
-\\draw (-.4,.8) node[white,anchor=north west]{\\bfseries EX};
-\\end{tikzpicture}
-}
-
-%%% NUMEROS DES EXERCICES %%%
-
-\\usepackage{titlesec} % Le titre de section est un numéro d'exercice avec sa consigne alignée à gauche.
-\\titleformat{\\section}{}{\\numb{\\arabic{section}}}{1cm}{\\hspace{0em}}{}
-\\newcommand{\\exo}[1]{ % Un exercice est une nouvelle section avec la consigne écrite en caractêres normaux
-  \\section{\\textmd{#1}}
-  \\medskip
-}
-
-
-%%% ENVIRONNEMENTS - CADRES %%%
-\\usepackage[framemethod=tikz]{mdframed}
-
-\\newmdenv[linecolor=couleur_theme, linewidth=3pt,topline=true,rightline=false,bottomline=false,frametitlerule=false,frametitlefont={\\color{couleur_theme}\\bfseries},frametitlerulewidth=1pt]{methode}
-
-
-\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{}\\; \\bfseries \\Large Objectifs}};}]{objectif}
-
-\\newmdenv[startcode={\\colorlet{couleur_numerotation}{correction}\\renewcommand{\\columnseprulecolor}{\\color{correction}}
-\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{}\\; \\bfseries \\Large Corrections}};}]{correction}
-
-\\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
-
-% echelle pour le dé
-\\def \\globalscale {0.04}
-% abscisse initiale pour les chevrons
-\\def \\xini {3}
-
-\\newcommand{\\theme}[4]
-{
-  %\\theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
-  \\fancyhead[C]{
-    %Tracé du dé
-    \\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\\globalscale, xscale=\\globalscale,remember picture, overlay, shift={(current page.north west)},xshift=17cm,yshift=9.5cm,fill=couleur_theme]
-      %%%%Arc supérieur gauche%%%%
-      \\path[fill](523,1424)..controls(474,1413)and(404,1372)..(362,1333)..controls(322,1295)and(313,1272)..(331,1254)..controls(348,1236)and(369,1245)..(410,1283)..controls(458,1328)and(517,1356)..(575,1362)..controls(635,1368)and(646,1375)..(643,1404)..controls(641,1428)and(641,1428)..(596,1430)..controls(571,1431)and(538,1428)..(523,1424)--cycle;
-      %%%%Dé face supérieur%%%%
-      \\path[fill](512,1272)..controls(490,1260)and(195,878)..(195,861)..controls(195,854)and(198,846)..(202,843)..controls(210,838)and(677,772)..(707,772)..controls(720,772)and(737,781)..(753,796)..controls(792,833)and(1057,1179)..(1057,1193)..controls(1057,1200)and(1053,1209)..(1048,1212)..controls(1038,1220)and(590,1283)..(551,1282)..controls(539,1282)and(521,1278)..(512,1272)--cycle;
-      %%%%Dé faces gauche et droite%%%%
-      \\path[fill](1061,1167)..controls(1050,1158)and(978,1068)..(900,967)..controls(792,829)and(756,777)..(753,756)--(748,729)--(724,745)..controls(704,759)and(660,767)..(456,794)..controls(322,813)and(207,825)..(200,822)..controls(193,820)and(187,812)..(187,804)..controls(188,797)and(229,688)..(279,563)..controls(349,390)and(376,331)..(391,320)..controls(406,309)and(462,299)..(649,273)..controls(780,254)and(897,240)..(907,241)..controls(918,243)and(927,249)..(928,256)..controls(930,264)and(912,315)..(889,372)..controls(866,429)and(848,476)..(849,477)..controls(851,479)and(872,432)..(897,373)..controls(936,276)and(942,266)..(960,266)..controls(975,266)and(999,292)..(1089,408)..controls(1281,654)and(1290,666)..(1290,691)..controls(1290,720)and(1104,1175)..(1090,1180)..controls(1085,1182)and (1071,1176)..(1061,1167)--cycle;
-      %%%%Arc inférieur bas%%%%
-      \\path[fill](1329,861)..controls(1316,848)and(1317,844)..(1339,788)..controls(1364,726)and(1367,654)..(1347,591)..controls(1330,539)and(1338,522)..(1375,526)..controls(1395,528)and(1400,533)..(1412,566)..controls(1432,624)and(1426,760)..(1401,821)..controls(1386,861)and(1380,866)..(1361,868)..controls(1348,870)and(1334,866)..(1329,861)--cycle;
-      %%%%Arc inférieur gauche%%%%
-      \\path[fill](196,373)..controls(181,358)and(186,335)..(213,294)..controls(252,237)and(304,190)..(363,161)..controls(435,124)and(472,127)..(472,170)..controls(472,183)and(462,192)..(414,213)..controls(350,243)and(303,283)..(264,343)..controls(239,383)and(216,393)..(196,373)--cycle;
-    \\end{tikzpicture}
-    \\begin{tikzpicture}[remember picture,overlay]
-      \\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-      \\node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\\footnotesize \\bfseries{MathALEA}};
-      \\end{tikzpicture}
-    \\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
-      \\fill[fill=couleur_theme] (0,5) rectangle (21,6);
-      \\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
-      \\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;
-      \\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;
-      \\node[color=white] at (10.5,5.5) {\\LARGE \\bfseries{ \\MakeUppercase{ #4}}};
-    \\end{tikzpicture}
-    \\begin{tikzpicture}[remember picture,overlay]
-      \\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-      \\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries{\\#}} \\bfseries{#2} \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
-    \\end{tikzpicture}
-  }
-  \\fancyfoot[R]{
-    %\\scriptsize Coopmaths.fr -- CC-BY-SA
-    \\begin{tikzpicture}[remember picture,overlay]
-        \\node[anchor=south east] at ($(current page.south east)+(-2,0.25cm)$) {\\scriptsize {\\bfseries \\href{https://coopmaths.fr/}{Coopmaths.fr} -- \\href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
-      \\end{tikzpicture}
-    \\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay,xscale=0.5,yscale=0.5, shift={(current page.south west)},xshift=35.7cm,yshift=-6cm]
-      \\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
-      \\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;
-      \\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;
-    \\end{tikzpicture}
-  }
-  \\fancyfoot[C]{}
-  \\colorlet{couleur_theme}{#1}
-  \\colorlet{couleur_numerotation}{couleur_theme}
-  \\def\\iconeobjectif{icone-objectif-#1}
-  \\def\\urliconeomethode{icone-methode-#1}
-}
-
-\\newcommand{\\version}[1]{
-  \\fancyhead[R]{
-    \\begin{tikzpicture}[remember picture,overlay]
-    \\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\\large \\textcolor{couleur_theme}{\\bfseries V#1}};
-    \\end{tikzpicture}
-  }
-}
-
-\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}
-
-${preambulePersonnalise(listePackages)}
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Fin du préambule %%%
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-`
-  return introLatexCoop
-}
-
-export function preambulePersonnalise (listePackages) {
-  let result = ''
-  for (const packages of listePackages) {
-    switch (packages) {
-      case 'axe_gradues':
-        result += `
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Gestion des axes gradués (Olivier Lacroix) %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\\usepackage{xparse}
-\\usepackage{ifthen}
-\\usepackage{xargs}
-
-\\newboolean{demiDroite}
-\\newboolean{affichePointilles}
-\\newboolean{affichePoint}
-\\newboolean{afficheGraduations}
-
-\\makeatletter
-\\newtoks\\@tabtoks
-\\providecommand\\addtabtoks[1]{\\@tabtoks\\expandafter{\\the\\@tabtoks#1}}
-\\providecommand*\\resettabtoks{\\@tabtoks{}}
-\\providecommand*\\printtabtoks{\\the\\@tabtoks}
-\\makeatother
-
-\\DeclareDocumentCommand \\placePoints%
-{ > { \\SplitList { | } } m }%
-{\\ProcessList {#1} {\\mycommand}}
-
-\\newcommand{\\mycommand}[1]{
-\\def\\temp{#1}
-\\expandafter\\placePointsDeuxArg\\temp
-}
-
-\\def\\placePointsDeuxArg#1,#2{\\draw (#1,0) node{\\Large $\\times$} node[above=.2] {\\ensuremath{#2}};}
-
-
-
-
-\\newcommandx{\\axeGradueFraction}[5][5=]{
-\\begin{tikzpicture}[xscale=#4,>=latex]
-  \\def\\Xmin{#1}
-  \\def\\Xmax{#2}
-  \\def\\Decoupage{#3}
-  
-  \\ifthenelse { \\equal {#5} {} }
-  {%pas d'argument optionnel, on trace juste l'axe ci-dessous
-  }
-  {% un nombre est Ã placer sur l'axe avec son label
-    \\placePoints{#5}
-    %\\draw (#5,-.08) -- (#5,.08) node[above] {#6};
-  }
-
-
-  
-  % Xfleche de l'axe
-  \\pgfmathparse{\\Xmax+0.2}\\let\\Xfleche\\pgfmathresult;
-  % dÃ©but du segment reprÃ©sentant l'axe numÃ©ro 1
-  \\ifthenelse{\\equal{\\Xmin}{0}}
-  {
-    \\def\\Xorigine{\\Xmin}
-  }
-  {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
-    % pour la dÃ©co :
-    \\draw (\\Xmin-1/\\Decoupage,-.05) -- (\\Xmin-1/\\Decoupage,.05);
-  }
-  \\pgfmathparse{int(\\Xmax-1)}\\let\\XmaxMoinsUn\\pgfmathresult;
-  % construction de la droite
-  \\draw[->,>=latex] (\\Xorigine,0) -- (\\Xfleche,0);
-  \\foreach \\x in {\\Xmin,...,\\XmaxMoinsUn}{
-      \\draw (\\x,-.1) -- (\\x,.1) node[below=.3] {\\x};
-      \\foreach \\y in {1,...,\\Decoupage}{
-        \\pgfmathparse{\\x+\\y/\\Decoupage}\\let\\Xgrad\\pgfmathresult;
-        \\draw (\\Xgrad,-.05) -- (\\Xgrad,.05);
-      }
-  };
-  % derniÃ¨re graduation Ã la mano
-  \\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[below=.3] {\\Xmax};
-
-\\end{tikzpicture}
-}
-
-
-
-\\newcommand{\\axesZoom}[5]{
-{} \\hfill
-\\begin{tikzpicture}
-  \\def\\XA{#1} % nombre (positif pour l'instant) Ã placer (avec deux dÃ©cimales)
-  \\def\\Nom{#2} % nom du point Ã placer. Laisser vide si vous ne souhaitez pas voir le point
-  \\def\\Xmin{#3} % premiÃ¨re valeur de x entiÃ¨re sur l'axe
-  \\setboolean{affichePointilles}{true}  % affiche les pointillÃ©s indiquant le grossissement
-  \\setboolean{affichePoint}{#4} % Est ce que le point doit apparaÃ®tre sur la construction.
-  \\setboolean{afficheGraduations}{#5} % Est ce que l'on gradue tous les axes ou seulement \\Xmin et \\Xmax sur le premier axe (si false)
-  \\setboolean{demiDroite}{true} %Par dÃ©faut, on construit des demi-droites pour les 6Ã¨mes, si Xmin=0 ou si une des dÃ©cimales l'exige.
-  
-  \\ifthenelse{\\boolean{demiDroite}}
-  {
-    \\def\\DebordementAGauche{0} % mettre 0 pour une demi-droite graduÃ©e partant de l'origine
-  }
-  {
-    \\def\\DebordementAGauche{0.5} % mettre 0.5 dans les autres cas.
-  }
-  
-  \\pgfmathparse{int(\\Xmin+10)}\\let\\Xmax\\pgfmathresult; % Xmax vaut toujours Xmin+10
-  
-  \\pgfmathparse{int(\\XA)}\\let\\Unites\\pgfmathresult;
-  \\pgfmathparse{int((\\XA-\\Unites)*10)}\\let\\Dixiemes\\pgfmathresult;
-  \\pgfmathparse{int(round((\\XA-\\Unites.\\Dixiemes)*100))}\\let\\Centiemes\\pgfmathresult;
-
-  \\pgfmathparse{int(\\Unites+1)}\\let\\UnitesMaj\\pgfmathresult;
-  \\pgfmathparse{int(\\Dixiemes+1)}\\let\\DixiemesMaj\\pgfmathresult;
-  \\pgfmathparse{int(\\Centiemes+1)}\\let\\CentiemesMaj\\pgfmathresult;
-
-  \\pgfmathparse{\\Xmax+1}\\let\\Xfleche\\pgfmathresult;
-  \\ifthenelse{\\equal{\\Xmin}{0}}
-  {
-    \\def\\Xorigine{\\Xmin}
-  }
-  {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
-  }
-
-  \\pgfmathparse{int(\\Xmax-1)}\\let\\XmaxMoinsUn\\pgfmathresult;
-  \\pgfmathparse{int(\\Xmin+1)}\\let\\XminPlusUn\\pgfmathresult;
-  
-  \\draw[->,>=latex] (\\Xorigine,0) -- (\\Xfleche,0);
-  \\foreach \\x in {\\XminPlusUn,...,\\XmaxMoinsUn}{
-    \\ifthenelse{\\boolean{afficheGraduations}}
-    {
-      \\draw (\\x,-.1) -- (\\x,.1) node[above] {\\x};
-    }
-    {
-      \\draw (\\x,-.1) -- (\\x,.1);
-    }
-  };
-  \\foreach \\x in {1,...,9}{
-    \\draw (\\Unites.\\x,-.05) -- (\\Unites.\\x,.05);
-  }
-  \\draw (\\Xmin,-.1) -- (\\Xmin,.1) node[above] {\\Xmin};
-  \\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[above] {\\Xmax};
-  \\ifthenelse{\\not\\equal{\\Unites}{0}}
-  {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
-  }{}
-  \\draw[->,>=latex] (\\Xorigine,-2) -- (\\Xfleche,-2);
-  \\foreach \\x in {1,...,9}{
-    \\pgfmathparse{int(\\Xmin+\\x)}\\let\\X\\pgfmathresult;
-    \\ifthenelse{\\boolean{afficheGraduations}}
-    {
-      \\draw (\\X,-2.1) -- (\\X,-1.9) node[above] {\\Unites,\\x};
-    }
-    {
-      \\draw (\\X,-2.1) -- (\\X,-1.9);
-    }
-    \\pgfmathparse{int(\\Dixiemes+\\Xmin)+\\x/10}\\let\\Xtirets\\pgfmathresult;
-    \\draw (\\Xtirets,-2.05) -- (\\Xtirets,-1.95);
-  };
-  
-  \\ifthenelse{\\boolean{afficheGraduations}}
-  {
-    \\draw (\\Xmax,-2.1) -- (\\Xmax,-1.9) node[above] {\\UnitesMaj};
-    \\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) node[above] {\\Unites};
-  }
-  {
-    \\draw (\\Xmax,-2.1) -- (\\Xmax,-1.9) ;
-    \\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) ;
-  }
-  
-  \\pgfmathparse{int(\\Dixiemes+\\Xmin)}\\let\\XGaucheAxeBis\\pgfmathresult;
-  \\pgfmathparse{int(\\XGaucheAxeBis+1)}\\let\\XDroitAxeBis\\pgfmathresult;
-
-  \\ifthenelse{\\boolean{affichePointilles}}
-  {
-  \\draw[dashed] (\\Unites,0) -- (\\Xmin,-2);
-  \\draw[dashed] (\\UnitesMaj,0) -- (\\Xmax,-2);
-  \\draw[dashed] (\\XGaucheAxeBis,-2) -- (\\Xmin,-4);
-  \\draw[dashed] (\\XDroitAxeBis,-2) -- (\\Xmax,-4);
-  }{}
-  
-  \\ifthenelse{\\not\\equal{\\Dixiemes}{0}}
-  {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
-  }{}
-  \\draw[->,>=latex] (\\Xorigine,-4) -- (\\Xfleche,-4);
-  \\foreach \\x in {1,...,9}{
-    \\pgfmathparse{int(\\Xmin+\\x)}\\let\\X\\pgfmathresult;
-    \\ifthenelse{\\boolean{afficheGraduations}}
-      {
-      \\draw (\\X,-4.1) -- (\\X,-3.9) node[above] {\\Unites,\\Dixiemes\\x};
-      }
-      {
-      \\draw (\\X,-4.1) -- (\\X,-3.9) ;
-      }
-    };
-
-  
-\\ifthenelse{\\boolean{afficheGraduations}}
-  {
-  \\ifthenelse{\\equal{\\Dixiemes}{9}}
-    {
-    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\UnitesMaj};
-    }
-    {
-    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\Unites,\\DixiemesMaj};
-    }
-  
-  \\ifthenelse{\\equal{\\Dixiemes}{0}}
-    {
-    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites};
-    }
-    {
-    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites,\\Dixiemes};
-    }
-  }
-  {
-  \\ifthenelse{\\equal{\\Dixiemes}{9}}
-    {
-    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9);
-    }
-    {
-    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) ;
-    }
-  
-  \\ifthenelse{\\equal{\\Dixiemes}{0}}
-    {
-    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;
-    }
-    {
-    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;
-    }
-  \\pgfmathparse{int(\\Centiemes+\\Xmin)}\\let\\XGaucheAxeTer\\pgfmathresult;
-  \\draw (\\XGaucheAxeTer,-4) node[below] {\\Nom};
-  }
-  
-  \\ifthenelse{\\boolean{affichePoint}}
-  {
-    \\draw (\\XA,0) node{\\Large $\\times$} node[below] {\\Nom};
-    \\draw (\\XGaucheAxeBis.\\Centiemes,-2) node{\\Large $\\times$} node[below] {\\Nom};
-  }{}
-\\end{tikzpicture}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Fin de la gestion des axes gradués %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-}
-
-`
-        break
-      case 'bclogo':
-        result += '\\usepackage[tikz]{bclogo}'
-        break
-      case 'tkz-euclide':
-        result += '\\usepackage{tkz-euclide}'
-        break
-      case 'bac':
-      case 'crpe':
-        result += '\\usepackage{scratch3}'
-        break
-      case 'dnb':
-      case 'e3c':
-        // result += `
-        // \\usepackage{fourier}
-        // \\usepackage[scaled=0.875]{helvet}
-        // \\renewcommand{\\ttdefault}{lmtt}
-        // \\usepackage[normalem]{ulem}
-        // \\usepackage{diagbox}
-        // \\usepackage{fancybox}
-        // \\usepackage{booktabs}
-        // \\usepackage{pifont}
-        // \\usepackage{multirow}
-        // \\usepackage{dcolumn}
-        // \\usepackage{lscape}
-        // \\usepackage{graphics,graphicx}
-        // \\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}
-        // \\usepackage{scratch}
-        // \\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
-        // \\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
-        // \\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
-        // \\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
-        // \\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}
-        // \\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}
-        // \\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
-        // \\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}
-        // `
-        result += `
-        %%%%% FONTS %%%%%
-        %\\usepackage{fourier}
-        \\usepackage{fourier-otf} % car compilation avec xetex
-        \\usepackage[scaled=0.875]{helvet}
-        \\renewcommand{\\ttdefault}{lmtt}
-        \\usepackage{pifont} % symboles
-        
-        %%%%% MISE EN PAGE %%%%%
-        \\usepackage{makeidx}
-        \\usepackage{lscape} % format paysage
-        
-        %%%%% MISE EN FORME %%%%%
-        \\usepackage[normalem]{ulem} % souligner
-        \\usepackage{booktabs} % tableaux de qualité
-        %\\usepackage[dvips]{hyperref} % hyperlien pour le passage par la compilation dvips
-        
-        %%%%% MATHS %%%%%
-        \\usepackage{diagbox} % des diagonales dans une cellule de tableau
-        \\usepackage{multirow} % fusionner plusieurs lignes de tableau
-        \\usepackage{dcolumn} % aligner des décimaux dans un tableau
-        %\\usepackage{marvosym}   %c'est pour le symbole euro : code \\EUR{}
-        %\\usepackage[np]{numprint} % affichage formaté des nombres
-        
-        %%%%%%% SCRATCH %%%%%%%
-        % Par défaut pour les anciens sujets c'est le package scratch qui est chargé
-        % Les packages scratch et scratch3 sont incompatibles
-        % Il convient donc de commenter l'un d'eux selon les besoins
-        %
-        % à noter que le package scratch3 requiert simplekv et tikz qui sont automatiquement chargés en cas de besoin
-        %\\usepackage{scratch}
-        % Le package scratch est obsolète. On le remplace par le pckage scratch3
-        % Compatibilité avec les anciens sources tex à vérifier
-        \\usepackage{scratch3}
-        %%%%% FIGURES %%%%%
-        \\usepackage{graphics} % à distinguer du package graphicx
-        \\usepackage{framed} % decoration background
-        
-        %%%%%%% PSTRICKS %%%%%%%
-        \\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}
-        \\usepackage{pst-eucl}  % permet de faire des dessins de géométrie simplement
-        \\usepackage{pst-text}
-        \\usepackage{pst-node,pst-all}
-        \\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}  %%% POUR LE BAC %%%
-        
-        %%%%%%% TIKZ %%%%%%%
-        \\usepackage{tkz-tab,tkz-fct}
-        \\usepackage{tkz-euclide}
-        \\usepackage[tikz]{bclogo}
-        \\usetikzlibrary{shadows,decorations.markings}
-        \\usetikzlibrary{decorations.pathreplacing}
-        %\\usepackage{tikz} % arbre en proba
-        %\\usetikzlibrary{trees} % arbre en proba
-        \\usepackage{forest} % arbre en proba
-        
-        %%%%%%% TRACÉS FONNCTIONS %%%%%%%
-        \\usepackage{pgfplots}
-        \\pgfplotsset{compat=1.17}
-        
-        %%%%% PROGRAMMATION %%%%%
-        \\usepackage{xkeyval,ifthen}
-        
-        
-        %%%%% COMMANDES SPRECIFIQUES %%%%%
-        \\usepackage{esvect} %%% POUR LE BAC %%%
-        \\newcommand{\\vvt}[1]{\\vv{\\text{#1}}} %%% POUR LE BAC %%%
-        \\newcommand{\\vectt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}} %%% POUR LE BAC %%%
-
-        \\newcommand{\\textding}[1]{\\text{\\ding{#1}}}
-        %\\newcommand{\\euro}{\\eurologo{}}
-        \\renewcommand{\\pstEllipse}[5][]{% arc d'ellipse pour le sujet de Polynésie septembre 2013
-        \\psset{#1}
-        \\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}
-        }
-        
-        %%%%%%% NOTATIONS DES ENSEMBLES %%%%%%%
-        \\newcommand{\\R}{\\mathbb{R}}
-        \\newcommand{\\N}{\\mathbb{N}}
-        \\newcommand{\\D}{\\mathbb{D}}
-        \\newcommand{\\Z}{\\mathbb{Z}}
-        \\newcommand{\\Q}{\\mathbb{Q}}
-        %\\newcommand{\\C}{\\mathbb{C}}
-        
-        %%%%% TRACÉS DANS UN REPÈRE %%%%%
-        \\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}
-        \\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}
-        \\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
-        \\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}
-        
-        \\newcommand{\\e}{\\mathrm{\\,e\\,}} %%% POUR LE BAC %%% le e de l'exponentielle
-        \\newcommand{\\ds}{\\displaystyle} %%% POUR LE BAC %%%
-
-        %%%%% PROBABILITÉS %%%%%
-        % Structure servant à avoir l'événement et la probabilité.
-        \\def\\getEvene#1/#2\\endget{$#1$}
-        \\def\\getProba#1/#2\\endget{$#2$}
-        
-        %%%%% NOMBRES PREMIERS %%%%%
-        \\input{xlop} % JM pour les opérations
-        %%% Table des nombres premiers  %%%%
-        \\newcount\\primeindex
-        \\newcount\\tryindex
-        \\newif\\ifprime
-        \\newif\\ifagain
-        \\newcommand\\getprime[1]{%
-        \\opcopy{2}{P0}%
-        \\opcopy{3}{P1}%
-        \\opcopy{5}{try}
-        \\primeindex=2
-        \\loop
-        \\ifnum\\primeindex<#1\\relax
-        \\testprimality
-        \\ifprime
-        \\opcopy{try}{P\\the\\primeindex}%
-        \\advance\\primeindex by1
-        \\fi
-        \\opadd*{try}{2}{try}%
-        \\ifnum\\primeindex<#1\\relax
-        \\testprimality
-        \\ifprime
-        \\opcopy{try}{P\\the\\primeindex}%
-        \\advance\\primeindex by1
-        \\fi
-        \\opadd*{try}{4}{try}%
-        \\fi
-        \\repeat
-        }
-        \\newcommand\\testprimality{%
-        \\begingroup
-        \\againtrue
-        \\global\\primetrue
-        \\tryindex=0
-        \\loop
-        \\opidiv*{try}{P\\the\\tryindex}{q}{r}%
-        \\opcmp{r}{0}%
-        \\ifopeq \\global\\primefalse \\againfalse \\fi
-        \\opcmp{q}{P\\the\\tryindex}%
-        \\ifoplt \\againfalse \\fi
-        \\advance\\tryindex by1
-        \\ifagain
-        \\repeat
-        \\endgroup
-        }
-        
-        %%% Décomposition en nombres premiers %%%
-        \\newcommand\\primedecomp[2][nil]{%
-        \\begingroup
-        \\opset{#1}%
-        \\opcopy{#2}{NbtoDecompose}%
-        \\opabs{NbtoDecompose}{NbtoDecompose}%
-        \\opinteger{NbtoDecompose}{NbtoDecompose}%
-        \\opcmp{NbtoDecompose}{0}%
-        \\ifopeq
-        Je refuse de décomposer zéro.
-        \\else
-        \\setbox1=\\hbox{\\opdisplay{operandstyle.1}%
-        {NbtoDecompose}}%
-        {\\setbox2=\\box2{}}%
-        \\count255=1
-        \\primeindex=0
-        \\loop
-        \\opcmp{NbtoDecompose}{1}\\ifopneq
-        \\opidiv*{NbtoDecompose}{P\\the\\primeindex}{q}{r}%
-        \\opcmp{0}{r}\\ifopeq
-        \\ifvoid2
-        \\setbox2=\\hbox{%
-        \\opdisplay{intermediarystyle.\\the\\count255}%
-        {P\\the\\primeindex}}%
-        \\else
-        \\setbox2=\\vtop{%
-        \\hbox{\\box2}
-        \\hbox{%
-        \\opdisplay{intermediarystyle.\\the\\count255}%
-        {P\\the\\primeindex}}}
-        \\fi
-        \\opcopy{q}{NbtoDecompose}%
-        \\advance\\count255 by1
-        \\setbox1=\\vtop{%
-        \\hbox{\\box1}
-        \\hbox{%
-        \\opdisplay{operandstyle.\\the\\count255}%
-        {NbtoDecompose}}
-        }%
-        \\else
-        \\advance\\primeindex by1
-        \\fi
-        \\repeat
-        \\hbox{\\box1
-        \\kern0.5\\opcolumnwidth
-        \\opvline(0,0.75){\\the\\count255.25}
-        \\kern0.5\\opcolumnwidth
-        \\box2}%
-        \\fi
-        \\endgroup
-        }
-        
-        % pour les corrections LG Ceci est commenté pour le préambule de mathalea car un environnement remarque existe déjà
-        %\\newcommand{\\remarque}[1]{
-        %\\begin{bclogo}[logo=\\bctrombone,couleur=gray!5,ombre,epBord=0.8]{Remarque:}%
-        %    {#1}
-        %\\end{bclogo}}
-
-        %%%%% VÉRIFIER L'UTILITÉ %%%%%
-        %\\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
-        %\\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
-        %\\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
-        %\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
-        
-
-        
-        %Tapuscrit : Denis Vergès
-        
-        `
-        break
-      default:
-        result += `\\usepackage{${packages}}\n`
-    }
-  }
-  return result
-}
-
-/**
- * Charge scratchblocks puis sa traduction fr
- * retourne une promesse rejetée en cas de pb de chargement (à gérer par l'appelant)
- * @return {Promise}
- */
-export async function scratchTraductionFr () {
-  await loadScratchblocks()
-  window.scratchblocks.loadLanguages({
-    fr: {
-      commands: {
-        'move %1 steps': 'avancer de %1 pas',
-        'turn @turnRight %1 degrees': 'tourner @turnRight de %1 degrés',
-        'turn @turnLeft %1 degrees': 'tourner @turnLeft de %1 degrés',
-        'point in direction %1': "s'orienter à %1",
-        'point towards %1': "s'orienter vers %1",
-        'go to x:%1 y:%2': 'aller à x: %1 y: %2',
-        'go to %1': 'aller à %1',
-        'glide %1 secs to x:%2 y:%3': 'glisser en %1 secondes à x: %2 y: %3',
-        'glide %1 secs to %2': 'glisser en %1 secondes à %2',
-        'change x by %1': 'ajouter %1 à x',
-        'set x to %1': 'mettre x à %1',
-        'change y by %1': 'ajouter %1 à y',
-        'set y to %1': 'mettre y à %1',
-        'set rotation style %1': 'fixer le sens de rotation %1',
-        'say %1 for %2 seconds': 'dire %1 pendant %2 secondes',
-        'say %1': 'dire %1',
-        'think %1 for %2 seconds': 'penser à %1 pendant %2 secondes',
-        'think %1': 'penser à %1',
-        show: 'montrer',
-        hide: 'cacher',
-        'switch costume to %1': 'basculer sur le costume %1',
-        'next costume': 'costume suivant',
-        'next backdrop': 'arrière-plan suivant',
-        'switch backdrop to %1': "basculer sur l'arrière-plan %1",
-        'switch backdrop to %1 and wait': "basculer sur l'arrière-plan %1 et attendre",
-        'change %1 effect by %2': "ajouter %2 à l'effet %1",
-        'set %1 effect to %2': "mettre l'effet %1 à %2",
-        'clear graphic effects': 'annuler les effets graphiques',
-        'change size by %1': 'ajouter %1 à la taille',
-        'set size to %1%': 'mettre la taille à %1 % de la taille initiale',
-        'go to %1 layer': "aller à l'%1 plan",
-        'go %1 %2 layers': "déplacer de %2 plans vers l'%1",
-        'start sound %1': 'jouer le son %1',
-        'clear sound effects': 'annuler tous les effets sonores',
-        'play sound %1 until done': "jouer le son %1 jusqu'au bout",
-        'stop all sounds': 'arrêter tous les sons',
-        'play drum %1 for %2 beats': 'jouer du tambour %1 pendant %2 temps',
-        'rest for %1 beats': 'faire une pause pendant %1 temps',
-        'play note %1 for %2 beats': 'jouer la note %1 pendant %2 temps',
-        'set instrument to %1': "choisir l'instrument n° %1",
-        'change volume by %1': 'ajouter %1 au volume',
-        'set volume to %1%': 'mettre le volume à %1%',
-        'change tempo by %1': 'ajouter %1 au tempo',
-        'set tempo to %1': 'mettre le tempo à %1',
-        'erase all': 'effacer tout',
-        stamp: 'estampiller',
-        'pen down': "stylo en position d'écriture",
-        'pen up': 'relever le stylo',
-        'set pen color to %1': 'mettre la couleur du stylo à %1',
-        'change pen color by %1': 'ajouter %1 à la couleur du stylo',
-        'set pen %1 to %2': 'mettre la %1 du stylo à %2',
-        'change pen %1 by %2': 'ajouter %2 à la %1 du stylo',
-        'change pen shade by %1': "ajouter %1 à l'intensité du stylo",
-        'set pen shade to %1': "mettre l'intensité du stylo à %1",
-        'change pen size by %1': 'ajouter %1 à la taille du stylo',
-        'set pen size to %1': 'mettre la taille du stylo à %1',
-        'when @greenFlag clicked': 'quand @greenFlag est cliqué',
-        'when %1 key pressed': 'quand la touche %1 est pressée',
-        'when this sprite clicked': 'quand ce sprite est cliqué',
-        'when stage clicked': 'quand la scène est cliquée',
-        'when backdrop switches to %1': "quand l'arrière-plan bascule sur %1",
-        'when %1 > %2': 'quand le %1 > %2',
-        'when I receive %1': 'quand je reçois %1',
-        'broadcast %1': 'envoyer à tous %1',
-        'broadcast %1 and wait': 'envoyer à tous %1 et attendre',
-        'wait %1 seconds': 'attendre %1 secondes',
-        'repeat %1': 'répéter %1 fois',
-        forever: 'répéter indéfiniment',
-        'if %1 then': 'si %1 alors',
-        'wait until %1': "attendre jusqu'à ce que %1",
-        'repeat until %1': "répéter jusqu'à ce que %1",
-        'stop %1': 'stop %1',
-        'when I start as a clone': 'quand je commence comme un clone',
-        'create clone of %1': 'créer un clone de %1',
-        'delete this clone': 'supprimer ce clone',
-        'ask %1 and wait': 'demander %1 et attendre',
-        'turn video %1': 'vidéo %1',
-        'set video transparency to %1%': 'mettre la transparence vidéo sur %1',
-        'when video motion > %1': 'quand mouvement vidéo > %1',
-        'reset timer': 'réinitialiser le chronomètre',
-        'set %1 to %2': 'mettre %1 à %2',
-        'change %1 by %2': 'ajouter %2 à %1',
-        'show variable %1': 'montrer la variable %1',
-        'hide variable %1': 'cacher la variable %1',
-        'add %1 to %2': 'ajouter %1 à %2',
-        'delete %1 of %2': "supprimer l'élément %1 de %2",
-        'delete all of %1': 'supprimer tous les éléments de la liste %1',
-        'if on edge, bounce': 'rebondir si le bord est atteint',
-        'insert %1 at %2 of %3': 'insérer %1 en position %2 de %3',
-        'replace item %1 of %2 with %3': "remplacer l'élément %1 de la liste %2 par %3",
-        'show list %1': 'montrer la liste %1',
-        'hide list %1': 'cacher la liste %1',
-        'x position': 'abscisse x',
-        'y position': 'ordonnée y',
-        direction: 'direction',
-        'costume #': 'numéro de costume',
-        'costume %1': '%1 du costume',
-        size: 'taille',
-        'backdrop name': "nom de l'arrière-plan",
-        'backdrop %1': "%1 de l'arrière-plan",
-        'backdrop #': "numéro de l'arrière-plan",
-        volume: 'volume',
-        tempo: 'tempo',
-        'touching %1?': 'touche le %1 ?',
-        'touching color %1?': 'couleur %1 touchée ?',
-        'color %1 is touching %2?': 'couleur %1 touche %2 ?',
-        'distance to %1': 'distance de %1',
-        answer: 'réponse',
-        'key %1 pressed?': 'touche %1 pressée ?',
-        'mouse down?': 'souris pressée ?',
-        'mouse x': 'souris x',
-        'mouse y': 'souris y',
-        'set drag mode %1': 'mettre mode de glissement à %1',
-        loudness: 'volume sonore',
-        'video %1 on %2': 'vidéo %1 sur %2',
-        timer: 'chronomètre',
-        '%1 of %2': '%1 de %2',
-        'current %1': '%1 actuelle',
-        'days since 2000': 'jours depuis 2000',
-        username: "nom d'utilisateur",
-        '%1 + %2': '%1 + %2',
-        '%1 - %2': '%1 - %2',
-        '%1 * %2': '%1 * %2',
-        '%1 / %2': '%1 / %2',
-        'pick random %1 to %2': 'nombre aléatoire entre %1 et %2',
-        '%1 < %2': '%1 < %2',
-        '%1 = %2': '%1 = %2',
-        '%1 > %2': '%1 > %2',
-        '%1 and %2': '%1 et %2',
-        '%1 or %2': '%1 ou %2',
-        'not %1': 'non %1',
-        'join %1 %2': 'regrouper %1 et %2',
-        'letter %1 of %2': 'lettre %1 de %2',
-        'length of %1': 'longueur de %1',
-        '%1 mod %2': '%1 modulo %2',
-        'round %1': 'arrondi de %1',
-        '%1 contains %2?': '%1 contient %2 ?',
-        'item %1 of %2': 'élément %1 de %2',
-        'item # of %1 in %2': 'position de %1 dans %2',
-        'turn %1 on': 'allumer le moteur %1',
-        'turn %1 off': 'éteindre le moteur %1',
-        'set %1 power to %2': 'mettre la puissance du moteur %1 à %2',
-        'set %1 direction to %2': 'mettre la direction du moteur %1 à %2',
-        'when distance %1 %2': 'quand la distance %1 %2',
-        distance: 'distance',
-        'turn %1 on for %2 seconds': 'allumer le moteur %1 pendant %2 secondes',
-        'set light color to %1': 'mettre la couleur de la lampe à %1',
-        'play note %1 for %2 seconds': 'jouer la note %1 pendant %2 secondes',
-        'when tilted %1': 'quand incliné %1',
-        'tilt angle %1': "angle d'inclinaison %1",
-        else: 'sinon',
-        'user id': "id de l'utilisateur",
-        'loud?': 'fort ?'
-      },
-      dropdowns: {},
-      ignorelt: [],
-      soundEffects: [
-        'hauteur',
-        'stéréo gauche/droite'
-      ],
-      osis: [
-        'autres scripts dans sprite'
-      ],
-      definePrefix: [
-        'définir'
-      ],
-      defineSuffix: [],
-      palette: {
-        Motion: 'Mouvement',
-        Looks: 'Apparence',
-        Sound: 'Son',
-        Events: 'Événements',
-        Control: 'Contrôle',
-        Sensing: 'Capteurs',
-        Operators: 'Opérateurs',
-        Variables: 'Variables',
-        'My Blocks': 'Mes Blocs'
-      },
-      math: [
-        'abs',
-        'plancher',
-        'plafond',
-        'racine',
-        'sin',
-        'cos',
-        'tan',
-        'asin',
-        'acos',
-        'atan',
-        'ln',
-        'log',
-        'e^',
-        '10^'
-      ],
-      aliases: {
-        'tourner gauche de %1 degrés': 'turn @turnLeft %1 degrees',
-        'tourner droite de %1 degrés': 'turn @turnRight %1 degrees',
-        'quand le drapeau vert pressé': 'when @greenFlag clicked',
-        fin: 'end'
-      },
-      name: 'Français',
-      percentTranslated: 100
-    }
-  })
-}
-
 export function dataTailleDiaporama (exercice) {
   if (context.vue !== 'diap') {
     return ''
@@ -8238,36 +4078,4 @@ function dataTaille (taille) {
   } else if (taille !== 1) {
     return `data-taille = "${taille}"`
   }
-}
-
-/**
- * Donne une liste d'entiers relatifs dont on connait la somme.
- * @example > listeEntiersSommeConnue(4,10,-2)
- * < [1,-2,6,5]
- * @param {int} nbElements Nombre d'éléments de la liste
- * @param {int} total Somme des éléments de la liste (peut être un nombre négatif)
- * @param {int} [valMin = 1] Valeur minimale de chaque élément (peut être un nombre négatif)
- * @return {Array} Liste d'entiers relatifs
- * @author Frédéric PIOU
- */
-export function listeEntiersSommeConnue (nbElements, total, valMin = 1) {
-  const liste = []
-  liste.push(randint(valMin, total - (nbElements - 1) * valMin))
-  for (let j = 1; j < nbElements - 1; j++) {
-    liste.push(randint(liste[j - 1] + valMin, total - (nbElements - j - 1) * valMin))
-  }
-  liste.push(total)
-  for (let j = nbElements - 1; j > 0; j--) {
-    liste[j] = liste[j] - liste[j - 1]
-  }
-  return liste
-}
-
-/**
- * @param {string} expression expression parsée
- * @returns expression en LaTeX avec multication implicite
- * @author Jean-Léon Henry
- */
-export function prettyTex (expression) {
-  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }

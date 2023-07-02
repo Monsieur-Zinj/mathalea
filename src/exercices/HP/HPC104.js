@@ -1,5 +1,6 @@
+import { MatriceCarree } from '../../modules/MatriceCarree.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, MatriceCarree, lettreIndiceeDepuisChiffre, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
 const math = create(all)
 

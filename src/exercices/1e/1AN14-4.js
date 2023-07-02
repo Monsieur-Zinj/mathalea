@@ -1,9 +1,18 @@
-import { Polynome } from '../../modules/mathFonctions/Polynome.js'
-import Exercice from '../Exercice.js'
-import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, prettyTex } from '../../modules/outils.js'
-import { simplify, parse, derivative, abs } from 'mathjs'
+import { abs, derivative, parse, simplify } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { Polynome } from '../../modules/mathFonctions/Polynome.js'
+import {
+  combinaisonListes,
+  ecritureAlgebrique,
+  lettreMinusculeDepuisChiffre,
+  listeQuestionsToContenu,
+  randint,
+  rienSi1,
+  signe
+} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 const math = { simplify, parse, derivative }
 export const titre = 'Dérivée d\'un produit'
 export const dateDePublication = '22/01/2022'
@@ -18,6 +27,16 @@ export const interactifType = 'mathLive'
 
 export const uuid = '1a60f'
 export const ref = '1AN14-4'
+
+/**
+ * @param {string} expression expression parsée
+ * @returns expression en LaTeX avec multication implicite
+ * @author Jean-Léon Henry
+ */
+export function prettyTex (expression) {
+  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
+}
+
 export default function DeriveeProduit () {
   Exercice.call(this)
   this.titre = titre
