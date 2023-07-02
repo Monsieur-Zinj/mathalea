@@ -1,6 +1,16 @@
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, combinaisonListes } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  choice,
+  ecritureParentheseSiNegatif,
+  combinaisonListes
+} from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées de la différence de deux vecteurs'
 export const dateDePublication = '28/05/2023'
 
@@ -37,25 +47,27 @@ export default function Calculercoordonneesdifferencevecteurs () {
       }
     }
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, ux, uy, vx, vy, wx, wy, a, b, c, d, listeFractions1, frac1, frac2, frac3, frac4, xA, yA, xB, yB, xC, yC, xD, yD, texte, texteCorr, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, wx, wy, texte, texteCorr, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       switch (typesDeQuestions) {
-        case 't1': // On donne 2 vecteurs à coordonnées entières
-          ux = randint(-9, 9)
+        case 't1': { // On donne 2 vecteurs à coordonnées entières
+          const ux = randint(-9, 9)
+          let uy
           if (ux === 0) {
             uy = randint(-9, 9, [0])
           } else {
             uy = randint(-9, 9)
           } // Premier vecteur jamais nul
-          vx = randint(-9, 9)
+          const vx = randint(-9, 9)
+          let vy
           if (vx === 0) {
             vy = randint(-9, 9, [0])
           } else {
             vy = randint(-9, 9)
           } // Second vecteur jamais nul
-          wx = ux - vx
-          wy = uy - vy
+          wx = new FractionEtendue(ux - vx, 1)
+          wy = new FractionEtendue(uy - vy, 1)
 
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}\\\\${vy}\\end{pmatrix}$.<br>`
           texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}-\\overrightarrow{v}$.'
@@ -71,32 +83,33 @@ export default function Calculercoordonneesdifferencevecteurs () {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
             texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont égaux $\\overrightarrow{u}=\\overrightarrow{v}$.'
           }
+        }
           break
 
-        case 't2': // On donne 2 vecteurs à coordonnées fractionnaires
-          listeFractions1 = [[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4],
+        case 't2': { // On donne 2 vecteurs à coordonnées fractionnaires
+          const listeFractions1 = [[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4],
             [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
-          frac1 = choice(listeFractions1)
-          ux = new FractionEtendue(frac1[0], frac1[1])
-          frac2 = choice(listeFractions1)
-          uy = new FractionEtendue(frac2[0], frac2[1])
+          const frac1 = choice(listeFractions1)
+          const ux = new FractionEtendue(frac1[0], frac1[1])
+          const frac2 = choice(listeFractions1)
+          const uy = new FractionEtendue(frac2[0], frac2[1])
 
-          frac3 = choice(listeFractions1)
+          let frac3 = choice(listeFractions1)
           while (frac3[1] === frac1[1]) {
             frac3 = choice(listeFractions1)
           }
-          vx = new FractionEtendue(frac3[0], frac3[1])
-          frac4 = choice(listeFractions1)
+          const vx = new FractionEtendue(frac3[0], frac3[1])
+          let frac4 = choice(listeFractions1)
           while (frac4[1] === frac2[1]) {
             frac4 = choice(listeFractions1)
           }
-          vy = randint(-9, 9, [0])
+          const vy = randint(-9, 9, [0])
 
-          a = frac1[0] * frac3[1] - frac3[0] * frac1[1]
-          b = frac1[1] * frac3[1]
+          const a = frac1[0] * frac3[1] - frac3[0] * frac1[1]
+          const b = frac1[1] * frac3[1]
 
-          c = frac2[0] - frac2[1] * vy
-          d = frac2[1]
+          const c = frac2[0] - frac2[1] * vy
+          const d = frac2[1]
 
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux.texFraction}\\\\[0.7em]${uy.texFraction}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy}\\end{pmatrix}$.<br>`
           texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}-\\overrightarrow{v}$.'
@@ -152,19 +165,20 @@ export default function Calculercoordonneesdifferencevecteurs () {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
             texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont égaux $\\overrightarrow{u}=\\overrightarrow{v}$.'
           }
+        }
           break
 
-        case 't3': // On donne 4 points à coordonnées entières
-          xA = randint(-9, 9)
-          yA = randint(-9, 9, [xA])
-          xB = randint(-9, 9)
-          yB = randint(-9, 9, [xB])
-          xC = randint(-9, 9)
-          yC = randint(-9, 9, [xC])
-          xD = randint(-9, 9)
-          yD = randint(-9, 9, [xD])
-          wx = (xB - xA) - (xD - xC)
-          wy = (yB - yA) - (yD - yC)
+        case 't3': { // On donne 4 points à coordonnées entières
+          const xA = randint(-9, 9)
+          const yA = randint(-9, 9, [xA])
+          const xB = randint(-9, 9)
+          const yB = randint(-9, 9, [xB])
+          const xC = randint(-9, 9)
+          const yC = randint(-9, 9, [xC])
+          const xD = randint(-9, 9)
+          const yD = randint(-9, 9, [xD])
+          wx = new FractionEtendue((xB - xA) - (xD - xC), 1)
+          wy = new FractionEtendue((yB - yA) - (yD - yC), 1)
 
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA};${yA}\\right)$, $B\\left(${xB};${yB}\\right)$, $C\\left(${xC};${yC}\\right)$ et $D\\left(${xD};${yD}\\right)$.<br>`
           texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{AB}-\\overrightarrow{CD}$.'
@@ -186,9 +200,14 @@ export default function Calculercoordonneesdifferencevecteurs () {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
             texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{AB}$ et $\\overrightarrow{CD}$ sont égaux $\\overrightarrow{AB}=\\overrightarrow{CD}$.'
           }
+        }
           break
       }
-      if (this.questionJamaisPosee(i, ux, uy, vx, vy, wx, wy, a, b, c, d, listeFractions1, frac1, frac2, frac3, frac4, xA, yA, xB, yB, xC, yC, xD, yD)) { // Si la question n'a jamais été posée, on en créé une autre
+      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Composante sur $x$ de $\\overrightarrow{w}$ :' })
+      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Composante sur $y$ de $\\overrightarrow{w}$ :' })
+      setReponse(this, 2 * i, wx, { formatInteractif: 'fractionEgale' })
+      setReponse(this, 2 * i + 1, wy, { formatInteractif: 'fractionEgale' })
+      if (this.questionJamaisPosee(i, wx, wy)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
