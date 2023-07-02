@@ -1,4 +1,4 @@
-import { randint, texFraction } from '../../../modules/outils.js'
+import { randint, deprecatedTexFraction } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre une équation du type ax=b'
 export const interactifReady = true
@@ -25,7 +25,7 @@ export default function EquationAXEgalB () {
     const b = a * this.reponse
     this.question = `Donner la solution de l'équation :<br> $${a}x=${b}$`
     this.correction = `On cherche le nombre qui multiplié par $${a}$ donne $${b}$.<br>
-    Il s'agit de  $x=${texFraction(b, a)}=${this.reponse}$`
+    Il s'agit de  $x=${deprecatedTexFraction(b, a)}=${this.reponse}$`
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

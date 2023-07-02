@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, deprecatedTexFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 export const titre = 'Alignement de 3 points'
 /**
  * Description didactique de l'exercice Démontrer alignement de 3 points avec coefficient directeur
@@ -47,12 +47,12 @@ export default function Alignementdetroispoints () {
           texteCorr += '<br>On peut donc calculer leur coefficient directeur respectif.'
           texteCorr += '<br>On sait d\'après le cours, que le coefficient directeur de la droite $(AB)$, si $x_A\\neq x_B$ est  : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
           texteCorr += '<br>On applique avec les données de l\'énoncé pour chacune des deux droites : '
-          texteCorr += `<br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n1, d1)}`
+          texteCorr += `<br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n1, d1)}`
           if ((pgcd(n1, d1) !== 1 || d1 === 1 || d1 < 0) && n1 !== 0) {
             texteCorr += `=${texFractionReduite(n1, d1)}`
           }
           texteCorr += '$'
-          texteCorr += `<br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n2, d2)}`
+          texteCorr += `<br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n2, d2)}`
           if ((pgcd(n2, d2) !== 1 || d2 === 1 || d2 < 0) && n2 !== 0) {
             texteCorr += `=${texFractionReduite(n2, d2)}`
           }
@@ -80,13 +80,13 @@ export default function Alignementdetroispoints () {
           texteCorr += '<br>On peut donc calculer leur coefficient directeur respectif.'
           texteCorr += '<br>On sait d\'après le cours, que le coefficient directeur de la droite $(AB)$, si $x_A\\neq x_B$ est  : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
           texteCorr += '<br>On applique avec les données de l\'énoncé pour chacune des deux droites : '
-          texteCorr += `<br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n1, d1)}`
+          texteCorr += `<br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n1, d1)}`
           if ((pgcd(n1, d1) !== 1 || d1 === 1 || d1 < 0) && n1 !== 0) {
             texteCorr += `=${texFractionReduite(n1, d1)}`
           }
           texteCorr += '$'
 
-          texteCorr += `<br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n2, d2)}`
+          texteCorr += `<br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n2, d2)}`
           if ((pgcd(n2, d2) !== 1 || d2 === 1 || d2 < 0) && n2 !== 0) {
             texteCorr += `=${texFractionReduite(n2, d2)}`
           }

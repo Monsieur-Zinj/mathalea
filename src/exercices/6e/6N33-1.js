@@ -6,7 +6,7 @@ import {
   choice,
   calcul,
   texNombre,
-  texFraction,
+  deprecatedTexFraction,
   combinaisonListes, gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -63,10 +63,10 @@ export default function PourcentageDunNombre () {
           texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${4} = ${texNombre(calcul(n / 4))}$` // calcul de n/4 si p = 25%
           break
         default :
-          texteCorr = `$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(p * n)}\\div100=${texNombre(calcul((p * n) / 100))}$`
+          texteCorr = `$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(p * n)}\\div100=${texNombre(calcul((p * n) / 100))}$`
           if (this.sup2) {
-            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=(${n}\\div100)\\times${p}=${texNombre(calcul(n / 100))}\\times${p}=${texNombre(calcul((p * n) / 100))}$`
-            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=${texNombre(calcul(p / 100))}\\times${n}=${texNombre(calcul((p * n) / 100))}$`
+            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=(${n}\\div100)\\times${p}=${texNombre(calcul(n / 100))}\\times${p}=${texNombre(calcul((p * n) / 100))}$`
+            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=${texNombre(calcul(p / 100))}\\times${n}=${texNombre(calcul((p * n) / 100))}$`
             if (p === 60) {
               texteCorr += `<br>$${p}~\\%~\\text{de }${n}$, c'est $50~\\%~\\text{de }${n}$
 plus $10 ~\\%~\\text{de }${n} $ soit la moitié de $ ${n} \\text{ plus } 10 ~\\%~\\text{de }${n} $ :

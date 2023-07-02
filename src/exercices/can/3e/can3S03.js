@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texFractionReduite, texNombre, texFraction, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { randint, choice, texFractionReduite, texNombre, deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 export const titre = 'Calculer une probabilités*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,12 +32,12 @@ export default function CalculsProbabilite2 () {
 
              (résultat sous  forme d'une fraction irréductible)`
         this.optionsChampTexte = { texteApres: '' }
-        this.correction = `Dans une situation d'équiprobabilité, 
-        on calcule la probabilité d'un événement par le quotient : 
+        this.correction = `Dans une situation d'équiprobabilité,
+        on calcule la probabilité d'un événement par le quotient :
         $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
         La probabilité est donc donnée par : <br>
         $\\dfrac{\\text{Nombre de boules ${choix ? 'noire' : 'blanche'}s}}{\\text{Nombre total de boules}}
-             =${choix ? texFraction(a, a + b) : texFraction(b, a + b)}  ${choix ? simplificationDeFractionAvecEtapes(a, a + b) : simplificationDeFractionAvecEtapes(b, a + b)}$
+             =${choix ? deprecatedTexFraction(a, a + b) : deprecatedTexFraction(b, a + b)}  ${choix ? simplificationDeFractionAvecEtapes(a, a + b) : simplificationDeFractionAvecEtapes(b, a + b)}$
         `
         this.reponse = choix ? texFractionReduite(a, a + b) : texFractionReduite(b, a + b)
         break
@@ -52,12 +52,12 @@ export default function CalculsProbabilite2 () {
 
         On donnera le résultat sous forme décimale.`
           this.optionsChampTexte = { texteApres: '' }
-          this.correction = `Dans une situation d'équiprobabilité, 
-          on calcule la probabilité d'un événement par le quotient : 
+          this.correction = `Dans une situation d'équiprobabilité,
+          on calcule la probabilité d'un événement par le quotient :
           $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
           La probabilité est donc donnée par : <br>
           $\\dfrac{\\text{Nombre de boules ${choix ? 'bleue' : 'rouge'}s}}{\\text{Nombre total de boules}}
-               =${choix ? texFraction(a, a + b) : texFraction(b, a + b)} =${choix ? texNombre(a / 10) : texNombre(b / 10)}$
+               =${choix ? deprecatedTexFraction(a, a + b) : deprecatedTexFraction(b, a + b)} =${choix ? texNombre(a / 10) : texNombre(b / 10)}$
           `
           this.reponse = choix ? a / 10 : b / 10
         } else {
@@ -70,12 +70,12 @@ export default function CalculsProbabilite2 () {
 
             On donnera le résultat sous forme décimale.`
           this.optionsChampTexte = { texteApres: '' }
-          this.correction = `Dans une situation d'équiprobabilité, 
-          on calcule la probabilité d'un événement par le quotient : 
+          this.correction = `Dans une situation d'équiprobabilité,
+          on calcule la probabilité d'un événement par le quotient :
           $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
           La probabilité est donc donnée par : <br>
           $\\dfrac{\\text{Nombre de boules ${choix ? 'bleue' : 'rouge'}s}}{\\text{Nombre total de boules}}
-               =${choix ? texFraction(a, a + b) : texFraction(b, a + b)} =${choix ? texNombre(a / 100) : texNombre(b / 100)}$
+               =${choix ? deprecatedTexFraction(a, a + b) : deprecatedTexFraction(b, a + b)} =${choix ? texNombre(a / 100) : texNombre(b / 100)}$
           `
           this.reponse = choix ? a / 100 : b / 100
         }

@@ -1,6 +1,6 @@
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, deprecatedTexFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
@@ -116,29 +116,29 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           k = d / b
         }
       }
-      texte = `$${texFraction(a, b)}${plusOuMoins}${texFraction(c, d)}$`
-      texteCorr = `$${texFraction(a, b)}${plusOuMoins}${texFraction(c, d)}`
+      texte = `$${deprecatedTexFraction(a, b)}${plusOuMoins}${deprecatedTexFraction(c, d)}$`
+      texteCorr = `$${deprecatedTexFraction(a, b)}${plusOuMoins}${deprecatedTexFraction(c, d)}`
 
       // a/b(+ou-)c/d = num/den (résultat non simplifié)
       if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
-        texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plusOuMoins}${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
+        texteCorr += `=${deprecatedTexFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plusOuMoins}${deprecatedTexFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
         num = calcul(a * k1 + plusOuMoinsUn * c * k2)
         den = b * k1
-        texteCorr += `=${texFraction(a * k1 + plusOuMoins + ecritureParentheseSiNegatif(c * k2), den)}`
+        texteCorr += `=${deprecatedTexFraction(a * k1 + plusOuMoins + ecritureParentheseSiNegatif(c * k2), den)}`
       }
 
       if (typesDeQuestions === 'd_multiple_de_b') {
-        texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plusOuMoins}${texFraction(c, d)}`
+        texteCorr += `=${deprecatedTexFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plusOuMoins}${deprecatedTexFraction(c, d)}`
         num = calcul(a * k + plusOuMoinsUn * c)
         den = b * k
-        texteCorr += `=${texFraction(a * k + plusOuMoins + ecritureParentheseSiNegatif(c), den)}`
+        texteCorr += `=${deprecatedTexFraction(a * k + plusOuMoins + ecritureParentheseSiNegatif(c), den)}`
       }
 
       if (typesDeQuestions === 'b_multiple_de_d') {
-        texteCorr += `=${texFraction(a, b)}${plusOuMoins}${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
+        texteCorr += `=${deprecatedTexFraction(a, b)}${plusOuMoins}${deprecatedTexFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
         num = calcul(a + plusOuMoinsUn * c * k)
         den = b
-        texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(c * k), den)}`
+        texteCorr += `=${deprecatedTexFraction(a + plusOuMoins + ecritureParentheseSiNegatif(c * k), den)}`
       }
 
       if (typesDeQuestions === 'entier') {
@@ -154,10 +154,10 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           if (!this.sup2 && plusOuMoins === '-' && n < a / b) {
             n = randint(5, 9) // max(a/b)=9/2
           }
-          texteCorr = `$${n}${plusOuMoins}${texFraction(a, b)}`
+          texteCorr = `$${n}${plusOuMoins}${deprecatedTexFraction(a, b)}`
           texte = texteCorr + '$'
-          texteCorr += `=${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFraction(a, b)}`
-          texteCorr += `=${texFraction(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
+          texteCorr += `=${deprecatedTexFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${deprecatedTexFraction(a, b)}`
+          texteCorr += `=${deprecatedTexFraction(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
           num = calcul(n * b + plusOuMoinsUn * a)
         } else {
           // a/b +-n
@@ -165,18 +165,18 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
             n = randint(1, 4) //
             a = n * b + randint(1, 9) // (n*b+?)/b-n>0
           }
-          texte = `$${texFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}`
+          texte = `$${deprecatedTexFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}`
           texteCorr = texte
           texte += '$'
-          texteCorr += `=${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
-          texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
+          texteCorr += `=${deprecatedTexFraction(a, b)}${plusOuMoins}${deprecatedTexFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
+          texteCorr += `=${deprecatedTexFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
           num = calcul(a + plusOuMoinsUn * n * b)
         }
         den = b
       }
 
       // if (this.sup3) {
-      texteCorr += `=${texFraction(num, den)}`
+      texteCorr += `=${deprecatedTexFraction(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
       if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction)'
       // } else {

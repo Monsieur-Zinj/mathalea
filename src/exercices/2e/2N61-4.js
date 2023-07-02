@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, deprecatedTexFraction, texSymbole } from '../../modules/outils.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -130,7 +130,7 @@ export default function ExerciceInequationQuotient () {
           break
       }
       // Fonction détaillant la résolution d'une équation de type x + val
-      function resolutionDetailleeEquation (val, egal) {
+      const resolutionDetailleeEquation = function (val, egal) {
         let symbole = texSymbole('>')
         if (egal) {
           symbole = '='
@@ -141,7 +141,7 @@ export default function ExerciceInequationQuotient () {
         texteCorr += `$x${symbole}${-val}$<br>`
       }
       // Fonction écrivant la correction détaillée d'une inéquation du type var1*x + var2 > 0
-      function ecrireCorrectionDetaillee (var1, var2, egal) {
+      const ecrireCorrectionDetaillee = function (var1, var2, egal) {
         let symbolePlusGrand = texSymbole('>')
         let symbolePlusPetit = texSymbole('<')
         if (egal) {
@@ -162,12 +162,12 @@ export default function ExerciceInequationQuotient () {
             texteCorr += miseEnEvidence(symbolePlusPetit)
           }
           texteCorr += `${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
-          texteCorr += `$x${symbolePlusPetit}${texFraction(-var2, var1)}$`
+          texteCorr += `$x${symbolePlusPetit}${deprecatedTexFraction(-var2, var1)}$`
           texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusPetit} ${texFractionReduite(-var2, var1)}$`
         } else { // sinon elle ne change pas de sens
           texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}
             ${symbolePlusGrand}${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
-          texteCorr += `$x${symbolePlusGrand} ${texFraction(-var2, var1)}$`
+          texteCorr += `$x${symbolePlusGrand} ${deprecatedTexFraction(-var2, var1)}$`
           texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusGrand}${texFractionReduite(-var2, var1)}$`
         }
       }

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction, choice, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, deprecatedTexFraction, choice, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -88,7 +88,7 @@ export default function ImageFonctionsRefs () {
           Math.random() < 0.25 && (nombre = arrondi(1 / nombre, 6))
           Math.random() < 0.5 && (nombre *= -1)
           solution = new FractionEtendue(1, nombre)
-          texteCorr = `$${nom}(${texNombre(nombre)}) = ${texFraction(1, nombre)} = ${texNombre(solution)}$`
+          texteCorr = `$${nom}(${texNombre(nombre)}) = ${deprecatedTexFraction(1, nombre)} = ${texNombre(solution)}$`
           break
       }
       const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre)})$` : `l'image de $${texNombre(nombre)}$ par la fonction $${nom}$`

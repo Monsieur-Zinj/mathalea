@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, deprecatedTexFraction } from '../../modules/outils.js'
 import { polygone, point } from '../../modules/2d.js'
 import { fractionCliquable, rectangleCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
@@ -46,7 +46,7 @@ export default class NomExercice extends Exercice {
       const d = randint(2, 4)
       nbParts[i] = n
       barres[i] = fractionCliquable(0, 0, 3, d, { longueur, ecart, hauteur, liste1: [1, 3, 6], liste2: [2, 4], hachures2: true, couleur2: 'blue', cliquable: false })
-      texte = `Colorie $${texFraction(n, d)}$. ${mathalea2d({ xmin: -0.5, xmax: 18, ymin, ymax: hauteur + 0.2 }, rectangleCliquable(0, 0, 4, 1, { etat: true }))}`
+      texte = `Colorie $${deprecatedTexFraction(n, d)}$. ${mathalea2d({ xmin: -0.5, xmax: 18, ymin, ymax: hauteur + 0.2 }, rectangleCliquable(0, 0, 4, 1, { etat: true }))}`
       texte += '<br>' + mathalea2d({ xmin: -0.5, xmax: 18, ymin, ymax: hauteur + 0.2 }, barres[i])
       texteCorr = 'Rien'
 

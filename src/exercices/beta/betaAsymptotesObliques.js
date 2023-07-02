@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { xcas, listeQuestionsToContenu, combinaisonListes, texFraction } from '../../modules/outils.js'
+import { xcas, listeQuestionsToContenu, combinaisonListes, deprecatedTexFraction } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Asymptote oblique'
@@ -46,7 +46,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             'E4:=simplify(E2-E3)'
           ].forEach(e => `${xcas(e)}`)
           // Enoncé
-          texte = `$f(x)=${texFraction(xcas('N'), xcas('D'))}$`
+          texte = `$f(x)=${deprecatedTexFraction(xcas('N'), xcas('D'))}$`
           // Corrigé
           texteCorr = `Cherchons un candidat pour être l'asymptote oblique en effectuant la division de $${xcas('N')}$ par $${xcas('D')}$ :`
           texteCorr += `<br>$\\begin{array}{r|l} ${xcas('N')} & ${xcas('D')}\\\\`
@@ -54,7 +54,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += `${xcas('E2')} & \\\\`
           texteCorr += `\\underline{-(${xcas('E3')})} & \\\\`
           texteCorr += `${xcas('E4')} & \\end{array}$`
-          texteCorr += `<br>On en déduit que $f(x)=${texFraction(xcas('N'), xcas('D'))}=${xcas('Q')}+${texFraction(xcas('R'), xcas('D'))}$`
+          texteCorr += `<br>On en déduit que $f(x)=${deprecatedTexFraction(xcas('N'), xcas('D'))}=${xcas('Q')}+${deprecatedTexFraction(xcas('R'), xcas('D'))}$`
           texteCorr += `<br>Vérifions que $D:y=${xcas('Q')}$ est asymptote oblique à la courbe de $f$ en $+\\infty$ :`
           texteCorr += `<br>$\\lim\\limits_{x\\to+\\infty}f(x)-(${xcas('Q')})=`
           texteCorr += `\\lim\\limits_{x\\to+\\infty}${xcas('normal(f-Q)')}=`

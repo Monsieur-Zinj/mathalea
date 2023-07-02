@@ -1292,7 +1292,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
     den = den1 * den2
     texProduit = `\\dfrac{${num1}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times${ecritureParentheseSiNegatif(den2)}}`
   }
-  return [texFraction(num, den), texProduit, [num1, den1, num2, den2]]
+  return [deprecatedTexFraction(num, den), texProduit, [num1, den1, num2, den2]]
 }
 
 /**
@@ -1315,7 +1315,7 @@ export function simplificationDeFractionAvecEtapes (num, den) {
     if (numAbs % denAbs === 0) { // si le résultat est entier
       result += `${num / den}`
     } else {
-      result += `${signe}${texFraction(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
+      result += `${signe}${deprecatedTexFraction(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
     }
   } else if (num < 0 || den < 0) {
     result += `${texFractionSigne(num, den)}`
@@ -2968,6 +2968,7 @@ export function nombreDeChiffresDe (nb, except) {
 }
 
 /**
+ * @deprecated Utiliser la classe FractionEtendue et ses différentes méthodes
  * Retourne la string LaTeX de la fraction
  * @param num
  * @param den
@@ -2983,18 +2984,6 @@ export function texFractionSigne (num, den) {
     return `-\\dfrac{${texNombre(Math.abs(num))}}{${texNombre(Math.abs(den))}}`
   }
   return '0'
-}
-
-/**
- * Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe
- * @author Jean-Claude Lhote
- */
-export function texFractionParentheses (a, b) {
-  if (a * b > 0) {
-    return texFractionSigne(a, b)
-  } else {
-    return '\\left(' + texFractionSigne(a, b) + '\\right)'
-  }
 }
 
 /**
@@ -3075,10 +3064,11 @@ export function listeDesDiviseurs (n) {
 }
 
 /**
+ * @deprecated : Utiliser la classe FractionEtendue et sa méthode texFSD (ou une autre)
  * Retourne le code LaTeX d'une fraction a/b
  * @author Rémi Angot
  */
-export function texFraction (a, b) {
+export function deprecatedTexFraction (a, b) {
   if (b !== 1) {
     return `\\dfrac{${typeof a === 'number' ? texNombre(a) : a}}{${typeof b === 'number' ? texNombre(b) : b}}`
   } else {

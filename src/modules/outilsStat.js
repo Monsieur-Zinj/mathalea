@@ -6,7 +6,7 @@ import {
   nomDuMois,
   prenom,
   stringNombre,
-  texFraction,
+  deprecatedTexFraction,
   texNombre,
   texteGras
 } from './outils.js'
@@ -196,7 +196,7 @@ function computeMoyenne (notes) {
     somme += notes[j]
   }
 
-  return [texFraction(somme, notes.length), somme]
+  return [deprecatedTexFraction(somme, notes.length), somme]
 }
 
 function computeMediane (notes) {
@@ -229,7 +229,7 @@ function computeMoyenneTirages2D (tirages) {
     somme += tirages[k][0] * tirages[k][1]
     effectif += tirages[k][1]
   }
-  return [texFraction(somme, effectif), somme, effectif]
+  return [deprecatedTexFraction(somme, effectif), somme, effectif]
 }
 
 function computeMedianeTirages2D (nombreTirages, tirages) {
@@ -323,7 +323,7 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
     texteCorr += `}{${notesSeries.length}}=\\dfrac{${texNombre(somme, 0)}}{${texNombre(nombreNotes, 0)}}$. <br>`
   }
   texteCorr += `La somme des ${notes} est : $${texNombre(somme, 0)}$.<br> Il y a $${texNombre(nombreNotes, 0)}$ ${notes}.<br>`
-  texteCorr += `Donc ${texteGras(`${noteStr[1]} est `)} $\\mathbf{${texFraction(texNombre(somme, 0), texNombre(nombreNotes, 0))}`
+  texteCorr += `Donc ${texteGras(`${noteStr[1]} est `)} $\\mathbf{${deprecatedTexFraction(texNombre(somme, 0), texNombre(nombreNotes, 0))}`
   if (arrondi(somme / nombreNotes, 1) === somme / nombreNotes) { // moyenne exacte
     texteCorr += `=${texNombre(somme / nombreNotes, 1)}}$${noteStr[2]}.<br>`
   } else { // moyenne arrondie

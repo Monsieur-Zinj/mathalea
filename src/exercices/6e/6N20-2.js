@@ -4,7 +4,7 @@ import {
   randint,
   enleveElement,
   choice,
-  texFraction,
+  deprecatedTexFraction,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -124,23 +124,23 @@ export default function ExerciceFractionsDifferentesEcritures () {
       // enleveElement(fractions, fraction) // Il n'y aura pas 2 fois la même partie décimale
       texte =
         '$ ' +
-        texFraction(a, b) +
+        deprecatedTexFraction(a, b) +
         ' = \\phantom{0000} + ' +
-        texFraction('\\phantom{00000000}', '') +
+        deprecatedTexFraction('\\phantom{00000000}', '') +
         ' =  $'
       texteCorr =
         '$ ' +
-        texFraction(a, b) +
+        deprecatedTexFraction(a, b) +
         ' = ' +
         n +
         '+' +
-        texFraction(c, b) +
+        deprecatedTexFraction(c, b) +
         ' = ' +
         ed +
         ' $'
-      reponse = `${n}+${texFraction(c, b)}=${ed}`
+      reponse = `${n}+${deprecatedTexFraction(c, b)}=${ed}`
       setReponse(this, i, reponse)
-      if (this.interactif) texte = `$${texFraction(a, b)} = $` + ajouteChampTexteMathLive(this, i)
+      if (this.interactif) texte = `$${deprecatedTexFraction(a, b)} = $` + ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

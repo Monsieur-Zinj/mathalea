@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texFraction, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, deprecatedTexFraction, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
@@ -51,11 +51,11 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
       this.autoCorrection[i].reponse.param.digits = 6
       this.autoCorrection[i].reponse.param.decimals = 3
       texte = context.isAmc ? 'Donner l\'écriture décimale de ' : ''
-      texte += `$${texFraction(texNombre(a), texNombre(b))}$`
+      texte += `$${deprecatedTexFraction(texNombre(a), texNombre(b))}$`
       texte += context.isAmc ? '.' : `${!this.interactif ? '$ = \\dotfill $' : '$=$' + ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
       texteCorr =
         '$ ' +
-        texFraction(texNombre(a), texNombre(b)) +
+        deprecatedTexFraction(texNombre(a), texNombre(b)) +
         ' = ' +
         texNombre(calcul(a / b)) +
         ' $'

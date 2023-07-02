@@ -3,7 +3,7 @@ import {
   listeQuestionsToContenu,
   randint,
   choice,
-  texFraction,
+  deprecatedTexFraction,
   combinaisonListes,
   pgcd,
   texFractionReduite
@@ -141,22 +141,22 @@ export default function DevelopperIdentitesRemarquables3 () {
           reponse = `${b * b}x^2-${2 * (-b) * a}x+${a * a}`
           break
         case 4:
-          texte = `$\\left(${texFraction(ns, ds)}x+${a}\\right)^2$`
+          texte = `$\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)^2$`
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${texFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${texFraction(ns, ds)}x\\color{black}\\right)^2 + 2 \\times \\color{red}${texFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${deprecatedTexFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}\\right)^2 + 2 \\times \\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
+            texteCorr += `$\\phantom{\\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$`
             if ((pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1)) {
-              texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
+              texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
             }
           } else {
             // texteCorr = texte + `$= ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
-            texteCorr = texte + `$= ${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$`
+            texteCorr = texte + `$= ${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$`
             if ((pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1)) {
-              texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
+              texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
             }
           }
-          reponse = [`${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}`, `${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}`]
+          reponse = [`${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}`, `${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}`]
           break
       }
       texte += ajouteChampTexteMathLive(this, i)

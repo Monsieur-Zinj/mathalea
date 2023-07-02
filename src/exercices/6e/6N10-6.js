@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, sp, combinaisonListes2, choice, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, deprecatedTexFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, sp, combinaisonListes2, choice, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -89,36 +89,36 @@ export default function SommeFractionsDecimales () {
           b = randint(2, 50)
           c = randint(2, 50, [b])
           while ((b + c) % 10 === 0) { c = randint(2, 50, [b]) } // Pour éviter d'avoir une somme multiple de 10
-          texte = `$${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$`
+          texte = `$${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(b + c)
           reponseAMC = calcul(numAMC / denAMC)
           if (!context.isHtml) {
-            this.canEnonce = `Calculer $${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$ sous forme d'une fraction décimale.`
+            this.canEnonce = `Calculer $${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$ sous forme d'une fraction décimale.`
             this.correction = this.listeCorrections[0]
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}$`
+            case 2 : texteCorr = `$${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default : texteCorr = `$${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
         case 2: // Différence de deux fractions décimales de même dénominateur
           b = randint(3, 50)
           c = randint(2, b - 1)
-          texte = `$${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$`
+          texte = `$${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(b - c)
           reponseAMC = calcul(numAMC / denAMC)
           if (!context.isHtml) {
-            this.canEnonce = `Calculer $${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$ sous forme d'une fraction décimale.`
+            this.canEnonce = `Calculer $${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}$ sous forme d'une fraction décimale.`
             this.correction = this.listeCorrections[0]
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}$`
+            case 2 : texteCorr = `$${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default : texteCorr = `$${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -127,18 +127,18 @@ export default function SommeFractionsDecimales () {
           c = (choix === 1) ? randint(2, 7, [b, 10 - b]) : randint(2, 50, [b])
           a = randint(2, 20, [b, c])
           while ((b + c) % 10 === 0) { c = randint(2, 50, [a, b]) } // Pour éviter d'avoir une somme multiple de 10
-          texte = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$`
+          texte = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b + c)
           reponseAMC = calcul(numAMC / denAMC)
           if (!context.isHtml) {
-            this.canEnonce = `Calculer $${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$ sous forme décimale.`
+            this.canEnonce = `Calculer $${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$ sous forme décimale.`
             this.correction = this.listeCorrections[0]
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}$`
+            case 2 : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -146,18 +146,18 @@ export default function SommeFractionsDecimales () {
           b = randint(3, 50)
           c = (choix === 1) ? randint(max(b - 9, 2), b - 1) : randint(2, b - 1)
           a = randint(2, 20, [b, c])
-          texte = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$`
+          texte = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b - c)
           reponseAMC = calcul(numAMC / denAMC)
           if (!context.isHtml) {
-            this.canEnonce = `Calculer $${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$ sous forme décimale.`
+            this.canEnonce = `Calculer $${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}$ sous forme décimale.`
             this.correction = this.listeCorrections[0]
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}$`
+            case 2 : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -166,18 +166,18 @@ export default function SommeFractionsDecimales () {
           c = randint(2, 50, [b])
           a = randint(2, 20, [b, c])
           while ((b + c) % 10 === 0) { c = randint(2, 50, [a, b]) } // Pour éviter d'avoir une somme multiple de 10
-          texte = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$`
+          texte = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b + c)
           reponseAMC = calcul(numAMC / denAMC)
           if (!context.isHtml) {
-            this.canEnonce = `Calculer $${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$ sous forme décimale.`
+            this.canEnonce = `Calculer $${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$ sous forme décimale.`
             this.correction = this.listeCorrections[0]
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}$`
+            case 2 : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -185,18 +185,18 @@ export default function SommeFractionsDecimales () {
           b = randint(3, 50)
           c = randint(2, b - 1)
           a = randint(2, 20, [b, c])
-          texte = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$`
+          texte = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b - c)
           reponseAMC = calcul(numAMC / denAMC)
           if (!context.isHtml) {
-            this.canEnonce = `Calculer $${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$ sous forme décimale.`
+            this.canEnonce = `Calculer $${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}$ sous forme décimale.`
             this.correction = this.listeCorrections[0]
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}$`
+            case 2 : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break

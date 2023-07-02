@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, miseEnEvidence, texFraction, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, miseEnEvidence, deprecatedTexFraction, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -105,7 +105,7 @@ export default function ExerciceEquationASolutionEntiere () {
             texteCorr += `$${a}x${miseEnEvidence(
               '\\div' + ecritureParentheseSiNegatif(a)
             )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-            texteCorr += `$x=${texFraction(c - b, a)}=${reponse}$`
+            texteCorr += `$x=${deprecatedTexFraction(c - b, a)}=${reponse}$`
             texteCorr += `<br> La solution est $${reponse}$.`
           } while (b === 0)
           break
@@ -148,7 +148,7 @@ export default function ExerciceEquationASolutionEntiere () {
           texteCorr += `$${a}x${miseEnEvidence(
               '\\div' + ecritureParentheseSiNegatif(a)
             )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-          texteCorr += `$x=${texFraction(b, a)}=${reponse}$`
+          texteCorr += `$x=${deprecatedTexFraction(b, a)}=${reponse}$`
           texteCorr += `<br> La solution est $${reponse}$.`
           break
         case 'ax+b=cx+d':
@@ -210,7 +210,7 @@ export default function ExerciceEquationASolutionEntiere () {
         )}=${d -
         b +
         miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-          texteCorr += `$x=${texFraction(d - b, a - c)}=${reponse}$`
+          texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}=${reponse}$`
           texteCorr += `<br> La solution est $${reponse}$.`
           break
       }

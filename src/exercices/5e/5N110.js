@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texPrix, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texPrix, deprecatedTexFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
@@ -53,7 +53,7 @@ export default function VariationEnPourcentages () {
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix diminue de $${taux}\\, \\%$.<br><br>`
         }
 
-        texteCorr = `$\\text{Diminution : }${texFraction(taux, 100)}\\times  ${texPrix(prix)} = ${texPrix(prix * taux)}\\div 100=${texPrix(prix * taux / 100)}$ €`
+        texteCorr = `$\\text{Diminution : }${deprecatedTexFraction(taux, 100)}\\times  ${texPrix(prix)} = ${texPrix(prix * taux)}\\div 100=${texPrix(prix * taux / 100)}$ €`
         texteCorr += '<br>'
         texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}-${texPrix(prix * taux / 100)}=${texPrix(prix - prix * taux / 100)}$ €`
       } else {
@@ -67,7 +67,7 @@ export default function VariationEnPourcentages () {
         } else { // partie latex
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix augmente de $${taux}\\, \\%$.<br><br>`
         }
-        texteCorr = `$\\text{Augmentation : }${texFraction(taux, 100)}\\times  ${texPrix(prix)}= ${texPrix(prix * taux)}\\div 100=${texPrix(prix * taux / 100)}$ €`
+        texteCorr = `$\\text{Augmentation : }${deprecatedTexFraction(taux, 100)}\\times  ${texPrix(prix)}= ${texPrix(prix * taux)}\\div 100=${texPrix(prix * taux / 100)}$ €`
         texteCorr += '<br>'
         texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}+${texPrix(prix * taux / 100)}=${texPrix(prix * (1 + taux / 100))}$ €`
       }

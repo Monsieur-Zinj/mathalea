@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import {
   randint, ecritureParentheseSiNegatif,
-  ecritureAlgebrique, texteEnCouleur, texFractionReduite, reduireAxPlusB, simplificationDeFractionAvecEtapes, texFraction
+  ecritureAlgebrique, texteEnCouleur, texFractionReduite, reduireAxPlusB, simplificationDeFractionAvecEtapes, deprecatedTexFraction
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une image avec un quotient'
 export const interactifReady = true
@@ -49,9 +49,9 @@ export default function CalculImageQuotient () {
           =${texFractionReduite(e, f)}$.<br>
           `
       this.correction += texteEnCouleur(` Mentalement : <br>
-          On calcule  le numérateur et le dénominateur pour $x=${x}$, soit 
+          On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $ ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$ et $ ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
-           On obtient le quotient que l'on simplifie éventuellement : $${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
+           On obtient le quotient que l'on simplifie éventuellement : $${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
     `)
     }
     if (a === 1 && c !== 1) {
@@ -59,9 +59,9 @@ export default function CalculImageQuotient () {
           =${texFractionReduite(e, f)}$.<br>
           `
       this.correction += texteEnCouleur(` Mentalement : <br>
-          On calcule  le numérateur et le dénominateur pour $x=${x}$, soit 
+          On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $ ${x}${ecritureAlgebrique(b)}=${a * x + b}$ et $${c}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
-           On obtient le quotient que l'on simplifie éventuellement : $${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
+           On obtient le quotient que l'on simplifie éventuellement : $${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
     `)
     }
     if (a !== 1 && c === 1) {
@@ -69,9 +69,9 @@ export default function CalculImageQuotient () {
           =${texFractionReduite(e, f)}$.<br>
           `
       this.correction += texteEnCouleur(` Mentalement : <br>
-          On calcule  le numérateur et le dénominateur pour $x=${x}$, soit 
+          On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $${a}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$ et $ ${x}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
-           On obtient le quotient que l'on simplifie éventuellement : $${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
+           On obtient le quotient que l'on simplifie éventuellement : $${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
     `)
     }
     if (a !== 1 && c !== 1) {
@@ -79,9 +79,9 @@ export default function CalculImageQuotient () {
           =${texFractionReduite(e, f)}$.<br>
           `
       this.correction += texteEnCouleur(` Mentalement : <br>
-          On calcule  le numérateur et le dénominateur pour $x=${x}$, soit 
+          On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $${a}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$ et $${c}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
-           On obtient le quotient que l'on simplifie éventuellement : $${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
+           On obtient le quotient que l'on simplifie éventuellement : $${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
     `)
     }
     this.canEnonce = this.question// 'Compléter'

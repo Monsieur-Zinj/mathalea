@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint, texNombre, miseEnEvidence, texFraction, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, randint, texNombre, miseEnEvidence, deprecatedTexFraction, stringNombre } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
 export const dateDePublication = '07/01/2022'
@@ -65,10 +65,10 @@ export default function ComparerAvecFctRef () {
             Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
 
             if (a.lessThan(b)) {
-              texteCorr += `<br>Comme $${texNombre(a, 3)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b, 3)}$, 
+              texteCorr += `<br>Comme $${texNombre(a, 3)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b, 3)}$,
           alors  $${texNombre(a, 3)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b, 3)}^2$.`
             } else {
-              texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, 
+              texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
           alors  $${texNombre(b, 3)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a, 3)}^2$.`
             }
           }
@@ -82,44 +82,44 @@ export default function ComparerAvecFctRef () {
             d3 = d1 * d2
             n3 = n1 * d2
             n4 = n2 * d1
-            texte = `En utilisant le sens de variation d'une fonction de référence, comparer $\\left(${texFraction(n1, d1)}\\right)^2$ et $\\left(${texFraction(n2, d2)}\\right)^2$.`
+            texte = `En utilisant le sens de variation d'une fonction de référence, comparer $\\left(${deprecatedTexFraction(n1, d1)}\\right)^2$ et $\\left(${deprecatedTexFraction(n2, d2)}\\right)^2$.`
             texteCorr = `On doit comparer les carrés de deux nombres. On utilise donc la fonction carré.<br>
             La fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. Cela signifie que deux nombres positifs sont rangés dans le même ordre que leurs carrés.<br>
             Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
             if (n1 === n2) {
-              texteCorr += `<br>On commence par comparer les fractions $${texFraction(n1, d1)}$ et $${texFraction(n2, d2)}$. <br>
+              texteCorr += `<br>On commence par comparer les fractions $${deprecatedTexFraction(n1, d1)}$ et $${deprecatedTexFraction(n2, d2)}$. <br>
             Les fractions ont le même numérateur. La plus grande est celle qui a le plus petit dénominateur. <br>
             `
               if (d1 < d2) {
-                texteCorr += `On a $${d1}<${d2}$, donc $${texFraction(n2, d2)}<${texFraction(n1, d1)}$.<br>
-                <br>Comme $${texFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFraction(n1, d1)}$, alors $\\left(${texFraction(n2, d2)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFraction(n1, d1)}\\right)^2$`
+                texteCorr += `On a $${d1}<${d2}$, donc $${deprecatedTexFraction(n2, d2)}<${deprecatedTexFraction(n1, d1)}$.<br>
+                <br>Comme $${deprecatedTexFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n1, d1)}$, alors $\\left(${deprecatedTexFraction(n2, d2)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n1, d1)}\\right)^2$`
               } else {
-                texteCorr += `On a $${d2}<${d1}$, donc $${texFraction(n1, d1)}<${texFraction(n2, d2)}$.<br>
-                <br> Comme,  $${texFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFraction(n2, d2)}$, alors $\\left(${texFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFraction(n2, d2)}\\right)^2$`
+                texteCorr += `On a $${d2}<${d1}$, donc $${deprecatedTexFraction(n1, d1)}<${deprecatedTexFraction(n2, d2)}$.<br>
+                <br> Comme,  $${deprecatedTexFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n2, d2)}$, alors $\\left(${deprecatedTexFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n2, d2)}\\right)^2$`
               }
             }
             if (d1 === d2) {
-              texteCorr += `<br>On commence par comparer les fractions $${texFraction(n1, d1)}$ et $${texFraction(n2, d2)}$. <br>
+              texteCorr += `<br>On commence par comparer les fractions $${deprecatedTexFraction(n1, d1)}$ et $${deprecatedTexFraction(n2, d2)}$. <br>
             Les fractions ont le même dénomérateur. La plus grande est celle qui a le plus grand numérateur. <br>
             `
               if (n2 < n1) {
-                texteCorr += `On a $${n2}<${n1}$, donc $${texFraction(n2, d2)}<${texFraction(n1, d1)}$.<br>
-                <br>Comme $${texFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFraction(n1, d1)}$, alors $\\left(${texFraction(n2, d2)}\\right)^2${miseEnEvidence('<', 'blue')}\\left(${texFraction(n1, d1)}\\right)^2$`
+                texteCorr += `On a $${n2}<${n1}$, donc $${deprecatedTexFraction(n2, d2)}<${deprecatedTexFraction(n1, d1)}$.<br>
+                <br>Comme $${deprecatedTexFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n1, d1)}$, alors $\\left(${deprecatedTexFraction(n2, d2)}\\right)^2${miseEnEvidence('<', 'blue')}\\left(${deprecatedTexFraction(n1, d1)}\\right)^2$`
               } else {
-                texteCorr += `On a $${n1}<${n2}$, donc $${texFraction(n1, d1)}<${texFraction(n2, d2)}$.<br>
-                <br>Comme,  $${texFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFraction(n2, d2)}$, alors $\\left(${texFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFraction(n2, d2)}\\right)^2$`
+                texteCorr += `On a $${n1}<${n2}$, donc $${deprecatedTexFraction(n1, d1)}<${deprecatedTexFraction(n2, d2)}$.<br>
+                <br>Comme,  $${deprecatedTexFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n2, d2)}$, alors $\\left(${deprecatedTexFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n2, d2)}\\right)^2$`
               }
             }
             if (n1 !== n2 && d1 !== d2) {
-              texteCorr += `<br>On commence par comparer les fractions $${texFraction(n1, d1)}$ et $${texFraction(n2, d2)}$. <br>
-          Pour cela on les met au même dénominateur : $${texFraction(n1, d1)}= ${texFraction(n3, d3)}$ et $${texFraction(n2, d2)}= ${texFraction(n4, d3)}$<br>
+              texteCorr += `<br>On commence par comparer les fractions $${deprecatedTexFraction(n1, d1)}$ et $${deprecatedTexFraction(n2, d2)}$. <br>
+          Pour cela on les met au même dénominateur : $${deprecatedTexFraction(n1, d1)}= ${deprecatedTexFraction(n3, d3)}$ et $${deprecatedTexFraction(n2, d2)}= ${deprecatedTexFraction(n4, d3)}$<br>
           `
               if (n3 < n4) {
-                texteCorr += `On a $${n3}<${n4}$, donc $${texFraction(n3, d3)}<${texFraction(n4, d3)}$, soit $${texFraction(n1, d1)}<${texFraction(n2, d2)}$.<br>
-                <br>Comme $${texFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFraction(n2, d2)}$, alors $\\left(${texFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFraction(n2, d2)}\\right)^2$`
+                texteCorr += `On a $${n3}<${n4}$, donc $${deprecatedTexFraction(n3, d3)}<${deprecatedTexFraction(n4, d3)}$, soit $${deprecatedTexFraction(n1, d1)}<${deprecatedTexFraction(n2, d2)}$.<br>
+                <br>Comme $${deprecatedTexFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n2, d2)}$, alors $\\left(${deprecatedTexFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n2, d2)}\\right)^2$`
               } else {
-                texteCorr += `On a $${n4}<${n3}$, donc $${texFraction(n4, d3)}<${texFraction(n3, d3)}$ , soit $${texFraction(n2, d2)}<${texFraction(n1, d1)}$.<br>
-                <br>Comme,  $${texFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFraction(n1, d1)}$, alors $\\left(${texFraction(n2, d2)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFraction(n1, d1)}\\right)^2$`
+                texteCorr += `On a $${n4}<${n3}$, donc $${deprecatedTexFraction(n4, d3)}<${deprecatedTexFraction(n3, d3)}$ , soit $${deprecatedTexFraction(n2, d2)}<${deprecatedTexFraction(n1, d1)}$.<br>
+                <br>Comme,  $${deprecatedTexFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n1, d1)}$, alors $\\left(${deprecatedTexFraction(n2, d2)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n1, d1)}\\right)^2$`
               }
             }
           }
@@ -143,7 +143,7 @@ export default function ComparerAvecFctRef () {
             b = (new Decimal(randint(1, 9))).div(10).mul(choice([1, -1])).plus(a)
             texte = `En utilisant le sens de variation d'une fonction de référence, comparer $\\dfrac{1}{${texNombre(a, 1)}}$ et $\\dfrac{1}{${texNombre(b, 1)}}$.`
             texteCorr = `On doit comparer les inverses de deux nombres. On utilise donc la fonction inverse.<br>
-              La fonction inverse étant strictement décroissante sur $]0;+\\infty[$, elle change l'ordre. 
+              La fonction inverse étant strictement décroissante sur $]0;+\\infty[$, elle change l'ordre.
               Cela signifie que deux nombres strictement positifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
               Autrement dit, si $a$ et $b$ sont deux nombres strictement positifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
 
@@ -155,9 +155,9 @@ export default function ComparerAvecFctRef () {
             a = (new Decimal(randint(1, 9) * 10 + randint(5, 9))).div(10)
             b = (new Decimal(randint(1, 9))).div(10).mul(choice([1, -1])).plus(a)
             texte = `En utilisant le sens de variation d'une fonction de référence, comparer $-\\dfrac{1}{${texNombre(a, 1)}}$ et $-\\dfrac{1}{${texNombre(b, 1)}}$.`
-            texteCorr = `On doit comparer $-\\dfrac{1}{${texNombre(a, 1)}}$ et $-\\dfrac{1}{${texNombre(b, 1)}}$ soit $\\dfrac{1}{-${texNombre(a, 1)}}$ et $\\dfrac{1}{-${texNombre(b, 1)}}$, c'est-à-dire 
+            texteCorr = `On doit comparer $-\\dfrac{1}{${texNombre(a, 1)}}$ et $-\\dfrac{1}{${texNombre(b, 1)}}$ soit $\\dfrac{1}{-${texNombre(a, 1)}}$ et $\\dfrac{1}{-${texNombre(b, 1)}}$, c'est-à-dire
                 les inverses de deux nombres (négatifs). On utilise donc la fonction inverse.<br>
-                La fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre. 
+                La fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre.
                 Cela signifie que deux nombres strictement négatifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
                 Autrement dit, si $a$ et $b$ sont deux nombres strictement négatifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
 
@@ -170,10 +170,10 @@ export default function ComparerAvecFctRef () {
         case 'cube':
           a = (new Decimal(randint(-10, 10) * 10 + randint(-9, 9, 0))).div(10).mul(choice([-1, 1]))
           b = (new Decimal(randint(1, 9))).div(10).mul(choice([-1, 1]))
-          texte = `En utilisant le sens de variation d'une fonction de référence, comparer $${ecritureParentheseSiNegatif(a, 1)}^3$ 
+          texte = `En utilisant le sens de variation d'une fonction de référence, comparer $${ecritureParentheseSiNegatif(a, 1)}^3$
           et $${ecritureParentheseSiNegatif(b, 1)}^3$.`
           texteCorr = `On doit comparer les cubes de deux nombres. On utilise donc la fonction cube.<br>
-          La fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre. 
+          La fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.
           Cela signifie que deux nombres réels  sont rangés dans le même ordre que leurs cubes.<br>
           Autrement dit, si $a$ et $b$ sont deux nombres réels et si $a < b$, alors $a^3 < b^3$.<br>`
           if (a.lessThan(b)) { texteCorr += `Comme $${texNombre(a, 1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b, 1)}$, alors $${ecritureParentheseSiNegatif(a, 1)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(b, 1)}^3$.` } else { texteCorr += `Comme $${texNombre(b, 1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a, 1)}$, alors $${ecritureParentheseSiNegatif(b, 1)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a, 1)}^3$.` }
@@ -183,14 +183,14 @@ export default function ComparerAvecFctRef () {
           b = (new Decimal(randint(1, 5, 0))).div(10).mul(choice([-1, 1])).plus(a)
           texte = `En utilisant le sens de variation d'une fonction de référence, comparer $\\sqrt{${texNombre(a, 1)}}$  et $\\sqrt{${texNombre(b)}}$.`
           texteCorr = `On doit comparer les racines carrées de deux nombres. On utilise donc la fonction racine carrée.<br>
-          La fonction racine carrée étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. 
+          La fonction racine carrée étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre.
           Cela signifie que deux nombres réels positifs sont rangés dans le même ordre que leurs racines carrées.<br>
           Autrement dit, si $a$ et $b$ sont deux nombres réels positifs et si $a < b$, alors $\\sqrt{a} < \\sqrt{b}$.<br>`
           if (a < b) {
-            texteCorr += ` Comme $${texNombre(a, 1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b, 1)}$, alors 
+            texteCorr += ` Comme $${texNombre(a, 1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b, 1)}$, alors
           $\\sqrt{${texNombre(a, 1)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombre(b, 1)}}$.`
           } else {
-            texteCorr += ` Comme $${texNombre(b, 1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a, 1)}$, 
+            texteCorr += ` Comme $${texNombre(b, 1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a, 1)}$,
           alors $\\sqrt{${texNombre(b, 1)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombre(a, 1)}}$.`
           }
 

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, deprecatedTexFraction } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -130,7 +130,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 3: // x/2
           texte = `Exprimer la moitié de $${x}$ en fonction de $${x}$.`
-          texteCorr = `La moitié de $${x}$  se note :  $${texFraction(x, 2)}=${x}\\div 2=0,5${x}$.`
+          texteCorr = `La moitié de $${x}$  se note :  $${deprecatedTexFraction(x, 2)}=${x}\\div 2=0,5${x}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div 2$`,
@@ -166,7 +166,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 4: // x/4
           texte = `Exprimer le quart de $${x}$  en fonction de $${x}$.`
-          texteCorr = `Le quart de $${x}$  se note :  $${texFraction(x, 4)}=${x}\\div 4=0,25${x}$.`
+          texteCorr = `Le quart de $${x}$  se note :  $${deprecatedTexFraction(x, 4)}=${x}\\div 4=0,25${x}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div 4$`,
@@ -382,7 +382,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 10: // 1/x
           texte = `Exprimer l'inverse de $${x}$  en fonction de $${x}$.`
-          texteCorr = `L'inverse de $${x}$ se note : $${texFraction(1, x)}$.`
+          texteCorr = `L'inverse de $${x}$ se note : $${deprecatedTexFraction(1, x)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$\\dfrac{1}{${x}}$`,
@@ -490,7 +490,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 13: // x/k
           texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`
-          texteCorr = `Le quotient de $${x}$ par ${k} se note : $${texFraction(x, k)}$.`
+          texteCorr = `Le quotient de $${x}$ par ${k} se note : $${deprecatedTexFraction(x, k)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div ${k}$`,
@@ -526,7 +526,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 14: // k/x
           texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`
-          texteCorr = `Le quotient de ${k} par $${x}$ se note : $${texFraction(k, x)}$.`
+          texteCorr = `Le quotient de ${k} par $${x}$ se note : $${deprecatedTexFraction(k, x)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${k}\\div ${x}$`,

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, creerNomDePolygone, texFraction, texNombre, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, creerNomDePolygone, deprecatedTexFraction, texNombre, stringNombre } from '../../modules/outils.js'
 import { point, milieu, pointSurSegment, labelPoint, segment, polygone, codageAngleDroit, texteSurSegment, texteParPoint, longueur } from '../../modules/2d.js'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
@@ -44,9 +44,9 @@ export default function ProblemesThales () {
  <line x1="${x * 20}" y1="0" x2="${x * 20}" y2="${y * 20}" stroke="black" /> //[BE]
  <polyline points="${x * 20 - 10},0 ${x * 20 - 10},10 ${x * 20},10" fill="none" stroke="black" />  //Angle droit en E
  <polyline points="${k * x * 20 - 10},0 ${k * x * 20 - 10},10 ${k * x * 20},10" fill="none" stroke="black" />  //Angle droit en D
- <text x="-10" y="-10" text-anchor="middle" alignment-baseline="central">${A}</text> 
- <text x="${x * 20}" y="-10" text-anchor="middle" alignment-baseline="central">${E}</text> 
- <text x="${x * 20}" y="${y * 20 + 10}" text-anchor="middle" alignment-baseline="central">${B}</text> 
+ <text x="-10" y="-10" text-anchor="middle" alignment-baseline="central">${A}</text>
+ <text x="${x * 20}" y="-10" text-anchor="middle" alignment-baseline="central">${E}</text>
+ <text x="${x * 20}" y="${y * 20 + 10}" text-anchor="middle" alignment-baseline="central">${B}</text>
  <text x="${x * k * 20 + 10}" y="-10" text-anchor="middle" alignment-baseline="central">${D}</text>
 <text x="${x * k * 20 + 10}" y="${k * y * 20 + 10}" text-anchor="middle" alignment-baseline="central">${C}</text>
 </svg></div>`
@@ -56,9 +56,9 @@ export default function ProblemesThales () {
  <line x1="${x * 20}" y1="0" x2="${x * 20}" y2="${-y * 20}" stroke="black" /> //[BE]
  <polyline points="${x * 20 - 10},0 ${x * 20 - 10},-10 ${x * 20},-10" fill="none" stroke="black" />  //Angle droit en E
  <polyline points="${k * x * 20 - 10},0 ${k * x * 20 - 10},-10 ${k * x * 20},-10" fill="none" stroke="black" />  //Angle droit en D
- <text x="-10" y="-10" text-anchor="middle" alignment-baseline="central">${A}</text> 
- <text x="${x * 20}" y="10" text-anchor="middle" alignment-baseline="central">${E}</text> 
- <text x="${x * 20}" y="${-y * 20 - 10}" text-anchor="middle" alignment-baseline="central">${B}</text> 
+ <text x="-10" y="-10" text-anchor="middle" alignment-baseline="central">${A}</text>
+ <text x="${x * 20}" y="10" text-anchor="middle" alignment-baseline="central">${E}</text>
+ <text x="${x * 20}" y="${-y * 20 - 10}" text-anchor="middle" alignment-baseline="central">${B}</text>
  <text x="${x * k * 20 + 10}" y="10" text-anchor="middle" alignment-baseline="central">${D}</text>
  <text x="${x * k * 20 + 10}" y="${-k * y * 20 - 10}" text-anchor="middle" alignment-baseline="central">${C}</text>
 </svg></div>`
@@ -135,9 +135,9 @@ export default function ProblemesThales () {
         }, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels)
 
         texteCorr = `Dans le triangle $${nomA + nomB + nomD}$, $M$ est un point de $[${nomA + nomB}]$, $N$ est un point de $[${nomA + nomD}]$ et $(MN)$ est parallèle à $(${nomB + nomD})$ donc d'après le théorème de Thalès on a : `
-        texteCorr += `<br><br> $${texFraction(nomA + 'M', nomA + nomB)}=${texFraction(nomA + 'N', nomA + nomD)}=${texFraction('MN', nomB + nomD)}$`
-        texteCorr += `<br><br> $${texFraction(nomA + 'M', nomA + nomB)}=${texFraction(nomA + 'N', BC)}=${texFraction(texNombre(MN, 1), BD)}$`
-        texteCorr += `<br><br> $${nomA}N = ${texFraction(BC + '\\times' + stringNombre(MN), BD)}=${texNombre(MN.mul(BC).div(BD), 1)}$ cm`
+        texteCorr += `<br><br> $${deprecatedTexFraction(nomA + 'M', nomA + nomB)}=${deprecatedTexFraction(nomA + 'N', nomA + nomD)}=${deprecatedTexFraction('MN', nomB + nomD)}$`
+        texteCorr += `<br><br> $${deprecatedTexFraction(nomA + 'M', nomA + nomB)}=${deprecatedTexFraction(nomA + 'N', BC)}=${deprecatedTexFraction(texNombre(MN, 1), BD)}$`
+        texteCorr += `<br><br> $${nomA}N = ${deprecatedTexFraction(BC + '\\times' + stringNombre(MN), BD)}=${texNombre(MN.mul(BC).div(BD), 1)}$ cm`
         texteCorr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA + nomD}-${nomA}N= ${BC}-${texNombre(MN.mul(BC).div(BD), 1)}=${texNombre(MN.mul(-BC).div(BD).plus(BC), 1)}$ cm.`
         break
     }

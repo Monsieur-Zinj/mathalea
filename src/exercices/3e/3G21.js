@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, creerBoutonMathalea2d, contraindreValeur, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, miseEnEvidence, deprecatedTexFraction, creerBoutonMathalea2d, contraindreValeur, choice } from '../../modules/outils.js'
 import { angleOriente, homothetie, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -351,13 +351,13 @@ export default function ReciproqueThales () {
         // correction
         texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
         s15
-      )}}{${s14}\\times${miseEnEvidence(s15)}}=${texFraction(
+      )}}{${s14}\\times${miseEnEvidence(s15)}}=${deprecatedTexFraction(
         texNombre(dist12 * dist15, 3),
         texNombre(dist14 * dist15, 4)
       )}$.`
         texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
         s14
-      )}}{${s15}\\times${miseEnEvidence(s14)}}=${texFraction(
+      )}}{${s15}\\times${miseEnEvidence(s14)}}=${deprecatedTexFraction(
         texNombre(dist13 * dist14, 3),
         texNombre(dist14 * dist15, 4)
       )}$.`

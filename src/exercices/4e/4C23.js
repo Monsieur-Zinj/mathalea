@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, choice, pgcd, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, deprecatedTexFraction, randint, miseEnEvidence, choice, pgcd, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -73,29 +73,29 @@ export default function SommeOuProduitFractions () {
         case 'type1': // Somme de fractions de dénominateurs égaux ou multiples
 
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(num2, den2)}$ `
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(num2, den2)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}+${deprecatedTexFraction(num2, den2)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}+${deprecatedTexFraction(num2, den2)}$<br>`
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}+${texFraction(num2, den2)}$<br>`
+                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}+${deprecatedTexFraction(num2, den2)}$<br>`
               }
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den2)}+${texFraction(num2, den2)}$<br>`
+              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1 * k, den2)}+${deprecatedTexFraction(num2, den2)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k + num2, den2)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 * k + num2, den2)}$ `
             num = num1 * k + num2
             den = den2
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$ `
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2, den1)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den2)}+${deprecatedTexFraction(num2, den1)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den2)}+${deprecatedTexFraction(num2, den1)}$<br>`
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$<br>`
+                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den2)}+${deprecatedTexFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$<br>`
               }
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 * k, den2)}$<br>`
+              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den2)}+${deprecatedTexFraction(num2 * k, den2)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + num2 * k, den2)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 + num2 * k, den2)}$ `
             num = num1 + num2 * k
             den = den2
           }
@@ -104,17 +104,17 @@ export default function SommeOuProduitFractions () {
 
         case 'type2': // Somme d'une fraction et d'un entier'
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFraction(num1, den1)} $ `
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFraction(num1, den1)} $<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} + ${texFraction(num1, den1)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${deprecatedTexFraction(num1, den1)} $ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${deprecatedTexFraction(num1, den1)} $<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(k * den1, den1)} + ${deprecatedTexFraction(num1, den1)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 + k * den1, den1)}$`
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${k} $`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${k}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(k * den1, den1)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} + ${k} $`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}+${k}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}+${deprecatedTexFraction(k * den1, den1)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 + k * den1, den1)}$`
           }
           num = num1 + k * den1
           den = den1
@@ -122,29 +122,29 @@ export default function SommeOuProduitFractions () {
 
         case 'type3': // Différence de fractions de dénominateurs égaux ou multiples
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(num2, den2)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(num2, den2)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}-${deprecatedTexFraction(num2, den2)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}-${deprecatedTexFraction(num2, den2)}$<br>`
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))} - ${texFraction(num2, den2)}$<br>`
+                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))} - ${deprecatedTexFraction(num2, den2)}$<br>`
               }
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den1 * k)}-${texFraction(num2, den2)}$<br>`
+              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1 * k, den1 * k)}-${deprecatedTexFraction(num2, den2)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k - num2, den2)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 * k - num2, den2)}$ `
             num = num1 * k - num2
             den = den2
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2, den1)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den2)}-${deprecatedTexFraction(num2, den1)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den2)}-${deprecatedTexFraction(num2, den1)}$<br>`
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$<br>`
+                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den2)}-${deprecatedTexFraction(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$<br>`
               }
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 * k, den2)}$<br>`
+              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den2)}-${deprecatedTexFraction(num2 * k, den2)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - num2 * k, den2)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 - num2 * k, den2)}$`
             num = num1 - num2 * k
             den = den2
           }
@@ -153,21 +153,21 @@ export default function SommeOuProduitFractions () {
 
         case 'type4': // Différence d'une fraction et d'un entier
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFraction(num1, den1)} $`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFraction(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} - ${texFraction(num1, den1)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${deprecatedTexFraction(num1, den1)} $`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${deprecatedTexFraction(num1, den1)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(k * den1, den1)} - ${deprecatedTexFraction(num1, den1)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(k * den1 - num1, den1)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(k * den1 - num1, den1)}$`
             num = k * den1 - num1
             den = den1
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${k}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${k}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}-${k}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}-${k}$<br>`
             if (k > 1) {
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(k * den1, den1)}$<br>`
+              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)}-${deprecatedTexFraction(k * den1, den1)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - k * den1, den1)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 - k * den1, den1)}$ `
             num = num1 - k * den1
             den = den1
           }
@@ -175,26 +175,26 @@ export default function SommeOuProduitFractions () {
           break
 
         case 'type5': // Produit de fractions
-          texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$`
-          texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$<br>`
-          texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * num2, den1 * den3)}$`
+          texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} \\times ${deprecatedTexFraction(num2, den3)}$`
+          texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} \\times ${deprecatedTexFraction(num2, den3)}$<br>`
+          texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 * num2, den1 * den3)}$`
           num = num1 * num2
           den = den1 * den3
           break
 
         case 'type6': // Produit d'une fraction par un entier
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${k2}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${k2}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(k2, '1')}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} \\times ${k2}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} \\times ${k2}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} \\times ${deprecatedTexFraction(k2, '1')}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 * k2, den1)}$`
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)} $`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(k2, '1')} \\times  ${texFraction(num1, den1)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${deprecatedTexFraction(num1, den1)} $`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${deprecatedTexFraction(num1, den1)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(k2, '1')} \\times  ${deprecatedTexFraction(num1, den1)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 * k2, den1)}$`
           }
           num = num1 * k2
           den = den1
@@ -203,21 +203,21 @@ export default function SommeOuProduitFractions () {
 
         case 'type7': // Avec priorité opératoire : a +/- bc
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$ `
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2 * k2, den1 * den3)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} + ${texFraction(num2 * k2, den1 * den3)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} + ${deprecatedTexFraction(num2, den1)} \\times ${deprecatedTexFraction(k2, den3)}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} + ${deprecatedTexFraction(num2, den1)} \\times ${deprecatedTexFraction(k2, den3)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} + ${deprecatedTexFraction(num2 * k2, den1 * den3)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1 * den3, den1 * den3)} + ${deprecatedTexFraction(num2 * k2, den1 * den3)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 + num2 * k2, den1 * den3)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 * den3 + num2 * k2, den1 * den3)}$`
             num = num1 * den3 + num2 * k2
             den = den1 * den3
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2 * k2, den1 * den3)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} - ${texFraction(num2 * k2, den1 * den3)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} - ${deprecatedTexFraction(num2, den1)} \\times ${deprecatedTexFraction(k2, den3)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} - ${deprecatedTexFraction(num2, den1)} \\times ${deprecatedTexFraction(k2, den3)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1, den1)} - ${deprecatedTexFraction(num2 * k2, den1 * den3)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num1 * den3, den1 * den3)} - ${deprecatedTexFraction(num2 * k2, den1 * den3)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 - num2 * k2, den1 * den3)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num1 * den3 - num2 * k2, den1 * den3)}$`
             num = num1 * den3 - num2 * k2
             den = den1 * den3
           }
@@ -226,21 +226,21 @@ export default function SommeOuProduitFractions () {
 
         case 'type8': // Avec priorité opératoire : ab +/- c
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} + ${texFraction(num1, den1)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} + ${texFraction(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1 * den3, den1 * den3)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num2, den1)} \\times ${deprecatedTexFraction(k2, den3)} + ${deprecatedTexFraction(num1, den1)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num2, den1)} \\times ${deprecatedTexFraction(k2, den3)} + ${deprecatedTexFraction(num1, den1)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num2 * k2, den1 * den3)} + ${deprecatedTexFraction(num1, den1)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num2 * k2, den1 * den3)} + ${deprecatedTexFraction(num1 * den3, den1 * den3)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 + num1 * den3, den1 * den3)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num2 * k2 + num1 * den3, den1 * den3)}$`
             num = num2 * k2 + num1 * den3
             den = den1 * den3
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1 * den3, den1 * den3)}$<br>`
+            texte += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num2, den1)} \\times ${deprecatedTexFraction(k2, den3)} - ${deprecatedTexFraction(num1, den1)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num2, den1)} \\times ${deprecatedTexFraction(k2, den3)} - ${deprecatedTexFraction(num1, den1)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num2 * k2, den1 * den3)} - ${deprecatedTexFraction(num1, den1)}$<br>`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(num2 * k2, den1 * den3)} - ${deprecatedTexFraction(num1 * den3, den1 * den3)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 - num1 * den3, den1 * den3)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + deprecatedTexFraction(num2 * k2 - num1 * den3, den1 * den3)}$`
             num = num2 * k2 - num1 * den3
             den = den1 * den3
           }

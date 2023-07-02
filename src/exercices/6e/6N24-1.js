@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texFraction, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, deprecatedTexFraction, calcul } from '../../modules/outils.js'
 
 export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
 
@@ -40,10 +40,10 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
       b = choice([10, 100, 1000])
       if (choice([true, false])) {
         texte =
-          '$ ' + texFraction(texNombre(a), texNombre(b)) + ' =  $'
+          '$ ' + deprecatedTexFraction(texNombre(a), texNombre(b)) + ' =  $'
         texteCorr =
           '$ ' +
-          texFraction(texNombre(a), texNombre(b)) +
+          deprecatedTexFraction(texNombre(a), texNombre(b)) +
           ' = ' +
           texNombre(calcul(a / b)) +
           ' $'

@@ -1,4 +1,4 @@
-import { estentier, randint, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombre, nombreAvecEspace, texFraction, rienSi1 } from '../../modules/outils.js'
+import { estentier, randint, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombre, nombreAvecEspace, deprecatedTexFraction, rienSi1 } from '../../modules/outils.js'
 /**
  * Fork de la fonction de JC avec ajout de la dernière opération dans le tableau de sortie
  * @param {number} nbOperations
@@ -58,7 +58,7 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           expf = `Le quotient de $${l1}$ par $${nombreAvecEspace(b)}$`
           expl = `$${l1}\\div ${texNombre(b)}$`
           if (estentier(val1 / b * 1000)) expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)} = ${texNombre(val1 / b)}$`
-          else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${texFraction(val1, texNombre(b))}${Number.isInteger(b) ? simplificationDeFractionAvecEtapes(val1, b) : ''}$`
+          else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${deprecatedTexFraction(val1, texNombre(b))}${Number.isInteger(b) ? simplificationDeFractionAvecEtapes(val1, b) : ''}$`
           lastOp = 'division'
           break
       }

@@ -1,4 +1,4 @@
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, calcul, texRacineCarree, ecritureParentheseSiNegatif, texNombre, fractionSimplifiee, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, calcul, texRacineCarree, ecritureParentheseSiNegatif, texNombre, fractionSimplifiee, deprecatedTexFraction } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Résoudre des équations avec logarithmes'
@@ -139,12 +139,12 @@ export default function EquationAvecUnLogarithme () {
         } else { // a.x = b avec a non nul
           x1 = fractionSimplifiee(a[1], a[0])
           x2 = a[1] / a[0] // valeur approchée
-          texteCorr += `<br>Vérifions si la solution $x=${texFraction(x1[0], x1[1])}$ est bien dans le domaine de définition de l'équation : `
+          texteCorr += `<br>Vérifions si la solution $x=${deprecatedTexFraction(x1[0], x1[1])}$ est bien dans le domaine de définition de l'équation : `
           faux = false
           // On va vérifier si la solution convient
           for (let j = 0; j < 2; j++) {
             const resultat = c[2 * j] * x2 + c[2 * j + 1]
-            texteCorr += `<br>$${c[2 * j]}\\times${texFraction(x1[0], x1[1])}${ecritureAlgebrique(c[2 * j + 1])}${EgalEnviron(resultat)}`
+            texteCorr += `<br>$${c[2 * j]}\\times${deprecatedTexFraction(x1[0], x1[1])}${ecritureAlgebrique(c[2 * j + 1])}${EgalEnviron(resultat)}`
             if (c[2 * j] * x2 + c[2 * j + 1] > 0) {
               texteCorr += '> 0$'
             } else {

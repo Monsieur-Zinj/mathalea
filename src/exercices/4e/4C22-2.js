@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, abs, pgcd, texFractionSigne, obtenirListeFractionsIrreductibles, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, abs, pgcd, texFractionSigne, obtenirListeFractionsIrreductibles, deprecatedTexFraction } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -71,26 +71,26 @@ export default function ExerciceDiviserFractions () {
 
       switch (typesDeQuestions) {
         case 1: // fraction / fraction tout positif
-          texte = `$${texFraction(a, b)}\\div${texFraction(c, d)}=$`
+          texte = `$${deprecatedTexFraction(a, b)}\\div${deprecatedTexFraction(c, d)}=$`
           if (p === 1) {
-            texteCorr = `$${texFraction(a, b)}\\div${texFraction(
+            texteCorr = `$${deprecatedTexFraction(a, b)}\\div${deprecatedTexFraction(
               c,
               d
-            )}=${texFraction(a, b)}\\times${texFraction(d, c)}=${texFraction(
+            )}=${deprecatedTexFraction(a, b)}\\times${deprecatedTexFraction(d, c)}=${deprecatedTexFraction(
               a + '\\times' + d,
               b + '\\times' + c
-            )}=${texFraction(a * d, b * c)}$`
+            )}=${deprecatedTexFraction(a * d, b * c)}$`
           } else {
-            texteCorr = `$${texFraction(a, b)}\\div${texFraction(
+            texteCorr = `$${deprecatedTexFraction(a, b)}\\div${deprecatedTexFraction(
               c,
               d
-            )}=${texFraction(a, b)}\\times${texFraction(d, c)}=${texFraction(
+            )}=${deprecatedTexFraction(a, b)}\\times${deprecatedTexFraction(d, c)}=${deprecatedTexFraction(
               a + '\\times' + d,
               b + '\\times' + c
-            )}=${texFraction(a * d, b * c)}=${texFraction(
+            )}=${deprecatedTexFraction(a * d, b * c)}=${deprecatedTexFraction(
               (a * d) / p + '\\times\\cancel{' + p + '}',
               (b * c) / p + '\\times\\cancel{' + p + '}'
-            )}=${texFraction((a * d) / p, (b * c) / p)}$`
+            )}=${deprecatedTexFraction((a * d) / p, (b * c) / p)}$`
           }
           break
 
@@ -105,31 +105,31 @@ export default function ExerciceDiviserFractions () {
           } else {
             signe = '-'
           }
-          texte = `$${texFraction(a, b)}\\div${texFraction(c, d)}=$`
-          texteCorr = `$${texFraction(a, b)}\\div${texFraction(c, d)}$`
+          texte = `$${deprecatedTexFraction(a, b)}\\div${deprecatedTexFraction(c, d)}=$`
+          texteCorr = `$${deprecatedTexFraction(a, b)}\\div${deprecatedTexFraction(c, d)}$`
           a = abs(a)
           b = abs(b)
           c = abs(c)
           d = abs(d)
           p = pgcd(a * d, b * c)
-          texteCorr += `$=${signe}${texFraction(a, b)}\\times${texFraction(
+          texteCorr += `$=${signe}${deprecatedTexFraction(a, b)}\\times${deprecatedTexFraction(
             d,
             c
           )}$`
-          texteCorr += `$=${signe}${texFraction(
+          texteCorr += `$=${signe}${deprecatedTexFraction(
             a + '\\times' + ecritureParentheseSiNegatif(d),
             b + '\\times' + ecritureParentheseSiNegatif(c)
           )}$`
           if (p === 1) {
             texteCorr += `$=${signe}${texFractionSigne(a * d, b * c)}$`
           } else {
-            texteCorr += `$=${signe}${texFraction(a * d, b * c)}$`
+            texteCorr += `$=${signe}${deprecatedTexFraction(a * d, b * c)}$`
             if (a * d !== b * c) {
-              texteCorr += `$=${signe}${texFraction(
+              texteCorr += `$=${signe}${deprecatedTexFraction(
                 (a * d) / p + '\\times\\cancel{' + p + '}',
                 (b * c) / p + '\\times\\cancel{' + p + '}'
               )}$`
-              texteCorr += `$=${signe}${texFraction(
+              texteCorr += `$=${signe}${deprecatedTexFraction(
                 (a * d) / p,
                 (b * c) / p
               )}$`

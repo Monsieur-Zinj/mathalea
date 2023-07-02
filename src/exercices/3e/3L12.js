@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import {
   randint,
   choice,
-  texFraction,
+  deprecatedTexFraction,
   lettreDepuisChiffre,
   listeQuestionsToContenuSansNumero,
   combinaisonListes
@@ -120,9 +120,9 @@ export default function FactoriserIdentitesRemarquables3 () {
           reponse = [`(${b}x-${a})(${b}x+${a})`, `(${b}x+${a})(${b}x-${a})`]
           break
         case 3:
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${texFraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${texFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`
-          reponse = [`\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)`, `\\left(${texFraction(ns, ds)}x+${a}\\right)\\left(${texFraction(ns, ds)}x-${a}\\right)`]
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
+          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)$`
+          reponse = [`\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)`, `\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)`]
           break
       }
       if (this.sup2) {

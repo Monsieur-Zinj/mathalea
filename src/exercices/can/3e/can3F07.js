@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, texFraction, miseEnEvidence, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
+import { randint, deprecatedTexFraction, miseEnEvidence, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
 import { courbe, repere, texteParPosition, segment } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true
@@ -38,11 +38,11 @@ export default function LectureGraphiqueFonctionAffine1 () {
         `
 
     this.reponse = [`${a}x+${b}`]
-    this.correction = `<br> $f$ est de la forme 
-    $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale) 
+    this.correction = `<br> $f$ est de la forme
+    $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
     On a  $b=${b}$ et :`
-    this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(1, 'green'))}=${a}$`)
+    this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=${deprecatedTexFraction(miseEnEvidence(a, 'red'), miseEnEvidence(1, 'green'))}=${a}$`)
     this.correction += `On en déduit que la fonction $f$ est définie par $f(x)=${reduireAxPlusB(a, b)}$.<br>`
     if (a > 0) {
       s1 = segment(0, b, 1, b, 'green')

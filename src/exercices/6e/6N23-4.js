@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, deprecatedTexFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
@@ -72,58 +72,58 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
         case 1: // 3 unités, 5 dixièmes et 8 centièmes
           texte = `${a} unités, ${b} dixièmes et ${c} centièmes`
           reponseAMC = calcul(a + b / 10 + c / 100)
-          texteCorr = `$${a}+${texFraction(b, 10)}+${texFraction(c, 100)}=${texNombre(reponseAMC)}$`
+          texteCorr = `$${a}+${deprecatedTexFraction(b, 10)}+${deprecatedTexFraction(c, 100)}=${texNombre(reponseAMC)}$`
           break
         case 2: // 3 unités et 5 centièmes
           texte = `${a} unités et ${c} centièmes`
           reponseAMC = calcul(a + c / 100)
-          texteCorr = `$${a}+${texFraction(c, 100)}=${texNombre(reponseAMC)}$`
+          texteCorr = `$${a}+${deprecatedTexFraction(c, 100)}=${texNombre(reponseAMC)}$`
           break
         case 3: // 5 dixièmes / centièmes ou millièmes
           choix = randint(1, 3)
           if (choix === 1) {
             texte = `${a} dixièmes`
             reponseAMC = calcul(a / 10)
-            texteCorr = `$${texFraction(a, 10)}=${texNombre(reponseAMC)}$`
+            texteCorr = `$${deprecatedTexFraction(a, 10)}=${texNombre(reponseAMC)}$`
           }
           if (choix === 2) {
             texte = `${a} centièmes`
             reponseAMC = calcul(a / 100)
-            texteCorr = `$${texFraction(a, 100)}=${texNombre(reponseAMC)}$`
+            texteCorr = `$${deprecatedTexFraction(a, 100)}=${texNombre(reponseAMC)}$`
           }
           if (choix === 3) {
             texte = `${a} millièmes`
             reponseAMC = calcul(a / 1000)
-            texteCorr = `$${texFraction(a, 1000)}=${texNombre(reponseAMC)}$`
+            texteCorr = `$${deprecatedTexFraction(a, 1000)}=${texNombre(reponseAMC)}$`
           }
           break
         case 4: // 128/10
           n = a * 100 + b * 10 + c
           choix = randint(1, 3)
           if (choix === 1) {
-            texte = `$${texFraction(n, 10)}$`
+            texte = `$${deprecatedTexFraction(n, 10)}$`
             reponseAMC = calcul(n / 10)
-            texteCorr = `$${texFraction(n, 10)}=${texNombre(reponseAMC)}$`
+            texteCorr = `$${deprecatedTexFraction(n, 10)}=${texNombre(reponseAMC)}$`
           } else if (choix === 2) {
-            texte = `$${texFraction(n, 100)}$`
+            texte = `$${deprecatedTexFraction(n, 100)}$`
             reponseAMC = calcul(n / 100)
-            texteCorr = `$${texFraction(n, 100)}=${texNombre(reponseAMC)}$`
+            texteCorr = `$${deprecatedTexFraction(n, 100)}=${texNombre(reponseAMC)}$`
           } else {
-            texte = `$${texFraction(n, 1000)}$`
+            texte = `$${deprecatedTexFraction(n, 1000)}$`
             reponseAMC = calcul(n / 1000)
-            texteCorr = `$${texFraction(n, 1000)}=${texNombre(reponseAMC)}$`
+            texteCorr = `$${deprecatedTexFraction(n, 1000)}=${texNombre(reponseAMC)}$`
           }
           break
         case 5: // 8+5/100+7/100
           choix = randint(1, 2)
           if (choix === 1) {
-            texte = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}$`
+            texte = `$${a}+${deprecatedTexFraction(b, 100)}+${deprecatedTexFraction(c, 100)}$`
             reponseAMC = calcul(a + (b + c) / 100)
-            texteCorr = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}=${a}+${texFraction(b + c, 100)}=${texNombre(reponseAMC)}$`
+            texteCorr = `$${a}+${deprecatedTexFraction(b, 100)}+${deprecatedTexFraction(c, 100)}=${a}+${deprecatedTexFraction(b + c, 100)}=${texNombre(reponseAMC)}$`
           } else if (choix === 2) {
-            texte = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}$`
+            texte = `$${a}+${deprecatedTexFraction(b, 10)}+${deprecatedTexFraction(c, 10)}$`
             reponseAMC = calcul(a + (b + c) / 10)
-            texteCorr = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}=${a}+${texFraction(b + c, 10)}=${a}+${texNombre((b + c) / 10)}=${texNombre(reponseAMC)}$`
+            texteCorr = `$${a}+${deprecatedTexFraction(b, 10)}+${deprecatedTexFraction(c, 10)}=${a}+${deprecatedTexFraction(b + c, 10)}=${a}+${texNombre((b + c) / 10)}=${texNombre(reponseAMC)}$`
           }
           break
       }

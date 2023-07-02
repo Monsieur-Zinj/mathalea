@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint, combinaisonListes, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint, combinaisonListes, pgcd, miseEnEvidence, deprecatedTexFraction, texFractionReduite } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -67,40 +67,40 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
         case 'type1': // Calculs du type a/b + n * c/bk lorsque negOuPos === 1 et du type a/b - n * c/bk lorsque negOuPos === 2
           if (negOuPos === 1) {
             if (ordreDesFractions === 1) { // La fraction de dénominateur plus grand est la deuxième
-              texte = `$${texFraction(a, b)}+ ${n} \\times  ${texFraction(c, d)}$`
+              texte = `$${deprecatedTexFraction(a, b)}+ ${n} \\times  ${deprecatedTexFraction(c, d)}$`
             } else {
-              texte = `$${texFraction(c, d)}+ ${n} \\times  ${texFraction(a, b)}$`
+              texte = `$${deprecatedTexFraction(c, d)}+ ${n} \\times  ${deprecatedTexFraction(a, b)}$`
             }
 
             if (ordreDesFractions === 1) {
-              texteCorr = `$${texFraction(a, b)}+ ${n} \\times ${texFraction(c, d)}=`
+              texteCorr = `$${deprecatedTexFraction(a, b)}+ ${n} \\times ${deprecatedTexFraction(c, d)}=`
 
-              texteCorr += `${texFraction(a, b)}+ ${texFraction(n * c, d)}=`
+              texteCorr += `${deprecatedTexFraction(a, b)}+ ${deprecatedTexFraction(n * c, d)}=`
 
-              texteCorr += `${texFraction(a * k, d)}+ ${texFraction(n * c, d)}=`
+              texteCorr += `${deprecatedTexFraction(a * k, d)}+ ${deprecatedTexFraction(n * c, d)}=`
 
-              texteCorr += `${texFraction(a * k + '+' + n * c, d)}=${texFraction(a * k + n * c, d)}$`
+              texteCorr += `${deprecatedTexFraction(a * k + '+' + n * c, d)}=${deprecatedTexFraction(a * k + n * c, d)}$`
             } else {
-              texteCorr = `$${texFraction(c, d)}+ ${n} \\times ${texFraction(a, b)}=`
+              texteCorr = `$${deprecatedTexFraction(c, d)}+ ${n} \\times ${deprecatedTexFraction(a, b)}=`
 
-              texteCorr += `${texFraction(c, d)}+ ${texFraction(n * a, b)}=`
+              texteCorr += `${deprecatedTexFraction(c, d)}+ ${deprecatedTexFraction(n * a, b)}=`
 
-              texteCorr += `${texFraction(c, d)}+ ${texFraction(n * a * k, d)}=`
+              texteCorr += `${deprecatedTexFraction(c, d)}+ ${deprecatedTexFraction(n * a * k, d)}=`
 
-              texteCorr += `${texFraction(c + '+' + n * a * k, d)}=${texFraction(n * a * k + c, d)}$`
+              texteCorr += `${deprecatedTexFraction(c + '+' + n * a * k, d)}=${deprecatedTexFraction(n * a * k + c, d)}$`
             }
             // Est-ce que le résultat est simplifiable ?
             if (this.sup3) {
               if (ordreDesFractions === 1) {
                 s = pgcd(a * k + n * c, d)
                 if (s !== 1) {
-                  texteCorr += `$=${texFraction(calcul((a * k + n * c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + n * c) / s), calcul(d / s))}$`
+                  texteCorr += `$=${deprecatedTexFraction(calcul((a * k + n * c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + n * c) / s), calcul(d / s))}$`
                 }
                 setReponse(this, i, (new FractionEtendue(a * k + n * c, d)).simplifie(), { formatInteractif: 'fractionEgale' })
               } else {
                 s = pgcd(n * a * k + c, d)
                 if (s !== 1) {
-                  texteCorr += `$=${texFraction(calcul((n * a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((n * a * k + c) / s), calcul(d / s))}$`
+                  texteCorr += `$=${deprecatedTexFraction(calcul((n * a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((n * a * k + c) / s), calcul(d / s))}$`
                 }
                 setReponse(this, i, (new FractionEtendue(n * a * k + c, d)).simplifie(), { formatInteractif: 'fractionEgale' })
               }
@@ -113,42 +113,42 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
             }
           } else {
             if (ordreDesFractions === 1) {
-              texte = `$${texFraction(a, b)}- ${n} \\times  ${texFraction(c, d)}$`
+              texte = `$${deprecatedTexFraction(a, b)}- ${n} \\times  ${deprecatedTexFraction(c, d)}$`
             } else {
-              texte = `$${texFraction(c, d)}- ${n} \\times  ${texFraction(a, b)}$`
+              texte = `$${deprecatedTexFraction(c, d)}- ${n} \\times  ${deprecatedTexFraction(a, b)}$`
             }
 
             if (ordreDesFractions === 1) {
-              texteCorr = `$${texFraction(a, b)}- ${n} \\times ${texFraction(c, d)}=`
+              texteCorr = `$${deprecatedTexFraction(a, b)}- ${n} \\times ${deprecatedTexFraction(c, d)}=`
 
-              texteCorr += `${texFraction(a, b)}- ${texFraction(n * c, d)}=`
+              texteCorr += `${deprecatedTexFraction(a, b)}- ${deprecatedTexFraction(n * c, d)}=`
 
-              texteCorr += `${texFraction(a * k, d)}- ${texFraction(n * c, d)}=`
+              texteCorr += `${deprecatedTexFraction(a * k, d)}- ${deprecatedTexFraction(n * c, d)}=`
 
-              texteCorr += `${texFraction(a * k + '-' + n * c, d)}=${texFraction(a * k - n * c, d)}$`
+              texteCorr += `${deprecatedTexFraction(a * k + '-' + n * c, d)}=${deprecatedTexFraction(a * k - n * c, d)}$`
             } else {
-              texteCorr = `$${texFraction(c, d)}- ${n} \\times ${texFraction(a, b)}=`
+              texteCorr = `$${deprecatedTexFraction(c, d)}- ${n} \\times ${deprecatedTexFraction(a, b)}=`
 
-              texteCorr += `${texFraction(c, d)}- ${texFraction(n * a, b)}=`
+              texteCorr += `${deprecatedTexFraction(c, d)}- ${deprecatedTexFraction(n * a, b)}=`
 
-              texteCorr += `${texFraction(c, d)}- ${texFraction(n * a * k, d)}=`
+              texteCorr += `${deprecatedTexFraction(c, d)}- ${deprecatedTexFraction(n * a * k, d)}=`
 
-              texteCorr += `${texFraction(c + '-' + n * a * k, d)}=`
+              texteCorr += `${deprecatedTexFraction(c + '-' + n * a * k, d)}=`
 
-              texteCorr += `${texFraction(c - n * a * k, d)}$`
+              texteCorr += `${deprecatedTexFraction(c - n * a * k, d)}$`
             }
             // Est-ce que le résultat est simplifiable ?
             if (this.sup3) {
               if (ordreDesFractions === 1) {
                 s = pgcd(a * k - n * c, d)
                 if (s !== 1) {
-                  texteCorr += `$=${texFraction(calcul((a * k - n * c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - n * c) / s), calcul(d / s))}$`
+                  texteCorr += `$=${deprecatedTexFraction(calcul((a * k - n * c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - n * c) / s), calcul(d / s))}$`
                 }
                 setReponse(this, i, (new FractionEtendue(a * k - n * c, d)).simplifie(), { formatInteractif: 'fractionEgale' })
               } else {
                 s = pgcd(n * a * k - c, d)
                 if (s !== 1) {
-                  texteCorr += `$=${texFraction(calcul((c - n * a * k) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((c - n * a * k) / s), calcul(d / s))}$`
+                  texteCorr += `$=${deprecatedTexFraction(calcul((c - n * a * k) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((c - n * a * k) / s), calcul(d / s))}$`
                 }
                 setReponse(this, i, (new FractionEtendue(n * a * k - c, d)).simplifie(), { formatInteractif: 'fractionEgale' })
               }
@@ -167,44 +167,44 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
         case 'type2': // Calculs du type :     a/b - (c/b + e/bk)
 
           if (ordreDesFractions === 2) {
-            texte = `$${texFraction(a, b)}- \\Big(${texFraction(c, b)} + ${texFraction(e, d)}\\Big)$`
+            texte = `$${deprecatedTexFraction(a, b)}- \\Big(${deprecatedTexFraction(c, b)} + ${deprecatedTexFraction(e, d)}\\Big)$`
           } else {
-            texte = `$${texFraction(a, b)}- \\Big(${texFraction(c, d)} + ${texFraction(e, b)}\\Big)$`
+            texte = `$${deprecatedTexFraction(a, b)}- \\Big(${deprecatedTexFraction(c, d)} + ${deprecatedTexFraction(e, b)}\\Big)$`
           }
 
           if (ordreDesFractions === 2) {
-            texteCorr = `$${texFraction(a, b)}- \\Big(${texFraction(c, b)} + ${texFraction(e, d)}\\Big)=`
+            texteCorr = `$${deprecatedTexFraction(a, b)}- \\Big(${deprecatedTexFraction(c, b)} + ${deprecatedTexFraction(e, d)}\\Big)=`
 
-            texteCorr += `${texFraction(a, b)} - \\Big( ${texFraction(k * c, d)} + ${texFraction(e, d)}\\Big)=`
+            texteCorr += `${deprecatedTexFraction(a, b)} - \\Big( ${deprecatedTexFraction(k * c, d)} + ${deprecatedTexFraction(e, d)}\\Big)=`
 
-            texteCorr += `${texFraction(a, b)} -  ${texFraction(k * c + e, d)}=`
+            texteCorr += `${deprecatedTexFraction(a, b)} -  ${deprecatedTexFraction(k * c + e, d)}=`
 
-            texteCorr += `${texFraction(a * k, d)} - ${texFraction(k * c + e, d)}=`
+            texteCorr += `${deprecatedTexFraction(a * k, d)} - ${deprecatedTexFraction(k * c + e, d)}=`
 
-            texteCorr += `${texFraction(a * k - c * k - e, d)}$`
+            texteCorr += `${deprecatedTexFraction(a * k - c * k - e, d)}$`
           } else {
-            texteCorr = `$${texFraction(a, b)}- \\Big(${texFraction(c, d)} + ${texFraction(e, b)}\\Big)=`
+            texteCorr = `$${deprecatedTexFraction(a, b)}- \\Big(${deprecatedTexFraction(c, d)} + ${deprecatedTexFraction(e, b)}\\Big)=`
 
-            texteCorr += `${texFraction(a, b)} - \\Big( ${texFraction(c, d)} + ${texFraction(k * e, d)}\\Big)=`
+            texteCorr += `${deprecatedTexFraction(a, b)} - \\Big( ${deprecatedTexFraction(c, d)} + ${deprecatedTexFraction(k * e, d)}\\Big)=`
 
-            texteCorr += `${texFraction(a, b)} -  ${texFraction(c + k * e, d)}=`
+            texteCorr += `${deprecatedTexFraction(a, b)} -  ${deprecatedTexFraction(c + k * e, d)}=`
 
-            texteCorr += `${texFraction(a * k, d)} - ${texFraction(c + k * e, d)}=`
+            texteCorr += `${deprecatedTexFraction(a * k, d)} - ${deprecatedTexFraction(c + k * e, d)}=`
 
-            texteCorr += `${texFraction(a * k - c - k * e, d)}$`
+            texteCorr += `${deprecatedTexFraction(a * k - c - k * e, d)}$`
           }
           // Est-ce que le résultat est simplifiable ?
           if (this.sup3) {
             if (ordreDesFractions === 2) {
               s = pgcd(a * k - c * k - e, d)
               if (s !== 1) {
-                texteCorr += `$=${texFraction(calcul((a * k - c * k - e) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - c * k - e) / s), calcul(d / s))}$`
+                texteCorr += `$=${deprecatedTexFraction(calcul((a * k - c * k - e) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - c * k - e) / s), calcul(d / s))}$`
               }
               setReponse(this, i, (new FractionEtendue(a * k - c * k - e, d)).simplifie(), { formatInteractif: 'fractionEgale' })
             } else {
               s = pgcd(a * k - c - k * e, d)
               if (s !== 1) {
-                texteCorr += `$=${texFraction(calcul((a * k - c - k * e) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - c - k * e) / s), calcul(d / s))}$`
+                texteCorr += `$=${deprecatedTexFraction(calcul((a * k - c - k * e) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - c - k * e) / s), calcul(d / s))}$`
               }
               setReponse(this, i, (new FractionEtendue(a * k - c - k * e, d)).simplifie(), { formatInteractif: 'fractionEgale' })
             }
@@ -220,30 +220,30 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
           break
         case 'type3': // Calculs du type a/b + n (pour retravailler le fait qu'un entier est une fraction) lorsque negOuPos === 2 et du type a/b - n lorsque negOuPos === 1
           if (negOuPos === 2) {
-            texte = `$${texFraction(a, b)} + ${n}$`
-            texteCorr = `$${texFraction(a, b)} + ${n}=`
-            texteCorr += `${texFraction(a, b)} + ${texFraction(n * b, b)}=`
-            texteCorr += `${texFraction(a + n * b, b)}$`
+            texte = `$${deprecatedTexFraction(a, b)} + ${n}$`
+            texteCorr = `$${deprecatedTexFraction(a, b)} + ${n}=`
+            texteCorr += `${deprecatedTexFraction(a, b)} + ${deprecatedTexFraction(n * b, b)}=`
+            texteCorr += `${deprecatedTexFraction(a + n * b, b)}$`
             // Est-ce que le résultat est simplifiable ?
             if (this.sup3) {
               s = pgcd(a + n * b, b)
               if (s !== 1) {
-                texteCorr += `$=${texFraction(calcul((a + n * b) / s) + miseEnEvidence('\\times ' + s), calcul(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a + n * b) / s), calcul(b / s))}$`
+                texteCorr += `$=${deprecatedTexFraction(calcul((a + n * b) / s) + miseEnEvidence('\\times ' + s), calcul(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a + n * b) / s), calcul(b / s))}$`
               }
               setReponse(this, i, (new FractionEtendue(a + n * b, b)).simplifie(), { formatInteractif: 'fractionEgale' })
             } else {
               setReponse(this, i, (new FractionEtendue(a + n * b, b)), { formatInteractif: 'fraction' })
             }
           } else {
-            texte = `$${texFraction(a, b)} - ${n}$`
-            texteCorr = `$${texFraction(a, b)} - ${n}=`
-            texteCorr += `${texFraction(a, b)} - ${texFraction(n * b, b)}=`
-            texteCorr += `${texFraction(a - n * b, b)}$`
+            texte = `$${deprecatedTexFraction(a, b)} - ${n}$`
+            texteCorr = `$${deprecatedTexFraction(a, b)} - ${n}=`
+            texteCorr += `${deprecatedTexFraction(a, b)} - ${deprecatedTexFraction(n * b, b)}=`
+            texteCorr += `${deprecatedTexFraction(a - n * b, b)}$`
             // Est-ce que le résultat est simplifiable ?
             if (this.sup3) {
               s = pgcd(a - n * b, b)
               if (s !== 1) {
-                texteCorr += `$=${texFraction(calcul((a - n * b) / s) + miseEnEvidence('\\times ' + s), calcul(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a - n * b) / s), calcul(b / s))}$`
+                texteCorr += `$=${deprecatedTexFraction(calcul((a - n * b) / s) + miseEnEvidence('\\times ' + s), calcul(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a - n * b) / s), calcul(b / s))}$`
               }
               setReponse(this, i, (new FractionEtendue(a - n * b, b)).simplifie(), { formatInteractif: 'fractionEgale' })
             } else {
@@ -255,17 +255,17 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
           }
           break
         case 'type4': // Calculs du type a/b - c/bk + e/b
-          texte = `$${texFraction(a, b)}-${texFraction(c, d)}+${texFraction(e, b)}$`
+          texte = `$${deprecatedTexFraction(a, b)}-${deprecatedTexFraction(c, d)}+${deprecatedTexFraction(e, b)}$`
 
-          texteCorr = `$${texFraction(a, b)}-${texFraction(c, d)}+${texFraction(e, b)}=`
-          texteCorr += `${texFraction(a * k, b * k)}-${texFraction(c, d)}+${texFraction(e * k, b * k)}=`
-          texteCorr += `${texFraction(a * k + '-' + c + '+' + e * k, d)}=`
-          texteCorr += `${texFraction(a * k - c + e * k, d)}$`
+          texteCorr = `$${deprecatedTexFraction(a, b)}-${deprecatedTexFraction(c, d)}+${deprecatedTexFraction(e, b)}=`
+          texteCorr += `${deprecatedTexFraction(a * k, b * k)}-${deprecatedTexFraction(c, d)}+${deprecatedTexFraction(e * k, b * k)}=`
+          texteCorr += `${deprecatedTexFraction(a * k + '-' + c + '+' + e * k, d)}=`
+          texteCorr += `${deprecatedTexFraction(a * k - c + e * k, d)}$`
           // Est-ce que le résultat est simplifiable ?
           if (this.sup3) {
             s = pgcd(a * k - c + e * k, d)
             if (s !== 1) {
-              texteCorr += `$=${texFraction(calcul((a * k - c + e * k) / s) + miseEnEvidence('\\times' + s), calcul(d / s) + miseEnEvidence('\\times' + s))}=${texFractionReduite(calcul((a * k - c + e * k) / s), calcul(d / s))}$`
+              texteCorr += `$=${deprecatedTexFraction(calcul((a * k - c + e * k) / s) + miseEnEvidence('\\times' + s), calcul(d / s) + miseEnEvidence('\\times' + s))}=${texFractionReduite(calcul((a * k - c + e * k) / s), calcul(d / s))}$`
             }
             setReponse(this, i, (new FractionEtendue(a * k - c + e * k, d)).simplifie(), { formatInteractif: 'fractionEgale' })
           } else {

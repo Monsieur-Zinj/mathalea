@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, calcul, texNombre, texFraction, arcenciel, miseEnEvidence, signe } from '../../../modules/outils.js'
+import { randint, choice, ecritureAlgebrique, calcul, texNombre, deprecatedTexFraction, arcenciel, miseEnEvidence, signe } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite récurrente'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +32,7 @@ export default function CalculTermeSuiteRec () {
         k = 1
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = u_n ${ecritureAlgebrique(a)}$.`
         if (!this.interactif) {
-          this.question += `<br>   
+          this.question += `<br>
           Calculer $u_{${k}}$.`
           this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = u_n ${ecritureAlgebrique(a)}$.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
@@ -40,13 +40,13 @@ export default function CalculTermeSuiteRec () {
 
         if (a > 0) {
           for (let indice = 0; indice < k; indice++) {
-            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> 
-            $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(a)} = 
+            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br>
+            $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(a)} =
               ${miseEnEvidence(u, arcenciel(indice, true))} + ${a} = ${miseEnEvidence(u + a, arcenciel(indice + 1, true))}$`
           }
         } else {
           for (let indice = 0; indice < k; indice++) {
-            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(a)} = 
+            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(a)} =
             ${miseEnEvidence(u, arcenciel(indice, true))}  ${a} = ${miseEnEvidence(u + a, arcenciel(indice + 1, true))}$`
           }
         }
@@ -68,12 +68,12 @@ export default function CalculTermeSuiteRec () {
         } else { this.question += `<br> $u_{${k}}=$` }
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
-            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  = 
+            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
              ${a}\\times (${miseEnEvidence(u, arcenciel(indice, true))})  = ${miseEnEvidence(u * a, arcenciel(indice + 1, true))}$`
           }
         } else {
           for (let indice = 0; indice < k; indice++) {
-            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  = 
+            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
                ${a}\\times ${miseEnEvidence(u, arcenciel(indice, true))}  = ${miseEnEvidence(u * a, arcenciel(indice + 1, true))}$`
           }
         }
@@ -90,24 +90,24 @@ export default function CalculTermeSuiteRec () {
         d1 = fraction1[1]
         a = randint(1, 10) * choice([-1, 1])
         u = calcul(a * d1)
-        this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFraction(n1, d1)}u_n $.`
+        this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${deprecatedTexFraction(n1, d1)}u_n $.`
 
         if (!this.interactif) {
           this.question += `<br>
           Calculer $u_{${k}}$.`
-          this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFraction(n1, d1)}u_n $.`
+          this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${deprecatedTexFraction(n1, d1)}u_n $.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
         } else { this.question += `<br> $u_{${k}}=$` }
 
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
-            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${texFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  = 
-          ${texFraction(n1, d1)}\\times (${miseEnEvidence(u, arcenciel(indice, true))})  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
+            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
+          ${deprecatedTexFraction(n1, d1)}\\times (${miseEnEvidence(u, arcenciel(indice, true))})  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
           }
         } else {
           for (let indice = 0; indice < k; indice++) {
-            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${texFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  = 
-    ${texFraction(n1, d1)}\\times ${miseEnEvidence(u, arcenciel(indice, true))}  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
+            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
+    ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence(u, arcenciel(indice, true))}  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
           }
         }
         this.reponse = calcul(n1 * a)
@@ -120,7 +120,7 @@ export default function CalculTermeSuiteRec () {
         k = 1
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecritureAlgebrique(b)}$.`
         if (!this.interactif) {
-          this.question += `    
+          this.question += `
           <br>Calculer $u_{${k}}$.`
           this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecritureAlgebrique(b)}$.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
@@ -131,13 +131,13 @@ export default function CalculTermeSuiteRec () {
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
             this.correction += `$u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(b)}=`
-            this.correction += `${a} \\times (${miseEnEvidence(u, arcenciel(indice, true))}) ${ecritureAlgebrique(b)} = 
+            this.correction += `${a} \\times (${miseEnEvidence(u, arcenciel(indice, true))}) ${ecritureAlgebrique(b)} =
         ${miseEnEvidence(a * u + b, arcenciel(indice + 1, true))}$`
           }
         } else {
           for (let indice = 0; indice < k; indice++) {
             this.correction += `$u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(b)}=`
-            this.correction += `${a} \\times ${miseEnEvidence(u, arcenciel(indice, true))} ${ecritureAlgebrique(b)} = 
+            this.correction += `${a} \\times ${miseEnEvidence(u, arcenciel(indice, true))} ${ecritureAlgebrique(b)} =
         ${miseEnEvidence(a * u + b, arcenciel(indice + 1, true))}$`
           }
         }
@@ -164,13 +164,13 @@ export default function CalculTermeSuiteRec () {
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
             this.correction += `<br> $u_{${indice + 1}} = ${a} ${signe(b)} (${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))})^2=`
-            this.correction += `${a} ${signe(b)} (${miseEnEvidence(u, arcenciel(indice, true))})^2 = 
+            this.correction += `${a} ${signe(b)} (${miseEnEvidence(u, arcenciel(indice, true))})^2 =
               ${miseEnEvidence(texNombre(a + b * u * u), arcenciel(indice + 1, true))}$`
           }
         } else {
           for (let indice = 0; indice < k; indice++) {
             this.correction += `<br> $u_{${indice + 1}} = ${a} ${signe(b)} ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}^2=`
-            this.correction += `${a} ${signe(b)} ${miseEnEvidence(u, arcenciel(indice, true))}^2 = 
+            this.correction += `${a} ${signe(b)} ${miseEnEvidence(u, arcenciel(indice, true))}^2 =
                 ${miseEnEvidence(texNombre(a + b * u * u), arcenciel(indice + 1, true))}$`
           }
         }

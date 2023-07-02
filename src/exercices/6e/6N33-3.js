@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texPrix, texFraction, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texPrix, deprecatedTexFraction, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -50,7 +50,7 @@ export default function AppliquerUnPourcentage () {
           texte += 'Quel est le montant en euro de cette réduction ?'
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' €' })
           texteCorr = `On doit calculer $${pourcent[i]}${sp()}\\%$ de $${prix[i]}$${sp()}€ :<br>`
-          texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${prix[i]}=${texFraction(pourcent[i], 100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${texNombre(pourcent[i] * prix[i])}\\div100=${texNombre(montant)}$<br>`
+          texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${prix[i]}=${deprecatedTexFraction(pourcent[i], 100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${texNombre(pourcent[i] * prix[i])}\\div100=${texNombre(montant)}$<br>`
           texteCorr += `Le montant de la réduction est de $${texPrix(montant)}$${sp()}€.`
           setReponse(this, i, montant, { formatInteractif: 'calcul', digits: 5, decimals: 2, signe: false })
           break
@@ -61,7 +61,7 @@ export default function AppliquerUnPourcentage () {
           texte += 'Quelle est la masse supplémentaire en grammes correspondant à cette croissance ?'
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' g' })
           texteCorr = `On doit calculer $${pourcent[i]}${sp()}\\%$ de $${masse[i]}$ grammes :<br>`
-          texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${masse[i]}=${texFraction(pourcent[i], 100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${texNombre(pourcent[i] * masse[i])}\\div100=${texNombre(montant)}$<br>`
+          texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${masse[i]}=${deprecatedTexFraction(pourcent[i], 100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${texNombre(pourcent[i] * masse[i])}\\div100=${texNombre(montant)}$<br>`
           texteCorr += `La masse a augmenté de $${texNombre(montant)}$ g.`
           setReponse(this, i, montant, { formatInteractif: 'calcul', digits: 4, decimals: 2, signe: false })
           break

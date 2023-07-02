@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, deprecatedTexFraction, texFractionReduite } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -86,19 +86,19 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         /** ***************** Choix des réponses du QCM ***********************************/
         this.autoCorrection[i].propositions = [
           {
-            texte: this.sup3 ? `$${texFractionReduite(a * k + c, d)}$` : `$${texFraction(a * k + c, d)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(a * k + c, d)}$` : `$${deprecatedTexFraction(a * k + c, d)}$`,
             statut: true
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(a + c, d)}$` : `$${texFraction(a + c, d)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(a + c, d)}$` : `$${deprecatedTexFraction(a + c, d)}$`,
             statut: false
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(a + c, b + d)}$` : `$${texFraction(a + c, b + d)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(a + c, b + d)}$` : `$${deprecatedTexFraction(a + c, b + d)}$`,
             statut: false
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(a * c, d)}$` : `$${texFraction(a * c, d)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(a * c, d)}$` : `$${deprecatedTexFraction(a * c, d)}$`,
             statut: false
           }
         ]
@@ -109,41 +109,41 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (b=d)
-          this.autoCorrection[i].propositions[0].texte = `$${texFraction(a + c, b)}$`
+          this.autoCorrection[i].propositions[0].texte = `$${deprecatedTexFraction(a + c, b)}$`
         }
         /*************************************************************************/
         ordreDesFractions = randint(1, 2)
         if (ordreDesFractions === 1) {
-          texte = `$${texFraction(a, b)}+${texFraction(c, d)}=$`
+          texte = `$${deprecatedTexFraction(a, b)}+${deprecatedTexFraction(c, d)}=$`
           /** ****************** AMC question/questionmult ********************************/
           this.autoCorrection[i].enonce = `${texte}\n`
           /*******************************************************************************/
         } else {
-          texte = `$${texFraction(c, d)}+${texFraction(a, b)}=$`
+          texte = `$${deprecatedTexFraction(c, d)}+${deprecatedTexFraction(a, b)}=$`
           /** ****************** AMC question/questionmult ******************************/
           this.autoCorrection[i].enonce = `${texte}\n`
           /*******************************************************************************/
         }
 
         if (ordreDesFractions === 1) {
-          texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}=`
+          texteCorr = `$${deprecatedTexFraction(a, b)}+${deprecatedTexFraction(c, d)}=`
 
           if (this.level !== 6) {
-            texteCorr += `${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${texFraction(c, d)}=${texFraction(a * k, b * k)}+${texFraction(c, d)}=`
+            texteCorr += `${deprecatedTexFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${deprecatedTexFraction(c, d)}=${deprecatedTexFraction(a * k, b * k)}+${deprecatedTexFraction(c, d)}=`
           }
-          texteCorr += `${texFraction(a * k + '+' + c, d)}=${texFraction(a * k + c, d)}$`
+          texteCorr += `${deprecatedTexFraction(a * k + '+' + c, d)}=${deprecatedTexFraction(a * k + c, d)}$`
         } else {
-          texteCorr = `$${texFraction(c, d)}+${texFraction(a, b)}=`
+          texteCorr = `$${deprecatedTexFraction(c, d)}+${deprecatedTexFraction(a, b)}=`
           if (this.level !== 6) {
-            texteCorr += `${texFraction(c, d)}+${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${texFraction(c, d)}+${texFraction(a * k, b * k)}=`
+            texteCorr += `${deprecatedTexFraction(c, d)}+${deprecatedTexFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${deprecatedTexFraction(c, d)}+${deprecatedTexFraction(a * k, b * k)}=`
           }
-          texteCorr += `${texFraction(c + '+' + a * k, d)}=${texFraction(a * k + c, d)}$`
+          texteCorr += `${deprecatedTexFraction(c + '+' + a * k, d)}=${deprecatedTexFraction(a * k + c, d)}$`
         }
         // Est-ce que le résultat est simplifiable ?
         if (this.sup3) {
           s = pgcd(a * k + c, d)
           if (s !== 1) {
-            texteCorr += `$=${texFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
+            texteCorr += `$=${deprecatedTexFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
           }
         }
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
@@ -160,19 +160,19 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         /** ***************** Choix des réponses du QCM ***********************************/
         this.autoCorrection[i].propositions = [
           {
-            texte: this.sup3 ? `$${texFractionReduite(Math.abs(a * k - c), Math.abs(d))}$` : `$${texFraction(Math.abs(a * k - c), Math.abs(d))}$`,
+            texte: this.sup3 ? `$${texFractionReduite(Math.abs(a * k - c), Math.abs(d))}$` : `$${deprecatedTexFraction(Math.abs(a * k - c), Math.abs(d))}$`,
             statut: true
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(Math.abs(a - c), Math.abs(b - d))}$` : `$${texFraction(Math.abs(a - c), Math.abs(b - d))}$`,
+            texte: this.sup3 ? `$${texFractionReduite(Math.abs(a - c), Math.abs(b - d))}$` : `$${deprecatedTexFraction(Math.abs(a - c), Math.abs(b - d))}$`,
             statut: false
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(Math.abs(a - c), d)}$` : `$${texFraction(Math.abs(a - c), d)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(Math.abs(a - c), d)}$` : `$${deprecatedTexFraction(Math.abs(a - c), d)}$`,
             statut: false
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(a * c, d)}$` : `$${texFraction(a * c, d)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(a * c, d)}$` : `$${deprecatedTexFraction(a * c, d)}$`,
             statut: false
           }
         ]
@@ -183,30 +183,30 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (b=d)
-          this.autoCorrection[i].propositions[0].texte = `$${texFraction(Math.abs(a - c), b)}$`
+          this.autoCorrection[i].propositions[0].texte = `$${deprecatedTexFraction(Math.abs(a - c), b)}$`
         }
 
         /*********************************************************************************/
         if ((a / b) > (c / d)) {
-          texte = `$${texFraction(a, b)}-${texFraction(c, d)}=$`
+          texte = `$${deprecatedTexFraction(a, b)}-${deprecatedTexFraction(c, d)}=$`
         } else {
-          texte = `$${texFraction(c, d)}-${texFraction(a, b)}=$`
+          texte = `$${deprecatedTexFraction(c, d)}-${deprecatedTexFraction(a, b)}=$`
           /** ****************** AMC question/questionmult ******************************/
 
           /*****************************************************************************/
         }
         if ((a / b) > (c / d)) {
-          texteCorr = `$${texFraction(a, b)}-${texFraction(c, d)}=`
+          texteCorr = `$${deprecatedTexFraction(a, b)}-${deprecatedTexFraction(c, d)}=`
           if (this.level !== 6) {
-            texteCorr += `${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}-${texFraction(c, d)}=${texFraction(a * k, b * k)}-${texFraction(c, d)}=`
+            texteCorr += `${deprecatedTexFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}-${deprecatedTexFraction(c, d)}=${deprecatedTexFraction(a * k, b * k)}-${deprecatedTexFraction(c, d)}=`
           }
-          texteCorr += `${texFraction(a * k + '-' + c, d)}=${texFraction(a * k - c, d)}$`
+          texteCorr += `${deprecatedTexFraction(a * k + '-' + c, d)}=${deprecatedTexFraction(a * k - c, d)}$`
         } else {
-          texteCorr = `$${texFraction(c, d)}-${texFraction(a, b)}=`
+          texteCorr = `$${deprecatedTexFraction(c, d)}-${deprecatedTexFraction(a, b)}=`
           if (this.level !== 6) {
-            texteCorr += `${texFraction(c, d)}-${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${texFraction(c, d)}-${texFraction(a * k, b * k)}=${texFraction(c + '-' + a * k, d)}=`
+            texteCorr += `${deprecatedTexFraction(c, d)}-${deprecatedTexFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${deprecatedTexFraction(c, d)}-${deprecatedTexFraction(a * k, b * k)}=${deprecatedTexFraction(c + '-' + a * k, d)}=`
           }
-          texteCorr += `${texFraction(c - a * k, d)}$`
+          texteCorr += `${deprecatedTexFraction(c - a * k, d)}$`
         }
         // Est-ce que le résultat est simplifiable ?
         if (this.sup3) {
@@ -214,7 +214,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           if (abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
             texteCorr += `$=${calcul((abs(a * k - c)) / d)}$`
           } else if (s !== 1) {
-            texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
+            texteCorr += `$=${deprecatedTexFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
           }
         }
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {

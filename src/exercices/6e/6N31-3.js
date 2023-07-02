@@ -1,7 +1,7 @@
 import { degCos } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction, combinaisonListes, sp } from '../../modules/outils.js'
+import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, deprecatedTexFraction, combinaisonListes, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -86,7 +86,7 @@ export default function ArrondirUneValeur () {
           den = choice([7, 9, 11, 13])
           num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
           n = num / den
-          nb = texFraction(num, den)
+          nb = deprecatedTexFraction(num, den)
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))

@@ -19,7 +19,7 @@ import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
-  texFraction,
+  deprecatedTexFraction,
   texNombre
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -50,7 +50,7 @@ export function texNum (expression, formatFraction = false) {
   if (typeof expression === 'object') {
     const signe = expression.s === 1 ? '' : '-'
     if (formatFraction) {
-      expression = expression.d !== 1 ? signe + texFraction(expression.n, expression.d) : signe + expression.n
+      expression = expression.d !== 1 ? signe + deprecatedTexFraction(expression.n, expression.d) : signe + expression.n
       expression = expression.replace(',', '{,}').replace('{{,}}', '{,}')
     } else {
       expression = texNombre(evaluate(format(expression)))

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, deprecatedTexFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Déterminer une équation réduite de droite'
@@ -48,7 +48,7 @@ export default function EquationReduiteDeDroites () {
         texteCorr += '<br>La droite $(AB)$ a donc une équation du type $y=mx+p$.'
         texteCorr += '<br>On commence par calculer le coefficient directeur $m$ :'
         texteCorr += '<br>On sait d\'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
-        texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n, d)}`
+        texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n, d)}`
         if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
           texteCorr += `=${texFractionReduite(n, d)}`
         }
@@ -58,7 +58,7 @@ export default function EquationReduiteDeDroites () {
           texteCorr += `${texFractionReduite(n, d)}x`
         } else {
           // eslint-disable-next-line no-empty
-          if (n === 0) {} else { texteCorr += `${texFraction(n, d)}x` }
+          if (n === 0) {} else { texteCorr += `${deprecatedTexFraction(n, d)}x` }
         }
         texteCorr += '+p$.<br>'
         texteCorr += 'Comme $A \\in (AB)$, les coordonnées du point $A$ vérifient l\'équation, donc :'
@@ -137,7 +137,7 @@ export default function EquationReduiteDeDroites () {
           texteCorr += `${texFractionReduite(n, d)}x`
         } else {
           // eslint-disable-next-line no-empty
-          if (n === 0) {} else { texteCorr += `${texFraction(n, d)}x` }
+          if (n === 0) {} else { texteCorr += `${deprecatedTexFraction(n, d)}x` }
         }
         texteCorr += '+p$.<br>'
         texteCorr += 'Comme $A \\in (AB)$, les coordonnées du point $A$ vérifient l\'équation, donc :'
@@ -148,7 +148,7 @@ export default function EquationReduiteDeDroites () {
         if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
           texteCorr += `$${texFractionReduite(n, d)}x$`
         } else {
-          if (n !== 0) { texteCorr += `$${texFraction(n, d)}x$` }
+          if (n !== 0) { texteCorr += `$${deprecatedTexFraction(n, d)}x$` }
         }
         if (d * d * yA - n * xA * d > 0) { texteCorr += '$+$' }
         texteCorr += `$${texFractionReduite(d * yA - n * xA, d)}$.`

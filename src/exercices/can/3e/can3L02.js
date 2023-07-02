@@ -1,4 +1,4 @@
-import { ecritureAlgebrique, randint, texFraction } from '../../../modules/outils.js'
+import { ecritureAlgebrique, randint, deprecatedTexFraction } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre une équation du type ax+b=0'
 export const interactifReady = true
@@ -25,13 +25,13 @@ export default function EquationAXPlusBEgalZero () {
     const b = -a * this.reponse
     this.question = `Donner la solution de l'équation :<br> $${a}x${ecritureAlgebrique(b)}=0$`
     this.correction = `On procède par étapes successives :<br>
-    On commence par isoler $${a}x$ dans le membre de gauche en ajoutant 
-    $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise 
+    On commence par isoler $${a}x$ dans le membre de gauche en ajoutant
+    $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise
     par $${a}$ pour obtenir la solution : <br>
      $\\begin{aligned}
      ${a}x${ecritureAlgebrique(b)}&=0\\\\
     ${a}x&=${ecritureAlgebrique(-b)}\\\\
-    x&=${texFraction(-b, a)}\\\\
+    x&=${deprecatedTexFraction(-b, a)}\\\\
     x&=${this.reponse}
     \\end{aligned}$
    `

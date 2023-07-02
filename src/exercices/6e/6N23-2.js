@@ -7,7 +7,7 @@ import {
   calcul,
   choisitLettresDifferentes,
   texNombre,
-  texFraction,
+  deprecatedTexFraction,
   numAlpha,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDansLaPartieDecimale,
@@ -114,8 +114,8 @@ export default function LireAbscisseDecimaleTroisFormes () {
         texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[2]}($`, texteApres: `$${sp(1)})$` })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${texFraction(calcul(x3 * 10), 10)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${deprecatedTexFraction(calcul(x3 * 10), 10)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1, { formatInteractif: 'calcul' })
           setReponse(this, 1, Math.floor(x2), { formatInteractif: 'calcul' })
@@ -250,8 +250,8 @@ export default function LireAbscisseDecimaleTroisFormes () {
         texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[2]}($`, texteApres: `$${sp(1)})$` })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${texFraction(calcul(x3 * 100), 100)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${deprecatedTexFraction(calcul(x3 * 100), 100)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1)
           setReponse(this, 1, Math.floor(x2))
@@ -390,8 +390,8 @@ export default function LireAbscisseDecimaleTroisFormes () {
         texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[2]}($`, texteApres: `$${sp(1)})$` })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${texFraction(calcul(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${texFraction(calcul(x3 * 1000), 1000)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${deprecatedTexFraction(calcul(x3 * 1000), 1000)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1)
           setReponse(this, 1, Math.floor(x2))

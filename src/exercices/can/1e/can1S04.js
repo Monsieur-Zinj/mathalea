@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, texFraction } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, deprecatedTexFraction } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Donner la nature d’une suite (formule de récurrence)'
 export const interactifReady = true
@@ -179,7 +179,7 @@ export default function NatureSuiteRec () {
             Donner sa raison.`
           }
 
-          texteCorr = `Comme $${s}_{n+1}  =\\dfrac{${b} ${s}_n${ecritureAlgebrique(b * a)}}{${b}}=\\dfrac{${b} ${s}_n}{${b}}+\\dfrac{${b * a}}{${b}}= ${s}_n${ecritureAlgebrique(a)}$, alors 
+          texteCorr = `Comme $${s}_{n+1}  =\\dfrac{${b} ${s}_n${ecritureAlgebrique(b * a)}}{${b}}=\\dfrac{${b} ${s}_n}{${b}}+\\dfrac{${b * a}}{${b}}= ${s}_n${ecritureAlgebrique(a)}$, alors
         la formule de récurrence est de la forme $${s}_{n+1}=${s}_n+r$ avec $r=${a}$.<br>
         On en déduit que $(${s}_n)$ est une suite arithmétique de raison $${a}$ et de premier terme $${s}_0=${u}$.`
 
@@ -349,44 +349,44 @@ export default function NatureSuiteRec () {
           b = choice([-1, 1])
           if (this.interactif) {
             if (b < 0) {
-              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${texFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: `géométrique de raison $${texFraction(d1 - n1, d1)}$`,
+                    texte: `géométrique de raison $${deprecatedTexFraction(d1 - n1, d1)}$`,
                     statut: true
                   },
                   {
-                    texte: `géométrique de raison $${texFraction(n1, d1)}$`,
+                    texte: `géométrique de raison $${deprecatedTexFraction(n1, d1)}$`,
                     statut: false
                   },
                   {
-                    texte: `arithmétique de raison $-${texFraction(n1, d1)}$`,
+                    texte: `arithmétique de raison $-${deprecatedTexFraction(n1, d1)}$`,
                     statut: false
                   }
                 ]
               }
               texte += propositionsQcm(this, i).texte
             } else {
-              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${texFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: `géométrique de raison $${texFraction(d1 + n1, d1)}$`,
+                    texte: `géométrique de raison $${deprecatedTexFraction(d1 + n1, d1)}$`,
                     statut: true
                   },
                   {
-                    texte: `géométrique de raison $${texFraction(n1, d1)}$`,
+                    texte: `géométrique de raison $${deprecatedTexFraction(n1, d1)}$`,
                     statut: false
                   },
                   {
-                    texte: `arithmétique de raison $${texFraction(n1, d1)}$`,
+                    texte: `arithmétique de raison $${deprecatedTexFraction(n1, d1)}$`,
                     statut: false
                   }
                 ]
@@ -395,13 +395,13 @@ export default function NatureSuiteRec () {
             }
           } else {
             if (b < 0) {
-              texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${texFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
               
               Quelle est la nature de cette suite ? <br>
               
               Donner sa raison.`
             } else {
-              texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${texFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
              
               Quelle est la nature de cette suite ?<br>
               
@@ -410,13 +410,13 @@ export default function NatureSuiteRec () {
           }
 
           if (b < 0) {
-            texteCorr = `$${s}_{n+1} =${s}_{n} -${texFraction(n1, d1)}${s}_{n}=\\left(1-${texFraction(n1, d1)}\\right)${s}_{n}=${texFraction(d1 - n1, d1)}${s}_{n}$.<br>      
-                        La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texFraction(d1 - n1, d1)}$.<br>
-        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texFraction(d1 - n1, d1)}$ et de premier terme $${s}_0=${u}$.`
+            texteCorr = `$${s}_{n+1} =${s}_{n} -${deprecatedTexFraction(n1, d1)}${s}_{n}=\\left(1-${deprecatedTexFraction(n1, d1)}\\right)${s}_{n}=${deprecatedTexFraction(d1 - n1, d1)}${s}_{n}$.<br>
+                        La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${deprecatedTexFraction(d1 - n1, d1)}$.<br>
+        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${deprecatedTexFraction(d1 - n1, d1)}$ et de premier terme $${s}_0=${u}$.`
           } else {
-            texteCorr = `$${s}_{n+1} =${s}_{n} +${texFraction(n1, d1)}${s}_{n}=\\left(1+${texFraction(n1, d1)}\\right)${s}_{n}=${texFraction(d1 + n1, d1)}${s}_{n}$.<br>      
-            La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texFraction(d1 + n1, d1)}$.<br>
-On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texFraction(d1 + n1, d1)}$ et de premier terme $${s}_0=${u}$.`
+            texteCorr = `$${s}_{n+1} =${s}_{n} +${deprecatedTexFraction(n1, d1)}${s}_{n}=\\left(1+${deprecatedTexFraction(n1, d1)}\\right)${s}_{n}=${deprecatedTexFraction(d1 + n1, d1)}${s}_{n}$.<br>
+            La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${deprecatedTexFraction(d1 + n1, d1)}$.<br>
+On en déduit que $(${s}_n)$ est une suite géométrique de raison $${deprecatedTexFraction(d1 + n1, d1)}$ et de premier terme $${s}_0=${u}$.`
           }
           break
       }

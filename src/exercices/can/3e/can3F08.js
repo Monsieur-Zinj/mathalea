@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul, texteCentre } from '../../../modules/outils.js'
+import { randint, deprecatedTexFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul, texteCentre } from '../../../modules/outils.js'
 import { repere, texteParPosition, segment, droite } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
@@ -52,12 +52,12 @@ style: 'margin: auto'
     if (egal(a * 1000 / d, Math.round(a * 1000 / d))) {
       this.reponse.push(`${calcul(a / d)}x${ecritureAlgebrique(b)}`)
     }
-    this.correction = `<br> $f$ est de la forme 
-    $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale) 
+    this.correction = `<br> $f$ est de la forme
+    $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
     L'ordonnée à l'origine  est $b=${b}$ et :`
     this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
-    ${texFraction(miseEnEvidence(a, 'red'), miseEnEvidence(d, 'green'))}$`)
+    ${deprecatedTexFraction(miseEnEvidence(a, 'red'), miseEnEvidence(d, 'green'))}$`)
     this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}$.<br>`
     if (a > 0) {
       s1 = segment(0, b - a, -d, b - a, 'green')

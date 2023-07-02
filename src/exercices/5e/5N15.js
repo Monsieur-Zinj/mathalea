@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, texFraction, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, deprecatedTexFraction, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
 
@@ -119,9 +119,9 @@ export default function ProblemeDeRatio () {
             } else {
               texte += `${premiereLettreEnMajuscule(article)} verse $${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}. Quelle quantité d'eau doit-${article} ajouter et quelle quantité de boisson obtiendra-t-${article} ?`
               texteCorr += `Pour cette boisson le sirop ${sirops[index % 5]} et l'eau sont dans un ratio de $${x}~:~${y}$<br>ce qui signifie que : `
-              texteCorr += `$${texFraction('\\text{Volume de sirop en cL}', x + '\\text{ cL}')}=${texFraction("\\text{Volume d'eau en cL}", y + '\\text{ cL}')}$.<br>`
-              texteCorr += `Avec la valeur numérique : $${texFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${texFraction("\\text{Volume d'eau en cL}", y + '\\text{ cL}')}$.<br>`
-              texteCorr += `${quidam.prenom} doit ajouter un volume d'eau de : $${texFraction(y + '\\times' + k * x, x)}=${y * k}\\text{ cL} $.`
+              texteCorr += `$${deprecatedTexFraction('\\text{Volume de sirop en cL}', x + '\\text{ cL}')}=${deprecatedTexFraction("\\text{Volume d'eau en cL}", y + '\\text{ cL}')}$.<br>`
+              texteCorr += `Avec la valeur numérique : $${deprecatedTexFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${deprecatedTexFraction("\\text{Volume d'eau en cL}", y + '\\text{ cL}')}$.<br>`
+              texteCorr += `${quidam.prenom} doit ajouter un volume d'eau de : $${deprecatedTexFraction(y + '\\times' + k * x, x)}=${y * k}\\text{ cL} $.`
             }
           } else { // On mélange du sirop, du jus de fruit et de la limonade.
             texte += `${quidam.prenom} prépare un coktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingrédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
@@ -133,10 +133,10 @@ export default function ProblemeDeRatio () {
             } else {
               texte += `${premiereLettreEnMajuscule(article)} verse $${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}. Quelle quantité de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse doit-${article} ajouter et quelle quantité de coktail obtiendra-t-${article} ?`
               texteCorr += `Pour ce coktail le sirop ${sirops[index % 5]}, le jus ${jusdefruit[index2 % 5]} et l'eau gazeuse sont dans un ratio de $${x}~:~${y}~:~${z}$<br>`
-              texteCorr += `ce qui signifie que $${texFraction('\\text{Volume de sirop en cL}', x + '\\text{ cL}')}=${texFraction('\\text{Volume de jus de fruit en cL}', y + '\\text{ cL}')}=${texFraction("\\text{Volume d'eau gazeuse en cL}", z + '\\text{ cL}')}$<br>`
-              texteCorr += `Avec la valeur numérique : $${texFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${texFraction('\\text{Volume de jus de fruit en cL}', y + '\\text{ cL}')}=${texFraction("\\text{Volume d'eau gazeuse en cL}", z + '\\text{ cL}')}$.<br>`
-              texteCorr += `${quidam.prenom} en déduit que le volume de jus ${jusdefruit[index2 % 5]} est : $${texFraction(k * x + '\\times' + y, x)}\\text{ cL}=${y * k}\\text{ cL}$.<br>`
-              texteCorr += `Et le volume d'eau gazeuse est : $${texFraction(k * x + '\\times' + z, x)}\\text{ cL}=${z * k}\\text{ cL}$.<br>`
+              texteCorr += `ce qui signifie que $${deprecatedTexFraction('\\text{Volume de sirop en cL}', x + '\\text{ cL}')}=${deprecatedTexFraction('\\text{Volume de jus de fruit en cL}', y + '\\text{ cL}')}=${deprecatedTexFraction("\\text{Volume d'eau gazeuse en cL}", z + '\\text{ cL}')}$<br>`
+              texteCorr += `Avec la valeur numérique : $${deprecatedTexFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${deprecatedTexFraction('\\text{Volume de jus de fruit en cL}', y + '\\text{ cL}')}=${deprecatedTexFraction("\\text{Volume d'eau gazeuse en cL}", z + '\\text{ cL}')}$.<br>`
+              texteCorr += `${quidam.prenom} en déduit que le volume de jus ${jusdefruit[index2 % 5]} est : $${deprecatedTexFraction(k * x + '\\times' + y, x)}\\text{ cL}=${y * k}\\text{ cL}$.<br>`
+              texteCorr += `Et le volume d'eau gazeuse est : $${deprecatedTexFraction(k * x + '\\times' + z, x)}\\text{ cL}=${z * k}\\text{ cL}$.<br>`
             }
           }
           break
@@ -160,7 +160,7 @@ export default function ProblemeDeRatio () {
               texte += `Montrer que le ratio correspond bien à la présence de $${p1}\\%$ de produit concentré dans le mélange final.`
               texteCorr += `Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index % 5]} dans $${y}$ unités de volume d'eau.<br>`
               texteCorr += `Ce qui fait donc un total de $${x + y}$ unités de volume de produit dilué.<br>`
-              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFraction(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre2(arrondi(x / (x + y)), 3)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$`
+              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${deprecatedTexFraction(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre2(arrondi(x / (x + y)), 3)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$`
             } else {
               total = k * (x + y)
               texte += `Si on veut préparer $${total}\\text{ cL} $ de produit dilué, quel volume d\`eau et de ${produits[index % 5]} faut-il mélanger ?`
@@ -173,9 +173,9 @@ export default function ProblemeDeRatio () {
               texte += 'Montrer que les ratios proposés correspondent bien aux pourcentages de produit concentré dans le mélange final.'
               texteCorr += `Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index % 5]} dans $${y}$ unités de volume d'eau.<br>`
               texteCorr += `Ce qui fait donc un total de $${x}+${y}=${x + y}$ unités de volume de produit dilué.<br>`
-              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFraction(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre2(arrondi(x / (x + y)), 4)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$<br>`
+              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${deprecatedTexFraction(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre2(arrondi(x / (x + y)), 4)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$<br>`
               texteCorr += `De la même façon, selon le ratio $~${x}~:~${z}$, on obtient la proportion suivante :<br>`
-              texteCorr += `$${texFraction(x + '\\text{ unités de volume}', `(${x}+${z})\\text{ unités de volume}`)}=${texFraction(x, x + z)}\\approx ${texNombre2(arrondi(x / (x + z)), 4)}$ soit environ $${Math.round(100 * x / (x + z))}\\%$.<br>`
+              texteCorr += `$${deprecatedTexFraction(x + '\\text{ unités de volume}', `(${x}+${z})\\text{ unités de volume}`)}=${deprecatedTexFraction(x, x + z)}\\approx ${texNombre2(arrondi(x / (x + z)), 4)}$ soit environ $${Math.round(100 * x / (x + z))}\\%$.<br>`
               texteCorr += 'Conclusion : les pourcentages et les ratios annoncés correspondent bien.'
             } else {
               total = k * (x + y)
@@ -184,7 +184,7 @@ export default function ProblemeDeRatio () {
               texteCorr += ` ${numAlpha(0)} Selon le ratio donné, pour $${x}$ unités de volume de ${produits[index % 5]} il faut $${y}$ unités de volume d'eau soit au total un volume de $${x + y}$ unités de volume.<br>`
               texteCorr += `${sp(4)}Or $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x + y}$ donc il faut $${miseEnEvidence(k)}\\times ${x}=${k * x}\\text{ cL} $ de ${produits[index % 5]} et $${miseEnEvidence(k)}\\times ${y}=${k * y}\\text{ cL} $ d'eau.<br>`
               texteCorr += ` ${numAlpha(1)} Le ratio $~${x}~:~${z}~$ pour le ${produits[index % 5]} signifie que :<br>`
-              texteCorr += `${sp(4)}$${texFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${texFraction("\\text{volume d'eau en cL}", z + '\\text{ cL}')}=${miseEnEvidence(k)}$.<br>`
+              texteCorr += `${sp(4)}$${deprecatedTexFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${deprecatedTexFraction("\\text{volume d'eau en cL}", z + '\\text{ cL}')}=${miseEnEvidence(k)}$.<br>`
               texteCorr += `${sp(4)}Donc il faut ajouter $${miseEnEvidence(k)}\\times ${z}\\text{ cL}=${k * z}\\text{ cL} $ d'eau pour obtenir une dilution selon le ratio $~${x}~:~${z}$`
             }
           }
@@ -204,7 +204,7 @@ export default function ProblemeDeRatio () {
             texte += `${numAlpha(0)} ${premiereLettreEnMajuscule(article)} dispose de $${k * z}\\text{ g}$ de beurre. Quelle masse de farine et de sucre doit-${article} utiliser si ${article} utilise tout le beurre disponible ?<br>`
             texte += `${numAlpha(1)} Quelle sera alors la masse totale du "sable" produit ?`
             texteCorr += `${numAlpha(0)} La farine, le sucre et le beurre respecte le ratio $~${x}~:~${y}~:~${z}$, ce qui signifie :<br>`
-            texteCorr += `$${texFraction('\\text{masse de farine en gramme}', x + '\\text{ g}')}=${texFraction('\\text{masse de sucre en gramme}', y + '\\text{ g}')}=${texFraction(`${k * z}\\text{ g}`, `${z}\\text{ g}`)}=${miseEnEvidence(k)}$.<br>`
+            texteCorr += `$${deprecatedTexFraction('\\text{masse de farine en gramme}', x + '\\text{ g}')}=${deprecatedTexFraction('\\text{masse de sucre en gramme}', y + '\\text{ g}')}=${deprecatedTexFraction(`${k * z}\\text{ g}`, `${z}\\text{ g}`)}=${miseEnEvidence(k)}$.<br>`
             texteCorr += `On en déduit que ${quidam.prenom} devra utiliser $${miseEnEvidence(k)}\\times ${x}\\text{ g}=${k * x}\\text{ g}$ de farine et $${miseEnEvidence(k)}\\times ${y}\\text{ g}=${k * y}\\text{ g}$ de sucre.<br>`
             texteCorr += `${numAlpha(1)} La masse de "sable" sera donc : $${k * x}\\text{ g} + ${k * y}\\text{ g} +${k * z}\\text{ g} =${total}\\text{ g}$.`
           } else {
@@ -218,7 +218,7 @@ export default function ProblemeDeRatio () {
             texte += `${numAlpha(0)} Quel volume de vinaigre doit-${article} utiliser ?<br>`
             texte += `${numAlpha(1)} Quel volume de vinaigrette ${quidam.prenom} réalisera-t-${article} ?`
             texteCorr += `${numAlpha(0)} Comme le ratio de vinaigre et d'huile est $${x}~:~${y}$, alors on a :<br>`
-            texteCorr += `${sp(6)}$${texFraction('\\text{volume de vinagre en mL}', x + '\\text{ mL}')}=${texFraction(`${y * k}\\times 15 \\text{ mL}`, y + '\\text{ mL}')}=${miseEnEvidence(k * 15)}$.<br>`
+            texteCorr += `${sp(6)}$${deprecatedTexFraction('\\text{volume de vinagre en mL}', x + '\\text{ mL}')}=${deprecatedTexFraction(`${y * k}\\times 15 \\text{ mL}`, y + '\\text{ mL}')}=${miseEnEvidence(k * 15)}$.<br>`
             texteCorr += `${sp(6)}Le volume de vinaigre doit-être : $${miseEnEvidence(k * 15)}\\times ${x}\\text{ mL}=${k * 15 * x}\\text{ mL}$.<br>`
             texteCorr += `${numAlpha(1)} Donc le volume de vinaigrette est : $${miseEnEvidence(k * 15)}\\text{ mL}\\times \\left( ${x}+${y} \\right)=${miseEnEvidence(k * 15)}\\text{ mL}\\times ${x + y}=${k * 15 * (x + y)}\\text{ mL}$.`
           }
@@ -232,24 +232,24 @@ export default function ProblemeDeRatio () {
           texte += `Un écran au format $${x}~:~${y}$ est-il adapté à une résolution de $${a}\\times ${b}$ ?<br>`
           if (calcul(a / x) === calcul(b / y)) {
             texteCorr += `La résolution d'image $${a}\\times ${b}$ respecte effectivement le format $${x}~:~${y}$.<br>`
-            texteCorr += `En effet, $${texFraction(a, x)}=${texFraction(b, y)}=${texNombre2(calcul(a / x))}$`
+            texteCorr += `En effet, $${deprecatedTexFraction(a, x)}=${deprecatedTexFraction(b, y)}=${texNombre2(calcul(a / x))}$`
           } else {
             texteCorr += `La résolution d'image $${a}\\times ${b}$ ne respecte pas le format $${x}~:~${y}$.<br>`
             if (Number.isInteger(a / x)) {
-              texteCorr += `En effet, $${texFraction(a, x)}=${texNombre2(calcul(a / x))}$ et $${texFraction(b, y)}\\approx ${texNombre2(calcul(b / y))}$.<br>`
+              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}=${texNombre2(calcul(a / x))}$ et $${deprecatedTexFraction(b, y)}\\approx ${texNombre2(calcul(b / y))}$.<br>`
 
               k = calcul(a / x)
               texte += 'Sinon, proposer une résolution qui conviendrait en gardant la largeur d\'image.'
-              texteCorr += `On doit avoir : $${texFraction(a, x)}=${texFraction('h', y)}$<br>`
-              texteCorr += `Donc $h=${texFraction(y + '\\times' + a, x)}=${k * y}$. La résolution $${a}\\times ${k * y}$ respecte le format $${x}~:~${y}$.`
+              texteCorr += `On doit avoir : $${deprecatedTexFraction(a, x)}=${deprecatedTexFraction('h', y)}$<br>`
+              texteCorr += `Donc $h=${deprecatedTexFraction(y + '\\times' + a, x)}=${k * y}$. La résolution $${a}\\times ${k * y}$ respecte le format $${x}~:~${y}$.`
             } else if (Number.isInteger(b / y)) {
-              texteCorr += `En effet, $${texFraction(a, x)}\\approx ${texNombre2(calcul(a / x))}$ et $${texFraction(b, y)}=${texNombre2(calcul(b / y))}$.<br>`
+              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}\\approx ${texNombre2(calcul(a / x))}$ et $${deprecatedTexFraction(b, y)}=${texNombre2(calcul(b / y))}$.<br>`
               k = calcul(b / y)
               texte += 'Sinon, proposer une résolution qui conviendrait en gardant la hauteur d\'image.'
-              texteCorr += `On doit avoir : $${texFraction(b, y)}=${texFraction('L', x)}$<br>`
-              texteCorr += `Donc $L=${texFraction(x + '\\times' + b, y)}=${k * x}$. La résolution $${k * x}\\times ${b}$ respecte le format $${x}~:~${y}$.`
+              texteCorr += `On doit avoir : $${deprecatedTexFraction(b, y)}=${deprecatedTexFraction('L', x)}$<br>`
+              texteCorr += `Donc $L=${deprecatedTexFraction(x + '\\times' + b, y)}=${k * x}$. La résolution $${k * x}\\times ${b}$ respecte le format $${x}~:~${y}$.`
             } else {
-              texteCorr += `En effet, $${texFraction(a, x)}\\approx ${texNombre2(calcul(a / x))}$ et $${texFraction(b, y)}\\approx ${texNombre2(calcul(b / y))}$.<br>`
+              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}\\approx ${texNombre2(calcul(a / x))}$ et $${deprecatedTexFraction(b, y)}\\approx ${texNombre2(calcul(b / y))}$.<br>`
               texte += 'Sinon proposer une résolution adaptée à ce ratio.'
               k = ppcm(x, y)
               if (k % 10 !== 0) {
@@ -271,8 +271,8 @@ export default function ProblemeDeRatio () {
               b = calcul(c * y / x)
               a = c
               texteCorr += `Le nombre $${c}$ est un multiple de $${x}$ et de $${y}$.<br>`
-              texteCorr += `Je choisis comme résolution $${c} \\times ${texFraction(c + '\\times ' + y, x)}$ soit $${c}\\times ${b}$.<br>`
-              texteCorr += `En effet $${texFraction(a, x)}=${texFraction(b, y)}=${calcul(b / y)}$ donc la résolution $${a}\\times ${b}$ respecte le format $${x}~:~${y}$.`
+              texteCorr += `Je choisis comme résolution $${c} \\times ${deprecatedTexFraction(c + '\\times ' + y, x)}$ soit $${c}\\times ${b}$.<br>`
+              texteCorr += `En effet $${deprecatedTexFraction(a, x)}=${deprecatedTexFraction(b, y)}=${calcul(b / y)}$ donc la résolution $${a}\\times ${b}$ respecte le format $${x}~:~${y}$.`
             }
           }
 

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, deprecatedTexFraction } from '../../modules/outils.js'
 
 export const titre = 'Factoriser avec les identités remarquables'
 
@@ -74,17 +74,17 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
         case 7:
 
-          texte = `$${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$` // (kx+a)² k rationnel
-          texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2+${texFraction(ns * 2 * a, ds)}x+${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2+2 \\times ${texFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${texFraction(ns, ds)}x+${a}\\right)^2$`
+          texte = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$` // (kx+a)² k rationnel
+          texteCorr = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${deprecatedTexFraction(ns * 2 * a, ds)}x+${a * a}=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2+2 \\times ${deprecatedTexFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)^2$`
           break
         case 8:
-          texte = `$${texFraction(ns * ns, ds * ds)}x^2-${texFraction(2 * ns * a, ds)}x+${a * a}$` // (kx-a)² k rationnel
-          texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2-${texFraction(ns * 2 * a, ds)}x+${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-2 \\times ${texFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)^2$`
+          texte = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$` // (kx-a)² k rationnel
+          texteCorr = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(ns * 2 * a, ds)}x+${a * a}=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2-2 \\times ${deprecatedTexFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)^2$`
           break
         case 9:
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
-          texte = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
-          texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`
+          texte = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
+          texteCorr = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)$`
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

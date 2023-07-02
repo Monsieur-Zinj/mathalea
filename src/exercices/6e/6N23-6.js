@@ -11,7 +11,7 @@ import {
   arrondi,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDansLaPartieDecimale,
-  texFraction,
+  deprecatedTexFraction,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -121,13 +121,13 @@ export default function DivisionFraction () {
         this.consigne =
           'Calculer une valeur approchée au centième près des fractions suivantes.'
       }
-      texte = `$${texFraction(texNombre(a), texNombre(b))}$`
+      texte = `$${deprecatedTexFraction(texNombre(a), texNombre(b))}$`
       if (this.sup === 1) {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}=${texNombre(q)}$`
+        texteCorr += `<br>$${deprecatedTexFraction(texNombre(a), texNombre(b))}=${texNombre(q)}$`
       } else {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${texNombre(q, 2)}$`
+        texteCorr += `<br>$${deprecatedTexFraction(texNombre(a), texNombre(b))}\\approx${texNombre(q, 2)}$`
       }
       setReponse(this, i, q)
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')

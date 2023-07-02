@@ -1,7 +1,7 @@
 import { lampeMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, deprecatedTexFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
@@ -47,7 +47,7 @@ export default function ExerciceEquation1 () {
     if (this.interactif) {
       this.introduction = lampeMessage({
         titre: 'Calculatrice autorisée.',
-        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${texFraction(1, 3)})$ est correcte`,
+        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${deprecatedTexFraction(1, 3)})$ est correcte`,
         couleur: 'nombres'
       })
     } else this.introduction = ''
@@ -128,7 +128,7 @@ export default function ExerciceEquation1 () {
         texteCorr += `$${a}x${miseEnEvidence(
           '\\div' + ecritureParentheseSiNegatif(a)
         )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-        texteCorr += `$x=${texFraction(c - b, a)}$`
+        texteCorr += `$x=${deprecatedTexFraction(c - b, a)}$`
         if (pgcd(abs(a), abs(c - b)) > 1 || a < 0) {
           texteCorr += `<br>$x=${texFractionReduite(c - b, a)}$`
         }
@@ -180,7 +180,7 @@ export default function ExerciceEquation1 () {
         texteCorr += `$${a}x${miseEnEvidence(
           '\\div' + ecritureParentheseSiNegatif(a)
         )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-        texteCorr += `$x=${texFraction(b, a)}$`
+        texteCorr += `$x=${deprecatedTexFraction(b, a)}$`
         if (pgcd(abs(a), abs(b)) > 1 || a < 0) {
           texteCorr += `<br>$x=${texFractionReduite(b, a)}$`
         }
@@ -255,7 +255,7 @@ export default function ExerciceEquation1 () {
         )}=${d -
         b +
         miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-        texteCorr += `$x=${texFraction(d - b, a - c)}$`
+        texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}$`
         if (pgcd(abs(d - b), abs(a - c)) > 1 || a - c < 0) {
           texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`
         }
