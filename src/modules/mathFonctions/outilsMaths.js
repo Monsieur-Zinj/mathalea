@@ -118,17 +118,25 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
   for (let x = xMin; x <= xMax;) {
     const image = fonction(round(x, 3))
     if (borneG.x === undefined && satisfy(image, y, inferieur, strict)) { // c'est le premier x qui matche
-      borneG = { x, y: image, included: !strict }
+      borneG = { x: round(x, 3), y: round(image, 3), included: !strict }
     } else if (satisfy(image, y, inferieur, strict)) { // les suivants qui matchent écrasent borneD
-      borneD = { x, y: image, included: !strict }
-    } else // ça ne matche pas ou plus
-    if (borneD.x !== undefined) { // il y a eu un intervalle, ça a matché et c'est terminé
-      solutions.push({
-        borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
-        borneD: { x: borneD.x, y: borneD.y, included: borneD.included }
-      })
-      borneG = {}
-      borneD = {} // on réinitialise pour le prochain intervalle
+      borneD = { x: round(x, 3), y: round(image, 3), included: !strict }
+    } else { // ça ne matche plus ou pas
+      if (borneD.x !== undefined) { // il y a eu un intervalle, ça a matché et c'est terminé
+        solutions.push({
+          borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
+          borneD: { x: borneD.x, y: borneD.y, included: borneD.included }
+        })
+        borneG = {}
+        borneD = {} // on réinitialise pour le prochain intervalle
+      } else if (borneG.x !== undefined) { // On n'a pas de borneD, mais on a une borneG, cas particulier du singleton
+        solutions.push({
+          borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
+          borneD: { x: borneG.x, y: borneG.y, included: borneG.included }
+        })
+        borneG = {}
+        borneD = {} // on réinitialise pour le prochain intervalle
+      }
     }
     x += step // dans tous les cas, on avance
   }
