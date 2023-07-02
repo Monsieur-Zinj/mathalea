@@ -148,7 +148,7 @@ export default function ExerciceInformationsProblemes () {
           nb3 = arrondi(randint(10, 50) / 10 + randint(1, 9) / 100)
           reponse2 = arrondi(nb1 * nb3)
           nb3 = stringNombre(nb3)
-          nb4 = randint(2, 5, [nb1])
+          nb4 = randint(2, 5, nb1)
           nb5 = arrondi(randint(20, 40) / 10 + randint(1, 9) / 100)
           reponse1 = arrondi(nb4 * nb5)
           nb5 = stringNombre(nb5)
@@ -251,7 +251,7 @@ export default function ExerciceInformationsProblemes () {
           nb2 = randint(230, 450)
           nb3 = randint(5, 11)
           nb4 = randint(110, 230)
-          nb5 = randint(128, nb1 / 2)
+          nb5 = randint(128, Math.round(nb1 / 2))
           texte += `Le village de Sainte-${quidam2}-Les-Trois-Vallées compte $${nb1}$ habitants et se situe à une altitude de $${nb2}$ m.`
           texte += ` À $${nb3}$ km de là, le village de Saint-${quidam}-Le-Bouquetin, situé $${nb4}$ m plus haut, compte $${nb5}$ habitants de moins.<br>`
           switch (choixVersion) {
@@ -784,7 +784,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = randint(45, 58)
           nb2 = randint(3, 5)
           nb3 = randint(7, 9) * 60 + 5 * randint(2, 11)
-          nb4 = arrondi(randint(9, 15, [10]) / 10, 1)
+          nb4 = arrondi(randint(9, 15, 10) / 10, 1)
           reponse1 = arrondi(nb4 * nb2)
           nb4 = texPrix(nb4)
           nb5 = 5 * randint(4, 11)

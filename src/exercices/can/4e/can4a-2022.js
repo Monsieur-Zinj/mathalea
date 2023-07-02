@@ -254,7 +254,7 @@ export default function SujetCAN2022quatrieme () {
 
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  : 
+            texte = `Recopie  le résultat de  :
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
@@ -265,7 +265,7 @@ export default function SujetCAN2022quatrieme () {
             b = randint(2, 5) + randint(1, 9) / 10
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  : 
+            texte = `Recopie  le résultat de  :
                 $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
@@ -276,7 +276,7 @@ export default function SujetCAN2022quatrieme () {
             b = randint(25, 29) + randint(1, 9) / 10
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  : 
+            texte = `Recopie  le résultat de  :
                     $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
@@ -297,20 +297,20 @@ export default function SujetCAN2022quatrieme () {
 
           if (d === 0.1) {
             texte = `$${f}\\times ${texNombre(d, 1)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 1)}=${texNombre(this.reponse)}$`
+            texteCorr = `$${f}\\times ${texNombre(d, 1)}=${texNombre(reponse)}$`
             texteCorr += `
           $${f}\\times ${texNombre(d, 1)}=${f}\\div 10=${a}${b},\\underline{${c}}$ `
           }
           if (d === 0.01) {
             texte = `$${f}\\times ${texNombre(d, 2)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 2)}=${texNombre(this.reponse)}$`
+            texteCorr = `$${f}\\times ${texNombre(d, 2)}=${texNombre(reponse)}$`
             texteCorr += `
           $${f}\\times ${texNombre(d, 2)}=${f}\\div 100=${a},${b}\\underline{${c}}$<br>
                       `
           }
           if (d === 0.001) {
             texte = `$${f}\\times ${texNombre(d, 3)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(this.reponse)}$`
+            texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(reponse)}$`
             texteCorr += `
           $${f}\\times ${texNombre(d, 3)}=${f}\\div 1000=0,${a}${b}\\underline{${c}}$<br>
 
@@ -367,7 +367,7 @@ export default function SujetCAN2022quatrieme () {
 
           texte = 'Calcule le périmètre du parallélogramme $ABCD$.<br> '
           texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 8, ymax: 5, scale: 0.8 }, poly, labelPoint(A, B, C, D), d, e)
-          texteCorr = `Le périmètre en cm est donné par : 
+          texteCorr = `Le périmètre en cm est donné par :
             $2\\times ${a}+2\\times ${b} =2\\times(${a}+${b})=${reponse}$ cm`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -615,7 +615,7 @@ export default function SujetCAN2022quatrieme () {
           k1 = choice([3, 5, 7, 9])
 
           texte = `Simplifie au maximum la fraction : <br>
-               $\\dfrac{${b.n * k1}}{${b.d * k1}}$ 
+               $\\dfrac{${b.n * k1}}{${b.d * k1}}$
                  `
 
           texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
@@ -633,7 +633,7 @@ export default function SujetCAN2022quatrieme () {
           c = d - a - b
 
           texte = `Quelle est la moyenne de cette série ? <br>
-                $${a}$ ${sp(4)} ; ${sp(4)} $${b}$ ${sp(4)} ; ${sp(4)} $${c}$ 
+                $${a}$ ${sp(4)} ; ${sp(4)} $${b}$ ${sp(4)} ; ${sp(4)} $${c}$
                 `
 
           texteCorr = `La somme des $3$ valeurs est : $${a}+${b}+${c} =${d}$.<br>
@@ -666,8 +666,8 @@ export default function SujetCAN2022quatrieme () {
           break
 
         case 27:
+          a = randint(2, 30)
           if (choice([true, false])) {
-            a = randint(2, 30)
             reponse = a * 1000
             texte = `Complète.<br>
                  $${a}$ L $=$ `

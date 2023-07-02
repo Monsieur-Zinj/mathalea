@@ -1,5 +1,5 @@
 import { choice, randint } from '../../../modules/outils.js'
-import ÉcrirePetitsNombresEntiers from '../../6e/6N10.js'
+import EcrirePetitsNombresEntiers from '../../6e/6N10.js'
 export const titre = 'Lire et écrire des nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,8 +14,8 @@ export const dateDePublication = '14/08/2022'
 
 export const uuid = '41030'
 export const ref = 'can6N15'
-export default function ÉcrirePetitsNombresEntiersCan () {
-  ÉcrirePetitsNombresEntiers.call(this)
+export default function EcrirePetitsNombresEntiersCan () {
+  EcrirePetitsNombresEntiers.call(this)
   this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1 // on en fait un exo qui n'aura qu'une question

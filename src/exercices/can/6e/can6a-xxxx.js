@@ -3,7 +3,6 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
   listeQuestionsToContenu,
   randint,
-  calcul,
   pgcd,
   texNombre,
   choice,
@@ -108,15 +107,15 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(1, 25)
           texte = `Le double d'un nombre vaut ${2 * a}, combien vaut sa moitié ?`
           texteCorr = `Le nombre est ${a}, sa moitié est ${texNombre(a / 2)}.`
-          setReponse(this, q, calcul(a / 2), { formatInteractif: 'calcul' })
+          setReponse(this, q, a / 2, { formatInteractif: 'calcul' })
           break
         case 'q2':
           a = randint(2, 25)
           b = randint(2, 25, a)
-          a = calcul(a / pgcd(a, b))
-          b = calcul(b / pgcd(a, b))
+          a = a / pgcd(a, b)
+          b = b / pgcd(a, b)
           c = new FractionEtendue(a, b)
-          resultat = calcul(a / b)
+          resultat = a / b
           texte = `Quel est le nombre qui, multiplié par ${b} donne ${a} ?`
           texteCorr = `c'est $${c.texFraction}$ car $${c.texFraction}\\times ${b} = ${a}$`
           if (!c.valeurDecimale) {
@@ -130,7 +129,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = randint(1, 9, a)
           c = randint(3, 7) * 10
           d = randint(10, 15) * 10 - c
-          resultat = calcul(2 * (c + d))
+          resultat = 2 * (c + d)
           texte = `$${c - a} + ${d + b} + ${c + a} + ${d - b}$`
           texteCorr = `$${c - a} + ${c + a} + ${d + b}  + ${d - b} = ${2 * c} + ${2 * d}= ${2 * (c + d)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -140,7 +139,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
           d = randint(1, 9, [a, b, c])
-          resultat = calcul(10 + (b + d) * 0.1 + c * 0.01)
+          resultat = 10 + (b + d) * 0.1 + c * 0.01
           texte = `$${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}$`
           texteCorr = `$${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}=${texNombre(10 + (b + d) * 0.1 + c * 0.01)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -148,13 +147,13 @@ export default function CourseAuxNombres6e (numeroExercice) {
         case 'q5':
           a = randint(1, 3)
           b = randint(1, 9, a)
-          c = calcul(a * 10 + b)
+          c = a * 10 + b
           if (choice([true, false])) {
-            resultat = calcul(3 * c)
+            resultat = 3 * c
             texte = `Quel est le triple de $${texNombre(c)}$ ?`
             texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombre(3 * c)}$.`
           } else {
-            resultat = calcul(2 * c)
+            resultat = 2 * c
             texte = `Quel est le double de $${texNombre(c)}$ ?`
             texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombre(2 * c)}$.`
           }
@@ -164,14 +163,14 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(1, 3)
           b = randint(1, 9, a)
           d = randint(1, 9)
-          c = calcul(a * 10 + b + d * 0.1)
+          c = a * 10 + b + d * 0.1
           if (choice([true, false])) {
-            resultat = calcul(3 * c)
+            resultat = 3 * c
             texte = `Quel est le triple de $${texNombre(c)}$ ?`
             texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombre(3 * c)}$.`
             setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           } else {
-            resultat = calcul(2 * c)
+            resultat = 2 * c
             texte = `Quel est le double de $${texNombre(c)}$ ?`
             texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombre(2 * c)}$.`
             setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -181,7 +180,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(1, 3)
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
-          resultat = calcul(a * 1000 + b * 10 + c * 100)
+          resultat = a * 1000 + b * 10 + c * 100
           texte = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$`
           texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(resultat)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -198,7 +197,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(5, 9)
           b = randint(2, 8)
           c = randint(1, 3)
-          resultat = calcul(a * 10 + b - c * 10 - 9)
+          resultat = a * 10 + b - c * 10 - 9
           texte = `$${a * 10 + b} - ${c * 10 + 9}$`
           texteCorr = `$${a * 10 + b} - ${c * 10 + 9}=${a * 10 + b}-${(c + 1) * 10} + 1 = ${resultat}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -239,7 +238,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
         case 'q13':
           a = randint(2, 4)
           b = randint(10, 59)
-          d = calcul(a * 60 + b)
+          d = a * 60 + b
           texte = `Convertir $${d}$ minutes en heures et minutes (format : ... h ...min)`
           texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
           setReponse(this, q, `${a}h${b}min`, { formatInteractif: 'texte' })
@@ -248,7 +247,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = randint(1, 9)
           c = randint(0, 9)
           d = randint(0, 9, [b, c])
-          a = calcul(b * 100 + c * 10 + d)
+          a = b * 100 + c * 10 + d
           resultat = a % 3
           texte = `Quel est le reste de la division de $${a}$ par $3$ ?`
           texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}`
@@ -256,7 +255,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           break
         case 'q15':
           b = randint(5, 9)
-          a = calcul(b * 90 + 9)
+          a = b * 90 + 9
           resultat = b * 10 + 1
           texte = `$${a}\\div 9$`
           texteCorr = `$${a}\\div 9 = ${resultat}$`
@@ -266,7 +265,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(5, 9)
           b = randint(2, 8)
           c = randint(1, 3)
-          resultat = calcul(a * 10 + b + c * 10 + 9)
+          resultat = a * 10 + b + c * 10 + 9
           texte = `$${a * 10 + b} + ${c * 10 + 9}$`
           texteCorr = `$${a * 10 + b} + ${c * 10 + 9}=${a * 10 + b}+${(c + 1) * 10} - 1 = ${resultat}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -275,24 +274,24 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(1, 9)
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
-          d = calcul(a + b * 0.1 + c * 0.01)
-          resultat = calcul(100 * d)
+          d = a + b * 0.1 + c * 0.01
+          resultat = 100 * d
           switch (choice([1, 2, 3, 4])) {
             case 1:
               texte = `$4 \\times ${texNombre(d)}\\times 25$`
-              texteCorr = `$4 \\times ${texNombre(d)}\\times 25 = 100 \\times ${texNombre(d)} = ${calcul(100 * d)}$`
+              texteCorr = `$4 \\times ${texNombre(d)}\\times 25 = 100 \\times ${texNombre(d)} = ${100 * d}$`
               break
             case 2:
               texte = `$2 \\times ${texNombre(d)}\\times 50$`
-              texteCorr = `$2 \\times ${texNombre(d)}\\times 50 = 100 \\times ${texNombre(d)} = ${calcul(100 * d)}$`
+              texteCorr = `$2 \\times ${texNombre(d)}\\times 50 = 100 \\times ${texNombre(d)} = ${100 * d}$`
               break
             case 3:
               texte = `$25 \\times ${texNombre(d)}\\times 4$`
-              texteCorr = `$25 \\times ${texNombre(d)}\\times 4 = 100 \\times ${texNombre(d)} = ${calcul(100 * d)}$`
+              texteCorr = `$25 \\times ${texNombre(d)}\\times 4 = 100 \\times ${texNombre(d)} = ${100 * d}$`
               break
             case 4:
               texte = `$50 \\times ${texNombre(d)}\\times 2$`
-              texteCorr = `$50 \\times ${texNombre(d)}\\times 2 = 100 \\times ${texNombre(d)} = ${calcul(100 * d)}$`
+              texteCorr = `$50 \\times ${texNombre(d)}\\times 2 = 100 \\times ${texNombre(d)} = ${100 * d}$`
               break
           }
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -303,22 +302,22 @@ export default function CourseAuxNombres6e (numeroExercice) {
           c = randint(1, 5)
           d = randint(1, 4)
           resultat = d * 10 + b
-          texte = `$${c * 10 + a} + \\dots = ${calcul((c + d) * 10 + b + a)}$`
-          texteCorr = `$${calcul((c + d) * 10 + b + a)} - ${c * 10 + a} = ${resultat}$`
+          texte = `$${c * 10 + a} + \\dots = ${(c + d) * 10 + b + a}$`
+          texteCorr = `$${(c + d) * 10 + b + a} - ${c * 10 + a} = ${resultat}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q19':
           a = randint(11, 24) * 2
-          resultat = calcul(a * 5)
+          resultat = a * 5
           texte = `$${a}\\times 5$`
-          texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${calcul(a / 2)}\\times 10 =${resultat}$`
+          texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${a / 2}\\times 10 =${resultat}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q20':
           a = randint(0, 7)
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
-          resultat = calcul(c / 5 * b)
+          resultat = c / 5 * b
           texte = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 10 * b)}$ €, combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
           texteCorr = `$${texNombre(c / 10 * b)} \\times 2 = ${texNombre(resultat)}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -328,7 +327,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = randint(2, 9)
           c = randint(1, 9)
           d = randint(5, 9)
-          resultat = calcul((a * 100 + b * 10 + c) * d)
+          resultat = (a * 100 + b * 10 + c) * d
           texte = `$${texNombre(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
           propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombre((a * 1000 + b * 100 + c) * d)}$`])
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
@@ -337,15 +336,15 @@ export default function CourseAuxNombres6e (numeroExercice) {
           break
         case 'q22':
           a = randint(11, 24) * 10 + randint(0, 9)
-          resultat = calcul(a / 100)
+          resultat = a / 100
           texte = `$${a}$ cm font combien de mètres ?`
           texteCorr = `$${a} cm = ${texNombre(resultat)} m$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
           break
         case 'q23':
           a = randint(3, 5)
-          resultat = calcul(randint(2, 9) * 10)
-          b = calcul(resultat * a)
+          resultat = randint(2, 9) * 10
+          b = resultat * a
           texte = `$\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L} = \\dots \\text{ L}$`
           texteCorr = `$\\dfrac{1}{${a}}$ de $${b}$ L = ${resultat} L`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -372,7 +371,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
         case 'q26':
           a = randint(2, 9) * 10
           b = randint(2, 9, a) * 10
-          resultat = calcul(a * b / 100)
+          resultat = a * b / 100
           texte = `$${a}\\%$ de $${b}$`
           texteCorr = `$${a}\\%$ de $${b} = ${resultat}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -380,7 +379,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
         case 'q27':
           a = randint(3, 6) * 20
           b = randint(1, 3)
-          resultat = calcul(a * (b + 0.5))
+          resultat = a * (b + 0.5)
           texte = `Une voiture roule à une vitesse constante de ${a} km/h. Combien de kilomètres parcourt-elle en ${b} h et 30 min ?`
           texteCorr = `$${a}\\times ${texNombre(b + 0.5)} = ${resultat}$`
           setReponse(this, q, resultat, { formatInteractif: 'calcul' })
@@ -401,7 +400,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(3, 5) // dénominateur
           b = randint(2, a * 4 - 1) // numérateur
           c = new FractionEtendue(b, a)
-          resultat = calcul(b / a)
+          resultat = b / a
 
           texte = 'Déterminer l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee({
             Unite: 3,
@@ -429,10 +428,10 @@ export default function CourseAuxNombres6e (numeroExercice) {
           break
         case 'q30':
           a = randint(0, 7) // index du fruit
-          b = calcul(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
-          c = Math.round(randint(fruits[a][2], fruits[a][3] / 10)) // nombre de kg première valeur
+          b = fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1) // prix au kg
+          c = Math.round(randint(fruits[a][2], fruits[a][3]) / 10) // nombre de kg première valeur
           d = randint(3, 6) // nombre de kg supplémentaires
-          resultat = calcul(d * b)
+          resultat = d * b
           texte = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br> $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>Combien coûtent ${d} kg de ces ${fruits[a][0]} ?`
           texteCorr = `$${texPrix((c + d) * b)} € - ${texPrix(c * b)} € =${texPrix(resultat)} €$`
           setReponse(this, q, texPrix(resultat) + '€')

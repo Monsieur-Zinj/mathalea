@@ -228,10 +228,10 @@ export default function CourseAuxNombres5e (numeroExercice) {
           break
         case 'q15':
           b = randint(5, 9)
-          a = calcul(b * 90 + 9)
+          a = b * 90 + 9
           resultat = b * 10 + 1
           texte = `$${a}\\div 9$`
-          texteCorr = `$${a}\\div 9 = ${c}$`
+          texteCorr = `$${a}\\div 9 = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q16':
@@ -240,7 +240,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           c = randint(1, 3)
           resultat = calcul(a * 10 + b + c * 10 + 9)
           texte = `$${a * 10 + b} + ${c * 10 + 9}$`
-          texteCorr = `$${a * 10 + b} + ${c * 10 + 9}=${a * 10 + b}+${(c + 1) * 10} - 1 = ${d}$`
+          texteCorr = `$${a * 10 + b} + ${c * 10 + 9}=${a * 10 + b}+${(c + 1) * 10} - 1 = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q17':
@@ -391,8 +391,8 @@ export default function CourseAuxNombres5e (numeroExercice) {
         case 'q30':
           a = randint(0, 7) // index du fruit
           b = calcul(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
-          c = Math.round(randint(fruits[a][2], fruits[a][3] / 10)) // nombre de kg première valeur
-          d = randint(2, 6, c) // nombre de kg supplémentaires
+          c = Math.round(randint(fruits[a][2], fruits[a][3]) / 10) // nombre de kg première valeur
+          d = randint(2, 6) // nombre de kg supplémentaires
           resultat = calcul(d * b)
           texte = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br> $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>Combien coûtent ${d} kg de ces ${fruits[a][0]} ?`
           texteCorr = `$${texPrix((c + d) * b)} € - ${texPrix(c * b)} € =${texPrix(resultat)} €$`

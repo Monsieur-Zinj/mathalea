@@ -55,7 +55,7 @@ export default function SujetCAN2022Sixieme () {
       21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, maListe, taille1, chiffre, chiffre2, propositions, code1, code2, code3, code4, choix, a, b, c, d, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, taille1, chiffre, chiffre2, propositions, code1, code2, code3, code4, choix, a, b, c, d, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -144,7 +144,6 @@ export default function SujetCAN2022Sixieme () {
             thickOffset: 0,
             axeStyle: '->',
             pointListe: [[a, '?']],
-            labelListe: maListe,
             pointCouleur: 'blue',
             pointStyle: 'x',
             labelsPrincipaux: true
@@ -304,7 +303,7 @@ export default function SujetCAN2022Sixieme () {
             c = choice([30, 35, 40, 45])
             texte = `Ajoute $${b}$ min à $${a}$ h $${c}$ min.`
             reponse = b + c - 60
-            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
+            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
             $${a + 1}$ h et $${reponse}$ min.`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
@@ -318,7 +317,7 @@ export default function SujetCAN2022Sixieme () {
             c = choice([45, 50, 55])
             texte = `Ajoute $${b}$ min à $${a}$ h $${c}$ min.`
             reponse = b + c - 60
-            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
+            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
 $${a + 1}$ h et $${reponse}$ min.`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
@@ -445,7 +444,7 @@ $${a + 1}$ h et $${reponse}$ min.`
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille `
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille$=
-            ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000)} + ${texNombre(chiffre[a][1] * 1000)} 
+            ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000)} + ${texNombre(chiffre[a][1] * 1000)}
                         =${texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000)}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -504,7 +503,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             objets = []
             objets.push(
               texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.5),
-              a, s1, s2, labelPoint(A, B), point(A, B))
+              a, s1, s2, labelPoint(A, B), A, B)
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
@@ -530,7 +529,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             objets = []
             objets.push(
               texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.5),
-              a, s1, s2, labelPoint(A, B), point(A, B))
+              a, s1, s2, labelPoint(A, B), A, B)
             reponse = fraction(b, 5)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
@@ -602,8 +601,8 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = Math.round(a * 2)
             texte = `Combien faut-il de pièces de $50$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                    `
-            texteCorr = `Pour un euro, il faut $2$ pièces de $50$ centimes, 
-          donc pour $${Math.trunc(a)}$, 
+            texteCorr = `Pour un euro, il faut $2$ pièces de $50$ centimes,
+          donc pour $${Math.trunc(a)}$,
           il en faut $${Math.trunc(a)}\\times 2=${Math.trunc(a) * 2}$. <br>
           Donc pour $${texNombre(a, 2, true)}$ €, il en faut  $${reponse}$.`
           }
@@ -730,7 +729,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           reponse = Math.round(1.5 * b)
           texte = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm.<br>
           $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de `
-          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2, 0)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2, 0)}$ cm, donc les 
+          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2, 0)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2, 0)}$ cm, donc les
           $${texNombre(1.5 * a, 0)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2, 0)}=${reponse}$ cm `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
