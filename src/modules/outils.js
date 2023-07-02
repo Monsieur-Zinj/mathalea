@@ -2,6 +2,7 @@
 import Algebrite from 'algebrite'
 import Decimal from 'decimal.js'
 import { equal, evaluate, format, Fraction, gcd, isArray, isInteger, isPrime, round } from 'mathjs'
+import { joursParMois } from '../lib/outils/dateEtHoraires.js'
 import { context } from './context.js'
 import FractionEtendue from './FractionEtendue.js'
 import { fraction } from './fractions.js'
@@ -1733,82 +1734,6 @@ export function lettreIndiceeMinusculeDepuisChiffre (i) {
 }
 
 /**
- * @author Rémi Angot
- * @Example
- * //0 h 24 est accepté
- */
-export function minToHoraire (minutes) {
-  let nbHour = parseInt(minutes / 60)
-  if (nbHour > 23) {
-    nbHour = nbHour - 24
-  }
-  const nbminuteRestante = (minutes % 60)
-  if (nbminuteRestante > 9) {
-    return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
-  } else {
-    return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
-  }
-}
-
-/**
- * @author Rémi Angot
- * @Example
- * //on écrira 24 minutes plutôt que 0 h 24
- */
-export function minToHour (minutes) {
-  let nbHour = parseInt(minutes / 60)
-  if (nbHour > 23) {
-    nbHour = nbHour - 24
-  }
-  const nbminuteRestante = (minutes % 60)
-  if (nbHour === 0) {
-    return (nbminuteRestante + sp() + 'min')
-  } else {
-    if (nbminuteRestante > 9) {
-      return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
-    } else {
-      return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
-    }
-  }
-}
-
-/**
- * Renvoie un tableau de deux valeurs : le nombre d'heures dans un paquet de minutes ainsi que le nombre de minutes restantes.
- * @author Eric Elter
- * @example minToHeuresMinutes (127) renvoie [2,7] car 127min = 2h7min
- * @example minToHeuresMinutes (300) renvoie [5,0] car 300min = 6h
- * @example minToHeuresMinutes (1456) renvoie [24,16] car 1456min = 24h16min
- *
- */
-export function minToHeuresMinutes (minutes) {
-  return [parseInt(minutes / 60), (minutes % 60)]
-}
-
-/**
- * Renvoie un petit objet féminin au hasard
- * @author Mireille Gain
- */
-export function objetF () {
-  return choice(['boîtes', 'bougies', 'cartes de vœux', 'gommes', 'photos', 'petites peluches'])
-}
-
-/**
- * Renvoie un petit objet masculin au hasard
- * @author Mireille Gain
- */
-export function objetM () {
-  return choice(['stickers', 'gâteaux', 'cahiers', 'livres', 'stylos', 'crayons'])
-}
-
-/**
- * Renvoie un petit objet au hasard
- * @author Mireille Gain
- */
-export function objet () {
-  return choice(['billes', 'bonbons', 'bougies', 'cartes de vœux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
-}
-
-/**
  * Renvoie un tableau avec les résultats des tirages successifs
  * @param nombreTirages Combien de tirages ?
  * @param nombreFaces Pour spécifier le type de dés
@@ -1862,19 +1787,6 @@ export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts 
 }
 
 /**
- * Renvoie le nombre de jour d'un mois donné
- * @param n quantième du mois (janvier=1...)
- * @author Jean-Claude Lhote
- */
-export function joursParMois (n, annee = 2022) {
-  const joursMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  if (n === 2) {
-    if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) return 29 // années bissextiles.
-    else return 28
-  } else return joursMois[n - 1]
-}
-
-/**
  * Renvoie un tableau de températures
  * @param base température médiane
  * @mois quantième du mois (janvier=1...)
@@ -1891,35 +1803,6 @@ export function unMoisDeTemperature (base, mois, annee) {
   temperatures.push(randint(-3, 3) + base)
   for (let i = 1; i < nombreJours; i++) temperatures.push(temperatures[i - 1] + randint(-2, 2))
   return temperatures
-}
-
-/**
- * Renvoie le nom du mois
- * @param n quantième du mois
- * @author Jean-Claude Lhote
- */
-export function nomDuMois (n) {
-  const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
-  return mois[n - 1]
-}
-
-/**
- * Renvoie le nom du jour
- * @param n quantième du jour
- * @author Mireille Gain
- */
-export function nomDuJour (n) {
-  const jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
-  return jour[n - 1]
-}
-
-/**
- * Renvoie le nom d'un jour au hasard
- * @param n quantième du jour
- * @author Mireille Gain
- */
-export function jourAuHasard () {
-  return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
 }
 
 // Fonctions LaTeX

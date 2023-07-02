@@ -1,7 +1,14 @@
+import {
+  jourAuHasard,
+  minToHeuresMinutes,
+  minToHoraire,
+  minToHour,
+  nomDuMois
+} from '../../lib/outils/dateEtHoraires.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, arrondi, nomDuMois, jourAuHasard, sp, minToHour, minToHoraire, minToHeuresMinutes, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, texNombre, miseEnEvidence, texPrix, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, texNombre, miseEnEvidence, texPrix, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
