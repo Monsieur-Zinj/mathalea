@@ -1,7 +1,8 @@
 import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, ecritureParentheseSiNegatif, prenomF, prenomM, miseEnEvidence, texteEnCouleur, texteGras, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, ecritureParentheseSiNegatif, miseEnEvidence, texteEnCouleur, texteGras, sp } from '../../modules/outils.js'
 export const titre = 'Trouver l\'erreur dans une résolution d\'équation du premier degré'
 
 /**

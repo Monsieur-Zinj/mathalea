@@ -1,6 +1,7 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { personne, personnes } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, texNombre2, arrondi, sp, miseEnEvidence, combinaisonListes, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
 

@@ -1,6 +1,7 @@
+import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, texteExposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, stringNombre, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, texteExposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, stringNombre, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -282,7 +283,7 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
   `Il faut donc ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} fois plus de ${liste[alea1].ingredient}.<br>` +
   `${quantite}${sp()}g $\\times $ ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} = ${quantiteReponse}${sp()}g. <br>` +
   texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit utiliser ${quantiteReponse}${sp()}g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes.<br>`, 'black')
-  const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantite2}${sp()}g de ${liste[alea1].ingredient}. 
+  const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantite2}${sp()}g de ${liste[alea1].ingredient}.
   Pour combien de personnes au maximum peut-il cuisiner${sp()}?`
   texte += '<br> ' + enonceAMC2 + ajouteChampTexteMathLive(exo, i + 1, 'largeur25 inline', { texteApres: ' personnes' })
   texteCorr += `${numAlpha(1)} ${quantite2}${sp()}g, c'est ${texteEnCouleur(quantite2 / quantite)} fois ${quantite}${sp()}g. ` +
@@ -618,7 +619,7 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
   const distanceCarte2 = stringNombre(calcul(rapport[alea1] * distanceCarte, 2))
   const distanceReelQ2 = stringNombre(calcul(rapport[alea2] * distanceReel, 2))
   const prenoms = [prenomF(), prenomM()]
-  texte = `${numAlpha(0)} Sur une carte sur laquelle ${distanceCarte} cm représente ${distanceReel}${sp()}km dans la réalité, 
+  texte = `${numAlpha(0)} Sur une carte sur laquelle ${distanceCarte} cm représente ${distanceReel}${sp()}km dans la réalité,
 ${prenoms[0]} mesure son trajet et elle trouve une distance de ${distanceCarte2} cm. <br>`
   const enonceAMC1 = texte + `À quelle distance, en${sp()}km, cela correspond dans la réalité${sp()}?`
   texte += `À quelle distance cela correspond dans la réalité${sp()}? ` + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' km' })

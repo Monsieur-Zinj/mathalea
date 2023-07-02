@@ -1,5 +1,6 @@
+import { prenom } from '../../../lib/outils/Personne.js'
 import Exercice from '../../Exercice.js'
-import { randint, prenom, choice, texteEnCouleur, calcul, texNombre } from '../../../modules/outils.js'
+import { randint, choice, texteEnCouleur, calcul, texNombre } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème avec la proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'

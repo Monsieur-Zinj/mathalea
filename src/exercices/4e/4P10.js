@@ -1,5 +1,6 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { katexPopup2 } from '../../lib/outils/message.js'
+import { prenom, prenomF } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -9,8 +10,6 @@ import {
   texteExposant,
   produitsEnCroix,
   quatriemeProportionnelle,
-  prenomF,
-  prenom,
   texNombre,
   miseEnEvidence,
   texPrix,

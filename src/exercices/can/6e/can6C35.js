@@ -1,4 +1,5 @@
-import { choice, randint, prenomF, prenomM, texPrix, texNombre } from '../../../modules/outils.js'
+import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
+import { choice, randint, texPrix, texNombre } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"'
@@ -89,7 +90,7 @@ export default function PlusOuMoins6ieme () {
           this.reponse = choix1 ? reponse2 : reponse1
           this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
           ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner. ${prenom2} a payé le sien $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}.<br>
-                      
+          
           Combien ont-elles payé ensemble leur déjeuner ? `
           this.correction = `${prenom2} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom1}.<br>
           Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}+${texPrix(b)}$` : `$${texPrix(a)}-${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(prix1)}$` : `$${texPrix(prix2)}$`} €. <br>

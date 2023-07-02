@@ -1,3 +1,4 @@
+import { prenomF } from '../../../lib/outils/Personne.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
@@ -7,7 +8,7 @@ import {
 import { paveLPH3d } from '../../../modules/3d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, stringNombre, randint, texNombre, prenomF, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, stringNombre, randint, texNombre, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Hms from '../../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'

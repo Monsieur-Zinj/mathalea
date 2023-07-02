@@ -1,3 +1,4 @@
+import { prenomF } from '../../../lib/outils/Personne.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
@@ -6,7 +7,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, ecritureParentheseSiNegatif, ecritureAlgebrique, signe, creerNomDePolygone, printlatex, stringNombre, randint, texNombre, prenomF, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, ecritureParentheseSiNegatif, ecritureAlgebrique, signe, creerNomDePolygone, printlatex, stringNombre, randint, texNombre, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'

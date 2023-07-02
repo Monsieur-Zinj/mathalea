@@ -1,5 +1,6 @@
+import { prenomM } from '../../../lib/outils/Personne.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, prenomM } from '../../../modules/outils.js'
+import { randint, calcul, choice } from '../../../modules/outils.js'
 export const titre = 'Dénombrer dans une situation concrète'
 export const interactifReady = true
 export const interactifType = 'mathLive'

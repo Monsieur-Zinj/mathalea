@@ -1,6 +1,7 @@
+import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, choice, prenomF, prenomM, texNombre, nombreAvecEspace, calcul, minToHour, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choice, texNombre, nombreAvecEspace, calcul, minToHour, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Problème de vitesse'

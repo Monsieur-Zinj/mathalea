@@ -1,6 +1,7 @@
+import { prenom, prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, prenomF, prenomM, prenom, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { fraction, listeFractions } from '../../modules/fractions.js'
 
 export const titre = 'Problèmes additifs et de comparaison sur les rationnels'

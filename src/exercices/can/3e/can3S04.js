@@ -1,5 +1,6 @@
+import { prenom } from '../../../lib/outils/Personne.js'
 import Exercice from '../../Exercice.js'
-import { randint, prenom, texNombre, listeDeNotes, sp } from '../../../modules/outils.js'
+import { randint, texNombre, listeDeNotes, sp } from '../../../modules/outils.js'
 export const titre = 'Calculer une étendue'
 export const interactifReady = true
 export const interactifType = 'mathLive'

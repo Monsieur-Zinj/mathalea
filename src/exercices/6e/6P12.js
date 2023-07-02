@@ -1,6 +1,7 @@
+import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, stringNombre, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, miseEnCouleur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, stringNombre, texteEnCouleur, texPrix, texteEnCouleurEtGras, miseEnCouleur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -358,7 +359,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
   <br> Quelle distance va-t-il parcourir, à la même vitesse, en ${dureeR} heures ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' km' })
 
   const texteCorr = `Commençons par trouver quelle est la distance parcourue en 1h. <br>
-  1 h, c'est ${texteEnCouleur(dureeQ)} fois moins que ${dureeQ} h. 
+  1 h, c'est ${texteEnCouleur(dureeQ)} fois moins que ${dureeQ} h.
    En 1 h, le ${liste[alea1].locomotion} parcourt donc une distance ${texteEnCouleur(dureeQ)} fois moins grande qu'en ${dureeQ} h.<br>` +
   `$${stringNombre(liste[alea1].vitesse[alea2] * facteur * dureeQ)}$ km $\\div $ ${texteEnCouleur(dureeQ)} = ${stringNombre(liste[alea1].vitesse[alea2] * facteur)} km <br>` +
   texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +

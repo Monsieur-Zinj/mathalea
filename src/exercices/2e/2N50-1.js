@@ -1,3 +1,4 @@
+import { prenom } from '../../lib/outils/Personne.js'
 import {
   codageSegments,
   homothetie,
@@ -15,7 +16,6 @@ import {
   ecritureAlgebrique,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  prenom,
   stringNombre,
   texNombre,
   texPrix

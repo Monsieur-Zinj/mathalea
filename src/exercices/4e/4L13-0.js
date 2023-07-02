@@ -1,6 +1,7 @@
+import { prenom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, prenom, texteEnCouleur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur } from '../../modules/outils.js'
 import { point, segment, codageCarre, polygoneRegulierParCentreEtRayon, nommePolygone, afficheCoteSegment, codageSegments } from '../../modules/2d.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
@@ -50,7 +51,7 @@ export default function MettreEnEquationSansResoudre () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour dire le nom du polygone
-      function myPolyName (n) {
+      const myPolyName = function (n) {
         const sortie = {
           article: '',
           name: '',

@@ -1,5 +1,6 @@
+import { prenom, prenomF } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, minToHoraire, minToHour, prenomF, prenom } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, minToHoraire, minToHour } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
