@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer une équation cartésienne de droite à partir d\'un point et d\'un vecteur directeur'
 // totoche
 /**

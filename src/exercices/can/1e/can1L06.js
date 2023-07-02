@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, ecritureAlgebriqueSauf1, ecritureAlgebrique, reduireAxPlusB } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer une forme canonique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,12 +36,12 @@ export default function FormeCanonique () {
       }
     } else {
       if (!this.interactif) {
-        this.question = `Soit 
+        this.question = `Soit
         $f(x)= x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
 
         Donner la forme canonique de $f(x)$.`
       } else {
-        this.question = `Soit 
+        this.question = `Soit
         $f(x)= x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
         
        La forme canonique de $f(x)$ est : $f(x)=$`

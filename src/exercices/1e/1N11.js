@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, texNombre, miseEnEvidence, arcenciel } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, signe, texNombre, miseEnEvidence, arcenciel } from '../../modules/outils.js'
 
 export const titre = 'Déterminer les termes d\'une suite définie par récurrence'
 
@@ -38,7 +39,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
 
           texteCorr = `On calcule successivent les termes jusqu'à obtenir $u_{${k}}$ :`
           for (let indice = 0; indice < k; indice++) {
-            texteCorr += `<br> $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(a)} = 
+            texteCorr += `<br> $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(a)} =
               ${miseEnEvidence(u, arcenciel(indice, true))} ${ecritureAlgebrique(a)} = ${miseEnEvidence(u + a, arcenciel(indice + 1, true))}$`
             u = u + a
           }
@@ -55,7 +56,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
 
           texteCorr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`
           for (let indice = 0; indice < k; indice++) {
-            texteCorr += `<br> $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} \\times ${ecritureParentheseSiNegatif(a)} = 
+            texteCorr += `<br> $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} \\times ${ecritureParentheseSiNegatif(a)} =
               ${miseEnEvidence(u, arcenciel(indice, true))} \\times ${ecritureParentheseSiNegatif(a)} = ${miseEnEvidence(u * a, arcenciel(indice + 1, true))}$`
             u = u * a
           }
@@ -74,7 +75,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           texteCorr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`
           for (let indice = 0; indice < k; indice++) {
             texteCorr += `<br> $u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(b)}=`
-            texteCorr += `${a} \\times ${miseEnEvidence(ecritureParentheseSiNegatif(u), arcenciel(indice, true))} ${ecritureAlgebrique(b)} = 
+            texteCorr += `${a} \\times ${miseEnEvidence(ecritureParentheseSiNegatif(u), arcenciel(indice, true))} ${ecritureAlgebrique(b)} =
             ${miseEnEvidence(a * u + b, arcenciel(indice + 1, true))}$`
             u = u * a + b
           }
@@ -93,7 +94,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           texteCorr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`
           for (let indice = 0; indice < k; indice++) {
             texteCorr += `<br> $u_{${indice + 1}} = ${a} ${signe(b)} (${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))})^2=`
-            texteCorr += `${a} ${signe(b)} ${miseEnEvidence(ecritureParentheseSiNegatif(u), arcenciel(indice, true))}^2 = 
+            texteCorr += `${a} ${signe(b)} ${miseEnEvidence(ecritureParentheseSiNegatif(u), arcenciel(indice, true))}^2 =
               ${miseEnEvidence(texNombre(a + b * u * u), arcenciel(indice + 1, true))}$`
             u = a + b * u * u
           }

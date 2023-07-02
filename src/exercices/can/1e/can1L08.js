@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  rienSi1
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer un coefficient dans un développement*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,13 +43,13 @@ export default function DeveloppementCoeff2 () {
          $ (${reduireAxPlusB(e, f)})^2+(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$
        `
     if (f > 0) {
-      this.correction = `$\\bullet$ Le coefficient du terme en $x$ dans le développement de 
+      this.correction = `$\\bullet$ Le coefficient du terme en $x$ dans le développement de
        $(${reduireAxPlusB(e, f)})^2$ est $2\\times ${rienSi1(e)}x\\times ${f}=${2 * e * f}x$. <br>`
     } else {
-      this.correction = `$\\bullet$ Le coefficient du terme en $x$ dans le développement de 
+      this.correction = `$\\bullet$ Le coefficient du terme en $x$ dans le développement de
        $(${reduireAxPlusB(e, f)})^2$ est $-2\\times ${rienSi1(e)}x\\times ${-f}=${2 * e * f}x$.<br>`
     }
-    this.correction += `$\\bullet$ Le coefficient du terme en $x$ dans le développement de 
+    this.correction += `$\\bullet$ Le coefficient du terme en $x$ dans le développement de
     $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$ est la somme des produits :`
     if (c < 0) {
       this.correction += `

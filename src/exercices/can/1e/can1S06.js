@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Donner la forme explicite d’une suite arithmétique/géométrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +34,7 @@ export default function CalculTermeSuiteRec () {
           a = randint(1, 15) * choice([-1, 1])
           u = randint(1, 15) * choice([-1, 1])
 
-          this.question = `Soit $(${s}_n)$ une suite arithmétique de raison $r$  définie pour tout  $n\\in\\mathbb{N}$, telle que 
+          this.question = `Soit $(${s}_n)$ une suite arithmétique de raison $r$  définie pour tout  $n\\in\\mathbb{N}$, telle que
         $${s}_0=${u}$ et  $r=${a}$.<br>
         Donner l'expression de $${s}_n$ en fonction de $n$.`
 
@@ -42,7 +43,7 @@ export default function CalculTermeSuiteRec () {
           a = randint(1, 15)
           u = randint(1, 15) * choice([-1, 1])
 
-          this.question = `Soit $(${s}_n)$ une suite arithmétique de raison $r$  définie pour tout  $n\\in \\mathbb{N}$, telle que 
+          this.question = `Soit $(${s}_n)$ une suite arithmétique de raison $r$  définie pour tout  $n\\in \\mathbb{N}$, telle que
           $${s}_0=${u}$ et $r=${a}$.<br>
           Donner l'expression de $${s}_n$ en fonction de $n$.`
 
@@ -58,7 +59,7 @@ export default function CalculTermeSuiteRec () {
         if (!this.interactif) {
           a = randint(1, 15) * choice([-1, 1])
           u = randint(1, 15) * choice([-1, 1])
-          this.question = `Soit $(${s}_n)$ une suite arithmétique de raison $r$  définie pour tout   $n\\in\\mathbb{N}^*$, telle que 
+          this.question = `Soit $(${s}_n)$ une suite arithmétique de raison $r$  définie pour tout   $n\\in\\mathbb{N}^*$, telle que
           $${s}_1=${u}$ et $r=${a}$.<br>
           Donner l'expression de $${s}_n$ (la plus simple possible) en fonction de $n$.`
 
@@ -67,7 +68,7 @@ export default function CalculTermeSuiteRec () {
           a = randint(1, 15)
           u = randint(1, 15, [a, -a]) * choice([-1, 1])
 
-          this.question = `Soit $(${s}_n)$ une suite arithmétique de raison $r$  définie pour tout   $n\\in\\mathbb{N}^*$, telle que 
+          this.question = `Soit $(${s}_n)$ une suite arithmétique de raison $r$  définie pour tout   $n\\in\\mathbb{N}^*$, telle que
           $${s}_1=${u}$ et $r=${a}$.<br>
           Donner l'expression de $${s}_n$  (la plus simple possible) en fonction de $n$.`
 
@@ -83,14 +84,14 @@ export default function CalculTermeSuiteRec () {
         if (!this.interactif) {
           a = randint(2, 15) * choice([-1, 1])
           u = randint(-15, 15, [0, 1, a, -a])
-          this.question = `Soit $(${s}_n)$ une suite géométrique de raison $q$  définie pour tout   $n\\in \\mathbb{N}$, telle que 
+          this.question = `Soit $(${s}_n)$ une suite géométrique de raison $q$  définie pour tout   $n\\in \\mathbb{N}$, telle que
           $${s}_0=${u}$ et $q=${a}$.<br>
           Donner l'expression de $${s}_n$ en fonction de $n$.`
           this.question += ''
         } else {
           a = randint(2, 15)
           u = randint(-15, 15, [0, 1, a])
-          this.question = `Soit $(${s}_n)$ une suite géométrique de raison $q$  définie pour tout   $n\\in \\mathbb{N}$, telle que 
+          this.question = `Soit $(${s}_n)$ une suite géométrique de raison $q$  définie pour tout   $n\\in \\mathbb{N}$, telle que
           $${s}_0=${u}$ et $q=${a}$.<br>
           Donner l'expression de $${s}_n$ en fonction de $n$.`
           this.question += `<br> $${s}_n=$`
@@ -106,13 +107,13 @@ export default function CalculTermeSuiteRec () {
         if (!this.interactif) {
           a = randint(2, 15) * choice([-1, 1])
           u = randint(-15, 15, [0, 1, -1, a, -a])
-          this.question = `Soit $(${s}_n)$ une suite géométrique de raison $q$ définie pour tout $n\\in\\mathbb{N}^*$, telle que 
+          this.question = `Soit $(${s}_n)$ une suite géométrique de raison $q$ définie pour tout $n\\in\\mathbb{N}^*$, telle que
           $${s}_1=${u}$ et $q=${a}$.<br>
           Donner l'expression de $${s}_n$ en fonction de $n$.`
         } else {
           a = randint(2, 15)
           u = randint(-15, 15, [0, 1, -1, a, -a])
-          this.question = `Soit $(${s}_n)$ une suite géométrique de raison $q$  définie pour tout   $n\\in\\mathbb{N}^*$, telle que 
+          this.question = `Soit $(${s}_n)$ une suite géométrique de raison $q$  définie pour tout   $n\\in\\mathbb{N}^*$, telle que
           $${s}_1=${u}$ et $q=${a}$.<br>
           Donner l'expression de $${s}_n$ en fonction de $n$.`
           this.question += `<br> $${s}_n=$`

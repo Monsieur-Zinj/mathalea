@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  reduirePolynomeDegre3, rienSi1
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’un polynôme de degré 3'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -58,7 +64,7 @@ export default function DeriveePoly3 () {
        
             Déterminer $f'(x)$.`
           } else {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
             $f(x)= ${rienSi1(b)}x^2${ecritureAlgebriqueSauf1(a)}x^3${ecritureAlgebriqueSauf1(c)}x${ecritureAlgebrique(d)}$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
           }
@@ -95,7 +101,7 @@ export default function DeriveePoly3 () {
 
         Déterminer $f'(x)$.`
           } else {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
             $f(x)= ${reduirePolynomeDegre3(a, b, 0, c)}$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
           }
@@ -134,7 +140,7 @@ export default function DeriveePoly3 () {
 
        Déterminer $f'(x)$.`
           } else {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
             $f(x)= ${reduirePolynomeDegre3(a, 0, b, c)}$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
           }
@@ -166,11 +172,11 @@ export default function DeriveePoly3 () {
 
         if (choice([true, false])) {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
             $f(x)= ${reduirePolynomeDegre3(a, 0, 0, b)}$.<br>
        Déterminer la fonction dérivée de $f$.`
           } else {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
             $f(x)= ${reduirePolynomeDegre3(a, 0, 0, b)}$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
           }
@@ -207,7 +213,7 @@ export default function DeriveePoly3 () {
 
        Déterminer $f'(x)$.`
           } else {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
                       $f(x)= ${rienSi1(b)}x^2${ecritureAlgebriqueSauf1(a)}x^3$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
           }

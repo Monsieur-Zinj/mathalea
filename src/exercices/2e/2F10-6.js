@@ -1,7 +1,13 @@
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB, rienSi1
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, abs, rienSi1, reduireAxPlusB, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, choice, combinaisonListes, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, choice, combinaisonListes } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'

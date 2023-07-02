@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, reduireAxPlusB, texteCentre, ecritureAlgebrique, sp } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, texteCentre, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer les coordonnées sommet parabole à partir de la forme canonique'
@@ -31,50 +32,50 @@ export default function CoordonneesSommetParabole () {
       b = randint(-5, 5, 0)
       c = randint(-5, 5)
       if (c === 0) {
-        texte = `Les coordonnées du sommet de la parabole représentant 
-    la fonction $f$ définie sur $\\mathbb{R}$ 
+        texte = `Les coordonnées du sommet de la parabole représentant
+    la fonction $f$ définie sur $\\mathbb{R}$
     par $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$ sont  :
     ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + sp(2) : sp(5)} ;
     ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
         if (b > 0) {
-          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
-        ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')}Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont : 
+          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
+        ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')}Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont :
     $(\\alpha;\\beta)$.
     ${texteCentre(` $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2=${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2+0$`)}.
      Ainsi, $\\alpha=-${b}$ et $\\beta=${c}$ et on en déduit que les coordonnées du sommet de la parabole sont : $(-${b};${c})$.`
         } else {
-          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
-        ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')} Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont : 
+          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
+        ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')} Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont :
   $(\\alpha;\\beta)$.
   ${texteCentre(`$f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$`)}
      Puisque $\\alpha=${-b}$ et $\\beta=${c}$, on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`
         }
-        this.canEnonce = `Déterminer les coordonnées du sommet de la parabole représentant 
-        la fonction $f$ définie sur $\\mathbb{R}$ 
+        this.canEnonce = `Déterminer les coordonnées du sommet de la parabole représentant
+        la fonction $f$ définie sur $\\mathbb{R}$
         par $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$.`
         this.canReponseACompleter = ''
       } else {
-        texte = `Les coordonnées du sommet de la parabole représentant 
-    la fonction $f$ définie sur $\\mathbb{R}$ 
+        texte = `Les coordonnées du sommet de la parabole représentant
+    la fonction $f$ définie sur $\\mathbb{R}$
     par     $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$ sont  :
     ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + sp(2) : sp(5)} ;
     ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
         if (b > 0) {
-          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
-        ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')} Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont : 
+          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
+        ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')} Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont :
         $(\\alpha;\\beta)$.
         ${texteCentre(`$f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}
         =${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2${ecritureAlgebrique(c)}$`)}
         Ainsi, $\\alpha=-${b}$ et $\\beta=${c}$ et on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`
         } else {
-          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
-        ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')}  Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont : 
+          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
+        ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')}  Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont :
         $(\\alpha;\\beta)$.
         ${texteCentre(`$f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$`)}
          Puisque $\\alpha=${-b}$ et $\\beta=${c}$, on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`
         }
-        this.canEnonce = `Déterminer les coordonnées du sommet de la parabole représentant 
-        la fonction $f$ définie sur $\\mathbb{R}$ 
+        this.canEnonce = `Déterminer les coordonnées du sommet de la parabole représentant
+        la fonction $f$ définie sur $\\mathbb{R}$
         par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.`
         this.canReponseACompleter = ''
       }

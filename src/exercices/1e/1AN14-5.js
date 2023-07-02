@@ -1,6 +1,7 @@
+import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
 import { simplify, parse, derivative, fraction } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

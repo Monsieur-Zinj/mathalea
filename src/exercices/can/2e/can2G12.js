@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, texteEnCouleur, ecritureParentheseSiNegatif, randint, choice, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, texteEnCouleur, randint, choice, calcul } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Reconnaître des vecteurs colinéaires (V/F)'
 export const interactifReady = true
@@ -56,7 +57,7 @@ export default function VecteursColineairesVF () {
 
           texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
         sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
-        Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
+        Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$,
         alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
         En utilisant les données de l'énoncé, on obtient : <br>
         det$(\\overrightarrow{u};\\overrightarrow{v})=
@@ -100,7 +101,7 @@ export default function VecteursColineairesVF () {
 
           texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
         sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
-        Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
+        Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$,
         alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
         En utilisant les données de l'énoncé, on obtient : <br>
         det$(\\overrightarrow{u};\\overrightarrow{v})=
@@ -145,7 +146,7 @@ export default function VecteursColineairesVF () {
 
           texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
             sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
-            Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
+            Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$,
             alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
             En utilisant les données de l'énoncé, on obtient : <br>
             det$(\\overrightarrow{u};\\overrightarrow{v})=
@@ -190,7 +191,7 @@ export default function VecteursColineairesVF () {
 
           texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
             sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
-            Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
+            Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$,
             alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
             En utilisant les données de l'énoncé, on obtient : <br>
             det$(\\overrightarrow{u};\\overrightarrow{v})=
@@ -234,7 +235,7 @@ export default function VecteursColineairesVF () {
 
           texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
             sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
-            Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
+            Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$,
             alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
             En utilisant les données de l'énoncé, on obtient : <br>
             det$(\\overrightarrow{u};\\overrightarrow{v})=

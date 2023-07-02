@@ -1,6 +1,7 @@
+import { rienSi1 } from '../../lib/outils/ecritures.js'
 import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, rienSi1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
 import { simplify, parse, derivative, divide } from 'mathjs'
 import { prettyTex } from './1AN14-4.js'
 const math = { simplify, parse, derivative }

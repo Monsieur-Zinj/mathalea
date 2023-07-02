@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  rienSi1
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer un coefficient dans un développement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,7 +41,7 @@ export default function DeveloppementCoeff () {
          $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$
        `
 
-    this.correction = `Le coefficient du terme en $x$ dans le développement de 
+    this.correction = `Le coefficient du terme en $x$ dans le développement de
     $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$ est la somme des produits :`
     if (c < 0) {
       this.correction += `

@@ -1,5 +1,6 @@
 import { equal, fraction, largerEq, max, number, unequal, add, multiply } from 'mathjs'
-import { choice, ecritureAlgebrique, ecritureAlgebriqueSauf1, randint, rienSi1 } from '../outils.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
+import { choice, randint } from '../outils.js'
 
 /**
  * Avertissement ! pour l'instant la classe ne gère pas les coefficients fractionnaires !

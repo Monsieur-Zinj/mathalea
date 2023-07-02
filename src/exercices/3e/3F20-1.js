@@ -1,3 +1,4 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { droite, point, polyline, repere, texteParPoint, tracePoint } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -9,9 +10,7 @@ import { fraction } from '../../modules/fractions.js'
 import {
   choice,
   combinaisonListes,
-  contraindreValeur, ecritureAlgebrique,
-  ecritureParentheseSiNegatif,
-  gestionnaireFormulaireTexte,
+  contraindreValeur, gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   premierAvec,
   randint, rangeMinMax, stringNombre,

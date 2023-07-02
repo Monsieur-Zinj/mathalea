@@ -1,5 +1,10 @@
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiMoins,
+  ecritureParentheseSiNegatif
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, lettreDepuisChiffre, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { randint, choice, combinaisonListes, lettreDepuisChiffre, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'

@@ -1,7 +1,8 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import {
-  randint, calcul, choice, ecritureParentheseSiNegatif, texNombre,
-  ecritureAlgebrique, rienSi1, texteEnCouleur
+  randint, calcul, choice, texNombre,
+  texteEnCouleur
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une image avec le second degré'
 export const interactifReady = true
@@ -185,7 +186,7 @@ export default function CalculImageSecondDegre () {
         this.reponse = calcul(a * x + b) * (a * x + b)
 
         this.correction += texteEnCouleur(` Mentalement : <br>
-          On commence par "calculer" l'intérieur de la parenthèse, puis on élève le résultat au carré. 
+          On commence par "calculer" l'intérieur de la parenthèse, puis on élève le résultat au carré.
     `)
 
         break

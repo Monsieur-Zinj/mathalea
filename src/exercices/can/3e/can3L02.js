@@ -1,5 +1,6 @@
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, randint } from '../../../modules/outils.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre une équation du type ax+b=0'
 export const interactifReady = true

@@ -1,5 +1,6 @@
+import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, ecritureParentheseSiMoins, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
 
 export const titre = 'Produit de matrices carrées ou colonnes'

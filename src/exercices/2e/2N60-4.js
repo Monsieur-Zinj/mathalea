@@ -1,8 +1,9 @@
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, miseEnEvidence, texSymbole } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, signe, abs, miseEnEvidence, texSymbole } from '../../modules/outils.js'
 
 export const titre = 'Inéquation du premier degré'
 

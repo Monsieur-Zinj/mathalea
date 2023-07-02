@@ -1,6 +1,7 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif, abs } from '../../../modules/outils.js'
+import { randint, choice, abs } from '../../../modules/outils.js'
 export const titre = 'Déterminer le coefficient d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, reduireAxPlusB, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Factoriser avec les identités remarquables (niveau II)'
 

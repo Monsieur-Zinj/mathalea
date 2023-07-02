@@ -1,14 +1,16 @@
+import {
+  ecritureAlgebrique,
+  ecritureNombreRelatif,
+  ecritureNombreRelatifc,
+  ecritureParentheseSiNegatif
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
   combinaisonListes,
   calcul,
-  ecritureParentheseSiNegatif,
-  ecritureNombreRelatif,
-  ecritureAlgebrique,
   nombreDeChiffresDansLaPartieEntiere,
-  ecritureNombreRelatifc,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

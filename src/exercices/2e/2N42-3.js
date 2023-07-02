@@ -1,6 +1,7 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 
-import { listeQuestionsToContenu, randint, numAlpha, rienSi1, ecritureAlgebrique, sp, ecritureParentheseSiNegatif, shuffle2tableaux, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, numAlpha, sp, shuffle2tableaux, miseEnEvidence } from '../../modules/outils.js'
 
 import Trinome from '../../modules/Trinome.js'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
@@ -64,7 +65,7 @@ export default class EtudeTrinome extends Exercice {
       }
       correction1 += `<br> On retrouve la forme développée, donc on en déduit que $f(x)$ peut s'écrire sous forme factorisée : $f(x)=${p.texFormeFactorisee}$.`
       correction2 = `On développe la forme canonique : <br>$\\begin{aligned}
-     ${p.texFormeCanonique}  ${a !== 1 ? `&=${etapesDeveloppement[0]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec l\'égalité remarquable}')}` : ''}\\\\` : `&=${etapesDeveloppement[0]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe  avec l\'égalité remarquable}')}` : ''}`}  
+     ${p.texFormeCanonique}  ${a !== 1 ? `&=${etapesDeveloppement[0]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec l\'égalité remarquable}')}` : ''}\\\\` : `&=${etapesDeveloppement[0]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe  avec l\'égalité remarquable}')}` : ''}`}
      ${a !== 1 ? `&=${etapesDeveloppement[1]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec la simple distributivité}')}` : ''}\\\\` : '\\\\'}
    &=${etapesDeveloppement[2]}${this.correctionDetaillee === true ? `${sp(20)}${miseEnEvidence('\\textit{On réduit}')}` : ''}
    \\end{aligned}$`
@@ -118,15 +119,15 @@ ${p.texFormeCanonique}  &=${etapesDeveloppement[1]}${this.correctionDetaillee ==
         correction1 += `
       $\\begin{aligned}
     f(x)&=${p.texFormeCanonique}\\\\
-  &=${etapesDeveloppement[1]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec l\'égalité remarquable}')}` : ''}\\\\ 
+  &=${etapesDeveloppement[1]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec l\'égalité remarquable}')}` : ''}\\\\
  &=${etapesDeveloppement[2]}${this.correctionDetaillee === true ? `${sp(20)}${miseEnEvidence('\\textit{On réduit}')}` : ''}
  \\end{aligned}$`
       } else {
         correction1 += `
         $\\begin{aligned}
         f(x)&=${p.texFormeCanonique}\\\\
-      &=${etapesDeveloppement[0]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec l\'égalité remarquable}')}` : ''}\\\\ 
-      &=${etapesDeveloppement[1]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec la simple distributivité}')}` : ''}\\\\ 
+      &=${etapesDeveloppement[0]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec l\'égalité remarquable}')}` : ''}\\\\
+      &=${etapesDeveloppement[1]}${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{On développe avec la simple distributivité}')}` : ''}\\\\
       &=${etapesDeveloppement[2]}${this.correctionDetaillee === true ? `${sp(20)}${miseEnEvidence('\\textit{On réduit}')}` : ''}
      \\end{aligned}$`
       }

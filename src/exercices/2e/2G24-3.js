@@ -1,3 +1,4 @@
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
@@ -5,7 +6,6 @@ import {
   listeQuestionsToContenu,
   randint,
   choice,
-  ecritureParentheseSiNegatif,
   combinaisonListes
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

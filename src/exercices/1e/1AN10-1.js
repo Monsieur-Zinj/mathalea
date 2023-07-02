@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { } from '../../modules/2d.js'
 export const titre = 'Nombre dérivé de fonctions de références'
 

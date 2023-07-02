@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Calculer une dérivée et écrire le résultat sous la forme d’un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -39,7 +40,7 @@ export default function CalculFonctionDeriveeQuotient () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                  On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
-          Ainsi,  
+          Ainsi,
           $f'(x)= ${m}+\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}+\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2-${a}}{x^2}$.`
 
         this.reponse = [`\\dfrac{${m}x^2-${a}}{x^2}`]
@@ -58,7 +59,7 @@ export default function CalculFonctionDeriveeQuotient () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u-v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                    On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
-            Ainsi,  
+            Ainsi,
             $f'(x)= ${m}-\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}-\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2+${a}}{x^2}$.`
 
         this.reponse = [`\\dfrac{${m}x^2+${a}}{x^2}`]
@@ -77,7 +78,7 @@ export default function CalculFonctionDeriveeQuotient () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                      On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
-              Ainsi,  
+              Ainsi,
               $f'(x)= ${m}+\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}+\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2-${a}}{x^2}$.`
 
         this.reponse = [`\\dfrac{${m}x^2-${a}}{x^2}`]
@@ -95,7 +96,7 @@ export default function CalculFonctionDeriveeQuotient () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                        On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
-                Ainsi,  
+                Ainsi,
                 $f'(x)= ${m}+\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}-\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2+${a}}{x^2}$.`
 
         this.reponse = [`\\dfrac{${m}x^2+${a}}{x^2}`]
@@ -114,7 +115,7 @@ export default function CalculFonctionDeriveeQuotient () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                  On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
-          Ainsi,  
+          Ainsi,
           $f'(x)= ${2 * m}x+\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}+\\dfrac{${-a}}{x^2}=\\dfrac{${2 * m}x^3-${a}}{x^2}$.`
 
         this.reponse = [`\\dfrac{${2 * m}x^3-${a}}{x^2}`]
@@ -132,7 +133,7 @@ export default function CalculFonctionDeriveeQuotient () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x^2$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
-        Ainsi,  
+        Ainsi,
         $f'(x)= ${2 * m}x+\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}+\\dfrac{${-a}}{x^2}=\\dfrac{${2 * m}x^3-${a}}{x^2}$.`
 
         this.reponse = [`\\dfrac{${2 * m}x^3-${a}}{x^2}`]
@@ -151,7 +152,7 @@ export default function CalculFonctionDeriveeQuotient () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u-v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
              On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
-      Ainsi,  
+      Ainsi,
       $f'(x)= ${2 * m}x-\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}-\\dfrac{${-a}}{x^2}=\\dfrac{${2 * m}x^3+${a}}{x^2}$.`
 
         this.reponse = [`\\dfrac{${2 * m}x^3+${a}}{x^2}`]

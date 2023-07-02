@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, printlatex, texNombre, rienSi1, choice, ecritureAlgebrique, signe, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, calcul, printlatex, texNombre, choice, signe } from '../../../modules/outils.js'
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'

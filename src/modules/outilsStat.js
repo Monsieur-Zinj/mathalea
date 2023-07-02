@@ -1,11 +1,11 @@
 import { nomDuMois } from '../lib/outils/dateEtHoraires.js'
 import { deprecatedTexFraction } from '../lib/outils/deprecatedFractions.js'
+import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
 import { lampeMessage } from '../lib/outils/message.js'
 import { prenom } from '../lib/outils/Personne.js'
 import {
   arrondi,
   choice,
-  ecritureParentheseSiNegatif,
   stringNombre,
   texNombre,
   texteGras

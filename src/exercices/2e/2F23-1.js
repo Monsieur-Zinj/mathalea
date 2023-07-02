@@ -1,6 +1,7 @@
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 
-import { listeQuestionsToContenu, randint, numAlpha, rienSi1, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, numAlpha } from '../../modules/outils.js'
 
 import Trinome from '../../modules/Trinome.js'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
@@ -45,7 +46,7 @@ export default class EtudeTrinome extends Exercice {
     const etapesDeveloppement = p.arrayTexDevelopperFormeCanonique
     let correction1 = `On développe l'expression donnée : <br>$\\begin{aligned}
     f(x)&=${p.texFormeCanonique}\\\\
-    ${a !== 1 ? `&=${etapesDeveloppement[0]}\\\\` : `&=${etapesDeveloppement[0]}`}  
+    ${a !== 1 ? `&=${etapesDeveloppement[0]}\\\\` : `&=${etapesDeveloppement[0]}`}
    ${a !== 1 ? `&=${etapesDeveloppement[1]}\\\\` : '\\\\'}
  &=${etapesDeveloppement[2]}
  \\end{aligned}$`
@@ -84,18 +85,18 @@ export default class EtudeTrinome extends Exercice {
     Pour déterminer $f(0)$, les calculs à partir de la forme développée sont plus rapides : `
     corr3a += `<br>$f(0)= ${p.texCalculImage(0)}$ `
 
-    corr3a += `<br>On en déduit que les coordonnées du point d'intersection entre l'axe des ordonnées et la courbe $\\mathscr{C}_f$ sont 
+    corr3a += `<br>On en déduit que les coordonnées du point d'intersection entre l'axe des ordonnées et la courbe $\\mathscr{C}_f$ sont
     $(0\\, ;\\,${p.c})$.`
 
     const q3b = 'Quelles sont les coordonnées des points d\'intersection  entre $\\mathscr{C}_f$ et l\'axe des abscisses ?'
-    let corr3b = `Les coordonnées des points d'intersection entre l'axe des abscisses et la courbe $\\mathscr{C}_f$ sont 
+    let corr3b = `Les coordonnées des points d'intersection entre l'axe des abscisses et la courbe $\\mathscr{C}_f$ sont
     de la forme $(x\\,;\\,0)$. Pour trouver les abscisses, il faut donc résoudre l'équation $f(x)=0$.<br>
     En utilisant la forme factorisée, cela revient à résoudre  une équation produit-nul.`
     corr3b += `<br>$f(x)=0 \\iff ${p.texFormeFactorisee} = 0$`
     corr3b += `<br>$\\phantom{f(x)=0} \\iff x${p.x1.simplifie().oppose().texFractionSignee} = 0 \\text{\\quad ou \\quad} x${p.x2.simplifie().oppose().texFractionSignee} = 0$`
     corr3b += `<br>$\\phantom{f(x)=0} \\iff x=${p.x1.simplifie().texFraction} \\text{\\quad ou \\quad} x=${p.x2.simplifie().texFraction}$`
     corr3b += `<br>L'équation a deux solutions : $${p.x1.simplifie().texFraction}$ et $${p.x2.simplifie().texFraction}$.`
-    corr3b += `<br>On en déduit que les coordonnées des points d'intersection entre l'axe des abscisses et la courbe $\\mathscr{C}_f$ sont 
+    corr3b += `<br>On en déduit que les coordonnées des points d'intersection entre l'axe des abscisses et la courbe $\\mathscr{C}_f$ sont
     $(${p.x1.simplifie().texFraction}\\, ;\\,0)$ et $(${p.x2.simplifie().texFraction}\\,;\\,0)$`
 
     let q3c
@@ -118,7 +119,7 @@ ${a !== 1 ? `\\iff &${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppo
 \\end{aligned}$
 <br>
 
-    
+   
 
    Comme $f(${p.alpha.simplifie().texFraction})=${p.a.simplifie().texFractionSaufUn}\\left( ${p.alpha.simplifie().texFraction} ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2${p.beta.simplifie().texFractionSignee}=
     ${p.beta.simplifie().texFraction}$ alors $f(x)${a > 0 ? '\\geqslant' : '\\leqslant'} f(${p.alpha.simplifie().texFraction})$.
@@ -127,9 +128,9 @@ ${a !== 1 ? `\\iff &${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppo
     const q3d = `Déterminer les coordonnées des points d'intersection entre $\\mathscr{C}_f$ et la droite d'équation $y=${p.c.simplifie().texFraction}$.`
     // `Résoudre l'équation $f(x) = ${p.c.simplifie().texFraction}$. <br>
     // Quelle interprétation graphique peut-on en déduire ?`
-    let corr3d = `Les coordonnées des points d'intersection entre $\\mathscr{C}_f$ et la droite d'équation $y=${p.c.simplifie().texFraction}$ sont de la forme 
+    let corr3d = `Les coordonnées des points d'intersection entre $\\mathscr{C}_f$ et la droite d'équation $y=${p.c.simplifie().texFraction}$ sont de la forme
     $(x\\,;\\,${p.c.simplifie().texFraction})$.  <br>
-    Pour trouver les abscisses, il faut donc résoudre l'équation $f(x)=${p.c.simplifie().texFraction}$.<br>  
+    Pour trouver les abscisses, il faut donc résoudre l'équation $f(x)=${p.c.simplifie().texFraction}$.<br>
     On remarque que $${p.c.simplifie().texFraction}$ est la constante de la forme développée.<br>
     On utilise donc  la forme développée pour résoudre cette équation :`
     corr3d += `<br> $f(x) = ${p.c.simplifie().texFraction} \\iff ${p.tex} = ${p.c.simplifie().texFraction}$`
@@ -139,7 +140,7 @@ ${a !== 1 ? `\\iff &${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppo
     corr3d += `<br> $\\phantom{f(x) = ${p.c.simplifie().texFraction}} \\iff x = 0 \\text{\\quad ou \\quad} x = ${p.b.oppose().diviseFraction(p.a).simplifie().texFraction} $`
     corr3d += `<br>
     L'équation a deux solutions : $0$ et $${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}$.<br>
-    On en déduit que $\\mathscr{C}_f$ et la droite d'équation  $y=${p.c.simplifie().texFraction}$ ont deux points d'intersection : $A(0\\,;\\,${p.c.simplifie().texFraction})$ et 
+    On en déduit que $\\mathscr{C}_f$ et la droite d'équation  $y=${p.c.simplifie().texFraction}$ ont deux points d'intersection : $A(0\\,;\\,${p.c.simplifie().texFraction})$ et
     $B(${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}\\,;\\,${p.c.simplifie().texFraction})$.
     `
 

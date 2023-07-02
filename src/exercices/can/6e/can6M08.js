@@ -1,6 +1,7 @@
+import { texteExposant } from '../../../lib/outils/ecritures.js'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-import { choice, texteExposant, listeQuestionsToContenu, randint, texNombre } from '../../../modules/outils.js'
+import { choice, listeQuestionsToContenu, randint, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Comparer des aires (V/F)'
 export const interactifReady = true

@@ -1,6 +1,7 @@
+import { ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { fraction } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'
-import { randint, rienSi1, ecritureParentheseSiNegatif, choice, texteEnCouleur, reduireAxPlusB, sp, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
+import { randint, choice, texteEnCouleur, sp, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Déterminer le signe d’une fonction affine (V/F)'
 export const interactifReady = true
@@ -62,7 +63,7 @@ export default function SigneFonctionAffine () {
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
             $${rienSi1(a)}x>${-b}$<br>
             En divisant par $(${a})$ dans chaque membre, on obtient :<br>
-            $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
+            $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
             ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}
             
             `
@@ -98,7 +99,7 @@ export default function SigneFonctionAffine () {
               En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
               $${rienSi1(a)}x>${-b}$<br>
               En divisant par $(${a})$ dans chaque membre, on obtient :<br>
-              $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
+              $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
               ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}
              `
           } else {
@@ -106,7 +107,7 @@ export default function SigneFonctionAffine () {
               En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
               $${rienSi1(a)}x>${-b}$<br>
               En divisant par $${a}$ dans chaque membre, on obtient :<br>
-              $x>${maFraction.texFractionSimplifiee}$.         
+              $x>${maFraction.texFractionSimplifiee}$.
               
               `
           }

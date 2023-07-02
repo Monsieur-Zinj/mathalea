@@ -1,5 +1,6 @@
+import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, range, randint, texNombre, choice, egalOuApprox } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, range, randint, texNombre, choice } from '../../modules/outils.js'
 
 export const titre = 'Problèmes concret et pourcentages'
 

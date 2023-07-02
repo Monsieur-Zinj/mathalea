@@ -1,7 +1,7 @@
-
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range, combinaisonListes, lettreDepuisChiffre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true

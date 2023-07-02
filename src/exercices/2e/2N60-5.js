@@ -1,6 +1,12 @@
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, randint, choice, combinaisonListes, reduirePolynomeDegre3, reduireAxPlusB, ecritureParentheseSiNegatif, abs, signe, ecritureAlgebrique
+  listeQuestionsToContenu, randint, choice, combinaisonListes, abs, signe
 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -173,7 +179,7 @@ export default function SolInequation () {
           $\\bullet$ $${reduireAxPlusB(m, p)}=${m}\\times ${x0}${ecritureAlgebrique(p)}=${m * x0 + p}$`
           } else {
             texteCorr = `
-          $\\bullet$  Pour $x=${x0}$, on obtient :<br>$\\begin{aligned}    
+          $\\bullet$  Pour $x=${x0}$, on obtient :<br>$\\begin{aligned}
           ${reduirePolynomeDegre3(0, a, b, c)}&=${a === 1 ? '' : `${a}\\times`}${ecritureParentheseSiNegatif(x0)}^2${abs(b) === 1 ? `${signe(b)}` : `${ecritureAlgebrique(b)}\\times`}${ecritureParentheseSiNegatif(x0)}${ecritureAlgebrique(c)}\\\\
           &=${a * x0 * x0 + b * x0 + c}
           \\end{aligned}$<br>

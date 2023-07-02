@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, reduireAxPlusB, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
+import { randint, sp } from '../../../modules/outils.js'
 export const titre = 'Utiliser la proportionnalité sur une expression algébrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,10 +28,10 @@ export default function ProportionnaliteExpressionAlgebrique () {
     const n = randint(-7, -1)
 
     this.question = `Si ${sp(1)}  $${reduireAxPlusB(a, b)}=${c}$, quelle est la valeur de  ${sp(1)} $${reduireAxPlusB(n * a, n * b)}$ ?
-                
+      
       `
     this.correction = `Comme ${sp(1)} $${reduireAxPlusB(n * a, n * b)}=${n}\\times (${reduireAxPlusB(a, b)})$, <br>
-     alors${sp(1)}  
+     alors${sp(1)}
       $${reduireAxPlusB(n * a, n * b)}=${n}\\times ${ecritureParentheseSiNegatif(c)}=${n * c}$`
 
     this.reponse = n * c

@@ -1,4 +1,5 @@
-import { choice, randint, ecritureAlgebrique } from '../../../modules/outils.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un antécédent par fonction affine'
 export const interactifReady = true
@@ -28,7 +29,7 @@ export default function CalculAntecedentAffine () {
         
         Quel est l'antécédent de $${m * x + y}$ par la fonction $${nomF}$ ?`
     this.correction = `L'antécédent de $${m * x + y}$ est le nombre $x$ qui a pour image $${m * x + y}$. On cherche donc $x$ tel que : <br>
-        
+    
    $${m}x${ecritureAlgebrique(y)}=${m * x + y}$ <br>Soit $x=\\dfrac{${m * x + y}${ecritureAlgebrique(-y)}}{${m}}=${x}$.`
     this.reponse = x
 

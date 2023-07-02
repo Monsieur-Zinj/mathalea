@@ -1,5 +1,6 @@
+import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, ecritureParentheseSiMoins } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
 
 export const titre = 'Produit de matrices'

@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Calculer des puissances de +/-2, 3, 4 ou 5'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,7 +1,8 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 import { point, labelPoint, segment, segmentAvecExtremites, texteParPosition } from '../../modules/2d.js'
 
 /* auteur Stéphane Guyon */

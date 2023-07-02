@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Calculer avec  des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -85,7 +86,7 @@ export default function CalculPuissancesOperation () {
         s = a / b
         this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}$`
-        this.correction = `On utilise la formule $\\dfrac{a^n}{b^n}=\\left(\\dfrac{a}{b}\\right)^{n}$ avec 
+        this.correction = `On utilise la formule $\\dfrac{a^n}{b^n}=\\left(\\dfrac{a}{b}\\right)^{n}$ avec
         $a=${a}$,  $b=${b}$ et $n=${n}$.<br>
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}=\\left(\\dfrac{${ecritureParentheseSiNegatif(a)}}{${ecritureParentheseSiNegatif(b)}}\\right)^{${n}}=${s}^{${n}}$
         `

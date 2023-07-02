@@ -1,6 +1,7 @@
+import { rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { choice, rienSi1, abs } from '../../../modules/outils.js'
+import { choice, abs } from '../../../modules/outils.js'
 import {
   polygoneAvecNom, point, cercleCentrePoint, grille, pointSurCercle, texteParPosition, segment
 } from '../../../modules/2d.js'
@@ -77,7 +78,7 @@ export default function AngleSurCercleTrigo () {
     switch (choice([1, 2, 3, 4, 5])) {
       case 1:// les 0
         a = choice(['0', '2\\pi', '4\\pi', '-2\\pi', '-4\\pi', '\\pi', '-\\pi', '3\\pi', '5\\pi'])
-        this.question = `Quel est le point-image du réel $${a}$  ?<br> 
+        this.question = `Quel est le point-image du réel $${a}$  ?<br>
 
         `
         this.question += `${objet}`
@@ -97,11 +98,11 @@ export default function AngleSurCercleTrigo () {
       case 2:// les pi/6
         k = choice([1, 5, 7, 11, 13]) * choice([-1, 1])
         if (k > 0) {
-          this.question = `Quel est le point-image du réel $\\dfrac{${rienSi1(k)}\\pi}{6}$  ?<br> 
+          this.question = `Quel est le point-image du réel $\\dfrac{${rienSi1(k)}\\pi}{6}$  ?<br>
 
         `
         } else {
-          this.question = `Quel est le point-image du réel $-\\dfrac{${rienSi1(abs(k))}\\pi}{6}$  ?<br> 
+          this.question = `Quel est le point-image du réel $-\\dfrac{${rienSi1(abs(k))}\\pi}{6}$  ?<br>
 
         `
         }
@@ -127,11 +128,11 @@ export default function AngleSurCercleTrigo () {
       case 3:// les pi/4
         k = choice([1, 3, 5, 7, 9]) * choice([-1, 1])
         if (k > 0) {
-          this.question = `Quel est le point-image du réel $\\dfrac{${rienSi1(k)}\\pi}{4}$  ?<br> 
+          this.question = `Quel est le point-image du réel $\\dfrac{${rienSi1(k)}\\pi}{4}$  ?<br>
 
         `
         } else {
-          this.question = `Quel est le point-image du réel $-\\dfrac{${rienSi1(abs(k))}\\pi}{4}$  ?<br> 
+          this.question = `Quel est le point-image du réel $-\\dfrac{${rienSi1(abs(k))}\\pi}{4}$  ?<br>
 
         `
         }
@@ -157,11 +158,11 @@ export default function AngleSurCercleTrigo () {
       case 4:// les pi/3
         k = choice([1, 2, 4, 5, 7, 8]) * choice([-1, 1])
         if (k > 0) {
-          this.question = `Quel est le point-image du réel $\\dfrac{${rienSi1(k)}\\pi}{3}$  ?<br> 
+          this.question = `Quel est le point-image du réel $\\dfrac{${rienSi1(k)}\\pi}{3}$  ?<br>
 
         `
         } else {
-          this.question = `Quel est le point-image du réel $-\\dfrac{${rienSi1(abs(k))}\\pi}{3}$  ?<br> 
+          this.question = `Quel est le point-image du réel $-\\dfrac{${rienSi1(abs(k))}\\pi}{3}$  ?<br>
 
         `
         }
@@ -187,11 +188,11 @@ export default function AngleSurCercleTrigo () {
       case 5:// les pi/2
         k = choice([1, 3, 5, 7]) * choice([-1, 1])
         if (k > 0) {
-          this.question = `Quel est le point-image du réel $\\dfrac{${rienSi1(k)}\\pi}{2}$  ?<br> 
+          this.question = `Quel est le point-image du réel $\\dfrac{${rienSi1(k)}\\pi}{2}$  ?<br>
 
         `
         } else {
-          this.question = `Quel est le point-image du réel $-\\dfrac{${rienSi1(abs(k))}\\pi}{2}$  ?<br> 
+          this.question = `Quel est le point-image du réel $-\\dfrac{${rienSi1(abs(k))}\\pi}{2}$  ?<br>
 
         `
         }

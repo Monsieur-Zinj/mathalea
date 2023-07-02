@@ -1,4 +1,5 @@
 import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
+import { ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
 import { listeDesDiviseurs, obtenirListeFacteursPremiers, pgcd } from '../lib/outils/primalite.js'
 import {
   arrondi,
@@ -7,8 +8,6 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   calcul,
   miseEnEvidence,
-  ecritureParentheseSiNegatif,
-  signeMoinsEnEvidence,
   texNombre,
   egal,
   decompositionFacteursPremiers

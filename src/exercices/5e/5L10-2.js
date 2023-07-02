@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { ecritureParentheseSiNegatif, listeQuestionsToContenu, randint, combinaisonListes, itemize } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, itemize } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true

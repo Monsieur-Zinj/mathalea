@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp, texteCentre } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenuSansNumero, sp, texteCentre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer les coordonnées d’un vecteur'
@@ -35,7 +36,7 @@ export default function CoordonneesVecteur1 () {
     this.listeQuestions = [` Dans un repère orthonormé, on donne les points suivants :
     ${texteCentre(`$A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et $B\\left(${xB}${sp(1)} ; ${sp(1)}${yB}\\right)$`)}
 Quelles sont les coordonnées du vecteur $\\overrightarrow{AB}$ ?
- ${this.interactif ? '$\\Bigg($' + ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : ''} 
+ ${this.interactif ? '$\\Bigg($' + ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : ''}
  ${this.interactif ? ';' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : ''}
  ${this.interactif ? '$\\Bigg)$' : ''}`]
     this.listeCorrections = [`On sait d'après le cours, que si $A(x_A${sp(1)} ; ${sp(1)}y_A)$ et $B(x_B${sp(1)} ; ${sp(1)} y_B)$ sont deux points dans un repère, alors on a : $\\overrightarrow{AB}(x_B-x_A  ${sp(1)} ; ${sp(1)} y_B-y_A)$<br>

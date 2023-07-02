@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Développer les identités remarquables avec des racines carrées'
 

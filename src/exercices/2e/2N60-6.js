@@ -1,4 +1,10 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  reduirePolynomeDegre3, rienSi1
+} from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -8,13 +14,8 @@ import {
   numAlpha,
   randint,
   texteGras,
-  reduirePolynomeDegre3,
   extraireRacineCarree,
-  ecritureAlgebrique,
   miseEnEvidence,
-  rienSi1,
-  reduireAxPlusB,
-  ecritureAlgebriqueSauf1,
   gestionnaireFormulaireTexte, shuffle2tableaux, choice
 } from '../../modules/outils.js'
 export const dateDePublication = '25/05/2023'

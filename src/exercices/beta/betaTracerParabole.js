@@ -1,9 +1,10 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { courbe, repere } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, texRacineCarree, ecritureParentheseSiNegatif, calcul, lettreMinusculeDepuisChiffre, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texRacineCarree, calcul, lettreMinusculeDepuisChiffre, texNombre } from '../../modules/outils.js'
 import { simplify, floor } from 'mathjs'
 
 const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calcul(v, 3))

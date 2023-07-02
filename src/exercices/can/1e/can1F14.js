@@ -1,5 +1,12 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3, rienSi1
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebriqueSauf1, ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Déterminer un nombre dérivé'
 export const interactifReady = true
 export const interactifType = 'mathLive'

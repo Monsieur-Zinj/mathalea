@@ -1,6 +1,7 @@
+import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, texteEnCouleur, reduireAxPlusB, sp, ecritureParentheseSiNegatif, choice } from '../../../modules/outils.js'
+import { randint, texteEnCouleur, sp, choice } from '../../../modules/outils.js'
 export const titre = 'Résoudre une inéquation'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,4 +1,5 @@
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { context } from '../../../modules/context.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -7,7 +8,7 @@ import {
   point, repere, courbe, labelPoint, segment, milieu, texteParPosition, codageSegment
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, stringNombre, randint, ecritureAlgebrique, texNombre, printlatex, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, stringNombre, randint, texNombre, printlatex, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'

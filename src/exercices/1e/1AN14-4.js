@@ -1,14 +1,13 @@
 import { abs, derivative, parse, simplify } from 'mathjs'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import {
   combinaisonListes,
-  ecritureAlgebrique,
   lettreMinusculeDepuisChiffre,
   listeQuestionsToContenu,
   randint,
-  rienSi1,
   signe
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

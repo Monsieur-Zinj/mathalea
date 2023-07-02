@@ -1,6 +1,7 @@
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, sp, texNombre, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, sp, texNombre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'

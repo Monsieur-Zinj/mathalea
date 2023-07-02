@@ -1,7 +1,12 @@
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import {
-  randint, choice, ecritureParentheseSiNegatif, reduirePolynomeDegre3, reduireAxPlusB,
-  ecritureAlgebrique
+  randint, choice
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une ordonnée à partir de l’abscisse d’un point'
 export const interactifReady = true

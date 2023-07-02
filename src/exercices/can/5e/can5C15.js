@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, ecritureParentheseSiNegatif, texteEnCouleur, calcul, abs } from '../../../modules/outils.js'
+import { randint, texteEnCouleur, calcul, abs } from '../../../modules/outils.js'
 export const titre = 'Rechercher un nombre à ajouter'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +25,7 @@ export default function NombreATrouver () {
     const b = randint(1, 8)
     const c = a - b
 
-    this.question = `Quel nombre doit-on ajouter à $${a}$ pour obtenir $${c}$ ? 
+    this.question = `Quel nombre doit-on ajouter à $${a}$ pour obtenir $${c}$ ?
     `
     this.correction = `Le nombre $n$ à ajouter vérifie $${a}+n=${c}$, soit
     $n=${c}-${ecritureParentheseSiNegatif(a)}=${c - a}$. <br>

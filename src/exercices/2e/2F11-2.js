@@ -1,8 +1,8 @@
 import Decimal from 'decimal.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import {
   choice,
   combinaisonListes,
-  ecritureParentheseSiNegatif,
   listeQuestionsToContenu,
   miseEnEvidence,
   randint,

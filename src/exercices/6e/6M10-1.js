@@ -1,6 +1,7 @@
+import { texteExposant } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, texteExposant, texNombre, texteEnCouleurEtGras, miseEnEvidence, stringNombre, arrondi, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, texteEnCouleurEtGras, miseEnEvidence, stringNombre, arrondi, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { latexParCoordonnees, point, polygone, segment, texteParPositionEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -220,21 +221,21 @@ export default function ProblemesAiresRectangles () {
       ;[texteCorr, colonneOuLigne] = etapesDeUnAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, nombreTotalEtapes, colonneOuLigne)
       if (colonneOuLigne) {
         if (longueursVerticales[listeCellules[listeCellules.length - 1][1]] === longueursHorizontales[listeCellules[listeCellules.length - 1][0]]) {
-          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
+          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit
       $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1) + '\\text{ cm}', 'black')}$.`
         } else {
-          texteCorr += `La mesure demandée est la ${longueursVerticales[listeCellules[listeCellules.length - 1][1]] > longueursHorizontales[listeCellules[listeCellules.length - 1][0]] ? 'largeur' : 'longueur'} 
-      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
+          texteCorr += `La mesure demandée est la ${longueursVerticales[listeCellules[listeCellules.length - 1][1]] > longueursHorizontales[listeCellules[listeCellules.length - 1][0]] ? 'largeur' : 'longueur'}
+      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit
       $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1) + '\\text{ cm}', 'black')}$.`
         }
         reponse = [longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 'cm']
       } else {
         if (longueursHorizontales[listeCellules[listeCellules.length - 1][0]] === longueursVerticales[listeCellules[listeCellules.length - 1][1]]) {
-          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
+          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit
       $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1) + '\\text{ cm}', 'black')}$.`
         } else {
-          texteCorr += `La mesure demandée est la ${longueursHorizontales[listeCellules[listeCellules.length - 1][0]] > longueursVerticales[listeCellules[listeCellules.length - 1][1]] ? 'largeur' : 'longueur'} 
-    du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
+          texteCorr += `La mesure demandée est la ${longueursHorizontales[listeCellules[listeCellules.length - 1][0]] > longueursVerticales[listeCellules[listeCellules.length - 1][1]] ? 'largeur' : 'longueur'}
+    du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit
     $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1) + '\\text{ cm}', 'black')}$.`
         }
         reponse = [longueursVerticales[listeCellules[listeCellules.length - 1][1]], 'cm']
@@ -245,11 +246,11 @@ export default function ProblemesAiresRectangles () {
   function etapesDeLaFinAEtapeInconnue (texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue, colonneOuLigne) {
     for (let i = listeCellules.length - 1; i >= etapeAireInconnue; i--) {
       if (!colonneOuLigne) {
-        texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] >= longueursVerticales[listeCellules[i][1]] ? 'longueur' : 'largeur'} 
-      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} 
-      est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}$ cm et 
-      que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)}, 
-      sa ${longueursHorizontales[listeCellules[i][0]] < longueursVerticales[listeCellules[i][1]] ? 'longueur' : 'largeur'} est : 
+        texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] >= longueursVerticales[listeCellules[i][1]] ? 'longueur' : 'largeur'}
+      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')}
+      est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}$ cm et
+      que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)},
+      sa ${longueursHorizontales[listeCellules[i][0]] < longueursVerticales[listeCellules[i][1]] ? 'longueur' : 'largeur'} est :
       $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}}=${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}$.`
         if (longueursHorizontales[listeCellules[i][0]] === longueursVerticales[listeCellules[i][1]]) {
           texteCorr += ` Le rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} est un carré.<br>`
@@ -257,11 +258,11 @@ export default function ProblemesAiresRectangles () {
           texteCorr += '<br>'
         }
       } else {
-        texteCorr += `Comme la ${longueursVerticales[listeCellules[i][1]] >= longueursHorizontales[listeCellules[i][0]] ? 'longueur' : 'largeur'} 
-      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} 
-      est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}$ cm et 
-      que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)}, 
-      sa ${longueursVerticales[listeCellules[i][1]] < longueursHorizontales[listeCellules[i][0]] ? 'longueur' : 'largeur'} est : 
+        texteCorr += `Comme la ${longueursVerticales[listeCellules[i][1]] >= longueursHorizontales[listeCellules[i][0]] ? 'longueur' : 'largeur'}
+      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')}
+      est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}$ cm et
+      que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)},
+      sa ${longueursVerticales[listeCellules[i][1]] < longueursHorizontales[listeCellules[i][0]] ? 'longueur' : 'largeur'} est :
       $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}}=${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}$.`
         if (longueursVerticales[listeCellules[i][1]] === longueursHorizontales[listeCellules[i][0]]) {
           texteCorr += ` Le rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} est un carré.<br>`
@@ -277,11 +278,11 @@ export default function ProblemesAiresRectangles () {
   function etapesDeUnAEtapeInconnue (texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeInconnue, colonneOuLigne) {
     for (let i = 0; i < etapeInconnue; i++) {
       if (colonneOuLigne) {
-        texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] <= longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'} 
-      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} 
-      est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}$ cm et 
-      que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)}, 
-      sa ${longueursHorizontales[listeCellules[i][0]] > longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'} est : 
+        texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] <= longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'}
+      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')}
+      est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}$ cm et
+      que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)},
+      sa ${longueursHorizontales[listeCellules[i][0]] > longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'} est :
       $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}}=${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}$.`
         if (longueursHorizontales[listeCellules[i][0]] === longueursVerticales[listeCellules[i][1]]) {
           texteCorr += ` Le rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} est un carré.<br>`
@@ -289,11 +290,11 @@ export default function ProblemesAiresRectangles () {
           texteCorr += '<br>'
         }
       } else {
-        texteCorr += `Comme la ${longueursVerticales[listeCellules[i][1]] <= longueursHorizontales[listeCellules[i][0]] ? 'largeur' : 'longueur'} 
-      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} 
-      est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}$ cm et 
-      que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)}, 
-      sa ${longueursVerticales[listeCellules[i][1]] > longueursHorizontales[listeCellules[i][0]] ? 'largeur' : 'longueur'} est : 
+        texteCorr += `Comme la ${longueursVerticales[listeCellules[i][1]] <= longueursHorizontales[listeCellules[i][0]] ? 'largeur' : 'longueur'}
+      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')}
+      est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}$ cm et
+      que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)},
+      sa ${longueursVerticales[listeCellules[i][1]] > longueursHorizontales[listeCellules[i][0]] ? 'largeur' : 'longueur'} est :
       $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}}=${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}$.`
         if (longueursVerticales[listeCellules[i][1]] === longueursHorizontales[listeCellules[i][0]]) {
           texteCorr += ` Le rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} est un carré.<br>`

@@ -1,6 +1,7 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { randint, choice, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, reduirePolynomeDegre3, range1 } from '../../modules/outils.js'
+import { randint, choice, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, range1 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'

@@ -1,6 +1,7 @@
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import { combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, texNombre, arrondi, miseEnEvidence, randint, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, texNombre, arrondi, miseEnEvidence, randint } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Encadrer avec les racines carrées'
@@ -47,9 +48,9 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$< \\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline nospacebefore') }
           texteCorr = `Comme $${a}$ n'est pas le carré d'un nombre entier, on encadre $${a}$ par deux carrés d'entiers : <br>
           $${Math.floor(Math.sqrt(a)) ** 2} < ${a} < ${(Math.floor(Math.sqrt(a)) + 1) ** 2}$, soit $${Math.floor(Math.sqrt(a))}^2 < ${a} < ${(Math.floor(Math.sqrt(a)) + 1)}^2$.<br><br>
-          En prenant la racine carrée de chacun de ces nombres, on obtient : <br>$\\sqrt{${Math.floor(Math.sqrt(a))}^2} < \\sqrt{${a}} < \\sqrt{${(Math.floor(Math.sqrt(a)) + 1)}^2}$ 
+          En prenant la racine carrée de chacun de ces nombres, on obtient : <br>$\\sqrt{${Math.floor(Math.sqrt(a))}^2} < \\sqrt{${a}} < \\sqrt{${(Math.floor(Math.sqrt(a)) + 1)}^2}$
         (on ne change pas le sens des inégalités en prenant les racines carrées. Ce résultat admis sera démontré dans le chapitre sur les variations). <br><br>
-        Finalement, on obtient l'encadrement de  $\\sqrt{${a}}$ par deux entiers consécutifs   : $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${(Math.floor(Math.sqrt(a)) + 1)}$. 
+        Finalement, on obtient l'encadrement de  $\\sqrt{${a}}$ par deux entiers consécutifs   : $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${(Math.floor(Math.sqrt(a)) + 1)}$.
    `
           setReponse(this, 2 * i, reponse)
           setReponse(this, 2 * i + 1, reponse + 1)
@@ -64,7 +65,7 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline nospacebefore') }
           texteCorr = `Comme $${a}$ n'est pas le carré d'un nombre entier, on encadre $${a}$ par deux carrés d'entiers : <br>
           $${Math.floor(Math.sqrt(a)) ** 2} < ${a} < ${(Math.floor(Math.sqrt(a)) + 1) ** 2}$, soit $${Math.floor(Math.sqrt(a))}^2 < ${a} < ${(Math.floor(Math.sqrt(a)) + 1)}^2$.<br><br>
-          En prenant la racine carrée de chacun de ces nombres, on obtient : <br>$\\sqrt{${Math.floor(Math.sqrt(a))}^2} < \\sqrt{${a}} < \\sqrt{${(Math.floor(Math.sqrt(a)) + 1)}^2}$ 
+          En prenant la racine carrée de chacun de ces nombres, on obtient : <br>$\\sqrt{${Math.floor(Math.sqrt(a))}^2} < \\sqrt{${a}} < \\sqrt{${(Math.floor(Math.sqrt(a)) + 1)}^2}$
         (on ne change pas le sens des inégalités en prenant les racines carrées. Ce résultat admis sera démontré dans le chapitre sur les variations). <br><br>
         Finalement, on obtient l'encadrement de  $\\sqrt{${a}}$ par deux entiers consécutifs   : $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${(Math.floor(Math.sqrt(a)) + 1)}$. <br><br>
         En partant de cet encadrement, on obbtient successivement :<br>`

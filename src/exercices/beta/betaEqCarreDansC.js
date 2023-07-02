@@ -1,4 +1,5 @@
-import { listeQuestionsToContenu, randint, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 import { complex } from 'mathjs'

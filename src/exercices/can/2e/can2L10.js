@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, rienSi1, arrondi, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, choice, arrondi } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Simplifier un quotient'
 export const interactifReady = true

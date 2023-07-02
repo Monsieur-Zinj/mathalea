@@ -1,5 +1,6 @@
 import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, calcul, texRacineCarree, ecritureParentheseSiNegatif, texNombre } from '../../modules/outils.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texRacineCarree, texNombre } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Résoudre des équations avec logarithmes'

@@ -1,6 +1,7 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, texNombre } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
 export const interactifReady = true

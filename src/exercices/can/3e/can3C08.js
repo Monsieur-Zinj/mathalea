@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre, texteEnCouleur, calcul, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, choice, texNombre, texteEnCouleur, calcul } from '../../../modules/outils.js'
 export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,7 +37,7 @@ export default function ProgrammeCalcul () {
     <br>
     $\\bullet$ On soustrait $${e}$, on obtient : $${texNombre(a / 5)}-${texNombre(e)}=${texNombre(a / 5 - e)}$.
     <br>
-    $\\bullet$ On élève au carré :  $${ecritureParentheseSiNegatif(a / 5 - e)}^2= ${texNombre((a / 5 - e) * (a / 5 - e))}$.  
+    $\\bullet$ On élève au carré :  $${ecritureParentheseSiNegatif(a / 5 - e)}^2= ${texNombre((a / 5 - e) * (a / 5 - e))}$.
       `
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
       Prendre le cinquième d'un nombre revient à le diviser par 5.<br>

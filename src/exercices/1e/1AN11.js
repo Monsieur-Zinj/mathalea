@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer une équation de tangente'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

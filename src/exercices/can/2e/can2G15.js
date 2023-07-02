@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer le déterminant de deux vecteurs.'

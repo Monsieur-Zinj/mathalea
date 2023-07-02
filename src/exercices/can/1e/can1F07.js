@@ -1,6 +1,12 @@
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3, rienSi1
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, ecritureAlgebrique, reduirePolynomeDegre3, reduireAxPlusB, rienSi1, ecritureParentheseSiNegatif, texNombre } from '../../../modules/outils.js'
+import { choice, randint, texNombre } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Déterminer une équation de l’axe de symétrie d’une parabole'

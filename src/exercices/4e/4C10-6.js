@@ -1,9 +1,9 @@
+import { ecritureNombreRelatif } from '../../lib/outils/ecritures.js'
 import { Relatif } from '../../modules/Relatif.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu, randint, combinaisonListes,
-  lettreDepuisChiffre, ecritureNombreRelatif,
-  texteEnCouleurEtGras
+  lettreDepuisChiffre, texteEnCouleurEtGras
 } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const interactifReady = true

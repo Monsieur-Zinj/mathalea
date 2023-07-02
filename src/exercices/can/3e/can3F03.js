@@ -1,4 +1,5 @@
-import { choice, randint, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../../modules/outils.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une image par une fonction affine'
 export const interactifReady = true

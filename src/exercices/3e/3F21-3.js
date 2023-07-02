@@ -1,6 +1,7 @@
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { ecritureAlgebrique, listeQuestionsToContenu, randint, rienSi1, texNombre, stringNombre, sp, choice, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, stringNombre, sp, choice, numAlpha } from '../../modules/outils.js'
 import { repere, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

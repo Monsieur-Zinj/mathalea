@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, choice, reduirePolynomeDegre3, ecritureParentheseSiNegatif, texNombre } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, choice, texNombre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Résoudre une équation du second degré*'

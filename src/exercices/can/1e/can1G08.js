@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique, egal, rienSi1, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, sp, texteCentre, egal } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer un vecteur normal avec une équation cartésienne'

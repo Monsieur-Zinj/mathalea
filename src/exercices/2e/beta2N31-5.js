@@ -1,3 +1,4 @@
+import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
@@ -6,7 +7,6 @@ import {
   decimalToScientifique,
   combinaisonListes,
   randint,
-  egalOuApprox,
   arrondi
 } from '../../modules/outils.js'
 import {

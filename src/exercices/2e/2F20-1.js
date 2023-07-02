@@ -1,10 +1,15 @@
 import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3, rienSi1
+} from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
-  listeQuestionsToContenu, reduireAxPlusB, reduirePolynomeDegre3, rienSi1, randint, texteCentre, combinaisonListes, ecritureAlgebrique, choice,
-  ecritureParentheseSiNegatif
+  listeQuestionsToContenu, randint, texteCentre, combinaisonListes, choice
 } from '../../modules/outils.js'
 export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 

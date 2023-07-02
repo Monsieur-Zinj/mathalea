@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $1/u(x)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -38,7 +44,7 @@ export default function CalculFonctionDeriveeUnsurU () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduireAxPlusB(m, p)}$.<br>
                  Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
-          On a $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. On en déduit,  
+          On a $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. On en déduit,
           $f'(x)= \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}$`
         if (m < 0) { this.correction += `$=\\dfrac{${-m}}{(${reduireAxPlusB(m, p)})^2}$.` } else { this.correction += '.' }
 
@@ -57,7 +63,7 @@ export default function CalculFonctionDeriveeUnsurU () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduireAxPlusB(m, p)}$.<br>
                          Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
-                  On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. On en déduit,  
+                  On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. On en déduit,
                   $f'(x)= \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}$`
         if (m < 0) { this.correction += `$=\\dfrac{${-m}}{(${reduireAxPlusB(m, p)})^2}$.` } else { this.correction += '.' }
 
@@ -74,7 +80,7 @@ export default function CalculFonctionDeriveeUnsurU () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$.<br>
                          Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
-                  On a  $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $u'(x)=${2 * m}x$. On en déduit,  
+                  On a  $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $u'(x)=${2 * m}x$. On en déduit,
                   $f'(x)= \\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}$`
         if (m < 0) { this.correction += `$=\\dfrac{${-2 * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}$.` } else { this.correction += '.' }
 
