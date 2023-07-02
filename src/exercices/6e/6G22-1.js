@@ -11,7 +11,7 @@ export const amcReady = true
 export const titre = 'Connaître le vocabulaire de base des angles'
 
 export const dateDePublication = '03/12/2022'
-export const dateDeModifImportante = '23/05/2023'
+export const dateDeModifImportante = '02/07/2023'
 
 /**
  * Connaissance du vocabulaire de base des angles : nom, sommet, côté
@@ -25,7 +25,6 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
     super()
     this.titre = titre
     this.correctionDetailleeDisponible = true
-    this.nbColsCorr = 2
     this.nbQuestions = 4
     this.sup = 5
   }
@@ -173,11 +172,12 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           }
         }
         const monQcm = propositionsQcm(this, ee + i * listeTypeQuestions.length)
+        texteQuestion += '<br>'
         texteQuestion += questionReponse.question + '<br>'
         texteQuestion += monQcm.texte
         texteCorrQuestion += questionReponse.question + '<br>'
         texteCorrQuestion += monQcm.texteCorr
-        texteCorrQuestion += this.correctionDetaillee ? (questionReponse.explications + '<br><br>') : '<br>'
+        texteCorrQuestion += this.correctionDetaillee ? ('<br>' + questionReponse.explications + '<br><br>') : '<br>'
         texte += texteQuestion
         texteCorr += texteCorrQuestion
         if (context.isAmc) {
