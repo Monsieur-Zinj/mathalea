@@ -198,3 +198,17 @@ export function premiersEntreBornes (min, max) {
   // on renvoie le tableau restant
   return premiersJusqueMax
 }
+
+/**
+ * renvoie un tableau avec la decomposition en facteurs premiers sous forme développée
+ * @param {number} n
+ * @author Sébastien Lozano
+ */
+export function decompositionFacteursPremiersArray (n) {
+  const decomposition = []
+  const liste = obtenirListeFacteursPremiers(n)
+  for (const i in liste) {
+    decomposition.push(liste[i])
+  }
+  return decomposition
+}

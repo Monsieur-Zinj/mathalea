@@ -1,9 +1,9 @@
 import { warnMessage } from '../../lib/outils/message.js'
 import { modalPdf } from '../../lib/outils/modales.js'
-import { premiersEntreBornes } from '../../lib/outils/primalite.js'
+import { decompositionFacteursPremiersArray, premiersEntreBornes } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, numAlpha, decompositionFacteursPremiersArray } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, numAlpha } from '../../modules/outils.js'
 export const titre = 'Rendre irréductible une fraction'
 
 /**

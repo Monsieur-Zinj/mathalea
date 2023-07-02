@@ -2649,20 +2649,6 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
   return tableauCL
 }
 
-/**
- * renvoie un tableau avec la decomposition en facteurs premiers sous forme développée
- * @param {number} n
- * @author Sébastien Lozano
- */
-export function decompositionFacteursPremiersArray (n) {
-  const decomposition = []
-  const liste = obtenirListeFacteursPremiers(n)
-  for (const i in liste) {
-    decomposition.push(liste[i])
-  }
-  return decomposition
-}
-
 // Gestion du fichier à télécharger
 export function telechargeFichier (text, filename) {
   const element = document.createElement('a')
