@@ -1,7 +1,12 @@
+import {
+  deprecatedTexFraction,
+  simplificationDeFractionAvecEtapes,
+  texFractionReduite
+} from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import {
   randint, ecritureParentheseSiNegatif,
-  ecritureAlgebrique, texteEnCouleur, texFractionReduite, reduireAxPlusB, simplificationDeFractionAvecEtapes, deprecatedTexFraction
+  ecritureAlgebrique, texteEnCouleur, reduireAxPlusB
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une image avec un quotient'
 export const interactifReady = true

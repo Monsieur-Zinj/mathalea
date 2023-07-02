@@ -1,7 +1,8 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { degCos } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, deprecatedTexFraction, combinaisonListes, sp } from '../../modules/outils.js'
+import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, combinaisonListes, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true

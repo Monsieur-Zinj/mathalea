@@ -1,6 +1,11 @@
+import {
+  deprecatedTexFraction,
+  simplificationDeFractionAvecEtapes,
+  texFractionReduite
+} from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { choice, deprecatedTexFraction, texFractionReduite, stringNombre, simplificationDeFractionAvecEtapes, texteEnCouleur, randint } from '../../../modules/outils.js'
+import { choice, stringNombre, texteEnCouleur, randint } from '../../../modules/outils.js'
 import { point, segmentAvecExtremites, segment, codageSegments, texteParPosition, milieu } from '../../../modules/2d.js'
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true

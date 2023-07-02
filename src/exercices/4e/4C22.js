@@ -1,3 +1,4 @@
+import { obtenirListeFractionsIrreductibles } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
@@ -5,7 +6,6 @@ import {
   choice,
   shuffle,
   combinaisonListes,
-  obtenirListeFractionsIrreductibles,
   contraindreValeur
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

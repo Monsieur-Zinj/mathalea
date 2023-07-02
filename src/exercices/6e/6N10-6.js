@@ -1,6 +1,7 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, deprecatedTexFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, sp, combinaisonListes2, choice, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, sp, combinaisonListes2, choice, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

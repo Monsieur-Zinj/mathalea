@@ -1,5 +1,6 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, calcul, texNombre, texFractionReduite } from '../../../modules/outils.js'
+import { randint, choice, ecritureAlgebrique, calcul, texNombre } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite explicite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -64,14 +65,14 @@ export default function CalculTermeSuiteExp () {
         
         $u_n = `
         if (a === 1) {
-          this.question += `n^2$       
+          this.question += `n^2$
           `
         } else {
           if (a === -1) {
-            this.question += `-n^2$            
+            this.question += `-n^2$
            `
           } else {
-            this.question += `${a}n^2$            
+            this.question += `${a}n^2$
             `
           }
         };
@@ -143,7 +144,7 @@ export default function CalculTermeSuiteExp () {
         `
 
         this.question += `
-                $u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$. 
+                $u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$.
         
         `
         this.question += `<br> Calculer $u_{${k}}$ (résultat sous forme d'une fraction irréductible).<br>

@@ -1,5 +1,6 @@
+import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer la somme de fractions à dénominateurs compatibles'
 export const interactifReady = true
@@ -29,7 +30,7 @@ export default function SommeFractionsCompatibles () {
       this.question = `Calculer $${a.texFraction} + ${b.texFraction}$.`
       this.correction = `Pour additionner des fractions, on les met au même dénominateur.<br>
      <br>
-     Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
+     Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$,
      on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
      Ainsi, $${a.texFraction} + ${b.texFraction}
      =\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}+ ${b.texFraction}
@@ -40,11 +41,11 @@ export default function SommeFractionsCompatibles () {
       this.question = `Calculer $ ${b.texFraction}+${a.texFraction}$.`
       this.correction = `Pour additionner des fractions, on les met au même dénominateur.<br>
      <br>
-     Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
+     Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$,
      on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
      Ainsi, $ ${b.texFraction}+${a.texFraction}
      = ${b.texFraction}+\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}
-    =${b.texFraction}+${a.reduire(c).texFraction} 
+    =${b.texFraction}+${a.reduire(c).texFraction}
     =\\dfrac{${b.n}+${a.n * c}}{${b.d}}
     =\\dfrac{${b.n + a.n * c}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
     }

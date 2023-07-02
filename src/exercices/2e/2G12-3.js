@@ -1,6 +1,7 @@
+import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, ecritureParentheseSiNegatif, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, codageSegments, labelPoint, segment, axes, grille } from '../../modules/2d.js'
 
 export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogramme'

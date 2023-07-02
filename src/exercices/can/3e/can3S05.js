@@ -1,5 +1,6 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texFractionReduite, texNombre, sp, texteEnCouleur, calcul } from '../../../modules/outils.js'
+import { randint, choice, texNombre, sp, texteEnCouleur, calcul } from '../../../modules/outils.js'
 export const titre = 'Calculer une moyenne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -64,12 +65,12 @@ export default function MoyenneStat () {
           this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
           La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$, 
+          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$,
                     on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
           On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
 
-            
-            
+          
+          
           `)
           this.reponse = a
         }
@@ -84,12 +85,12 @@ export default function MoyenneStat () {
           this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
           La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$, 
+          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$,
                     on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
           On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
 
-            
-            
+          
+          
           `)
           this.reponse = a
         }
@@ -99,19 +100,19 @@ export default function MoyenneStat () {
           b = a - e
           c = a + e
           this.question = `$${texNombre(c)}$${sp(2)} ; ${sp(2)} $${texNombre(a)}$ ${sp(2)} ; ${sp(2)}$${texNombre(b)}$<br>
-                         
+          
           Quelle est la moyenne de cette série ?`
 
           this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
                             La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          On remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$) :                
+          On remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$) :
           $\\underbrace{${texNombre(c)}}_{${a}+ ${e}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(b)}}_{${a}- ${e}}$. <br>
-                                      
+                            
                             On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
                   
-                              
-                              
+                            
+                            
                             `)
           this.reponse = a
         }
@@ -121,17 +122,17 @@ export default function MoyenneStat () {
           b = a - e
           c = a + e
           this.question = `$${texNombre(a)}$${sp(2)} ; ${sp(2)} $${texNombre(c)}$ ${sp(2)} ; ${sp(2)}$${texNombre(b)}$<br>
-                         
+          
           Quelle est la moyenne de cette série ?`
 
           this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
                             La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          En écrivant les valeurs dans l'ordre croissant : $\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$, 
+          En écrivant les valeurs dans l'ordre croissant : $\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$,
                     on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
           On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
-                              
-                              
+                            
+                            
                             `)
           this.reponse = a
         }

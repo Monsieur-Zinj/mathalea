@@ -1,4 +1,5 @@
-import { listeQuestionsToContenu, randint, fractionSimplifiee, abs, deprecatedTexFraction, miseEnEvidence } from '../../modules/outils.js'
+import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
+import { listeQuestionsToContenu, randint, abs, miseEnEvidence } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'
 import { complex, multiply } from 'mathjs'

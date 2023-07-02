@@ -1,6 +1,7 @@
+import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, texFractionReduite, deprecatedTexFraction, pgcd } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
 
 export const titre = 'Déterminer un antécédent'
 

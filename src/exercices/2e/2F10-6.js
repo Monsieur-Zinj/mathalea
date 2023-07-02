@@ -1,6 +1,7 @@
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, abs, rienSi1, reduireAxPlusB, ecritureParentheseSiNegatif, simplificationDeFractionAvecEtapes, texFractionReduite, ecritureAlgebriqueSauf1, choice, combinaisonListes, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, rienSi1, reduireAxPlusB, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, choice, combinaisonListes, ecritureAlgebrique } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
@@ -62,7 +63,7 @@ export default function Variationsfonctionaffine () {
           }
           texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
           texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>
-        On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br> 
+        On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br>
           Son sens de variation dépend du signe de $a$.<br>`
           if (a > 0) {
             texteCorr += `Comme $a=${a}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>`
@@ -109,7 +110,7 @@ export default function Variationsfonctionaffine () {
           }
           texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
           texteCorr += `avec $a=\\dfrac{${a}}{${d}}${simplificationDeFractionAvecEtapes(a, d)}$ et $b=\\dfrac{${b}}{${d}}${simplificationDeFractionAvecEtapes(b, d)}$. <br>
-        On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br> 
+        On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br>
           Son sens de variation dépend du signe de $a$.<br>`
           if (a > 0) {
             texteCorr += `Comme $a=${texFractionReduite(a, d)}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>`
@@ -154,7 +155,7 @@ export default function Variationsfonctionaffine () {
           }
           texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
           texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>
-          On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br> 
+          On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br>
             Son sens de variation dépend du signe de $a$.<br>`
           if (a > 0) {
             texteCorr += `Comme $a=${a}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>

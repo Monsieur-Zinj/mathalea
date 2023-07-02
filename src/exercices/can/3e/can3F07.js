@@ -1,6 +1,7 @@
+import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, deprecatedTexFraction, miseEnEvidence, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
+import { randint, miseEnEvidence, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
 import { courbe, repere, texteParPosition, segment } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true

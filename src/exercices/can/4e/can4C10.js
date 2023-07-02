@@ -1,5 +1,6 @@
+import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { choice, randint, texteEnCouleur } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Calculer une somme/différence de fractions égyptiennes'
 export const interactifReady = true

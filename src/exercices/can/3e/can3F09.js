@@ -1,5 +1,6 @@
+import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, choice, sp, calcul, deprecatedTexFraction, rienSi1, ecritureAlgebrique, pgcd, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenuSansNumero, choice, sp, calcul, rienSi1, ecritureAlgebrique, pgcd, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Reconnaître une fonction affine'

@@ -1,6 +1,7 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, pgcd, texteGras, randint, combinaisonListes, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, pgcd, texteGras, randint, combinaisonListes, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { repere, droite, point, tracePoint, labelPoint, texteParPosition } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 export const titre = 'Représentation graphique d\'une fonction affine'

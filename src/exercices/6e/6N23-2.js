@@ -1,3 +1,4 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -7,7 +8,6 @@ import {
   calcul,
   choisitLettresDifferentes,
   texNombre,
-  deprecatedTexFraction,
   numAlpha,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDansLaPartieDecimale,

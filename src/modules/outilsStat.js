@@ -1,3 +1,4 @@
+import { deprecatedTexFraction } from '../lib/outils/deprecatedFractions.js'
 import { lampeMessage } from '../lib/outils/message.js'
 import {
   arrondi,
@@ -6,7 +7,6 @@ import {
   nomDuMois,
   prenom,
   stringNombre,
-  deprecatedTexFraction,
   texNombre,
   texteGras
 } from './outils.js'

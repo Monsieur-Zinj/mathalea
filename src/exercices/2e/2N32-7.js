@@ -1,5 +1,6 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, abs, listeQuestionsToContenu, pgcd, randint, texFractionReduite } from '../../modules/outils.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, abs, listeQuestionsToContenu, pgcd, randint } from '../../modules/outils.js'
 
 export const titre = 'Rendre entier le dénominateur d\'une fraction'
 

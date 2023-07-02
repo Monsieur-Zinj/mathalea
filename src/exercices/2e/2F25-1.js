@@ -1,6 +1,7 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { courbe, latexParCoordonnees, point, repere, segment, tracePoint, texteParPosition } from '../../modules/2d.js'
 import { abs } from 'mathjs'
 

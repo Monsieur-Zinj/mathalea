@@ -1,5 +1,6 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, deprecatedTexFraction, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
 import { point, pointAdistance } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Partager un segment au compas et à la règle non graduée'

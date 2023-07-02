@@ -1,5 +1,6 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, ecritureAlgebrique, extraireRacineCarree, ecritureParentheseSiNegatif, texNombre, miseEnEvidence, randint, sp, calcul, choice, texFractionReduite } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, ecritureAlgebrique, extraireRacineCarree, ecritureParentheseSiNegatif, texNombre, miseEnEvidence, randint, sp, calcul, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Résoudre une équation avec une fonction de référence*'
 export const interactifReady = true
@@ -395,7 +396,7 @@ export default function ResoudreEquationsFonctionDeReference2 () {
             }
           }
           if (k === 0) {
-            texteCorr += `<br>          
+            texteCorr += `<br>
             L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}$, alors l'équation a une solution : $0$.<br>
       Ainsi, $S=\\{0\\}$. `
           }

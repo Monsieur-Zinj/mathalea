@@ -1,6 +1,7 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { choice, listeQuestionsToContenu, sp, texNombre, texFractionReduite } from '../../../modules/outils.js'
+import { choice, listeQuestionsToContenu, sp, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des fractions d’heures en minutes et inversement'
 export const interactifReady = true

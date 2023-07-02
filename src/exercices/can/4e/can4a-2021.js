@@ -1,3 +1,8 @@
+import {
+  deprecatedTexFraction,
+  simplificationDeFractionAvecEtapes,
+  texFractionReduite
+} from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
@@ -6,7 +11,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, stringNombre, combinaisonListes, deprecatedTexFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, stringNombre, combinaisonListes, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 // import { tableauColonneLigne } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'

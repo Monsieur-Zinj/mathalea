@@ -1,5 +1,6 @@
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction } from '../../../modules/fractions.js'
-import { choice, randint, simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true

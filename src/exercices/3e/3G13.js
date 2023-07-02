@@ -1,5 +1,6 @@
 import Algebrite from 'algebrite'
 import { abs, divide, evaluate, format, fraction, isInteger, max, multiply, pow, round, subtract } from 'mathjs'
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import {
   arcPointPointAngle,
   homothetie,
@@ -19,7 +20,6 @@ import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
-  deprecatedTexFraction,
   texNombre
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

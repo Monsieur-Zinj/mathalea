@@ -1,6 +1,7 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
 import { repere, droite, segment, tracePoint, labelPoint, point } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

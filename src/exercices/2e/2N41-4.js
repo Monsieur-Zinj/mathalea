@@ -1,12 +1,11 @@
+import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
   choice,
-  deprecatedTexFraction,
   combinaisonListes,
-  pgcd,
-  texFractionReduite
+  pgcd
 } from '../../modules/outils.js'
 import {
   setReponse

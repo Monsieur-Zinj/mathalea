@@ -1,5 +1,6 @@
+import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, ecritureParentheseSiNegatif, rienSi1, deprecatedTexFraction } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Trouver le sens de variation d’une suite (QCM)'
 export const interactifReady = true

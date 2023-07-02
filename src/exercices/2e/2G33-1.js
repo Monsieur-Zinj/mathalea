@@ -1,5 +1,6 @@
+import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, deprecatedTexFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 export const titre = 'Alignement de 3 points'
 /**
  * Description didactique de l'exercice Démontrer alignement de 3 points avec coefficient directeur

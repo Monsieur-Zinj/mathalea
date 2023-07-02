@@ -1,5 +1,6 @@
+import { texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texteEnCouleur, texFractionSigne, texFractionReduite, reduireAxPlusB, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texteEnCouleur, reduireAxPlusB, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Résoudre des équations se ramenant au produit-nul'
 

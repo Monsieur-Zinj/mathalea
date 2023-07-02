@@ -1,9 +1,9 @@
+import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
 import {
   arrondi,
   obtenirListeFacteursPremiers,
   quotientier,
   extraireRacineCarree,
-  fractionSimplifiee,
   listeDiviseurs,
   pgcd,
   nombreDeChiffresDansLaPartieDecimale,

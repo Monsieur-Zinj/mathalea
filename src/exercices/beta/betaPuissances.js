@@ -1,5 +1,6 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, combinaisonListes, randint, texNombre, lettreDepuisChiffre, texFractionReduite, ecritureParentheseSiNegatif, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, combinaisonListes, randint, texNombre, lettreDepuisChiffre, ecritureParentheseSiNegatif, choice } from '../../modules/outils.js'
 
 export const titre = 'Exercice exemple'
 

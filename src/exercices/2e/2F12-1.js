@@ -1,6 +1,7 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, texFractionReduite, texNombre,
+  listeQuestionsToContenu, texNombre,
   randint, combinaisonListes, ecritureAlgebrique, choice, sp, extraireRacineCarree,
   miseEnEvidence
 } from '../../modules/outils.js'
@@ -88,7 +89,7 @@ export default function EquationsFonctionsRef () {
                 `
                 if (extraireRacineCarree(k)[1] === k) {
                   if (k === 1) {
-                    correction += `Comme $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$ alors 
+                    correction += `Comme $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${Math.sqrt(k)}$ et $${Math.sqrt(k)}$.<br>
                 Ainsi,  $S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$.`
                   } else {
@@ -96,11 +97,11 @@ export default function EquationsFonctionsRef () {
                   }
                 } else {
                   if (k === a) {
-                    correction += `Comme $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$ alors 
+                    correction += `Comme $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${Math.sqrt(k)}$ et $${Math.sqrt(k)}$.<br>
                 Ainsi,  $S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$.`
                   } else {
-                    correction += `Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors 
+                    correction += `Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
                     les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
                     Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
                   }
@@ -138,18 +139,18 @@ export default function EquationsFonctionsRef () {
               }
               if (k > 0) {
                 if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$,  l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
-                <br> Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors 
+                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$,  l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.
+                <br> Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
                 Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
                 } else {
                   if (extraireRacineCarree(k)[1] !== k) {
                     correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. <br>
-                    Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors 
+                    Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
                     les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
                     Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
                   } else {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${c - b}$. Comme $${c - b}>0$, l'équation a deux solutions : $-\\sqrt{${c - b}}$ et $\\sqrt{${c - b}}$.<br> 
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${c - b}$. Comme $${c - b}>0$, l'équation a deux solutions : $-\\sqrt{${c - b}}$ et $\\sqrt{${c - b}}$.<br>
                     Ainsi,  $S=\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}$.`
                   }
                 }
@@ -188,13 +189,13 @@ export default function EquationsFonctionsRef () {
 
               if (k > 0) {
                 if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
-                <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors 
+                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.
+                <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
                 Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
                 } else {
                   if (extraireRacineCarree(k)[1] !== k) {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.<br>Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors 
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.<br>Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
                     les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
                     Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
                   } else {
@@ -239,18 +240,18 @@ export default function EquationsFonctionsRef () {
               }
               if (k > 0) {
                 if (c - b === a || c - b === 4 * a || c - b === 9 * a || c - b === 16 * a || c - b === 25 * a) {
-                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
-                <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors 
+                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.
+                <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.
                 <br> Ainsi, $S=\\left\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\right\\}$.`
                 } else {
                   if (((c - b === 4) && a === 9) || ((c - b === 9) && a === 4) || ((c - b === 16) && a === 9) || ((c - b === 9) && a === 16)) {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texFractionReduite(c - b, a)}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}$. 
-                  <br>  Comme $-\\sqrt{${texFractionReduite(c - b, a)}}=-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}=\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ alors 
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texFractionReduite(c - b, a)}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}$.
+                  <br>  Comme $-\\sqrt{${texFractionReduite(c - b, a)}}=-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}=\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ alors
                   les solutions de l'équation peuvent s'écrire plus simplement : $-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$.<br>
                   Ainsi, $S=\\left\\{-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}${sp(1)};${sp(1)}\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}\\right\\}$`
                   } else {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : 
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions :
                   $-${f1.racineCarree().texFractionSimplifiee}$ et $${f1.racineCarree().texFractionSimplifiee}$. <br>
                   Ainsi, $S=\\left\\{-${f1.racineCarree().texFractionSimplifiee}${sp(1)};${sp(1)}${f1.racineCarree().texFractionSimplifiee}\\right\\}$`
                   }
@@ -422,7 +423,7 @@ Ainsi,   $S=\\emptyset$.<br>
               `
               }
               if (k !== 0) {
-                correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Comme $${k}\\neq 0$ alors l'équation admet une solution : 
+                correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Comme $${k}\\neq 0$ alors l'équation admet une solution :
                 $${texFractionReduite(1, k)}$.<br>
                Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
               `
@@ -442,14 +443,14 @@ Ainsi,   $S=\\emptyset$.<br>
                     $\\begin{aligned}
                     \\dfrac{1}{x}${ecritureAlgebrique(b)}&=${c}\\\\
                     \\dfrac{1}{x}${ecritureAlgebrique(b)}-${miseEnEvidence(b)}&=${c}-${miseEnEvidence(b)}\\\\
-                    \\dfrac{1}{x}&=${c - b}                  
+                    \\dfrac{1}{x}&=${c - b}
                                                 \\end{aligned}$<br>`
               } else {
                 correction += `On isole $\\dfrac{1}{x}$ dans le membre de gauche pour obtenir une équation du type $\\dfrac{1}{x}=k$.<br>
                                                 $\\begin{aligned}
                                                 \\dfrac{1}{x}${ecritureAlgebrique(b)}&=${c}\\\\
                                                 \\dfrac{1}{x}${ecritureAlgebrique(b)}+${miseEnEvidence(-b)}&=${c}+${miseEnEvidence(-b)}\\\\
-                                                \\dfrac{1}{x}&=${c - b}                  
+                                                \\dfrac{1}{x}&=${c - b}
                                                                             \\end{aligned}$<br>`
               }
               if (k === 0) {
@@ -458,7 +459,7 @@ Ainsi,   $S=\\emptyset$.<br>
                  `
               }
               if (k !== 0) {
-                correction += `$k=${k}$ et $${k}\\neq 0$, donc l'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Donc l'équation admet une solution : 
+                correction += `$k=${k}$ et $${k}\\neq 0$, donc l'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Donc l'équation admet une solution :
                    $${texFractionReduite(1, k)}$.<br>
                   Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
                  `
@@ -474,7 +475,7 @@ Ainsi,   $S=\\emptyset$.<br>
               correction += `On isole $\\dfrac{1}{x}$ dans le membre de gauche pour obtenir une équation du type $\\dfrac{1}{x}=k$.<br>
                     $\\begin{aligned}
                     \\dfrac{${a}}{x}&=${b}\\\\
-                    \\dfrac{1}{x}&=${texFractionReduite(b, a)}${sp(20)}\\text{En divisant par } ${a} \\text{ dans chaque membre}\\\\             
+                    \\dfrac{1}{x}&=${texFractionReduite(b, a)}${sp(20)}\\text{En divisant par } ${a} \\text{ dans chaque membre}\\\\
                                                 \\end{aligned}$<br>`
               if (k === 0) {
                 correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Donc l'équation n'admet pas de solution.<br>
@@ -483,12 +484,12 @@ Ainsi,   $S=\\emptyset$.<br>
               }
               if (k !== 0) {
                 if (k % 1 === 0) {
-                  correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(b, a)}$. Donc l'équation admet une solution : 
+                  correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(b, a)}$. Donc l'équation admet une solution :
                    $\\dfrac{1}{${texFractionReduite(b, a)}}$.<br>
                   Ainsi $S=\\left\\{${texFractionReduite(a, b)}\\right\\}$.
                  `
                 } else {
-                  correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(b, a)}$. Donc l'équation admet une solution : 
+                  correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(b, a)}$. Donc l'équation admet une solution :
                  $\\dfrac{1}{${texFractionReduite(b, a)}}=${texFractionReduite(a, b)}$.<br>
                 Ainsi $S=\\left\\{${texFractionReduite(a, b)}\\right\\}$.
                `
@@ -509,7 +510,7 @@ Ainsi,   $S=\\emptyset$.<br>
                     \\dfrac{${a}}{x}${ecritureAlgebrique(b)}&=${c}\\\\
                     \\dfrac{${a}}{x}${ecritureAlgebrique(b)}-${miseEnEvidence(b)}&=${c}-${miseEnEvidence(b)}\\\\
                     \\dfrac{${a}}{x}&=${c - b}\\\\
-                    \\dfrac{1}{x}&=${texFractionReduite(c - b, a)}${sp(20)}\\text{En divisant par } ${a} \\text{ dans chaque membre}                           
+                    \\dfrac{1}{x}&=${texFractionReduite(c - b, a)}${sp(20)}\\text{En divisant par } ${a} \\text{ dans chaque membre}
                                                 \\end{aligned}$<br>`
               } else {
                 correction += `On isole $\\dfrac{1}{x}$ dans le membre de gauche pour obtenir une équation du type $\\dfrac{1}{x}=k$.<br>
@@ -517,7 +518,7 @@ Ainsi,   $S=\\emptyset$.<br>
                                                 \\dfrac{${a}}{x}${ecritureAlgebrique(b)}&=${c}\\\\
                                                 \\dfrac{${a}}{x}${ecritureAlgebrique(b)}+${miseEnEvidence(-b)}&=${c}+${miseEnEvidence(-b)}\\\\
                                                 \\dfrac{${a}}{x}&=${c - b}\\\\
-                    \\dfrac{1}{x}&=${texFractionReduite(c - b, a)}${sp(20)}\\text{En divisant par } ${a} \\text{ dans chaque membre}\\\\                  
+                    \\dfrac{1}{x}&=${texFractionReduite(c - b, a)}${sp(20)}\\text{En divisant par } ${a} \\text{ dans chaque membre}\\\\
                                                                             \\end{aligned}$<br>`
               }
               if (k === 0) {
@@ -527,12 +528,12 @@ Ainsi,   $S=\\emptyset$.<br>
               }
               if (k !== 0) {
                 if (k % 1 === 0) {
-                  correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Donc l'équation  admet une solution : 
+                  correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Donc l'équation  admet une solution :
                    $\\dfrac{1}{${texFractionReduite(c - b, a)}}$.<br>
                   Ainsi $S=\\left\\{${texFractionReduite(a, c - b)}\\right\\}$.
                  `
                 } else {
-                  correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Donc l'équation  admet une solution : 
+                  correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Donc l'équation  admet une solution :
                  $\\dfrac{1}{${texFractionReduite(c - b, a)}}=${texFractionReduite(a, c - b)}$.<br>
                 Ainsi $S=\\left\\{${texFractionReduite(a, c - b)}\\right\\}$.
                `
@@ -576,14 +577,14 @@ Ainsi,   $S=\\emptyset$.<br>
                     $\\begin{aligned}
                     x^3${ecritureAlgebrique(b)}&=${c}\\\\
                     x^3${ecritureAlgebrique(b)}-${miseEnEvidence(b)}&=${c}-${miseEnEvidence(b)}\\\\
-                    x^3&=${c - b}                  
+                    x^3&=${c - b}
                                                 \\end{aligned}$<br>`
               } else {
                 correction += `On isole $x^3$ dans le membre de gauche pour obtenir une équation du type $x^3=k$.<br>
                                                 $\\begin{aligned}
                                                 x^3${ecritureAlgebrique(b)}&=${c}\\\\
                                                 x^3${ecritureAlgebrique(b)}+${miseEnEvidence(-b)}&=${c}+${miseEnEvidence(-b)}\\\\
-                                                x^3&=${c - b}                  
+                                                x^3&=${c - b}
                                                                             \\end{aligned}$<br>`
               }
               correction += `L'équation est de la forme $x^3=k$ avec $k=${k}$. <br>
@@ -604,7 +605,7 @@ Ainsi,   $S=\\emptyset$.<br>
               correction += `On isole $x^3$ dans le membre de gauche pour obtenir une équation du type $x^3=k$.<br>
                       $\\begin{aligned}
                       ${a}x^3&=${c}\\\\
-                      x^3&=${texFractionReduite(c, a)}\\\\              
+                      x^3&=${texFractionReduite(c, a)}\\\\
                                                   \\end{aligned}$<br>`
 
               correction += `L'équation est de la forme $x^3=k$ avec $k=${k}$. <br>
@@ -627,16 +628,16 @@ Ainsi,   $S=\\emptyset$.<br>
                       $\\begin{aligned}
                       ${a}x^3${ecritureAlgebrique(b)}&=${c}\\\\
                       ${a}x^3${ecritureAlgebrique(b)}-${miseEnEvidence(b)}&=${c}-${miseEnEvidence(b)}\\\\
-                      ${a}x^3&=${texNombre(c - b, 0)}\\\\  
-                      x^3&=${texFractionReduite(c - b, a)}\\\\             
+                      ${a}x^3&=${texNombre(c - b, 0)}\\\\
+                      x^3&=${texFractionReduite(c - b, a)}\\\\
                                                   \\end{aligned}$<br>`
               } else {
                 correction += `On isole $x^3$ dans le membre de gauche pour obtenir une équation du type $x^3=k$.<br>
                       $\\begin{aligned}
                       ${a}x^3${ecritureAlgebrique(b)}&=${c}\\\\
                       ${a}x^3${ecritureAlgebrique(b)}+${miseEnEvidence(-b)}&=${c}+${miseEnEvidence(-b)}\\\\
-                      ${a}x^3&=${texNombre(c - b, 0)}\\\\  
-                      x^3&=${texFractionReduite(c - b, a)}\\\\             
+                      ${a}x^3&=${texNombre(c - b, 0)}\\\\
+                      x^3&=${texFractionReduite(c - b, a)}\\\\
                                                   \\end{aligned}$<br>`
               }
 

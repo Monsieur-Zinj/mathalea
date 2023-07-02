@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import {
   barycentre,
   codageAngle,
@@ -26,7 +27,6 @@ import {
   numAlpha,
   quatriemeProportionnelle,
   randint,
-  deprecatedTexFraction,
   texNombre,
   texteEnCouleurEtGras
 } from '../../modules/outils.js'

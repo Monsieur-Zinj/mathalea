@@ -1,5 +1,6 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { randint, texFractionReduite, choice, reduireAxPlusB, rienSi1, sp } from '../../../modules/outils.js'
+import { randint, choice, reduireAxPlusB, rienSi1, sp } from '../../../modules/outils.js'
 export const titre = 'Trouver les valeurs interdites d’une fonction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

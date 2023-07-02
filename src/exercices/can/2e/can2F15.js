@@ -1,5 +1,6 @@
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, abs, reduireAxPlusB, randint, choice, simplificationDeFractionAvecEtapes, rienSi1, texFractionReduite, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, abs, reduireAxPlusB, randint, choice, rienSi1, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Donner le sens de variation d’une fonction affine'
 export const interactifReady = true
@@ -92,7 +93,7 @@ export default function VariationFA () {
 
           texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
           texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>
-    On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br> 
+    On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br>
       Son sens de variation dépend du signe de $a$.<br>`
           if (a > 0) {
             texteCorr += `Comme $a=${a}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>`
@@ -153,7 +154,7 @@ export default function VariationFA () {
 
           texteCorr = `On reconnaît que $${nomF}$ est une fonction affine, de la forme $${nomF}(x)=ax+b$, `
           texteCorr += `avec $a=\\dfrac{${a}}{${d}}${simplificationDeFractionAvecEtapes(a, d)}$ et $b=\\dfrac{${b}}{${d}}${simplificationDeFractionAvecEtapes(b, d)}$. <br>
-        On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br> 
+        On sait qu'une fonction affine est monotone sur $\\mathbb{R}$.<br>
           Son sens de variation dépend du signe de $a$.<br>`
           if (a > 0) {
             texteCorr += `Comme $a=${texFractionReduite(a, d)}>0$ , la fonction $${nomF}$ est strictement croissante sur $\\mathbb{R}$.<br>`
@@ -162,7 +163,7 @@ export default function VariationFA () {
           }
           break
         case 3:
-          texte = `Donner le sens de variation de la fonction $${nomF}$ définie sur $\\mathbb R$ par : 
+          texte = `Donner le sens de variation de la fonction $${nomF}$ définie sur $\\mathbb R$ par :
             $${nomF}(x)=${b}$`
 
           if (this.interactif) {

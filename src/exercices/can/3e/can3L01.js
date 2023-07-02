@@ -1,4 +1,5 @@
-import { randint, deprecatedTexFraction } from '../../../modules/outils.js'
+import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre une équation du type ax=b'
 export const interactifReady = true

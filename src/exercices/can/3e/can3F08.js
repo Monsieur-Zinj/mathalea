@@ -1,7 +1,8 @@
+import { deprecatedTexFraction, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, deprecatedTexFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul, texteCentre } from '../../../modules/outils.js'
+import { randint, miseEnEvidence, abs, ecritureAlgebrique, egal, calcul, texteCentre } from '../../../modules/outils.js'
 import { repere, texteParPosition, segment, droite } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true

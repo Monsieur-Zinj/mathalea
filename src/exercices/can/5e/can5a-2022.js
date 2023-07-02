@@ -1,3 +1,4 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
@@ -7,7 +8,7 @@ import {
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
 import { paveLPH3d } from '../../../modules/3d.js'
-import { listeQuestionsToContenu, arrondi, tableauColonneLigne, stringNombre, randint, texNombre, shuffle, texFractionReduite, choice, calcul, sp, lettreDepuisChiffre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, tableauColonneLigne, stringNombre, randint, texNombre, shuffle, choice, calcul, sp, lettreDepuisChiffre } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -429,7 +430,7 @@ export default function SujetCAN2022cinquieme () {
 
           a = randint(1, 9)
 
-          texte = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est : 
+          texte = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est :
            `
 
           texteCorr = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est égale à $${texNombre((2 * a + 1) / 10, 1)}\\div 2=${texNombre((2 * a + 1) / 20, 2)}$.
@@ -825,7 +826,7 @@ export default function SujetCAN2022cinquieme () {
 
           reponse = a * a
 
-          texte = `L'aire d'un disque de rayon $${a}$ cm est : 
+          texte = `L'aire d'un disque de rayon $${a}$ cm est :
                 `
 
           texteCorr = `L'aire d'un disque de rayon $${a}$ cm est : $\\pi\\times \\text{Rayon}^2=\\pi\\times ${a}^2=${a * a}\\pi$ cm$^2$.`

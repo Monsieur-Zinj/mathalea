@@ -1,5 +1,6 @@
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { calcul, choice, texNombre, randint, texFractionReduite, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { calcul, choice, texNombre, randint, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Déterminer (ou calculer avec) un pourcentage de proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -70,7 +71,7 @@ export default function PoucentageP2 () {
         n = carac2[0]
         d = carac2[1]
         if (n === 'maisons') {
-          this.question = ` 
+          this.question = `
 
         Parmi les $${texNombre(a)}$ logements que compte une ville, $${b}\\%$   sont des ${n} et $${c}\\%$  de celles-ci sont des ${d}.<br>
 
@@ -91,8 +92,8 @@ export default function PoucentageP2 () {
         this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
                 Prendre $10\\%$  d'une quantité revient à la diviser par $10$. <br>
-       Pour calculer $20\\%$ , $30 \\%$ , $40\\%$, .... d'une quantité, on 
-       commence par calculer  $10\\%$  de cette quantité en la divisant par $10$, puis on multiplie 
+       Pour calculer $20\\%$ , $30 \\%$ , $40\\%$, .... d'une quantité, on
+       commence par calculer  $10\\%$  de cette quantité en la divisant par $10$, puis on multiplie
        par $2$ ce résultat si on veut en calculer $20 \\%$, par $3$ si on veut en calculer $30\\%$, ....<br>
                            `)
         this.reponse = calcul(c * b * a / 10000)

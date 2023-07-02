@@ -1,4 +1,5 @@
-import { choice, randint, texNombre, texFractionReduite } from '../../../modules/outils.js'
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { choice, randint, texNombre } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'

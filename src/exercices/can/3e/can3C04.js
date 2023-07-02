@@ -1,5 +1,6 @@
+import { deprecatedTexFraction, obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction } from '../../../modules/fractions.js'
-import { obtenirListeFractionsIrreductibles, choice, deprecatedTexFraction, randint } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true

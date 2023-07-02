@@ -1,5 +1,6 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, texFractionReduite, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
 export const interactifReady = true
@@ -153,7 +154,7 @@ export default function NatureSuiteEx () {
             texteCorr = `$${s}_{n+1} =${a}\\times ${ecritureParentheseSiNegatif(b)}^{n+1}=${ecritureParentheseSiNegatif(b)}\\times \\underbrace{${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)}^{n}}_{${s}_{n}}=${ecritureParentheseSiNegatif(b)}\\times ${s}_{n}$.
          `
           };
-          texteCorr += `  <br>        
+          texteCorr += `  <br>
         On en déduit que $(${s}_n)$ est une suite géométrique de raison $${b}$ et de premier terme $${s}_0=${a}\\times ${ecritureParentheseSiNegatif(b)}^0=${a}$.`
 
           break
@@ -194,7 +195,7 @@ export default function NatureSuiteEx () {
           }
 
           texteCorr = `$${s}_{n+1} =\\dfrac{${a}}{${b}^{n+1}}=\\dfrac{1}{${b}}\\times \\underbrace{\\dfrac{${a}}{${b}^n}}_{${s}_{n}}=\\dfrac{1}{${b}}\\times ${s}_n$`
-          texteCorr += `  <br>        
+          texteCorr += `  <br>
         On en déduit que $(${s}_n)$ est une suite géométrique de raison $\\dfrac{1}{${b}}$ et de premier terme $${s}_{0} =\\dfrac{${a}}{${b}^0}=${a}$.`
 
           break
