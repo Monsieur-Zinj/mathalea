@@ -1,9 +1,8 @@
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { inferieurSuperieur } from '../../modules/mathFonctions/outilsMaths.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { repere, lectureAntecedent } from '../../modules/2d.js'
+import { repere } from '../../modules/2d.js'
 import { choice, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Recherche d\'antécédents'
@@ -11,8 +10,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '22/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const uuid = 'a2ac2beta' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
-export const ref = '2F22-1'// @todo à modifier aussi
+export const uuid = 'betaSpline' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
+export const ref = 'betaSpline'// @todo à modifier aussi
 // une liste de nœuds pour définir une fonction Spline
 const noeuds1 = [{ x: -4, y: -0.5, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
   { x: -3, y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: false },
@@ -39,19 +38,6 @@ const noeuds2 = [{ x: -5, y: 0.5, deriveeGauche: 1.5, deriveeDroit: 1.5, isVisib
 ]
 // une liste des listes
 const mesFonctions = [noeuds1, noeuds2]
-
-/**
- * trouve les extrema mais ne fonctionne que si les extrema se trouvent en des noeuds.
- * @param {{x: number, y:number,deriveeGauche:number,deriveeDroit:number, isVisible:boolean}[]} nuage les noeuds
- * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
- */
-function trouveMaxes (nuage) {
-  const xMin = Math.floor(Math.min(...nuage.map(el => el.x)) - 1)
-  const yMin = Math.floor(Math.min(...nuage.map(el => el.y)) - 1)
-  const xMax = Math.ceil(Math.max(...nuage.map(el => el.x)) + 1)
-  const yMax = Math.ceil(Math.max(...nuage.map(el => el.y)) + 1)
-  return { xMin, xMax, yMin, yMax }
-}
 
 /**
  * choisit les caractèristique de la transformation de la courbe
@@ -108,11 +94,17 @@ export default class BetaModeleSpline extends Exercice {
         isVisible: noeud.isVisible
       }))
       const maSpline = spline(nuage)
-      const { xMin, xMax, yMin, yMax } = trouveMaxes(nuage)
+      const { xMin, xMax, yMin, yMax } = maSpline.trouveMaxes()
       const nombreAntecedentCherches = nombreAntecedents(Number(typeDeQuestions[i]))
       const y0 = maSpline.trouveYPourNAntecedentsEntiers(nombreAntecedentCherches, yMin, yMax)
-      const solutions = maSpline.solve(y0)
-      const reponse = solutions.length === 0 ? 'aucun' : `${solutions.join(';')}`
+      const solutions = inferieurSuperieur(maSpline.fonction, y0, xMin + 1, xMax - 1, true, false)
+
+      const reponse = solutions.length === 0
+        ? 'aucun'
+        : solutions.map((intervalle) => intervalle.borneG.x === intervalle.borneD.x
+          ? `{${intervalle.borneG.x}}`
+          : `[${intervalle.borneG.x};${intervalle.borneD.x}]`
+        ).join('U')
       // le repère dans lequel sera tracé la courbe (il est important que xMin et yMin soient entiers d'où les arrondis lors de leur définition plus haut
       const repere1 = repere({
         xMin: xMin - 1,
@@ -128,18 +120,8 @@ export default class BetaModeleSpline extends Exercice {
       })
       const objetsEnonce = [repere1, courbe1]
       let texteEnonce = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce)), objetsEnonce)
-      texteEnonce += `<br>Quel est le nombre d'antécédents de ${y0} ?` + ajouteChampTexteMathLive(this, 2 * i, 'inline largeur10')
-      texteEnonce += '<br>Donne ces antécédents rangés par ordre croissant séparés par des points-virgules (saisir aucun s\'il n\'y en a pas).' + ajouteChampTexte(this, 2 * i + 1, 'inline largeur25')
-      setReponse(this, 2 * i, nombreAntecedentCherches)
-      setReponse(this, 2 * i + 1, reponse, { formatInteractif: 'texte' })
+      texteEnonce += `<br>Quel sont les solutions de l'équation $f(x)<=${y0}$ ?`
       const objetsCorrection = [repere1]
-      // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
-      for (let j = 0; j < nombreAntecedentCherches; j++) {
-        objetsCorrection.push(lectureAntecedent(solutions[j], y0, 1, 1, 'red', '', ''))
-        for (let k = 0; k < maSpline.visible.length; k++) {
-          if (maSpline.y[k] !== y0) maSpline.visible[k] = false
-        }
-      }
       const courbeAvecTraces = maSpline.courbe({
         repere: repere1,
         epaisseur: 1,
@@ -148,8 +130,7 @@ export default class BetaModeleSpline extends Exercice {
       })
       objetsCorrection.push(courbeAvecTraces)
       let texteCorrection = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection)), objetsCorrection)
-      texteCorrection += `<br>${y0} possède ${nombreAntecedentCherches} antécédents sur l'intervalle [${maSpline.x[0]};${maSpline.x[maSpline.n - 1]}].`
-      texteCorrection += `<br>Les antécédents de ${y0} sont : ${reponse}.`
+      texteCorrection += `<br>voici les solutions de $f(x)<=${y0}$ : ${reponse}.`
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
     }
