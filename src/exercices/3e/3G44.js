@@ -1,3 +1,4 @@
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -5,7 +6,6 @@ import {
   randint,
   texNombre,
   rangeMinMax,
-  choisitLettresDifferentes,
   choice,
   calcul,
   arrondi,

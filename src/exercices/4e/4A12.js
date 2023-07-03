@@ -1,13 +1,13 @@
 import { warnMessage } from '../../lib/outils/message.js'
+import { personne } from '../../lib/outils/Personne.js'
+import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import {
   combinaisonListes,
-  listeNombresPremiersStrictJusqua,
   listeQuestionsToContenu,
   nombreAvecEspace,
   randint,
   texteEnCouleurEtGras,
-  personne,
   nombreDeChiffresDe,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

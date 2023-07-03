@@ -1,6 +1,7 @@
 import { round } from 'mathjs'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import FractionEtendue from '../FractionEtendue.js'
-import { ecritureAlgebrique, randint } from '../outils.js'
+import { randint } from '../outils.js'
 
 /**
  * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme

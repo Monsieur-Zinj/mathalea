@@ -1,4 +1,5 @@
-import { choice, combinaisonListes, contraindreValeur, ecritureParentheseSiNegatif, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { choice, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

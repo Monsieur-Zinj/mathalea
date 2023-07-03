@@ -1,4 +1,5 @@
-import { listeQuestionsToContenu, prenom } from '../../modules/outils.js'
+import { prenom } from '../../lib/outils/Personne.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from '../CM/_TrouverSolutionMathador.js'
 import Exercice from '../Exercice.js'
 

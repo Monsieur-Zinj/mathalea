@@ -1,5 +1,6 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, deprecatedTexFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true

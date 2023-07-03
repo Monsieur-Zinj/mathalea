@@ -1,6 +1,9 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
+import { prenom } from '../../lib/outils/Personne.js'
 import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'
-import { randint, miseEnEvidence, texteGras, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
+import { randint, miseEnEvidence, texteGras, sp, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
@@ -157,13 +160,13 @@ export default function ModeliserEquations () {
             texteCorr += `${sp(37)} $\\begin{aligned}
          x&=${Math.round((b) / (c - a))}
          \\end{aligned}$<br>
-            C'est pour une production de $${Math.round((b) / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.     
+            C'est pour une production de $${Math.round((b) / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.
         `
           } else {
             texteCorr += `${sp(37)} $\\begin{aligned}
         x&\\simeq${Math.round((b) / (c - a))}
         \\end{aligned}$<br>
-           C'est pour une production d'environ $${Math.round((b) / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.     
+           C'est pour une production d'environ $${Math.round((b) / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.
        `
           }
 
@@ -221,7 +224,7 @@ export default function ModeliserEquations () {
          \\dfrac{${texNombre(c * a)}x}{${miseEnEvidence(texNombre(c * a))}}&=\\dfrac{${texNombre(res - b * c)}}{${miseEnEvidence(texNombre(c * a))}}\\\\
          x&=${texFractionReduite(res - b * c, c * a)}
          \\end{aligned}$<br>
-           Le nombre que l'on doit choisir pour obtenir $${res}$ à la fin du programme est :  $${texFractionReduite(res - b * c, c * a)}$.        
+           Le nombre que l'on doit choisir pour obtenir $${res}$ à la fin du programme est :  $${texFractionReduite(res - b * c, c * a)}$.
                      `
           break
         case 'typeE6':
@@ -253,7 +256,7 @@ export default function ModeliserEquations () {
            Le nombre commun que ${d} et ${e} doivent choisir au départ pour obtenir le même résultat est : $-${b}$.
                   `
           } else {
-            texteCorr += ` 
+            texteCorr += `
             ${sp(20)}$ \\begin{aligned}
            \\dfrac{${a - c}x}{${miseEnEvidence(a - c)}}&=\\dfrac{${-b}}{${miseEnEvidence(a - c)}}\\\\
            x&=${texFractionReduite(-b, a - c)}
@@ -359,7 +362,7 @@ export default function ModeliserEquations () {
         -${b}x=-${a}&${sp(2)}\\text{ou}${sp(2)}${c}x=${-d}\\\\
         \\dfrac{-${b}x}{${miseEnEvidence(-b)}}=\\dfrac{-${a}}{${miseEnEvidence(-b)}} &${sp(2)}\\text{ou} ${sp(2)}\\dfrac{-${d}x}{${miseEnEvidence(c)}}=\\dfrac{-${d}}{${miseEnEvidence(c)}}\\\\
         x=${texFractionReduite(-a, -b)}&${sp(2)}\\text{ou}${sp(2)}x=${texFractionReduite(-d, c)}\\end{aligned}$<br>
-              On obtient $0$ en faisant le produit des deux résultats de ces programmes en choisissant comme nombres au départ : $${texFractionReduite(-a, -b)}$ ou $${texFractionReduite(-d, c)}$. 
+              On obtient $0$ en faisant le produit des deux résultats de ces programmes en choisissant comme nombres au départ : $${texFractionReduite(-a, -b)}$ ou $${texFractionReduite(-d, c)}$.
               `
 
           break

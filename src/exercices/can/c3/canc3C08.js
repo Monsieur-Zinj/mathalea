@@ -1,5 +1,6 @@
+import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, prenomF, prenomM, texPrix } from '../../../modules/outils.js'
+import { choice, randint, texPrix } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -177,7 +178,7 @@ export default function PlusOuMoins2 () {
                       Combien  en ont-ils ensemble ?`
           } else {
             this.question = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}. <br>
-                     
+            
             Sachant que ${prenom1} a $${a}$ ${objets}, combien en ont-ils ensemble  ?`
           }
           this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ ${objets} ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
@@ -274,13 +275,13 @@ export default function PlusOuMoins2 () {
           this.reponse = choix1 ? reponse2 : reponse1
 
           this.question = `Dans un club de ${clubs}, il y a $${a}$ ${choix2 ? ' filles ' : ' garçons'}.<br>
-                       
+          
           Sachant qu'il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '} que de ${choix2 ? ' garçons ' : ' filles'}, combien y a-t-il d'adhérents dans ce club ? `
 
           this.correction = ` Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
                       que de ${choix2 ? ' garçons ' : ' filles'}, il y a donc  $${b}$ ${choix2 ? ' garçons ' : ' filles'} ${choix1 ? 'de moins' : ' de plus '}
                       que de ${choix2 ? ' filles ' : ' garçons'}.<br>
-                     Il y a (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ${choix2 ? ' garçons' : ' filles'}, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ${choix2 ? ' garçons' : ' filles'} dans ce club. 
+                     Il y a (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ${choix2 ? ' garçons' : ' filles'}, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ${choix2 ? ' garçons' : ' filles'} dans ce club.
                      <br>Dans ce club, il y a donc au total (${choix1 ? `$${a - b}+${a}$` : `$${a + b}+${a}$`}) soit ${choix1 ? `$${reponse2}$` : `$${reponse1}$`} adhérents.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' adhérents' } }
         }

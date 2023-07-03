@@ -1,4 +1,5 @@
-import { randint, ecritureParentheseSiNegatif, texNombre, reduireAxPlusB } from '../../../modules/outils.js'
+import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
+import { randint, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer les coordonnées d’un point sur une droite'
 export const interactifReady = true
@@ -24,8 +25,8 @@ export default function CoordonneesPointDroite () {
 
     this.formatInteractif = 'texte'
     this.reponse = `${c};${a * c + b}`
-    this.question = ` Déterminer les coordonnées du point de la droite 
-        d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$. 
+    this.question = ` Déterminer les coordonnées du point de la droite
+        d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$.
        `
     if (this.interactif) {
       this.optionsChampTexte = { texteApres: '$)$' }
@@ -42,7 +43,7 @@ export default function CoordonneesPointDroite () {
   Les coordonnées du  point sont donc : $(${c};${texNombre(a * c + b)})$.`
     }
 
-    this.canEnonce = ` Déterminer les coordonnées du point de la droite 
+    this.canEnonce = ` Déterminer les coordonnées du point de la droite
     d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$. `
     this.canReponseACompleter = ''
   }

@@ -1,5 +1,7 @@
+import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, deprecatedTexFraction, randint, miseEnEvidence, choice, pgcd, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, randint, miseEnEvidence, choice } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

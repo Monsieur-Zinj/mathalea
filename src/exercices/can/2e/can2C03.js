@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombre, abs, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
+import { randint, calcul, choice, texNombre, abs, sp } from '../../../modules/outils.js'
 export const titre = 'Calculer avec  des puissances*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -88,7 +89,7 @@ export default function CalculPuissance1 () {
         this.question = `Compléter :<br> $${a}^{...}\\times ${a}^{${c}}=${a}^{${-d}}$`
         this.correction = `On utilise la formule $a^n\\times a^m=a^{n+m}$.
         La somme des exposants doit donner $${-d}$.<br>
-        On cherche donc le nombre qui, ajouté à $${c}$ donne $${-d}$.<br> Il s'agit de  : 
+        On cherche donc le nombre qui, ajouté à $${c}$ donne $${-d}$.<br> Il s'agit de  :
 $-${d}-${ecritureParentheseSiNegatif(c)}=${-d - c}$.`
         this.reponse = calcul(-d - c)
         this.canEnonce = 'Compléter.'

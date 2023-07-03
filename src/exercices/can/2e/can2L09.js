@@ -1,5 +1,6 @@
+import { rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, rienSi1 } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Écrire avec un seul quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'

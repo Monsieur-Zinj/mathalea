@@ -1,7 +1,9 @@
+import { prenom } from '../../lib/outils/Personne.js'
+import { premierMultipleSuperieur } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, prenom, texteEnCouleur, texteGras, texPrix, numAlpha, premierMultipleSuperieur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, texPrix, numAlpha } from '../../modules/outils.js'
 import { point, segment, repere, courbe } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
 
@@ -176,7 +178,7 @@ export default function GraphiquesEtProportionnalite2 () {
         <br> ${numAlpha(kCorr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texteEnCouleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
         <br> ${situation.figureCorr}
         <br> ${numAlpha(kCorr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
-        <br><br> ${texteGras('Première méthode par lecture graphique :')} 
+        <br><br> ${texteGras('Première méthode par lecture graphique :')}
         <br> Il faut prendre en compte que chaque petit carreau représente $${texPrix(stepAxeSecondaire * yscale)}$ € et utiliser les pointillés bleus.
         <br><br> ${texteGras('Seconde méthode en calculant une quatrième proportionnelle :')}
         <br> $${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €

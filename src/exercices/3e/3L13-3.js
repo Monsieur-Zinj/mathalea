@@ -1,3 +1,5 @@
+import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { prenom } from '../../lib/outils/Personne.js'
 import {
   codageSegments,
   homothetie,
@@ -12,11 +14,9 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import {
   arrondi,
   choice,
-  ecritureAlgebrique,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   nombreDeChiffresDe,
-  prenom,
   sp,
   stringNombre,
   texNombre,

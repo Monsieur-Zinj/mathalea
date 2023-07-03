@@ -1,4 +1,5 @@
-import { choice, randint, prenomF, prenomM } from '../../../modules/outils.js'
+import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"'
 export const interactifReady = true
@@ -140,7 +141,7 @@ export default function PlusOuMoins () {
                     Combien ${prenom2} a-t-il de ${objets} ?`
           } else {
             this.question = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}. <br>
-                    
+            
             Sachant que ${prenom1} a $${a}$ ${objets}, combien ${prenom2} en a-t-il ?`
           }
           this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ ${objets} ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
@@ -232,7 +233,7 @@ export default function PlusOuMoins () {
           this.reponse = choix1 ? reponse2 : reponse1
 
           this.question = `Dans un club de ${clubs}, il y a $${a}$ ${choix2 ? ' filles ' : ' garçons'}.<br>
-                        
+          
           Sachant qu'il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '} que de ${choix2 ? ' garçons ' : ' filles'}, combien y a-t-il de ${choix2 ? 'garçons' : 'filles'} dans ce club ? `
 
           this.correction = ` Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}

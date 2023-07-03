@@ -1,5 +1,7 @@
+import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Déterminer les termes d\'une suite définie de façon explicite'
 

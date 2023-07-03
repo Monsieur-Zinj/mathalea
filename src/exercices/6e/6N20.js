@@ -1,10 +1,10 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
   enleveElement,
   choice,
-  deprecatedTexFraction,
   nombreDeChiffresDansLaPartieEntiere,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

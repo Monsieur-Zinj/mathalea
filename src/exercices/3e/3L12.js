@@ -1,8 +1,8 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import {
   randint,
   choice,
-  deprecatedTexFraction,
   lettreDepuisChiffre,
   listeQuestionsToContenuSansNumero,
   combinaisonListes

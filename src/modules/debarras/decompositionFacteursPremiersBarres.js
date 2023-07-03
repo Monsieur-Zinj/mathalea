@@ -1,4 +1,4 @@
-import { decompositionFacteursPremiersArray } from '../outils.js'
+import { decompositionFacteursPremiersArray } from '../../lib/outils/primalite.js'
 
 /**
  * Renvoie la décomposition en produit de facteurs premiers d'un nombre avec les facteursABarrer barrés

@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, rienSi1, ecritureParentheseSiNegatif, sp, texteEnCouleur, choice, listeQuestionsToContenu, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint, sp, texteEnCouleur, choice, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Vérifier si un nombre est solution d’une inéquation (V/F)'
 export const interactifReady = true

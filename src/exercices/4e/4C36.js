@@ -1,9 +1,9 @@
+import { prenomPronom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import {
   randint,
   listeQuestionsToContenu,
   combinaisonListes,
-  prenomPronom,
   premiereLettreEnMajuscule,
   texNombre,
   gestionnaireFormulaireTexte

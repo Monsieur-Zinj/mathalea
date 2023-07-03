@@ -1,5 +1,6 @@
+import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Multiplications de deux entiers relatifs dans un tableau à double entrée'
 
 /**

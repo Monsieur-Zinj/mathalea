@@ -1,4 +1,5 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
+import { choisitLettresDifferentes } from '../lib/outils/aleatoires.js'
 import {
   distancePointDroite,
   droite,
@@ -19,7 +20,7 @@ import {
 } from './2d.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
 import { context } from './context.js'
-import { arrondi, choisitLettresDifferentes } from './outils.js'
+import { arrondi } from './outils.js'
 
 const math = { matrix, multiply, norm, cross, dot }
 

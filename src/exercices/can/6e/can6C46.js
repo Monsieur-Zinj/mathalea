@@ -1,4 +1,5 @@
-import { choice, prenomF, prenomM, rangeMinMax, miseEnEvidence } from '../../../modules/outils.js'
+import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
+import { choice, rangeMinMax, miseEnEvidence } from '../../../modules/outils.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'//
 import FractionEtendue from '../../../modules/FractionEtendue.js'

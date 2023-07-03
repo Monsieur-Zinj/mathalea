@@ -1,5 +1,6 @@
+import { prenom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, prenom, texteEnCouleur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur } from '../../modules/outils.js'
 export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
 
 /**
@@ -45,22 +46,22 @@ export default function FormeLitteraleIntroduireUneLettre () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer le pluriel
-      function pluriel (n, obj) {
+      const pluriel = function (n, obj) {
         if (n > 1) {
           return obj.plur
         } else {
           return obj.sing
         };
-      };
+      }
 
       // une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
-      function sliceUn (n) {
+      const sliceUn = function (n) {
         if (n === 1) {
           return ''
         } else {
           return `${n}`
-        };
-      };
+        }
+      }
 
       // on definit un tableau de couples possibles
       const situations = [

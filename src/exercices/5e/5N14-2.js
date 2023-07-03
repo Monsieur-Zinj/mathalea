@@ -1,6 +1,7 @@
+import { compareFractions, deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, compareFractions, calcul, shuffle, miseEnEvidence, deprecatedTexFraction, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, calcul, shuffle, miseEnEvidence, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
 

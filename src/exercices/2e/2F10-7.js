@@ -1,6 +1,7 @@
+import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { combinaisonListes, listeQuestionsToContenu, randint, choice, numAlpha, texNombre, ecritureAlgebrique } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, choice, numAlpha, texNombre } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const dateDePublication = '01/10/2022'
@@ -90,7 +91,7 @@ export default function SignefonctionaffineVariation () {
         $\\bullet$ être une fonction affine ; <br>
         $\\bullet$ être strictement ${a > 0 ? 'croissante' : 'décroissante'} ;<br>
         $\\bullet$ s'annuler en $${texNombre(sol, 1)}$.<br>
-       Comme $${nom}$ est une fonction ${a > 0 ? 'croissante' : 'décroissante'}, on doit choisir un coefficient directeur 
+       Comme $${nom}$ est une fonction ${a > 0 ? 'croissante' : 'décroissante'}, on doit choisir un coefficient directeur
        $a$ ${a > 0 ? 'positif' : 'négatif'}.<br>
        Prenons ${a > 0 ? '$a=1$' : '$a=-1$'}.<br>
        $${nom}$ est alors de la forme : $${nom}(x)=${a > 0 ? '' : '-'}x + b$.<br>
@@ -117,7 +118,7 @@ export default function SignefonctionaffineVariation () {
            Dresser son tableau de signes sur $\\mathbb R$. Justifier.
          `
             if (x > sol) {
-              texteCorr = ` $${nom}$ est une fonction affine (non constante, puisque $${nom}(${x})\\neq ${nom}(${texNombre(sol, 1)})$), elle 
+              texteCorr = ` $${nom}$ est une fonction affine (non constante, puisque $${nom}(${x})\\neq ${nom}(${texNombre(sol, 1)})$), elle
           est donc soit strictement croissante, soit strictement décroissante.<br>
          On observe que $${sol}<${x}$ implique ${a > 0 ? `$${nom}(${sol}) < ${nom}(${x})$` : `$${nom}(${sol}) > ${nom}(${x})$`}.<br>
           Les images et les antécédents sont donc rangés ${a > 0 ? 'dans le même ordre' : 'dans l\'ordre inverse'}.<br>
@@ -127,12 +128,12 @@ export default function SignefonctionaffineVariation () {
           On obtient ainsi le tableau de signes suivant : <br>
            `
             } else {
-              texteCorr = ` $${nom}$ est une fonction affine (non constante, puisque $${nom}(${x})\\neq ${nom}(${texNombre(sol, 1)})$), elle 
+              texteCorr = ` $${nom}$ est une fonction affine (non constante, puisque $${nom}(${x})\\neq ${nom}(${texNombre(sol, 1)})$), elle
            est donc soit strictement croissante, soit strictement décroissante.<br>
            On observe que $${x}<${sol}$ implique ${a > 0 ? `$${nom}(${x}) < ${nom}(${sol})$` : `$${nom}(${x}) > ${nom}(${sol})$`}.<br>
           Les images et les antécédents sont donc rangés ${a > 0 ? 'dans le même ordre' : 'dans l\'ordre inverse'}.<br>
           On en déduit que la fonction $${nom}$ est${a > 0 ? 'croissante' : 'décroissante'} sur $\\mathbb R$.<br>
-                  
+           
            Les images sont ${a > 0 ? 'd\'abord négatives, puis positives' : 'd\'abord positives, puis négatives'}.<br>
            Sachant que $${nom}$ s'annule en $${texNombre(sol, 1)}$, le changement de signe intervient donc en $x=${texNombre(sol, 1)}$. <br>
            On obtient ainsi le tableau de signes suivant : <br>
@@ -204,7 +205,7 @@ export default function SignefonctionaffineVariation () {
         ${numAlpha(1)} Comparer $${nom}(${x1})$ et $${nom}(${x2})$.`
           texteCorr = `${numAlpha(0)} D'après le tableau de signes, les images sont  ${a > 0 ? 'd\'abord négatives, puis positives' : 'd\'abord positives, puis négatives'}.<br>
         On en déduit que la fonction $${nom}$ est ${a > 0 ? 'strictement croissante' : 'strictement décroissante'} sur $\\mathbb R$.<br>`
-          texteCorr += `${numAlpha(1)} Comme $${nom}$ est une fonction affine ${a > 0 ? 'strictement croissante' : 'strictement décroissante'}, 
+          texteCorr += `${numAlpha(1)} Comme $${nom}$ est une fonction affine ${a > 0 ? 'strictement croissante' : 'strictement décroissante'},
           les antécédents et les images sont rangées ${a > 0 ? 'dans le même ordre' : 'dans l\'ordre inverse'}. <br>
          `
           if (x2 > x1) {

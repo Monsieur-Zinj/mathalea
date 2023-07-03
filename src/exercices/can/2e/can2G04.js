@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre, ecritureParentheseSiNegatif, texteEnCouleur, creerNomDePolygone, arrondi } from '../../../modules/outils.js'
+import { randint, choice, texNombre, texteEnCouleur, creerNomDePolygone, arrondi } from '../../../modules/outils.js'
 export const titre = 'Calculer les coordonnées du milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,7 +31,7 @@ export default function CalculCoordonneesMilieu () {
         this.question = `Dans un repère du plan, on donne $${nom[0]}(${a};${c})$ et $${nom[1]}(${b};${d})$.<br>
         Déterminer les coordonnées du milieu de $[${nom[0] + nom[1]}]$ sous forme décimale.`
         this.optionsChampTexte = { texteApres: '' }
-        this.correction = `Les coordonnées du milieu sont  données par : 
+        this.correction = `Les coordonnées du milieu sont  données par :
         $\\left(\\dfrac{${a}+${b}}{2};\\dfrac{${c}+${d}}{2}\\right)=
         \\left(\\dfrac{${texNombre(a + b, 0)}}{2};\\dfrac{${texNombre(c + d, 0)}}{2}\\right)=
         (${texNombre((a + b) / 2, 1)};${texNombre((c + d) / 2, 1)})$<br>`
@@ -47,7 +48,7 @@ export default function CalculCoordonneesMilieu () {
         this.question = `Dans un repère du plan d'origine $O$, on donne $${nom[0]}(${a};${b})$.<br>
         Déterminer les coordonnées du milieu de $[O${nom[0]}]$ sous forme décimale.`
         this.optionsChampTexte = { texteApres: '' }
-        this.correction = `Comme les coordonnées du point $O$ sont $(0;0)$, les coordonnées du milieu sont  données par : 
+        this.correction = `Comme les coordonnées du point $O$ sont $(0;0)$, les coordonnées du milieu sont  données par :
         $\\left(\\dfrac{0+${ecritureParentheseSiNegatif(a)}}{2};\\dfrac{0+${ecritureParentheseSiNegatif(b)}}{2}\\right)
         =(${texNombre((a) / 2)};${texNombre((b) / 2)})$<br>`
         this.correction += texteEnCouleur(` Mentalement : <br>

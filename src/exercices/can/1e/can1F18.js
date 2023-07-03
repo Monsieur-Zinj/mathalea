@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, reduirePolynomeDegre3, reduireAxPlusB, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $a/u(x)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -73,7 +79,7 @@ export default function CalculFonctionDeriveeAsurU () {
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f(x)=\\dfrac{${a}}{${reduirePolynomeDegre3(0, m, 0, p)}}=${a}\\times \\dfrac{1}{${reduirePolynomeDegre3(0, m, 0, p)}}$.<br>
                        Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
-                On a  $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $u'(x)=${2 * m}x$. On en déduit,  
+                On a  $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $u'(x)=${2 * m}x$. On en déduit,
                 $f'(x)= ${a}\\times\\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}=\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}$.`
 
         this.reponse = [`\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, -m, 0, -p)})^2}`]

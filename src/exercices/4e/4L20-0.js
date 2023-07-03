@@ -1,6 +1,8 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, miseEnEvidence, deprecatedTexFraction, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, signe, abs, miseEnEvidence, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true

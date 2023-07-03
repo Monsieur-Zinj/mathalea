@@ -1,9 +1,9 @@
+import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
   texteEnCouleurEtGras,
-  listeDesDiviseurs,
   sp,
   numAlpha,
   gestionnaireFormulaireTexte

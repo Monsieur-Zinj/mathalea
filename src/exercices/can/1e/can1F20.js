@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, ecritureAlgebriqueSauf1, randint, rienSi1, sp, abs, choice, ecritureAlgebrique } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, sp, abs, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Résoudre une équation du second degré sans $\\Delta$'

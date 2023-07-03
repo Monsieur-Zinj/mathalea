@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB, rienSi1
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, choice, randint, combinaisonListes, texteEnCouleurEtGras, rienSi1, reduireAxPlusB, ecritureParentheseSiNegatif, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice, randint, combinaisonListes, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 

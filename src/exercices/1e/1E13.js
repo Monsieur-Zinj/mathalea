@@ -1,5 +1,12 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  rienSi1
+} from '../../lib/outils/ecritures.js'
+import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, pgcd, egal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, extraireRacineCarree, egal } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/mathFonctions/outilsMaths.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

@@ -1,3 +1,4 @@
+import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
@@ -5,8 +6,7 @@ import {
   listeQuestionsToContenu,
   randint,
   combinaisonListes,
-  texFractionReduite,
-  deprecatedTexFraction, choice, texteEnCouleurEtGras, contraindreValeur, miseEnEvidence
+  choice, texteEnCouleurEtGras, contraindreValeur, miseEnEvidence
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

@@ -1,3 +1,4 @@
+import { personne, prenom } from '../../../lib/outils/Personne.js'
 import Exercice from '../../Exercice.js'
 import {
   listeQuestionsToContenu,
@@ -6,8 +7,6 @@ import {
   texNombre,
   choice,
   texPrix,
-  prenom,
-  personne,
   miseEnEvidence,
   stringNombre,
   gestionnaireFormulaireTexte

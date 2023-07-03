@@ -1,5 +1,7 @@
+import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint, combinaisonListes, pgcd, miseEnEvidence, deprecatedTexFraction, texFractionReduite } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 

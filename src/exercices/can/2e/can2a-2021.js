@@ -1,3 +1,5 @@
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { context } from '../../../modules/context.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -6,7 +8,7 @@ import {
   point, repere, courbe, labelPoint, segment, milieu, texteParPosition, codageSegment
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, stringNombre, randint, ecritureAlgebrique, texNombre, texFractionReduite, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, stringNombre, randint, texNombre, printlatex, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -130,7 +132,7 @@ export default function SujetCAN2021Seconde () {
           a = randint(3, 15)
           b = choice([15, 30])
 
-          texte = `Si l'on parcourt $${a}$ km en $${b}$ min, la vitesse moyenne est de 
+          texte = `Si l'on parcourt $${a}$ km en $${b}$ min, la vitesse moyenne est de
              `
           if (b === 15) {
             texteCorr = `$15$ min est le quart d'une heure. Donc la vitesse moyenne est $${a}\\times 4=${4 * a}$ km/h.`
@@ -151,7 +153,7 @@ export default function SujetCAN2021Seconde () {
           b = randint(2, 9)
           reponse = a ** 2 + b
 
-          texte = `Calculer $x^2+${b}$ pour $x=${a}$. 
+          texte = `Calculer $x^2+${b}$ pour $x=${a}$.
                `
           texteCorr = `Pour $x=${a}$, $x^2+${b}=(${a})^2+${b}=${a ** 2}+${b}=${reponse}$.`
 
@@ -377,7 +379,7 @@ export default function SujetCAN2021Seconde () {
           a = randint(5, 99, 10) / 10
           b = randint(2, 9) * 5
           c = 100 - b
-          texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$ 
+          texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$
       `
           texteCorr = ` On factorise : <br>     $\\begin{aligned}
       ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
@@ -398,7 +400,7 @@ export default function SujetCAN2021Seconde () {
           d = randint(1, 10)
           texte = `Dans un repère du plan, on donne $A(${a};${c})$ et $B(${b};${d})$.<br>
         Déterminer les coordonnées du milieu du segment  $[AB]$.`
-          texteCorr = `Les coordonnées du milieu sont  données par : 
+          texteCorr = `Les coordonnées du milieu sont  données par :
         $\\left(\\dfrac{${a}+${b}}{2};\\dfrac{${c}+${d}}{2}\\right)=
         \\left(\\dfrac{${a + b}}{2};\\dfrac{${c + d}}{2}\\right)=
         (${texNombre((a + b) / 2, 1)};${texNombre((c + d) / 2, 1)})$.`
@@ -459,7 +461,7 @@ export default function SujetCAN2021Seconde () {
             b = choice([20, 25])
             reponse = a * 100 / b
             texte = `$${b}\\,\\%$ des élèves d'un lycée sont externes. <br>
-          Il y a $${a}$ externes. Combien y a-t-il d'élèves dans ce lycée ? 
+          Il y a $${a}$ externes. Combien y a-t-il d'élèves dans ce lycée ?
       `
             texteCorr = ` Comme $100\\,\\%$ est égal à $${100 / b}$ fois $${b}\\,\\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
           }
@@ -468,7 +470,7 @@ export default function SujetCAN2021Seconde () {
             b = 10
             reponse = a * 10
             texte = `$${b}\\,\\%$ des élèves d'un lycée sont externes. <br>
-            Il y a $${a}$ externes. Combien y a-t-il d'élèves dans ce lycée ? 
+            Il y a $${a}$ externes. Combien y a-t-il d'élèves dans ce lycée ?
         `
             texteCorr = ` Comme $100\\,\\%$ est égal à $${100 / b}$ fois $${b}\\,\\%$, alors le nombre d'élèves dans ce lycée est : $${a}\\times ${100 / b}=${reponse}$.`
           }
@@ -596,7 +598,7 @@ export default function SujetCAN2021Seconde () {
           c = a + k
           d = b + randint(2, 4) * k
           texte = `Dans un repère du plan, on considère les points $A(${a};${b})$ et $B(${c};${d})$.<br>
-          Calculer le coefficient directeur de $(AB)$. 
+          Calculer le coefficient directeur de $(AB)$.
       `
           texteCorr = ` Le coefficient directeur de la droite $(AB)$ est donné par :<br>
            $\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
@@ -611,7 +613,7 @@ export default function SujetCAN2021Seconde () {
           a = randint(2, 10)
 
           reponse = 4 * a
-          texte = `Déterminer le périmètre d'un carré d'aire $${a ** 2}$ cm$^2$. 
+          texte = `Déterminer le périmètre d'un carré d'aire $${a ** 2}$ cm$^2$.
       `
           texteCorr = `Si l'aire du carré est $${a ** 2}$ cm$^2$, la longueur de son côté est $\\sqrt{${a ** 2}}=${a}$ cm. <br>
           On en déduit que le périmètre du carré est $4\\times ${a}=${4 * a}$ cm. `
@@ -626,7 +628,7 @@ export default function SujetCAN2021Seconde () {
           b = randint(2, 10)
           reponse = fraction(a, a + b)
           texte = `On tire une boule dans une urne contenant $${a}$ boules rouges et $${b}$ boules vertes.<br>
-          Quelle est la probabilité de tirer une boule rouge ? 
+          Quelle est la probabilité de tirer une boule rouge ?
       `
           texteCorr = `Il y a $${b}$ boules rouges sur un total de $${a + b}$ boules. <br>
           La probabilité de tirer une boule rouge est donc : $\\dfrac{${a}}{${a + b}}${simplificationDeFractionAvecEtapes(a, a + b)}$`
@@ -711,7 +713,7 @@ export default function SujetCAN2021Seconde () {
           a = choice([1, 2, 3, 4, 10])
           reponse = a ** 3 / 100
           texte = `La masse volumique d'un solide  est de $10$ g/cm$^3$.<br>
-          Combien pèse (en kg) ce solide qui a la forme d'un cube  d'arête $${a}$ cm  ? 
+          Combien pèse (en kg) ce solide qui a la forme d'un cube  d'arête $${a}$ cm  ?
       `
           texteCorr = `Le volume du cube est $${a}^3=${a ** 3}$ cm$^3$.<br>
           Sa masse  est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100, 2)}$ kg.

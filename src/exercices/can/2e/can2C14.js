@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 export const titre = 'Calculer avec une racine carrée (définition)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

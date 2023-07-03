@@ -2,8 +2,8 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import Grandeur from '../../modules/Grandeur'
 import { number } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { texteExposant } from '../../modules/outils'
 import Hms from '../../modules/Hms'
+import { texteExposant } from '../outils/ecritures.js'
 
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const engine = new ComputeEngine()
@@ -28,7 +28,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
     }
     let resultat = 'KO'
-    let statut = 'OK'
+    // let statut = 'OK'
     let feedbackSaisie
     let feedbackCorrection
     let ii = 0
@@ -272,7 +272,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     ' par exemple).</em>'
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
-      statut = 'wait'
+      // statut = 'wait'
     } else if (resultat === 'essaieEncorePuissance') {
       spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
       spanReponseLigne.style.color = '#f15929'

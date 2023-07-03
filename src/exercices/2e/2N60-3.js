@@ -1,5 +1,11 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  rienSi1
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, texteGras, sp, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, rienSi1, abs, choice, texNombre, randint, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, texteGras, sp, abs, choice, texNombre, randint } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'
 export const dateDePublication = '14/02/2023'
 /**
@@ -46,11 +52,11 @@ export default function ProprietesInegalites () {
             const p = randint(-10, 10, 0)
             const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
             const choix2 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
-            texte = ` Sachant que $${texNombre(Math.floor(100 * rac) / 100, 2)} ${choix1[0]} \\sqrt{${a}} ${choix2[0]} ${texNombre(Math.ceil(100 * rac) / 100, 2)}$, 
+            texte = ` Sachant que $${texNombre(Math.floor(100 * rac) / 100, 2)} ${choix1[0]} \\sqrt{${a}} ${choix2[0]} ${texNombre(Math.ceil(100 * rac) / 100, 2)}$,
             encadrer le plus précisément possible  $${rienSi1(m)}\\sqrt{${a}}${ecritureAlgebrique(p)}$.
                 `
 
-            texteCorr = `${texteGras('Méthode :')} en partant de l'encadrement initial de $\\sqrt{${a}}$, 
+            texteCorr = `${texteGras('Méthode :')} en partant de l'encadrement initial de $\\sqrt{${a}}$,
 on forme, avec des opérations successives, $${rienSi1(m)}\\sqrt{${a}}${ecritureAlgebrique(p)}$.<br>
 $\\begin{aligned}
 ${texNombre(Math.floor(100 * rac) / 100, 2)}${choix1[0]}&\\sqrt{${a}}${choix2[0]}${texNombre(Math.ceil(100 * rac) / 100, 2)}\\\\`
@@ -92,15 +98,15 @@ x &${choix1[0]} ${a}\\\\`
             const p = randint(-10, 10, 0)
             const choix1 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
             const choix2 = choice([['<', '>'], ['\\leqslant', '\\geqslant']])
-            texte = ` Sachant que $${a} ${choix1[0]} x ${choix2[0]} ${b}$, 
+            texte = ` Sachant que $${a} ${choix1[0]} x ${choix2[0]} ${b}$,
             encadrer le plus précisément possible  $${rienSi1(m)}x${ecritureAlgebrique(p)}$.
                 `
 
-            texteCorr = `${texteGras('Méthode :')} en partant de l'encadrement initial de $x$, 
+            texteCorr = `${texteGras('Méthode :')} en partant de l'encadrement initial de $x$,
 on forme, avec des opérations successives, $${rienSi1(m)}x${ecritureAlgebrique(p)}$.<br>
 $\\begin{aligned}
 ${a} ${choix1[0]}  x &${choix2[0]} ${b}\\\\`
-            texteCorr += `${m}\\times ${ecritureParentheseSiNegatif(a)} 
+            texteCorr += `${m}\\times ${ecritureParentheseSiNegatif(a)}
 ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`} ${m}\\times x &${m > 0 ? `${choix2[0]}` : `${choix2[1]}`} ${m}\\times ${ecritureParentheseSiNegatif(b)}   ${sp(7)}\\text{ On multiplie par ${m > 0 ? `$${m}> 0$ ` : `$${m}< 0 $`}, le sens des inégalités ${m > 0 ? 'ne change pas' : 'change'}.}\\\\`
             texteCorr += `${texNombre(m * a)}${m > 0 ? `${choix1[0]}` : `${choix1[1]}`}${rienSi1(m)}x &${m > 0 ? `${choix2[0]}` : `${choix2[1]}`}  ${texNombre(m * b)}   \\\\`
             texteCorr += `${texNombre(m * a)} ${ecritureAlgebrique(p)} ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`} ${rienSi1(m)}x ${ecritureAlgebrique(p)} &${m > 0 ? `${choix2[0]}` : `${choix2[1]}`}  ${texNombre(m * b)} ${ecritureAlgebrique(p)} ${sp(7)}\\text{ On  ${p > 0 ? 'ajoute' : 'retranche'} ${abs(p)}.}  \\\\`
@@ -183,7 +189,7 @@ ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`} ${m}\\times x &${m > 0 ? `${choix2[0]
                    $\\begin{aligned}
                    ${c} ${choix1[0]} y &${choix1[0]} ${d}\\\\`
                   texteCorr += `${p}\\times ${ecritureParentheseSiNegatif(c)} ${choix1[0]} ${p}\\times y &${choix1[0]} ${p}\\times ${ecritureParentheseSiNegatif(d)} ${sp(7)} \\text{ On multiplie par } ${p} > 0 \\text{, le sens des inégalités ne change pas.}\\\\`
-                  texteCorr += ` 
+                  texteCorr += `
                   ${p * c} ${choix1[0]} ${rienSi1(p)}y& ${choix1[0]} ${p * d}\\\\`
                   texteCorr += '\\end{aligned}$'
                   texteCorr += `<br>
@@ -194,17 +200,17 @@ ${m > 0 ? `${choix1[0]}` : `${choix1[1]}`} ${m}\\times x &${m > 0 ? `${choix2[0]
                     texteCorr += ` $\\begin{aligned}
                     ${a} ${choix1[0]}  x &${choix1[0]} ${b}\\\\`
                     texteCorr += `${m}\\times ${ecritureParentheseSiNegatif(a)} ${choix1[1]} ${m}\\times x &${choix1[1]} ${m}\\times ${ecritureParentheseSiNegatif(b)} ${sp(7)} \\text{ On multiplie par } ${m} < 0 \\text{, le sens des inégalités change.}\\\\`
-                    texteCorr += ` 
+                    texteCorr += `
                     ${m * a} ${choix1[1]} ${rienSi1(m)}x& ${choix1[1]} ${m * b}\\\\`
                     texteCorr += '\\end{aligned}$'
                     texteCorr += `<br>De même, <br>
                     $\\begin{aligned}
                     ${c} ${choix1[0]} y &${choix1[0]} ${d}\\\\`
                     texteCorr += `${p}\\times ${ecritureParentheseSiNegatif(c)} ${choix1[1]} ${p}\\times y &${choix1[1]} ${p}\\times ${ecritureParentheseSiNegatif(d)} ${sp(7)} \\text{ On multiplie par } ${p} < 0 \\text{, le sens des inégalités change.}\\\\`
-                    texteCorr += ` 
+                    texteCorr += `
                    ${p * c} ${choix1[1]} ${rienSi1(p)}y& ${choix1[1]} ${p * d}\\\\`
                     texteCorr += '\\end{aligned}$'
-                    texteCorr += `<br>                   
+                    texteCorr += `<br>
                   Ainsi, on a : $\\begin{cases}    ${m * b} ${choix1[0]} ${rienSi1(m)}x ${choix1[0]} ${m * a}\\\\    ${p * d} ${choix1[0]} ${rienSi1(p)}y ${choix1[0]} ${p * c}     \\end{cases} $.<br>
                   Ces inégalités sont de même sens, en faisant les sommes, on obtient : $${m * b + p * d} ${choix1[0]} ${rienSi1(m)}x${ecritureAlgebriqueSauf1(p)}y ${choix1[0]} ${m * a + p * c}$.`
                   }

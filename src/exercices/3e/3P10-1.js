@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
+import { modalUrl } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, modalUrl, texNombre, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'

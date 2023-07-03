@@ -1,3 +1,4 @@
+import { prenomM } from '../../../lib/outils/Personne.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
@@ -5,7 +6,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.j
 import { fraction } from '../../../modules/fractions.js'
 import { pave, point, grille, labelPoint, codageSegment, codageAngleDroit, polygone, repere, traceBarre, droiteGraduee, segment, milieu, texteParPosition, polygoneAvecNom } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, stringNombre, sp, randint, prenomM, texNombre, miseEnEvidence, shuffle, choice, calcul, texPrix } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, stringNombre, sp, randint, texNombre, miseEnEvidence, shuffle, choice, calcul, texPrix } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 5e sujet 2020'

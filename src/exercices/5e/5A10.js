@@ -1,6 +1,7 @@
+import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, texteOuPas, contraindreValeur, texNombre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texteOuPas, contraindreValeur, texNombre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -91,7 +92,7 @@ export default function ListeDesDiviseurs5e () {
       }
       do {
         M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)
-        listeDiviseursM = listeDiviseurs(M)
+        listeDiviseursM = listeDesDiviseurs(M)
         nbDiviseursM = listeDiviseursM.length
       } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i])
 
@@ -117,15 +118,15 @@ export default function ListeDesDiviseurs5e () {
           texte += '\\hline\n'
 
           if (nbDiviseursM % 2 === 0) { // si il y a un nombre pair de diviseurs
-            for (let m = 0; m < (listeDiviseurs(M).length / 2); m++) {
-              texte += texteOuPas(listeDiviseurs(M)[m]) + ' & ' + texteOuPas(listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`
+            for (let m = 0; m < (listeDesDiviseurs(M).length / 2); m++) {
+              texte += texteOuPas(listeDesDiviseurs(M)[m]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`
               texte += '\\hline\n'
             };
           } else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
-            for (let m = 0; m < ((listeDiviseurs(M).length - 1) / 2); m++) {
-              texte += texteOuPas(listeDiviseurs(M)[m]) + ' & ' + texteOuPas(listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`
+            for (let m = 0; m < ((listeDesDiviseurs(M).length - 1) / 2); m++) {
+              texte += texteOuPas(listeDesDiviseurs(M)[m]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`
             };
-            texte += texteOuPas(listeDiviseurs(M)[(nbDiviseursM - 1) / 2]) + ' & ' + texteOuPas(listeDiviseurs(M)[(nbDiviseursM - 1) / 2]) + `& ${texteOuPas(M)} \\\\\n`
+            texte += texteOuPas(listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2]) + `& ${texteOuPas(M)} \\\\\n`
             texte += '\\hline\n'
           };
           texte += '\\end{array}\n$'
@@ -146,15 +147,15 @@ export default function ListeDesDiviseurs5e () {
           texteCorr += '\\hline\n'
 
           if (nbDiviseursM % 2 === 0) { // si il y a un nombre pair de diviseurs
-            for (let m = 0; m < (listeDiviseurs(M).length / 2); m++) {
-              texteCorr += listeDiviseurs(M)[m] + ' & ' + listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)] + `& ${M} \\\\\n`
+            for (let m = 0; m < (listeDesDiviseurs(M).length / 2); m++) {
+              texteCorr += listeDesDiviseurs(M)[m] + ' & ' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)] + `& ${M} \\\\\n`
               texteCorr += '\\hline\n'
             };
           } else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
-            for (let m = 0; m < ((listeDiviseurs(M).length - 1) / 2); m++) {
-              texteCorr += listeDiviseurs(M)[m] + ' & ' + listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)] + `& ${M} \\\\\n`
+            for (let m = 0; m < ((listeDesDiviseurs(M).length - 1) / 2); m++) {
+              texteCorr += listeDesDiviseurs(M)[m] + ' & ' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)] + `& ${M} \\\\\n`
             };
-            texteCorr += listeDiviseurs(M)[(nbDiviseursM - 1) / 2] + ' & ' + listeDiviseurs(M)[(nbDiviseursM - 1) / 2] + `& ${M} \\\\\n`
+            texteCorr += listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2] + ' & ' + listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2] + `& ${M} \\\\\n`
             texteCorr += '\\hline\n'
           };
           texteCorr += '\\end{array}\n$'
@@ -164,8 +165,8 @@ export default function ListeDesDiviseurs5e () {
           texteCorr += '<br>'
           texteCorr += `${M} a donc ${nbDiviseursM} diviseurs qui sont : `
           texteCorr += '1'
-          for (let w = 1; w < listeDiviseurs(M).length; w++) {
-            texteCorr += ' ; ' + listeDiviseurs(M)[w]
+          for (let w = 1; w < listeDesDiviseurs(M).length; w++) {
+            texteCorr += ' ; ' + listeDesDiviseurs(M)[w]
           };
           texteCorr += '.'
           break
@@ -181,26 +182,26 @@ export default function ListeDesDiviseurs5e () {
           // texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times $${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
           // texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times $${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(M))}.`
           // texteCorr += ` En effet, si ${M} est le produit de deux entiers p et q  (p$\\times $q = ${M}) avec p < q alors, si p$\\times $p > ${M}, c'est que q$\\times $q < ${M} mais dans ce cas p serait supérieur à q sinon p$\\times $q serait inférieur à ${M} ce qui ne doit pas être le cas.<br>`
-          if (listeDiviseurs(M).length % 2 === 0) { // si il y a un nombre pair de diviseurs
-            for (let m = 0; m < (listeDiviseurs(M).length / 2); m++) {
-              texteCorr += '' + listeDiviseurs(M)[m] + '$\\times $' + listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)] + ` = ${M}<br>`
+          if (listeDesDiviseurs(M).length % 2 === 0) { // si il y a un nombre pair de diviseurs
+            for (let m = 0; m < (listeDesDiviseurs(M).length / 2); m++) {
+              texteCorr += '' + listeDesDiviseurs(M)[m] + '$\\times $' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)] + ` = ${M}<br>`
             };
           } else {
-            for (let m = 0; m < ((listeDiviseurs(M).length - 1) / 2); m++) {
-              texteCorr += '' + listeDiviseurs(M)[m] + '$\\times $' + listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)] + '<br>'
+            for (let m = 0; m < ((listeDesDiviseurs(M).length - 1) / 2); m++) {
+              texteCorr += '' + listeDesDiviseurs(M)[m] + '$\\times $' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)] + '<br>'
             };
-            texteCorr += '' + listeDiviseurs(M)[(listeDiviseurs(M).length - 1) / 2] + '$\\times $' + listeDiviseurs(M)[(listeDiviseurs(M).length - 1) / 2] + ` = ${M}<br>`
+            texteCorr += '' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - 1) / 2] + '$\\times $' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - 1) / 2] + ` = ${M}<br>`
           };
           texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${M}.<br>`
           texteCorr += `La liste des diviseurs de ${M} est donc `
           texteCorr += '1'
-          for (let w = 1; w < listeDiviseurs(M).length; w++) {
-            texteCorr += ' ; ' + listeDiviseurs(M)[w]
+          for (let w = 1; w < listeDesDiviseurs(M).length; w++) {
+            texteCorr += ' ; ' + listeDesDiviseurs(M)[w]
           };
           texteCorr += '.'
           break
       };
-      setReponse(this, i, JSON.stringify(listeDiviseurs(M)).replace('[', '').replace(']', ''), { formatInteractif: 'texte' })
+      setReponse(this, i, JSON.stringify(listeDesDiviseurs(M)).replace('[', '').replace(']', ''), { formatInteractif: 'texte' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur35 inline', { texte: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

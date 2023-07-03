@@ -1,5 +1,6 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { randint, texFractionReduite, sp } from '../../../modules/outils.js'
+import { randint, sp } from '../../../modules/outils.js'
 export const titre = 'Déterminer le rang d’une médiane'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +29,7 @@ export default function Mediane () {
     Quel est le rang de la médiane ? `
     this.correction = `En notant $x_1$ la plus valeur de la série, puis $x_2$ la suivante, .... et $x_{${c}}$ la plus grande valeur, on obtient :<br>
 $\\underbrace{x_1 ${sp(2)} ; ${sp(2)} x_2 ${sp(2)} ; ${sp(2)} ..... ; ${sp(2)}
- x_{${a * n}}}_{${a * n} \\text{ valeurs}} ${sp(2)} ; ${sp(2)} \\underbrace{x_{${a * n + 1}}}_{\\text{Médiane}} 
+ x_{${a * n}}}_{${a * n} \\text{ valeurs}} ${sp(2)} ; ${sp(2)} \\underbrace{x_{${a * n + 1}}}_{\\text{Médiane}}
  ${sp(2)} ; ${sp(2)} \\underbrace{x_{${a * n + 2}} ; ${sp(2)} ..... ; ${sp(2)}  x_{${c}}}_{${a * n} \\text{ valeurs}}$<br>
 
     

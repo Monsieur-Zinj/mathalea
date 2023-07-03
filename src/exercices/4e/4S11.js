@@ -1,6 +1,7 @@
+import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, tirerLesDes, listeDeNotes, unMoisDeTemperature, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'

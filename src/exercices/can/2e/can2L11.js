@@ -1,5 +1,6 @@
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, rienSi1, arrondi, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
+import { randint, choice, arrondi } from '../../../modules/outils.js'
 export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
 export const interactifType = 'mathLive'

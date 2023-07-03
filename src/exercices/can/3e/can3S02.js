@@ -1,6 +1,7 @@
+import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { choice, deprecatedTexFraction } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils.js'
 export const titre = 'Calculer la probabilité d’ un évènement contraire'
 export const interactifReady = true
 export const interactifType = 'mathLive'

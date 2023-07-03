@@ -1,11 +1,11 @@
-
+import { texteExposant } from '../../lib/outils/ecritures.js'
 import FractionEtendue from '../FractionEtendue.js'
 import { number } from 'mathjs'
 import Grandeur from '../Grandeur.js'
 import { context } from '../context.js'
 import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
-import { sp, texteExposant } from '../outils.js'
+import { sp } from '../outils.js'
 import * as pkg from '@cortex-js/compute-engine'
 import Hms from '../Hms.js'
 const { ComputeEngine } = pkg

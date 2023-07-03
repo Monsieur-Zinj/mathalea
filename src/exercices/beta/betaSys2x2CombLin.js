@@ -1,6 +1,12 @@
 import { simplify } from 'mathjs'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  rienSi1
+} from '../../lib/outils/ecritures.js'
 import { matriceCarree } from '../../modules/MatriceCarree.js'
-import { listeQuestionsToContenu, randint, abs, ppcm, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebriqueSauf1, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, ppcm } from '../../modules/outils.js'
 
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'

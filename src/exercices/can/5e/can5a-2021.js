@@ -1,9 +1,10 @@
+import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { point, labelPoint, codageSegment, codageAngle, droiteGraduee, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint, stringNombre, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, printlatex, randint, stringNombre, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 5e sujet 2021'
@@ -869,7 +870,7 @@ export default function SujetCAN20215ieme () {
             texte = `Complète : <br>$ ${b.texFraction}+${a.texFraction}=$`
             texteCorr = ` $ ${b.texFraction}+${a.texFraction}
            = ${b.texFraction}+\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}
-          =${b.texFraction}+${a.reduire(c).texFraction} 
+          =${b.texFraction}+${a.reduire(c).texFraction}
           =\\dfrac{${b.n}+${a.n * c}}{${b.d}}
           =\\dfrac{${b.n + a.n * c}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
           }

@@ -1,6 +1,7 @@
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, miseEnEvidence, choice, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint, miseEnEvidence, choice } from '../../../modules/outils.js'
 import {
   repere, texteParPosition,
   point, tracePoint, segment, droite, milieu

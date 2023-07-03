@@ -1,7 +1,8 @@
+import { prenomF } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { droiteGraduee } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, range1, combinaisonListesSansChangerOrdre, prenomF, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, range1, combinaisonListesSansChangerOrdre, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 6e 10 questions (niveau 2)'
@@ -68,7 +69,7 @@ export default function Can10Questions6N2 () {
           texteCorr += texteEnCouleur(`<br> Mentalement : <br>
             On complète $${c * 10 + a}$ jusqu'à la dizaine la plus proche en ajoutant $${(c + 1) * 10 - (c * 10 + a)}$, on obtient $${(c + 1) * 10}$,
             puis de $${(c + 1) * 10}$ à $${(c + d) * 10 + b + a}$, on ajoute encore $${(c + d) * 10 + b + a - (c + 1) * 10}$. <br>
-            Au total 
+            Au total
             on a donc ajouter $${(c + 1) * 10 - (c * 10 + a)}$ et  $${(c + d) * 10 + b + a - (c + 1) * 10}$ ce qui donne la réponse $${reponse}$.<br>
               `)
           reponse = d * 10 + b
@@ -211,11 +212,11 @@ export default function Can10Questions6N2 () {
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
           reponse = calcul(c / 5 * b)
-          texte = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 10 * b)}$ €, 
+          texte = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 10 * b)}$ €,
             combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
           texteCorr = `On reconnaît une situation de proportionnalité : <br>
             La masse de ${fruits[a][0]} est proportionnelle au prix.<br>
-            On remarque qu'on demande le prix pour une quantité double ($${texNombre(c / 5)}=2\\times ${texNombre(c / 10)}$).<br> 
+            On remarque qu'on demande le prix pour une quantité double ($${texNombre(c / 5)}=2\\times ${texNombre(c / 10)}$).<br>
             Ainsi, le prix à payer pour $${texNombre(c / 5)}$ kg de ${fruits[a][0]} est :  $${texNombre(c / 10 * b)} \\times 2 = ${texNombre(reponse)}$ €`
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
           break
@@ -227,13 +228,13 @@ export default function Can10Questions6N2 () {
           if (choice([true, false])) {
             texte = `${prenom1} a $${a}$ ans. Elle a  $${b}$ ans de moins que sa sœur.<br>
           Quelle est l'âge de sa sœur ? `
-            texteCorr = `Puisque ${prenom1} a $${a}$ ans et qu'elle a $${b}$ ans de moins que sa sœur, 
+            texteCorr = `Puisque ${prenom1} a $${a}$ ans et qu'elle a $${b}$ ans de moins que sa sœur,
           alors sa sœur a $${b}$ ans de plus qu'elle, soit $${a}+${b}=${a + b}$ ans.`
             reponse = a + b
           } else {
             texte = `${prenom1} a $${a}$ ans. Elle a  $${b}$ ans de plus que sa sœur.<br>
           Quel est l'âge de sa sœur ? `
-            texteCorr = `Puisque ${prenom1} a $${a}$ ans et qu'elle a $${b}$ ans de plus que sa sœur, 
+            texteCorr = `Puisque ${prenom1} a $${a}$ ans et qu'elle a $${b}$ ans de plus que sa sœur,
           alors sa sœur a $${b}$ ans de moins qu'elle, soit $${a}-${b}=${a - b}$ ans.`
             reponse = a - b
           }
@@ -246,7 +247,7 @@ export default function Can10Questions6N2 () {
           b = randint(1, 5)
           texte = `Le périmètre d'un rectangle de $${a}$ m de longueur $${b}$ m de largeur est : `
           texteCorr = `Le périmètre d'un rectangle de longueur $L$ et de largeur $\\ell$ est donné par : $2\\times (L+\\ell)$.<br>
-          On applique avec $L=${a}$ et $\\ell=${b}$, on obtient : 
+          On applique avec $L=${a}$ et $\\ell=${b}$, on obtient :
           $2(${a}+${b})=2\\times ${a + b}=${2 * a + 2 * b}$.`
           reponse = 2 * (a + b)
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })

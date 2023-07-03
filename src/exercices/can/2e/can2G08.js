@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp, choice } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenuSansNumero, sp, choice } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer les coordonnées d’un vecteur (bis)'
@@ -32,7 +33,7 @@ export default function CoordonneesVecteur2 () {
    ${sp(20)}$\\vec{u}=${a}(\\vec{i}+${b}\\vec{j})$.
    <br>
    Quelles sont les coordonnées du vecteur $\\vec{u}$ dans ce repère ?
-   ${this.interactif ? '$\\Bigg($' + ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : ''} 
+   ${this.interactif ? '$\\Bigg($' + ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : ''}
    ${this.interactif ? ';' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : ''}
    ${this.interactif ? '$\\Bigg)$' : ''}`]
       this.listeCorrections = [`$\\vec{u}=${a}(\\vec{i}+${b}\\vec{j})=${a}\\vec{i}+${ecritureParentheseSiNegatif(a * b)}\\vec{j}$.<br>
@@ -52,7 +53,7 @@ export default function CoordonneesVecteur2 () {
       ${sp(20)}$\\vec{u}=${a}(\\vec{j}+${b}\\vec{i})$.
       <br>
       Quelles sont les coordonnées du vecteur $\\vec{u}$ dans ce repère ?
-      ${this.interactif ? '$\\Bigg($' + ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : ''} 
+      ${this.interactif ? '$\\Bigg($' + ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : ''}
    ${this.interactif ? ';' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : ''}
    ${this.interactif ? '$\\Bigg)$' : ''}`]
       this.listeCorrections = [`$\\vec{u}=${a}(\\vec{j}+${b}\\vec{i})=${a}\\vec{j}+${ecritureParentheseSiNegatif(a * b)}\\vec{i}$.<br>

@@ -1,5 +1,6 @@
+import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, shuffle, texNombre, obtenirListeFacteursPremiers, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, texNombre, choice, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Deviner un nombre relatif'
 

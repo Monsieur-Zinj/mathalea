@@ -1,6 +1,7 @@
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, codageMilieu, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 

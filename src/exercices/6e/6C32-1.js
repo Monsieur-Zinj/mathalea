@@ -1,5 +1,6 @@
+import { personne, prenom, prenomF } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
-import { sp, listeQuestionsToContenu, randint, texNombre, numAlpha, prenomF, personne, texPrix, prenom, gestionnaireFormulaireTexte, arrondi } from '../../modules/outils.js'
+import { sp, listeQuestionsToContenu, randint, texNombre, numAlpha, texPrix, gestionnaireFormulaireTexte, arrondi } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -82,7 +83,7 @@ export default function ExerciceProblemesComplexes () {
                         Fromage blanc : $${quaFro}\\times ${texNombre(calFro)} =   ${texNombre(calFro * quaFro)}$ calories. <br>
                         Pomme : $${quaPom}\\times ${texNombre(calPom)} =   ${texNombre(calPom * quaPom)}$ calories. <br>
                         Cela fait un total de : $${texNombre(calAgneau * quaAgneau)} + ${texNombre(calEpinards * quaEpinards)} + ${texNombre(calFro * quaFro)} + ${texNombre(calPom * quaPom)} =  ${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} $ calories.<br>
-                        ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? `${personnage.Pronom} respecte son règime` : `${personnage.Pronom} ne respecte pas son règime`} 
+                        ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? `${personnage.Pronom} respecte son règime` : `${personnage.Pronom} ne respecte pas son règime`}
                         car $${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? '< 700' : '> 700'}$.`
           if (this.interactif) {
             texte += '<br>' + numAlpha(0) + `Combien de calories fournit une côtelette d'agneau de $${quaAgneau}$ g ?`
@@ -212,7 +213,7 @@ export default function ExerciceProblemesComplexes () {
           texte += `Avant l'arrivée du numérique, au cinéma, la pellicule était utilisée pour projeter des films.<br>
                    Le format souvent utilisé était le format $35$ mm ce qui signifie que la pellicule faisait $35$ mm de largeur.<br>
                    Avec $24$ images par seconde, une pellicule de film de $30$ mètres de long représente $1$ minute de projection.<br>
-                   Pour projeter un film, plusieurs pellicules étaient nécessaires et le projectionniste avait pour rôle de les changer.<br>                                       
+                   Pour projeter un film, plusieurs pellicules étaient nécessaires et le projectionniste avait pour rôle de les changer.<br>
                    ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la longueur totale en mètres du film ?`
           setReponse(this, indiceInteractif, arrondi(nombreP * 600, 2))
           texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' m' })
@@ -371,9 +372,9 @@ export default function ExerciceProblemesComplexes () {
           const opP = randint(1, 3)
           const opD = randint(1, 3, [opP])
           texte += `Devinette : je pense à deux nombres entiers.<br>
-                    Si j'effectue ${opP === 1 ? 'la somme' : opP === 2 ? 'la différence' : 'le produit'} entre ses deux nombres, 
+                    Si j'effectue ${opP === 1 ? 'la somme' : opP === 2 ? 'la différence' : 'le produit'} entre ses deux nombres,
                     alors j'obtiens $${opP === 1 ? texNombre(nbP + nbD) : opP === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$.<br>
-                    Si j'effectue ${opD === 1 ? 'la somme' : opD === 2 ? 'la différence' : 'le produit'} entre ses deux nombres, 
+                    Si j'effectue ${opD === 1 ? 'la somme' : opD === 2 ? 'la différence' : 'le produit'} entre ses deux nombres,
                     alors j'obtiens $${opD === 1 ? texNombre(nbP + nbD) : opD === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$.<br>`
           if (!this.interactif) {
             texte += 'Quels sont ces deux nombres ?'
@@ -388,7 +389,7 @@ export default function ExerciceProblemesComplexes () {
           }
 
           texteCorr += `Par essais-erreurs, on trouve ${nbP} et ${nbD}.<br>
-                        Vérification :<br> 
+                        Vérification :<br>
                         $${nbP} ${opP === 1 ? '+' : opP === 2 ? '-' : '\\times'} ${nbD} = ${opP === 1 ? texNombre(nbP + nbD) : opP === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$<br>
                         $${nbP} ${opD === 1 ? '+' : opD === 2 ? '-' : '\\times'} ${nbD} = ${opD === 1 ? texNombre(nbP + nbD) : opD === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$<br>
                         `

@@ -1,6 +1,7 @@
+import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, prenomF, prenomM, texteEnCouleur, texteGras, texPrix, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, texPrix, numAlpha } from '../../modules/outils.js'
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs'
 
 /**
@@ -79,7 +80,7 @@ export default function ProblemesAdditifsRelatifs5e () {
       const currentPrenom = choice(prenoms)
 
       // une fonction pour écrire les chaine correctives
-      function myGainPerteString (nb, type, valeur) {
+      const myGainPerteString = function (nb, type, valeur) {
         let sortie = ''
         switch (type) {
           case 'gain':
@@ -99,13 +100,13 @@ export default function ProblemesAdditifsRelatifs5e () {
       }
 
       // une fonction pour dire si le bilan est positif ou négatif
-      function isBilanPositif (tot) {
+      const isBilanPositif = function (tot) {
         if (tot >= 0) {
           return true
         } else {
           return false
         };
-      };
+      }
 
       let bilan
       if (isBilanPositif(calcul((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calcul(gainMultiple / 10)) + calcul(nombreDeGainsUnitaires * calcul(gainPerteUnitaire / 10)) - calcul(nombreDePertes * calcul(gainPerteUnitaire / 10)))) {
@@ -159,7 +160,7 @@ ${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois
           correction: `
 ${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}.<br>
 Sur les $${situations[k].nb_tot_lancers}$ lancers, on sait combien de fois ${situations[k].pronomMin} a perdu de l'argent et combien de fois ${situations[k].pronomMin} a gagné $${texPrix(situations[k].gain_unitaire)}~$€.<br>
-Les autres lancers correspondent donc au nombre de fois où ${situations[k].pronomMin} a ${situations[k].correction_1} et gagné $${texPrix(situations[k].gain_multiple)}~$€.<br> 
+Les autres lancers correspondent donc au nombre de fois où ${situations[k].pronomMin} a ${situations[k].correction_1} et gagné $${texPrix(situations[k].gain_multiple)}~$€.<br>
 $${situations[k].nb_tot_lancers}-${situations[k].nb_pertes}-${situations[k].nb_gains_unitaires} = ${situations[k].nb_tot_lancers - situations[k].nb_pertes - situations[k].nb_gains_unitaires}$,
 ${situations[k].pronomMin} a donc ${situations[k].correction_1} $${situations[k].nb_gains}$ fois.
 
@@ -173,11 +174,11 @@ ${situations[k].pronomMin} a donc ${situations[k].correction_1} $${situations[k]
 <br>$${myGainPerteString(situations[k].nb_pertes, 'perte', situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${texPrix(situations[k].perte)}~$€$) = (-${texPrix(situations[k].nb_pertes * situations[k].perte)}~$€)
 
 <br>${numAlpha(indexSousQuestionCorr++)} ${situations[k].bilan[0]} ${situations[k].bilan[1]}.
-<br> ${situations[k].bilan[2]}   
+<br> ${situations[k].bilan[2]}
 
-<br>${numAlpha(indexSousQuestionCorr++)} 
+<br>${numAlpha(indexSousQuestionCorr++)}
 $(+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}~$€$)+(+${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}~$€$)+(-${texPrix(situations[k].nb_pertes * situations[k].perte)}~$€$) = (${texPrix(situations[k].nb_gains * situations[k].gain_multiple + situations[k].nb_gains_unitaires * situations[k].gain_unitaire - situations[k].nb_pertes * situations[k].perte)}~$€$)$
-<br>${texteEnCouleur(`Globalement, ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}~$€.`)} 
+<br>${texteEnCouleur(`Globalement, ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}~$€.`)}
 
 `
         })

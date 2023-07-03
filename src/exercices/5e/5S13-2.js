@@ -1,6 +1,7 @@
+import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, numAlpha, combinaisonListes, arrondi, egalOuApprox, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, numAlpha, combinaisonListes, arrondi, sp } from '../../modules/outils.js'
 import { diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'

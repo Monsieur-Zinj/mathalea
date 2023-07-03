@@ -1,11 +1,12 @@
 /* eslint-disable camelcase */
+import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { point, texteParPositionEchelle } from '../../modules/2d.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
-import { choice, combinaisonListes, listeQuestionsToContenu, modalPdf, modalUrl, randint, stringNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

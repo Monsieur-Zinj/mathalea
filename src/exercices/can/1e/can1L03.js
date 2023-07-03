@@ -1,5 +1,6 @@
+import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, reduireAxPlusB, rienSi1 } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Trouver les racines à partir d’une forme factorisée'
@@ -33,10 +34,10 @@ export default function RacinesPoly () {
       const x1 = randint(-9, 9)
       const x2 = randint(-9, 9, [0, x1])
       if (x1 === 0) {
-        texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+        texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
         $f(x)=${rienSi1(a)}x(${reduireAxPlusB(1, -x2)})$. <br>`
       } else {
-        texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+        texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
         $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>`
       }
       if (!this.interactif) {

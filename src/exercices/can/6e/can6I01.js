@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
+import { modalPdf, modalUrl } from '../../../lib/outils/modales.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
-import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../../modules/outils.js'
+import { randint, choice, texteGras, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../../modules/outils.js'
 import { point, texteParPositionEchelle, tracePoint, roseDesVents } from '../../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../../modules/2dLutin.js'

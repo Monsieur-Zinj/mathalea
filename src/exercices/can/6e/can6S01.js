@@ -1,5 +1,6 @@
+import { prenom } from '../../../lib/outils/Personne.js'
 import { repere, traceBarreHorizontale } from '../../../modules/2d.js'
-import { prenom, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Lire un diagramme en barres'

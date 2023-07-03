@@ -1,5 +1,7 @@
+import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { premiersEntreBornes } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, premiersEntreBornes, egalOuApprox, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, texNombre } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'

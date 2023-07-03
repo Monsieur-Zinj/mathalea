@@ -1,13 +1,25 @@
 /* eslint-disable camelcase */
 
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { rangeMinMax, choice, randint, objet, jourAuHasard, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range, deuxColonnes, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { max } from 'mathjs'
+import { jourAuHasard } from '../../lib/outils/dateEtHoraires.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
-import { max } from 'mathjs'
+import {
+  choice,
+  deuxColonnes,
+  listeQuestionsToContenu,
+  randint,
+  range,
+  rangeMinMax,
+  shuffle,
+  sp,
+  texteEnCouleurEtGras
+} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
@@ -31,6 +43,31 @@ export const dateDeModifImportante = '16/11/2021'
 */
 export const uuid = '4e89b'
 export const ref = '6C35'
+
+/**
+ * Renvoie un petit objet masculin au hasard
+ * @author Mireille Gain
+ */
+export function objetM () {
+  return choice(['stickers', 'gâteaux', 'cahiers', 'livres', 'stylos', 'crayons'])
+}
+
+/**
+ * Renvoie un petit objet féminin au hasard
+ * @author Mireille Gain
+ */
+export function objetF () {
+  return choice(['boîtes', 'bougies', 'cartes de vœux', 'gommes', 'photos', 'petites peluches'])
+}
+
+/**
+ * Renvoie un petit objet au hasard
+ * @author Mireille Gain
+ */
+export function objet () {
+  return choice(['billes', 'bonbons', 'bougies', 'cartes de vœux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
+}
+
 export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = titre

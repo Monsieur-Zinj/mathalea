@@ -1,6 +1,7 @@
+import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, choice, reduirePolynomeDegre3, reduireAxPlusB, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, choice, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { droiteParPointEtPente, point, repere, tracePoint, texteParPosition, labelPoint } from '../../modules/2d.js'
 export const interactifReady = true

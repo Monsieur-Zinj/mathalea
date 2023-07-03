@@ -1,6 +1,7 @@
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer si des droites $(d)$ et $(d\')$ sont parallèles, sécantes ou confondues :'
 
 /**

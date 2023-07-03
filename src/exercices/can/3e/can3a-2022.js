@@ -1,3 +1,4 @@
+import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
@@ -6,7 +7,7 @@ import {
   point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, texNombre, stringNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, stringNombre, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -267,7 +268,7 @@ export default function SujetCAN2022troisieme () {
           propositions = shuffle([`$${texNombre(a.mul(b).div(10), 3)}$`, `$${texNombre(a.mul(b).mul(10), 1)}$`, `$${texNombre(a.mul(b), 2)}$`])
           reponse = a.mul(b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          texte = `Recopie  le résultat de  : 
+          texte = `Recopie  le résultat de  :
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
           texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
           texteCorr += `<br>On en déduit que la bonne réponse est $${texNombre(reponse, 2)}$`
@@ -514,7 +515,7 @@ export default function SujetCAN2022troisieme () {
 
           texte = 'Périmètre du parallélogramme $ABCD$ :<br> '
           texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 6, scale: 0.7 }, poly, labelPoint(A, B, C, D), d, e)
-          texteCorr = `Le périmètre en cm est donné par : 
+          texteCorr = `Le périmètre en cm est donné par :
           $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${texNombre(reponse, 0)}$ cm`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -758,14 +759,14 @@ export default function SujetCAN2022troisieme () {
             if (a % 3 === 0) {
               reponse = 0
               texteCorr = `Le reste de la division de $${a}$ par $3$ est $${a % 3}$.`
-              texteCorr += ` Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br> 
+              texteCorr += ` Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br>
             La somme des chiffres qui composent $${a}$ est :  $${b}+${c}+${d}=${b + c + d}$.<br>
          $${b + c + d}$ est un mutiple de $3$, donc le reste de la division de $${a}$ par $3$ est $0$.
             `
             }
             if (a % 3 === 2) {
               texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}.`
-              texteCorr += `Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br> 
+              texteCorr += `Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br>
             La somme des chiffres qui composent $${a}$ est : $${b}+${c}+${d}=${b + c + d}$.<br>
             $${b + c + d}$ n'est pas un mutiple de $3$. <br>
             En enlevant 2 unités à $${b + c + d}$, on obtient $${b + c + d - 2}$ qui est un multiple de $3$.<br>
@@ -774,7 +775,7 @@ export default function SujetCAN2022troisieme () {
             }
             if (a % 3 === 1) {
               texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}.`
-              texteCorr += `Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br> 
+              texteCorr += `Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br>
            La somme des chiffres qui composent $${a}$ est : $${b}+${c}+${d}=${b + c + d}$.<br>
            $${b + c + d}$ n'est pas un mutiple de $3$. <br>
            En enlevant 1 unité à $${b + c + d}$, on obtient $${b + c + d - 1}$ qui est un multiple de $3$.<br>
@@ -789,8 +790,8 @@ export default function SujetCAN2022troisieme () {
             reponse = a % 2
             texte = `Quel est le reste de la division euclidienne de $${a}$ par $2$ ?`
             if (a % 2 === 0) {
-              texteCorr = ` 
-            Le nombre est pair, le reste de la division de $${a}$ par $2$ est donc $0$. 
+              texteCorr = `
+            Le nombre est pair, le reste de la division de $${a}$ par $2$ est donc $0$.
              `
             }
             if (a % 2 === 1) {

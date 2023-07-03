@@ -1,6 +1,12 @@
+import {
+  deprecatedTexFraction, obtenirListeFractionsIrreductibles,
+  obtenirListeFractionsIrreductiblesFaciles, produitDeDeuxFractions, simplificationDeFractionAvecEtapes
+} from '../../lib/outils/deprecatedFractions.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, deprecatedTexFraction, ppcm, lettreDepuisChiffre, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, miseEnEvidence, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'

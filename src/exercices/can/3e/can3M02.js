@@ -1,4 +1,5 @@
-import { shuffle, randint, calcul, texteExposant, texteEnCouleur } from '../../../modules/outils.js'
+import { texteExposant } from '../../../lib/outils/ecritures.js'
+import { shuffle, randint, calcul, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un volume de pyramide'
 export const interactifReady = true
@@ -33,7 +34,7 @@ export default function CalculVolumePyramide () {
     if (h === 3) {
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Le volume d'une pyramide est $\\dfrac{1}{3}\\times \\text{Aire(Base)}\\times \\text{Hauteur}$.<br>
-    Puisque la base est un rectangle et que l'aire d'un rectangle est donnée par le produit de la longueur par la largeur, le volume est donc 
+    Puisque la base est un rectangle et que l'aire d'un rectangle est donnée par le produit de la longueur par la largeur, le volume est donc
     le produit des trois valeurs données par $\\dfrac{1}{3}$.<br>
     Comme l'une des trois longueur est $3$ et que $\\dfrac{1}{3}\\times 3=1$, on obtient le volume en multipliant les deux autres longueurs : $${a} \\times ${b}=${a * b}$.
       `)
@@ -41,7 +42,7 @@ export default function CalculVolumePyramide () {
     if (a === 3) {
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Le volume d'une pyramide est $\\dfrac{1}{3}\\times \\text{Aire(Base)}\\times \\text{Hauteur}$.<br>
-    Puisque la base est un rectangle et que l'aire d'un rectangle est donnée par le produit de la longueur par la largeur, le volume est donc 
+    Puisque la base est un rectangle et que l'aire d'un rectangle est donnée par le produit de la longueur par la largeur, le volume est donc
     le produit des trois valeurs données par $\\dfrac{1}{3}$.<br>
     Comme l'une des trois longueur est $3$ et que $\\dfrac{1}{3}\\times 3=1$, on obtient le volume en multipliant les deux autres longueurs : $${b} \\times ${h}=${h * b}$.
       `)
@@ -49,7 +50,7 @@ export default function CalculVolumePyramide () {
     if (b === 3) {
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Le volume d'une pyramide est $\\dfrac{1}{3}\\times \\text{Aire(Base)}\\times \\text{Hauteur}$.<br>
-    Puisque la base est un rectangle et que l'aire d'un rectangle est donnée par le produit de la longueur par la largeur, le volume est donc 
+    Puisque la base est un rectangle et que l'aire d'un rectangle est donnée par le produit de la longueur par la largeur, le volume est donc
     le produit des trois valeurs données par $\\dfrac{1}{3}$.<br>
     Comme l'une des trois longueur est $3$ et que $\\dfrac{1}{3}\\times 3=1$, on obtient le volume en multipliant les deux autres longueurs : $${a} \\times ${h}=${h * a}$.
       `)

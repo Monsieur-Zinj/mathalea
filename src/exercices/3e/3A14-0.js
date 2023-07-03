@@ -1,4 +1,5 @@
 import { createList } from '../../lib/format/lists.ts'
+import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -9,7 +10,7 @@ import {
   texteGras,
   decompositionFacteursPremiers,
   texNombre,
-  premierAvec, egalOuApprox
+  premierAvec
 } from '../../modules/outils.js'
 import { polygone, point, segment, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'

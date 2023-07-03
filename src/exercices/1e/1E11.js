@@ -1,5 +1,12 @@
+import { deprecatedTexFraction, texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  ecritureParentheseSiNegatif,
+  rienSi1
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texFractionReduite, texFractionSigne, deprecatedTexFraction, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 

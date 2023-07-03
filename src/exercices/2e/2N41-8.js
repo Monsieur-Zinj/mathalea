@@ -1,6 +1,7 @@
+import { ecritureAlgebriqueSauf1, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, abs, combinaisonListes, rienSi1, reduirePolynomeDegre3, reduireAxPlusB, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, abs, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

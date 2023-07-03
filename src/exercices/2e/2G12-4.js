@@ -1,7 +1,9 @@
+import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { axes, point, polygoneAvecNom, repere } from '../../modules/2d.js'
-import { extraireRacineCarree, listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
+import { extraireRacineCarree, listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre } from '../../modules/outils.js'
 export const titre = 'Déterminer la nature d\'un polygone'
 
 /**
@@ -25,7 +27,7 @@ export default function NaturePolygone () {
     let A, B, C, D, P, XMIN, XMAX, YMIN, YMAX
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, facteur, radical, ux, uy, xA, yA, xB, yB, xC, yC, xD, yD, AB, XAB, YAB, XAC, YAC, XBC, YBC, AC, BC, XAD, YAD, AD, xI0, xI1, yI0, yI1, xJ0, xJ1, yJ0, yJ1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, facteur, radical, ux, uy, xA, yA, xB, yB, xC, yC, xD, yD, abCarre, acCarre, xAbCarre, yAbCarre, xAcCarre, yAcCarre, xBcCarre, yBcCarre, BC, xAdCarre, yAdCarre, AD, xI0, xI1, yI0, yI1, xJ0, xJ1, yJ0, yJ1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objets = []
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
@@ -49,14 +51,14 @@ export default function NaturePolygone () {
           yC = yA + ux
           xD = 0 // pour ne pas bloquer le recadrage du repère
           yD = 0
-          XAB = (xB - xA) * (xB - xA)
-          YAB = (yB - yA) * (yB - yA)
-          AB = XAB + YAB
-          XAC = (xC - xA) * (xC - xA)
-          YAC = (yC - yA) * (yC - yA)
-          XBC = (xC - xB) * (xC - xB)
-          YBC = (yC - yB) * (yC - yB)
-          AC = XAC + YAC
+          xAbCarre = (xB - xA) * (xB - xA)
+          yAbCarre = (yB - yA) * (yB - yA)
+          abCarre = xAbCarre + yAbCarre
+          xAcCarre = (xC - xA) * (xC - xA)
+          yAcCarre = (yC - yA) * (yC - yA)
+          xBcCarre = (xC - xB) * (xC - xB)
+          yBcCarre = (yC - yB) * (yC - yB)
+          acCarre = xAcCarre + yAcCarre
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right)$ et $C\\left(${xC};${yC}\\right)$`
           texte += '<br>Déterminer la nature du triangle $ABC$ '
@@ -66,10 +68,10 @@ export default function NaturePolygone () {
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
           texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
           texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`
-          facteur = extraireRacineCarree(AB)[0]
-          radical = extraireRacineCarree(AB)[1]
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${xAbCarre}+${yAbCarre}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
+          facteur = extraireRacineCarree(abCarre)[0]
+          radical = extraireRacineCarree(abCarre)[1]
           if (radical !== 1) {
             if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
@@ -79,10 +81,10 @@ export default function NaturePolygone () {
           }
 
           texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
-          facteur = extraireRacineCarree(AC)[0]
-          radical = extraireRacineCarree(AC)[1]
+          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${xAcCarre}+${yAcCarre}}$<br>`
+          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
+          facteur = extraireRacineCarree(acCarre)[0]
+          radical = extraireRacineCarree(acCarre)[1]
           if (radical !== 1) {
             if (facteur !== 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
@@ -92,10 +94,8 @@ export default function NaturePolygone () {
           }
           texteCorr += 'On observe que $AC=AB$ donc le triangle $ABC$ est isocèle.'
           texteCorr += '<br>On calcule $BC$ pour vérifier s\'il est ou non  équilatéral.'
-          texteCorr += `<br>On obtient : $BC=\\sqrt{${XBC}+${YBC}}=\\sqrt{${texNombre(XBC + YBC)}}$<br>`
-          if (XBC + YBC === XAB + YAB) { texteCorr += 'Le triangle $ABC$ est équilatéral.' } else { texteCorr += 'Le triangle $ABC$ est simplement isocèle, il n\'est pas équilatéral.' }
-
-          ;
+          texteCorr += `<br>On obtient : $BC=\\sqrt{${xBcCarre}+${yBcCarre}}=\\sqrt{${texNombre(xBcCarre + yBcCarre)}}$<br>`
+          if (xBcCarre + yBcCarre === xAbCarre + yAbCarre) { texteCorr += 'Le triangle $ABC$ est équilatéral.' } else { texteCorr += 'Le triangle $ABC$ est simplement isocèle, il n\'est pas équilatéral.' }
           A = point(xA, yA, 'A')
           B = point(xB, yB, 'B')
           C = point(xC, yC, 'C')
@@ -112,14 +112,14 @@ export default function NaturePolygone () {
           yB = yA + uy
           xC = xA - uy
           yC = yA + ux
-          XAB = (xB - xA) * (xB - xA)
-          YAB = (yB - yA) * (yB - yA)
-          AB = XAB + YAB
-          XAC = (xC - xA) * (xC - xA)
-          YAC = (yC - yA) * (yC - yA)
-          XBC = (xC - xB) * (xC - xB)
-          YBC = (yC - yB) * (yC - yB)
-          AC = XAC + YAC
+          xAbCarre = (xB - xA) * (xB - xA)
+          yAbCarre = (yB - yA) * (yB - yA)
+          abCarre = xAbCarre + yAbCarre
+          xAcCarre = (xC - xA) * (xC - xA)
+          yAcCarre = (yC - yA) * (yC - yA)
+          xBcCarre = (xC - xB) * (xC - xB)
+          yBcCarre = (yC - yB) * (yC - yB)
+          acCarre = xAcCarre + yAcCarre
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right)$ et $C\\left(${xC};${yC}\\right)$`
           texte += '<br>Déterminer la nature du triangle $ABC$ '
@@ -130,20 +130,18 @@ export default function NaturePolygone () {
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
           texteCorr += ' alors on a : $AB^{2}=\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}$<br>'
           texteCorr += `On applique la relation à l'énoncé : $AB^{2}=\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB^{2}={${XAB}+${YAB}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB^{2}={${texNombre(XAB + YAB)}}$<br>`
-
-          texteCorr += `De même : $AC^{2}={\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC^{2}={${XAC}+${YAC}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC^{2}={${texNombre(XAC + YAC)}}$<br>`
-
-          texteCorr += `Enfin : $BC^{2}={\\left(${xB}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } BC^{2}={${XBC}+${YBC}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } BC^{2}={${texNombre(XBC + YBC)}}$<br>`
-          texteCorr += `On observe que $AC^{2}+AB^{2}=${texNombre(XAC + YAC + XAB + YAB)} ~~et~~ BC^{2}={${texNombre(XBC + YBC)}}$.`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB^{2}=${xAbCarre}+${yAbCarre}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB^{2}=${texNombre(xAbCarre + yAbCarre)}$<br>`
+          texteCorr += `De même $AC^{2} = \\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}$<br>`
+          texteCorr += `$\\phantom{De meme :       } acCarre^{2}=${xAcCarre}+${yAcCarre}$<br>`
+          texteCorr += `$\\phantom{De meme :       } acCarre^{2}=${texNombre(xAcCarre + yAcCarre)}$<br>`
+          texteCorr += `$BC^{2}=\\left(${xB}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}$<br>`
+          texteCorr += `$\\phantom{De meme :       } BC^{2}=${xBcCarre}+${yBcCarre}$<br>`
+          texteCorr += `$\\phantom{De meme :       } BC^{2}=${texNombre(xBcCarre + yBcCarre)}$<br>`
+          texteCorr += `On observe que $AC^{2}+AB^{2}=${texNombre(xAcCarre + yAcCarre + xAbCarre + yAbCarre)} ~~et~~ BC^{2}={${texNombre(xBcCarre + yBcCarre)}}$.`
           texteCorr += '<br>On en déduit que $BC^{2}=AC^{2}+AB^{2}$.'
           texteCorr += '<br>D\'après la réciproque du théorème de Pythagore,  le triangle ABC est rectangle en A.'
-          if (XAB + YAB === XAC + YAC) { texteCorr += '<br>On observe en plus que AB=AC. <br> Le triangle ABC est donc isocèle rectangle en A.' }
+          if (xAbCarre + yAbCarre === xAcCarre + yAcCarre) { texteCorr += '<br>On observe en plus que AB=AC. <br> Le triangle ABC est donc isocèle rectangle en A.' }
           A = point(xA, yA, 'A')
           B = point(xB, yB, 'B')
           C = point(xC, yC, 'C')
@@ -170,15 +168,15 @@ export default function NaturePolygone () {
           xJ1 = fractionSimplifiee(xB + xD, 2)[1]
           yJ0 = fractionSimplifiee(yB + yD, 2)[0]
           yJ1 = fractionSimplifiee(yB + yD, 2)[1]
-          XAB = (xB - xA) * (xB - xA)
-          YAB = (yB - yA) * (yB - yA)
-          AB = XAB + YAB
-          XAD = (xD - xA) * (xD - xA)
-          YAD = (yD - yA) * (yD - yA)
-          AD = XAD + YAD
-          XAC = (xC - xA) * (xC - xA)
-          YAC = (yC - yA) * (yC - yA)
-          AC = XAC + YAC
+          xAbCarre = (xB - xA) * (xB - xA)
+          yAbCarre = (yB - yA) * (yB - yA)
+          //     AB = XAB + YAB
+          xAdCarre = (xD - xA) * (xD - xA)
+          yAdCarre = (yD - yA) * (yD - yA)
+          xAdCarre = xAdCarre + yAdCarre
+          xAcCarre = (xC - xA) * (xC - xA)
+          yAcCarre = (yC - yA) * (yC - yA)
+          //     AC = XAC + YAC
           a = axes(-9, -9, 9, 9, 0.2, 1)
 
           texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
@@ -221,11 +219,11 @@ export default function NaturePolygone () {
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
           texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}.$<br>'
           texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${xAbCarre}+${yAbCarre}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
 
-          facteur = extraireRacineCarree(AB)[0]
-          radical = extraireRacineCarree(AB)[1]
+          facteur = extraireRacineCarree(abCarre)[0]
+          radical = extraireRacineCarree(abCarre)[1]
 
           if (radical !== 1) {
             if (facteur !== 1) {
@@ -236,8 +234,8 @@ export default function NaturePolygone () {
           }
 
           texteCorr += `On procède de même pour $AD$:<br> $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${XAD}+${YAD}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${texNombre(XAD + YAD)}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${xAdCarre}+${yAdCarre}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
           facteur = extraireRacineCarree(AD)[0]
           radical = extraireRacineCarree(AD)[1]
           if (radical !== 1) {
@@ -277,18 +275,18 @@ export default function NaturePolygone () {
           xJ1 = fractionSimplifiee(xB + xC, 2)[1]
           yJ0 = fractionSimplifiee(yB + yC, 2)[0]
           yJ1 = fractionSimplifiee(yB + yC, 2)[1]
-          XAB = (xB - xA) * (xB - xA)
-          YAB = (yB - yA) * (yB - yA)
-          AB = XAB + YAB
-          XAC = (xC - xA) * (xC - xA)
-          YAC = (yC - yA) * (yC - yA)
-          AC = XAC + YAC
-          XAD = (xD - xA) * (xD - xA)
-          YAD = (yD - yA) * (yD - yA)
-          AD = XAD + YAD
-          XBC = (xB - xC) * (xB - xC)
-          YBC = (yB - yC) * (yB - yC)
-          BC = XBC + YBC
+          xAbCarre = (xB - xA) * (xB - xA)
+          yAbCarre = (yB - yA) * (yB - yA)
+          //    AB = XAB + YAB
+          xAcCarre = (xC - xA) * (xC - xA)
+          yAcCarre = (yC - yA) * (yC - yA)
+          //    AC = XAC + YAC
+          xAdCarre = (xD - xA) * (xD - xA)
+          yAdCarre = (yD - yA) * (yD - yA)
+          AD = xAdCarre + yAdCarre
+          xBcCarre = (xB - xC) * (xB - xC)
+          yBcCarre = (yB - yC) * (yB - yC)
+          BC = xBcCarre + yBcCarre
           a = axes(-9, -9, 9, 9, 0.2, 1)
 
           texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
@@ -331,8 +329,8 @@ export default function NaturePolygone () {
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère orthonormé,'
           texteCorr += ' alors on a : $AD=\\sqrt{\\left(x_D-x_A\\right)^{2}+\\left(y_D-y_A\\right)^{2}}.$<br>'
           texteCorr += `On applique la relation à l'énoncé : $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${XAD}+${YAD}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(XAD + YAD)}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${xAdCarre}+${yAdCarre}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
           facteur = extraireRacineCarree(AD)[0]
           radical = extraireRacineCarree(AD)[1]
           if (radical !== 1) {
@@ -344,8 +342,8 @@ export default function NaturePolygone () {
           }
 
           texteCorr += `On procède de même pour $BC$: $BC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${XBC}+${YBC}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${texNombre(XBC + YBC)}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${xBcCarre}+${yBcCarre}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${texNombre(xBcCarre + yBcCarre)}}$<br>`
           facteur = extraireRacineCarree(BC)[0]
           radical = extraireRacineCarree(BC)[1]
           if (radical !== 1) {
@@ -384,18 +382,18 @@ export default function NaturePolygone () {
           xJ1 = fractionSimplifiee(xB + xC, 2)[1]
           yJ0 = fractionSimplifiee(yB + yC, 2)[0]
           yJ1 = fractionSimplifiee(yB + yC, 2)[1]
-          XAB = (xB - xA) * (xB - xA)
-          YAB = (yB - yA) * (yB - yA)
-          AB = XAB + YAB
-          XAC = (xC - xA) * (xC - xA)
-          YAC = (yC - yA) * (yC - yA)
-          AC = XAC + YAC
-          XAD = (xD - xA) * (xD - xA)
-          YAD = (yD - yA) * (yD - yA)
-          AD = XAD + YAD
-          XBC = (xB - xC) * (xB - xC)
-          YBC = (yB - yC) * (yB - yC)
-          BC = XBC + YBC
+          xAbCarre = (xB - xA) * (xB - xA)
+          yAbCarre = (yB - yA) * (yB - yA)
+          //     AB = XAB + YAB
+          xAcCarre = (xC - xA) * (xC - xA)
+          yAcCarre = (yC - yA) * (yC - yA)
+          //      AC = XAC + YAC
+          xAdCarre = (xD - xA) * (xD - xA)
+          yAdCarre = (yD - yA) * (yD - yA)
+          AD = xAdCarre + yAdCarre
+          xBcCarre = (xB - xC) * (xB - xC)
+          yBcCarre = (yB - yC) * (yB - yC)
+          BC = xBcCarre + yBcCarre
           a = axes(-9, -9, 9, 9, 0.2, 1)
 
           texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
@@ -439,8 +437,8 @@ export default function NaturePolygone () {
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère orthonormé,'
           texteCorr += ' alors on a : $AD=\\sqrt{\\left(x_D-x_A\\right)^{2}+\\left(y_D-y_A\\right)^{2}}.$<br>'
           texteCorr += `On applique la relation à l'énoncé : $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${XAD}+${YAD}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(XAD + YAD)}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${xAdCarre}+${yAdCarre}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
           facteur = extraireRacineCarree(AD)[0]
           radical = extraireRacineCarree(AD)[1]
           if (radical !== 1) {
@@ -451,7 +449,7 @@ export default function NaturePolygone () {
             texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}$<br>`
           }
           texteCorr += `On procède de même pour $BC$: $BC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${XBC}+${YBC}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${xBcCarre}+${yBcCarre}}$<br>`
           facteur = extraireRacineCarree(BC)[0]
           radical = extraireRacineCarree(BC)[1]
           if (radical !== 1) {
@@ -467,10 +465,10 @@ export default function NaturePolygone () {
           texteCorr += '<br><B>3. On prouve que $ABDC$ est un carré :</B>'
           texteCorr += '<br>On calcule maintenant deux côtés consécutilfs de $ABDC$ : $AB$ et $AC$ par exemple.'
           texteCorr += ` <br>$AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$AB =\\sqrt{${XAB}+${YAB}}$<br>`
-          texteCorr += `$AB =\\sqrt{${texNombre(XAB + YAB)}}$<br>`
-          facteur = extraireRacineCarree(AB)[0]
-          radical = extraireRacineCarree(AB)[1]
+          texteCorr += `$AB =\\sqrt{${xAbCarre}+${yAbCarre}}$<br>`
+          texteCorr += `$AB =\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
+          facteur = extraireRacineCarree(abCarre)[0]
+          radical = extraireRacineCarree(abCarre)[1]
           if (radical !== 1) {
             if (facteur !== 1) {
               texteCorr += `$AB=${facteur}\\sqrt{${radical}}$<br>`
@@ -479,10 +477,10 @@ export default function NaturePolygone () {
             texteCorr += `$AB=${facteur}$<br>`
           }
           texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
-          facteur = extraireRacineCarree(AC)[0]
-          radical = extraireRacineCarree(AC)[1]
+          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${xAcCarre}+${yAcCarre}}$<br>`
+          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
+          facteur = extraireRacineCarree(acCarre)[0]
+          radical = extraireRacineCarree(acCarre)[1]
           if (radical !== 1) {
             if (facteur !== 1) {
               texteCorr += `$\\phantom{De meme :       } AC=${facteur}\\sqrt{${radical}}$<br>`

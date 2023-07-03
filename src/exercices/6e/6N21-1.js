@@ -1,6 +1,7 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, deprecatedTexFraction, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, choice } from '../../modules/outils.js'
 import { droiteGraduee, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'

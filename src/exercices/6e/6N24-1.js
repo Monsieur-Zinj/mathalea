@@ -1,5 +1,6 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, deprecatedTexFraction, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, calcul } from '../../modules/outils.js'
 
 export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
 

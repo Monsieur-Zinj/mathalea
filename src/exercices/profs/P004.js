@@ -1,6 +1,7 @@
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, troncature, calcul, choisitLettresDifferentes } from '../../modules/outils.js'
+import { randint, troncature, calcul } from '../../modules/outils.js'
 import { point, segment, droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Droites graduées avec zoom'

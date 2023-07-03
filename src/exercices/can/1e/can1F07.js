@@ -1,5 +1,12 @@
+import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3, rienSi1
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, ecritureAlgebrique, reduirePolynomeDegre3, reduireAxPlusB, rienSi1, ecritureParentheseSiNegatif, texNombre, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { choice, randint, texNombre } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Déterminer une équation de l’axe de symétrie d’une parabole'
@@ -29,12 +36,12 @@ export default function AxeSymetrieParabole () {
         x2 = randint(-9, 9, [0, x1])
         somme = new Decimal(x1 + x2)
         if (x1 === 0) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
       $f(x)=${rienSi1(a)}x(${reduireAxPlusB(1, -x2)})$. <br>
       
       `
         } else {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
       $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>
       
       `
@@ -57,7 +64,7 @@ export default function AxeSymetrieParabole () {
         c = randint(-10, 10)
         moinsb = new Decimal(-b)
         f = fraction(-b, 2 * a)
-        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
       $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>
       
       `
@@ -82,7 +89,7 @@ export default function AxeSymetrieParabole () {
         alpha = randint(-9, 9)
         beta = randint(-10, 10)
 
-        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
       $f(x)=${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$. <br>
       
       `

@@ -1,4 +1,5 @@
-import { listeQuestionsToContenu, randint, combinaisonListes, choice, deprecatedTexFraction, texFractionReduite } from '../../modules/outils.js'
+import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, choice } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 export const titre = '2S30-6' // Probabilité A ou B dans situation concrète

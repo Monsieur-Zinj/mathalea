@@ -1,5 +1,6 @@
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Simplifier un taux de variation'
 export const interactifReady = true
 export const interactifType = 'mathLive'

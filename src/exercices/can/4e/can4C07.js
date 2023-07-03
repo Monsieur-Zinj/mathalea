@@ -1,5 +1,6 @@
+import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la différence de fractions à dénominateurs compatibles'
 export const interactifReady = true
@@ -28,7 +29,7 @@ export default function DifferenceFractionsCompatibles () {
     this.question = `Calculer $${a.texFraction} - ${b.texFraction}$.`
     this.correction = `Pour soustraire des fractions, on les met au même dénominateur.<br>
     <br>
-    Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
+    Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$,
     on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
     Ainsi,
     $${a.texFraction} - ${b.texFraction}=

@@ -1,16 +1,13 @@
+import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
+import { ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
+import { listeDesDiviseurs, obtenirListeFacteursPremiers, pgcd } from '../lib/outils/primalite.js'
 import {
   arrondi,
-  obtenirListeFacteursPremiers,
   quotientier,
   extraireRacineCarree,
-  fractionSimplifiee,
-  listeDiviseurs,
-  pgcd,
   nombreDeChiffresDansLaPartieDecimale,
   calcul,
   miseEnEvidence,
-  ecritureParentheseSiNegatif,
-  signeMoinsEnEvidence,
   texNombre,
   egal,
   decompositionFacteursPremiers
@@ -1274,7 +1271,7 @@ class FractionEtendue extends Fraction {
       return [[n, d]]
     } else {
       const liste = []
-      for (const diviseur of listeDiviseurs(pgcd(n, d))) {
+      for (const diviseur of listeDesDiviseurs(pgcd(n, d))) {
         liste.push([n / diviseur, d / diviseur])
       }
       return liste

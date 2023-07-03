@@ -1,8 +1,15 @@
+import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3, rienSi1
+} from '../../lib/outils/ecritures.js'
+import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
-  listeQuestionsToContenu, reduireAxPlusB, simplificationDeFractionAvecEtapes, reduirePolynomeDegre3, rienSi1, randint, texteCentre, combinaisonListes, ecritureAlgebrique, choice,
-  ecritureParentheseSiNegatif, pgcd
+  listeQuestionsToContenu, randint, texteCentre, combinaisonListes, choice
 } from '../../modules/outils.js'
 export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 
@@ -69,7 +76,7 @@ export default function PointSurCourbe () {
               abs = randint(-9, 9)
               ord = choice([a * abs + b, a * (abs + 1) + b])
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
-              ${texteCentre(`$f(x)=${reduireAxPlusB(a, b)}$`)}  
+              ${texteCentre(`$f(x)=${reduireAxPlusB(a, b)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
               Le point $A(${abs}; ${ord})$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
@@ -85,7 +92,7 @@ export default function PointSurCourbe () {
                    $f(x_A)=f(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(b)}=${ord}=y_A$.<br>
                 L'image de $${abs}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
               } else {
-                correction += `$${abs}$ est bien dans l'ensemble de définition de $f$ et :<br> 
+                correction += `$${abs}$ est bien dans l'ensemble de définition de $f$ et :<br>
                   $f(x_A)=f(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(b)}=${a * abs + b}\\neq${ord}$.<br>
                 L'image de $${abs}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$.`
               }
@@ -100,7 +107,7 @@ export default function PointSurCourbe () {
               fc = choice([f1, f2])
               fractionb = fraction(b * f1.d, f1.d)
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
-              ${texteCentre(`$f(x)=${reduireAxPlusB(a, b)}$`)}  
+              ${texteCentre(`$f(x)=${reduireAxPlusB(a, b)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
               Le point $A\\left(${f.texFraction}; ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
@@ -156,7 +163,7 @@ export default function PointSurCourbe () {
               abs = randint(-9, 9)
               ord = choice([a * abs ** 2 + b * abs + c, a * abs ** 2 + b * abs + c - 1])
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
-              ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}  
+              ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
               Le point $A(${abs}; ${ord})$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
@@ -170,23 +177,23 @@ export default function PointSurCourbe () {
               if (ord === a * abs ** 2 + b * abs + c) {
                 correction += `$${abs}$ est bien dans l'ensemble de définition de $f$ et :<br> `
                 if (a !== 1) {
-                  correction += `$f(x_A)=f(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(c)} 
+                  correction += `$f(x_A)=f(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(c)}
                 =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${ecritureAlgebrique(c)}=${ord}=y_A$.<br>
                 L'image de $${abs}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
                 } else {
-                  correction += `$f(x_A)=f(${abs})= ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(c)} 
+                  correction += `$f(x_A)=f(${abs})= ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(c)}
                 =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${ecritureAlgebrique(c)}=${ord}=y_A$.<br>
                 L'image de $${abs}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
                 }
               } else {
                 correction += `$${abs}$ est bien dans l'ensemble de définition de $f$ et :<br> `
                 if (a !== 1) {
-                  correction += ` 
-                $f(x_A)=f(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(c)} 
+                  correction += `
+                $f(x_A)=f(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(c)}
                 =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${ecritureAlgebrique(c)}=${a * abs ** 2 + b * abs + c}\\neq${ord}$.<br>
                 L'image de $${abs}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$`
                 } else {
-                  correction += ` $f(x_A)=f(${abs})= ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(c)} 
+                  correction += ` $f(x_A)=f(${abs})= ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(c)}
                 =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${ecritureAlgebrique(c)}=${a * abs ** 2 + b * abs + c}\\neq${ord}$.<br>
                 L'image de $${abs}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$`
                 }
@@ -205,7 +212,7 @@ export default function PointSurCourbe () {
               fractionb2 = fraction(b * f.n * f.d, f.d ** 2)
               fractionc = fraction(c * f.d ** 2, f.d ** 2)
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
-              ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}  
+              ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
               Le point $A\\left(${f.texFraction}; ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
@@ -216,15 +223,15 @@ export default function PointSurCourbe () {
               $\\bullet$ l'ordonnée $y$ du point est l'image de son abscisse, c'est à dire $y=f(x)$.<br>`
               }
               if (a !== 1) {
-                correction += `$${f.texFraction}$ est bien dans l'ensemble de définition de $f$ et :<br> 
+                correction += `$${f.texFraction}$ est bien dans l'ensemble de définition de $f$ et :<br>
                 $f(x_A)=f\\left(${f.texFraction}\\right)=${a}\\times \\left(${f.texFraction}\\right)^2$`
                 if (b === 0) {
-                  correction += `$${ecritureAlgebrique(c)} 
+                  correction += `$${ecritureAlgebrique(c)}
                 =\\dfrac{${a}\\times ${f.n ** 2}}{${f.d ** 2}}${ecritureAlgebrique(c)}
                 =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionc.n}}{${f.d ** 2}}
                 ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
                 } else {
-                  correction += `$${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)} 
+                  correction += `$${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)}
                   =\\dfrac{${a}\\times ${f.n ** 2}}{${f.d ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
                   =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionb2.n + fractionc.n}}{${f.d ** 2}}
                 ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
@@ -237,15 +244,15 @@ export default function PointSurCourbe () {
                                  L'image de $${f.texFraction}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$`
                 }
               } else {
-                correction += `$${f.texFraction}$ est bien dans l'ensemble de définition de $f$ et :<br> 
+                correction += `$${f.texFraction}$ est bien dans l'ensemble de définition de $f$ et :<br>
                 $f(x_A)=f\\left(${f.texFraction}\\right)=\\left(${f.texFraction}\\right)^2$`
                 if (b === 0) {
-                  correction += `$${ecritureAlgebrique(c)} 
+                  correction += `$${ecritureAlgebrique(c)}
                 =\\dfrac{${f.n ** 2}}{${f.d ** 2}}${ecritureAlgebrique(c)}
                 =\\dfrac{${f.n ** 2}}{${f.d ** 2}}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionc.n}}{${f.d ** 2}}
                 ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
                 } else {
-                  correction += `           
+                  correction += `
                $${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)}
                 =\\dfrac{ ${f.n ** 2}}{${f.d ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
                 =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}
@@ -280,7 +287,7 @@ export default function PointSurCourbe () {
               fc = choice([f1, f2])
 
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}^*$ par :
-              ${texteCentre(`$f(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}  
+              ${texteCentre(`$f(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
               Le point $A\\left(${abs}; ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
@@ -290,7 +297,7 @@ export default function PointSurCourbe () {
               et <br>
               $\\bullet$ l'ordonnée $y$ du point est l'image de son abscisse, c'est à dire $y=f(x)$.<br>`
               }
-              correction += `$${abs}$ est bien dans l'ensemble de définition de $f$ et : <br> 
+              correction += `$${abs}$ est bien dans l'ensemble de définition de $f$ et : <br>
                               $f(x_A)=f(${abs})=\\dfrac{${a}}{${abs}}${ecritureAlgebrique(b)}
               =${fa.texFractionSimplifiee}${ecritureAlgebrique(b)}
               =${fa.texFractionSimplifiee}${fb.ecritureAlgebrique}=${f1.texFractionSimplifiee}
@@ -317,7 +324,7 @@ export default function PointSurCourbe () {
               fc = choice([f1, f2])
 
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}^*$ par :
-              ${texteCentre(`$f(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}  
+              ${texteCentre(`$f(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
               Le point $A\\left(${abs.texFractionSimplifiee}; ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
@@ -327,7 +334,7 @@ export default function PointSurCourbe () {
               et <br>
               $\\bullet$ l'ordonnée $y$ du point est l'image de son abscisse, c'est à dire $y=f(x)$.<br>`
               }
-              correction += `$${abs.texFractionSimplifiee}$ est bien dans l'ensemble de définition de $f$ et :<br> 
+              correction += `$${abs.texFractionSimplifiee}$ est bien dans l'ensemble de définition de $f$ et :<br>
               $f(x_A)=f\\left(${abs.texFractionSimplifiee}\\right)
               =\\dfrac{${a}}{${abs.texFractionSimplifiee}}${ecritureAlgebrique(b)}
               =${a}\\times \\dfrac{${abs.d}}{${abs.n}}${ecritureAlgebrique(b)}=

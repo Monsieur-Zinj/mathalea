@@ -1,6 +1,7 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { calcul, choice, listeQuestionsToContenu, randint, sp, texNombre, texFractionReduite }
+import { calcul, choice, listeQuestionsToContenu, randint, sp, texNombre }
   from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des heures décimales en heures/minutes et inversement*'

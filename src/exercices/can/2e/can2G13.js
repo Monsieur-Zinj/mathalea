@@ -1,5 +1,6 @@
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif, texteEnCouleur, extraireRacineCarree, lettreMinusculeDepuisChiffre } from '../../../modules/outils.js'
+import { randint, choice, texteEnCouleur, extraireRacineCarree, lettreMinusculeDepuisChiffre } from '../../../modules/outils.js'
 export const titre = 'Calculer la norme d’un vecteur'
 export const interactifReady = true
 export const interactifType = 'mathLive'

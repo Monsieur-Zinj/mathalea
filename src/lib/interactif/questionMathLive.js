@@ -1,8 +1,8 @@
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { number } from 'mathjs'
 import Grandeur from '../../modules/Grandeur.js'
-import { texteExposant } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { texteExposant } from '../outils/ecritures.js'
 import { afficheScore } from './gestionInteractif.js'
 import * as pkg from '@cortex-js/compute-engine'
 import Hms from '../../modules/Hms.js'
@@ -275,7 +275,7 @@ export function verifQuestionMathLive (exercice, i) {
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
     } else {
-      spanReponseLigne.innerHTML = '☹️'
+      spanReponseLigne.innerHTML = '☹️' + feedbackCorrection ? feedbackCorrection : ''
       spanReponseLigne.style.fontSize = 'large'
       if (champTexte !== undefined) champTexte.readOnly = true
     }

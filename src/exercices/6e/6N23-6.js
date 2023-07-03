@@ -1,3 +1,4 @@
+import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
@@ -11,7 +12,6 @@ import {
   arrondi,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDansLaPartieDecimale,
-  deprecatedTexFraction,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

@@ -1,6 +1,8 @@
+import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 
-import { randint, choice, ecritureAlgebrique, calcul, texNombre, ecritureParentheseSiNegatif, deprecatedTexFraction, arcenciel, miseEnEvidence, signe } from '../../../modules/outils.js'
+import { randint, choice, calcul, texNombre, arcenciel, miseEnEvidence, signe } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite récurrente*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

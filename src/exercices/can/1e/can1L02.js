@@ -1,6 +1,12 @@
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB,
+  reduirePolynomeDegre3
+} from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, choice, texteEnCouleur, reduirePolynomeDegre3, reduireAxPlusB, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence } from '../../../modules/outils.js'
+import { randint, choice, texteEnCouleur, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Déterminer le nombre de solutions d’une équation du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,10 +42,10 @@ export default function NombreSolutionsSecondDegre () {
     $\\Delta =b^2-4ac=${ecritureParentheseSiNegatif(b)}^2 - 4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${d}$.<br>
     Comme $${d}$ est strictement négatif, l'équation n'a pas de solution.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Il n'est pas nécessaire de faire le calcul du discriminant puisque seul 
+          Il n'est pas nécessaire de faire le calcul du discriminant puisque seul
           le signe de celui-ci permet de répondre à la question :<br>
-          faites deux calculs séparés mentalement : 
-          $b^2=${ecritureParentheseSiNegatif(b)}^2=${b ** 2}$ puis 
+          faites deux calculs séparés mentalement :
+          $b^2=${ecritureParentheseSiNegatif(b)}^2=${b ** 2}$ puis
           $4ac=4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${4 * a * c}$
           et évaluez le signe de leur différence.  `)
 
@@ -50,11 +56,11 @@ export default function NombreSolutionsSecondDegre () {
     $\\Delta =b^2-4ac=${ecritureParentheseSiNegatif(b)}^2 - 4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${d}$.<br>
     Comme $${d}$ est strictement positif, l'équation a 2 solutions.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Il n'est pas nécessaire de faire le calcul du discriminant puisque seul 
+          Il n'est pas nécessaire de faire le calcul du discriminant puisque seul
           le signe de celui-ci permet de répondre à la question :<br>
-    par exemple, si le produit $4\\times a\\times c$ (c'est le cas lorsque $a$ et $c$ sont de signes contraires) est négatif, l'équation aura deux solutions puisque $\\Delta$ sera strictement positif.   
-<br>  Dans les autres cas, faites deux calculs séparés mentalement : $b^2=${ecritureParentheseSiNegatif(b)}^2=${b ** 2}$ puis 
-$4ac=4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${4 * a * c}$ 
+    par exemple, si le produit $4\\times a\\times c$ (c'est le cas lorsque $a$ et $c$ sont de signes contraires) est négatif, l'équation aura deux solutions puisque $\\Delta$ sera strictement positif.
+<br>  Dans les autres cas, faites deux calculs séparés mentalement : $b^2=${ecritureParentheseSiNegatif(b)}^2=${b ** 2}$ puis
+$4ac=4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${4 * a * c}$
 et évaluez le signe de leur différence. `)
           this.reponse = 2
         }
@@ -63,7 +69,7 @@ et évaluez le signe de leur différence. `)
             $\\Delta =b^2-4ac=${ecritureParentheseSiNegatif(b)}^2 - 4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${d}$.<br>
             Comme $${d}$ est nul, l'équation a une unique solution.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-               Faites deux calculs séparés mentalement : $b^2=${ecritureParentheseSiNegatif(b)}^2=${b ** 2}$ puis 
+               Faites deux calculs séparés mentalement : $b^2=${ecritureParentheseSiNegatif(b)}^2=${b ** 2}$ puis
      $4ac=4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${4 * a * c}$.  `)
           this.reponse = 1
         }
@@ -74,7 +80,7 @@ et évaluez le signe de leur différence. `)
         c = randint(-5, 5)
         maFraction = fraction(-c, a)
         if (-c / a > 0) {
-          this.question = `Donner le nombre de solutions de l'équation  
+          this.question = `Donner le nombre de solutions de l'équation
        $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$.`
           this.correction = `On isole le carré : <br>
         $\\begin{aligned}
@@ -83,8 +89,8 @@ et évaluez le signe de leur différence. `)
           this.correction += a === 1
             ? ''
             : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
-          this.correction += `             
-        (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
+          this.correction += `
+        (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee}
                 \\end{aligned}$<br>
         Puisque $${maFraction.texFractionSimplifiee}$ est strictement positif, il y a deux nombres dont le carré est égal à $${maFraction.texFractionSimplifiee}$, donc l'équation a deux solutions. `
 
@@ -92,7 +98,7 @@ et évaluez le signe de leur différence. `)
         }
         if (-c / a === 0) {
           if (a === -1) {
-            this.question = `Donner le nombre de solutions de l'équation  
+            this.question = `Donner le nombre de solutions de l'équation
        $-(${reduireAxPlusB(1, b)})^2=0$.`
             this.correction = `On isole le carré : <br>
              $\\begin{aligned}
@@ -101,14 +107,14 @@ et évaluez le signe de leur différence. `)
             this.correction += a === 1
               ? ''
               : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
-            this.correction += `              
-             (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
+            this.correction += `
+             (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee}
                      \\end{aligned}$<br>
              Il y a un nombre dont le carré est nul, donc l'équation a une solution. `
 
             this.reponse = 1
           } else {
-            this.question = `Donner le nombre de solutions de l'équation  
+            this.question = `Donner le nombre de solutions de l'équation
           $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2=0$.`
             this.correction = `On isole le carré : <br>
                 $\\begin{aligned}
@@ -117,7 +123,7 @@ et évaluez le signe de leur différence. `)
               ? ''
               : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
             this.correction += `
-                (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
+                (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee}
                         \\end{aligned}$<br>
                 Il y a un nombre dont le carré est nul, donc l'équation a une solution. `
 
@@ -125,7 +131,7 @@ et évaluez le signe de leur différence. `)
           }
         }
         if (-c / a < 0) {
-          this.question = `Donner le nombre de solutions de l'équation  
+          this.question = `Donner le nombre de solutions de l'équation
        $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$.`
           this.correction = `On isole le carré : <br>
                  $\\begin{aligned}
@@ -134,7 +140,7 @@ et évaluez le signe de leur différence. `)
           this.correction += a === 1
             ? ''
             : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
-          this.correction += `(${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
+          this.correction += `(${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee}
                          \\end{aligned}$<br>
                          Puisque $${maFraction.texFractionSimplifiee}$ est strictement négatif, il n'existe pas de nombres réels dont le carré est strictement négatif, donc l'équation n'a pas de solution. `
 

@@ -1,13 +1,15 @@
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriquec,
+  ecritureNombreRelatif,
+  ecritureNombreRelatifc
+} from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
   choice,
-  ecritureNombreRelatif,
-  ecritureNombreRelatifc,
-  ecritureAlgebrique,
-  ecritureAlgebriquec,
   signe,
   sommeDesTermesParSigne,
   triePositifsNegatifs,

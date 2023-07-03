@@ -1,6 +1,8 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, sp, texFractionReduite, combinaisonListes, rienSi1, reduireAxPlusB, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, sp, combinaisonListes } from '../../modules/outils.js'
 export const dateDePublication = '02/05/2023'
 export const titre = 'Résoudre des équations avec un quotient'
 
@@ -171,7 +173,7 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
           Donc l'ensemble des valeurs interdites est  $\\left\\{${texFractionReduite(-d, c)}\\right\\}$. <br>
           Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${texFractionReduite(-d, c)}\\right\\}$,<br>`
           if (b === 0) {
-            texteCorr += ` 
+            texteCorr += `
             $\\begin{aligned}
             \\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}&=${e}\\\\
             ${reduireAxPlusB(a, b)}&=${e}\\times(${reduireAxPlusB(c, d)})${sp(7)} \\text{ car les produits en croix sont égaux.}\\\\
@@ -180,7 +182,7 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
            x&=${texFractionReduite(e * d - b, a - e * c)}
            \\end{aligned}$<br>`
           } else {
-            texteCorr += ` 
+            texteCorr += `
             $\\begin{aligned}
            ${choix ? `\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}&=${e}` : `\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${reduireAxPlusB(c, d)}}&=${e}`}\\\\
             ${choix ? `${reduireAxPlusB(a, b)}&=${e}\\times(${reduireAxPlusB(c, d)})` : `${b}${ecritureAlgebriqueSauf1(a)}x&=${e}\\times(${reduireAxPlusB(c, d)})`}${sp(7)}\\text{ car les produits en croix sont égaux.}\\\\

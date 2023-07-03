@@ -1,6 +1,6 @@
-
+import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, reduirePolynomeDegre3, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 export const titre = 'Calculer un discriminant'
 export const interactifReady = true
 export const interactifType = 'mathLive'

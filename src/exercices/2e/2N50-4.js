@@ -1,6 +1,8 @@
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, texNombre, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texFractionReduite, reduireAxPlusB, stringNombre } from '../../modules/outils.js'
+import { randint, texNombre, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, stringNombre } from '../../modules/outils.js'
 import { texteSurSegment, codageSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
@@ -166,7 +168,7 @@ export default function ModeliserEquationsGeometrie () {
             ${2 * b}x&=${a * a - b * b}\\\\
             \\dfrac{${2 * b}x}{${miseEnEvidence(2 * b)}}&=\\dfrac{${a * a - b * b}}{${miseEnEvidence(2 * b)}}\\\\
             x&=${texFractionReduite(a * a - b * b, 2 * b)}\\end{aligned}$<br>
-             
+            
        La valeur de $x$ cherchée est : $${texFractionReduite(a * a - b * b, 2 * b)}$.
        `
 
@@ -274,7 +276,7 @@ export default function ModeliserEquationsGeometrie () {
                 ${reduireAxPlusB(a + b / 2, 0)}&=${reduireAxPlusB(0, d - a * c - (b * c) / 2)}\\\\
                 \\dfrac{${reduireAxPlusB(a + b / 2, 0)}}{${miseEnEvidence(texNombre(a + b / 2))}}&=\\dfrac{${texNombre(d - a * c - (b * c) / 2)}}{${miseEnEvidence(texNombre(a + b / 2))}}\\\\
                 x&=${texFractionReduite((d - a * c - (b * c) / 2) * 10, (a + b / 2) * 10)}
-                \\end{aligned}$<br> 
+                \\end{aligned}$<br>
                 La valeur de $x$ cherchée est donc : $ ${texFractionReduite((d - a * c - (b * c) / 2) * 10, (a + b / 2) * 10)}$.
                 `
 

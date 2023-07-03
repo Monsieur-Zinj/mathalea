@@ -1,5 +1,5 @@
 import { lcm } from 'mathjs'
-import { listeDiviseurs } from './outils.js'
+import { listeDesDiviseurs } from '../lib/outils/primalite.js'
 
 function ppcm ([...n]) {
   return parseInt(lcm(...n))
@@ -37,7 +37,7 @@ class ListeFraction {
     const dens = []
     this.liste.forEach(f => {
       dens.push(f.d)
-      listetemp = listeDiviseurs(f.d)
+      listetemp = listeDesDiviseurs(f.d)
       listetemp.splice(0, 1)
       this.denominateurs_amis.push(listetemp)
     })
@@ -87,7 +87,7 @@ class ListeFraction {
     for (let i = 0; i < frac.length; i++) {
       this.liste.push(frac[i])
       dens.push(frac[i].d)
-      const listetemp = listeDiviseurs(frac[i].d)
+      const listetemp = listeDesDiviseurs(frac[i].d)
       listetemp.splice(0, 1)
       this.denominateurs_amis.push(listetemp)
     }

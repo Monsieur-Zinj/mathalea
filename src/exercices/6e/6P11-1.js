@@ -1,6 +1,7 @@
+import { prenom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, prenom, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum, shuffle, choice, texteEnCouleurEtGras, miseEnEvidence, combinaisonListes, rangeMinMax, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum, shuffle, choice, texteEnCouleurEtGras, miseEnEvidence, combinaisonListes, rangeMinMax, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export let titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
@@ -53,13 +54,13 @@ export default function ProportionnaliteParLineariteBis () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer le pluriel
-      function pluriel (n, obj) {
+      const pluriel = function (n, obj) {
         if (n > 1) {
           return obj.achat_plur
         } else {
           return obj.achat_sing
         };
-      };
+      }
 
       // un compteur pour les sous-questions
       let k = 0

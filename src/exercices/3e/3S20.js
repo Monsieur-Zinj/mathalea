@@ -1,6 +1,12 @@
+import {
+  deprecatedTexFraction, fractionSimplifiee,
+  simplificationDeFractionAvecEtapes,
+  texFractionReduite
+} from '../../lib/outils/deprecatedFractions.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, fractionSimplifiee, texFractionReduite, simplificationDeFractionAvecEtapes, prenomF, prenomM, deprecatedTexFraction, numAlpha, ppcm } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, numAlpha, ppcm } from '../../modules/outils.js'
 
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
 

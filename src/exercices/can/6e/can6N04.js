@@ -1,7 +1,9 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { pgcd } from '../../../lib/outils/primalite.js'
 import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { pgcd, randint, texFractionReduite } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Lire une abscisse sur une droite graduée'
@@ -58,13 +60,13 @@ export default function AbscisseFractionnaire () {
     if (pgcd(a, b) === 1) {
       this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
     Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
-     Comme le point $A$ est situé à $${b}$ graduations de l'origine, 
+     Comme le point $A$ est situé à $${b}$ graduations de l'origine,
       l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$, soit  $\\dfrac{${b}}{${a}}$.<br>
       `
     } else {
       this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
       Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
-       Comme le point $A$ est situé à $${b}$ graduations de l'origine, 
+       Comme le point $A$ est situé à $${b}$ graduations de l'origine,
         l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$, soit  $\\dfrac{${b}}{${a}}$ que l'on peut simplifier en $${texFractionReduite(b, a)}$.<br>
         `
     }

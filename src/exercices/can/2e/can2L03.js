@@ -1,5 +1,7 @@
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, reduireAxPlusB, texFractionReduite } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +28,7 @@ export default function CoordonneesPointIntersectionAxeAbscissesDroite () {
 
     this.formatInteractif = 'texte'
     this.reponse = `${-b / a};0`
-    this.question = ` Déterminer les coordonnées du point d'intersection 
+    this.question = ` Déterminer les coordonnées du point d'intersection
     entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses. <br>
        `
     if (this.interactif) {
@@ -38,7 +40,7 @@ export default function CoordonneesPointIntersectionAxeAbscissesDroite () {
       Son abscisse est donc donnée par la solution de l'équation  $${reduireAxPlusB(a, b)}=0$, c'est-à-dire $x=${texFractionReduite(-b, a)}$.
     <br>Les coordonnées de ce   point sont donc : $(${texFractionReduite(-b, a)};0)$.`
 
-    this.canEnonce = ` Déterminer les coordonnées du point d'intersection 
+    this.canEnonce = ` Déterminer les coordonnées du point d'intersection
     entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses. `
     this.canReponseACompleter = ''
   }

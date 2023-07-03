@@ -1,16 +1,13 @@
 import { warnMessage } from '../../lib/outils/message.js'
+import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
+import { cribleEratostheneN, obtenirListeFacteursPremiers, premiersEntreBornes } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  obtenirListeFacteursPremiers,
   texNombre,
   miseEnEvidence,
-  modalPdf,
-  modalVideo,
-  cribleEratostheneN,
-  premiersEntreBornes,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

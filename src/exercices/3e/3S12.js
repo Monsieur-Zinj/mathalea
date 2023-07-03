@@ -1,6 +1,7 @@
+import { texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, texFractionSigne, calcul, arrondi, texteGras, stringNombre } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, calcul, arrondi, texteGras, stringNombre } from '../../modules/outils.js'
 import { repere, traceBarre } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

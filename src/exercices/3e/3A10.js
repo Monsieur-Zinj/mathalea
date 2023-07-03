@@ -1,6 +1,8 @@
+import { modalPdf } from '../../lib/outils/modales.js'
+import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleur, modalPdf, listeDiviseurs, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleur, contraindreValeur } from '../../modules/outils.js'
 
 export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
 
@@ -109,12 +111,12 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           break
         case 3: // caractérisation des multiples et diviseurs par le reste de la division euclidienne
           dividende = randint(101, 9999)
-          if (listeDiviseurs(dividende).length % 2 === 0) { // si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
-            rgDiviseur = listeDiviseurs(dividende).length / 2 + 1 // rang du diviseur choisi
+          if (listeDesDiviseurs(dividende).length % 2 === 0) { // si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
+            rgDiviseur = listeDesDiviseurs(dividende).length / 2 + 1 // rang du diviseur choisi
           } else { // il y a nbre impair de diviseurs on prend le ((n-1)/2 +1) eme
-            rgDiviseur = (listeDiviseurs(dividende).length - 1) / 2 + 1
+            rgDiviseur = (listeDesDiviseurs(dividende).length - 1) / 2 + 1
           }
-          diviseur = listeDiviseurs(dividende)[rgDiviseur - 1] // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0
+          diviseur = listeDesDiviseurs(dividende)[rgDiviseur - 1] // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0
           candidatsDiviseurs = [diviseur - 1, diviseur, diviseur + 1] // on prend l'entier précédent et le successeur de ce diviseur
 
           // Faut-il que je conditionne pour éviter le diviseur 1 ?
@@ -180,8 +182,8 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           n1 = nombreAvecEspace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3]]))
           p1 = nombreAvecEspace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3], n1]))
           // on choisit un autre qui n'est pas dans la liste des diviseurs de n1
-          n2 = nombreAvecEspace(randint(2, 999, listeDiviseurs(n1)))
-          p2 = nombreAvecEspace(randint(2, 999, listeDiviseurs(p1)))
+          n2 = nombreAvecEspace(randint(2, 999, listeDesDiviseurs(n1)))
+          p2 = nombreAvecEspace(randint(2, 999, listeDesDiviseurs(p1)))
           textes[4] = `${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`
           textesCorr[4] = `${n1} n'est ni un multiple, ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texteEnCouleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texteEnCouleur(n2 % n1)}.`
           textes[5] = `${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`
@@ -208,7 +210,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           }
           do {
             M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)
-            listeDiviseursM = listeDiviseurs(M)
+            listeDiviseursM = listeDesDiviseurs(M)
             nbDiviseursM = listeDiviseursM.length
           } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i])
           texte = `Écrire la liste de tous les diviseurs de ${M}.`

@@ -1,9 +1,9 @@
+import { texteExposant } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import {
   randint,
   listeQuestionsToContenu,
-  texteExposant,
   texteGras,
   stringNombre,
   texNombre,

@@ -1,5 +1,6 @@
+import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre, deprecatedTexFraction, arrondi } from '../../../modules/outils.js'
+import { randint, choice, texNombre, arrondi } from '../../../modules/outils.js'
 export const titre = 'Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01'
 export const interactifReady = true
 export const interactifType = 'mathLive'
