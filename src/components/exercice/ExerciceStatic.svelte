@@ -25,7 +25,7 @@
 
   if (typeof exercice.png === "string") exercice.png = [exercice.png]
   if (typeof exercice.pngCor === "string") exercice.pngCor = [exercice.pngCor]
-  const id: string = $exercicesParams[indiceExercice].id ? exercice.id.replace(".js", "") : ""
+  const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id.replace(".js", "") : ""
   let headerExerciceProps = { title: "", id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible }
   headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ""} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
 </script>

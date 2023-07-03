@@ -36,12 +36,12 @@
   let counts
   let titleExtra: string
   let title: string
-  const id: string = $exercicesParams[indiceExercice].id ? exercice.id.replace(".js", "") : ""
+  const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id.replace(".js", "") : ""
   $: {
     ranks = exercisesUuidRanking($exercicesParams)
     counts = uuidCount($exercicesParams)
-    titleExtra = counts[$exercicesParams[indiceExercice].uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""
-    title = $exercicesParams[indiceExercice].id ? `${exercice.titre}${titleExtra}` : exercice.titre
+    titleExtra = counts[$exercicesParams[indiceExercice]?.uuid] > 1 ? " [" + ranks[indiceExercice] + "]" : ""
+    title = $exercicesParams[indiceExercice]?.id ? `${exercice.titre}${titleExtra}` : exercice.titre
     // title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
   }
 

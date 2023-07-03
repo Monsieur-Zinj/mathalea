@@ -32,9 +32,9 @@
   const ressourcesUuids = Object.keys({ ...uuidsRessources })
   const profsUuids = Array.from(toMap({ ...refProfs }).values()).map((e) => e.get("uuid"))
   let category: string
-  if (ressourcesUuids.includes($exercicesParams[indiceExercice].uuid)) {
+  if (ressourcesUuids.includes($exercicesParams[indiceExercice]?.uuid)) {
     category = "Ressource"
-  } else if (profsUuids.includes($exercicesParams[indiceExercice].uuid)) {
+  } else if (profsUuids.includes($exercicesParams[indiceExercice]?.uuid)) {
     category = "Outil"
   } else {
     category = "Exercice"
