@@ -27,6 +27,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // mode : create (le prof créé sa séance), assignment (l'élève voit sa copie), review (le prof voit la copie d'un élève), view (le prof voit la séance d'un collègue dans la bibliothèque et pourra la cloner)
   // workflow : current (la copie n'a pas encore été rendue), finished (la copie a été rendue), corrected (la copie a été anotée par l'enseignant)
   // On récupère les paramètres de l'activité
+  if (activity === null || activity === undefined) return
   const [newExercicesParams, newGlobalOptions] = [activity.exercicesParams, activity.globalOptions]
   // On met à jour les paramètres des exercices
   exercicesParams.update((l) => {
