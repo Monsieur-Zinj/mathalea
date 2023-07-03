@@ -2,6 +2,7 @@ import { abs, acos, det, inv, multiply, polynomialRoot, round } from 'mathjs'
 import { Courbe, point, Segment, tracePoint } from '../2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
 import { egal } from '../outils.js'
+import { signesFonction, variationsFonction } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 
 /**
@@ -125,17 +126,50 @@ class Spline {
     return antecedents
   }
 
+  /**
+   * retourne un array décrivant les variations de la Spline sur son domaine de déf
+   * @returns {*[]|null}
+   */
+  variations () {
+    return variationsFonction(this.derivee, this.noeuds[0].x, this.noeuds[this.n - 1].x)
+  }
+
+  /**
+   * retourne les signes pris par la Spline sur son domaine de déf
+   * @returns {T[]}
+   */
+  signes () {
+    return signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x)
+  }
+
+  /**
+   * retourne le nombre d'antécédents entiers trouvés pour une valeur y donnée
+   * @param {number} y
+   * @returns {number}
+   */
   nombreAntecedentsEntiers (y) {
     const solutions = this.solve(y)
     const solutionsEntieres = solutions.filter(sol => Number.isInteger(sol))
     return solutionsEntieres.length
   }
 
+  /**
+   * retourne le nombre d'antécédents de y
+   * @param {number} y
+   * @returns {number}
+   */
   nombreAntecedents (y) {
     const solutions = this.solve(y)
     return solutions.length
   }
 
+  /**
+   * Retourne une valeur de y (si trouvée) pôur laquelle il y a exactement n antécédents
+   * @param {number} n
+   * @param {number} yMin
+   * @param {number} yMax
+   * @returns {string|*}
+   */
   trouveYPourNAntecedentsEntiers (n, yMin, yMax) {
     if (Number.isInteger(yMin) && Number.isInteger(yMax)) {
       for (let y = yMin; y <= yMax; y++) {
@@ -272,10 +306,19 @@ class Spline {
     return { yMin, yMax }
   }
 
+  /**
+   * fournit la fonction à passer pour simuler une fonction mathématique du type (x)=>f(x)
+   * @returns {function(*): number|*}
+   */
   get fonction () {
     return x => this.image(x)
   }
 
+  /**
+   * Retourne l'image de x par la fonction
+   * @param {number} x
+   * @returns {number|*}
+   */
   image (x) {
     let trouveK = false
     let k = 0
@@ -299,7 +342,7 @@ class Spline {
   }
 
   /**
-   * retourne un array de polynomes dérivés (degré 2) de ceux de la Spline
+   * retourne un array de polynomes dérivés (degré 2) de ceux de la Spline utilisé par derivee() pour définir la dérivée pour tout x du domaine
    * la fonction est continue, mais les dérivées à gauche et à droite des noeuds ne seront pas identiques
    * donc on ne peut pas en faire une Spline.
    */
@@ -309,6 +352,21 @@ class Spline {
       derivees.push(this.polys[i].derivee())
     }
     return derivees
+  }
+
+  /**
+   * retourne une fonction dérivée de la spline sur son domaine de définition
+   */
+  get derivee () {
+    const intervalles = []
+    for (let i = 0; i < this.noeuds.length - 1; i++) {
+      intervalles.push({ xG: this.noeuds[i].x, xD: this.noeuds[i + 1].x })
+    }
+    const self = this
+    return (x) => {
+      const index = intervalles.findIndex((intervalle) => x >= intervalle.xG && x < intervalle.xD)
+      return self.derivees[index].image(x)
+    }
   }
 
   /**
@@ -340,6 +398,11 @@ class Spline {
   }
 }
 
+/**
+ * un raccourcis pour new Spline(noeuds)
+ * @param {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>} noeuds
+ * @returns {Spline}
+ */
 export function spline (noeuds) {
   return new Spline(noeuds)
 }
@@ -379,7 +442,7 @@ export function trieNoeuds (noeuds) {
 
 /**
  * @class
- * crée la courbe de la spline
+ * crée la courbe de la spline (objet mathalea2d)
  */
 export class Trace extends ObjetMathalea2D {
   /**

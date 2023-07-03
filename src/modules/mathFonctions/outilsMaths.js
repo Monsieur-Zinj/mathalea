@@ -149,3 +149,69 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
   }
   return solutions
 }
+
+/**
+ *
+ * @param {function} fonction du type (x)=>number
+ * @param {number} xMin
+ * @param {number} xMax
+ * @returns {*[]}
+ */
+export function signesFonction (fonction, xMin, xMax) {
+  const signes = []
+  let xG, xD, signe
+  for (let x = xMin; x < xMax; x += 0.001) {
+    const image = fonction(x)
+    if (xG == null) {
+      xG = round(x, 2)
+      xD = xG + 0
+      signe = image < 0 ? '-' : '+'
+    } else if (signe === '-') {
+      xD = round(x, 2)
+      if (image >= 0) {
+        signes.push({ xG, xD, signe })
+        xG = null
+        xD = null
+      }
+    } else {
+      xD = round(x, 2)
+      if (image <= 0) {
+        xD = round(x, 2)
+        signes.push({ xG, xD, signe })
+        xG = null
+        xD = null
+      }
+    }
+  }
+  if (xD != null) {
+    signes.push({ xG, xD, signe })
+  }
+  return signes.filter((signe) => signe.xG !== signe.xD)
+}
+
+/**
+ * retourne un tableau décrivant les variations de la fonction
+ * Attention, la fonction fournie doit avoir une methode derivee(x) qui retourne la valeur de la dérivée en x
+ * @param {(x)=>number} fonctionAvecDerivee
+ * @param {number} xMin
+ * @param {number} xMax
+ * @returns {null|*[]}
+ */
+export function variationsFonction (derivee, xMin, xMax) {
+  if (derivee !== null && typeof derivee === 'function') {
+    const signesDerivee = signesFonction(derivee, xMin, xMax)
+    console.log(`Signes de la dérivée : ${JSON.stringify(signesDerivee)}`)
+    const variations = []
+    for (const signe of signesDerivee) {
+      if (signe.signe === '+') {
+        variations.push({ xG: signe.xG, xD: signe.xD, variation: 'croissant' })
+      } else {
+        variations.push({ xG: signe.xG, xD: signe.xD, variation: 'decroissant' })
+      }
+    }
+    return variations.filter((variation) => variation.xG !== variations.xD)
+  } else {
+    window.notify('variationsFonction() appelée avec autre chose qu\'une fonction', { derivee })
+    return null
+  }
+}
