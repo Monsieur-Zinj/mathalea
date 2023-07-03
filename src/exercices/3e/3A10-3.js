@@ -1,3 +1,4 @@
+import { warnMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -10,7 +11,6 @@ import {
   modalVideo,
   cribleEratostheneN,
   premiersEntreBornes,
-  warnMessage,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

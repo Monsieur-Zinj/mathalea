@@ -1,5 +1,6 @@
+import { lampeMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, contraindreValeur, gestionnaireFormulaireTexte, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { choice, combinaisonListes, contraindreValeur, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { min, max } from 'mathjs'
 import { context } from '../../modules/context.js'
@@ -147,7 +148,7 @@ export default function ComprendreScriptListeMultiples () {
       const listeQuestions = [ // [Questions, Reponses, Nb de lignes pour le réponse AMC]
         ['Combien ce script comporte-t-il de variables ?', `Ce script comporte ${texteEnCouleurEtGras(1)} variable.`, 1],
         ['Comment se nomme la variable dans ce script ?', `La variable de ce script se nomme ${texteEnCouleurEtGras(var1)}.`, 1],
-        ['Que fait ce script ?', `Ce script demande un nombre entier à l'utilisateur puis, pour tous les nombres entiers de 1 au nombre fourni, calcule le reste de la division euclidienne 
+        ['Que fait ce script ?', `Ce script demande un nombre entier à l'utilisateur puis, pour tous les nombres entiers de 1 au nombre fourni, calcule le reste de la division euclidienne
       de ce nombre fourni par chacun des entiers et le compare à zéro. Le lutin peut ainsi énoncer pendant une demi-seconde un nouveau diviseur du nombre fourni.`, 3],
         [`Si le nombre saisi est ${nb03}, que dit précisément le lutin ?`,
       `${choixScript[i] === 1 ? nb03 + ' est un multiple de 1' : choixScript[i] === 2 ? '1 divise ' + nb03 : '1 est un diviseur de ' + nb03}.<br>

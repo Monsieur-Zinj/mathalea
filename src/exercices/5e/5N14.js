@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, miseEnEvidence, obtenirListeFractionsIrreductibles, texFraction, texFractionSigne, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, miseEnEvidence, obtenirListeFractionsIrreductibles, deprecatedTexFraction, texFractionSigne, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -65,7 +65,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
       }
       if (a * b < 0) signeAsurB = '-'
       else signeAsurB = ''
-      texteCorr = `$${texFractionSigne(a, b)}= ${signeAsurB} ${texFraction(Math.abs(a) + miseEnEvidence('\\times  ' + k), Math.abs(b) + miseEnEvidence('\\times  ' + k))}=${texFractionSigne(a * k, b * k)}\\quad$`
+      texteCorr = `$${texFractionSigne(a, b)}= ${signeAsurB} ${deprecatedTexFraction(Math.abs(a) + miseEnEvidence('\\times  ' + k), Math.abs(b) + miseEnEvidence('\\times  ' + k))}=${texFractionSigne(a * k, b * k)}\\quad$`
       if (ordreDesFractions === 1) {
         texteCorr += `  et   $\\quad${texFractionSigne(a * k, b * k)} ${signe} ${texFractionSigne(a * k + ecart, b * k)} \\quad$ donc $\\quad ${texFractionSigne(a, b)} ${signe} ${texFractionSigne(a * k + ecart, b * k)}$ `
       } else {

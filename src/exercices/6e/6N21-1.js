@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, texFraction, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, deprecatedTexFraction, choice } from '../../modules/outils.js'
 import { droiteGraduee, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
@@ -75,13 +75,13 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
       const den1 = !this.sup2 ? data[tab].id : choice(data[tab].den)
       const num1 = trouveNumérateur(den1, data[tab].min, data[tab].max)
       if (this.interactif) {
-        texte = `Placer le point $${lettreIndiceeDepuisChiffre(i + 1)}\\left(${texFraction(num1, den1)}\\right).$`
+        texte = `Placer le point $${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right).$`
       } else {
         den2 = !this.sup2 ? data[tab].id : choice(data[tab].den, den1)
         num2 = trouveNumérateur(den2, data[tab].min, data[tab].max, [{ num: num1, den: den1 }])
         den3 = !this.sup2 ? data[tab].id : choice(data[tab].den, (data[tab].den.length > 2 ? [den1, den2] : [den1]))
         num3 = trouveNumérateur(den3, data[tab].min, data[tab].max, [{ num: num1, den: den1 }, { num: num2, den: den2 }])
-        texte = `Placer les points $${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num1, den1)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den2)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den3)}\\right)$.`
+        texte = `Placer les points $${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${deprecatedTexFraction(num2, den2)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${deprecatedTexFraction(num3, den3)}\\right)$.`
       }
       const origine = data[tab].min
       const tailleUnite = 20 / (data[tab].max - data[tab].min)
@@ -150,10 +150,10 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
       }
 
       if (this.interactif) {
-        texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${texFraction(num1, den1)}\\right).$`
+        texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right).$`
         texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:30px ' }, d, traceA, labels)
       } else {
-        texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num1, den1)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den2)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den3)}\\right)$`
+        texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${deprecatedTexFraction(num2, den2)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${deprecatedTexFraction(num3, den3)}\\right)$`
         texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:5px ' }, d, traceA, traceB, traceC, labels)
       }
 

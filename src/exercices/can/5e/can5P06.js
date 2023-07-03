@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, texNombre, choice, calcul, texFraction, sp } from '../../../modules/outils.js'
+import { randint, texNombre, choice, calcul, deprecatedTexFraction, sp } from '../../../modules/outils.js'
 export const titre = 'Écrire sous la forme d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -53,13 +53,13 @@ export default function ÉcrirePourcentage () {
         n = fraction[0]
         d = fraction[1]
 
-        this.question = `Compléter : $${texFraction(texNombre(n), d)}=.... ${sp()}\\%$`
+        this.question = `Compléter : $${deprecatedTexFraction(texNombre(n), d)}=.... ${sp()}\\%$`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
-        this.correction = `$${texFraction(n, d)}=\\dfrac{${texNombre(n)}\\times ${texNombre(100 / d)}}{${texNombre(d)}\\times ${texNombre(100 / d)}}=
+        this.correction = `$${deprecatedTexFraction(n, d)}=\\dfrac{${texNombre(n)}\\times ${texNombre(100 / d)}}{${texNombre(d)}\\times ${texNombre(100 / d)}}=
         \\dfrac{${texNombre((n * 100) / d)}}{100}=${texNombre((n * 100) / d)} ${sp()}\\%$`
         this.reponse = (n * 100) / d
         this.canEnonce = 'Compléter.'
-        this.canReponseACompleter = `$${texFraction(texNombre(n), d)}=.... ${sp()}\\%$`
+        this.canReponseACompleter = `$${deprecatedTexFraction(texNombre(n), d)}=.... ${sp()}\\%$`
         break
     }
   }

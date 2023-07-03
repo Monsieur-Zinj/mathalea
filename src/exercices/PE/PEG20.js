@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texFraction, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, deprecatedTexFraction, texteGras } from '../../modules/outils.js'
 import { point, pointAdistance } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Partager un segment au compas et à la règle non graduée'
@@ -32,7 +32,7 @@ export default function PartageSegmentCompasRegle () {
     anim.pointCreer(A)
     anim.pointCreer(B)
     anim.partageSegment(A, B, n, d, { nom: 'M', nommerGraduations: true, distance: 2 })
-    const texte = `Tracer un segment $[AB]$ puis placer le point $M$ sur $[AB ${(n < d) ? ']' : ')'}$ tel que $AM=${texFraction(n, d)}AB$ en utilisant uniquement le compas et la règle non graduée.`
+    const texte = `Tracer un segment $[AB]$ puis placer le point $M$ sur $[AB ${(n < d) ? ']' : ')'}$ tel que $AM=${deprecatedTexFraction(n, d)}AB$ en utilisant uniquement le compas et la règle non graduée.`
     let texteCorr = texteGras('Programme de construction :')
     texteCorr += '<br>On trace une demi-droite $[Ax)$.'
     texteCorr += `<br>On place sur $[Ax)$ ${Math.max(n, d)} points régulièrement espacés nommés $A_1$, $A_2$...`
@@ -41,7 +41,7 @@ export default function PartageSegmentCompasRegle () {
     texteCorr += `<br>On place $M$ à l'intersection de cette parallèle et de $[AB ${(n < d) ? ']' : ')'}$.`
     texteCorr += '<br><br>' + texteGras('Justification :')
     texteCorr += `<br>Les droites $(A_${d}B)$ et $(A_${n}M)$ sont parallèles donc d'après le théorème de Thalès, on a :`
-    texteCorr += `<br><br>$\\dfrac{AA_${n}}{AA_${d}}=\\dfrac{AM}{AB}$ donc $\\dfrac{${n}}{${d}}=\\dfrac{AM}{AB}$ et finalement $AM=${texFraction(n, d)}AB$. `
+    texteCorr += `<br><br>$\\dfrac{AA_${n}}{AA_${d}}=\\dfrac{AM}{AB}$ donc $\\dfrac{${n}}{${d}}=\\dfrac{AM}{AB}$ et finalement $AM=${deprecatedTexFraction(n, d)}AB$. `
     texteCorr += anim.html(numeroExercice)
 
     this.listeQuestions = [texte]

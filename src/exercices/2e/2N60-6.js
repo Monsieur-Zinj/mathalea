@@ -128,6 +128,7 @@ export default function PositionRelative () {
           const alea = choice([1, 2, 3])
           if (alea === 1) { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de x^2 +/- a)
             if (sousChoix[i]) { // avec question intermédiaire
+              a = 1 // c'est juste pour le this.questionJamaisPosee
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
               d = randint(-10, 10, 0)
@@ -202,6 +203,7 @@ export default function PositionRelative () {
                 texteCorr += `<br>${remarque}`
               }
             } else { // sans question intermédiaire
+              a = 1 // c'est juste pour le this.questionJamaisPosee
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
               d = randint(-10, 10, 0)
@@ -264,6 +266,7 @@ export default function PositionRelative () {
             }
           } else if (alea === 2) { // position relative avec un poly degré 2 et une fonction affine (cas etude du signe de -x^2 +/- a)
             if (sousChoix[i]) { // avec question intermédiaire
+              a = 1 // c'est juste pour le this.questionJamaisPosee
               b = randint(-9, 9, 0)
               c = randint(-10, 10)
               d = randint(-10, 10, 0)
@@ -565,7 +568,7 @@ export default function PositionRelative () {
           }
         }
       }
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

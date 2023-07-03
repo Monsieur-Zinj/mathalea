@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texFraction, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, deprecatedTexFraction, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive, ajouteChampFractionMathLive } from '../../modules/interactif/questionMathLive.js'
 import { format } from 'mathjs'
@@ -78,8 +78,8 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
           setReponse(this, i, n)
-          texte = `$${texFraction(texNombre(a), texNombre(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          texteCorr = '$ ' + texFraction(texNombre(a), texNombre(b)) + ' = ' + texNombre(n) + ' $'
+          texte = `$${deprecatedTexFraction(texNombre(a), texNombre(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          texteCorr = '$ ' + deprecatedTexFraction(texNombre(a), texNombre(b)) + ' = ' + texNombre(n) + ' $'
           this.autoCorrection[i].reponse.param.digits = 5
           this.autoCorrection[i].reponse.param.decimals = 3
           break
@@ -101,9 +101,9 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           if (this.interactif) {
             texte = `$${texNombre(n, precision, true)} =$` + ajouteChampFractionMathLive(this, i, false, b, 'min-width:100px')
           } else {
-            texte = `$${texNombre(n, precision, true)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
+            texte = `$${texNombre(n, precision, true)} = ${deprecatedTexFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
           }
-          texteCorr = '$ ' + texNombre(n) + ' = ' + texFraction(texNombre(a), texNombre(b)) + ' $'
+          texteCorr = '$ ' + texNombre(n) + ' = ' + deprecatedTexFraction(texNombre(a), texNombre(b)) + ' $'
           this.autoCorrection[i].reponse.param.digits = 6
           this.autoCorrection[i].reponse.param.decimals = 0
           break

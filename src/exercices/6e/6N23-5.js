@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  texFraction,
+  deprecatedTexFraction,
   calcul,
   choice,
   texNombre2,
@@ -50,32 +50,32 @@ export default function SensDeLaFraction () {
         case 1:
           a = randint(10, 25)
           b = randint(10, 25, a)
-          texte = `Le quotient de $${a}$ par $${b}$ s'écrit en écriture fractionnaire : $${texFraction(
+          texte = `Le quotient de $${a}$ par $${b}$ s'écrit en écriture fractionnaire : $${deprecatedTexFraction(
               '\\phantom{00000}',
               '\\phantom{00000}'
             )}$`
-          texteCorr = `Le quotient de $${a}$ par $${b}$ s'écrit $${texFraction(a, b)}$.`
+          texteCorr = `Le quotient de $${a}$ par $${b}$ s'écrit $${deprecatedTexFraction(a, b)}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texFraction(a, b)}$`,
+              texte: `$${deprecatedTexFraction(a, b)}$`,
               statut: true
             },
             {
-              texte: `$${texFraction(b, a)}$`,
+              texte: `$${deprecatedTexFraction(b, a)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(Math.abs(a - b), b)}$`,
+              texte: `$${deprecatedTexFraction(Math.abs(a - b), b)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(a + b, b)}$`,
+              texte: `$${deprecatedTexFraction(a + b, b)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(a * 10, b)}$`,
+              texte: `$${deprecatedTexFraction(a * 10, b)}$`,
               statut: false
             }
           ]
@@ -84,32 +84,32 @@ export default function SensDeLaFraction () {
         case 2:
           a = randint(10, 25)
           b = randint(10, 25, a)
-          texte = `Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit en écriture fractionnaire : $${texFraction(
+          texte = `Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit en écriture fractionnaire : $${deprecatedTexFraction(
               '\\phantom{00000}',
               '\\phantom{00000}'
             )}$`
-          texteCorr = `Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit $${texFraction(a, b)}$.`
+          texteCorr = `Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit $${deprecatedTexFraction(a, b)}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texFraction(a, b)}$`,
+              texte: `$${deprecatedTexFraction(a, b)}$`,
               statut: true
             },
             {
-              texte: `$${texFraction(b, a)}$`,
+              texte: `$${deprecatedTexFraction(b, a)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(Math.abs(a - b), b)}$`,
+              texte: `$${deprecatedTexFraction(Math.abs(a - b), b)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(a + b, b)}$`,
+              texte: `$${deprecatedTexFraction(a + b, b)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(a * 10, b)}$`,
+              texte: `$${deprecatedTexFraction(a * 10, b)}$`,
               statut: false
             }
           ]
@@ -118,32 +118,32 @@ export default function SensDeLaFraction () {
         case 3:
           a = randint(10, 25)
           b = randint(10, 25, a)
-          texte = `$${a}\\div ${b}$ s'écrit en écriture fractionnaire : $${texFraction(
+          texte = `$${a}\\div ${b}$ s'écrit en écriture fractionnaire : $${deprecatedTexFraction(
               '\\phantom{00000}',
               '\\phantom{00000}'
             )}$`
-          texteCorr = `$${a}\\div ${b}$ s'écrit  $${texFraction(a, b)}$.`
+          texteCorr = `$${a}\\div ${b}$ s'écrit  $${deprecatedTexFraction(a, b)}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texFraction(a, b)}$`,
+              texte: `$${deprecatedTexFraction(a, b)}$`,
               statut: true
             },
             {
-              texte: `$${texFraction(b, a)}$`,
+              texte: `$${deprecatedTexFraction(b, a)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(Math.abs(a - b), b)}$`,
+              texte: `$${deprecatedTexFraction(Math.abs(a - b), b)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(a + b, b)}$`,
+              texte: `$${deprecatedTexFraction(a + b, b)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(a * 10, b)}$`,
+              texte: `$${deprecatedTexFraction(a * 10, b)}$`,
               statut: false
             }
           ]
@@ -159,7 +159,7 @@ export default function SensDeLaFraction () {
           }
           f = fraction(a, b)
 
-          texte = `Le nombre $${texNombre2(calcul(a / b))}$ s'écrit en écriture fractionnaire : $${texFraction(
+          texte = `Le nombre $${texNombre2(calcul(a / b))}$ s'écrit en écriture fractionnaire : $${deprecatedTexFraction(
             '\\phantom{00000}',
             '\\phantom{00000}'
           )}$`
@@ -175,19 +175,19 @@ export default function SensDeLaFraction () {
               statut: true
             },
             {
-              texte: `$${texFraction(b, a)}$`,
+              texte: `$${deprecatedTexFraction(b, a)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(a, b * 10)}$`,
+              texte: `$${deprecatedTexFraction(a, b * 10)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(a * 10, b)}$`,
+              texte: `$${deprecatedTexFraction(a * 10, b)}$`,
               statut: false
             },
             {
-              texte: `$${texFraction(Math.floor(a / b), fraction(calcul((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().n)}$`,
+              texte: `$${deprecatedTexFraction(Math.floor(a / b), fraction(calcul((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().n)}$`,
               statut: false
             }
           ]
@@ -199,7 +199,7 @@ export default function SensDeLaFraction () {
       }
       if (this.interactif) {
         texte += '<br>' + propositionsQcm(this, i).texte
-        texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
+        texte = texte.replace(`$${deprecatedTexFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte)

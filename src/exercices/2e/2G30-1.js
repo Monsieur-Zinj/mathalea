@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif, unSiPositifMoinsUnSinon } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, deprecatedTexFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif, unSiPositifMoinsUnSinon } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -53,7 +53,7 @@ export default function CoefficientDirecteurDeDroite () {
           texteCorr += "<br>La droite $(AB)$ n'est donc pas verticale."
           texteCorr += '<br>On peut donc calculer le coefficient directeur de la droite.'
           texteCorr += "<br>On sait d'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$."
-          texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFraction(n, d)}`
+          texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n, d)}`
           if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
             texteCorr += `=${texFractionReduite(n, d)}`
           }

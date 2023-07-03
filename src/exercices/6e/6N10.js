@@ -25,7 +25,7 @@ export const dateDeModifImportante = '14/09/2022'
 */
 export const uuid = '0688e'
 export const ref = '6N10'
-export default function ÉcrirePetitsNombresEntiers () {
+export default function EcrirePetitsNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5
 
@@ -60,24 +60,6 @@ export default function ÉcrirePetitsNombresEntiers () {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    /*
-    let listeQuestions = []
-    let QuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = [2, 3, 4, 5, 6, 7, 8]
-    } else {
-      if (typeof (this.sup) === 'number') { // Je n'ai jamais réussi à rentrer dans ce test.
-        this.sup = Math.max(Math.min(parseInt(this.sup), 8), 2)
-        QuestionsDisponibles[0] = this.sup
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(2, 8, parseInt(QuestionsDisponibles[i]), 2)
-        }
-      }
-    }
-    */
-
     const listeQuestions = gestionnaireFormulaireTexte({
       min: 2,
       max: 8,
@@ -85,23 +67,6 @@ export default function ÉcrirePetitsNombresEntiers () {
       nbQuestions: this.nbQuestions,
       saisie: this.sup
     })
-
-    /*
-    let OptionsDisponibles = [] // Pour envisager les cas particuliers demandés 80, 81... 99 et 100, 200.. 900.
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      OptionsDisponibles = [0]
-    } else {
-      if (typeof (this.sup2) === 'number') { // Je n'ai jamais réussi à rentrer dans ce test. Ah si, quand on met l'URl dans un navigateur ?
-        this.sup2 = Math.max(Math.min(parseInt(this.sup2), 5), 0)
-        OptionsDisponibles[0] = this.sup2
-      } else {
-        OptionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < OptionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          OptionsDisponibles[i] = Math.max(Math.min(parseInt(OptionsDisponibles[i]), 5), 0) // parseInt en fait un tableau d'entiers comprise entre 2 et 6
-        }
-      }
-    }
-    */
 
     const OptionsDisponibles = gestionnaireFormulaireTexte({
       min: 0,

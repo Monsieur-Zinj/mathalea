@@ -1292,7 +1292,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
     den = den1 * den2
     texProduit = `\\dfrac{${num1}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times${ecritureParentheseSiNegatif(den2)}}`
   }
-  return [texFraction(num, den), texProduit, [num1, den1, num2, den2]]
+  return [deprecatedTexFraction(num, den), texProduit, [num1, den1, num2, den2]]
 }
 
 /**
@@ -1315,7 +1315,7 @@ export function simplificationDeFractionAvecEtapes (num, den) {
     if (numAbs % denAbs === 0) { // si le résultat est entier
       result += `${num / den}`
     } else {
-      result += `${signe}${texFraction(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
+      result += `${signe}${deprecatedTexFraction(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
     }
   } else if (num < 0 || den < 0) {
     result += `${texFractionSigne(num, den)}`
@@ -2968,6 +2968,7 @@ export function nombreDeChiffresDe (nb, except) {
 }
 
 /**
+ * @deprecated Utiliser la classe FractionEtendue et ses différentes méthodes
  * Retourne la string LaTeX de la fraction
  * @param num
  * @param den
@@ -2983,18 +2984,6 @@ export function texFractionSigne (num, den) {
     return `-\\dfrac{${texNombre(Math.abs(num))}}{${texNombre(Math.abs(den))}}`
   }
   return '0'
-}
-
-/**
- * Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe
- * @author Jean-Claude Lhote
- */
-export function texFractionParentheses (a, b) {
-  if (a * b > 0) {
-    return texFractionSigne(a, b)
-  } else {
-    return '\\left(' + texFractionSigne(a, b) + '\\right)'
-  }
 }
 
 /**
@@ -3075,10 +3064,11 @@ export function listeDesDiviseurs (n) {
 }
 
 /**
+ * @deprecated : Utiliser la classe FractionEtendue et sa méthode texFSD (ou une autre)
  * Retourne le code LaTeX d'une fraction a/b
  * @author Rémi Angot
  */
-export function texFraction (a, b) {
+export function deprecatedTexFraction (a, b) {
   if (b !== 1) {
     return `\\dfrac{${typeof a === 'number' ? texNombre(a) : a}}{${typeof b === 'number' ? texNombre(b) : b}}`
   } else {
@@ -3599,55 +3589,6 @@ export function listeDiviseurs (n) {
   return diviseurs
 }
 
-export function katexPopupTest (texte, titrePopup, textePopup) {
-  let contenu = ''
-  if (context.isHtml) {
-    contenu = '<div class="ui right label katexPopup">' + texte + '</div>'
-    contenu += '<div class="ui special popup" >'
-    if (titrePopup !== '') {
-      contenu += '<div class="header">' + titrePopup + '</div>'
-    }
-    contenu += '<div>' + textePopup + '</div>'
-    contenu += '</div>'
-    return contenu
-  } else {
-    return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
-  }
-}
-
-/**
- * Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
- * ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
- * @param {number} numero
- * @param {number} type
- * @param {string} titrePopup = Le titre du texte dévoilé par le bouton
- * @param {string} texte = Ce qu'il y a sur le bouton qui doit exactement etre le nom de l'image sans l'extension
- * @param {string} textePopup = Le texte dévoilé par le bouton ou l'url de l'image.
- * @author Jean-claude Lhote & Rémi Angot & Sebastien Lozano
- **/
-
-export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
-  // ToDo : gérer les popup avec la version 3
-  // Pour l'instant, ils sont supprimés
-  // if (context.versionMathalea > 2) return texte
-  switch (type) {
-    case 0:
-      return katexPopupTest(texte, titrePopup, textePopup)
-    case 1:
-      if (context.isHtml) {
-        return `${texte}` + modalTexteLong(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
-      } else {
-        return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
-      }
-    case 2:
-      if (context.isHtml) {
-        return `${texte}` + modalImage(numero, textePopup, `${titrePopup}`, `${texte}`)
-      } else {
-        return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
-      }
-  }
-}
-
 /**
  * Crée une liste de questions alphabétique
  * @param {number} k valeur numérique
@@ -3906,133 +3847,6 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
   }
 
   return tableauCL
-}
-
-/**
- * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte
- * @param {string} texte
- * @param {string} couleur
- * @param {string} titre
- * @author Sébastien Lozano
- */
-export function warnMessage (texte, couleur, titre) {
-  const timeStamp = Date.now()
-  if (typeof (titre) === 'undefined') {
-    titre = ''
-  }
-  if (context.isHtml) {
-    if (context.versionMathalea === 3) {
-      return `
-      <div id="warnMessage-${timeStamp}">
-        <div id="title-warnMessage-${timeStamp}">
-        ${titre}
-        </div>
-        ${texte}
-      </div>
-      `
-    } else {
-      return `
-    <br>
-    <div class="ui compact warning message">
-    <h4><i class="lightbulb outline icon"></i>${titre}</h4>
-    <p>` + texte + `
-    </p>
-    </div>
-    `
-    }
-  } else {
-    // return texCadreParOrange(texte);
-    return `
-    \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
-      ` + texte + `
-    \\end{bclogo}
-    `
-  }
-}
-
-/**
- * @returns un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte + icone info
- * @param {object}
- * @author Sébastien Lozano
- */
-
-export function infoMessage ({ titre, texte, couleur }) {
-  // ;
-  const timeStamp = Date.now()
-  if (context.isHtml) {
-    if (context.versionMathalea === 3) {
-      return `
-      <div id="infoMessage-${timeStamp}">
-        <div id="title-infoMessage-${timeStamp}">
-        ${titre}
-        </div>
-        ${texte}
-      </div>
-      `
-    } else {
-      return `
-    <div class="ui compact icon message">
-      <i class="info circle icon"></i>
-      <div class="content">
-          <div class="header">
-          ` + titre + `
-          </div>
-          <p>` + texte + `</p>
-      </div>
-      </div>
-    `
-    }
-  } else {
-    return `
-    \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bcinfo,arrondi=0.1]{\\bf ' + titre + `}
-      ` + texte + `
-    \\end{bclogo}
-    `
-  }
-}
-
-/**
- * @returns un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte + icone lampe
- * @param {object}
- * @author Sébastien Lozano
- */
-
-export function lampeMessage ({ titre, texte, couleur }) {
-  const timeStamp = Date.now()
-  if (context.isHtml) {
-    if (context.versionMathalea === 3) {
-      return `
-      <div id="lampeMessage-${timeStamp}">
-        <div id="title-lampeMessage-${timeStamp}">
-        ${titre}
-        </div>
-        ${texte}
-      </div>
-      `
-    } else {
-      return `
-      <div class="ui compact icon message" style="width: auto">
-        <i class="lightbulb outline icon"></i>
-        <div class="content">
-            <div class="header">
-            ` + titre + `
-            </div>
-            <p>` + texte + `</p>
-        </div>
-        </div>
-      `
-    }
-  } else if (context.isAmc) {
-    return `
-    {\\bf ${titre}} : ${texte}
-    `
-  } else {
-    return `
-    \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
-      ` + texte + `
-    \\end{bclogo}
-    `
-  }
 }
 
 /**

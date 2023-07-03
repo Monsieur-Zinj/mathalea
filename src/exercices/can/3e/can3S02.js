@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { choice, texFraction } from '../../../modules/outils.js'
+import { choice, deprecatedTexFraction } from '../../../modules/outils.js'
 export const titre = 'Calculer la probabilité d’ un évènement contraire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,12 +29,12 @@ export default function ProbaEvenementContraire () {
     const fraction = choice(listeFractions)
     const n = fraction[0]
     const d = fraction[1]
-    this.question = `La probabilité d'un événement $A$ est $${texFraction(n, d)}$. <br>
+    this.question = `La probabilité d'un événement $A$ est $${deprecatedTexFraction(n, d)}$. <br>
 
 Quelle est la probabilité de son événement contraire ?
 `
     this.correction = `La relation entre la probabilité d'un événement $A$ et celle de son contraire $\\overline{A}$ est :  $P(\\overline{A})=1-P(A)$.<br>
-        Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${texFraction(d - n, d)}$.`
+        Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${deprecatedTexFraction(d - n, d)}$.`
     this.reponse = new FractionEtendue(d - n, d)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

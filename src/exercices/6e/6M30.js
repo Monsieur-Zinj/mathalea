@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texFraction, sp, nombreDeChiffresDansLaPartieEntiere, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, deprecatedTexFraction, sp, nombreDeChiffresDansLaPartieEntiere, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -235,7 +235,7 @@ export default function CalculDeVolumes () {
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += ', arrondi à l\'unité, ' // Il faut toujours arrondir à cause de la présence de Pi
             texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${h}${listeUnites[j][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texFraction(
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${deprecatedTexFraction(
               r * r * h,
               3
             )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round())}${listeUnites[j][1]}$`
@@ -246,7 +246,7 @@ export default function CalculDeVolumes () {
             volume = new Decimal(r * r * h).mul(Decimal.acos(-1)).div(3)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texFraction(r * r * h, 3)}\\pi\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${deprecatedTexFraction(r * r * h, 3)}\\pi\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
           }
           resultat = volume.round()
           resultat2 = volume.mul(4).round()
@@ -296,7 +296,7 @@ export default function CalculDeVolumes () {
           volume = new Decimal(r).pow(3).mul(4).mul(Decimal.acos(-1)).div(3)
           texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
           texte += `, arrondi à l'unité, d'une boule de $${r}${listeUnites[j][0]}$ de rayon.`
-          texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^3=${texFraction(4 * r * r * r, 3)}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+          texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^3=${deprecatedTexFraction(4 * r * r * r, 3)}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
           resultat = volume.round()
           resultat2 = volume.mul(3).round()
           resultat3 = volume.mul(3).div(4).round()

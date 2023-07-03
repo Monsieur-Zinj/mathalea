@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, choice, sp, calcul, texFraction, rienSi1, ecritureAlgebrique, pgcd, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenuSansNumero, choice, sp, calcul, deprecatedTexFraction, rienSi1, ecritureAlgebrique, pgcd, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Reconnaître une fonction affine'
@@ -36,7 +36,7 @@ export default function ReconnaitreFonctionAffine () {
         if (a === 1) {
           if (b === 0) {
             this.listeQuestions.push(`Soit $f(x)=x$.<br>
-          La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>  
+          La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>
           Les valeurs de $a$ et de $b$ sont  :<br> $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
             ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
             this.canEnonce = `Soit $f(x)=x$.<br>
@@ -48,7 +48,7 @@ export default function ReconnaitreFonctionAffine () {
           } else {
             this.listeQuestions.push(`Soit $f(x)=${b}+x$.<br>
 
-        La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>   
+        La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>
         
         Les valeurs de $a$ et de $b$ sont  :<br> $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
           ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
@@ -62,7 +62,7 @@ export default function ReconnaitreFonctionAffine () {
         } else {
           if (b === 0) {
             this.listeQuestions.push(`Soit $f(x)=x$.<br>
-                La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>          
+                La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>
                 Les valeurs de $a$ et de $b$ sont  :<br>       $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
                   ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
             this.canEnonce = `Soit $f(x)=${b}+x$.<br>
@@ -73,7 +73,7 @@ export default function ReconnaitreFonctionAffine () {
                   $f(x)=\\underbrace{${a}}_{a}x$`)
           } else {
             this.listeQuestions.push(`Soit $f(x)=${b}+${a}x$.<br>
-            La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>  
+            La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>
             Les valeurs de $a$ et de $b$ sont  :<br>
        $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
@@ -109,11 +109,11 @@ export default function ReconnaitreFonctionAffine () {
             La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>Les valeurs de $a$ et de $b$ sont  :<br>   $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
           this.canEnonce = `Soit $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}${ecritureAlgebrique(c)}$.<br>
-            
+          
          La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.`
           this.canReponseACompleter = '$a=\\ldots $ et $b=\\ldots$'
         }
-        setReponse(this, 0, [`${texFraction(a, b)}`, `${texFraction(-a, -b)}`, calcul(a / b), calcul(-a / (-b))])
+        setReponse(this, 0, [`${deprecatedTexFraction(a, b)}`, `${deprecatedTexFraction(-a, -b)}`, calcul(a / b), calcul(-a / (-b))])
         setReponse(this, 1, c)
         this.listeCorrections.push(`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $\\dfrac{ax}{b}=\\dfrac{a}{b}x$) et la valeur de $b$ est la constante.<br>
         $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}=\\underbrace{\\dfrac{${a}}{${b}}}_{a}x+\\underbrace{${ecritureParentheseSiNegatif(c)}}_{b}$`)
@@ -134,7 +134,7 @@ export default function ReconnaitreFonctionAffine () {
         La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>   Les valeurs de $a$ et de $b$ sont  :<br>  $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
           ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
           this.canEnonce = `Soit $f(x)=\\dfrac{-x${ecritureAlgebrique(c)}}{${b}}$.<br>
-            
+          
           La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.`
           this.canReponseACompleter = '$a=\\ldots $ et $b=\\ldots$'
         } else {
@@ -143,12 +143,12 @@ export default function ReconnaitreFonctionAffine () {
             La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>      Les valeurs de $a$ et de $b$ sont  :<br>$a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(3)} ${sp(3)} et${sp(3)} $b=$
          ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(2)} `)
           this.canEnonce = `Soit $f(x)=\\dfrac{${rienSi1(a)}x${ecritureAlgebrique(c)}}{${b}}$.<br>
-            
+          
          La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.`
           this.canReponseACompleter = '$a=\\ldots $ et $b=\\ldots$'
         }
-        setReponse(this, 0, [`${texFraction(a, b)}`, `${texFraction(-a, -b)}`, calcul(a / b), calcul(-a / (-b))])
-        setReponse(this, 1, [`${texFraction(c, b)}`, `${texFraction(-c, -b)}`, calcul(c / b), calcul(-c / (-b))])
+        setReponse(this, 0, [`${deprecatedTexFraction(a, b)}`, `${deprecatedTexFraction(-a, -b)}`, calcul(a / b), calcul(-a / (-b))])
+        setReponse(this, 1, [`${deprecatedTexFraction(c, b)}`, `${deprecatedTexFraction(-c, -b)}`, calcul(c / b), calcul(-c / (-b))])
 
         this.listeCorrections = [`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$  et la valeur de $b$ est la constante.<br>
         $f(x)=\\dfrac{${rienSi1(a)}x${ecritureAlgebrique(c)}}{${b}}=\\underbrace{\\dfrac{${a}}{${b}}}_{a}x+\\underbrace{\\dfrac{${c}}{${b}}}_{b}$`]

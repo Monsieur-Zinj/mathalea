@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre, texFraction, arrondi } from '../../../modules/outils.js'
+import { randint, choice, texNombre, deprecatedTexFraction, arrondi } from '../../../modules/outils.js'
 export const titre = 'Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -47,9 +47,9 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
         den = choice([10, 100, 1000])
         b = choice([10, 100, 1000])
         resultat = arrondi(a * b / den, 3)
-        this.question = `Calculer $${texFraction(a, den)}\\times${texNombre(b)}$.`
-        this.correction = `$${texFraction(a, den)} \\times ${texNombre(
-                b)} = ${texFraction(a * b, den)} = ${texNombre((a / den) * b, 3)}$`
+        this.question = `Calculer $${deprecatedTexFraction(a, den)}\\times${texNombre(b)}$.`
+        this.correction = `$${deprecatedTexFraction(a, den)} \\times ${texNombre(
+                b)} = ${deprecatedTexFraction(a * b, den)} = ${texNombre((a / den) * b, 3)}$`
         this.reponse = resultat
         break
     }

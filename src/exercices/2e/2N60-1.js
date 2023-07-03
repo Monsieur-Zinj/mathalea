@@ -46,7 +46,7 @@ export default function ModeliseInequations () {
           { const a = randint(20, 30) //
             const b = randint(a + 5, 50) //
             const c = new Decimal(randint(20, 35)).div(100)
-            const d = new Decimal(randint(15, c - 1)).div(100)
+            const d = new Decimal(randint(15, Decimal.round(c - 1))).div(100)
             texte = `  Une société de location de véhicules particulièrs propose deux tarifs :<br>
               $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par km parcouru ;<br>
               $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par km parcouru ;<br>

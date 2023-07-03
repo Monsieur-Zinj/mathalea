@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, compareFractions, calcul, shuffle, miseEnEvidence, texFraction, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, compareFractions, calcul, shuffle, miseEnEvidence, deprecatedTexFraction, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
 
@@ -66,11 +66,11 @@ export default function ExerciceComparerQuatreFractions () {
       n2 *= positifOuNegatif[1]
       n3 *= positifOuNegatif[2]
       n4 *= positifOuNegatif[3]
-      const tableauFractions = [[n1, d1, `$${texFraction(n1, d1)}$`, `$${texFraction(n1, d1)}$`]]
-      tableauFractions.push([n2, d2, `$${texFraction(n2, d2)} = ${texFraction(n2 + miseEnEvidence('\\times ' + calcul(d1 / d2)), d2 + miseEnEvidence('\\times ' + calcul(d1 / d2)))}=${texFraction(calcul(n2 * d1 / d2), d1)}$`, `$${texFraction(calcul(n2 * d1 / d2), d1)}$`])
-      tableauFractions.push([n3, d3, `$${texFraction(n3, d3)} = ${texFraction(n3 + miseEnEvidence('\\times ' + calcul(d1 / d3)), d3 + miseEnEvidence('\\times ' + calcul(d1 / d3)))}=${texFraction(calcul(n3 * d1 / d3), d1)}$`, `$${texFraction(calcul(n3 * d1 / d3), d1)}$`])
-      tableauFractions.push([n4, d4, `$${texFraction(n4, d4)} = ${texFraction(n4 + miseEnEvidence('\\times ' + calcul(d1 / d4)), d4 + miseEnEvidence('\\times ' + calcul(d1 / d4)))}=${texFraction(calcul(n4 * d1 / d4), d1)}$`, `$${texFraction(calcul(n4 * d1 / d4), d1)}$`])
-      tableauFractions.push([k, 1, `$${k} = ${texFraction(d1 * k, d1)}$`, `$${texFraction(k * d1, d1)}$`])
+      const tableauFractions = [[n1, d1, `$${deprecatedTexFraction(n1, d1)}$`, `$${deprecatedTexFraction(n1, d1)}$`]]
+      tableauFractions.push([n2, d2, `$${deprecatedTexFraction(n2, d2)} = ${deprecatedTexFraction(n2 + miseEnEvidence('\\times ' + calcul(d1 / d2)), d2 + miseEnEvidence('\\times ' + calcul(d1 / d2)))}=${deprecatedTexFraction(calcul(n2 * d1 / d2), d1)}$`, `$${deprecatedTexFraction(calcul(n2 * d1 / d2), d1)}$`])
+      tableauFractions.push([n3, d3, `$${deprecatedTexFraction(n3, d3)} = ${deprecatedTexFraction(n3 + miseEnEvidence('\\times ' + calcul(d1 / d3)), d3 + miseEnEvidence('\\times ' + calcul(d1 / d3)))}=${deprecatedTexFraction(calcul(n3 * d1 / d3), d1)}$`, `$${deprecatedTexFraction(calcul(n3 * d1 / d3), d1)}$`])
+      tableauFractions.push([n4, d4, `$${deprecatedTexFraction(n4, d4)} = ${deprecatedTexFraction(n4 + miseEnEvidence('\\times ' + calcul(d1 / d4)), d4 + miseEnEvidence('\\times ' + calcul(d1 / d4)))}=${deprecatedTexFraction(calcul(n4 * d1 / d4), d1)}$`, `$${deprecatedTexFraction(calcul(n4 * d1 / d4), d1)}$`])
+      tableauFractions.push([k, 1, `$${k} = ${deprecatedTexFraction(d1 * k, d1)}$`, `$${deprecatedTexFraction(k * d1, d1)}$`])
       tableauFractions.sort(compareFractions)
       const tableauFractionsEnonce = shuffle(tableauFractions)
       texte = ''
@@ -78,7 +78,7 @@ export default function ExerciceComparerQuatreFractions () {
         if (tableauFractionsEnonce[j][1] === 1) {
           texte += `$${tableauFractionsEnonce[j][0]}\\quad\\text{;}\\quad$`
         } else {
-          texte += `$${texFraction(tableauFractionsEnonce[j][0], tableauFractionsEnonce[j][1])}\\quad\\text{;}\\quad$`
+          texte += `$${deprecatedTexFraction(tableauFractionsEnonce[j][0], tableauFractionsEnonce[j][1])}\\quad\\text{;}\\quad$`
         }
       }
       texte = texte.substring(0, texte.length - 19) + '$' // Enlève les 21 derniers caractères (pour le ; de la fin)
@@ -100,7 +100,7 @@ export default function ExerciceComparerQuatreFractions () {
         if (tableauFractions[j][1] === 1) {
           texteConclusion += `$${tableauFractions[j][0]}\\quad<\\quad$`
         } else {
-          texteConclusion += `$${texFraction(tableauFractions[j][0], tableauFractions[j][1])}\\quad<\\quad$`
+          texteConclusion += `$${deprecatedTexFraction(tableauFractions[j][0], tableauFractions[j][1])}\\quad<\\quad$`
         }
       }
       texteCorr += 'Finalement : $\\quad$ ' + texteConclusion.substring(0, texteConclusion.length - 12) + '$'

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, choice, texFraction, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, reduirePolynomeDegre3, range1 } from '../../modules/outils.js'
+import { randint, choice, deprecatedTexFraction, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, reduirePolynomeDegre3, range1 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -63,9 +63,9 @@ export default function DevelopperIdentitesRemarquables3 () {
         fraction = choice(Fractions)
         ns = fraction[0]
         ds = fraction[1]
-        texte = `$${lettreDepuisChiffre(i + 1)} = \\left(${texFraction(ns, ds)}${choixLettre}-${a}\\right)\\left(${texFraction(ns, ds)}${choixLettre}+${a}\\right)$` // b>1
-        texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\left(${texFraction(ns, ds)}${choixLettre}-${a}\\right)\\left(${texFraction(ns, ds)}${choixLettre}+${a}\\right)=\\left(${texFraction(ns, ds)}${choixLettre}\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}$`
-        reponse = `${texFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}`
+        texte = `$${lettreDepuisChiffre(i + 1)} = \\left(${deprecatedTexFraction(ns, ds)}${choixLettre}-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}${choixLettre}+${a}\\right)$` // b>1
+        texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\left(${deprecatedTexFraction(ns, ds)}${choixLettre}-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}${choixLettre}+${a}\\right)=\\left(${deprecatedTexFraction(ns, ds)}${choixLettre}\\right)^2-${a}^2=${deprecatedTexFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}$`
+        reponse = `${deprecatedTexFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}`
         reponse1 = new FractionEtendue(ns * ns, ds * ds)
       }
       if (this.sup2) {

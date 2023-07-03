@@ -1,6 +1,7 @@
+import { lampeMessage } from '../../lib/outils/message.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, lampeMessage } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, deprecatedTexFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -43,7 +44,7 @@ export default function ExerciceEquation1Tiret2 () {
     if (this.interactif) {
       this.introduction = lampeMessage({
         titre: '',
-        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${texFraction(1, 3)})$ plutôt qu'une valeur aprrochée (comme 0,3333).`,
+        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${deprecatedTexFraction(1, 3)})$ plutôt qu'une valeur aprrochée (comme 0,3333).`,
         couleur: 'nombres'
       })
     }
@@ -88,7 +89,7 @@ export default function ExerciceEquation1Tiret2 () {
 
         if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${a - c}$.<br>` }
         texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}=${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-        texteCorr += `$x=${texFraction(d - b, a - c)}$`
+        texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}$`
         if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {
           texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`
         }
@@ -128,7 +129,7 @@ export default function ExerciceEquation1Tiret2 () {
 
         if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${k * a - c}$.<br>` }
         texteCorr += `$${rienSi1(k * a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(k * a - c))}=${d - k * b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(k * a - c))}$<br>`
-        texteCorr += `$x=${texFraction(d - k * b, k * a - c)}$`
+        texteCorr += `$x=${deprecatedTexFraction(d - k * b, k * a - c)}$`
         if (pgcd(abs(d - k * b), abs(k * a - c)) > 1 || (k * a - c) < 0) {
           texteCorr += `<br>$x=${texFractionReduite(d - k * b, k * a - c)}$`
         }
@@ -174,7 +175,7 @@ export default function ExerciceEquation1Tiret2 () {
 
         if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${a - c}$.<br>` }
         texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}=${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-        texteCorr += `$x=${texFraction(d - b, a - c)}$`
+        texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}$`
         if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {
           texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`
         }

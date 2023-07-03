@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, texFraction, texFractionReduite, randint, pgcd, choice, miseEnEvidence, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, deprecatedTexFraction, texFractionReduite, randint, pgcd, choice, miseEnEvidence, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -109,9 +109,9 @@ export default function ExerciceEquations () {
           if (a !== 1) {
             texteCorr += '<br>'
             if (pgcd(a, b) === 1) {
-              texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `
+              texteCorr += `$x = ${deprecatedTexFraction(-b, a)} \\quad \\text{ou} \\quad x = ${deprecatedTexFraction(b, a)}$ `
             } else {
-              texteCorr += `$x = ${texFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}=${texFractionReduite(b, a)}$ `
+              texteCorr += `$x = ${deprecatedTexFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${deprecatedTexFraction(b, a)}=${texFractionReduite(b, a)}$ `
             }
           }
           texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(texFractionReduite(-b, a))}$ et $${miseEnEvidence(texFractionReduite(b, a))}$.`
@@ -140,9 +140,9 @@ export default function ExerciceEquations () {
           if (a !== 1) {
             texteCorr += '<br>'
             if (pgcd(a, b) === 1) {
-              texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `
+              texteCorr += `$x = ${deprecatedTexFraction(-b, a)} \\quad \\text{ou} \\quad x = ${deprecatedTexFraction(b, a)}$ `
             } else {
-              texteCorr += `$x = ${texFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}=${texFractionReduite(b, a)}$ `
+              texteCorr += `$x = ${deprecatedTexFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${deprecatedTexFraction(b, a)}=${texFractionReduite(b, a)}$ `
             }
           }
           texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(texFractionReduite(-b, a))}$ et $${miseEnEvidence(texFractionReduite(b, a))}$.`
@@ -165,7 +165,7 @@ export default function ExerciceEquations () {
             texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(d * b)}x $`
             texteCorr += '<br>'
             texteCorr += `$ ${a} = ${rienSi1(d * b)}x $`
-            if (d * b !== 1) texteCorr += `<br>$ ${texFraction(a, d * b)} = x $`
+            if (d * b !== 1) texteCorr += `<br>$ ${deprecatedTexFraction(a, d * b)} = x $`
             if ((a < 0 && d * b < 0) || pgcd(a, d * b) !== 1) {
               texteCorr += '<br>'
               texteCorr += ` $ ${texFractionReduite(a, d * b)} = x $`
@@ -177,7 +177,7 @@ export default function ExerciceEquations () {
             texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(b * d)}x = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)}$`
             texteCorr += '<br>'
             texteCorr += `$ ${rienSi1(b * d)}x = ${a} $`
-            if (d * b !== 1) texteCorr += `<br>$ x = ${texFraction(a, d * b)}$`
+            if (d * b !== 1) texteCorr += `<br>$ x = ${deprecatedTexFraction(a, d * b)}$`
             if ((a < 0 && b * d < 0) || pgcd(a, b * d) !== 1) {
               texteCorr += '<br>'
               texteCorr += ` $ x = ${texFractionReduite(a, b * d)} $`
@@ -198,7 +198,7 @@ export default function ExerciceEquations () {
           texteCorr += `$ ${rienSi1(a)}x ${ecritureAlgebrique(b)} = 0$`
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a)}x = ${-b} $`
-          if (a !== 1) texteCorr += `<br>$ x = ${texFraction(-b, a)}$`
+          if (a !== 1) texteCorr += `<br>$ x = ${deprecatedTexFraction(-b, a)}$`
           if ((-b < 0 && a < 0) || pgcd(a, b) !== 1) {
             texteCorr += '<br>'
             texteCorr += ` $ x = ${texFractionReduite(-b, a)} $`
@@ -225,7 +225,7 @@ export default function ExerciceEquations () {
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a * d + b * c)}x = ${-b * d}$ `
           texteCorr += '<br>'
-          texteCorr += `$ x = ${texFraction(-b * d, a * d + b * c)}$`
+          texteCorr += `$ x = ${deprecatedTexFraction(-b * d, a * d + b * c)}$`
           if ((-b * d < 0 && a * d + b * c < 0) || pgcd(-b * d, a * d + b * c) !== 1) {
             texteCorr += '<br>'
             texteCorr += `$ x = ${texFractionReduite(-b * d, a * d + b * c)}$`
@@ -262,7 +262,7 @@ function ax2plusbx (a, b) {
   texteCorr += '<br>'
   texteCorr += `$ \\phantom{x = 0 \\text{ \\quad ou \\quad }} ${rienSi1(a)} x = ${-b} $ `
   texteCorr += '<br>'
-  texteCorr += `$ \\phantom{x = 0 \\text{ \\quad ou \\quad }}  x = ${texFraction(-b, a)} `
+  texteCorr += `$ \\phantom{x = 0 \\text{ \\quad ou \\quad }}  x = ${deprecatedTexFraction(-b, a)} `
   if ((b > 0 && a < 0) || pgcd(a, b) !== 1) {
     texteCorr += ` = ${texFractionReduite(-b, a)} `
   }

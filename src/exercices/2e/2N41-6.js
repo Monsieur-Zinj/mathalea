@@ -3,7 +3,7 @@ import {
   listeQuestionsToContenu,
   randint,
   choice,
-  texFraction,
+  deprecatedTexFraction,
   combinaisonListes,
   texFractionReduite
 } from '../../modules/outils.js'
@@ -144,20 +144,20 @@ export default function DevelopperIdentitesRemarquables2 () {
           reponse = `${b * b}x^2-${a * a}`
           break
         case 7:
-          texte = `$\\left(${texFraction(ns, ds)}x+${a}\\right)^2$` // (kx+a)² k rationnel
-          texteCorr = `$\\left(${texFraction(ns, ds)}x+${a}\\right)^2=\\left(${texFraction(ns, ds)}x\\right)^2+2 \\times ${texFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${texFraction(ns, ds)}x+${a}\\right)^2=${texFraction(ns * ns, ds * ds)}x^2+${texFractionReduite(ns * 2 * a, ds)}x+${a * a}$`
-          reponse = `${texFraction(ns * ns, ds * ds)}x^2+${texFractionReduite(ns * 2 * a, ds)}x+${a * a}`
+          texte = `$\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)^2$` // (kx+a)² k rationnel
+          texteCorr = `$\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)^2=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2+2 \\times ${deprecatedTexFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)^2=${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${texFractionReduite(ns * 2 * a, ds)}x+${a * a}$`
+          reponse = `${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${texFractionReduite(ns * 2 * a, ds)}x+${a * a}`
           break
         case 8:
-          texte = `$\\left(${texFraction(ns, ds)}x-${a}\\right)^2$` // (kx-a)² k rationnel
-          texteCorr = `$\\left(${texFraction(ns, ds)}x-${a}\\right)^2=\\left(${texFraction(ns, ds)}x\\right)^2-2 \\times ${texFraction(ns, ds)}x \\times ${a} + ${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${texFractionReduite(ns * 2 * a, ds)}x+${a * a}$`
-          reponse = `${texFraction(ns * ns, ds * ds)}x^2-${texFractionReduite(ns * 2 * a, ds)}x+${a * a}`
+          texte = `$\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)^2$` // (kx-a)² k rationnel
+          texteCorr = `$\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)^2=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2-2 \\times ${deprecatedTexFraction(ns, ds)}x \\times ${a} + ${a}^2=${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${texFractionReduite(ns * 2 * a, ds)}x+${a * a}$`
+          reponse = `${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${texFractionReduite(ns * 2 * a, ds)}x+${a * a}`
           break
         case 9:
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
-          texte = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$` // b>1
-          texteCorr = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`
-          reponse = `${texFraction(ns * ns, ds * ds)}x^2-${a * a}`
+          texte = `$\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)$` // b>1
+          texteCorr = `$\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2-${a}^2=${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${a * a}$`
+          reponse = `${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${a * a}`
           break
       }
       texte += ajouteChampTexteMathLive(this, i)

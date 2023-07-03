@@ -4,7 +4,7 @@ import {
   randint,
   enleveElement,
   choice,
-  texFraction,
+  deprecatedTexFraction,
   nombreDeChiffresDansLaPartieEntiere,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
@@ -129,17 +129,17 @@ export default function ExerciceFractionsDecomposer () {
       }
       texte =
         '$ ' +
-        texFraction(a, b) +
+        deprecatedTexFraction(a, b) +
         ' = \\ldots\\ldots + ' +
-        texFraction('\\ldots\\ldots', '\\ldots\\ldots') +
+        deprecatedTexFraction('\\ldots\\ldots', '\\ldots\\ldots') +
         ' $'
       texteCorr =
-        '$ ' + texFraction(a, b) + ' = ' + n + '+' + texFraction(c, b) + ' $'
-      reponse = `${n} + ${texFraction(c, b)}`
+        '$ ' + deprecatedTexFraction(a, b) + ' = ' + n + '+' + deprecatedTexFraction(c, b) + ' $'
+      reponse = `${n} + ${deprecatedTexFraction(c, b)}`
 
       setReponse(this, i, reponse)
       if (this.interactif) {
-        texte = `$ ${texFraction(a, b)} = $`
+        texte = `$ ${deprecatedTexFraction(a, b)} = $`
         texte += ajouteChampTexteMathLive(this, i)
       }
       if (context.isAmc) {
@@ -159,7 +159,7 @@ export default function ExerciceFractionsDecomposer () {
                   statut: true, // true au false pour un QCM
                   feedback: '',
                   reponse: { // utilisé si type = 'AMCNum'
-                    texte: 'Décomposer $' + texFraction(a, b) + '$ sous forme d\'une somme d\'un entier et d\'une fraction inférieure à 1. \\\\\n \\\\\n Entier ', // facultatif
+                    texte: 'Décomposer $' + deprecatedTexFraction(a, b) + '$ sous forme d\'une somme d\'un entier et d\'une fraction inférieure à 1. \\\\\n \\\\\n Entier ', // facultatif
                     valeur: n, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                     alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                     param: {

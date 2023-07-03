@@ -1,5 +1,5 @@
 import { fraction } from '../../../modules/fractions.js'
-import { obtenirListeFractionsIrreductibles, choice, texFraction, randint } from '../../../modules/outils.js'
+import { obtenirListeFractionsIrreductibles, choice, deprecatedTexFraction, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true
@@ -28,8 +28,8 @@ export default function SommeEntierEtFractionIrred () {
     const c = maFraction[1]
     const d = fraction(a * c + b, c).simplifie()
     this.reponse = d
-    this.question = `Calculer sous la forme d'une fraction irréductible :  $${a}+${texFraction(b, c)}$.`
-    this.correction = `$${a}+${texFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${d.texFraction}$`
+    this.question = `Calculer sous la forme d'une fraction irréductible :  $${a}+${deprecatedTexFraction(b, c)}$.`
+    this.correction = `$${a}+${deprecatedTexFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${d.texFraction}$`
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

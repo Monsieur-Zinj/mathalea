@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, nombreDeChiffresDe, stringNombre, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, troncature, calcul, choisitLettresDifferentes, texNombre, deprecatedTexFraction, nombreDeChiffresDe, stringNombre, listeQuestionsToContenu } from '../../modules/outils.js'
 import { point, segment, droiteGraduee } from '../../modules/2d.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -168,7 +168,7 @@ export default function LireUneAbscisseAvecZoom () {
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${texFraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${texFraction(calcul(x1 * 10), 10)}$.<br>`
+        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${deprecatedTexFraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${deprecatedTexFraction(calcul(x1 * 10), 10)}$.<br>`
 
         reponse1 = x1
         reponse2A = Math.floor(x1)
@@ -308,7 +308,7 @@ export default function LireUneAbscisseAvecZoom () {
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         const partent = Math.floor(x1); const pardec = calcul(x1 - partent)
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 100), 100)}=${texFraction(calcul(x1 * 100), 100)}$.<br>`
+        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${deprecatedTexFraction(calcul(pardec * 100), 100)}=${deprecatedTexFraction(calcul(x1 * 100), 100)}$.<br>`
 
         reponse1 = x1
         reponse2A = partent
@@ -512,7 +512,7 @@ export default function LireUneAbscisseAvecZoom () {
         objets.push(d1, d2, d3, sA, sB, sC, sD)
         objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
         const partent = Math.floor(x1); const pardec = calcul(x1 - partent)
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 1000), 1000)}=${texFraction(calcul(x1 * 1000), 1000)}$.<br>`
+        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${deprecatedTexFraction(calcul(pardec * 1000), 1000)}=${deprecatedTexFraction(calcul(x1 * 1000), 1000)}$.<br>`
         reponse1 = x1
         reponse2A = partent
         reponse2B = new FractionEtendue(calcul(pardec * 1000), 1000)

@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { warnMessage } from '../../lib/outils/message.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
@@ -13,8 +14,7 @@ import {
   shuffle,
   tableauColonneLigne,
   texNombre,
-  texteEnCouleurEtGras,
-  warnMessage
+  texteEnCouleurEtGras
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

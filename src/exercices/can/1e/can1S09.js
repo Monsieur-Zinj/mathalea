@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, texFraction, texNombre, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, deprecatedTexFraction, texNombre, sp } from '../../../modules/outils.js'
 
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -169,24 +169,24 @@ export default function RelationRec () {
           };
 
           if (T === 'la moitié') {
-            setReponse(this, 2 * i, ['0,5', `${texFraction(1, 2)}`])
+            setReponse(this, 2 * i, ['0,5', `${deprecatedTexFraction(1, 2)}`])
             setReponse(this, 2 * i + 1, b)
           }
 
           if (T === 'le quart') {
-            setReponse(this, 2 * i, ['0,75', `${texFraction(3, 4)}`])
+            setReponse(this, 2 * i, ['0,75', `${deprecatedTexFraction(3, 4)}`])
             setReponse(this, 2 * i + 1, b)
           }
           if (T === 'le tiers') {
-            setReponse(this, 2 * i, [`${texFraction(2, 3)}`])
+            setReponse(this, 2 * i, [`${deprecatedTexFraction(2, 3)}`])
             setReponse(this, 2 * i + 1, b)
           }
           if (T === 'le cinquième') {
-            setReponse(this, 2 * i, ['0,8', `${texFraction(4, 5)}`])
+            setReponse(this, 2 * i, ['0,8', `${deprecatedTexFraction(4, 5)}`])
             setReponse(this, 2 * i + 1, b)
           }
           if (T === 'le dixième') {
-            setReponse(this, 2 * i, ['0,9', `${texFraction(9, 10)}`])
+            setReponse(this, 2 * i, ['0,9', `${deprecatedTexFraction(9, 10)}`])
             setReponse(this, 2 * i + 1, b)
           }
           ;

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { choice, texFraction, texFractionReduite, stringNombre, simplificationDeFractionAvecEtapes, texteEnCouleur, randint } from '../../../modules/outils.js'
+import { choice, deprecatedTexFraction, texFractionReduite, stringNombre, simplificationDeFractionAvecEtapes, texteEnCouleur, randint } from '../../../modules/outils.js'
 import { point, segmentAvecExtremites, segment, codageSegments, texteParPosition, milieu } from '../../../modules/2d.js'
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
@@ -55,13 +55,13 @@ export default function MilieuEntre1EtFraction () {
       scale: 0.6,
       style: 'margin: auto'
     }, objets)
-    this.correction = `On calcule la moyenne de $1$ et $${texFraction(n, d)}$ :<br>  
-    $x_I=\\dfrac{1+${texFraction(n, d)}}{2}=
-    \\dfrac{${texFraction(d, d)}+${texFraction(n, d)}}{2}=
-        ${texFraction(n + d, d)}\\times \\dfrac{1}{2}=
-        ${texFraction(d + n, 2 * d)} ${simplificationDeFractionAvecEtapes(d + n, 2 * d)}$ <br><br>`
+    this.correction = `On calcule la moyenne de $1$ et $${deprecatedTexFraction(n, d)}$ :<br>
+    $x_I=\\dfrac{1+${deprecatedTexFraction(n, d)}}{2}=
+    \\dfrac{${deprecatedTexFraction(d, d)}+${deprecatedTexFraction(n, d)}}{2}=
+        ${deprecatedTexFraction(n + d, d)}\\times \\dfrac{1}{2}=
+        ${deprecatedTexFraction(d + n, 2 * d)} ${simplificationDeFractionAvecEtapes(d + n, 2 * d)}$ <br><br>`
     this.correction += texteEnCouleur(` Mentalement : <br>
-        On calcule d'abord  $1+${texFraction(n, d)}$ en n'oubliant pas que $1=\\dfrac{${d}}{${d}}$, puis on multiplie le résultat par $\\dfrac{1}{2}$. `)
+        On calcule d'abord  $1+${deprecatedTexFraction(n, d)}$ en n'oubliant pas que $1=\\dfrac{${d}}{${d}}$, puis on multiplie le résultat par $\\dfrac{1}{2}$. `)
 
     this.reponse = texFractionReduite(d + n, 2 * d)
     this.canEnonce = this.question// 'Compléter'

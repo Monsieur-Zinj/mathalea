@@ -36,7 +36,7 @@ export default function ImageSpline () {
         {
           const pente = (randint(-15, 15, 0)) / 5
           this.lineaire = false
-          const OrdX0 = randint(-1 + pente, 1 + pente, [pente, 0])
+          const OrdX0 = randint(Math.round(-1 + pente), Math.round(1 + pente), [pente, 0])
           c = droiteParPointEtPente(point(0, OrdX0), pente, '', 'blue')
           this.reponse = 'non'
           this.correction = 'C\'est bien une droite mais elle ne passe pas par l\'origine.<br>Ce graphique ne représente donc pas une situation de proportionnalité.'

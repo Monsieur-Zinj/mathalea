@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, deprecatedTexFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -85,20 +85,20 @@ export default function Exercice_fractions_simplifier (max = 11) {
       enleveElement(liste_fractions, fraction) // Il n'y aura pas 2 fois la même réponse
       texte =
           '$ ' +
-          texFraction(k * a, k * b) +
+          deprecatedTexFraction(k * a, k * b) +
           ' = ' +
-          texFraction('\\phantom{00000000000000}', '') +
+          deprecatedTexFraction('\\phantom{00000000000000}', '') +
           ' = ' +
-          texFraction('\\phantom{0000}', '') +
+          deprecatedTexFraction('\\phantom{0000}', '') +
           ' $'
       if (this.sup3) texte += '<br>'
       texteCorr =
           '$ ' +
-          texFraction(k * a, k * b) +
+          deprecatedTexFraction(k * a, k * b) +
           ' = ' +
-          texFraction(k + ' \\times ' + a, k + ' \\times ' + b) +
+          deprecatedTexFraction(k + ' \\times ' + a, k + ' \\times ' + b) +
           ' = ' +
-          texFraction(a, b) +
+          deprecatedTexFraction(a, b) +
           ' $'
       if (this.sup2) {
         reponse = new FractionEtendue(a, b)

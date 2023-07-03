@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 
-import { randint, choice, ecritureAlgebrique, calcul, texNombre, ecritureParentheseSiNegatif, texFraction, arcenciel, miseEnEvidence, signe } from '../../../modules/outils.js'
+import { randint, choice, ecritureAlgebrique, calcul, texNombre, ecritureParentheseSiNegatif, deprecatedTexFraction, arcenciel, miseEnEvidence, signe } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite récurrente*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -88,7 +88,7 @@ export default function CalculTermeSuiteRec2 () {
         d1 = fraction1[1]
         a = randint(1, 2) * choice([-1, 1])
         u = calcul(a * d1 * d1)
-        this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFraction(n1, d1)}u_n $.`
+        this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${deprecatedTexFraction(n1, d1)}u_n $.`
 
         if (!this.interactif) {
           this.question += `<br>
@@ -98,8 +98,8 @@ export default function CalculTermeSuiteRec2 () {
 
         this.correction = `On calcule successivement les termes jusqu'à obtenir $u_{${k}}$ :`
         for (let indice = 0; indice < k; indice++) {
-          this.correction += `<br> $u_{${indice + 1}} = ${texFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
-          ${texFraction(n1, d1)}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(u, arcenciel(indice, true)))}  = ${miseEnEvidence(u * n1 / d1, arcenciel(indice + 1, true))}$`
+          this.correction += `<br> $u_{${indice + 1}} = ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
+          ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(u, arcenciel(indice, true)))}  = ${miseEnEvidence(u * n1 / d1, arcenciel(indice + 1, true))}$`
           u = n1 * a * d1
         }
         this.reponse = n1 * n1 * a
@@ -143,7 +143,7 @@ export default function CalculTermeSuiteRec2 () {
           
           Calculer $u_{${k}}$.`
         } else {
-          this.question += `<br> 
+          this.question += `<br>
         
         $u_{${k}}=.....$`
         }

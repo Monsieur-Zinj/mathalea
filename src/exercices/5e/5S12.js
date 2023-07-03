@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { egalOuApprox, premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, texNombre, texFraction, combinaisonListes, tableauColonneLigne, choice, randint, rangeMinMax } from '../../modules/outils.js'
+import { egalOuApprox, premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, texNombre, deprecatedTexFraction, combinaisonListes, tableauColonneLigne, choice, randint, rangeMinMax } from '../../modules/outils.js'
 import { traceGraphiqueCartesien, segment, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -118,11 +118,11 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
+          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
         }
         contenutableau.push('360\\degree')
 
@@ -172,11 +172,11 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
+          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
         }
         contenutableau.push('180\\degree')
 

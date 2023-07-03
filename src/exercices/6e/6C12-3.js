@@ -46,24 +46,6 @@ export default function ExerciceInformationsProblemes () {
     this.consigne += this.sup !== 1 ? affirmatifNegatif[1] : affirmatifNegatif[0]
     this.consigne += ' à sa résolution.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
-
-    /*
-    const listeDesProblemes = []
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      listeDesProblemes = rangeMinMax(1, 10)
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeDesProblemes[0] = contraindreValeur(1, 11, this.sup2, 11)
-      } else {
-        listeDesProblemes = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeDesProblemes[i] = contraindreValeur(1, 11, parseInt(listeDesProblemes[i]), 11) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(listeDesProblemes, 11) > 0) listeDesProblemes = rangeMinMax(1, 10) // Teste si l'utilisateur a choisi tout
-    listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
-    */
     const listeDesProblemes = gestionnaireFormulaireTexte({
       max: 10,
       defaut: 11,
@@ -339,7 +321,7 @@ export default function ExerciceInformationsProblemes () {
           nb2 = randint(230, 450)
           nb3 = randint(5, 11)
           nb4 = randint(110, 230)
-          nb5 = randint(128, nb1 / 2)
+          nb5 = randint(128, Math.round(nb1 / 2))
           texte += `Le village de Sainte-${quidam2}-Les-Trois-Vallées compte ${nb1} habitants et se situe à une altitude de ${nb2} m.`
           texte += ` À ${nb3} km de là, le village de Saint-${quidam}-Le-Bouquetin, situé ${nb4} m plus haut, compte ${nb5} habitants de moins.<br>`
 
@@ -969,7 +951,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = randint(45, 58)
           nb2 = randint(3, 5)
           nb3 = randint(7, 9) + ' h ' + 5 * randint(2, 11)
-          nb4 = stringNombre(arrondi(randint(9, 15, [10]) / 10), 1) + '0'
+          nb4 = stringNombre(arrondi(randint(9, 15, 10) / 10), 1) + '0'
           nb5 = 5 * randint(4, 11)
           texte += `Le ${personnage1} de ${quidam}, âgé de ${nb1} ans, se rend ${nb2} fois par semaine à ${choice(['Paris', 'Toulouse', 'Bordeaux', 'Rouen'])} en train. `
           texte += `Une fois arrivé, il prend le métro à ${nb3}, après avoir acheté systématiquement le même journal, dans un kiosque de la gare, qui coûte ${nb4} €. Son trajet en métro dure ${nb5} minutes pour se rendre au travail.<br>`

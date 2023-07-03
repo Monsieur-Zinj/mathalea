@@ -4,7 +4,7 @@ import { fraction } from '../../../modules/fractions.js'
 import {
   point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
 } from '../../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, deprecatedTexFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { round, min } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -762,31 +762,31 @@ export default function SujetCAN20213ieme () {
           if (a < 11) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$.<br>
           Il y a donc $4$ nombres premiers inférieurs à $${a}$. <br>
-          On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b, a)}${simplificationDeFractionAvecEtapes(b, a)}$.`
+          On en déduit que la probabilité d'obtenir un nombre premier est : $${deprecatedTexFraction(b, a)}${simplificationDeFractionAvecEtapes(b, a)}$.`
             reponse = [fraction(b, a), fraction(b, a).simplifie()]
           }
           if ((a > 10) && (a < 13)) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$.<br>
   Il y a donc $5$ nombres premiers inférieurs à $${a}$. <br>
-  On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b + 1, a)}${simplificationDeFractionAvecEtapes(b + 1, a)}$.`
+  On en déduit que la probabilité d'obtenir un nombre premier est : $${deprecatedTexFraction(b + 1, a)}${simplificationDeFractionAvecEtapes(b + 1, a)}$.`
             reponse = [fraction(b + 1, a), fraction(b + 1, a).simplifie()]
           }
           if ((a > 12) && (a < 17)) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$.<br>
   Il y a donc $6$ nombres premiers inférieurs à $${a}$. <br>
-  On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b + 2, a)}${simplificationDeFractionAvecEtapes(b + 2, a)}$.`
+  On en déduit que la probabilité d'obtenir un nombre premier est : $${deprecatedTexFraction(b + 2, a)}${simplificationDeFractionAvecEtapes(b + 2, a)}$.`
             reponse = [fraction(b + 2, a), fraction(b + 2, a).simplifie()]
           }
           if ((a > 16) && (a < 19)) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$, $17$.<br>
   Il y a donc $7$ nombres premiers inférieurs à $${a}$. <br>
-  On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b + 3, a)}${simplificationDeFractionAvecEtapes(b + 3, a)}$.`
+  On en déduit que la probabilité d'obtenir un nombre premier est : $${deprecatedTexFraction(b + 3, a)}${simplificationDeFractionAvecEtapes(b + 3, a)}$.`
             reponse = [fraction(b + 3, a), fraction(b + 3, a).simplifie()]
           }
           if ((a > 18) && (a < 23)) {
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$, $17$, $19$.<br>
   Il y a donc $8$ nombres premiers inférieurs à $${a}$. <br>
-  On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b + 4, a)}${simplificationDeFractionAvecEtapes(b + 4, a)}$.`
+  On en déduit que la probabilité d'obtenir un nombre premier est : $${deprecatedTexFraction(b + 4, a)}${simplificationDeFractionAvecEtapes(b + 4, a)}$.`
             reponse = [fraction(b + 4, a), fraction(b + 4, a).simplifie()]
           }
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
