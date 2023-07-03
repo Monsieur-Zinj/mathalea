@@ -311,7 +311,7 @@ export default function CalculDeLongueur () {
           calculTrue = 2
           break
         case 'invCosinus':
-          texteCorr = `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
+          texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ab, nom[1] + nom[2])}$<br>`
