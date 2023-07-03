@@ -19,7 +19,7 @@ export class Relatif {
     const signes = []
     try {
       // port du string interdit !
-      relatifs.forEach(function (element) {
+      this.relatifs.forEach(function (element) {
         if (typeof element === 'string') {
           throw new TypeError(`${element} est un string !`)
         }
@@ -28,10 +28,10 @@ export class Relatif {
         }
       })
       // Quoi faire sans nombres ?
-      if (relatifs.length === 0) {
+      if (this.relatifs.length === 0) {
         throw new Error('C\'est mieux avec quelques nombres !')
       }
-      relatifs.forEach(function (element) {
+      this.relatifs.forEach(function (element) {
         if (element < 0) {
           signes.push(-1)
         }
@@ -53,7 +53,7 @@ export class Relatif {
    */
   getSigneString () {
     const signesString = []
-    const signes = getSigneNumber()
+    const signes = this.getSigneNumber()
     signes.forEach(function (element) {
       if (element === -1) {
         signesString.push('négatif')
@@ -111,7 +111,7 @@ export class Relatif {
    */
 
   getSigneProduitString (...n) {
-    const produit = getSigneProduitNumber(...n)
+    const produit = this.getSigneProduitNumber(...n)
     if (produit === -1) {
       return 'négatif'
     }
@@ -190,20 +190,20 @@ export class Relatif {
         throw new Error('C\'est mieux avec quelques nombres !')
       }
       if (n.length === 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
+        if (this.getCardNegatifs(n) % 2 === 0) {
           return 'Les deux facteurs ont le même signe donc le produit est positif.'
         } else {
           return 'Les deux facteurs ont un signe différent donc le produit est négatif.'
         }
       } else if (n.length > 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          if (getCardNegatifs(n) === 0) {
+        if (this.getCardNegatifs(n) % 2 === 0) {
+          if (this.getCardNegatifs(n) === 0) {
             return 'Tous les facteurs sont positifs donc le produit est positif.'
           } else {
-            return `Il y a ${getCardNegatifs(n)} ${orthographeFacteursNegatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`
+            return `Il y a ${this.getCardNegatifs(n)} ${this.orthographeFacteursNegatifs(this.getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`
           }
         } else {
-          return `Il y a ${getCardNegatifs(n)} ${orthographeFacteursNegatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`
+          return `Il y a ${this.getCardNegatifs(n)} ${this.orthographeFacteursNegatifs(this.getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`
         }
       }
     } catch (err) {
@@ -232,22 +232,22 @@ export class Relatif {
         throw new Error('C\'est mieux avec quelques nombres !')
       }
       if (n.length === 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
+        if (this.getCardNegatifs(n) % 2 === 0) {
           return 'Le numérateur et le dénominateur ont le même signe donc le quotient est positif.'
         } else {
           return 'Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.'
         }
       } else if (n.length > 2) {
-        if (getCardNegatifs(n) % 2 === 0) {
-          if (getCardNegatifs(n) === 0) {
+        if (this.getCardNegatifs(n) % 2 === 0) {
+          if (this.getCardNegatifs(n) === 0) {
             return 'Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.'
           } else {
             // return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
-            return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`
+            return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${this.getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`
           }
         } else {
           // return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
-          return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`
+          return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${this.getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`
         }
       }
     } catch (err) {
