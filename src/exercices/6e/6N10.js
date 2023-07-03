@@ -43,16 +43,14 @@ export default function EcrirePetitsNombresEntiers () {
 
   this.nouvelleVersion = function () {
     let typeDeConsigne = []
-    if (parseInt(this.sup3) === 1) {
+    if (this.sup3 === 1) {
       this.consigne = 'Écrire le nombre en lettres.'
       typeDeConsigne = combinaisonListes([1], this.nbQuestions)
-    }
-    if (parseInt(this.sup3) === 2) {
+    } else if (this.sup3 === 2) {
       this.consigne = 'Écrire le nombre en chiffres.'
       typeDeConsigne = combinaisonListes([2], this.nbQuestions)
       if (this.interactif) this.consigne = 'Écrire le nombre en chiffres sans oublier les espaces.'
-    }
-    if (parseInt(this.sup3) === 3) {
+    } else {
       this.consigne = 'Passer de l\'écriture en chiffres à celle en lettres et inversement.'
       typeDeConsigne = combinaisonListes([1, 2], this.nbQuestions)
     }
@@ -103,7 +101,9 @@ export default function EcrirePetitsNombresEntiers () {
           }
           break
         case 1 : // Se termine par 80
-          if (listeQuestions[i] < 7) {
+          if (listeQuestions[i] === 2) {
+            NombreAEcrire = 80
+          } else if (listeQuestions[i] < 7) {
             NombreAEcrire = 80 + 100 * Math.trunc(randint(1 + Math.pow(10, listeQuestions[i] - 3), Math.pow(10, listeQuestions[i] - 2) - 1)) // Se termine par 80
           } else if (listeQuestions[i] === 7) {
             NombreAEcrire = 80 + 100 * Math.trunc(randint(1 + Math.pow(10, 6), Math.pow(10, 7) - 1))
@@ -120,31 +120,42 @@ export default function EcrirePetitsNombresEntiers () {
           }
           break
         case 2 : // Contient 80 et quelques
-          if (listeQuestions[i] < 5) {
+          if (listeQuestions[i] === 2) {
+            NombreAEcrire = 80 + randint(1, 19)
+          } else if (listeQuestions[i] < 5) {
             NombreAEcrire = 80 + randint(1, 19) + 100 * Math.trunc(randint(1 + Math.pow(10, listeQuestions[i] - 3), Math.pow(10, listeQuestions[i] - 2) - 1)) // Se termine par 80
           } else if (listeQuestions[i] < 7) { // Pour mettre aussi 80 et quelques dans la classe des milliers
             if (choice([true, false])) {
-              NombreAEcrire = Math.pow(10, 3) * (80 + randint(1, 19) + 100 * Math.trunc(randint(1 + Math.pow(10, listeQuestions[i] - 6), Math.pow(10, listeQuestions[i] - 5) - 1))) + randint(0, 999)
+              NombreAEcrire = Math.pow(10, 3) * (80 + randint(1, 19) + 100 * (listeQuestions[i] - 5) * randint(1, 9)) + randint(0, 999)
             } else {
               NombreAEcrire = 80 + randint(1, 19) + 100 * Math.trunc(randint(1 + Math.pow(10, listeQuestions[i] - 3), Math.pow(10, listeQuestions[i] - 2) - 1)) // Se termine par 80
             }
           } else if (listeQuestions[i] === 7) { // Pour mettre aussi 80 et quelques dans la classe des millions
-            if (choice([1, 2, 3]) === 3) {
-              NombreAEcrire = Math.pow(10, 6) * (80 + randint(1, 19) + 100 * randint(1, 9)) + randint(0, 999999)
-            } else if (choice([true, false])) {
-              NombreAEcrire = Math.pow(10, 6) * randint(101, 999) + Math.pow(10, 3) * (80 + randint(1, 19) + 100 * Math.trunc(randint(11, 99))) + randint(0, 999)
-            } else {
-              NombreAEcrire = Math.pow(10, 3) * randint(100001, 999999) + (80 + randint(1, 19) + 100 * randint(1, 9))
+            switch (choice([1, 2, 3])) {
+              case 1 :
+                NombreAEcrire = Math.pow(10, 6) * (80 + randint(1, 19) + 100 * randint(1, 9)) + randint(0, 999999)
+                break
+              case 2:
+                NombreAEcrire = Math.pow(10, 6) * randint(101, 999) + Math.pow(10, 3) * (80 + randint(1, 19) + 100 * Math.trunc(randint(11, 99))) + randint(0, 999)
+                break
+              case 3:
+                NombreAEcrire = Math.pow(10, 3) * randint(100001, 999999) + (80 + randint(1, 19) + 100 * randint(1, 9))
+                break
             }
           } else { // Pour mettre aussi 80 et quelques dans la classe des milliards
-            if (choice([1, 2, 3, 4]) === 4) {
-              NombreAEcrire = Math.pow(10, 9) * (80 + randint(1, 19) + 100 * randint(1, 9)) + randint(0, 999999999)
-            } else if (choice([1, 2, 3]) === 3) {
-              NombreAEcrire = Math.pow(10, 9) * randint(101, 999) + Math.pow(10, 6) * (80 + randint(1, 19) + 100 * randint(1, 9)) + randint(0, 999999)
-            } else if (choice([true, false])) {
-              NombreAEcrire = Math.pow(10, 6) * randint(100001, 999999) + Math.pow(10, 3) * (80 + randint(1, 19) + 100 * randint(1, 9)) + randint(0, 999)
-            } else {
-              NombreAEcrire = Math.pow(10, 3) * randint(100000001, 999999999) + 80 + randint(1, 19) + 100 * randint(1, 9)
+            switch (choice([1, 2, 3, 4])) {
+              case 1 :
+                NombreAEcrire = Math.pow(10, 9) * (80 + randint(1, 19) + 100 * randint(1, 9)) + randint(0, 999999999)
+                break
+              case 2:
+                NombreAEcrire = Math.pow(10, 9) * randint(101, 999) + Math.pow(10, 6) * (80 + randint(1, 19) + 100 * randint(1, 9)) + randint(0, 999999)
+                break
+              case 3:
+                NombreAEcrire = Math.pow(10, 6) * randint(100001, 999999) + Math.pow(10, 3) * (80 + randint(1, 19) + 100 * randint(1, 9)) + randint(0, 999)
+                break
+              case 4:
+                NombreAEcrire = Math.pow(10, 3) * randint(100000001, 999999999) + 80 + randint(1, 19) + 100 * randint(1, 9)
+                break
             }
           }
           if (!context.isHtml) {
