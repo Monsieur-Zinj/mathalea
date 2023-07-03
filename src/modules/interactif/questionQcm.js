@@ -90,7 +90,7 @@ export function propositionsQcm (exercice, i) {
   if (context.isHtml) {
     espace = '&emsp;'
   } else {
-    espace = '\\qquad'
+    espace = '\\qquad '
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
   if (exercice.autoCorrection[i].options !== undefined) {
@@ -154,8 +154,8 @@ export function propositionsQcm (exercice, i) {
         texte += '\\\\\n\t'
         texteCorr += '\\\\\n\t'
       } else {
-        texte += '\\qquad'
-        texteCorr += '\\qquad'
+        texte += '\\qquad '
+        texteCorr += '\\qquad '
       }
     }
   }
