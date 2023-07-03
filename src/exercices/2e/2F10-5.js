@@ -55,26 +55,24 @@ export default function Signefonctionaffine () {
         const  zero = new FractionEtendue(-b, a).simplifie()
           texte = `Déterminer le signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
 
-          texteCorr = '$f$ est une fonction affine.<br>'
-
-          texteCorr += 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
-          texteCorr += `Son coefficient $a$ vaut : $~a=${a}~$ et son coefficient $b$ vaut : $~b=${b}$. <br>`
+          texteCorr = '$f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
+          texteCorr += `Son coefficient $a$ vaut : $a=${a}~$ et son coefficient $b$ vaut : $b=${b}$. <br>`
           // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
-          texteCorr += 'On sait qu\'une fonction affine non constante admet une unique racine, $~x_0$.<br> '
-          texteCorr += '$f(x)$ est du signe de $~a~$ pour les valeurs supérieures à $~x_0$,<br>'
-          texteCorr += 'et du signe de l\'opposé de $~a~$ pour les valeurs inférieures à $~x_0$.<br>'
-          texteCorr += 'On cherche donc la valeur de $~x_0~$, '
-          texteCorr += `qui est la solution de l'équation : $${reduireAxPlusB(a, b)}=0$.<br>`
-          texteCorr += `On obtient alors : $~x_0=${texFractionReduite(-b, a)} $<br>`
+          texteCorr += `On cherche la valeur de $x$ qui annule la fonction $f$ en résolvant l\'équation $f(x)=0$.<br> `
+          texteCorr += `$\\begin{aligned}
+          ${reduireAxPlusB(a,b)}&=0\\\\
+          ${a}x&=${-b}\\\\
+          x&=${zero.texFSD}
+          \\end{aligned}$<br>`
           texteCorr += `Comme  $~a=~${a}`
           if (a > 0) {
-            texteCorr += `>0~$, $~f(x)$ est positive pour $~x>${texFractionReduite(-b, a)} ~$ et négative pour $~x<${texFractionReduite(-b, a)} $<br>`
+            texteCorr += `>0~$, $~f(x)$ est positive pour $x>${zero.texFSD}$ et négative pour $x<${zero.texFSD}$<br>`
             ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']
           } else {
-            texteCorr += `<0$,  $f(x)~$ est négative pour $~x>${texFractionReduite(-b, a)} ~$ et positive pour $~x<${texFractionReduite(-b, a)} $<br>`
+            texteCorr += `<0$,  $f(x)~$ est négative pour $~>${zero.texFSD}$ et positive pour $x<${zero.texFSD}$<br>`
             ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
           }
-          texteCorr += 'On peut synthétiser cela dans un tableau de signes :<br><br>'
+          texteCorr += 'On peut synthétiser cela dans un tableau de signes :<br>'
 
           texteCorr += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
             tabInit: [
