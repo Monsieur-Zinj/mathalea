@@ -1,7 +1,8 @@
 import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre, miseEnEvidence, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, miseEnEvidence, sp } from '../../modules/outils.js'
 
 // une fonction pour les textes de correction
 /**

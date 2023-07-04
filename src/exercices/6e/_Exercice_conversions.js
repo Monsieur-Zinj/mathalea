@@ -1,7 +1,8 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texTexte, calcul, texNombre, texNombre2, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texTexte, calcul, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 

@@ -1,5 +1,6 @@
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { texNombre, listeQuestionsToContenu, stringNombre, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { all, create } from 'mathjs'
 export const titre = 'Somme de deux entier'

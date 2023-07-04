@@ -1,6 +1,7 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul, choice, texNombre, creerNomDePolygone } from '../../../modules/outils.js'
+import { randint, calcul, choice, creerNomDePolygone } from '../../../modules/outils.js'
 import {
   point, labelPoint, segment, codageSegments
 } from '../../../modules/2d.js'
@@ -39,7 +40,7 @@ export default function CalculLongueurThalesMilieu () {
       objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
         codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
-      this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et  
+      this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et
       $${nom[3]}${nom[4]}=${texNombre(a)}$.<br>
 
       Calculer $${nom[1]}${nom[2]}$.<br>
@@ -66,7 +67,7 @@ export default function CalculLongueurThalesMilieu () {
       objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
         codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
-      this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et 
+      this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et
        $${nom[1]}${nom[2]}=${texNombre(a)}$. <br>
 
          Calculer $${nom[3]}${nom[4]}$.<br>

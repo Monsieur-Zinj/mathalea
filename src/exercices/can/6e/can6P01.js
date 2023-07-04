@@ -1,5 +1,6 @@
-import { texPrix } from '../../../lib/style.js'
-import { calcul, randint, texNombre } from '../../../modules/outils.js'
+import { texPrix } from '../../../lib/outils/style.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser une proportionnalité'
 export const interactifReady = true

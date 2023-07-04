@@ -1,5 +1,5 @@
 import { centrage, deuxColonnes } from '../../lib/outils/miseEnPage.js'
-import { texcolors } from '../../lib/style.js'
+import { texcolors } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence, calcul } from '../../modules/outils.js'

@@ -1,4 +1,4 @@
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { randint, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'

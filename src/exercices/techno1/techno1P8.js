@@ -1,6 +1,7 @@
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { min } from 'mathjs'
 export const titre = 'Union et Intersection de proportions'
 

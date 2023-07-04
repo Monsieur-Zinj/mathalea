@@ -6,7 +6,7 @@ import {
   reduirePolynomeDegre3, rienSi1
 } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'

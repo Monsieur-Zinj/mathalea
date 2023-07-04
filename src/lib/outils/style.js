@@ -4,8 +4,9 @@
  * @author Rémi Angot
  */
 import Decimal from 'decimal.js'
-import { context } from '../modules/context.js'
-import { choice, texNombre } from '../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { choice } from '../../modules/outils.js'
+import { texNombre } from './texNombre.js'
 
 export function couleurAleatoire () {
   return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])

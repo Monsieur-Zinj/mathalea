@@ -1,9 +1,10 @@
 import { lampeMessage } from '../../lib/outils/message.js'
 import { modalTexteLong } from '../../lib/outils/modales.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texEnumerateSansNumero, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texEnumerateSansNumero } from '../../modules/outils.js'
 
 export const titre = 'Vocabulaire des triangles'
 

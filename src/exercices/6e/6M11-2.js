@@ -1,6 +1,7 @@
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, arrondi, stringNombre, choice, texNombre, calcul, troncature, texTexte, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, arrondi, choice, calcul, troncature, texTexte, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { texteSurSegment, cercle, codageAngleDroit, droite, codageSegments, point, polygoneAvecNom, segment, codageSegment, pointIntersectionCC, pointIntersectionDD, droiteParPointEtPerpendiculaire, arc, pointSurCercle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

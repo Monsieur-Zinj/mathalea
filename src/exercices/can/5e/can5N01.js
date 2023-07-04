@@ -1,4 +1,5 @@
-import { calcul, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la somme de nombres décimaux'
 export const interactifReady = true

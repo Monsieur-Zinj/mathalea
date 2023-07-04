@@ -1,4 +1,4 @@
-import { texMasse } from '../../lib/style.js'
+import { texMasse } from '../../lib/outils/style.js'
 import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

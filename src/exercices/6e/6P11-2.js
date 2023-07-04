@@ -1,5 +1,6 @@
 import { prenom } from '../../lib/outils/Personne.js'
-import { texMasse, texPrix } from '../../lib/style.js'
+import { texMasse, texPrix } from '../../lib/outils/style.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import { tableau } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -11,8 +12,7 @@ import {
   combinaisonListes,
   listeQuestionsToContenu,
   randint,
-  sp,
-  stringNombre, texNombre
+  sp
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

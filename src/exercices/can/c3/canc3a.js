@@ -1,14 +1,13 @@
 import { personne, prenom } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/style.js'
+import { texPrix } from '../../../lib/outils/style.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
   calcul,
-  texNombre,
   choice,
   miseEnEvidence,
-  stringNombre,
   gestionnaireFormulaireTexte
 } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'

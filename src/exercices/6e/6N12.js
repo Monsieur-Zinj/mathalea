@@ -1,6 +1,7 @@
 import { modalUrl } from '../../lib/outils/modales.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, sp, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, sp, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'

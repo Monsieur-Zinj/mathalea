@@ -2,7 +2,8 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures.js'
 import { katexPopup2 } from '../../lib/outils/message.js'
 import { prenom, prenomF } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -11,10 +12,9 @@ import {
   combinaisonListes,
   produitsEnCroix,
   quatriemeProportionnelle,
-  texNombre,
   miseEnEvidence,
   numAlpha,
-  stringNombre, sp, gestionnaireFormulaireTexte
+  sp, gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { round } from 'mathjs'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'

@@ -1,9 +1,9 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, texNombre,
-  randint, combinaisonListes, choice, sp, extraireRacineCarree,
+  listeQuestionsToContenu, randint, combinaisonListes, choice, sp, extraireRacineCarree,
   miseEnEvidence
 } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'

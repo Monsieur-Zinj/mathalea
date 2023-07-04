@@ -1,6 +1,7 @@
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, htmlConsigne, texNombre, egal, shuffle, stringNombre, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, htmlConsigne, egal, shuffle, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'

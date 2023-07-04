@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, abs, miseEnEvidence, randint, calcul, choice, texNombre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, abs, miseEnEvidence, randint, calcul, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Utiliser la fonction carré pour comparer deux images'
 export const interactifReady = true
@@ -72,10 +73,10 @@ export default function ComparerAvecFctCarre () {
             Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
 
         if (a < b) {
-          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, 
+          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
           alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}^2$.`
         } else {
-          texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, 
+          texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
           alors  $${texNombre(b)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}^2$.`
         }
         this.canEnonce = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
@@ -128,10 +129,10 @@ export default function ComparerAvecFctCarre () {
             Autrement dit, si $a$ et $b$ sont deux nombres  négatifs et si $a < b$, alors $a^2 > b^2$.`
 
         if (a < b) {
-          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, 
+          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
         alors  $(${texNombre(a)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombre(b)})^2$`
         } else {
-          texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, 
+          texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
         alors  $(${texNombre(b)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombre(a)})^2$.`
         }
         this.canEnonce = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
@@ -185,18 +186,18 @@ export default function ComparerAvecFctCarre () {
           this.canReponseACompleter = ''
         }
 
-        texteCorr = ` Le nombre $${texNombre(b)}$ est négatif, alors que le nombre $${texNombre(a)}$ est positif. 
-            Comme deux nombres opposés ont le même carré, comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$ 
+        texteCorr = ` Le nombre $${texNombre(b)}$ est négatif, alors que le nombre $${texNombre(a)}$ est positif.
+            Comme deux nombres opposés ont le même carré, comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$
             revient à comparer $${texNombre(a)}^2$ et $${texNombre(-b)}^2$.<br>
              La fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. <br>
              Cela signifie que deux nombres positifs sont rangés dans le même ordre que leurs carrés.   <br>
              Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
         if (abs(a) < abs(b)) {
-          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(-b)}$, 
+          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(-b)}$,
         alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(-b)}^2$.<br>
         On en déduit que $${texNombre(a)}^2 < (${texNombre(b)})^2$.`
         } else {
-          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombre(-b)}$, 
+          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombre(-b)}$,
         alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombre(-b)}^2$.<br>
         On en déduit que $${texNombre(a)}^2 > (${texNombre(b)})^2$.`
         }

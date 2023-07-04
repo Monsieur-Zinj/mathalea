@@ -1,7 +1,7 @@
+import { decimalToScientifique } from '../lib/outils/texNombre.js'
 import { elimineDoublons } from './interactif/questionQcm'
 import {
   arrondi,
-  decimalToScientifique,
   lettreDepuisChiffre,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe,

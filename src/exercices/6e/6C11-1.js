@@ -1,7 +1,8 @@
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteEnCouleurEtGras, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"

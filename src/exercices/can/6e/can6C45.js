@@ -1,4 +1,5 @@
-import { randint, choice, texNombre } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { randint, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème par soustraction/division'
 export const interactifReady = true

@@ -1,5 +1,6 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, texNombre, miseEnEvidence, choice } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, combinaisonListes, miseEnEvidence, choice } from '../../modules/outils.js'
 export const titre = 'Comparer deux nombres entiers'
 
 export const dateDePublication = '07/08/2022'
@@ -95,16 +96,7 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
           break
         case 'memeNbDeChiffres':
           if (this.correctionDetaillee) {
-            texteCorr += `$${texNombre(a)}$ et $${texNombre(b)}$ comptent le même nombre de chiffres.<br>`
-            texteCorr += 'On cherche le premier chiffre différent à partir de la gauche :<br>'
-            const dernierChiffreEnCommunPremierNombre = miseEnEvidenceDesChiffresEnCommun(a, b)
-            const dernierChiffreEnCommunDeuxiemeNombre = miseEnEvidenceDesChiffresEnCommun(b, a)
-            if (a > b) {
-              texteCorr += `Comme $${dernierChiffreEnCommunPremierNombre}$ est plus grand que $${dernierChiffreEnCommunDeuxiemeNombre}$, alors $${texNombre(a)}$ est plus grand que $${texNombre(b)}$.<br>`
-            } else {
-              texteCorr += `Comme $${dernierChiffreEnCommunPremierNombre}$ est plus petit que $${dernierChiffreEnCommunDeuxiemeNombre}$, alors $${texNombre(a)}$ est plus petit que $${texNombre(b)}$.<br>`
-            }
-            function miseEnEvidenceDesChiffresEnCommun (premierChiffre, deuxiemeChiffre) {
+            const miseEnEvidenceDesChiffresEnCommun = function (premierChiffre, deuxiemeChiffre) {
               let dernierChiffreCommunTrouve = false
               let dernierChiffreCommun
               for (let i = 0; i < premierChiffre.toString().length; i++) {
@@ -119,6 +111,16 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
               texteCorr += '<br>'
               return dernierChiffreCommun
             }
+            texteCorr += `$${texNombre(a)}$ et $${texNombre(b)}$ comptent le même nombre de chiffres.<br>`
+            texteCorr += 'On cherche le premier chiffre différent à partir de la gauche :<br>'
+            const dernierChiffreEnCommunPremierNombre = miseEnEvidenceDesChiffresEnCommun(a, b)
+            const dernierChiffreEnCommunDeuxiemeNombre = miseEnEvidenceDesChiffresEnCommun(b, a)
+            if (a > b) {
+              texteCorr += `Comme $${dernierChiffreEnCommunPremierNombre}$ est plus grand que $${dernierChiffreEnCommunDeuxiemeNombre}$, alors $${texNombre(a)}$ est plus grand que $${texNombre(b)}$.<br>`
+            } else {
+              texteCorr += `Comme $${dernierChiffreEnCommunPremierNombre}$ est plus petit que $${dernierChiffreEnCommunDeuxiemeNombre}$, alors $${texNombre(a)}$ est plus petit que $${texNombre(b)}$.<br>`
+            }
+
             texteCorr += 'On peut l\'écrire en langage mathématique :<br>'
           }
           break

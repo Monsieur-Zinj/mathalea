@@ -1,6 +1,7 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombre, abs, sp } from '../../../modules/outils.js'
+import { randint, calcul, choice, abs, sp } from '../../../modules/outils.js'
 export const titre = 'Calculer avec  des puissances*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,5 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, pointAdistance } from '../../modules/2d.js'

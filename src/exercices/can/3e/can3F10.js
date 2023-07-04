@@ -1,6 +1,7 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { choice, randint, texNombre } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 import {
   repere, texteParPosition, courbe,
   point, tracePoint, segment
@@ -82,7 +83,7 @@ export default function OrdonneeAbscisseFonctionLineaire () {
     const objet = mathalea2d({ xmin, xmax, ymin, ymax, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }), r1, lA, traceA, o, sAAx, sAAy)
     switch (choice([1, 2])) {
       case 1://
-        this.question = `$B(${xB}\\,;\\, \\ldots)$ est un point de la droite $(OA)$.<br> 
+        this.question = `$B(${xB}\\,;\\, \\ldots)$ est un point de la droite $(OA)$.<br>
         Quelle est son ordonnée ?<br>
         `
         this.question += `${objet}`
@@ -101,7 +102,7 @@ export default function OrdonneeAbscisseFonctionLineaire () {
 
         break
       case 2://
-        this.question = `$B(\\ldots\\,;\\, ${yB})$ est un point de la droite $(OA)$.<br> 
+        this.question = `$B(\\ldots\\,;\\, ${yB})$ est un point de la droite $(OA)$.<br>
         Quelle est son abscisse ?<br>
         `
         this.question += `${objet}`

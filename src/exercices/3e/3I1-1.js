@@ -1,6 +1,6 @@
 import { lampeMessage } from '../../lib/outils/message.js'
 import { modalYoutube } from '../../lib/outils/modales.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

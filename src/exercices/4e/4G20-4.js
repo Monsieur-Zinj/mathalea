@@ -1,8 +1,9 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import { degCos } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { choice, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
+import { choice, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 

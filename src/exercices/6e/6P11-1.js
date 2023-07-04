@@ -1,5 +1,5 @@
 import { prenom } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum, shuffle, choice, texteEnCouleurEtGras, miseEnEvidence, combinaisonListes, rangeMinMax, sp } from '../../modules/outils.js'

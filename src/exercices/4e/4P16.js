@@ -1,8 +1,8 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  texNombre,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import Decimal from 'decimal.js'

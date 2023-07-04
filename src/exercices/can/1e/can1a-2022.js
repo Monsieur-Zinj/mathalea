@@ -5,14 +5,15 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures.js'
-import { arcenciel, texPrix } from '../../../lib/style.js'
+import { arcenciel, texPrix } from '../../../lib/outils/style.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { Arbre } from '../../../modules/arbres.js'
 import { pave, point, repere, tracePoint, courbe, droite, labelPoint, segment, milieu, texteParPosition, plot } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, arrondi, randint, texNombre, miseEnEvidence, printlatex, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, randint, miseEnEvidence, printlatex, shuffle, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'

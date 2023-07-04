@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texNombre, miseEnEvidence, nombreDeChiffresDe, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, miseEnEvidence, nombreDeChiffresDe, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 

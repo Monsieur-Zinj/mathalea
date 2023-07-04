@@ -1,5 +1,6 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { combinaisonListes, contraindreValeur, listeQuestionsToContenu, miseEnEvidence, numAlpha, ppcm, randint, texNombre } from '../../modules/outils.js'
+import { combinaisonListes, contraindreValeur, listeQuestionsToContenu, miseEnEvidence, numAlpha, ppcm, randint } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { engrenages } from '../../modules/2d/engrenage.js'
@@ -13,6 +14,7 @@ export const dateDePublication = '05/10/2022'
  */
 export const uuid = '6b37f'
 export const ref = '3A12-0'
+
 export default class EngrenagesAnimes extends Exercice {
   constructor () {
     super()
@@ -356,8 +358,7 @@ export default class EngrenagesAnimes extends Exercice {
       texteCorr += context.isHtml ? `<div id="animRoues${numeroExercice}C${i}"></div>` : ''
 
       divM2d.innerHTML = mathalea2d(paramsCorrection, objetsCorrection)
-
-      function insertInDom () {
+      const insertInDom = function () {
         const div = document.querySelector(`#animRoues${numeroExercice}C${i - 1}`) // Quand insertInDom sera exécuté, le i aura été incrémenté d'où ce i - 1
         if (div) {
           div.innerHTML = ''
@@ -376,6 +377,7 @@ export default class EngrenagesAnimes extends Exercice {
           document.removeEventListener('exercicesAffiches', insertInDom)
         }
       }
+
       document.addEventListener('exercicesAffiches', remiseAZero)
       document.addEventListener('exercicesAffiches', insertInDom)
 

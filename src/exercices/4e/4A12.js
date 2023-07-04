@@ -1,11 +1,11 @@
 import { warnMessage } from '../../lib/outils/message.js'
 import { personne } from '../../lib/outils/Personne.js'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
+import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   combinaisonListes,
   listeQuestionsToContenu,
-  nombreAvecEspace,
   randint,
   texteEnCouleurEtGras,
   nombreDeChiffresDe,

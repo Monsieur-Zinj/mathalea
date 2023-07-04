@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre } from '../../modules/outils.js'
 import { codageAngle, nommePolygone, point, triangle2points2angles } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-eval */
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 /* eslint-disable no-unused-vars */
 import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

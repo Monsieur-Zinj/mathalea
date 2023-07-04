@@ -1,6 +1,7 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-import { choice, listeQuestionsToContenu, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { choice, listeQuestionsToContenu, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer si un nombre est pair (V/F)'
 export const interactifReady = true
