@@ -1,4 +1,5 @@
 import { modalPdf } from '../../lib/outils/modales.js'
+import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -6,11 +7,9 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import {
   choice,
   combinaisonListes,
-  eclatePuissance,
   lettreDepuisChiffre,
   listeQuestionsToContenuSansNumero,
   randint,
-  simpNotPuissance,
   texteGras
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
