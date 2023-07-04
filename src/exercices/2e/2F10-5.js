@@ -26,7 +26,8 @@ export default function Signefonctionaffine () {
   this.spacingCorr = 1
   this.sup = 1
   this.listePackages = ['tkz-tab']
-
+  this.correctionDetaillee = false
+  this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -86,14 +87,16 @@ export default function Signefonctionaffine () {
             texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$.`
 
             texteCorr = '$f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
-            texteCorr += `Son coefficient $a$ vaut : $a=${a}$ et son coefficient $b$ vaut : $b=${b}$. <br>`
-            // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
-            texteCorr += 'On cherche la valeur de $x$ qui annule la fonction $f$ en résolvant l\'équation $f(x)=0$.<br> '
-            texteCorr += `$\\begin{aligned}
+            if (this.correctionDetaillee) {
+              texteCorr += `Son coefficient $a$ vaut : $a=${a}$ et son coefficient $b$ vaut : $b=${b}$. <br>`
+              // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
+              texteCorr += 'On cherche la valeur de $x$ qui annule la fonction $f$ en résolvant l\'équation $f(x)=0$.<br> '
+              texteCorr += `$\\begin{aligned}
           ${reduireAxPlusB(a, b)}&=0\\\\
           ${rienSi1(a)}x&=${-b}\\\\
           ${a !== 1 ? `x&=${zero.texFSD}` : ''}
           \\end{aligned}$<br>`
+            } else { texteCorr += `$${reduireAxPlusB(a, b)}$ s'annule en $x=${zero.texFSD}$.<br>` }
             texteCorr += `Comme  $a=${a}`
             if (a > 0) {
               texteCorr += `>0$, $f(x)$ est positif pour $x>${zero.texFSD}$ et négatif pour $x<${zero.texFSD}$.<br>
@@ -105,7 +108,7 @@ export default function Signefonctionaffine () {
               ligne1 = ['Line', 25, '', 0, '+', 20, 'z', 20, '-']
             }
 
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            texteCorr += mathalea2d({ xmin: -0.5, ymin: -4, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -147,16 +150,18 @@ export default function Signefonctionaffine () {
             tA.epaisseur = 5
             const objets = []
             objets.push(maCourbe, lA, monRepere, o, tA)
-            texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>
+            if (this.correctionDetaillee) {
+              texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>
             ` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
 
-            mathalea2d({
-              xmin: -5,
-              ymin: -5,
-              xmax: 6,
-              ymax: 6,
-              scale: 0.5
-            }, monRepere, maCourbe, tA, lA)
+              mathalea2d({
+                xmin: -5,
+                ymin: -5,
+                xmax: 6,
+                ymax: 6,
+                scale: 0.5
+              }, monRepere, maCourbe, tA, lA)
+            }
           }
           break
 
@@ -174,20 +179,22 @@ export default function Signefonctionaffine () {
 
             texteCorr = '$f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
             texteCorr += `Son coefficient $a$ vaut : $a=${a.texFSD}$ et son coefficient $b$ vaut : $b=${b}$. <br>`
-            texteCorr += 'On cherche la valeur de $x$ qui annule la fonction $f$ en résolvant l\'équation $f(x)=0$.<br> '
-            if (b === 0) {
-              texteCorr += `$\\begin{aligned}
+            if (this.correctionDetaillee) {
+              texteCorr += 'On cherche la valeur de $x$ qui annule la fonction $f$ en résolvant l\'équation $f(x)=0$.<br> '
+              if (b === 0) {
+                texteCorr += `$\\begin{aligned}
            ${a.texFSD}x${ecritureAlgebrique(b)}&=0\\\\
             x&=0
             \\end{aligned}$<br>`
-            } else {
-              texteCorr += `$\\begin{aligned}
+              } else {
+                texteCorr += `$\\begin{aligned}
            ${a.texFSD}x${ecritureAlgebrique(b)}&=0\\\\
             ${a.texFSD}x&=${-b}\\\\
             x&=${-b}\\times ${aInverse.texFraction}\\\\
              x&=${zero.texFSD}
             \\end{aligned}$<br>`
-            }
+              }
+            } else { texteCorr += `${b === 0 ? `$${a.texFSD}x${ecritureAlgebrique(b)}$` : `$${a.texFSD}x${ecritureAlgebrique(b)}$`} s'annule en $x=${zero.texFSD}$.<br>` }
             texteCorr += `Comme  $a=${a.texFSD}`
             if (ns > 0) {
               texteCorr += `>0$, $f(x)$ est positif pour $x>${zero.texFSD}$ et négatif pour $x<${zero.texFSD}$.<br>
@@ -199,7 +206,7 @@ export default function Signefonctionaffine () {
               ligne1 = ['Line', 25, '', 0, '+', 20, 'z', 20, '-']
             }
 
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -241,7 +248,9 @@ export default function Signefonctionaffine () {
             tA.epaisseur = 5
             const objets = []
             objets.push(maCourbe, lA, monRepere, o, tA)
-            texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.6, style: 'margin: auto' }, objets)
+            if (this.correctionDetaillee) {
+              texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.6, style: 'margin: auto' }, objets)
+            }
           }
           break
       }
