@@ -121,6 +121,9 @@ export default class BetaModeleSpline extends Exercice {
       const objetsEnonce = [repere1, courbe1]
       let texteEnonce = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce)), objetsEnonce)
       texteEnonce += `<br>Quel sont les solutions de l'équation $f(x)<=${y0}$ ?`
+      texteEnonce += '<br>Donnez un tableau de signes de f.'
+      texteEnonce += '<br>Donnez les variations de f.'
+
       const objetsCorrection = [repere1]
       const courbeAvecTraces = maSpline.courbe({
         repere: repere1,
@@ -131,6 +134,16 @@ export default class BetaModeleSpline extends Exercice {
       objetsCorrection.push(courbeAvecTraces)
       let texteCorrection = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection)), objetsCorrection)
       texteCorrection += `<br>voici les solutions de $f(x)<=${y0}$ : ${reponse}.`
+      texteCorrection += '<br>voici les signes de f : '
+      const signes = maSpline.signes()
+      for (let k = 0; k < signes.length; k++) {
+        texteCorrection += `<br>Sur [${signes[k].xG};${signes[k].xD}] la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
+      }
+      const variations = maSpline.variations()
+      for (let k = 0; k < variations.length; k++) {
+        texteCorrection += `<br>Sur [${variations[k].xG};${variations[k].xD}] la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
+      }
+
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
     }
