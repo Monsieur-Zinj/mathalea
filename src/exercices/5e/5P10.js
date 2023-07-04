@@ -1,6 +1,7 @@
+import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombre, texteEnCouleurEtGras, tableauColonneLigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
 export const titre = 'Reconnaître des tableaux de proportionnalité'
 
 /**
@@ -11,6 +12,61 @@ export const titre = 'Reconnaître des tableaux de proportionnalité'
 
 export const uuid = 'aa997'
 export const ref = '5P10'
+
+// une fonction pour la justification
+function justificationsOK (n1, n2, n3, coeff, sens) {
+  let sortie
+  switch (sens) {
+    case 'L1L2':
+      sortie = `$\\dfrac{\\textcolor{blue}{${n1}}}{\\textcolor{red}{${n1 * coeff}}} = \\dfrac{\\textcolor{blue}{${n2}}}{\\textcolor{red}{${n2 * coeff}}} = \\dfrac{\\textcolor{blue}{${n3}}}{\\textcolor{red}{${n3 * coeff}}}$`
+      break
+    case 'L2L1':
+      sortie = `$\\dfrac{\\textcolor{red}{${n1 * coeff}}}{\\textcolor{blue}{${n1}}} = \\dfrac{\\textcolor{red}{${n2 * coeff}}}{\\textcolor{blue}{${n2}}} = \\dfrac{\\textcolor{red}{${n3 * coeff}}}{\\textcolor{blue}{${n3}}}$`
+      break
+  }
+  return sortie
+}
+
+// une fonction pour la justification sens1
+function justificationsKO (n1, n2, n3, coeff, operation, sens) {
+  let sortie
+  const isEq = function (n1, n2, coeff) {
+    if (calcul(n1 / (n1 + coeff), 8) === calcul(n2 / (n2 + coeff), 8)) {
+      return '='
+    } else {
+      return '\\neq'
+    }
+  }
+  let color1, color2
+  switch (sens) {
+    case 'L1L2':
+      color1 = 'red'
+      color2 = 'blue'
+      break
+    case 'L2L1':
+      color1 = 'blue'
+      color2 = 'red'
+      break
+  }
+  switch (operation) {
+    case '+':
+      sortie = `$\\dfrac{\\textcolor{${color2}}{${n1}}}{\\textcolor{${color1}}{${n1 + coeff}}}`
+      sortie += isEq(n1, n2, coeff)
+      sortie += `\\dfrac{\\textcolor{${color2}}{${n2}}}{\\textcolor{${color1}}{${n2 + coeff}}}`
+      sortie += isEq(n2, n3, coeff)
+      sortie += `\\dfrac{\\textcolor{${color2}}{${n3}}}{\\textcolor{${color1}}{${n3 + coeff}}}$`
+      break
+    case '-':
+      sortie = `$\\dfrac{\\textcolor{${color2}}{${n1}}}{\\textcolor{${color1}}{${n1 - coeff}}}`
+      sortie += isEq(n1, n2, coeff)
+      sortie += `\\dfrac{\\textcolor{${color2}}{${n2}}}{\\textcolor{${color1}}{${n2 - coeff}}}`
+      sortie += isEq(n2, n3, coeff)
+      sortie += `\\dfrac{\\textcolor{${color2}}{${n3}}}{\\textcolor{${color1}}{${n3 - coeff}}}$`
+      break
+  }
+  return sortie
+}
+
 export default function TableauxEtProportionnalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -19,7 +75,7 @@ export default function TableauxEtProportionnalite () {
     this.nbQuestions = 6
   } else {
     this.nbQuestions = 4
-  };
+  }
 
   this.titre = titre
   this.consigne = 'Dire si les tableaux suivants sont de tableaux de proportionnalité. Justifier.'
@@ -39,7 +95,7 @@ export default function TableauxEtProportionnalite () {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = [choice([0, 1]), 2, choice([3, 4]), 5]
       typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles)
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -67,61 +123,7 @@ export default function TableauxEtProportionnalite () {
         ci1 = choice([0, 5])
         ci2 = choice([0, 5])
         ci3 = choice([0, 5])
-      };
-
-      // une fonction pour la justification
-      function justificationsOK (n1, n2, n3, coeff, sens) {
-        let sortie
-        switch (sens) {
-          case 'L1L2':
-            sortie = `$\\dfrac{\\textcolor{blue}{${n1}}}{\\textcolor{red}{${n1 * coeff}}} = \\dfrac{\\textcolor{blue}{${n2}}}{\\textcolor{red}{${n2 * coeff}}} = \\dfrac{\\textcolor{blue}{${n3}}}{\\textcolor{red}{${n3 * coeff}}}$`
-            break
-          case 'L2L1':
-            sortie = `$\\dfrac{\\textcolor{red}{${n1 * coeff}}}{\\textcolor{blue}{${n1}}} = \\dfrac{\\textcolor{red}{${n2 * coeff}}}{\\textcolor{blue}{${n2}}} = \\dfrac{\\textcolor{red}{${n3 * coeff}}}{\\textcolor{blue}{${n3}}}$`
-            break
-        };
-        return sortie
-      };
-
-      // une fonction pour la justification sens1
-      function justificationsKO (n1, n2, n3, coeff, operation, sens) {
-        let sortie
-        const isEq = function (n1, n2, coeff) {
-          if (calcul(n1 / (n1 + coeff), 8) === calcul(n2 / (n2 + coeff), 8)) {
-            return '='
-          } else {
-            return '\\neq'
-          };
-        }
-        let color1, color2
-        switch (sens) {
-          case 'L1L2':
-            color1 = 'red'
-            color2 = 'blue'
-            break
-          case 'L2L1':
-            color1 = 'blue'
-            color2 = 'red'
-            break
-        };
-        switch (operation) {
-          case '+':
-            sortie = `$\\dfrac{\\textcolor{${color2}}{${n1}}}{\\textcolor{${color1}}{${n1 + coeff}}}`
-            sortie += isEq(n1, n2, coeff)
-            sortie += `\\dfrac{\\textcolor{${color2}}{${n2}}}{\\textcolor{${color1}}{${n2 + coeff}}}`
-            sortie += isEq(n2, n3, coeff)
-            sortie += `\\dfrac{\\textcolor{${color2}}{${n3}}}{\\textcolor{${color1}}{${n3 + coeff}}}$`
-            break
-          case '-':
-            sortie = `$\\dfrac{\\textcolor{${color2}}{${n1}}}{\\textcolor{${color1}}{${n1 - coeff}}}`
-            sortie += isEq(n1, n2, coeff)
-            sortie += `\\dfrac{\\textcolor{${color2}}{${n2}}}{\\textcolor{${color1}}{${n2 - coeff}}}`
-            sortie += isEq(n2, n3, coeff)
-            sortie += `\\dfrac{\\textcolor{${color2}}{${n3}}}{\\textcolor{${color1}}{${n3 - coeff}}}$`
-            break
-        };
-        return sortie
-      };
+      }
 
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
@@ -201,7 +203,7 @@ export default function TableauxEtProportionnalite () {
 <br>Ou bien ${situations[k].justification_L2_L1}, on constate aussi qu'ils sont ${situations[k].areEgaux}.
 <br>${situations[k].isProportionnel}`
         })
-      };
+      }
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
@@ -214,7 +216,7 @@ export default function TableauxEtProportionnalite () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -224,7 +226,7 @@ export default function TableauxEtProportionnalite () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[2].enonce}`
@@ -234,7 +236,7 @@ export default function TableauxEtProportionnalite () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[2].correction}`
-          };
+          }
           break
         case 3:
           texte = `${enonces[3].enonce}`
@@ -244,7 +246,7 @@ export default function TableauxEtProportionnalite () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[3].correction}`
-          };
+          }
           break
         case 4:
           texte = `${enonces[4].enonce}`
@@ -254,7 +256,7 @@ export default function TableauxEtProportionnalite () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[4].correction}`
-          };
+          }
           break
         case 5:
           texte = `${enonces[5].enonce}`
@@ -264,9 +266,9 @@ export default function TableauxEtProportionnalite () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[5].correction}`
-          };
+          }
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

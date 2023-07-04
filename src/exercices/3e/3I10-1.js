@@ -1,8 +1,8 @@
 import { lampeMessage } from '../../lib/outils/message.js'
+import { deuxColonnes } from '../../lib/outils/miseEnPage.js'
 import Exercice from '../Exercice.js'
 import {
   choice,
-  deuxColonnes,
   gestionnaireFormulaireTexte,
   lettreMinusculeDepuisChiffre,
   listeQuestionsToContenu,
