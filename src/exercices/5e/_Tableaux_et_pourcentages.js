@@ -1,5 +1,49 @@
+import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
+import { texPrix } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre, miseEnEvidence, texPrix, tableauColonneLigne, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre, miseEnEvidence, sp } from '../../modules/outils.js'
+
+// une fonction pour les textes de correction
+/**
+ * @param {string} type // ce qui est donné, remise en pourcentage; Montant de la remise ou Nouveau prix
+ * @param {object} remiseInit //remise initiale deux propriétés nb sous forme numerique et str sous forme de chaine
+ * @param {object} remise //remise effective deux propriétés nb sous forme numerique et str sous forme de codageHauteurTriangle
+ * @param {number} prix
+ */
+function justifCorrType (type, remiseInit, remise, prix) {
+  let sortie = ''
+  switch (type) {
+    case 'pourcentage':
+      sortie = `L'énoncé indique le montant pour une remise de $${remiseInit.str}$ du prix initial or $${texNombre(remise.nb / remiseInit.nb)} \\times ${remiseInit.str} = ${remise.str}$.<br>
+Donc pour une remise de $${remise.str}$ du prix initial, le montant de la remise sera $${texNombre(remise.nb / remiseInit.nb)}$ fois celui de la remise de $${remiseInit.str}$ du prix initial,<br>
+d'où le calcul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix * remiseInit.nb / 100)} \\times ${texNombre(remise.nb / remiseInit.nb)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
+Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
+Mais on peut aussi calculer directement le prix réduit en faisant :<br>
+$${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}${sp(1)}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
+`
+      break
+    case 'remise':
+      sortie = `L'énoncé indique $${texPrix(prix * remise.nb / 100)}$ € de remise pour un montant de $${texPrix(prix)}$ €,<br>
+d'où le calcul pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombre(remise.nb / 100)} = ${remise.str}`)}$.<br>
+Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.`
+
+      break
+    case 'nouveau_prix':
+      sortie = `L'énoncé indique un nouveau prix de $${texPrix(prix - prix * remise.nb / 100)}$ € pour un montant de $${texPrix(prix)}$ €,<br>
+d'où le calcul pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)} - ${texPrix(prix - prix * remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
+Et celui pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombre(remise.nb / 100)} = ${remise.str}`)}$.`
+      break
+    case 'pourcentage_constant':
+      sortie = `L'énoncé indique un prix de $${texPrix(prix)}$ € et une remise de $${remise.str}$ du prix initial,<br>
+d'où le calcul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix)} \\times ${remise.str} = ${texPrix(prix)} \\times ${texNombre(remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
+Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
+Mais on peut aussi calculer directement le prix réduit en faisant :<br>
+$${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}${sp(1)}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
+`
+      break
+  }
+  return sortie
+}
 
 /**
  * * Tableaux et pourcentages
@@ -18,7 +62,7 @@ export default function TableauxEtPourcentages () {
     this.nbQuestions = 1
   } else {
     this.nbQuestions = 1
-  };
+  }
   if (this.exo === '5N11-1') { // prix constant
     this.titre = 'Tableaux et pourcentages - prix constant'
     this.consigne = 'Compléter le tableau suivant. Le prix est fixe.'
@@ -28,7 +72,7 @@ export default function TableauxEtPourcentages () {
   } else {
     this.titre = 'Tableaux et pourcentages'
     this.consigne = 'Compléter le tableau suivant.'
-  };
+  }
 
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -43,36 +87,36 @@ export default function TableauxEtPourcentages () {
     if (this.debug) {
       if (this.sup2 === 1) {
         typesDeQuestionsDisponibles = [0]
-      };
+      }
       if (this.sup2 === 2) {
         typesDeQuestionsDisponibles = [1]
-      };
+      }
       if (this.sup2 === 3) {
         typesDeQuestionsDisponibles = [2]
-      };
+      }
       if (this.sup2 === 4) {
         typesDeQuestionsDisponibles = [3]
-      };
+      }
       if (this.sup3) {
         typesDeQuestionsDisponibles = [4]
-      };
+      }
     } else {
       if (this.sup2 === 1) {
         typesDeQuestionsDisponibles = [0]
-      };
+      }
       if (this.sup2 === 2) {
         typesDeQuestionsDisponibles = [1]
-      };
+      }
       if (this.sup2 === 3) {
         typesDeQuestionsDisponibles = [2]
-      };
+      }
       if (this.sup2 === 4) {
         typesDeQuestionsDisponibles = [3]
-      };
+      }
       if (this.sup3) {
         typesDeQuestionsDisponibles = [4]
-      };
-    };
+      }
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -81,48 +125,6 @@ export default function TableauxEtPourcentages () {
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // une fonction pour les textes de correction
-      /**
-* @param {string} type // ce qui est donné, remise en pourcentage; Montant de la remise ou Nouveau prix
-* @param {object} remiseInit //remise initiale deux propriétés nb sous forme numerique et str sous forme de chaine
-* @param {object} remise //remise effective deux propriétés nb sous forme numerique et str sous forme de codageHauteurTriangle
-* @param {number} prix
-*/
-      function justifCorrType (type, remiseInit, remise, prix) {
-        let sortie = ''
-        switch (type) {
-          case 'pourcentage':
-            sortie = `L'énoncé indique le montant pour une remise de $${remiseInit.str}$ du prix initial or $${texNombre(remise.nb / remiseInit.nb)} \\times ${remiseInit.str} = ${remise.str}$.<br>
-Donc pour une remise de $${remise.str}$ du prix initial, le montant de la remise sera $${texNombre(remise.nb / remiseInit.nb)}$ fois celui de la remise de $${remiseInit.str}$ du prix initial,<br>
-d'où le calcul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix * remiseInit.nb / 100)} \\times ${texNombre(remise.nb / remiseInit.nb)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
-Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
-Mais on peut aussi calculer directement le prix réduit en faisant :<br>
-$${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}${sp(1)}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
-`
-            break
-          case 'remise':
-            sortie = `L'énoncé indique $${texPrix(prix * remise.nb / 100)}$ € de remise pour un montant de $${texPrix(prix)}$ €,<br>
-d'où le calcul pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombre(remise.nb / 100)} = ${remise.str}`)}$.<br>
-Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.`
-
-            break
-          case 'nouveau_prix':
-            sortie = `L'énoncé indique un nouveau prix de $${texPrix(prix - prix * remise.nb / 100)}$ € pour un montant de $${texPrix(prix)}$ €,<br>
-d'où le calcul pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)} - ${texPrix(prix - prix * remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
-Et celui pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombre(remise.nb / 100)} = ${remise.str}`)}$.`
-            break
-          case 'pourcentage_constant':
-            sortie = `L'énoncé indique un prix de $${texPrix(prix)}$ € et une remise de $${remise.str}$ du prix initial,<br>
-d'où le calcul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix)} \\times ${remise.str} = ${texPrix(prix)} \\times ${texNombre(remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
-Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
-Mais on peut aussi calculer directement le prix réduit en faisant :<br>
-$${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}${sp(1)}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
-`
-            break
-        };
-        return sortie
-      };
-
       let choixPrix, prix1, prix2, prix3, prix4, prix5, prix, remises
       do {
         choixPrix = randint(150, 300)
@@ -200,8 +202,8 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = $
           // [{str:`40${sp(1)}\\%`,nb:40},{str:`15${sp(1)}\\%`,nb:15},{str:`5${sp(1)}\\%`,nb:5},{str:`20${sp(1)}\\%`,nb:20},{str:`30${sp(1)}\\%`,nb:30},{str:`25${sp(1)}\\%`,nb:25}],
           // [{str:`80${sp(1)}\\%`,nb:80},{str:`20${sp(1)}\\%`,nb:20},{str:`55${sp(1)}\\%`,nb:55},{str:`30${sp(1)}\\%`,nb:30},{str:`40${sp(1)}\\%`,nb:40},{str:`20${sp(1)}\\%`,nb:20}],
           // ]);
-        };
-      };
+        }
+      }
 
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
@@ -329,17 +331,17 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = $
           corrections += '<br><br>D\'où le tableau complété :<br><br>'
         } else {
           corrections = ''
-        };
+        }
         situations[4].tableau = tableauCase4
         situations[4].tableau_corr = tableauCase4Corr
       } else {
         let typeCorr
         if (this.exo === '5N11-1') {
           typeCorr = 'pourcentage'
-        };
+        }
         if (this.exo === '5N11-2') {
           typeCorr = 'pourcentage_constant'
-        };
+        }
         if (this.sup2 === 1 && this.correctionDetaillee) {
           corrections = `${justifCorrType(typeCorr, remises[0], remises[1], prix[1])}`
           corrections += '<br><br>D\'où le tableau complété :<br><br>'
@@ -354,8 +356,8 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = $
           corrections += '<br><br>D\'où le tableau complété :<br><br>'
         } else {
           corrections = ''
-        };
-      };
+        }
+      }
 
       const enonces = []
       for (let k = 0; k < situations.length; k++) {
@@ -369,7 +371,7 @@ ${corrections}
 ${situations[k].tableau_corr}
 `
         })
-      };
+      }
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
@@ -382,7 +384,7 @@ ${situations[k].tableau_corr}
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -393,7 +395,7 @@ ${situations[k].tableau_corr}
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[2].enonce}`
@@ -404,7 +406,7 @@ ${situations[k].tableau_corr}
             texteCorr = ''
           } else {
             texteCorr = `${enonces[2].correction}`
-          };
+          }
           break
         case 3:
           texte = `${enonces[3].enonce}`
@@ -415,7 +417,7 @@ ${situations[k].tableau_corr}
             texteCorr = ''
           } else {
             texteCorr = `${enonces[3].correction}`
-          };
+          }
           break
         case 4:
           texte = `${enonces[4].enonce}`
@@ -426,9 +428,9 @@ ${situations[k].tableau_corr}
             texteCorr = ''
           } else {
             texteCorr = `${enonces[4].correction}`
-          };
+          }
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -443,9 +445,9 @@ ${situations[k].tableau_corr}
     this.besoinFormulaireNumerique = ['Le coefficient entre les pourcentages', 2, '1 : est entier.\n2 : est décimal.']
     this.besoinFormulaire3CaseACocher = ['Modulation de ce qui est demandé']
     this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir (fixé à 3 lorsque la case ci-dessous est cochée)', 4, '1 : Une colonne\n2 : Deux colonnes\n3 : Trois colonnes\n4 : Quatre colonnes']
-  };
+  }
   if (this.exo === '5N11-2') { // pourcentage
     this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir', 4, '1 : Une colonne\n2 : Deux colonnes\n3 : Trois colonnes\n4 : Quatre colonnes']
-  };
+  }
 }
 ;

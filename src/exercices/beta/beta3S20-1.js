@@ -1,9 +1,10 @@
+import { decompositionFacteursPremiers } from '../../lib/outils/primalite.js'
 import { listeEntiersSommeConnue } from '../../modules/debarras/listeEntiersSommeConnue.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { diagrammeBarres } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { decompositionFacteursPremiers, choice, randint, listeQuestionsToContenu, combinaisonListes, num } from '../../modules/outils.js'
+import { choice, randint, listeQuestionsToContenu, combinaisonListes, num } from '../../modules/outils.js'
 import { multiply, divide, matrix, isPrime, sum, gcd, fraction, round } from 'mathjs'
 export const titre = 'Calculs de probabilités'
 

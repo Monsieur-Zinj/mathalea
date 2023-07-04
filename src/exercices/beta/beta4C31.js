@@ -1,6 +1,7 @@
+import { ecriturePuissance } from '../../lib/outils/puissance.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, choice, rangeMinMax, ecriturePuissance, numAlpha, texteEnCouleurEtGras, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choice, rangeMinMax, numAlpha, texteEnCouleurEtGras, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Puissances de 10'
 

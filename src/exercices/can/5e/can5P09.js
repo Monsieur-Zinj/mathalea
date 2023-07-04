@@ -1,6 +1,7 @@
+import { texPrix } from '../../../lib/style.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
-import { randint, choice, texNombre, texteEnCouleur, texPrix } from '../../../modules/outils.js'
+import { randint, choice, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Calculer un prix à partir d\'un prix au kg'
 export const interactifReady = true
 export const interactifType = 'mathLive'

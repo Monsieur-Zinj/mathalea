@@ -1,5 +1,6 @@
+import { texPrix } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, troncature, calcul, texNombre, texPrix, carreParfait } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, troncature, calcul, texNombre, carreParfait } from '../../modules/outils.js'
 export const titre = 'Calculer la racine carrée de (x² +/- y²)'
 
 /**
@@ -48,8 +49,8 @@ export default function CalculerUneExpressionLitteralePythagore () {
       texte = `$\\phantom{12}a = ${a} \\phantom{12}et \\phantom{12}b = ${texNombre(b)}$`
 
       texteCorr = `$\\begin{aligned}a^2 + b^2&
-   = ${texNombre(a)} \\times ${texNombre(a)} + ${texNombre(b)} \\times ${texNombre(b)} 
-   \\\\&= ${texNombre(a * a)} + ${texNombre(b * b)} 
+   = ${texNombre(a)} \\times ${texNombre(a)} + ${texNombre(b)} \\times ${texNombre(b)}
+   \\\\&= ${texNombre(a * a)} + ${texNombre(b * b)}
    \\\\&= ${texNombre((a * a + b * b))}\\end{aligned}$`
       texteCorr += `<br>$\\phantom{123456}\\sqrt{${texNombre(a * a + b * b)}}$`
 
@@ -63,9 +64,9 @@ export default function CalculerUneExpressionLitteralePythagore () {
         }
       }
 
-      texteCorr += `<br><br>$\\begin{aligned}a^2 - b^2& 
-  = ${texNombre(a)} \\times ${texNombre(a)} - ${texNombre(b)} \\times ${texNombre(b)} 
-  \\\\&= ${texNombre(a * a)} - ${texNombre(b * b)} 
+      texteCorr += `<br><br>$\\begin{aligned}a^2 - b^2&
+  = ${texNombre(a)} \\times ${texNombre(a)} - ${texNombre(b)} \\times ${texNombre(b)}
+  \\\\&= ${texNombre(a * a)} - ${texNombre(b * b)}
   \\\\&= ${texNombre(a * a - b * b)}\\end{aligned}$`
       texteCorr += `<br>$\\phantom{123456}\\sqrt{${texNombre(a * a - b * b)}}$`
 

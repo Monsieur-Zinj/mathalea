@@ -1,6 +1,7 @@
 import { personne, prenom, prenomF } from '../../lib/outils/Personne.js'
+import { texPrix } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
-import { sp, listeQuestionsToContenu, randint, texNombre, numAlpha, texPrix, gestionnaireFormulaireTexte, arrondi } from '../../modules/outils.js'
+import { sp, listeQuestionsToContenu, randint, texNombre, numAlpha, gestionnaireFormulaireTexte, arrondi } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

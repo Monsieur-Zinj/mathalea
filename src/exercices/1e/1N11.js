@@ -1,6 +1,7 @@
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { arcenciel } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, signe, texNombre, miseEnEvidence, arcenciel } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, signe, texNombre, miseEnEvidence } from '../../modules/outils.js'
 
 export const titre = 'Déterminer les termes d\'une suite définie par récurrence'
 

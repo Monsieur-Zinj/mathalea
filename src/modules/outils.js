@@ -1,14 +1,12 @@
 /* globals UI */
 import Algebrite from 'algebrite'
 import Decimal from 'decimal.js'
-import { evaluate, format, isArray, isInteger, isPrime, round } from 'mathjs'
-import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
-import { factorisation, obtenirListeFacteursPremiers, pgcd } from '../lib/outils/primalite.js'
+import { evaluate, format, isArray, isInteger, round } from 'mathjs'
+import { texMulticols } from '../lib/outils/miseEnPage.js'
+import { factorisation } from '../lib/outils/primalite.js'
 import { context } from './context.js'
-import { fraction } from './fractions.js'
 import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
-import { matriceCarree } from './MatriceCarree.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -99,119 +97,6 @@ export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = tr
       exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
     }
   }
-}
-
-/**
- * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
- * @author Rémi Angot
- * @param {string} cont1 - Contenu de la première colonne
- * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {number} [largeur1=50] Largeur de la première colonne
- * @return {string}
- */
-export function deuxColonnes (cont1, cont2, largeur1 = 50) {
-  if (context.isHtml) {
-    return `
-    <div>
-    <div class="question" style="float:left;max-width: ${largeur1}%;margin-right: 30px">
-    ${cont1}
-   </div>
-   <div style="float:left; max-width: ${90 - largeur1}%">
-    ${cont2}
-   </div>
-   <div style="clear:both"></div>
-   <div class="ui hidden divider"></div>
-   </div>
-`
-  } else {
-    return `\\begin{minipage}{${largeur1 / 100}\\linewidth}
-    ${cont1.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    \\begin{minipage}{${(100 - largeur1) / 100}\\linewidth}
-    ${cont2.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    `
-  }
-}
-
-/**
- * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
- * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne !
- * @author Mickael Guironnet
- * @param {string} cont1 - Contenu de la première colonne
- * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {{eleId: string, largeur1: number, widthmincol1: number, widthmincol2: number}} options
- *          eleId : identifiant ID pour retrouver la colonne
- *          largeur1 : largeur de la première colonne en latex en pourcentage
- *          widthmincol1 : largeur de la première minimum en html en px
- *          widthmincol2 : largeur de la deuxième minimum en html en px
- *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
- * @return {string}
- */
-export function deuxColonnesResp (cont1, cont2, options) {
-  if (options === undefined) {
-    options = { largeur1: 50 }
-  } else if (typeof options === 'number') {
-    options = { largeur1: options }
-  }
-  if (options.largeur1 === undefined) {
-    options.largeur1 = 50
-  }
-  if (options.stylecol1 === undefined) {
-    options.stylecol1 = ''
-  }
-  if (options.stylecol2 === undefined) {
-    options.stylecol2 = ''
-  }
-  if (options.widthmincol1 === undefined) {
-    options.widthmincol1 = '0px'
-  }
-  if (options.widthmincol2 === undefined) {
-    options.widthmincol2 = '0px'
-  }
-
-  if (context.isHtml) {
-    return `
-    <style>
-    .cols-responsive {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-gap: 1rem;
-    }
-    /* Screen larger than 900px? 2 column */
-    @media (min-width: 900px) {
-      .cols-responsive { grid-template-columns: repeat(2, 1fr); }
-    }
-    </style>
-    <div class='cols-responsive'>
-      <div id='cols-responsive1-${options.eleId}'style='min-width:${options.widthmincol1};${options.stylecol1}' >
-      ${cont1}
-      </div>
-      <div id='cols-responsive2-${options.eleId}' style='min-width:${options.widthmincol2};${options.stylecol2}' >
-      ${cont2}
-      </div>
-    </div>
-`
-  } else {
-    return `\\begin{minipage}{${options.largeur1 / 100}\\linewidth}
-    ${cont1.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    \\begin{minipage}{${(100 - options.largeur1) / 100}\\linewidth}
-    ${cont2.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    `
-  }
-}
-
-/**
- *
- * @param {string} texte
- * @returns le texte centré dans la page selon le contexte.
- * @author Jean-Claude Lhote
- */
-export function centrage (texte) {
-  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
 }
 
 /**
@@ -1483,21 +1368,6 @@ export function htmlLigne (liste, spacing, classe = 'question') {
 }
 
 /**
- * Renvoie un environnent LaTeX multicolonnes
- * @author Rémi Angot
- */
-export function texMulticols (texte, nbCols = 2) {
-  let result
-  if (nbCols > 1) {
-    result = '\\begin{multicols}{' + nbCols + '}\n' +
-      texte + '\n\\end{multicols}'
-  } else {
-    result = texte
-  }
-  return result
-}
-
-/**
  * Renvoie la consigne en titre 4
  * @author Rémi Angot
  */
@@ -1869,21 +1739,6 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
 }
 
 /**
- * Centre un texte
- *
- * @author Rémi Angot
- */
-export function texteCentre (texte) {
-  if (context.isHtml) {
-    return `<p style="text-align: center">${texte}</p>`
-  } else {
-    return `\\begin{center}
-${texte}
-\\end{center}`
-  }
-}
-
-/**
  * Met en couleur et en gras
  *
  * Met en couleur et gras un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
@@ -2123,47 +1978,6 @@ export function nombreDeChiffresDe (nb, except) {
 }
 
 /**
- * Retourne la liste des nombres premiers inférieurs à 300
- * @author Rémi Angot
- */
-export function obtenirListeNombresPremiers (n = 300) {
-  const prems = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
-  for (let i = 307; i <= n; i++) {
-    if (isPrime(i)) prems.push(i)
-  }
-  return prems
-}
-
-/**
- * Retourne le code LaTeX de la décomposition en produit de facteurs premiers d'un nombre
- * @author Rémi Angot
- */
-export function decompositionFacteursPremiers (n) {
-  let decomposition = ''
-  const liste = obtenirListeFacteursPremiers(n)
-  for (const i in liste) {
-    decomposition += ecritureParentheseSiNegatif(liste[i]) + '\\times'
-  }
-  decomposition = decomposition.substr(0, decomposition.length - 6)
-  return decomposition
-}
-
-/**
- *
- * @param {number} n
- * @param {boolean} inférieur si true, commence la recherche à 2 en croissant sinon commence à n+1
- * @returns {number}
- */
-export function premierAvec (n, listeAEviter = [], inférieur = true) {
-  if (n < 2) throw Error(`Impossible de trouver un nombre premier avec ${n}`)
-  let candidat = inferieur ? 2 : n + 1
-  do {
-    if (pgcd(n, candidat) === 1 && !listeAEviter.includes(candidat)) return candidat
-    candidat++
-  } while (true)
-}
-
-/**
  * Retourne le code LateX correspondant à un symbole
  * @param {string} symbole
  * @returns {string} string
@@ -2233,69 +2047,6 @@ export function itemize (tableauDeTexte) {
 // Fin de la classe MAtriceCarree
 
 /**
- * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
- *
- * @author Jean-Claude Lhote
- */
-export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
-  const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
-  const determinant = matrice.determinant()
-  const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    const fa = fraction(a, determinant)
-    const fb = fraction(b, determinant)
-    return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
-  }
-  return [[a / determinant, 1], [b / determinant, 1]]
-}
-
-/**
- * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
- * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
- * @author Jean-Claude Lhote
- */
-export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
-  const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
-  const y1 = fx1 - d
-  const y2 = fx2 - d
-  const y3 = fx3 - d
-  const determinant = matrice.determinant()
-  if (determinant === 0) {
-    return [[0, 0], [0, 0], [0, 0]]
-  }
-  const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
-    const fa = fraction(a, determinant)
-    const fb = fraction(b, determinant)
-    const fc = fraction(c, determinant)
-    return [
-      [fa.numIrred, fa.denIrred],
-      [fb.numIrred, fb.denIrred],
-      [fc.numIrred, fc.denIrred]
-    ]
-    // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
-  }
-  return [
-    [a / determinant, 1],
-    [b / determinant, 1],
-    [b / determinant, 1]
-  ]
-}
-
-/**
- * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
- * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
- * @author Jean-Claude Lhote
- */
-export function chercheMinMaxFonction ([a, b, c, d]) {
-  const delta = 4 * b * b - 12 * a * c
-  if (delta <= 0) return [[0, 10 ** 99], [0, 10 ** 99]]
-  const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
-  const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
-  return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
-}
-
-/**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
  * retourne 1, la base ou rien
  * @param b base
@@ -2310,133 +2061,6 @@ export function simpExp (b, e) {
       return ' 1'
     default:
       return ' '
-  }
-}
-
-/**
- * Fonction pour écrire des notations scientifique de la forme a * b ^ n
- * @param a {number} mantisse
- * @param b {number} base
- * @param n {number} exposant
- * @author Erwan Duplessy
- */
-export function puissance (b, n) {
-  switch (b) {
-    case 0:
-      return '0'
-    case 1:
-      return '1'
-    case -1:
-      if (b % 2 === 0) {
-        return '1'
-      } else {
-        return '-1'
-      }
-    default:
-      if (b < 0) {
-        return `(${b})^{${n}}`
-      } else {
-        return `${b}^{${n}}`
-      }
-  }
-}
-
-export function ecriturePuissance (a, b, n) {
-  switch (a) {
-    case 0:
-      return '$0$'
-    case 1:
-      return `$${puissance(b, n)}$`
-    default:
-      return `$${String(round(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
-  }
-}
-
-/**
- * Fonction pour simplifier les notations puissance dans certains cas
- * si la base vaut 1 ou -1 quelque soit l'exposant, retourne 1 ou -1,
- * si la base est négative on teste la parité de l'exposant pour alléger la notation sans le signe
- * si l'exposant vaut 0 ou 1 retourne 1, la base ou rien
- * @param b base
- * @param e exposant
- * @author Sébastien Lozano
- */
-export function simpNotPuissance (b, e) {
-  // on switch sur la base
-  switch (b) {
-    case -1: // si la base vaut -1 on teste la parité de l'exposant
-      if (e % 2 === 0) {
-        return ' 1'
-        // break;
-      } else {
-        return ' -1'
-        // break;
-      }
-    case 1: // si la base vaut 1 on renvoit toujours 1
-      return ' 1'
-    default: // sinon on switch sur l'exposant
-      switch (e) {
-        case 0: // si l'exposant vaut 0 on ranvoit toujours 1
-          return '1'
-        case 1: // si l'exposant vaut 1 on renvoit toujours la base
-          return ` ${b}`
-        default: // sinon on teste le signe de la base et la parité de l'exposant
-          if (b < 0 && e % 2 === 0) { // si la base est négative et que l'exposant est pair, le signe est inutile
-            return ` ${b * -1}^{${e}}`
-            // break;
-          } else {
-            return ` ${b}^{${e}}`
-            // return ` `;
-            // break;
-          }
-      }
-  }
-}
-
-/**
- * Fonction pour écrire en couleur la forme éclatée d'une puissance
- * @param b base
- * @param e exposant
- * @param couleur
- * @author Sébastien Lozano
- */
-export function eclatePuissance (b, e, couleur) {
-  let str
-  switch (e) {
-    case 0:
-      return `\\mathbf{\\color{${couleur}}{1}}`
-    case 1:
-      return `\\mathbf{\\color{${couleur}}{${b}}}`
-    default:
-      str = `\\mathbf{\\color{${couleur}}{${b}}} `
-      for (let i = 1; i < e; i++) {
-        str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`
-      }
-      return str
-  }
-}
-
-/**
- * Fonction pour écrire la forme éclatée d'une puissance
- * @param b {number} base
- * @param e {integer} exposant
- * @author Rémi Angot
- * @return string
- */
-export function puissanceEnProduit (b, e) {
-  let str
-  if (e === 0) {
-    return '1'
-  } else if (e === 1) {
-    return `${b}`
-  } else if (e > 1) {
-    str = `${ecritureParentheseSiNegatif(b)}`
-    for (let i = 1; i < e; i++) {
-      str = str + `\\times ${ecritureParentheseSiNegatif(b)}`
-    }
-    return str
-  } else if (e < 0) {
-    return `\\dfrac{1}{${puissanceEnProduit(b, -e)}}`
   }
 }
 
@@ -2523,130 +2147,6 @@ export function texteOuPas (texte) {
   } else {
     return texte
   }
-}
-
-/**
- * Crée un tableau avec un nombre de lignes et de colonnes déterminées
- * par la longueur des tableaux des entetes passés en paramètre
- * Les contenus sont en mode maths par défaut, il faut donc penser à remplir les tableaux
- * en utilisant éventuellement la commande \\text{}
- *
- * @example
- * tableauColonneLigne(['coin','A','B'],['1','2'],['A1','B1','A2','B2']) affiche le tableau ci-dessous
- * ------------------
- * | coin | A  | B  |
- * ------------------
- * |  1   | A1 | B1 |
- * ------------------
- * |  2   | A2 | B2 |
- * ------------------
- *
- * @example
- * tableauColonneLigne(['coin','A','B','C'],['1','2'],['A1','B1','C1','A2','B2','C2']) affiche le tableau ci-dessous
- * -----------------------
- * | coin | A  | B  | C  |
- * -----------------------
- * |  1   | A1 | B1 | C1 |
- * -----------------------
- * |  2   | A2 | B2 | C2 |
- * -----------------------
- *
- * @example
- * tableauColonneLigne(['coin','A','B'],['1','2','3'],['A1','B1','A2','B2','A3','B3']) affiche le tableau ci-dessous
- * ------------------
- * | coin | A  | B  |
- * ------------------
- * |  1   | A1 | B1 |
- * ------------------
- * |  2   | A2 | B2 |
- * ------------------
- * |  3   | A3 | B3 |
- * ------------------
- *
- * @example
- * tableauColonneLigne(['coin','A','B','C'],['1','2','3'],['A1','B1','C1','A2','B2','C2','A3','B3','C3']) affiche le tableau ci-dessous
- * -----------------------
- * | coin | A  | B  | C  |
- * -----------------------
- * |  1   | A1 | B1 | C1 |
- * -----------------------
- * |  2   | A2 | B2 | C2 |
- * -----------------------
- * |  3   | A3 | B3 | C3 |
- * -----------------------
- *
- * @param {array} tabEntetesColonnes contient les entetes des colonnes
- * @param {array} tabEntetesLignes contient les entetes des lignes
- * @param {array} tabLignes contient les elements de chaque ligne
- * @author Sébastien Lozano
- *
- */
-export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true) {
-  // on définit le nombre de colonnes
-  const C = tabEntetesColonnes.length
-  // on définit le nombre de lignes
-  const L = tabEntetesLignes.length
-  // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
-  let tableauCL = ''
-  if (!arraystretch) {
-    if (context.isHtml) {
-      arraystretch = 2.5
-    } else {
-      arraystretch = 1
-    }
-  }
-  if (context.isHtml) {
-    tableauCL += `$\\def\\arraystretch{${arraystretch}}\\begin{array}{|`
-  } else {
-    tableauCL += `$\\renewcommand{\\arraystretch}{${arraystretch}}\n`
-    tableauCL += '\\begin{array}{|'
-  }
-  // on construit la 1ere ligne avec toutes les colonnes
-  for (let k = 0; k < C; k++) {
-    tableauCL += 'c|'
-  }
-  tableauCL += '}\n'
-
-  tableauCL += '\\hline\n'
-  if (typeof tabEntetesColonnes[0] === 'number') {
-    tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
-  } else {
-    tableauCL += math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`
-  }
-  for (let k = 1; k < C; k++) {
-    if (typeof tabEntetesColonnes[k] === 'number') {
-      tableauCL += ` & ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
-    } else {
-      tableauCL += ` & ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
-    }
-  }
-  tableauCL += '\\\\\n'
-  tableauCL += '\\hline\n'
-  // on construit toutes les lignes
-  for (let k = 0; k < L; k++) {
-    if (typeof tabEntetesLignes[k] === 'number') {
-      tableauCL += math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`
-    } else {
-      tableauCL += math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`
-    }
-    for (let m = 1; m < C; m++) {
-      if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
-        tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
-      } else {
-        tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
-      }
-    }
-    tableauCL += '\\\\\n'
-    tableauCL += '\\hline\n'
-  }
-  tableauCL += '\\end{array}\n'
-  if (context.isHtml) {
-    tableauCL += '$'
-  } else {
-    tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
-  }
-
-  return tableauCL
 }
 
 // Gestion du fichier à télécharger

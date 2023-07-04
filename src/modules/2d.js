@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import earcut from 'earcut'
 import { abs, ceil, floor, Fraction, fraction, isNumeric, max, random, round } from 'mathjs'
+import { texcolors } from '../lib/style.js'
 import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
 import { context } from './context.js'
@@ -22,7 +23,6 @@ import {
   rangeMinMax,
   stringNombre,
   superieurouegal,
-  texcolors,
   texNombre,
   unSiPositifMoinsUnSinon
 } from './outils.js'

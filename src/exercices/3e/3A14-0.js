@@ -1,5 +1,7 @@
 import { createList } from '../../lib/format/lists.ts'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { decompositionFacteursPremiers, premierAvec } from '../../lib/outils/primalite.js'
+import { texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -7,10 +9,7 @@ import {
   randint,
   choice,
   numAlpha,
-  texteGras,
-  decompositionFacteursPremiers,
-  texNombre,
-  premierAvec
+  texNombre
 } from '../../modules/outils.js'
 import { polygone, point, segment, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'

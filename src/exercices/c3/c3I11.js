@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
+import { texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, texteGras, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
+import { randint, choice, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
 import { point, texteParPositionEchelle, tracePoint } from '../../modules/2d.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'

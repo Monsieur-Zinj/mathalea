@@ -1,13 +1,13 @@
 import { lampeMessage } from '../../lib/outils/message.js'
+import { deuxColonnes } from '../../lib/outils/miseEnPage.js'
+import { texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import {
   choice,
-  deuxColonnes,
   gestionnaireFormulaireTexte,
   lettreMinusculeDepuisChiffre,
   listeQuestionsToContenu,
-  randint,
-  texteGras
+  randint
 } from '../../modules/outils.js'
 import { point } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
