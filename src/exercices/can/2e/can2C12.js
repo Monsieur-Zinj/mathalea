@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre, sp, calcul, shuffle } from '../../../modules/outils.js'
+import { randint, choice, sp, calcul, shuffle } from '../../../modules/outils.js'
 export const titre = 'Déterminer un taux global d’évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -74,7 +75,7 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
   $${a}${sp(1)}\\%$  dans un premier temps, puis qui augmente de $${b}${sp(1)}\\%$ dans un second temps. `
         this.correction = `Augmenter de $${a}${sp(1)}\\%$ revient à multiplier par $${texNombre(1 + a / 100)}$ et augmenter de $${b}${sp(1)}\\%$ revient à multiplier par $${texNombre(1 + b / 100)}$.<br>
   Globalement cela revient donc à multiplier par $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre(coeffG)}$.<br>
-  Multiplier par $${texNombre(coeffG)}$ revient à multiplier par 
+  Multiplier par $${texNombre(coeffG)}$ revient à multiplier par
            $1+${texNombre(coeffG - 1)}$. <br>
           Le taux d'évolution global est donc : $+${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
   `
@@ -96,7 +97,7 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
   $${a}${sp(1)}\\%$  dans un premier temps, puis qui diminue de $${b}${sp(1)}\\%$ dans un second temps. `
         this.correction = `Diminuer de $${a}${sp(1)}\\%$ revient à multiplier par $${texNombre(1 - a / 100)}$ et diminuer de $${b}${sp(1)}\\%$ revient à multiplier par $${texNombre(1 - b / 100)}$.<br>
   Globalement cela revient donc à multiplier par $${texNombre(1 - a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre(coeffG)}$.<br>
-  Multiplier par $${texNombre(coeffG)}$ revient à multiplier par 
+  Multiplier par $${texNombre(coeffG)}$ revient à multiplier par
            $1-${texNombre(1 - coeffG)}$. <br>
           Le taux d'évolution global est donc : $${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
   `

@@ -1,6 +1,7 @@
 import { texteGras } from '../../lib/outils/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { arrondi, choice, randint, texNombre } from '../../modules/outils.js'
+import { arrondi, choice, randint } from '../../modules/outils.js'
 export const titre = 'Somme des termes d\'une suite géométrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'

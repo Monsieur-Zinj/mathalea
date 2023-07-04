@@ -1,5 +1,5 @@
-
-import { choice, randint, texNombre, arrondi, miseEnEvidence } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { choice, randint, arrondi, miseEnEvidence } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer une fraction de dénominateur $0,25$ ou $0,1$ ...'

@@ -1,4 +1,5 @@
-import { calcul, choice, randint, texNombre } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { calcul, choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le nombre de centaines, dizaines'
 export const interactifReady = true

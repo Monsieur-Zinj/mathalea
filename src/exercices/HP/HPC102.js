@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { create, all, sqrt } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'

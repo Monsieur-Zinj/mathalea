@@ -1,7 +1,8 @@
 import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, miseEnEvidence } from '../../modules/outils.js'
 export const titre = 'Trouver ordre de grandeur d\'opérations sur les décimaux'
 
 /**

@@ -1,6 +1,7 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, texNombre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampFractionMathLive, ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

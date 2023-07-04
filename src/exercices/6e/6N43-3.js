@@ -1,5 +1,6 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, randint, choice } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC

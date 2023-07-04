@@ -1,6 +1,7 @@
 import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc } from '../../lib/outils/ecritures.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'

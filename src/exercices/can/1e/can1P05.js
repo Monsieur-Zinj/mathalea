@@ -1,6 +1,7 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, texNombre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 

@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import { randint, choice, texNombre } from '../../modules/outils.js'
+import { randint, choice } from '../../modules/outils.js'
 export const titre = 'Proportions de proportions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +38,7 @@ export default function ProportiondeProportion () {
         Parmi eux,   $${c}\\,\\%$ ont plus de $${d}$ années d'ancienneté.<br>
         Quel est le pourcentage d'adhérents de plus de $${a}$ ans ayant plus de $${d}$ années d'ancienneté ?<br>`
         this.correction = `La population de référence est celle des membres de l'association.<br>
-        La première sous-population est celle des plus de $${a}$ ans, 
+        La première sous-population est celle des plus de $${a}$ ans,
         qui représente $p_1=${b}\\,\\%$ de la population de référence. <br>
         Dans cette sous-population, on sait que la population de ceux qui ont plus de $${d}$ années d'ancienneté représente $p_2=${c}\\,\\%$.<br>
         <br> D'après le cours, on calcule $p=p_1\\times p_2$, ce qui rerésente $${b}\\,\\%$ de $${c}\\,\\%$.<br>
@@ -59,7 +60,7 @@ export default function ProportiondeProportion () {
        On dénombre également dans cette association  $${texNombre(g, 2)}\\,\\%$ d'adhérents ayant plus  de $${d}$ années d'ancienneté.<br>
        Parmi les adhérents de plus de $${a}$ ans, quel est le pourcentage de ceux qui ont plus $${d}$ années d'ancienneté ?<br> `
         this.correction = `La population de référence est celle des membres de l'association.<br>
-        La première sous-population est celle des plus de $${a}$ ans, 
+        La première sous-population est celle des plus de $${a}$ ans,
         qui représente $p_1=${b}\\,\\%$ de la population de référence. <br>
         Dans cette sous-population, on note $p_2$ la proportion de ceux qui ont  plus de  $${d}$ années d'ancienneté.<br>
         La proportion $P$ des adhérents qui ont plus de $${d}$ ans d'ancienneté est $P=${texNombre(g, 2)}\\,\\%$.<br>
@@ -140,7 +141,7 @@ export default function ProportiondeProportion () {
         tauxG = new Decimal(b * c).div(10000)
 
         this.question = `Lors d'une élection,  la participation (suffrages exprimés) a été de $${b}\\,\\%$ des inscrits.<br>
-        Un candidat a obtenu $${texNombre(g, 2)}\\,\\%$ de voix parmi les inscrits.<br> 
+        Un candidat a obtenu $${texNombre(g, 2)}\\,\\%$ de voix parmi les inscrits.<br>
                 Quel est le pourcentage de voix obtenues par ce candidat par rapport aux suffrages exprimés ?<br>`
         this.correction = `La population de référence est celle des inscrits sur les listes électorales.<br>
                 La sous-population est celle des suffrages exprimés et d'après l'énoncé, $p_1=${b}\\,\\%$.<br>

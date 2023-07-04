@@ -1,7 +1,8 @@
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, arrondi, choice, combinaisonListes, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, arrondi, choice, combinaisonListes, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const interactifReady = true

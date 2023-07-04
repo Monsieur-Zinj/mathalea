@@ -1,4 +1,5 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre2 } from '../../lib/outils/texNombre.js'
 import {
   barycentre,
   codageAngle,
@@ -22,8 +23,7 @@ import {
   choice,
   creerNomDePolygone,
   listeQuestionsToContenu,
-  randint,
-  texNombre2
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

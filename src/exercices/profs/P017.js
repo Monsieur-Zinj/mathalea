@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { arrondi, listeQuestionsToContenu, sp, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { arrondi, listeQuestionsToContenu, sp, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { cercle, droite, longueur, point, polygone, symetrieAxiale, translation, vecteur } from '../../modules/2d.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'

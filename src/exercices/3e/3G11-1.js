@@ -1,5 +1,6 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, texNombre, miseEnEvidence, randint, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, miseEnEvidence, randint, shuffle } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 

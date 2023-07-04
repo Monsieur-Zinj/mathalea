@@ -1,6 +1,7 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint, texNombre, miseEnEvidence, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, randint, miseEnEvidence } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
 export const dateDePublication = '07/01/2022'

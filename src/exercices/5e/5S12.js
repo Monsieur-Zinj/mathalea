@@ -2,9 +2,10 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
 import { texcolors } from '../../lib/outils/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texNombre, combinaisonListes, choice, randint, rangeMinMax } from '../../modules/outils.js'
+import { premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, combinaisonListes, choice, randint, rangeMinMax } from '../../modules/outils.js'
 import { traceGraphiqueCartesien, segment, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

@@ -1,7 +1,8 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Connaître les différentes écritures d\'une proportion'
 export const dateDePublication = '21/04/2023'
 

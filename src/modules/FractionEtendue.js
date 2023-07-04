@@ -6,6 +6,7 @@ import {
   obtenirListeFacteursPremiers,
   pgcd
 } from '../lib/outils/primalite.js'
+import { texNombre } from '../lib/outils/texNombre.js'
 import {
   arrondi,
   quotientier,
@@ -13,7 +14,6 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   calcul,
   miseEnEvidence,
-  texNombre,
   egal
 } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'

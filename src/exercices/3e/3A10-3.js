@@ -1,12 +1,12 @@
 import { warnMessage } from '../../lib/outils/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN, obtenirListeFacteursPremiers, premiersEntreBornes } from '../../lib/outils/primalite.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  texNombre,
   miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

@@ -1,3 +1,4 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
@@ -5,7 +6,6 @@ import {
   choice,
   printlatex,
   calcul,
-  texNombre,
   lettreDepuisChiffre,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

@@ -1,8 +1,9 @@
 import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, numAlpha } from '../../modules/outils.js'
 import { point, polygone } from '../../modules/2d.js'
 export const titre = 'Produire une formule à partir d\'un tableau'
 

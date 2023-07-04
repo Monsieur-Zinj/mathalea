@@ -1,5 +1,6 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, texNombre, miseEnEvidence, choice } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, combinaisonListes, miseEnEvidence, choice } from '../../modules/outils.js'
 export const titre = 'Comparer deux nombres entiers'
 
 export const dateDePublication = '07/08/2022'
@@ -104,7 +105,7 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
             } else {
               texteCorr += `Comme $${dernierChiffreEnCommunPremierNombre}$ est plus petit que $${dernierChiffreEnCommunDeuxiemeNombre}$, alors $${texNombre(a)}$ est plus petit que $${texNombre(b)}$.<br>`
             }
-            function miseEnEvidenceDesChiffresEnCommun (premierChiffre, deuxiemeChiffre) {
+            const miseEnEvidenceDesChiffresEnCommun = function (premierChiffre, deuxiemeChiffre) {
               let dernierChiffreCommunTrouve = false
               let dernierChiffreCommun
               for (let i = 0; i < premierChiffre.toString().length; i++) {

@@ -4,11 +4,10 @@ import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
 import { lampeMessage } from '../lib/outils/message.js'
 import { prenom } from '../lib/outils/Personne.js'
 import { texteGras } from '../lib/outils/style.js'
+import { stringNombre, texNombre } from '../lib/outils/texNombre.js'
 import {
   arrondi,
-  choice,
-  stringNombre,
-  texNombre
+  choice
 } from './outils.js'
 
 function underbraceMediane (nbVal) {

@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { calcul, combinaisonListes, texNombre } from '../../../modules/outils.js'
+import { calcul, combinaisonListes } from '../../../modules/outils.js'
 export const titre = 'Calculer une somme de puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'

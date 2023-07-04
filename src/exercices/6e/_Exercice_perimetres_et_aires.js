@@ -1,5 +1,6 @@
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, calcul, texNombre, creerNomDePolygone, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, miseEnEvidence } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint, choice, troncature, texTexte, calcul, creerNomDePolygone, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, miseEnEvidence } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

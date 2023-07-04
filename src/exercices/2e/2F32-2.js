@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre, inferieurouegal, superieurouegal, texteEnCouleurEtGras, miseEnEvidence, enleveDoublonNum, numTrie } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, inferieurouegal, superieurouegal, texteEnCouleurEtGras, miseEnEvidence, enleveDoublonNum, numTrie } from '../../modules/outils.js'
 import { antecedentInterpole, graphiqueInterpole, imageInterpolee, point, repere, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

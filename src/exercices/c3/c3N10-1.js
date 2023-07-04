@@ -1,6 +1,6 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   randint,
-  texNombre,
   contraindreValeur,
   listeQuestionsToContenu,
   shuffle2tableaux,

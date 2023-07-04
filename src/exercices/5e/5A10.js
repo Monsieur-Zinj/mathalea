@@ -1,7 +1,8 @@
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texteOuPas, contraindreValeur, texNombre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texteOuPas, contraindreValeur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

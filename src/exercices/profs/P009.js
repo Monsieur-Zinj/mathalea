@@ -1,6 +1,7 @@
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, texNombre, nombreAvecEspace } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { repere, traceBarre } from '../../modules/2d.js'
 

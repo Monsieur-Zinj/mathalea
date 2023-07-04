@@ -3,7 +3,8 @@ import { equal, Fraction, round } from 'mathjs'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction } from '../../modules/fractions.js'
-import { arrondi, egal, lettreDepuisChiffre, miseEnEvidence, stringNombre, texNombre } from '../../modules/outils.js'
+import { arrondi, egal, lettreDepuisChiffre, miseEnEvidence } from '../../modules/outils.js'
+import { stringNombre, texNombre } from './texNombre.js'
 
 /**
  * écrit le nombre, mais pas un nombre s'il est égal à 1

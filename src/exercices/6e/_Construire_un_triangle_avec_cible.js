@@ -1,6 +1,7 @@
+import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, creerNomDePolygone, lettreDepuisChiffre, nombreAvecEspace, range1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, creerNomDePolygone, lettreDepuisChiffre, range1 } from '../../modules/outils.js'
 import { codageSegments, point, pointIntersectionDD, longueur, pointAdistance, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, dansLaCibleRonde, cibleRonde, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codageAngle, texteParPoint, angle } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'

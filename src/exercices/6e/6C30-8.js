@@ -1,5 +1,6 @@
+import { texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, choice, miseEnEvidence } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, combinaisonListes, randint, choice, miseEnEvidence } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true

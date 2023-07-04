@@ -1,7 +1,8 @@
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
-import { randint, choice, texNombre } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de partage*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

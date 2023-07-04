@@ -1,4 +1,5 @@
-import { choice, randint, texNombre, texteEnCouleur, arrondi } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { choice, randint, texteEnCouleur, arrondi } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Soustraire un décimal d’un entier'
 export const interactifReady = true

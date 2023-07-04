@@ -1,4 +1,5 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
@@ -6,7 +7,6 @@ import {
   randint,
   choice,
   calcul,
-  texNombre,
   combinaisonListes, gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

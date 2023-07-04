@@ -1,4 +1,5 @@
-import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre, stringNombre } from '../../modules/outils.js'
+import { stringNombre } from '../../lib/outils/texNombre.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'

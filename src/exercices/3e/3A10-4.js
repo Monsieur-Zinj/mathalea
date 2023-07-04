@@ -1,12 +1,12 @@
 import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  texNombre,
   miseEnEvidence,
   numAlpha
 } from '../../modules/outils.js'

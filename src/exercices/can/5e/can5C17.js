@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import { fraction } from '../../../modules/fractions.js'
-import { calcul, choice, randint, texNombre } from '../../../modules/outils.js'
+import { calcul, choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Écrire la valeur décimale d\'une somme de fractions'
 export const interactifReady = true

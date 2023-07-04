@@ -1,5 +1,6 @@
+import { texRacineCarree } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
+import { randint, choice, texteEnCouleur, extraireRacineCarree } from '../../../modules/outils.js'
 export const titre = 'Calculer la diagonale d’un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +42,7 @@ export default function DiagonaleCarre () {
        \n\\end{aligned}$
    `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
-   On calcule le double du carré du côté du carré, 
+   On calcule le double du carré du côté du carré,
    soit $2\\times ${a}^2=2\\times ${a ** 2}=${c2}$, puis on en prend la racine carrée.    `)
         this.reponse = [`\\sqrt{${c2}}`, texRacineCarree(c2)]
         break
@@ -54,7 +55,7 @@ export default function DiagonaleCarre () {
         this.question = `Calculer la valeur exacte de la longueur de la diagonale d'un carré de côté $\\sqrt{${a}}$.`
 
         if (entiere) {
-          this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $c=\\sqrt{${a}}$ 
+          this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $c=\\sqrt{${a}}$
        et de diagonale $d$, on a :<br>
 
        $\\begin{aligned}
@@ -68,10 +69,10 @@ export default function DiagonaleCarre () {
       
       `
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-       On calcule le double du carré du côté du carré, soit 
+       On calcule le double du carré du côté du carré, soit
        $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée, soit $${texRacineCarree(c2)}$.    `)
         } else {
-          this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $c=\\sqrt{${a}}$ 
+          this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $c=\\sqrt{${a}}$
        et de diagonale $d$, on a :<br>
 
        $\\begin{aligned}
@@ -84,7 +85,7 @@ export default function DiagonaleCarre () {
        \n\\end{aligned}$
             `
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-       On calcule le double du carré du côté du carré, 
+       On calcule le double du carré du côté du carré,
        soit $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée.    `)
         }
 

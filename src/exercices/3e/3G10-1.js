@@ -1,4 +1,5 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../Exercice.js'
@@ -7,7 +8,6 @@ import { context } from '../../modules/context.js'
 import {
   randint,
   choice,
-  texNombre,
   numAlpha,
   listeQuestionsToContenu,
   miseEnCouleur,

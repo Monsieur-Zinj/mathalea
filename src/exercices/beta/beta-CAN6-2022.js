@@ -1,3 +1,4 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fraction } from '../../modules/fractions.js'
 import {
@@ -5,7 +6,7 @@ import {
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
 
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, shuffle, choice, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -299,7 +300,7 @@ export default function SujetCAN2022Sixieme () {
             c = choice([30, 35, 40, 45])
             texte = `Ajoute $${b}$ min à $${a}$ h $${c}$ min.`
             reponse = b + c - 60
-            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
+            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
             $${a + 1}$ h et $${reponse}$ min.`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
@@ -313,7 +314,7 @@ export default function SujetCAN2022Sixieme () {
             c = choice([45, 50, 55])
             texte = `Ajoute $${b}$ min à $${a}$ h $${c}$ min.`
             reponse = b + c - 60
-            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
+            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
 $${a + 1}$ h et $${reponse}$ min.`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
@@ -440,7 +441,7 @@ $${a + 1}$ h et $${reponse}$ min.`
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille `
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille$=
-            ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000)} + ${texNombre(chiffre[a][1] * 1000)} 
+            ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000)} + ${texNombre(chiffre[a][1] * 1000)}
                         =${texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000)}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -597,8 +598,8 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = a * 2
             texte = `Combien faut-il de pièces de $50$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                    `
-            texteCorr = `Pour un euro, il faut $2$ pièces de $50$ centimes, 
-          donc pour $${Math.trunc(a)}$, 
+            texteCorr = `Pour un euro, il faut $2$ pièces de $50$ centimes,
+          donc pour $${Math.trunc(a)}$,
           il en faut $${Math.trunc(a)}\\times 2=${Math.trunc(a) * 2}$. <br>
           Donc pour $${texNombre(a, 2, true)}$ €, il en faut  $${reponse}$.`
           }
@@ -725,7 +726,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           reponse = 1.5 * b
           texte = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm.<br>
           $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de `
-          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2)}$ cm, donc les 
+          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2)}$ cm, donc les
           $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2)}=${reponse}$ cm `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

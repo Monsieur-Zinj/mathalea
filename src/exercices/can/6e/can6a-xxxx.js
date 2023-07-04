@@ -1,11 +1,11 @@
 import { pgcd } from '../../../lib/outils/primalite.js'
 import { texPrix } from '../../../lib/outils/style.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
   listeQuestionsToContenu,
   randint,
-  texNombre,
   choice,
   sp,
   shuffle,

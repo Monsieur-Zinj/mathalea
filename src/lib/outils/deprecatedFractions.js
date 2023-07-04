@@ -1,6 +1,7 @@
-import { miseEnEvidence, texNombre } from '../../modules/outils.js'
+import { miseEnEvidence } from '../../modules/outils.js'
 import { ecritureParentheseSiNegatif } from './ecritures.js'
 import { pgcd } from './primalite.js'
+import { texNombre } from './texNombre.js'
 
 /**
  * Fonction de comparaison à utiliser avec tableau.sort(compareFractions)

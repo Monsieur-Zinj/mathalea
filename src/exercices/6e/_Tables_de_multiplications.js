@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'

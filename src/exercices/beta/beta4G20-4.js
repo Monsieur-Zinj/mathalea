@@ -1,6 +1,7 @@
 import { texPrix } from '../../lib/outils/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, troncature, calcul, texNombre, carreParfait } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, troncature, calcul, carreParfait } from '../../modules/outils.js'
 export const titre = 'Calculer la racine carrée de (x² +/- y²)'
 
 /**

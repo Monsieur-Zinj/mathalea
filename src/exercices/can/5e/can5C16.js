@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, texNombre, choice, calcul } from '../../../modules/outils.js'
+import { randint, choice, calcul } from '../../../modules/outils.js'
 export const titre = 'Calculer astucieusement avec une factorisation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +28,7 @@ export default function CalculAstucieuxAvecFactorisation () {
         a = randint(5, 99) / 10
         b = calcul(randint(2, 9) * 5)
         c = 100 - b
-        this.question = `Calculer $${b}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}$. 
+        this.question = `Calculer $${b}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}$.
 `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
 En factorisant par ce nombre, on obtient : <br>
@@ -43,7 +44,7 @@ ${texNombre(b)}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}&=${texNombre(
         a = randint(5, 99) / 100
         b = randint(2, 8)
         c = 10 - b
-        this.question = `Calculer $ ${b}\\times${texNombre(a)}+ ${c}\\times${texNombre(a)}$. 
+        this.question = `Calculer $ ${b}\\times${texNombre(a)}+ ${c}\\times${texNombre(a)}$.
 `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
         En factorisant par ce nombre, on obtient : <br>
@@ -60,7 +61,7 @@ ${texNombre(b)}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}&=${texNombre(
         b = randint(2, 8) / 10
         d = randint(1, 2)
         c = d - b
-        this.question = `Calculer $ ${texNombre(b)}\\times${texNombre(a)}+ ${texNombre(c)}\\times${texNombre(a)}$. 
+        this.question = `Calculer $ ${texNombre(b)}\\times${texNombre(a)}+ ${texNombre(c)}\\times${texNombre(a)}$.
 `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
         En factorisant par ce nombre, on obtient : <br>
@@ -75,7 +76,7 @@ ${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=$
         a = calcul(randint(5, 99) / 100)
         b = calcul(randint(2, 99) / 10)
         c = 10 - b
-        this.question = `Calculer $ ${texNombre(b)}\\times${texNombre(a)}+ ${texNombre(c)}\\times${texNombre(a)}$. 
+        this.question = `Calculer $ ${texNombre(b)}\\times${texNombre(a)}+ ${texNombre(c)}\\times${texNombre(a)}$.
     `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
             En factorisant par ce nombre, on obtient : <br>
@@ -90,7 +91,7 @@ ${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=$
         a = calcul(randint(1, 12) * 10)
         b = calcul(randint(2, 9) / 10)
         c = 5 - b
-        this.question = `Calculer $ ${texNombre(a)}\\times${texNombre(b)}+ ${texNombre(c)}\\times${texNombre(a)}$. 
+        this.question = `Calculer $ ${texNombre(a)}\\times${texNombre(b)}+ ${texNombre(c)}\\times${texNombre(a)}$.
     `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombre(a)}$.<br>
             En factorisant par ce nombre, on obtient : <br>

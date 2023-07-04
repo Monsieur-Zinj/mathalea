@@ -1,13 +1,13 @@
 import Decimal from 'decimal.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   choice,
   combinaisonListes,
   listeQuestionsToContenu,
   miseEnEvidence,
   randint,
-  sp,
-  texNombre
+  sp
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

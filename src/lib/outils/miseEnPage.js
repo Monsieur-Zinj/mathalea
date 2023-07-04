@@ -1,5 +1,5 @@
 import { context } from '../../modules/context.js'
-import { stringNombre, texNombre } from '../../modules/outils.js'
+import { stringNombre, texNombre } from './texNombre.js'
 
 /**
  * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
