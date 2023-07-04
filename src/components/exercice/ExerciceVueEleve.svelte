@@ -22,8 +22,8 @@
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
   let columnsCount = $exercicesParams[indiceExercice].cols || 1
-  let isInteractif = exercice.interactif && exercice.interactifReady
-  let interactifReady = exercice.interactifReady
+  let isInteractif = exercice.interactif && exercice?.interactifReady
+  let interactifReady = exercice?.interactifReady
 
   const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
   // Evènement indispensable pour pointCliquable par exemple
@@ -154,11 +154,11 @@
   }
 
   async function setAllInteractif() {
-    if (exercice.interactifReady) isInteractif = true
+    if (exercice?.interactifReady) isInteractif = true
     updateDisplay()
   }
   async function removeAllInteractif() {
-    if (exercice.interactifReady) isInteractif = false
+    if (exercice?.interactifReady) isInteractif = false
     updateDisplay()
   }
 
@@ -324,7 +324,7 @@
         <!-- {/if} -->
 
         <button
-          class={$globalOptions.isInteractiveFree && exercice.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
+          class={$globalOptions.isInteractiveFree && exercice?.interactifReady ? "w-5 ml-2 tooltip tooltip-right tooltip-neutral " : "hidden"}
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={() => {

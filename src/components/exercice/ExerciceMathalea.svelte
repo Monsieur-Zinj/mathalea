@@ -25,7 +25,7 @@
   let isSettingsVisible = false
   let isInteractif = exercice.interactif
   let isMessagesVisible = true
-  let interactifReady = exercice.interactifReady
+  let interactifReady = exercice?.interactifReady
   let isExerciceChecked = false
   // const ranks: number[] = exercisesUuidRanking($exercicesParams)
   // const counts = uuidCount($exercicesParams)
@@ -176,11 +176,11 @@
   }
 
   async function setAllInteractif() {
-    if (exercice.interactifReady) isInteractif = true
+    if (exercice?.interactifReady) isInteractif = true
     updateDisplay()
   }
   async function removeAllInteractif() {
-    if (exercice.interactifReady) isInteractif = false
+    if (exercice?.interactifReady) isInteractif = false
     updateDisplay()
   }
 
@@ -360,7 +360,7 @@
       updateDisplay()
     }}
     on:clickNewData={newData}
-    interactifReady={exercice.interactifReady && !isCorrectionVisible && headerExerciceProps.interactifReady}
+    interactifReady={exercice?.interactifReady && !isCorrectionVisible && headerExerciceProps?.interactifReady}
     on:clickMessages={(event) => {
       isMessagesVisible = event.detail.isMessagesVisible
       updateDisplay()
