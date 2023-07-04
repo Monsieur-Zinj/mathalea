@@ -1,8 +1,13 @@
+import {
+  chercheMinMaxFonction,
+  resolutionSystemeLineaire2x2,
+  resolutionSystemeLineaire3x3
+} from '../../modules/mathFonctions/outilsMaths.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { randint, abs, resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3, chercheMinMaxFonction, nombreDeChiffresDansLaPartieEntiere, listeQuestionsToContenu, numAlpha } from '../../modules/outils.js'
+import { randint, abs, nombreDeChiffresDansLaPartieEntiere, listeQuestionsToContenu, numAlpha } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { courbe, repere } from '../../modules/2d.js'

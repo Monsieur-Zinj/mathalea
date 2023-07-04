@@ -5,10 +5,8 @@ import { evaluate, format, isArray, isInteger, isPrime, round } from 'mathjs'
 import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
 import { factorisation, obtenirListeFacteursPremiers, pgcd } from '../lib/outils/primalite.js'
 import { context } from './context.js'
-import { fraction } from './fractions.js'
 import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
-import { matriceCarree } from './MatriceCarree.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -2231,69 +2229,6 @@ export function itemize (tableauDeTexte) {
 }
 
 // Fin de la classe MAtriceCarree
-
-/**
- * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
- *
- * @author Jean-Claude Lhote
- */
-export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
-  const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
-  const determinant = matrice.determinant()
-  const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    const fa = fraction(a, determinant)
-    const fb = fraction(b, determinant)
-    return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
-  }
-  return [[a / determinant, 1], [b / determinant, 1]]
-}
-
-/**
- * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
- * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
- * @author Jean-Claude Lhote
- */
-export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
-  const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
-  const y1 = fx1 - d
-  const y2 = fx2 - d
-  const y3 = fx3 - d
-  const determinant = matrice.determinant()
-  if (determinant === 0) {
-    return [[0, 0], [0, 0], [0, 0]]
-  }
-  const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
-    const fa = fraction(a, determinant)
-    const fb = fraction(b, determinant)
-    const fc = fraction(c, determinant)
-    return [
-      [fa.numIrred, fa.denIrred],
-      [fb.numIrred, fb.denIrred],
-      [fc.numIrred, fc.denIrred]
-    ]
-    // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
-  }
-  return [
-    [a / determinant, 1],
-    [b / determinant, 1],
-    [b / determinant, 1]
-  ]
-}
-
-/**
- * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
- * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
- * @author Jean-Claude Lhote
- */
-export function chercheMinMaxFonction ([a, b, c, d]) {
-  const delta = 4 * b * b - 12 * a * c
-  if (delta <= 0) return [[0, 10 ** 99], [0, 10 ** 99]]
-  const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
-  const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
-  return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
-}
 
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
