@@ -86,6 +86,10 @@ export function propositionsQcm (exercice, i) {
   let texteCorr = ''
   let espace = ''
   let nbCols = 1; let vertical = false
+  if (exercice.autoCorrection[i].propositions === undefined) {
+    window.notify('propositionsQcm a reçu une liste de propositions undefined')
+    return { texte: '', texteCorr: '' }
+  }
   if (context.isAmc) return { texte: '', texteCorr: '' }
   if (context.isHtml) {
     espace = '&emsp;'
