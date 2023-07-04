@@ -1,4 +1,5 @@
 import { personne, prenom } from '../../../lib/outils/Personne.js'
+import { texPrix } from '../../../lib/style.js'
 import Exercice from '../../Exercice.js'
 import {
   listeQuestionsToContenu,
@@ -6,7 +7,6 @@ import {
   calcul,
   texNombre,
   choice,
-  texPrix,
   miseEnEvidence,
   stringNombre,
   gestionnaireFormulaireTexte

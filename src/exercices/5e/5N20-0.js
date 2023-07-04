@@ -1,8 +1,9 @@
 import { lampeMessage } from '../../lib/outils/message.js'
+import { texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, numAlpha } from '../../modules/outils.js'
 import { point, labelPoint, segment, cercleCentrePoint, rotation, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
@@ -13,6 +14,39 @@ export const titre = 'Résoudre un problème en utilisant des fractions'
  */
 export const uuid = 'b6250'
 export const ref = '5N20-0'
+// une fonction pour gérer le codage des angles
+function myCodageAngle (A, O, B, angle, [...args]) {
+  if (angle === 90) {
+    return codageAngleDroit(A, O, B)
+  } else {
+    return codageAngle(A, O, angle, ...args)
+  }
+}
+
+// une fonction pour gérer le texte en fonction de l'angle
+function myTexteVolsCorr (angle) {
+  switch (angle) {
+    case 90:
+      return `du secteur est un angle droit, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{4}$.`
+    case 30:
+      return `rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br>
+L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.<br>
+L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
+`
+    case 180:
+      return `du secteur est un angle plat, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{2}$.`
+  }
+}
+
+// une fonction pour positionner le label
+// y est l'ordonnée du point
+function myLabelPosition (y) {
+  if (y < 0) {
+    return 'below'
+  } else {
+    return 'above'
+  }
+}
 export default function ProblemesAdditifsFractions5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -36,7 +70,7 @@ export default function ProblemesAdditifsFractions5e () {
     } else {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = [0]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -130,43 +164,6 @@ export default function ProblemesAdditifsFractions5e () {
         {// case 4 -->
         }
       ]
-      // une fonction pour gérer le codage des angles
-      function myCodageAngle (A, O, B, angle, [...args]) {
-        if (angle === 90) {
-          return codageAngleDroit(A, O, B)
-        } else {
-          return codageAngle(A, O, angle, ...args)
-        };
-      };
-
-      // une fonction pour gérer l'affichage correct de la légende
-      // param est l'ordonnée du point qui sert à la mediatrice !
-      ;
-
-      // une fonction pour positionner le label
-      // y est l'ordonnée du point
-      function myLabelPosition (y) {
-        if (y < 0) {
-          return 'below'
-        } else {
-          return 'above'
-        };
-      };
-
-      // une fonction pour gérer le texte en fonction de l'angle
-      function myTexteVolsCorr (angle) {
-        switch (angle) {
-          case 90:
-            return `du secteur est un angle droit, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{4}$.`
-          case 30:
-            return `rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br>
-L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.<br>
-L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
-`
-          case 180:
-            return `du secteur est un angle plat, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{2}$.`
-        }
-      };
 
       // on prépare la fenetre mathalea2d
       const fenetreMathalea2D = { xmin: -10, ymin: -8, xmax: 10, ymax: 8, pixelsParCm: 20, scale: 0.5 }
@@ -294,7 +291,7 @@ $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}\\times ${
 ${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}.`)}
 `
         })
-      };
+      }
 
       switch (listeTypeDeQuestions[i]) {
         case 0:
@@ -306,7 +303,7 @@ ${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.de
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
       }
 

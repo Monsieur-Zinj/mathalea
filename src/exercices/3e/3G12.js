@@ -1,3 +1,4 @@
+import { arcenciel, texcolors } from '../../lib/style.js'
 import { codageAngle, labelPoint, rotation, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
 import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -5,15 +6,13 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
-  arcenciel,
   choice,
   egal,
   listeQuestionsToContenu,
   miseEnEvidence,
   nombreAvecEspace,
   randint,
-  shuffle,
-  texcolors
+  shuffle
 } from '../../modules/outils.js'
 import { pavage } from '../../modules/Pavage.js'
 import Exercice from '../Exercice.js'

@@ -1,9 +1,10 @@
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lampeMessage } from '../../lib/outils/message.js'
+import { texSymbole, texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence, texSymbole, sp, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence, sp } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'

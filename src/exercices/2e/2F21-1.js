@@ -1,11 +1,12 @@
 import { prenom, prenomM } from '../../lib/outils/Personne.js'
+import { texPrix, texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 import { repere, texteParPosition, point, courbeInterpolee, antecedentParDichotomie, segment, courbe } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, stringNombre, texPrix, texteGras, choice, sp, texNombre, randint, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, stringNombre, choice, sp, texNombre, randint, numAlpha } from '../../modules/outils.js'
 import { exp } from 'mathjs'
 export const titre = 'Modéliser une situation à l\'aide d\'une fonction'
 export const dateDePublication = '14/02/2023'

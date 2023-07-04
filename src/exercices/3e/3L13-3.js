@@ -1,5 +1,6 @@
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { prenom } from '../../lib/outils/Personne.js'
+import { texPrix } from '../../lib/style.js'
 import {
   codageSegments,
   homothetie,
@@ -19,8 +20,7 @@ import {
   nombreDeChiffresDe,
   sp,
   stringNombre,
-  texNombre,
-  texPrix
+  texNombre
 } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'

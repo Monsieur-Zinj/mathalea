@@ -1,5 +1,6 @@
+import { texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
-import { randint, texNombre, texteGras } from '../../modules/outils.js'
+import { randint, texNombre } from '../../modules/outils.js'
 export const titre = 'Calculer une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'

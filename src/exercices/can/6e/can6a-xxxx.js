@@ -1,4 +1,5 @@
 import { pgcd } from '../../../lib/outils/primalite.js'
+import { texPrix } from '../../../lib/style.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
@@ -8,7 +9,6 @@ import {
   choice,
   sp,
   shuffle,
-  texPrix,
   gestionnaireFormulaireTexte
 } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'

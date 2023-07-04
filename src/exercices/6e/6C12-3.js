@@ -1,8 +1,9 @@
 import { jourAuHasard, nomDuMois } from '../../lib/outils/dateEtHoraires.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, texteGras, arrondi, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, arrondi, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC

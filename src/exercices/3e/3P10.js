@@ -1,5 +1,6 @@
+import { texPrix } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, calcul, texNombre, stringNombre, texPrix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, calcul, texNombre, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Variations en pourcentage'
