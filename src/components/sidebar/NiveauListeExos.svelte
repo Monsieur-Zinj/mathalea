@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { slide } from "svelte/transition"
-  import EntreeListeExos from "./EntreeListeExos.svelte"
-  import { toMap } from "../utils/toMap"
-  import { sortArrayOfStringsWithHyphens } from "../utils/filters"
+  import { slide } from 'svelte/transition'
+  import EntreeListeExos from './EntreeListeExos.svelte'
+  import { toMap } from '../utils/toMap'
+  import { sortArrayOfStringsWithHyphens } from '../utils/filters'
 
   export let expanded: boolean = false
   export let levelTitle: string
@@ -10,8 +10,8 @@
   export let pathToThisNode: string[]
   export let nestedLevelCount: number
   export let indexBase: string
-  import themesList from "../../json/levelsThemesList.json"
-  import { convertLatexToSpeakableText } from "mathlive"
+  import themesList from '../../json/levelsThemesList.json'
+  import { convertLatexToSpeakableText } from 'mathlive'
 
   const themes = toMap(themesList)
   let listeExercices: HTMLUListElement
@@ -22,18 +22,18 @@
    * @return {string} intitulédu thème
    * @author Sylvain Chambon & Rémi Angot
    */
-  function themeTitle(themeCode: string) {
+  function themeTitle (themeCode: string) {
     if (themes.has(themeCode)) {
-      return [" : ", themes.get(themeCode).get("titre")].join("")
+      return [' : ', themes.get(themeCode).get('titre')].join('')
     } else {
-      return ""
+      return ''
     }
   }
 
   /**
    * Basculer le flag pour l'affichage du contenu
    */
-  function updateItems() {
+  function updateItems () {
     // const item = Array.from(items, ([key, obj]) => ({ key, obj }))
     if (items) {
       const regExpEntreesRef = /^(?:(?:(?:(?:c3)|\d)\S\d){1}|(?:can\d\S))(?:.*){0}$/g
@@ -46,7 +46,7 @@
       // entrées exos 4A10 avant 4A10-1
       if (levelTitle.match(regExpEntreesRef)) {
         const sortedKeys = sortArrayOfStringsWithHyphens([...items.keys()])
-        let sortedMapOfItems = new Map()
+        const sortedMapOfItems = new Map()
         for (const key of sortedKeys) {
           sortedMapOfItems.set(key, items.get(key))
         }
@@ -56,8 +56,8 @@
       // entrées DNB(thèmes) années décroissantes
       if ((indexBase.match(/-/g) || []).length === 2) {
         // console.log('match3')
-        const parentIdElt = document.getElementById("titre-liste-" + indexBase.replaceAll(/(-\d+)$/g, ""))
-        const parentTitle = parentIdElt != null ? document.getElementById(parentIdElt.id + "-content").textContent : ""
+        const parentIdElt = document.getElementById('titre-liste-' + indexBase.replaceAll(/(-\d+)$/g, ''))
+        const parentTitle = parentIdElt != null ? document.getElementById(parentIdElt.id + '-content').textContent : ''
         if (parentTitle.match(regExpBrevetThème)) {
           const regExpDNBYearMonth = /^(?:dnb_)(?<year>\d{4})_(?<month>\d{2})/g
           items = new Map(
@@ -84,22 +84,22 @@
   /**
    * Basculer le flag pour l'affichage du contenu
    */
-  function toggleContent() {
+  function toggleContent () {
     expanded = !expanded
   }
 
-  /* Mickel Guironnet  : 
+  /* Mickel Guironnet  :
   Très dangereux de bind:this={listeExercices} sur un arbre récursif.
   Très lourd en javascript...
   $: {
     if (listeExercices) mathaleaRenderDiv(listeExercices)
-  }*/
+  } */
 </script>
 
-<!-- 
+<!--
   @component
-  Écrire la liste des exercices disponibles 
-  à partir des entrées de l'arbre du référentiel 
+  Écrire la liste des exercices disponibles
+  à partir des entrées de l'arbre du référentiel
   convertion du fichier `referentiel2022.json`.
 
   Paramètres :
@@ -110,7 +110,7 @@
   - **nestedLevelCount** : compteur pour connaître le nombre d'imbrication (utilisé pour l'indentation de la ligne) class="pl-{nestedLevelCount * 2}"
  -->
 <div
-  id={"titre-liste-" + indexBase}
+  id={'titre-liste-' + indexBase}
   class="flex flex-row mr-4 items-center justify-between {expanded
     ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
     : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'} font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest cursor-pointer"
@@ -118,11 +118,11 @@
   on:click={toggleContent}
   on:keydown={toggleContent}
 >
-  <div id={"titre-liste-" + indexBase + "-content"} class="text-base">{levelTitle} <span class="font-normal">{themeTitle(levelTitle)}</span></div>
+  <div id={'titre-liste-' + indexBase + '-content'} class="text-base">{levelTitle} <span class="font-normal">{themeTitle(levelTitle)}</span></div>
   <i class=" text-xl bg-transparent bx {expanded ? 'bx-plus rotate-[225deg]' : 'bx-plus'} transition-transform duration-500 ease-in-out" />
 </div>
 {#if expanded}
-  {#if levelTitle === "Nouveautés" && Array.from(items, ([key, obj]) => ({ key, obj })).length === 0}
+  {#if levelTitle === 'Nouveautés' && Array.from(items, ([key, obj]) => ({ key, obj })).length === 0}
     <div class="flex flex-row p-2 justify-start items-center">
       <span class="font-light italic text-sm">Pas de publication ou de modification récente.</span>
     </div>
@@ -130,7 +130,7 @@
   <ul transition:slide={{ duration: 500 }}>
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item, i}
       <li>
-        {#if item.obj.has("uuid")}
+        {#if item.obj.has('uuid')}
           <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} exercice={item.obj} />
         {:else}
           <svelte:self indexBase={`${indexBase}-${i.toString()}`} nestedLevelCount={nestedLevelCount + 1} pathToThisNode={[...pathToThisNode, item.key]} levelTitle={item.key} items={item.obj} />

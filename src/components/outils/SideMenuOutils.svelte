@@ -1,17 +1,17 @@
 <script lang="ts">
-  import type { ReferentielForList } from "src/lib/types"
-  import SideMenuList from "./SideMenuListOutils.svelte"
+  import type { ReferentielForList } from 'src/lib/types'
+  import SideMenuList from './SideMenuListOutils.svelte'
   export let referentiels: ReferentielForList[] = []
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 400
-  let isMenuDeployed: boolean = true
+  const isMenuDeployed: boolean = true
 </script>
 
 <aside
   class="z-50 relative transition-all duration-500 transform bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:min-h-full md:h-screen
   {isMenuOpen ? '-translate-x-0' : '-translate-x-full'}"
 >
-  <div style={isMenuOpen ? `width:${sidebarWidth}px;` : "width: 0px;"}>
+  <div style={isMenuOpen ? `width:${sidebarWidth}px;` : 'width: 0px;'}>
     <div class="flex flex-col items-start overflow-y-auto overflow-x-hidden {isMenuDeployed ? 'pb-6' : 'pb-0'} md:pb-2 pt-2 md:pt-4 ml-0 md:ml-4">
       {#each referentiels as ref, i}
         <SideMenuList {ref} moreThanOne={referentiels.length > 1} />

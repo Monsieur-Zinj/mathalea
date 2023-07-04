@@ -1,27 +1,27 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions } from "./store"
-  import SideMenu from "./sidebar/SideMenu.svelte"
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams, mathaleaGenerateSeed } from "../lib/mathalea"
-  import { buildUrlAddendumForEsParam } from "./utils/urls"
-  import handleCapytale from "../lib/handleCapytale"
-  import { flip } from "svelte/animate"
-  import { onMount } from "svelte"
-  import { updateReferentiel } from "./utils/referentielsUtils"
-  import Exercice from "./exercice/Exercice.svelte"
-  import Button from "./forms/Button.svelte"
-  import ButtonsDeck from "./outils/ButtonsDeck.svelte"
-  import NavBarIframe from "./header/NavBarIframe.svelte"
-  import ModalSettingsCapytale from "./modal/ModalSettingsCapytale.svelte"
-  import FormRadio from "./forms/FormRadio.svelte"
-  import ButtonToggle from "./forms/ButtonToggle.svelte"
-  import InputText from "./forms/InputText.svelte"
+  import { exercicesParams, globalOptions } from './store'
+  import SideMenu from './sidebar/SideMenu.svelte'
+  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams, mathaleaGenerateSeed } from '../lib/mathalea'
+  import { buildUrlAddendumForEsParam } from './utils/urls'
+  import handleCapytale from '../lib/handleCapytale'
+  import { flip } from 'svelte/animate'
+  import { onMount } from 'svelte'
+  import { updateReferentiel } from './utils/referentielsUtils'
+  import Exercice from './exercice/Exercice.svelte'
+  import Button from './forms/Button.svelte'
+  import ButtonsDeck from './outils/ButtonsDeck.svelte'
+  import NavBarIframe from './header/NavBarIframe.svelte'
+  import ModalSettingsCapytale from './modal/ModalSettingsCapytale.svelte'
+  import FormRadio from './forms/FormRadio.svelte'
+  import ButtonToggle from './forms/ButtonToggle.svelte'
+  import InputText from './forms/InputText.svelte'
 
   let showSettingsDialog = false
   let isMenuOpen: boolean = true
   let divExercices: HTMLDivElement
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
-  function urlToDisplay() {
+  function urlToDisplay () {
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       return urlOptions
@@ -47,26 +47,26 @@
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
   // Construction pour affichage dans SideMenu du tableau des entrées du référentiel
-  let itemsSelected: string[] = []
+  const itemsSelected: string[] = []
   let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
   // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
-  $: sideMenuListReferentiel = { title: "Choix des exercices", content: [...arrayReferentielFiltre], type: "exercices" }
+  $: sideMenuListReferentiel = { title: 'Choix des exercices', content: [...arrayReferentielFiltre], type: 'exercices' }
 
   /**
    * Gestion du redimentionnement de la largeur du menu des choix
    */
   let expanding = null
   let sidebarWidth = 600
-  let sbWidth = sidebarWidth
-  function stopResizing() {
+  const sbWidth = sidebarWidth
+  function stopResizing () {
     expanding = null
   }
 
-  function startResizing(type, event: MouseEvent) {
+  function startResizing (type, event: MouseEvent) {
     expanding = type
   }
 
-  function resizing(event: MouseEvent) {
+  function resizing (event: MouseEvent) {
     if (!expanding) return
     event.preventDefault()
     sidebarWidth = event.pageX
@@ -74,17 +74,17 @@
 
   // Gestion du zoom
   let zoom: number = 1
-  function zoomOut() {
+  function zoomOut () {
     zoom -= 0.25
     updateSize()
   }
 
-  function zoomIn() {
+  function zoomIn () {
     zoom += 0.25
     updateSize()
   }
 
-  function updateSize() {
+  function updateSize () {
     globalOptions.update((params) => {
       params.z = zoom.toString()
       return params
@@ -92,16 +92,16 @@
   }
 
   // Gestion des nouvelles données pour tous les exercices
-  function newDataForAll() {
-    const newDataForAll = new window.Event("newDataForAll", {
-      bubbles: true,
+  function newDataForAll () {
+    const newDataForAll = new window.Event('newDataForAll', {
+      bubbles: true
     })
     document.dispatchEvent(newDataForAll)
   }
 
   // Gestion de la graine
   let isDataRandom: boolean = true
-  function handleSeed() {
+  function handleSeed () {
     for (const param of $exercicesParams) {
       if (!isDataRandom && param.alea === undefined) {
         param.alea = mathaleaGenerateSeed()
@@ -112,7 +112,7 @@
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
-  function handleEleveVueSetUp() {
+  function handleEleveVueSetUp () {
     let url = 'https://coopmaths.fr/alea/'
     for (const [i, exo] of $exercicesParams.entries()) {
       if (i === 0) {
@@ -124,27 +124,27 @@
         url += `&alea=${exo.alea}`
       }
     }
-    url += "&v=eleve"
-    url += "&title=" + $globalOptions.title
-    url += "&es=" + buildUrlAddendumForEsParam(false)
-    window.open(url, "_blank").focus()
+    url += '&v=eleve'
+    url += '&title=' + $globalOptions.title
+    url += '&es=' + buildUrlAddendumForEsParam(false)
+    window.open(url, '_blank').focus()
   }
 
   let modal: ModalSettingsCapytale
-  function validateSettings() {
+  function validateSettings () {
     modal.closeModal()
   }
 
-  let urlFeuilleEleve: string = ""
+  let urlFeuilleEleve: string = ''
 
-  function updateFilters(filters) {
+  function updateFilters (filters) {
     let itemsAccepted = [...filters.levels]
-    if (filters.types.includes("static")) {
-      itemsAccepted = [...itemsAccepted, "static"]
+    if (filters.types.includes('static')) {
+      itemsAccepted = [...itemsAccepted, 'static']
     }
     // console.log(itemsAccepted)
-    isAmcOnlySelected = filters.types.includes("amc")
-    isInteractiveOnlySelected = filters.types.includes("interactif")
+    isAmcOnlySelected = filters.types.includes('amc')
+    isInteractiveOnlySelected = filters.types.includes('interactif')
     arrayReferentielFiltre = updateReferentiel(isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted)
   }
 </script>
@@ -182,19 +182,19 @@
               on:click={() => {
                 // exemple URL vue élève
                 // http://localhost:5173/alea/?uuid=01873&id=6C20&uuid=99522&id=6C22&uuid=64422&id=6C23&v=confeleve&v=eleve&title=&es=11101
-                let url = urlFeuilleEleve.replace("&v=confeleve", "")
-                url = url.replace("&v=eleve", "&recorder=capytale")
+                let url = urlFeuilleEleve.replace('&v=confeleve', '')
+                url = url.replace('&v=eleve', '&recorder=capytale')
                 const options = mathaleaUpdateExercicesParamsFromUrl(url)
                 if (options !== null) {
                   globalOptions.update(() => {
                     return options
                   })
                 } else {
-                  alert("URL non valide !")
+                  alert('URL non valide !')
                 }
                 // console.log("Après chargement :")
                 // console.log($globalOptions)
-                urlFeuilleEleve = ""
+                urlFeuilleEleve = ''
               }}
             />
           </div>
@@ -234,7 +234,7 @@
       class="hidden {isMenuOpen
         ? 'md:flex'
         : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
-      on:mousedown={startResizing.bind(this, "moving")}
+      on:mousedown={startResizing.bind(this, 'moving')}
     />
     <!-- Barre des boutons de réglages -->
     <div class="w-full">
@@ -272,10 +272,10 @@
             title="présentation"
             bind:valueSelected={$globalOptions.presMode}
             labelsValues={[
-              { label: "Tous les exercices sur une page", value: "liste_exos" },
-              { label: "Une page par exercice", value: "un_exo_par_page", isDisabled: $exercicesParams.length === 1 },
-              { label: "Toutes les questions sur une page", value: "liste_questions" },
-              { label: "Une page par question", value: "une_question_par_page" },
+              { label: 'Tous les exercices sur une page', value: 'liste_exos' },
+              { label: 'Une page par exercice', value: 'un_exo_par_page', isDisabled: $exercicesParams.length === 1 },
+              { label: 'Toutes les questions sur une page', value: 'liste_questions' },
+              { label: 'Une page par question', value: 'une_question_par_page' }
             ]}
           />
         </div>
@@ -285,22 +285,22 @@
             title="Interactif"
             bind:valueSelected={$globalOptions.setInteractive}
             labelsValues={[
-              { label: "Laisser tel quel", value: "2" },
-              { label: "Tout interactif", value: "1" },
-              { label: "Pas d'interactivité", value: "0" },
+              { label: 'Laisser tel quel', value: '2' },
+              { label: 'Tout interactif', value: '1' },
+              { label: "Pas d'interactivité", value: '0' }
             ]}
           />
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === "0"}
+              isDisabled={$globalOptions.setInteractive === '0'}
               titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
               bind:value={$globalOptions.isInteractiveFree}
             />
           </div>
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === "0"}
-              titles={["Les élèves peuvent répondre une seule fois", "Les élèves peuvent répondre plusieurs fois"]}
+              isDisabled={$globalOptions.setInteractive === '0'}
+              titles={['Les élèves peuvent répondre une seule fois', 'Les élèves peuvent répondre plusieurs fois']}
               bind:value={$globalOptions.oneShot}
             />
           </div>
@@ -309,7 +309,7 @@
           <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Données</div>
           <div class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light">Tous les élèves auront des pages :</div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={["identiques", "différentes"]} bind:value={isDataRandom} on:click={handleSeed} />
+            <ButtonToggle titles={['identiques', 'différentes']} bind:value={isDataRandom} on:click={handleSeed} />
           </div>
         </div>
         <div class="pb-2">
@@ -317,7 +317,7 @@
             Correction
           </div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={["Accès aux corrections", "Pas de corrections"]} isDisabled={$globalOptions.setInteractive !== "0"} bind:value={$globalOptions.isSolutionAccessible} />
+            <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} isDisabled={$globalOptions.setInteractive !== '0'} bind:value={$globalOptions.isSolutionAccessible} />
           </div>
         </div>
       </div>

@@ -1,28 +1,28 @@
 <script lang="ts">
-  import Exercice from "./exercice/Exercice.svelte"
-  import NavBarV2 from "./header/NavBarV2.svelte"
-  import Footer from "./Footer.svelte"
-  import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from "./store"
-  import codeList from "../json/codeToLevelList.json"
-  import referentiel from "../json/referentiel2022.json"
-  import referentielStatic from "../json/referentielStatic.json"
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
-  import { flip } from "svelte/animate"
-  import { onMount } from "svelte"
-  import { toMap } from "./utils/toMap"
-  import { resizeTags } from "./utils/measures"
-  import { findPropPaths, findDuplicates } from "./utils/searching"
-  import SearchExercice from "./sidebar/SearchExercice.svelte"
-  import { isRecent } from "./utils/handleDate"
-  import type { InterfaceReferentiel, ReferentielForList } from "src/lib/types"
-  import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
-  import handleCapytale from "../lib/handleCapytale"
+  import Exercice from './exercice/Exercice.svelte'
+  import NavBarV2 from './header/NavBarV2.svelte'
+  import Footer from './Footer.svelte'
+  import NiveauListeExos from './sidebar/NiveauListeExos.svelte'
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from './store'
+  import codeList from '../json/codeToLevelList.json'
+  import referentiel from '../json/referentiel2022.json'
+  import referentielStatic from '../json/referentielStatic.json'
+  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
+  import { flip } from 'svelte/animate'
+  import { onMount } from 'svelte'
+  import { toMap } from './utils/toMap'
+  import { resizeTags } from './utils/measures'
+  import { findPropPaths, findDuplicates } from './utils/searching'
+  import SearchExercice from './sidebar/SearchExercice.svelte'
+  import { isRecent } from './utils/handleDate'
+  import type { InterfaceReferentiel, ReferentielForList } from 'src/lib/types'
+  import InteractivityIcon from './icons/TwoStatesIcon.svelte'
+  import handleCapytale from '../lib/handleCapytale'
   // import SideMenuList from "./sidebar/SideMenuList.svelte"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
-  let filtres: string[] = []
+  const filtres: string[] = []
   let divExercices: HTMLDivElement
   let zoom: number = 1
   let setAllInteractifClicked: boolean = false
@@ -38,15 +38,15 @@
    * (ni `id`, ni `name` mais une chaîne arbitraire choisie par le développeur permettant de faire un switch/case)
    * @author sylvain
    */
-  function handleMenuVisibility(menuID: "settings" | "export") {
+  function handleMenuVisibility (menuID: 'settings' | 'export') {
     switch (menuID) {
-      case "settings":
+      case 'settings':
         $isSettingsMenuVisible = !$isSettingsMenuVisible
         if ($isExportMenuVisible) {
           $isExportMenuVisible = false
         }
         break
-      case "export":
+      case 'export':
         $isExportMenuVisible = !$isExportMenuVisible
         if ($isSettingsMenuVisible) {
           $isSettingsMenuVisible = false
@@ -57,7 +57,7 @@
 
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
-  function urlToDisplay() {
+  function urlToDisplay () {
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       return urlOptions
@@ -71,22 +71,22 @@
   onMount(() => {
     // On analyse l'url pour mettre à jour l'affichage
     urlToDisplay()
-    if ($globalOptions.recorder === "capytale") {
+    if ($globalOptions.recorder === 'capytale') {
       handleCapytale()
     }
   })
-  addEventListener("popstate", urlToDisplay)
+  addEventListener('popstate', urlToDisplay)
 
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
     if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    if ($globalOptions.v === "l") {
+    if ($globalOptions.v === 'l') {
       // $isSideMenuVisible = false
       isNavBarVisible = false
-    } else if ($globalOptions.v === "l2") {
+    } else if ($globalOptions.v === 'l2') {
       // $isSideMenuVisible = false
       isNavBarVisible = true
-    } else if ($globalOptions.v === "eleve") {
+    } else if ($globalOptions.v === 'eleve') {
       // $isSideMenuVisible = false
       isNavBarVisible = false
     } else {
@@ -100,22 +100,22 @@
   // On renomme les chapitres pour la partie statique
   let filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
   // @ts-ignore
-  delete filteredReferentiel["Calcul mental"]
+  delete filteredReferentiel['Calcul mental']
   // @ts-ignore
-  filteredReferentiel["3e"]["Brevet des collèges par thèmes - APMEP"] = filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
+  filteredReferentiel['3e']['Brevet des collèges par thèmes - APMEP'] = filteredReferentiel.static['Brevet des collèges par thèmes - APMEP']
   // @ts-ignore
-  filteredReferentiel["PE"]["CRPE (2022-2023) par année"] = filteredReferentiel["static"]["CRPE (2022-2023) par année"]
+  filteredReferentiel.PE['CRPE (2022-2023) par année'] = filteredReferentiel.static['CRPE (2022-2023) par année']
   // @ts-ignore
-  filteredReferentiel["PE"]["CRPE (2022-2023) par thèmes"] = filteredReferentiel["static"]["CRPE (2022-2023) par thèmes"]
+  filteredReferentiel.PE['CRPE (2022-2023) par thèmes'] = filteredReferentiel.static['CRPE (2022-2023) par thèmes']
   // @ts-ignore
-  filteredReferentiel["PE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
+  filteredReferentiel.PE['CRPE (2015-2019) par thèmes - COPIRELEM'] = filteredReferentiel.static['CRPE (2015-2019) par thèmes - COPIRELEM']
   // @ts-ignore
-  filteredReferentiel["PE"]["CRPE (2015-2019) par année - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
+  filteredReferentiel.PE['CRPE (2015-2019) par année - COPIRELEM'] = filteredReferentiel.static['CRPE (2015-2019) par année - COPIRELEM']
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
   let itemsAccepted = []
-  function updateReferentiel() {
+  function updateReferentiel () {
     if (itemsAccepted.length === 0) {
       // pas de filtres sélectionnés
       filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
@@ -126,15 +126,15 @@
           const ref = { ...referentiel, static: { ...referentielStatic } }
           return {
             ...obj,
-            [key]: ref[key],
+            [key]: ref[key]
           }
         }, {})
       // console.log("first list :")
       // console.log(filteredReferentiel)
     }
 
-    function buildReferentiel(listOfEntries) {
-      let referentiel = {}
+    function buildReferentiel (listOfEntries) {
+      const referentiel = {}
       for (const path of listOfEntries) {
         let schema = referentiel
         let obj = { ...filteredReferentiel }
@@ -152,14 +152,14 @@
     }
     // Construction du tableau des chemins vers les exercices ayant la propriété `amc` et/ou `interactif`
     if (isAmcOnlySelected && !isInteractiveOnlySelected) {
-      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === "amc").map((elt) => elt.replace(/(?:\.tags\.amc)$/, "").split("."))
+      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === 'amc').map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
       filteredReferentiel = { ...buildReferentiel(amcCompatible) }
     } else if (isInteractiveOnlySelected && !isAmcOnlySelected) {
-      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === "interactif").map((elt) => elt.replace(/(?:\.tags\.interactif)$/, "").split("."))
+      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === 'interactif').map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
       filteredReferentiel = { ...buildReferentiel(interactiveCompatible) }
     } else if (isAmcOnlySelected && isInteractiveOnlySelected) {
-      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === "amc").map((elt) => elt.replace(/(?:\.tags\.amc)$/, "").split("."))
-      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === "interactif").map((elt) => elt.replace(/(?:\.tags\.interactif)$/, "").split("."))
+      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === 'amc').map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
+      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === 'interactif').map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
       // garder que les doublons
       const bothCompatible = findDuplicates(amcCompatible.concat(interactiveCompatible))
       filteredReferentiel = { ...buildReferentiel(bothCompatible) }
@@ -169,7 +169,7 @@
      * Détecter si une valeur est un objet
      * @param val valeur à analyser
      */
-    const isObject = (val: unknown) => val && typeof val === "object" && !Array.isArray(val)
+    const isObject = (val: unknown) => val && typeof val === 'object' && !Array.isArray(val)
 
     /**
      * Construit un object contenant les références des exercices ayant une date
@@ -180,8 +180,8 @@
      * @return {[string]} objet des exos nouveaux
      * @author sylvain
      */
-    function getRecentExercises(obj: InterfaceReferentiel[]): InterfaceReferentiel[] {
-      let recentExercises: InterfaceReferentiel[] = []
+    function getRecentExercises (obj: InterfaceReferentiel[]): InterfaceReferentiel[] {
+      const recentExercises: InterfaceReferentiel[] = []
       /**
        * On parcourt récursivement l'objet référentiel et on en profite pour peupler
        * le tableau recentExercises avec les exercices dont les dates de publication
@@ -191,7 +191,7 @@
       const traverseObject = (obj: InterfaceReferentiel[]): InterfaceReferentiel[] => {
         return Object.entries(obj).reduce((product, [key, value]) => {
           if (isObject(value as InterfaceReferentiel)) {
-            if ("uuid" in value) {
+            if ('uuid' in value) {
               // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
               if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
                 // @ts-ignore
@@ -205,12 +205,12 @@
         }, [])
       }
       traverseObject(obj)
-      let recentExercisesAsObject = {}
+      const recentExercisesAsObject = {}
       recentExercises.forEach((exo) => Object.assign(recentExercisesAsObject, exo))
       return recentExercisesAsObject
     }
 
-    filteredReferentiel["Nouveautés"] = getRecentExercises(filteredReferentiel)
+    filteredReferentiel['Nouveautés'] = getRecentExercises(filteredReferentiel)
     const keysToBeFirst = { Nouveautés: null }
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
@@ -223,7 +223,7 @@
    * Retrouve le titre d'un niveau basé sur son
    * @param levelId
    */
-  function codeToLevelTitle(code: string) {
+  function codeToLevelTitle (code: string) {
     if (codeList[code]) {
       return codeList[code]
     } else {
@@ -231,9 +231,9 @@
     }
   }
 
-  /*---------------------------------------------------------------------
+  /* ---------------------------------------------------------------------
     Gestion du menu de recherche des exercices
-  ---------------------------------------------------------------------*/
+  --------------------------------------------------------------------- */
   let nbExercisesInList: number
   // let isSideMenuVisible: boolean = false
   $: {
@@ -245,20 +245,20 @@
   }
   const searchOptions = [
     {
-      value: "list",
-      label: "Liste",
+      value: 'list',
+      label: 'Liste'
     },
     {
-      value: "theme",
-      label: "Themes",
-    },
+      value: 'theme',
+      label: 'Themes'
+    }
   ]
-  let searchOption = "list"
-  function handleSideMenu(event: CustomEvent) {
+  const searchOption = 'list'
+  function handleSideMenu (event: CustomEvent) {
     $isSideMenuVisible = event.detail.isListVisible
     if (!$isSideMenuVisible) {
       globalOptions.update((params) => {
-        params.v = "l2"
+        params.v = 'l2'
         return params
       })
     } else {
@@ -269,16 +269,16 @@
     }
   }
 
-  function quitFullScreen() {
+  function quitFullScreen () {
     globalOptions.update((params) => {
       delete params.v
       return params
     })
   }
 
-  function fullScreen() {
+  function fullScreen () {
     globalOptions.update((params) => {
-      params.v = "l"
+      params.v = 'l'
       return params
     })
   }
@@ -289,88 +289,88 @@
   let expanding = null
   let sidebarWidth = 400
   let sbWidth = sidebarWidth
-  function stopResizing() {
+  function stopResizing () {
     expanding = null
   }
 
-  function startResizing(type, event: MouseEvent) {
+  function startResizing (type, event: MouseEvent) {
     expanding = type
   }
 
-  function resizing(event: MouseEvent) {
+  function resizing (event: MouseEvent) {
     if (!expanding) return
     event.preventDefault()
     sidebarWidth = event.pageX
   }
 
-  function newDataForAll() {
+  function newDataForAll () {
     // console.log($globalOptions, $exercicesParams)
-    const newDataForAll = new window.Event("newDataForAll", {
-      bubbles: true,
+    const newDataForAll = new window.Event('newDataForAll', {
+      bubbles: true
     })
     document.dispatchEvent(newDataForAll)
   }
 
-  function setAllInteractif() {
-    const setAllInteractif = new window.Event("setAllInteractif", {
-      bubbles: true,
+  function setAllInteractif () {
+    const setAllInteractif = new window.Event('setAllInteractif', {
+      bubbles: true
     })
     setAllInteractifClicked = true
     document.dispatchEvent(setAllInteractif)
   }
 
-  function removeAllInteractif() {
-    const removeAllInteractif = new window.Event("removeAllInteractif", {
-      bubbles: true,
+  function removeAllInteractif () {
+    const removeAllInteractif = new window.Event('removeAllInteractif', {
+      bubbles: true
     })
     setAllInteractifClicked = false
     document.dispatchEvent(removeAllInteractif)
   }
 
-  function zoomMinus() {
+  function zoomMinus () {
     // zoom -= 0.1
     zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
     updateSize()
   }
 
-  function zoomPlus() {
+  function zoomPlus () {
     // zoom += 0.1
     zoom = Number.parseFloat((zoom + 0.1).toFixed(1))
     updateSize()
   }
 
-  function updateSize() {
+  function updateSize () {
     globalOptions.update((params) => {
       params.z = zoom.toString()
       return params
     })
     // figures Scratch
-    const scratchDivs = document.getElementsByClassName("scratchblocks")
+    const scratchDivs = document.getElementsByClassName('scratchblocks')
     for (const scratchDiv of scratchDivs) {
-      const svgDivs = scratchDiv.getElementsByTagName("svg")
+      const svgDivs = scratchDiv.getElementsByTagName('svg')
       resizeTags(svgDivs, $globalOptions.z)
     }
     // QCM
-    const checkboxes = document.querySelectorAll("[id^=checkEx")
+    const checkboxes = document.querySelectorAll('[id^=checkEx')
     resizeTags(checkboxes, $globalOptions.z)
   }
 
-  function toggleSideMenu() {
+  function toggleSideMenu () {
     $isSideMenuVisible = !$isSideMenuVisible
   }
 
-  function toggleExercisesList() {
+  function toggleExercisesList () {
     isExercisesListVisible = !isExercisesListVisible
   }
 
-  function updateFilters(filters) {
+  function updateFilters (filters) {
     itemsAccepted = [...filters.levels]
-    if (filters.types.includes("static")) {
-      itemsAccepted = [...itemsAccepted, "static"]
+    if (filters.types.includes('static')) {
+      itemsAccepted = [...itemsAccepted, 'static']
     }
     // console.log(itemsAccepted)
-    isAmcOnlySelected = filters.types.includes("amc")
-    isInteractiveOnlySelected = filters.types.includes("interactif")
+    isAmcOnlySelected = filters.types.includes('amc')
+    isInteractiveOnlySelected = filters.types.includes('interactif')
     updateReferentiel()
   }
 </script>
@@ -425,7 +425,7 @@
               <button
                 type="button"
                 on:click={() => {
-                  handleMenuVisibility("settings")
+                  handleMenuVisibility('settings')
                 }}
                 class="{$isSettingsMenuVisible
                   ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark rounded-t-lg'
@@ -437,7 +437,7 @@
                 <button
                   type="button"
                   on:click={() => {
-                    handleMenuVisibility("export")
+                    handleMenuVisibility('export')
                   }}
                   class="{$isExportMenuVisible
                     ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark rounded-t-lg'
@@ -457,7 +457,7 @@
                 type="button"
                 on:click={() => {
                   zoomMinus()
-                  handleMenuVisibility("settings")
+                  handleMenuVisibility('settings')
                 }}
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Réduire la taille du texte"
@@ -468,7 +468,7 @@
                 type="button"
                 on:click={() => {
                   zoomPlus()
-                  handleMenuVisibility("settings")
+                  handleMenuVisibility('settings')
                 }}
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Augmenter la taille du texte"
@@ -479,10 +479,10 @@
                 type="button"
                 on:click={() => {
                   setAllInteractifClicked ? removeAllInteractif() : setAllInteractif()
-                  handleMenuVisibility("settings")
+                  handleMenuVisibility('settings')
                 }}
                 class="tooltip tooltip-top tooltip-neutral"
-                data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
+                data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : 'Tous les exercices en interactif'}
               >
                 <!-- <i
                 class="bx px-2 tooltip-top tooltip-neutral hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
@@ -497,7 +497,7 @@
                 type="button"
                 on:click={() => {
                   newDataForAll()
-                  handleMenuVisibility("settings")
+                  handleMenuVisibility('settings')
                 }}
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Nouveaux énoncés"
@@ -508,19 +508,19 @@
                 type="button"
                 on:click={() => {
                   $exercicesParams.length = 0
-                  handleMenuVisibility("settings")
+                  handleMenuVisibility('settings')
                 }}
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Supprimer tous les exercices"
               >
                 <i class="bx bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest px-2 bx-trash" />
               </button>
-              {#if $globalOptions.v === "l"}
+              {#if $globalOptions.v === 'l'}
                 <div class="flex flex-row justify-end items-center">
                   <button
                     type="button"
                     on:click={() => {
-                      handleMenuVisibility("settings")
+                      handleMenuVisibility('settings')
                       quitFullScreen()
                     }}
                     class="tooltip tooltip-top tooltip-neutral"
@@ -532,15 +532,15 @@
                   </button>
                 </div>
               {/if}
-              {#if $globalOptions.v !== "l"}
+              {#if $globalOptions.v !== 'l'}
                 <button
                   type="button"
                   class="tooltip tooltip-top tooltip-neutral"
                   data-tip="Plein écran"
                   on:click={() => {
-                    handleMenuVisibility("settings")
+                    handleMenuVisibility('settings')
                     globalOptions.update((params) => {
-                      params.v = "l"
+                      params.v = 'l'
                       return params
                     })
                   }}
@@ -559,10 +559,10 @@
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Diaporama"
                 on:click={() => {
-                  $callerComponent = ""
-                  handleMenuVisibility("export")
+                  $callerComponent = ''
+                  handleMenuVisibility('export')
                   globalOptions.update((params) => {
-                    params.v = "diaporama"
+                    params.v = 'diaporama'
                     return params
                   })
                 }}
@@ -581,10 +581,10 @@
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="Lien pour les élèves"
                 on:click={() => {
-                  $callerComponent = ""
-                  handleMenuVisibility("export")
+                  $callerComponent = ''
+                  handleMenuVisibility('export')
                   globalOptions.update((params) => {
-                    params.v = "confeleve"
+                    params.v = 'confeleve'
                     return params
                   })
                 }}
@@ -601,10 +601,10 @@
                 class="tooltip tooltip-top tooltip-neutral"
                 data-tip="LaTeX"
                 on:click={() => {
-                  handleMenuVisibility("export")
-                  $callerComponent = ""
+                  handleMenuVisibility('export')
+                  $callerComponent = ''
                   globalOptions.update((params) => {
-                    params.v = "latex"
+                    params.v = 'latex'
                     return params
                   })
                 }}
@@ -702,8 +702,8 @@
                 data-tip="Moodle"
                 on:click={() => {
                   globalOptions.update((params) => {
-                    $callerComponent = ""
-                    params.v = "moodle"
+                    $callerComponent = ''
+                    params.v = 'moodle'
                     return params
                   })
                 }}
@@ -735,7 +735,7 @@
         <div class="relative h-[calc(100vh-7rem)] print-hidden transition-transform duration-300 {$isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
           <div
             bind:clientWidth={sbWidth}
-            style={$isSideMenuVisible || nbExercisesInList === 0 ? `width:${sidebarWidth}px;` : "width: 0px;"}
+            style={$isSideMenuVisible || nbExercisesInList === 0 ? `width:${sidebarWidth}px;` : 'width: 0px;'}
             class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:h-[calc(100vh-7rem)] {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
             <div id="choiceMenuWrapper" class="flex flex-col overflow-y-auto">
@@ -774,7 +774,7 @@
           class="hidden {$isSideMenuVisible || nbExercisesInList === 0
             ? 'md:flex'
             : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
-          on:mousedown={startResizing.bind(this, "moving")}
+          on:mousedown={startResizing.bind(this, 'moving')}
         />
       </div>
       <!-- content -->
@@ -822,7 +822,7 @@
                   type="button"
                   on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}
                   class="tooltip tooltip-bottom tooltip-neutral"
-                  data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
+                  data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : 'Tous les exercices en interactif'}
                 >
                   <!-- <i
                     class="bx {deviceType() === 'mobile'
@@ -861,7 +861,7 @@
                     <i class="bx bx-trash bx-md text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest px-2" />
                   </div>
                 </button>
-                {#if $globalOptions.v === "l"}
+                {#if $globalOptions.v === 'l'}
                   <div class="flex flex-row justify-end items-center">
                     <button type="button" on:click={quitFullScreen} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Quitter le plein écran">
                       <div class="inline-flex xl:hidden">
@@ -877,14 +877,14 @@
                     </button>
                   </div>
                 {/if}
-                {#if $globalOptions.v !== "l"}
+                {#if $globalOptions.v !== 'l'}
                   <button
                     type="button"
                     class="tooltip tooltip-bottom tooltip-neutral"
                     data-tip="Plein écran"
                     on:click={() =>
                       globalOptions.update((params) => {
-                        params.v = "l"
+                        params.v = 'l'
                         return params
                       })}
                   >
@@ -906,7 +906,7 @@
                     data-tip="Diaporama"
                     on:click={() =>
                       globalOptions.update((params) => {
-                        params.v = "diaporama"
+                        params.v = 'diaporama'
                         return params
                       })}
                   >
@@ -930,7 +930,7 @@
                     data-tip="Lien pour les élèves"
                     on:click={() =>
                       globalOptions.update((params) => {
-                        params.v = "confeleve"
+                        params.v = 'confeleve'
                         return params
                       })}
                   >
@@ -957,7 +957,7 @@
                     data-tip="LaTeX"
                     on:click={() => {
                       globalOptions.update((params) => {
-                        params.v = "latex"
+                        params.v = 'latex'
                         return params
                       })
                     }}
@@ -1032,7 +1032,7 @@
                     data-tip="AMC"
                     on:click={() => {
                       globalOptions.update((params) => {
-                        params.v = "amc"
+                        params.v = 'amc'
                         return params
                       })
                     }}
@@ -1065,7 +1065,7 @@
                     data-tip="Moodle"
                     on:click={() => {
                       globalOptions.update((params) => {
-                        params.v = "moodle"
+                        params.v = 'moodle'
                         return params
                       })
                     }}

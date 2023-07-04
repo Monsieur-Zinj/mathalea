@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type ReferentielForList from "src/lib/types"
-  import type ReferentielTypes from "src/lib/types"
-  import NiveauListeExos from "../sidebar/NiveauListeExos.svelte"
-  import EntreeListeOutils from "./EntreeListeOutils.svelte"
-  import codeList from "../../json/codeToLevelList.json"
-  import { toMap } from "../utils/toMap"
+  import type ReferentielForList from 'src/lib/types'
+  import type ReferentielTypes from 'src/lib/types'
+  import NiveauListeExos from '../sidebar/NiveauListeExos.svelte'
+  import EntreeListeOutils from './EntreeListeOutils.svelte'
+  import codeList from '../../json/codeToLevelList.json'
+  import { toMap } from '../utils/toMap'
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
@@ -15,7 +15,7 @@
    * Retrouve le titre d'un niveau basé sur son
    * @param levelId
    */
-  function codeToLevelTitle(code: string) {
+  function codeToLevelTitle (code: string) {
     if (codeList[code]) {
       return codeList[code]
     } else {
@@ -26,7 +26,7 @@
 
 <div class="w-[100vw] flex flex-row justify-between items-center px-6 py-2 md:py-5">
   <div class=" font-bold text-xl text-coopmaths-struct">{ref.title}</div>
-  <div class={moreThanOne ? "flex" : "flex md:hidden"}>
+  <div class={moreThanOne ? 'flex' : 'flex md:hidden'}>
     <button
       type="button"
       on:click={() => {
@@ -41,14 +41,14 @@
     </button>
   </div>
 </div>
-<ul class={isMenuDeployed ? "flex flex-col pl-4 " : "hidden"}>
-  {#if ref.type === "outils"}
+<ul class={isMenuDeployed ? 'flex flex-col pl-4 ' : 'hidden'}>
+  {#if ref.type === 'outils'}
     {#each ref.content as item, i}
       <li>
         <EntreeListeOutils outil={item} />
       </li>
     {/each}
-  {:else if ref.type === "exercices"}
+  {:else if ref.type === 'exercices'}
     {#each ref.content as item, i}
       <!-- {#each Array.from(toMap(entries), ([key, obj]) => ({ key, obj })) as item, i} -->
       <li>

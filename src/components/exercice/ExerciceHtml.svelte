@@ -1,29 +1,29 @@
 <script lang="ts">
-  import { onMount } from "svelte"
-  import HeaderExercice from "./HeaderExercice.svelte"
-  import type TypeExercice from "../utils/typeExercice"
-  import { globalOptions } from "../store"
-  import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
+  import { onMount } from 'svelte'
+  import HeaderExercice from './HeaderExercice.svelte'
+  import type TypeExercice from '../utils/typeExercice'
+  import { globalOptions } from '../store'
+  import HeaderExerciceVueEleve from './HeaderExerciceVueEleve.svelte'
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
 
   let divExercice: HTMLDivElement
 
-  let headerExerciceProps = {
+  const headerExerciceProps = {
     title: exercice.titre,
-    id: "",
+    id: '',
     indiceExercice,
     indiceLastExercice,
     interactifReady: false,
     randomReady: true,
     settingsReady: false,
-    correctionReady: false,
+    correctionReady: false
   }
 
   onMount(async () => {
     divExercice.appendChild(exercice.html)
-    const exercicesAffiches = new window.Event("addedToDom", { bubbles: true })
+    const exercicesAffiches = new window.Event('addedToDom', { bubbles: true })
     divExercice.children[0].dispatchEvent(exercicesAffiches)
   })
 
@@ -33,7 +33,7 @@
   }
 </script>
 
-{#if $globalOptions.v === "eleve"}
+{#if $globalOptions.v === 'eleve'}
   <HeaderExerciceVueEleve {...headerExerciceProps} />
 {:else}
   <HeaderExercice {...headerExerciceProps} />

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { typeOf } from "mathjs"
+  import { typeOf } from 'mathjs'
 
   export let entrees: string[]
   export let actions = []
@@ -11,31 +11,31 @@
   /** Dispatch event on click outside of node
    * Référence : https://svelte.dev/repl/0ace7a508bd843b798ae599940a91783?version=3.16.7
    */
-  function clickOutside(node) {
+  function clickOutside (node) {
     const handleClick = (event) => {
       if (node && !node.contains(event.target) && !event.defaultPrevented) {
-        node.dispatchEvent(new CustomEvent("click_outside", node))
+        node.dispatchEvent(new CustomEvent('click_outside', node))
       }
     }
 
-    document.addEventListener("click", handleClick, true)
+    document.addEventListener('click', handleClick, true)
 
     return {
-      destroy() {
-        document.removeEventListener("click", handleClick, true)
-      },
+      destroy () {
+        document.removeEventListener('click', handleClick, true)
+      }
     }
   }
-  function closeMenu(i) {
+  function closeMenu (i) {
     isMenuOpen = false
     isNavBarVisible = false
-    if (typeOf(actions[i]) === "string") {
+    if (typeOf(actions[i]) === 'string') {
       window.location.href = actions[i]
     } else {
       actions[i]()
     }
   }
-  function handleClickOutside() {
+  function handleClickOutside () {
     isMenuOpen = false
   }
 </script>
@@ -54,7 +54,7 @@
       <li>
         <a
           class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-darkest text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest py-2 px-4 block whitespace-no-wrap"
-          id={[id, "-entree-", i + 1].join("")}
+          id={[id, '-entree-', i + 1].join('')}
           on:click={() => closeMenu(i)}
           on:keydown={() => closeMenu(i)}>{entree}</a
         >

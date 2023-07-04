@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Sortable from "sortablejs"
-  import ChipExo from "./ChipExo.svelte"
-  import { exercicesParams, moveExercice } from "../store"
-  import { onMount } from "svelte"
-  import { uuidCount, exercisesUuidRanking } from "../utils/counts"
-  import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
+  import Sortable from 'sortablejs'
+  import ChipExo from './ChipExo.svelte'
+  import { exercicesParams, moveExercice } from '../store'
+  import { onMount } from 'svelte'
+  import { uuidCount, exercisesUuidRanking } from '../utils/counts'
+  import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
 
   // let idListForChips: string[] = []
   // $: idListForChips = $exercicesParams.map((p) => {
@@ -12,18 +12,18 @@
   // })
   let listIdsForChips: string[] = []
   $: {
-    let lIFC = []
+    const lIFC = []
     let ranks: number[]
     let counts
     for (const [i, ex] of $exercicesParams.entries()) {
       ranks = exercisesUuidRanking($exercicesParams)
       counts = uuidCount($exercicesParams)
-      const insert: string = `${counts[ex.uuid] > 1 ? " [" + ranks[i] + "]" : ""}`
+      const insert: string = `${counts[ex.uuid] > 1 ? ' [' + ranks[i] + ']' : ''}`
       const keyValue = getUniqueStringBasedOnTimeStamp(i)
       const obj = {
         ref: ex.id ?? ex.uuid,
         title: `${ex.id ?? ex.uuid}${insert}`,
-        key: keyValue,
+        key: keyValue
       }
       lIFC.push(obj)
     }
@@ -31,19 +31,19 @@
   }
   let chipsList: HTMLDivElement
   onMount(() => {
-    chipsList = document.getElementById("chips-list")
+    chipsList = document.getElementById('chips-list')
     const sortable = Sortable.create(chipsList, {
       animation: 150,
       onEnd: (evt) => {
         exercicesParams.update((l) => {
           return moveExercice(l, evt.oldIndex, evt.newIndex)
         })
-      },
+      }
     })
   })
 
   const isPresent = (code: string) => {
-    return code === exercice.get("uuid")
+    return code === exercice.get('uuid')
   }
 </script>
 

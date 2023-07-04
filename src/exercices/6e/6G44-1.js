@@ -1,4 +1,3 @@
-
 import { point3d, polygone3d, prisme3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cone3d, cylindre3d, pyramide3d } from '../../modules/3d.js'
 import { segment, cone as cone2d, point, milieu, homothetie, tracePoint, sphere2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { globalOptions, questionsOrder, selectedExercises, darkMode } from "./store"
-  import { onMount, tick } from "svelte"
+  import { globalOptions, questionsOrder, selectedExercises, darkMode, exercicesParams } from './store'
+  import { onMount, tick } from 'svelte'
   import {
     mathaleaFormatExercice,
     mathaleaGenerateSeed,
@@ -9,20 +9,19 @@
     mathaleaHandleParamOfOneExercice,
     mathaleaLoadExerciceFromUuid,
     mathaleaRenderDiv,
-    mathaleaUpdateUrlFromExercicesParams,
-  } from "../lib/mathalea"
-  import { exercicesParams } from "./store"
-  import type Exercice from "./utils/typeExercice"
-  import seedrandom from "seedrandom"
-  import type { InterfaceParams } from "src/lib/types"
-  import BtnZoom from "./ui/btnZoom.svelte"
+    mathaleaUpdateUrlFromExercicesParams
+  } from '../lib/mathalea'
+    import type Exercice from './utils/typeExercice'
+  import seedrandom from 'seedrandom'
+  import type { InterfaceParams } from 'src/lib/types'
+  import BtnZoom from './ui/btnZoom.svelte'
 
   let exercices: Exercice[] = []
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
   let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
   let consignes: string[] = []
   let durations: number[] = []
-  let nbOfVues = $globalOptions.nbVues
+  const nbOfVues = $globalOptions.nbVues
   let currentVue: 0 | 1 | 2 | 3 = nbOfVues > 1 ? 3 : 0
   let isCorrectionVisible = false
   let isQuestionsVisible = true
@@ -31,9 +30,9 @@
 
   onMount(async () => {
     const url = new URL(window.location.href)
-    const paramsSelectedExercises = url.searchParams.get("selectedExercises")
+    const paramsSelectedExercises = url.searchParams.get('selectedExercises')
     selectedExercises.update(() => JSON.parse(paramsSelectedExercises))
-    const paramsQuestionsOrder = url.searchParams.get("questionsOrder")
+    const paramsQuestionsOrder = url.searchParams.get('questionsOrder')
     questionsOrder.update(() => JSON.parse(paramsQuestionsOrder))
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
@@ -50,7 +49,7 @@
   /**
    * Met à jour le code des exercices pour autant de vue qu'il faut à l'aide des params trouvés dans exercices
    */
-  async function updateExercices() {
+  async function updateExercices () {
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
     consignes = []
@@ -64,7 +63,7 @@
         } else {
           exercice.seed = exercice.seed.substring(0, 4)
         }
-        if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, false)
+        if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
         if ($selectedExercises.indexes.includes(k)) {
@@ -84,12 +83,12 @@
     if (divExercice) mathaleaRenderDiv(divExercice)
   }
 
-  async function switchCorrectionVisible(section: "correction" | "instructions") {
+  async function switchCorrectionVisible (section: 'correction' | 'instructions') {
     switch (section) {
-      case "correction":
+      case 'correction':
         isCorrectionVisible = !isCorrectionVisible
         break
-      case "instructions":
+      case 'instructions':
         isQuestionsVisible = !isQuestionsVisible
         break
       default:
@@ -98,12 +97,12 @@
     updateDisplay()
   }
 
-  async function updateDisplay() {
+  async function updateDisplay () {
     await tick()
     if (divExercice) mathaleaRenderDiv(divExercice)
   }
 
-  function newDataForAll() {
+  function newDataForAll () {
     const newParams: InterfaceParams[] = []
     for (const exercice of exercices) {
       exercice.seed = mathaleaGenerateSeed()
@@ -112,7 +111,7 @@
         id: exercice.id,
         alea: exercice.seed.substring(0, 4),
         nbQuestions: exercice.nbQuestions,
-        duration: exercice.duration,
+        duration: exercice.duration
       })
     }
     exercicesParams.update(() => newParams)
@@ -124,14 +123,14 @@
    * Gestion du pas à pas pour l'affichage des corrections
    * @param {string} button chaîne correspondant à la direction du pas à pas ("backward" ou "forward")
    */
-  function handleCorrectionsStepsClick(button: "backward" | "forward") {
-    if (button === "backward") {
+  function handleCorrectionsStepsClick (button: 'backward' | 'forward') {
+    if (button === 'backward') {
       if (correctionsSteps.length !== 0) {
         correctionsSteps.pop()
         correctionsSteps = correctionsSteps
       }
     }
-    if (button === "forward") {
+    if (button === 'forward') {
       if (correctionsSteps.length < $questionsOrder.indexes.length) {
         correctionsSteps.push($questionsOrder.indexes[correctionsSteps.length])
       }
@@ -142,7 +141,7 @@
   }
 </script>
 
-<div class={$darkMode.isActive ? "dark" : ""}>
+<div class={$darkMode.isActive ? 'dark' : ''}>
   <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
     <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
       <BtnZoom size="md" />
@@ -155,7 +154,7 @@
         <button
           type="button"
           class="pb-8 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-          on:click={() => mathaleaHandleComponentChange("can", "diaporama")}><i class="bx bx-sm bx-arrow-back" /></button
+          on:click={() => mathaleaHandleComponentChange('can', 'diaporama')}><i class="bx bx-sm bx-arrow-back" /></button
         >
         <button
           type="button"
@@ -165,7 +164,7 @@
         <!-- <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button> -->
 
         <span class="text-xs text-coopmaths-struct dark:text-coopmathsdark-struct {isQuestionsVisible ? 'font-bold' : 'font-light'}">Questions</span>
-        <button type="button" disabled={!isCorrectionVisible && correctionsSteps.length === 0} on:click={() => switchCorrectionVisible("instructions")}
+        <button type="button" disabled={!isCorrectionVisible && correctionsSteps.length === 0} on:click={() => switchCorrectionVisible('instructions')}
           ><i
             class="bx bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {isQuestionsVisible
               ? 'bx-toggle-right'
@@ -173,7 +172,7 @@
           /></button
         >
         <span class="text-xs text-coopmaths-struct dark:text-coopmathsdark-struct {isCorrectionVisible ? 'font-bold' : 'font-light'} pt-2">Réponses</span>
-        <button type="button" disabled={!isQuestionsVisible} on:click={() => switchCorrectionVisible("correction")}>
+        <button type="button" disabled={!isQuestionsVisible} on:click={() => switchCorrectionVisible('correction')}>
           <i
             class="mb-8 bx bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {isCorrectionVisible
               ? 'bx-toggle-right'
@@ -187,7 +186,7 @@
           <button
             type="button"
             on:click={() => {
-              handleCorrectionsStepsClick("backward")
+              handleCorrectionsStepsClick('backward')
             }}
           >
             <i class="bx bxs-left-arrow mr-2 cursor-pointer" />
@@ -195,7 +194,7 @@
           <button
             type="button"
             on:click={() => {
-              handleCorrectionsStepsClick("forward")
+              handleCorrectionsStepsClick('forward')
             }}
           >
             <i class="bx bxs-right-arrow cursor-pointer" />
@@ -252,7 +251,7 @@
               </div>
             {:else}
               <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths-struct dark:text-coopmathsdark-struct p-6">
-                {isQuestionsVisible ? "Questions" : ""}{isCorrectionVisible && isQuestionsVisible ? " / " : ""}{isCorrectionVisible ? "Réponses" : ""}
+                {isQuestionsVisible ? 'Questions' : ''}{isCorrectionVisible && isQuestionsVisible ? ' / ' : ''}{isCorrectionVisible ? 'Réponses' : ''}
                 <!-- <button type="button" class="pl-4">
                   <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" />
                 </button> -->

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Chips from "./Chips.svelte"
-  import { exercicesParams } from "../store"
-  import refToUuid from "../../json/refToUuid.json"
-    import type { InterfaceReferentiel } from "src/lib/types";
+  import Chips from './Chips.svelte'
+  import { exercicesParams } from '../store'
+  import refToUuid from '../../json/refToUuid.json'
+    import type { InterfaceReferentiel } from 'src/lib/types'
 
   let input: HTMLInputElement
   let listeIdPourLesChips: string[] = []
@@ -21,7 +21,7 @@
   let filteredExercices: string[] = []
 
   const filterEx = () => {
-    //construit la liste des codes d'exercices à proposer dans l'input de saisie.
+    // construit la liste des codes d'exercices à proposer dans l'input de saisie.
     let storageArr: string[] = []
     if (inputValue) {
       idExercicesDisponibles.forEach((ex) => {
@@ -38,7 +38,7 @@
   }
 
   let searchInput: HTMLInputElement
-  let inputValue = ""
+  let inputValue = ''
 
   $: if (!inputValue) {
     filteredExercices = []
@@ -46,11 +46,11 @@
   }
 
   const cleanInput = (text: string) => {
-    return text.toLowerCase().split(" ").filter(Boolean)
+    return text.toLowerCase().split(' ').filter(Boolean)
   }
 
   const clearInput = () => {
-    inputValue = ""
+    inputValue = ''
     searchInput.focus()
   }
 
@@ -59,7 +59,7 @@
     hiLiteIndex = null
     addExercice(ex)
     clearInput()
-    const input = document.querySelector("#idInput") as HTMLInputElement
+    const input = document.querySelector('#idInput') as HTMLInputElement
     input.focus()
     filteredExercices = []
   }
@@ -76,11 +76,11 @@
 
   const navigateList = (e: KeyboardEvent) => {
     // Pour naviguer dans la liste proposée avec les flèches.
-    if (e.key === "ArrowDown" && hiLiteIndex <= filteredExercices.length - 1) {
+    if (e.key === 'ArrowDown' && hiLiteIndex <= filteredExercices.length - 1) {
       hiLiteIndex === null ? (hiLiteIndex = 0) : (hiLiteIndex += 1)
-    } else if (e.key === "ArrowUp" && hiLiteIndex !== null) {
+    } else if (e.key === 'ArrowUp' && hiLiteIndex !== null) {
       hiLiteIndex === 0 ? (hiLiteIndex = filteredExercices.length - 1) : (hiLiteIndex -= 1)
-    } else if (e.key === "Enter") {
+    } else if (e.key === 'Enter') {
       if (inputValue && filteredExercices.length === 1) {
         addExercice(filteredExercices[0])
         clearInput()
@@ -89,15 +89,15 @@
         clearInput()
       }
     } else {
-      return
+
     }
   }
 
-  function addExercice(id: string) {
+  function addExercice (id: string) {
     if (!refToUuid[id as keyof typeof refToUuid]) return
     const newExercise = {
       id,
-      uuid: refToUuid[id as keyof typeof refToUuid],
+      uuid: refToUuid[id as keyof typeof refToUuid]
     }
     exercicesParams.update((list) => [...list, newExercise])
   }

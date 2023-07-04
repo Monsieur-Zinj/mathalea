@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { typeOf } from "mathjs"
+  import { typeOf } from 'mathjs'
   export let entrees: string[]
   export let actions = []
   export let isMenuOpen: boolean
@@ -7,10 +7,10 @@
   export let id: string
   export let isNavBarVisible: boolean
 
-  function handleClickOnEntry(i) {
+  function handleClickOnEntry (i) {
     isMenuOpen = false
     isNavBarVisible = false
-    if (typeOf(actions[i]) === "string") {
+    if (typeOf(actions[i]) === 'string') {
       window.location.href = actions[i]
     } else {
       actions[i]()
@@ -33,7 +33,7 @@ https://codesandbox.io/s/tailwind-dropdown-with-group-hover-gm9k9?file=/tailwind
       <li>
         <a
           class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-darkest text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest py-2 px-4 block whitespace-no-wrap cursor-pointer"
-          id={[id, "-entree-", i + 1].join("")}
+          id={[id, '-entree-', i + 1].join('')}
           on:click={() => handleClickOnEntry(i)}
           on:keydown={() => handleClickOnEntry(i)}
         >

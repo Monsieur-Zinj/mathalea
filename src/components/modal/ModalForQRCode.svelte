@@ -1,35 +1,35 @@
 <script lang="ts">
-  import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage, allowedImageFormats } from "../utils/qr-code.js"
-  import { copyQRCodeImageToClipboard } from "../utils/clipboard"
-  import FormRadio from "../forms/FormRadio.svelte"
+  import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage, allowedImageFormats } from '../utils/qr-code.js'
+  import { copyQRCodeImageToClipboard } from '../utils/clipboard'
+  import FormRadio from '../forms/FormRadio.svelte'
 
   // définition d'un type pour le format de l'image afin de rester dans les valeurs possible de `allowedImageFormats`
   // source: https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range/70307091#70307091
-  type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N ? Acc[number] : Enumerate<N, [...Acc, Acc["length"]]>
+  type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Enumerate<N, [...Acc, Acc['length']]>
   type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>
   // type FormatCodeRange = Range<0, allowedImageFormats.length>
 
-  export let imageId: string = "QRImage"
-  export let dialogId: string = "dialogQR"
+  export let imageId: string = 'QRImage'
+  export let dialogId: string = 'dialogQR'
   export let width: number = 100
   export let format = 0
-  export let tooltipMessage: string = "My tooltip"
-  export let buttonSize: string = "text-2xl"
-  export let buttonIcon: string = "bx-qr"
-  export let buttonSecondIcon: string = ""
-  export let classForButton: string = ""
-  export let urlAddendum: string = ""
+  export let tooltipMessage: string = 'My tooltip'
+  export let buttonSize: string = 'text-2xl'
+  export let buttonIcon: string = 'bx-qr'
+  export let buttonSecondIcon: string = ''
+  export let classForButton: string = ''
+  export let urlAddendum: string = ''
   export let isShort: boolean = false
   export let isEncrypted: boolean = false
 
   const labelsForFormats = [
-    { label: "jpeg", value: 0 },
-    { label: "png", value: 1 },
-    { label: "webp", value: 2 },
+    { label: 'jpeg', value: 0 },
+    { label: 'png', value: 1 },
+    { label: 'webp', value: 2 }
   ]
 </script>
 
-<!-- 
+<!--
     @component
     Bouton pour afficher un modal permettant d'obtenir un QR-Code de l'URL _courante_
     via copie dans le presse-papier ou téléchargement.
@@ -44,7 +44,7 @@
     * `buttonSecondIcon` : icone à ajouter
     * `classForButton` : pour ajouter des éléments de positionnement du bouton
     * `width`: largeur du QR-Code
-    * `format`: un chiffre correspondant au format de l'image créée 
+    * `format`: un chiffre correspondant au format de l'image créée
     (basé sur le tableau des formats possible `allowedImageFormats` de `qr-code.js`)
     * `urlAddendum` : chaîne à ajouter à l'URL
     * `isShorten`: l'URL attendue doit-elle être raccourcie ou non.

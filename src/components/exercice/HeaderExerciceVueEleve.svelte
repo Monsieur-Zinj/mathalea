@@ -1,35 +1,34 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  import BoutonMonter from "./BoutonMonter.svelte"
-  import BoutonDescendre from "./BoutonDescendre.svelte"
-  import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
-  import { globalOptions } from "../store"
-  import { exercicesParams, isMenuNeededForExercises } from "../store"
-  export let title: string
+  import { createEventDispatcher } from 'svelte'
+  import BoutonMonter from './BoutonMonter.svelte'
+  import BoutonDescendre from './BoutonDescendre.svelte'
+  import InteractivityIcon from '../icons/TwoStatesIcon.svelte'
+  import { globalOptions, exercicesParams, isMenuNeededForExercises } from '../store'
+    export let title: string
   // export let randomReady = true
   export let indiceExercice: number
   // export let isInteractif = false
   // export let interactifReady: boolean
   export let showNumber = true
-  let isVisible = true
-  let isSettingsVisible = false
-  let isContentVisible = true
-  let isCorrectionVisible = false
-  let isMessagesVisible = true
+  const isVisible = true
+  const isSettingsVisible = false
+  const isContentVisible = true
+  const isCorrectionVisible = false
+  const isMessagesVisible = true
 
   const dispatch = createEventDispatcher()
 
-  function switchInteractif() {
+  function switchInteractif () {
     isInteractif = !isInteractif
-    dispatch("clickInteractif", { isInteractif })
+    dispatch('clickInteractif', { isInteractif })
   }
 
-  function newData() {
-    dispatch("clickNewData")
+  function newData () {
+    dispatch('clickNewData')
   }
 </script>
 
-<!-- 
+<!--
   @component
   Barre de titre et d'actions au-dessus d'un exercice
 
@@ -48,7 +47,7 @@
   <h1 id="headerExoVueEleve-{indiceExercice}" class=" text-coopmaths-struct dark:text-coopmathsdark-struct pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-start' : 'flex-row items-center'}">
     <!-- titre -->
     <div class="flex flex-row justify-start items-start" id="exerciceHeader{indiceExercice}">
-      <div class={showNumber && $globalOptions.presMode === "liste_exos" ? "flex" : "hidden"}>
+      <div class={showNumber && $globalOptions.presMode === 'liste_exos' ? 'flex' : 'hidden'}>
         <div
           class="{$isMenuNeededForExercises && $globalOptions.presMode !== 'liste_exos'
             ? 'hidden'

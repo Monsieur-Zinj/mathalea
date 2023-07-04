@@ -1,38 +1,38 @@
 <script lang="ts">
-  import { mathaleaUpdateUrlFromExercicesParams } from "../../lib/mathalea"
-  import { exercicesParams, globalOptions } from "../store"
-  import { resizeTags } from "../utils/measures"
+  import { mathaleaUpdateUrlFromExercicesParams } from '../../lib/mathalea'
+  import { exercicesParams, globalOptions } from '../store'
+  import { resizeTags } from '../utils/measures'
 
-  export let size: "xs" | "sm" | "md" | "lg" | "bx-sm md:bx-md" = "sm"
+  export let size: 'xs' | 'sm' | 'md' | 'lg' | 'bx-sm md:bx-md' = 'sm'
   export let isBorderTransparent: boolean = false
 
   const urlParams = new URLSearchParams(window.location.search)
-  let zoom = parseInt(urlParams.get("z")) || 1
-  function zoomMinus() {
+  let zoom = parseInt(urlParams.get('z')) || 1
+  function zoomMinus () {
     // zoom -= 0.1
     zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
     updateSize()
   }
 
-  function zoomPlus() {
+  function zoomPlus () {
     // zoom += 0.1
     zoom = Number.parseFloat((zoom + 0.1).toFixed(1))
     updateSize()
   }
 
-  function updateSize() {
+  function updateSize () {
     globalOptions.update((params) => {
       params.z = zoom.toString()
       return params
     })
     // figures scratch
-    const scratchDivs = document.getElementsByClassName("scratchblocks")
+    const scratchDivs = document.getElementsByClassName('scratchblocks')
     for (const scratchDiv of scratchDivs) {
-      const svgDivs = scratchDiv.getElementsByTagName("svg")
+      const svgDivs = scratchDiv.getElementsByTagName('svg')
       resizeTags(svgDivs, $globalOptions.z)
     }
     // QCM
-    const checkboxes = document.querySelectorAll("[id^=checkEx")
+    const checkboxes = document.querySelectorAll('[id^=checkEx')
     resizeTags(checkboxes, $globalOptions.z)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }

@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  export let message: string = "Default message"
-  export let messageError: string = "Default error message"
-  export let dialogId: string = "dialogbox"
-  export let tooltipMessage: string = ""
-  export let buttonSize: string = "text-2xl"
-  export let buttonIcon: string = "bx-link"
-  export let buttonSecondIcon: string = ""
-  export let classForButton: string = ""
-  export let title: string = ""
+  import { createEventDispatcher } from 'svelte'
+  export let message: string = 'Default message'
+  export let messageError: string = 'Default error message'
+  export let dialogId: string = 'dialogbox'
+  export let tooltipMessage: string = ''
+  export let buttonSize: string = 'text-2xl'
+  export let buttonIcon: string = 'bx-link'
+  export let buttonSecondIcon: string = ''
+  export let classForButton: string = ''
+  export let title: string = ''
 
   const dispatch = createEventDispatcher()
 
-  function fireMessage() {
-    dispatch("display")
+  function fireMessage () {
+    dispatch('display')
   }
 </script>
 
-<!-- 
+<!--
     @component
     Bouton pour lancer une action et afficher un message informatif dans un modal
 
@@ -73,10 +73,10 @@
       {title}
     {/if}
   </button>
-  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + "-1"}>
+  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + '-1'}>
     <div class="container font-light">{@html message}</div>
   </dialog>
-  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + "-2"}>
+  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + '-2'}>
     {messageError}
   </dialog>
 </div>
