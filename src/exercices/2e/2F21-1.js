@@ -1,5 +1,5 @@
 import { prenom, prenomM } from '../../lib/outils/Personne.js'
-import { texPrix, texteGras } from '../../lib/style.js'
+import { texPrix, texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 

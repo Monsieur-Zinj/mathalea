@@ -1,7 +1,7 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
-import { texcolors } from '../../lib/style.js'
+import { texcolors } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texNombre, combinaisonListes, choice, randint, rangeMinMax } from '../../modules/outils.js'

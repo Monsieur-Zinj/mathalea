@@ -1,5 +1,5 @@
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, stringNombre, texteEnCouleur, texteEnCouleurEtGras, miseEnCouleur, gestionnaireFormulaireTexte } from '../../modules/outils.js'

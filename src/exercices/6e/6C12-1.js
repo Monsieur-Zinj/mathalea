@@ -1,5 +1,5 @@
 import { prenomF } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, range, texteEnCouleurEtGras, sp, numAlpha, choice, arrondi, rangeMinMax, texNombre3, troncature, estentier, enleveElementNo, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

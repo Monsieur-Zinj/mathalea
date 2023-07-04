@@ -4,7 +4,7 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, sp, abs, choice, texNombre, randint } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'

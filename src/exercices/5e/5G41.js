@@ -1,5 +1,5 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { choice, listeQuestionsToContenu, randint, arrondi, calcul, lettreDepuisChiffre, texNombre, miseEnEvidence } from '../../modules/outils.js'

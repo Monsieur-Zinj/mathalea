@@ -1,7 +1,7 @@
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures.js'
 import { prenomF } from '../../lib/outils/Personne.js'
 import { pgcd } from '../../lib/outils/primalite.js'
-import { texPrix, texteGras } from '../../lib/style.js'
+import { texPrix, texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

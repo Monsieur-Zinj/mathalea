@@ -1,6 +1,6 @@
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
-import { arcenciel } from '../../../lib/style.js'
+import { arcenciel } from '../../../lib/outils/style.js'
 import Exercice from '../../Exercice.js'
 import { randint, choice, calcul, texNombre, miseEnEvidence, signe } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite récurrente'

@@ -1,6 +1,6 @@
 import { modalPdf } from '../../lib/outils/modales.js'
 import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'

@@ -1,4 +1,4 @@
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
 export const titre = 'Démontrer l\'équivalence de deux programmes de calcul'

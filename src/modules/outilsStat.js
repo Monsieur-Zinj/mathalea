@@ -3,7 +3,7 @@ import { deprecatedTexFraction } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
 import { lampeMessage } from '../lib/outils/message.js'
 import { prenom } from '../lib/outils/Personne.js'
-import { texteGras } from '../lib/style.js'
+import { texteGras } from '../lib/outils/style.js'
 import {
   arrondi,
   choice,

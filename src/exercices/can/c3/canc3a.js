@@ -1,5 +1,5 @@
 import { personne, prenom } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/style.js'
+import { texPrix } from '../../../lib/outils/style.js'
 import Exercice from '../../Exercice.js'
 import {
   listeQuestionsToContenu,

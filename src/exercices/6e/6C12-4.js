@@ -6,7 +6,7 @@ import {
   nomDuMois
 } from '../../lib/outils/dateEtHoraires.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, texNombre, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'

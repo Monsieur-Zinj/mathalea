@@ -1,4 +1,4 @@
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { arrondi, choice, randint, texNombre } from '../../modules/outils.js'
 export const titre = 'Somme des termes d\'une suite géométrique'

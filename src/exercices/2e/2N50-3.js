@@ -1,7 +1,7 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import { prenom } from '../../lib/outils/Personne.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'
 import { randint, miseEnEvidence, sp, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'

@@ -1,4 +1,4 @@
-import { arcenciel, texcolors } from '../../lib/style.js'
+import { arcenciel, texcolors } from '../../lib/outils/style.js'
 import { codageAngle, labelPoint, rotation, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
 import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'

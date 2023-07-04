@@ -1,5 +1,5 @@
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
-import { arcenciel } from '../../lib/style.js'
+import { arcenciel } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, signe, texNombre, miseEnEvidence } from '../../modules/outils.js'
 

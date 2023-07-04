@@ -1,6 +1,6 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, contraindreValeur, sp } from '../../modules/outils.js'

@@ -1,7 +1,7 @@
 import { createList } from '../../lib/format/lists.ts'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { decompositionFacteursPremiers, premierAvec } from '../../lib/outils/primalite.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {

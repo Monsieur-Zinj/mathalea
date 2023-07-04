@@ -1,5 +1,5 @@
 import { prenomF } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/style.js'
+import { texPrix } from '../../../lib/outils/style.js'
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombre } from '../../../modules/outils.js'
 export const titre = 'Rechercher un prix unitaire'

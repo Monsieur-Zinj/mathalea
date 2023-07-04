@@ -1,5 +1,5 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
-import { arcenciel, texteGras } from '../../lib/style.js'
+import { arcenciel, texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, combinaisonListes, abs } from '../../modules/outils.js'

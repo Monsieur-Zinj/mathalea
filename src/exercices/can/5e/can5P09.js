@@ -1,4 +1,4 @@
-import { texPrix } from '../../../lib/style.js'
+import { texPrix } from '../../../lib/outils/style.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
 import { randint, choice, texNombre, texteEnCouleur } from '../../../modules/outils.js'

@@ -1,6 +1,6 @@
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { prenom } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import {
   codageSegments,
   homothetie,

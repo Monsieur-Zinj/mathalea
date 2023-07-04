@@ -1,6 +1,6 @@
 import { lampeMessage } from '../../lib/outils/message.js'
 import { deuxColonnes } from '../../lib/outils/miseEnPage.js'
-import { texteGras } from '../../lib/style.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import {
   choice,

@@ -1,6 +1,6 @@
 import { lampeMessage } from '../../lib/outils/message.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

@@ -1,5 +1,5 @@
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, calcul, choice, texNombre, arrondi } from '../../modules/outils.js'

@@ -1,5 +1,5 @@
 import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre, miseEnEvidence, sp } from '../../modules/outils.js'
 

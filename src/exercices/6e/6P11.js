@@ -1,6 +1,6 @@
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/style.js'
+import { texPrix } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, texteEnCouleur, texteEnCouleurEtGras, numAlpha, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, stringNombre, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'

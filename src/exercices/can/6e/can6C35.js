@@ -1,5 +1,5 @@
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/style.js'
+import { texPrix } from '../../../lib/outils/style.js'
 import { choice, randint, texNombre } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'
