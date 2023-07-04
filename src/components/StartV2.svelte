@@ -64,14 +64,14 @@
   /**
    * Gestion du redimentionnement de la largeur du menu des choix
    */
-  let expanding = null
+  let expanding : HTMLElement = null
   let sidebarWidth = 400
   let sbWidth = sidebarWidth
   function stopResizing() {
     expanding = null
   }
 
-  function startResizing(type, event: MouseEvent) {
+  function startResizing(type: HTMLElement, event: MouseEvent) {
     expanding = type
   }
 
@@ -94,7 +94,17 @@
   //   arrayReferentiel.content.push(value)
   // }
   const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
-  const ressourcesReferentielForSideMenu: ReferentielForList = { title: "Choix des ressources", content: [...ressourcesReferentielArray], type: "ressources" }
+  const ressourcesReferentielForSideMenu: ReferentielForList = {
+    title: "Choix des ressources",
+    content: ressourcesReferentielArray.map(({ key, obj }) => ({
+      uuid: key,
+      id: obj.id,
+      url: obj.url,
+      titre: obj.titre,
+      tags: obj.tags,
+    })),
+    type: "ressources",
+  };
   // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
   //   ressourcesReferentiel.content.push(value)
   // }
@@ -104,7 +114,7 @@
    */
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
-  function updateFilters(filters) {
+  function updateFilters(filters: { levels: string[], types: string[] }) {
     let itemsAccepted = [...filters.levels]
     if (filters.types.includes("static")) {
       itemsAccepted = [...itemsAccepted, "static"]
@@ -148,10 +158,10 @@
           const originalHeight = svg.getAttribute("height")
           svg.dataset.height = originalHeight
         }
-        const w = svg.getAttribute("data-width") * $globalOptions.z
-        const h = svg.getAttribute("data-height") * $globalOptions.z
-        svg.setAttribute("width", w)
-        svg.setAttribute("height", h)
+        const w = Number(svg.getAttribute("data-width")) * Number($globalOptions.z)
+        const h = Number(svg.getAttribute("data-height")) * Number($globalOptions.z)
+        svg.setAttribute("width", w.toString())
+        svg.setAttribute("height", h.toString())
       }
     }
   }
@@ -216,7 +226,7 @@
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class={$darkMode.isActive ? "dark" : ""} id="startComponent" on:mousemove={resizing}>
+<div class={$darkMode.isActive ? "dark" : ""} id="startComponent" on:mousemove={resizing} role="menu" tabindex="0">
   <div class="flex flex-col scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <!-- Entête -->
     {#if isNavBarVisible}
@@ -252,6 +262,8 @@
           ? 'md:flex'
           : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
         on:mousedown={startResizing.bind(this, "moving")}
+        role="menu"
+        tabindex="0"
       />
 
       <!-- Affichage Partie Droite -->

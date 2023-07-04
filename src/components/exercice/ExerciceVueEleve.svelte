@@ -1,5 +1,4 @@
 <script lang="ts">
-  import ButtonToggle from "../forms/ButtonToggle.svelte"
   import { globalOptions, resultsByExercice } from "../store"
   import { afterUpdate, onMount, tick } from "svelte"
   import type TypeExercice from "../utils/typeExercice"
@@ -34,14 +33,8 @@
 
   let headerExerciceProps: {
     title: string
-    // isInteractif: boolean
-    // correctionReady?: boolean
-    // randomReady?: boolean
-    // interactifReady?: boolean
   } = {
     title,
-    // isInteractif,
-    // interactifReady,
   }
 
   if ($globalOptions.recorder !== undefined) {
@@ -51,12 +44,6 @@
 
   $: {
     if (isInteractif && buttonScore) initButtonScore()
-
-    // if (!$globalOptions.isSolutionAccessible) {
-    //   headerExerciceProps.correctionReady = false
-    //   headerExerciceProps.randomReady = false
-    // }
-    // headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps = headerExerciceProps
   }
 
@@ -133,10 +120,10 @@
           const originalHeight = svg.getAttribute("height")
           svg.dataset.height = originalHeight
         }
-        const w = svg.getAttribute("data-width") * $globalOptions.z
-        const h = svg.getAttribute("data-height") * $globalOptions.z
-        svg.setAttribute("width", w)
-        svg.setAttribute("height", h)
+        const w = Number(svg.getAttribute("data-width")) * Number($globalOptions.z)
+        const h = Number(svg.getAttribute("data-height")) * Number($globalOptions.z)
+        svg.setAttribute("width", w.toString())
+        svg.setAttribute("height", h.toString())
       }
     }
     document.dispatchEvent(exercicesAffiches)
