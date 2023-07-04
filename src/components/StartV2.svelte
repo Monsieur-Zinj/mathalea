@@ -94,17 +94,7 @@
   //   arrayReferentiel.content.push(value)
   // }
   const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
-  const ressourcesReferentielForSideMenu: ReferentielForList = {
-    title: "Choix des ressources",
-    content: ressourcesReferentielArray.map(({ key, obj }) => ({
-      uuid: key,
-      id: obj.id,
-      url: obj.url,
-      titre: obj.titre,
-      tags: obj.tags,
-    })),
-    type: "ressources",
-  };
+  const ressourcesReferentielForSideMenu: ReferentielForList = { title: "Choix des ressources", content: [...ressourcesReferentielArray], type: "ressources" }
   // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
   //   ressourcesReferentiel.content.push(value)
   // }
@@ -114,7 +104,7 @@
    */
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
-  function updateFilters(filters: { levels: string[], types: string[] }) {
+  function updateFilters(filters) {
     let itemsAccepted = [...filters.levels]
     if (filters.types.includes("static")) {
       itemsAccepted = [...itemsAccepted, "static"]
