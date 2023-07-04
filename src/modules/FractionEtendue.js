@@ -1,6 +1,11 @@
 import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
-import { listeDesDiviseurs, obtenirListeFacteursPremiers, pgcd } from '../lib/outils/primalite.js'
+import {
+  decompositionFacteursPremiers,
+  listeDesDiviseurs,
+  obtenirListeFacteursPremiers,
+  pgcd
+} from '../lib/outils/primalite.js'
 import {
   arrondi,
   quotientier,
@@ -9,8 +14,7 @@ import {
   calcul,
   miseEnEvidence,
   texNombre,
-  egal,
-  decompositionFacteursPremiers
+  egal
 } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
