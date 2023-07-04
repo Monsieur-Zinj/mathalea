@@ -1,7 +1,7 @@
-
+import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle, tableauColonneLigne } from '../../modules/outils.js'
+import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
 

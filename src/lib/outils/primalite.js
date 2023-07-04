@@ -1,5 +1,6 @@
-import { gcd } from 'mathjs'
-import { egal } from '../../modules/outils.js'
+import { gcd, isPrime } from 'mathjs'
+import { egal, inferieur } from '../../modules/outils.js'
+import { ecritureParentheseSiNegatif } from './ecritures.js'
 
 /**
  * Renvoie le PGCD de deux nombres
@@ -211,4 +212,45 @@ export function decompositionFacteursPremiersArray (n) {
     decomposition.push(liste[i])
   }
   return decomposition
+}
+
+/**
+ * Retourne la liste des nombres premiers inférieurs à 300
+ * @author Rémi Angot
+ */
+export function obtenirListeNombresPremiers (n = 300) {
+  const prems = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
+  for (let i = 307; i <= n; i++) {
+    if (isPrime(i)) prems.push(i)
+  }
+  return prems
+}
+
+/**
+ * Retourne le code LaTeX de la décomposition en produit de facteurs premiers d'un nombre
+ * @author Rémi Angot
+ */
+export function decompositionFacteursPremiers (n) {
+  let decomposition = ''
+  const liste = obtenirListeFacteursPremiers(n)
+  for (const i in liste) {
+    decomposition += ecritureParentheseSiNegatif(liste[i]) + '\\times'
+  }
+  decomposition = decomposition.substr(0, decomposition.length - 6)
+  return decomposition
+}
+
+/**
+ *
+ * @param {number} n
+ * @param {boolean} inférieur si true, commence la recherche à 2 en croissant sinon commence à n+1
+ * @returns {number}
+ */
+export function premierAvec (n, listeAEviter = [], inférieur = true) {
+  if (n < 2) throw Error(`Impossible de trouver un nombre premier avec ${n}`)
+  let candidat = inferieur ? 2 : n + 1
+  do {
+    if (pgcd(n, candidat) === 1 && !listeAEviter.includes(candidat)) return candidat
+    candidat++
+  } while (true)
 }

@@ -1,6 +1,7 @@
+import { texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGras, texteEnCouleurEtGras, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteEnCouleurEtGras, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
@@ -78,7 +79,7 @@ export default function DivisionsEuclidiennesEgalite () {
           texteCorr = `L'égalité $ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} $ ne traduit pas directement la division euclidienne de $ ${texNombre(a)} $ par ${b}.  <br>
           Transformons cette égalité : <br>
           Dans cette égalité, on a pris ${q + 1} fois ${b} et on dépasse $ ${texNombre(a)} $. Cela veut dire qu'on a pris ${b} trop de fois.<br>
-          Prenons-le une fois de moins, on va donc avoir ${q} fois ${b} : <br> 
+          Prenons-le une fois de moins, on va donc avoir ${q} fois ${b} : <br>
           $ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} = ${b} \\times ${q} + ${b} - ${b - r} = ${b} \\times ${q} + ${r} $ <br>
           Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $.
           <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`

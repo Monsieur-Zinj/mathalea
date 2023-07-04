@@ -1,6 +1,7 @@
 import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
+import { texteCentre } from '../../../lib/outils/miseEnPage.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, texteCentre, sp } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer les coordonnées sommet parabole à partir de la forme canonique'

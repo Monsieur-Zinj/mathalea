@@ -1,8 +1,9 @@
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures.js'
+import { texteCentre } from '../../../lib/outils/miseEnPage.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, miseEnEvidence, texteCentre } from '../../../modules/outils.js'
+import { randint, miseEnEvidence } from '../../../modules/outils.js'
 import { courbe, repere, texteParPosition, segment } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true

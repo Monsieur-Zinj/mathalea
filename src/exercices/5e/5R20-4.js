@@ -1,7 +1,8 @@
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { texPrix, texteGras } from '../../lib/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, texPrix, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, numAlpha } from '../../modules/outils.js'
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs'
 
 /**

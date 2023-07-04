@@ -1,6 +1,7 @@
 /* eslint-disable no-eval */
+import { texteGras } from '../../lib/style.js'
 /* eslint-disable no-unused-vars */
-import { xcas, listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
+import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Déterminer le nombre de solutions d\'une équation du second degré avec paramètre'

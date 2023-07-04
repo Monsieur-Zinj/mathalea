@@ -1,6 +1,7 @@
 import { prenomF } from '../../../lib/outils/Personne.js'
+import { texPrix } from '../../../lib/style.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre, texPrix } from '../../../modules/outils.js'
+import { randint, choice, texNombre } from '../../../modules/outils.js'
 export const titre = 'Rechercher un prix unitaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
