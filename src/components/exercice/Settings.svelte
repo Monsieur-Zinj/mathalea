@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { afterUpdate, createEventDispatcher } from "svelte"
-  import type TypeExercice from "../utils/typeExercice"
+  import { afterUpdate, createEventDispatcher } from 'svelte'
+  import type TypeExercice from '../utils/typeExercice'
 
   export let exercice: TypeExercice
   let nbQuestions: number
@@ -36,7 +36,7 @@
       premierUpdate = false
       nbQuestions = exercice.nbQuestions
       duration = exercice.duration || 10
-      if (exercice.sup === "false") {
+      if (exercice.sup === 'false') {
         sup = false
       } else {
         sup = exercice.sup
@@ -51,8 +51,8 @@
 
   const dispatch = createEventDispatcher()
 
-  function newSettings() {
-    dispatch("settings", {
+  function newSettings () {
+    dispatch('settings', {
       nbQuestions,
       duration,
       sup,
@@ -60,7 +60,7 @@
       sup3,
       sup4,
       alea,
-      correctionDetaillee,
+      correctionDetaillee
     })
   }
   /**
@@ -74,16 +74,16 @@
    * <code>besoinFormulaireNumérique</code>
    * @author sylvain chambon
    */
-  function parseFormNumerique(entreesFormulaire: string[]) {
-    let entrees: string[] = [...entreesFormulaire]
-    let titre: string = entrees.shift() // le titre du paramètre est le 1er elt
+  function parseFormNumerique (entreesFormulaire: string[]) {
+    const entrees: string[] = [...entreesFormulaire]
+    const titre: string = entrees.shift() // le titre du paramètre est le 1er elt
     let champs: string[] | string
     if (entrees.length > 1) {
       // il y a une liste de tooltips qui deviendront les entrées
       champs = entrees
         .pop()
-        .split("\n")
-        .map((x) => x.replace(/(?:\d *: *)/i, ""))
+        .split('\n')
+        .map((x) => x.replace(/(?:\d *: *)/i, ''))
     } else {
       // les champs se résument à un seul nombre correspondant au maximum
       champs = entrees[0]
@@ -115,15 +115,15 @@
    * <code>besoinFormulaireTexte</code>
    * @author sylvain chambon
    */
-  function parseFormTexte(entreesFormulaire: string[]) {
-    let entrees: string[] = [...entreesFormulaire]
-    let titre: string = entrees.shift() // le titre du formulaire est le 1er elt
-    let champs: string[] = entrees.pop().split("\n")
-    let consigne: string = champs.shift() // premier éléments est la consigne
-    let champsDecortiques: any[] = []
+  function parseFormTexte (entreesFormulaire: string[]) {
+    const entrees: string[] = [...entreesFormulaire]
+    const titre: string = entrees.shift() // le titre du formulaire est le 1er elt
+    const champs: string[] = entrees.pop().split('\n')
+    const consigne: string = champs.shift() // premier éléments est la consigne
+    const champsDecortiques: any[] = []
     champs.forEach((entree) => {
       // avant ' : ' c'est la valeur d'activation et après c'est le paramètre
-      let parties: string[] = entree.split(" : ")
+      const parties: string[] = entree.split(' : ')
       champsDecortiques.push({ parametre: parties[1], valeur: parties[0] })
     })
     return { titre, consigne, champsDecortiques }
@@ -201,7 +201,7 @@
           min="1"
           max={exercice.besoinFormulaireNumerique[1]}
           data-bs-toggle="tooltip"
-          title={exercice.besoinFormulaireNumerique[2] || ""}
+          title={exercice.besoinFormulaireNumerique[2] || ''}
           bind:value={sup}
           on:change={newSettings}
         />
@@ -282,7 +282,7 @@
           min="1"
           max={exercice.besoinFormulaire2Numerique[1]}
           data-bs-toggle="tooltip"
-          title={exercice.besoinFormulaire2Numerique[2] || ""}
+          title={exercice.besoinFormulaire2Numerique[2] || ''}
           bind:value={sup2}
           on:change={newSettings}
         />
@@ -363,7 +363,7 @@
           min="1"
           max={exercice.besoinFormulaire3Numerique[1]}
           data-bs-toggle="tooltip"
-          title={exercice.besoinFormulaire3Numerique[2] || ""}
+          title={exercice.besoinFormulaire3Numerique[2] || ''}
           bind:value={sup3}
           on:change={newSettings}
         />
@@ -446,7 +446,7 @@
           min="1"
           max={exercice.besoinFormulaire4Numerique[1]}
           data-bs-toggle="tooltip"
-          title={exercice.besoinFormulaire4Numerique[2] || ""}
+          title={exercice.besoinFormulaire4Numerique[2] || ''}
           bind:value={sup4}
           on:change={newSettings}
         />

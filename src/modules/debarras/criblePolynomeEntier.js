@@ -1,4 +1,5 @@
-import { randint, resolutionSystemeLineaire3x3 } from '../outils.js'
+import { resolutionSystemeLineaire3x3 } from '../mathFonctions/outilsMaths.js'
+import { randint } from '../outils.js'
 
 /**
  * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d

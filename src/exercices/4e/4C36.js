@@ -1,11 +1,11 @@
 import { prenomPronom } from '../../lib/outils/Personne.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   randint,
   listeQuestionsToContenu,
   combinaisonListes,
   premiereLettreEnMajuscule,
-  texNombre,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import Decimal from 'decimal.js'

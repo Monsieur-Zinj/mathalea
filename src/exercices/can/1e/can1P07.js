@@ -1,5 +1,7 @@
+import { tableauColonneLigne } from '../../../lib/outils/miseEnPage.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, tableauColonneLigne } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'

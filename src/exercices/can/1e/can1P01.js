@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -325,12 +326,12 @@ export default function ProbabilitesNotation () {
           if (choix === 'q3') {
             if (choice([true, false])) {
               texte += ` Parmi  les tests  positifs,  $${p3}\\,\\%$ des personnes ne sont pas malades.<br>
-                En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>   
+                En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>
                 `
               this.canEnonce += ` Parmi  les tests  positifs,  $${p3}\\,\\%$ des personnes ne sont pas malades.`
             } else {
               texte += `$${p3}\\,\\%$ des personnes testées positives ne sont pas malades.<br>
-                En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>                
+                En utilisant les événements $M$ et $T$, compléter avec une probabilité :<br>
                 `
               this.canEnonce += `$${p3}\\,\\%$ des personnes testées positives ne sont pas malades.`
             }

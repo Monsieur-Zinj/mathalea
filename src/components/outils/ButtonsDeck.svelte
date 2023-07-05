@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let setupButtonsList = [{ bxName: "bx-zoom-in" }, { bxName: "bx-zoom-out" }, { bxName: "bx-refresh" }, { bxName: "bx-trash" }, { bxName: "bx-fullScreen" }]
-  export let exportButtonsList = [{ bxName: "bx-slideshow" }, { bxName: "bxs-graduation" }]
+  export let setupButtonsList = [{ bxName: 'bx-zoom-in' }, { bxName: 'bx-zoom-out' }, { bxName: 'bx-refresh' }, { bxName: 'bx-trash' }, { bxName: 'bx-fullScreen' }]
+  export let exportButtonsList = [{ bxName: 'bx-slideshow' }, { bxName: 'bxs-graduation' }]
   export let barWidthPercentage: number = 70
 </script>
 
@@ -13,12 +13,12 @@
         {/each}
       </slot>
     </div>
-    {#if $$slots["input"]}
+    {#if $$slots.input}
       <div id="input">
         <slot name="input" />
       </div>
     {/if}
-    {#if $$slots["export-buttons"]}
+    {#if $$slots['export-buttons']}
       <div id="exportButtonsBar">
         <slot name="export-buttons">
           {#each exportButtonsList as button}

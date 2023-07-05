@@ -1,10 +1,11 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import { point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint, codageSegments, codageAngleDroit, pointSurDroite } from '../../modules/2d.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, combinaisonListes, numAlpha, rangeMinMax, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal, listeQuestionsToContenu, texNombre, miseEnCouleur, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { randint, choice, combinaisonListes, numAlpha, rangeMinMax, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal, listeQuestionsToContenu, miseEnCouleur, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true

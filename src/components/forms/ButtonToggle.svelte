@@ -1,17 +1,17 @@
 <script lang="ts">
-  export let titles: string[] = ["", ""]
+  export let titles: string[] = ['', '']
   export let value: boolean = true
   export let isDisabled: boolean = false
-  export let classAddenda: string = ""
-  export let textSize: string = "sm"
-  export let buttonSize: string = "sm"
+  export let classAddenda: string = ''
+  export let textSize: string = 'sm'
+  export let buttonSize: string = 'sm'
 
-  function toggle() {
+  function toggle () {
     value = !value
   }
 </script>
 
-<!-- 
+<!--
   @component
   Bouton toogle avec deux états
 
@@ -21,13 +21,13 @@
   * `value`: booléen lié au bouton
   * `isDisabled`: booléen servant à désactiver le bouton
   * `classAddenda`: chaîne correspondant à des _ajouts_ pour le style
-  
+
   Usage:
     ```tsx
-  <ButtonToggle 
-      titles={['Titre pour true', 'Titre pour false']} 
-      bind:value={maVariable} 
-      isDisabled={variable2 === 0} 
+  <ButtonToggle
+      titles={['Titre pour true', 'Titre pour false']}
+      bind:value={maVariable}
+      isDisabled={variable2 === 0}
       on:click={maFonction}
   />
   ```

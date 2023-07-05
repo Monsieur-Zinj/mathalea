@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Déterminer le plus petit ensemble de nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -52,7 +53,7 @@ export default function PlusPetitEnsemble () {
         choix = choice([true, false])
         a = randint(1, 12)
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${choix ? '-' : ''}\\sqrt{${texNombre(a * a)}}$ ?`
-        this.correction = `$${choix ? '-' : ''}\\sqrt{${a * a}}=${choix ? '-' : ''}${a}$  est un entier ${choix ? 'relatif' : 'naturel'}, 
+        this.correction = `$${choix ? '-' : ''}\\sqrt{${a * a}}=${choix ? '-' : ''}${a}$  est un entier ${choix ? 'relatif' : 'naturel'},
         on a donc $${choix ? '-' : ''}\\sqrt{${texNombre(a * a)}}\\in ${choix ? '\\mathbb{Z}' : '\\mathbb{N}'}$.
             `
         this.reponse = choix ? ['z', 'Z'] : ['n', 'N']
@@ -130,7 +131,7 @@ export default function PlusPetitEnsemble () {
           a = choice([2, 4, 5])
           b = randint(2, 5)
           this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${choix ? `${a}^{-1}` : `${a}^{${b}}`}$ ?`
-          this.correction = `$${choix ? `${a}^{-1}` : `${a}^{${b}}`}=${choix ? `\\dfrac{1}{${a}}` : `${a ** b}`}${choix ? `=${texNombre(1 / a)}` : ''}$   est un nombre ${choix ? 'décimal' : 'entier naturel'}. 
+          this.correction = `$${choix ? `${a}^{-1}` : `${a}^{${b}}`}=${choix ? `\\dfrac{1}{${a}}` : `${a ** b}`}${choix ? `=${texNombre(1 / a)}` : ''}$   est un nombre ${choix ? 'décimal' : 'entier naturel'}.
           On a donc $${choix ? `${a}^{-1} \\in \\mathbb{D}.` : `${a}^{${b}}\\in \\mathbb{N}.`}$ `
           this.reponse = choix ? ['d', 'D'] : ['n', 'N']
         }

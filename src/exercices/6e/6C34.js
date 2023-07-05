@@ -1,6 +1,7 @@
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, texteGras } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 

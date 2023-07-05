@@ -1,8 +1,9 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, texTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -46,16 +47,7 @@ export default function ExerciceConversionsAires () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     Decimal.toExpNeg = -15
-    /*  let prefixeMulti = [
-      [' da', '\\times10\\times10', 100],
-      [' h', '\\times100\\times100', 10000],
-      [' k', '\\times1~000\\times1~000', 1000000]
-    ]
-    let prefixeDiv = [
-      [' d', '\\div10\\div10', 100],
-      [' c', '\\div100\\div100', 10000],
-      [' m', '\\div1~000\\div1~000', 1000000]
-    ] */
+
     let prefixeMulti = [
       [' da', '\\times100', 100],
       [' h', '\\times100\\times100', 10000],

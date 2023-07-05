@@ -1,32 +1,32 @@
 <script lang="ts">
-  import Exercice from "./exercice/Exercice.svelte"
-  import NavBarV2 from "./header/NavBarV2.svelte"
-  import Footer from "./Footer.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from "./store"
-  import referentielOutils from "../json/referentielProfs.json"
-  import { flip } from "svelte/animate"
-  import { onMount } from "svelte"
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
-  import SideMenuOutils from "./outils/SideMenuOutils.svelte"
-  import type { ReferentielForList } from "src/lib/types"
-  import ButtonsDeck from "./outils/ButtonsDeck.svelte"
-  import Button from "./forms/Button.svelte"
-  import ButtonSvg from "./forms/ButtonSvg.svelte"
-  import MoodleIcon from "./icons/MoodleIcon.svelte"
-  import AmcIcon from "./icons/AmcIcon.svelte"
+  import Exercice from './exercice/Exercice.svelte'
+  import NavBarV2 from './header/NavBarV2.svelte'
+  import Footer from './Footer.svelte'
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from './store'
+  import referentielOutils from '../json/referentielProfs.json'
+  import { flip } from 'svelte/animate'
+  import { onMount } from 'svelte'
+  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
+  import SideMenuOutils from './outils/SideMenuOutils.svelte'
+  import type { ReferentielForList } from 'src/lib/types'
+  import ButtonsDeck from './outils/ButtonsDeck.svelte'
+  import Button from './forms/Button.svelte'
+  import ButtonSvg from './forms/ButtonSvg.svelte'
+  import MoodleIcon from './icons/MoodleIcon.svelte'
+  import AmcIcon from './icons/AmcIcon.svelte'
 
   let isMenuOpen: boolean = true
   let divExercices: HTMLDivElement
   // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
-  let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
+  const arrayReferentiel: ReferentielForList = { title: 'Choix des outils', content: [], type: 'outils' }
   for (const [key, value] of Object.entries(referentielOutils)) {
     arrayReferentiel.content.push(value)
   }
-  let isNavBarVisible: boolean = true
+  const isNavBarVisible: boolean = true
 
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
-  function urlToDisplay() {
+  function urlToDisplay () {
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       return urlOptions
@@ -50,16 +50,16 @@
    */
   let expanding = null
   let sidebarWidth = 600
-  let sbWidth = sidebarWidth
-  function stopResizing() {
+  const sbWidth = sidebarWidth
+  function stopResizing () {
     expanding = null
   }
 
-  function startResizing(type, event: MouseEvent) {
+  function startResizing (type, event: MouseEvent) {
     expanding = type
   }
 
-  function resizing(event: MouseEvent) {
+  function resizing (event: MouseEvent) {
     if (!expanding) return
     event.preventDefault()
     sidebarWidth = event.pageX
@@ -67,17 +67,17 @@
 
   // Gestion du zoom
   let zoom: number = 1
-  function zoomOut() {
+  function zoomOut () {
     zoom -= 0.25
     updateSize()
   }
 
-  function zoomIn() {
+  function zoomIn () {
     zoom += 0.25
     updateSize()
   }
 
-  function updateSize() {
+  function updateSize () {
     globalOptions.update((params) => {
       params.z = zoom.toString()
       return params
@@ -85,9 +85,9 @@
   }
 
   // Gestion des nouvelles données pour tous les exercices
-  function newDataForAll() {
-    const newDataForAll = new window.Event("newDataForAll", {
-      bubbles: true,
+  function newDataForAll () {
+    const newDataForAll = new window.Event('newDataForAll', {
+      bubbles: true
     })
     document.dispatchEvent(newDataForAll)
   }
@@ -112,7 +112,7 @@
       class="hidden {isMenuOpen
         ? 'md:flex'
         : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
-      on:mousedown={startResizing.bind(this, "moving")}
+      on:mousedown={startResizing.bind(this, 'moving')}
     />
     <div class="w-full">
       <ButtonsDeck>
@@ -138,8 +138,8 @@
             classDeclaration="text-3xl"
             on:click={() => {
               globalOptions.update((params) => {
-                $callerComponent = "tools"
-                params.v = "diaporama"
+                $callerComponent = 'tools'
+                params.v = 'diaporama'
                 return params
               })
             }}
@@ -148,8 +148,8 @@
             classDeclaration="w-6 h-6 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             on:click={() => {
               globalOptions.update((params) => {
-                $callerComponent = "tools"
-                params.v = "latex"
+                $callerComponent = 'tools'
+                params.v = 'latex'
                 return params
               })
             }}

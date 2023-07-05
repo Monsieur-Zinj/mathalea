@@ -1,4 +1,5 @@
-import { calcul, choice, randint, sp, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { calcul, choice, randint, sp, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
@@ -41,7 +42,7 @@ export default function AppliquerUnPourcentage () {
         this.correction = `$${p}${sp(1)}\\%$ de $${a} = ${texNombre(this.reponse)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Prendre $${p}${sp(1)}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10${sp(1)}\\%$  de $${a}$.<br>
-        Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$  d'une quantité, on la divise par $10$), alors 
+        Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$  d'une quantité, on la divise par $10$), alors
         $${p}${sp(1)}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${this.reponse}$.
        `)
         break
@@ -59,7 +60,7 @@ export default function AppliquerUnPourcentage () {
           this.correction = `$${p}${sp(1)}\\%$ de $${a} = ${this.reponse}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $${p}${sp(1)}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10${sp(1)}\\%$  de $${a}$.<br>
-          Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$ d'une quantité, on la divise par $10$), alors 
+          Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$ d'une quantité, on la divise par $10$), alors
           $${p}${sp(1)}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${this.reponse}$.
          `)
         }
@@ -87,7 +88,7 @@ export default function AppliquerUnPourcentage () {
         } else if (p === 75) {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $75${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par 4 et à multiplier le résultat par $3$.<br>
-          Comme $25${sp(1)}\\%$  de $${a}$ vaut $${calcul(a / 4)}$, alors 
+          Comme $25${sp(1)}\\%$  de $${a}$ vaut $${calcul(a / 4)}$, alors
           $75${sp(1)}\\%$ de $${a}=${calcul(a / 4)}\\times 3=${this.reponse}$.
          `)
         } else {
@@ -109,13 +110,13 @@ export default function AppliquerUnPourcentage () {
         } else if (p === 10) {
           this.correction = `$10${sp(1)}\\%$ de $${a} = ${this.reponse}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Prendre $10${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par $10$, alors 
+          Prendre $10${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par $10$, alors
           $10${sp(1)}\\%$ de $${a}=\\dfrac{${a}}{10}=${this.reponse}$.
          `)
         } else {
           this.correction = `$20${sp(1)}\\%$ de $${a} = ${this.reponse}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Prendre $20${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par $5$ soit diviser par $10$ puis multiplier le résultat par $2$.<br> 
+          Prendre $20${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par $5$ soit diviser par $10$ puis multiplier le résultat par $2$.<br>
           Donc $20${sp(1)}\\%$ de $${a}=\\dfrac{${a}}{10}\\times 2=${calcul(this.reponse / 2)}\\times 2=${this.reponse}$.
          `)
         }

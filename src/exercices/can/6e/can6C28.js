@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { choice, texNombre, calcul } from '../../../modules/outils.js'
+import { choice, calcul } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

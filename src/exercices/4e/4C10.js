@@ -1,5 +1,6 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
-import { choice, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
+import { choice, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

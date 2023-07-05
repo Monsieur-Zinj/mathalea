@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type Latex from "src/lib/Latex"
-  import { buildImagesUrlsList, doesLatexNeedsPics, getExosContentList, getPicsNames, type LatexFileInfos } from "../../lib/Latex"
+  import type Latex from 'src/lib/Latex'
+  import { buildImagesUrlsList, doesLatexNeedsPics, getExosContentList, getPicsNames, type LatexFileInfos } from '../../lib/Latex'
 
   export let latex: Latex
   export let latexFileInfos: LatexFileInfos
@@ -14,7 +14,7 @@
    * -- constitution des URLs pour le téléchargement des images (elles doivent pointer vers un serveur)
    * -- encodage du contenu du code LaTeX de la feuille d'exercices
    */
-  async function copyDocumentToOverleaf() {
+  async function copyDocumentToOverleaf () {
     const contents = latex.getContents(latexFileInfos.style, latexFileInfos.nbVersions)
     const picsWanted = doesLatexNeedsPics(contents)
     const exosContentList = getExosContentList(latex.exercices)
@@ -23,7 +23,7 @@
     // console.log(imagesUrls)
 
     const text = await latex.getFile(latexFileInfos)
-    textForOverleafInput.value = "data:text/plain;base64," + btoa(unescape(encodeURIComponent(text)))
+    textForOverleafInput.value = 'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(text)))
   }
 </script>
 
@@ -31,7 +31,7 @@
   <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
     {#each imagesUrls as imageUrl}
       <input type="hidden" name="snip_uri[]" value={imageUrl} autocomplete="off" />
-      <input type="hidden" name="snip_name[]" value={imageUrl.split("/")[imageUrl.split("/").length - 1]} autocomplete="off" />
+      <input type="hidden" name="snip_name[]" value={imageUrl.split('/')[imageUrl.split('/').length - 1]} autocomplete="off" />
     {/each}
     <input type="hidden" name="snip_uri[]" bind:this={textForOverleafInput} autocomplete="off" />
     <input type="hidden" name="snip_name[]" value="coopmath.tex" autocomplete="off" />
@@ -41,9 +41,9 @@
       type="submit"
       {disabled}
       on:click={copyDocumentToOverleaf}
-      class={disabled ? 
-        "p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action-lightest  dark:bg-coopmathsdark-action-lightest "
-        :"p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"}
+      class={disabled
+        ? 'p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action-lightest  dark:bg-coopmathsdark-action-lightest '
+        : 'p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest'}
     >
       Compiler en PDF sur Overleaf.com
     </button>

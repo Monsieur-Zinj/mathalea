@@ -1,5 +1,6 @@
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
-import { choice, listeQuestionsToContenu, texteGras } from '../../modules/outils.js'
+import { choice, listeQuestionsToContenu } from '../../modules/outils.js'
 import { cercle, droite, longueur, milieu, point, pointAdistance, pointIntersectionLC } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de la hauteur'

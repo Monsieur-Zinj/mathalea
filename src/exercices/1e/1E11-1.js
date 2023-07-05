@@ -1,4 +1,3 @@
-
 import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

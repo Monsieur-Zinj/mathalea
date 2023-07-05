@@ -1,7 +1,8 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, extraireRacineCarree, texNombre, miseEnEvidence, randint, sp, calcul, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, extraireRacineCarree, miseEnEvidence, randint, sp, calcul, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Résoudre une équation avec une fonction de référence*'
 export const interactifReady = true

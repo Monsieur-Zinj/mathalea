@@ -1,6 +1,7 @@
 import { rienSi1 } from '../../lib/outils/ecritures.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, calcul, texNombre, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, calcul, lettreDepuisChiffre } from '../../modules/outils.js'
 
 export const titre = 'Réduire une expression littérale'
 

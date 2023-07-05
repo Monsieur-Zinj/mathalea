@@ -1,3 +1,4 @@
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -5,8 +6,6 @@ import {
   listeQuestionsToContenu,
   randint,
   numAlpha,
-  stringNombre,
-  texNombre,
   arrondi,
   creerNomDePolygone,
   choice,

@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, texNombre, choice, calcul } from '../../../modules/outils.js'
+import { randint, choice, calcul } from '../../../modules/outils.js'
 export const titre = 'Prendre t % d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'

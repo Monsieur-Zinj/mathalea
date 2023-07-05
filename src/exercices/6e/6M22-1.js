@@ -1,3 +1,4 @@
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
   afficheLongueurSegment,
   cercle,
@@ -17,9 +18,7 @@ import {
   listeQuestionsToContenu,
   miseEnEvidence,
   randint,
-  sp,
-  stringNombre,
-  texNombre
+  sp
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

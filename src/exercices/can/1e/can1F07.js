@@ -5,8 +5,9 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, texNombre } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Déterminer une équation de l’axe de symétrie d’une parabole'

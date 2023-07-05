@@ -1,4 +1,6 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { tableauColonneLigne } from '../../../lib/outils/miseEnPage.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
@@ -8,7 +10,7 @@ import {
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
 import { paveLPH3d } from '../../../modules/3d.js'
-import { listeQuestionsToContenu, arrondi, tableauColonneLigne, stringNombre, randint, texNombre, shuffle, choice, calcul, sp, lettreDepuisChiffre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, randint, shuffle, choice, calcul, sp, lettreDepuisChiffre } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'

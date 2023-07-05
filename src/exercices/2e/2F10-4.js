@@ -1,11 +1,12 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { listeQuestionsToContenu, randint, arrondi, texteGras, combinaisonListes, abs } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, arrondi, combinaisonListes, abs } from '../../modules/outils.js'
 export const titre = 'Déterminer une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,16 +1,16 @@
 <script lang="ts">
-  import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
-  export let title: string = "Valider"
+  import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
+  export let title: string = 'Valider'
   export let isDisabled: boolean = false
-  export let classDeclaration: string = "p-2 rounded-xl"
-  export let icon: string = ""
-  export let idLabel: string = getUniqueStringBasedOnTimeStamp("btn-")
+  export let classDeclaration: string = 'p-2 rounded-xl'
+  export let icon: string = ''
+  export let idLabel: string = getUniqueStringBasedOnTimeStamp('btn-')
   export let inverted: boolean = false
 </script>
 
-<!-- 
+<!--
   @component
-  Bouton 
+  Bouton
 
   __Paramètres__ :
 
@@ -19,13 +19,13 @@
   * `classDeclaration`: chaîne contrôlant le style du bouton (hormis les propriétés _text_ et _bg_)
   * `icon` : nom de l'icône de [Boxicons](https://boxicons.com/?query=)
   * `idLabel` : id pour le bouton (si non renseigné, une ID est construite sur la base d'un time stamp)
-  
+
   __Exemple__:
 
     ```tsx
-  <Button 
-      title="Titre" 
-      on:click={maFonction} 
+  <Button
+      title="Titre"
+      on:click={maFonction}
       isDisabled={maVariable === 0}
   />
   ```
@@ -53,7 +53,7 @@
     disabled={isDisabled}
     on:click
   >
-    {#if icon !== ""}
+    {#if icon !== ''}
       <i class="bx {icon}" />
     {/if}
     {title}

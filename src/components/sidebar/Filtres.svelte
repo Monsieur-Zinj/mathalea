@@ -1,129 +1,129 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  import Button from "../forms/Button.svelte"
-  import Chip from "../forms/Chip.svelte"
+  import { createEventDispatcher } from 'svelte'
+  import Button from '../forms/Button.svelte'
+  import Chip from '../forms/Chip.svelte'
 
   export let isVisible = false
   const levelsMap = new Map([
     [
-      "6e",
+      '6e',
       {
-        title: "Sixième",
-        values: ["6e"],
-      },
+        title: 'Sixième',
+        values: ['6e']
+      }
     ],
     [
-      "5e",
+      '5e',
       {
-        title: "Cinquième",
-        values: ["5e"],
-      },
+        title: 'Cinquième',
+        values: ['5e']
+      }
     ],
     [
-      "4e",
+      '4e',
       {
-        title: "Quatrième",
-        values: ["4e"],
-      },
+        title: 'Quatrième',
+        values: ['4e']
+      }
     ],
     [
-      "3e",
+      '3e',
       {
-        title: "Troisième",
-        values: ["3e"],
-      },
+        title: 'Troisième',
+        values: ['3e']
+      }
     ],
     [
-      "college",
+      'college',
       {
-        title: "Collège",
-        values: ["6e", "5e", "4e", "3e"],
-      },
+        title: 'Collège',
+        values: ['6e', '5e', '4e', '3e']
+      }
     ],
     [
-      "2e",
+      '2e',
       {
-        title: "Seconde",
-        values: ["2e"],
-      },
+        title: 'Seconde',
+        values: ['2e']
+      }
     ],
     [
-      "1e",
+      '1e',
       {
-        title: "Première",
-        values: ["1e"],
-      },
+        title: 'Première',
+        values: ['1e']
+      }
     ],
     [
-      "1techno",
+      '1techno',
       {
-        title: "Première Technologique",
-        values: ["1techno"],
-      },
+        title: 'Première Technologique',
+        values: ['1techno']
+      }
     ],
     [
-      "Ex",
+      'Ex',
       {
-        title: "Terminale Expert",
-        values: ["Ex"],
-      },
+        title: 'Terminale Expert',
+        values: ['Ex']
+      }
     ],
     [
-      "HP",
+      'HP',
       {
-        title: "Hors-Programme (Lycée)",
-        values: ["HP"],
-      },
+        title: 'Hors-Programme (Lycée)',
+        values: ['HP']
+      }
     ],
     [
-      "lycee",
+      'lycee',
       {
-        title: "Lycée",
-        values: ["2e", "1e", "1techno", "Ex", "HP"],
-      },
+        title: 'Lycée',
+        values: ['2e', '1e', '1techno', 'Ex', 'HP']
+      }
     ],
     [
-      "crpe",
+      'crpe',
       {
-        title: "CRPE",
-        values: ["crpe"],
-      },
-    ],
+        title: 'CRPE',
+        values: ['crpe']
+      }
+    ]
   ])
 
   const typesMap = new Map([
     [
-      "interactif",
+      'interactif',
       {
-        title: "Interactif",
-        values: ["interactif"],
-      },
+        title: 'Interactif',
+        values: ['interactif']
+      }
     ],
     [
-      "amc",
+      'amc',
       {
-        title: "AMC (AutoMultipleChoice)",
-        values: ["amc"],
-      },
+        title: 'AMC (AutoMultipleChoice)',
+        values: ['amc']
+      }
     ],
     [
-      "static",
+      'static',
       {
-        title: "Statique",
-        values: ["static"],
-      },
-    ],
+        title: 'Statique',
+        values: ['static']
+      }
+    ]
   ])
 
   $: selectedFilters = []
 
   let levelsBoxes = {}
-  const multipleSelections = ["college", "lycee"]
+  const multipleSelections = ['college', 'lycee']
   /**
    * Mise à jour des checkboxes des filtres de niveaux
    * (prise en compte des sélections multiples comme `college` ou `lycee`)
    */
-  function updateLevelsBoxes() {
+  function updateLevelsBoxes () {
     levelsBoxes = {}
     for (const key of levelsMap.keys()) {
       if (selectedFilters.includes(key)) {
@@ -146,7 +146,7 @@
    * Mise à jour des checkboxes des filtres de types
    * (prise en compte des sélections multiples comme `college` ou `lycee`)
    */
-  function updateTypesBoxes() {
+  function updateTypesBoxes () {
     typesBoxes = {}
     for (const key of typesMap.keys()) {
       if (selectedFilters.includes(key)) {
@@ -167,7 +167,7 @@
         return k
       }
     }
-    return ""
+    return ''
   }
 
   const dispatch = createEventDispatcher()
@@ -175,17 +175,17 @@
    * Gestion de la liste des filtres sélectionnés
    * @param {string} key la clé à ajouter/enlever
    */
-  function updateFilters(key) {
+  function updateFilters (key) {
     // on vérifie si la clé ne fait pas partie d'une clé multiple
     const group = isInOneMultipleSelectedFilters(key)
     if (group.length !== 0 && selectedFilters.includes(group)) {
       // on retire le groupe de la liste si il est présent
-      let index = selectedFilters.indexOf(group)
+      const index = selectedFilters.indexOf(group)
       if (index > -1) {
         selectedFilters.splice(index, 1)
       }
       // on ajoute les éléments du groupe
-      let elts = levelsMap.get(group).values
+      const elts = levelsMap.get(group).values
       for (const e of elts) {
         selectedFilters.push(e)
       }
@@ -217,25 +217,25 @@
     // retirer les doublons d'un tableau
     // source: https://stackoverflow.com/a/1584377
     Array.prototype.unique = function () {
-      var a = this.concat()
-      for (var i = 0; i < a.length; ++i) {
-        for (var j = i + 1; j < a.length; ++j) {
+      const a = this.concat()
+      for (let i = 0; i < a.length; ++i) {
+        for (let j = i + 1; j < a.length; ++j) {
           if (a[i] === a[j]) a.splice(j--, 1)
         }
       }
       return a
     }
     // retrouver les niveaux/types sélectionnés (sans doublons)
-    const concatFilters = (array: string[], t: "level" | "type") => {
+    const concatFilters = (array: string[], t: 'level' | 'type') => {
       let filters = []
       for (const filter of array) {
         switch (t) {
-          case "level":
+          case 'level':
             if (levelsMap.has(filter)) {
               filters = filters.concat(levelsMap.get(filter).values).unique()
             }
             break
-          case "type":
+          case 'type':
             if (typesMap.has(filter)) {
               filters = filters.concat(typesMap.get(filter).values).unique()
             }
@@ -246,9 +246,9 @@
       }
       return filters
     }
-    const selectedLevels = [...concatFilters(selectedFilters, "level")]
-    const selectedTypes = [...concatFilters(selectedFilters, "type")]
-    dispatch("filters", { levels: selectedLevels, types: selectedTypes, size: selectedLevels.length + selectedTypes.length })
+    const selectedLevels = [...concatFilters(selectedFilters, 'level')]
+    const selectedTypes = [...concatFilters(selectedFilters, 'type')]
+    dispatch('filters', { levels: selectedLevels, types: selectedTypes, size: selectedLevels.length + selectedTypes.length })
   }
 </script>
 

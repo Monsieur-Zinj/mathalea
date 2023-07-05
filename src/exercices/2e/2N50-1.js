@@ -1,5 +1,7 @@
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { prenom } from '../../lib/outils/Personne.js'
+import { texPrix } from '../../lib/outils/style.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
   codageSegments,
   homothetie,
@@ -15,10 +17,7 @@ import {
   arrondi,
   choice,
   gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  stringNombre,
-  texNombre,
-  texPrix
+  listeQuestionsToContenu
 } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'

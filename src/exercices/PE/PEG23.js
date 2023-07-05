@@ -1,5 +1,6 @@
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, pointAdistance, milieu } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Réaliser le produit de deux longueurs à la règle non graduée et au compas'

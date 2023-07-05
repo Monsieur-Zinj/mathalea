@@ -1,5 +1,6 @@
+import { texPrix } from '../../../lib/outils/style.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, texPrix } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Résoudre un problème de proportionnalité**'
 export const interactifReady = true

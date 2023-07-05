@@ -1,6 +1,7 @@
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import { codageSegments, milieu, texteParPosition, point, segment, codageAngleDroit } from '../../../modules/2d.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, stringNombre, texNombre } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer une longueur/un périmètre (avec des décimaux)'
@@ -51,7 +52,7 @@ export default function ProblemesDeLongueursEtPerimetre () {
 
           this.reponse = new Decimal(a).mul(4)
           this.correction = `Il s'agit d'un carré. <br>
-          Son périmètre est donc 
+          Son périmètre est donc
           $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a, 1)}=${texNombre(4 * a, 1)}$ cm.`
         } else {
           objets.push(codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
@@ -103,8 +104,8 @@ export default function ProblemesDeLongueursEtPerimetre () {
 
         this.reponse = new Decimal(a2).add(b2)
         this.correction = `Il s'agit d'un rectangle. <br>
-        Son périmètre est donc 
-       $2$ fois la longueur de son demi-périmètre, soit 
+        Son périmètre est donc
+       $2$ fois la longueur de son demi-périmètre, soit
        $2\\times (${texNombre(a, 1)}+${texNombre(b, 1)})= 2\\times ${texNombre(new Decimal(a).add(b), 1)}=${texNombre(2 * a + 2 * b, 1)}$ cm.`
         break
 

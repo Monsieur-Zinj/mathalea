@@ -1,5 +1,6 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, choice, combinaisonListes, texNombre, arrondi } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, choice, combinaisonListes, arrondi } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

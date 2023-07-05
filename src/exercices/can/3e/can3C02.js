@@ -1,4 +1,5 @@
-import { texNombre, randint, sp, texteEnCouleur } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { randint, sp, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une moyenne avec des décimaux'
 export const interactifReady = true
@@ -42,14 +43,14 @@ export default function MoyenneEntiereDeDecimaux () {
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     
     Pour faire la somme des trois nombres, <br>
-    $\\bullet$ On commence par faire la somme de leurs unités : 
+    $\\bullet$ On commence par faire la somme de leurs unités :
     $${Math.floor(a / 10)}+${Math.floor(b / 10)}+${Math.floor(c / 10)}
     =${texNombre(Math.floor(a / 10) + Math.floor(b / 10) + Math.floor(c / 10))}$.<br>
-    $\\bullet$ Puis celle de leurs dixièmes :  
+    $\\bullet$ Puis celle de leurs dixièmes :
     $${texNombre((a / 10) - Math.floor(a / 10))}+${texNombre((b / 10) - Math.floor(b / 10))}+${texNombre((c / 10) - Math.floor(c / 10))}=
     ${texNombre((a / 10) - Math.floor(a / 10) + (b / 10) - Math.floor(b / 10) + (c / 10) - Math.floor(c / 10))}$
     <br>
-    $\\bullet$ On les additionne : 
+    $\\bullet$ On les additionne :
     $${texNombre(Math.floor(a / 10) + Math.floor(b / 10) + Math.floor(c / 10))}
     +${texNombre((a / 10) - Math.floor(a / 10) +
       (b / 10) - Math.floor(b / 10) +

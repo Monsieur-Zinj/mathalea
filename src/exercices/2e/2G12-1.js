@@ -1,6 +1,7 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, extraireRacineCarree, texRacineCarree, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, extraireRacineCarree } from '../../modules/outils.js'
 
 export const titre = 'Utiliser la distance entre deux points dans un repère orthonormé'
 

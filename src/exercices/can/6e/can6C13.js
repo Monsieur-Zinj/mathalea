@@ -1,4 +1,5 @@
-import { randint, texNombre, choice, texteEnCouleur } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { randint, choice, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js' // ici j'importe la classe Decimal qui va me permettre de créer de tels nombres et d'utiliser leur méthodes de calcul exactes.
 export const titre = 'Calculer la somme de deux décimaux'
@@ -54,7 +55,7 @@ export default function FSomme2Decimaux () {
         <br> Mentalement : <br>
     On fait la somme des parties entières des deux nombres : $${a}+${c}=${a + c}$.<br>
     On fait la somme des parties décimales : $${texNombre(n1, 1)}+${texNombre(n2, 1)}=${texNombre(n3, 1)}$.<br>
-    Le résultat est donc donné par : 
+    Le résultat est donc donné par :
     $${a + c}+${texNombre(n3, 1)}=${texNombre(this.reponse, 1)}$.
         `)
     }

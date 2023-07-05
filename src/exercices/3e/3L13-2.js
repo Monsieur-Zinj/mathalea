@@ -1,6 +1,8 @@
 import Decimal from 'decimal.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { warnMessage } from '../../lib/outils/message.js'
+import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
@@ -12,8 +14,6 @@ import {
   listeQuestionsToContenu,
   randint,
   shuffle,
-  tableauColonneLigne,
-  texNombre,
   texteEnCouleurEtGras
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

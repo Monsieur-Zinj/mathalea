@@ -1,4 +1,5 @@
-import { randint, texNombre, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, combinaisonListes, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
+import { randint, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, combinaisonListes, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 import Decimal from 'decimal.js'

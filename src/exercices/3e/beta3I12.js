@@ -1,4 +1,3 @@
-
 import { choice, listeQuestionsToContenu, texteEnCouleurEtGras } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'

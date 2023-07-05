@@ -1,8 +1,8 @@
+import { texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  texteGras,
   sp,
   texteEnCouleur,
   texteEnCouleurEtGras,

@@ -1,5 +1,6 @@
+import { stringNombre } from '../../lib/outils/texNombre.js'
 import { segment, point, texteParPosition, tracePoint, latexParCoordonnees } from '../../modules/2d.js'
-import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp, stringNombre } from '../../modules/outils.js'
+import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'

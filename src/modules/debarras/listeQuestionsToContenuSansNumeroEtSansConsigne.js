@@ -1,4 +1,5 @@
-import { texMulticols, texParagraphe } from '../outils.js'
+import { texMulticols } from '../../lib/outils/miseEnPage.js'
+import { texParagraphe } from '../outils.js'
 
 /**
  * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection

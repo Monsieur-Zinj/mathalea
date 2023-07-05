@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, miseEnEvidence } from '../../modules/outils.js'
 export const titre = 'Encadrer un entier'
 
 /**
@@ -11,6 +12,63 @@ export const titre = 'Encadrer un entier'
 
 export const uuid = '29b40'
 export const ref = '6N11-3'
+
+// selon la precision on veut certains chiffres plus souvant que d'autres ...
+function myNombres (nbChiffres) {
+  let sortie = ''
+  // on fabrique le nombre à partir de ses chiffres et on veut des cas limites
+  let mu, md, mc, mmu, mmd, mmc
+  const N = choice([[randint(0, 9, [0]), 0, 0, 0, 0, 0, 0, 0, 0], [randint(0, 9, [0]), 9, 9, 9, 9, 9, 9, 9, 9], [randint(0, 9, [0]), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9)]])
+  mmc = N[0]
+  mmd = N[1]
+  mmu = N[2]
+  mc = N[3]
+  md = N[4]
+  mu = N[5]
+  const c = N[6]
+  const d = N[7]
+  const u = N[8]
+  switch (nbChiffres) {
+    case 4:
+      mu = randint(0, 9, [0])
+      sortie = mu.toString() + c.toString() + d.toString() + u.toString()
+      break
+    case 5:
+      md = randint(0, 9, [0])
+      sortie = md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
+      break
+    case 6:
+      mc = randint(0, 9, [0])
+      sortie = mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
+      break
+    case 7:
+      mmu = randint(0, 9, [0])
+      sortie = mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
+      break
+    case 8:
+      mmd = randint(0, 9, [0])
+      sortie = mmd.toString() + mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
+      break
+    case 9:
+      mmc = randint(0, 9, [0])
+      sortie = mmc.toString() + mmd.toString() + mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
+      break
+  }
+  return sortie
+}
+
+// une fonction pour les correction à la precision près
+function encadrementCorr (nb, precision) {
+  if (precision === 1) {
+    return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision - precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
+  } else if (precision === 10 || precision === 100) {
+    if (nb % precision === 0) {
+      return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision - precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
+    } else {
+      return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
+    }
+  }
+}
 export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
@@ -19,7 +77,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
     this.nbQuestions = 6
   } else {
     this.nbQuestions = 3
-  };
+  }
 
   this.consigne = ''
 
@@ -36,7 +94,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
       typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
     } else {
       typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3]), choice([4, 5])])
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -48,50 +106,6 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // pour la précision d'encadrement
       let precision
-
-      // selon la precision on veut certains chiffres plus souvant que d'autres ...
-      function myNombres (nbChiffres) {
-        let sortie = ''
-        // on fabrique le nombre à partir de ses chiffres et on veut des cas limites
-        let mu, md, mc, mmu, mmd, mmc
-        const N = choice([[randint(0, 9, [0]), 0, 0, 0, 0, 0, 0, 0, 0], [randint(0, 9, [0]), 9, 9, 9, 9, 9, 9, 9, 9], [randint(0, 9, [0]), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9)]])
-        mmc = N[0]
-        mmd = N[1]
-        mmu = N[2]
-        mc = N[3]
-        md = N[4]
-        mu = N[5]
-        const c = N[6]
-        const d = N[7]
-        const u = N[8]
-        switch (nbChiffres) {
-          case 4:
-            mu = randint(0, 9, [0])
-            sortie = mu.toString() + c.toString() + d.toString() + u.toString()
-            break
-          case 5:
-            md = randint(0, 9, [0])
-            sortie = md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
-            break
-          case 6:
-            mc = randint(0, 9, [0])
-            sortie = mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
-            break
-          case 7:
-            mmu = randint(0, 9, [0])
-            sortie = mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
-            break
-          case 8:
-            mmd = randint(0, 9, [0])
-            sortie = mmd.toString() + mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
-            break
-          case 9:
-            mmc = randint(0, 9, [0])
-            sortie = mmc.toString() + mmd.toString() + mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
-            break
-        };
-        return sortie
-      };
 
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
       switch (this.sup) {
@@ -107,7 +121,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
           this.consigne = 'Compléter avec le multiple de 100 qui précède et le multiple de 100 qui suit.'
           precision = 100
           break
-      };
+      }
 
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
@@ -131,19 +145,6 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
         }
       ]
 
-      // une fonction pour les correction à la precision près
-      function encadrementCorr (nb, precision) {
-        if (precision === 1) {
-          return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision - precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
-        } else if (precision === 10 || precision === 100) {
-          if (nb % precision === 0) {
-            return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision - precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
-          } else {
-            return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
-          };
-        };
-      };
-
       const enonces = []
       for (let k = 0; k < situations.length; k++) {
         enonces.push({
@@ -155,7 +156,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
           ${encadrementCorr(situations[k].nombre, precision)}
           `
         })
-      };
+      }
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
@@ -168,7 +169,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -178,7 +179,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[2].enonce}`
@@ -188,7 +189,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[2].correction}`
-          };
+          }
           break
         case 3:
           texte = `${enonces[3].enonce}`
@@ -199,7 +200,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[3].correction}`
-          };
+          }
           break
         case 4:
           texte = `${enonces[4].enonce}`
@@ -209,7 +210,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[4].correction}`
-          };
+          }
           break
         case 5:
           texte = `${enonces[5].enonce}`
@@ -219,9 +220,9 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[5].correction}`
-          };
+          }
           break
-      };
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

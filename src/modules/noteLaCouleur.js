@@ -1,4 +1,3 @@
-
 /**
  * Classe NoteLaCouleur (objet Pion)
  * this.plateau est le tableau des couleurs de cases.
@@ -22,7 +21,7 @@ class NoteLaCouleur {
     x = 15, y = 15, orientation = 90, plateau = [], relatif = true, nx = 16, ny = 12, pas = 30
   }) {
     this.plateauNLC = plateau
-    this.currentPos = { x: x, y: y }
+    this.currentPos = { x, y }
     this.currentOrientation = orientation
     this.codeScratch = ''
     this.currentIndex = 0

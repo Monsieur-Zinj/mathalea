@@ -1,10 +1,9 @@
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
-  texNombre,
   calcul,
-  decimalToScientifique,
   combinaisonListes,
   randint,
   arrondi

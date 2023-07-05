@@ -1,12 +1,11 @@
 import { texteExposant } from '../../lib/outils/ecritures.js'
+import { texteGras } from '../../lib/outils/style.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import {
   randint,
   listeQuestionsToContenu,
-  texteGras,
-  stringNombre,
-  texNombre,
   choice,
   nombreDeChiffresDe,
   nombreDeChiffresDansLaPartieDecimale,

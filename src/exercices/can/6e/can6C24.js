@@ -1,4 +1,5 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur, premiereLettreEnMajuscule } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { calcul, choice, randint, texteEnCouleur, premiereLettreEnMajuscule } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier ou diviser par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true
@@ -56,7 +57,7 @@ export default function MultiplierParPuissanceDixNeg () {
       this.correction = `$${facteur}${operateurLaTeX} ${texNombre(d)}=${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
   ${premiereLettreEnMajuscule(verbeOperation)}er par $0,1$ revient à ${verbeOperationContraire}er par $10$. <br>
-  Quand on ${verbeOperationContraire}e par $10$, le chiffre des unités (chiffre souligné) dans le nombre  $${a}${b}\\underline{${c}}$ 
+  Quand on ${verbeOperationContraire}e par $10$, le chiffre des unités (chiffre souligné) dans le nombre  $${a}${b}\\underline{${c}}$
   devient le chiffre des ${typeQuestion === 'multiplier' ? 'dixièmes' : 'dizaines'}. On obtient alors :<br>
   $${facteur}${operateurLaTeX} ${texNombre(d)}=${facteur}${operateurLateXContraire} 10=${typeQuestion === 'multiplier' ? `${a}${b},\\underline{${c}}` : `${a}\\,${b}\\underline{${c}}0`}$.<br>
   Remarque : En ${participePresentOperation} un nombre par $0,1$, le résultat doit être plus ${petitOuGrand} que le nombre ${verbeOperation}é.
@@ -67,7 +68,7 @@ export default function MultiplierParPuissanceDixNeg () {
       this.correction = `$${facteur}${operateurLaTeX} ${texNombre(d)}=${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
   ${premiereLettreEnMajuscule(verbeOperation)}er par $0,01$ revient à ${verbeOperationContraire}er par $100$. <br>
-  Quand on ${verbeOperationContraire}e par $100$, le chiffre des unités (chiffre souligné) dans le nombre  $${a}${b}\\underline{${c}}$  
+  Quand on ${verbeOperationContraire}e par $100$, le chiffre des unités (chiffre souligné) dans le nombre  $${a}${b}\\underline{${c}}$
   devient le chiffre des ${typeQuestion === 'multiplier' ? 'centièmes' : 'centaines'}. On obtient alors :<br>
   $${facteur}${operateurLaTeX} ${texNombre(d)}=${facteur}${operateurLateXContraire} 100=${typeQuestion === 'multiplier' ? `${a},${b}\\underline{${c}}` : `${a}${b}\\,\\underline{${c}}00`}$.<br>
   Remarque : En ${participePresentOperation} un nombre par $0,01$, le résultat doit être plus ${petitOuGrand} que le nombre ${verbeOperation}é.
@@ -78,7 +79,7 @@ export default function MultiplierParPuissanceDixNeg () {
       this.correction = `$${facteur}${operateurLaTeX} ${texNombre(d)}=${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
   ${premiereLettreEnMajuscule(verbeOperation)}er par $0,001$ revient à ${verbeOperationContraire}er par $1000$. <br>
-  Quand on ${verbeOperationContraire}e par $1000$, le chiffre des unités (chiffre souligné) dans le nombre  $${a}${b}\\underline{${c}}$ 
+  Quand on ${verbeOperationContraire}e par $1000$, le chiffre des unités (chiffre souligné) dans le nombre  $${a}${b}\\underline{${c}}$
   devient le chiffre des ${typeQuestion === 'multiplier' ? 'millièmes' : 'unités de mille'}. On obtient alors :<br>
   $${facteur}${operateurLaTeX} ${texNombre(d)}=${facteur}${operateurLateXContraire} 1000=${typeQuestion === 'multiplier' ? `0,${a}${b}\\underline{${c}}` : `${a}${b}\\underline{${c}}\\,000`}$.<br>
   Remarque : En ${participePresentOperation} un nombre par $0,001$, le résultat doit être plus ${petitOuGrand} que le nombre ${verbeOperation}é.

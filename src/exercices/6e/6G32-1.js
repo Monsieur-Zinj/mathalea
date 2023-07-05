@@ -1,6 +1,7 @@
+import { texcolors, texteGras } from '../../lib/outils/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, shuffle, combinaisonListes, lettreDepuisChiffre, texcolors, texteGras, numAlpha, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, shuffle, combinaisonListes, lettreDepuisChiffre, numAlpha, listeQuestionsToContenu } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codageAngle, texteParPosition } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
@@ -120,7 +121,7 @@ export default function SymetrieAxialeConservation1 () {
       // On rédige les questions et les réponses
       if (this.sup2 === true) alternance = 2
       else alternance = 1
-      function index (ii) {
+      const index = function (ii) {
         return (ii + 12 * (ii % alternance)) % 24
       }
       objetsEnonce.length = 0
