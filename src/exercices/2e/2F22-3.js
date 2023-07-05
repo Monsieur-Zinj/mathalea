@@ -5,7 +5,8 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere, texteParPosition } from '../../modules/2d.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
-import { choice, listeQuestionsToContenu, randint, stringNombre } from '../../modules/outils.js'
+import { choice, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { stringNombre } from '../../lib/outils/texNombre.js'
 
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement.'
 export const interactifReady = true
@@ -15,28 +16,29 @@ export const dateDePublication = '04/07/2023' // La date de publication initiale
 export const uuid = 'a7860' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = '2F22-3'// @todo à modifier aussi
 // une liste de nœuds pour définir une fonction Spline
-const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
-  { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: false },
+const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+  { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   { x: -2, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-  { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: false },
+  { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 0, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-  { x: 2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: false },
+  { x: 2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-  { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: false },
-  { x: 5, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false }
+  { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+  { x: 5, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
 ]
 // une autre liste de nœuds...
-const noeuds2 = [{ x: -5, y: 0, deriveeGauche: 1.5, deriveeDroit: 1.5, isVisible: false },
+const noeuds2 = [{ x: -6, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
+  { x: -5, y: 0, deriveeGauche: 2, deriveeDroit: 3, isVisible: true },
   { x: -4, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-  { x: -3, y: 2.3, deriveeGauche: -1.2, deriveeDroit: -1.2, isVisible: false },
+  { x: -3, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: -2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: -1, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-  { x: 0, y: -0.5, deriveeGauche: 1, deriveeDroit: 1, isVisible: false },
+  { x: 0, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   { x: 1, y: 3, deriveeGauche: 3, deriveeDroit: 3, isVisible: true },
   { x: 2, y: 5, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 3, y: 4, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
   { x: 4, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-  { x: 5, y: 4, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
+  { x: 5, y: 4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   { x: 6, y: 5, deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true }
 ]
 
@@ -47,17 +49,18 @@ const noeuds3 = [{ x: -6, y: -4, deriveeGauche: 1, deriveeDroit: 1, isVisible: t
   { x: 6, y: -3, deriveeGauche: -1, deriveeDroit: -1, isVisible: true }
 ]
 
-const noeuds4 = [{ x: -5, y: 4, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-  { x: -4, y: 2, deriveeGauche: -0.8, deriveeDroit: -1.5, isVisible: true },
+const noeuds4 = [{ x: -6, y: 3, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+  { x: -5, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+  { x: -4, y: 2, deriveeGauche: -1.5, deriveeDroit: -1.5, isVisible: true },
   { x: -2, y: 0, deriveeGauche: -1, deriveeDroit: -1.5, isVisible: true },
   { x: 0, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-  { x: 1, y: -1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+  { x: 1, y: -1, deriveeGauche: 1.5, deriveeDroit: 1.5, isVisible: true },
   { x: 2, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-  { x: 3, y: -3, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
+  { x: 3, y: -3, deriveeGauche: -2, deriveeDroit: -2, isVisible: true }
 ]
 
 // une liste des listes
-const mesFonctions = [noeuds4]//, noeuds1, noeuds2,
+const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4]//, , noeuds2noeuds1, noeuds2,
 
 /**
  * trouve les extrema mais ne fonctionne que si les extrema se trouvent en des noeuds.
@@ -71,17 +74,40 @@ function trouveMaxes (nuage) {
   const yMax = Math.ceil(Math.max(...nuage.map(el => el.y)) + 1)
   return { xMin, xMax, yMin, yMax }
 }
-
+let coeffX; let coeffY; let deltaX; let deltaY
 /**
  * choisit les caractèristique de la transformation de la courbe
  * @returns {{coeffX: -1|1, deltaX: int, deltaY: int, coeffY: -1|1}}
  */
-function aleatoiriseCourbe () {
-  const coeffX = choice([-1, 1]) // symétries ou pas
-  const coeffY = choice([-1, 1])
-  const deltaX = randint(-2, +2) // translations
-  const deltaY = 0// randint(-2, +2)
-  return { coeffX, coeffY, deltaX, deltaY }
+// function aleatoiriseCourbe () {
+//  const coeffX = choice([-1, 1]) // symétries ou pas
+// const coeffY = choice([-1, 1])
+// const deltaX = randint(-2, +2) // translations
+// const deltaY = 0//randint(-2, +2)
+// return { coeffX, coeffY, deltaX, deltaY }
+// }
+
+function aleatoiriseCourbe (choix) {
+  switch (choix) {
+    case 1:
+      coeffX = choice([-1, 1]) // symétries ou pas
+      coeffY = choice([-1, 1])
+      deltaX = randint(-2, +2) // translations
+      deltaY = 0// randint(-2, +2)
+      return { coeffX, coeffY, deltaX, deltaY }
+    case 2:
+      coeffX = choice([-1, 1]) // symétries ou pas
+      coeffY = choice([-1, 1])
+      deltaX = randint(-2, +2) // translations
+      deltaY = randint(-2, +2)
+      return { coeffX, coeffY, deltaX, deltaY }
+    case 3:
+      coeffX = choice([-1, 1]) // symétries ou pas
+      coeffY = choice([-1, 1])
+      deltaX = randint(-2, +2) // translations
+      deltaY = choice([randint(-2, +2), 0])
+      return { coeffX, coeffY, deltaX, deltaY }
+  }
 }
 
 /**
@@ -93,19 +119,22 @@ export default class BetaModeleSpline extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    // this.sup = '4'
+    this.sup = 1
     this.nbQuestions = 1 // Nombre de questions par défaut
-    // this.besoinFormulaireTexte = ['Réglages des questions :', '1 : Un seul antécédent\n2 : Deux antécédents\n3 : trois antécédents\n4 : De un à trois antécédents\n5 : De 0 à 3 antécédents\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', '1 : Antécédents de zéros entiers\n2 : Antécédents de zéros non entiers possible\n3 : Mélange']
+    this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
+    this.correctionDetaillee = false
   }
 
   nouvelleVersion (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 3, defaut: 1, nbQuestions: this.nbQuestions })
     // const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 4, nbQuestions: this.nbQuestions })
     // boucle de création des différentes questions
     for (let i = 0; i < this.nbQuestions; i++) {
-      const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe()
+      const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe(Number(typeDeQuestions[i]))
       // la liste des noeuds de notre fonction
       const nuage = choice(mesFonctions).map((noeud) => Object({
         x: (noeud.x + deltaX) * coeffX,
@@ -136,22 +165,27 @@ export default class BetaModeleSpline extends Exercice {
         repere: repere1,
         epaisseur: 1.5,
         ajouteNoeuds: true,
-        optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
+        optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
       })
       const objetsEnonce = [repere1, courbe1]
-      let texteEnonce = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce)), objetsEnonce, o)
-
+      let texteEnonce = 'Voici la courbe représentative d\'une fonction $f$.<br>'
+      texteEnonce += mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce, o)
       texteEnonce += '<br>Dresser le tableau de signes de $f(x)$ sur son ensemble de définition.'
       // const objetsCorrection = [repere1]
       // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
 
-      let texteCorrection = `
-      `
-      texteCorrection += '<br>voici les signes de $f$ : '
+      let texteCorrection
+      texteCorrection = `<br>L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`
+      if (this.correctionDetaillee) {
+        texteCorrection += `Les images $f(x)$ sont positives lorsque la courbe est au-dessus de l'axe des abscisses et elles sont négatives lorque la courbe est en dessous de l'axe des abscisses.<br><br>
+          `
+      }
+      texteCorrection += `Tableau de signes de $f(x)$ sur $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$ :<br>
+          `
       // on stocke le tableau de signes dans une variable
       const signes = maSpline.signes()
-      console.log(JSON.stringify(signes))
+      // console.log(JSON.stringify(signes))
       const initialValue = []
       const premiereLigne = signes.reduce((previousElt, currentElt) => previousElt.concat([stringNombre(currentElt.xG, 1), 10]), initialValue)
       premiereLigne.push(stringNombre(signes[signes.length - 1].xD), 10)
@@ -188,7 +222,7 @@ export default class BetaModeleSpline extends Exercice {
         deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 5, // taille de la première colonne en cm
         hauteurLignes: [15, 15],
-        latex: false
+        latex: true
       }))
 
       this.listeQuestions.push(texteEnonce)
