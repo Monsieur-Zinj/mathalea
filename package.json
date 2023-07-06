@@ -46,7 +46,8 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "transpile": "tsc > journal.log",
     "buildDicos": "cd ./src/modules && node exercice_to_json.js > journal2.log",
-    "test": "pnpm start & sleep 5 && npx playwright test"
+    "test": "pnpm start & sleep 5 && npx playwright test",
+    "lint": "eslint ./src/exercices/. --ext .js,.svelte,.ts --fix"
   },
   "dependencies": {
     "@bugsnag/js": "^7.20.2",
