@@ -94,7 +94,7 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
       const nomIndirectCorrect = nomDirectCorrect.split('').reverse().join('')
       const nomDirectIncorrect = inverse2lettres(nomDirectCorrect)
       const nomIndirrectIncorrect = inverse2lettres(nomIndirectCorrect)
-      function inverse2lettres (str) {
+      const inverse2lettres = (str) => {
         const arr = str.split('')
         const temp = arr[1]
         arr[1] = arr[2]

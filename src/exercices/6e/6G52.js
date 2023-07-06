@@ -99,10 +99,10 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
-      function couleur (indice) { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
+      const couleur = (indice) => { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
         return couleurs[indice]
       }
-      function texDroiteEnonce (indice) {
+      const texDroiteEnonce = (indice) => {
         return `$${miseEnEvidence(noms[indice], couleurs[indice])}$`
       }
       texte = `Les droites ${texDroiteEnonce(0)} et ${texDroiteEnonce(1)} sont parallèles.<br>`

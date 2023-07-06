@@ -3,7 +3,6 @@ import {
   tableauSignesFonction,
   tableauVariationsFonction
 } from '../../modules/mathFonctions/outilsMaths.js'
-import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

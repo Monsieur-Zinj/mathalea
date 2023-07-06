@@ -35,7 +35,7 @@ export default function DescriptionSegmentDroiteDemiDroite () {
       const B = point(4, calcul(randint(0, 20) / 10), p[1])
       const t1 = tracePointSurDroite(A, B)
       const t2 = tracePointSurDroite(B, A)
-      function creerDroiteDemiSegment (A, B) {
+      const creerDroiteDemiSegment = (A, B) => {
         let trait, correction
         switch (listeTypeDeQuestions[i]) {
           case 1:

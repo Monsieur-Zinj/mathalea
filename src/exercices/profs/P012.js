@@ -4,7 +4,6 @@ import { context } from '../../modules/context.js'
 
 import { fraction } from '../../modules/fractions.js'
 import {
-  combinaisonListesSansChangerOrdre,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 
