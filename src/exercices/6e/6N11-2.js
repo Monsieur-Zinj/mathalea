@@ -1,7 +1,7 @@
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, htmlConsigne, egal, shuffle, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, egal, shuffle, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
@@ -54,7 +54,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     const tailleUnite = 4
     const d = []
     let abscisse = []
-    this.contenu = htmlConsigne(this.consigne)
+    this.contenu = this.consigne
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, traceA, traceB, traceC, labels, pas1, texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
       l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
       l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)

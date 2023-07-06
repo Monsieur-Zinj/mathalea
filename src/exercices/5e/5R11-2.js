@@ -2,7 +2,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, lettreDepuisChiffre, htmlConsigne, egal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, lettreDepuisChiffre, egal } from '../../modules/outils.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const interactifReady = true
@@ -55,7 +55,7 @@ export default function PlacerPointsSurAxeRelatifs () {
     this.contenuCorrection = '' // Liste de questions corrigées
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
 
-    this.contenu = htmlConsigne(this.consigne)
+    this.contenu = this.consigne
     for (let i = 0, abs0, abs1, abs2, abs3, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, pas1, pas2, texte, texteCorr; i < this.nbQuestions; i++) {
       pointsNonSolutions[i] = []
       pointsSolutions[i] = []
