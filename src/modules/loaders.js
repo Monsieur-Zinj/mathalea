@@ -220,9 +220,7 @@ export async function loadMathLive () {
       if (mf.classList.contains('largeur75')) {
         style += ' width: 75%;'
       }
-      if (context.versionMathalea > 2) {
-        style += ' min-width: 200px'
-      }
+      style += ' min-width: 200px'
       mf.style = style
     }
   }

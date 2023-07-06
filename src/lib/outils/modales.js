@@ -10,19 +10,12 @@ import { context } from '../../modules/context.js'
 export function creerModal (numeroExercice, contenu, labelBouton, icone) {
   if (context.isHtml) {
     let HTML = ''
-    if (context.versionMathalea === 2) {
-      HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
-      <div class="ui modal" id="modal${numeroExercice}">
-      ${contenu}
-      </div>`
-    } else if (context.versionMathalea > 2) {
-      HTML = `<div id="aide-${numeroExercice}" class="group">
+    HTML = `<div id="aide-${numeroExercice}" class="group">
       <div id="aide-trigger-${numeroExercice}">?</div>
       <div id="aide-content-${numeroExercice}">
       ${contenu}
       </div>
       </div>`
-    }
     return HTML
   } else {
     return ''
@@ -37,11 +30,7 @@ export function creerModal (numeroExercice, contenu, labelBouton, icone) {
  * @author Rémi Angot
  */
 export function creerBoutonMathalea2d (numeroExercice, fonction, labelBouton = 'Aide', icone = 'info circle') {
-  if (context.versionMathalea === 3) {
-    return `<button class="inline-block px-6 py-2.5 mr-10 my-5 ml-6 bg-coopmaths text-white font-medium text-xs leading-tight uppercase rounded shadow-md transform hover:scale-110 hover:bg-coopmaths-dark hover:shadow-lg focus:bg-coopmaths-dark focus:shadow-lg focus:outline-none focus:ring-0 active:bg-coopmaths-dark active:shadow-lg transition duration-150 ease-in-out" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
-  } else {
-    return `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
-  }
+  return `<button class="inline-block px-6 py-2.5 mr-10 my-5 ml-6 bg-coopmaths text-white font-medium text-xs leading-tight uppercase rounded shadow-md transform hover:scale-110 hover:bg-coopmaths-dark hover:shadow-lg focus:bg-coopmaths-dark focus:shadow-lg focus:outline-none focus:ring-0 active:bg-coopmaths-dark active:shadow-lg transition duration-150 ease-in-out" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
 }
 
 /**
@@ -96,13 +85,8 @@ export function modalYoutube (numeroExercice, idYoutube, titre, labelBouton = 'A
  */
 export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aide', icone = 'info circle') {
   let contenu = ''
-  if (context.versionMathalea === 2) {
-    contenu = `<div class="header">${titre}</div>`
-    contenu += `<div class="content">${texte}</div>`
-  } else if (context.versionMathalea > 2) {
-    contenu = `<div class="aide-header">${titre}</div>`
-    contenu += `<div class="aide-content">${texte}</div>`
-  }
+  contenu = `<div class="aide-header">${titre}</div>`
+  contenu += `<div class="aide-content">${texte}</div>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
