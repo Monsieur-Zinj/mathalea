@@ -1,4 +1,4 @@
-import { tableauColonneLigne } from '../../../lib/outils/miseEnPage.js'
+import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
 import { calcul, choice, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une quatrième proportionnelle'

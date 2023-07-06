@@ -1,5 +1,5 @@
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires.js'
-import { texteCentre } from '../../../lib/outils/miseEnPage.js'
+import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint, choice } from '../../../modules/outils.js'

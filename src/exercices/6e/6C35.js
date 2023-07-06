@@ -2,7 +2,7 @@
 
 import { max } from 'mathjs'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires.js'
-import { deuxColonnes } from '../../lib/outils/miseEnPage.js'
+import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

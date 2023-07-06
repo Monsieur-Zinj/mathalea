@@ -1,4 +1,4 @@
-import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
+import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import Exercice from '../Exercice.js'
 import { choice, contraindreValeur, listeQuestionsToContenu, shuffle } from '../../modules/outils.js'
 export const titre = 'Encodeur de texte'

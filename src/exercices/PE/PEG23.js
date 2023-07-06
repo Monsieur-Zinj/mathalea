@@ -1,4 +1,4 @@
-import { texteGras } from '../../lib/outils/style.js'
+import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, pointAdistance, milieu } from '../../modules/2d.js'

@@ -1,4 +1,4 @@
-import { infoMessage } from '../../lib/outils/message.js'
+import { infoMessage } from '../../lib/format/message.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

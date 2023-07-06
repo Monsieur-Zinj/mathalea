@@ -1,6 +1,6 @@
 import { fractionSimplifiee, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { texteExposant } from '../../lib/outils/ecritures.js'
-import { katexPopup2 } from '../../lib/outils/message.js'
+import { katexPopup2 } from '../../lib/format/message.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

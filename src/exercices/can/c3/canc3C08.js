@@ -1,5 +1,5 @@
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/outils/style.js'
+import { texPrix } from '../../../lib/format/style.js'
 import Exercice from '../../Exercice.js'
 import { choice, randint } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"*'

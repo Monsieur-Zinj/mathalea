@@ -1,4 +1,4 @@
-import { infoMessage, lampeMessage } from '../../lib/outils/message.js'
+import { infoMessage, lampeMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'

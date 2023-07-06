@@ -1,4 +1,4 @@
-import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
+import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

@@ -1,5 +1,5 @@
-import { infoMessage } from '../../lib/outils/message.js'
-import { texteGras } from '../../lib/outils/style.js'
+import { infoMessage } from '../../lib/format/message.js'
+import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { point } from '../../modules/2d.js'

@@ -1,5 +1,5 @@
 import { context } from '../../modules/context.js'
-import { modalImage, modalTexteLong } from './modales.js'
+import { modalImage, modalTexteLong } from '../outils/modales.js'
 
 export function katexPopupTest (texte, titrePopup, textePopup) {
   let contenu = ''

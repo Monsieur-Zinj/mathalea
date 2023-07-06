@@ -1,4 +1,4 @@
-import { texMulticols } from '../../lib/outils/miseEnPage.js'
+import { texMulticols } from '../../lib/format/miseEnPage.js'
 import { context } from '../context.js'
 import { htmlLigne, texParagraphe } from '../outils.js'
 

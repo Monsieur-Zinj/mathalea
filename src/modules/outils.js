@@ -2,7 +2,7 @@
 import Algebrite from 'algebrite'
 import Decimal from 'decimal.js'
 import { evaluate, isArray, isInteger, round } from 'mathjs'
-import { texMulticols } from '../lib/outils/miseEnPage.js'
+import { texMulticols } from '../lib/format/miseEnPage.js'
 import { factorisation } from '../lib/outils/primalite.js'
 import { texNombre } from '../lib/outils/texNombre.js'
 import { context } from './context.js'

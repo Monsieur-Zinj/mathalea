@@ -1,5 +1,5 @@
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
-import { katexPopup2 } from '../../lib/outils/message.js'
+import { katexPopup2 } from '../../lib/format/message.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

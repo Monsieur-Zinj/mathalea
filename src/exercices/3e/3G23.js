@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { texteGras } from '../../lib/outils/style.js'
+import { texteGras } from '../../lib/format/style.js'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
 import Exercice from '../Exercice.js'
