@@ -1,6 +1,6 @@
 /* global $ */
 import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context.js'
-import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom.js'
+import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from '../lib/html/dom.js'
 import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog.js'
 import { modalTimer } from './modalTimer.js'

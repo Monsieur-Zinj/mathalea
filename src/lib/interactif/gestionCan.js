@@ -1,5 +1,5 @@
 import { context } from '../../modules/context.js'
-import { addElement, get } from '../../modules/dom.js'
+import { addElement, get } from '../html/dom.js'
 import { verifQuestionCliqueFigure } from './cliqueFigure.js'
 import { verifQuestionMathLive } from './questionMathLive.js'
 import { verifQuestionQcm } from './qcm.js'

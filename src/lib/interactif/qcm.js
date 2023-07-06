@@ -1,5 +1,5 @@
 import { context } from '../../modules/context'
-import { get } from '../../modules/dom'
+import { get } from '../html/dom'
 import { messageFeedback } from '../../modules/messages'
 import { shuffleJusqua } from '../../modules/outils'
 import { gestionCan } from './gestionCan'

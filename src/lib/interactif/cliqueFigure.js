@@ -1,5 +1,5 @@
 import { context } from '../../modules/context.js'
-import { addElement, get, setStyles } from '../../modules/dom.js'
+import { addElement, get, setStyles } from '../html/dom.js'
 import { gestionCan } from './gestionCan.js'
 import { afficheScore } from './gestionInteractif.js'
 

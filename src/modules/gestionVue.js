@@ -1,5 +1,5 @@
 import { context } from './context.js'
-import { create } from './dom.js'
+import { create } from '../lib/html/dom.js'
 import { getVueFromUrl, setUrl } from './gestionUrl.js'
 
 export async function gestionVue (vue) {
