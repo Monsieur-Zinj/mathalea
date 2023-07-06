@@ -15,7 +15,8 @@ import {
   tracePoint,
   labelPoint,
   segment,
-  nomVecteurParPosition
+  nomVecteurParPosition,
+  texteParPosition
 } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -40,7 +41,7 @@ export default function Calculercoordonneesvecteurs () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let xA, yA, xB, yB, xAB, yAB
+      let xA, yA, xB, yB, xAB, yAB, r
       if (this.sup === 1) {
         xA = randint(-4, 4)
         yA = randint(-4, 4)
@@ -48,6 +49,19 @@ export default function Calculercoordonneesvecteurs () {
         yAB = new FractionEtendue(randint(-4, 4, [xAB]), 1)
         xB = xA + xAB
         yB = yA + yAB
+        r = repere({
+          xUnite: 1,
+          yUnite: 1,
+          xmin: Math.min(-2, xA - 2, xB - 2, 2),
+          ymin: Math.min(-2, yA - 2, yB - 2, 2),
+          xmax: Math.max(-2, xA + 2, xB + 2, 2),
+          ymax: Math.max(-2, yA + 2, yB + 2, 2),
+          thickHauteur: 0.1,
+          yLabelEcart: 0.4,
+          xLabelEcart: 0.3,
+          axeXStyle: '->',
+          axeYStyle: '->'
+        })
 
         texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$.<br>`
         texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$.'
@@ -61,11 +75,30 @@ export default function Calculercoordonneesvecteurs () {
         xA = new FractionEtendue(frac1[0], frac1[1])
         xAB = new FractionEtendue(randint(-4, 4, [0]), 1)
         xB = xA.ajouteEntier(xAB).simplifie()
-        const listeFractions2 = [[1, 2], [3, 2], [5, 2], [7, 2]]
-        const frac2 = choice(listeFractions2)
+        const frac2 = choice(listeFractions1)
         yAB = new FractionEtendue(frac2[0], frac2[1])
         yB = randint(-4, 4, [0])
         yA = new FractionEtendue(yB * frac2[1] - frac2[0], frac2[1])
+        r = repere({
+          xUnite: 1,
+          yUnite: 1,
+          xmin: Math.min(-2, xA - 2, xB - 2, 2),
+          ymin: Math.min(-2, yA - 2, yB - 2, 2),
+          xmax: Math.max(-2, xA + 2, xB + 2, 2),
+          ymax: Math.max(-2, yA + 2, yB + 2, 2),
+          thickHauteur: 0.1,
+          yLabelEcart: 0.4,
+          xLabelEcart: 0.3,
+          axeXStyle: '->',
+          axeYStyle: '->',
+          grilleSecondaire: true,
+          grilleSecondaireXDistance: 1 / frac1[1],
+          grilleSecondaireYDistance: 1 / frac2[1],
+          grilleSecondaireYMin: Math.min(-2, yA - 2, yB - 2, 2),
+          grilleSecondaireYMax: Math.max(-2, yA + 2, yB + 2, 2),
+          grilleSecondaireXMin: Math.min(-2, xA - 2, xB - 2, 2),
+          grilleSecondaireXMax: Math.max(-2, xA + 2, xB + 2, 2)
+        }) // On définit le repère
 
         texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA.texFSD};${yA.texFSD}\\right)$ et $B\\left(${xB.texFSD};${yB}\\right)$.<br>`
         texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$.'
@@ -74,24 +107,23 @@ export default function Calculercoordonneesvecteurs () {
         texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{AB}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$.<br>`
         texteCorr += `Ce qui donne au final : $\\overrightarrow{AB}\\begin{pmatrix}${xAB}\\\\[0.7em]${yAB.texFSD}\\end{pmatrix}$.<br><br>`
       }
-      const r = repere()// On définit le repère
       const A = point(xA, yA, 'A') // On définit et on trace le point A
       const B = point(xB, yB, 'B') // On définit et on trace le point B
       const t = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      const l = labelPoint(A, B, 'red')// Variable qui trace les nom s A et B
+      const l = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
       const s = segment(A, B, 'red') // On trace en rouge [AB]
-      const O = point(0, 0, 'O')// On définit et on trace le point O
-      const o = labelPoint(O)
-      const I = point(1, 0)// On définit sans tracer le point I
-      const J = point(0, 1)// On définit sans tracer le point J
+      const O = point(0, 0, 'O') // On définit et on trace le point O
+      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const I = point(1, 0) // On définit sans tracer le point I
+      const J = point(0, 1) // On définit sans tracer le point J
       const k = segment(O, I) // Variable qui trace [OI] en rouge
-      const j = segment(O, J)// Variable qui trace [OJ] en rouge
-      s.styleExtremites = '->'// Variable qui transforme [AB] en vecteur
-      k.styleExtremites = '->'// Variable qui transforme [OI] en vecteur
-      j.styleExtremites = '->'// Variable qui transforme [OJ] en vecteur
-      s.epaisseur = 2// Variable qui grossit le tracé du vecteur AB
-      k.epaisseur = 2// Variable qui grossit le tracé du vecteur OI
-      j.epaisseur = 2// Variable qui grossit le tracé du vecteur OJ
+      const j = segment(O, J) // Variable qui trace [OJ] en rouge
+      s.styleExtremites = '->' // Variable qui transforme [AB] en vecteur
+      k.styleExtremites = '->' // Variable qui transforme [OI] en vecteur
+      j.styleExtremites = '->' // Variable qui transforme [OJ] en vecteur
+      s.epaisseur = 2 // Variable qui grossit le tracé du vecteur AB
+      k.epaisseur = 2 // Variable qui grossit le tracé du vecteur OI
+      j.epaisseur = 2 // Variable qui grossit le tracé du vecteur OJ
       k.tailleExtremites = 3
       j.tailleExtremites = 3
       s.tailleExtremites = 3
@@ -103,10 +135,11 @@ export default function Calculercoordonneesvecteurs () {
       const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
       const nomAB = nomVecteurParPosition('AB', (xA + xB) / 2 + 1, (yA + yB) / 2 + 1, 1, 0)
       texteCorr += mathalea2d({
-        xmin: -9,
-        ymin: -9,
-        xmax: 9,
-        ymax: 9
+        xmin: Math.min(-2, xA - 2, xB - 2, 2),
+        ymin: Math.min(-2, yA - 2, yB - 2, 2),
+        xmax: Math.max(-2, xA + 2, xB + 2, 2),
+        ymax: Math.max(-2, yA + 2, yB + 2, 2),
+        zoom: 2.5
       }, r, t, l, k, j, s, o, nomi, nomj, nomAB)// On trace le graphique
       texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Composante sur $x$ de $\\overrightarrow{AB}$ :' })
       texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Composante sur $y$ de $\\overrightarrow{AB}$ :' })
