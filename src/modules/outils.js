@@ -1503,29 +1503,6 @@ export function nombreDeChiffresDe (nb, except) {
   return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
 
-/**
- * Retourne le code LateX correspondant à un symbole
- * @param {string} symbole
- * @returns {string} string
- * @author Guillaume Valmont
- * @example texSymbole('≤') retourne '\\leqslant'
- */
-export function texSymbole (symbole) {
-  switch (symbole) {
-    case '<':
-      return '<'
-    case '>':
-      return '>'
-    case '≤':
-      return '\\leqslant'
-    case '≥':
-      return '\\geqslant'
-    case '\\':
-      return '\\smallsetminus'
-    default:
-      return 'symbole non connu par texSymbole()'
-  }
-}
 
 /**
  * Utilise printlatex et quote de Algebrite
