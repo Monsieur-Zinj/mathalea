@@ -6046,11 +6046,12 @@
         "uuid": "4e52e",
         "url": "6e/6G33.js",
         "titre": "Reconnaître un quadrilatère particulier à partir de ses propriétés",
+        "dateModification": "04/07/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
           "amc": true,
-          "amcType": "qcmMult"
+          "amcType": "qcmMono"
         }
       }
     },
