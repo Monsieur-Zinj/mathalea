@@ -92,8 +92,6 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
       }
       nomDirectCorrect += '$'
       const nomIndirectCorrect = nomDirectCorrect.split('').reverse().join('')
-      const nomDirectIncorrect = inverse2lettres(nomDirectCorrect)
-      const nomIndirrectIncorrect = inverse2lettres(nomIndirectCorrect)
       const inverse2lettres = (str) => {
         const arr = str.split('')
         const temp = arr[1]
@@ -101,6 +99,8 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
         arr[2] = temp
         return arr.join('')
       }
+      const nomDirectIncorrect = inverse2lettres(nomDirectCorrect)
+      const nomIndirrectIncorrect = inverse2lettres(nomIndirectCorrect)
       let questionReponse
       switch (listeTypeQuestions[i]) {
         case 'nom':

@@ -51,6 +51,9 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       const objetsEnonce = []
       const noms = shuffle(['(d_1)', '(d_2)', '(d_3)', '(d_4)', '(d_5)', '(d_6)', '(d_7)'])
       const couleurs = shuffle(['black', 'blue', 'green', '#2471A3', 'purple', 'red', 'brown'])
+      const couleur = (indice) => { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
+        return couleurs[indice]
+      }
       const x = []
       const y = []
       for (let i = 0; i < 6; i++) {
@@ -99,9 +102,6 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
-      const couleur = (indice) => { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
-        return couleurs[indice]
-      }
       const texDroiteEnonce = (indice) => {
         return `$${miseEnEvidence(noms[indice], couleurs[indice])}$`
       }
