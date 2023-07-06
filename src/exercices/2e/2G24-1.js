@@ -2,11 +2,12 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import {
   listeQuestionsToContenu,
   randint,
-  choice
+  choice,
+  creerNomDePolygone
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import {
@@ -42,6 +43,8 @@ export default function Calculercoordonneesvecteurs () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let xA, yA, xB, yB, xAB, yAB, r
+       const nomsPoints=creerNomDePolygone(2,['Q','I','J','O'])
+      const objets=[]
       if (this.sup === 1) {
         xA = randint(-4, 4)
         yA = randint(-4, 4)
@@ -99,34 +102,35 @@ export default function Calculercoordonneesvecteurs () {
           grilleSecondaireXMin: Math.min(-2, xA - 2, xB - 2, 2),
           grilleSecondaireXMax: Math.max(-2, xA + 2, xB + 2, 2)
         }) // On définit le repère
-
+    
         texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA.texFSD};${yA.texFSD}\\right)$ et $B\\left(${xB.texFSD};${yB}\\right)$.<br>`
-        texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$.'
+        texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
         texteCorr = 'On sait d\'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
         texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{AB}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$.<br>`
         texteCorr += `Ce qui donne au final : $\\overrightarrow{AB}\\begin{pmatrix}${xAB}\\\\[0.7em]${yAB.texFSD}\\end{pmatrix}$.<br><br>`
       }
-      const A = point(xA, yA, 'A') // On définit et on trace le point A
-      const B = point(xB, yB, 'B') // On définit et on trace le point B
-      const t = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      const l = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
-      const s = segment(A, B, 'red') // On trace en rouge [AB]
+      const A = point(xA, yA, nomsPoints[0]) // On définit et on trace le point A
+      const B = point(xB, yB, nomsPoints[1]) // On définit et on trace le point B
+      const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
+      tracePoint.taille=1.5
+      const labelAetB = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
+      const vecteurAB = segment(A, B, 'red') // On trace en rouge [AB]
       const O = point(0, 0, 'O') // On définit et on trace le point O
-      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const nomO = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
       const I = point(1, 0) // On définit sans tracer le point I
       const J = point(0, 1) // On définit sans tracer le point J
-      const k = segment(O, I) // Variable qui trace [OI] en rouge
-      const j = segment(O, J) // Variable qui trace [OJ] en rouge
-      s.styleExtremites = '->' // Variable qui transforme [AB] en vecteur
-      k.styleExtremites = '->' // Variable qui transforme [OI] en vecteur
-      j.styleExtremites = '->' // Variable qui transforme [OJ] en vecteur
-      s.epaisseur = 2 // Variable qui grossit le tracé du vecteur AB
-      k.epaisseur = 2 // Variable qui grossit le tracé du vecteur OI
-      j.epaisseur = 2 // Variable qui grossit le tracé du vecteur OJ
-      k.tailleExtremites = 3
-      j.tailleExtremites = 3
-      s.tailleExtremites = 3
+      const vecteurOI = segment(O, I) // Variable qui trace [OI] en rouge
+      const vecteurOJ = segment(O, J) // Variable qui trace [OJ] en rouge
+      vecteurAB.styleExtremites = '->' // Variable qui transforme [AB] en vecteur
+      vecteurOI.styleExtremites = '->' // Variable qui transforme [OI] en vecteur
+      vecteurOJ.styleExtremites = '->' // Variable qui transforme [OJ] en vecteur
+      vecteurAB.epaisseur = 2 // Variable qui grossit le tracé du vecteur AB
+      vecteurOI.epaisseur = 2 // Variable qui grossit le tracé du vecteur OI
+      vecteurOJ.epaisseur = 2 // Variable qui grossit le tracé du vecteur OJ
+      vecteurOI.tailleExtremites = 3
+      vecteurOJ.tailleExtremites = 3
+      vecteurAB.tailleExtremites = 3
       // vi = vecteur(O, I) // Variable qui définit vecteur OI
       // vj = vecteur(O, J) // Variable qui définit vecteur OJ
       // nomi = vi.representantNomme(O, 'i', 2, 'red') // Variable qui trace le nom du représentant du vecteur OI en origine O
@@ -134,13 +138,8 @@ export default function Calculercoordonneesvecteurs () {
       const nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
       const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
       const nomAB = nomVecteurParPosition('AB', (xA + xB) / 2 + 1, (yA + yB) / 2 + 1, 1, 0)
-      texteCorr += mathalea2d({
-        xmin: Math.min(-2, xA - 2, xB - 2, 2),
-        ymin: Math.min(-2, yA - 2, yB - 2, 2),
-        xmax: Math.max(-2.1, xA + 2.1, xB + 2.1, 2.1),
-        ymax: Math.max(-2.1, yA + 2.1, yB + 2.1, 2.1),
-        zoom: 2
-      }, r, t, l, k, j, s, o, nomi, nomj, nomAB)// On trace le graphique
+      objets.push(r,traceAetB,labelAetB,vecteurOI,vecteurOJ,vecteurAB,nomO,nomi,nomj,nomAB)
+      texteCorr += mathalea2d(Object.assign({zoom: 2},fixeBordures(objets)), objets)// On trace le graphique
       texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Composante sur $x$ de $\\overrightarrow{AB}$ :' })
       texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Composante sur $y$ de $\\overrightarrow{AB}$ :' })
       setReponse(this, 2 * i, xAB, { formatInteractif: 'fractionEgale' })
