@@ -2,10 +2,11 @@ import { reduireAxPlusB, rienSi1, ecritureAlgebrique } from '../../lib/outils/ec
 import Exercice from '../Exercice.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
 import { labelPoint, point, tracePoint, courbe, repere, texteParPosition } from '../../modules/2d.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
-
+export const dateDeModifImportante = '06/07/2023'
 export const titre = 'Déterminer le signe d\'une fonction affine'
 
 /**
@@ -19,15 +20,16 @@ export default function Signefonctionaffine () {
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1 // On complète le nb de questions
+  this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
   this.video = ''
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 1
+  this.sup2 = 1
   this.listePackages = ['tkz-tab']
   this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -75,40 +77,39 @@ export default function Signefonctionaffine () {
       typesDeQuestionsDisponibles = [1, 2] // coef de x positif, difference au carrée.
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, tA, lA, maCourbe, ligne1, texte, texteCorr, cpt = 0, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, ligne1, texte, texteCorr, cpt = 0, fraction = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 1:
           {
             const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-            const a = randint(1, 5) * choice([-1, 1])// coefficient a de la fonction affine
-            const b = randint(0, 7) * choice([-1, 1])// coefficient b de la fonction affine
+            const a = randint(1, 5) * choice([-1, 1])
+            const b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
+            fraction = choice(listeFractions)
             const zero = new FractionEtendue(-b, a).simplifie()
             texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$.`
-
-            texteCorr = '$f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
-            if (this.correctionDetaillee) {
-              texteCorr += `Son coefficient $a$ vaut : $a=${a}$ et son coefficient $b$ vaut : $b=${b}$. <br>`
-              // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
-              texteCorr += 'On cherche la valeur de $x$ qui annule la fonction $f$ en résolvant l\'équation $f(x)=0$.<br> '
+            if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
+            if (this.sup2 === 1) {
+              texteCorr += `$f(x)$ est de la forme $ax+b$, c'est une fonction affine avec pour coefficient directeur  $a=${a}$ ${a < 0 ? ' (négatif).' : ' (positif).'}<br>
+             D'où, $f$ est une fonction ${a < 0 ? ' décroissante,' : ' croissante,'} c'est-à-dire que lorsque $x$ augmente, $f(x)$ ${a < 0 ? ' diminue.' : ' augmente.'} <br>
+             Par conséquent, les valeurs de $f(x)$ sont d'abord ${a < 0 ? 'positives' : 'négatives'} puis ${a < 0 ? 'négatives' : 'positives'}.<br><br>
+             Aussi, $f(x)=0 \\iff x=${zero.texFSD}$.<br>`
+            }
+            if (this.sup2 === 2) {
               texteCorr += `$\\begin{aligned}
-          ${reduireAxPlusB(a, b)}&=0\\\\
-          ${rienSi1(a)}x&=${-b}\\\\
-          ${a !== 1 ? `x&=${zero.texFSD}` : ''}
-          \\end{aligned}$<br>`
-            } else { texteCorr += `$${reduireAxPlusB(a, b)}$ s'annule en $x=${zero.texFSD}$.<br>` }
-            texteCorr += `Comme  $a=${a}`
+            ${reduireAxPlusB(a, b)}&>0&\\\\
+            ${b === 0 ? '' : `${rienSi1(a)}x&>${-b}&\\\\`}
+            ${a !== 1 ? `x& ${a < 0 ? '<' : '>'}${zero.texFSD}` : ''}&${a < 0 ? `${miseEnEvidence(`\\text{car} ${a} <0`)}` : ''}
+            \\end{aligned}$<br>`
+              texteCorr += `De plus, $${reduireAxPlusB(a, b)}=0\\iff x=${zero.texFSD}$.<br>`
+            }
             if (a > 0) {
-              texteCorr += `>0$, $f(x)$ est positif pour $x>${zero.texFSD}$ et négatif pour $x<${zero.texFSD}$.<br>
-            Graphiquement, la droite (qui représente la fonction affine) monte, donc les images $f(x)$ sont d'abord négatives puis positives.`
               ligne1 = ['Line', 25, '', 0, '-', 20, 'z', 20, '+']
             } else {
-              texteCorr += `<0$,  $f(x)$ est négatif pour $x>${zero.texFSD}$ et positif pour $x<${zero.texFSD}$.<br>
-            Graphiquement, la droite (qui représente la fonction affine) descend, donc les images $f(x)$ sont d'abord positives puis négatives.`
               ligne1 = ['Line', 25, '', 0, '+', 20, 'z', 20, '-']
             }
-
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -4, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            texteCorr += ' D\'où le tableau de signes suivant :<br>'
+            texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -141,27 +142,17 @@ export default function Signefonctionaffine () {
               grilleSecondaireXMin: -8,
               grilleSecondaireXMax: 8
             })
-            maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
+            const maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
             const A = point(-b / a, 0, '')
 
-            lA = labelPoint(A, 'red')
-            tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
+            const lA = labelPoint(A, 'red')
+            const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
             tA.taille = 5
             tA.epaisseur = 5
             const objets = []
             objets.push(maCourbe, lA, monRepere, o, tA)
-            if (this.correctionDetaillee) {
-              texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>
+            texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>
             ` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
-
-              mathalea2d({
-                xmin: -5,
-                ymin: -5,
-                xmax: 6,
-                ymax: 6,
-                scale: 0.5
-              }, monRepere, maCourbe, tA, lA)
-            }
           }
           break
 
@@ -170,42 +161,40 @@ export default function Signefonctionaffine () {
             const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
             const b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
             fraction = choice(listeFractions)
-            ns = fraction[0] * choice([-1, 1])
-            ds = fraction[1]
+            const ns = fraction[0] * choice([-1, 1])
+            const ds = fraction[1]
             const a = new FractionEtendue(ns, ds).simplifie()
             const aInverse = new FractionEtendue(ns, ds).simplifie().inverse()
             const zero = new FractionEtendue(-b * ds, ns).simplifie()
             texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par ${b === 0 ? `$f(x)=${a.texFSD}x$` : `$f(x)=${a.texFSD}x${ecritureAlgebrique(b)}$`}. <br>`
-
-            texteCorr = '$f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
-            texteCorr += `Son coefficient $a$ vaut : $a=${a.texFSD}$ et son coefficient $b$ vaut : $b=${b}$. <br>`
-            if (this.correctionDetaillee) {
-              texteCorr += 'On cherche la valeur de $x$ qui annule la fonction $f$ en résolvant l\'équation $f(x)=0$.<br> '
+            if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
+            if (this.sup2 === 1) {
+              texteCorr += `$f(x)$ est de la forme $ax+b$, c'est une fonction affine avec pour coefficient directeur  $a=${a.texFSD}$ ${a < 0 ? ' (négatif).' : ' (positif).'}<br>
+             D'où, $f$ est une fonction ${ns < 0 ? ' décroissante,' : ' croissante,'} c'est-à-dire que lorsque $x$ augmente, $f(x)$ ${a < 0 ? ' diminue.' : ' augmente.'} <br>
+             Par conséquent, les valeurs de $f(x)$ sont d'abord ${a < 0 ? 'positives' : 'négatives'} puis ${ns < 0 ? 'négatives' : 'positives'}.<br><br>
+             De plus, $f(x)=0 \\iff x=${zero.texFSD}$.<br>`
+            }
+            if (this.sup2 === 2) {
               if (b === 0) {
                 texteCorr += `$\\begin{aligned}
-           ${a.texFSD}x${ecritureAlgebrique(b)}&=0\\\\
-            x&=0
+           ${a.texFSD}x${ecritureAlgebrique(b)}&>0\\\\
+          x& ${ns < 0 ? '<' : '>'}${zero.texFSD} &${ns < 0 ? `${miseEnEvidence(`\\text{car} ${a.texFSD} <0`)}` : ''}
             \\end{aligned}$<br>`
               } else {
                 texteCorr += `$\\begin{aligned}
-           ${a.texFSD}x${ecritureAlgebrique(b)}&=0\\\\
-            ${a.texFSD}x&=${-b}\\\\
-            x&=${-b}\\times ${aInverse.texFraction}\\\\
-             x&=${zero.texFSD}
+           ${a.texFSD}x${ecritureAlgebrique(b)}&>0\\\\
+            ${a.texFSD}x&>${-b}\\\\
+            x& ${ns < 0 ? '<' : '>'}${-b}\\times ${ns < 0 ? `\\left(${aInverse.texFSD}\\right)` : `${aInverse.texFraction}`} &${ns < 0 ? `${miseEnEvidence(`\\text{car} ${a.texFSD} <0`)}` : ''}\\\\
+            x& ${ns < 0 ? '<' : '>'}${zero.texFSD}
             \\end{aligned}$<br>`
               }
-            } else { texteCorr += `${b === 0 ? `$${a.texFSD}x${ecritureAlgebrique(b)}$` : `$${a.texFSD}x${ecritureAlgebrique(b)}$`} s'annule en $x=${zero.texFSD}$.<br>` }
-            texteCorr += `Comme  $a=${a.texFSD}`
-            if (ns > 0) {
-              texteCorr += `>0$, $f(x)$ est positif pour $x>${zero.texFSD}$ et négatif pour $x<${zero.texFSD}$.<br>
-              Graphiquement, la droite (qui représente la fonction affine) monte, donc les images $f(x)$ sont d'abord négatives puis positives.`
+            }
+            if (a > 0) {
               ligne1 = ['Line', 25, '', 0, '-', 20, 'z', 20, '+']
             } else {
-              texteCorr += `<0$,  $f(x)$ est négatif pour $x>${zero.texFSD}$ et positif pour $x<${zero.texFSD}$.<br>
-              Graphiquement, la droite (qui représente la fonction affine) descend, donc les images $f(x)$ sont d'abord positives puis négatives.`
               ligne1 = ['Line', 25, '', 0, '+', 20, 'z', 20, '-']
             }
-
+            texteCorr += ' D\'où le tableau de signes suivant :<br>'
             texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
               tabInit: [
                 [
@@ -239,23 +228,22 @@ export default function Signefonctionaffine () {
               grilleSecondaireXMin: -8,
               grilleSecondaireXMax: 8
             })
-            maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
+            const maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
             const A = point(-b / a, 0, '')
 
-            lA = labelPoint(A, 'red')
-            tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
+            const lA = labelPoint(A, 'red')
+            const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
             tA.taille = 5
             tA.epaisseur = 5
             const objets = []
             objets.push(maCourbe, lA, monRepere, o, tA)
-            if (this.correctionDetaillee) {
-              texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.6, style: 'margin: auto' }, objets)
-            }
+            texteCorr += `<br>Sur la figure ci-dessous, l'abscisse du point rouge est $${zero.texFSD}$.<br>
+            ` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
           }
           break
       }
 
-      if (this.questionJamaisPosee(i, a, b, ns, ds, typesDeQuestions)) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -266,4 +254,5 @@ export default function Signefonctionaffine () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de questions ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange']
+  this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : En utilisant le sens de variation d\'une fonction affine\n2 : En utilisant le calcul']
 }
