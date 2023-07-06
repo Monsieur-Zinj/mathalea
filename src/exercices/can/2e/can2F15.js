@@ -2,7 +2,7 @@ import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../..
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, abs, randint, choice } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Donner le sens de variation d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'qcm'

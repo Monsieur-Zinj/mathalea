@@ -5,7 +5,7 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Indiquer si des nombres sont premiers ou pas' // EE : J'ai mis indiqué pour que ce titre convienne à AMC.
 export const interactifReady = true
 export const interactifType = 'qcm'

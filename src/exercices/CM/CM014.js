@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { listeQuestionsToContenu, randint, range1, combinaisonListes } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Double, moitié, tiers, triple'
 export const amcReady = true
 export const interactifReady = true

@@ -131,7 +131,7 @@
       await tick()
       if (isInteractif) {
         loadMathLive()
-        if (exercice.interactifType === 'cliqueFigure') {
+        if (exercice?.interactifType === 'cliqueFigure') {
           prepareExerciceCliqueFigure(exercice)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction

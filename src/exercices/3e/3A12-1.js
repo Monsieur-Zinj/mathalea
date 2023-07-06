@@ -8,8 +8,8 @@ import {
   numAlpha,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Résoudre des problèmes avec recherche de diviseurs communs'
 export const interactifReady = true

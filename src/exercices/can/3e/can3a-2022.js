@@ -9,9 +9,9 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'CAN 3e sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'

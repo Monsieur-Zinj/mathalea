@@ -19,7 +19,7 @@
   import { verifQuestionQcm } from '../lib/interactif/qcm'
   import { verifQuestionListeDeroulante } from '../lib/interactif/questionListeDeroulante'
   import ButtonToggle from './forms/ButtonToggle.svelte'
-  import { verifQuestionCliqueFigure } from '../modules/interactif/cliqueFigure'
+  import { verifQuestionCliqueFigure } from '../lib/interactif/cliqueFigure'
   import { prepareExerciceCliqueFigure } from '../lib/interactif/interactif'
   import BtnZoom from './ui/btnZoom.svelte'
   import { getCanvasFont, getTextWidth, remToPixels } from './utils/measures'

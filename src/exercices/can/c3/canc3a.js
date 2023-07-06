@@ -10,8 +10,9 @@ import {
   miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../../modules/2d.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Course aux nombres CM1'

@@ -3,8 +3,9 @@ import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.j
 import { listeQuestionsToContenu, randint, choice, shuffle } from '../../../modules/outils.js'
 import { droite, longueur, papierPointe, point, symetrieAxiale, tracePoint } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Compter les points symétriques manquant'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = true

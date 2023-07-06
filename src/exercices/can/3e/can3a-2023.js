@@ -11,8 +11,9 @@ import {
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, miseEnEvidence, signe, creerNomDePolygone, printlatex, randint, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 export const titre = 'CAN 3e sujet 2023'
 export const interactifReady = true

@@ -7,7 +7,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleur } from '../../modules/outils.js'
 import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, codageSegments, grille, angleOriente } from '../../modules/2d.js'
 import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

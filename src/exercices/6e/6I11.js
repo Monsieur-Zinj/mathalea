@@ -9,8 +9,8 @@ import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, or
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { choice, combinaisonListes, listeQuestionsToContenu, randint, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
-import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const dateDeModifImportante = '14/05/2023' // EE : Passage en interactif

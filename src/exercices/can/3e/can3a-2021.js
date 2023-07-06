@@ -7,9 +7,10 @@ import {
   point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
 } from '../../../modules/2d.js'
 import { listeQuestionsToContenu, randint, shuffle, printlatex, miseEnEvidence, choice, sp, arrondi } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 import { round, min } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'CAN 3e sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
-import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 export const titre = 'Puissances de 10 et préfixes'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'

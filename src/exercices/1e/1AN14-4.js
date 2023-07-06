@@ -1,7 +1,7 @@
 import { abs, derivative, parse, simplify } from 'mathjs'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import {
   combinaisonListes,

@@ -7,8 +7,8 @@ import { listeQuestionsToContenu, randint, choice, calcul, shuffle, numAlpha, co
 import { diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Calculs de fréquences'
 export const interactifReady = true
 export const interactifType = 'mathLive'

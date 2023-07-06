@@ -14,8 +14,9 @@ import { round, min } from 'mathjs'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 // import { tableauColonneLigne } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { context } from '../../../modules/context.js'
 export const titre = 'CAN 4e sujet 2021'
 export const interactifReady = true

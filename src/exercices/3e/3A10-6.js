@@ -10,8 +10,8 @@ import {
   numAlpha,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Trouver un chiffre pour qu\'un nombre soit divisible par un autre'
 // export const amcReady = true
 // export const amcType = 'AMCNum'

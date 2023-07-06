@@ -11,9 +11,9 @@ import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
 import { paveLPH3d } from '../../../modules/3d.js'
 import { listeQuestionsToContenu, arrondi, randint, shuffle, choice, calcul, sp, lettreDepuisChiffre } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'CAN 5e sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'

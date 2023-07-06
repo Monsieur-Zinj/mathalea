@@ -8,9 +8,10 @@ import {
 import { round, min } from 'mathjs'
 
 import { listeQuestionsToContenu, miseEnEvidence, randint, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 import Grandeur from '../../../modules/Grandeur.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 export const titre = 'CAN 6e sujet 2022'
 export const interactifReady = true

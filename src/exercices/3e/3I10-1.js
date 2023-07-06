@@ -14,7 +14,7 @@ import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { ajouterAx, ajouterAy, allerA, angleScratchTo2d, attendre, baisseCrayon, creerLutin, leveCrayon, orienter } from '../../modules/2dLutin.js'
 import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 
 export const titre = 'Analyser des scripts Scratch'

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { codageAngleDroit, codageSegments, grille, point, polygone, rotation, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'QCM de positionnement'
 export const interactifReady = true

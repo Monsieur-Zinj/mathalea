@@ -7,8 +7,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, arrondi } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Calculer la fraction d\'une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'

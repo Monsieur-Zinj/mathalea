@@ -3,7 +3,7 @@ import { reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { tableauDeVariation } from '../../../modules/TableauDeVariation.js'
 export const titre = 'Dresser le tableau de signes d’une fonction affine'
 export const interactifReady = true

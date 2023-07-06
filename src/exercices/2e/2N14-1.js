@@ -1,7 +1,7 @@
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
-import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
+import { setReponse, ajouteChampTexte } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'AMCOpen'

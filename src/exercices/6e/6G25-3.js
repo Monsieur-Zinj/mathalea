@@ -6,8 +6,8 @@ import { listeQuestionsToContenu, egal, randint, shuffle, texteEnCouleur, miseEn
 import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, texteParPosition, pointIntersectionDD, droiteHorizontaleParPoint, point, droiteVerticaleParPoint, latexParCoordonnees } from '../../modules/2d.js'
 import { symetrieAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage'
 export const interactifReady = true
 export const interactifType = 'mathLive'

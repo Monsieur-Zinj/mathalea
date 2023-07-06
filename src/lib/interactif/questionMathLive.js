@@ -6,6 +6,7 @@ import { texteExposant } from '../outils/ecritures.js'
 import { afficheScore } from './gestionInteractif.js'
 import * as pkg from '@cortex-js/compute-engine'
 import Hms from '../../modules/Hms.js'
+import { sp } from '../../modules/outils.js'
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
@@ -327,5 +328,17 @@ export function verifExerciceMathLive (exercice, divScore, divButton) {
   if (!besoinDe2eEssai) {
     divButton.classList.add('cursor-not-allowed', 'opacity-50', 'pointer-events-none')
     afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore)
+  }
+}
+
+export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres = '', texte = '', tailleExtensible = false } = {}) {
+  if (context.isHtml && exercice.interactif) {
+    if (style === '') {
+      return `<label>${texte}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    } else if (tailleExtensible) {
+      return `<label>${sp()}${texte}${sp()}</label><table style="text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0px;padding:0px 0px 5px;margin:0px"><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    } else return `<label>${texte}</label><math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+  } else {
+    return ''
   }
 }

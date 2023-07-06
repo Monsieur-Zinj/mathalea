@@ -6,8 +6,9 @@ import { listeQuestionsToContenu, randint, choice, sp } from '../../../modules/o
 import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Lire une probabilité  à partir d’un arbre'
 export const dateDePublication = '03/07/2022'
 export const interactifReady = true

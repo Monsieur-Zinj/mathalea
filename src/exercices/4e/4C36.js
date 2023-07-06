@@ -9,7 +9,7 @@ import {
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Utiliser les ordres de grandeur pour vérifier ses résultats'

@@ -1,4 +1,3 @@
-
 import type { InterfaceReferentiel } from 'src/lib/types'
 import referentiel from '../../json/referentiel2022.json'
 import referentielStatic from '../../json/referentielStatic.json'

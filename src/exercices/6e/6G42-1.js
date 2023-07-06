@@ -4,9 +4,9 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, contraindreValeur, choice, numAlpha, texteEnCouleurEtGras, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { pave3d, point3d } from '../../modules/3d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Nommer des faces dans un pavé droit'
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC

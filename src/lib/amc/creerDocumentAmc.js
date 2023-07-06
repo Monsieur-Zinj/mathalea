@@ -1,4 +1,4 @@
-import { elimineDoublons } from '../../modules/interactif/questionQcm.js'
+import { elimineDoublons } from '../../lib/interactif/qcm.js'
 import {
   arrondi,
   lettreDepuisChiffre,

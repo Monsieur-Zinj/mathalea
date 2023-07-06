@@ -10,8 +10,8 @@ import {
   miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

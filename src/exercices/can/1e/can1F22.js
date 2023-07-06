@@ -6,7 +6,7 @@ import {
 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { randint, choice, abs, listeQuestionsToContenu } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître une fonction polynôme du second degré (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'

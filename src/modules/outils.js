@@ -6,7 +6,7 @@ import { texMulticols } from '../lib/outils/miseEnPage.js'
 import { factorisation } from '../lib/outils/primalite.js'
 import { dataTaille, texNombre } from '../lib/outils/texNombre.js'
 import { context } from './context.js'
-import { setReponse } from './gestionInteractif.js'
+import { setReponse } from '../lib/interactif/gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 
 export const tropDeChiffres = 'Trop de chiffres'

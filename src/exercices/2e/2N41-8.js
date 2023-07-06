@@ -2,9 +2,9 @@ import { ecritureAlgebriqueSauf1, reduireAxPlusB, reduirePolynomeDegre3, rienSi1
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, abs, combinaisonListes } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const dateDePublication = '23/04/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'

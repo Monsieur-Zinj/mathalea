@@ -2,8 +2,9 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { texteCentre } from '../../../lib/outils/miseEnPage.js'
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer les coordonnées d’un vecteur'
 export const interactifReady = true
 export const interactifType = 'mathLive'

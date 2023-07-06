@@ -4,7 +4,7 @@ import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestions
 import Exercice from '../Exercice.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { fractionLatexToMathjs } from '../../modules/mathFonctions/outilsMaths.js'
 import { context } from '../../modules/context.js'

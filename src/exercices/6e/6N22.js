@@ -5,8 +5,8 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 
 import { fractionCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Effectuer des calculs simples avec des fractions'
 export const dateDePublication = '20/11/21'
 export const interactifReady = true

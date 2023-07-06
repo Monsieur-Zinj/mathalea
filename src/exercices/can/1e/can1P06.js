@@ -4,8 +4,9 @@ import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, sp } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer une probabilté dans un tableau de probabilités'
 export const dateDePublication = '06/07/2022'
 export const interactifReady = true

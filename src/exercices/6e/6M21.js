@@ -3,7 +3,7 @@ import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, numAlpha, choice, entreDeux, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { arc, codageSegment, droite, droiteParPointEtPente, homothetie, longueur, milieu, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 import { afficherTempo, cacherTempo } from '../../modules/2dAnimation.js'
 export const dateDePublication = '08/06/2022'

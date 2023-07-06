@@ -4,7 +4,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { choice, combinaisonListes, listeQuestionsToContenu, randint, texteEnCouleur, numAlpha } from '../../modules/outils.js'
 import { centreGraviteTriangle, droite, point, polygone, rotation, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { symetrieAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true

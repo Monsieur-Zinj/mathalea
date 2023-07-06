@@ -1,7 +1,7 @@
-import { context } from '../context.js'
-import { afficheScore } from '../gestionInteractif.js'
-import { addElement, get, setStyles } from '../dom.js'
+import { context } from '../../modules/context.js'
+import { addElement, get, setStyles } from '../../modules/dom.js'
 import { gestionCan } from './gestionCan.js'
+import { afficheScore } from './gestionInteractif.js'
 
 export function mouseOverSvgEffect () {
   this.style.border = '1px solid #1DA962'

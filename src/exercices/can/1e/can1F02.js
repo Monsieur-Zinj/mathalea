@@ -7,7 +7,7 @@ import {
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint, listeQuestionsToContenu, sp, choice } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Déterminer le sens de variation d’un pôlynome du second degré'
 export const interactifReady = true
 export const interactifType = 'qcm'

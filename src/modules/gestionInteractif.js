@@ -5,7 +5,7 @@ import { exerciceListeDeroulante } from './interactif/questionListeDeroulante.js
 import { exerciceMathLive } from './interactif/questionMathLive.js'
 import { exerciceQcm } from './interactif/questionQcm.js'
 import { isUserIdOk } from './interactif/isUserIdOk.js'
-import { gestionCan } from './interactif/gestionCan.js'
+import { gestionCan } from '../lib/interactif/gestionCan.js'
 import FractionEtendue from './FractionEtendue.js'
 import Grandeur from './Grandeur.js'
 import * as pkg from '@cortex-js/compute-engine'

@@ -1,6 +1,6 @@
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Hms from '../../modules/Hms.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

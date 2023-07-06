@@ -6,8 +6,8 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint, choice, combinaisonListes, numAlpha, rangeMinMax, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal, listeQuestionsToContenu, miseEnCouleur, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

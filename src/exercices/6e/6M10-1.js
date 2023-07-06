@@ -6,8 +6,8 @@ import { listeQuestionsToContenu, randint, choice, texteEnCouleurEtGras, miseEnE
 import { latexParCoordonnees, point, polygone, segment, texteParPositionEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const dateDePublication = '09/04/2022'
 export const titre = 'Problèmes d\'aires de rectangles'
 export const interactifReady = true

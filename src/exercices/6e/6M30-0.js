@@ -4,8 +4,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../modules/outils.js'
 
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Déterminer le volume de pavés droit par dénombrement'
 export const interactifReady = true
 export const amcReady = true

@@ -9,7 +9,7 @@ import { randint, choice, contraindreValeur, listeQuestionsToContenu } from '../
 import { point, texteParPositionEchelle, tracePoint, roseDesVents } from '../../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../../modules/2dLutin.js'
-import { ajouteChampTexte, setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexte, setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { scratchblock } from '../../../modules/scratchblock.js'
 export const titre = 'Noter la couleur (scratch)'
 export const interactifType = 'mathLive'

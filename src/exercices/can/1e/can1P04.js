@@ -4,8 +4,9 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { number } from 'mathjs'
 import { Arbre, texProba } from '../../../modules/arbres.js'
 
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 import { context } from '../../../modules/context.js'
 export const titre = 'Calculer des probabilités à partir d’un arbre'
 export const dateDePublication = '25/12/2021'

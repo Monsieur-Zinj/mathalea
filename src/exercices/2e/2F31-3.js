@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Comparer des images dans un tableau de variations'
 export const interactifReady = true
 export const interactifType = 'qcm'

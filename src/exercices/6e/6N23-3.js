@@ -7,8 +7,8 @@ import { context } from '../../modules/context.js'
 import { randint, troncature, calcul, nombreDeChiffresDe, listeQuestionsToContenu } from '../../modules/outils.js'
 import { point, segment, droiteGraduee } from '../../modules/2d.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
 export const amcReady = true

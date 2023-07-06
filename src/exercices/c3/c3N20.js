@@ -1,7 +1,7 @@
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choice, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Donner l\'écriture décimale à partir d\'un somme d\'entiers et de fractions décimales'
 export const interactifReady = true
 export const interactifType = 'mathLive'

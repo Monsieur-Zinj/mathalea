@@ -5,7 +5,7 @@ import { degCos } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, miseEnEvidence, combinaisonListes, sp } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC

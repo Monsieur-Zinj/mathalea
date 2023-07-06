@@ -2,8 +2,9 @@ import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
 export const interactifReady = true
 export const interactifType = 'mathLive'

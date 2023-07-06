@@ -7,8 +7,9 @@ import { fraction } from '../../../modules/fractions.js'
 import { context } from '../../../modules/context.js'
 import { point, polygoneAvecNom, droiteGraduee, segmentAvecExtremites, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { listeQuestionsToContenu, randint, miseEnEvidence, shuffle, choice, arrondi, sp } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { round, min } from 'mathjs'
 export const titre = 'CAN 6e sujet 2018'
 export const interactifReady = true

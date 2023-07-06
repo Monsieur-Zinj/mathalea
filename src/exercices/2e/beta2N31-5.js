@@ -10,10 +10,10 @@ import {
 } from '../../modules/outils.js'
 import {
   setReponse
-} from '../../modules/gestionInteractif.js'
+} from '../../lib/interactif/gestionInteractif.js'
 import {
   ajouteChampTexteMathLive
-} from '../../modules/interactif/questionMathLive.js'
+} from '../../lib/interactif/questionMathLive.js'
 import {
   context
 } from '../../modules/context.js'

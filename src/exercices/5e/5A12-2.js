@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
