@@ -13,7 +13,7 @@ import 'codemirror/addon/hint/show-hint.css'
 import 'codemirror/addon/edit/closebrackets.js'
 import initialiseEditeur from './initialiseEditeur.js'
 import '../../css/style_mathalea.css'
-import { telechargeFichier } from './outils.js'
+import { telechargeFichier } from './download.js'
 import { context } from './context.js'
 window.notify = function (error, metadatas) { // On écrit la fonction window.notify ici pour éviter les signalements bugsnag... on ne charge plus firstload pour cet éditeur
   console.log(error instanceof Error ? error.message : error, ' avec les métadatas : ', metadatas)

@@ -17,8 +17,8 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 import '../../css/style_mathalea.css'
 import initialiseEditeur from './initialiseEditeur.js'
-import { telechargeFichier } from './outils.js'
 import { context } from './context.js'
+import { telechargeFichier } from './download.js'
 
 // Les variables globales utiles pour l'autocomplétion
 initialiseEditeur()

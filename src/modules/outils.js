@@ -1628,40 +1628,5 @@ export function numAlphaNum (k, nospace = false) {
   else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
 }
 
-/**
- * tire à pile ou face pour écrire ou non un texte
- * @param {string} texte
- * @author Sébastien Lozano
- */
 
-export function texteOuPas (texte) {
-  const bool = randint(0, 1)
-  if (bool === 0) {
-    return '\\ldots'
-  } else {
-    return texte
-  }
-}
 
-// Gestion du fichier à télécharger
-export function telechargeFichier (text, filename) {
-  const element = document.createElement('a')
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-  element.setAttribute('download', filename)
-
-  element.style.display = 'none'
-  document.body.appendChild(element)
-  element.click()
-
-  document.body.removeChild(element)
-}
-
-// Gestion des styles LaTeX
-
-export function dataTailleDiaporama (exercice) {
-  if (context.vue !== 'diap') {
-    return ''
-  } else if (exercice.tailleDiaporama !== 1) {
-    return `data-taille = "${exercice.tailleDiaporama}"`
-  }
-}
