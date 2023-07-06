@@ -169,7 +169,7 @@ export default class BetaModeleSpline extends Exercice {
         color: 'blue'
       })
       const objetsEnonce = [repere1, courbe1]
-      let texteEnonce = 'Voici la courbe représentative d\'une fonction $f$.<br>'
+      let texteEnonce = 'Voici la courbe représentative d\'une fonction $f$, sur son ensemble de définition.<br>'
       texteEnonce += mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce, o)
       texteEnonce += '<br>Dresser le tableau de signes de $f(x)$ sur son ensemble de définition.'
       // const objetsCorrection = [repere1]
