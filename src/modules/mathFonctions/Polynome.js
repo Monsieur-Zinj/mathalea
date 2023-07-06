@@ -51,6 +51,20 @@ export class Polynome {
       })
     }
     this.deg = this.monomes.length - 1
+    /**
+     * la fonction à utiliser pour tracer la courbe par exemple ou calculer des valeurs comme dans pol.image()
+     * const f = pol.fonction est une fonction utilisable dans courbe()
+     * @returns {function(number): number}
+     */
+    const monomes = this.monomes
+    this.fonction = function (x) {
+      let val = 0
+      for (let i = 0; i < monomes.length; i++) {
+        val = val + monomes[i] * x ** i
+      }
+      return val
+      // this.monomes.reduce((val, current, currentIndex) => val + current * x ** currentIndex, 0)
+    }
   }
 
   isMon () { return this.monomes.filter(el => unequal(el, 0)).length === 1 }
@@ -216,20 +230,12 @@ export class Polynome {
   }
 
   /**
-   * la fonction à utiliser pour tracer la courbe par exemple ou calculer des valeurs comme dans pol.image()
-   * const f = pol.fonction est une fonction utilisable dans courbe()
-   * @returns {function(number): number}
-   */
-  get fonction () {
-    return x => this.monomes.reduce((val, current, currentIndex) => val + current * x ** currentIndex)
-  }
-
-  /**
    * Pour calculer l'image d'un nombre
    * @param x
    * @returns {math.Fraction | number | int} // à mon avis ça ne retourne que des number...
    */
   image (x) {
+    // const fonction = x => this.monomes.reduce((val, current, currentIndex) => val + current * x ** currentIndex, 0)
     return this.fonction(x)
   }
 }

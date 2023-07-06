@@ -1,9 +1,11 @@
 import { round } from 'mathjs'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { stringNombre } from '../../lib/outils/texNombre.js'
 import FractionEtendue from '../FractionEtendue.js'
 import { fraction } from '../fractions.js'
 import { matriceCarree } from '../MatriceCarree.js'
-import { randint } from '../outils.js'
+import { egal, randint } from '../outils.js'
+import { TableauDeVariation } from '../TableauDeVariation.js'
 
 /**
  * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme
@@ -166,18 +168,20 @@ export function signesFonction (fonction, xMin, xMax) {
     const image = fonction(x)
     if (xG == null) {
       xG = round(x, 2)
-      xD = xG + 0
+      xD = xG
       signe = image < 0 ? '-' : '+'
     } else if (signe === '-') {
       xD = round(x, 2)
-      if (image >= 0) {
+      // parfois, on rate un zéro transitoire entre deux zones négatives car js sais pas faire des calculs exacts avec des flottants
+      if (image >= 0 || (-image) < 1e-12) {
         signes.push({ xG, xD, signe })
         xG = null
         xD = null
       }
     } else {
       xD = round(x, 2)
-      if (image <= 0) {
+      // parfois, on rate un zéro transitoire entre deux zones négatives car js sais pas faire des calculs exacts avec des flottants
+      if (image <= 0 || image < 1e-12) {
         xD = round(x, 2)
         signes.push({ xG, xD, signe })
         xG = null
@@ -194,7 +198,7 @@ export function signesFonction (fonction, xMin, xMax) {
 /**
  * retourne un tableau décrivant les variations de la fonction
  * Attention, la fonction fournie doit avoir une methode derivee(x) qui retourne la valeur de la dérivée en x
- * @param {(x)=>number} fonctionAvecDerivee
+ * @param {(x)=>number} derivee
  * @param {number} xMin
  * @param {number} xMax
  * @returns {null|*[]}
@@ -202,7 +206,6 @@ export function signesFonction (fonction, xMin, xMax) {
 export function variationsFonction (derivee, xMin, xMax) {
   if (derivee !== null && typeof derivee === 'function') {
     const signesDerivee = signesFonction(derivee, xMin, xMax)
-    console.log(`Signes de la dérivée : ${JSON.stringify(signesDerivee)}`)
     const variations = []
     for (const signe of signesDerivee) {
       if (signe.signe === '+') {
@@ -279,4 +282,99 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
+}
+export function tableauSignesFonction (fonction, xMin, xMax) {
+  const signes = signesFonction(fonction, xMin, xMax)
+
+  const initialValue = []
+  const premiereLigne = []
+  premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG), 10]), initialValue))
+  premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  const tabLine = ['Line', 30]
+  if (egal(fonction(xMin), 0)) {
+    tabLine.push('z', 10)
+  } else {
+    tabLine.push('', 10)
+  }
+  for (const signe of signes) {
+    tabLine.push(signe.signe, 10)
+    tabLine.push('z', 10)
+  }
+  if (!egal(fonction(xMax), 0)) {
+    tabLine.splice(-2, 2)
+  }
+  return new TableauDeVariation({
+    tabInit: [
+      [
+        ['x', 2, 10], ['f(x)', 2, 10]
+      ],
+      premiereLigne
+    ],
+    tabLines: [tabLine],
+    colorBackground: '',
+    escpl: 3.5, // taille en cm entre deux antécédents
+    deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+    lgt: 8, // taille de la première colonne en cm
+    hauteurLignes: [15, 15],
+    latex: false
+  })
+}
+export function tableauVariationsFonction (fonction, derivee, xMin, xMax) {
+  const signes = signesFonction(derivee, xMin, xMax)
+  const premiereLigne = []
+  const initalValue = []
+  premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG), 10]), initalValue))
+  premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  const tabLineDerivee = ['Line', 30]
+  if (egal(derivee(xMin), 0)) {
+    tabLineDerivee.push('z', 10)
+  } else {
+    tabLineDerivee.push('', 10)
+  }
+  for (const signe of signes) {
+    tabLineDerivee.push(signe.signe, 10)
+    tabLineDerivee.push('z', 10)
+  }
+  if (!egal(derivee(xMax), 0)) {
+    tabLineDerivee.splice(-2, 2)
+  }
+
+  const variations = variationsFonction(derivee, xMin, xMax)
+  const tabLineVariations = ['Var', 10]
+  let variationG = variations[0]
+  let variationD
+  if (variationG.variation === 'croissant') {
+    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG, 1), 1)}`, 5)
+  } else {
+    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG, 1), 1)}`, 5)
+  }
+  for (let i = 0; i < variations.length - 1; i++) {
+    variationG = variations[i]
+    variationD = variations[i + 1]
+    if (variationG.variation === variationD.variation) {
+      tabLineVariations.push('R/', 5)
+    } else {
+      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationD.xG, 1), 1)}`, 5)
+    }
+  }
+  if (variationD.variation === 'croissant') {
+    tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 1)}`, 5)
+  } else {
+    tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 1)}`, 5)
+  }
+  return new TableauDeVariation({
+    tabInit: [
+      [
+        ['x', 2, 5], ['f′(x)', 2, 10], ['f(x)', 2, 10]
+      ],
+      premiereLigne
+    ],
+    tabLines: [tabLineDerivee, tabLineVariations],
+    colorBackground: '',
+    escpl: 4.5, // taille en cm entre deux antécédents
+    deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+    lgt: 2, // taille de la première colonne en cm
+    hauteurLignes: [12, 12, 25],
+    latex: false
+  })
 }

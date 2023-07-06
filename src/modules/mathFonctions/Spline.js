@@ -364,7 +364,7 @@ class Spline {
     }
     const self = this
     return (x) => {
-      const index = intervalles.findIndex((intervalle) => x >= intervalle.xG && x < intervalle.xD)
+      const index = intervalles.findIndex((intervalle) => x >= intervalle.xG && x <= intervalle.xD)
       return self.derivees[index].image(x)
     }
   }
