@@ -93,7 +93,11 @@ export default function Calculercoordonneesvecteurs () {
           axeYStyle: '->',
           grilleSecondaire: true,
           grilleSecondaireXDistance: 1 / frac1[1],
-          grilleSecondaireYDistance: 1 / frac2[1]
+          grilleSecondaireYDistance: 1 / frac2[1],
+          grilleSecondaireYMin: Math.min(-2, yA - 2, yB - 2, 2),
+          grilleSecondaireYMax: Math.max(-2, yA + 2, yB + 2, 2),
+          grilleSecondaireXMin: Math.min(-2, xA - 2, xB - 2, 2),
+          grilleSecondaireXMax: Math.max(-2, xA + 2, xB + 2, 2)
         }) // On définit le repère
 
         texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA.texFSD};${yA.texFSD}\\right)$ et $B\\left(${xB.texFSD};${yB}\\right)$.<br>`
@@ -135,7 +139,7 @@ export default function Calculercoordonneesvecteurs () {
         ymin: Math.min(-2, yA - 2, yB - 2, 2),
         xmax: Math.max(-2.1, xA + 2.1, xB + 2.1, 2.1),
         ymax: Math.max(-2.1, yA + 2.1, yB + 2.1, 2.1),
-        zoom: 2.5
+        zoom: 2
       }, r, t, l, k, j, s, o, nomi, nomj, nomAB)// On trace le graphique
       texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Composante sur $x$ de $\\overrightarrow{AB}$ :' })
       texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Composante sur $y$ de $\\overrightarrow{AB}$ :' })
