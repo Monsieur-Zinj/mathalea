@@ -56,10 +56,9 @@ export default class EtudeTrinome extends Exercice {
       question2 = 'Factoriser $f(x)$.'
       correction2 = `$f(x)$ est de la forme $a^2-b^2$ avec $a= x ${p.alpha.oppose().simplifie().texFractionSignee}$ et $b=${Math.sqrt(p.beta.simplifie().oppose().texFraction)}$, c'est une identité remarquable, d'où : `
 
-      correction2 += `<br> $${p.texFormeCanonique} = \\underbrace{\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2}_{a^2}-\\underbrace{${Math.sqrt(p.beta.simplifie().oppose().texFraction)}^2}_{b^2}$`
-      correction2 += `<br> $\\phantom{${p.texFormeCanonique}} =\\underbrace{\\left( (x ${p.alpha.oppose().simplifie().texFractionSignee} )+${Math.sqrt(p.beta.simplifie().oppose().texFraction)}\\right)}_{(a+b)}\\underbrace{\\left( (x ${p.alpha.oppose().simplifie().texFractionSignee})-${Math.sqrt(p.beta.simplifie().oppose().texFraction)}\\right)}_{(a-b)}$`
-      correction2 += `<br> $\\phantom{${p.texFormeCanonique}} =${p.texFormeFactorisee}$`
-      correction2 += `<br> $\\phantom{${p.texFormeCanonique}} = f(x)$`
+      correction2 += `<br> $f(x) = \\underbrace{\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2}_{a^2}-\\underbrace{${Math.sqrt(p.beta.simplifie().oppose().texFraction)}^2}_{b^2}$`
+      correction2 += `<br> $\\phantom{f(x)} =\\underbrace{\\left( (x ${p.alpha.oppose().simplifie().texFractionSignee} )+${Math.sqrt(p.beta.simplifie().oppose().texFraction)}\\right)}_{(a+b)}\\underbrace{\\left( (x ${p.alpha.oppose().simplifie().texFractionSignee})-${Math.sqrt(p.beta.simplifie().oppose().texFraction)}\\right)}_{(a-b)}$`
+      correction2 += `<br> $\\phantom{f(x)} =${p.texFormeFactorisee}$`
       correction2 += `<br> Une forme factorisée de $f(x)$ est donc :  $f(x)=${p.texFormeFactorisee}$.`
     } else {
       question2 = `Montrer que $f(x)$ se factorise sous la forme $f(x)=${p.texFormeFactorisee}$.`
@@ -140,7 +139,9 @@ ${a !== 1 ? `\\iff &${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppo
     corr3d += `<br> $\\phantom{f(x) = ${p.c.simplifie().texFraction}} \\iff x = 0 \\text{\\quad ou \\quad} x = ${p.b.oppose().diviseFraction(p.a).simplifie().texFraction} $`
     corr3d += `<br>
     L'équation a deux solutions : $0$ et $${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}$.<br>
-    On en déduit que $\\mathscr{C}_f$ et la droite d'équation  $y=${p.c.simplifie().texFraction}$ ont deux points d'intersection : $A(0\\,;\\,${p.c.simplifie().texFraction})$ et
+    On en déduit que $\\mathscr{C}_f$ et la droite d'équation  $y=${p.c.simplifie().texFraction}$ ont deux points d'intersection : <br>
+    $A(0\\,;\\,f(0)$ et
+    $B(${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}\\,;\\,f\\left(${p.b.oppose().diviseFraction(p.a).simplifie().texFraction})\\right)$, soit $A(0\\,;\\,${p.c.simplifie().texFraction})$ et
     $B(${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}\\,;\\,${p.c.simplifie().texFraction})$.
     `
 
