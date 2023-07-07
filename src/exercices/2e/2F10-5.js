@@ -1,24 +1,10 @@
-<<<<<<< HEAD
 import { reduireAxPlusB, rienSi1, ecritureAlgebrique } from '../../lib/outils/ecritures.js'
-=======
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
-import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite.js'
-import { texNombre2 } from '../../lib/outils/texNombre.js'
->>>>>>> b13dcbd2a8062b5221afdb75ea6ed1ce11c61281
 import Exercice from '../Exercice.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-<<<<<<< HEAD
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, sp, randint, choice, combinaisonListes, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
 import { labelPoint, point, tracePoint, courbe, repere, texteParPosition } from '../../modules/2d.js'
-=======
-import { listeQuestionsToContenu, randint, choice, itemize } from '../../modules/outils.js'
-import { resoudre } from '../../modules/outilsMathjs.js'
-import { labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
-import { create, all } from 'mathjs'
->>>>>>> b13dcbd2a8062b5221afdb75ea6ed1ce11c61281
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const dateDeModifImportante = '06/07/2023'
 export const titre = 'Déterminer le signe d\'une fonction affine'
@@ -104,18 +90,27 @@ export default function Signefonctionaffine () {
             texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$.`
             if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
             if (this.sup2 === 1) {
-              texteCorr += `$f(x)$ est de la forme $ax+b$, c'est une fonction affine avec pour coefficient directeur  $a=${a}$ ${a < 0 ? ' (négatif).' : ' (positif).'}<br>
+              texteCorr += `$f(x)$ est de la forme $ax+b$, $f$ est donc une fonction affine avec pour coefficient directeur  $a=${a}$ ${a < 0 ? ' (négatif).' : ' (positif).'}<br>
              D'où, $f$ est une fonction ${a < 0 ? ' décroissante,' : ' croissante,'} c'est-à-dire que lorsque $x$ augmente, $f(x)$ ${a < 0 ? ' diminue.' : ' augmente.'} <br>
              Par conséquent, les valeurs de $f(x)$ sont d'abord ${a < 0 ? 'positives' : 'négatives'} puis ${a < 0 ? 'négatives' : 'positives'}.<br><br>
-             Aussi, $f(x)=0 \\iff x=${zero.texFSD}$.<br>`
+             Aussi, $${reduireAxPlusB(a, b)}=0 \\iff x=${zero.texFSD}$.<br><br>`
             }
             if (this.sup2 === 2) {
-              texteCorr += `$\\begin{aligned}
-            ${reduireAxPlusB(a, b)}&>0&\\\\
-            ${b === 0 ? '' : `${rienSi1(a)}x&>${-b}&\\\\`}
-            ${a !== 1 ? `x& ${a < 0 ? '<' : '>'}${zero.texFSD}` : ''}&${a < 0 ? `${miseEnEvidence(`\\text{car} ${a} <0`)}` : ''}
-            \\end{aligned}$<br>`
-              texteCorr += `De plus, $${reduireAxPlusB(a, b)}=0\\iff x=${zero.texFSD}$.<br>`
+              texteCorr += `Résolution de l'inéquation $${reduireAxPlusB(a, b)}>0$ : <br>`
+              if (b === 0) {
+                texteCorr += `$\\begin{aligned}
+${reduireAxPlusB(a, b)}&>0\\\\
+${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}`)}` : '>'}${zero.texFSD}` : ''}${a < 0 ? `${miseEnEvidence(`${sp(5)}\\text{car} ${a} <0`)}` : ''}
+\\end{aligned}$<br>`
+                texteCorr += `De plus, $${reduireAxPlusB(a, b)}=0\\iff x=${zero.texFSD}$.<br><br>`
+              } else {
+                texteCorr += `$\\begin{aligned}
+  ${reduireAxPlusB(a, b)}&>0\\\\
+  ${rienSi1(a)}x&>${-b}\\\\
+  ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}`)}` : '>'}${zero.texFSD}` : ''}${a < 0 ? `${miseEnEvidence(`${sp(5)}\\text{car} ${a} <0`)}` : ''}
+  \\end{aligned}$<br>`
+                texteCorr += `De plus, $${reduireAxPlusB(a, b)}=0\\iff x=${zero.texFSD}$.<br><br>`
+              }
             }
             if (a > 0) {
               ligne1 = ['Line', 25, '', 0, '-', 20, 'z', 20, '+']
@@ -146,6 +141,9 @@ export default function Signefonctionaffine () {
               xMax: 8,
               yMin: -7,
               yMax: 7,
+              yLabelEcart: 0.8,
+              yLabelDistance: 2,
+              xLabelDistance: 2,
               grilleX: false,
               grilleY: false,
               grilleSecondaire: true,
@@ -183,25 +181,28 @@ export default function Signefonctionaffine () {
             texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par ${b === 0 ? `$f(x)=${a.texFSD}x$` : `$f(x)=${a.texFSD}x${ecritureAlgebrique(b)}$`}. <br>`
             if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
             if (this.sup2 === 1) {
-              texteCorr += `$f(x)$ est de la forme $ax+b$, c'est une fonction affine avec pour coefficient directeur  $a=${a.texFSD}$ ${a < 0 ? ' (négatif).' : ' (positif).'}<br>
+              texteCorr += `$f(x)$ est de la forme $ax+b$, $f$ est donc une fonction affine avec pour coefficient directeur  $a=${a.texFSD}$ ${a < 0 ? ' (négatif).' : ' (positif).'}<br>
              D'où, $f$ est une fonction ${ns < 0 ? ' décroissante,' : ' croissante,'} c'est-à-dire que lorsque $x$ augmente, $f(x)$ ${a < 0 ? ' diminue.' : ' augmente.'} <br>
              Par conséquent, les valeurs de $f(x)$ sont d'abord ${a < 0 ? 'positives' : 'négatives'} puis ${ns < 0 ? 'négatives' : 'positives'}.<br><br>
-             De plus, $f(x)=0 \\iff x=${zero.texFSD}$.<br>`
+             De plus,  $${b === 0 ? `${a.texFSD}x=0` : `${a.texFSD}x${ecritureAlgebrique(b)}=0`} \\iff x=${zero.texFSD}$.<br><br>`
             }
             if (this.sup2 === 2) {
               if (b === 0) {
+                texteCorr += `Résolution de l'inéquation  $ ${a.texFSD}x>0$ : <br>`
                 texteCorr += `$\\begin{aligned}
-           ${a.texFSD}x${ecritureAlgebrique(b)}&>0\\\\
-          x& ${ns < 0 ? '<' : '>'}${zero.texFSD} &${ns < 0 ? `${miseEnEvidence(`\\text{car} ${a.texFSD} <0`)}` : ''}
+           ${a.texFSD}x&>0\\\\
+          x& ${ns < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}`)}` : '>'}${zero.texFSD} ${ns < 0 ? `${miseEnEvidence(`\\text{car} ${a.texFSD} <0`)}` : ''}
             \\end{aligned}$<br>`
               } else {
+                texteCorr += `Résolution de l'inéquation  $${a.texFSD}x${ecritureAlgebrique(b)}>0$ : <br>`
                 texteCorr += `$\\begin{aligned}
            ${a.texFSD}x${ecritureAlgebrique(b)}&>0\\\\
             ${a.texFSD}x&>${-b}\\\\
-            x& ${ns < 0 ? '<' : '>'}${-b}\\times ${ns < 0 ? `\\left(${aInverse.texFSD}\\right)` : `${aInverse.texFraction}`} &${ns < 0 ? `${miseEnEvidence(`\\text{car} ${a.texFSD} <0`)}` : ''}\\\\
+            x& ${ns < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}`)}` : '>'}${-b}\\times ${ns < 0 ? `\\left(${aInverse.texFSD}\\right)` : `${aInverse.texFraction}`} &${ns < 0 ? `${miseEnEvidence(`\\text{car} ${a.texFSD} <0`)}` : ''}\\\\
             x& ${ns < 0 ? '<' : '>'}${zero.texFSD}
             \\end{aligned}$<br>`
               }
+              texteCorr += ` De plus,  $${b === 0 ? `${a.texFSD}x=0` : `${a.texFSD}x${ecritureAlgebrique(b)}=0`} \\iff x=${zero.texFSD}$.<br><br>`
             }
             if (a > 0) {
               ligne1 = ['Line', 25, '', 0, '-', 20, 'z', 20, '+']
@@ -232,6 +233,9 @@ export default function Signefonctionaffine () {
               xMax: 8,
               yMin: -7,
               yMax: 7,
+              yLabelEcart: 0.8,
+              yLabelDistance: 2,
+              xLabelDistance: 2,
               grilleX: false,
               grilleY: false,
               grilleSecondaire: true,
