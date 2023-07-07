@@ -121,30 +121,11 @@ export function propositionsQcm (exercice, i) {
   }
   // On regarde si il n'y a pas de doublons dans les propositions de réponse. Si c'est le cas, on enlève les mauvaises réponses en double.
   elimineDoublons(exercice.autoCorrection[i].propositions)
-  if (context.isHtml) {
-    texteCorr += '<table>\n\t'
-    if (vertical) {
-      texteCorr += '<tr>\n\t'
-    }
-  } else {
+  if (!context.isHtml) {
     texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
     texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
-  }
-  if (!context.isHtml) {
     texte += '\\\\\n\t'
-  }
-  for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-    if (context.isHtml) {
-      if (vertical && (rep % nbCols === 0) && rep > 0) {
-        texteCorr += '</tr>\n<tr>\n'
-      }
-      texteCorr += '<td>\n'
-      if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
-      } else {
-        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
-      }
-    } else {
+    for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
       texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
       if (exercice.autoCorrection[i].propositions[rep].statut) {
         texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
@@ -159,27 +140,25 @@ export function propositionsQcm (exercice, i) {
         texteCorr += '\\qquad '
       }
     }
-  }
-  if (context.isHtml) {
-    if (vertical) {
-      texteCorr += '</tr>\n\t'
-    }
-    texteCorr += '</table>\n\t'
-  } else {
     texte += nbCols === 1 ? '' : '\\end{multicols}'
     texteCorr += nbCols === 1 ? '' : '\\end{multicols}'
   }
-
-  if (context.isHtml && exercice.interactif) {
+  if (context.isHtml) {
     texte = '<div class="my-3">'
+    texteCorr = '<div class="my-3">'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline'}">
-      <input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
+      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline'} my-2">
+      <input type="checkbox" ${!exercice.interactif ? 'disabled' : ''} tabindex="0" style="height: 1rem; width: 1rem;"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div>
       </div>`
+      texteCorr += `<div class="${vertical ? '' : 'inline'}">
+      <input type="checkbox" disabled ${exercice.autoCorrection[i].propositions[rep].statut ? 'checked' : ''} tabindex="0" style="height: 1rem; width: 1rem;">
+      <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
+      </div>`
     }
     texte += `</div><div class="m-2" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
+    texteCorr += '</div><div class="m-2"></div>'
   }
   return { texte, texteCorr }
 }

@@ -73,7 +73,11 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
         }
       ]
       if (this.sup3) {
-        texte += propositionsQcm(this, i).texte
+        const qcm = propositionsQcm(this, i)
+        texte += qcm.texte
+        if (!this.interactif) {
+          texteCorr += qcm.texteCorr
+        }
       } else {
         texte += ajouteChampTexteMathLive(this, i)
         setReponse(this, i, a + b)

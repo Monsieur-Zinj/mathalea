@@ -1012,9 +1012,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
         vertical: true,
         nbCols: 1
       }
-      texte += propositionsQcm(this, i).texte
-      if (!context.isHtml) {
-        texteCorr = propositionsQcm(this, i).texteCorr
+      const qcm = propositionsQcm(this, i)
+      texte += qcm.texte
+      if (!this.interactif || !context.isHtml) {
+        texteCorr = qcm.texteCorr + texteCorr
       }
       if (this.sup2 === false) {
         texte = texte.replaceAll(' non croisé', '')
