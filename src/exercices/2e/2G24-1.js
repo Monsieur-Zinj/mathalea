@@ -43,8 +43,8 @@ export default function Calculercoordonneesvecteurs () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let xA, yA, xB, yB, xAB, yAB, r
-       const nomsPoints=creerNomDePolygone(2,['Q','I','J','O'])
-      const objets=[]
+      const nomsPoints = creerNomDePolygone(2, ['Q', 'I', 'J', 'O', 'X', 'Y', 'Z'])
+      const objets = []
       if (this.sup === 1) {
         xA = randint(-4, 4)
         yA = randint(-4, 4)
@@ -66,12 +66,12 @@ export default function Calculercoordonneesvecteurs () {
           axeYStyle: '->'
         })
 
-        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$.<br>`
-        texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$.'
+        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA};${yA}\\right)$ et $${nomsPoints[1]}\\left(${xB};${yB}\\right)$.<br>`
+        texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
         texteCorr = 'On sait d\'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
-        texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$.<br>`
-        texteCorr += `Ce qui donne au final : $\\overrightarrow{AB}\\begin{pmatrix}${xAB}\\\\${yAB}\\end{pmatrix}$.<br><br>`
+        texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$.<br>`
+        texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xAB}\\\\${yAB}\\end{pmatrix}$.<br><br>`
       } else if (this.sup === 2) {
         const listeFractions1 = [[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4], [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
         const frac1 = choice(listeFractions1)
@@ -102,18 +102,18 @@ export default function Calculercoordonneesvecteurs () {
           grilleSecondaireXMin: Math.min(-2, xA - 2, xB - 2, 2),
           grilleSecondaireXMax: Math.max(-2, xA + 2, xB + 2, 2)
         }) // On définit le repère
-    
-        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA.texFSD};${yA.texFSD}\\right)$ et $B\\left(${xB.texFSD};${yB}\\right)$.<br>`
+
+        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA.texFSD};${yA.texFSD}\\right)$ et $${nomsPoints[1]}\\left(${xB.texFSD};${yB}\\right)$.<br>`
         texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
         texteCorr = 'On sait d\'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
-        texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{AB}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$.<br>`
-        texteCorr += `Ce qui donne au final : $\\overrightarrow{AB}\\begin{pmatrix}${xAB}\\\\[0.7em]${yAB.texFSD}\\end{pmatrix}$.<br><br>`
+        texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$.<br>`
+        texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xAB}\\\\[0.7em]${yAB.texFSD}\\end{pmatrix}$.<br><br>`
       }
       const A = point(xA, yA, nomsPoints[0]) // On définit et on trace le point A
       const B = point(xB, yB, nomsPoints[1]) // On définit et on trace le point B
       const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      tracePoint.taille=1.5
+      tracePoint.taille = 1.5
       const labelAetB = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
       const vecteurAB = segment(A, B, 'red') // On trace en rouge [AB]
       const O = point(0, 0, 'O') // On définit et on trace le point O
@@ -138,8 +138,8 @@ export default function Calculercoordonneesvecteurs () {
       const nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
       const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
       const nomAB = nomVecteurParPosition('AB', (xA + xB) / 2 + 1, (yA + yB) / 2 + 1, 1, 0)
-      objets.push(r,traceAetB,labelAetB,vecteurOI,vecteurOJ,vecteurAB,nomO,nomi,nomj,nomAB)
-      texteCorr += mathalea2d(Object.assign({zoom: 2},fixeBordures(objets)), objets)// On trace le graphique
+      objets.push(r, traceAetB, labelAetB, vecteurOI, vecteurOJ, vecteurAB, nomO, nomi, nomj, nomAB)
+      texteCorr += mathalea2d(Object.assign({ zoom: 2 }, fixeBordures(objets)), objets) // On trace le graphique
       texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Composante sur $x$ de $\\overrightarrow{AB}$ :' })
       texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Composante sur $y$ de $\\overrightarrow{AB}$ :' })
       setReponse(this, 2 * i, xAB, { formatInteractif: 'fractionEgale' })
