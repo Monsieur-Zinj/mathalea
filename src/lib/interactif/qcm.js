@@ -6,8 +6,6 @@ import { gestionCan } from './gestionCan'
 import { afficheScore } from './gestionInteractif'
 export function verifQuestionQcm (exercice, i) {
   let resultat
-  const monRouge = 'rgba(217, 30, 24, 0.5)'
-  const monVert = 'rgba(123, 239, 178, 0.5)'
   // i est l'indice de la question
   let nbBonnesReponses = 0
   let nbMauvaisesReponses = 0
@@ -38,13 +36,13 @@ export function verifQuestionQcm (exercice, i) {
       if (check.checked) {
         nbBonnesReponses++
         if (aucuneMauvaiseReponseDonnee) {
-          label.style.backgroundColor = monVert
+          label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
         }
       } else { // Bonnes réponses non cochées
-        label.style.backgroundColor = monVert
+        label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
       }
     } else if (check.checked === true) {
-      label.style.backgroundColor = monRouge
+      label.classList.add('bg-red-100', 'rounded-lg', 'p-1')
       nbMauvaisesReponses++
       aucuneMauvaiseReponseDonnee = false
     }
@@ -121,11 +119,8 @@ export function propositionsQcm (exercice, i) {
   // On regarde si il n'y a pas de doublons dans les propositions de réponse. Si c'est le cas, on enlève les mauvaises réponses en double.
   elimineDoublons(exercice.autoCorrection[i].propositions)
   if (context.isHtml) {
-    texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
-    texte += '<table>\n\t'
     texteCorr += '<table>\n\t'
     if (vertical) {
-      texte += '<tr>\n\t'
       texteCorr += '<tr>\n\t'
     }
   } else {
@@ -138,22 +133,9 @@ export function propositionsQcm (exercice, i) {
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
     if (context.isHtml) {
       if (vertical && (rep % nbCols === 0) && rep > 0) {
-        texte += '</tr>\n<tr>\n'
         texteCorr += '</tr>\n<tr>\n'
       }
-      texte += '<td>\n'
       texteCorr += '<td>\n'
-      if (exercice.interactif) {
-        texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm" style="display:inline;">
-            <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
-            <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
-          </div>`
-      } else {
-        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '</td>\n'
-        if (nbCols > 1 && vertical) {
-          texte += '\n\t'
-        }
-      }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
         texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       } else {
@@ -177,23 +159,18 @@ export function propositionsQcm (exercice, i) {
   }
   if (context.isHtml) {
     if (vertical) {
-      texte += '</tr>\n\t'
       texteCorr += '</tr>\n\t'
     }
-    texte += '</table>\n\t'
     texteCorr += '</table>\n\t'
-    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
   } else {
     texte += nbCols === 1 ? '' : '\\end{multicols}'
     texteCorr += nbCols === 1 ? '' : '\\end{multicols}'
   }
 
-  // GESTION DE LA V3
-  if (context.isHtml && context.versionMathalea === 3 && exercice.interactif) {
-    texte = '<div>'
+  if (context.isHtml && exercice.interactif) {
+    texte = '<div class="my-3">'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      texte += `<div class="ex${exercice.numeroExercice} my-3 ${vertical ? '' : 'inline'}">
+      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline'}">
       <input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div>
