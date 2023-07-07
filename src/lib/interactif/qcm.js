@@ -17,34 +17,37 @@ export function verifQuestionQcm (exercice, i) {
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   let aucuneMauvaiseReponseDonnee = true
   exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
-    const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
-    const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
-    if (check.checked) {
-      // Sauvegarde pour les exports Moodle, Capytale...
-      if (exercice.answers === undefined) { exercice.answers = {} }
-      exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = 1
-      // Gestion du feedback de toutes les cases cochées
-      if (exercice.autoCorrection[i].propositions[indice].feedback) {
-        messageFeedback({
-          id: `feedbackEx${exercice.numeroExercice}Q${i}R${indice}`,
-          message: exercice.autoCorrection[i].propositions[indice].feedback,
-          type: proposition.statut ? 'positive' : 'error'
-        })
-      }
-    }
-    if (proposition.statut) {
+    // La liste de question peut être plus courte que autoCorrection si on n'a pas réussi à générer suffisamment de questions différentes
+    if (exercice.listeQuestions[indice] !== undefined) {
+      const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
+      const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
       if (check.checked) {
-        nbBonnesReponses++
-        if (aucuneMauvaiseReponseDonnee) {
+        // Sauvegarde pour les exports Moodle, Capytale...
+        if (exercice.answers === undefined) { exercice.answers = {} }
+        exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = 1
+        // Gestion du feedback de toutes les cases cochées
+        if (exercice.autoCorrection[i].propositions[indice].feedback) {
+          messageFeedback({
+            id: `feedbackEx${exercice.numeroExercice}Q${i}R${indice}`,
+            message: exercice.autoCorrection[i].propositions[indice].feedback,
+            type: proposition.statut ? 'positive' : 'error'
+          })
+        }
+      }
+      if (proposition.statut) {
+        if (check.checked) {
+          nbBonnesReponses++
+          if (aucuneMauvaiseReponseDonnee) {
+            label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+          }
+        } else { // Bonnes réponses non cochées
           label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
         }
-      } else { // Bonnes réponses non cochées
-        label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+      } else if (check.checked === true) {
+        label.classList.add('bg-red-100', 'rounded-lg', 'p-1')
+        nbMauvaisesReponses++
+        aucuneMauvaiseReponseDonnee = false
       }
-    } else if (check.checked === true) {
-      label.classList.add('bg-red-100', 'rounded-lg', 'p-1')
-      nbMauvaisesReponses++
-      aucuneMauvaiseReponseDonnee = false
     }
   })
   let typeFeedback = 'positive'
