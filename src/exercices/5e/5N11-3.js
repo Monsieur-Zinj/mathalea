@@ -1,7 +1,8 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, choice, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choice, calcul } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d\'un pourcentage'
 export const interactifReady = true

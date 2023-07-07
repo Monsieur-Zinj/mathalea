@@ -1,8 +1,10 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, sp, texteCentre } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { randint, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer les coordonnées d\'un point avec une translation'
 export const interactifReady = true
 export const interactifType = 'mathLive'

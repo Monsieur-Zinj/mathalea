@@ -1,7 +1,7 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, extraireRacineCarree, randint, sp, calcul, choice } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Résoudre une équation avec une fonction de référence'
 export const interactifReady = true
 export const interactifType = 'qcm'

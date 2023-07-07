@@ -1,9 +1,10 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texPrix } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 export const titre = 'Variation en pourcentages'
 export const interactifReady = true

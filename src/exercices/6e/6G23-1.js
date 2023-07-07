@@ -3,7 +3,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, combinaisonListes } from '../../modules/outils.js'
 import { point, rotation, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

@@ -1,20 +1,19 @@
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
-  texNombre,
   calcul,
-  decimalToScientifique,
   combinaisonListes,
   randint,
   arrondi
 } from '../../modules/outils.js'
 import {
   setReponse
-} from '../../modules/gestionInteractif.js'
+} from '../../lib/interactif/gestionInteractif.js'
 import {
   ajouteChampTexteMathLive
-} from '../../modules/interactif/questionMathLive.js'
+} from '../../lib/interactif/questionMathLive.js'
 import {
   context
 } from '../../modules/context.js'

@@ -1,3 +1,4 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   afficheLongueurSegment,
   afficheMesureAngle,
@@ -13,10 +14,10 @@ import {
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { degres, radians } from '../../modules/mathFonctions/trigo.js'
-import { choice, creerNomDePolygone, listeQuestionsToContenu, numAlpha, randint, texNombre } from '../../modules/outils.js'
+import { choice, creerNomDePolygone, listeQuestionsToContenu, numAlpha, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'

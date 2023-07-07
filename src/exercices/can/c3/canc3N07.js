@@ -1,7 +1,9 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, sp, choice, texNombre, miseEnEvidence } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { randint, listeQuestionsToContenu, sp, choice, miseEnEvidence } from '../../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Décomposer un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -43,7 +45,7 @@ export default function DecompositionNombre () {
               setReponse(this, 2 * i + 1, d * 10 + u)
             } else {
               texte = `Compléter : <br>
-      $${n}=\\ldots$ centaine(s)  $\\ldots$ unité(s)    
+      $${n}=\\ldots$ centaine(s)  $\\ldots$ unité(s)
       `
             }
             texteCorr = `Comme $${n}= ${c} \\times 100 +  ${d * 10 + u} \\times 1$, alors $${n}= ${miseEnEvidence(c)}$  ${c === 1 ? 'centaine' : 'centaines'} $${miseEnEvidence(d * 10 + u)}$ unités. `
@@ -58,7 +60,7 @@ export default function DecompositionNombre () {
               setReponse(this, 2 * i + 1, u)
             } else {
               texte = `Compléter : <br>
-      $${n}=\\ldots$ dizaine(s)  $\\ldots$ unité(s)    
+      $${n}=\\ldots$ dizaine(s)  $\\ldots$ unité(s)
       `
             }
             texteCorr = `Comme $${n}= ${c * 10 + d} \\times 10 +  ${u} \\times 1$, alors $${n}= ${miseEnEvidence(c * 10 + d)}$   dizaines  $${miseEnEvidence(u)}$ ${u === 1 ? 'unité.' : 'unités.'} `
@@ -81,7 +83,7 @@ export default function DecompositionNombre () {
               setReponse(this, 2 * i + 1, d * 10 + u)
             } else {
               texte = `Compléter : <br>
-      $${texNombre(n)}=\\ldots$ centaine(s)  $\\ldots$ unité(s)    
+      $${texNombre(n)}=\\ldots$ centaine(s)  $\\ldots$ unité(s)
       `
             }
             texteCorr = `Comme $${texNombre(n)}=  ${um * 10 + c} \\times 100 +  ${d * 10 + u} \\times 1$, alors $${texNombre(n)}= ${miseEnEvidence(um * 10 + c)}$  centaines $${miseEnEvidence(d * 10 + u)}$ unités. `
@@ -96,7 +98,7 @@ export default function DecompositionNombre () {
               setReponse(this, 2 * i + 1, u)
             } else {
               texte = `Compléter : <br>
-    $${texNombre(n)}=\\ldots$ dizaine(s)  $\\ldots$ unité(s)    
+    $${texNombre(n)}=\\ldots$ dizaine(s)  $\\ldots$ unité(s)
     `
             }
             texteCorr = `Comme $${texNombre(n)}=  ${um * 100 + c * 10 + d} \\times 10 +  ${u} \\times 1$, alors $${texNombre(n)}= ${miseEnEvidence(um * 100 + c * 10 + d)}$  dizaines $${miseEnEvidence(u)}$ ${u === 1 ? 'unité.' : 'unités.'} `

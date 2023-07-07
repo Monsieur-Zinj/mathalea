@@ -1,27 +1,27 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  type FlexOrientation = "col" | "row"
+  import { createEventDispatcher } from 'svelte'
+  type FlexOrientation = 'col' | 'row'
 
   export let title: string
   export let valueSelected: string
   export let labelsValues: { label: string; value: string; isDisabled?: boolean }[] = []
   export let isDisabled: boolean = false
-  export let orientation: FlexOrientation = "col"
+  export let orientation: FlexOrientation = 'col'
 
-  let name =
+  const name =
     title !== undefined
       ? title
-          .replaceAll(" ", "")
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
+        .replaceAll(' ', '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
       : Math.round(Math.random() * 1000).toString()
   const dispatch = createEventDispatcher()
-  function valueHasChanged() {
-    dispatch("newvalue")
+  function valueHasChanged () {
+    dispatch('newvalue')
   }
 </script>
 
-<!-- 
+<!--
   @component
   Formulaire avec boutons radios
 
@@ -33,13 +33,13 @@
 
   * `title` :  titre du groupe de boutons
   * `isDisabled`: booléen servant à désactiver le groupe
-  
+
   __Exemple__ :
 
     ```tsx
-  <FormRadio 
+  <FormRadio
       isDisabled={maVariable2 === 0}
-      bind:valueSelected={maVariable} 
+      bind:valueSelected={maVariable}
       labelsValues={[
           { label: 'Titre du label 1', value: '1' },
           { label: 'Titre du label 2', value: '2', isDisabled: true }

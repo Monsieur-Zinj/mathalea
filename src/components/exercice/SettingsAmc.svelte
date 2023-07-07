@@ -1,7 +1,7 @@
 <script lang="ts">
-  import {afterUpdate, createEventDispatcher} from "svelte"
-  import type TypeExercice from "../utils/typeExercice"
-  
+  import { afterUpdate, createEventDispatcher } from 'svelte'
+  import type TypeExercice from '../utils/typeExercice'
+
   export let exercice: TypeExercice
   let nbQuestions: number
   let amcType: string
@@ -13,8 +13,7 @@
   let sup4: boolean
   let alea: string
   let premierUpdate: boolean = true
-  
-  
+
   afterUpdate(async () => {
     // On ne remplit les champs que la première fois
     if (exercice && premierUpdate) {
@@ -26,11 +25,11 @@
       amcType = exercice.amcType
     }
   })
-  
+
   const dispatch = createEventDispatcher()
-  
-  function newSettings() {
-    dispatch("settings", {
+
+  function newSettings () {
+    dispatch('settings', {
       nbQuestions,
       alea,
       digits,
@@ -90,7 +89,7 @@
       />
     </div>
   {/if}
-  
+
   <form id="formAlea" name="formAlea" on:submit|preventDefault={newSettings}>
     <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formAlea">Série :</label>
     <input

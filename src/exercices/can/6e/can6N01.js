@@ -1,4 +1,5 @@
-import { calcul, randint, texNombre, texteEnCouleur, choice } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { calcul, randint, texteEnCouleur, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Recomposer un entier'
 export const interactifReady = true

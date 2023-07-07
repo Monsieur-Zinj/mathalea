@@ -2,6 +2,7 @@ import Algebrite from 'algebrite'
 import { abs, divide, evaluate, format, fraction, isInteger, max, multiply, pow, round, subtract } from 'mathjs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   arcPointPointAngle,
   homothetie,
@@ -19,8 +20,7 @@ import {
   combinaisonListes,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint,
-  texNombre
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

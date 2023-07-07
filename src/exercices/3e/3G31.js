@@ -1,4 +1,5 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre2 } from '../../lib/outils/texNombre.js'
 import {
   barycentre,
   codageAngle,
@@ -15,15 +16,14 @@ import {
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   arrondi,
   choice,
   creerNomDePolygone,
   listeQuestionsToContenu,
-  randint,
-  texNombre2
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

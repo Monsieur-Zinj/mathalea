@@ -1,9 +1,10 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, randint, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
 export const amcReady = true
 export const amcType = 'AMCNum'

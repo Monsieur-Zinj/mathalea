@@ -1,10 +1,24 @@
+<<<<<<< HEAD
 import { reduireAxPlusB, rienSi1, ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+=======
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
+import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite.js'
+import { texNombre2 } from '../../lib/outils/texNombre.js'
+>>>>>>> b13dcbd2a8062b5221afdb75ea6ed1ce11c61281
 import Exercice from '../Exercice.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+<<<<<<< HEAD
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
 import { labelPoint, point, tracePoint, courbe, repere, texteParPosition } from '../../modules/2d.js'
+=======
+import { listeQuestionsToContenu, randint, choice, itemize } from '../../modules/outils.js'
+import { resoudre } from '../../modules/outilsMathjs.js'
+import { labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
+import { create, all } from 'mathjs'
+>>>>>>> b13dcbd2a8062b5221afdb75ea6ed1ce11c61281
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const dateDeModifImportante = '06/07/2023'
 export const titre = 'Déterminer le signe d\'une fonction affine'

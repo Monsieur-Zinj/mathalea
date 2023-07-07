@@ -1,10 +1,11 @@
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, texNombre, stringNombre, sp, choice, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, sp, choice, numAlpha } from '../../modules/outils.js'
 import { repere, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true

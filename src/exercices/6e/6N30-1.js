@@ -1,9 +1,10 @@
+import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, arrondi, htmlConsigne, listeQuestionsToContenu, randint, stringNombre, lettreIndiceeDepuisChiffre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { calcul, arrondi, listeQuestionsToContenu, randint, lettreIndiceeDepuisChiffre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
@@ -67,7 +68,7 @@ export default function LireAbscisseDecimaleBis2d () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     const d = []
-    this.contenu = htmlConsigne(this.consigne)
+    this.contenu = this.consigne
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
       l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)

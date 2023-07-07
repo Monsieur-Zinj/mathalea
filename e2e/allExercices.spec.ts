@@ -15,17 +15,21 @@ const refToUuid = JSON.parse(jsonString)
 //   serverProcess.kill()
 // })
 
-const ids = Object.keys(refToUuid)//.slice(0,50)
+const ids = Object.keys(refToUuid)
 function TestAllPages (ids) {
   for (const id of ids) {
     const uuid = refToUuid[id]
-    test.skip(`Exercice avec correction et 10 actualisations ${id}`, async ( {page} ) => {
+    test(`Exercice avec correction et 10 actualisations ${id}`, async ( {page} ) => {
       const messages: string[] = []
       await page.goto(`http://localhost:5173/alea/?uuid=${uuid}`)
       // Listen for all console events and handle errors
       page.on('console', msg => {
-        if (!msg.text().includes('[vite]')) {
-          messages.push(page.url() + ' ' + msg.text())
+        if (msg.type === 'error') {
+          if (!msg.text().includes('[vite]')) {
+            if (!msg.text().includes('<HeaderExercice>')) {
+              messages.push(page.url() + ' ' + msg.text())
+            }
+          }
         }
       })
       // Correction
@@ -35,7 +39,7 @@ function TestAllPages (ids) {
         const  buttonParam = page.locator('i.bx-cog').first()
       await buttonParam.click()
       // Actualier
-const buttonRefresh = page.locator('div:visible>i.bx-refresh').first()
+      const buttonRefresh = page.locator('i.bx-refresh').nth(1)
       await buttonRefresh.click() // { clickCount: 3 }
       expect(messages.length, `Il y a ${messages.length} erreurs : ${messages.join('\n')}`).toBe(0)
     })

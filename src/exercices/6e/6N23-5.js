@@ -1,15 +1,15 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
   calcul,
   choice,
-  texNombre2,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

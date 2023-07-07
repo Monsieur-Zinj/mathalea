@@ -1,12 +1,11 @@
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import {
   choice,
   combinaisonListes,
   listeQuestionsToContenu,
   miseEnEvidence,
-  nombreAvecEspace,
-  randint,
-  texNombre
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

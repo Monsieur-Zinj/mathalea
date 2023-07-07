@@ -1,6 +1,7 @@
+import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, creerNomDePolygone, texNombre, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
+import { randint, creerNomDePolygone, texteEnCouleur, extraireRacineCarree } from '../../../modules/outils.js'
 import {
   point, pointAdistance, polygoneAvecNom, codageAngleDroit, texteParPosition, milieu
 } from '../../../modules/2d.js'

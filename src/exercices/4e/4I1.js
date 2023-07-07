@@ -53,7 +53,7 @@ export default function TracerAvecScratch () {
       // code est un string contenant le code svg ou tikz
 
       // une fonction pour dire le nom du polygone
-      function myPolyName (n) {
+      const myPolyName = (n) => {
         const sortie = {
           name: '',
           nameParSommets: '',
@@ -106,7 +106,7 @@ export default function TracerAvecScratch () {
 
       // une fonction pour renvoyer une situation
       // n définit le nombre de côtés du polygone régulier
-      function mySituation (n) {
+      const mySituation = (n) => {
         const situations = [
           { // polygones réguliers
             nbCotes: n,

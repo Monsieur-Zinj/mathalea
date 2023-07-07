@@ -1,11 +1,13 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, texNombre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer la probabilité d’une intersection à partir d’un arbre'
 export const dateDePublication = '04/07/2022'
 export const interactifReady = true
@@ -272,7 +274,7 @@ export default function CalculerProbabiliteIntersection () {
           Calculer $P(\\overline{A}\\cap B)$. `
           }
 
-          texteCorr = ` 
+          texteCorr = `
         
 
 
@@ -359,7 +361,7 @@ export default function CalculerProbabiliteIntersection () {
           Calculer $P(\\overline{A}\\cap \\overline{B})$. `
           }
 
-          texteCorr = ` 
+          texteCorr = `
         
 
 

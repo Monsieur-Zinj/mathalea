@@ -1,9 +1,11 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texTexte, sp, combinaisonListes } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { listeQuestionsToContenu, randint, choice, sp, combinaisonListes } from '../../modules/outils.js'
+import { texTexte } from '../../lib/format/texTexte.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import Decimal from 'decimal.js'
 export const titre = 'Convertir des volumes'
@@ -56,18 +58,6 @@ export default function ExerciceConversionsVolumes () {
     this.listeCorrections = [] // Liste de questions corrigées
     Decimal.toExpNeg = -20 // pour éviter la conversion en notation scientifique on va jusqu'à 20 décimales (-7 est la valeur par défaut)
     Decimal.toExpPos = 20 // pour les grands entiers, c'est la valeur par défaut
-    /*
-    const prefixeMulti = [
-      ['da', '10\\times10\\times10', 1000],
-      ['h', '100\\times100\\times100', 1000000],
-      ['k', `1${sp()}000\\times1${sp()}000\\times1${sp()}000`, 1000000000]
-    ]
-    const prefixeDiv = [
-      ['d', '10\\div10\\div10', 1000],
-      ['c', '100\\div100\\div100', 1000000],
-      ['m', `1${sp()}000\\div1${sp()}000\\div1${sp()}000`, 1000000000]
-    ]
-    */
     const prefixeMulti = [
       [' da', '\\times1000', 1000],
       [' h', '\\times1000\\times1000', 1000000],

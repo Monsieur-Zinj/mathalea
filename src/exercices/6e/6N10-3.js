@@ -1,8 +1,9 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, combinaisonListes, rangeMinMax, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, miseEnEvidence, combinaisonListes, rangeMinMax, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { pow } from 'mathjs'
 export const dateDeModifImportante = '02/10/2022'
 export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
@@ -22,6 +23,46 @@ export const amcType = 'AMCNum'
 
 export const uuid = '34579'
 export const ref = '6N10-3'
+
+// une fonction pour la correction selon le type de question
+function chiffreNombreCorr (type, str, rang) {
+  let sortie
+  if (type === 'chiffre') {
+    sortie = str.split('')[rang[0]]
+  }
+  if (type === 'nombre') {
+    sortie = str.split('')[rang[0]]
+    for (let k = 1; k < rang.length; k++) {
+      sortie += str.split('')[rang[k]]
+    }
+  }
+  return sortie
+}
+
+// une fonction pour la justification supplémentaire dans le cas nombre de ...
+function nombreDeJustif (type, str, rang, cduNum) {
+  let sortie
+  if (type === 'chiffre') {
+    sortie = ''
+  }
+  if (type === 'nombre') {
+    let nbDe = str.split('')[rang[0]]
+    for (let k = 1; k < rang.length; k++) {
+      nbDe += str.split('')[rang[k]]
+    }
+    let j = rang[rang.length - 1]
+    j++
+    let nbDeReste = ''
+    while (str.split('')[j] !== undefined) {
+      nbDeReste += str.split('')[j]
+      j++
+    }
+    sortie = `comme $${texNombre(str, 0)} = ${texNombre(nbDe, 0)}\\times ${texNombre(cduNum, 0)}`
+    sortie += texNombre(nbDeReste, 0) !== '0' ? `+${texNombre(nbDeReste, 0)}$, alors ` : '$, alors '
+  }
+  return sortie
+}
+
 export default function ChiffreNombreDe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
@@ -154,45 +195,6 @@ export default function ChiffreNombreDe () {
           cdu: choice(cdu)
         }
       ]
-
-      // une fonction pour la correction selon le type de question
-      function chiffreNombreCorr (type, str, rang) {
-        let sortie
-        if (type === 'chiffre') {
-          sortie = str.split('')[rang[0]]
-        };
-        if (type === 'nombre') {
-          sortie = str.split('')[rang[0]]
-          for (let k = 1; k < rang.length; k++) {
-            sortie += str.split('')[rang[k]]
-          };
-        };
-        return sortie
-      };
-
-      // une fonction pour la justification supplémentaire dans le cas nombre de ...
-      function nombreDeJustif (type, str, rang, cduNum) {
-        let sortie
-        if (type === 'chiffre') {
-          sortie = ''
-        }
-        if (type === 'nombre') {
-          let nbDe = str.split('')[rang[0]]
-          for (let k = 1; k < rang.length; k++) {
-            nbDe += str.split('')[rang[k]]
-          }
-          let j = rang[rang.length - 1]
-          j++
-          let nbDeReste = ''
-          while (str.split('')[j] !== undefined) {
-            nbDeReste += str.split('')[j]
-            j++
-          }
-          sortie = `comme $${texNombre(str, 0)} = ${texNombre(nbDe, 0)}\\times ${texNombre(cduNum, 0)}`
-          sortie += texNombre(nbDeReste, 0) !== '0' ? `+${texNombre(nbDeReste, 0)}$, alors ` : '$, alors '
-        }
-        return sortie
-      }
 
       const enonces = []
       for (let k = 0; k < situations.length; k++) {

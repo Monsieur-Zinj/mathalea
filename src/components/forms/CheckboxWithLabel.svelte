@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  export let title: string = ""
+  import { createEventDispatcher } from 'svelte'
+  export let title: string = ''
   export let filterValue
   export let filtersGroup
   export let isChecked
 
   const dispatch = createEventDispatcher()
-  function triggerAction() {
-    dispatch("filterChecked", {
-      msg: "Action triggered !",
+  function triggerAction () {
+    dispatch('filterChecked', {
+      msg: 'Action triggered !'
     })
   }
   // bind:checked={isAmcOnlySelected}

@@ -1,11 +1,12 @@
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { texPrix } from '../../lib/format/style.js'
+import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, stringNombre, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { getVueFromUrl } from '../../modules/gestionUrl.js'
+import { listeQuestionsToContenu, randint, calcul, texteEnCouleur, texteEnCouleurEtGras, numAlpha, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
 export const interactifReady = true
@@ -389,7 +390,7 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   }
   const volumeFinalAff = stringNombre(volumeFinal) // pour affichage avec bon séparateur.
   const volumeInitialAff = stringNombre(volumeInitial) // pour affichage avec bon séparateur.
-  let enonceAMC = `Il est indiqué sur la bouteille de ${liste[alea1].solute} ${getVueFromUrl() === 'multi' ? '<br>' : ' '} qu'il faut ` +
+  let enonceAMC = `Il est indiqué sur la bouteille de ${liste[alea1].solute}  qu'il faut ` +
   ` ${stringNombre(quantite)}${sp()}${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour $${volumeInitialAff}$ `
   enonceAMC += volumeInitialAff < 2 ? `${liste[alea1].unite_solvant[0]} d'eau.<br> ` : `${liste[alea1].unite_solvant[1]} d'eau.<br>`
   enonceAMC += `On veut utiliser $${volumeFinalAff}$ ${uniteSolvantVolumeFinal} d'eau. `

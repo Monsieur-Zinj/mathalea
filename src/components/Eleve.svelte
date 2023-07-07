@@ -6,24 +6,24 @@
     mathaleaLoadExerciceFromUuid,
     mathaleaRenderDiv,
     mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaUpdateUrlFromExercicesParams,
-  } from "../lib/mathalea"
-  import { exercicesParams, darkMode, globalOptions, resultsByExercice, isMenuNeededForExercises, isMenuNeededForQuestions } from "./store"
-  import type TypeExercice from "./utils/typeExercice"
-  import Exercice from "./exercice/Exercice.svelte"
-  import { onMount, tick } from "svelte"
-  import seedrandom from "seedrandom"
-  import { loadMathLive } from "../modules/loaders"
-  import Button from "./forms/Button.svelte"
-  import { verifQuestionMathLive } from "../lib/interactif/mathLive"
-  import { verifQuestionQcm } from "../lib/interactif/qcm"
-  import { verifQuestionListeDeroulante } from "../lib/interactif/questionListeDeroulante"
-  import ButtonToggle from "./forms/ButtonToggle.svelte"
-  import { verifQuestionCliqueFigure } from "../modules/interactif/cliqueFigure"
-  import { prepareExerciceCliqueFigure } from "../lib/interactif/interactif"
-  import BtnZoom from "./ui/btnZoom.svelte"
-  import { getCanvasFont, getTextWidth, remToPixels } from "./utils/measures"
-  import Footer2 from "./Footer2.svelte"
+    mathaleaUpdateUrlFromExercicesParams
+  } from '../lib/mathalea'
+  import { exercicesParams, darkMode, globalOptions, resultsByExercice, isMenuNeededForExercises, isMenuNeededForQuestions } from './store'
+  import type TypeExercice from './utils/typeExercice'
+  import Exercice from './exercice/Exercice.svelte'
+  import { onMount, tick } from 'svelte'
+  import seedrandom from 'seedrandom'
+  import { loadMathLive } from '../modules/loaders'
+  import Button from './forms/Button.svelte'
+  import { verifQuestionMathLive } from '../lib/interactif/mathLive'
+  import { verifQuestionQcm } from '../lib/interactif/qcm'
+  import { verifQuestionListeDeroulante } from '../lib/interactif/questionListeDeroulante'
+  import ButtonToggle from './forms/ButtonToggle.svelte'
+  import { verifQuestionCliqueFigure } from '../lib/interactif/cliqueFigure'
+  import { prepareExerciceCliqueFigure } from '../lib/interactif/interactif'
+  import BtnZoom from './ui/btnZoom.svelte'
+  import { getCanvasFont, getTextWidth, remToPixels } from './utils/measures'
+  import Footer2 from './Footer2.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -31,18 +31,18 @@
   let consignes: string[] = []
   let corrections: string[] = []
   let consignesCorrections: string[] = []
-  let indiceExercice: number[] = []
-  let indiceQuestionInExercice: number[] = []
-  let resultsByQuestion: boolean[] = []
-  let isDisabledButton: boolean[] = []
-  let isCorrectionVisible: boolean[] = []
-  let divsCorrection: HTMLDivElement[] = []
+  const indiceExercice: number[] = []
+  const indiceQuestionInExercice: number[] = []
+  const resultsByQuestion: boolean[] = []
+  const isDisabledButton: boolean[] = []
+  const isCorrectionVisible: boolean[] = []
+  const divsCorrection: HTMLDivElement[] = []
   let currentWindowWidth: number = document.body.clientWidth
 
-  function urlToDisplay() {
-    let urlOptions = mathaleaUpdateExercicesParamsFromUrl()
+  function urlToDisplay () {
+    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
-      urlOptions.v = "eleve"
+      urlOptions.v = 'eleve'
       return urlOptions
     })
   }
@@ -55,28 +55,28 @@
    * @returns {string} titre
    * @author sylvain
    */
-  function buildExoTitle(dim: number, nbOfExercises: number) {
+  function buildExoTitle (dim: number, nbOfExercises: number) {
     // if ($globalOptions.title.length === 0) {
     //   $isMenuNeededForExercises = false
     //   return ""
     // }
-    const navigationHeaderElt = document.getElementById("navigationHeaderID")
-    const exerciseTitleElt = document.getElementById("exerciseTitleID0")
+    const navigationHeaderElt = document.getElementById('navigationHeaderID')
+    const exerciseTitleElt = document.getElementById('exerciseTitleID0')
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
     const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
     const roomForOne = roomForQuestionsTitles / nbOfExercises - 2 * remToPixels(1.5)
-    if (roomForOne >= getTextWidth("Exercice 10", getCanvasFont(exerciseTitleElt ?? document.body))) {
+    if (roomForOne >= getTextWidth('Exercice 10', getCanvasFont(exerciseTitleElt ?? document.body))) {
       $isMenuNeededForExercises = false
-      return "Exercice"
-    } else if (roomForOne >= getTextWidth("Ex 10", getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
+      return 'Exercice'
+    } else if (roomForOne >= getTextWidth('Ex 10', getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
       $isMenuNeededForExercises = false
-      return "Ex"
-    } else if (roomForOne >= getTextWidth("10", getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
+      return 'Ex'
+    } else if (roomForOne >= getTextWidth('10', getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
       $isMenuNeededForExercises = false
-      return ""
+      return ''
     } else {
       $isMenuNeededForExercises = true
-      return ""
+      return ''
     }
   }
   $: exerciseTitle = buildExoTitle(currentWindowWidth, exercices.length)
@@ -90,24 +90,24 @@
    * @author sylvain
    */
 
-  function buildQuestionTitle(dim: number, nbOfQuestions: number) {
-    const navigationHeaderElt = document.getElementById("navigationHeaderID")
-    const questionTitleElt = document.getElementById("questionTitleID0")
+  function buildQuestionTitle (dim: number, nbOfQuestions: number) {
+    const navigationHeaderElt = document.getElementById('navigationHeaderID')
+    const questionTitleElt = document.getElementById('questionTitleID0')
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
     const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
     const roomForOne = roomForQuestionsTitles / nbOfQuestions - 2 * remToPixels(0.5)
-    if (roomForOne >= getTextWidth("Question 10", getCanvasFont(questionTitleElt ?? document.body))) {
+    if (roomForOne >= getTextWidth('Question 10', getCanvasFont(questionTitleElt ?? document.body))) {
       $isMenuNeededForQuestions = false
-      return "Question"
-    } else if (roomForOne >= getTextWidth("Q 10", getCanvasFont(questionTitleElt ?? document.body)) + 20) {
+      return 'Question'
+    } else if (roomForOne >= getTextWidth('Q 10', getCanvasFont(questionTitleElt ?? document.body)) + 20) {
       $isMenuNeededForQuestions = false
-      return "Q"
-    } else if (roomForOne >= getTextWidth("10", getCanvasFont(questionTitleElt ?? document.body)) + 20) {
+      return 'Q'
+    } else if (roomForOne >= getTextWidth('10', getCanvasFont(questionTitleElt ?? document.body)) + 20) {
       $isMenuNeededForQuestions = false
-      return ""
+      return ''
     } else {
       $isMenuNeededForQuestions = true
-      return ""
+      return ''
     }
   }
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
@@ -116,8 +116,8 @@
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
-      let urlOptions = mathaleaUpdateExercicesParamsFromUrl()
-      urlOptions.v = "eleve"
+      const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
+      urlOptions.v = 'eleve'
       globalOptions.update(() => {
         return urlOptions
       })
@@ -126,16 +126,16 @@
       // Si ce n'est pas un chargement d'url alors il faut initialiser le store des résultats
       resultsByExercice.update(() => [])
     }
-    if ($globalOptions.setInteractive === "1") {
+    if ($globalOptions.setInteractive === '1') {
       for (const param of $exercicesParams) {
-        param.interactif = "1"
+        param.interactif = '1'
       }
     }
     for (const paramsExercice of $exercicesParams) {
       const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
-      if (typeof exercice === "undefined") return
+      if (typeof exercice === 'undefined') return
       mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-      if ($globalOptions.setInteractive === "1" && exercice?.interactifReady) {
+      if ($globalOptions.setInteractive === '1' && exercice?.interactifReady) {
         exercice.interactif = true
       }
       exercices.push(exercice)
@@ -145,9 +145,9 @@
     buildQuestions()
   })
 
-  async function buildQuestions() {
+  async function buildQuestions () {
     for (const [k, exercice] of exercices.entries()) {
-      if (exercice.typeExercice === "simple") {
+      if (exercice.typeExercice === 'simple') {
         mathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
       }
       if (exercice.seed !== undefined) {
@@ -158,7 +158,7 @@
         exercice.nouvelleVersion(k)
       }
       isCorrectionVisible[k] = false
-      let cumulConsignesCorrections = []
+      const cumulConsignesCorrections = []
       if (exercice.listeQuestions === undefined) {
         exercice.listeQuestions = []
       }
@@ -181,37 +181,37 @@
       consignesCorrections = consignesCorrections.map(mathaleaFormatExercice)
       consignes = consignes.map(mathaleaFormatExercice)
     }
-    if ($globalOptions.presMode === "liste_questions" || $globalOptions.presMode === "une_question_par_page") {
+    if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
-      mathaleaRenderDiv(document.querySelector<HTMLElement>("section"))
+      mathaleaRenderDiv(document.querySelector<HTMLElement>('section'))
       loadMathLive()
     }
-    let hauteurExercice = window.document.querySelector("section").scrollHeight
+    let hauteurExercice = window.document.querySelector('section').scrollHeight
     const url = new URL(window.location.href)
-    const iframe = url.searchParams.get("iframe")
-    window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: "mathalea:init", iframe }, "*")
+    const iframe = url.searchParams.get('iframe')
+    window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: 'mathalea:init', iframe }, '*')
     // Au bout de 0,5 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
     setTimeout(() => {
-      hauteurExercice = window.document.querySelector("section").scrollHeight
-      window.parent.postMessage({ hauteurExercice, action: "mathalea:resize", iframe }, "*")
+      hauteurExercice = window.document.querySelector('section').scrollHeight
+      window.parent.postMessage({ hauteurExercice, action: 'mathalea:resize', iframe }, '*')
     }, 500)
   }
 
-  async function checkQuestion(i: number) {
+  async function checkQuestion (i: number) {
     // ToFix exercices custom avec pointsCliquable
     const type = exercices[indiceExercice[i]].interactifType
-    if (type === "mathLive") {
-      resultsByQuestion[i] = verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === "OK"
-    } else if (type === "qcm") {
-      resultsByQuestion[i] = verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === "OK"
-    } else if (type === "listeDeroulante") {
-      resultsByQuestion[i] = verifQuestionListeDeroulante(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === "OK"
-    } else if (type === "cliqueFigure") {
-      resultsByQuestion[i] = verifQuestionCliqueFigure(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === "OK"
-    } else if (type === "custom") {
-      resultsByQuestion[i] = exercices[indiceExercice[i]].correctionInteractive(i) === "OK"
+    if (type === 'mathLive') {
+      resultsByQuestion[i] = verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+    } else if (type === 'qcm') {
+      resultsByQuestion[i] = verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+    } else if (type === 'listeDeroulante') {
+      resultsByQuestion[i] = verifQuestionListeDeroulante(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+    } else if (type === 'cliqueFigure') {
+      resultsByQuestion[i] = verifQuestionCliqueFigure(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+    } else if (type === 'custom') {
+      resultsByQuestion[i] = exercices[indiceExercice[i]].correctionInteractive(i) === 'OK'
     }
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true
@@ -219,7 +219,7 @@
     mathaleaRenderDiv(divsCorrection[i])
   }
 
-  async function switchCorrectionVisible(i: number) {
+  async function switchCorrectionVisible (i: number) {
     isCorrectionVisible[i] = !isCorrectionVisible[i]
     if (isCorrectionVisible[i]) {
       await tick()
@@ -227,9 +227,9 @@
     }
   }
 
-  function handleIndexChange(exoNum: number) {
+  function handleIndexChange (exoNum: number) {
     currentIndex = exoNum
-    if (exercices[exoNum] && exercices[exoNum].interactifType === "cliqueFigure" && exercices[exoNum].interactif) {
+    if (exercices[exoNum] && exercices[exoNum].interactifType === 'cliqueFigure' && exercices[exoNum].interactif) {
       prepareExerciceCliqueFigure(exercices[exoNum])
     }
   }
@@ -268,11 +268,11 @@
         id="navigationHeaderID"
         class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode === 'un_exo_par_page' ? exercices.length : questions.length}
           {($globalOptions.presMode === 'un_exo_par_page' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'une_question_par_page' && !$isMenuNeededForQuestions)
-          ? 'border-b-2 border-coopmaths-struct'
-          : 'border-b-0'}
+            ? 'border-b-2 border-coopmaths-struct'
+            : 'border-b-0'}
               bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
-        {#if $globalOptions.presMode === "un_exo_par_page" && !$isMenuNeededForExercises}
+        {#if $globalOptions.presMode === 'un_exo_par_page' && !$isMenuNeededForExercises}
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="">
               <button
@@ -291,7 +291,7 @@
                         ? 'bg-red-500'
                         : 'bg-coopmaths-warn'} dark:bg-coopmathsdark-warn text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                     >
-                      {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
+                      {$resultsByExercice[i].numberOfPoints + '/' + $resultsByExercice[i].numberOfQuestions}
                     </div>
                   {/if}
                 </div>
@@ -303,7 +303,7 @@
             </div>
           {/each}
         {/if}
-        {#if $globalOptions.presMode === "une_question_par_page" && !$isMenuNeededForQuestions}
+        {#if $globalOptions.presMode === 'une_question_par_page' && !$isMenuNeededForQuestions}
           {#each questions as question, i (question)}
             <div class="">
               <button
@@ -337,10 +337,10 @@
     </div>
     <!-- Exercices -->
     <div class="px-2 lg:px-8">
-      {#if $globalOptions.presMode === "un_exo_par_page"}
+      {#if $globalOptions.presMode === 'un_exo_par_page'}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
-            <div class={$isMenuNeededForExercises ? "" : "hidden"}>
+            <div class={$isMenuNeededForExercises ? '' : 'hidden'}>
               <button
                 class="w-full {currentIndex === i
                   ? 'bg-coopmaths-canvas-darkest'
@@ -352,7 +352,7 @@
                   Exercice {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
                     <div class="ml-4 text-sm font-bold text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark">
-                      {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
+                      {$resultsByExercice[i].numberOfPoints + '/' + $resultsByExercice[i].numberOfQuestions}
                     </div>
                   {:else}
                     <div class="ml-4 text-sm font-bold invisible">8/8</div>
@@ -360,12 +360,12 @@
                 </div>
               </button>
             </div>
-            <div class={currentIndex === i ? "" : "hidden"}>
+            <div class={currentIndex === i ? '' : 'hidden'}>
               <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
             </div>
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "liste_exos"}
+      {:else if $globalOptions.presMode === 'liste_exos'}
         <div id="exercises-list" class="p-4 columns-1 {$globalOptions.twoColumns ? 'md:columns-2' : ''}">
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="break-inside-avoid-column">
@@ -373,7 +373,7 @@
             </div>
           {/each}
         </div>
-      {:else if $globalOptions.presMode === "liste_questions"}
+      {:else if $globalOptions.presMode === 'liste_questions'}
         <div class="columns-1 {$globalOptions.title.length === 0 ? 'mt-6' : ''} {$globalOptions.twoColumns ? 'md:columns-2' : ''}">
           {#each questions as question, k (question)}
             <div class="pb-4 flex flex-col items-start justify-start relative break-inside-avoid-column" id={`exercice${indiceExercice[k]}Q${k}`}>
@@ -382,7 +382,7 @@
                 {#if exercices[indiceExercice[k]].interactif}
                   <Button title="Vérifier" classDeclaration="p-1 font-bold rounded-xl text-xs ml-2" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
                 {:else if $globalOptions.isSolutionAccessible}
-                  <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} classAddenda="ml-4" on:click={() => switchCorrectionVisible(k)} />
+                  <ButtonToggle titles={['Voir la correction', 'Masquer la correction']} classAddenda="ml-4" on:click={() => switchCorrectionVisible(k)} />
                 {/if}
               </div>
               <div class="container grid grid-cols-1 {$globalOptions.twoColumns ? '' : 'lg:grid-cols-2'} gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
@@ -428,10 +428,10 @@
             </div>
           {/each}
         </div>
-      {:else if $globalOptions.presMode === "une_question_par_page"}
+      {:else if $globalOptions.presMode === 'une_question_par_page'}
         {#each questions as question, k (question)}
           <div class="flex flex-col">
-            <div class={$isMenuNeededForQuestions ? "" : "hidden"}>
+            <div class={$isMenuNeededForQuestions ? '' : 'hidden'}>
               <button
                 class="group w-full {currentIndex === k
                   ? 'bg-coopmaths-canvas-darkest'
@@ -448,7 +448,7 @@
                 </div>
               </button>
             </div>
-            <div class={currentIndex === k ? "" : "hidden"} id={`exercice${indiceExercice[k]}Q${k}`}>
+            <div class={currentIndex === k ? '' : 'hidden'} id={`exercice${indiceExercice[k]}Q${k}`}>
               <div class="pb-4 flex flex-col items-start justify-start relative {isMenuNeededForQuestions ? 'lg:mt-2' : ''}">
                 <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
                   <div class="flex flex-col my-2 py-2">
@@ -496,8 +496,8 @@
                     <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
                   </div>
                 {:else if $globalOptions.isSolutionAccessible}
-                  <div class={$isMenuNeededForExercises ? "ml-4" : ""}>
-                    <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} on:click={() => switchCorrectionVisible(k)} />
+                  <div class={$isMenuNeededForExercises ? 'ml-4' : ''}>
+                    <ButtonToggle titles={['Voir la correction', 'Masquer la correction']} on:click={() => switchCorrectionVisible(k)} />
                   </div>
                 {/if}
               </div>

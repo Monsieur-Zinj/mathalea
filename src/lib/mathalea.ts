@@ -9,9 +9,9 @@ import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store.js'
 import { get } from 'svelte/store'
 // @ts-ignore
-import { setReponse } from '../modules/gestionInteractif.js'
+import { setReponse } from './interactif/gestionInteractif.js'
 // @ts-ignore
-import { ajouteChampTexteMathLive } from '../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrl.json'
 import refToUuid from '../json/refToUuid.json'
 import referentielStatic from '../json/referentielStatic.json'

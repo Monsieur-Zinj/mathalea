@@ -7,7 +7,7 @@ import {
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, choice, randint, combinaisonListes, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC

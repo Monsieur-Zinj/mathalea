@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, listeQuestionsToContenu } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 import { context } from '../../../modules/context.js'
 import { tableauDeVariation } from '../../../modules/TableauDeVariation.js'
 export const titre = 'Lire les extremums dans un tableau de variations'

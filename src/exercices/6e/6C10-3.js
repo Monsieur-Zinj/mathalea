@@ -1,6 +1,7 @@
+import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { listeQuestionsToContenu, creerCouples, choice, calcul, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
 export const interactifReady = true

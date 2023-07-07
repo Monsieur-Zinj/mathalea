@@ -1,7 +1,6 @@
-import { elimineDoublons } from '../../modules/interactif/questionQcm.js'
+import { elimineDoublons } from '../../lib/interactif/qcm.js'
 import {
   arrondi,
-  decimalToScientifique,
   lettreDepuisChiffre,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
@@ -9,6 +8,7 @@ import {
   randint
 } from '../../modules/outils.js'
 import { format as formatLatex } from '../Latex'
+import { decimalToScientifique } from '../outils/texNombre.js'
 
 /**
  *

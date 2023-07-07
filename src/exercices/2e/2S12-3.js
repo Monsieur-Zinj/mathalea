@@ -1,9 +1,10 @@
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texteEnCouleur, texNombre } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texteEnCouleur } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Déterminer un taux d\'évolution réciproque'
 export const interactifReady = true
 export const interactifType = 'mathLive'

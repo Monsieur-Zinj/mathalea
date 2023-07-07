@@ -6,11 +6,10 @@
 
 	let modal: HTMLDivElement
 
-	function handle_keydown(e: KeyboardEvent) {
-		if (e.key === 'Escape') {
-			close()
-			return
-		}
+	function handle_keydown (e: KeyboardEvent) {
+	  if (e.key === 'Escape') {
+	    close()
+	  }
 	}
 </script>
 

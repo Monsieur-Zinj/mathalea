@@ -3,9 +3,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, texteEnCouleurEtGras, shuffle, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, pointAdistance, cercle, segment, pointIntersectionLC, droite, longueur, polygoneAvecNom } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const titre = 'Connaître le vocabulaire du cercle'

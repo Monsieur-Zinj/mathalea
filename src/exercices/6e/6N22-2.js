@@ -4,9 +4,9 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, nombreDeChiffresDe } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Mettre bout à bout des segments'
 export const interactifReady = true
 export const interactifType = 'mathLive'

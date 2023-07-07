@@ -1,18 +1,18 @@
-import { warnMessage } from '../../lib/outils/message.js'
+import { warnMessage } from '../../lib/format/message.js'
 import { personne } from '../../lib/outils/Personne.js'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
+import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   combinaisonListes,
   listeQuestionsToContenu,
-  nombreAvecEspace,
   randint,
   texteEnCouleurEtGras,
   nombreDeChiffresDe,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.

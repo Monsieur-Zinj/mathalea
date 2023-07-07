@@ -1,7 +1,9 @@
+import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, numAlpha, tableauColonneLigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, numAlpha } from '../../modules/outils.js'
 import { point, polygone } from '../../modules/2d.js'
 export const titre = 'Produire une formule à partir d\'un tableau'
 
@@ -13,6 +15,19 @@ export const titre = 'Produire une formule à partir d\'un tableau'
 
 export const uuid = '7aba6'
 export const ref = '5L10-4'
+
+// une fonction pour moduler l'affichage d'une étape dans la correction
+function etapeCorrective (str, sup) {
+  let sortie
+  if (sup === 1) {
+    sortie = ''
+  }
+  if (sup === 2) {
+    sortie = str
+  }
+  return sortie
+}
+
 export default function TableauxEtFonction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -21,7 +36,7 @@ export default function TableauxEtFonction () {
     this.nbQuestions = 1
   } else {
     this.nbQuestions = 1
-  };
+  }
 
   this.titre = titre
   this.consigne = ''
@@ -40,7 +55,7 @@ export default function TableauxEtFonction () {
     } else {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = [0]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -80,7 +95,7 @@ export default function TableauxEtFonction () {
         coteInconnuCorr = coteInconnu
         coteInconnuCorrNum = '2' + coteInconnu
         txtCorr = 'Les unités sont les mêmes il n\'est donc pas necessaire de convertir.'
-      };
+      }
       if (this.sup === 2) { // unités différentes
         unites = choice([['cm', 'm'], ['m', 'cm']])
         if (unites[0] === 'cm') {
@@ -93,7 +108,7 @@ export default function TableauxEtFonction () {
           coteInconnuCorr = coteInconnu
           coteInconnuCorrNum = '2' + coteInconnu
           txtCorr = 'Les unités sont différentes, pour plus de confort, nous pouvons les convertir dans la même unité, ici en cm.'
-        };
+        }
         if (unites[0] === 'm') {
           grandL = [`${L1}\\times 100`, `${L2}\\times 100`, `${L3}\\times 100`, `${L4}\\times 100`]
           grandLNum = [`${100 * L1}`, `${100 * L2}`, `${100 * L3}`, `${100 * L4}`]
@@ -105,8 +120,8 @@ export default function TableauxEtFonction () {
           coteInconnuCorrNum = '200' + coteInconnu
 
           txtCorr = 'Les unités sont différentes, pour plus de confort, nous pouvons les convertir dans la même unité, ici en cm.'
-        };
-      };
+        }
+      }
 
       // on prépare la fenetre mathalea2d
       const fenetreMathalea2D = { xmin: -5, ymin: -3, xmax: 5, ymax: 3, pixelsParCm: 20, scale: 0.5 }
@@ -121,18 +136,6 @@ export default function TableauxEtFonction () {
         fenetreMathalea2D,
         mesAppels
       )
-
-      // une fonction pour moduler l'affichage d'une étape dans la correction
-      function etapeCorrective (str, sup) {
-        let sortie
-        if (sup === 1) {
-          sortie = ''
-        };
-        if (sup === 2) {
-          sortie = str
-        };
-        return sortie
-      };
 
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
@@ -213,7 +216,7 @@ $${situations[k].secondeQ}$
 
 `
         })
-      };
+      }
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
@@ -226,9 +229,9 @@ $${situations[k].secondeQ}$
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

@@ -1,11 +1,13 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, texNombre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Utiliser la formule des probabilités totales dans un arbre'
 export const dateDePublication = '05/07/2022'
 export const interactifReady = true

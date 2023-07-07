@@ -1,21 +1,21 @@
 import { pgcd } from '../../../lib/outils/primalite.js'
+import { texPrix } from '../../../lib/format/style.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
   listeQuestionsToContenu,
   randint,
-  texNombre,
   choice,
   sp,
   shuffle,
-  texPrix,
   gestionnaireFormulaireTexte
 } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { droiteGraduee } from '../../../modules/2d.js'
-import { ajouteChampTexte, setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexte, setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'Course aux nombres fin de 6e'
 export const interactifReady = true
 export const interactifType = 'mathLive'

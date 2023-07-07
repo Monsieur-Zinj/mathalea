@@ -1,5 +1,6 @@
+import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import Exercice from '../Exercice.js'
-import { choice, contraindreValeur, listeQuestionsToContenu, shuffle, tableauColonneLigne } from '../../modules/outils.js'
+import { choice, contraindreValeur, listeQuestionsToContenu, shuffle } from '../../modules/outils.js'
 export const titre = 'Encodeur de texte'
 export const ref = 'P020'
 export const uuid = 'de353'

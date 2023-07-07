@@ -5807,7 +5807,7 @@
         "url": "6e/6G22-1.js",
         "titre": "Connaître le vocabulaire de base des angles",
         "datePublication": "03/12/2022",
-        "dateModification": "23/05/2023",
+        "dateModification": "02/07/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -6046,11 +6046,12 @@
         "uuid": "4e52e",
         "url": "6e/6G33.js",
         "titre": "Reconnaître un quadrilatère particulier à partir de ses propriétés",
+        "dateModification": "04/07/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
           "amc": true,
-          "amcType": "qcmMult"
+          "amcType": "qcmMono"
         }
       }
     },
@@ -6183,6 +6184,17 @@
       }
     },
     "6I1": {
+      "6I10-1": {
+        "id": "6I10-1",
+        "uuid": "594eb",
+        "url": "6e/6I10-1.js",
+        "titre": "Programmer des déplacements relatifs (Scratch)",
+        "datePublication": "05/02/2023",
+        "tags": {
+          "amc": true,
+          "amcType": "AMCOpen"
+        }
+      },
       "6I10": {
         "id": "6I10",
         "uuid": "c8fe9",
@@ -11249,7 +11261,10 @@
         "uuid": "f71c1",
         "url": "2e/2G24-1.js",
         "titre": "Déterminer les coordonnées d'un vecteur à partir des coordonnées de deux points",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2G24-2": {
         "id": "2G24-2",
@@ -11257,7 +11272,10 @@
         "url": "2e/2G24-2.js",
         "titre": "Calculer les coordonnées de la somme de deux vecteurs",
         "datePublication": "21/05/2023",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2G24-3": {
         "id": "2G24-3",
@@ -11265,7 +11283,10 @@
         "url": "2e/2G24-3.js",
         "titre": "Calculer les coordonnées de la différence de deux vecteurs",
         "datePublication": "28/05/2023",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2G24-4": {
         "id": "2G24-4",
@@ -11284,7 +11305,10 @@
         "url": "2e/2G24-5.js",
         "titre": "Calculer les coordonnées d'un point à partir d'une égalité vectorielle",
         "datePublication": "12/06/2023",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "2G3": {

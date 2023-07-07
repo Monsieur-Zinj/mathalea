@@ -1,16 +1,15 @@
-import { infoMessage, lampeMessage } from '../../lib/outils/message.js'
+import { infoMessage, lampeMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
 import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs.js'
 import {
   combinaisonListesSansChangerOrdre,
   listeQuestionsToContenu,
-  nombreAvecEspace,
   numAlpha,
-  randint,
-  texNombre
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

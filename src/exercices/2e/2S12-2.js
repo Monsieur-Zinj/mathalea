@@ -1,8 +1,10 @@
+import { texteGras } from '../../lib/format/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGras } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Déterminer un taux d\'évolution global'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -449,7 +451,7 @@ export default function EvolutionsSuccesives () {
           if (taux1 < 0) {
             texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
           }
-          texteCorr += `<br>${texteGras('Évolution globale :')} <br> 
+          texteCorr += `<br>${texteGras('Évolution globale :')} <br>
           ${verbe3} de $${texNombre(t, 2)}~\\%$ revient à multiplier par `
           if (taux > 0) {
             texteCorr += `$CM = 1 + \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`

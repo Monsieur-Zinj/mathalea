@@ -1,4 +1,5 @@
-import { calcul, choice, randint, tableauColonneLigne, texteEnCouleur } from '../../../modules/outils.js'
+import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
+import { calcul, choice, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une quatrième proportionnelle'
 export const interactifReady = true

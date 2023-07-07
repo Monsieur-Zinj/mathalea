@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import { droiteGraduee } from '../../../modules/2d.js'
-import { randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Trouver un nombre sur une droite graduée'

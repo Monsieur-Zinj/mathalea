@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { exercicesParams } from "../store"
-  export let text = ""
+  import { exercicesParams } from '../store'
+  export let text = ''
   export let indice: number
 
-  function remove() {
+  function remove () {
     exercicesParams.update((l) => [...l.slice(0, indice), ...l.slice(indice + 1)])
   }
 </script>

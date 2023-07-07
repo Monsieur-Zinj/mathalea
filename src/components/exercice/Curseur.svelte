@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
+  import { createEventDispatcher } from 'svelte'
   const dispatch = createEventDispatcher()
-  function notifyChange() {
-    dispatch("curseurNotif")
+  function notifyChange () {
+    dispatch('curseurNotif')
   }
   export let titre: string
   export let montant: number

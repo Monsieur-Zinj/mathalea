@@ -7,7 +7,7 @@ import {
   randint,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Tables de multiplication et de divisions'
 export const amcReady = true
 export const amcType = 'AMCNum'

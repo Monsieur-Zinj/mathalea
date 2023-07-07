@@ -3,10 +3,10 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true

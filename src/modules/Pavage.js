@@ -1,4 +1,5 @@
-import { egal, nombreAvecEspace } from './outils.js'
+import { nombreAvecEspace } from '../lib/outils/texNombre.js'
+import { egal } from './outils.js'
 import {
   barycentre,
   homothetie,

@@ -1,9 +1,10 @@
+import { texcolors } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
-import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, randint, contraindreValeur } from '../../modules/outils.js'
+import { choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, randint, contraindreValeur } from '../../modules/outils.js'
 import { grille, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 

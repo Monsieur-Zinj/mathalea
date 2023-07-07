@@ -1,8 +1,8 @@
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, sp } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Mesure principale d\'un angle'
 export const interactifReady = true
 export const interactifType = 'mathLive'

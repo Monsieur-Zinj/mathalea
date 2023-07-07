@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from "./store"
-  import Footer from "./Footer.svelte"
-  import NavBarV2 from "./header/NavBarV2.svelte"
-  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from "../lib/mathalea.js"
-  import type TypeExercice from "./utils/typeExercice"
+  import { exercicesParams, darkMode } from './store'
+  import Footer from './Footer.svelte'
+  import NavBarV2 from './header/NavBarV2.svelte'
+  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea.js'
+  import type TypeExercice from './utils/typeExercice'
 
   const copyCode = async () => {
     try {
-      const text = document.querySelector("pre").innerText
+      const text = document.querySelector('pre').innerText
       await navigator.clipboard.writeText(text)
     } catch (err) {
-      console.error("Accès au presse-papier impossible: ", err)
+      console.error('Accès au presse-papier impossible: ', err)
     }
   }
 
-  function downloadCode() {
+  function downloadCode () {
     const text = document.querySelector('pre').innerText
     const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
@@ -28,20 +28,20 @@
   let content = ''
   let exercices: TypeExercice[]
 
-  async function initExercices() {
+  async function initExercices () {
     mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     let i = 0
     for (const param of $exercicesParams) {
       let paramUrl = ''
       for (const key of Object.keys(param)) {
-        if(key === 'sup') {
+        if (key === 'sup') {
           paramUrl += `s\\=${param[key]}&`
         } else if (key === 'sup2') {
           paramUrl += `s2\\=${param[key]}&`
         } else if (key === 'sup3') {
           paramUrl += `s3\\=${param[key]}&`
-        } else if(key !== 'alea') {
+        } else if (key !== 'alea') {
           paramUrl += `${key}\\=${param[key]}&`
         }
       }
@@ -54,7 +54,7 @@
       content += '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
       content += `<mathalea-moodle url\\="${paramUrl}" correction />\n`
       content += '}\n\n'
-      i++  
+      i++
     }
   }
 

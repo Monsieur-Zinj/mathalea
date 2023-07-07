@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { exercicesParams } from "../store"
+  import { exercicesParams } from '../store'
   export let ressource
 
-  /*--------------------------------------------------------------
+  /* --------------------------------------------------------------
     Gestions des ressources via la liste
-   ---------------------------------------------------------------*/
+   --------------------------------------------------------------- */
   const isPresent = (code: string) => {
     return code === ressource.uuid
   }
@@ -23,13 +23,13 @@
   /**
    * Ajouter la ressource courante à la liste
    */
-  function addToList() {
-    console.log("Ressource cliquée :")
+  function addToList () {
+    console.log('Ressource cliquée :')
     console.log(ressource)
     const newRessource = {
-      url: ressource.get("url"),
-      id: ressource.get("id"),
-      uuid: ressource.get("uuid"),
+      url: ressource.get('url'),
+      id: ressource.get('id'),
+      uuid: ressource.get('uuid')
     }
     exercicesParams.update((list) => [...list, newRessource])
   }
@@ -37,24 +37,24 @@
    * Retirer la ressource de la liste (si plusieurs occurences
    * la première est retirée)
    */
-  function removeFromList() {
-    let matchingIndex = listeCodes.findIndex(isPresent)
+  function removeFromList () {
+    const matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
-  /*--------------------------------------------------------------
+  /* --------------------------------------------------------------
     Gestions des icônes en début de ligne
-   ---------------------------------------------------------------*/
-  let icon = "bxs-message-alt"
-  let rotation = "-rotate-90"
+   --------------------------------------------------------------- */
+  let icon = 'bxs-message-alt'
+  let rotation = '-rotate-90'
   let mouseIsOut = true
-  function handleMouseOver() {
-    icon = "bx-trash"
-    rotation = "rotate-0"
+  function handleMouseOver () {
+    icon = 'bx-trash'
+    rotation = 'rotate-0'
     mouseIsOut = false
   }
-  function handleMouseOut() {
-    icon = "bxs-message-alt"
-    rotation = "-rotate-90"
+  function handleMouseOut () {
+    icon = 'bxs-message-alt'
+    rotation = '-rotate-90'
     mouseIsOut = true
   }
 </script>
@@ -67,7 +67,7 @@
   >
     <div class="ml-[3px] pl-2 py-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1">
       <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-        {ressource.get("titre")}
+        {ressource.get('titre')}
       </div>
     </div>
   </div>

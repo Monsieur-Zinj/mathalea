@@ -1,9 +1,11 @@
 import { personne, prenom, prenomF } from '../../lib/outils/Personne.js'
+import { texPrix } from '../../lib/format/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { sp, listeQuestionsToContenu, randint, texNombre, numAlpha, texPrix, gestionnaireFormulaireTexte, arrondi } from '../../modules/outils.js'
+import { sp, listeQuestionsToContenu, randint, numAlpha, gestionnaireFormulaireTexte, arrondi } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { min, max } from 'mathjs'
 
 export const interactifReady = true

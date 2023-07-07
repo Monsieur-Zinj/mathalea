@@ -35,7 +35,7 @@ export default function NotationSegmentDroiteDemiDroite () {
       const A = point(0, 0, p[0], 'above left')
       const B = point(1, 1.2, p[1], 'above')
       const C = point(2.2, -0.3, p[2], 'above right')
-      function creerDroiteDemiSegment (A, B, type) {
+      const creerDroiteDemiSegment = (A, B, type) => {
         let trait, notation
         switch (type) {
           case 1:

@@ -1,32 +1,32 @@
 <script lang="ts">
-  import { exercicesParams } from "../store"
-  import renderMathInElement from "katex/dist/contrib/auto-render.js"
+  import { exercicesParams } from '../store'
+  import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 
   export let outil
 
   let nomDeExercice: HTMLDivElement
 
   $: {
-    if (nomDeExercice && nomDeExercice.outerText.includes("$")) {
+    if (nomDeExercice && nomDeExercice.outerText.includes('$')) {
       renderMathInElement(nomDeExercice, {
         delimiters: [
-          { left: "\\[", right: "\\]", display: true },
-          { left: "$", right: "$", display: false },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false }
         ],
         // Les accolades permettent d'avoir une formule non coupée
-        preProcess: (chaine: string) => "{" + chaine.replaceAll(String.fromCharCode(160), "\\,") + "}",
+        preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
         throwOnError: true,
-        errorColor: "#CC0000",
-        strict: "warn",
-        trust: false,
+        errorColor: '#CC0000',
+        strict: 'warn',
+        trust: false
       })
       // console.log(nomDeExercice.outerText)
     }
   }
 
-  /*--------------------------------------------------------------
+  /* --------------------------------------------------------------
     Gestions des outils via la liste
-   ---------------------------------------------------------------*/
+   --------------------------------------------------------------- */
   const isPresent = (code: string) => {
     return code === outil.uuid
   }
@@ -46,12 +46,12 @@
   /**
    * Ajouter l'outil courant à la liste
    */
-  function addToList() {
+  function addToList () {
     // console.log(outil)
     const newExercise = {
       url: outil.url,
       id: outil.id,
-      uuid: outil.uuid,
+      uuid: outil.uuid
     }
     exercicesParams.update((list) => [...list, newExercise])
   }
@@ -59,30 +59,30 @@
    * Retirer l'outil de la liste (si plusieurs occurences
    * la première est retirée)
    */
-  function removeFromList() {
-    let matchingIndex = listeCodes.findIndex(isPresent)
+  function removeFromList () {
+    const matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
 
-  /*--------------------------------------------------------------
+  /* --------------------------------------------------------------
     Gestions des icônes en début de ligne
-   ---------------------------------------------------------------*/
-  let icon = "bxs-message-alt"
-  let rotation = "-rotate-90"
+   --------------------------------------------------------------- */
+  let icon = 'bxs-message-alt'
+  let rotation = '-rotate-90'
   let mouseIsOut = true
-  function handleMouseOver() {
-    icon = "bx-trash"
-    rotation = "rotate-0"
+  function handleMouseOver () {
+    icon = 'bx-trash'
+    rotation = 'rotate-0'
     mouseIsOut = false
   }
-  function handleMouseOut() {
-    icon = "bxs-message-alt"
-    rotation = "-rotate-90"
+  function handleMouseOut () {
+    icon = 'bxs-message-alt'
+    rotation = '-rotate-90'
     mouseIsOut = true
   }
 </script>
 
-<!-- 
+<!--
   @component
   Écrit le nom d'un outil sur le format : code + titre
 
@@ -92,9 +92,9 @@
   dans la liste des outils sélectionnés
 
   __Paramètres__ :
-  
+
   - **outil** : objet de type *Exo* (`{"id": UUID de l'exo, "code": nom de l'exo (par exemple "6N12-3")}`)
-  
+
  -->
 <div class="relative flex flex-row mr-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-2">
   <div

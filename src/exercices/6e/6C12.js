@@ -1,8 +1,9 @@
 import { prenomF } from '../../lib/outils/Personne.js'
+import { texNombre3 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, range, texteEnCouleurEtGras, sp, numAlpha, choice, arrondi, rangeMinMax, texNombre3, troncature, estentier, enleveElementNo, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, range, texteEnCouleurEtGras, sp, numAlpha, choice, arrondi, rangeMinMax, troncature, estentier, enleveElementNo, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Résoudre des problèmes de prix'
 export const interactifReady = true

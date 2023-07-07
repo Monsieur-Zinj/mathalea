@@ -1,6 +1,8 @@
+import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, tableauColonneLigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, miseEnEvidence } from '../../modules/outils.js'
 export const titre = 'Trouver ordre de grandeur d\'opérations sur les décimaux'
 
 /**
@@ -11,6 +13,30 @@ export const titre = 'Trouver ordre de grandeur d\'opérations sur les décimaux
 
 export const uuid = '843e5'
 export const ref = '6N31-2'
+// une fonction pour ordre de grandeur en fonction de ... opération 1
+function myOrdreOpe1 (c, d) {
+  if (c * d >= 60) {
+    return ['', '', '', '', '', miseEnEvidence('X')]
+  } else {
+    return ['', '', '', '', miseEnEvidence('X'), '']
+  }
+}
+// une fonction pour ordre de grandeur en fonction de ... opération 2
+function myOrdreOpe2 (c1, c2) {
+  if (c1 + c2 / 10 >= 600) {
+    return ['', '', '', miseEnEvidence('X'), '', '']
+  } else {
+    return ['', '', miseEnEvidence('X'), '', '', '']
+  }
+}
+// une fonction pour ordre de grandeur en fonction de ... opération 3
+function myOrdreOpe3 (n) {
+  if (n >= 7) {
+    return ['', '', '', miseEnEvidence('X'), '', '']
+  } else {
+    return ['', '', miseEnEvidence('X'), '', '', '']
+  }
+}
 export default function OrdreDeGrandeurOperationsDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
@@ -18,7 +44,50 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
     this.nbQuestions = 1
   } else {
     this.nbQuestions = 1
-  };
+  }
+  // une fonction pour ordre de grandeur en fonction de ... opération 4
+  function myOrdreOpe4 (d, n) {
+    let sortie
+    switch (d) {
+      case 0.1:
+        if (n >= 7) {
+          sortie = ['', '', '', miseEnEvidence('X'), '', '']
+        } else {
+          sortie = ['', '', miseEnEvidence('X'), '', '', '']
+        }
+        break
+      case 0.01:
+        if (n >= 7) {
+          sortie = ['', '', miseEnEvidence('X'), '', '', '']
+        } else {
+          sortie = ['', miseEnEvidence('X'), '', '', '', '']
+        }
+        break
+      case 0.001:
+        if (n >= 7) {
+          sortie = ['', miseEnEvidence('X'), '', '', '', '']
+        } else {
+          sortie = [miseEnEvidence('X'), '', '', '', '', '']
+        }
+        break
+    }
+    return sortie
+  }
+  // une fonction pour ordre de grandeur en fonction de ... opération 5
+  function myOrdreOpe5 (mult) {
+    let sortie
+    switch (mult) {
+      case 1:
+        return ['', '', '', miseEnEvidence('X'), '', '']
+      case 10:
+        return ['', '', miseEnEvidence('X'), '', '', '']
+      case 100:
+        return ['', miseEnEvidence('X'), '', '', '', '']
+      case 1000:
+        return [miseEnEvidence('X'), '', '', '', '', '']
+    }
+    return sortie
+  }
 
   this.consigne = 'Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l\'ordre de grandeur du résultat.'
 
@@ -72,78 +141,6 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
       const divAleatoireOpe3 = choice([10, 100])
       const divAleatoireOpe5 = choice([1, 10, 100, 1000])
       const multAleatoireOpe4 = choice([0.1, 0.01, 0.001])
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 1
-      function myOrdreOpe1 (c, d) {
-        if (c * d >= 60) {
-          return ['', '', '', '', '', miseEnEvidence('X')]
-        } else {
-          return ['', '', '', '', miseEnEvidence('X'), '']
-        };
-      };
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 2
-      function myOrdreOpe2 (c1, c2) {
-        if (c1 + c2 / 10 >= 600) {
-          return ['', '', '', miseEnEvidence('X'), '', '']
-        } else {
-          return ['', '', miseEnEvidence('X'), '', '', '']
-        };
-      };
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 3
-      function myOrdreOpe3 (n) {
-        if (n >= 7) {
-          return ['', '', '', miseEnEvidence('X'), '', '']
-        } else {
-          return ['', '', miseEnEvidence('X'), '', '', '']
-        };
-      };
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 4
-      function myOrdreOpe4 (d, n) {
-        let sortie
-        switch (d) {
-          case 0.1:
-            if (n >= 7) {
-              sortie = ['', '', '', miseEnEvidence('X'), '', '']
-            } else {
-              sortie = ['', '', miseEnEvidence('X'), '', '', '']
-            };
-            break
-          case 0.01:
-            if (n >= 7) {
-              sortie = ['', '', miseEnEvidence('X'), '', '', '']
-            } else {
-              sortie = ['', miseEnEvidence('X'), '', '', '', '']
-            };
-            break
-          case 0.001:
-            if (n >= 7) {
-              sortie = ['', miseEnEvidence('X'), '', '', '', '']
-            } else {
-              sortie = [miseEnEvidence('X'), '', '', '', '', '']
-            };
-            break
-        }
-        return sortie
-      };
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 5
-      function myOrdreOpe5 (mult) {
-        let sortie
-        switch (mult) {
-          case 1:
-            return ['', '', '', miseEnEvidence('X'), '', '']
-          case 10:
-            return ['', '', miseEnEvidence('X'), '', '', '']
-          case 100:
-            return ['', miseEnEvidence('X'), '', '', '', '']
-          case 1000:
-            return [miseEnEvidence('X'), '', '', '', '', '']
-        };
-        return sortie
-      };
 
       let situations = [
         {
@@ -219,7 +216,7 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
             texteCorr = `${enonces[0].correction}`
           };
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

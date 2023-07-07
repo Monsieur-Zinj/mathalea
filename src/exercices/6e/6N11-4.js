@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, miseEnEvidence, texteEnCouleurEtGras } from '../../modules/outils.js'
 export const titre = 'Ranger une liste de nombres entiers dans l\'ordre croissant ou décroissant'
 
 /**
@@ -11,6 +12,17 @@ export const titre = 'Ranger une liste de nombres entiers dans l\'ordre croissan
 
 export const uuid = '3bba9'
 export const ref = '6N11-4'
+// une fonction pour gérer l'ordre
+function myOrdre (ordre, tab) {
+  tab.sort((a, b) => a - b)
+  switch (ordre) {
+    case 'croissant':
+      return tab
+    case 'décroissant':
+      return tab.reverse()
+  }
+}
+
 export default function RangerOrdreCroissantDecroissant () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
@@ -19,7 +31,7 @@ export default function RangerOrdreCroissantDecroissant () {
     this.nbQuestions = 2
   } else {
     this.nbQuestions = 2
-  };
+  }
 
   // this.consigne = `Classer les nombres suivants dans l'ordre indiqué.`;
 
@@ -37,7 +49,7 @@ export default function RangerOrdreCroissantDecroissant () {
     } else {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = [0, 1]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -78,17 +90,6 @@ export default function RangerOrdreCroissantDecroissant () {
         }
       ]
 
-      // une fonction pour gérer l'ordre
-      function myOrdre (ordre, tab) {
-        tab.sort((a, b) => a - b)
-        switch (ordre) {
-          case 'croissant':
-            return tab
-          case 'décroissant':
-            return tab.reverse()
-        };
-      };
-
       const enonces = []
       let nombres = []
       let nombresRanges = []
@@ -101,14 +102,14 @@ export default function RangerOrdreCroissantDecroissant () {
         myOrdre(situations[k].ordre, nombresRanges)
         enonces.push({
           enonce: `Classer les nombres suivants dans l'ordre ${situations[k].ordre} :<br>
-        $${texNombre(nombres[0])}$   ;   $${texNombre(nombres[1])}$   ;   $${texNombre(nombres[2])}$   ;   $${texNombre(nombres[3])}$   ;   $${texNombre(nombres[4])}$   ;   $${texNombre(nombres[5])}$          
+        $${texNombre(nombres[0])}$   ;   $${texNombre(nombres[1])}$   ;   $${texNombre(nombres[2])}$   ;   $${texNombre(nombres[3])}$   ;   $${texNombre(nombres[4])}$   ;   $${texNombre(nombres[5])}$
         `,
           question: '',
           correction: `Les nombres rangés dans l'ordre ${texteEnCouleurEtGras(situations[k].ordre)} :<br>
         $${texNombre(nombresRanges[0])}$   ${situations[k].symbole}   $${texNombre(nombresRanges[1])}$   ${situations[k].symbole}   $${texNombre(nombresRanges[2])}$   ${situations[k].symbole}   $${texNombre(nombresRanges[3])}$   ${situations[k].symbole}   $${texNombre(nombresRanges[4])}$   ${situations[k].symbole}   $${texNombre(nombresRanges[5])}$
         `
         })
-      };
+      }
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
@@ -121,7 +122,7 @@ export default function RangerOrdreCroissantDecroissant () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -131,9 +132,9 @@ export default function RangerOrdreCroissantDecroissant () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

@@ -1,5 +1,7 @@
+import { texteGras } from '../../lib/format/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { min } from 'mathjs'
 export const titre = 'Union et Intersection de proportions'
 
@@ -80,7 +82,7 @@ export default class nomExercice extends Exercice {
         D'après le cours, pour calculer la proportion d'une sous-population dans une population, on calcule :<br>
         <br>$p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$<br>
         <br>On a donc :  $p_T=\\dfrac{${tarot}}{${effectif}}\\quad ; \\quad p_B=\\dfrac{${belote}}{${effectif}}\\quad ; \\quad p_{T\\cup B}=\\dfrac{${union}}{${effectif}}$<br>
-         On note 
+         On note
          On sait que  $p_{T\\cup B} = p_T + p_B -  p_{T\\cap B}$.<br>
          Ce qui revient, en appliquant les données de l'énoncé, à écrire :
          $ \\dfrac{${union}}{${effectif}}= \\dfrac{${tarot}}{${effectif}} +\\dfrac{${belote}}{${effectif}} - p_{T\\cap B}$<br>

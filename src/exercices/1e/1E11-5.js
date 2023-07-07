@@ -7,7 +7,7 @@ import {
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, extraireRacineCarree } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/mathFonctions/outilsMaths.js'
 export const interactifReady = false

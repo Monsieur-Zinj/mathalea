@@ -1,4 +1,5 @@
-import { choice, randint, texNombre } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'

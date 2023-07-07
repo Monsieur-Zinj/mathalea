@@ -1,8 +1,9 @@
+import { texcolors } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { texcolors, combinaisonListes, choice, randint, listeQuestionsToContenu, numAlpha, calcul } from '../../modules/outils.js'
+import { combinaisonListes, choice, randint, listeQuestionsToContenu, numAlpha, calcul } from '../../modules/outils.js'
 import { traceGraphiqueCartesien, segment, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Représenter des données par un diagramme'

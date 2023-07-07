@@ -1,5 +1,5 @@
 import { context } from '../../modules/context.js'
-import { modalImage, modalTexteLong } from './modales.js'
+import { modalImage, modalTexteLong } from '../outils/modales.js'
 
 export function katexPopupTest (texte, titrePopup, textePopup) {
   let contenu = ''
@@ -31,7 +31,6 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
   // ToDo : gérer les popup avec la version 3
   // Pour l'instant, ils sont supprimés
-  // if (context.versionMathalea > 2) return texte
   switch (type) {
     case 0:
       return katexPopupTest(texte, titrePopup, textePopup)
@@ -63,8 +62,7 @@ export function warnMessage (texte, couleur, titre) {
     titre = ''
   }
   if (context.isHtml) {
-    if (context.versionMathalea === 3) {
-      return `
+    return `
       <div id="warnMessage-${timeStamp}">
         <div id="title-warnMessage-${timeStamp}">
         ${titre}
@@ -72,16 +70,6 @@ export function warnMessage (texte, couleur, titre) {
         ${texte}
       </div>
       `
-    } else {
-      return `
-    <br>
-    <div class="ui compact warning message">
-    <h4><i class="lightbulb outline icon"></i>${titre}</h4>
-    <p>` + texte + `
-    </p>
-    </div>
-    `
-    }
   } else {
     // return texCadreParOrange(texte);
     return `
@@ -102,8 +90,7 @@ export function infoMessage ({ titre, texte, couleur }) {
   // ;
   const timeStamp = Date.now()
   if (context.isHtml) {
-    if (context.versionMathalea === 3) {
-      return `
+    return `
       <div id="infoMessage-${timeStamp}">
         <div id="title-infoMessage-${timeStamp}">
         ${titre}
@@ -111,19 +98,6 @@ export function infoMessage ({ titre, texte, couleur }) {
         ${texte}
       </div>
       `
-    } else {
-      return `
-    <div class="ui compact icon message">
-      <i class="info circle icon"></i>
-      <div class="content">
-          <div class="header">
-          ` + titre + `
-          </div>
-          <p>` + texte + `</p>
-      </div>
-      </div>
-    `
-    }
   } else {
     return `
     \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bcinfo,arrondi=0.1]{\\bf ' + titre + `}
@@ -142,8 +116,7 @@ export function infoMessage ({ titre, texte, couleur }) {
 export function lampeMessage ({ titre, texte, couleur }) {
   const timeStamp = Date.now()
   if (context.isHtml) {
-    if (context.versionMathalea === 3) {
-      return `
+    return `
       <div id="lampeMessage-${timeStamp}">
         <div id="title-lampeMessage-${timeStamp}">
         ${titre}
@@ -151,19 +124,6 @@ export function lampeMessage ({ titre, texte, couleur }) {
         ${texte}
       </div>
       `
-    } else {
-      return `
-      <div class="ui compact icon message" style="width: auto">
-        <i class="lightbulb outline icon"></i>
-        <div class="content">
-            <div class="header">
-            ` + titre + `
-            </div>
-            <p>` + texte + `</p>
-        </div>
-        </div>
-      `
-    }
   } else if (context.isAmc) {
     return `
     {\\bf ${titre}} : ${texte}

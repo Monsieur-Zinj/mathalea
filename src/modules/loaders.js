@@ -2,13 +2,13 @@
 import loadjs from 'loadjs'
 import { context } from './context.js'
 import { UserFriendlyError } from './messages.js'
-import { clavierLongueur } from './interactif/claviers/longueur_ANCIEN.js'
-import { clavierTrigo } from './interactif/claviers/trigo.js'
-import { clavierCollege } from './interactif/claviers/college.js'
-import { clavierLycee } from './interactif/claviers/lycee.js'
-import { clavierConfiguration } from './interactif/claviers/claviersUnites.js'
-import { clavierCollege6eme } from './interactif/claviers/college6eme.js'
-import { clavierHms } from './interactif/claviers/clavierHms.js'
+import { clavierLongueur } from '../lib/interactif/claviers/longueur_ANCIEN.js'
+import { clavierTrigo } from '../lib/interactif/claviers/trigo.js'
+import { clavierCollege } from '../lib/interactif/claviers/college.js'
+import { clavierLycee } from '../lib/interactif/claviers/lycee.js'
+import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
+import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
+import { clavierHms } from '../lib/interactif/claviers/clavierHms.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -220,9 +220,7 @@ export async function loadMathLive () {
       if (mf.classList.contains('largeur75')) {
         style += ' width: 75%;'
       }
-      if (context.versionMathalea > 2) {
-        style += ' min-width: 200px'
-      }
+      style += ' min-width: 200px'
       mf.style = style
     }
   }

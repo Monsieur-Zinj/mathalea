@@ -1,4 +1,7 @@
-import { addElement, get, setStyles } from '../../modules/dom'
+import { gestionCan } from './gestionCan'
+import { addElement, get, setStyles } from '../html/dom'
+import { context } from '../../modules/context'
+import { afficheScore } from './gestionInteractif'
 
 export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** number */) {
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
@@ -46,4 +49,63 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
   }
   spanReponseLigne.style.fontSize = 'large'
   return resultat
+}
+
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses cochées
+ * @param {object} exercice
+ */
+export function exerciceListeDeroulante (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    // Couleur pour surligner les label avec une opacité de 50%
+    if (context.vue === 'can') {
+      gestionCan(exercice)
+    }
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+    if (button) {
+      if (!button.hasMathaleaListener) {
+        button.addEventListener('click', event => {
+          let nbQuestionsValidees = 0
+          let nbQuestionsNonValidees = 0
+          const uiselects = document.querySelectorAll(`.ui.dropdown.ex${exercice.numeroExercice}`)
+          uiselects.forEach(function (uiselect) {
+            uiselect.classList.add('disabled')
+          })
+          button.classList.add('disabled')
+          for (let i = 0; i < exercice.nbQuestions; i++) {
+            const resultat = verifQuestionListeDeroulante(exercice, i)
+            resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
+          }
+          afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
+        })
+        button.hasMathaleaListener = true
+      }
+    }
+  })
+}
+
+/**
+ *
+ * @param {object} exercice l'exercice appelant pour pouvoir atteindre ses propriétés.
+ * @param {number} i le numéro de la question
+ * @param {number} c le numéro de la liste pour un exercice en comportant plusieurs afin de permettre des test d'association
+ * @param {array} choix Les différentes propositions de la liste
+ * @param {string} [type='nombre'] 'nombre' si les choix sont des nombres à choisir, sinon on demande ce qu'on veut
+ * @author Rémi Angot
+ * @returns {string} le code html de la liste
+ */
+export function choixDeroulant (exercice, i, c, choix, type = 'nombre', style = '') {
+  if (!exercice.interactif || !context.isHtml) return ''
+  if (style) style = `style="${style}"`
+
+  let result = `<select class="ui fluid mx-2 dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" ${style} data-choix="${c}">
+      <option> Choisir ${type === 'nombre' ? 'un nombre' : type} </option>`
+
+  for (const a of choix) {
+    result += `<option>${a}</option>`
+  }
+  result += '</select>'
+  return result
 }

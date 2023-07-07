@@ -1,12 +1,12 @@
-
+import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle, tableauColonneLigne } from '../../modules/outils.js'
+import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
 
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '28/12/2021'

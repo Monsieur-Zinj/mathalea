@@ -1,3 +1,4 @@
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
@@ -5,10 +6,10 @@ import {
   point, droiteGraduee, segment, milieu, texteParPosition, codageSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, stringNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'CAN 6e sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -389,7 +390,7 @@ export default function SujetCAN2021Sixieme () {
           b = arrondi(randint(7, 9) + randint(1, 9) / 10, 1)
           c = arrondi(a - b, 1)
           texte = `Avec $${a}$  €, j'achète un livre à $${texNombre(b)}$  €. <br>
-          On me rend 
+          On me rend
       `
           texteCorr = `On me rend : $${a}-${texNombre(b)}=${texNombre(a - b)}$ €.`
           reponse = c
@@ -519,7 +520,7 @@ export default function SujetCAN2021Sixieme () {
               ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'feuilles'
           } else {
-            texte += `Entoure la réponse vraisemblable.<br> 
+            texte += `Entoure la réponse vraisemblable.<br>
             Le maître ramasse en tout : <br>
             ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
           }
@@ -549,7 +550,7 @@ export default function SujetCAN2021Sixieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
             texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                        Comme : $${texNombre(a, 0)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 0)}$ m$=${texNombre(a * 100, 0)}$ cm.  
+                        Comme : $${texNombre(a, 0)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 0)}$ m$=${texNombre(a * 100, 0)}$ cm.
                         `
           } else {
             a = randint(1, 12) * choice([1, 10, 100])

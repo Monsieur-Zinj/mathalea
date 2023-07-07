@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, tick } from "svelte"
+  import { onMount, tick } from 'svelte'
   import {
     mathaleaFormatExercice,
     mathaleaHandleComponentChange,
@@ -8,26 +8,26 @@
     mathaleaHandleSup,
     mathaleaLoadExerciceFromUuid,
     mathaleaRenderDiv,
-    mathaleaUpdateUrlFromExercicesParams,
-  } from "../lib/mathalea"
-  import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from "./store"
-  import type Exercice from "./utils/typeExercice"
-  import seedrandom from "seedrandom"
-  import { tweened } from "svelte/motion"
-  import { cubicOut } from "svelte/easing"
-  import { context } from "../modules/context.js"
-  import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
-  import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
-  import { showDialogForLimitedTime } from "./utils/dialogs"
-  import { copyLinkToClipboard, copyQRCodeImageToClipboard } from "./utils/clipboard"
-  import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
-  import ModalForQRCode from "./modal/ModalForQRCode.svelte"
-  import FormRadio from "./forms/FormRadio.svelte"
-  import ButtonToggle from "./forms/ButtonToggle.svelte"
-  import NavBarV2 from "./header/NavBarV2.svelte"
-  import type { InterfaceParams } from "src/lib/types"
+    mathaleaUpdateUrlFromExercicesParams
+  } from '../lib/mathalea'
+  import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from './store'
+  import type Exercice from './utils/typeExercice'
+  import seedrandom from 'seedrandom'
+  import { tweened } from 'svelte/motion'
+  import { cubicOut } from 'svelte/easing'
+  import { context } from '../modules/context.js'
+  import { shuffle, listOfRandomIndexes } from './utils/shuffle'
+  import ModalActionWithDialog from './modal/ModalActionWithDialog.svelte'
+  import { showDialogForLimitedTime } from './utils/dialogs'
+  import { copyLinkToClipboard, copyQRCodeImageToClipboard } from './utils/clipboard'
+  import { formattedTimeStamp, setPhraseDuree } from './utils/time'
+  import ModalForQRCode from './modal/ModalForQRCode.svelte'
+  import FormRadio from './forms/FormRadio.svelte'
+  import ButtonToggle from './forms/ButtonToggle.svelte'
+  import NavBarV2 from './header/NavBarV2.svelte'
+  import type { InterfaceParams } from 'src/lib/types'
 
-  let divQuestion: HTMLDivElement[] = []
+  const divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
@@ -48,9 +48,9 @@
   let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   $: isManualModeActive = false
-  let progress = tweened(0, {
+  const progress = tweened(0, {
     duration: durationGlobal ?? durations[currentQuestion] ?? 10,
-    easing: cubicOut,
+    easing: cubicOut
   })
   let myInterval: number
   let currentDuration: number
@@ -67,27 +67,27 @@
   if ($transitionsBetweenQuestions.tune !== undefined) {
     $transitionsBetweenQuestions.isNoisy = true
   }
-  let formatQRCodeIndex: number = 0
-  let QRCodeWidth = 100
-  let stringDureeTotale = "0"
+  const formatQRCodeIndex: number = 0
+  const QRCodeWidth = 100
+  let stringDureeTotale = '0'
   // variables pour les transitions entre questions
   const transitionSounds = {
-    "0": new Audio("assets/sounds/transition_sound_01.mp3"),
-    "1": new Audio("assets/sounds/transition_sound_02.mp3"),
-    "2": new Audio("assets/sounds/transition_sound_03.mp3"),
-    "3": new Audio("assets/sounds/transition_sound_04.mp3"),
+    0: new Audio('assets/sounds/transition_sound_01.mp3'),
+    1: new Audio('assets/sounds/transition_sound_02.mp3'),
+    2: new Audio('assets/sounds/transition_sound_03.mp3'),
+    3: new Audio('assets/sounds/transition_sound_04.mp3')
   }
   const labelsForSounds = [
-    { label: "Son 1", value: "0" },
-    { label: "Son 2", value: "1" },
-    { label: "Son 3", value: "2" },
-    { label: "Son 4", value: "3" },
+    { label: 'Son 1', value: '0' },
+    { label: 'Son 2', value: '1' },
+    { label: 'Son 3', value: '2' },
+    { label: 'Son 4', value: '3' }
   ]
   const labelsForMultivue = [
-    { label: "Pas de multivue", value: "1" },
-    { label: "Deux vues", value: "2" },
-    { label: "Trois vues", value: "3" },
-    { label: "Quatre vues", value: "4" },
+    { label: 'Pas de multivue', value: '1' },
+    { label: 'Deux vues', value: '2' },
+    { label: 'Trois vues', value: '3' },
+    { label: 'Quatre vues', value: '4' }
   ]
 
   if ($globalOptions && $globalOptions.durationGlobal) {
@@ -95,7 +95,7 @@
   }
 
   onMount(async () => {
-    context.vue = "diap"
+    context.vue = 'diap'
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
@@ -115,10 +115,10 @@
     if (divTableDurationsQuestions) mathaleaRenderDiv(divTableDurationsQuestions)
   })
 
-  function handleStringFromUrl(text: string): boolean | number | string {
-    if (text === "true" || text === "false") {
+  function handleStringFromUrl (text: string): boolean | number | string {
+    if (text === 'true' || text === 'false') {
       // "true"=>true
-      return text === "true"
+      return text === 'true'
     } else if (/^\d+$/.test(text)) {
       // "17"=>17
       return parseInt(text)
@@ -127,7 +127,7 @@
     }
   }
 
-  async function updateExercices() {
+  async function updateExercices () {
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
@@ -144,13 +144,13 @@
         } else {
           exercice.seed = exercice.seed.substring(0, 4)
         }
-        if (exercice.typeExercice === "simple") mathaleaHandleExerciceSimple(exercice, false)
+        if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
-        let consigne: string = ""
+        let consigne: string = ''
         if ($selectedExercises.indexes.includes(k)) {
           if (exercice.introduction) {
-            consigne = exercice.consigne + "\n" + exercice.introduction
+            consigne = exercice.consigne + '\n' + exercice.introduction
           } else {
             consigne = exercice.consigne
           }
@@ -165,7 +165,7 @@
         }
       }
     }
-    let newParams: InterfaceParams[] = []
+    const newParams: InterfaceParams[] = []
     for (const [k, exercice] of exercices.entries()) {
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
@@ -180,7 +180,7 @@
         sup: mathaleaHandleSup(exercice.sup),
         sup2: mathaleaHandleSup(exercice.sup2),
         sup3: mathaleaHandleSup(exercice.sup3),
-        sup4: mathaleaHandleSup(exercice.sup4),
+        sup4: mathaleaHandleSup(exercice.sup4)
       })
     }
     globalOptions.update((l) => {
@@ -200,16 +200,16 @@
     }
   }
 
-  function handleShortcut(e: KeyboardEvent) {
-    if (e.key === "ArrowLeft") {
+  function handleShortcut (e: KeyboardEvent) {
+    if (e.key === 'ArrowLeft') {
       e.preventDefault()
       prevQuestion()
     }
-    if (e.key === "ArrowRight") {
+    if (e.key === 'ArrowRight') {
       e.preventDefault()
       nextQuestion()
     }
-    if (e.key === " ") {
+    if (e.key === ' ') {
       e.preventDefault()
       if (durationGlobal !== 0) switchPause()
     }
@@ -221,7 +221,7 @@
   //
   // ================================================================================
 
-  async function goToQuestion(i: number) {
+  async function goToQuestion (i: number) {
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
     if (i === -1 || i === questions[0].length) pause()
     await tick()
@@ -238,7 +238,7 @@
           transitionSounds[$transitionsBetweenQuestions.tune].play()
         }
         if ($transitionsBetweenQuestions.isActive) {
-          showDialogForLimitedTime("transition", 1000).then(() => {
+          showDialogForLimitedTime('transition', 1000).then(() => {
             timer(durationGlobal ?? durations[currentQuestion] ?? 10)
           })
         } else {
@@ -249,7 +249,7 @@
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
 
-  function prevQuestion() {
+  function prevQuestion () {
     if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
       if (isQuestionVisible) {
         if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
@@ -263,7 +263,7 @@
     }
   }
 
-  function nextQuestion() {
+  function nextQuestion () {
     if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
       if (isQuestionVisible && !isCorrectionVisible) {
         switchPause()
@@ -282,7 +282,7 @@
   /**
    * Pour le bouton de retour de la page de fin
    */
-  function returnToStart() {
+  function returnToStart () {
     durationGlobal = 0
     pause()
     goToQuestion(0)
@@ -292,7 +292,7 @@
    * Gestion du clic sur l'étape dans la progression
    * @param {number} index index de l'étape
    */
-  function clickOnStep(index: number) {
+  function clickOnStep (index: number) {
     goToQuestion(index)
   }
 
@@ -304,7 +304,7 @@
   //
   // ================================================================================
 
-  function timer(timeQuestion = 5, reset = true) {
+  function timer (timeQuestion = 5, reset = true) {
     // timeQuestion est le temps de la question exprimé en secondes
     if (timeQuestion === 0) {
       pause()
@@ -323,13 +323,13 @@
     }
   }
 
-  function switchPause() {
+  function switchPause () {
     if (!isPause) {
       pause()
     } else timer(durationGlobal ?? durations[currentQuestion] ?? 10, false)
   }
 
-  function pause() {
+  function pause () {
     clearInterval(myInterval)
     isPause = true
   }
@@ -338,7 +338,7 @@
   /**
    * Gère la récupération de la valeur du curseur de temps
    */
-  function handleTimerChange() {
+  function handleTimerChange () {
     durationGlobal = 0
     pause()
     if (cursorTimeValue === 0) {
@@ -352,7 +352,7 @@
     goToQuestion(currentQuestion)
   }
 
-  function handleChangeDurationGlobal() {
+  function handleChangeDurationGlobal () {
     globalOptions.update((l) => {
       l.durationGlobal = durationGlobal
       return l
@@ -360,7 +360,7 @@
     updateExercices()
   }
 
-  function handleCheckSameDurationForAll() {
+  function handleCheckSameDurationForAll () {
     globalOptions.update((l) => {
       l.durationGlobal = null
       return l
@@ -372,16 +372,16 @@
   $: messageDuree = setPhraseDuree(cursorTimeValue)
 
   $: displayCurrentDuration = () => {
-    return isManualModeActive ? "Manuel" : currentDuration + "s"
+    return isManualModeActive ? 'Manuel' : currentDuration + 's'
   }
 
   /**
    * Calcule la durée totale du diaporama
    * (durée par question x nombre de questions)
    */
-  function getTotalDuration() {
+  function getTotalDuration () {
     let sum = 0
-    for (let [i, exercice] of exercices.entries()) {
+    for (const [i, exercice] of exercices.entries()) {
       if ($selectedExercises.isActive) {
         if ($selectedExercises.indexes.includes(i)) {
           sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
@@ -398,7 +398,7 @@
    */
   $: getTotalNbOfQuestions = () => {
     let sum = 0
-    for (let [i, exercice] of exercices.entries()) {
+    for (const [i, exercice] of exercices.entries()) {
       if ($selectedExercises.isActive) {
         if ($selectedExercises.indexes.includes(i)) {
           sum += exercice.nbQuestions
@@ -410,7 +410,7 @@
     return sum
   }
 
-  function handleCheckManualMode() {
+  function handleCheckManualMode () {
     isManualModeActive = !isManualModeActive
   }
 
@@ -426,7 +426,7 @@
       durationGlobal = null
     }
     let steps: NodeListOf<HTMLLIElement>
-    if (stepsUl) steps = stepsUl.querySelectorAll("li")
+    if (stepsUl) steps = stepsUl.querySelectorAll('li')
     if (steps) {
       if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
       if (steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
@@ -453,18 +453,18 @@
    * </ul>
    * @author sylvain
    */
-  async function setSize() {
+  async function setSize () {
     let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
-      if (typeof divQuestion[i] !== "undefined") {
+      if (typeof divQuestion[i] !== 'undefined') {
         mathaleaRenderDiv(divQuestion[i], -1)
-        const textcell_div = document.getElementById("textcell" + i) as HTMLDivElement
-        const consigne_div = document.getElementById("consigne" + i) as HTMLDivElement
-        const question_div = document.getElementById("question" + i) as HTMLDivElement
-        const correction_div = document.getElementById("correction" + i) as HTMLDivElement
-        const svg_divs = document.getElementsByClassName("mathalea2d") as HTMLCollectionOf<SVGElement>
-        let textcell_width = textcell_div.clientWidth
-        let textcell_height = textcell_div.clientHeight
+        const textcell_div = document.getElementById('textcell' + i) as HTMLDivElement
+        const consigne_div = document.getElementById('consigne' + i) as HTMLDivElement
+        const question_div = document.getElementById('question' + i) as HTMLDivElement
+        const correction_div = document.getElementById('correction' + i) as HTMLDivElement
+        const svg_divs = document.getElementsByClassName('mathalea2d') as HTMLCollectionOf<SVGElement>
+        const textcell_width = textcell_div.clientWidth
+        const textcell_height = textcell_div.clientHeight
         let finalSVGHeight = 0
         // Donner la bonne taille aux figures
         if (svg_divs.length !== 0 && question_div !== null) {
@@ -478,20 +478,20 @@
             const rw = optimalSVGWidth / startingWidth
             const rh = optimalSVGHeigth / startingHeight
             if (startingHeight * rw < optimalSVGHeigth) {
-              svg_divs[k].setAttribute("width", (optimalSVGWidth * currentZoom).toString())
-              svg_divs[k].setAttribute("height", (svg_divs[k].clientHeight * rw * currentZoom).toString())
+              svg_divs[k].setAttribute('width', (optimalSVGWidth * currentZoom).toString())
+              svg_divs[k].setAttribute('height', (svg_divs[k].clientHeight * rw * currentZoom).toString())
             } else {
-              svg_divs[k].setAttribute("height", (optimalSVGHeigth * currentZoom).toString())
-              svg_divs[k].setAttribute("width", (svg_divs[k].clientWidth * rh * currentZoom).toString())
+              svg_divs[k].setAttribute('height', (optimalSVGHeigth * currentZoom).toString())
+              svg_divs[k].setAttribute('width', (svg_divs[k].clientWidth * rh * currentZoom).toString())
             }
-            svg_divs[k].removeAttribute("style")
+            svg_divs[k].removeAttribute('style')
             if (nbOfSVG > 1) {
-              svg_divs[k].setAttribute("style", "display: inline")
+              svg_divs[k].setAttribute('style', 'display: inline')
             } else {
-              svg_divs[k].setAttribute("style", "margin: auto")
+              svg_divs[k].setAttribute('style', 'margin: auto')
             }
-            if (finalSVGHeight < parseInt(svg_divs[k].getAttribute("height"))) {
-              finalSVGHeight = parseInt(svg_divs[k].getAttribute("height"))
+            if (finalSVGHeight < parseInt(svg_divs[k].getAttribute('height'))) {
+              finalSVGHeight = parseInt(svg_divs[k].getAttribute('height'))
             }
           }
         }
@@ -499,11 +499,11 @@
         // let nbOfCharactersInTextDiv = textcell_div.innerText.length
         // on retire les balises KaTeX (car trop bavardes) pour le décompte des caractères
         const clone = textcell_div.cloneNode(true)
-        //@ts-ignore
-        const elementsKaTeX = clone.getElementsByClassName("katex")
+        // @ts-ignore
+        const elementsKaTeX = clone.getElementsByClassName('katex')
         let nbOfCharInKaTeX = 0
         while (elementsKaTeX.length > 0) {
-          const katexHtmlElement = elementsKaTeX[0].getElementsByClassName("katex-html")
+          const katexHtmlElement = elementsKaTeX[0].getElementsByClassName('katex-html')
           let kw = 0
           for (let k = 0; k < katexHtmlElement.length; k++) {
             nbOfCharInKaTeX += katexHtmlElement[k].innerText.length
@@ -511,12 +511,12 @@
           }
           elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
         }
-        //@ts-ignore
-        const elementsSVG = clone.getElementsByClassName("mathalea2d")
+        // @ts-ignore
+        const elementsSVG = clone.getElementsByClassName('mathalea2d')
         while (elementsSVG.length > 0) {
           elementsSVG[0].parentNode.removeChild(elementsSVG[0])
         }
-        //@ts-ignore
+        // @ts-ignore
         let nbOfCharactersInTextDiv = clone.innerText.length + nbOfCharInKaTeX
         if (finalSVGHeight !== 0) {
           nbOfCharactersInTextDiv -= 100
@@ -535,7 +535,7 @@
         do {
           size = size - 2
           if (question_div !== null) {
-            question_div.style.fontSize = size + "px"
+            question_div.style.fontSize = size + 'px'
             question_height = question_div.clientHeight
             question_width = question_div.clientWidth
           } else {
@@ -543,7 +543,7 @@
             question_width = 0
           }
           if (consigne_div !== null) {
-            consigne_div.style.fontSize = size + "px"
+            consigne_div.style.fontSize = size + 'px'
             consigne_height = consigne_div.clientHeight
             consigne_width = consigne_div.clientWidth
           } else {
@@ -551,7 +551,7 @@
             consigne_width = 0
           }
           if (correction_div !== null) {
-            correction_div.style.fontSize = size + "px"
+            correction_div.style.fontSize = size + 'px'
             correction_height = correction_div.clientHeight
             correction_width = correction_div.clientWidth
           } else {
@@ -560,19 +560,19 @@
           }
         } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
         if (question_div !== null) {
-          question_div.style.fontSize = currentZoom * size + "px"
+          question_div.style.fontSize = currentZoom * size + 'px'
         }
         if (consigne_div !== null) {
-          consigne_div.style.fontSize = currentZoom * size + "px"
+          consigne_div.style.fontSize = currentZoom * size + 'px'
         }
         if (correction_div !== null) {
-          correction_div.style.fontSize = currentZoom * size + "px"
+          correction_div.style.fontSize = currentZoom * size + 'px'
         }
       }
     }
   }
 
-  function zoomPlus() {
+  function zoomPlus () {
     // userZoom += 0.25
     if (userZoom < 1) {
       userZoom += 0.05
@@ -583,7 +583,7 @@
     setSize()
   }
 
-  function zoomMoins() {
+  function zoomMoins () {
     // if (userZoom > 1) userZoom -= 0.25
     // else if (userZoom > 0.2) userZoom -= 0.1
     if (userZoom > 0.1) {
@@ -608,7 +608,7 @@
   //
   // ================================================================================
 
-  async function switchCorrectionMode() {
+  async function switchCorrectionMode () {
     // isCorrectionVisible = !isCorrectionVisible
     if (isQuestionVisible && !isCorrectionVisible) {
       isCorrectionVisible = !isCorrectionVisible
@@ -626,28 +626,28 @@
     setSize()
   }
 
-  async function switchQuestionToCorrection() {
+  async function switchQuestionToCorrection () {
     if (isCorrectionVisible) {
       isCorrectionVisible = false
       isQuestionVisible = true
     } else {
       isCorrectionVisible = true
-      isQuestionVisible = $transitionsBetweenQuestions.questThenQuestAndSolDisplay ? true : false
+      isQuestionVisible = !!$transitionsBetweenQuestions.questThenQuestAndSolDisplay
     }
     await tick()
     setSize()
   }
 
   $: displayCurrentCorrectionMode = () => {
-    let mode = ""
+    let mode = ''
     if (isQuestionVisible && !isCorrectionVisible) {
-      mode = "Q"
+      mode = 'Q'
     }
     if (isQuestionVisible && isCorrectionVisible) {
-      mode = "Q+C"
+      mode = 'Q+C'
     }
     if (!isQuestionVisible && isCorrectionVisible) {
-      mode = "C"
+      mode = 'C'
     }
     return mode
   }
@@ -655,7 +655,7 @@
   /**
    * Gestion de la sélection du choix des exercices dans la liste
    */
-  function handleSampleChecked() {
+  function handleSampleChecked () {
     $selectedExercises.count = exercices.length - 1
     $selectedExercises.isActive = !$selectedExercises.isActive
     if (!$selectedExercises.isActive) {
@@ -679,7 +679,7 @@
    * sera batie la liste des exercices à utiliser
    * 2/ on met à jours les paramètres dans les options et l'URL
    */
-  function handleSampleSizeChange() {
+  function handleSampleSizeChange () {
     $selectedExercises.indexes = [...listOfRandomIndexes(exercices.length, $selectedExercises.count)]
     globalOptions.update((l) => {
       l.choice = $selectedExercises.count
@@ -692,7 +692,7 @@
   /**
    * Gestion du bouton demandant de changer l'ordre des questions
    */
-  function handleRandomQuestionOrder() {
+  function handleRandomQuestionOrder () {
     // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled  <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.shuffle = $questionsOrder.isQuestionsShuffled
@@ -705,7 +705,7 @@
    * Gérer le choix de cartons entre les questions
    * @author sylvain
    */
-  function handleTransitionsMode() {
+  function handleTransitionsMode () {
     // $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive  <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.trans = $transitionsBetweenQuestions.isActive
@@ -718,11 +718,11 @@
    * Gérer le choix de sons entre les questions
    * @author sylvain
    */
-  function handleTransitionSound() {
+  function handleTransitionSound () {
     // $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy  <- inutile avec ButtonToggle
     if ($transitionsBetweenQuestions.isNoisy) {
-      if (typeof $transitionsBetweenQuestions.tune === "undefined") {
-        $transitionsBetweenQuestions.tune = "0"
+      if (typeof $transitionsBetweenQuestions.tune === 'undefined') {
+        $transitionsBetweenQuestions.tune = '0'
       }
       globalOptions.update((l) => {
         l.sound = $transitionsBetweenQuestions.tune
@@ -742,7 +742,7 @@
    * Met à jour le numéro du son dans l'URL
    * @author sylvain
    */
-  function handleTuneChange() {
+  function handleTuneChange () {
     globalOptions.update((l) => {
       l.sound = $transitionsBetweenQuestions.tune
       return l
@@ -750,23 +750,23 @@
     updateExercices()
   }
 
-  function switchFullScreen() {
+  function switchFullScreen () {
     isFullScreen = !isFullScreen
     if (isFullScreen) {
-      const app = document.querySelector("#diaporama")
+      const app = document.querySelector('#diaporama')
       app.requestFullscreen()
     } else {
       document.exitFullscreen()
     }
   }
 
-  function handleQuit() {
-    mathaleaHandleComponentChange("diaporama", "")
+  function handleQuit () {
+    mathaleaHandleComponentChange('diaporama', '')
     // $selectedExercises.isActive = false
     updateExercices()
   }
 
-  function isInViewport(element: HTMLElement): boolean {
+  function isInViewport (element: HTMLElement): boolean {
     const rect = element.getBoundingClientRect()
     return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   }
@@ -774,7 +774,7 @@
 
 <svelte:window on:keyup={handleShortcut} />
 <!-- Page d'accueil du diapo -->
-<div id="diaporama" class={$darkMode.isActive ? "dark" : ""}>
+<div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
   {#if currentQuestion === -1}
     <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus">
       <!-- <div class="flex flex-row justify-between p-6">
@@ -799,7 +799,7 @@
                   <button
                     type="button"
                     class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    on:click={() => mathaleaHandleComponentChange("diaporama", "can")}
+                    on:click={() => mathaleaHandleComponentChange('diaporama', 'can')}
                   >
                     <i class="bx text-2xl bx-detail" />
                   </button>
@@ -827,7 +827,7 @@
           <div class="pb-8">
             <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <ButtonToggle bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive} titles={["Question <em>puis</em> correction", "Question / Question+Correction / Correction"]} />
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive} titles={['Question <em>puis</em> correction', 'Question / Question+Correction / Correction']} />
             </div>
             <div class="{$transitionsBetweenQuestions.isQuestThenSolModeActive ? 'flex' : 'hidden'} flex-row justify-start items-center pr-4 pl-6">
               <input
@@ -850,10 +850,10 @@
               </label>
             </div>
             <div class="flex flex-row justify-start items-center px-4">
-              <ButtonToggle bind:value={$transitionsBetweenQuestions.isActive} titles={["Carton entre questions", "Pas de carton entre questions"]} on:click={handleTransitionsMode} />
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isActive} titles={['Carton entre questions', 'Pas de carton entre questions']} on:click={handleTransitionsMode} />
             </div>
             <div class="flex flex-row justify-start items-center px-4">
-              <ButtonToggle bind:value={$transitionsBetweenQuestions.isNoisy} titles={["Son entre questions", "Pas de son entre questions"]} on:click={handleTransitionSound} />
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isNoisy} titles={['Son entre questions', 'Pas de son entre questions']} on:click={handleTransitionSound} />
             </div>
             <FormRadio
               title="son"
@@ -870,7 +870,7 @@
           <div class="pb-6">
             <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Ordre</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <ButtonToggle bind:value={$questionsOrder.isQuestionsShuffled} titles={["Questions dans le désordre", "Questions dans l'ordre"]} on:click={handleRandomQuestionOrder} />
+              <ButtonToggle bind:value={$questionsOrder.isQuestionsShuffled} titles={['Questions dans le désordre', "Questions dans l'ordre"]} on:click={handleRandomQuestionOrder} />
             </div>
           </div>
           <div class="pb-6">
@@ -915,7 +915,7 @@
             Liens
             <div class="flex flex-row px-4 -mt-2 justify-start">
               <ModalActionWithDialog
-                on:display={() => copyLinkToClipboard("linkCopiedDialog-1")}
+                on:display={() => copyLinkToClipboard('linkCopiedDialog-1')}
                 message="Le lien est copié dans le presse-papier !"
                 dialogId="linkCopiedDialog-1"
                 tooltipMessage="Lien du Diaporama"
@@ -1189,7 +1189,7 @@
                 </div>
               </div>
             </div>
-            <div class={$transitionsBetweenQuestions.isQuestThenSolModeActive ? "hidden" : "block"}>
+            <div class={$transitionsBetweenQuestions.isQuestThenSolModeActive ? 'hidden' : 'block'}>
               <button type="button" on:click={switchCorrectionMode}>
                 <i
                   class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
@@ -1229,13 +1229,13 @@
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => mathaleaHandleComponentChange("diaporama", "can")}
+            on:click={() => mathaleaHandleComponentChange('diaporama', 'can')}
           >
             <i class="bx text-[100px] bx-detail" />
           </button>
         </div>
         <ModalActionWithDialog
-          on:display={() => copyLinkToClipboard("linkCopiedDialog-2")}
+          on:display={() => copyLinkToClipboard('linkCopiedDialog-2')}
           message="Le lien est copié dans le presse-papier !"
           dialogId="linkCopiedDialog-2"
           tooltipMessage="Lien du Diaporama"
@@ -1254,7 +1254,7 @@
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => mathaleaHandleComponentChange("diaporama", "")}
+            on:click={() => mathaleaHandleComponentChange('diaporama', '')}
           >
             <i class="bx text-[100px] bx-home-alt-2" />
           </button>

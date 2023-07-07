@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, enleveDoublonNum, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { point, labelPoint, segment, polygone, translation2Points, similitude, grille, seyes } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, nouveau paramètre, couleur appropriée dans la correction, AMC
 

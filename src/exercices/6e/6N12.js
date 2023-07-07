@@ -1,8 +1,9 @@
 import { modalUrl } from '../../lib/outils/modales.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, sp, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, sp, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)'
 export const interactifReady = true

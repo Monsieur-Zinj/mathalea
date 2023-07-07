@@ -1,4 +1,5 @@
-import { choice, randint, texNombre } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer à partir d’une décomposition'
 export const interactifReady = true

@@ -1,28 +1,28 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from "./store"
-  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea.js"
-  import type TypeExercice from "./utils/typeExercice"
-  import Footer from "./Footer.svelte"
-  import NavBarV2 from "./header/NavBarV2.svelte"
-  import Latex, { type Exo, type picFile, getExosContentList, getPicsNames, doesLatexNeedsPics, makeImageFilesUrls } from "../lib/Latex"
-  import Button from "./forms/Button.svelte"
-  import FormRadio from "./forms/FormRadio.svelte"
-  import { onMount } from "svelte"
-  import { deviceType } from "./utils/measures"
-  import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
-  import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
-  import { showDialogForLimitedTime } from "./utils/dialogs.js"
-  import { downloadTexWithImagesZip, downloadZip } from "../lib/files";
-  import ButtonOverleaf from "./forms/ButtonOverleaf.svelte";
+  import { exercicesParams, darkMode } from './store'
+  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
+  import type TypeExercice from './utils/typeExercice'
+  import Footer from './Footer.svelte'
+  import NavBarV2 from './header/NavBarV2.svelte'
+  import Latex, { type Exo, type picFile, getExosContentList, getPicsNames, doesLatexNeedsPics, makeImageFilesUrls } from '../lib/Latex'
+  import Button from './forms/Button.svelte'
+  import FormRadio from './forms/FormRadio.svelte'
+  import { onMount } from 'svelte'
+  import { deviceType } from './utils/measures'
+  import ModalMessageBeforeAction from './modal/ModalMessageBeforeAction.svelte'
+  import ModalActionWithDialog from './modal/ModalActionWithDialog.svelte'
+  import { showDialogForLimitedTime } from './utils/dialogs.js'
+  import { downloadTexWithImagesZip, downloadZip } from '../lib/files'
+  import ButtonOverleaf from './forms/ButtonOverleaf.svelte'
 
   let nbVersions = 1
-  let title = ""
-  let reference = ""
-  let subtitle = ""
-  let style: "Coopmaths" | "Classique" | "ProfMaquette" | "Can" = "Coopmaths"
+  let title = ''
+  let reference = ''
+  let subtitle = ''
+  let style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can' = 'Coopmaths'
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
-  let contents = { content: "", contentCorr: "" }
+  let contents = { content: '', contentCorr: '' }
   let isExerciceStaticInTheList = false
   let downloadPicsModal: HTMLElement
   let picsWanted: boolean
@@ -31,11 +31,11 @@
   let exosContentList: Exo[] = []
   const latex = new Latex()
 
-  async function initExercices() {
+  async function initExercices () {
     mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     for (const exercice of exercices) {
-      if (exercice.typeExercice === "statique") {
+      if (exercice.typeExercice === 'statique') {
         isExerciceStaticInTheList = true
         break
       }
@@ -48,18 +48,18 @@
 
   onMount(() => {
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    downloadPicsModal = document.getElementById("downloadPicsModal")
+    downloadPicsModal = document.getElementById('downloadPicsModal')
   })
 
   /* ============================================================================
   *
   *                Modal pour le téléchargement des figures
-  * 
-  ===============================================================================*/
+  *
+  =============================================================================== */
   // click en dehors du moda de téléchargement des figures le fait disparaître
   window.onclick = function (event) {
     if (event.target == downloadPicsModal) {
-      downloadPicsModal.style.display = "none"
+      downloadPicsModal.style.display = 'none'
     }
   }
 
@@ -67,21 +67,21 @@
    * Gérer le téléchargement des images dans une archive `images.zip` lors du clic sur le bouton du modal
    * @author sylvain
    */
-  function handleActionFromDownloadPicsModal() {
+  function handleActionFromDownloadPicsModal () {
     const imagesFilesUrls = makeImageFilesUrls(exercices)
     downloadZip(imagesFilesUrls, 'images.zip')
-    downloadPicsModal.style.display = "none"
+    downloadPicsModal.style.display = 'none'
   }
 
   /**
    * Gérer l'affichage du modal : on donne la liste des images par exercice
    */
-  function handleDownloadPicsModalDisplay() {
+  function handleDownloadPicsModalDisplay () {
     exosContentList = getExosContentList(exercices)
     picsNames = getPicsNames(exosContentList)
-    downloadPicsModal.style.display = "block"
+    downloadPicsModal.style.display = 'block'
   }
-  //====================== Fin Modal figures ====================================
+  //= ===================== Fin Modal figures ====================================
 
   initExercices()
 
@@ -98,7 +98,7 @@
         dialogLua.close()
       }, 3000)
     } catch (err) {
-      console.error("Accès au presse-papier impossible: ", err)
+      console.error('Accès au presse-papier impossible: ', err)
     }
   }
 
@@ -119,17 +119,17 @@ export function buildMessageForCopyPaste (picsWanted: boolean) {
  * @param {string} dialogId id attaché au composant
  * @author sylvain
  */
-async function copyLaTeXCodeToClipBoard(dialogId: string) {
-  const text = document.querySelector("pre").innerText;
+async function copyLaTeXCodeToClipBoard (dialogId: string) {
+  const text = document.querySelector('pre').innerText
   navigator.clipboard.writeText(text).then(
     () => {
-      showDialogForLimitedTime(dialogId + "-1", 2000);
+      showDialogForLimitedTime(dialogId + '-1', 2000)
     },
     (err) => {
-      console.error("Async: Could not copy text: ", err);
-      showDialogForLimitedTime(dialogId + "-2", 1000);
+      console.error('Async: Could not copy text: ', err)
+      showDialogForLimitedTime(dialogId + '-2', 1000)
     }
-  );
+  )
 }
 </script>
 
@@ -144,13 +144,13 @@ async function copyLaTeXCodeToClipBoard(dialogId: string) {
         <div class="pb-4 md:pb-0 md:pt-1">
           <FormRadio
             title="Style"
-            orientation={deviceType() === "mobile" ? "col" : "row"}
+            orientation={deviceType() === 'mobile' ? 'col' : 'row'}
             bind:valueSelected={style}
             labelsValues={[
-              { label: "Coopmaths", value: "Coopmaths" },
-              { label: "Classique", value: "Classique" },
-              { label: "ProfMaquette", value: "ProfMaquette" },
-              { label: "Course aux nombres", value: "Can", isDisabled: isExerciceStaticInTheList },
+              { label: 'Coopmaths', value: 'Coopmaths' },
+              { label: 'Classique', value: 'Classique' },
+              { label: 'ProfMaquette', value: 'ProfMaquette' },
+              { label: 'Course aux nombres', value: 'Can', isDisabled: isExerciceStaticInTheList }
             ]}
           />
         </div>
@@ -161,23 +161,23 @@ async function copyLaTeXCodeToClipBoard(dialogId: string) {
         <input
           type="text"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-          placeholder={style === "Can" ? "Course aux nombres" : "Titre"}
+          placeholder={style === 'Can' ? 'Course aux nombres' : 'Titre'}
           bind:value={title}
-          disabled={style === "Can"}
+          disabled={style === 'Can'}
         />
         <input
           type="text"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-          placeholder={style === "Coopmaths" ? "Référence" : "Haut de page gauche"}
+          placeholder={style === 'Coopmaths' ? 'Référence' : 'Haut de page gauche'}
           bind:value={reference}
-          disabled={style === "Can"}
+          disabled={style === 'Can'}
         />
         <input
           type="text"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-          placeholder={style === "Coopmaths" ? "Sous-titre / Chapitre" : "Pied de page droit"}
+          placeholder={style === 'Coopmaths' ? 'Sous-titre / Chapitre' : 'Pied de page droit'}
           bind:value={subtitle}
-          disabled={style === "Can"}
+          disabled={style === 'Can'}
         />
       </div>
       <div class="flex flex-col md:flex-row mt-6">
@@ -195,13 +195,13 @@ async function copyLaTeXCodeToClipBoard(dialogId: string) {
     </div>
 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
-    <ButtonOverleaf {latex} latexFileInfos={{ title, reference, subtitle, style, nbVersions }} disabled={style === "ProfMaquette"} />
+    <ButtonOverleaf {latex} latexFileInfos={{ title, reference, subtitle, style, nbVersions }} disabled={style === 'ProfMaquette'} />
     <div
       class="flex flex-col md:flex-row justify-start space-x-0 space-y-2 mt-6 md:space-x-4 md:space-y-0"
     >
       <ModalActionWithDialog
         on:display={() => {
-          copyLaTeXCodeToClipBoard("copyPasteModal");
+          copyLaTeXCodeToClipBoard('copyPasteModal')
         }}
         message={messageForCopyPasteModal}
         messageError="Impossible de copier le code LaTeX dans le presse-papier"
@@ -222,8 +222,8 @@ async function copyLaTeXCodeToClipBoard(dialogId: string) {
       <Button
         idLabel="downloadFullArchive"
         on:click={() => {
-          const filesInfo = { title, reference, subtitle, style, nbVersions };
-          downloadTexWithImagesZip("coopmaths", latex, filesInfo);
+          const filesInfo = { title, reference, subtitle, style, nbVersions }
+          downloadTexWithImagesZip('coopmaths', latex, filesInfo)
         }}
         title="Téléchager l'archive complète"
       />
@@ -256,7 +256,7 @@ async function copyLaTeXCodeToClipBoard(dialogId: string) {
 
     <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg">
       {@html messageForCopyPasteModal}
-      {#if style === "ProfMaquette"}
+      {#if style === 'ProfMaquette'}
       <p class="mt-4">Il faut mettre à jour votre distribution LaTeX pour avoir la dernière version du package <em class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold">ProfMaquette</em>.</p>
       {:else}
       <p class="mt-4">Il faudra utiliser <em class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold">LuaLaTeX</em> pour compiler le document.</p>
@@ -266,11 +266,11 @@ async function copyLaTeXCodeToClipBoard(dialogId: string) {
     <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
       {contents.content}
-      {#if style != "ProfMaquette"}
+      {#if style != 'ProfMaquette'}
       %%%%%%%%%%%%%%%%%%%%%%
       %%%   CORRECTION   %%%
       %%%%%%%%%%%%%%%%%%%%%%
-      
+
             {contents.contentCorr}
       {/if}
   </pre>

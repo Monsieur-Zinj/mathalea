@@ -1,8 +1,9 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texNombre, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, calcul, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const dateDePublication = '28/09/22'
 export const titre = 'Trouver une valeur approchée ou un arrondi d\'un décimal'
@@ -76,7 +77,7 @@ export default function ArrondirUnDecimal () {
 
       switch (listeTypeDeQuestions[i]) {
         case 6: { // arrondi au centième
-          texte = `Donner un arrondi au centième de 
+          texte = `Donner un arrondi au centième de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
@@ -95,7 +96,7 @@ export default function ArrondirUnDecimal () {
           break
         }
         case 5: { // arrondi au dixième
-          texte = `Donner un arrondi au dixième de 
+          texte = `Donner un arrondi au dixième de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
@@ -114,7 +115,7 @@ export default function ArrondirUnDecimal () {
           break
         }
         case 4: { // arrondi à l'unité
-          texte = `Donner un arrondi à l'unité de 
+          texte = `Donner un arrondi à l'unité de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')

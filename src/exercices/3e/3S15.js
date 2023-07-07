@@ -2,8 +2,8 @@ import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires.j
 import Exercice from '../Exercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Calculer des étendues'
 export const interactifReady = true
 export const interactifType = 'mathLive'

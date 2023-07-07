@@ -6,7 +6,7 @@ import {
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, miseEnEvidence, combinaisonListes } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

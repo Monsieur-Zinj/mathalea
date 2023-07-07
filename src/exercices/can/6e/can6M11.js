@@ -1,4 +1,3 @@
-
 import { paveLPH3d } from '../../../modules/3d.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

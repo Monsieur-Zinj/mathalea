@@ -1,5 +1,7 @@
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { prenom } from '../../lib/outils/Personne.js'
+import { texPrix } from '../../lib/format/style.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
   codageSegments,
   homothetie,
@@ -9,16 +11,13 @@ import {
   segment,
   texteParPosition
 } from '../../modules/2d.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   arrondi,
   choice,
   gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  stringNombre,
-  texNombre,
-  texPrix
+  listeQuestionsToContenu
 } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'

@@ -48,39 +48,6 @@ export default function RapportsSurUnSegment () {
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // une fonction pour le singulier pluriel
-      function singPlur (nombre, singulier, pluriel) {
-        if (nombre > 1) {
-          return pluriel
-        } else {
-          return singulier
-        };
-      };
-
-      // Une fonction pour l'étape de simplification si rapport différent de 1
-      function etapeSimp (n, m) {
-        let sortie
-        const rapport = fraction(n, m).n / fraction(n, m).numIrred
-        if (rapport !== 1) {
-          sortie = `\\dfrac{${fraction(n, m).numIrred} ${miseEnEvidence(`\\times ${fraction(n, m).n / fraction(n, m).numIrred}`)}}{${fraction(n, m).denIrred}${miseEnEvidence(`\\times ${fraction(n, m).n / fraction(n, m).numIrred}`)}}\\mathbf{=}${fraction(n, m).texFractionSimplifiee}`
-        } else {
-          sortie = `${fraction(n, m).texFractionSimplifiee}`
-        }
-        return sortie
-      }
-
-      function Remarque (rapAlph, rapAlphI, n, m) {
-        let sortie
-        const rapport = fraction(n, m).n / fraction(n, m).numIrred
-        if (rapport !== 1) {
-          sortie = `Remarque : Nous verrons plus tard que $${rapAlph}=${etapeSimp(fraction(n, m).n, fraction(n, m).d)}$ et que $${rapAlphI}=${etapeSimp(fraction(m, n).n, fraction(m, n).d)}$<br>`
-        } else {
-          sortie = ''
-        }
-        return sortie
-      }
-
-      // on choisit deux entiers pour former les fractions
       const entierMax = 9
       const m = randint(1, entierMax)
       const n = randint(1, entierMax, m) // on évite l'autre pour éviter la fraction 1
@@ -250,3 +217,30 @@ export default function RapportsSurUnSegment () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
 };
+function singPlur (nombre, singulier, pluriel) {
+  if (nombre > 1) {
+    return pluriel
+  } else {
+    return singulier
+  };
+};
+function etapeSimp (n, m) {
+  let sortie
+  const rapport = fraction(n, m).n / fraction(n, m).numIrred
+  if (rapport !== 1) {
+    sortie = `\\dfrac{${fraction(n, m).numIrred} ${miseEnEvidence(`\\times ${fraction(n, m).n / fraction(n, m).numIrred}`)}}{${fraction(n, m).denIrred}${miseEnEvidence(`\\times ${fraction(n, m).n / fraction(n, m).numIrred}`)}}\\mathbf{=}${fraction(n, m).texFractionSimplifiee}`
+  } else {
+    sortie = `${fraction(n, m).texFractionSimplifiee}`
+  }
+  return sortie
+}
+function Remarque (rapAlph, rapAlphI, n, m) {
+  let sortie
+  const rapport = fraction(n, m).n / fraction(n, m).numIrred
+  if (rapport !== 1) {
+    sortie = `Remarque : Nous verrons plus tard que $${rapAlph}=${etapeSimp(fraction(n, m).n, fraction(n, m).d)}$ et que $${rapAlphI}=${etapeSimp(fraction(m, n).n, fraction(m, n).d)}$<br>`
+  } else {
+    sortie = ''
+  }
+  return sortie
+}

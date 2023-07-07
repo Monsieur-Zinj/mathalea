@@ -1,10 +1,11 @@
-import { warnMessage } from '../../lib/outils/message.js'
+import { warnMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN } from '../../lib/outils/primalite.js'
+import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Indiquer si des nombres sont premiers ou pas' // EE : J'ai mis indiqué pour que ce titre convienne à AMC.
 export const interactifReady = true
 export const interactifType = 'qcm'

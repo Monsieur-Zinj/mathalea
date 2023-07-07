@@ -1,4 +1,5 @@
-import { calcul, randint, choice, texNombre } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { calcul, randint, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Passer de la fraction décimale à l’écriture décimale*'
 export const interactifReady = true

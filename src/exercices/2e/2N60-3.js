@@ -4,8 +4,10 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures.js'
+import { texteGras } from '../../lib/format/style.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, texteGras, sp, abs, choice, texNombre, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, sp, abs, choice, randint } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'
 export const dateDePublication = '14/02/2023'
 /**

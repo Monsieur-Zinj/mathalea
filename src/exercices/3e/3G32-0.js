@@ -1,3 +1,4 @@
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -5,8 +6,6 @@ import {
   listeQuestionsToContenu,
   randint,
   numAlpha,
-  stringNombre,
-  texNombre,
   arrondi,
   creerNomDePolygone,
   choice,
@@ -18,8 +17,8 @@ import {
 } from '../../modules/outils.js'
 import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone } from '../../modules/2d.js'
 import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { min, max } from 'mathjs'
 export const titre = 'Problèmes nécessitant un calcul de longueur à l\'aide de la trigonométrie'

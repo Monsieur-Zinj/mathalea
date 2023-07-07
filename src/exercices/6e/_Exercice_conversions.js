@@ -1,9 +1,11 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texTexte, calcul, texNombre, texNombre2, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, calcul, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { texTexte } from '../../lib/format/texTexte.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

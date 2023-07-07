@@ -1,8 +1,8 @@
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre, printlatex } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Réduire une expression de la forme $ax+bx$ '
 export const interactifReady = true
 export const interactifType = 'mathLive'

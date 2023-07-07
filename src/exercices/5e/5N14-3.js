@@ -1,8 +1,9 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombre, miseEnEvidence } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { listeQuestionsToContenu, randint, choice, calcul, miseEnEvidence } from '../../modules/outils.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const titre = 'Fractions égales et égalité des produits en croix'
 
@@ -23,6 +24,76 @@ export const description = 'Déterminer si une égalité de deux fractions est v
  */
 export const uuid = 'd1fb2'
 export const ref = '5N14-3'
+
+/**
+ * Une fonction pour afficher des fraction avec num et/ou den décimaux
+ * @param num le numerateur de type number
+ * @param den le dénominateur de type number
+ */
+function showFracNumDenDec (num, den) {
+  const f = fraction(num, den)
+  return `\\dfrac{${texNombre(f.num / 10, 1)}}{${texNombre(f.den / 10, 1)}}`
+}
+/**
+ * Une fonction pour rendre deux fractions égales ou pas
+ * @param {boolean} bool
+ * @returns deux fractions egales ou non
+ */
+const fracEqualOrNot = function (bool, n, d, k) {
+  // On a besoin de deux fractions
+  let f2
+  const f1 = fraction(n, d)
+  if (bool) {
+    f2 = fraction(calcul(n * k), calcul(d * k))
+  } else {
+    f2 = fraction(calcul(n + k), calcul(d + k))
+  }
+  return { frac: f1, fracEqualOrNot: f2 }
+}
+
+/**
+ * Une fonction pour la correction
+ * @param bool le booléen pour savoir si il y a égalité ou pas
+ * @param f une fraction
+ * @param fEqOrNot l'autre fraction égale ou pas
+ */
+function justifyEq (bool, deuxFractions, decimal = false) {
+  const f = deuxFractions.frac
+  const fEqOrNot = deuxFractions.fracEqualOrNot
+  let strOut
+  // tous les nombres sont entiers ! on pourrait complètement se passer de texNombre (sauf pour les séparateurs de classes) => précision mise à 0
+  if (bool) {
+    if (decimal) {
+      strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
+            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
+            On constate que les produits en croix ne sont pas égaux.<br>
+            `
+      strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
+    } else {
+      strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
+            D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
+            On constate que les produits en croix sont égaux.<br>
+            `
+      strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ sont donc égales.`
+    }
+  } else {
+    if (!decimal) {
+      strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
+            D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
+            On constate que les produits en croix ne sont pas égaux.<br>
+            `
+      strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ ne sont donc pas égales.`
+    } else { // si on utilise des nombres décimaux au numérateur et au dénominateur, il ne faudrait pas appeler ça des fractions
+      strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
+            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
+            On constate que les produits en croix ne sont pas égaux.<br>
+            `
+      strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égales.`
+    }
+  }
+  return strOut
+}
+
 export default function EqResolvantesThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
@@ -59,75 +130,8 @@ export default function EqResolvantesThales () {
       let num, den
       // On a besoin d'un string pour stocker l'égalité et un autre pour la justification
       let egalite, justification
-      /**
-      * Une fonction pour rendre deux fractions égales ou pas
-      * @param {boolean} bool
-      * @returns deux fractions egales ou non
-      */
-      function fracEqualOrNot (bool, n, d) {
-        // On a besoin de deux fractions
-        let f2
-        const f1 = fraction(n, d)
-        if (bool) {
-          f2 = fraction(calcul(n * k), calcul(d * k))
-        } else {
-          f2 = fraction(calcul(n + k), calcul(d + k))
-        }
-        return { frac: f1, fracEqualOrNot: f2 }
-      }
-      /**
-      * Une fonction pour afficher des fraction avec num et/ou den décimaux
-      * @param num le numerateur de type number
-      * @param den le dénominateur de type number
-      */
-      function showFracNumDenDec (num, den) {
-        const f = fraction(num, den)
-        return `\\dfrac{${texNombre(f.num / 10, 1)}}{${texNombre(f.den / 10, 1)}}`
-      }
-
-      /**
-      * Une fonction pour la correction
-      * @param bool le booléen pour savoir si il y a égalité ou pas
-      * @param f une fraction
-      * @param fEqOrNot l'autre fraction égale ou pas
-      */
-      function justifyEq (bool, deuxFractions, decimal = false) {
-        const f = deuxFractions.frac
-        const fEqOrNot = deuxFractions.fracEqualOrNot
-        let strOut
-        // tous les nombres sont entiers ! on pourrait complètement se passer de texNombre (sauf pour les séparateurs de classes) => précision mise à 0
-        if (bool) {
-          if (decimal) {
-            strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
-            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
-            On constate que les produits en croix ne sont pas égaux.<br>
-            `
-            strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
-          } else {
-            strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
-            D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
-            On constate que les produits en croix sont égaux.<br>
-            `
-            strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ sont donc égales.`
-          }
-        } else {
-          if (!decimal) {
-            strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
-            D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
-            On constate que les produits en croix ne sont pas égaux.<br>
-            `
-            strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ ne sont donc pas égales.`
-          } else { // si on utilise des nombres décimaux au numérateur et au dénominateur, il ne faudrait pas appeler ça des fractions
-            strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
-            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
-            On constate que les produits en croix ne sont pas égaux.<br>
-            `
-            strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égales.`
-          }
-        }
-        return strOut
-      }
       const k = randint(2, 9)
+
       // On prépare tous les contenus selon le type de questions
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
       switch (listeTypeDeQuestions[i]) {
@@ -135,7 +139,7 @@ export default function EqResolvantesThales () {
           equalOrNot = choice([true, false])
           num = randint(1, 9)
           den = randint(2, 9, num)
-          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den, k)
           egalite = `$${deuxFractions.frac.texFraction}\\overset{?}{=}${deuxFractions.fracEqualOrNot.texFraction}$`
           justification = justifyEq(equalOrNot, deuxFractions, false)
           break
@@ -143,7 +147,7 @@ export default function EqResolvantesThales () {
           equalOrNot = choice([true, false])
           num = randint(11, 99)
           den = randint(11, 99, num)
-          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den, k)
           egalite = `$${deuxFractions.frac.texFraction}\\overset{?}{=}${deuxFractions.fracEqualOrNot.texFraction}$`
           justification = justifyEq(equalOrNot, deuxFractions, false)
           break
@@ -151,7 +155,7 @@ export default function EqResolvantesThales () {
           equalOrNot = choice([true, false])
           num = randint(11, 99)
           den = randint(11, 99, num)
-          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den, k)
           f = deuxFractions.frac
           fEqOrNot = deuxFractions.fracEqualOrNot
           // on utilise une fraction (quotient d'entiers) mais la fonction showFracNumDenDec() affiche les nombres divisés par 10

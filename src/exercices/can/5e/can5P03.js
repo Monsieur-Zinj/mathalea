@@ -1,6 +1,8 @@
+import { texPrix } from '../../../lib/format/style.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { context } from '../../../modules/context.js'
-import { calcul, choice, texNombre, randint, texPrix } from '../../../modules/outils.js'
+import { calcul, choice, randint } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -38,7 +40,7 @@ export default function PoucentageP2 () {
         c = randint(2, 8) // nombre de kg première valeur
         d = randint(3, 6, c) // nombre de kg supplémentaires
         this.reponse = calcul(d * b)
-        this.question = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br> 
+        this.question = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br>
         
         $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>
         

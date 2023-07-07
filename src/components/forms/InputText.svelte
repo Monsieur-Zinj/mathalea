@@ -1,11 +1,11 @@
 <script lang="ts">
-  export let title: string = "Title"
-  export let placeholder = "Your text here"
+  export let title: string = 'Title'
+  export let placeholder = 'Your text here'
   export let showTitle: boolean = true
-  export let value: string = ""
+  export let value: string = ''
   export let isDisabled: boolean = false
-  export let inputID: string = "input-text"
-  export let classAddenda: string = ""
+  export let inputID: string = 'input-text'
+  export let classAddenda: string = ''
 </script>
 
 <div>

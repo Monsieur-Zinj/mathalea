@@ -1,7 +1,11 @@
 import { round } from 'mathjs'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { stringNombre } from '../../lib/outils/texNombre.js'
 import FractionEtendue from '../FractionEtendue.js'
-import { randint } from '../outils.js'
+import { fraction } from '../fractions.js'
+import { matriceCarree } from '../MatriceCarree.js'
+import { egal, randint } from '../outils.js'
+import { TableauDeVariation } from '../TableauDeVariation.js'
 
 /**
  * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme
@@ -148,4 +152,229 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
     })
   }
   return solutions
+}
+
+/**
+ *
+ * @param {function} fonction du type (x)=>number
+ * @param {number} xMin
+ * @param {number} xMax
+ * @returns {*[]}
+ */
+export function signesFonction (fonction, xMin, xMax) {
+  const signes = []
+  let xG, xD, signe
+  for (let x = xMin; x < xMax; x += 0.001) {
+    const image = fonction(x)
+    if (xG == null) {
+      xG = round(x, 2)
+      xD = xG
+      signe = image < 0 ? '-' : '+'
+    } else if (signe === '-') {
+      xD = round(x, 2)
+      // parfois, on rate un zéro transitoire entre deux zones négatives car js sais pas faire des calculs exacts avec des flottants
+      if (image >= 0 || (-image) < 1e-12) {
+        signes.push({ xG, xD, signe })
+        xG = null
+        xD = null
+      }
+    } else {
+      xD = round(x, 2)
+      // parfois, on rate un zéro transitoire entre deux zones négatives car js sais pas faire des calculs exacts avec des flottants
+      if (image <= 0 || image < 1e-12) {
+        xD = round(x, 2)
+        signes.push({ xG, xD, signe })
+        xG = null
+        xD = null
+      }
+    }
+  }
+  if (xD != null) {
+    signes.push({ xG, xD, signe })
+  }
+  return signes.filter((signe) => signe.xG !== signe.xD)
+}
+
+/**
+ * retourne un tableau décrivant les variations de la fonction
+ * Attention, la fonction fournie doit avoir une methode derivee(x) qui retourne la valeur de la dérivée en x
+ * @param {(x)=>number} derivee
+ * @param {number} xMin
+ * @param {number} xMax
+ * @returns {null|*[]}
+ */
+export function variationsFonction (derivee, xMin, xMax) {
+  if (derivee !== null && typeof derivee === 'function') {
+    const signesDerivee = signesFonction(derivee, xMin, xMax)
+    const variations = []
+    for (const signe of signesDerivee) {
+      if (signe.signe === '+') {
+        variations.push({ xG: signe.xG, xD: signe.xD, variation: 'croissant' })
+      } else {
+        variations.push({ xG: signe.xG, xD: signe.xD, variation: 'decroissant' })
+      }
+    }
+    return variations.filter((variation) => variation.xG !== variations.xD)
+  } else {
+    window.notify('variationsFonction() appelée avec autre chose qu\'une fonction', { derivee })
+    return null
+  }
+}
+
+/**
+ * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
+ *
+ * @author Jean-Claude Lhote
+ */
+export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
+  const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
+  const determinant = matrice.determinant()
+  const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
+  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
+    const fa = fraction(a, determinant)
+    const fb = fraction(b, determinant)
+    return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
+  }
+  return [[a / determinant, 1], [b / determinant, 1]]
+}
+
+/**
+ * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
+ * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
+ * @author Jean-Claude Lhote
+ */
+export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
+  const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
+  const y1 = fx1 - d
+  const y2 = fx2 - d
+  const y3 = fx3 - d
+  const determinant = matrice.determinant()
+  if (determinant === 0) {
+    return [[0, 0], [0, 0], [0, 0]]
+  }
+  const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
+  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
+    const fa = fraction(a, determinant)
+    const fb = fraction(b, determinant)
+    const fc = fraction(c, determinant)
+    return [
+      [fa.numIrred, fa.denIrred],
+      [fb.numIrred, fb.denIrred],
+      [fc.numIrred, fc.denIrred]
+    ]
+    // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
+  }
+  return [
+    [a / determinant, 1],
+    [b / determinant, 1],
+    [b / determinant, 1]
+  ]
+}
+
+/**
+ * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
+ * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
+ * @author Jean-Claude Lhote
+ */
+export function chercheMinMaxFonction ([a, b, c, d]) {
+  const delta = 4 * b * b - 12 * a * c
+  if (delta <= 0) return [[0, 10 ** 99], [0, 10 ** 99]]
+  const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
+  const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
+  return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
+}
+export function tableauSignesFonction (fonction, xMin, xMax) {
+  const signes = signesFonction(fonction, xMin, xMax)
+
+  const initialValue = []
+  const premiereLigne = []
+  premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG), 10]), initialValue))
+  premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  const tabLine = ['Line', 30]
+  if (egal(fonction(xMin), 0)) {
+    tabLine.push('z', 10)
+  } else {
+    tabLine.push('', 10)
+  }
+  for (const signe of signes) {
+    tabLine.push(signe.signe, 10)
+    tabLine.push('z', 10)
+  }
+  if (!egal(fonction(xMax), 0)) {
+    tabLine.splice(-2, 2)
+  }
+  return new TableauDeVariation({
+    tabInit: [
+      [
+        ['x', 2, 10], ['f(x)', 2, 10]
+      ],
+      premiereLigne
+    ],
+    tabLines: [tabLine],
+    colorBackground: '',
+    escpl: 3.5, // taille en cm entre deux antécédents
+    deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+    lgt: 8, // taille de la première colonne en cm
+    hauteurLignes: [15, 15],
+    latex: false
+  })
+}
+export function tableauVariationsFonction (fonction, derivee, xMin, xMax) {
+  const signes = signesFonction(derivee, xMin, xMax)
+  const premiereLigne = []
+  const initalValue = []
+  premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG), 10]), initalValue))
+  premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  const tabLineDerivee = ['Line', 30]
+  if (egal(derivee(xMin), 0)) {
+    tabLineDerivee.push('z', 10)
+  } else {
+    tabLineDerivee.push('', 10)
+  }
+  for (const signe of signes) {
+    tabLineDerivee.push(signe.signe, 10)
+    tabLineDerivee.push('z', 10)
+  }
+  if (!egal(derivee(xMax), 0)) {
+    tabLineDerivee.splice(-2, 2)
+  }
+
+  const variations = variationsFonction(derivee, xMin, xMax)
+  const tabLineVariations = ['Var', 10]
+  let variationG = variations[0]
+  let variationD
+  if (variationG.variation === 'croissant') {
+    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG, 1), 1)}`, 5)
+  } else {
+    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG, 1), 1)}`, 5)
+  }
+  for (let i = 0; i < variations.length - 1; i++) {
+    variationG = variations[i]
+    variationD = variations[i + 1]
+    if (variationG.variation === variationD.variation) {
+      tabLineVariations.push('R/', 5)
+    } else {
+      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationD.xG, 1), 1)}`, 5)
+    }
+  }
+  if (variationD.variation === 'croissant') {
+    tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 1)}`, 5)
+  } else {
+    tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 1)}`, 5)
+  }
+  return new TableauDeVariation({
+    tabInit: [
+      [
+        ['x', 2, 5], ['f′(x)', 2, 10], ['f(x)', 2, 10]
+      ],
+      premiereLigne
+    ],
+    tabLines: [tabLineDerivee, tabLineVariations],
+    colorBackground: '',
+    escpl: 4.5, // taille en cm entre deux antécédents
+    deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+    lgt: 2, // taille de la première colonne en cm
+    hauteurLignes: [12, 12, 25],
+    latex: false
+  })
 }

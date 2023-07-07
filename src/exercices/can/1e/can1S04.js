@@ -1,8 +1,9 @@
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, texNombre } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { listeQuestionsToContenu, randint, calcul, choice } from '../../../modules/outils.js'
+import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Donner la nature d’une suite (formule de récurrence)'
 export const interactifReady = true
 export const interactifType = 'qcm'

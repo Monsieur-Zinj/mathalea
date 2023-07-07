@@ -1,5 +1,6 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -7,18 +8,16 @@ import {
   randint,
   shuffle,
   calcul,
-  texNombre,
   numAlpha,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
   listeQuestionsToContenu,
-  sp,
-  stringNombre
+  sp
 } from '../../modules/outils.js'
 import { droiteGraduee } from '../../modules/2d.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Lire des abscisses décimales sous trois formes'

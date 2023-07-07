@@ -1,10 +1,11 @@
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texteOuPas, contraindreValeur, texNombre, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, contraindreValeur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const dateDeModifImportante = '28/10/2021'
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 
@@ -216,4 +217,19 @@ export default function ListeDesDiviseurs5e () {
   }
   this.besoinFormulaireTexte = ['Nombre de chiffres des entiers (entre 1 et 5)', 'Nombres séparés par des tirets']
   this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers', 'Nombres séparés par des tirets']
+}
+
+/**
+ * tire à pile ou face pour écrire ou non un texte
+ * @param {string} texte
+ * @author Sébastien Lozano
+ */
+
+function texteOuPas (texte) {
+  const bool = randint(0, 1)
+  if (bool === 0) {
+    return '\\ldots'
+  } else {
+    return texte
+  }
 }

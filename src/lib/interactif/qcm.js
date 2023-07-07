@@ -1,5 +1,9 @@
-import { get } from '../../modules/dom'
+import { context } from '../../modules/context'
+import { get } from '../html/dom'
 import { messageFeedback } from '../../modules/messages'
+import { shuffleJusqua } from '../../modules/outils'
+import { gestionCan } from './gestionCan'
+import { afficheScore } from './gestionInteractif'
 export function verifQuestionQcm (exercice, i) {
   let resultat
   const monRouge = 'rgba(217, 30, 24, 0.5)'
@@ -82,4 +86,186 @@ export function verifQuestionQcm (exercice, i) {
     type: typeFeedback
   })
   return resultat
+}
+
+/**
+ * @param {exercice}
+ * @param {i} i indice de la question
+ * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
+ */
+export function propositionsQcm (exercice, i) {
+  let texte = ''
+  let texteCorr = ''
+  let espace = ''
+  let nbCols = 1; let vertical = false
+  if (exercice.autoCorrection[i].propositions === undefined) {
+    window.notify('propositionsQcm a reçu une liste de propositions undefined')
+    return { texte: '', texteCorr: '' }
+  }
+  if (context.isAmc) return { texte: '', texteCorr: '' }
+  if (context.isHtml) {
+    espace = '&emsp;'
+  } else {
+    espace = '\\qquad '
+  }
+  // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
+  if (exercice.autoCorrection[i].options !== undefined) {
+    vertical = exercice.autoCorrection[i].options.vertical // est-ce qu'on veut une présentation en colonnes ?
+    nbCols = exercice.autoCorrection[i].options.nbCols > 1 ? exercice.autoCorrection[i].options.nbCols : 1 // Nombre de colonnes avant de passer à la ligne
+    if (!exercice.autoCorrection[i].options.ordered) {
+      exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions, exercice.autoCorrection[i].options.lastChoice)
+    }
+  } else { // Si les options ne sont pas définies, on mélange
+    exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
+  }
+  // On regarde si il n'y a pas de doublons dans les propositions de réponse. Si c'est le cas, on enlève les mauvaises réponses en double.
+  elimineDoublons(exercice.autoCorrection[i].propositions)
+  if (context.isHtml) {
+    texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
+    texte += '<table>\n\t'
+    texteCorr += '<table>\n\t'
+    if (vertical) {
+      texte += '<tr>\n\t'
+      texteCorr += '<tr>\n\t'
+    }
+  } else {
+    texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
+    texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
+  }
+  if (!context.isHtml) {
+    texte += '\\\\\n\t'
+  }
+  for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
+    if (context.isHtml) {
+      if (vertical && (rep % nbCols === 0) && rep > 0) {
+        texte += '</tr>\n<tr>\n'
+        texteCorr += '</tr>\n<tr>\n'
+      }
+      texte += '<td>\n'
+      texteCorr += '<td>\n'
+      if (exercice.interactif) {
+        texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm" style="display:inline;">
+            <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
+            <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
+          </div>`
+      } else {
+        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '</td>\n'
+        if (nbCols > 1 && vertical) {
+          texte += '\n\t'
+        }
+      }
+      if (exercice.autoCorrection[i].propositions[rep].statut) {
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
+      } else {
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
+      }
+    } else {
+      texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
+      if (exercice.autoCorrection[i].propositions[rep].statut) {
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
+      } else {
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
+      }
+      if (vertical) {
+        texte += '\\\\\n\t'
+        texteCorr += '\\\\\n\t'
+      } else {
+        texte += '\\qquad '
+        texteCorr += '\\qquad '
+      }
+    }
+  }
+  if (context.isHtml) {
+    if (vertical) {
+      texte += '</tr>\n\t'
+      texteCorr += '</tr>\n\t'
+    }
+    texte += '</table>\n\t'
+    texteCorr += '</table>\n\t'
+    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
+  } else {
+    texte += nbCols === 1 ? '' : '\\end{multicols}'
+    texteCorr += nbCols === 1 ? '' : '\\end{multicols}'
+  }
+
+  // GESTION DE LA V3
+  if (context.isHtml && context.versionMathalea === 3 && exercice.interactif) {
+    texte = '<div>'
+    for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
+      texte += `<div class="ex${exercice.numeroExercice} my-3 ${vertical ? '' : 'inline'}">
+      <input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
+      <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
+      <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div>
+      </div>`
+    }
+    texte += `</div><div class="m-2" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
+  }
+  return { texte, texteCorr }
+}
+
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses cochées
+ * @param {object} exercice
+ */
+export function exerciceQcm (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
+    if (exercice.interactifType === 'qcm') {
+      if (context.vue === 'can') {
+        gestionCan(exercice)
+      }
+      const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+      if (button) {
+        if (!button.hasMathaleaListener) {
+          button.addEventListener('click', event => {
+            let nbQuestionsValidees = 0
+            let nbQuestionsNonValidees = 0
+            for (let i = 0; i < exercice.autoCorrection.length; i++) {
+              const resultat = verifQuestionQcm(exercice, i)
+              resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
+            }
+            const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
+            uichecks.forEach(function (uicheck) {
+              uicheck.classList.add('read-only')
+            })
+            button.classList.add('disabled')
+            afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
+          })
+          button.hasMathaleaListener = true
+        }
+      }
+    }
+  })
+}
+
+/**
+ * prend un tableau de propositions [{texte: 'prop1', statut: true, feedback: 'Correct !'}, {texte: 'prop2', statut: false, ....}
+ * élimine en cas de doublon la proposition fausse ou la deuxième proposition si elle sont toutes les deux fausses.
+ * @author Jean-Claude Lhote
+ */
+export function elimineDoublons (propositions) { // fonction qui va éliminer les doublons si il y en a
+  let doublonsTrouves = false
+  for (let i = 0; i < propositions.length - 1; i++) {
+    for (let j = i + 1; j < propositions.length;) {
+      if (propositions[i].texte === propositions[j].texte) {
+        // les réponses i et j sont les mêmes
+        doublonsTrouves = true
+        if (propositions[i].statut) { // si la réponse i est bonne, on vire la j
+          propositions.splice(j, 1)
+        } else if (propositions[j].statut) { // si la réponse i est mauvaise et la réponse j bonne,
+          // comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
+          propositions.splice(j, 1)
+          propositions[i].statut = true
+        } else { // Les deux réponses sont mauvaises
+          propositions.splice(j, 1)
+        }
+      } else {
+        j++
+      }
+    }
+  }
+  return doublonsTrouves
 }

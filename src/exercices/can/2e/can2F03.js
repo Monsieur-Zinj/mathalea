@@ -2,7 +2,7 @@ import { ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../l
 import { fraction } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'
 import { randint, choice, texteEnCouleur, sp, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Déterminer le signe d’une fonction affine (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'

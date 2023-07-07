@@ -1,10 +1,12 @@
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, sp, texNombre } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { randint, listeQuestionsToContenu, sp } from '../../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 import Decimal from 'decimal.js'
 export const titre = 'Lire graphiquement les valeurs de $b$ et $c$ avec une parabole'
 export const interactifReady = true

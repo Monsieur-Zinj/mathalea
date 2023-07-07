@@ -6,11 +6,13 @@ import {
   nomDuMois
 } from '../../lib/outils/dateEtHoraires.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { texPrix } from '../../lib/format/style.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, texNombre, miseEnEvidence, texPrix, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, choice, texteEnCouleurEtGras, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true

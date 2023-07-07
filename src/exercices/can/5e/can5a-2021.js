@@ -1,12 +1,15 @@
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
+import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { point, labelPoint, codageSegment, codageAngle, droiteGraduee, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint, stringNombre, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, printlatex, randint, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'CAN 5e sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'

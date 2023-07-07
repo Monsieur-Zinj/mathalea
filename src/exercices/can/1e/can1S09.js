@@ -1,9 +1,11 @@
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, texNombre, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, sp } from '../../../modules/outils.js'
 
-import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'Déterminer une relation de récurrence'
 export const interactifReady = true
 export const interactifType = 'mathLive'

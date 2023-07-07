@@ -1,4 +1,5 @@
-import { nombreAvecEspace, randint } from '../outils.js'
+import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
+import { randint } from '../outils.js'
 import { cercle, droite, droiteParPointEtPerpendiculaire, homothetie, longueur, point, pointAdistance, pointIntersectionDD, pointIntersectionLC, pointSurSegment, rotation, triangle2points2longueurs } from '../2d.js'
 
 /**

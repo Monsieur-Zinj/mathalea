@@ -1,6 +1,7 @@
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
-import { estentier, randint, arrondi, calcul, texNombre, nombreAvecEspace } from '../../modules/outils.js'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
+import { estentier, randint, arrondi, calcul } from '../../modules/outils.js'
 /**
  * Fork de la fonction de JC avec ajout de la dernière opération dans le tableau de sortie
  * @param {number} nbOperations

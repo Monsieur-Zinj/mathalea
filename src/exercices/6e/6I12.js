@@ -1,12 +1,13 @@
 // on importe les fonctions nécessaires.
+import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { point, segment, tracePoint, grille, texteParPoint } from '../../modules/2d.js'
 import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
-import { afficheScore } from '../../modules/gestionInteractif.js'
+import { afficheScore } from '../../lib/interactif/gestionInteractif.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43

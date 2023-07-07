@@ -1,4 +1,4 @@
-import { lampeMessage } from '../../lib/outils/message.js'
+import { lampeMessage } from '../../lib/format/message.js'
 import Exercice from '../Exercice.js'
 import { choice, compteOccurences, contraindreValeur, enleveDoublonNum, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, randint, range1 } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'

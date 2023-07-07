@@ -1,6 +1,7 @@
+import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, creerNomDePolygone, texNombre, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
+import { randint, choice, creerNomDePolygone, texteEnCouleur, extraireRacineCarree } from '../../../modules/outils.js'
 import {
   point, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude, texteParPosition
 } from '../../../modules/2d.js'
@@ -110,7 +111,7 @@ La valeur cherchée est donc : $\\sqrt{${c2}}$.
         reductible = (reduction[0] !== 1)
         entiere = (reduction[1] === 1)
         if (entiere) {
-          this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$ dans lequel 
+          this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$ dans lequel
                   $${nom[0]}${nom[1]}=${a}$ et $${nom[0]}${nom[2]}=\\sqrt{${b}}$.<br>
 
                    Calculer la valeur exacte de $${nom[1]}${nom[2]}$ .<br>
@@ -134,7 +135,7 @@ La valeur cherchée est donc : $\\sqrt{${c2}}$.
     La valeur cherchée est donc : $${reduction[0]}$.
       `)
         } else {
-          this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$ dans lequel 
+          this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$ dans lequel
       $${nom[0]}${nom[1]}=${a}$ et $${nom[0]}${nom[2]}=\\sqrt{${b}}$.<br>
 
        Calculer la valeur exacte de $${nom[1]}${nom[2]}$ .<br>

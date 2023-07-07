@@ -1,6 +1,7 @@
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
 import Decimal from 'decimal.js'
-import { randint, choice, texNombre, stringNombre } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Lire une abscisse (entière) sur une droite graduée *'

@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombre, texteEnCouleur, sp } from '../../../modules/outils.js'
+import { randint, calcul, choice, texteEnCouleur, sp } from '../../../modules/outils.js'
 export const titre = 'Calculer un prix après une évolution en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -46,7 +47,7 @@ export default function PoucentageE () {
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On calcule d'abord le montant de la réduction. <br>
-    Pour calculer $20${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant 
+    Pour calculer $20${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant
     par $10$ :<br> $10${sp(1)}\\%$ de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
     Puisque $20${sp(1)}\\%$  est deux fois plus grand que $10${sp(1)}\\%$ ,  $20${sp(1)}\\%$  de $${a}$ est égal à $2\\times ${a / 10}=${2 * a / 10}$.<br>
                     La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
@@ -70,7 +71,7 @@ export default function PoucentageE () {
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On calcule d'abord le montant de la réduction. <br>
-    Pour calculer $5${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant 
+    Pour calculer $5${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant
     par $10$ :<br> $10${sp(1)}\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
     Puisque $5${sp(1)}\\%$  est deux fois plus petit  que $10${sp(1)}\\%$ ,  $5${sp(1)}\\%$  de $${a}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
                  La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
@@ -81,9 +82,9 @@ export default function PoucentageE () {
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On calcule d'abord le montant de la réduction. <br>
-    Pour calculer $15${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant 
+    Pour calculer $15${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant
     par $10$ :<br> $10${sp(1)}\\%$ de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
-    Puis on calcule $5${sp(1)}\\%$  de $${a}$ qui est égal à la moitié de $10${sp(1)}\\%$  de $${a}$, soit 
+    Puis on calcule $5${sp(1)}\\%$  de $${a}$ qui est égal à la moitié de $10${sp(1)}\\%$  de $${a}$, soit
     $${a / 10}\\div 2=${a / 20}$.<br>
     Puisque $15${sp(1)}\\%$  est égal à $10${sp(1)}\\%$  $+5${sp(1)}\\%$ ,  $15${sp(1)}\\%$  de $${a}$ est égal à $${a / 10}+${a / 20}=${3 * a / 20}$.<br>
                     La réduction est donc de : $${texNombre(3 * a / 20)}$ €.<br>
@@ -119,7 +120,7 @@ export default function PoucentageE () {
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On calcule d'abord le montant de l'augmentation. <br>
-    Pour calculer $20${sp(1)}\\%$ d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant 
+    Pour calculer $20${sp(1)}\\%$ d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant
     par $10$ :<br> $10${sp(1)}\\%$  de $${a}$ est égal à $${a}\\div 10=${texNombre(a / 10)}$.<br>
     Puisque $20${sp(1)}\\%$  est deux fois plus grand que $10${sp(1)}\\%$ ,  $20${sp(1)}\\%$  de $${a}$ est égal à $2\\times ${a / 10}=${2 * a / 10}$.<br>
                     L'augmentation est donc de : $${texNombre(b * a / 100)}$ €.<br>
@@ -153,7 +154,7 @@ export default function PoucentageE () {
           this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
         On calcule d'abord le montant de l'augmentation. <br>
-        Pour calculer $5${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant 
+        Pour calculer $5${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant
         par $10$ :<br> $10${sp(1)}\\%$  de $${texNombre(a)}$ est égal à $${texNombre(a)}\\div 10=${texNombre(a / 10)}$.<br>
         Puisque $5${sp(1)}\\%$  est deux fois plus petit  que $10${sp(1)}\\%$ ,  $5${sp(1)}\\%$  de $${texNombre(a)}$ est égal à $ ${texNombre(a / 10)}\\div 2=${texNombre(a / 20)}$.<br>
                      L'augmentation est donc de : $${texNombre(b * a / 100)}$ €.<br>
@@ -165,7 +166,7 @@ export default function PoucentageE () {
           this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
         On calcule d'abord le montant de l'augmenattion. <br>
-        Pour calculer $${texNombre(b)}${sp(1)}\\%$  d'une quantité, on commence par calculer $1${sp(1)}\\%$  en divisant 
+        Pour calculer $${texNombre(b)}${sp(1)}\\%$  d'une quantité, on commence par calculer $1${sp(1)}\\%$  en divisant
         par $100$ :<br> $1${sp(1)}\\%$  de $${texNombre(a)}$ est égal à $${texNombre(a)}\\div 100=${texNombre(a / 100)}$.<br>
         Puisque $${texNombre(b)}${sp(1)}\\%$  est $${b}$ fois plus grand que $1${sp(1)}\\%$ ,  $${texNombre(b)}${sp(1)}\\%$  de $${texNombre(a)}$ est égal à $${texNombre(b)}\\times ${texNombre(a / 100)}=${texNombre(b * a / 100)}$.<br>
                         L'augmentation est donc de : $${texNombre(b * a / 100)}$ €.<br>
@@ -200,7 +201,7 @@ export default function PoucentageE () {
           this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
         On calcule d'abord le montant de la réduction. <br>
-        Pour calculer $5${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant 
+        Pour calculer $5${sp(1)}\\%$  d'une quantité, on commence par calculer $10${sp(1)}\\%$  en divisant
         par $10$ :<br> $10${sp(1)}\\%$  de $${texNombre(a)}$ est égal à $${texNombre(a)}\\div 10=${texNombre(a / 10)}$.<br>
         Puisque $5${sp(1)}\\%$  est deux fois plus petit  que $10${sp(1)}\\%$ ,  $5${sp(1)}\\%$  de $${texNombre(a)}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
         La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
@@ -212,7 +213,7 @@ export default function PoucentageE () {
           this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
         On calcule d'abord le montant de la réduction. <br>
-        Pour calculer $${b}${sp(1)}\\%$  d'une quantité, on commence par calculer $1${sp(1)}\\%$  en divisant 
+        Pour calculer $${b}${sp(1)}\\%$  d'une quantité, on commence par calculer $1${sp(1)}\\%$  en divisant
         par $100$ :<br> $1${sp(1)}\\%$  de $${texNombre(a)}$ est égal à $${texNombre(a)}\\div 100=${texNombre(a / 100)}$.<br>
         Puisque $${b}${sp(1)}\\%$  est $${b}$ fois plus grand que $1${sp(1)}\\%$,  $${b}${sp(1)}\\%$  de $${texNombre(a)}$ est égal à $${b}\\times ${a / 100}=${b * a / 100}$.<br>
         La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>

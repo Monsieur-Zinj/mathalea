@@ -1,3 +1,4 @@
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
   afficheLongueurSegment,
   cercle,
@@ -10,16 +11,14 @@ import {
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   arrondi,
   listeQuestionsToContenu,
   miseEnEvidence,
   randint,
-  sp,
-  stringNombre,
-  texNombre
+  sp
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

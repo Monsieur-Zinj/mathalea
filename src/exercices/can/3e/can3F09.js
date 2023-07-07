@@ -3,8 +3,9 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 import { pgcd } from '../../../lib/outils/primalite.js'
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero, choice, sp, calcul } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Reconnaître une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'

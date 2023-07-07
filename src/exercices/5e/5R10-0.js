@@ -1,5 +1,7 @@
+import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, texteEnCouleur, tableauColonneLigne, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, miseEnEvidence, texteEnCouleur, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Trouver l\'opposé d\'un nombre relatif'
 export const dateDeModifImportante = '26/11/2021'
 
@@ -50,7 +52,7 @@ export default function TrouverOppose () {
       let sup
       parseInt(this.sup) === 1 ? sup = false : sup = this.sup // Pour rester compatible avec l'ancien paramètre this.sup = 1 par défaut (et inutilisé)
       // une fonction pour générer un relatif et son opposé
-      function nbRelatifEtSonOppose () {
+      const nbRelatifEtSonOppose = function () {
         sup ? signePositif = listeSignesPositifs[indice] : signePositif = ''
         const nbNum = randint(0, 9) + randint(0, 9) / 10
         if (listeSignes[indice] === '+') {

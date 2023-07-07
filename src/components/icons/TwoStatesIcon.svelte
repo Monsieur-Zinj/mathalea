@@ -3,7 +3,7 @@
   export let size: number = 5
 </script>
 
-<!-- 
+<!--
   @component
   Icône avec deux états
 
@@ -11,7 +11,7 @@
 
   * `isOnStateActive` : booléen pour basculer entre les deux icônes
   * `size`: nombre pour régler la taille de l'icône (`5` par défault)
-  
+
   __Utilisation__ :
 
   ```tsx
@@ -21,7 +21,7 @@
   </InteractivityIcon>
   ```
  -->
-<div class={isOnStateActive ? "hidden" : "block"}>
+<div class={isOnStateActive ? 'hidden' : 'block'}>
   <slot name="icon_to_switch_on">
     <svg
       xmlns="http://www.w3.org/2000/svg"

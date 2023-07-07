@@ -1,4 +1,6 @@
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { texPrix } from '../../../lib/format/style.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
@@ -7,9 +9,10 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { range1, listeQuestionsToContenu, miseEnEvidence, texteEnCouleurEtGras, abs, stringNombre, randint, texNombre, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { range1, listeQuestionsToContenu, miseEnEvidence, texteEnCouleurEtGras, abs, randint, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true

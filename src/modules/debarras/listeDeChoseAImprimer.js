@@ -1,5 +1,6 @@
+import { texMulticols } from '../../lib/format/miseEnPage.js'
 import { context } from '../context.js'
-import { htmlLigne, texMulticols, texParagraphe } from '../outils.js'
+import { htmlLigne, texParagraphe } from '../outils.js'
 
 /**
  * À documenter

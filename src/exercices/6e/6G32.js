@@ -1,7 +1,8 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, miseEnEvidence, randint, sp, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, miseEnEvidence, randint, sp, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { droite, homothetie, labelPoint, point, segmentAvecExtremites, symetrieAxiale, distancePointDroite, longueur, afficheLongueurSegment, pointSurDroite, tracePoint, polygone, nommePolygone, angle, arc, latexParPoint, angleOriente, rotation } from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'
 

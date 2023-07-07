@@ -1,6 +1,8 @@
-Exécuter tous les tests : 
+# Tests avec Playwright
 
-```
+Exécuter tous les tests :
+
+```bash
 npx playwright test
 ```
 
@@ -10,8 +12,8 @@ On peut voir le navigateur en ajoutant `--headed`.
 
 On peut enregistrer tout le test avec `--trace on`.
 
-Pour voir le rapport de test : 
+Pour voir le rapport de test :
 
-```
+```bash
 npx playwright show-report 
 ```

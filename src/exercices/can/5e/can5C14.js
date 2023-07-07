@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { randint, calcul, choice, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Diviser avec des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -62,7 +63,7 @@ export default function DivisionAvecDecimaux () {
         $\\dfrac{${texNombre(a * b)}}{${texNombre(a * 10)}}=\\dfrac{${texNombre(a * b)}\\times 100}{${texNombre(a * 10)}\\times 100}
         =\\dfrac{${texNombre(a * b * 100)}}{${texNombre(a * 1000)}}$.<br>
         $\\bullet$ On décompose $\\dfrac{${texNombre(a * b * 100)}}{${texNombre(a * 1000)}}$ en un produit plus simple à calculer :<br>
-        $\\dfrac{1}{10}\\times\\dfrac{${texNombre(a * b * 100)}}{${texNombre(a * 100)}}= 
+        $\\dfrac{1}{10}\\times\\dfrac{${texNombre(a * b * 100)}}{${texNombre(a * 100)}}=
         0,1\\times${texNombre((a * b * 100) / texNombre(a * 100))}=
         ${texNombre((a * b) / (10 * a))}$.  `)
         this.reponse = calcul((a * b) / (a * 10))
@@ -77,7 +78,7 @@ export default function DivisionAvecDecimaux () {
         $\\bullet$ On multiplie par $10$ le numérateur et le dénominateur pour avoir des nombres entiers.<br>
         $\\dfrac{${texNombre(a * b)}}{${texNombre(a * 10)}}=\\dfrac{${texNombre(a * b)}\\times 10}{${texNombre(a * 10)}\\times 10}=\\dfrac{${texNombre(a * b * 10)}}{${texNombre(a * 100)}}$
         <br>$\\bullet$ On décompose $\\dfrac{${texNombre(a * b * 10)}}{${texNombre(a * 100)}}$ en un produit plus simple à calculer :<br>
-        $\\dfrac{1}{10}\\times\\dfrac{${texNombre(a * b * 10)}}{${texNombre(a * 10)}}= 
+        $\\dfrac{1}{10}\\times\\dfrac{${texNombre(a * b * 10)}}{${texNombre(a * 10)}}=
         0,1\\times${texNombre((a * b * 10) / texNombre(a * 10))}=
         ${texNombre((a * b) / (10 * a))}$. `)
         this.reponse = calcul((a * b) / (a * 10))

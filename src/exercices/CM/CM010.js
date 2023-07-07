@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombre, calcul } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, range1, combinaisonListes, calcul } from '../../modules/outils.js'
+import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Tiers'
 export const amcReady = true
 export const interactifReady = true

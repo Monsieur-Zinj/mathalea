@@ -1,7 +1,8 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
 
 export const titre = 'Calculer un carré'
 export const dateDePublication = '17/01/2023'

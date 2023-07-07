@@ -1,6 +1,7 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombre } from '../../../modules/outils.js'
+import { randint, choice, calcul, creerNomDePolygone } from '../../../modules/outils.js'
 import {
   point, pointAdistance, labelPoint, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
@@ -47,7 +48,7 @@ export default function CalculLongueurThales2 () {
         texteParPosition(`${texNombre(c)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
         texteParPosition(`${texNombre(a)}`, milieu(A, D).x + 0.5, milieu(A, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
       this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles.
-       
+      
       Calculer $${nom[3]}${nom[4]}$.<br>
       
       `

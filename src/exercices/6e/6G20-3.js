@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, combinaisonListes } from '../../modules/outils.js'
 import { point, pointSurCercle, cercle, polygoneAvecNom } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -92,15 +92,15 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
       }
       nomDirectCorrect += '$'
       const nomIndirectCorrect = nomDirectCorrect.split('').reverse().join('')
-      const nomDirectIncorrect = inverse2lettres(nomDirectCorrect)
-      const nomIndirrectIncorrect = inverse2lettres(nomIndirectCorrect)
-      function inverse2lettres (str) {
+      const inverse2lettres = (str) => {
         const arr = str.split('')
         const temp = arr[1]
         arr[1] = arr[2]
         arr[2] = temp
         return arr.join('')
       }
+      const nomDirectIncorrect = inverse2lettres(nomDirectCorrect)
+      const nomIndirrectIncorrect = inverse2lettres(nomIndirectCorrect)
       let questionReponse
       switch (listeTypeQuestions[i]) {
         case 'nom':

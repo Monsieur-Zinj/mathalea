@@ -1,8 +1,10 @@
+import { puissanceEnProduit } from '../../lib/outils/puissance.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, texNombre, puissanceEnProduit } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Écriture décimale ou fractionnaire d\'une puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'

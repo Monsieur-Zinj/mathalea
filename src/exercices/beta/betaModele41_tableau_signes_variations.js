@@ -56,7 +56,7 @@ export default class NomExercice extends Exercice {
         // tabLines ci-dessous contient les autres lignes du tableau.
         tabLines: [ligne1, ligne2, ligne3],
         colorBackground: '',
-        espcl: 3.5, // taille en cm entre deux antécédents
+        escpl: 3.5, // taille en cm entre deux antécédents
         deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 8, // taille de la première colonne en cm
         hauteurLignes: [15, 15, 15, 15]

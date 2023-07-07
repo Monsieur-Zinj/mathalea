@@ -9,7 +9,7 @@ import {
   listeQuestionsToContenu, randint, choice, combinaisonListes, abs, signe
 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const dateDePublication = '22/05/2023'
 export const titre = 'Montrer qu\'un nombre est ou n\'est pas solution d\'une inéquation'
 export const interactifReady = true

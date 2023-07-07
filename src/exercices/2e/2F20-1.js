@@ -5,11 +5,12 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../lib/outils/ecritures.js'
+import { texteCentre } from '../../lib/format/miseEnPage.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
-  listeQuestionsToContenu, randint, texteCentre, combinaisonListes, choice
+  listeQuestionsToContenu, randint, combinaisonListes, choice
 } from '../../modules/outils.js'
 export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 

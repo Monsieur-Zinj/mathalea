@@ -1,4 +1,5 @@
-import { choice, combinaisonListes, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
+import { choice, combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Convertir des durées'

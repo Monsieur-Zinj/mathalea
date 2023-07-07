@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenuSansNumero, creerCouples, randint, calcul, lettreDepuisChiffre, texNombre, shuffle2tableaux } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, creerCouples, randint, calcul, lettreDepuisChiffre, shuffle2tableaux } from '../../modules/outils.js'
 import { point, repere, labelPoint, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'

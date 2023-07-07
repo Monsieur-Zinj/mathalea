@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const titre = 'Reconnaître une fonction affine'
 export const interactifReady = true

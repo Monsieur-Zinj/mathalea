@@ -40,21 +40,6 @@ export default function ReduireDinstinctionSommeProduit () {
 
     // if (this.sup2) decimal=10;
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // deux fonctions pour gérer la chaine de sortie et supprimer le coeff 1 !
-      function isUn (n) {
-        if (n === 1) {
-          return true
-        } else {
-          return false
-        };
-      };
-      function sliceUn (n) {
-        if (n === 1) {
-          return ''
-        } else {
-          return `${n}`
-        };
-      };
       const variables = ['x', 'y', 'z', 't']
       const enonces = []
       const n = randint(1, 6)
@@ -210,4 +195,20 @@ export default function ReduireDinstinctionSommeProduit () {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaire2CaseACocher = ["Avec décimaux.",false]
+}
+
+// deux fonctions pour gérer la chaine de sortie et supprimer le coeff 1 !
+function isUn (n) {
+  if (n === 1) {
+    return true
+  } else {
+    return false
+  };
+};
+function sliceUn (n) {
+  if (n === 1) {
+    return ''
+  } else {
+    return `${n}`
+  }
 }

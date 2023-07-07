@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  import Button from "../forms/Button.svelte"
+  import { createEventDispatcher } from 'svelte'
+  import Button from '../forms/Button.svelte'
 
-  export let modalId: string = "my-modal"
-  export let modalButtonId: string = "ok-btn"
-  export let modalButtonTitle: string = "OK"
-  export let icon: string = "bx-error"
+  export let modalId: string = 'my-modal'
+  export let modalButtonId: string = 'ok-btn'
+  export let modalButtonTitle: string = 'OK'
+  export let icon: string = 'bx-error'
 
   // Au clic sur le bouton, on diffuse _action_
   const dispatch = createEventDispatcher()
 
-  function triggerAction() {
-    dispatch("action", {
-      msg: "Action triggered !",
+  function triggerAction () {
+    dispatch('action', {
+      msg: 'Action triggered !'
     })
   }
 </script>
@@ -66,7 +66,7 @@
 -->
 
 <div class="fixed hidden inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" id={modalId}>
-  <!-- 
+  <!--
   <slot name="header" />
   <slot name="content" /> -->
   <!--modal content-->

@@ -1,22 +1,22 @@
 <script lang="ts">
-  import SearchById from "./SearchById.svelte"
-  import { globalOptions, exercicesParams } from "../store"
-  import { createEventDispatcher } from "svelte"
+  import SearchById from './SearchById.svelte'
+  import { globalOptions, exercicesParams } from '../store'
+  import { createEventDispatcher } from 'svelte'
   const dispatch = createEventDispatcher()
   export let sideMenuVisible: boolean
   let isListVisible: boolean
-  function toggleSideList() {
+  function toggleSideList () {
     if ($exercicesParams.length > 0) {
       isListVisible = !sideMenuVisible
-      dispatch("sideMenuChange", {
-        isListVisible,
+      dispatch('sideMenuChange', {
+        isListVisible
       })
     }
   }
 
-  function fullScreen() {
+  function fullScreen () {
     globalOptions.update((params) => {
-      params.v = "l"
+      params.v = 'l'
       return params
     })
   }

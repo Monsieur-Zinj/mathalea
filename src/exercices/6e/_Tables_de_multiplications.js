@@ -1,7 +1,9 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, creerCouples, choice, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -91,7 +93,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       // classique
         if (choice([true, false])) {
           texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, { numeric: true }) : '$'
           texteCorr = `$ ${texNombre(a)} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
         } else {
           texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = `

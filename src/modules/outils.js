@@ -1,46 +1,35 @@
 /* globals UI */
 import Algebrite from 'algebrite'
 import Decimal from 'decimal.js'
-import { evaluate, format, isArray, isInteger, isPrime, round } from 'mathjs'
-import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
-import { factorisation, obtenirListeFacteursPremiers, pgcd } from '../lib/outils/primalite.js'
+import { evaluate, isArray, isInteger, round } from 'mathjs'
+import { texMulticols } from '../lib/format/miseEnPage.js'
+import { factorisation } from '../lib/outils/primalite.js'
+import { texNombre } from '../lib/outils/texNombre.js'
 import { context } from './context.js'
-import { fraction } from './fractions.js'
-import { setReponse } from './gestionInteractif.js'
-import { getVueFromUrl } from './gestionUrl.js'
-import { matriceCarree } from './MatriceCarree.js'
+import { setReponse } from '../lib/interactif/gestionInteractif.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
-const math = { format, evaluate }
 
 /**
  * Affecte les propriétés contenues et contenuCorrection (d'après les autres propriétés de l'exercice)
  * @param {Exercice} exercice
  */
 export function listeQuestionsToContenu (exercice) {
-  if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
-    if ((exercice.interactif && exercice.interactifReady) || getVueFromUrl() === 'eval') {
-      exercice.contenu += `<button class="ui blue button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
-    }
-    exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction', `correction${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
-  } else {
-    let vspace = ''
-    if (exercice.vspace) {
-      vspace = `\\vspace{${exercice.vspace} cm}\n`
-    }
-    if (!context.isAmc) {
-      if (document.getElementById('supprimer_reference') && document.getElementById('supprimer_reference').checked === true) {
-        exercice.contenu = texConsigne(exercice.consigne) + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-      } else {
-        exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-      }
-    }
-    exercice.contenuCorrection = texConsigne('') + texIntroduction(exercice.consigneCorrection) + texMulticols(texEnumerate(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
-    exercice.contenuCorrection = exercice.contenuCorrection.replace(/\\\\\n*/g, '\\\\\n')
-    exercice.contenu = exercice.contenu.replace(/\\\\\n*/g, '\\\\\n')
+  let vspace = ''
+  if (exercice.vspace) {
+    vspace = `\\vspace{${exercice.vspace} cm}\n`
   }
+  if (!context.isAmc) {
+    if (document.getElementById('supprimer_reference') && document.getElementById('supprimer_reference').checked === true) {
+      exercice.contenu = texConsigne(exercice.consigne) + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+    } else {
+      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+    }
+  }
+  exercice.contenuCorrection = texConsigne('') + texIntroduction(exercice.consigneCorrection) + texMulticols(texEnumerate(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
+  exercice.contenuCorrection = exercice.contenuCorrection.replace(/\\\\\n*/g, '\\\\\n')
+  exercice.contenu = exercice.contenu.replace(/\\\\\n*/g, '\\\\\n')
 }
 
 export function exerciceSimpleToContenu (exercice) {
@@ -79,139 +68,13 @@ export function exerciceSimpleToContenu (exercice) {
  * @author Rémi Angot
  */
 export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
-  // En vue diapCorr, les questions doivent toujours être numérotées, car venant d'exercices différents
-  if (context.vue === 'diapCorr') {
-    listeQuestionsToContenu(exercice, retourCharriot = true)
+  if (document.getElementById('supprimer_reference') && document.getElementById('supprimer_reference').checked === true) {
+    exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
   } else {
-    if (context.isHtml) {
-      exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama, 'sansNumero')
-      if ((exercice.interactif && exercice.interactifReady) || getVueFromUrl() === 'eval') {
-        exercice.contenu += `<button class="ui blue button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
-      }
-      exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction', `correction${exercice.numeroExercice}Q`, exercice.tailleDiaporama, 'sansNumero')
-    } else {
-      if (document.getElementById('supprimer_reference') && document.getElementById('supprimer_reference').checked === true) {
-        exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
-      } else {
-        exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
-      }
-      // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
-      exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
-    }
+    exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
   }
-}
-
-/**
- * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
- * @author Rémi Angot
- * @param {string} cont1 - Contenu de la première colonne
- * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {number} [largeur1=50] Largeur de la première colonne
- * @return {string}
- */
-export function deuxColonnes (cont1, cont2, largeur1 = 50) {
-  if (context.isHtml) {
-    return `
-    <div>
-    <div class="question" style="float:left;max-width: ${largeur1}%;margin-right: 30px">
-    ${cont1}
-   </div>
-   <div style="float:left; max-width: ${90 - largeur1}%">
-    ${cont2}
-   </div>
-   <div style="clear:both"></div>
-   <div class="ui hidden divider"></div>
-   </div>
-`
-  } else {
-    return `\\begin{minipage}{${largeur1 / 100}\\linewidth}
-    ${cont1.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    \\begin{minipage}{${(100 - largeur1) / 100}\\linewidth}
-    ${cont2.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    `
-  }
-}
-
-/**
- * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
- * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne !
- * @author Mickael Guironnet
- * @param {string} cont1 - Contenu de la première colonne
- * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {{eleId: string, largeur1: number, widthmincol1: number, widthmincol2: number}} options
- *          eleId : identifiant ID pour retrouver la colonne
- *          largeur1 : largeur de la première colonne en latex en pourcentage
- *          widthmincol1 : largeur de la première minimum en html en px
- *          widthmincol2 : largeur de la deuxième minimum en html en px
- *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
- * @return {string}
- */
-export function deuxColonnesResp (cont1, cont2, options) {
-  if (options === undefined) {
-    options = { largeur1: 50 }
-  } else if (typeof options === 'number') {
-    options = { largeur1: options }
-  }
-  if (options.largeur1 === undefined) {
-    options.largeur1 = 50
-  }
-  if (options.stylecol1 === undefined) {
-    options.stylecol1 = ''
-  }
-  if (options.stylecol2 === undefined) {
-    options.stylecol2 = ''
-  }
-  if (options.widthmincol1 === undefined) {
-    options.widthmincol1 = '0px'
-  }
-  if (options.widthmincol2 === undefined) {
-    options.widthmincol2 = '0px'
-  }
-
-  if (context.isHtml) {
-    return `
-    <style>
-    .cols-responsive {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-gap: 1rem;
-    }
-    /* Screen larger than 900px? 2 column */
-    @media (min-width: 900px) {
-      .cols-responsive { grid-template-columns: repeat(2, 1fr); }
-    }
-    </style>
-    <div class='cols-responsive'>
-      <div id='cols-responsive1-${options.eleId}'style='min-width:${options.widthmincol1};${options.stylecol1}' >
-      ${cont1}
-      </div>
-      <div id='cols-responsive2-${options.eleId}' style='min-width:${options.widthmincol2};${options.stylecol2}' >
-      ${cont2}
-      </div>
-    </div>
-`
-  } else {
-    return `\\begin{minipage}{${options.largeur1 / 100}\\linewidth}
-    ${cont1.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    \\begin{minipage}{${(100 - options.largeur1) / 100}\\linewidth}
-    ${cont2.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    `
-  }
-}
-
-/**
- *
- * @param {string} texte
- * @returns le texte centré dans la page selon le contexte.
- * @author Jean-Claude Lhote
- */
-export function centrage (texte) {
-  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
+  // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
+  exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
 }
 
 /**
@@ -1082,19 +945,6 @@ export function extraireRacineCarree (n) {
 
 /**
  *
- * @param {Entier} n
- * retourne le code Latex de la racine carrée de n réduite
- * @author Jean-CLaude Lhote
- */
-export function texRacineCarree (n) {
-  const result = extraireRacineCarree(n)
-  if (result[1] === 1) return `${result[0]}`
-  else if (result[0] === 1) return `\\sqrt{${result[1]}}`
-  else return `${result[0]}\\sqrt{${result[1]}}`
-}
-
-/**
- *
  * @param {'string | array'} expression ou tableau d'expressions à évaluer avec XCas
  * @returns string
  * @author Rémi Angot
@@ -1132,29 +982,6 @@ export function calcul (x, arrondir = 6) {
     })
   }
   return parseFloat(x.toFixed(arrondir))
-}
-
-/**
- * Utilise la class Decimal pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
- * Le 2e argument facultatif permet de préciser l'arrondi souhaité
- * @author Rémi Angot
- */
-export function nombreDecimal (expression, arrondir = false) {
-  if (!arrondir) {
-    return stringNombre(new Decimal(expression), 15)
-  } else {
-    return stringNombre(new Decimal(expression), arrondir)
-  }
-}
-
-/**
- * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
- * @param {string} expression l'expression à calculer
- */
-export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black') {
-  if (nombre > 0) return miseEnEvidence(texNombre(nombre), positif)
-  else if (nombre < 0) return miseEnEvidence(texNombre(nombre), negatif)
-  else return miseEnEvidence(texNombre(0), nul)
 }
 
 /**
@@ -1381,33 +1208,6 @@ export function texIntroduction (texte) {
 }
 
 /**
- *  Renvoie une liste HTML à partir d'une liste
- *
- * @param liste une liste de questions
- * @param spacing interligne (line-height en css)
- * @author Rémi Angot
- */
-export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tailleDiaporama = 1, classeOl) {
-  let result = ''
-  // Pour diapCorr, on numérote les questions même si un exercice n'en comporte qu'une
-  if (liste.length > 1 || context.vue === 'diapCorr') {
-    (spacing > 1) ? result = `<ol style="line-height: ${spacing};" ${classeOl ? `class = ${classeOl}` : ''}>` : result = `<ol ${classeOl ? `class = ${classeOl}` : ''}>`
-    for (let i = 0; i < liste.length; i++) {
-      result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''} ${dataTaille(tailleDiaporama)}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-    }
-    result += '</ol>'
-  } else if (liste.length === 1) {
-    // Pour garder la même hiérarchie avec une ou plusieurs questions
-    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
-    // Utile pour la vue can
-    (spacing > 1) ? result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''} style="line-height: ${spacing}; margin-bottom: 20px" ${dataTaille(tailleDiaporama)}>` : result = `<div><div class="${classe}" ${id ? 'id="' + id + '0"' : ''}>`
-    result += liste[0].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-    result += '</div></div>'
-  }
-  return result
-}
-
-/**
  * Renvoie une liste HTML ou LaTeX suivant le contexte
  *
  * @param liste une liste de questions
@@ -1415,11 +1215,7 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tai
  * @author Rémi Angot
  */
 export function enumerate (liste, spacing) {
-  if (context.isHtml) {
-    return htmlEnumerate(liste, spacing)
-  } else {
-    return texEnumerate(liste, spacing)
-  }
+  return texEnumerate(liste, spacing)
 }
 
 /**
@@ -1430,80 +1226,7 @@ export function enumerate (liste, spacing) {
  * @author Sébastien Lozano
  */
 export function enumerateSansPuceSansNumero (liste, spacing) {
-  if (context.isHtml) {
-    // return htmlEnumerate(liste,spacing)
-    // for (let i=0; i<liste.length;i++) {
-    // liste[i]='> '+liste[i];
-    // }
-    return htmlLigne(liste, spacing)
-  } else {
-    // return texEnumerate(liste,spacing)
-    return texEnumerate(liste, spacing).replace('\\begin{enumerate}', '\\begin{enumerate}[label={}]')
-  }
-}
-
-/**
- *  Renvoie un paragraphe HTML à partir d'un string
- *
- * @param string
- * @author Rémi Angot
- */
-export function htmlParagraphe (texte, retourCharriot) {
-  if (texte.length > 1) {
-    if (retourCharriot) {
-      return `\n<p>${texte}</p>\n\n`
-    } else {
-      return `\n${texte}\n\n`
-    }
-  } else {
-    return ''
-  }
-}
-
-/**
- *  Renvoie un div HTML à partir d'une liste découpée par des sauts de ligne
- *
- * @param liste une liste de questions
- * @param spacing interligne (line-height en css)
- * @author Rémi Angot
- */
-export function htmlLigne (liste, spacing, classe = 'question') {
-  let result = '<div>'
-  const spacingTxt = (spacing > 1) ? `style="line-height: ${spacing};"` : ''
-  // Pour garder la même hiérarchie avec listeDeQuestionsToContenu
-  // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
-  // Utile pour la vue can
-  for (const i in liste) {
-    result += '\t' + `<div ${spacingTxt}  class="${classe}">` + liste[i].replace(/\\dotfill/g, '...') + '</div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-    // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
-  }
-  result += '</div></div>\n'
-
-  return result
-}
-
-/**
- * Renvoie un environnent LaTeX multicolonnes
- * @author Rémi Angot
- */
-export function texMulticols (texte, nbCols = 2) {
-  let result
-  if (nbCols > 1) {
-    result = '\\begin{multicols}{' + nbCols + '}\n' +
-      texte + '\n\\end{multicols}'
-  } else {
-    result = texte
-  }
-  return result
-}
-
-/**
- * Renvoie la consigne en titre 4
- * @author Rémi Angot
- */
-export function htmlConsigne (consigne) {
-  if (consigne) return '<h4>' + consigne + '</h4>\n\n'
-  else return ''
+  return texEnumerate(liste, spacing).replace('\\begin{enumerate}', '\\begin{enumerate}[label={}]')
 }
 
 /**
@@ -1524,102 +1247,6 @@ export function num (nb) {
 }
 
 /**
- * @author Frédéric Piou
- * @param {number} nb
- * @returns retourne un nombre au format français
- */
-export function numberFormat (nb) {
-  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
-}
-
-/**
- * La chaîne de caractères en sortie doit être interprétée par KateX et doit donc être placée entre des $ $
- * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc un risque d'erreur d'approximation)
- * S'utilise indifféremment avec des nombres (nb) au format natif (entier, flottant) ou au format Decimal (nécessite la librairie decimal.js)
- * Avec comme avantage immédiat pour le format Decimal : precision est illimité.
- * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
- * @author Guillaume Valmont
- * @param {number} nb nombre qu'on veut afficher
- * @param {number} precision nombre de décimales demandé
- * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
- * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
- * @returns string avec le nombre dans le format français à mettre entre des $ $
- */
-export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
-  const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
-  return result.replace(',', '{,}').replace(/\s+/g, '\\,')
-}
-
-/**
- * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
- * @author Rémi Angot
- */
-export function texNombre2 (nb) {
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
-  const rangVirgule = nombre.indexOf(',')
-  let partieEntiere = ''
-  if (rangVirgule !== -1) {
-    partieEntiere = nombre.substring(0, rangVirgule)
-  } else {
-    partieEntiere = nombre
-  }
-  let partieDecimale = ''
-  if (rangVirgule !== -1) {
-    partieDecimale = nombre.substring(rangVirgule + 1)
-  }
-
-  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
-  }
-  for (let i = 3; i < partieDecimale.length; i += 5) {
-    partieDecimale = partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
-    i += 12
-  }
-  if (partieDecimale === '') {
-    nombre = partieEntiere
-  } else {
-    nombre = partieEntiere + '{,}' + partieDecimale
-  }
-  return nombre
-}
-
-/**
- * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
- * Avec espace géré par nbsp en HTML pour pouvoir l'inclure dans une phrase formatée en français et pas seulement un calcul.
- * Modif EE pour la gestion de l'espace dans un texte non mathématique
- * @author Eric Elter d'après la fonction de Rémi Angot
- * Rajout Octobre 2021 pour 6C14
- */
-export function texNombre3 (nb) {
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
-  const rangVirgule = nombre.indexOf(',')
-  let partieEntiere = ''
-  if (rangVirgule !== -1) {
-    partieEntiere = nombre.substring(0, rangVirgule)
-  } else {
-    partieEntiere = nombre
-  }
-  let partieDecimale = ''
-  if (rangVirgule !== -1) {
-    partieDecimale = nombre.substring(rangVirgule + 1)
-  }
-
-  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + sp() + partieEntiere.substring(i)
-  }
-  for (let i = 3; i <= partieDecimale.length; i += 3) {
-    partieDecimale = partieDecimale.substring(0, i) + sp() + partieDecimale.substring(i)
-    i += 12
-  }
-  if (partieDecimale === '') {
-    nombre = partieEntiere
-  } else {
-    nombre = partieEntiere + ',' + partieDecimale
-  }
-  return nombre
-}
-
-/**
  * Renvoie un espace insécable pour le mode texte suivant la sortie html ou Latex.
  * @author Jean-Claude Lhote
  */
@@ -1630,43 +1257,6 @@ export function sp (nb = 1) {
     else s += '\\,'
   }
   return s
-}
-
-/**
- * Renvoie un nombre dans le format français (séparateur de classes)
- * Fonctionne sans le mode maths contrairement à texNombre()
- * insereEspaceDansNombre fonctionne peut-être mieux
- * @author Rémi Angot
- */
-export function nombreAvecEspace (nb) {
-  if (isNaN(nb)) {
-    window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
-    return 'NaN'
-  }
-  // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  if (context.isHtml) {
-    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
-  } else {
-    let result
-    if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
-      result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
-    } else {
-      result = Number(nb).toString().replace('.', '{,}')
-    }
-    return result
-  }
-}
-
-/**
- *
- * @param {number} mantisse
- * @param {integer} exp
- * @returns {string} Écriture décimale avec espaces
- */
-export function scientifiqueToDecimal (mantisse, exp) {
-  if (exp < -6) Decimal.set({ toExpNeg: exp - 1 })
-  else if (exp > 20) Decimal.set({ toExpPos: exp + 1 })
-  return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
 }
 
 /**
@@ -1706,181 +1296,6 @@ export function insereEspaceDansNombre (nb) {
 
 export function insertCharInString (string, index, char) {
   return string.substring(0, index) + char + string.substring(index, string.length)
-}
-
-/**
- * Destinée à être utilisée hors des $ $
- * Signale une erreur en console s'il y a plus de 15 chiffres significatifs (et donc qu'il y a un risque d'erreur d'approximation)
- * Sinon, renvoie le nombre à afficher dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
- * @author Jean-Claude Lhote
- * @author Guillaume Valmont
- * @param {number} nb nombre qu'on veut afficher
- * @param {number} precision nombre de décimales demandé
- * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
- * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
- * @returns string avec le nombre dans le format français à placer hors des $ $
- */
-export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
-  return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
-}
-
-/**
- * Fonction auxiliaire aux fonctions stringNombre et texNombre
- * Vérifie le nombre de chiffres significatifs en fonction du nombre de chiffres de la partie entière de nb et du nombre de décimales demandées par le paramètre precision
- * S'il y a plus de 15 chiffres significatifs, envoie un message à bugsnag et renvoie un nombre avec 15 chiffres significatifs
- * Sinon, renvoie un nombre avec le nombre de décimales demandé
- * @author Guillaume Valmont
- * @param {number} nb nombre qu'on veut afficher
- * @param {number} precision nombre de décimales demandé
- * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
- * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
- * @param {boolean} aussiCompleterEntiers true si on veut ajouter des zéros inutiles aux entiers
- */
-function afficherNombre (nb, precision, fonction, completerZeros = false, aussiCompleterEntiers) {
-  /**
-   * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
-   * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
-   * @author Rémi Angot
-   * @author Guillaume Valmont
-   * @param {number} nb nombre à afficher
-   * @param {number} precision nombre de décimales demandé
-   * @returns string avec le nombre dans le format français
-   */
-  function insereEspacesNombre (nb, nbChiffresPartieEntiere, precision, fonction) {
-    let signe
-    let nombre
-    const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-    if (nb instanceof Decimal) {
-      signe = nb.isNeg()
-      if (nb.abs().gte(1)) {
-        if (completerZeros) {
-          nombre = nb.toFixed(precision).replace('.', ',')
-        } else {
-          nombre = nb.toDP(precision).toString().replace('.', ',')
-        }
-      } else {
-        if (completerZeros) {
-          nombre = nb.toFixed(precision).replace('.', ',')
-        } else {
-          nombre = nb.toDP(precision).toString().replace('.', ',')
-        }
-      }
-    } else { // nb est un number
-      signe = nb < 0
-      // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
-      if (Math.abs(nb) < 1) { // si il est < 1, on n'a pas à se préoccuper de savoir si il est entier pour aussiCompleterEntiers
-        if (completerZeros) {
-          nombre = Intl.NumberFormat('fr-FR', {
-            maximumFractionDigits: precision,
-            minimumFractionDigits: precision
-          }).format(nb)
-        } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
-        }
-      } else {
-        if (completerZeros && ((aussiCompleterEntiers && Number.isInteger(nb)) || (!Number.isInteger(nb)))) {
-          nombre = Intl.NumberFormat('fr-FR', {
-            maximumSignificantDigits,
-            minimumSignificantDigits: maximumSignificantDigits
-          }).format(nb)
-        } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
-        }
-      }
-    }
-    const rangVirgule = nombre.indexOf(',')
-    let partieEntiere = ''
-    if (rangVirgule !== -1) {
-      partieEntiere = nombre.substring(0, rangVirgule)
-    } else {
-      partieEntiere = nombre
-    }
-    let partieDecimale = ''
-    if (rangVirgule !== -1) {
-      partieDecimale = nombre.substring(rangVirgule + 1)
-    }
-    // La partie entière est déjà formatée par le Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
-    // Dans le cas d'un Number, mais pas d'un Decimal
-    if (nb instanceof Decimal) {
-      if (signe) partieEntiere = partieEntiere.substring(1)
-      for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-        partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
-      }
-      if (signe) partieEntiere = '-' + partieEntiere
-    }
-    for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
-      partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
-    }
-    if (partieDecimale === '') {
-      nombre = partieEntiere
-    } else {
-      nombre = partieEntiere + ',' + partieDecimale
-    }
-    return nombre
-  } // fin insereEspacesNombre()
-
-  // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
-  if (isNaN(nb) && !(nb instanceof Decimal)) {
-    window.notify("AfficherNombre : Le nombre n'en est pas un", { nb, precision, fonction })
-    return ''
-  }
-  if (nb instanceof Decimal) {
-    if (nb.isZero()) return '0'
-  } else if (Number(nb) === 0) return '0'
-  let nbChiffresPartieEntiere
-  if (nb instanceof Decimal) {
-    if (nb.abs().lt(1)) {
-      nbChiffresPartieEntiere = 0
-    } else {
-      nbChiffresPartieEntiere = nb.abs().toFixed(0).length
-    }
-    if (nb.isInteger() && !aussiCompleterEntiers) precision = 0
-    else if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-      precision = 15 - nbChiffresPartieEntiere
-    } else if (precision < 0) {
-      precision = 0
-    }
-  } else { // nb est un number
-    if (Math.abs(nb) < 1) {
-      nbChiffresPartieEntiere = 0
-    } else {
-      // attention 9.7 donner 10 avec Math.abs(9.7).toFixed(0)
-      nbChiffresPartieEntiere = Math.floor(Math.abs(nb)).toFixed(0).length
-    }
-    if (Number.isInteger(nb) && !completerZeros) {
-      precision = 0
-    } else {
-      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-        precision = 15 - nbChiffresPartieEntiere
-      } else if (precision < 0) {
-        precision = 0
-      }
-    }
-  }
-
-  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-
-  if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
-    window.notify(fonction + ` : ${tropDeChiffres}`, { nb, precision })
-    return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
-  } else {
-    return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
-  }
-}
-
-/**
- * Centre un texte
- *
- * @author Rémi Angot
- */
-export function texteCentre (texte) {
-  if (context.isHtml) {
-    return `<p style="text-align: center">${texte}</p>`
-  } else {
-    return `\\begin{center}
-${texte}
-\\end{center}`
-  }
 }
 
 /**
@@ -2034,40 +1449,6 @@ export function href (texte, lien) {
 }
 
 /**
- * Pour bien afficher les centimes avec 2 chiffres après la virgule
- * @author Rémi Angot
- */
-export function texPrix (nb) {
-  if (nb instanceof Decimal) {
-    if (nb.isInteger()) return texNombre(nb, 0)
-    else return texNombre(nb, 2, true)
-  }
-  const nombre = Number(nb)
-  if (nombre.toString() === nombre.toFixed(0)) {
-    return texNombre(nb, 0)
-  } else {
-    return texNombre(nb, 2, true)
-  }
-}
-
-/**
- * Pour afficher les masses avec 3 chiffres après la virgule
- * @author Mireille Gain
- */
-export function texMasse (nb) {
-  if (nb instanceof Decimal) {
-    if (nb.isInteger()) return texNombre(nb, 0)
-    else return texNombre(nb, 3, true)
-  }
-  const nombre = Number(nb)
-  if (nombre.toString() === nombre.toFixed(0)) {
-    return texNombre(nb, 0)
-  } else {
-    return texNombre(nb, 3, true)
-  }
-}
-
-/**
  * Convertit en majuscule la première lettre
  * @author Rémi Angot
  */
@@ -2122,70 +1503,6 @@ export function nombreDeChiffresDe (nb, except) {
   return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
 
-/**
- * Retourne la liste des nombres premiers inférieurs à 300
- * @author Rémi Angot
- */
-export function obtenirListeNombresPremiers (n = 300) {
-  const prems = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
-  for (let i = 307; i <= n; i++) {
-    if (isPrime(i)) prems.push(i)
-  }
-  return prems
-}
-
-/**
- * Retourne le code LaTeX de la décomposition en produit de facteurs premiers d'un nombre
- * @author Rémi Angot
- */
-export function decompositionFacteursPremiers (n) {
-  let decomposition = ''
-  const liste = obtenirListeFacteursPremiers(n)
-  for (const i in liste) {
-    decomposition += ecritureParentheseSiNegatif(liste[i]) + '\\times'
-  }
-  decomposition = decomposition.substr(0, decomposition.length - 6)
-  return decomposition
-}
-
-/**
- *
- * @param {number} n
- * @param {boolean} inférieur si true, commence la recherche à 2 en croissant sinon commence à n+1
- * @returns {number}
- */
-export function premierAvec (n, listeAEviter = [], inférieur = true) {
-  if (n < 2) throw Error(`Impossible de trouver un nombre premier avec ${n}`)
-  let candidat = inferieur ? 2 : n + 1
-  do {
-    if (pgcd(n, candidat) === 1 && !listeAEviter.includes(candidat)) return candidat
-    candidat++
-  } while (true)
-}
-
-/**
- * Retourne le code LateX correspondant à un symbole
- * @param {string} symbole
- * @returns {string} string
- * @author Guillaume Valmont
- * @example texSymbole('≤') retourne '\\leqslant'
- */
-export function texSymbole (symbole) {
-  switch (symbole) {
-    case '<':
-      return '<'
-    case '>':
-      return '>'
-    case '≤':
-      return '\\leqslant'
-    case '≥':
-      return '\\geqslant'
-    case '\\':
-      return '\\smallsetminus'
-    default:
-      return 'symbole non connu par texSymbole()'
-  }
-}
 
 /**
  * Utilise printlatex et quote de Algebrite
@@ -2198,14 +1515,6 @@ export function printlatex (e) {
   } else {
     return Algebrite.run(`printlatex(quote(${e}))`)
   }
-}
-
-/**
- * Écrit du texte en mode mathématiques
- * @author Rémi Angot
- */
-export function texTexte (texte) {
-  return '~\\text{' + texte + '}'
 }
 
 /**
@@ -2233,69 +1542,6 @@ export function itemize (tableauDeTexte) {
 // Fin de la classe MAtriceCarree
 
 /**
- * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
- *
- * @author Jean-Claude Lhote
- */
-export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
-  const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
-  const determinant = matrice.determinant()
-  const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    const fa = fraction(a, determinant)
-    const fb = fraction(b, determinant)
-    return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
-  }
-  return [[a / determinant, 1], [b / determinant, 1]]
-}
-
-/**
- * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
- * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
- * @author Jean-Claude Lhote
- */
-export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
-  const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
-  const y1 = fx1 - d
-  const y2 = fx2 - d
-  const y3 = fx3 - d
-  const determinant = matrice.determinant()
-  if (determinant === 0) {
-    return [[0, 0], [0, 0], [0, 0]]
-  }
-  const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
-    const fa = fraction(a, determinant)
-    const fb = fraction(b, determinant)
-    const fc = fraction(c, determinant)
-    return [
-      [fa.numIrred, fa.denIrred],
-      [fb.numIrred, fb.denIrred],
-      [fc.numIrred, fc.denIrred]
-    ]
-    // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
-  }
-  return [
-    [a / determinant, 1],
-    [b / determinant, 1],
-    [b / determinant, 1]
-  ]
-}
-
-/**
- * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
- * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
- * @author Jean-Claude Lhote
- */
-export function chercheMinMaxFonction ([a, b, c, d]) {
-  const delta = 4 * b * b - 12 * a * c
-  if (delta <= 0) return [[0, 10 ** 99], [0, 10 ** 99]]
-  const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
-  const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
-  return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
-}
-
-/**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
  * retourne 1, la base ou rien
  * @param b base
@@ -2311,165 +1557,6 @@ export function simpExp (b, e) {
     default:
       return ' '
   }
-}
-
-/**
- * Fonction pour écrire des notations scientifique de la forme a * b ^ n
- * @param a {number} mantisse
- * @param b {number} base
- * @param n {number} exposant
- * @author Erwan Duplessy
- */
-export function puissance (b, n) {
-  switch (b) {
-    case 0:
-      return '0'
-    case 1:
-      return '1'
-    case -1:
-      if (b % 2 === 0) {
-        return '1'
-      } else {
-        return '-1'
-      }
-    default:
-      if (b < 0) {
-        return `(${b})^{${n}}`
-      } else {
-        return `${b}^{${n}}`
-      }
-  }
-}
-
-export function ecriturePuissance (a, b, n) {
-  switch (a) {
-    case 0:
-      return '$0$'
-    case 1:
-      return `$${puissance(b, n)}$`
-    default:
-      return `$${String(round(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
-  }
-}
-
-/**
- * Fonction pour simplifier les notations puissance dans certains cas
- * si la base vaut 1 ou -1 quelque soit l'exposant, retourne 1 ou -1,
- * si la base est négative on teste la parité de l'exposant pour alléger la notation sans le signe
- * si l'exposant vaut 0 ou 1 retourne 1, la base ou rien
- * @param b base
- * @param e exposant
- * @author Sébastien Lozano
- */
-export function simpNotPuissance (b, e) {
-  // on switch sur la base
-  switch (b) {
-    case -1: // si la base vaut -1 on teste la parité de l'exposant
-      if (e % 2 === 0) {
-        return ' 1'
-        // break;
-      } else {
-        return ' -1'
-        // break;
-      }
-    case 1: // si la base vaut 1 on renvoit toujours 1
-      return ' 1'
-    default: // sinon on switch sur l'exposant
-      switch (e) {
-        case 0: // si l'exposant vaut 0 on ranvoit toujours 1
-          return '1'
-        case 1: // si l'exposant vaut 1 on renvoit toujours la base
-          return ` ${b}`
-        default: // sinon on teste le signe de la base et la parité de l'exposant
-          if (b < 0 && e % 2 === 0) { // si la base est négative et que l'exposant est pair, le signe est inutile
-            return ` ${b * -1}^{${e}}`
-            // break;
-          } else {
-            return ` ${b}^{${e}}`
-            // return ` `;
-            // break;
-          }
-      }
-  }
-}
-
-/**
- * Fonction pour écrire en couleur la forme éclatée d'une puissance
- * @param b base
- * @param e exposant
- * @param couleur
- * @author Sébastien Lozano
- */
-export function eclatePuissance (b, e, couleur) {
-  let str
-  switch (e) {
-    case 0:
-      return `\\mathbf{\\color{${couleur}}{1}}`
-    case 1:
-      return `\\mathbf{\\color{${couleur}}{${b}}}`
-    default:
-      str = `\\mathbf{\\color{${couleur}}{${b}}} `
-      for (let i = 1; i < e; i++) {
-        str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`
-      }
-      return str
-  }
-}
-
-/**
- * Fonction pour écrire la forme éclatée d'une puissance
- * @param b {number} base
- * @param e {integer} exposant
- * @author Rémi Angot
- * @return string
- */
-export function puissanceEnProduit (b, e) {
-  let str
-  if (e === 0) {
-    return '1'
-  } else if (e === 1) {
-    return `${b}`
-  } else if (e > 1) {
-    str = `${ecritureParentheseSiNegatif(b)}`
-    for (let i = 1; i < e; i++) {
-      str = str + `\\times ${ecritureParentheseSiNegatif(b)}`
-    }
-    return str
-  } else if (e < 0) {
-    return `\\dfrac{1}{${puissanceEnProduit(b, -e)}}`
-  }
-}
-
-/**
- * Fonction qui renvoie un tableau contenant la mantisse et l'exposant de l'écriture scientique d'un nombre donné en paramètres sous sa forme décimale.
- * @param nbDecimal
- *
- * @example
- * // Renvoie [4.1276,1]
- * range(decimalToScientifique,[41.276])
- * // Renvoie [3.48,-2]
- * range(decimalToScientifique,[0.0348])
- * // Renvoie [-2.315,3]
- * range(decimalToScientifique,[-2315])
- *
- * @author Eric Elter
- */
-export function decimalToScientifique (nbDecimal) {
-  let exposant = 0
-  let mantisseNb = new Decimal(nbDecimal)
-  if (mantisseNb.abs().gte(10)) {
-    while (exposant < 50 && mantisseNb.abs().gt(10)) {
-      mantisseNb = mantisseNb.div(10)
-      exposant++
-    }
-    return [mantisseNb.toNumber(), exposant]
-  } else if (mantisseNb.abs().lt(1)) {
-    while (exposant < 50 && mantisseNb.abs().lt(1)) {
-      mantisseNb = mantisseNb.mul(10)
-      exposant++
-    }
-    return [mantisseNb.toNumber(), -1 * exposant]
-  } else return [nbDecimal, 0]
 }
 
 /**
@@ -2510,172 +1597,5 @@ export function numAlphaNum (k, nospace = false) {
   else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
 }
 
-/**
- * tire à pile ou face pour écrire ou non un texte
- * @param {string} texte
- * @author Sébastien Lozano
- */
 
-export function texteOuPas (texte) {
-  const bool = randint(0, 1)
-  if (bool === 0) {
-    return '\\ldots'
-  } else {
-    return texte
-  }
-}
 
-/**
- * Crée un tableau avec un nombre de lignes et de colonnes déterminées
- * par la longueur des tableaux des entetes passés en paramètre
- * Les contenus sont en mode maths par défaut, il faut donc penser à remplir les tableaux
- * en utilisant éventuellement la commande \\text{}
- *
- * @example
- * tableauColonneLigne(['coin','A','B'],['1','2'],['A1','B1','A2','B2']) affiche le tableau ci-dessous
- * ------------------
- * | coin | A  | B  |
- * ------------------
- * |  1   | A1 | B1 |
- * ------------------
- * |  2   | A2 | B2 |
- * ------------------
- *
- * @example
- * tableauColonneLigne(['coin','A','B','C'],['1','2'],['A1','B1','C1','A2','B2','C2']) affiche le tableau ci-dessous
- * -----------------------
- * | coin | A  | B  | C  |
- * -----------------------
- * |  1   | A1 | B1 | C1 |
- * -----------------------
- * |  2   | A2 | B2 | C2 |
- * -----------------------
- *
- * @example
- * tableauColonneLigne(['coin','A','B'],['1','2','3'],['A1','B1','A2','B2','A3','B3']) affiche le tableau ci-dessous
- * ------------------
- * | coin | A  | B  |
- * ------------------
- * |  1   | A1 | B1 |
- * ------------------
- * |  2   | A2 | B2 |
- * ------------------
- * |  3   | A3 | B3 |
- * ------------------
- *
- * @example
- * tableauColonneLigne(['coin','A','B','C'],['1','2','3'],['A1','B1','C1','A2','B2','C2','A3','B3','C3']) affiche le tableau ci-dessous
- * -----------------------
- * | coin | A  | B  | C  |
- * -----------------------
- * |  1   | A1 | B1 | C1 |
- * -----------------------
- * |  2   | A2 | B2 | C2 |
- * -----------------------
- * |  3   | A3 | B3 | C3 |
- * -----------------------
- *
- * @param {array} tabEntetesColonnes contient les entetes des colonnes
- * @param {array} tabEntetesLignes contient les entetes des lignes
- * @param {array} tabLignes contient les elements de chaque ligne
- * @author Sébastien Lozano
- *
- */
-export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true) {
-  // on définit le nombre de colonnes
-  const C = tabEntetesColonnes.length
-  // on définit le nombre de lignes
-  const L = tabEntetesLignes.length
-  // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
-  let tableauCL = ''
-  if (!arraystretch) {
-    if (context.isHtml) {
-      arraystretch = 2.5
-    } else {
-      arraystretch = 1
-    }
-  }
-  if (context.isHtml) {
-    tableauCL += `$\\def\\arraystretch{${arraystretch}}\\begin{array}{|`
-  } else {
-    tableauCL += `$\\renewcommand{\\arraystretch}{${arraystretch}}\n`
-    tableauCL += '\\begin{array}{|'
-  }
-  // on construit la 1ere ligne avec toutes les colonnes
-  for (let k = 0; k < C; k++) {
-    tableauCL += 'c|'
-  }
-  tableauCL += '}\n'
-
-  tableauCL += '\\hline\n'
-  if (typeof tabEntetesColonnes[0] === 'number') {
-    tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
-  } else {
-    tableauCL += math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`
-  }
-  for (let k = 1; k < C; k++) {
-    if (typeof tabEntetesColonnes[k] === 'number') {
-      tableauCL += ` & ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
-    } else {
-      tableauCL += ` & ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
-    }
-  }
-  tableauCL += '\\\\\n'
-  tableauCL += '\\hline\n'
-  // on construit toutes les lignes
-  for (let k = 0; k < L; k++) {
-    if (typeof tabEntetesLignes[k] === 'number') {
-      tableauCL += math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`
-    } else {
-      tableauCL += math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`
-    }
-    for (let m = 1; m < C; m++) {
-      if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
-        tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
-      } else {
-        tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
-      }
-    }
-    tableauCL += '\\\\\n'
-    tableauCL += '\\hline\n'
-  }
-  tableauCL += '\\end{array}\n'
-  if (context.isHtml) {
-    tableauCL += '$'
-  } else {
-    tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
-  }
-
-  return tableauCL
-}
-
-// Gestion du fichier à télécharger
-export function telechargeFichier (text, filename) {
-  const element = document.createElement('a')
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-  element.setAttribute('download', filename)
-
-  element.style.display = 'none'
-  document.body.appendChild(element)
-  element.click()
-
-  document.body.removeChild(element)
-}
-
-// Gestion des styles LaTeX
-
-export function dataTailleDiaporama (exercice) {
-  if (context.vue !== 'diap') {
-    return ''
-  } else if (exercice.tailleDiaporama !== 1) {
-    return `data-taille = "${exercice.tailleDiaporama}"`
-  }
-}
-
-function dataTaille (taille) {
-  if (context.vue !== 'diap' || taille === 1) {
-    return ''
-  } else if (taille !== 1) {
-    return `data-taille = "${taille}"`
-  }
-}

@@ -1,9 +1,10 @@
 import { modalPdf } from '../../lib/outils/modales.js'
+import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre, simpExp, simpNotPuissance, eclatePuissance } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre, simpExp } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Puissances de 10 : Le sens des règles de calculs'
 export const interactifReady = true
 export const interactifType = 'mathLive'

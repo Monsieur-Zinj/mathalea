@@ -1,6 +1,7 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, choice, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, choice } from '../../modules/outils.js'
 export const titre = 'Problèmes avec des puissances de 10 et des conversions'
 
 /**

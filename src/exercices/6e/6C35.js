@@ -2,15 +2,15 @@
 
 import { max } from 'mathjs'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires.js'
+import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   choice,
-  deuxColonnes,
   listeQuestionsToContenu,
   randint,
   range,
@@ -456,17 +456,15 @@ export default function ModelisationProblemes () {
         colonne2 += schemas[j]
       }
     }
-    if (context.versionMathalea > 2) {
-      // this.contenu n'est plus utilisé après la version 2
-      // On ne met pas les schéma en mode diaporama
-      if (context.isDiaporama) {
-        this.sup3 = 1
-      }
-      this.introduction = ''
-      if (this.sup3 === 3) {
-        for (let j = 0; j < listeTypeDeQuestions.length; j++) {
-          this.introduction += schemas[j]
-        }
+
+    // On ne met pas les schéma en mode diaporama
+    if (context.isDiaporama) {
+      this.sup3 = 1
+    }
+    this.introduction = ''
+    if (this.sup3 === 3) {
+      for (let j = 0; j < listeTypeDeQuestions.length; j++) {
+        this.introduction += schemas[j]
       }
     }
     if (context.isHtml & this.sup3) {

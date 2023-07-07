@@ -1,9 +1,8 @@
-import { context } from '../context.js'
-import { addElement, get } from '../dom.js'
+import { context } from '../../modules/context.js'
+import { addElement, get } from '../html/dom.js'
 import { verifQuestionCliqueFigure } from './cliqueFigure.js'
-import { isUserIdOk } from './isUserIdOk.js'
 import { verifQuestionMathLive } from './questionMathLive.js'
-import { verifQuestionQcm } from './questionQcm.js'
+import { verifQuestionQcm } from './qcm.js'
 
 export function gestionCan (exercice) {
   context.nbBonnesReponses = 0
@@ -82,5 +81,4 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
   const divCorr = get('corrections')
   divCorr.style.display = 'block'
   document.getElementById('btnMenuexercice0Q0').click()
-  isUserIdOk(exercice, nbBonnesReponses, nbMauvaisesReponses)
 }

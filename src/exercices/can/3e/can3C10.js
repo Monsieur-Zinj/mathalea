@@ -1,5 +1,6 @@
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Encadrer avec des puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -61,7 +62,7 @@ export default function EncadrementAvecPuissancesDe10 () {
       case 'c':
         a = randint(2, 9) * 0.001 + randint(1, 9) * 0.01
         this.question = `L'encadrement de $${texNombre(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombre(a)}<10^b$.<br>
-            
+        
         Quelle est la valeur de ${choix} ?
             `
         if (choix === '$b$') {
@@ -77,7 +78,7 @@ export default function EncadrementAvecPuissancesDe10 () {
       case 'd':
         a = randint(2, 9) * 0.001
         this.question = `L'encadrement de $${texNombre(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombre(a)}<10^b$.<br>
-             
+        
         Quelle est la valeur de ${choix} ?
               `
         if (choix === '$a$') {
@@ -94,7 +95,7 @@ export default function EncadrementAvecPuissancesDe10 () {
         a = randint(2, 9) * 0.01 + randint(1, 5) * 0.1
 
         this.question = `L'encadrement de $${texNombre(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombre(a)}<10^b$.<br>
-                
+        
         Quelle est la valeur de ${choix} ?
                 `
         if (choix === '$a$') {
