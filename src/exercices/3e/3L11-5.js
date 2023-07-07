@@ -1,5 +1,5 @@
-import { warnMessage } from '../../lib/outils/message.js'
-import { texteGras } from '../../lib/outils/style.js'
+import { warnMessage } from '../../lib/format/message.js'
+import { texteGras } from '../../lib/format/style.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

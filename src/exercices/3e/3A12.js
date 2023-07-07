@@ -1,4 +1,4 @@
-import { katexPopup2, lampeMessage, warnMessage } from '../../lib/outils/message.js'
+import { katexPopup2, lampeMessage, warnMessage } from '../../lib/format/message.js'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { decompositionFacteursPremiers, pgcd } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

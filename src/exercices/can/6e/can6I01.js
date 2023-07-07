@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { modalPdf, modalUrl } from '../../../lib/outils/modales.js'
-import { texteGras } from '../../../lib/outils/style.js'
+import { texteGras } from '../../../lib/format/style.js'
 import { stringNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../../modules/2dGeneralites.js'

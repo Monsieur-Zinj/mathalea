@@ -1,6 +1,6 @@
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { prenomF } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/outils/style.js'
+import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'

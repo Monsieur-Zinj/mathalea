@@ -1,4 +1,4 @@
-import { lampeMessage } from '../../lib/outils/message.js'
+import { lampeMessage } from '../../lib/format/message.js'
 import { texNombre3 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

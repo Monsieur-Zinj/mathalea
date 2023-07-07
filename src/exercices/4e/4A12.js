@@ -1,4 +1,4 @@
-import { warnMessage } from '../../lib/outils/message.js'
+import { warnMessage } from '../../lib/format/message.js'
 import { personne } from '../../lib/outils/Personne.js'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'

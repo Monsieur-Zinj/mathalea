@@ -5,7 +5,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures.js'
-import { arcenciel, texPrix } from '../../../lib/outils/style.js'
+import { arcenciel, texPrix } from '../../../lib/format/style.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'

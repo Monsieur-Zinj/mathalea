@@ -5,11 +5,11 @@
  */
 
 import fs from 'fs'
-import { dictionnaireCrpe } from '../src/modules/dictionnaireCrpe.js'
-import { dictionnaireCrpeCoop } from '../src/modules/dictionnaireCrpeCoop.js'
-import { dictionnaireDNB } from '../src/modules/dictionnaireDNB.js'
-import { dictionnaireBAC } from '../src/modules/dictionnaireBAC.js'
-import { dictionnaireE3C } from '../src/modules/dictionnaireE3C.js'
+import { dictionnaireCrpe } from '../src/json/dictionnaireCrpe.js'
+import { dictionnaireCrpeCoop } from '../src/json/dictionnaireCrpeCoop.js'
+import { dictionnaireDNB } from '../src/json/dictionnaireDNB.js'
+import { dictionnaireBAC } from '../src/json/dictionnaireBAC.js'
+import { dictionnaireE3C } from '../src/json/dictionnaireE3C.js'
 
 const referentiel = {}
 

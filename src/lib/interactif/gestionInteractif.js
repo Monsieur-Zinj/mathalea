@@ -1,5 +1,5 @@
 import { context } from '../../modules/context.js'
-import { addElement, get, setStyles } from '../../modules/dom.js'
+import { addElement, get, setStyles } from '../html/dom.js'
 import { exerciceCliqueFigure } from './cliqueFigure.js'
 import { exerciceListeDeroulante } from './questionListeDeroulante.js'
 import { verifExerciceMathLive } from './questionMathLive.js'

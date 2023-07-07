@@ -1,6 +1,6 @@
 import { deprecatedTexFraction, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
-import { texteCentre } from '../../../lib/outils/miseEnPage.js'
+import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'

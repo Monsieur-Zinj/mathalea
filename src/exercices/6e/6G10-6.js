@@ -1,4 +1,4 @@
-import { deuxColonnesResp } from '../../lib/outils/miseEnPage.js'
+import { deuxColonnesResp } from '../../lib/format/miseEnPage.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

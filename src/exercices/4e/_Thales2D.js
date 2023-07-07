@@ -1,5 +1,5 @@
 import { creerBoutonMathalea2d } from '../../lib/outils/modales.js'
-import { texteGras } from '../../lib/outils/style.js'
+import { texteGras } from '../../lib/format/style.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

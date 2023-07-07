@@ -1,6 +1,6 @@
 import { jourAuHasard, nomDuMois } from '../../lib/outils/dateEtHoraires.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import { texteGras } from '../../lib/outils/style.js'
+import { texteGras } from '../../lib/format/style.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

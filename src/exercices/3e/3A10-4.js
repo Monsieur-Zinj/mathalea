@@ -1,4 +1,4 @@
-import { tableauColonneLigne } from '../../lib/outils/miseEnPage.js'
+import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

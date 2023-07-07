@@ -5,7 +5,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../lib/outils/ecritures.js'
-import { texteCentre } from '../../lib/outils/miseEnPage.js'
+import { texteCentre } from '../../lib/format/miseEnPage.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

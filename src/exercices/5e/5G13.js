@@ -4,7 +4,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom, texteParPoint, positionLabelDroite, distancePointDroite, translation2Points } from '../../modules/2d.js'
-import { getVueFromUrl } from '../../modules/gestionUrl.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
@@ -154,7 +153,7 @@ export default function ConservationTransformation () {
           texteCorr += `Donc le segment [$${B.nom}'${C.nom}'$] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
           break
       }
-      texte += `Compléter l'image ${figure} ${enonceTransformation} en utilisant les propriétés de${getVueFromUrl() === 'multi' ? '<br>' : ' '}conservation de la ${transformation} et en justifiant ses démarches.<br>`
+      texte += `Compléter l'image ${figure} ${enonceTransformation} en utilisant les propriétés de conservation de la ${transformation} et en justifiant ses démarches.<br>`
       // On applique la transformation
       imPoly = polygoneAvecNom(imageA, imageB, imageC)
       const imPolyEnonce = polygoneAvecNom(imageA, imageB)

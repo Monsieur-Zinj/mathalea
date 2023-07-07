@@ -1,5 +1,5 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
-import { texteCentre } from '../../../lib/outils/miseEnPage.js'
+import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

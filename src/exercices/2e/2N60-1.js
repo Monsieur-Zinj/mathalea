@@ -1,7 +1,7 @@
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures.js'
 import { prenomF } from '../../lib/outils/Personne.js'
 import { pgcd } from '../../lib/outils/primalite.js'
-import { texPrix, texteGras } from '../../lib/outils/style.js'
+import { texPrix, texteGras } from '../../lib/format/style.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'

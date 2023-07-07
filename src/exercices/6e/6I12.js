@@ -1,5 +1,5 @@
 // on importe les fonctions nécessaires.
-import { texteGras } from '../../lib/outils/style.js'
+import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'

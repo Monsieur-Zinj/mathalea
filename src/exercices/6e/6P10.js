@@ -1,12 +1,11 @@
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/outils/style.js'
+import { texPrix } from '../../lib/format/style.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint, range, combinaisonListes, miseEnEvidence, compteOccurences, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -261,7 +260,7 @@ export default function ProportionnalitePasProportionnalite () {
           texte = `Une épidémie se répand dans la ville de ${villes[index1]}. `
           texte += `Le nombre de malades ${verbes[index2]} tous les ${index2 + 2
             } jours.<br>`
-          texte += `Le nombre de malades est-il proportionnel au nombre de${getVueFromUrl() === 'multi' ? '<br>' : ' '}`
+          texte += 'Le nombre de malades est-il proportionnel au nombre de '
           texte += 'jours passés depuis le début de l\'épidémie ?<br>'
           texteCorr = `Admettons qu'il y ait 10 malades le 1er jour. Le ${1 + 2 + index2}e jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)}$ malades.<br>`
           texteCorr += `Entre le 1er jour et le ${3 + index2}e jour, le nombre de malades est multiplié par ${index2 + 2} mais le nombre de jours est multiplié par ${3 + index2}.<br>`
@@ -283,7 +282,7 @@ export default function ProportionnalitePasProportionnalite () {
           met = listeProportionnelOuPas[compteurProportionnelsOuPas]
           compteurProportionnelsOuPas += 1
           if (!met) tirages[p][1] = tirages[p][1].sub(1)
-          texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par${getVueFromUrl() === 'multi' ? '<br>' : ' '}correspondance en fonction de la quantité saisie dans le panier. `
+          texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par correspondance en fonction de la quantité saisie dans le panier. `
           texte += 'Il note les prix dans le tableau suivant :<br> <br>'
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau
           for (let j = 0; j <= tirages.length; j++) texte += '|c'

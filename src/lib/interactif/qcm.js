@@ -1,13 +1,11 @@
 import { context } from '../../modules/context'
-import { get } from '../../modules/dom'
+import { get } from '../html/dom'
 import { messageFeedback } from '../../modules/messages'
 import { shuffleJusqua } from '../../modules/outils'
 import { gestionCan } from './gestionCan'
 import { afficheScore } from './gestionInteractif'
 export function verifQuestionQcm (exercice, i) {
   let resultat
-  const monRouge = 'rgba(217, 30, 24, 0.5)'
-  const monVert = 'rgba(123, 239, 178, 0.5)'
   // i est l'indice de la question
   let nbBonnesReponses = 0
   let nbMauvaisesReponses = 0
@@ -19,34 +17,37 @@ export function verifQuestionQcm (exercice, i) {
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   let aucuneMauvaiseReponseDonnee = true
   exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
-    const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
-    const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
-    if (check.checked) {
-      // Sauvegarde pour les exports Moodle, Capytale...
-      if (exercice.answers === undefined) { exercice.answers = {} }
-      exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = 1
-      // Gestion du feedback de toutes les cases cochées
-      if (exercice.autoCorrection[i].propositions[indice].feedback) {
-        messageFeedback({
-          id: `feedbackEx${exercice.numeroExercice}Q${i}R${indice}`,
-          message: exercice.autoCorrection[i].propositions[indice].feedback,
-          type: proposition.statut ? 'positive' : 'error'
-        })
-      }
-    }
-    if (proposition.statut) {
+    // La liste de question peut être plus courte que autoCorrection si on n'a pas réussi à générer suffisamment de questions différentes
+    if (exercice.listeQuestions[indice] !== undefined) {
+      const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
+      const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
       if (check.checked) {
-        nbBonnesReponses++
-        if (aucuneMauvaiseReponseDonnee) {
-          label.style.backgroundColor = monVert
+        // Sauvegarde pour les exports Moodle, Capytale...
+        if (exercice.answers === undefined) { exercice.answers = {} }
+        exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = 1
+        // Gestion du feedback de toutes les cases cochées
+        if (exercice.autoCorrection[i].propositions[indice].feedback) {
+          messageFeedback({
+            id: `feedbackEx${exercice.numeroExercice}Q${i}R${indice}`,
+            message: exercice.autoCorrection[i].propositions[indice].feedback,
+            type: proposition.statut ? 'positive' : 'error'
+          })
         }
-      } else { // Bonnes réponses non cochées
-        label.style.backgroundColor = monVert
       }
-    } else if (check.checked === true) {
-      label.style.backgroundColor = monRouge
-      nbMauvaisesReponses++
-      aucuneMauvaiseReponseDonnee = false
+      if (proposition.statut) {
+        if (check.checked) {
+          nbBonnesReponses++
+          if (aucuneMauvaiseReponseDonnee) {
+            label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+          }
+        } else { // Bonnes réponses non cochées
+          label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+        }
+      } else if (check.checked === true) {
+        label.classList.add('bg-red-100', 'rounded-lg', 'p-1')
+        nbMauvaisesReponses++
+        aucuneMauvaiseReponseDonnee = false
+      }
     }
   })
   let typeFeedback = 'positive'
@@ -121,11 +122,8 @@ export function propositionsQcm (exercice, i) {
   // On regarde si il n'y a pas de doublons dans les propositions de réponse. Si c'est le cas, on enlève les mauvaises réponses en double.
   elimineDoublons(exercice.autoCorrection[i].propositions)
   if (context.isHtml) {
-    texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
-    texte += '<table>\n\t'
     texteCorr += '<table>\n\t'
     if (vertical) {
-      texte += '<tr>\n\t'
       texteCorr += '<tr>\n\t'
     }
   } else {
@@ -138,22 +136,9 @@ export function propositionsQcm (exercice, i) {
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
     if (context.isHtml) {
       if (vertical && (rep % nbCols === 0) && rep > 0) {
-        texte += '</tr>\n<tr>\n'
         texteCorr += '</tr>\n<tr>\n'
       }
-      texte += '<td>\n'
       texteCorr += '<td>\n'
-      if (exercice.interactif) {
-        texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm" style="display:inline;">
-            <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
-            <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
-          </div>`
-      } else {
-        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '</td>\n'
-        if (nbCols > 1 && vertical) {
-          texte += '\n\t'
-        }
-      }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
         texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       } else {
@@ -177,23 +162,18 @@ export function propositionsQcm (exercice, i) {
   }
   if (context.isHtml) {
     if (vertical) {
-      texte += '</tr>\n\t'
       texteCorr += '</tr>\n\t'
     }
-    texte += '</table>\n\t'
     texteCorr += '</table>\n\t'
-    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
   } else {
     texte += nbCols === 1 ? '' : '\\end{multicols}'
     texteCorr += nbCols === 1 ? '' : '\\end{multicols}'
   }
 
-  // GESTION DE LA V3
-  if (context.isHtml && context.versionMathalea === 3 && exercice.interactif) {
-    texte = '<div>'
+  if (context.isHtml && exercice.interactif) {
+    texte = '<div class="my-3">'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      texte += `<div class="ex${exercice.numeroExercice} my-3 ${vertical ? '' : 'inline'}">
+      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline'}">
       <input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div>

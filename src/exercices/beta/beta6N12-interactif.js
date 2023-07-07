@@ -1,4 +1,4 @@
-import { lampeMessage } from '../../lib/outils/message.js'
+import { lampeMessage } from '../../lib/format/message.js'
 import { modalUrl } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

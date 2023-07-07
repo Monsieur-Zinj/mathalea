@@ -1,4 +1,4 @@
-import { texcolors } from '../../lib/outils/style.js'
+import { texcolors } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { combinaisonListes, choice, randint, listeQuestionsToContenu, numAlpha, calcul } from '../../modules/outils.js'

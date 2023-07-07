@@ -1,5 +1,5 @@
 import { gestionCan } from './gestionCan'
-import { addElement, get, setStyles } from '../../modules/dom'
+import { addElement, get, setStyles } from '../html/dom'
 import { context } from '../../modules/context'
 import { afficheScore } from './gestionInteractif'
 

@@ -1,4 +1,4 @@
-import { couleurTab } from '../../lib/outils/style.js'
+import { couleurTab } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, choice, miseEnEvidence, sp, rangeMinMax, numAlpha, enleveElement, combinaisonListes } from '../../modules/outils.js'

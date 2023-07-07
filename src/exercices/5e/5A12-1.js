@@ -1,4 +1,4 @@
-import { warnMessage } from '../../lib/outils/message.js'
+import { warnMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'

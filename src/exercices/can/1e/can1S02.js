@@ -1,6 +1,6 @@
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
-import { arcenciel } from '../../../lib/outils/style.js'
+import { arcenciel } from '../../../lib/format/style.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { randint, choice, calcul, miseEnEvidence, signe } from '../../../modules/outils.js'
