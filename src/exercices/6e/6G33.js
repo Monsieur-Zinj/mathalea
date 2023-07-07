@@ -35,7 +35,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (this.interactif) this.consigne = 'Pour chaque question, cocher la bonne réponse.'
+    this.consigne = this.interactif ? 'Pour chaque question, cocher la bonne réponse.' : ''
 
     const listeDeQuad = shuffle(['losange', 'rectangle', 'carre'])
     for (let i = 0, numDeQuad, listeDeQuestions, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
