@@ -277,7 +277,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
         if (this.interactif) {
           texte += propositionsQcm(this, i).texte
         }
-        console.log(i)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
