@@ -6,11 +6,11 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere, lectureAntecedent } from '../../modules/2d.js'
 import { choice, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-export const titre = 'Recherche d\'antécédents'
+export const titre = 'Résoudre une équation du type $f(x)=k$ graphiquement.'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '22/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'a2ac2' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = '2F22-1'// @todo à modifier aussi
 // une liste de nœuds pour définir une fonction Spline
@@ -67,12 +67,6 @@ function aleatoiriseCourbe () {
 
 function nombreAntecedents (choix) {
   switch (choix) {
-    case 1:
-    case 2:
-    case 3:
-      return choix
-    case 4:
-      return randint(1, 3)
     default:
       return randint(0, 3)
   }
@@ -88,7 +82,6 @@ export default class BetaModeleSpline extends Exercice {
     this.titre = titre
     this.sup = '4'
     this.nbQuestions = 1 // Nombre de questions par défaut
-    this.besoinFormulaireTexte = ['Réglages des questions :', '1 : Un seul antécédent\n2 : Deux antécédents\n3 : trois antécédents\n4 : De un à trois antécédents\n5 : De 0 à 3 antécédents\n6 : Mélange']
   }
 
   nouvelleVersion (numeroExercice) {
