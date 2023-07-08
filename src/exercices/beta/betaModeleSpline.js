@@ -96,7 +96,7 @@ export default class BetaModeleSpline extends Exercice {
       const maSpline = spline(nuage)
       const { xMin, xMax, yMin, yMax } = maSpline.trouveMaxes()
       const nombreAntecedentCherches = nombreAntecedents(Number(typeDeQuestions[i]))
-      const y0 = maSpline.trouveYPourNAntecedentsEntiers(nombreAntecedentCherches, yMin, yMax)
+      const y0 = maSpline.trouveYPourNAntecedents(nombreAntecedentCherches, yMin, yMax)
       const solutions = inferieurSuperieur(maSpline.fonction, y0, xMin + 1, xMax - 1, true, false)
 
       const reponse = solutions.length === 0

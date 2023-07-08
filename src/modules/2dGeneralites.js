@@ -177,7 +177,9 @@ export function mathalea2d (
       }
     }
     code += '\n\\end{tikzpicture}'
+    if (style === 'display: block') code += '\\\\'
   }
+
   return code
 }
 
