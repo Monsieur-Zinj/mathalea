@@ -75,7 +75,7 @@ export function TableauDeVariation ({
   }
   const sortieTexte = function (latex, texte, x, y, color, largeur, hauteurLigne, backgroundColor, tailleCaracteres) {
     if (latex) {
-      return latexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, backgroundColor, tailleCaracteres)
+      return latexParCoordonnees(texte, x, y - 0.4, color, largeur, hauteurLigne, backgroundColor, tailleCaracteres)
     } else {
       const texteSansLatex = texte.replace('\\infty', '∞')
       return texteParPosition(texteSansLatex, x, y, 'milieu', color, 1, 'middle', true)
