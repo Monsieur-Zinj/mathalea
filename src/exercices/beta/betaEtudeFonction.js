@@ -3,6 +3,7 @@ import {
   tableauSignesFonction,
   tableauVariationsFonction
 } from '../../modules/mathFonctions/outilsMaths.js'
+import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -92,7 +93,15 @@ const poly = new Polynome({ deg: this.sup, rand: true })
     let texteCorrection = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection)), objetsCorrection)
     texteCorrection += '<br>voici les signes de f : '
     const tableauSignes = tableauSignesFonction(fonction, xMin, xMax)
-    const tableauVariations = tableauVariationsFonction(fonction, derivee, xMin, xMax)
+    const tableauVariations = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
+      latex: true,
+      substituts: [
+        { antVal: -10, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
+        { antVal: 10, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
+        { antVal: -0.37, antTex: '-\\frac{1}{e}', imgVal: 0.4, imgTex: '\\frac{1}{e}' },
+        { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
+      ]
+    })
     texteCorrection += `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
     texteCorrection += `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauVariations])), tableauVariations)}`
     this.listeQuestions.push(texteEnonce)

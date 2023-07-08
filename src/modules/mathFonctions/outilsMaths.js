@@ -283,13 +283,22 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
 }
-export function tableauSignesFonction (fonction, xMin, xMax) {
-  const signes = signesFonction(fonction, xMin, xMax)
 
+export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts } = {}) {
+  const signes = signesFonction(fonction, xMin, xMax)
   const initialValue = []
   const premiereLigne = []
-  premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG), 10]), initialValue))
+  premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG, 2), 10]), initialValue))
   premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  if (substituts && Array.isArray(substituts)) {
+    for (let i = 0; i < premiereLigne.length; i++) {
+      const strNb = premiereLigne[i]
+      const substitut = substituts.find((el) => stringNombre(el.antVal, 2) === strNb)
+      if (substitut) {
+        premiereLigne[i] = substitut.antTex
+      }
+    }
+  }
   const tabLine = ['Line', 30]
   if (egal(fonction(xMin), 0)) {
     tabLine.push('z', 10)
@@ -316,15 +325,24 @@ export function tableauSignesFonction (fonction, xMin, xMax) {
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 8, // taille de la première colonne en cm
     hauteurLignes: [15, 15],
-    latex: false
+    latex: latex ?? false
   })
 }
-export function tableauVariationsFonction (fonction, derivee, xMin, xMax) {
+export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { latex, substituts } = {}) {
   const signes = signesFonction(derivee, xMin, xMax)
   const premiereLigne = []
   const initalValue = []
-  premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG), 10]), initalValue))
+  premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG, 2), 10]), initalValue))
   premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  if (substituts && Array.isArray(substituts)) {
+    for (let i = 0; i < premiereLigne.length; i++) {
+      const strNb = premiereLigne[i]
+      const substitut = substituts.find((el) => stringNombre(el.antVal, 2) === strNb)
+      if (substitut) {
+        premiereLigne[i] = substitut.antTex
+      }
+    }
+  }
   const tabLineDerivee = ['Line', 30]
   if (egal(derivee(xMin), 0)) {
     tabLineDerivee.push('z', 10)
@@ -340,32 +358,42 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax) {
   }
 
   const variations = variationsFonction(derivee, xMin, xMax)
+
   const tabLineVariations = ['Var', 10]
   let variationG = variations[0]
   let variationD
   if (variationG.variation === 'croissant') {
-    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG, 1), 1)}`, 5)
+    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG, 1), 1)}`, 10)
   } else {
-    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG, 1), 1)}`, 5)
+    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG, 1), 1)}`, 10)
   }
   for (let i = 0; i < variations.length - 1; i++) {
     variationG = variations[i]
     variationD = variations[i + 1]
     if (variationG.variation === variationD.variation) {
-      tabLineVariations.push('R/', 5)
+      tabLineVariations.push('R/', 10)
     } else {
-      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationD.xG, 1), 1)}`, 5)
+      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationD.xG, 1), 1)}`, 10)
     }
   }
   if (variationD.variation === 'croissant') {
-    tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 1)}`, 5)
+    tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 1)}`, 10)
   } else {
-    tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 1)}`, 5)
+    tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 1)}`, 10)
+  }
+  if (substituts && Array.isArray(substituts)) {
+    for (let i = 2; i < tabLineVariations.length; i += 2) {
+      const strChunks = tabLineVariations[i].split('/')
+      const substitut = substituts.find((el) => stringNombre(el.imgVal, 1) === strChunks[1])
+      if (substitut) {
+        tabLineVariations[i] = strChunks[0] + '/' + substitut.imgTex
+      }
+    }
   }
   return new TableauDeVariation({
     tabInit: [
       [
-        ['x', 2, 5], ['f′(x)', 2, 10], ['f(x)', 2, 10]
+        ['x', 2, 10], ['f′(x)', 2, 10], ['f(x)', 2, 10]
       ],
       premiereLigne
     ],
@@ -373,8 +401,8 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax) {
     colorBackground: '',
     escpl: 4.5, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-    lgt: 2, // taille de la première colonne en cm
-    hauteurLignes: [12, 12, 25],
-    latex: false
+    lgt: 3, // taille de la première colonne en cm
+    hauteurLignes: [15, 15, 30],
+    latex: latex ?? false
   })
 }
