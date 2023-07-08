@@ -2404,7 +2404,7 @@
           "id": "can4C15",
           "uuid": "adbf6",
           "url": "can/4e/can4C15.js",
-          "titre": "Calculer une fraction de dénominateur $0,25$ ou $0,1$ ...",
+          "titre": "Calculer une fraction de dénominateur 0,25 ou 0,1 ...",
           "datePublication": "30/03/2023",
           "tags": {
             "interactif": true,
@@ -10951,6 +10951,7 @@
         "uuid": "03b71",
         "url": "2e/2F10-5.js",
         "titre": "Déterminer le signe d'une fonction affine",
+        "dateModification": "06/07/2023",
         "tags": {}
       },
       "2F10-6": {
@@ -11047,6 +11048,17 @@
         "url": "2e/2F22-1.js",
         "titre": "Recherche d'antécédents",
         "datePublication": "22/06/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
+      "2F22-3": {
+        "id": "2F22-3",
+        "uuid": "a7860",
+        "url": "2e/2F22-3.js",
+        "titre": "Déterminer le tableau de signes d'une fonction graphiquement.",
+        "datePublication": "06/07/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
