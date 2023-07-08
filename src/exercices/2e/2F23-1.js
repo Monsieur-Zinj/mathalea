@@ -140,7 +140,7 @@ ${a !== 1 ? `\\iff &${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppo
     corr3d += `<br>
     L'équation a deux solutions : $0$ et $${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}$.<br>
     On en déduit que $\\mathscr{C}_f$ et la droite d'équation  $y=${p.c.simplifie().texFraction}$ ont deux points d'intersection : <br>
-    $A(0\\,;\\,f(0)$ et
+    $A(0\\,;\\,f(0))$ et
     $B(${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}\\,;\\,f\\left(${p.b.oppose().diviseFraction(p.a).simplifie().texFraction})\\right)$, soit $A(0\\,;\\,${p.c.simplifie().texFraction})$ et
     $B(${p.b.oppose().diviseFraction(p.a).simplifie().texFraction}\\,;\\,${p.c.simplifie().texFraction})$.
     `
