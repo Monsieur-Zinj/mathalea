@@ -91,6 +91,10 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       if (checkBox !== null && exercice.answers[answer] === 1) {
         checkBox.checked = true
       }
+      // La réponse correspond à une liste déroulante
+      const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+      console.log(select)
+      select.value = exercice.answers[answer]
     }
     if (exercice.state === 'done') {
       // On attent que le bouton de correction soit chargé

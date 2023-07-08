@@ -23,9 +23,13 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
     reponses = exercice.autoCorrection[i].reponse.valeur
   }
   let saisie = []
+  // Sauvegarde pour les exports Moodle, Capytale...
+  if (exercice.answers === undefined) { exercice.answers = {} }
   for (const option of optionsChoisies) {
     saisie.push(option.value)
+    exercice.answers[option.id] = option.value
   }
+  console.log(exercice.answers)
   saisie = saisie.join('-')
   for (const reponse of reponses) {
     // Pour les exercices où on associe plusieurs liste déroulantes, la réponse est un tableau (cf 6N43-4)

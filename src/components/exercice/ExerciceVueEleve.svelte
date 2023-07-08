@@ -65,6 +65,7 @@
           field.setAttribute('disabled', 'true')
         })
         const url = new URL(window.location.href)
+        // Pour Moodle, les réponses sont dans l'URL
         const answers = url.searchParams.get('answers')
         const objAnswers = answers ? JSON.parse(answers) : undefined
         $globalOptions.answers = objAnswers
