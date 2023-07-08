@@ -15,7 +15,7 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
   if (eltFeedback) eltFeedback.innerHTML = ''
   let resultat
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-  const optionsChoisies = document.querySelectorAll(`#ex${exercice.numeroExercice}Q${i}`)
+  const optionsChoisies = document.querySelectorAll(`[id^=ex${exercice.numeroExercice}Q${i}]`)
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
@@ -29,7 +29,6 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
     saisie.push(option.value)
     exercice.answers[option.id] = option.value
   }
-  console.log(exercice.answers)
   saisie = saisie.join('-')
   for (const reponse of reponses) {
     // Pour les exercices où on associe plusieurs liste déroulantes, la réponse est un tableau (cf 6N43-4)
@@ -100,11 +99,11 @@ export function exerciceListeDeroulante (exercice) {
  * @author Rémi Angot
  * @returns {string} le code html de la liste
  */
-export function choixDeroulant (exercice, i, c, choix, type = 'nombre', style = '') {
+export function choixDeroulant (exercice, i, c = 0, choix, type = 'nombre', style = '') {
   if (!exercice.interactif || !context.isHtml) return ''
   if (style) style = `style="${style}"`
 
-  let result = `<select class="ui fluid mx-2 dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" ${style} data-choix="${c}">
+  let result = `<select class="ui fluid mx-2 dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}S${c}" ${style} data-choix="${c}">
       <option> Choisir ${type === 'nombre' ? 'un nombre' : type} </option>`
 
   for (const a of choix) {

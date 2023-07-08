@@ -93,7 +93,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       }
       // La réponse correspond à une liste déroulante
       const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-      console.log(select)
       select.value = exercice.answers[answer]
     }
     if (exercice.state === 'done') {
