@@ -1,7 +1,7 @@
-import { gestionCan } from './gestionCan'
-import { addElement, get, setStyles } from '../html/dom'
-import { context } from '../../modules/context'
-import { afficheScore } from './gestionInteractif'
+import { gestionCan } from './gestionCan.js'
+import { addElement, get, setStyles } from '../html/dom.js'
+import { context } from '../../modules/context.js'
+import { afficheScore } from './gestionInteractif.js'
 
 export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** number */) {
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice

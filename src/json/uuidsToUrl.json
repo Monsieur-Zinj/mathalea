@@ -610,6 +610,7 @@
   "ec059": "2e/2F20-2.js",
   "5621b": "2e/2F21-1.js",
   "a2ac2": "2e/2F22-1.js",
+  "a7860": "2e/2F22-3.js",
   "4dced": "2e/2F23-1.js",
   "6e82d": "2e/2F25-1.js",
   "1e362": "2e/2F25-2.js",
@@ -1185,6 +1186,5 @@
   "betaFonction": "beta/betaEtudeFonction.js",
   "57cf4": "beta/betaModele00_simple_Course_au_Nombres.js",
   "betaSpline": "beta/betaModeleSpline.js",
-  "betaFonction": "beta/betaEtudeFonction.js",
   "efeee": "beta/betaTexNombre.js"
 }

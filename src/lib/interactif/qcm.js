@@ -1,9 +1,9 @@
-import { context } from '../../modules/context'
-import { get } from '../html/dom'
-import { messageFeedback } from '../../modules/messages'
-import { shuffleJusqua } from '../../modules/outils'
-import { gestionCan } from './gestionCan'
-import { afficheScore } from './gestionInteractif'
+import { context } from '../../modules/context.js'
+import { get } from '../html/dom.js'
+import { messageFeedback } from '../../modules/messages.js'
+import { shuffleJusqua } from '../../modules/outils.js'
+import { gestionCan } from './gestionCan.js'
+import { afficheScore } from './gestionInteractif.js'
 export function verifQuestionQcm (exercice, i) {
   let resultat
   // i est l'indice de la question
