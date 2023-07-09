@@ -114,8 +114,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       horizontale2.pointilles = 2
       objetsCorrection1.push(horizontale1)
       objetsCorrection2.push(horizontale2)
-      for (let j = 0; j < nombreAntecedentCherches0; j++) {
-        objetsCorrection1.push(lectureAntecedent(solutions0[j], y0, 1, 1, 'red', '', ''))
+      for (let j = 0; j < nombreAntecedentCherches1; j++) {
+        objetsCorrection1.push(lectureAntecedent(solutions1[j], y1, 1, 1, 'red', '', ''))
       }
       for (let j = 0; j < nombreAntecedentCherches1; j++) {
         for (let k = 0; k < theSpline.visible.length; k++) {
@@ -127,20 +127,19 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
       }
 
-      let enonceSousRepere = `Voici la représentation graphique $\\mathscr{C}_f$ d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$. <br>
-Répondre aux questions en utilisant le graphique.<br>`
-      enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10')
-      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexte(this, 3 * i + 1, 'inline largeur25')
-      enonceSousRepere += `<br>${numAlpha(2)}Trouve une valeur de k telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ antécédent${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` + ajouteChampTexte(this, 3 * i + 2, 'inline largeur25')
-      if (this.interactif) { enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir Aucune s\'il n\'y en a pas).' }
+      let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
+      enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + '<br>'
+      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexte(this, 3 * i + 1, 'inline largeur25') + '<br>'
+      if (this.interactif) { enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir Aucune s\'il n\'y en a pas).<br>' }
+      enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` + ajouteChampTexte(this, 3 * i + 2, 'inline largeur25')
       setReponse(this, 3 * i, nombreAntecedentCherches0)
       setReponse(this, 3 * i + 1, reponse1, { formatInteractif: 'texte' })
       setReponse(this, 3 * i + 2, y2)
       const correctionPartA = `${numAlpha(0)} Le nombre de solutions de l'équation $f(x)=${y0}$ est donné par le nombre d'antécédents de $${y0}$ par $f$. <br>
-          ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$ : $S=\\{' + reponse0 + '\\}$.'} <br>`
+          ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$.'} <br>`// : $S=\\{' + reponse0 + '\\}$
       const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses) d'équation $y = ${y1}$.`}<br>
-          On en déduit : $S=\\{${solutions1.join('\\,;\\,')}\\}$.<br>
-${numAlpha(2)}  Le nombre $${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} antécédent${nombreAntecedentsCherches2 > 1 ? 's' : ''} : $S=\\{${reponse2}\\}$.<br>`
+          On en déduit : ${solutions1.length === 0 ? '$S=\\emptyset$.' : `$S=\\{${solutions1.join('\\,;\\,')}\\}$.`}<br>`
+      const correctionPartC = `${numAlpha(2)}  Le nombre $${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} antécédent${nombreAntecedentsCherches2 > 1 ? 's' : ''} : $S=\\{${reponse2}\\}$.`
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,
@@ -173,12 +172,15 @@ ${numAlpha(2)}  Le nombre $${texNombre(y2, 1)}$ possède exactement ${nombreAnte
       objetsCorrection2.push(repere1, courbeATracer)
 
       const origine = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-      texte = mathalea2d(Object.assign({ scale: 0.6, style: 'display: block' }, fixeBordures(objetsEnonce)), objetsEnonce, origine) + enonceSousRepere
+      texte = `Voici la représentation graphique $\\mathscr{C}_f$ d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$. <br>
+     <br>`
+      texte += mathalea2d(Object.assign({ scale: 0.6, style: 'display: block' }, fixeBordures(objetsEnonce)), objetsEnonce, origine) + enonceSousRepere
       texteCorr = correctionPartA +
-        mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
+      // mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
            correctionPartB +
+        mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
+        correctionPartC +
         mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection2)), objetsCorrection2, origine)
-
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
