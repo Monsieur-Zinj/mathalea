@@ -163,6 +163,18 @@ class Spline {
     return solutions.length
   }
 
+  nombreAntecedentsMaximum (yMin, yMax, yentier = true, entiers = true) {
+    let nbMax = 0
+    for (let k = yMin; k < yMax; k += yentier ? 1 : 0.1) {
+      if (entiers) {
+        nbMax = Math.max(nbMax, this.nombreAntecedentsEntiers(k))
+      } else {
+        nbMax = Math.max(nbMax, this.nombreAntecedents(k))
+      }
+    }
+    return nbMax
+  }
+
   /**
    * Retourne une valeur de y (si trouvée) pôur laquelle il y a exactement n antécédents
    * @param {number} n
