@@ -100,7 +100,7 @@ class Spline {
         for (const valeur of liste) {
           let arr
           if (typeof valeur === 'number') {
-            arr = round(valeur, 1)
+            arr = round(valeur, 3)
           } else { // complexe !
             const module = valeur.toPolar().r
             if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !

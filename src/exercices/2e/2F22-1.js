@@ -74,6 +74,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
     super()
     this.titre = titre
     this.nbQuestions = 1 // Nombre de questions par défaut
+    this.nbQuestionsModifiable = false
+    this.exoCustomResultat = true
   }
 
   nouvelleVersion (numeroExercice) {
@@ -89,6 +91,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       // la liste des noeuds de notre fonction
       const nuage = aleatoiriseCourbe(mesFonctions1)
       const theSpline = spline(nuage)
+      // On a besoin de la spline pour la correction interactive
+      this.spline = theSpline
       bornes = theSpline.trouveMaxes()
       const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin, bornes.yMax, true, true)
 
@@ -101,7 +105,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       const nbAntecedentsMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin - 1, bornes.yMax + 1, false, false)
       const nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
       const y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin, bornes.yMax, false, false), 1)
-      const reponse1 = solutions1.length === 0 ? 'aucun' : `${solutions1.join(';')}`
+      const reponse1 = solutions1.length === 0 ? 'aucune' : `${solutions1.join(';')}`
 
       const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
@@ -128,7 +132,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + '<br>'
       enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexte(this, 3 * i + 1, 'inline largeur25') + '<br>'
       if (this.interactif) { enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir Aucune s\'il n\'y en a pas).<br>' }
-      enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` + ajouteChampTexte(this, 3 * i + 2, 'inline largeur25')
+      enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` +
+        ajouteChampTexte(this, 3 * i + 2, 'inline largeur25')
       setReponse(this, 3 * i, nombreAntecedentCherches0)
       setReponse(this, 3 * i + 1, reponse1, { formatInteractif: 'texte' })
       setReponse(this, 3 * i + 2, y2)
@@ -190,24 +195,41 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
   }
 
   correctionInteractive = (i) => {
-    let resultat
-    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-    switch (i % 3) {
-      case 0:
-        if (i === 0) {
-          divFeedback.innerHTML = '😎'
-          resultat = 'OK'
-        } else {
-          divFeedback.innerHTML = '☹️'
-          resultat = 'KO'
-        }
-        break
-      case 1:
-        break
-      case 2:
-        break
+    let resultat1, resultat2, resultat3
+    for (let k = 0; k < 3; k++) {
+      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
+      const reponseEleve = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * 3 + k}`)?.value
+      switch (k) {
+        case 0:
+          if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+            divFeedback.innerHTML = '😎'
+            resultat1 = 'OK'
+          } else {
+            divFeedback.innerHTML = '☹️'
+            resultat1 = 'KO'
+          }
+          break
+        case 1:
+          if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
+          (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+            divFeedback.innerHTML = '😎'
+            resultat2 = 'OK'
+          } else {
+            divFeedback.innerHTML = '☹️'
+            resultat2 = 'KO'
+          }
+          break
+        case 2:
+          if (this.spline.nombreAntecedents(Number(reponseEleve)) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+            divFeedback.innerHTML = '😎'
+            resultat3 = 'OK'
+          } else {
+            divFeedback.innerHTML = '☹️'
+            resultat3 = 'KO'
+          }
+          break
+      }
     }
-
-    return resultat
+    return [resultat1, resultat2, resultat3]
   }
 }
