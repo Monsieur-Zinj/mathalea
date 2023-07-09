@@ -7,7 +7,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere, lectureAntecedent, texteParPosition, droiteParPointEtPente, point } from '../../modules/2d.js'
 import { choice, numAlpha, listeQuestionsToContenu, randint, arrondi } from '../../modules/outils.js'
 
-export const titre = 'Résoudre une équation du type $f(x)=k$ graphiquement.'
+export const titre = 'Résoudre graphiquement une équation du type f(x)=k.'
 export const interactifReady = true
 export const interactifType = 'custom'
 
@@ -95,16 +95,13 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       const nombreAntecedentCherches0 = randint(1, nbAntecedentsEntiersMaximum)
       const y0 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches0, bornes.yMin, bornes.yMax, true, true)
       const solutions0 = theSpline.solve(y0)
-      const reponse0 = solutions0.join(';')
       const nombreAntecedentCherches1 = randint(0, nbAntecedentsEntiersMaximum, nombreAntecedentCherches0)
       const y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
       const solutions1 = theSpline.solve(y1)
       const nbAntecedentsMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin - 1, bornes.yMax + 1, false, false)
       const nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
       const y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin, bornes.yMax, false, false), 1)
-      const solutions2 = theSpline.solve(y2)
       const reponse1 = solutions1.length === 0 ? 'aucun' : `${solutions1.join(';')}`
-      const reponse2 = solutions2.length === 0 ? 'aucun' : `${solutions2.map(ant => texNombre(ant, 1)).join(';')}`
 
       const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
@@ -136,10 +133,10 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       setReponse(this, 3 * i + 1, reponse1, { formatInteractif: 'texte' })
       setReponse(this, 3 * i + 2, y2)
       const correctionPartA = `${numAlpha(0)} Le nombre de solutions de l'équation $f(x)=${y0}$ est donné par le nombre d'antécédents de $${y0}$ par $f$. <br>
-          ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$.'} <br>`// : $S=\\{' + reponse0 + '\\}$
+          ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$.'} <br>`
       const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses) d'équation $y = ${y1}$.`}<br>
           On en déduit : ${solutions1.length === 0 ? '$S=\\emptyset$.' : `$S=\\{${solutions1.join('\\,;\\,')}\\}$.`}<br>`
-      const correctionPartC = `${numAlpha(2)}  Le nombre $${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} antécédent${nombreAntecedentsCherches2 > 1 ? 's' : ''} : $S=\\{${reponse2}\\}$.`
+      const correctionPartC = `${numAlpha(2)}  Le nombre $${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} antécédent${nombreAntecedentsCherches2 > 1 ? 's' : ''}.`
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,
