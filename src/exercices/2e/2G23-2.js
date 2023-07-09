@@ -3,7 +3,7 @@ import {
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import {
   repere,
@@ -36,7 +36,9 @@ export default function TranslationEtCoordonnes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    for (let i = 0, r, A, B, O, I, J, j, k, s, o, ux, uy, vi, vj, xA, yA, xB, yB, posLabelA, labelA, posLabelB, labelB, nomi, nomj, nomAB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let xA, yA, xB, yB, ux, uy
+      const objets = []
       xA = randint(2, 8) * choice([-1, 1])
       yA = randint(2, 8) * choice([-1, 1])
       ux = randint(2, 8) * choice([-1, 1])
@@ -54,30 +56,43 @@ export default function TranslationEtCoordonnes () {
         yB = yA + uy
       }
 
-      r = repere() // On définit le repère
-      A = point(xA, yA) // On définit et on trace le point A
-      B = point(xB, yB) // On définit et on trace le point B
-      posLabelA = homothetie(B, A, -0.7 / longueur(A, B), '', 'center') // pour positionner les noms des points aux extrémités proprement
-      posLabelB = homothetie(A, B, -0.7 / longueur(A, B), '', 'center')
-      labelA = latexParPoint('A', posLabelA, 'red', 10, 12, '')
-      labelB = latexParPoint("A'", posLabelB, 'red', 10, 12, '')
+      const r = repere({
+        xUnite: 1,
+        yUnite: 1,
+        xMin: Math.min(-2, xA - 2, xB - 2, 2),
+        yMin: Math.min(-2, yA - 2, yB - 2, 2),
+        xMax: Math.max(-2, xA + 2, xB + 2, 2),
+        yMax: Math.max(-2, yA + 2, yB + 2, 2),
+        thickHauteur: 0.1,
+        yLabelEcart: 0.4,
+        xLabelEcart: 0.3,
+        axeXStyle: '->',
+        axeYStyle: '->'
+      }) // On définit le repère
+      const A = point(xA, yA) // On définit et on trace le point A
+      const B = point(xB, yB) // On définit et on trace le point B
+      const posLabelA = homothetie(B, A, -0.7 / longueur(A, B), '', 'center') // pour positionner les noms des points aux extrémités proprement
+      const posLabelB = homothetie(A, B, -0.7 / longueur(A, B), '', 'center')
+      const labelA = latexParPoint('A', posLabelA, 'red', 10, 12, '')
+      const labelB = latexParPoint("A'", posLabelB, 'red', 10, 12, '')
       // t = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      s = vecteur(A, B).representant(A) // On trace en rouge [AB]
-      O = point(0, 0) // On définit et on trace le point O
-      o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
-      I = point(1, 0) // On définit sans tracer le point I
-      J = point(0, 1) // On définit sans tracer le point J
-      vi = vecteur(O, I) // Variable qui définit vecteur OI
-      vj = vecteur(O, J) // Variable qui définit vecteur OJ
-      k = vi.representant(O) // Variable qui trace [OI]
-      j = vj.representant(O) // Variable qui trace [OJ]
+      const s = vecteur(A, B).representant(A) // On trace en rouge [AB]
+      const O = point(0, 0) // On définit et on trace le point O
+      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const I = point(1, 0) // On définit sans tracer le point I
+      const J = point(0, 1) // On définit sans tracer le point J
+      const vi = vecteur(O, I) // Variable qui définit vecteur OI
+      const vj = vecteur(O, J) // Variable qui définit vecteur OJ
+      const k = vi.representant(O) // Variable qui trace [OI]
+      const j = vj.representant(O) // Variable qui trace [OJ]
       s.epaisseur = 2 // Variable qui grossit le tracé du vecteur AB
       s.color = colorToLatexOrHTML('red')
       k.epaisseur = 2 // Variable qui grossit le tracé du vecteur OI
       j.epaisseur = 2 // Variable qui grossit le tracé du vecteur OJ
-      nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
-      nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
-      nomAB = vecteur(A, B).representantNomme(A, "AA'", 1.5, 'red')
+      const nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
+      const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
+      const nomAB = vecteur(A, B).representantNomme(A, "AA'", 1.5, 'red')
+      objets.push(r, posLabelA, posLabelB, labelA, labelB, s, o, O, I, J, vi, vj, k, j, nomi, nomj, nomAB)
 
       if (parseInt(this.sup) === 1) {
         texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA};${yA}\\right)$ par la translation de vecteur $\\vec{u}\\left(${ux};${uy}\\right)$.<br>`
@@ -100,21 +115,17 @@ export default function TranslationEtCoordonnes () {
         texteCorr += 'Dire que $\\vec{u}=\\overrightarrow{AA\'}$ équivaut à résoudre :<br><br>'
         texteCorr += `$\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$ `
         texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$<br><br>`
-        texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.<br><br>`
+        texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.`
       } else if (parseInt(this.sup) === 2) {
         texteCorr += `Soit $A(x;y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
         texteCorr += 'Dire que $\\vec{u}=\\overrightarrow{AA\'}$ équivaut à résoudre :<br><br>'
         texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$ `
         texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$<br><br>`
-        texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA};${yA})$.<br><br>`
+        texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA};${yA})$.`
       }
 
-      texteCorr += mathalea2d({
-        xmin: -9,
-        ymin: -9,
-        xmax: 9,
-        ymax: 9
-      }, r, k, j, s, o, nomi, nomj, nomAB, labelA, labelB) // On trace le graphique
+      texteCorr += mathalea2d(Object.assign({ zoom: 1.5 }, fixeBordures(objets)), objets) // On trace le graphique
+
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
