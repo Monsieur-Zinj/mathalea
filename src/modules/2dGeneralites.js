@@ -259,7 +259,7 @@ export function colorToLatexOrHTML (couleur) {
   const tabCouleur = []
   let rgb = []
   if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
-  else if (couleur === '') return ''
+  else if (couleur === undefined || couleur === '') return ''
   else if (couleur === 'none') return ['none', 'none']
   else {
     tabCouleur[0] = couleur

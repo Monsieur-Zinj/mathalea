@@ -2230,7 +2230,7 @@ export function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
   const M2 = rotation(M1, M0, 180)
   const s = segment(M1, M2, this.color)
   s.styleExtremites = '->'
-  s.tailleExtremites = 3
+  s.tailleExtremites = 2
   objets.push(t, s)
   this.svg = function (coeff) {
     let code = ''
@@ -2375,23 +2375,24 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     const B = point(this.x2, this.y2)
     const h = this.tailleExtremites
     if (this.styleExtremites.length > 1) {
-      if (this.styleExtremites.substr(-1) === '|') {
+      const fin = this.styleExtremites.slice(-1)
+      if (fin === '|') {
         // si ça termine par | on le rajoute en B
-        const M = pointSurSegment(B, A, h * this.epaisseur / context.pixelsParCm)
-        const B1 = rotation(M, B, 90)
-        const B2 = rotation(M, B, -90)
+        const M = pointSurSegment(B, A, h / context.pixelsParCm)
+        const B1 = similitude(M, B, 90, 0.7)
+        const B2 = similitude(M, B, -90, 0.7)
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
           coeff
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
         }" stroke-width="${this.epaisseur}" />`
       }
-      if (this.styleExtremites.substr(-1) === '>') {
+      if (fin === '>') {
         // si ça termine par > on rajoute une flèche en B
-        const M = pointSurSegment(B, A, h * this.epaisseur / context.pixelsParCm)
-        const B1 = rotation(B, M, 90)
-        const B1EE = pointSurSegment(B, rotation(B, M, 90), -this.epaisseur / 2 / context.pixelsParCm)
-        const B2 = rotation(B, M, -90)
-        const B2EE = pointSurSegment(B, rotation(B, M, -90), this.epaisseur / 2 / context.pixelsParCm)
+        const M = pointSurSegment(B, A, h / context.pixelsParCm)
+        const B1 = similitude(B, M, 90, 0.7)
+        const B1EE = pointSurSegment(B, rotation(B, M, 90), -0.5 / context.pixelsParCm)
+        const B2 = similitude(B, M, -90, 0.7)
+        const B2EE = pointSurSegment(B, rotation(B, M, -90), 0.5 / context.pixelsParCm)
         code += `<line x1="${B1EE.xSVG(coeff)}" y1="${B1EE.ySVG(
           coeff
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
@@ -2400,11 +2401,11 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
           coeff
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]}" stroke-width="${this.epaisseur}" />`
       }
-      if (this.styleExtremites.substr(-1) === '<') {
+      if (fin === '<') {
         // si ça termine par < on rajoute une flèche inversée en B
-        const M = pointSurSegment(B, A, -h * this.epaisseur / context.pixelsParCm)
-        const B1 = rotation(B, M, 90)
-        const B2 = rotation(B, M, -90)
+        const M = pointSurSegment(B, A, -h / context.pixelsParCm)
+        const B1 = similitude(B, M, 90, 0.7)
+        const B2 = similitude(B, M, -90, 0.7)
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
@@ -2414,13 +2415,14 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
         }" stroke-width="${this.epaisseur}" />`
       }
-      if (this.styleExtremites[0] === '<') {
+      const debut = this.styleExtremites[0]
+      if (debut === '<') {
         // si ça commence par < on rajoute une flèche en A
-        const M = pointSurSegment(A, B, h * this.epaisseur / context.pixelsParCm)
+        const M = pointSurSegment(A, B, h / context.pixelsParCm)
         const A1 = rotation(A, M, 90)
-        const A1EE = pointSurSegment(A, rotation(A, M, 90), -this.epaisseur / 2 / context.pixelsParCm)
+        const A1EE = pointSurSegment(A, rotation(A, M, 90), -0.5 / context.pixelsParCm)
         const A2 = rotation(A, M, -90)
-        const A2EE = pointSurSegment(A, rotation(A, M, -90), this.epaisseur / 2 / context.pixelsParCm)
+        const A2EE = pointSurSegment(A, rotation(A, M, -90), 0.5 / context.pixelsParCm)
         code += `<line x1="${A1EE.xSVG(coeff)}" y1="${A1EE.ySVG(
           coeff
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
@@ -2430,9 +2432,9 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
         }" stroke-width="${this.epaisseur}" />`
       }
-      if (this.styleExtremites[0] === '>') {
+      if (debut === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
-        const M = pointSurSegment(A, B, -h * this.epaisseur / context.pixelsParCm)
+        const M = pointSurSegment(A, B, -h / context.pixelsParCm)
         const A1 = rotation(A, M, 90)
         const A2 = rotation(A, M, -90)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
@@ -2444,9 +2446,9 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
         }" stroke-width="${this.epaisseur}" />`
       }
-      if (this.styleExtremites[0] === '|') {
+      if (debut === '|') {
         // si ça commence par | on le rajoute en A
-        const N = pointSurSegment(A, B, h * this.epaisseur / context.pixelsParCm)
+        const N = pointSurSegment(A, B, h / context.pixelsParCm)
         const A1 = rotation(N, A, 90)
         const A2 = rotation(N, A, -90)
         code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
