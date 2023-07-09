@@ -1,3 +1,5 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif
@@ -15,8 +17,10 @@ import {
   homothetie,
   latexParPoint
 } from '../../modules/2d.js'
-
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un point par une translation'
+export const dateDeModificationImportante = '09/07/2023'
 
 /**
  * Calculer les coordonnées d'un point image ou antécédent d'un autre par une translation
@@ -29,15 +33,17 @@ export default function TranslationEtCoordonnes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 2
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 //
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  this.sup = 1
+  this.correctionDetaillee = false
+  this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let xA, yA, xB, yB, ux, uy
+      let xA, yA, xB, yB, ux, uy, AbsRep, OrdRep
       const objets = []
       xA = randint(2, 8) * choice([-1, 1])
       yA = randint(2, 8) * choice([-1, 1])
@@ -95,37 +101,60 @@ export default function TranslationEtCoordonnes () {
       objets.push(r, posLabelA, posLabelB, labelA, labelB, s, o, O, I, J, vi, vj, k, j, nomi, nomj, nomAB)
 
       if (parseInt(this.sup) === 1) {
+        AbsRep = xB
+        OrdRep = yB
         texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA};${yA}\\right)$ par la translation de vecteur $\\vec{u}\\left(${ux};${uy}\\right)$.<br>`
       } else if (parseInt(this.sup) === 2) {
+        AbsRep = xA
+        OrdRep = yA
         texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\left(${ux};${uy}\\right)$ est le point $A'\\left(${xB};${yB}\\right)$.<br>`
       }
 
-      texteCorr = 'On sait d\'après le cours que si $A\'$ est l\'image de $A$ par la translation de vecteur $\\vec{u}$, alors on a l\'égalité : $\\overrightarrow{AA\'}=\\vec{u}$.<br>'
-      texteCorr += 'On connaît les coordonnées de $\\vec{u}$ avec l\'énoncé, on calcule donc celles de $\\overrightarrow{AA\'}$.<br>'
-      texteCorr += 'On sait d\'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
-      texteCorr += 'On applique ici aux données de l\'énoncé :<br><br>'
-
-      if (parseInt(this.sup) === 1) {
-        texteCorr += `Soit $A'(x;y)$ les coordonnées du point $A'$, on a donc $\\overrightarrow{AA'}\\begin{pmatrix}x-${ecritureParentheseSiNegatif(xA)}\\\\y-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
-        if (xA < 0 | yA < 0) {
-          texteCorr += ` soit $\\overrightarrow{AA'}\\begin{pmatrix}x${ecritureAlgebrique(-xA)}\\\\y${ecritureAlgebrique(-yA)}\\end{pmatrix}$.<br>`
-        } else {
-          texteCorr += '.<br>'
-        }
-        texteCorr += 'Dire que $\\vec{u}=\\overrightarrow{AA\'}$ équivaut à résoudre :<br><br>'
-        texteCorr += `$\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$ `
-        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$<br><br>`
-        texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.`
-      } else if (parseInt(this.sup) === 2) {
-        texteCorr += `Soit $A(x;y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
-        texteCorr += 'Dire que $\\vec{u}=\\overrightarrow{AA\'}$ équivaut à résoudre :<br><br>'
-        texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$ `
-        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$<br><br>`
-        texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA};${yA})$.`
+      if (this.correctionDetaillee) {
+        texteCorr = 'On sait d\'après le cours que si $A\'$ est l\'image de $A$ par la translation de vecteur $\\vec{u}$, alors on a l\'égalité : $\\overrightarrow{AA\'}=\\vec{u}$.<br>'
+        texteCorr += 'On connaît les coordonnées de $\\vec{u}$ avec l\'énoncé, on calcule donc celles de $\\overrightarrow{AA\'}$.<br>'
+        texteCorr += 'On sait d\'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
+        texteCorr += 'On applique ici aux données de l\'énoncé :<br><br>'
       }
 
-      texteCorr += mathalea2d(Object.assign({ zoom: 1.5 }, fixeBordures(objets)), objets) // On trace le graphique
+      if (parseInt(this.sup) === 1) {
+        texteCorr = '$\\overrightarrow{AA\'}=\\vec{u}$, alors si '
+        texteCorr += `$A'(x;y)$ $\\Leftrightarrow\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$ `
+        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$ `
+        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.`
+        if (this.correctionDetaillee) {
+          texteCorr = `Soit $A'(x;y)$ les coordonnées du point $A'$, on a donc $\\overrightarrow{AA'}\\begin{pmatrix}x-${ecritureParentheseSiNegatif(xA)}\\\\y-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
+          if (xA < 0 | yA < 0) {
+            texteCorr += ` soit $\\overrightarrow{AA'}\\begin{pmatrix}x${ecritureAlgebrique(-xA)}\\\\y${ecritureAlgebrique(-yA)}\\end{pmatrix}$.<br>`
+          } else {
+            texteCorr += '.<br>'
+          }
+          texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
+          texteCorr += `$\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$ `
+          texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$<br><br>`
+          texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.<br>`
+        }
+      } else if (parseInt(this.sup) === 2) {
+        texteCorr = '$\\overrightarrow{AA\'}=\\vec{u}$, alors si '
+        texteCorr += `$A(x;y)$ $\\Leftrightarrow\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$ `
+        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$ `
+        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA};${yA})$.`
+        if (this.correctionDetaillee) {
+          texteCorr = `Soit $A(x;y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
+          texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
+          texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$ `
+          texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$<br><br>`
+          texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA};${yA})$.<br>`
+        }
+      }
 
+      if (this.correctionDetaillee) {
+        texteCorr += mathalea2d(Object.assign({ zoom: 1 }, fixeBordures(objets)), objets) // On trace le graphique
+      }
+      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse du point :' })
+      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée du point :' })
+      setReponse(this, 2 * i, AbsRep)
+      setReponse(this, 2 * i + 1, OrdRep)
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
