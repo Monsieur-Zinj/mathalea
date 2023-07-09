@@ -50,7 +50,24 @@
     noeuds = noeuds
     refreshCourb()
   }
-
+function copy () {
+  noeuds = noeuds
+  navigator.clipboard.writeText(JSON.stringify(noeuds))
+  alert('Noeuds copiés dans le presse-papier')
+}
+async function paste () {
+  const jsonNoeuds = (await navigator.clipboard.readText()).replaceAll('x', '"x"')
+    .replaceAll('y', '"y"')
+    .replaceAll('deriveeGauche', '"deriveeGauche"')
+    .replaceAll('deriveeDroit', '"deriveeDroit"')
+    .replaceAll('isVisible', '"isVisible"')
+  try {
+    noeuds = JSON.parse(jsonNoeuds)
+    alert('Presse-papier importé')
+  } catch (e) {
+    console.error(e.message)
+  }
+}
   refreshCourb()
 </script>
 
@@ -115,6 +132,9 @@
         ><i class="bx bx-lg bx-minus-circle" /></button
       >
       <button on:click={addNoeud}><i class="bx bx-lg bx-plus-circle" /></button>
+      <button on:click={copy}><i class="bx bx-lg bx-clipboard"/></button>
+      <button on:click={paste}><i class="bx bx-lg bx-download"/></button>
     </div>
   </div>
+
 </section>
