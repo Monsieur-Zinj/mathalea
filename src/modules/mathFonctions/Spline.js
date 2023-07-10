@@ -1,7 +1,7 @@
 import { abs, acos, det, inv, multiply, polynomialRoot, round } from 'mathjs'
 import { Courbe, point, Segment, tracePoint } from '../2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
-import { egal } from '../outils.js'
+import { choice, egal } from '../outils.js'
 import { signesFonction, variationsFonction } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 
@@ -100,7 +100,7 @@ class Spline {
         for (const valeur of liste) {
           let arr
           if (typeof valeur === 'number') {
-            arr = round(valeur, 1)
+            arr = round(valeur, 3)
           } else { // complexe !
             const module = valeur.toPolar().r
             if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
@@ -163,6 +163,18 @@ class Spline {
     return solutions.length
   }
 
+  nombreAntecedentsMaximum (yMin, yMax, yentier = true, entiers = true) {
+    let nbMax = 0
+    for (let k = yMin; k < yMax; k += yentier ? 1 : 0.1) {
+      if (entiers) {
+        nbMax = Math.max(nbMax, this.nombreAntecedentsEntiers(k))
+      } else {
+        nbMax = Math.max(nbMax, this.nombreAntecedents(k))
+      }
+    }
+    return nbMax
+  }
+
   /**
    * Retourne une valeur de y (si trouvée) pôur laquelle il y a exactement n antécédents
    * @param {number} n
@@ -170,18 +182,30 @@ class Spline {
    * @param {number} yMax
    * @returns {string|*}
    */
-  trouveYPourNAntecedentsEntiers (n, yMin, yMax) {
+  trouveYPourNAntecedents (n, yMin, yMax, yEntier = true, antecedentsEntiers = true) {
+    const candidats = []
     if (Number.isInteger(yMin) && Number.isInteger(yMax)) {
-      for (let y = yMin; y <= yMax; y++) {
-        if (this.nombreAntecedentsEntiers(y) === n && this.nombreAntecedents(y) === n) {
-          return y
+      if (yEntier) {
+        for (let y = yMin; y <= yMax; y++) {
+          if ((antecedentsEntiers && this.nombreAntecedentsEntiers(y) === n && this.nombreAntecedents(y) === n) || (!antecedentsEntiers && this.nombreAntecedents(y) === n)) {
+            candidats.push(y)
+          }
+        }
+      } else {
+      // ici, on n'a pas trouvé avec y entier entre xMin et yMax, on recommence avec un pas de 0.1
+        for (let y = yMin; y <= yMax; y += 0.1) {
+          if ((antecedentsEntiers && this.nombreAntecedentsEntiers(y) === n && this.nombreAntecedents(y) === n) || (!antecedentsEntiers && this.nombreAntecedents(y) === n)) {
+            candidats.push(y)
+          }
         }
       }
     } else {
       window.notify('trouveYPourNAntecedentsEntiers() appelé avec des valeurs incorrectes', { n, yMin, yMax })
     }
-    window.notify('trouveYPourNAntecedentsEntiers() : Je n\'ai rien trouvé !', { n, yMin, yMax })
-    return 'aucune' // normalement, il ne devrait jamais retourner cette valeur.
+    if (candidats.length < 1) {
+      window.notify('trouveYPourNAntecedents() : Je n\'ai rien trouvé !', { n, yMin, yMax })
+    }
+    return choice(candidats) // normalement, il ne devrait jamais retourner cette valeur.
   }
 
   /**

@@ -28,7 +28,7 @@ export function exerciceInteractif (exercice, divScore, buttonScore) {
  * @param {Exercice} exercice
  */
 export function exerciceCustom (exercice) {
-  document.addEventListener('exercicesAffiches', () => {
+  document.addEventListener('exercicesAffiches', (exercice) => {
     if (context.vue === 'can') {
       gestionCan(exercice)
     }
@@ -50,7 +50,14 @@ export function exerciceCustom (exercice) {
           // On utilise la correction définie dans l'exercice
           if (exercice.exoCustomResultat) {
             for (let i = 0; i < exercice.nbQuestions; i++) {
-              exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+              if (Array.isArray(exercice.correctionInteractive(i))) {
+                for (const result of exercice.correctionInteractive(i)) {
+                  if (result === 'OK') nbBonnesReponses++
+                  else nbMauvaisesReponses++
+                }
+              } else {
+                exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+              }
             }
             afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
           } else {
