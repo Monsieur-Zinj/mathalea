@@ -103,11 +103,11 @@ export default function TranslationEtCoordonnes () {
       if (parseInt(this.sup) === 1) {
         AbsRep = xB
         OrdRep = yB
-        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA};${yA}\\right)$ par la translation de vecteur $\\vec{u}\\left(${ux};${uy}\\right)$.<br>`
+        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA};${yA}\\right)$ par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
       } else if (parseInt(this.sup) === 2) {
         AbsRep = xA
         OrdRep = yA
-        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\left(${ux};${uy}\\right)$ est le point $A'\\left(${xB};${yB}\\right)$.<br>`
+        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ est le point $A'\\left(${xB};${yB}\\right)$.<br>`
       }
 
       if (this.correctionDetaillee) {
@@ -118,38 +118,26 @@ export default function TranslationEtCoordonnes () {
       }
 
       if (parseInt(this.sup) === 1) {
-        texteCorr = '$\\overrightarrow{AA\'}=\\vec{u}$, alors si '
-        texteCorr += `$A'(x;y)$ $\\Leftrightarrow\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$ `
+        texteCorr = `Soit $A'(x;y)$ les coordonnées du point $A'$, on a donc $\\overrightarrow{AA'}\\begin{pmatrix}x-${ecritureParentheseSiNegatif(xA)}\\\\y-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
+        if (xA < 0 | yA < 0) {
+          texteCorr += ` soit $\\overrightarrow{AA'}\\begin{pmatrix}x${ecritureAlgebrique(-xA)}\\\\y${ecritureAlgebrique(-yA)}\\end{pmatrix}$.<br>`
+        } else {
+          texteCorr += '.<br>'
+        }
+        texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
+        texteCorr += `$\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$ `
         texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$ `
-        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.`
-        if (this.correctionDetaillee) {
-          texteCorr = `Soit $A'(x;y)$ les coordonnées du point $A'$, on a donc $\\overrightarrow{AA'}\\begin{pmatrix}x-${ecritureParentheseSiNegatif(xA)}\\\\y-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
-          if (xA < 0 | yA < 0) {
-            texteCorr += ` soit $\\overrightarrow{AA'}\\begin{pmatrix}x${ecritureAlgebrique(-xA)}\\\\y${ecritureAlgebrique(-yA)}\\end{pmatrix}$.<br>`
-          } else {
-            texteCorr += '.<br>'
-          }
-          texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
-          texteCorr += `$\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$ `
-          texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$<br><br>`
-          texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.<br>`
-        }
+        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.<br>`
       } else if (parseInt(this.sup) === 2) {
-        texteCorr = '$\\overrightarrow{AA\'}=\\vec{u}$, alors si '
-        texteCorr += `$A(x;y)$ $\\Leftrightarrow\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$ `
+        texteCorr = `Soit $A(x;y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
+        texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
+        texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$ `
         texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$ `
-        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA};${yA})$.`
-        if (this.correctionDetaillee) {
-          texteCorr = `Soit $A(x;y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
-          texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
-          texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$ `
-          texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$<br><br>`
-          texteCorr += `Ce qui donne au final : $\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA};${yA})$.<br>`
-        }
+        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA};${yA})$.<br>`
       }
 
       if (this.correctionDetaillee) {
-        texteCorr += mathalea2d(Object.assign({ zoom: 1 }, fixeBordures(objets)), objets) // On trace le graphique
+        texteCorr += mathalea2d(Object.assign({ zoom: 0.6 }, fixeBordures(objets)), objets) // On trace le graphique
       }
       texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse du point :' })
       texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée du point :' })
