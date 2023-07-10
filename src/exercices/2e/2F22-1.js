@@ -141,7 +141,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
           ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$.'} <br>`
       const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses) d'équation $y = ${y1}$.`}<br>
           On en déduit : ${solutions1.length === 0 ? '$S=\\emptyset$.' : `$S=\\{${solutions1.join('\\,;\\,')}\\}$.`}<br>`
-      const correctionPartC = `${numAlpha(2)}  Le nombre $${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} antécédent${nombreAntecedentsCherches2 > 1 ? 's' : ''}.`
+      const correctionPartC = `${numAlpha(2)}  Par exemple, le nombre $${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} antécédent${nombreAntecedentsCherches2 > 1 ? 's' : ''}.`
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,
