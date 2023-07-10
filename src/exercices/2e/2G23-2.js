@@ -15,6 +15,8 @@ import {
   texteParPosition,
   longueur,
   homothetie,
+  tracePoint,
+  segment,
   latexParPoint
 } from '../../modules/2d.js'
 export const interactifReady = true
@@ -77,12 +79,13 @@ export default function TranslationEtCoordonnes () {
       }) // On définit le repère
       const A = point(xA, yA) // On définit et on trace le point A
       const B = point(xB, yB) // On définit et on trace le point B
+      const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
       const posLabelA = homothetie(B, A, -0.7 / longueur(A, B), '', 'center') // pour positionner les noms des points aux extrémités proprement
       const posLabelB = homothetie(A, B, -0.7 / longueur(A, B), '', 'center')
       const labelA = latexParPoint('A', posLabelA, 'red', 10, 12, '')
       const labelB = latexParPoint("A'", posLabelB, 'red', 10, 12, '')
-      // t = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      const s = vecteur(A, B).representant(A) // On trace en rouge [AB]
+      const s = segment(A, B, 'red') // On trace en rouge [AB]
+      s.styleExtremites = '->' // Variable qui transforme [AB] en vecteur
       const O = point(0, 0) // On définit et on trace le point O
       const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
       const I = point(1, 0) // On définit sans tracer le point I
@@ -98,7 +101,7 @@ export default function TranslationEtCoordonnes () {
       const nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
       const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
       const nomAB = vecteur(A, B).representantNomme(A, "AA'", 1.5, 'red')
-      objets.push(r, posLabelA, posLabelB, labelA, labelB, s, o, O, I, J, vi, vj, k, j, nomi, nomj, nomAB)
+      objets.push(r, traceAetB, posLabelA, posLabelB, labelA, labelB, s, o, O, I, J, vi, vj, k, j, nomi, nomj, nomAB)
 
       if (parseInt(this.sup) === 1) {
         AbsRep = xB
@@ -137,7 +140,7 @@ export default function TranslationEtCoordonnes () {
       }
 
       if (this.correctionDetaillee) {
-        texteCorr += mathalea2d(Object.assign({ zoom: 0.6 }, fixeBordures(objets)), objets) // On trace le graphique
+        texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objets)), objets) // On trace le graphique
       }
       texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse du point :' })
       texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée du point :' })
