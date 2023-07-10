@@ -112,16 +112,16 @@ export default function TranslationEtCoordonnes () {
         OrdRep = yA
         texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ est le point $A'\\left(${xB};${yB}\\right)$.<br>`
       }
-
+      texteCorr = ''
       if (this.correctionDetaillee) {
-        texteCorr = 'On sait d\'après le cours que si $A\'$ est l\'image de $A$ par la translation de vecteur $\\vec{u}$, alors on a l\'égalité : $\\overrightarrow{AA\'}=\\vec{u}$.<br>'
+        texteCorr += 'On sait d\'après le cours que si $A\'$ est l\'image de $A$ par la translation de vecteur $\\vec{u}$, alors on a l\'égalité : $\\overrightarrow{AA\'}=\\vec{u}$.<br>'
         texteCorr += 'On connaît les coordonnées de $\\vec{u}$ avec l\'énoncé, on calcule donc celles de $\\overrightarrow{AA\'}$.<br>'
         texteCorr += 'On sait d\'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
         texteCorr += 'On applique ici aux données de l\'énoncé :<br><br>'
       }
 
       if (parseInt(this.sup) === 1) {
-        texteCorr = `Soit $A'(x;y)$ les coordonnées du point $A'$, on a donc $\\overrightarrow{AA'}\\begin{pmatrix}x-${ecritureParentheseSiNegatif(xA)}\\\\y-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
+        texteCorr += `Soit $A'(x;y)$ les coordonnées du point $A'$, on a donc $\\overrightarrow{AA'}\\begin{pmatrix}x-${ecritureParentheseSiNegatif(xA)}\\\\y-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
         if (xA < 0 | yA < 0) {
           texteCorr += ` soit $\\overrightarrow{AA'}\\begin{pmatrix}x${ecritureAlgebrique(-xA)}\\\\y${ecritureAlgebrique(-yA)}\\end{pmatrix}$.<br>`
         } else {
@@ -132,7 +132,7 @@ export default function TranslationEtCoordonnes () {
         texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$ `
         texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB};${yB})$.<br>`
       } else if (parseInt(this.sup) === 2) {
-        texteCorr = `Soit $A(x;y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
+        texteCorr += `Soit $A(x;y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
         texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
         texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$ `
         texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$ `
