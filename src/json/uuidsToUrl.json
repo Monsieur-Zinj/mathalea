@@ -1184,6 +1184,7 @@
   "de353": "profs/P020.js",
   "4c7ca": "profs/P021.js",
   "betaFonction": "beta/betaEtudeFonction.js",
+  "betaGeom": "beta/betaModeleApiGeom.js",
   "57cf4": "beta/betaModele00_simple_Course_au_Nombres.js",
   "betaSpline": "beta/betaModeleSpline.js",
   "efeee": "beta/betaTexNombre.js"

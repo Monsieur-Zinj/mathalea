@@ -55,9 +55,10 @@
     "@mixer/postmessage-rpc": "^1.1.4",
     "@svgdotjs/svg.js": "^3.2.0",
     "algebrite": "^1.4.0",
+    "apigeom": "github:mathalea/apiGeom2",
     "boxicons": "^2.1.4",
     "copy-image-clipboard": "^2.1.2",
-    "daisyui": "^3.1.9",
+    "daisyui": "^3.2.1",
     "decimal.js": "^10.4.3",
     "earcut": "^2.2.4",
     "file-saver": "^2.0.5",
@@ -85,10 +86,10 @@
     "@types/file-saver": "^2.0.5",
     "@types/katex": "^0.16.0",
     "@types/loadjs": "^4.0.1",
-    "@types/node": "^20.4.0",
+    "@types/node": "^20.4.1",
     "@types/seedrandom": "^3.0.5",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.44.0",
     "eslint-config-standard": "^17.1.0",
@@ -108,7 +109,7 @@
     "typed-function": "^4.1.0",
     "typescript": "^5.1.6",
     "util": "^0.12.5",
-    "vite": "^4.4.1"
+    "vite": "^4.4.2"
   },
   "pnpm": {
     "overrides": {
