@@ -38,12 +38,14 @@ export default class ExerciceApiGeom extends Exercice {
     circonscrit.isDashed = true
     circonscrit.thickness = 2
     circonscrit.fillColor = 'orange'
-    circonscrit.fillOpacity = 0.2
+    circonscrit.fillOpacity = 0.1
+    p.thickness = 2
     this.listeQuestions[0] = `<div id="apiGeomEx${numeroExercice}F0"></div>`
     this.listeCorrections[0] = ''
     document.addEventListener('exercicesAffiches', () => {
       const container = document.querySelector(`#apiGeomEx${numeroExercice}F0`)
       if (container === null) return
+      container.innerHTML = ''
       figure.setContainer(container)
     })
 
