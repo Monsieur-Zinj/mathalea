@@ -39,7 +39,18 @@ const noeuds2 = [{ x: -5, y: 1, deriveeGauche: 1.5, deriveeDroit: 1.5, isVisible
   { x: 6, y: 5, deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true }
 ]
 // une troisième utilisée pour fonctions2
-const noeuds3 = [{ x: -5, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true }, { x: -4, y: 0, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true }, { x: -3, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, { x: -2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true }, { x: -1, y: -2, deriveeGauche: -2, deriveeDroit: -2, isVisible: true }, { x: 0, y: -4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, { x: 1, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true }, { x: 2, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }, { x: 3, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, { x: 4, y: 0, deriveeGauche: -1.5, deriveeDroit: -1.5, isVisible: true }, { x: 5, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }]
+const noeuds3 = [{ x: -6, y: -4, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
+  { x: -5, y: -3, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
+  { x: -4, y: 0, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
+  { x: -3, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+  { x: -2, y: 0, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
+  { x: -1, y: -3, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
+  { x: 0, y: -5, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+  { x: 1, y: -3, deriveeGauche: 2.5, deriveeDroit: 2.5, isVisible: true },
+  { x: 2, y: 0, deriveeGauche: 1.5, deriveeDroit: 1.5, isVisible: true },
+  { x: 3, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+  { x: 4, y: 0, deriveeGauche: -1.5, deriveeDroit: -1.5, isVisible: true },
+  { x: 5, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }]
 
 // une liste des listes
 const mesFonctions1 = [noeuds1, noeuds2, noeuds3]//, noeuds2
@@ -100,7 +111,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       const y0 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches0, bornes.yMin, bornes.yMax, true, true)
       const solutions0 = theSpline.solve(y0)
       const nombreAntecedentCherches1 = randint(0, nbAntecedentsEntiersMaximum, nombreAntecedentCherches0)
-      const y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
+      const y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin, bornes.yMax, true, true)
       const solutions1 = theSpline.solve(y1)
       const nbAntecedentsMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin - 1, bornes.yMax + 1, false, false)
       const nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
@@ -109,20 +120,25 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
 
       const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
-      horizontale1.opacite = 0.5
+      const nomD1 = texteParPosition(`$y=${y1}$`, bornes.xMax + 1.5, y1 + 0.3, 'milieu', 'green', 1.5)
+      const nomD2 = texteParPosition(`$y=${texNombre(y2, 1)}$`, bornes.xMax + 1.5, y2 + 0.3, 'milieu', 'green', 1.5)
+      horizontale1.epaisseur = 2
+      // horizontale1.opacite = 0.5
       horizontale1.pointilles = 2
-      horizontale2.opacite = 0.5
+      // horizontale2.opacite = 0.5
       horizontale2.pointilles = 2
-      objetsCorrection1.push(horizontale1)
-      objetsCorrection2.push(horizontale2)
+      horizontale2.epaisseur = 2
+      objetsCorrection1.push(horizontale1, nomD1)
+      objetsCorrection2.push(horizontale2, nomD2)
+
       for (let j = 0; j < nombreAntecedentCherches1; j++) {
         objetsCorrection1.push(lectureAntecedent(solutions1[j], y1, 1, 1, 'red', '', ''))
       }
-      for (let j = 0; j < nombreAntecedentCherches1; j++) {
-        for (let k = 0; k < theSpline.visible.length; k++) {
-          theSpline.visible[k] = theSpline.y[k] === y1
-        }
-      }
+      // for (let j = 0; j < nombreAntecedentCherches1; j++) {
+      //   for (let k = 0; k < theSpline.visible.length; k++) {
+      //    theSpline.visible[k] = theSpline.y[k] === y1
+      //  }
+      // }
 
       for (const antecedentY2 of theSpline.solve(y2)) {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
@@ -131,7 +147,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
       enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + '<br>'
       enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexte(this, 3 * i + 1, 'inline largeur25') + '<br>'
-      if (this.interactif) { enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir Aucune s\'il n\'y en a pas).<br>' }
+      if (this.interactif) { enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir "aucune" s\'il n\'y en a pas).<br>' }
       enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` +
         ajouteChampTexte(this, 3 * i + 2, 'inline largeur25')
       setReponse(this, 3 * i, nombreAntecedentCherches0)
@@ -141,23 +157,34 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
           ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$.'} <br>`
       const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses) d'équation $y = ${y1}$.`}<br>
           On en déduit : ${solutions1.length === 0 ? '$S=\\emptyset$.' : `$S=\\{${solutions1.join('\\,;\\,')}\\}$.`}<br>`
-      const correctionPartC = `${numAlpha(2)}  Par exemple, le nombre $${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} antécédent${nombreAntecedentsCherches2 > 1 ? 's' : ''}.`
+      const correctionPartC = `${numAlpha(2)}  Par exemple, l'équation $f(x)=${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.<br>`
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,
         yMin: bornes.yMin - 1,
         yMax: bornes.yMax + 1,
-        axesEpaisseur: 1,
+        axesEpaisseur: 1.5,
         thickEpaisseur: 1.2,
         yLabelEcart: 0.6,
-        grille: true,
-        grilleCouleur: 'gray'
+        thickHauteur: 0.1,
+        // grille: true,
+        // grilleCouleur: 'gray',
+        grilleX: false,
+        grilleY: false,
+        grilleSecondaire: true,
+        grilleSecondaireYDistance: 1,
+        grilleSecondaireXDistance: 1,
+        grilleSecondaireYMin: bornes.yMin - 1,
+        grilleSecondaireYMax: bornes.yMax + 1,
+        grilleSecondaireXMin: bornes.xMin - 1,
+        grilleSecondaireXMax: bornes.xMax + 1
       })
       const courbeATracer = theSpline.courbe({
         repere: repere1,
         epaisseur: 1.2,
         color: 'blue',
-        ajouteNoeuds: false
+        ajouteNoeuds: true,
+        optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 1.5 }
 
       })
       const courbeCorrection = theSpline.courbe({
@@ -165,17 +192,15 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         epaisseur: 1.2,
         color: 'blue',
         ajouteNoeuds: true,
-        optionsNoeuds: { color: 'red', taille: 1, style: '.', epaisseur: 1.5 }
+        optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 1.5 }
       })
 
       objetsEnonce.push(repere1, courbeATracer)
       objetsCorrection1.push(repere1, courbeCorrection)
       objetsCorrection2.push(repere1, courbeATracer)
-      objetsCorrection2.push(repere1, courbeATracer)
 
       const origine = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-      texte = `Voici la représentation graphique $\\mathscr{C}_f$ d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$. <br>
-     <br>`
+      texte = `Voici la représentation graphique $\\mathscr{C}_f$ d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.<br>`
       texte += mathalea2d(Object.assign({ scale: 0.6, style: 'display: block' }, fixeBordures(objetsEnonce)), objetsEnonce, origine) + enonceSousRepere
       texteCorr = correctionPartA +
       // mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
