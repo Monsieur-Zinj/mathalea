@@ -121,25 +121,52 @@ export default function TranslationEtCoordonnes () {
       }
 
       if (parseInt(this.sup) === 1) {
-        texteCorr += `Soit $(x;y)$ les coordonnées du point $A'$, on a donc $\\overrightarrow{AA'}\\begin{pmatrix}x-${ecritureParentheseSiNegatif(xA)}\\\\y-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
+        texteCorr += `Soit $(x\\,;\\,y)$ les coordonnées du point $A'$, on a donc $\\overrightarrow{AA'}\\begin{pmatrix}x-${ecritureParentheseSiNegatif(xA)}\\\\y-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
         if (xA < 0 | yA < 0) {
           texteCorr += ` soit $\\overrightarrow{AA'}\\begin{pmatrix}x${ecritureAlgebrique(-xA)}\\\\y${ecritureAlgebrique(-yA)}\\end{pmatrix}$.<br>`
         } else {
           texteCorr += '.<br>'
         }
         texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
-        texteCorr += `$\\left\\{\\begin{array}{|x${ecritureAlgebrique(-xA)}=${ux}|y${ecritureAlgebrique(-yA)}=${uy}|}\\end{array}\\right.$`
-        texteCorr += `$\\Leftrightarrow\\left\\{\\begin{array}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{array}\\right.$`
-        texteCorr += `$\\Leftrightarrow\\left\\{\\begin{array}x=${xB}\\\\y=${yB}\\end{array}\\right.$ soit $A'(${xB}\\,;\\,${yB})$.<br>`
+        texteCorr += '$\\left\\{\\begin{array}{l}'
+        texteCorr += `x${ecritureAlgebrique(-xA)}=${ux} \\\\`
+        texteCorr += `y${ecritureAlgebrique(-yA)}=${uy}`
+        texteCorr += '\\end{array}'
+        texteCorr += '\\right.$'
+        texteCorr += '$\\Leftrightarrow\\left\\{\\begin{array}{l}'
+        texteCorr += `x=${ux}${ecritureAlgebrique(xA)} \\\\`
+        texteCorr += `y=${uy}${ecritureAlgebrique(yA)}`
+        texteCorr += '\\end{array}'
+        texteCorr += '\\right.$'
+        texteCorr += '$\\Leftrightarrow\\left\\{\\begin{array}{l}'
+        texteCorr += `x=${xB} \\\\`
+        texteCorr += `y=${yB}`
+        texteCorr += '\\end{array}'
+        texteCorr += `\\right.$ soit $A'(${xB}\\,;\\,${yB})$.<br>`
         // texteCorr += `$\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$`
         // texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$`
         // texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB}\\,;\\,${yB})$.<br>`
       } else if (parseInt(this.sup) === 2) {
-        texteCorr += `Soit $(x;y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
+        texteCorr += `Soit $(x\\,;\\,y)$ les coordonnées du point $A$, on a donc : $\\overrightarrow{AA'}\\begin{pmatrix}${xB}-x\\\\${yB}-y\\end{pmatrix}$.<br>`
         texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
-        texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$`
-        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$`
-        texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA}\\,;\\,${yA})$.<br>`
+        texteCorr += '$\\left\\{\\begin{array}{l}'
+        texteCorr += `${xB}-x=${ux} \\\\`
+        texteCorr += `${yB}-y=${uy}`
+        texteCorr += '\\end{array}'
+        texteCorr += '\\right.$'
+        texteCorr += '$\\Leftrightarrow\\left\\{\\begin{array}{l}'
+        texteCorr += `x=${xB}${ecritureAlgebrique(-ux)} \\\\`
+        texteCorr += `y=${yB}${ecritureAlgebrique(-uy)}`
+        texteCorr += '\\end{array}'
+        texteCorr += '\\right.$'
+        texteCorr += '$\\Leftrightarrow\\left\\{\\begin{array}{l}'
+        texteCorr += `x=${xA} \\\\`
+        texteCorr += `y=${yA}`
+        texteCorr += '\\end{array}'
+        texteCorr += `\\right.$ soit $A(${xA}\\,;\\,${yA})$.<br>`
+        // texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$`
+        // texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$`
+        // texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA}\\,;\\,${yA})$.<br>`
       }
 
       if (this.correctionDetaillee) {
