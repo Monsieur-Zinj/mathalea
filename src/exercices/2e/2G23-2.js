@@ -128,7 +128,7 @@ export default function TranslationEtCoordonnes () {
           texteCorr += '.<br>'
         }
         texteCorr += 'Dire que $\\overrightarrow{AA\'}=\\vec{u}$ équivaut à résoudre :<br><br>'
-        texteCorr += `$\\left\\{\\begin{array}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{array}\\right.$`
+        texteCorr += `$\\left\\{\\begin{array}{|x${ecritureAlgebrique(-xA)}=${ux}|y${ecritureAlgebrique(-yA)}=${uy}|}\\end{array}\\right.$`
         texteCorr += `$\\Leftrightarrow\\left\\{\\begin{array}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{array}\\right.$`
         texteCorr += `$\\Leftrightarrow\\left\\{\\begin{array}x=${xB}\\\\y=${yB}\\end{array}\\right.$ soit $A'(${xB}\\,;\\,${yB})$.<br>`
         // texteCorr += `$\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$`
