@@ -5,9 +5,10 @@ import { listeQuestionsToContenu, combinaisonListes, choice, randint, abs, sp } 
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
 export const dateDePublication = '31/01/2022'
+export const dateDeModifImportante = '12/07/2023'
 /**
  * Description didactique de l'exercice
- * @author Gilles Mora
+ * @author Gilles Mora, Louis Paternault
  * Référence
 */
 export const uuid = '1ca05'
@@ -19,7 +20,7 @@ export default function EncadrerAvecFctRef () {
   // this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 4
+  this.sup = 5
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -36,7 +37,9 @@ export default function EncadrerAvecFctRef () {
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = ['racine carrée']
     } else if (this.sup === 4) {
-      typeDeQuestionsDisponibles = ['carré', 'inverse', 'racine carrée']
+      typeDeQuestionsDisponibles = ['cube']
+    } else if (this.sup === 5) {
+      typeDeQuestionsDisponibles = ['carré', 'inverse', 'racine carrée', 'cube']
     }
     // c = choice([2,3,5,6,7,10,11,13,14,15,17,19,21,22,23,26])
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -708,6 +711,70 @@ export default function EncadrerAvecFctRef () {
             }
           }
           break
+        case 'cube':
+          N = choice([1, 2])
+          N = 1 // TODO
+          if (N === 1) { // cas x<a ou x>a
+            a = choice([
+              randint(-10, 10),
+              10 * randint(-10, 10)
+            ])
+            let large = choice([true, false]) // Inégalité stricte ou large ?
+            let inférieur = choice([true, false]) // x < a ou x > a ?
+            let ligne1
+            let ligne2
+            if (inférieur) {
+              ligne1 = ['$-\\infty$', 10, `$${a}$`, 10]
+              ligne2 = ['Var', 10, '-/', 10, `+/$${Math.pow(a, 3)}$`, 10]
+            } else {
+              ligne1 = [`$${a}$`, 10, '$+\\infty$', 10]
+              ligne2 = ['Var', 10, `-/$${Math.pow(a, 3)}$`, 10, '+/', 10]
+            }
+            let symbole
+            let intervalle
+            if (large && inférieur) {
+              symbole = '\\leqslant'
+              intervalle = `]-\\infty ; ${a}]`
+            } else if (large && ! inférieur) {
+              symbole = '\\geqslant'
+              intervalle = `[${a} ; +\\infty[`
+            } else if ((! large) && inférieur) {
+              symbole = '<'
+              intervalle = `]-\\infty ; ${a}[`
+            } else { // (! large) && (! inférieur)
+              symbole = '>'
+              intervalle = `]${a} ; +\\infty[`
+            }
+            texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${symbole}${a}$ alors $x^3$ ......`
+            texteCorr = `$x${symbole} ${a}$ signifie $x\\in ${intervalle}$. <br>
+             Puisque $${a}^3=${Math.pow(a, 3)}$ et que la fonction cube est strictement croissante sur $\\mathbb{R}$, on obtient son tableau de variations
+                    sur l'intervalle $]-\\infty;${a}]$ : <br>
+                `
+            texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.6, zoom: 1 }, tableauDeVariation({
+              tabInit: [
+                [
+                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                  ['$x$', 2, 10], ['$x^3$', 4, 30]
+                ],
+                // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                ligne1
+              ],
+              // tabLines ci-dessous contient les autres lignes du tableau.
+              tabLines: [ligne2],
+              colorBackground: '',
+              espcl: 3, // taille en cm entre deux antécédents
+              deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+              lgt: 3, // taille de la première colonne en cm
+              hauteurLignes: [15, 15]
+            }))
+            texteCorr += `<br>On constate que le ${inférieur ? ' maximum ' : ' minimum '} de $x^3$ sur $${intervalle}$ est $${Math.pow(a, 3)}$. <br>
+            On en déduit que si  $x${symbole}${a}$ alors  $x^3${symbole} ${Math.pow(a, 3)}$.
+            <br> Remarque :  la fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.<br>
+            Ainsi les antécédents et les images sont rangées dans le même ordre : <br>
+            Si $x${symbole}${a}$ alors  $x^3${symbole} ${Math.pow(a, 3)}$.
+        `
+          }
+          break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -720,5 +787,5 @@ export default function EncadrerAvecFctRef () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 2, '1 : carré\n2 : inverse\n3 : racine carrée\n4 : mélange']
+  this.besoinFormulaireNumerique = ['Choix des questions', 2, '1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange']
 }
