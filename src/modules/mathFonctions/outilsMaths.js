@@ -164,36 +164,73 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
  */
 export function signesFonction (fonction, xMin, xMax, step = 0.001) {
   const signes = []
-  let xG, xD, signe
+  let xG, xD, signe, signeCourant
   for (let x = xMin; x <= xMax; x += step) {
     const image = fonction(x)
-    if (xG == null) {
+    signe = image < 0 ? '-' : image > 0 ? '+' : '0'
+    if (xG == null) { // On entame un nouvel intervalle
       xG = round(x, 2)
       xD = xG
-      signe = image < 0 ? '-' : '+'
-    } else if (signe === '-') {
-      xD = round(x, 2)
-      // parfois, on rate un zéro transitoire entre deux zones négatives car js sais pas faire des calculs exacts avec des flottants
-      if (image >= 0 || (-image) < 1e-12) {
-        signes.push({ xG, xD, signe })
-        xG = null
-        xD = null
-      }
-    } else {
-      xD = round(x, 2)
-      // parfois, on rate un zéro transitoire entre deux zones négatives car js sais pas faire des calculs exacts avec des flottants
-      if (image <= 0 || image < 1e-12) {
+      signeCourant = signe
+    } else { // On est dans un intervalle commencé
+      if (signe === signeCourant) {
+        if (Math.abs(image) < 1e-12) { // Là, on est sur un zéro passé inaperçu
+          xD = round(x, 2)
+          signes.push({ xG, xD, signe })
+          xG = round(x, 2)
+          xD = xG
+          signes.push({ xG, xD, signe: '0' })
+          xG = null
+          xD = null
+          signeCourant = null
+        } else { // Le signe n'a pas changé, on repousse xD
+          xD = round(x, 2)
+        }
+      } else if (signe === '+') { // Le signe a changé il est devenu positif
+        if (image < 1e-12) { // Là, on est sur un zéro passé inaperçu
+          xD = round(x, 2)
+          signes.push({ xG, xD, signe: signeCourant })
+          xG = xD
+          signes.push({ xG, xD, signe: '0' })
+          xG = null
+          xD = null
+          signeCourant = null
+        } else { // On est vraiment dans un nouveau secteur où la fonction est positive
+          xD = round(x, 2)
+          signes.push({ xG, xD, signe: signeCourant })
+          xG = round(x, 2)
+          xD = xG
+          signeCourant = '+'
+        }
+      } else if (signe === '-') { // Le signe a changé, il est devenu négatif
+        if (-image < 1e-12) { // Là, on est sur un zéro passé inaperçu
+          xD = round(x, 2)
+          signes.push({ xG, xD, signe: signeCourant })
+          xG = round(x, 2)
+          signes.push({ xG, xD, signe: '0' })
+          xG = null
+          xD = null
+          signeCourant = null
+        } else { // Le signe est vraiment devenu négatif
+          xD = round(x, 2)
+          signes.push({ xG, xD, signe: signeCourant })
+          xG = round(x, 2)
+          xD = xG
+          signeCourant = '-'
+        }
+      } else { // Là le signe est devenu '0'
         xD = round(x, 2)
-        signes.push({ xG, xD, signe })
-        xG = null
-        xD = null
+        signes.push({ xG, xD, signe: signeCourant })
+        xG = round(x, 2)
+        xD = xG
+        signes.push({ xG, xD, signe: '0' })
       }
     }
   }
   if (xD != null) {
     signes.push({ xG, xD, signe })
   }
-  return signes.filter((signe) => signe.xG !== signe.xD)
+  return signes
 }
 
 /**
@@ -212,9 +249,9 @@ export function variationsFonction (derivee, xMin, xMax, step) {
     for (const signe of signesDerivee) {
       if (signe.signe === '+') {
         variations.push({ xG: signe.xG, xD: signe.xD, variation: 'croissant' })
-      } else {
+      } else if (signe.signe === '-') {
         variations.push({ xG: signe.xG, xD: signe.xD, variation: 'decroissant' })
-      }
+      } // on ne fait rien pour signe.signe==='0'
     }
     return variations.filter((variation) => variation.xG !== variations.xD)
   } else {
@@ -286,7 +323,7 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
 }
 
-export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts, step } = {}) {
+export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts, step } = { latex: false, substituts: null, step: 0.001 }) {
   const signes = signesFonction(fonction, xMin, xMax, step)
   const initialValue = []
   const premiereLigne = []
@@ -344,7 +381,7 @@ export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts
  * @returns {TableauDeVariation}
  */
 export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { latex, substituts, step, ligneDerivee = false } = {}) {
-  const signes = signesFonction(derivee, xMin, xMax, step)
+  const signes = signesFonction(derivee, xMin, xMax, step).filter((signe) => signe.xG !== signe.xD)
   const premiereLigne = []
   const initalValue = []
   premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG, 2), 10]), initalValue))
@@ -375,6 +412,7 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
   const variations = variationsFonction(derivee, xMin, xMax, step)
 
   const tabLineVariations = ['Var', 10]
+  const tabLinesImage = []
   let variationG = variations[0]
   let variationD
   if (variationG.variation === 'croissant') {
@@ -387,6 +425,7 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
     variationD = variations[i + 1]
     if (variationG.variation === variationD.variation) {
       tabLineVariations.push('R/', 10)
+      tabLinesImage.push(['Ima', i + 1, i + 3, stringNombre(fonction(variationG.xD))])
     } else {
       tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 1)}`, 10)
     }
@@ -409,6 +448,11 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
       }
     }
   }
+  const tabLines = ligneDerivee ? [tabLineDerivee] : []
+  tabLines.push(tabLineVariations)
+  if (tabLinesImage.length > 0) {
+    tabLines.push(...tabLinesImage)
+  }
   return new TableauDeVariation({
     tabInit: [
       ligneDerivee
@@ -420,12 +464,12 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
           ],
       premiereLigne
     ],
-    tabLines: ligneDerivee ? [tabLineDerivee, tabLineVariations] : [tabLineVariations],
+    tabLines,
     colorBackground: '',
     escpl: 4.5, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3, // taille de la première colonne en cm
-    hauteurLignes: [15, 15, 30],
+    hauteurLignes: ligneDerivee ? [15, 15, 30] : [15, 30],
     latex: latex ?? false
   })
 }

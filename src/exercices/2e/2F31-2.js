@@ -1,5 +1,6 @@
+import { tableauVariationsFonction } from '../../modules/mathFonctions/outilsMaths.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, abs, sp } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
@@ -45,10 +46,18 @@ export default function EncadrerAvecFctRef () {
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, b, ligne1, ligne1b, N, choix, choix1, choix2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
+      let fonction // La fonction étudiée
+      let derivee // Sa dérivée
+      let xMin // La borne gauche de l'intervalle d'étude (prévoir une valeur de remplacement pour les infinis + et -)
+      let xMax // La borne droite de l'intervalle d'étude
+      let substituts = [] // les valeur de substitution pour xMin ou xMax...
+      let latex
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'carré':
+          latex = false
           N = choice([1, 2, 3, 4, 5])
-
+          fonction = x => x ** 2
+          derivee = x => 2 * x
           if (N === 1) { // cas x<a avec a<0 ou a>0
             a = randint(-12, 12, 0)
             choix = choice([true, false])
@@ -283,7 +292,10 @@ export default function EncadrerAvecFctRef () {
 
           break
         case 'inverse':
+          latex = true
           N = choice([1, 2, 3])
+          fonction = x => 1 / x
+          derivee = x => -1 / x / x
 
           if (N === 1) { // cas a<x<b avec a>0
             a = randint(2, 20)
@@ -427,7 +439,10 @@ export default function EncadrerAvecFctRef () {
 
           break
         case 'racine carrée':
+          latex = true
           N = choice([1, 2, 3])
+          fonction = x => Math.sqrt(x)
+          derivee = x => 1 / 2 / Math.sqrt(x)
           if (N === 1) { // cas x<a
             a = randint(0, 100)
             b = randint(0, 100)
@@ -712,33 +727,43 @@ export default function EncadrerAvecFctRef () {
           }
           break
         case 'cube':
+          latex = false
           N = choice([1, 2])
+          fonction = x => x ** 3
+          derivee = x => 3 * x ** 2
+          latex = false
           N = 1 // TODO
           if (N === 1) { // cas x<a ou x>a
             a = choice([
               randint(-10, 10),
               10 * randint(-10, 10)
             ])
-            let large = choice([true, false]) // Inégalité stricte ou large ?
-            let inférieur = choice([true, false]) // x < a ou x > a ?
-            let ligne1
-            let ligne2
+            const large = choice([true, false]) // Inégalité stricte ou large ?
+            const inférieur = choice([true, false]) // x < a ou x > a ?
+            // let ligne1
+            // let ligne2
             if (inférieur) {
-              ligne1 = ['$-\\infty$', 10, `$${a}$`, 10]
-              ligne2 = ['Var', 10, '-/', 10, `+/$${Math.pow(a, 3)}$`, 10]
+              xMin = -200 // a peut aller jusqu'à -100 !
+              xMax = a
+              substituts = [{ antVal: -200, antTex: '-∞', imgVal: -8000000, imgTex: '-∞' }]
+              // ligne1 = ['$-\\infty$', 10, `$${a}$`, 10]
+            //  ligne2 = ['Var', 10, '-/', 10, `+/$${Math.pow(a, 3)}$`, 10]
             } else {
-              ligne1 = [`$${a}$`, 10, '$+\\infty$', 10]
-              ligne2 = ['Var', 10, `-/$${Math.pow(a, 3)}$`, 10, '+/', 10]
+              xMin = a
+              xMax = 200
+              substituts = [{ antVal: 200, antTex: '+∞', imgVal: 8000000, imgTex: '+∞' }]
+              // ligne1 = [`$${a}$`, 10, '$+\\infty$', 10]
+              // ligne2 = ['Var', 10, `-/$${Math.pow(a, 3)}$`, 10, '+/', 10]
             }
             let symbole
             let intervalle
             if (large && inférieur) {
               symbole = '\\leqslant'
               intervalle = `]-\\infty ; ${a}]`
-            } else if (large && ! inférieur) {
+            } else if (large && !inférieur) {
               symbole = '\\geqslant'
               intervalle = `[${a} ; +\\infty[`
-            } else if ((! large) && inférieur) {
+            } else if ((!large) && inférieur) {
               symbole = '<'
               intervalle = `]-\\infty ; ${a}[`
             } else { // (! large) && (! inférieur)
@@ -750,23 +775,9 @@ export default function EncadrerAvecFctRef () {
              Puisque $${a}^3=${Math.pow(a, 3)}$ et que la fonction cube est strictement croissante sur $\\mathbb{R}$, on obtient son tableau de variations
                     sur l'intervalle $]-\\infty;${a}]$ : <br>
                 `
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.6, zoom: 1 }, tableauDeVariation({
-              tabInit: [
-                [
-                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                  ['$x$', 2, 10], ['$x^3$', 4, 30]
-                ],
-                // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                ligne1
-              ],
-              // tabLines ci-dessous contient les autres lignes du tableau.
-              tabLines: [ligne2],
-              colorBackground: '',
-              espcl: 3, // taille en cm entre deux antécédents
-              deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-              lgt: 3, // taille de la première colonne en cm
-              hauteurLignes: [15, 15]
-            }))
+            const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { latex, substituts, step: 1 })
+
+            texteCorr += mathalea2d(Object.assign({ scale: 0.6, zoom: 1 }, fixeBordures([tableau])), tableau)
             texteCorr += `<br>On constate que le ${inférieur ? ' maximum ' : ' minimum '} de $x^3$ sur $${intervalle}$ est $${Math.pow(a, 3)}$. <br>
             On en déduit que si  $x${symbole}${a}$ alors  $x^3${symbole} ${Math.pow(a, 3)}$.
             <br> Remarque :  la fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.<br>
