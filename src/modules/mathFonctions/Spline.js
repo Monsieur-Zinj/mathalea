@@ -9,7 +9,7 @@ import { Polynome } from './Polynome.js'
  * Les noeuds sont des objets : {x,y, nombreDerive} attention à les donner dans l'ordre des x croissants
  * @author Jean-Claude Lhote
  */
-class Spline {
+export class Spline {
   /**
    * Passer au moins deux noeuds, sinon ça ne peut pas fonctionner
    * @param {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>} noeuds la liste des noeuds avec leurs nombres dérivés
