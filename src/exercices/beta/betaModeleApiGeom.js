@@ -53,13 +53,15 @@ export default class ExerciceApiGeom extends Exercice {
     ])
 
     for (let i = 0; i < mySpline.n - 1; i++) {
-      figure.create('Graph2', { f: mySpline.fonctions[i], xMin: mySpline.x[i], xMax: mySpline.x[i + 1], step: 0.01, thickness: 1.2 })
+      figure.create('Graph2', { f: mySpline.fonctions[i], xMin: mySpline.x[i], xMax: mySpline.x[i + 1], step: 0.1, thickness: 1.2 })
     }
 
     const M = new PointOnSpline(figure, { spline: mySpline, label: 'M', thickness: 2 })
     M.draw()
     M.createSegmentToAxeX()
     M.createSegmentToAxeY()
+    const textX = figure.create('DynamicX', { point: M })
+    const textY = figure.create('DynamicY', { point: M })
 
     figure.create('Grid')
 
@@ -70,6 +72,8 @@ export default class ExerciceApiGeom extends Exercice {
       if (container === null) return
       container.innerHTML = ''
       figure.setContainer(container)
+      textX.dynamicText.div.style.fontWeight = 'bolder'
+      textY.dynamicText.div.style.fontWeight = 'bolder'
     })
 
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
