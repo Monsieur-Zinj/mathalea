@@ -159,40 +159,82 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
  * @param {function} fonction du type (x)=>number
  * @param {number} xMin
  * @param {number} xMax
+ * @param {number} step // fournir un step adapté à l'intervalle pour ne pas louper les valeurs particulières et pour ne pas ralentir le navigateur
  * @returns {*[]}
  */
-export function signesFonction (fonction, xMin, xMax) {
+export function signesFonction (fonction, xMin, xMax, step = 0.001) {
   const signes = []
-  let xG, xD, signe
-  for (let x = xMin; x < xMax; x += 0.001) {
+  let xG, xD, signe, signeCourant
+  for (let x = xMin; x <= xMax; x += step) {
     const image = fonction(x)
-    if (xG == null) {
+    signe = image < 0 ? '-' : image > 0 ? '+' : '0'
+    if (xG == null) { // On entame un nouvel intervalle et il n'y en avait pas avant.
       xG = round(x, 2)
       xD = xG
-      signe = image < 0 ? '-' : '+'
-    } else if (signe === '-') {
-      xD = round(x, 2)
-      // parfois, on rate un zéro transitoire entre deux zones négatives car js sais pas faire des calculs exacts avec des flottants
-      if (image >= 0 || (-image) < 1e-12) {
-        signes.push({ xG, xD, signe })
-        xG = null
-        xD = null
-      }
-    } else {
-      xD = round(x, 2)
-      // parfois, on rate un zéro transitoire entre deux zones négatives car js sais pas faire des calculs exacts avec des flottants
-      if (image <= 0 || image < 1e-12) {
+      signeCourant = signe
+    } else { // On est dans un intervalle commencé
+      if (signe === signeCourant) {
+        if (Math.abs(image) < 1e-12) { // Là, on est sur un zéro passé inaperçu
+          xD = round(x, 2)
+          signes.push({ xG, xD, signe })
+          xG = round(x, 2)
+          xD = xG
+          signes.push({ xG, xD, signe: '0' })
+          xG = null
+          xD = null
+          signeCourant = null
+        } else { // Le signe n'a pas changé, on repousse xD
+          xD = round(x, 2)
+        }
+      } else if (signe === '+') { // Le signe a changé il est devenu positif
+        if (image < 1e-12) { // Là, on est sur un zéro passé inaperçu
+          xD = round(x, 2)
+          signes.push({ xG, xD, signe: signeCourant })
+          xG = xD
+          signes.push({ xG, xD, signe: '0' })
+          xG = null
+          xD = null
+          signeCourant = null
+        } else { // On est vraiment dans un nouveau secteur où la fonction est positive
+          xD = round(x, 2)
+          if (signeCourant === '-') {
+            signes.push({ xG, xD, signe: signeCourant })
+            xG = round(x, 2)
+          }
+          signeCourant = '+'
+        }
+      } else if (signe === '-') { // Le signe a changé, il est devenu négatif
+        if (-image < 1e-12) { // Là, on est sur un zéro passé inaperçu
+          xD = round(x, 2)
+          signes.push({ xG, xD, signe: signeCourant })
+          xG = round(x, 2)
+          signes.push({ xG, xD, signe: '0' })
+          xG = null
+          xD = null
+          signeCourant = null
+        } else { // Le signe est vraiment devenu négatif
+          xD = round(x, 2)
+          if (signeCourant === '+') {
+            signes.push({ xG, xD, signe: signeCourant })
+            xG = round(x, 2)
+          }
+          signeCourant = '-'
+        }
+      } else { // Là le signe est devenu '0'
         xD = round(x, 2)
-        signes.push({ xG, xD, signe })
-        xG = null
+        signes.push({ xG, xD, signe: signeCourant })
+        xG = round(x, 2)
+        xD = xG
+        signes.push({ xG, xD, signe: '0' })
         xD = null
+        signeCourant = '0'
       }
     }
   }
   if (xD != null) {
     signes.push({ xG, xD, signe })
   }
-  return signes.filter((signe) => signe.xG !== signe.xD)
+  return signes
 }
 
 /**
@@ -201,18 +243,19 @@ export function signesFonction (fonction, xMin, xMax) {
  * @param {(x)=>number} derivee
  * @param {number} xMin
  * @param {number} xMax
+ * @param {number} step // fournir un step adapté à l'intervalle pour ne pas louper les valeurs particulières et pour ne pas ralentir le navigateur
  * @returns {null|*[]}
  */
-export function variationsFonction (derivee, xMin, xMax) {
+export function variationsFonction (derivee, xMin, xMax, step) {
   if (derivee !== null && typeof derivee === 'function') {
-    const signesDerivee = signesFonction(derivee, xMin, xMax)
+    const signesDerivee = signesFonction(derivee, xMin, xMax, step)
     const variations = []
     for (const signe of signesDerivee) {
       if (signe.signe === '+') {
         variations.push({ xG: signe.xG, xD: signe.xD, variation: 'croissant' })
-      } else {
+      } else if (signe.signe === '-') {
         variations.push({ xG: signe.xG, xD: signe.xD, variation: 'decroissant' })
-      }
+      } // on ne fait rien pour signe.signe==='0'
     }
     return variations.filter((variation) => variation.xG !== variations.xD)
   } else {
@@ -284,16 +327,16 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
 }
 
-export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts } = {}) {
-  const signes = signesFonction(fonction, xMin, xMax)
+export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts, step } = { latex: false, substituts: null, step: 0.001 }) {
+  const signes = signesFonction(fonction, xMin, xMax, step)
   const initialValue = []
   const premiereLigne = []
   premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG, 2), 10]), initialValue))
   premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i++) {
-      const strNb = premiereLigne[i]
-      const substitut = substituts.find((el) => stringNombre(el.antVal, 2) === strNb)
+      const strNb = premiereLigne[i].replaceAll(/\s/g, '')
+      const substitut = substituts.find((el) => stringNombre(el.antVal, 2).replaceAll(/\s/g, '') === strNb)
       if (substitut) {
         premiereLigne[i] = substitut.antTex
       }
@@ -328,18 +371,31 @@ export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts
     latex: latex ?? false
   })
 }
-export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { latex, substituts } = {}) {
-  const signes = signesFonction(derivee, xMin, xMax)
+
+/**
+ *
+ * @param {function} fonction
+ * @param {function} derivee
+ * @param {number} xMin
+ * @param {number} xMax
+ * @param {boolean} latex
+ * @param {{antVal: number, antTex: string, imgVal: number, imgTex: string}[]} substituts
+ * @param {number} step
+ * @param {boolean} ligneDerivee Mettre à true pour faire apparaître la ligne de f'
+ * @returns {TableauDeVariation}
+ */
+export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { latex, substituts, step, ligneDerivee = false } = {}) {
+  const signes = signesFonction(derivee, xMin, xMax, step).filter((signe) => signe.xG !== signe.xD)
   const premiereLigne = []
   const initalValue = []
   premiereLigne.push(...signes.reduce((previous, current) => previous.concat([stringNombre(current.xG, 2), 10]), initalValue))
   premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
   if (substituts && Array.isArray(substituts)) {
-    for (let i = 0; i < premiereLigne.length; i++) {
-      const strNb = premiereLigne[i]
-      const substitut = substituts.find((el) => stringNombre(el.antVal, 2) === strNb)
+    for (let i = 0; i < premiereLigne.length; i += 2) {
+      const strNb = premiereLigne[i].replaceAll(/\s/g, '')
+      const substitut = substituts.find((el) => stringNombre(el.antVal, 2).replaceAll(/\s/g, '') === strNb)
       if (substitut) {
-        premiereLigne[i] = substitut.antTex
+        premiereLigne[i] = typeof substitut.antTex === 'string' ? substitut.antTex : substitut.antTex.toString()
       }
     }
   }
@@ -357,52 +413,67 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
     tabLineDerivee.splice(-2, 2)
   }
 
-  const variations = variationsFonction(derivee, xMin, xMax)
+  const variations = variationsFonction(derivee, xMin, xMax, step)
 
   const tabLineVariations = ['Var', 10]
+  const tabLinesImage = []
   let variationG = variations[0]
   let variationD
   if (variationG.variation === 'croissant') {
-    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG, 1), 1)}`, 10)
+    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG), 3)}`, 10)
   } else {
-    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG, 1), 1)}`, 10)
+    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG), 3)}`, 10)
   }
   for (let i = 0; i < variations.length - 1; i++) {
     variationG = variations[i]
     variationD = variations[i + 1]
     if (variationG.variation === variationD.variation) {
       tabLineVariations.push('R/', 10)
+      tabLinesImage.push(['Ima', i + 1, i + 3, stringNombre(fonction(variationG.xD), 3)])
     } else {
-      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationD.xG, 1), 1)}`, 10)
+      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 3)}`, 10)
     }
   }
-  if (variationD.variation === 'croissant') {
-    tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 1)}`, 10)
+  if (variationD != null) {
+    if (variationD.variation === 'croissant') {
+      tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 3)}`, 10)
+    } else {
+      tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 3)}`, 10)
+    }
   } else {
-    tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 1)}`, 10)
+    tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 3)}`, 10)
   }
   if (substituts && Array.isArray(substituts)) {
     for (let i = 2; i < tabLineVariations.length; i += 2) {
       const strChunks = tabLineVariations[i].split('/')
-      const substitut = substituts.find((el) => stringNombre(el.imgVal, 1) === strChunks[1])
+      const substitut = substituts.find((el) => stringNombre(Number(el.imgVal), 3).replaceAll(/\s/g, '') === strChunks[1].replaceAll(/\s/g, ''))
       if (substitut) {
         tabLineVariations[i] = strChunks[0] + '/' + substitut.imgTex
       }
     }
   }
+  const tabLines = ligneDerivee ? [tabLineDerivee] : []
+  tabLines.push(tabLineVariations)
+  if (tabLinesImage.length > 0) {
+    tabLines.push(...tabLinesImage)
+  }
   return new TableauDeVariation({
     tabInit: [
-      [
-        ['x', 2, 10], ['f′(x)', 2, 10], ['f(x)', 2, 10]
-      ],
+      ligneDerivee
+        ? [
+            ['x', 2, 10], ['f′(x)', 2, 10], ['f(x)', 2, 10]
+          ]
+        : [
+            ['x', 2, 10], ['f(x)', 2, 10]
+          ],
       premiereLigne
     ],
-    tabLines: [tabLineDerivee, tabLineVariations],
+    tabLines,
     colorBackground: '',
     escpl: 4.5, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3, // taille de la première colonne en cm
-    hauteurLignes: [15, 15, 30],
+    hauteurLignes: ligneDerivee ? [15, 15, 30] : [15, 30],
     latex: latex ?? false
   })
 }
