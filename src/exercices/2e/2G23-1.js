@@ -13,6 +13,8 @@ import {
   point,
   tracePoint,
   labelPoint,
+  vecteur,
+  nomVecteurParPosition,
   grille
 } from '../../modules/2d.js'
 // export const interactifReady = true
@@ -80,10 +82,16 @@ export default function ImagePtParTranslation () {
           const nomEXT = ExtrVec.nom
 
           texte = `Sans justifier, donner l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$`
-          texte += mathalea2d(Object.assign({ zoom: 1.5 }, fixeBordures(objets)), objets) // On trace le graphique
+          texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
+
+          const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y).representant(PtDepart, 'red')
+          VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
+          VecDepl.styleExtremites = '->'
+          const nomVecDepl = nomVecteurParPosition(nomOR + nomEXT, PtDepart.x + (ExtrVec.x - OrigVec.x) / 2 + 0.35, PtDepart.y + (ExtrVec.y - OrigVec.y) / 2 + 0.35, 1, 0, 'red') // affiche le nom du vecteur
+          objets.push(PositionPt, LabelsPt, Grille, VecDepl, nomVecDepl)
 
           texteCorr = `${xSOL} et ${ySOL}`
-          texteCorr += mathalea2d(Object.assign({ zoom: 1.5 }, fixeBordures(objets)), objets) // On trace le graphique
+          texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
         }
           break
 
