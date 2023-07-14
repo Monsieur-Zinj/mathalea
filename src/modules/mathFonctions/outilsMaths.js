@@ -168,7 +168,7 @@ export function signesFonction (fonction, xMin, xMax, step = 0.001) {
   for (let x = xMin; x <= xMax; x += step) {
     const image = fonction(x)
     signe = image < 0 ? '-' : image > 0 ? '+' : '0'
-    if (xG == null) { // On entame un nouvel intervalle
+    if (xG == null) { // On entame un nouvel intervalle et il n'y en avait pas avant.
       xG = round(x, 2)
       xD = xG
       signeCourant = signe
@@ -197,9 +197,10 @@ export function signesFonction (fonction, xMin, xMax, step = 0.001) {
           signeCourant = null
         } else { // On est vraiment dans un nouveau secteur où la fonction est positive
           xD = round(x, 2)
-          signes.push({ xG, xD, signe: signeCourant })
-          xG = round(x, 2)
-          xD = xG
+          if (signeCourant === '-') {
+            signes.push({ xG, xD, signe: signeCourant })
+            xG = round(x, 2)
+          }
           signeCourant = '+'
         }
       } else if (signe === '-') { // Le signe a changé, il est devenu négatif
@@ -213,9 +214,10 @@ export function signesFonction (fonction, xMin, xMax, step = 0.001) {
           signeCourant = null
         } else { // Le signe est vraiment devenu négatif
           xD = round(x, 2)
-          signes.push({ xG, xD, signe: signeCourant })
-          xG = round(x, 2)
-          xD = xG
+          if (signeCourant === '+') {
+            signes.push({ xG, xD, signe: signeCourant })
+            xG = round(x, 2)
+          }
           signeCourant = '-'
         }
       } else { // Là le signe est devenu '0'
@@ -224,6 +226,8 @@ export function signesFonction (fonction, xMin, xMax, step = 0.001) {
         xG = round(x, 2)
         xD = xG
         signes.push({ xG, xD, signe: '0' })
+        xD = null
+        signeCourant = '0'
       }
     }
   }
@@ -416,33 +420,33 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
   let variationG = variations[0]
   let variationD
   if (variationG.variation === 'croissant') {
-    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG), 1)}`, 10)
+    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG), 3)}`, 10)
   } else {
-    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG), 1)}`, 10)
+    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG), 3)}`, 10)
   }
   for (let i = 0; i < variations.length - 1; i++) {
     variationG = variations[i]
     variationD = variations[i + 1]
     if (variationG.variation === variationD.variation) {
       tabLineVariations.push('R/', 10)
-      tabLinesImage.push(['Ima', i + 1, i + 3, stringNombre(fonction(variationG.xD))])
+      tabLinesImage.push(['Ima', i + 1, i + 3, stringNombre(fonction(variationG.xD), 3)])
     } else {
-      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 1)}`, 10)
+      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 3)}`, 10)
     }
   }
   if (variationD != null) {
     if (variationD.variation === 'croissant') {
-      tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 1)}`, 10)
+      tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 3)}`, 10)
     } else {
-      tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 1)}`, 10)
+      tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 3)}`, 10)
     }
   } else {
-    tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 1)}`, 10)
+    tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 3)}`, 10)
   }
   if (substituts && Array.isArray(substituts)) {
     for (let i = 2; i < tabLineVariations.length; i += 2) {
       const strChunks = tabLineVariations[i].split('/')
-      const substitut = substituts.find((el) => stringNombre(el.imgVal, 1).replaceAll(/\s/g, '') === strChunks[1].replaceAll(/\s/g, ''))
+      const substitut = substituts.find((el) => stringNombre(el.imgVal, 3).replaceAll(/\s/g, '') === strChunks[1].replaceAll(/\s/g, ''))
       if (substitut) {
         tabLineVariations[i] = strChunks[0] + '/' + substitut.imgTex
       }

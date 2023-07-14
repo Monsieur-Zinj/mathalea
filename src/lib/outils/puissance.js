@@ -127,3 +127,6 @@ export function puissanceEnProduit (b, e) {
     return `\\dfrac{1}{${puissanceEnProduit(b, -e)}}`
   }
 }
+export function estParfait (n) {
+  return Math.round(Math.sqrt(n)) === Math.sqrt(n)
+}
