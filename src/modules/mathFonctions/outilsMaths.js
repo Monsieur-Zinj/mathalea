@@ -395,7 +395,7 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
       const strNb = premiereLigne[i].replaceAll(/\s/g, '')
       const substitut = substituts.find((el) => stringNombre(el.antVal, 2).replaceAll(/\s/g, '') === strNb)
       if (substitut) {
-        premiereLigne[i] = substitut.antTex
+        premiereLigne[i] = typeof substitut.antTex === 'string' ? substitut.antTex : substitut.antTex.toString()
       }
     }
   }
@@ -446,7 +446,7 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
   if (substituts && Array.isArray(substituts)) {
     for (let i = 2; i < tabLineVariations.length; i += 2) {
       const strChunks = tabLineVariations[i].split('/')
-      const substitut = substituts.find((el) => stringNombre(el.imgVal, 3).replaceAll(/\s/g, '') === strChunks[1].replaceAll(/\s/g, ''))
+      const substitut = substituts.find((el) => stringNombre(Number(el.imgVal), 3).replaceAll(/\s/g, '') === strChunks[1].replaceAll(/\s/g, ''))
       if (substitut) {
         tabLineVariations[i] = strChunks[0] + '/' + substitut.imgTex
       }
