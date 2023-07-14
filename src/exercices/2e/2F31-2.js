@@ -156,7 +156,7 @@ export default function EncadrerAvecFctRef () {
           break
         case 'inverse': {
           latex = true
-          const N = 3// choice([1, 2, 3])
+          const N = choice([1, 2, 3])
           fonction = x => 1 / x
           derivee = x => -1 / x / x
           switch (N) {
@@ -232,7 +232,7 @@ export default function EncadrerAvecFctRef () {
         }
         case 'racine carrée': {
           latex = true
-          const N = 3// choice([1, 2, 3])
+          const N = choice([1, 2, 3])
           fonction = x => Math.sqrt(x)
           derivee = x => 1 / 2 / Math.sqrt(x)
           switch (N) {
@@ -263,7 +263,7 @@ Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $\\sqrt{x}${large1 ? '\\leqsla
 
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\sqrt{x}$ ......`
               texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
-Puisque $\\sqrt{${a}}=${racineDeA}$ et que la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
+Puisque la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
 sur l'intervalle $[${a};+\\infty[$ : <br>`
               texteCorrApresTableau = `On constate que le minimum de $\\sqrt{x}$ sur $[${a};+\\infty[$ est $${racineDeA}$. <br>
 On en déduit que si  $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\sqrt{x}\\geqslant ${racineDeA}$.
@@ -284,7 +284,7 @@ Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\sqrt{x}${large1 ? '\\geqsla
 
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a}${large1 ? ' \\leqslant ' : ' < '} x ${large1 ? '\\leqslant' : ' < '} ${b}$ alors  ...... $\\sqrt{x}$ ......`
               texteCorrAvantTableau = `$${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large1 ? ']' : ' [ '}$. <br>
-Puisque $\\sqrt{${a}}=${racineDeA}$ et $\\sqrt{${b}}=${racineDeB}$ et que  la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
+Puisque la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
 sur l'intervalle $[${a};${b}]$ : <br>`
               texteCorrApresTableau = `On constate que le minimum de $\\sqrt{x}$ sur $[${a};${b}]$ est $${racineDeA}$ et son maximum est $${racineDeB}$. <br>
 On en déduit que si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$ alors  $${racineDeA}${large1 ? '\\leqslant' : ' < '} \\sqrt{x} ${large1 ? '\\leqslant' : ' < '}${racineDeB}$.
