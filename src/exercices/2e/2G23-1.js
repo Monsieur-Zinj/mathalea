@@ -59,6 +59,8 @@ export default function ImagePtParTranslation () {
       const P = point(6, 0, 'P', 'above right')
       const Q = point(8, 0, 'Q', 'above right')
       const R = point(10, 0, 'R', 'above right')
+      const CoorPt = [[0, 4], [2, 4], [4, 4], [6, 4], [8, 4], [10, 4], [0, 2], [2, 2], [4, 2], [6, 2], [8, 2], [10, 2], [0, 0], [2, 0], [4, 0], [6, 0], [8, 0], [10, 0]]
+      const NomPt = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R']
       const PositionPt = tracePoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R)
       const LabelsPt = labelPoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R)
       const Grille = grille(0, 0, 10, 4)
@@ -80,8 +82,9 @@ export default function ImagePtParTranslation () {
           }
           const nomOR = OrigVec.nom
           const nomEXT = ExtrVec.nom
+          const NomSOL = NomPt[CoorPt.findIndex(couple => couple[0] === xSOL && couple[1] === ySOL)]
 
-          texte = `Sans justifier, donner l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$`
+          texte = `Sans justifier, donner l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y).representant(PtDepart, 'red')
@@ -90,15 +93,15 @@ export default function ImagePtParTranslation () {
           const nomVecDepl = nomVecteurParPosition(nomOR + nomEXT, PtDepart.x + (ExtrVec.x - OrigVec.x) / 2 + 0.35, PtDepart.y + (ExtrVec.y - OrigVec.y) / 2 + 0.35, 1, 0, 'red') // affiche le nom du vecteur
           objets.push(PositionPt, LabelsPt, Grille, VecDepl, nomVecDepl)
 
-          texteCorr = `${xSOL} et ${ySOL}`
-          texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
+          texteCorr = `$${NomSOL}$ est l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
+          texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique de la solution
         }
           break
 
         case 't2': { // A partir d'un segment
           const ux = randint(-9, 9, [0])
 
-          texte = 'Sans justifier, donner l\'image du segment [AB] par la translation de vecteur $\\overrightarrow{AB}$'
+          texte = 'Sans justifier, donner l\'image du segment [AB] par la translation de vecteur $\\overrightarrow{AB}$.'
 
           texteCorr = `${ux}`
           texteCorr += ''
@@ -108,7 +111,7 @@ export default function ImagePtParTranslation () {
         case 't3': { // A partir d'un triangle
           const ux = randint(-9, 9, [0])
 
-          texte = 'Sans justifier, donner l\'image du triangle ABC par la translation de vecteur $\\overrightarrow{AB}$'
+          texte = 'Sans justifier, donner l\'image du triangle ABC par la translation de vecteur $\\overrightarrow{AB}$.'
 
           texteCorr = `${ux}`
           texteCorr += ''
