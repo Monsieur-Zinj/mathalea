@@ -1,4 +1,3 @@
-import { texNombre } from '../../lib/outils/texNombre.js'
 import { inferieurSuperieur } from '../../modules/mathFonctions/outilsMaths.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
@@ -78,7 +77,7 @@ export default class BetaModeleSpline extends Exercice {
     this.besoinFormulaireTexte = ['Réglages des questions :', '1 : Un seul antécédent\n2 : Deux antécédents\n3 : trois antécédents\n4 : De un à trois antécédents\n5 : De 0 à 3 antécédents\n6 : Mélange']
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
