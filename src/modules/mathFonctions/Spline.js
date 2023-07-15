@@ -1,10 +1,10 @@
-import { create, all } from 'mathjs'
-const config = { number: 'Fraction' }
-const math = create(all, config)
+import { abs, round, polynomialRoot, acos } from 'mathjs'
+
 
 import { Courbe, point, Segment, tracePoint } from '../2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
 import { choice, egal } from '../outils.js'
+import { MatriceCarree } from './MatriceCarree.js'
 import { signesFonction, variationsFonction } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 
@@ -34,13 +34,13 @@ export class Spline {
       const x1 = noeuds[i + 1].x
       const y1 = noeuds[i + 1].y
       const d1 = noeuds[i + 1].deriveeGauche
-      const matrice = [
+      const matrice = new MatriceCarree([
         [x0 ** 3, x0 ** 2, x0, 1],
         [x1 ** 3, x1 ** 2, x1, 1],
         [3 * x0 ** 2, 2 * x0, 1, 0],
         [3 * x1 ** 2, 2 * x1, 1, 0]
-      ]
-      if (matrice.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
+      ])
+      if (matrice.table.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
         window.notify('Spline : Système impossible à résoudre il y a un problème avec les données ', {
           x0,
           y0,
@@ -51,19 +51,19 @@ export class Spline {
         })
         return
       }
-      if (math.det(matrice) === 0) {
+      const determinant = matrice.determinant()// c'est maintenant une FractionEtendue !
+      if (determinant.valeurDecimale === 0) {
         window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
           noeudGauche: noeuds[i],
           noeudDroit: noeuds[i + 1]
         })
         return
       }
-
-      const matriceInverse = math.inv(matrice)
+      const matriceInverse = matrice.inverse()
       const vecteur = [y0, y1, d0, d1]
       this.polys.push(new Polynome({
-        isUseFraction: false,
-        coeffs: math.multiply(matriceInverse, vecteur).reverse().map(coef => math.round(coef, 3))
+        isUseFraction: true,
+        coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
       }))
     }
     this.noeuds = [...noeuds]
@@ -99,18 +99,18 @@ export class Spline {
       const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
       // Algebrite n'aime pas beaucoup les coefficients decimaux...
       try {
-        const liste = math.polynomialRoot(...polEquation.monomes)
+        const liste = polynomialRoot(...polEquation.monomes)
         for (const valeur of liste) {
           let arr
           if (typeof valeur === 'number') {
-            arr = math.round(valeur, 3)
+            arr = round(valeur, 3)
           } else { // complexe !
             const module = valeur.toPolar().r
             if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
               arr = 0
             } else {
-              if (math.abs(valeur.arg()) < 0.01 || (math.abs(valeur.arg() - math.acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
-                arr = math.round(valeur.re, 3) // on prend la partie réelle
+              if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
+                arr = round(valeur.re, 3) // on prend la partie réelle
               } else {
                 arr = null // c'est une vraie racine complexe, du coup, on prend null
               }
@@ -358,7 +358,7 @@ export class Spline {
     }
     if (!trouveK) {
       const intervalle = `D = [${this.x[0]} ; ${this.x[this.n - 1]}]`
-      window.notify('SplineCatmullRom : la valeur de x fournie n\'est pas dans lìntervalle de définition de la fonction', {
+      window.notify('Spline: la valeur de x fournie n\'est pas dans lìntervalle de définition de la fonction', {
         x,
         intervalle
       })
