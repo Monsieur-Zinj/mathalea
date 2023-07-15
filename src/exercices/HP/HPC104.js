@@ -1,5 +1,5 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
-import { MatriceCarree } from '../../modules/MatriceCarree.js'
+import { MatriceCarree } from '../../modules/mathFonctions/MatriceCarree.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
@@ -36,7 +36,7 @@ export default class nomExercice extends Exercice {
     this.video = ''
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

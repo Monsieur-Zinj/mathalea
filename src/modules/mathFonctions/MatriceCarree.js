@@ -1,5 +1,5 @@
 import { matrix, parse } from 'mathjs'
-import { egal } from './outils.js'
+import { egal } from '../outils.js'
 
 /**
  *  Classe MatriceCarree

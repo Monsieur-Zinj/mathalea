@@ -1,4 +1,7 @@
-import { abs, acos, det, inv, multiply, polynomialRoot, round } from 'mathjs'
+import { create, all } from 'mathjs'
+const config = { number: 'Fraction' }
+const math = create(all, config)
+
 import { Courbe, point, Segment, tracePoint } from '../2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
 import { choice, egal } from '../outils.js'
@@ -48,7 +51,7 @@ export class Spline {
         })
         return
       }
-      if (det(matrice) === 0) {
+      if (math.det(matrice) === 0) {
         window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
           noeudGauche: noeuds[i],
           noeudDroit: noeuds[i + 1]
@@ -56,11 +59,11 @@ export class Spline {
         return
       }
 
-      const matriceInverse = inv(matrice)
+      const matriceInverse = math.inv(matrice)
       const vecteur = [y0, y1, d0, d1]
       this.polys.push(new Polynome({
         isUseFraction: false,
-        coeffs: multiply(matriceInverse, vecteur).reverse().map(coef => round(coef, 3))
+        coeffs: math.multiply(matriceInverse, vecteur).reverse().map(coef => math.round(coef, 3))
       }))
     }
     this.noeuds = [...noeuds]
@@ -96,18 +99,18 @@ export class Spline {
       const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
       // Algebrite n'aime pas beaucoup les coefficients decimaux...
       try {
-        const liste = polynomialRoot(...polEquation.monomes)
+        const liste = math.polynomialRoot(...polEquation.monomes)
         for (const valeur of liste) {
           let arr
           if (typeof valeur === 'number') {
-            arr = round(valeur, 3)
+            arr = math.round(valeur, 3)
           } else { // complexe !
             const module = valeur.toPolar().r
             if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
               arr = 0
             } else {
-              if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
-                arr = round(valeur.re, 3) // on prend la partie réelle
+              if (math.abs(valeur.arg()) < 0.01 || (math.abs(valeur.arg() - math.acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
+                arr = math.round(valeur.re, 3) // on prend la partie réelle
               } else {
                 arr = null // c'est une vraie racine complexe, du coup, on prend null
               }
@@ -386,10 +389,9 @@ export class Spline {
     for (let i = 0; i < this.noeuds.length - 1; i++) {
       intervalles.push({ xG: this.noeuds[i].x, xD: this.noeuds[i + 1].x })
     }
-    const self = this
     return (x) => {
       const index = intervalles.findIndex((intervalle) => x >= intervalle.xG && x <= intervalle.xD)
-      return self.derivees[index].image(x)
+      return this.derivees[index].image(x)
     }
   }
 

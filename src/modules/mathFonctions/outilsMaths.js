@@ -3,7 +3,7 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import FractionEtendue from '../FractionEtendue.js'
 import { fraction } from '../fractions.js'
-import { matriceCarree } from '../MatriceCarree.js'
+import { matriceCarree } from './MatriceCarree.js'
 import { egal, randint } from '../outils.js'
 import { TableauDeVariation } from '../TableauDeVariation.js'
 
