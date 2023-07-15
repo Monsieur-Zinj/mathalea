@@ -3,6 +3,7 @@ import { abs, round, polynomialRoot, acos } from 'mathjs'
 
 import { Courbe, point, Segment, tracePoint } from '../2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
+import FractionEtendue from '../FractionEtendue.js'
 import { choice, egal } from '../outils.js'
 import { MatriceCarree } from './MatriceCarree.js'
 import { signesFonction, variationsFonction } from './outilsMaths.js'
@@ -407,7 +408,7 @@ export class Spline {
    */
   courbe ({
     repere,
-    step = 0.1,
+    step = new FractionEtendue(1,10),
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = false,
@@ -482,7 +483,7 @@ export class Trace extends ObjetMathalea2D {
    */
   constructor (spline, {
     repere,
-    step = 0.1,
+    step = new FractionEtendue(1,10),
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = true,

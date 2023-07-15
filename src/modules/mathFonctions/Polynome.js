@@ -1,4 +1,4 @@
-import { equal, largerEq, max, number } from 'mathjs'
+import { equal, fraction, largerEq, max, number } from 'mathjs'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
 import FractionEtendue from '../FractionEtendue.js'
 import { choice, randint } from '../outils.js'
@@ -29,13 +29,14 @@ export class Polynome {
           if (equal(el[0], 0)) {
             return new FractionEtendue(0)
           } else {
-            return el[1] ? new FractionEtendue(choice([-1, 1]) * randint(1, number(el[0]))) : new FractionEtendue(randint(1, number(el[0])))
+            return el[1] ? (new FractionEtendue(choice([-1, 1]) * randint(1, number(el[0])))).simplifie() : (new FractionEtendue(randint(1, number(el[0]))).simplifie())
           }
       })
     } else {
       // les coeffs sont fourni
       this.monomes = coeffs.map(function (el) {
-          return new FractionEtendue(el)
+        if (el instanceof FractionEtendue) return el
+          return (new FractionEtendue(el)).simplifie()
       })
     }
     this.deg = this.monomes.length - 1
@@ -46,12 +47,15 @@ export class Polynome {
      */
     const monomes = this.monomes
     this.fonction = function (x) {
-      const xfrac = new FractionEtendue(x)
+      if (!(x instanceof FractionEtendue)) {
+        const f = fraction(x.toFixed(3))
+        x = new FractionEtendue(f.n*f.s,f.d)
+      }
       let val = new FractionEtendue(0)
       for (let i = 0; i < monomes.length; i++) {
-        val = val.sommeFraction(monomes[i].produitFraction( xfrac.puissanceFraction(i)))
-      }
-      return val
+        val = val.sommeFraction(monomes[i].multiplieEntier( x.puissanceFraction(i))).simplifie()
+        }
+      return val.simplifie()
     }
   }
 
@@ -161,7 +165,7 @@ export class Polynome {
       const degSomme = max(this.deg, p.deg)
       const pInf = equal(p.deg, degSomme) ? this : p
       const pSup = equal(p.deg, degSomme) ? p : this
-      const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? el.sommeFraction( pInf.monomes[index]) : el })
+      const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? el.sommeFraction( pInf.monomes[index]).simplifie() : el.simplifie() })
       return new Polynome({ coeffs: coeffSomme })
     } else {
       window.notify('Polynome.add(arg) : l\'argument n\'est ni un nombre, ni un polynome', { p })
@@ -199,7 +203,7 @@ export class Polynome {
    * @returns {Polynome} dérivée de this
    */
   derivee () {
-    const coeffDerivee =this.monomes.map(function (el, i) { return el.multiplieEntier(i) })
+    const coeffDerivee =this.monomes.map(function (el, i) { return el.multiplieEntier(i).simplifie() })
     coeffDerivee.shift()
     return new Polynome({  coeffs: coeffDerivee })
   }
@@ -222,6 +226,6 @@ export class Polynome {
    */
   image (x) {
     // const fonction = x => this.monomes.reduce((val, current, currentIndex) => val + current * x ** currentIndex, 0)
-    return this.fonction(x)
+    return this.fonction(x).simplifie()
   }
 }

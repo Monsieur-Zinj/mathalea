@@ -1,3 +1,4 @@
+import { texNombre } from '../../lib/outils/texNombre.js'
 import { inferieurSuperieur } from '../../modules/mathFonctions/outilsMaths.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
@@ -137,11 +138,11 @@ export default class BetaModeleSpline extends Exercice {
       texteCorrection += '<br>voici les signes de f : '
       const signes = maSpline.signes()
       for (let k = 0; k < signes.length; k++) {
-        texteCorrection += `<br>Sur [${signes[k].xG};${signes[k].xD}] la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
+        texteCorrection += `<br>Sur $[${signes[k].xG.texFSD};${signes[k].xD.texFSD}]$ la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
       }
       const variations = maSpline.variations()
       for (let k = 0; k < variations.length; k++) {
-        texteCorrection += `<br>Sur [${variations[k].xG};${variations[k].xD}] la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
+        texteCorrection += `<br>Sur $[${variations[k].xG.texFSD};${variations[k].xD.texFSD}]$ la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
       }
 
       this.listeQuestions.push(texteEnonce)

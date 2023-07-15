@@ -1,4 +1,3 @@
-import { round } from 'mathjs'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import FractionEtendue from '../FractionEtendue.js'
@@ -109,7 +108,7 @@ export function expTrinome (a, b, c) {
  * @param {number} options.step le pas de recherche en x.
  * @return {{borneG: {x: number, included: boolean, y: number}, borneD: {x: number, included: boolean, y: number}}[]} le ou les intervalles dans une liste
  */
-export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, strict = false, { step = 0.001 } = {}) {
+export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, strict = false, { step = new FractionEtendue(1,100) } = {}) {
   const satisfy = function (image, y, inferieur, strict) {
     if (inferieur) {
       return strict ? y - image > 0 : y - image >= 0
@@ -117,33 +116,40 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
       return strict ? y - image < 0 : y - image <= 0
     }
   }
+  if (!(step instanceof FractionEtendue)) step = new FractionEtendue(step)
   const solutions = []
   let borneG = {}
   let borneD = {}
-  for (let x = xMin; x <= xMax;) {
-    const image = fonction(round(x, 3))
-    if (borneG.x === undefined && satisfy(image, y, inferieur, strict)) { // c'est le premier x qui matche
-      borneG = { x: round(x, 3), y: round(image, 3), included: !strict }
-    } else if (satisfy(image, y, inferieur, strict)) { // les suivants qui matchent écrasent borneD
-      borneD = { x: round(x, 3), y: round(image, 3), included: !strict }
-    } else { // ça ne matche plus ou pas
-      if (borneD.x !== undefined) { // il y a eu un intervalle, ça a matché et c'est terminé
-        solutions.push({
-          borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
-          borneD: { x: borneD.x, y: borneD.y, included: borneD.included }
-        })
-        borneG = {}
-        borneD = {} // on réinitialise pour le prochain intervalle
-      } else if (borneG.x !== undefined) { // On n'a pas de borneD, mais on a une borneG, cas particulier du singleton
-        solutions.push({
-          borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
-          borneD: { x: borneG.x, y: borneG.y, included: borneG.included }
-        })
-        borneG = {}
-        borneD = {} // on réinitialise pour le prochain intervalle
+  xMin = xMin instanceof FractionEtendue ? xMin: new FractionEtendue(xMin)
+  let x, image
+  try {
+    for (x = xMin; x <= xMax;) {
+      image = fonction(x)
+      if (borneG.x === undefined && satisfy(image, y, inferieur, strict)) { // c'est le premier x qui matche
+        borneG = { x, y: image, included: !strict }
+      } else if (satisfy(image, y, inferieur, strict)) { // les suivants qui matchent écrasent borneD
+        borneD = { x, y: image, included: !strict }
+      } else { // ça ne matche plus ou pas
+        if (borneD.x !== undefined) { // il y a eu un intervalle, ça a matché et c'est terminé
+          solutions.push({
+            borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
+            borneD: { x: borneD.x, y: borneD.y, included: borneD.included }
+          })
+          borneG = {}
+          borneD = {} // on réinitialise pour le prochain intervalle
+        } else if (borneG.x !== undefined) { // On n'a pas de borneD, mais on a une borneG, cas particulier du singleton
+          solutions.push({
+            borneG: { x: borneG.x, y: borneG.y, included: borneG.included },
+            borneD: { x: borneG.x, y: borneG.y, included: borneG.included }
+          })
+          borneG = {}
+          borneD = {} // on réinitialise pour le prochain intervalle
+        }
       }
+      x = x.sommeFraction(step) // dans tous les cas, on avance
     }
-    x += step // dans tous les cas, on avance
+  } catch(e){
+    console.error(`e.message avec x = ${x} et image = ${image}`)
   }
   if (borneD.x !== undefined) { // le dernier intervalle n'a pas été mis dans les solutions car on est encore dedans
     solutions.push({
@@ -162,78 +168,89 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
  * @param {number} step // fournir un step adapté à l'intervalle pour ne pas louper les valeurs particulières et pour ne pas ralentir le navigateur
  * @returns {*[]}
  */
-export function signesFonction (fonction, xMin, xMax, step = 0.001) {
+export function signesFonction (fonction, xMin, xMax, step = new FractionEtendue(1,100)) {
+  if (!(step instanceof FractionEtendue)){
+    const f = fraction(step.toFixed(3))
+    step = new FractionEtendue(f.n*f.s,f.d)
+  }
   const signes = []
   let xG, xD, signe, signeCourant
-  for (let x = xMin; x <= xMax; x += step) {
-    const image = fonction(x)
-    signe = image < 0 ? '-' : image > 0 ? '+' : '0'
-    if (xG == null) { // On entame un nouvel intervalle et il n'y en avait pas avant.
-      xG = round(x, 2)
-      xD = xG
-      signeCourant = signe
-    } else { // On est dans un intervalle commencé
-      if (signe === signeCourant) {
-        if (Math.abs(image) < 1e-12) { // Là, on est sur un zéro passé inaperçu
-          xD = round(x, 2)
-          signes.push({ xG, xD, signe })
-          xG = round(x, 2)
+  let image
+  for (let x = new FractionEtendue(xMin); x <= xMax; x=x.sommeFraction(step)) {
+    try {
+      image = fonction(x)
+    
+      signe = image < 0 ? '-' : image > 0 ? '+' : '0'
+      if (xG == null) { // On entame un nouvel intervalle et il n'y en avait pas avant.
+        xG = x.simplifie()
+        xD = xG
+        signeCourant = signe
+      } else { // On est dans un intervalle commencé
+        if (signe === signeCourant) {
+          if (Math.abs(image) < 1e-12) { // Là, on est sur un zéro passé inaperçu
+            xD = x.simplifie()
+            signes.push({ xG, xD, signe })
+            xG = x.simplifie()
+            xD = xG
+            signes.push({ xG, xD, signe: '0' })
+            xG = null
+            xD = null
+            signeCourant = null
+          } else { // Le signe n'a pas changé, on repousse xD
+            xD = x.simplifie()
+          }
+        } else if (signe === '+') { // Le signe a changé il est devenu positif
+          if (image < 1e-12) { // Là, on est sur un zéro passé inaperçu
+            xD = x.simplifie()
+            signes.push({ xG, xD, signe: signeCourant })
+            xG = x.simplifie()
+            signes.push({ xG, xD, signe: '0' })
+            xG = null
+            xD = null
+            signeCourant = null
+          } else { // On est vraiment dans un nouveau secteur où la fonction est positive
+            xD = x.simplifie()
+            if (signeCourant === '-') {
+              signes.push({ xG, xD, signe: signeCourant })
+              xG = x.simplifie()
+            }
+            signeCourant = '+'
+          }
+        } else if (signe === '-') { // Le signe a changé, il est devenu négatif
+          if (-image < 1e-12) { // Là, on est sur un zéro passé inaperçu
+            xD = x.simplifie()
+            signes.push({ xG, xD, signe: signeCourant })
+            xG = x.simplifie()
+            signes.push({ xG, xD, signe: '0' })
+            xG = null
+            xD = null
+            signeCourant = null
+          } else { // Le signe est vraiment devenu négatif
+            xD = x.simplifie()
+            if (signeCourant === '+') {
+              signes.push({ xG, xD, signe: signeCourant })
+              xG = x.simplifie()
+            }
+            signeCourant = '-'
+          }
+        } else { // Là le signe est devenu '0'
+          xD = x.simplifie()
+          signes.push({ xG, xD, signe: signeCourant })
+          xG = x.simplifie()
           xD = xG
           signes.push({ xG, xD, signe: '0' })
-          xG = null
           xD = null
-          signeCourant = null
-        } else { // Le signe n'a pas changé, on repousse xD
-          xD = round(x, 2)
+          signeCourant = '0'
         }
-      } else if (signe === '+') { // Le signe a changé il est devenu positif
-        if (image < 1e-12) { // Là, on est sur un zéro passé inaperçu
-          xD = round(x, 2)
-          signes.push({ xG, xD, signe: signeCourant })
-          xG = xD
-          signes.push({ xG, xD, signe: '0' })
-          xG = null
-          xD = null
-          signeCourant = null
-        } else { // On est vraiment dans un nouveau secteur où la fonction est positive
-          xD = round(x, 2)
-          if (signeCourant === '-') {
-            signes.push({ xG, xD, signe: signeCourant })
-            xG = round(x, 2)
-          }
-          signeCourant = '+'
-        }
-      } else if (signe === '-') { // Le signe a changé, il est devenu négatif
-        if (-image < 1e-12) { // Là, on est sur un zéro passé inaperçu
-          xD = round(x, 2)
-          signes.push({ xG, xD, signe: signeCourant })
-          xG = round(x, 2)
-          signes.push({ xG, xD, signe: '0' })
-          xG = null
-          xD = null
-          signeCourant = null
-        } else { // Le signe est vraiment devenu négatif
-          xD = round(x, 2)
-          if (signeCourant === '+') {
-            signes.push({ xG, xD, signe: signeCourant })
-            xG = round(x, 2)
-          }
-          signeCourant = '-'
-        }
-      } else { // Là le signe est devenu '0'
-        xD = round(x, 2)
-        signes.push({ xG, xD, signe: signeCourant })
-        xG = round(x, 2)
-        xD = xG
-        signes.push({ xG, xD, signe: '0' })
-        xD = null
-        signeCourant = '0'
       }
+    } catch (e) {
+      console.error(e.message + `erreur dans le calcul de l'image pour x = ${x}`)
     }
   }
   if (xD != null) {
     signes.push({ xG, xD, signe })
   }
+  
   return signes
 }
 
