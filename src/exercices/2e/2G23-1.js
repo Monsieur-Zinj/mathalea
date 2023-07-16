@@ -14,7 +14,7 @@ import {
   tracePoint,
   labelPoint,
   vecteur,
-  // nomVecteurParPosition,
+  segment,
   grille
 } from '../../modules/2d.js'
 // export const interactifReady = true
@@ -61,6 +61,7 @@ export default function ImagePtParTranslation () {
       const R = point(10, 0, 'R', 'above right')
       const CoorPt = [[0, 4], [2, 4], [4, 4], [6, 4], [8, 4], [10, 4], [0, 2], [2, 2], [4, 2], [6, 2], [8, 2], [10, 2], [0, 0], [2, 0], [4, 0], [6, 0], [8, 0], [10, 0]]
       const NomPt = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R']
+      const Pt = [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R]
       const PositionPt = tracePoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R)
       const LabelsPt = labelPoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R)
       const Grille = grille(0, 0, 10, 4)
@@ -69,7 +70,6 @@ export default function ImagePtParTranslation () {
       switch (listeTypeDeQuestions[i]) {
         case 't1': { // A partir d'un point
           const PtDepart = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
-          const nomPD = PtDepart.nom
           let OrigVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepart])
           let ExtrVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepart, OrigVec])
           let xSOL = PtDepart.x + ExtrVec.x - OrigVec.x
@@ -80,6 +80,7 @@ export default function ImagePtParTranslation () {
             xSOL = PtDepart.x + ExtrVec.x - OrigVec.x
             ySOL = PtDepart.y + ExtrVec.y - OrigVec.y
           }
+          const nomPD = PtDepart.nom
           const nomOR = OrigVec.nom
           const nomEXT = ExtrVec.nom
           const NomSOL = NomPt[CoorPt.findIndex(couple => couple[0] === xSOL && couple[1] === ySOL)]
@@ -87,26 +88,65 @@ export default function ImagePtParTranslation () {
           texte = `Sans justifier, donner l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
-          const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // .representant(PtDepart, 'red')
-          const VecDeplRep = VecDepl.representant(PtDepart, 'red')
+          const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
+          const VecDeplRep = VecDepl.representant(PtDepart, 'red') // Trace le vecteur déplacement
           VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
-          VecDepl.styleExtremites = '->'
-          const nomVecDepl = VecDepl.representantNomme(PtDepart, nomOR + nomEXT, 1, 'red')
-          // const nomVecDepl = nomVecteurParPosition(nomOR + nomEXT, PtDepart.x + (ExtrVec.x - OrigVec.x) / 2 + 0.35, PtDepart.y + (ExtrVec.y - OrigVec.y) / 2 + 0.35, 1, 0, 'red') // affiche le nom du vecteur
+          VecDepl.styleExtremites = '->' // Donne l'extrémité du vecteur
+          const nomVecDepl = VecDepl.representantNomme(PtDepart, nomOR + nomEXT, 1, 'red') // Affiche le nom du vecteur déplacement
           objets.push(PositionPt, LabelsPt, Grille, VecDeplRep, nomVecDepl)
 
-          texteCorr = `$${NomSOL}$ est l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
+          texteCorr = `Le point $${NomSOL}$ est l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique de la solution
         }
           break
 
         case 't2': { // A partir d'un segment
-          const ux = randint(-9, 9, [0])
+          const PtDepartSeg = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
+          let xPtArrivSeg = PtDepartSeg.x + choice([-2, 0, 2])
+          let yPtArrivSeg = PtDepartSeg.y + choice([-2, 0, 2])
+          while (xPtArrivSeg < 0 || xPtArrivSeg > 10 || yPtArrivSeg < 0 || yPtArrivSeg > 4 || (xPtArrivSeg === PtDepartSeg.x && yPtArrivSeg === PtDepartSeg.y)) {
+            xPtArrivSeg = PtDepartSeg.x + choice([-2, 0, 2])
+            yPtArrivSeg = PtDepartSeg.y + choice([-2, 0, 2])
+          }
+          const Seg = segment(PtDepartSeg.x, PtDepartSeg.y, xPtArrivSeg, yPtArrivSeg, 'blue')
+          Seg.epaisseur = 2 // Variable qui grossit le tracé du segment
+          const nomPDSeg = PtDepartSeg.nom
+          const nomPASeg = NomPt[CoorPt.findIndex(couple => couple[0] === xPtArrivSeg && couple[1] === yPtArrivSeg)]
+          const PtArrivSeg = Pt[CoorPt.findIndex(couple => couple[0] === xPtArrivSeg && couple[1] === yPtArrivSeg)]
+          let OrigVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepartSeg, PtArrivSeg])
+          let ExtrVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepartSeg, PtArrivSeg, OrigVec])
+          let xSOLPDSeg = PtDepartSeg.x + ExtrVec.x - OrigVec.x
+          let ySOLPDSeg = PtDepartSeg.y + ExtrVec.y - OrigVec.y
+          let xSOLPASeg = PtArrivSeg.x + ExtrVec.x - OrigVec.x
+          let ySOLPASeg = PtArrivSeg.y + ExtrVec.y - OrigVec.y
+          while (xSOLPDSeg < 0 || xSOLPASeg < 0 || ySOLPDSeg < 0 || ySOLPASeg < 0 || xSOLPDSeg > 10 || xSOLPASeg > 10 || ySOLPDSeg > 4 || ySOLPASeg > 4) {
+            OrigVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepartSeg, PtArrivSeg])
+            ExtrVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepartSeg, PtArrivSeg, OrigVec])
+            xSOLPDSeg = PtDepartSeg.x + ExtrVec.x - OrigVec.x
+            ySOLPDSeg = PtDepartSeg.y + ExtrVec.y - OrigVec.y
+            xSOLPASeg = PtArrivSeg.x + ExtrVec.x - OrigVec.x
+            ySOLPASeg = PtArrivSeg.y + ExtrVec.y - OrigVec.y
+          }
+          const nomOR = OrigVec.nom
+          const nomEXT = ExtrVec.nom
+          const nomSOLPDSeg = NomPt[CoorPt.findIndex(couple => couple[0] === xSOLPDSeg && couple[1] === ySOLPDSeg)]
+          const nomSOLPASeg = NomPt[CoorPt.findIndex(couple => couple[0] === xSOLPASeg && couple[1] === ySOLPASeg)]
 
-          texte = 'Sans justifier, donner l\'image du segment [AB] par la translation de vecteur $\\overrightarrow{AB}$.'
+          objets.push(PositionPt, LabelsPt, Grille, Seg)
+          texte = `Sans justifier, donner l'image du segment $[${nomPDSeg}${nomPASeg}]$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
+          texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
-          texteCorr = `${ux}`
-          texteCorr += ''
+          const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
+          const VecDeplRep = VecDepl.representant(PtDepartSeg, 'red') // Trace le vecteur déplacement
+          VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
+          VecDepl.styleExtremites = '->' // Donne l'extrémité du vecteur
+          const nomVecDepl = VecDepl.representantNomme(PtDepartSeg, nomOR + nomEXT, 1, 'red') // Affiche le nom du vecteur déplacement
+          const SegSOL = segment(xSOLPDSeg, ySOLPDSeg, xSOLPASeg, ySOLPASeg, 'green')
+          SegSOL.epaisseur = 2 // Variable qui grossit le tracé du vecteur
+          objets.push(PositionPt, LabelsPt, Grille, VecDeplRep, nomVecDepl, SegSOL)
+
+          texteCorr = `Le segment $[${nomSOLPDSeg}${nomSOLPASeg}]$ est l'image du du segment $[${nomPDSeg}${nomPASeg}]$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
+          texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique de la solution
         }
           break
 
@@ -133,5 +173,5 @@ export default function ImagePtParTranslation () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Situations différentes ', '1 : À partir d\'une point\n 2 : À partir d\'une segment\n 3 : À partir d\'un triangle\n4 : Mélange']
+  this.besoinFormulaireTexte = ['Situations différentes ', ' 1 : À partir d\'une point\n 2 : À partir d\'une segment\n 3 : À partir d\'un triangle\n 4 : Mélange']
 }
