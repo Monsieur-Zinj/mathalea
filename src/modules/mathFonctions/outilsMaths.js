@@ -265,7 +265,7 @@ export function signesFonction (fonction, xMin, xMax, step = new FractionEtendue
  */
 export function variationsFonction (derivee, xMin, xMax, step) {
   if (derivee !== null && typeof derivee === 'function') {
-    const signesDerivee = signesFonction(derivee, xMin, xMax, step)
+    const signesDerivee = signesFonction(derivee, xMin, xMax, step ?? new FractionEtendue(1,100))
     const variations = []
     for (const signe of signesDerivee) {
       if (signe.signe === '+') {
