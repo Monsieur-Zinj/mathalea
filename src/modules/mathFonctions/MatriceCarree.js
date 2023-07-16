@@ -1,6 +1,7 @@
-import { matrix, parse } from 'mathjs'
+import { fraction, matrix, parse } from 'mathjs'
 import FractionEtendue from '../FractionEtendue.js'
 import { egal } from '../outils.js'
+import { rationnalise } from './outilsMaths.js'
 
 /**
  *  Classe MatriceCarree
@@ -29,7 +30,8 @@ export class MatriceCarree {
       for (const ligne of table){ // on copie table dans this.table, élément par élément mais en convertissant en FractionEtendue
         this.table.push([])
         for(const elt of ligne){
-          this.table[this.table.length-1].push(new FractionEtendue(elt))
+          const val = rationnalise(elt)
+          this.table[this.table.length-1].push(val)
         }
       }
     }
@@ -84,7 +86,7 @@ export class MatriceCarree {
           ligne = []
           for (let j = 0; j < n; j++) {
             M = this.matriceReduite(i, j)
-            ligne.push( M.determinant().multiplieEntier((-1) ** (i + j)))
+            ligne.push( M.determinant().multiplieEntier((-1) ** (i + j)).simplifie())
           }
           resultat.push(ligne)
         }
@@ -103,7 +105,7 @@ export class MatriceCarree {
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          ligne.push(this.table[j][i])
+          ligne.push(this.table[j][i].simplifie())
         }
         resultat.push(ligne)
       }
@@ -133,13 +135,14 @@ export class MatriceCarree {
      */
     this.multiplieParReel = function (k) { // retourne k * la matrice on essaye de convertir k en FractionEtendue
       const n = this.dim
-      k = new FractionEtendue(k)
+      k=fraction(k.toFixed(2))
+      k = new FractionEtendue(k.s*k.n,k.d)
       const resultat = []
       let ligne
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          ligne.push(k.produitFraction(this.table[i][j]))
+          ligne.push(k.produitFraction(this.table[i][j]).simplifie())
         }
         resultat.push(ligne)
       }
@@ -158,7 +161,8 @@ export class MatriceCarree {
         for (let i = 0; i < n; i++) {
           somme = new FractionEtendue(0)
           for (let j = 0; j < n; j++) {
-            somme = somme.sommeFraction(this.table[i][j].produitFraction(new FractionEtendue(V[j])))
+            V[j]=rationnalise(V[j])
+            somme = somme.sommeFraction(this.table[i][j].produitFraction(V[j])).simplifie()
           }
           resultat.push(somme)
         }
@@ -171,7 +175,7 @@ export class MatriceCarree {
     this.inverse = function () { // retourne la matrice inverse (si elle existe)
       const d = this.determinant()
       if (!egal(d, 0)) {
-        return this.cofacteurs().transposee().multiplieParFraction(d.inverse())
+        return this.cofacteurs().transposee().multiplieParFraction(d.inverse().simplifie())
       } else return false
     }
     /**

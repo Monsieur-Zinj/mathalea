@@ -494,3 +494,9 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, { late
     latex: latex ?? false
   })
 }
+
+export function rationnalise(x){
+  if (x instanceof FractionEtendue) return x
+  const f = fraction(x.toFixed(2))
+  return new FractionEtendue(f.s*f.n,f.d)
+}

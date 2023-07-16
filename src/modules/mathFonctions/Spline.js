@@ -1,4 +1,4 @@
-import { abs, round, polynomialRoot, acos } from 'mathjs'
+import { abs, round, polynomialRoot, acos} from 'mathjs'
 
 
 import { Courbe, point, Segment, tracePoint } from '../2d.js'
@@ -6,7 +6,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
 import FractionEtendue from '../FractionEtendue.js'
 import { choice, egal } from '../outils.js'
 import { MatriceCarree } from './MatriceCarree.js'
-import { signesFonction, variationsFonction } from './outilsMaths.js'
+import { rationnalise, signesFonction, variationsFonction } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 
 /**
@@ -213,7 +213,8 @@ export class Spline {
   }
 
   /**
-   * retourne les min et max pour un repère contenant la courbe
+   * retourne les min et max pour un repère contenant la courbe si ceux-ci sont sur des noeuds (c'est vivement consseillé)
+   * Ne fonctionne pas si yMax ou yMin sont atteints entre deux noeuds
    * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
    */
   trouveMaxes () {
@@ -339,7 +340,7 @@ export class Spline {
    * @returns {function(*): number|*}
    */
   get fonction () {
-    return x => this.image(x)
+    return x => this.image(rationnalise(x))
   }
 
   /**
@@ -365,7 +366,7 @@ export class Spline {
       })
       return NaN
     } else {
-      return this.fonctions[k](x)
+      return this.fonctions[k](rationnalise(x))
     }
   }
 
@@ -392,7 +393,7 @@ export class Spline {
     }
     return (x) => {
       const index = intervalles.findIndex((intervalle) => x >= intervalle.xG && x <= intervalle.xD)
-      return this.derivees[index].image(x)
+      return this.derivees[index].image(rationnalise(x))
     }
   }
 

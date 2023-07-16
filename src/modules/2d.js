@@ -7,6 +7,7 @@ import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
 import { context } from './context.js'
 import FractionEtendue from './FractionEtendue.js'
+import { rationnalise } from './mathFonctions/outilsMaths.js'
 import { degCos, degSin, radians } from './mathFonctions/trigo.js'
 import {
   arrondi,
@@ -3466,7 +3467,7 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color =
  * @param {objet} C
  * @return {polygoneAvecNom}
  */
-export function parallelogramme3points (NOM, A, B, C, color = 'black') {
+export function parallelogramme3points (NOM, A, B, C) {
   const D = translation(A, vecteur(B, C), NOM[3])
   A.nom = NOM[0]
   B.nom = NOM[1]
@@ -3484,7 +3485,7 @@ export function parallelogramme3points (NOM, A, B, C, color = 'black') {
  * @param {number} h
  * @return {polygoneAvecNom}
  */
-export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
+export function parallelogramme2points1hauteur (NOM, A, B, h) {
   if (typeof B === 'number') {
     B = pointAdistance(A, B, randint(-180, 180))
   }
@@ -9103,7 +9104,7 @@ export function DiagrammeBarres (hauteursBarres, etiquettes, {
     }
     return code
   }
-  this.tikz = function (coeff) {
+  this.tikz = function () {
     let code = ''
     for (const objet of diagramme) {
       code += '\n\t' + objet.tikz()
@@ -9578,9 +9579,9 @@ export function Courbe (f, {
   }
   for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
-    if (isFinite(f(x))) {
+    if (isFinite(f(rationnalise(x)))) {
       if (f(x) < yMax + 1 && f(x) > yMin - 1) {
-        points.push(point(x * xunite, f(x) * yunite))
+        points.push(point(x * xunite, f(rationnalise(x)) * yunite))
       } else {
         p = polyline([...points], this.color)
         p.epaisseur = epaisseur
