@@ -153,6 +153,7 @@ export default function ImagePtParTranslation () {
           const Pt1Triangle = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
           let xPt2Triangle = Pt1Triangle.x + choice([-2, 0, 2])
           let yPt2Triangle = Pt1Triangle.y + choice([-2, 0, 2])
+          let xPt3Triangle, yPt3Triangle
           while (xPt2Triangle < 0 || xPt2Triangle > 10 || yPt2Triangle < 0 || yPt2Triangle > 4 || (xPt2Triangle === Pt1Triangle.x && yPt2Triangle === Pt1Triangle.y)) {
             xPt2Triangle = Pt1Triangle.x + choice([-2, 0, 2])
             yPt2Triangle = Pt1Triangle.y + choice([-2, 0, 2])
@@ -165,7 +166,7 @@ export default function ImagePtParTranslation () {
             yPt3Triangle = yPt2Triangle + choice([-2, 2])
             xPt3Triangle = xPt2Triangle
           }
-          if (xPt2Triangle != Pt1Triangle.x && yPt2Triangle != Pt1Triangle.y) {
+          if (xPt2Triangle !== Pt1Triangle.x && yPt2Triangle !== Pt1Triangle.y) {
             xPt3Triangle = choice([Pt1Triangle.x, xPt2Triangle])
             if (xPt3Triangle === Pt1Triangle.x) {
               yPt3Triangle = yPt2Triangle
@@ -182,7 +183,7 @@ export default function ImagePtParTranslation () {
               yPt3Triangle = yPt2Triangle + choice([-2, 2])
               xPt3Triangle = xPt2Triangle
             }
-            if (xPt2Triangle != Pt1Triangle.x && yPt2Triangle != Pt1Triangle.y) {
+            if (xPt2Triangle !== Pt1Triangle.x && yPt2Triangle !== Pt1Triangle.y) {
               xPt3Triangle = choice([Pt1Triangle.x, xPt2Triangle])
               if (xPt3Triangle === Pt1Triangle.x) {
                 yPt3Triangle = yPt2Triangle
@@ -199,7 +200,7 @@ export default function ImagePtParTranslation () {
           Seg3.epaisseur = 2 // Variable qui grossit le tracé du segment
 
           objets.push(PositionPt, LabelsPt, Grille, Seg1, Seg2, Seg3)
-          texte = `Sans justifier, donner l'image du triangle $${}${}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
+          texte = 'Sans justifier, donner l\'image du triangle  par la translation de vecteur.'
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
           texteCorr = ''
