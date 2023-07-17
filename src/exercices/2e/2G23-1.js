@@ -4,7 +4,6 @@
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
-  randint,
   gestionnaireFormulaireTexte,
   choice
 } from '../../modules/outils.js'
@@ -151,11 +150,59 @@ export default function ImagePtParTranslation () {
           break
 
         case 't3': { // A partir d'un triangle
-          const ux = randint(-9, 9, [0])
+          const Pt1Triangle = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
+          let xPt2Triangle = Pt1Triangle.x + choice([-2, 0, 2])
+          let yPt2Triangle = Pt1Triangle.y + choice([-2, 0, 2])
+          while (xPt2Triangle < 0 || xPt2Triangle > 10 || yPt2Triangle < 0 || yPt2Triangle > 4 || (xPt2Triangle === Pt1Triangle.x && yPt2Triangle === Pt1Triangle.y)) {
+            xPt2Triangle = Pt1Triangle.x + choice([-2, 0, 2])
+            yPt2Triangle = Pt1Triangle.y + choice([-2, 0, 2])
+          }
+          if (xPt2Triangle === Pt1Triangle.x) {
+            xPt3Triangle = xPt2Triangle + choice([-2, 2])
+            yPt3Triangle = yPt2Triangle
+          }
+          if (yPt2Triangle === Pt1Triangle.y) {
+            yPt3Triangle = yPt2Triangle + choice([-2, 2])
+            xPt3Triangle = xPt2Triangle
+          }
+          if (xPt2Triangle != Pt1Triangle.x && yPt2Triangle != Pt1Triangle.y) {
+            xPt3Triangle = choice([Pt1Triangle.x, xPt2Triangle])
+            if (xPt3Triangle === Pt1Triangle.x) {
+              yPt3Triangle = yPt2Triangle
+            } else {
+              yPt3Triangle = Pt1Triangle.y
+            }
+          }
+          while (xPt3Triangle < 0 || xPt3Triangle > 10 || yPt3Triangle < 0 || yPt3Triangle > 4) {
+            if (xPt2Triangle === Pt1Triangle.x) {
+              xPt3Triangle = xPt2Triangle + choice([-2, 2])
+              yPt3Triangle = yPt2Triangle
+            }
+            if (yPt2Triangle === Pt1Triangle.y) {
+              yPt3Triangle = yPt2Triangle + choice([-2, 2])
+              xPt3Triangle = xPt2Triangle
+            }
+            if (xPt2Triangle != Pt1Triangle.x && yPt2Triangle != Pt1Triangle.y) {
+              xPt3Triangle = choice([Pt1Triangle.x, xPt2Triangle])
+              if (xPt3Triangle === Pt1Triangle.x) {
+                yPt3Triangle = yPt2Triangle
+              } else {
+                yPt3Triangle = Pt1Triangle.y
+              }
+            }
+          }
+          const Seg1 = segment(Pt1Triangle.x, Pt1Triangle.y, xPt2Triangle, yPt2Triangle, 'blue')
+          Seg1.epaisseur = 2 // Variable qui grossit le tracé du segment
+          const Seg2 = segment(Pt1Triangle.x, Pt1Triangle.y, xPt3Triangle, yPt3Triangle, 'blue')
+          Seg2.epaisseur = 2 // Variable qui grossit le tracé du segment
+          const Seg3 = segment(xPt2Triangle, yPt2Triangle, xPt3Triangle, yPt3Triangle, 'blue')
+          Seg3.epaisseur = 2 // Variable qui grossit le tracé du segment
 
-          texte = 'Sans justifier, donner l\'image du triangle ABC par la translation de vecteur $\\overrightarrow{AB}$.'
+          objets.push(PositionPt, LabelsPt, Grille, Seg1, Seg2, Seg3)
+          texte = `Sans justifier, donner l'image du triangle $${}${}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
+          texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
-          texteCorr = `${ux}`
+          texteCorr = ''
           texteCorr += ''
         }
           break
