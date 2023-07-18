@@ -1,6 +1,7 @@
+import { arrondi } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, numAlpha, choice, entreDeux, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, numAlpha, choice, entreDeux, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { arc, codageSegment, droite, droiteParPointEtPente, homothetie, longueur, milieu, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'

@@ -1,11 +1,12 @@
 import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere, lectureAntecedent, texteParPosition, droiteParPointEtPente, point } from '../../modules/2d.js'
-import { choice, numAlpha, listeQuestionsToContenu, randint, arrondi } from '../../modules/outils.js'
+import { choice, numAlpha, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Résoudre graphiquement une équation du type f(x)=k.'
 export const interactifReady = true

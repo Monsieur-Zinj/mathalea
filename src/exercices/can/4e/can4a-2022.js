@@ -1,5 +1,6 @@
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { arrondi } from '../../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -9,7 +10,7 @@ import {
   point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, arrondi, randint, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

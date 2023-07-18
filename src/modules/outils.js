@@ -3,6 +3,7 @@ import Algebrite from 'algebrite'
 import Decimal from 'decimal.js'
 import { evaluate, isArray, isInteger, round } from 'mathjs'
 import { texMulticols } from '../lib/format/miseEnPage.js'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../lib/outils/nombres.js'
 import { factorisation } from '../lib/outils/primalite.js'
 import { texNombre } from '../lib/outils/texNombre.js'
 import { context } from './context.js'
@@ -839,22 +840,6 @@ export function unSiPositifMoinsUnSinon (a) {
 }
 
 /**
- * Retourne l'arrondi (par défaut au centième près)
- * @author Rémi Angot
- * @param {number} nombre
- * @param {number} precision
- * @return {number}
- */
-export function arrondi (nombre, precision = 2) {
-  if (isNaN(nombre)) {
-    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
-    return NaN
-  } else {
-    return round(nombre, precision)
-  }
-}
-
-/**
  * Retourne la troncature signée de nombre.
  * @author Jean-Claude Lhote
  */
@@ -1457,22 +1442,6 @@ export function premiereLettreEnMajuscule (text) {
 }
 
 /**
- * Renvoie le nombre de chiffres de la partie décimale
- * @param nb : nombre décimal
- * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
- * @author Rémi Angot
- */
-export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
-  let sauf = 0
-  if (String(nb).indexOf('.') > 0) {
-    if (!isNaN(except)) sauf = (String(nb).split('.')[1].split(String(except)).length - 1)
-    return String(nb).split('.')[1].length - sauf
-  } else {
-    return 0
-  }
-}
-
-/**
  * Renvoie le nombre de chiffres dans la partie entière
  * @author ?
  */
@@ -1492,17 +1461,6 @@ export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
     return String(nombre).length
   }
 }
-
-/**
- * Renvoie le nombre de chiffres d'un nombre décimal
- * @param nb : nombre décimal
- * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
- * @author Jean-Claude Lhote
- */
-export function nombreDeChiffresDe (nb, except) {
-  return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
-}
-
 
 /**
  * Utilise printlatex et quote de Algebrite
@@ -1596,6 +1554,3 @@ export function numAlphaNum (k, nospace = false) {
   if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + k + ')' + (nospace ? '' : '&nbsp;') + '</span>'
   else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
 }
-
-
-

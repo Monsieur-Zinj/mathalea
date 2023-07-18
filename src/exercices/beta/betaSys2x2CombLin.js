@@ -5,8 +5,9 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures.js'
+import { abs } from '../../lib/outils/nombres.js'
 import { matriceCarree } from '../../modules/MatriceCarree.js'
-import { listeQuestionsToContenu, randint, abs, ppcm } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
 
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'

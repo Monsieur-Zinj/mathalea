@@ -1,6 +1,7 @@
+import { abs } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, abs, miseEnEvidence, randint, calcul, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, calcul, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Utiliser la fonction carré pour comparer deux images'
 export const interactifReady = true

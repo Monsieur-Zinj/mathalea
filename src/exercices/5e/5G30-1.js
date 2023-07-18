@@ -1,8 +1,9 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, arrondi, miseEnEvidence, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, miseEnEvidence, numAlpha } from '../../modules/outils.js'
 import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, rotation, similitude, codageAngle, longueur, angle } from '../../modules/2d.js'
 
 export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'

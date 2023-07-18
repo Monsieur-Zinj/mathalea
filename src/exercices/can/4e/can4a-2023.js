@@ -1,4 +1,5 @@
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { arrondi } from '../../../lib/outils/nombres.js'
 import { prenomF } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
@@ -12,7 +13,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, printlatex, randint, shuffle, choice, sp, arrondi, texteEnCouleur, texteEnCouleurEtGras } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, printlatex, randint, shuffle, choice, sp, texteEnCouleur, texteEnCouleurEtGras } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import Hms from '../../../modules/Hms.js'

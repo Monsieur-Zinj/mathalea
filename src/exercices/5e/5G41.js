@@ -1,9 +1,10 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { texteGras } from '../../lib/format/style.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { choice, listeQuestionsToContenu, randint, arrondi, calcul, lettreDepuisChiffre, miseEnEvidence } from '../../modules/outils.js'
+import { choice, listeQuestionsToContenu, randint, calcul, lettreDepuisChiffre, miseEnEvidence } from '../../modules/outils.js'
 import { cercle, demiDroite, droite, cercleCentrePoint, pointIntersectionDD, codageSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
 export const titre = 'Construire des quadrilatères particuliers'

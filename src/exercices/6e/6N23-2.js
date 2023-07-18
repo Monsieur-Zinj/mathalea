@@ -1,5 +1,10 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import {
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDansLaPartieEntiere,
+  nombreDeChiffresDe
+} from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -9,9 +14,6 @@ import {
   shuffle,
   calcul,
   numAlpha,
-  nombreDeChiffresDansLaPartieEntiere,
-  nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDe,
   listeQuestionsToContenu,
   sp
 } from '../../modules/outils.js'

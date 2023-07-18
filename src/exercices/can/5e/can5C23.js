@@ -1,5 +1,6 @@
+import { arrondi } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { randint, texteEnCouleur, arrondi, choice } from '../../../modules/outils.js'
+import { randint, texteEnCouleur, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier par 1,5 ou 2,5 ou ...'
 export const interactifReady = true

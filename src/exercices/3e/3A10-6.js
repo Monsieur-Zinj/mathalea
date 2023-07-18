@@ -1,4 +1,5 @@
 import { texteGras } from '../../lib/format/style.js'
+import { sommeDesChiffres } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
@@ -6,7 +7,6 @@ import {
   sp,
   texteEnCouleur,
   texteEnCouleurEtGras,
-  sommeDesChiffres,
   numAlpha,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

@@ -1,4 +1,5 @@
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
+import { arrondi } from '../../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -6,7 +7,7 @@ import { fraction } from '../../../modules/fractions.js'
 import {
   point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
 } from '../../../modules/2d.js'
-import { listeQuestionsToContenu, randint, shuffle, printlatex, miseEnEvidence, choice, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, printlatex, miseEnEvidence, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { round, min } from 'mathjs'

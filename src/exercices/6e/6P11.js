@@ -1,10 +1,16 @@
 import { texteExposant } from '../../lib/outils/ecritures.js'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDansLaPartieEntiere,
+  nombreDeChiffresDe
+} from '../../lib/outils/nombres.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texteEnCouleur, texteEnCouleurEtGras, numAlpha, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texteEnCouleur, texteEnCouleurEtGras, numAlpha, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 

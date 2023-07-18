@@ -1,6 +1,7 @@
+import { arrondi } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { fraction } from '../../../modules/fractions.js'
-import { choice, randint, arrondi } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Écrire la valeur décimale d\'une fraction'
 export const interactifReady = true

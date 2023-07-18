@@ -1,4 +1,5 @@
 import { warnMessage } from '../../lib/format/message.js'
+import { nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { personne } from '../../lib/outils/Personne.js'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
@@ -8,7 +9,6 @@ import {
   listeQuestionsToContenu,
   randint,
   texteEnCouleurEtGras,
-  nombreDeChiffresDe,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

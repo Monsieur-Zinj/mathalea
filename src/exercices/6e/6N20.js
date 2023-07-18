@@ -1,11 +1,11 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
   enleveElement,
   choice,
-  nombreDeChiffresDansLaPartieEntiere,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

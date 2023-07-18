@@ -4,10 +4,10 @@ import { context } from '../../modules/context.js'
 import {
   extraireRacineCarree,
   miseEnEvidence,
-  nombreDeChiffresDansLaPartieDecimale,
   sp,
   tropDeChiffres
 } from '../../modules/outils.js'
+import { nombreDeChiffresDansLaPartieDecimale } from './nombres.js'
 const math = { format, evaluate }
 /**
  *

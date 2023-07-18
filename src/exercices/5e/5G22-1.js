@@ -1,7 +1,8 @@
+import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, segment, mediatrice, pointAdistance, pointIntersectionLC, cercle, longueur, afficheLongueurSegment, pointIntersectionDD, droite, codageAngleDroit, codageMilieu } from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés de la médiatrice'
 

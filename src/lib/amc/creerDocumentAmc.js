@@ -1,13 +1,15 @@
 import { elimineDoublons } from '../../lib/interactif/qcm.js'
 import {
-  arrondi,
   lettreDepuisChiffre,
-  nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDansLaPartieEntiere,
-  nombreDeChiffresDe,
   randint
 } from '../../modules/outils.js'
 import { format as formatLatex } from '../Latex'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDansLaPartieEntiere,
+  nombreDeChiffresDe
+} from '../outils/nombres.js'
 import { decimalToScientifique } from '../outils/texNombre.js'
 
 /**

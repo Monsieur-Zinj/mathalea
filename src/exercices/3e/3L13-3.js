@@ -1,4 +1,5 @@
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
@@ -14,11 +15,9 @@ import {
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  arrondi,
   choice,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  nombreDeChiffresDe,
   sp
 } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'

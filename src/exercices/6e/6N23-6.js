@@ -1,4 +1,9 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDansLaPartieEntiere
+} from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -9,9 +14,6 @@ import {
   choice,
   combinaisonListes,
   calcul,
-  arrondi,
-  nombreDeChiffresDansLaPartieEntiere,
-  nombreDeChiffresDansLaPartieDecimale,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

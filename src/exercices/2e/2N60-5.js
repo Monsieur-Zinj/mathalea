@@ -4,9 +4,10 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../lib/outils/ecritures.js'
+import { abs, signe } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, randint, choice, combinaisonListes, abs, signe
+  listeQuestionsToContenu, randint, choice, combinaisonListes
 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
