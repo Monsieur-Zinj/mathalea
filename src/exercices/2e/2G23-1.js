@@ -26,6 +26,20 @@ export const dateDePublication = '13/07/2023'
  */
 export const uuid = 'd2b57'
 export const ref = '2G23-1'
+// Une fonction pour créer la liste des noms possibles pour un triangle
+function allTrianglesNames (nomA, nomB, nomC) {
+  const nomsSommets = [nomA, nomB, nomC]
+  const noms = []
+  do {
+    const premierSommet = nomsSommets[0]
+    const deuxiemmeSommet = nomsSommets[1]
+    const troisiemeSommet = nomsSommets[2]
+    noms.push(premierSommet + deuxiemmeSommet + troisiemeSommet, premierSommet + troisiemeSommet + deuxiemmeSommet)
+    nomsSommets.shift()
+    nomsSommets.push(premierSommet)
+  } while (noms.length < 6)
+  return noms
+}
 export default function ImagePtParTranslation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -37,7 +51,7 @@ export default function ImagePtParTranslation () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, melange: 4, nbQuestions: this.nbQuestions, listeOfCase: ['t1', 't2', 't3'] })
-    for (let i = 0, xB, yB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, ExtrVec, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objets = []
       const A = point(0, 4, 'A', 'above right')
       const B = point(2, 4, 'B', 'above right')
@@ -87,7 +101,7 @@ export default function ImagePtParTranslation () {
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: `<br><br>L'image du point $${nomPD}$ est :` })
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: `<br><br>L'image du point $${nomPD}$ est :` })
           }
 
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
@@ -139,6 +153,10 @@ export default function ImagePtParTranslation () {
           texte = `Sans justifier, donner l'image du segment $[${nomPDSeg}${nomPASeg}]$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: `<br><br>L'image du segment $[${nomPDSeg}${nomPASeg}]$ est :` })
+          }
+
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
           const VecDeplRep = VecDepl.representant(PtDepartSeg, 'red') // Trace le vecteur déplacement
           VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
@@ -150,6 +168,8 @@ export default function ImagePtParTranslation () {
 
           texteCorr = `Le segment $[${nomSOLPDSeg}${nomSOLPASeg}]$ est l'image du du segment $[${nomPDSeg}${nomPASeg}]$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique de la solution
+          const tousNomsSegments = [nomSOLPDSeg + nomSOLPASeg, nomSOLPASeg + nomSOLPDSeg]
+          setReponse(this, i, tousNomsSegments, { formatInteractif: 'texte' })
         }
           break
 
@@ -235,6 +255,10 @@ export default function ImagePtParTranslation () {
           texte = `Sans justifier, donner l'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: `<br><br>L'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ est :` })
+          }
+
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
           const VecDeplRep = VecDepl.representant(Pt1Triangle, 'red') // Trace le vecteur déplacement
           VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
@@ -250,12 +274,11 @@ export default function ImagePtParTranslation () {
 
           texteCorr = `Le triangle $${nomSOLPA1Tri}${nomSOLPA2Tri}${nomSOLPA3Tri}$ est l'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique de la solution
+          setReponse(this, i, allTrianglesNames(nomSOLPA1Tri, nomSOLPA2Tri, nomSOLPA3Tri), { formatInteractif: 'texte' })
         }
           break
       }
-      // texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée $y$ de $B$ :' })
-      // setReponse(this, 2 * i + 1, yB, { formatInteractif: 'fractionEgale' })
-      if (this.questionJamaisPosee(i, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, ExtrVec)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
