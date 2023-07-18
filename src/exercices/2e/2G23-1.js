@@ -198,9 +198,12 @@ export default function ImagePtParTranslation () {
           Seg2.epaisseur = 2 // Variable qui grossit le tracé du segment
           const Seg3 = segment(xPt2Triangle, yPt2Triangle, xPt3Triangle, yPt3Triangle, 'blue')
           Seg3.epaisseur = 2 // Variable qui grossit le tracé du segment
+          const nomPD1Tri = Pt1Triangle.nom
+          const nomPD2Tri = NomPt[CoorPt.findIndex(couple => couple[0] === xPt2Triangle && couple[1] === yPt2Triangle)]
+          const nomPD3Tri = NomPt[CoorPt.findIndex(couple => couple[0] === xPt3Triangle && couple[1] === yPt3Triangle)]
 
           objets.push(PositionPt, LabelsPt, Grille, Seg1, Seg2, Seg3)
-          texte = 'Sans justifier, donner l\'image du triangle  par la translation de vecteur.'
+          texte = `Sans justifier, donner l'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ par la translation de vecteur.`
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
           texteCorr = ''
