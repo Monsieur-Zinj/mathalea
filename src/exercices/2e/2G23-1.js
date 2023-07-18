@@ -1,6 +1,5 @@
-// import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
-// import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-// import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
@@ -16,8 +15,8 @@ import {
   segment,
   grille
 } from '../../modules/2d.js'
-// export const interactifReady = true
-// export const interactifType = 'mathLive'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Déterminer graphiquement les images de points par des translations'
 export const dateDePublication = '13/07/2023'
 
@@ -87,6 +86,10 @@ export default function ImagePtParTranslation () {
           texte = `Sans justifier, donner l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: `<br><br>L'image du point $${nomPD}$ est :` })
+          }
+
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
           const VecDeplRep = VecDepl.representant(PtDepart, 'red') // Trace le vecteur déplacement
           VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
@@ -96,6 +99,7 @@ export default function ImagePtParTranslation () {
 
           texteCorr = `Le point $${NomSOL}$ est l'image du point $${nomPD}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique de la solution
+          setReponse(this, i, NomSOL, { formatInteractif: 'texte' })
         }
           break
 
@@ -249,9 +253,7 @@ export default function ImagePtParTranslation () {
         }
           break
       }
-      // texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse $x$ de $B$ :' })
       // texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée $y$ de $B$ :' })
-      // setReponse(this, 2 * i, xB, { formatInteractif: 'fractionEgale' })
       // setReponse(this, 2 * i + 1, yB, { formatInteractif: 'fractionEgale' })
       if (this.questionJamaisPosee(i, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
