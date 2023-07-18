@@ -203,17 +203,49 @@ export default function ImagePtParTranslation () {
           const Pt2Triangle = Pt[CoorPt.findIndex(couple => couple[0] === xPt2Triangle && couple[1] === yPt2Triangle)]
           const nomPD3Tri = NomPt[CoorPt.findIndex(couple => couple[0] === xPt3Triangle && couple[1] === yPt3Triangle)]
           const Pt3Triangle = Pt[CoorPt.findIndex(couple => couple[0] === xPt3Triangle && couple[1] === yPt3Triangle)]
-          const OrigVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [Pt1Triangle, Pt2Triangle, Pt3Triangle])
-          const ExtrVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [Pt1Triangle, Pt2Triangle, Pt3Triangle, OrigVec])
+          let OrigVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [Pt1Triangle, Pt2Triangle, Pt3Triangle])
+          let ExtrVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [Pt1Triangle, Pt2Triangle, Pt3Triangle, OrigVec])
+          let xSOLPA1Tri = Pt1Triangle.x + ExtrVec.x - OrigVec.x
+          let ySOLPA1Tri = Pt1Triangle.y + ExtrVec.y - OrigVec.y
+          let xSOLPA2Tri = xPt2Triangle + ExtrVec.x - OrigVec.x
+          let ySOLPA2Tri = yPt2Triangle + ExtrVec.y - OrigVec.y
+          let xSOLPA3Tri = xPt3Triangle + ExtrVec.x - OrigVec.x
+          let ySOLPA3Tri = yPt3Triangle + ExtrVec.y - OrigVec.y
+          while (xSOLPA1Tri < 0 || xSOLPA2Tri < 0 || xSOLPA3Tri < 0 || ySOLPA1Tri < 0 || ySOLPA2Tri < 0 || ySOLPA3Tri < 0 || xSOLPA1Tri > 10 || xSOLPA2Tri > 10 || xSOLPA3Tri > 10 || ySOLPA1Tri > 4 || ySOLPA2Tri > 4 || ySOLPA3Tri > 4) {
+            OrigVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [Pt1Triangle, Pt2Triangle, Pt3Triangle])
+            ExtrVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [Pt1Triangle, Pt2Triangle, Pt3Triangle, OrigVec])
+            xSOLPA1Tri = Pt1Triangle.x + ExtrVec.x - OrigVec.x
+            ySOLPA1Tri = Pt1Triangle.y + ExtrVec.y - OrigVec.y
+            xSOLPA2Tri = xPt2Triangle + ExtrVec.x - OrigVec.x
+            ySOLPA2Tri = yPt2Triangle + ExtrVec.y - OrigVec.y
+            xSOLPA3Tri = xPt3Triangle + ExtrVec.x - OrigVec.x
+            ySOLPA3Tri = yPt3Triangle + ExtrVec.y - OrigVec.y
+          }
           const nomOR = OrigVec.nom
           const nomEXT = ExtrVec.nom
+          const nomSOLPA1Tri = NomPt[CoorPt.findIndex(couple => couple[0] === xSOLPA1Tri && couple[1] === ySOLPA1Tri)]
+          const nomSOLPA2Tri = NomPt[CoorPt.findIndex(couple => couple[0] === xSOLPA2Tri && couple[1] === ySOLPA2Tri)]
+          const nomSOLPA3Tri = NomPt[CoorPt.findIndex(couple => couple[0] === xSOLPA3Tri && couple[1] === ySOLPA3Tri)]
 
           objets.push(PositionPt, LabelsPt, Grille, Seg1, Seg2, Seg3)
           texte = `Sans justifier, donner l'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
           texte += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique
 
-          texteCorr = ''
-          texteCorr += ''
+          const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
+          const VecDeplRep = VecDepl.representant(Pt1Triangle, 'red') // Trace le vecteur déplacement
+          VecDepl.epaisseur = 2 // Variable qui grossit le tracé du vecteur
+          VecDepl.styleExtremites = '->' // Donne l'extrémité du vecteur
+          const nomVecDepl = VecDepl.representantNomme(Pt1Triangle, nomOR + nomEXT, 1, 'red') // Affiche le nom du vecteur déplacement
+          const SegSOL1 = segment(xSOLPA1Tri, ySOLPA1Tri, xSOLPA2Tri, ySOLPA2Tri, 'green')
+          SegSOL1.epaisseur = 2 // Variable qui grossit le tracé du segment
+          const SegSOL2 = segment(xSOLPA1Tri, ySOLPA1Tri, xSOLPA3Tri, ySOLPA3Tri, 'green')
+          SegSOL2.epaisseur = 2 // Variable qui grossit le tracé du segment
+          const SegSOL3 = segment(xSOLPA2Tri, ySOLPA2Tri, xSOLPA3Tri, ySOLPA3Tri, 'green')
+          SegSOL3.epaisseur = 2 // Variable qui grossit le tracé du segment
+          objets.push(PositionPt, LabelsPt, Grille, VecDeplRep, nomVecDepl, SegSOL1, SegSOL2, SegSOL3)
+
+          texteCorr = `Le triangle $${nomSOLPA1Tri}${nomSOLPA2Tri}${nomSOLPA3Tri}$ est l'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
+          texteCorr += mathalea2d(Object.assign({ zoom: 1.75 }, fixeBordures(objets)), objets) // On trace le graphique de la solution
         }
           break
       }
