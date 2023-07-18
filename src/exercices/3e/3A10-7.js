@@ -1,6 +1,7 @@
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, choice } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
 export const dateDePublication = '12/10/2022'
 export const titre = 'Explorer un labyrinthe de nombres premiers'

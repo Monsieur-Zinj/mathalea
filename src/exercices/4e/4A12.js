@@ -1,3 +1,4 @@
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { warnMessage } from '../../lib/format/message.js'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { personne } from '../../lib/outils/Personne.js'
@@ -8,7 +9,6 @@ import {
   combinaisonListes,
   listeQuestionsToContenu,
   randint,
-  texteEnCouleurEtGras,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

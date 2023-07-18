@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
 import { max } from 'mathjs'
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires.js'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
@@ -16,8 +17,7 @@ import {
   range,
   rangeMinMax,
   shuffle,
-  sp,
-  texteEnCouleurEtGras
+  sp
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

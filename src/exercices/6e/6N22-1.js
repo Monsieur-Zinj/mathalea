@@ -1,7 +1,8 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
@@ -134,7 +135,7 @@ export default function RapportsSurUnSegment () {
           enonce: `
           Exprimer les rapports suivants $${situations[k].rapport}$ et $${situations[k].rapport_inverse}$.
           <br>
-          ${situations[k].fig}     
+          ${situations[k].fig}
 `,
           question: '',
           correction: `
@@ -144,7 +145,7 @@ export default function RapportsSurUnSegment () {
           ${situations[k].fig_corr2}<br>
           Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${singPlur(situations[k].n, 'espace', 'espaces')}.<br><br>
           $\\textbf{Donc}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr2}}{${situations[k].longueur_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}}$
-          $\\textbf{et}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}}$<br><br>      
+          $\\textbf{et}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}}$<br><br>
           ${Remarque(situations[k].rapport, situations[k].rapport_inverse, situations[k].n, situations[k].m)}
 `
         })

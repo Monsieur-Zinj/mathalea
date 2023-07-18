@@ -1,5 +1,6 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { texteExposant } from '../../../lib/outils/ecritures.js'
-import { shuffle, randint, calcul, texteEnCouleur } from '../../../modules/outils.js'
+import { shuffle, randint, calcul } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un volume de pyramide'
 export const interactifReady = true

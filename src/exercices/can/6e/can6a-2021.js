@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
@@ -7,7 +8,7 @@ import {
   point, droiteGraduee, segment, milieu, texteParPosition, codageSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, miseEnEvidence, randint, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

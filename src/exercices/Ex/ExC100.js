@@ -1,6 +1,7 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { abs } from '../../lib/outils/nombres.js'
-import { listeQuestionsToContenu, randint, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'
 import { complex, multiply } from 'mathjs'

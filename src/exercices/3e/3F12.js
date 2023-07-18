@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -6,7 +7,6 @@ import {
   randint,
   combinaisonListesSansChangerOrdre,
   texEnumerate,
-  miseEnEvidence,
   itemize,
   numAlpha
 } from '../../modules/outils.js'

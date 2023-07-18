@@ -1,3 +1,4 @@
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -6,7 +7,7 @@ import {
   listeQuestionsToContenu,
   randint,
   combinaisonListes,
-  choice, texteEnCouleurEtGras, contraindreValeur, miseEnEvidence
+  choice, contraindreValeur
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

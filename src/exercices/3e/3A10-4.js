@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite.js'
@@ -7,7 +8,6 @@ import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  miseEnEvidence,
   numAlpha
 } from '../../modules/outils.js'
 

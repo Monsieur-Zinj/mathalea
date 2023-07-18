@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { warnMessage } from '../../lib/format/message.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
@@ -13,8 +14,7 @@ import {
   combinaisonListesSansChangerOrdre,
   listeQuestionsToContenu,
   randint,
-  shuffle,
-  texteEnCouleurEtGras
+  shuffle
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

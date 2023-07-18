@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import {
@@ -15,7 +16,6 @@ import {
   listeQuestionsToContenu,
   numAlpha,
   randint,
-  miseEnEvidence,
   gestionnaireFormulaireTexte, shuffle2tableaux, choice
 } from '../../modules/outils.js'
 export const dateDePublication = '25/05/2023'

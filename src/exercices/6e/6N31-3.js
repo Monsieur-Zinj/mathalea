@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { troncature } from '../../lib/outils/nombres.js'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
@@ -5,7 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import { degCos } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { shuffle2tableaux, choice, listeQuestionsToContenu, randint, calcul, miseEnEvidence, combinaisonListes, sp } from '../../modules/outils.js'
+import { shuffle2tableaux, choice, listeQuestionsToContenu, randint, calcul, combinaisonListes, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true

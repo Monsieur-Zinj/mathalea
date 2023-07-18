@@ -1,4 +1,5 @@
-import { calcul, choice, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { calcul, choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de robinets'
 export const interactifReady = true
@@ -31,10 +32,10 @@ export default function ProblemesDeRobinets () {
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On commence par déterminer le temps en seconde (puisque dans la question,
        il est demandé un temps en seconde) qu'il faut pour remplir $1$ L.<br>
-    Comme le débit est de  $${b}$ L 
-    pour une minute soit $60$ secondes, on divise $60$ par $${b}$ pour obtenir 
+    Comme le débit est de  $${b}$ L
+    pour une minute soit $60$ secondes, on divise $60$ par $${b}$ pour obtenir
     ce temps :  $\\dfrac{60}{${b}}=${a}$ s.<br>
-    Puisqu'il faut $${a}$ s pour remplir un litre, il en faut $${c}$ fois plus pour remplir un seau de 
+    Puisqu'il faut $${a}$ s pour remplir un litre, il en faut $${c}$ fois plus pour remplir un seau de
     $${c}$ L, soit $${a}\\times ${c}=${a * c}$ s.`)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

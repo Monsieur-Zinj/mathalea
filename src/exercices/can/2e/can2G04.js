@@ -1,8 +1,9 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texteEnCouleur, creerNomDePolygone } from '../../../modules/outils.js'
+import { randint, choice, creerNomDePolygone } from '../../../modules/outils.js'
 export const titre = 'Calculer les coordonnées du milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,7 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, creerNomDePolygone, texteEnCouleur } from '../../../modules/outils.js'
+import { randint, choice, creerNomDePolygone } from '../../../modules/outils.js'
 export const titre = 'Calculer une distance avec les coordonnées'
 export const interactifReady = true
 export const interactifType = 'mathLive'

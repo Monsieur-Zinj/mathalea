@@ -1,4 +1,5 @@
-import { calcul, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Rechercher un terme dans une somme'
 export const interactifReady = true
@@ -33,7 +34,7 @@ export default function AdditionATrou () {
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On complète $${c * 10 + a}$ jusqu'à la dizaine la plus proche en ajoutant $${(c + 1) * 10 - (c * 10 + a)}$, on obtient $${(c + 1) * 10}$,
     puis de $${(c + 1) * 10}$ à $${(c + d) * 10 + b + a}$, on ajoute encore $${(c + d) * 10 + b + a - (c + 1) * 10}$. <br>
-    Au total 
+    Au total
     on a donc ajouté $${(c + 1) * 10 - (c * 10 + a)}$ et  $${(c + d) * 10 + b + a - (c + 1) * 10}$ ce qui donne la réponse $${this.reponse}$.<br>
       `)
   }

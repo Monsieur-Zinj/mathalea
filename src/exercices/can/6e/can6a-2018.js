@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { prenomF } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
@@ -7,7 +8,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { context } from '../../../modules/context.js'
 import { point, polygoneAvecNom, droiteGraduee, segmentAvecExtremites, segment, milieu, texteParPosition } from '../../../modules/2d.js'
-import { listeQuestionsToContenu, randint, miseEnEvidence, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

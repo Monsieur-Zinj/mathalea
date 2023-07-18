@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { quatriemeProportionnelle } from '../../lib/outils/calculs.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -27,8 +28,7 @@ import {
   creerNomDePolygone,
   listeQuestionsToContenu,
   numAlpha,
-  randint,
-  texteEnCouleurEtGras
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

@@ -1,9 +1,10 @@
+import { texteEnCouleur } from '../../lib/embellissements.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Hms from '../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { calcul, combinaisonListes, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils.js'
+import { calcul, combinaisonListes, listeQuestionsToContenu, randint, sp } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true

@@ -1,6 +1,7 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, sp, texteEnCouleur, calcul } from '../../../modules/outils.js'
+import { randint, choice, sp, calcul } from '../../../modules/outils.js'
 export const titre = 'Utiliser les intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'

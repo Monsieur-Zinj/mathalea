@@ -1,4 +1,5 @@
-import { randint, miseEnEvidence } from '../../../modules/outils.js'
+import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Connaître les tables de multiplication (phrases)'
 export const interactifReady = true

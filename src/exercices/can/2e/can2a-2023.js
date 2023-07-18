@@ -1,3 +1,4 @@
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/embellissements.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { abs, arrondi } from '../../../lib/outils/nombres.js'
@@ -10,7 +11,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { range1, listeQuestionsToContenu, miseEnEvidence, texteEnCouleurEtGras, randint, shuffle, choice, sp } from '../../../modules/outils.js'
+import { range1, listeQuestionsToContenu, randint, shuffle, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

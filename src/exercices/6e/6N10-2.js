@@ -1,6 +1,7 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)'

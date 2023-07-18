@@ -1,3 +1,4 @@
+import { miseEnCouleur, miseEnEvidence } from '../../lib/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -6,7 +7,7 @@ import { imagePointParTransformation } from '../../modules/imagePointParTransfor
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, combinaisonListes, numAlpha, rangeMinMax, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, egal, listeQuestionsToContenu, miseEnCouleur, miseEnEvidence, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { randint, choice, combinaisonListes, numAlpha, rangeMinMax, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, egal, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const interactifReady = true

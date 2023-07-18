@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
@@ -7,7 +8,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { point, labelPoint, codageSegment, codageAngle, droiteGraduee, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint, miseEnEvidence, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, printlatex, randint, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

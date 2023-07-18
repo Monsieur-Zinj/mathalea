@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import {
   ecritureAlgebrique,
@@ -11,7 +12,7 @@ import Exercice from '../Exercice.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
-  listeQuestionsToContenu, miseEnEvidence, sp, randint, combinaisonListes, choice
+  listeQuestionsToContenu, sp, randint, combinaisonListes, choice
 } from '../../modules/outils.js'
 export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
 export const dateDePublication = '24/09/2022'

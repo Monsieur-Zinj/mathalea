@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
@@ -16,7 +17,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   listeQuestionsToContenu,
-  miseEnEvidence,
   randint,
   sp
 } from '../../modules/outils.js'

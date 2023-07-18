@@ -1,5 +1,6 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
-import { creerNomDePolygone, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { creerNomDePolygone, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {

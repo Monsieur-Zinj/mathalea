@@ -1,6 +1,7 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Résoudre une équation $x^2 = a$'

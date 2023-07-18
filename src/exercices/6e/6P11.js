@@ -1,3 +1,4 @@
+import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import {
   arrondi,
@@ -10,7 +11,7 @@ import { texPrix } from '../../lib/format/style.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texteEnCouleur, texteEnCouleurEtGras, numAlpha, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, numAlpha, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 

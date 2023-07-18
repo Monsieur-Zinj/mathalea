@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { arrondi, signe } from '../../../lib/outils/nombres.js'
 import { prenomF } from '../../../lib/outils/Personne.js'
@@ -11,7 +12,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, creerNomDePolygone, printlatex, randint, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, creerNomDePolygone, printlatex, randint, shuffle, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

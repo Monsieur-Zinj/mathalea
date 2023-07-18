@@ -1,5 +1,6 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, choice, randint, texteEnCouleur, sp } from '../../../modules/outils.js'
+import { calcul, choice, randint, sp } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des m$^3$ et litres'
 export const interactifReady = true

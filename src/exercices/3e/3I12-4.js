@@ -1,6 +1,7 @@
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { lampeMessage } from '../../lib/format/message.js'
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, contraindreValeur, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { choice, combinaisonListes, contraindreValeur, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { min, max } from 'mathjs'
 import { context } from '../../modules/context.js'

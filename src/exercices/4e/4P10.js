@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures.js'
@@ -11,7 +12,6 @@ import {
   listeQuestionsToContenu,
   randint,
   combinaisonListes,
-  miseEnEvidence,
   numAlpha,
   sp, gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

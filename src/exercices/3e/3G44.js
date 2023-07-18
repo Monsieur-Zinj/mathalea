@@ -1,3 +1,4 @@
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -9,8 +10,6 @@ import {
   rangeMinMax,
   choice,
   calcul,
-  miseEnEvidence,
-  texteEnCouleurEtGras,
   sp,
   shuffle,
   gestionnaireFormulaireTexte

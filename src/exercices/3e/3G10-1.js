@@ -1,3 +1,4 @@
+import { miseEnCouleur, miseEnEvidence } from '../../lib/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
@@ -10,8 +11,6 @@ import {
   choice,
   numAlpha,
   listeQuestionsToContenu,
-  miseEnCouleur,
-  miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

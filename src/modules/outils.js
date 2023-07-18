@@ -1,6 +1,6 @@
 /* globals UI */
 import Algebrite from 'algebrite'
-import { evaluate, isArray, isInteger, round } from 'mathjs'
+import { evaluate, round } from 'mathjs'
 import { texMulticols } from '../lib/format/miseEnPage.js'
 import { setReponse } from '../lib/interactif/gestionInteractif.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../lib/outils/nombres.js'
@@ -810,16 +810,6 @@ export function unSiPositifMoinsUnSinon (a) {
   if (a < 0) return -1
   else return 1
 }
-
-/**
- * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
- * @author Rémi Angot Fonction rendue inutile par Jean-Claude Lhote : lui substituer texNombre ou stringNombre selon le contexte.
- */
-// export function arrondiVirgule (nombre, precision = 2) { //
-// const tmp = Math.pow(10, precision)
-//  return String(round(nombre, precision)).replace('.', ',')
-// }
-
 /**
  *
  * @param {'string | array'} expression ou tableau d'expressions à évaluer avec XCas
@@ -859,20 +849,6 @@ export function calcul (x, arrondir = 6) {
     })
   }
   return parseFloat(x.toFixed(arrondir))
-}
-
-/**
- * prend une liste de nombres relatifs et la retourne avec les positifs au début et les négatifs à la fin.
- * @param {array} liste la liste de nombres à trier
- */
-export function triePositifsNegatifs (liste) {
-  const positifs = []
-  const negatifs = []
-  for (let i = 0; i < liste.length; i++) {
-    if (liste[i] > 0) positifs.push(liste[i])
-    else negatifs.push(liste[i])
-  }
-  return positifs.concat(negatifs)
 }
 
 /**
@@ -1119,179 +1095,8 @@ export function sp (nb = 1) {
   return s
 }
 
-/**
- *
- * @param {string |number} nb
- * @returns {string}
- */
-export function insereEspaceDansNombre (nb) {
-  if (!Number.isNaN(nb)) {
-    nb = nb.toString().replace('.', ',')
-  } else {
-    window.notify('insereEspaceDansNombre : l\'argument n\'est pas un nombre', nb)
-    return nb
-  }
-  let indiceVirgule = nb.indexOf(',')
-  const indiceMax = nb.length - 1
-  const tableauIndicesEspaces = []
-  if (indiceVirgule < 0) {
-    // S'il n'y a pas de virgule c'est qu'elle est après le dernier chiffre
-    indiceVirgule = nb.length
-  }
-  for (let i = 0; i < indiceMax; i++) {
-    if ((i - indiceVirgule) % 3 === 0 && (i - indiceVirgule) !== 0) {
-      if (i < indiceVirgule) {
-        tableauIndicesEspaces.push(i - 1) // Partie entière espace à gauche
-      } else {
-        tableauIndicesEspaces.push(i) // Partie décimale espace à droite
-      }
-    }
-  }
-  for (let i = tableauIndicesEspaces.length - 1; i >= 0; i--) {
-    const indice = tableauIndicesEspaces[i] + 1
-    if (indice !== 0) nb = insertCharInString(nb, indice, ' \\thickspace ')
-  }
-  return nb
-}
-
 export function insertCharInString (string, index, char) {
   return string.substring(0, index) + char + string.substring(index, string.length)
-}
-
-/**
- * Met en couleur et en gras
- *
- * Met en couleur et gras un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
- * @param {string} texte à mettre en couleur
- * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
- * @author Rémi Angot
- */
-export function miseEnEvidence (texte, couleur = '#f15929') {
-  if (isArray(couleur)) couleur = couleur[0]
-  if (context.isHtml) {
-    return `{\\color{${couleur}}\\boldsymbol{${texte}}}`
-  } else {
-    if (couleur[0] === '#') {
-      return `{\\color[HTML]{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
-    } else {
-      return `{\\color{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
-    }
-  }
-}
-
-/**
- * Met en couleur
- * Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
- * @param {string} texte à mettre en couleur
- * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
- * @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
- */
-export function miseEnCouleur (texte, couleur = '#f15929') {
-  if (isArray(couleur)) couleur = couleur[0]
-  if (context.isHtml) {
-    return `{\\color{${couleur}} ${texte}}`
-  } else {
-    if (couleur[0] === '#') {
-      return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
-    } else {
-      return `{\\color{${couleur.replace('#', '')}} ${texte}}`
-    }
-  }
-}
-
-/**
- * Met en couleur un texte
- * @param {string} texte à mettre en couleur
- * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
- * @author Rémi Angot
- */
-export function texteEnCouleur (texte, couleur = '#f15929') {
-  if (isArray(couleur)) couleur = couleur[0]
-  if (context.isHtml) {
-    return `<span style="color:${couleur};">${texte}</span>`
-  } else {
-    if (couleur[0] === '#') {
-      return `{\\color[HTML]{${couleur.replace('#', '')}}${texte}}`
-    } else {
-      return `{\\color{${couleur.replace('#', '')}}${texte}}`
-    }
-  }
-}
-
-/**
- * Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$". Utiliser miseEnEvidence si $....$.
- * @param {string} texte à mettre en couleur
- * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
- * @author Rémi Angot
- */
-export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
-  if (isArray(couleur)) couleur = couleur[0]
-  if (context.isHtml) {
-    return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
-  } else {
-    if (couleur[0] === '#') {
-      return `{\\bfseries \\color[HTML]{${couleur.replace('#', '')}}${texte}}`
-    } else {
-      return `{\\bfseries \\color{${couleur.replace('#', '')}}${texte}}`
-    }
-  }
-}
-
-/**
- * couleurAleatoire() renvoie le code d'une couleur au hasard
- *
- * @author Rémi Angot
- */
-export function couleurAleatoire () {
-  return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])
-}
-
-/**
- * couleurTab() renvoie :
- * soit le code d'une couleur au hasard, ainsi que sa traduction française au masculin et au féminin,
- * soit le code d'une couleur imposée, ainsi que sa traduction française au masculin et au féminin.
- * @example couleurTab() peut renvoyer ['black','noir','noire'].
- * @example couleurTab(0) renverra de façon certaine ['black','noir','noire'].
- * @author Eric Elter
- */
-export function couleurTab (choixCouleur = 999) {
-  const panelCouleurs = [
-    ['black', 'noir', 'noire'],
-    ['red', 'rouge', 'rouge'],
-    ['green', 'vert', 'verte'],
-    ['blue', 'bleu', 'bleue'],
-    ['HotPink', 'rose', 'rose'],
-    ['Sienna', 'marron', 'marron'],
-    ['darkgray', 'gris', 'grise'],
-    ['DarkOrange', 'orange', 'orange']
-  ]
-  return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
-}
-
-export function arcenciel (i, fondblanc = true) {
-  let couleurs
-  if (fondblanc) couleurs = ['violet', 'purple', 'blue', 'green', 'lime', '#f15929', 'red']
-  else couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
-  return couleurs[i % 7]
-}
-
-export function texcolors (i, fondblanc = true) {
-  const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
-  if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
-  return couleurs[i % couleurs.length]
-}
-
-/**
- * Met gras un texte
- * @param {string} texte à mettre en gras
- * @author Rémi Angot
- */
-export function texteGras (texte) {
-  if (context.isHtml) {
-    return `<b>${texte}</b>`
-  } else {
-    return `\\textbf{${texte}}`
-  }
 }
 
 /**
@@ -1314,27 +1119,6 @@ export function href (texte, lien) {
  */
 export function premiereLettreEnMajuscule (text) {
   return (text + '').charAt(0).toUpperCase() + text.substr(1)
-}
-
-/**
- * Renvoie le nombre de chiffres dans la partie entière
- * @author ?
- */
-export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
-  let nombre
-  let sauf = 0
-  if (nb < 0) {
-    nombre = -nb
-  } else {
-    nombre = nb
-  }
-  if (String(nombre).indexOf('.') > 0) {
-    if (!isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
-    return String(nombre).split('.')[0].length - sauf
-  } else {
-    if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1)
-    return String(nombre).length
-  }
 }
 
 /**
@@ -1372,8 +1156,6 @@ export function itemize (tableauDeTexte) {
   return texte
 }
 
-// Fin de la classe MAtriceCarree
-
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
  * retourne 1, la base ou rien
@@ -1390,23 +1172,6 @@ export function simpExp (b, e) {
     default:
       return ' '
   }
-}
-
-/**
- *
- * x le nombre dont on cherche l'ordre de grandeur
- * type = 0 pour la puissance de 10 inférieure, 1 pour la puissance de 10 supérieur et 2 pour la plus proche
- */
-export function ordreDeGrandeur (x, type) {
-  let signe
-  if (x < 0) signe = -1
-  else signe = 1
-  x = Math.abs(x)
-  const P = 10 ** Math.floor(Math.log10(x))
-  if (type === 0) return P * signe
-  else if (type === 1) return P * 10 * signe
-  else if (x - P < 10 * P - x) return P * signe
-  else return P * 10 * signe
 }
 
 /**

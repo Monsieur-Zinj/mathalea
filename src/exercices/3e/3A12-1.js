@@ -1,9 +1,9 @@
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  texteEnCouleurEtGras,
   sp,
   numAlpha,
   gestionnaireFormulaireTexte

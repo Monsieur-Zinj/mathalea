@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -14,7 +15,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { Arbre } from '../../../modules/arbres.js'
 import { pave, point, repere, tracePoint, courbe, droite, labelPoint, segment, milieu, texteParPosition, plot } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, miseEnEvidence, printlatex, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, printlatex, shuffle, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

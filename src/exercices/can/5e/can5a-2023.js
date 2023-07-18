@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { prenomF } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
@@ -11,7 +12,7 @@ import {
 import { paveLPH3d } from '../../../modules/3d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, randint, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import Hms from '../../../modules/Hms.js'

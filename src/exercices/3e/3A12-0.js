@@ -1,6 +1,7 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { combinaisonListes, contraindreValeur, listeQuestionsToContenu, miseEnEvidence, numAlpha, ppcm, randint } from '../../modules/outils.js'
+import { combinaisonListes, contraindreValeur, listeQuestionsToContenu, numAlpha, ppcm, randint } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { engrenages } from '../../modules/2d/engrenage.js'
