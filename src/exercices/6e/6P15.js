@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import { Tableau } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -11,7 +12,6 @@ import {
   choice,
   combinaisonListes,
   listeQuestionsToContenu,
-  numAlpha,
   randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

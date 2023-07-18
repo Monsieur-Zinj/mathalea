@@ -4,9 +4,10 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, listeQuestionsToContenu, sp, choice } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Déterminer le sens de variation d’un pôlynome du second degré'
 export const interactifReady = true

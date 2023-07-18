@@ -3,10 +3,10 @@ import { number } from 'mathjs'
 import Grandeur from '../../modules/Grandeur.js'
 import { context } from '../../modules/context.js'
 import { texteExposant } from '../outils/ecritures.js'
+import { sp } from '../outils/outilString.js'
 import { afficheScore } from './gestionInteractif.js'
 import * as pkg from '@cortex-js/compute-engine'
 import Hms from '../../modules/Hms.js'
-import { sp } from '../../modules/outils.js'
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()

@@ -1,4 +1,5 @@
-import { choice, sp } from '../../modules/outils.js'
+import { choice } from '../../modules/outils.js'
+import { sp } from './outilString.js'
 
 /**
  * @author Rémi Angot

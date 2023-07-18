@@ -1,3 +1,4 @@
+import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import { prenomPronom } from '../../lib/outils/Personne.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
@@ -5,7 +6,6 @@ import {
   randint,
   listeQuestionsToContenu,
   combinaisonListes,
-  premiereLettreEnMajuscule,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import Decimal from 'decimal.js'

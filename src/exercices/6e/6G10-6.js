@@ -1,9 +1,10 @@
 import { deuxColonnesResp } from '../../lib/format/miseEnPage.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
+import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, numAlpha, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, tracePoint, pointSurDroite, labelPoint, droite, grille, seyes } from '../../modules/2d.js'
 export const titre = 'Appartient ou n\'appartient pas ?'
 export const dateDePublication = '05/10/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

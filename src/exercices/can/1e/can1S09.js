@@ -1,7 +1,8 @@
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice } from '../../../modules/outils.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 

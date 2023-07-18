@@ -1,11 +1,10 @@
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  sp,
-  numAlpha,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

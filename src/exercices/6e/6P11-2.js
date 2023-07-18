@@ -1,3 +1,4 @@
+import { sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texMasse, texPrix } from '../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
@@ -11,8 +12,7 @@ import {
   choice,
   combinaisonListes,
   listeQuestionsToContenu,
-  randint,
-  sp
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

@@ -3,6 +3,7 @@ import earcut from 'earcut'
 import { abs, ceil, floor, Fraction, fraction, isNumeric, max, random, round } from 'mathjs'
 import { texcolors } from '../lib/format/style.js'
 import { arrondi, nombreDeChiffresDe, rangeMinMax, unSiPositifMoinsUnSinon } from '../lib/outils/nombres.js'
+import { lettreDepuisChiffre } from '../lib/outils/outilString.js'
 import { nombreAvecEspace, numberFormat, stringNombre, texNombre } from '../lib/outils/texNombre.js'
 import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
@@ -16,7 +17,6 @@ import {
   egal,
   enleveElement,
   inferieurouegal,
-  lettreDepuisChiffre,
   randint,
   superieurouegal
 } from './outils.js'

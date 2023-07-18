@@ -1,5 +1,6 @@
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -8,7 +9,6 @@ import {
   combinaisonListes,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  numAlpha,
   randint
 } from '../../modules/outils.js'
 import { OutilsStats } from '../../modules/outilsStat.js'

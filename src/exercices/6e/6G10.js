@@ -1,6 +1,7 @@
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { point, labelPoint, droite, segment, demiDroite } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la notation de droites, segments et demi-droites'

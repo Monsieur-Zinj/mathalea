@@ -5,11 +5,12 @@ import {
   nombreDeChiffresDe,
   rangeMinMax
 } from '../../lib/outils/nombres.js'
+import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, numAlpha, checkSum, shuffle, choice, combinaisonListes, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, checkSum, shuffle, choice, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export let titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'

@@ -1,5 +1,6 @@
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -9,7 +10,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 
-import { listeQuestionsToContenu, randint, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, choice } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import Grandeur from '../../../modules/Grandeur.js'

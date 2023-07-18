@@ -1,8 +1,8 @@
+import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
-  numAlpha,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'

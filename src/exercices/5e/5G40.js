@@ -1,7 +1,8 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, lettreDepuisChiffre, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, combinaisonListes } from '../../modules/outils.js'
 import { cercleCentrePoint, cercle, codageSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 

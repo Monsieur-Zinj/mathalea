@@ -1,6 +1,5 @@
 import { elimineDoublons } from '../../lib/interactif/qcm.js'
 import {
-  lettreDepuisChiffre,
   randint
 } from '../../modules/outils.js'
 import { format as formatLatex } from '../Latex'
@@ -10,6 +9,7 @@ import {
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDe
 } from '../outils/nombres.js'
+import { lettreDepuisChiffre } from '../outils/outilString.js'
 import { decimalToScientifique } from '../outils/texNombre.js'
 
 /**

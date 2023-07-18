@@ -1,7 +1,8 @@
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, sp, egal } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, egal } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 

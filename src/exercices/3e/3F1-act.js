@@ -1,5 +1,6 @@
 import { infoMessage, lampeMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
@@ -8,7 +9,6 @@ import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macr
 import {
   combinaisonListesSansChangerOrdre,
   listeQuestionsToContenu,
-  numAlpha,
   randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

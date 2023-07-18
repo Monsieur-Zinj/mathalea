@@ -1,4 +1,5 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { labelLatexPoint, labelPoint, texteParPoint, tracePoint } from '../../modules/2d.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import {
@@ -16,7 +17,6 @@ import { context } from '../../modules/context.js'
 import {
   combinaisonListes,
   listeQuestionsToContenuSansNumero,
-  numAlpha,
   randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

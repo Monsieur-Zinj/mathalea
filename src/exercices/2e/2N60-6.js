@@ -7,6 +7,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../lib/outils/ecritures.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
@@ -14,7 +15,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import {
   listeQuestionsToContenu,
-  numAlpha,
   randint,
   gestionnaireFormulaireTexte, shuffle2tableaux, choice
 } from '../../modules/outils.js'

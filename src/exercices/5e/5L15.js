@@ -1,6 +1,7 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, combinaisonListes, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Tester une égalité'
 

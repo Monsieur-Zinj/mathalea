@@ -1,7 +1,8 @@
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, positionLabelDroite, norme, translation, vecteur, symetrieAxiale } from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 export const amcReady = true

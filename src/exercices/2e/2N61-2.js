@@ -3,9 +3,10 @@ import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/depr
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lampeMessage } from '../../lib/format/message.js'
 import { texSymbole, texteGras } from '../../lib/format/style.js'
+import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

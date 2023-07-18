@@ -1,12 +1,13 @@
 import { fractionSimplifiee, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import { katexPopup2 } from '../../lib/format/message.js'
+import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, sp, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
 
 /**

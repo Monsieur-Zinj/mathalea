@@ -1,12 +1,11 @@
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { texteGras } from '../../lib/format/style.js'
 import { sommeDesChiffres } from '../../lib/outils/nombres.js'
+import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  sp,
-  numAlpha,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

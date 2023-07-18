@@ -1,6 +1,7 @@
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre, printlatex } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, printlatex } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'

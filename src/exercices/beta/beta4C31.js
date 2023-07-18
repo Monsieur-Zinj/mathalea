@@ -1,10 +1,11 @@
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { ecriturePuissance } from '../../lib/outils/puissance.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, choice, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
 
 export const titre = 'Puissances de 10'
 

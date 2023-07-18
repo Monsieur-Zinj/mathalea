@@ -1,7 +1,8 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { MatriceCarree } from '../../modules/MatriceCarree.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
 const math = create(all)
 

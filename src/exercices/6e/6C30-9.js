@@ -1,6 +1,7 @@
+import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, choice, shuffle, numAlpha, sp } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import Decimal from 'decimal.js'
 export const titre = 'Produit et somme ou différence de décimaux'

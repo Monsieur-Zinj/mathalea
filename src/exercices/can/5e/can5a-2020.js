@@ -1,4 +1,5 @@
 import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { prenomM } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
@@ -9,7 +10,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.j
 import { fraction } from '../../../modules/fractions.js'
 import { pave, point, grille, labelPoint, codageSegment, codageAngleDroit, polygone, repere, traceBarre, droiteGraduee, segment, milieu, texteParPosition, polygoneAvecNom } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, sp, randint, shuffle, choice, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, choice, calcul } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

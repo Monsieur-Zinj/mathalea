@@ -1,5 +1,6 @@
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre2 } from '../../lib/outils/texNombre.js'
 import {
   barycentre,
@@ -21,7 +22,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   choice,
-  creerNomDePolygone,
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'

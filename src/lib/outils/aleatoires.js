@@ -1,11 +1,10 @@
 import {
-  lettreDepuisChiffre,
-  lettreMinusculeDepuisChiffre,
   randint,
   shuffle
 } from '../../modules/outils.js'
 import { joursParMois } from './dateEtHoraires.js'
 import { rangeMinMax } from './nombres.js'
+import { lettreDepuisChiffre, lettreMinusculeDepuisChiffre } from './outilString.js'
 
 /**
  * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de listeAEviter

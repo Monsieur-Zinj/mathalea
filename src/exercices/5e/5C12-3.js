@@ -1,7 +1,8 @@
 import { miseEnEvidence } from '../../lib/embellissements.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 
 export const titre = 'Distributivité et calcul mental'
 

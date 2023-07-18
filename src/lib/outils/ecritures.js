@@ -3,9 +3,10 @@ import { equal, Fraction, round } from 'mathjs'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction } from '../../modules/fractions.js'
-import { egal, lettreDepuisChiffre } from '../../modules/outils.js'
+import { egal } from '../../modules/outils.js'
 import { miseEnEvidence } from '../embellissements.js'
 import { arrondi } from './nombres.js'
+import { lettreDepuisChiffre } from './outilString.js'
 import { stringNombre, texNombre } from './texNombre.js'
 
 /**

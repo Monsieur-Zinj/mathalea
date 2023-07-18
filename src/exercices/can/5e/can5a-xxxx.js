@@ -1,8 +1,9 @@
 import { texPrix } from '../../../lib/format/style.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, choice, sp, shuffle, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, shuffle, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 

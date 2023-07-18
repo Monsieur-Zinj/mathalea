@@ -1,9 +1,10 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { calcul, choice, listeQuestionsToContenu, randint, sp }
+import { calcul, choice, listeQuestionsToContenu, randint }
   from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des heures décimales en heures/minutes et inversement*'

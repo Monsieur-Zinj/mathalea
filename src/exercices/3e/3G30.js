@@ -2,6 +2,7 @@ import Decimal from 'decimal.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { quatriemeProportionnelle } from '../../lib/outils/calculs.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   barycentre,
@@ -25,9 +26,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import {
   choice,
   combinaisonListes,
-  creerNomDePolygone,
   listeQuestionsToContenu,
-  numAlpha,
   randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
