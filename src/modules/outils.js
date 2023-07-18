@@ -785,22 +785,6 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 }
 
 /**
- * Retourne le signe d'un nombre
- * @Example
- * // + ou -
- * @author Rémi Angot
- */
-export function signe (a) { // + ou -
-  let result = ''
-  if (a > 0) {
-    result = '+'
-  } else {
-    result = '-'
-  }
-  return result
-}
-
-/**
  *
  * @param {number} a
  * -1 si a est négatif, 1 sinon.
