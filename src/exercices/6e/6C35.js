@@ -4,6 +4,7 @@ import { max } from 'mathjs'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires.js'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
+import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -14,8 +15,6 @@ import {
   choice,
   listeQuestionsToContenu,
   randint,
-  range,
-  rangeMinMax,
   shuffle,
   sp
 } from '../../modules/outils.js'

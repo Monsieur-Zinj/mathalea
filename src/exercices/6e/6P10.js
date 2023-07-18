@@ -1,11 +1,12 @@
 import { miseEnEvidence } from '../../lib/embellissements.js'
+import { range } from '../../lib/outils/nombres.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint, range, combinaisonListes, compteOccurences, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, compteOccurences, sp, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true

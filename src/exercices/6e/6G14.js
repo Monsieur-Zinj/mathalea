@@ -1,12 +1,11 @@
+import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  range,
   egal,
-  rangeMinMax,
   shuffle,
   contraindreValeur,
   choice,

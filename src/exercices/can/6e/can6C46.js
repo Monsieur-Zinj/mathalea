@@ -1,6 +1,7 @@
 import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { rangeMinMax } from '../../../lib/outils/nombres.js'
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
-import { choice, rangeMinMax } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'//
 import FractionEtendue from '../../../modules/FractionEtendue.js'

@@ -1,7 +1,7 @@
-import { nombreDeChiffresDe } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, choice, randint, quotientier, rangeMinMax, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice, randint, quotientier, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
 import { fractionCliquable } from '../../modules/2dinteractif.js'

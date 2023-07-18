@@ -1,7 +1,8 @@
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
+import { rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { choice, combinaisonListesSansChangerOrdre, contraindreValeur, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, rangeMinMax, shuffle } from '../../modules/outils.js'
+import { choice, combinaisonListesSansChangerOrdre, contraindreValeur, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre } from '../../modules/arbres.js'
 

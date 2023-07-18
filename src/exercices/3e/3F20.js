@@ -1,4 +1,5 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { pgcd, premierAvec } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { droite, point, polyline, repere, texteParPoint, tracePoint } from '../../modules/2d.js'
@@ -12,7 +13,7 @@ import {
   contraindreValeur,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint, rangeMinMax
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
