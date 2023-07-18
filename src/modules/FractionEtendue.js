@@ -1,3 +1,4 @@
+import { extraireRacineCarree } from '../lib/outils/calculs.js'
 import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../lib/outils/nombres.js'
@@ -10,7 +11,6 @@ import {
 import { texNombre } from '../lib/outils/texNombre.js'
 import {
   quotientier,
-  extraireRacineCarree,
   calcul,
   miseEnEvidence,
   egal

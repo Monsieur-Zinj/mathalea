@@ -1,10 +1,10 @@
+import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, randint, combinaisonListes, choice, sp, extraireRacineCarree,
-  miseEnEvidence
+  listeQuestionsToContenu, randint, combinaisonListes, choice, sp, miseEnEvidence
 } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Résoudre algébriquement une équation f(x)=k avec une fonction de référence'

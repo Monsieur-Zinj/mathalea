@@ -1,3 +1,4 @@
+import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures.js'
 import { katexPopup2 } from '../../lib/format/message.js'
@@ -10,8 +11,6 @@ import {
   listeQuestionsToContenu,
   randint,
   combinaisonListes,
-  produitsEnCroix,
-  quatriemeProportionnelle,
   miseEnEvidence,
   numAlpha,
   sp, gestionnaireFormulaireTexte

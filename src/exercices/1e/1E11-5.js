@@ -1,3 +1,4 @@
+import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -6,7 +7,7 @@ import {
 } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, extraireRacineCarree } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/mathFonctions/outilsMaths.js'

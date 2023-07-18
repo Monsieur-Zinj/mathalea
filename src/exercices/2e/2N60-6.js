@@ -1,3 +1,4 @@
+import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import {
   ecritureAlgebrique,
@@ -14,7 +15,6 @@ import {
   listeQuestionsToContenu,
   numAlpha,
   randint,
-  extraireRacineCarree,
   miseEnEvidence,
   gestionnaireFormulaireTexte, shuffle2tableaux, choice
 } from '../../modules/outils.js'

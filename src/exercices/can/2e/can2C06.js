@@ -1,5 +1,6 @@
+import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
 import Exercice from '../../Exercice.js'
-import { choice, extraireRacineCarree } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils.js'
 export const titre = 'Simplifier des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +27,7 @@ export default function SimplificationsRacinesCarrees () {
     this.question = ` Écrire $\\sqrt{${a}}$ sous la forme $a\\sqrt{b}$ où $a$ et $b$ sont des entiers avec $b$ le plus petit possible.`
     this.correction = `On simpifie $\\sqrt{${a}}$ en $${reduction[0]}\\sqrt{${reduction[1]}}$ , car
     $\\sqrt{${a}}=\\sqrt{${reduction[0]}^2\\times ${reduction[1]}} =
-    \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}} 
+    \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}}
     =${reduction[0]}\\sqrt{${reduction[1]}}$.<br>`
     this.reponse = [`${reduction[0]}\\sqrt{${reduction[1]}}`]
     this.canEnonce = this.question// 'Compléter'

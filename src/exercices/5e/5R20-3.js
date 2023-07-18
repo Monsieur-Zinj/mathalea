@@ -1,3 +1,4 @@
+import { sommeDesTermesParSigne } from '../../lib/outils/calculs.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriquec,
@@ -11,7 +12,6 @@ import {
   listeQuestionsToContenu,
   randint,
   choice,
-  sommeDesTermesParSigne,
   lettreDepuisChiffre
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
