@@ -840,27 +840,6 @@ export function unSiPositifMoinsUnSinon (a) {
 }
 
 /**
- * Retourne la troncature signée de nombre.
- * @author Jean-Claude Lhote
- */
-export function troncature (nombre, precision) {
-  const tmp = Math.pow(10, precision)
-  const absolu = new Decimal(nombre).abs()
-  const tronc = absolu.mul(tmp).floor().div(tmp)
-  if (nombre < 0) return tronc.mul(-1).toNumber()
-  else return tronc.toNumber()
-}
-
-/**
- * Renvoie la valeur absolue
- * @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
- */
-export function abs (a) {
-  if (a instanceof Decimal) return a.abs()
-  return Math.abs(a)
-}
-
-/**
  * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
  * @author Rémi Angot Fonction rendue inutile par Jean-Claude Lhote : lui substituer texNombre ou stringNombre selon le contexte.
  */
