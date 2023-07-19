@@ -35,14 +35,12 @@ export default class BetaEtudeFonction extends Exercice {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    /*
-Avec des polynomes
-const poly = new Polynome({ deg: this.sup, rand: true })
+    //
+    const poly = new Polynome({ deg: this.sup, rand: true })
     const fonction = poly.fonction
     const polyDerivee = poly.derivee()
     const derivee = polyDerivee.fonction.bind(polyDerivee)
     const latexFonction = poly.toLatex()
- */
     /*
     Avec une fonction sinux
     const fonction = x => x * Math.sin(Math.PI * x / 4) // Pour le tableau de signes et de variations
@@ -60,10 +58,10 @@ const poly = new Polynome({ deg: this.sup, rand: true })
  */
     /*
     Avec ln
-     */
     const fonction = x => x * Math.log(Math.abs(x)) // Pour le tableau de signes et de variations
     const derivee = x => 1 + Math.log(Math.abs(x)) // pour le tableau de variations
     const latexFonction = 'x\\ln(|x|)' // pour l'énoncé
+     */
     const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
     const repere1 = new Repere({
       xMin: -10,
@@ -81,7 +79,8 @@ const poly = new Polynome({ deg: this.sup, rand: true })
       yMax,
       xUnite: 1,
       yUnite: 1,
-      epaisseur: 1
+      epaisseur: 1,
+      step: 0.05
     })
     const objetsEnonce = [repere1, courbe1]
     let texteEnonce = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce)), objetsEnonce)
@@ -94,7 +93,8 @@ const poly = new Polynome({ deg: this.sup, rand: true })
     texteCorrection += '<br>voici les signes de f : '
     const tableauSignes = tableauSignesFonction(fonction, xMin, xMax)
     const tableauVariations = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
-      latex: true,
+      latex: false,
+      ligneDerivee: true,
       substituts: [
         { antVal: -10, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
         { antVal: 10, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
@@ -102,6 +102,7 @@ const poly = new Polynome({ deg: this.sup, rand: true })
         { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
       ]
     })
+
     texteCorrection += `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
     texteCorrection += `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauVariations])), tableauVariations)}`
     this.listeQuestions.push(texteEnonce)
