@@ -1,8 +1,9 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { simplify, parse, derivative, divide } from 'mathjs'
 import { prettyTex } from './1AN14-4.js'
 const math = { simplify, parse, derivative }

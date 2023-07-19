@@ -1,3 +1,4 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -6,7 +7,7 @@ import {
 } from '../../../lib/outils/ecritures.js'
 import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître une fonction polynôme du second degré (V/F)'
 export const interactifReady = true

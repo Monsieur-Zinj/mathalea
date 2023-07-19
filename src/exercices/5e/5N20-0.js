@@ -1,3 +1,4 @@
+import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { lampeMessage } from '../../lib/format/message.js'
 import { texteGras } from '../../lib/format/style.js'
@@ -5,7 +6,7 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { point, labelPoint, segment, cercleCentrePoint, rotation, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
@@ -320,4 +321,4 @@ ${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.de
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
-};
+}

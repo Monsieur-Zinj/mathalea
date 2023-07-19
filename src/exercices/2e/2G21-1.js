@@ -1,6 +1,7 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, tracePoint, vecteur, polygoneAvecNom, translation, pointAdistance, longueur, homothetie, latexParPoint, similitude } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { translationAnimee } from '../../modules/2dAnimation.js'

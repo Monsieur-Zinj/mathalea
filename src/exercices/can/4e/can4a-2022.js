@@ -1,3 +1,4 @@
+import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
@@ -11,7 +12,7 @@ import {
   point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, shuffle, choice, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

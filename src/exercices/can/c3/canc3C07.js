@@ -1,5 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
-import { choice, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"'
 export const interactifReady = true

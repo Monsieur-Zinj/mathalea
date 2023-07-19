@@ -1,3 +1,4 @@
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres.js'
@@ -8,9 +9,7 @@ import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  choice,
   calcul,
-  shuffle,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -42,7 +41,7 @@ export default function CalculPythagoreEspace () {
   this.sup2 = 1
   this.sup = 10
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions, shuffle: true }) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"

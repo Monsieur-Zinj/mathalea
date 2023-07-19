@@ -1,3 +1,4 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
@@ -5,7 +6,7 @@ import {
   rienSi1
 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’un polynôme de degré 2'
 export const interactifReady = true
 export const interactifType = 'mathLive'

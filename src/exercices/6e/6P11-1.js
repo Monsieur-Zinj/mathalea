@@ -1,3 +1,4 @@
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import {
   arrondi,
@@ -10,7 +11,7 @@ import { prenom } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, checkSum, shuffle, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, checkSum } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export let titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'

@@ -1,3 +1,4 @@
+import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
@@ -16,7 +17,7 @@ import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import {
   listeQuestionsToContenu,
   randint,
-  gestionnaireFormulaireTexte, shuffle2tableaux, choice
+  gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 export const dateDePublication = '25/05/2023'
 export const titre = 'Étudier la position relative de deux courbes'

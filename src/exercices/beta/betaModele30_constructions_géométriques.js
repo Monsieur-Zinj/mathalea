@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   carre,
   labelPoint,
@@ -9,7 +10,7 @@ import {
   triangle2points2longueurs
 } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
-import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Nom de l\'exercice'
@@ -33,7 +34,7 @@ export default class NomExercice extends Exercice {
     this.nbColsCorr = 1 // Le nombre de colonne pour la correction LaTeX
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
     this.listeQuestions = [] // Liste de questions

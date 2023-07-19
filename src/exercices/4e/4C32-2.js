@@ -1,8 +1,9 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { modalTexteCourt } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, calcul, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calcul, randint } from '../../modules/outils.js'
 export const titre = 'Puissances de 10 et préfixes kilo, méga, giga, téra'
 
 /**

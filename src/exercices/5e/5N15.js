@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
@@ -5,7 +6,7 @@ import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilS
 import { personne, personnes } from '../../lib/outils/Personne.js'
 import { texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, choice, ppcm, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ppcm, calcul } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
 

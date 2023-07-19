@@ -1,4 +1,5 @@
-import { choice, randint } from '../../../modules/outils.js'
+import { choice } from '../../../lib/outils/arrayOutils.js'
+import { randint } from '../../../modules/outils.js'
 import EcrirePetitsNombresEntiers from '../../6e/6N10.js'
 export const titre = 'Lire et écrire des nombres'
 export const interactifReady = true

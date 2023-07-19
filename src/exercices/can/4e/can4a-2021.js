@@ -1,3 +1,4 @@
+import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import {
   deprecatedTexFraction,
@@ -15,7 +16,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, shuffle, choice, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
 // import { tableauColonneLigne } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 

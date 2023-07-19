@@ -1,7 +1,8 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer la raison d’une suite arithmétique/géométrique*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

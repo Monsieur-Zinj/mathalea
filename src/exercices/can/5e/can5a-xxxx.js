@@ -1,9 +1,10 @@
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, choice, shuffle, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
@@ -23,7 +24,7 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '9e40d'
 export const ref = 'can5a-xxxx'
-export default function CourseAuxNombres5e (numeroExercice) {
+export default function CourseAuxNombres5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 30

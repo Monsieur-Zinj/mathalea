@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { xcas, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { xcas, listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Asymptote oblique'

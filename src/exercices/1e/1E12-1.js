@@ -1,8 +1,9 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { repere, courbe } from '../../modules/2d.js'
 
 export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un trinôme'
@@ -23,7 +24,7 @@ export default function LireElementsCarac () {
   this.nbQuestions = 5 // Nombre de questions par défaut
   this.sup = 4
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.consigne = 'Répondre à '
     this.consigne += this.nbQuestions > 1 ? 'ces questions' : 'cette question'
     this.consigne += ' par lecture graphique.'

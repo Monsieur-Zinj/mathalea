@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
@@ -12,7 +13,6 @@ import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  combinaisonListes,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { round } from 'mathjs'

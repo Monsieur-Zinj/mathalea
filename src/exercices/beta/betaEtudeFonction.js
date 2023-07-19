@@ -31,7 +31,7 @@ export default class BetaEtudeFonction extends Exercice {
     this.besoinFormulaireNumerique = ['Degré du polynôme:', 5]
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

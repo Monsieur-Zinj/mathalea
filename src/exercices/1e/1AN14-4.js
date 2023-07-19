@@ -1,4 +1,5 @@
 import { abs, derivative, parse, simplify } from 'mathjs'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -6,7 +7,6 @@ import { signe } from '../../lib/outils/nombres.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import {
-  combinaisonListes,
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'

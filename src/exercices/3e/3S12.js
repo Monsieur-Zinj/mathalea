@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import { texteGras } from '../../lib/format/style.js'
 import { arrondi } from '../../lib/outils/nombres.js'
@@ -5,7 +6,7 @@ import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilStrin
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, choice, calcul } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, calcul } from '../../modules/outils.js'
 import { repere, traceBarre } from '../../modules/2d.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

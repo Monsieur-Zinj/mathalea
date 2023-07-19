@@ -1,3 +1,4 @@
+import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { warnMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
@@ -5,7 +6,7 @@ import { cribleEratostheneN } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, itemize } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11'
 export const interactifReady = true

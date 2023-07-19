@@ -1,3 +1,4 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/embellissements.js'
 import {
   ecritureAlgebrique,
@@ -7,7 +8,7 @@ import {
 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer le nombre de solutions d’une équation du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'

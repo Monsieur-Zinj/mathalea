@@ -1,3 +1,4 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
@@ -5,7 +6,7 @@ import {
 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { choice, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'

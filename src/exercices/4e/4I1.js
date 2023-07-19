@@ -1,7 +1,8 @@
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, shuffle, calcul, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calcul } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin.js'
 

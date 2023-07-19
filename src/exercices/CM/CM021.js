@@ -1,10 +1,9 @@
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  shuffle,
-  combinaisonListes,
   calcul,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

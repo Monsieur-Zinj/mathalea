@@ -1,6 +1,7 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, itemize } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true

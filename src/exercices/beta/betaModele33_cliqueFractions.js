@@ -30,7 +30,7 @@ export default class NomExercice extends Exercice {
     this.tailleDiaporama = 3
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -74,7 +74,7 @@ export default class NomExercice extends Exercice {
       })
     }
     // Gestion de la correction
-    this.correctionInteractive = (elt) => {
+    this.correctionInteractive = () => {
       let nbBonnesReponses = 0
       let nbMauvaisesReponses = 0
       for (let i = 0; i < this.nbQuestions; i++) {

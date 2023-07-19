@@ -1,9 +1,10 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, combinaisonListes, calcul, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, calcul, listeQuestionsToContenu } from '../../modules/outils.js'
 import { droiteGraduee } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -34,7 +35,7 @@ export default function LireAbscisseEntiere2d () {
   this.sup = 4
   this.interactif = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
     this.listeQuestions = []

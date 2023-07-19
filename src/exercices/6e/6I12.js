@@ -1,9 +1,10 @@
 // on importe les fonctions nécessaires.
+import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { point, segment, tracePoint, grille, texteParPoint } from '../../modules/2d.js'
 import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
@@ -267,7 +268,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   // Pour distinguer les deux types de codage de recuperation des résultats
   this.exoCustomResultat = false
   // Gestion de la correction
-  this.correctionInteractive = (elt) => {
+  this.correctionInteractive = () => {
     let nbBonnesReponses = 0
     let nbMauvaisesReponses = 0
     let nbFiguresCliquees = 0

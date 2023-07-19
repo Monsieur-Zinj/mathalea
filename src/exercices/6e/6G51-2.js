@@ -1,7 +1,8 @@
+import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, pointAdistance, polygoneAvecNom, pointIntersectionDD, droite, segment, demiDroite } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les symboles ∈ et ∉'
@@ -25,7 +26,7 @@ export default class UtilerAppartientA extends Exercice {
     this.nbColsCorr = 4
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

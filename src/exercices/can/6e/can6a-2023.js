@@ -1,3 +1,4 @@
+import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -13,7 +14,7 @@ import {
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms.js'
-import { listeQuestionsToContenu, randint, shuffle, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import Grandeur from '../../../modules/Grandeur.js'

@@ -1,4 +1,5 @@
-import { choice, egal } from './outils.js'
+import { choice } from '../lib/outils/arrayOutils.js'
+import { egal } from './outils.js'
 
 /**
  * @class
