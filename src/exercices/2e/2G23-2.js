@@ -106,11 +106,21 @@ export default function TranslationEtCoordonnes () {
       if (parseInt(this.sup) === 1) {
         AbsRep = xB
         OrdRep = yB
-        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA}\\,;\\,${yA}\\right)$ par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
+        texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA}\\,;\\,${yA}\\right)$ par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
+
+        if (this.interactif) {
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse $x$ du point $A\'$ :' })
+          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée $y$ du point $A\'$ :' })
+        }
       } else if (parseInt(this.sup) === 2) {
         AbsRep = xA
         OrdRep = yA
-        texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ est le point $A'\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
+        texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ est le point $A'\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
+
+        if (this.interactif) {
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse $x$ du point $A$ :' })
+          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée $y$ du point $A$ :' })
+        }
       }
       texteCorr = ''
       if (this.correctionDetaillee) {
@@ -143,6 +153,8 @@ export default function TranslationEtCoordonnes () {
         texteCorr += `y=${yB}`
         texteCorr += '\\end{array}'
         texteCorr += `\\right.$ soit $A'(${xB}\\,;\\,${yB})$.<br>`
+        setReponse(this, 2 * i, AbsRep)
+        setReponse(this, 2 * i + 1, OrdRep)
         // texteCorr += `$\\begin{cases}x${ecritureAlgebrique(-xA)}=${ux}\\\\y${ecritureAlgebrique(-yA)}=${uy}\\end{cases}$`
         // texteCorr += `$\\Leftrightarrow\\begin{cases}x=${ux}${ecritureAlgebrique(xA)}\\\\y=${uy}${ecritureAlgebrique(yA)}\\end{cases}$`
         // texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}\\\\y=${yB}\\end{cases}$ soit $A'(${xB}\\,;\\,${yB})$.<br>`
@@ -164,6 +176,8 @@ export default function TranslationEtCoordonnes () {
         texteCorr += `y=${yA}`
         texteCorr += '\\end{array}'
         texteCorr += `\\right.$ soit $A(${xA}\\,;\\,${yA})$.<br>`
+        setReponse(this, 2 * i, AbsRep)
+        setReponse(this, 2 * i + 1, OrdRep)
         // texteCorr += `$\\begin{cases}${xB}-x=${ux}\\\\${yB}-y=${uy}\\end{cases}$`
         // texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xB}${ecritureAlgebrique(-ux)}\\\\y=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$`
         // texteCorr += `$\\Leftrightarrow\\begin{cases}x=${xA}\\\\y=${yA}\\end{cases}$ soit $A(${xA}\\,;\\,${yA})$.<br>`
@@ -172,10 +186,10 @@ export default function TranslationEtCoordonnes () {
       if (this.correctionDetaillee) {
         texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objets)), objets) // On trace le graphique
       }
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse du point :' })
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée du point :' })
-      setReponse(this, 2 * i, AbsRep)
-      setReponse(this, 2 * i + 1, OrdRep)
+      // texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse du point :' })
+      // texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée du point :' })
+      // setReponse(this, 2 * i, AbsRep)
+      // setReponse(this, 2 * i + 1, OrdRep)
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
