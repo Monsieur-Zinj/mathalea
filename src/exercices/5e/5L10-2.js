@@ -257,7 +257,7 @@ export default function TraduireUnProgrammeDeCalcul () {
         if (context.vue === 'diap') {
           texte = texte.replace(', quel est le résultat du programme de calcul ?', ',<br> quel est le résultat de ce programme ?')
         }
-        if (!context.isHtml && i === 0) { texte = '\\setlength\\itemsep{1em}' + texte }; // espacement entre les questions
+        if (!context.isHtml && i === 0) { texte = '\\setlength\\itemsep{1em}' + texte } // espacement entre les questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

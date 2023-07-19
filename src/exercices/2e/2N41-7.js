@@ -109,7 +109,7 @@ export default function FactoriserIdentitesremarquables2 () {
               texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
                                     ${b + d}(${reduireAxPlusB(a - c, b - d)})$  `
             }
-          } ;
+          }
           break
       }
       if (this.questionJamaisPosee(i, a, b, c, d, k, typesDeQuestions)) {

@@ -102,7 +102,7 @@ export default function EqResolvantesThales () {
     this.nbQuestions = 4
   } else {
     this.nbQuestions = 4
-  };
+  }
   this.sup = 1 // Niveau de difficulté
   this.consigne = 'Les égalités suivantes sont-elles vraies ? Justifier.'
 
@@ -173,7 +173,7 @@ export default function EqResolvantesThales () {
           question: '',
           correction: justification
         })
-      };
+      }
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
         case 0:
@@ -185,7 +185,7 @@ export default function EqResolvantesThales () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -195,7 +195,7 @@ export default function EqResolvantesThales () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[2].enonce}`
@@ -205,7 +205,7 @@ export default function EqResolvantesThales () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[2].correction}`
-          };
+          }
           break
         case 3:
           texte = `${enonces[3].enonce}`
@@ -215,9 +215,9 @@ export default function EqResolvantesThales () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[3].correction}`
-          };
+          }
           break
-      };
+      }
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [

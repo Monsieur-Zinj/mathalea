@@ -48,7 +48,7 @@ export default function DeterminerDerniereOperationExpNum () {
       texteCorr = '$'
       for (let l = 1; l < str.length - 1; l++) {
         texteCorr += `${str[l]}=`
-      };
+      }
       texteCorr += `${str[str.length - 1]}`
       texteCorr += `<br>La dernière opération dans $${str[1]}$ est donc une ${texteEnCouleurEtGras(lastOp)}.`
 

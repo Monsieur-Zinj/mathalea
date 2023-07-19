@@ -55,11 +55,11 @@ export default class EngrenagesAnimes extends Exercice {
           result += '$ ; '
         } else {
           result += `${texNombre(k * nbDentsRoueA, 0)}$ ; `
-        };
+        }
         if (k % 5 === 0) {
           result += '<br>'
         }
-      };
+      }
       result += '$\\ldots$ '
       result += '<br>'
       return result

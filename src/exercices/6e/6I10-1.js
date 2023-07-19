@@ -45,8 +45,8 @@ export default function ColorierDeplacement () {
         return codeSvg
       } else {
         return codeTikz
-      };
-    };
+      }
+    }
     function calculerDeplacementsLutin (rotation, deplacement) {
       let ajoutX = 0
       let ajoutY = 0

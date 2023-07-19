@@ -160,7 +160,7 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
             c = randint(-9, 9, 0)
             d = randint(-9, 9)
             e = randint(-9, 9, 0)
-          };
+          }
           choix = choice([true, false])
           texte = consigne1
           if (b === 0) { texte += `$\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}=${e}$.` } else {

@@ -46,7 +46,7 @@ export default function PremierOuPas () {
       this.boutonAide = modalPdf(this.numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
       this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -68,7 +68,7 @@ export default function PremierOuPas () {
     let stringRappel = 'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' + prems[0]
     for (let k = 1; k < 25; k++) {
       stringRappel += ', ' + prems[k]
-    };
+    }
     stringRappel += '.'
 
     for (let i = 0, texte, texteCorr, r1, r2, prime1, prime2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -104,14 +104,14 @@ export default function PremierOuPas () {
           N = 3 * randint(34, 333) // on initialise avant la boucle car on a peut être de la chance
           while ((N % 2 === 0) || (N % 5 === 0)) {
             N = 3 * randint(34, 333)
-          };
+          }
           texte = nombreAvecEspace(N)
           texteCorr = 'Comme ' + N.toString().charAt(0)
           sum = Number(N.toString().charAt(0))
           for (let k = 1; k < N.toString().length; k++) {
             texteCorr += ' + ' + N.toString().charAt(k)
             sum += Number(N.toString().charAt(k))
-          };
+          }
           texteCorr += ` = ${sum} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
@@ -128,7 +128,7 @@ export default function PremierOuPas () {
           N = 7 * randint(15, 143)
           while ((N % 2 === 0) || (N % 3 === 0) || (N % 5 === 0)) {
             N = 7 * randint(15, 143)
-          };
+          }
           texte = nombreAvecEspace(N)
           Nlongueur = N.toString().length
           texteCorr = ` 7 divise ${nombreAvecEspace(N)}, en effet : `
@@ -143,7 +143,7 @@ export default function PremierOuPas () {
             N1 = sum1
             N1longueur = N1.toString().length
             sum1 = Number(N1.toString().substring(0, N1longueur - 1)) + 5 * Number(N1.toString().charAt(N1longueur - 1))
-          };
+          }
           texteCorr += `Comme ${N1.toString().substring(0, N1longueur - 1)} + 5$\\times$${N1.toString().charAt(N1longueur - 1)} = ${sum1} est un multiple de 7 alors 7 divise ${N} aussi `
           texteCorr += 'qui admet donc au moins trois diviseurs : 1, 7 et lui-même, '
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
@@ -153,7 +153,7 @@ export default function PremierOuPas () {
           N = 11 * randint(10, 91)
           while ((N % 2 === 0) || (N % 3 === 0) || (N % 5 === 0) || (N % 7 === 0)) {
             N = 11 * randint(10, 91)
-          };
+          }
           texte = nombreAvecEspace(N)
           texteCorr = `D'une part, la somme des chiffres de rang impair de ${nombreAvecEspace(N)} vaut `
           if (Number(N.toString().length) % 2 === 0) { // si N a un nombre pair de chiffres
@@ -163,8 +163,8 @@ export default function PremierOuPas () {
               if (k % 2 === 1) {
                 texteCorr += ' + ' + N.toString().charAt(k)
                 evenSum += Number(N.toString().charAt(k))
-              };
-            };
+              }
+            }
             texteCorr += ' = ' + evenSum + ' <br> '
           } else { // sinon N a un nombre impair de chiffres
             evenSum = Number(N.toString().charAt(0))
@@ -173,10 +173,10 @@ export default function PremierOuPas () {
               if (m % 2 === 0) {
                 texteCorr += ' + ' + N.toString().charAt(m)
                 evenSum += Number(N.toString().charAt(m))
-              };
-            };
+              }
+            }
             texteCorr += ' = ' + evenSum + '<br> '
-          };
+          }
           texteCorr += `d'autre part, la somme des chiffres de rang pair de ${nombreAvecEspace(N)} vaut `
           if (Number(N.toString().length) % 2 === 0) { // si N a un nombre pair de chiffres
             oddSum = Number(N.toString().charAt(0))
@@ -185,8 +185,8 @@ export default function PremierOuPas () {
               if (k % 2 === 0) {
                 texteCorr += ' + ' + N.toString().charAt(k)
                 oddSum += Number(N.toString().charAt(k))
-              };
-            };
+              }
+            }
             texteCorr += ' = ' + oddSum + ' <br> '
           } else { // sinon N a un nombre impair de chiffres
             oddSum = Number(N.toString().charAt(1))
@@ -195,16 +195,16 @@ export default function PremierOuPas () {
               if (m % 2 === 1) {
                 texteCorr += ' + ' + N.toString().charAt(m)
                 oddSum += Number(N.toString().charAt(m))
-              };
-            };
+              }
+            }
             texteCorr += ' = ' + oddSum + '<br> '
-          };
+          }
           texteCorr += 'la différence entre la somme des chiffres de rangs pairs et celle des chiffres de rangs impairs vaut '
           if ((oddSum - evenSum) === 0) {
             texteCorr += `${oddSum - evenSum}, `
           } else {
             texteCorr += `${Math.abs(oddSum - evenSum)} qui est un multiple de 11, `
-          };
+          }
           texteCorr += '<br>'
           texteCorr += ` cela signifie que ${nombreAvecEspace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même,`
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
@@ -224,7 +224,7 @@ export default function PremierOuPas () {
             texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
           } else {
             texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
-          };
+          }
           texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
           break
@@ -253,7 +253,7 @@ export default function PremierOuPas () {
             texteCorr += tabPremiersATester[0]
             for (let k = 1; k < tabPremiersATester.length - 1; k++) {
               texteCorr += ', ' + tabPremiersATester[k]
-            };
+            }
             texteCorr += ' et ' + tabPremiersATester[tabPremiersATester.length - 1]
             texteCorr += ', le reste n\'est jamais nul,'
           }
@@ -280,14 +280,14 @@ export default function PremierOuPas () {
             texteCorr += tabPremiersATester[0]
             for (let k = 1; k < tabPremiersATester.length - 1; k++) {
               texteCorr += ', ' + tabPremiersATester[k]
-            };
+            }
             texteCorr += ' et ' + tabPremiersATester[tabPremiersATester.length - 1]
             texteCorr += ', le reste n\'est jamais nul,'
           }
           texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
           bonneReponse = 'oui'
           break
-      };
+      }
       if (this.interactif || context.isAmc) {
         this.autoCorrection[i] = {}
         this.autoCorrection[i].options = { ordered: true }

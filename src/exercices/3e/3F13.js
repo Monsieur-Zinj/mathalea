@@ -55,7 +55,7 @@ export default function AntecedentGraphique () {
         fx3 = randint(-4, 4)
         c = randint(-3, 3)
       }
-    };
+    }
 
     initialiseVariables()
 

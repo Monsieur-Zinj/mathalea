@@ -48,7 +48,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
       typesDeQuestionsDisponibles = range1(2)
     } else {
       typesDeQuestionsDisponibles = range1(10)
-    };
+    }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 

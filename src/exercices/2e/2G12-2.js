@@ -95,7 +95,7 @@ export default function Milieu () {
           if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
           if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};${yI0}\\right)$` }
 
-          ;
+          
           break
         case 2: // cas où on connaît A et I, on cherche B
 

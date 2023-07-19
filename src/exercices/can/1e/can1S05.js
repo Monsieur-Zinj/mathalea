@@ -119,7 +119,7 @@ export default function NatureSuiteEx () {
           // u = randint(1, 10) * choice([-1, 1])
           b = randint(-10, 10, [-1, 0, 1, a])
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =`
-          if (a === 1) { texte += `${ecritureParentheseSiNegatif(b)}^n$` } else { texte += `${a}\\times${ecritureParentheseSiNegatif(b)}^n$` };
+          if (a === 1) { texte += `${ecritureParentheseSiNegatif(b)}^n$` } else { texte += `${a}\\times${ecritureParentheseSiNegatif(b)}^n$` }
 
           if (this.interactif) {
             texte += `<br>Alors, $(${s}_n)$ est une suite ...`
@@ -155,7 +155,7 @@ export default function NatureSuiteEx () {
           } else {
             texteCorr = `$${s}_{n+1} =${a}\\times ${ecritureParentheseSiNegatif(b)}^{n+1}=${ecritureParentheseSiNegatif(b)}\\times \\underbrace{${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)}^{n}}_{${s}_{n}}=${ecritureParentheseSiNegatif(b)}\\times ${s}_{n}$.
          `
-          };
+          }
           texteCorr += `  <br>
         On en déduit que $(${s}_n)$ est une suite géométrique de raison $${b}$ et de premier terme $${s}_0=${a}\\times ${ecritureParentheseSiNegatif(b)}^0=${a}$.`
 

@@ -125,7 +125,7 @@ Donner la raison $q$ de cette suite.`
           this.reponse = q
           this.canEnonce = this.question
           this.canReponseACompleter = '$q=\\ldots$'
-        };
+        }
     }
   }
 }

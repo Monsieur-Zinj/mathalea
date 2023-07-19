@@ -48,7 +48,7 @@ export default function TrianglesEgaux () {
           p = polygone(A, B, C) // on trace le polygone ABC
           aireABC = aireTriangle(p) // Je savais bien que cette formule servirait un jour !
           if (aireABC < 11 && aireABC > 5) { trouve = true }
-        };
+        }
         G = barycentre(p) // le barycentre de ABC
         const angleChoisi1 = choice([0, 90, 270])
         p = rotation(p, G, angleChoisi1) // on tourne ABC de façon aléatoire autour de son barycentre

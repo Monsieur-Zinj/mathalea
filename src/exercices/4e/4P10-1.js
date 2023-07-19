@@ -23,7 +23,7 @@ export default function GraphiquesEtProportionnalite2 () {
     this.nbQuestions = 2
   } else {
     this.nbQuestions = 1
-  };
+  }
 
   this.titre = titre
   this.consigne = ''
@@ -42,7 +42,7 @@ export default function GraphiquesEtProportionnalite2 () {
       typesDeQuestionsDisponibles = [1]
     } else {
       typesDeQuestionsDisponibles = [1]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -198,7 +198,7 @@ export default function GraphiquesEtProportionnalite2 () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
       }
 

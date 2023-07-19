@@ -132,7 +132,7 @@ export default function ExerciceAdditionnerFractionProduit () {
 
       switch (typesDeQuestions) {
         case 1: // De la forme : « a⁄b ± c⁄d ×÷ e⁄f »
-          if (piegeObligatoire) { d = b };
+          if (piegeObligatoire) { d = b }
 
           texte += `$${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)}$`
 
@@ -190,7 +190,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           break
 
         case 2: // De la forme : « c⁄d ×÷ e⁄f ± a⁄b »
-          if (piegeObligatoire) { f = b };
+          if (piegeObligatoire) { f = b }
           texte += `$${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
 
           texteCorr = `$${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`

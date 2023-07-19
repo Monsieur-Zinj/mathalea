@@ -33,7 +33,7 @@ export default function ConstructibiliteDesTriangles () {
     this.titre = 'Constructibilité des triangles'
     this.consigne = 'Justifier si les longueurs ou les angles donnés permettent de construire le triangle.'
     this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
-  };
+  }
 
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -53,7 +53,7 @@ export default function ConstructibiliteDesTriangles () {
         else if (this.nbQuestions === 2) typesDeQuestionsDisponibles = [4, a]
         else if (this.nbQuestions === 3) typesDeQuestionsDisponibles = [4, a, a % 3 + 1]
         else typesDeQuestionsDisponibles = [4, 1, 2, 3]
-      };
+      }
     } else if (this.exo === this.beta + '5G31-1') { // via angles
       if (this.sup === 1) {
         typesDeQuestionsDisponibles = [5, 6, 7]
@@ -63,10 +63,10 @@ export default function ConstructibiliteDesTriangles () {
         else if (this.nbQuestions === 2) typesDeQuestionsDisponibles = [8, a]
         else if (this.nbQuestions === 3) typesDeQuestionsDisponibles = [8, a, (a - 4) % 3 + 5]
         else typesDeQuestionsDisponibles = [8, 5, 6, 7]
-      };
+      }
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-    };
+    }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -95,13 +95,13 @@ export default function ConstructibiliteDesTriangles () {
             triangle.l1 = l1
             triangle.l2 = l2
             triangle.l3 = l3
-          };
+          }
           texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i], valeur: triangle.getLongueursValeurs()[i] })
-          };
+          }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
@@ -122,13 +122,13 @@ export default function ConstructibiliteDesTriangles () {
             triangle.l1 = l1
             triangle.l2 = l2
             triangle.l3 = l3
-          };
+          }
           texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $ = ${triangle.l1}$ cm ; `
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i], valeur: triangle.getLongueursValeurs()[i] })
-          };
+          }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
@@ -142,7 +142,7 @@ export default function ConstructibiliteDesTriangles () {
             texteCorr += `${currentTriangle[0].longueur.split('')[1]}`
           } else {
             texteCorr += `${currentTriangle[0].longueur.split('')[2]}`
-          };
+          }
           texteCorr += '.'
           // `${currentTriangle[0].longueur.split('')[2]}.`;
           break
@@ -162,13 +162,13 @@ export default function ConstructibiliteDesTriangles () {
             triangle.l1 = l1
             triangle.l2 = l2
             triangle.l3 = l3
-          };
+          }
           texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i], valeur: triangle.getLongueursValeurs()[i] })
-          };
+          }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
@@ -189,13 +189,13 @@ export default function ConstructibiliteDesTriangles () {
             triangle.l1 = l1
             triangle.l2 = l2
             triangle.l3 = l3
-          };
+          }
           texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `
           texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et dont le périmètre vaut $${triangle.getPerimetre()}$ cm.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i], valeur: triangle.getLongueursValeurs()[i] })
-          };
+          }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
@@ -219,7 +219,7 @@ export default function ConstructibiliteDesTriangles () {
             triangle.a1 = a1
             triangle.a2 = a2
             triangle.a3 = a3
-          };
+          }
           texte = ''
           texteCorr = ''
           texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `
@@ -227,7 +227,7 @@ export default function ConstructibiliteDesTriangles () {
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
-          };
+          }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
@@ -247,7 +247,7 @@ export default function ConstructibiliteDesTriangles () {
             triangle.a1 = a1
             triangle.a2 = a2
             triangle.a3 = a3
-          };
+          }
           texte = ''
           texteCorr = ''
           texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `
@@ -255,7 +255,7 @@ export default function ConstructibiliteDesTriangles () {
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
-          };
+          }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
@@ -285,13 +285,13 @@ export default function ConstructibiliteDesTriangles () {
             triangle.a1 = a1
             triangle.a2 = a2
             triangle.a3 = a3
-          };
+          }
           texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `
           texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} $= ${triangle.a3}\\degree$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
-          };
+          }
           // on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
@@ -329,14 +329,14 @@ export default function ConstructibiliteDesTriangles () {
                   a2 = calcul(4 * (180 - a1) / 5)
                   a3 = calcul(a2 / 4)
                   break
-              };
+              }
               triangle.a2 = a2
               triangle.a3 = a3
               texte += `${triangle.getAngles()[1]} $= ${texNombre(triangle.a2)}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`
               // on crée l'objet longueurs + valeurs des côtés du triangle
               for (let i = 0; i < 3; i++) {
                 currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
-              };
+              }
               texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[1].angle} = $${texNombre(currentTriangle[1].valeur)}\\degree$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}\\degree$.`
               break
             case 1:
@@ -357,17 +357,17 @@ export default function ConstructibiliteDesTriangles () {
                   a1 = calcul(4 * (180 - a2) / 5)
                   a3 = calcul(a1 / 4)
                   break
-              };
+              }
               triangle.a1 = a1
               triangle.a3 = a3
               texte += `${triangle.getAngles()[0]} $= ${texNombre(triangle.a1)}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[0]}.`
               // on crée l'objet longueurs + valeurs des côtés du triangle
               for (let i = 0; i < 3; i++) {
                 currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
-              };
+              }
               texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[0].angle} = $${texNombre(currentTriangle[0].valeur)}\\degree$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}\\degree$.`
               break
-          };
+          }
           texteCorr += `<br>Donc ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${texNombre(currentTriangle[0].valeur)}\\degree + ${texNombre(currentTriangle[1].valeur)}\\degree + ${texNombre(currentTriangle[2].valeur)}\\degree = ${texNombre(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
           texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.'
           texteCorr += `<br> ${texteEnCouleur('On peut donc construire le triangle ' + triangle.getNom())}.`
@@ -391,5 +391,5 @@ export default function ConstructibiliteDesTriangles () {
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème']
   } else {
     // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
-  };
+  }
 }

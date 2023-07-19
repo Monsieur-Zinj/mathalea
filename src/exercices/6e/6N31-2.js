@@ -106,7 +106,7 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
     } else {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = shuffle([0])
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -202,7 +202,7 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
             ]
           )}`
         })
-      };
+      }
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
@@ -215,7 +215,7 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
       }
 
@@ -228,4 +228,4 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
     }
     listeQuestionsToContenu(this)
   }
-};
+}

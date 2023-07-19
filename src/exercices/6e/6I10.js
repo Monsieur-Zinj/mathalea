@@ -43,8 +43,8 @@ export default function ColorierDeplacement () {
         return codeSvg
       } else {
         return codeTikz
-      };
-    };
+      }
+    }
 
     let texte = '' // texte de l'énoncé
     let texteCorr = '' // texte du corrigé

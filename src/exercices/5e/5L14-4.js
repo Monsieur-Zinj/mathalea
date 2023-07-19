@@ -82,7 +82,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
         if (this.consigne === 'Déterminer si ces expressions sont des sommes, des différences, des produits ou des quotients.') {
           texteCorr += texteEnCouleur(`<br>Cette expression est donc ${structureExpression}.`)
         }
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

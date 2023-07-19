@@ -22,7 +22,7 @@ export default function RapportsSurUnSegment () {
     this.nbQuestions = 2
   } else {
     this.nbQuestions = 2
-  };
+  }
 
   this.consigne = 'Sur tous les axes, les graduations sont régulières.'
 
@@ -40,7 +40,7 @@ export default function RapportsSurUnSegment () {
     } else {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = [0, 1]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -149,7 +149,7 @@ export default function RapportsSurUnSegment () {
           ${Remarque(situations[k].rapport, situations[k].rapport_inverse, situations[k].n, situations[k].m)}
 `
         })
-      };
+      }
 
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
@@ -162,7 +162,7 @@ export default function RapportsSurUnSegment () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -172,7 +172,7 @@ export default function RapportsSurUnSegment () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[2].enonce}`
@@ -182,7 +182,7 @@ export default function RapportsSurUnSegment () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[2].correction}`
-          };
+          }
           break
         case 3:
           texte = `${enonces[3].enonce}`
@@ -192,7 +192,7 @@ export default function RapportsSurUnSegment () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[3].correction}`
-          };
+          }
           break
         case 4:
           texte = `${enonces[4].enonce}`
@@ -202,9 +202,9 @@ export default function RapportsSurUnSegment () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[4].correction}`
-          };
+          }
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -217,14 +217,14 @@ export default function RapportsSurUnSegment () {
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
-};
+}
 function singPlur (nombre, singulier, pluriel) {
   if (nombre > 1) {
     return pluriel
   } else {
     return singulier
-  };
-};
+  }
+}
 function etapeSimp (n, m) {
   let sortie
   const rapport = fraction(n, m).n / fraction(n, m).numIrred

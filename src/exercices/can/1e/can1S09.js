@@ -170,7 +170,7 @@ export default function RelationRec () {
             texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-\\dfrac{1}{2}${s}_{n}}_{\\text{Perte de la moitié }} +${b}=0,5${s}_{n}+${b}$.<br>
 
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=0,5${s}_{n}+${b}$.<br>`
-          };
+          }
 
           if (T === 'la moitié') {
             setReponse(this, 2 * i, ['0,5', `${deprecatedTexFraction(1, 2)}`])
@@ -193,7 +193,7 @@ export default function RelationRec () {
             setReponse(this, 2 * i, ['0,9', `${deprecatedTexFraction(9, 10)}`])
             setReponse(this, 2 * i + 1, b)
           }
-          ;
+          
           this.canEnonce = texte
           this.canReponseACompleter = ''
           break

@@ -28,7 +28,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
     this.nbQuestions = 3
   } else {
     this.nbQuestions = 3
-  };
+  }
 
   this.titre = titre
   this.consigne = ''
@@ -46,7 +46,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
     } else {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = shuffle([0, 1, 2])
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -117,7 +117,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           reponse = enonces[0].reponse
           break
         case 1:
@@ -128,7 +128,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           reponse = enonces[1].reponse
           break
         case 2:
@@ -139,10 +139,10 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[2].correction}`
-          };
+          }
           reponse = enonces[2].reponse
           break
-      };
+      }
       if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur25')
       setReponse(this, i, reponse)
       if (context.isAmc) {
@@ -159,4 +159,4 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
     }
     listeQuestionsToContenu(this)
   }
-};
+}

@@ -35,7 +35,7 @@ export default function ProportionnaliteParLineariteBis () {
     this.nbQuestions = 3
   } else {
     this.nbQuestions = 1
-  };
+  }
 
   this.consigne = ''
   context.isHtml ? this.spacing = 2 : this.spacing = 1
@@ -68,7 +68,7 @@ export default function ProportionnaliteParLineariteBis () {
           return obj.achat_plur
         } else {
           return obj.achat_sing
-        };
+        }
       }
 
       // un compteur pour les sous-questions

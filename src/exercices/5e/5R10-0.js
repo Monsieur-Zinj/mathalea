@@ -24,7 +24,7 @@ export default function TrouverOppose () {
     this.nbQuestions = 1
   } else {
     this.nbQuestions = 1
-  };
+  }
 
   this.titre = titre
   this.consigne = 'Compléter le tableau suivant.'
@@ -39,7 +39,7 @@ export default function TrouverOppose () {
       typesDeQuestionsDisponibles = [1]
     } else {
       typesDeQuestionsDisponibles = [1]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -88,7 +88,7 @@ export default function TrouverOppose () {
           nbLigneNombresOpp[k] = ''
           nbLigneNombresOppCorr[k] = miseEnEvidence(nb.opp)
         }
-      };
+      }
 
       const enonces = []
       enonces.push({
@@ -111,7 +111,7 @@ export default function TrouverOppose () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[1].enonce}`
@@ -121,7 +121,7 @@ export default function TrouverOppose () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
       }
 

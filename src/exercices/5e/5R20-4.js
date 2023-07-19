@@ -23,7 +23,7 @@ export default function ProblemesAdditifsRelatifs5e () {
     this.nbQuestions = 1
   } else {
     this.nbQuestions = 1
-  };
+  }
 
   this.titre = titre
   this.consigne = ''
@@ -42,7 +42,7 @@ export default function ProblemesAdditifsRelatifs5e () {
     } else {
       //   typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = [0]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -76,8 +76,8 @@ export default function ProblemesAdditifsRelatifs5e () {
           const temp = nombreDePertes
           nombreDePertes = nombreDeGainsUnitaires
           nombreDeGainsUnitaires = temp
-        };
-      };
+        }
+      }
 
       const prenoms = [[prenomF(), 'Elle', 'elle'], [prenomM(), 'Il', 'il']]
       const currentPrenom = choice(prenoms)
@@ -90,15 +90,15 @@ export default function ProblemesAdditifsRelatifs5e () {
             sortie = `(+${texPrix(valeur)}~$€$)`
             for (let m = 1; m < nb; m++) {
               sortie += `+(+${texPrix(valeur)}~$€$)`
-            };
+            }
             break
           case 'perte':
             sortie = `(-${texPrix(valeur)}~$€$)`
             for (let m = 1; m < nb; m++) {
               sortie += `+(-${texPrix(valeur)}~$€$)`
-            };
+            }
             break
-        };
+        }
         return sortie
       }
 
@@ -108,7 +108,7 @@ export default function ProblemesAdditifsRelatifs5e () {
           return true
         } else {
           return false
-        };
+        }
       }
 
       let bilan
@@ -185,7 +185,7 @@ $(+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}~$€$)+(+${t
 
 `
         })
-      };
+      }
 
       switch (listeTypeDeQuestions[i]) {
         case 0:
@@ -197,9 +197,9 @@ $(+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}~$€$)+(+${t
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -212,4 +212,4 @@ $(+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}~$€$)+(+${t
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
-};
+}

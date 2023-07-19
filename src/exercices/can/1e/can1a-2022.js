@@ -518,8 +518,8 @@ export default function SujetCAN2022Premiere () {
           k = randint(1, 10)
 
           texte = 'Soit $(u_n)$ une suite définie pour tout  $n\\in\\mathbb{N}$ par : $u_n = '
-          if (a === 1) { texte += 'n' } else if (a === -1) { texte += '-n' } else { texte += `${a}n` };
-          if (b > 0) { texte += `+${b}$.` } else { texte += `${b}$.` };
+          if (a === 1) { texte += 'n' } else if (a === -1) { texte += '-n' } else { texte += `${a}n` }
+          if (b > 0) { texte += `+${b}$.` } else { texte += `${b}$.` }
           texte += `<br> $u_{${k}}=$`
 
           texteCorr = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : $u_{${k}} =`

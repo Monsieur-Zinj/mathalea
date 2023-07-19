@@ -51,7 +51,7 @@ export default function CalculTermeSuiteRec () {
         }
         this.correction = `Pour tout entier naturel $n$, $u_n=u_0+n\\times r$.<br>
         Avec $${s}_0=${u}$ et  $r=${a}$, on obtient $${s}_n=${u}+n\\times${ecritureParentheseSiNegatif(a)}=$`
-        if (a === 1) { this.correction += `$${u}+n$.` } else if (a === -1) { this.correction += `$${u}-n$.` } else { this.correction += `$${u}${ecritureAlgebrique(a)}n$.` };
+        if (a === 1) { this.correction += `$${u}+n$.` } else if (a === -1) { this.correction += `$${u}-n$.` } else { this.correction += `$${u}${ecritureAlgebrique(a)}n$.` }
 
         this.reponse = [`${u}+${a}n`, `${u}+${a}\\times n`]
         break
@@ -76,7 +76,7 @@ export default function CalculTermeSuiteRec () {
         }
         this.correction = `Pour tout entier naturel $n$ non nul, $u_n=u_1+(n-1)\\times r$.<br>
         Avec $${s}_0=${u}$ et  $r=${a}$, on obtient $${s}_n=${u}+(n-1)\\times${ecritureParentheseSiNegatif(a)}=$`
-        if (a === 1) { this.correction += `$${u - 1}+n$.` } else if (a === -1) { this.correction += `$${u + 1}-n$.` } else { this.correction += `$${u - a}${ecritureAlgebrique(a)}n$.` };
+        if (a === 1) { this.correction += `$${u - 1}+n$.` } else if (a === -1) { this.correction += `$${u + 1}-n$.` } else { this.correction += `$${u - a}${ecritureAlgebrique(a)}n$.` }
 
         this.reponse = [`${u - a}+${a}n`, `${u - a}+${a}\\times n`]
         break

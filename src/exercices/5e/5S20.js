@@ -153,7 +153,7 @@ export default function PlacerProbabilites () {
     }
     for (let i = 0; i < nbEvenement; i++) {
       p = lstEvenenementExo[i][1]
-      if (p === 0) { parrondi = 0 } else if (p < 0.25) { parrondi = 1 } else if (p < 0.5) { parrondi = 2 } else if (p === 0.5) { parrondi = 3 } else if (p < 0.75) { parrondi = 4 } else if (p < 1) { parrondi = 5 } else if (p === 1) { parrondi = 6 };
+      if (p === 0) { parrondi = 0 } else if (p < 0.25) { parrondi = 1 } else if (p < 0.5) { parrondi = 2 } else if (p === 0.5) { parrondi = 3 } else if (p < 0.75) { parrondi = 4 } else if (p < 1) { parrondi = 5 } else if (p === 1) { parrondi = 6 }
       texteCorr += String.fromCharCode(65 + i) + ' : ' + lstEvenenementExo[i][0] + '. ' + texteEnCouleurEtGras(lstEchelle[parrondi][0]) + '.<br>'
     }
     if (context.isHtml) {

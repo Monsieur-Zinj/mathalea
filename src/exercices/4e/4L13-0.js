@@ -22,7 +22,7 @@ export default function MettreEnEquationSansResoudre () {
     this.nbQuestions = 9
   } else {
     this.nbQuestions = 2
-  };
+  }
 
   this.titre = titre
   this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
@@ -40,7 +40,7 @@ export default function MettreEnEquationSansResoudre () {
       typesDeQuestionsDisponibles = [1]
     } else {
       typesDeQuestionsDisponibles = [1, 2]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -114,7 +114,7 @@ export default function MettreEnEquationSansResoudre () {
         anglesDroitsIfIsCarre = codageCarre(po)
       } else {
         anglesDroitsIfIsCarre = {}
-      };
+      }
       // on finit les appels
       const mesAppels = [
         po,
@@ -176,7 +176,7 @@ export default function MettreEnEquationSansResoudre () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[1].enonce}`
@@ -186,7 +186,7 @@ export default function MettreEnEquationSansResoudre () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
       }
 
