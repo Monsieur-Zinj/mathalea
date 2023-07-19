@@ -77,7 +77,7 @@ export default class BetaModeleSpline extends Exercice {
     this.besoinFormulaireTexte = ['Réglages des questions :', '1 : Un seul antécédent\n2 : Deux antécédents\n3 : trois antécédents\n4 : De un à trois antécédents\n5 : De 0 à 3 antécédents\n6 : Mélange']
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -137,11 +137,11 @@ export default class BetaModeleSpline extends Exercice {
       texteCorrection += '<br>voici les signes de f : '
       const signes = maSpline.signes()
       for (let k = 0; k < signes.length; k++) {
-        texteCorrection += `<br>Sur [${signes[k].xG};${signes[k].xD}] la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
+        texteCorrection += `<br>Sur $[${signes[k].xG.texFSD};${signes[k].xD.texFSD}]$ la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
       }
       const variations = maSpline.variations()
       for (let k = 0; k < variations.length; k++) {
-        texteCorrection += `<br>Sur [${variations[k].xG};${variations[k].xD}] la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
+        texteCorrection += `<br>Sur $[${variations[k].xG.texFSD};${variations[k].xD.texFSD}]$ la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
       }
 
       this.listeQuestions.push(texteEnonce)

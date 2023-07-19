@@ -1,4 +1,4 @@
-import { matriceCarree } from './MatriceCarree.js'
+import { matriceCarree } from './mathFonctions/MatriceCarree.js'
 
 /**
  *

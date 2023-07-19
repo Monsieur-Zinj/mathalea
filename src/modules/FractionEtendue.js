@@ -48,11 +48,11 @@ class FractionEtendue extends Fraction {
       super(NaN)
     } else {
       if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
-        num = args[0]
+        num = Number(args[0])
         den = 1
       } else {
-        num = args[0]
-        den = args[1]
+        num = Number(args[0])
+        den = Number(args[1])
       }
       if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
         num = Number(num)
@@ -88,7 +88,7 @@ class FractionEtendue extends Fraction {
                 let denTest = den
                 let inverseDenTest = inverseDen
                 // console.log(denTest, ' ', inverseDenTest)
-                while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 9 & iDen < testMAX) {
+                while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 9 && iDen < testMAX) {
                   iDen += (iDen % 5 === 3) ? 4 : 2
                   denTest = calcul(den * iDen, 10)
                   inverseDenTest = calcul(inverseDen * iDen, 10)
@@ -99,7 +99,7 @@ class FractionEtendue extends Fraction {
                 let inverseNumTest = inverseNum
                 // console.log(numTest, ' ', inverseNumTest)
                 // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
-                while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 & iNum < testMAX) {
+                while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 && iNum < testMAX) {
                   iNum += (iNum % 5 === 3) ? 4 : 2
                   numTest = calcul(num * iNum, 10)
                   inverseNumTest = calcul(inverseNum * iNum, 10)
@@ -400,7 +400,7 @@ class FractionEtendue extends Fraction {
   oppose () { return new FractionEtendue(-1 * this.num, this.den) }
   /**
  * On pourra utiliser k = 0.5 pour simplifier par 2 la fraction par exemple.
- * @param {coefficient} k
+ * @param {number} k
  * @returns La FractionEtendue dont le numérateur et le dénominateur ont été multipliés par k.
  */
   reduire (k) {
@@ -421,13 +421,13 @@ class FractionEtendue extends Fraction {
   differenceFraction (f) { return new FractionEtendue(subtract(this, f)) }
 
   /**
- * @param {coefficient} n
+ * @param {number} n
  * @returns La FractionEtendue multipliée par n (numérateur n fois plus grand)
  */
   multiplieEntier (n) { return new FractionEtendue(this.num * n, this.den) }
 
   /**
-  * @param {coefficient} n
+  * @param {number} n
   * @returns La FractionEtendue divisée par n (denominateur n fois plus grand)
   */
   entierDivise (n) { return new FractionEtendue(this.num, n * this.den) }
@@ -624,10 +624,12 @@ class FractionEtendue extends Fraction {
   * @returns l'inverse de la fraction
   */
   inverse () {
-    const f = this
-    if (this.n !== 0) return new FractionEtendue(this.den, this.num)
+    if (this.n !== 0) {
+      return new FractionEtendue(this.den, this.num)
+    
+    }
     else {
-      window.notify('FractionEtendue.inverse() : division par zéro', { f })
+      window.notify('FractionEtendue.inverse() : division par zéro', { fraction: this })
       return NaN
     }
   }
@@ -755,7 +757,6 @@ class FractionEtendue extends Fraction {
   * @returns NaN si la FractionEtendue n'est pas un nombre décimal sinon retourne une FractionEtendue avec la bonne puissance de 10 au dénominateur
   */
   fractionDecimale () {
-    const f = this
     const den = this.simplifie().d
     const num = this.simplifie().n
     const signe = this.simplifie().s
@@ -763,7 +764,7 @@ class FractionEtendue extends Fraction {
     let n2 = 0; let n5 = 0
     for (const n of liste) {
       if (n === 2) { n2++ } else if (n === 5) { n5++ } else {
-        window.notify('FractionEtendue.valeurDecimale : Fraction non décimale', { f })
+        window.notify('FractionEtendue.valeurDecimale : Fraction non décimale', { fraction: this })
         return NaN
       }
     }
