@@ -1,8 +1,12 @@
-import { abs, acos, det, inv, multiply, polynomialRoot, round } from 'mathjs'
+import { abs, round, polynomialRoot, acos} from 'mathjs'
+
+
 import { Courbe, point, Segment, tracePoint } from '../2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
+import FractionEtendue from '../FractionEtendue.js'
 import { choice, egal } from '../outils.js'
-import { signesFonction, variationsFonction } from './outilsMaths.js'
+import { MatriceCarree } from './MatriceCarree.js'
+import { rationnalise, signesFonction, variationsFonction } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 
 /**
@@ -31,13 +35,13 @@ export class Spline {
       const x1 = noeuds[i + 1].x
       const y1 = noeuds[i + 1].y
       const d1 = noeuds[i + 1].deriveeGauche
-      const matrice = [
+      const matrice = new MatriceCarree([
         [x0 ** 3, x0 ** 2, x0, 1],
         [x1 ** 3, x1 ** 2, x1, 1],
         [3 * x0 ** 2, 2 * x0, 1, 0],
         [3 * x1 ** 2, 2 * x1, 1, 0]
-      ]
-      if (matrice.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
+      ])
+      if (matrice.table.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
         window.notify('Spline : Système impossible à résoudre il y a un problème avec les données ', {
           x0,
           y0,
@@ -48,19 +52,19 @@ export class Spline {
         })
         return
       }
-      if (det(matrice) === 0) {
+      const determinant = matrice.determinant()// c'est maintenant une FractionEtendue !
+      if (determinant.valeurDecimale === 0) {
         window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
           noeudGauche: noeuds[i],
           noeudDroit: noeuds[i + 1]
         })
         return
       }
-
-      const matriceInverse = inv(matrice)
+      const matriceInverse = matrice.inverse()
       const vecteur = [y0, y1, d0, d1]
       this.polys.push(new Polynome({
-        isUseFraction: false,
-        coeffs: multiply(matriceInverse, vecteur).reverse().map(coef => round(coef, 3))
+        isUseFraction: true,
+        coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
       }))
     }
     this.noeuds = [...noeuds]
@@ -130,16 +134,16 @@ export class Spline {
    * retourne un array décrivant les variations de la Spline sur son domaine de déf
    * @returns {*[]|null}
    */
-  variations () {
-    return variationsFonction(this.derivee, this.noeuds[0].x, this.noeuds[this.n - 1].x)
+  variations (step) {
+    return variationsFonction(this.derivee, this.noeuds[0].x, this.noeuds[this.n - 1].x,step ?? new FractionEtendue(1,100))
   }
 
   /**
    * retourne les signes pris par la Spline sur son domaine de déf
    * @returns {T[]}
    */
-  signes () {
-    return signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x)
+  signes (step) {
+    return signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x,step ?? new FractionEtendue(1,100) )
   }
 
   /**
@@ -209,7 +213,8 @@ export class Spline {
   }
 
   /**
-   * retourne les min et max pour un repère contenant la courbe
+   * retourne les min et max pour un repère contenant la courbe si ceux-ci sont sur des noeuds (c'est vivement consseillé)
+   * Ne fonctionne pas si yMax ou yMin sont atteints entre deux noeuds
    * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
    */
   trouveMaxes () {
@@ -335,7 +340,7 @@ export class Spline {
    * @returns {function(*): number|*}
    */
   get fonction () {
-    return x => this.image(x)
+    return x => this.image(rationnalise(x))
   }
 
   /**
@@ -355,13 +360,13 @@ export class Spline {
     }
     if (!trouveK) {
       const intervalle = `D = [${this.x[0]} ; ${this.x[this.n - 1]}]`
-      window.notify('SplineCatmullRom : la valeur de x fournie n\'est pas dans lìntervalle de définition de la fonction', {
+      window.notify('Spline: la valeur de x fournie n\'est pas dans lìntervalle de définition de la fonction', {
         x,
         intervalle
       })
       return NaN
     } else {
-      return this.fonctions[k](x)
+      return this.fonctions[k](rationnalise(x))
     }
   }
 
@@ -386,10 +391,9 @@ export class Spline {
     for (let i = 0; i < this.noeuds.length - 1; i++) {
       intervalles.push({ xG: this.noeuds[i].x, xD: this.noeuds[i + 1].x })
     }
-    const self = this
     return (x) => {
       const index = intervalles.findIndex((intervalle) => x >= intervalle.xG && x <= intervalle.xD)
-      return self.derivees[index].image(x)
+      return this.derivees[index].image(rationnalise(x))
     }
   }
 
@@ -405,7 +409,7 @@ export class Spline {
    */
   courbe ({
     repere,
-    step = 0.1,
+    step = new FractionEtendue(1,10),
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = false,
@@ -480,7 +484,7 @@ export class Trace extends ObjetMathalea2D {
    */
   constructor (spline, {
     repere,
-    step = 0.1,
+    step = new FractionEtendue(1,10),
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = true,

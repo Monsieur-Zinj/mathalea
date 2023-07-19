@@ -1,3 +1,4 @@
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { inferieurSuperieur } from '../../modules/mathFonctions/outilsMaths.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
@@ -73,11 +74,12 @@ export default class BetaModeleSpline extends Exercice {
     super()
     this.titre = titre
     this.sup = '4'
+    this.spacingCorr=2.5
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.besoinFormulaireTexte = ['Réglages des questions :', '1 : Un seul antécédent\n2 : Deux antécédents\n3 : trois antécédents\n4 : De un à trois antécédents\n5 : De 0 à 3 antécédents\n6 : Mélange']
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -135,13 +137,13 @@ export default class BetaModeleSpline extends Exercice {
       let texteCorrection = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection)), objetsCorrection)
       texteCorrection += `<br>voici les solutions de $f(x)<=${y0}$ : ${reponse}.`
       texteCorrection += '<br>voici les signes de f : '
-      const signes = maSpline.signes()
+      const signes = maSpline.signes(new FractionEtendue(1,120))
       for (let k = 0; k < signes.length; k++) {
-        texteCorrection += `<br>Sur [${signes[k].xG};${signes[k].xD}] la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
+        texteCorrection += `<br>Sur $[${signes[k].xG.texFSD};${signes[k].xD.texFSD}]$ la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
       }
-      const variations = maSpline.variations()
+      const variations = maSpline.variations(new FractionEtendue(1,3))
       for (let k = 0; k < variations.length; k++) {
-        texteCorrection += `<br>Sur [${variations[k].xG};${variations[k].xD}] la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
+        texteCorrection += `<br>Sur $[${variations[k].xG.texFSD};${variations[k].xD.texFSD}]$ la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
       }
 
       this.listeQuestions.push(texteEnonce)
