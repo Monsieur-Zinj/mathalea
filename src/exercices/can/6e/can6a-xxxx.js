@@ -1,3 +1,4 @@
+import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
@@ -7,7 +8,6 @@ import {
   listeQuestionsToContenu,
   randint,
   choice,
-  sp,
   shuffle,
   gestionnaireFormulaireTexte
 } from '../../../modules/outils.js'

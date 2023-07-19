@@ -1,5 +1,6 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, miseEnEvidence } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Déterminer un multiple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +33,7 @@ export default function PlusGrandMultiple () {
           this.correction += `Comme $100$ est divisible par $${a}$, le plus grand multiple cherché est $100-${a}=${miseEnEvidence(this.reponse)}$.`
         } else {
           this.reponse = Math.floor(100 / a) * a
-          this.correction += ` Comme $${a}\\times ${Math.floor(100 / a)}=${Math.floor(100 / a) * a} < 100$ et  
+          this.correction += ` Comme $${a}\\times ${Math.floor(100 / a)}=${Math.floor(100 / a) * a} < 100$ et
         $ ${a}\\times ${Math.floor(100 / a) + 1}=${(Math.floor(100 / a) + 1) * a} > 100$,
         alors le plus grand multiple cherché est $${miseEnEvidence(this.reponse)}$.`
         }
@@ -45,7 +46,7 @@ export default function PlusGrandMultiple () {
           this.correction = `Comme $${c}$ est divisible par $${b}$, le plus grand multiple cherché est $${c}-${b}=${miseEnEvidence(this.reponse)}$.`
         } else {
           this.reponse = Math.floor(c / b) * b
-          this.correction = ` Comme $${b}\\times ${Math.floor(c / b)} =${Math.floor(c / b) * b} < ${c}$ et  
+          this.correction = ` Comme $${b}\\times ${Math.floor(c / b)} =${Math.floor(c / b) * b} < ${c}$ et
         $ ${b}\\times${Math.floor(c / b) + 1}=${(Math.floor(c / b + 1)) * b} > ${c}$,
         alors le plus grand multiple cherché est $${miseEnEvidence(this.reponse)}$.`
         }
@@ -59,7 +60,7 @@ export default function PlusGrandMultiple () {
           this.correction = `Comme $${c}$ est divisible par $${b}$, le plus petit multiple cherché est $${c}+${b}=${miseEnEvidence(this.reponse)}$.`
         } else {
           this.reponse = Math.ceil(c / b) * b
-          this.correction = ` Comme $${b}\\times ${Math.ceil(c / b) - 1} =${Math.ceil(c / b) * b - b} < ${c}$ et  
+          this.correction = ` Comme $${b}\\times ${Math.ceil(c / b) - 1} =${Math.ceil(c / b) * b - b} < ${c}$ et
         $ ${b}\\times${Math.ceil(c / b)}=${(Math.ceil(c / b)) * b} > ${c}$,
         alors le plus petit multiple cherché est $${miseEnEvidence(this.reponse)}$.`
         }

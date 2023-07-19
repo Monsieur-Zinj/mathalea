@@ -1,3 +1,4 @@
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
@@ -6,7 +7,6 @@ import {
   choice,
   printlatex,
   calcul,
-  lettreDepuisChiffre,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

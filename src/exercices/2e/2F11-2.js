@@ -1,13 +1,13 @@
 import Decimal from 'decimal.js'
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   choice,
   combinaisonListes,
   listeQuestionsToContenu,
-  miseEnEvidence,
-  randint,
-  sp
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

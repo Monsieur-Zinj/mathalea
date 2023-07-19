@@ -1,10 +1,10 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import {
   choice,
   combinaisonListes,
   listeQuestionsToContenu,
-  miseEnEvidence,
   randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

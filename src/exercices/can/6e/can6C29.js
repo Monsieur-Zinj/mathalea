@@ -1,5 +1,6 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texteEnCouleur } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de partage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +34,7 @@ export default function Partage () {
     n = nombre[2]
     this.reponse = randint(21, 29) // La réponse, c'est ce nombre
     prix = this.reponse * n // calcul n'est pas utile pour la multiplication d'entiers
-    this.question = `${a} amis mangent au restaurant. L'addition sélève à $${prix}$ euros. 
+    this.question = `${a} amis mangent au restaurant. L'addition sélève à $${prix}$ euros.
     Les amis décident de partager la note en ${b}.<br>
     Quelle est la somme payée par chacun ?`
     this.correction = `$${prix}\\div ${n}=${this.reponse}$.`
@@ -41,7 +42,7 @@ export default function Partage () {
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
      Plutôt que d'effectuer la division, évaluez un ordre de grandeur du résultat en multipliant $${n}$ par $20$ pour obtenir une valeur proche du montant de l'addition.<br>
      $${n}\\times 20=${n * 20}$.<br>
-     Il reste alors $${prix}-${n * 20}=${prix - n * 20}$ € à partager en ${b}, 
+     Il reste alors $${prix}-${n * 20}=${prix - n * 20}$ € à partager en ${b},
      soit $${prix - n * 20}\\div ${n}=${(prix - n * 20) / n}$ € qui sont à rajouter aux $20$ €. `)
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ €'

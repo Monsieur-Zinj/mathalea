@@ -1,13 +1,16 @@
+import { sommeDesTermesParSigne } from '../../lib/outils/calculs.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriquec,
   ecritureNombreRelatif,
   ecritureNombreRelatifc
 } from '../../lib/outils/ecritures.js'
+import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombreCoul } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, signe, sommeDesTermesParSigne, triePositifsNegatifs, lettreDepuisChiffre, nombreDeChiffresDansLaPartieEntiere, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Additions et soustractions de nombres relatifs'

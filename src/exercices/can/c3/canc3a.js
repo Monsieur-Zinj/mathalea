@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { personne, prenom } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
@@ -7,7 +8,6 @@ import {
   randint,
   calcul,
   choice,
-  miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'

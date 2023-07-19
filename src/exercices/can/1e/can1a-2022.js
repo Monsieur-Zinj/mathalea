@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -6,6 +7,8 @@ import {
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures.js'
 import { arcenciel, texPrix } from '../../../lib/format/style.js'
+import { arrondi } from '../../../lib/outils/nombres.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -13,7 +16,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { Arbre } from '../../../modules/arbres.js'
 import { pave, point, repere, tracePoint, courbe, droite, labelPoint, segment, milieu, texteParPosition, plot } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, arrondi, randint, miseEnEvidence, printlatex, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, printlatex, shuffle, choice } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

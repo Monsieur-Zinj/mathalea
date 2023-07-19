@@ -1,3 +1,4 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import {
   deprecatedTexFraction,
   simplificationDeFractionAvecEtapes,
@@ -6,7 +7,7 @@ import {
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import {
-  randint, texteEnCouleur
+  randint
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une image avec un quotient'
 export const interactifReady = true

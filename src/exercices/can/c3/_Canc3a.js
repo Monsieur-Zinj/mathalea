@@ -1,3 +1,6 @@
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/embellissements.js'
+import { arrondi } from '../../../lib/outils/nombres.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
@@ -7,7 +10,7 @@ import {
   point, grille, droiteGraduee, plot, segment, milieu, segmentAvecExtremites, texteParPosition, polygoneAvecNom, polygone
 } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
-import { miseEnEvidence, randint, shuffle, choice, sp, arrondi, texteEnCouleur } from '../../../modules/outils.js'
+import { randint, shuffle, choice } from '../../../modules/outils.js'
 
 import Decimal from 'decimal.js'
 export const titre = 'Classe CAN C3'

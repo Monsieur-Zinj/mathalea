@@ -1,4 +1,5 @@
-import { arrondi, calcul } from '../outils.js'
+import { arrondi } from '../../lib/outils/nombres.js'
+import { calcul } from '../outils.js'
 
 /**
  * Convertit un angle de radian vers degrés et fonction inverse

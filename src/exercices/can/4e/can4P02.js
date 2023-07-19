@@ -1,4 +1,5 @@
-import { calcul, choice, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { calcul, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de vitesse'
 export const interactifReady = true
@@ -29,7 +30,7 @@ export default function ProblemesDeVitesse () {
     Combien de kilomètres parcourt-elle en $${b}$ minutes ?`
     this.correction = `La voiture parcourt $${calcul(c / a)}$ km.`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
-    On cherche combien de "$${b}$ minutes" il y a dans $1$ heure soit $60$ minutes. Il y en a $${a}$, 
+    On cherche combien de "$${b}$ minutes" il y a dans $1$ heure soit $60$ minutes. Il y en a $${a}$,
     car $${a}\\times ${b}=60$.<br>
     Cela signifie qu'en $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
     ${calcul(c / a)}$ km.`)

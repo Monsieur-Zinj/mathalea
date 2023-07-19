@@ -1,8 +1,11 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, extraireRacineCarree, miseEnEvidence, randint, sp, calcul, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Résoudre une équation avec une fonction de référence*'
 export const interactifReady = true

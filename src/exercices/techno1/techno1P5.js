@@ -1,5 +1,6 @@
+import { arrondi } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import { randint, calcul, choice, arrondi } from '../../modules/outils.js'
+import { randint, calcul, choice } from '../../modules/outils.js'
 export const titre = 'Déterminer un effectif à partir d\'une proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +32,7 @@ export default function Effectif () {
        Sachant qu'ils représentent $${c}$ personnes, combien de personnes sont adhérentes à l'association ?<br>`
 
         this.correction = `La population de référence est celle des membres du club.<br>
-        La sous-population est celle des plus de $${a}$ ans, 
+        La sous-population est celle des plus de $${a}$ ans,
         qui représente $p=${b}\\%$ des membres d'après l'énoncé. <br>
         Appellons $N$ l'effectif de la population de référence, c'est-à-dire le nombre d'adhérents de l'association,<br>
         et $n$ l'effectif de la sous population étudiée. On a donc $n=${c}$ .<br>
@@ -50,7 +51,7 @@ export default function Effectif () {
             Sachant qu'il y a  $${c}$ élèves en classe de 1ère,
             déterminer le nombre total d'élèves de ce lycée ?`
         this.correction = `La population de référence est celle des élèves du lycée.<br>
-            La sous-population est celle des élèves de 1ère, 
+            La sous-population est celle des élèves de 1ère,
             qui représente $p=${b}\\%$ des membres d'après l'énoncé. <br>
             Appellons $N$ l'effectif de la population de référence, c'est-à-dire le nombre d'élèves du lycée,<br>
             et $n$ l'effectif de la sous population étudiée. On a donc $n=${c}$ .<br>

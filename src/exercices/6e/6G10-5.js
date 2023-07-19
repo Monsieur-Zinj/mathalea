@@ -1,7 +1,8 @@
+import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, tracePoint, pointSurSegment, pointIntersectionDD, labelPoint, droite, segment, grille, seyes, demiDroite } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const amcReady = true

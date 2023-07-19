@@ -1,7 +1,9 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { fraction } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texteEnCouleur, sp, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
+import { randint, choice, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Déterminer le signe d’une fonction affine (V/F)'
 export const interactifReady = true

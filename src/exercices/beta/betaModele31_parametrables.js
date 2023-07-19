@@ -1,6 +1,7 @@
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { codageAngleDroit, labelPoint, point, polygoneRegulier, tracePoint } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { combinaisonListes, creerNomDePolygone, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Nom de l\'exercice'

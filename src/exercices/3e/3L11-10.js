@@ -1,6 +1,7 @@
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { egal, randint, combinaisonListes, printlatex, listeQuestionsToContenuSansNumero, lettreDepuisChiffre } from '../../modules/outils.js'
+import { egal, randint, combinaisonListes, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'

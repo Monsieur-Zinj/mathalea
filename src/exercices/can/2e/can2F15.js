@@ -1,7 +1,8 @@
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, abs, randint, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Donner le sens de variation d’une fonction affine'
 export const interactifReady = true

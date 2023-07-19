@@ -1,4 +1,5 @@
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint, sp } from '../../modules/outils.js'
+import { sp } from '../../lib/outils/outilString.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Simulateur de Dés'
 export const ref = 'P016'

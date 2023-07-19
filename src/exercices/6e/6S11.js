@@ -1,8 +1,9 @@
+import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle } from '../../modules/outils.js'
 export const titre = 'Organiser des données dans un tableau'
 
 /**

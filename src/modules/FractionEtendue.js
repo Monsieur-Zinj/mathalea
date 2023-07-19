@@ -1,5 +1,8 @@
+import { miseEnEvidence } from '../lib/embellissements.js'
+import { extraireRacineCarree } from '../lib/outils/calculs.js'
 import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../lib/outils/nombres.js'
 import {
   decompositionFacteursPremiers,
   listeDesDiviseurs,
@@ -8,12 +11,8 @@ import {
 } from '../lib/outils/primalite.js'
 import { texNombre } from '../lib/outils/texNombre.js'
 import {
-  arrondi,
   quotientier,
-  extraireRacineCarree,
-  nombreDeChiffresDansLaPartieDecimale,
   calcul,
-  miseEnEvidence,
   egal
 } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'

@@ -1,7 +1,8 @@
+import { miseEnEvidence, texteEnCouleur } from '../../lib/embellissements.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, miseEnEvidence, texteEnCouleur, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Trouver l\'opposé d\'un nombre relatif'
 export const dateDeModifImportante = '26/11/2021'
 

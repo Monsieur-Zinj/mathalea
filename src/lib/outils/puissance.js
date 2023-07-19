@@ -127,6 +127,21 @@ export function puissanceEnProduit (b, e) {
     return `\\dfrac{1}{${puissanceEnProduit(b, -e)}}`
   }
 }
-export function estParfait (n) {
-  return Math.round(Math.sqrt(n)) === Math.sqrt(n)
+
+/**
+ * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
+ * retourne 1, la base ou rien
+ * @param b base
+ * @param e exposant
+ * @author Sébastien Lozano
+ */
+export function simpExp (b, e) {
+  switch (e) {
+    case 1:
+      return ` ${b}`
+    case 0:
+      return ' 1'
+    default:
+      return ' '
+  }
 }

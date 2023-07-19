@@ -1,7 +1,8 @@
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 
-import { listeQuestionsToContenu, randint, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import Trinome from '../../modules/Trinome.js'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'

@@ -1,4 +1,5 @@
 import { modalTexteCourt } from '../../lib/outils/modales.js'
+import { rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -6,7 +7,6 @@ import {
   combinaisonListes,
   listeQuestionsToContenu,
   randint,
-  rangeMinMax,
   gestionnaireFormulaireTexte, choice
 } from '../../modules/outils.js'
 

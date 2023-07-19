@@ -1,5 +1,6 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { calcul, choice, texteEnCouleur } from '../../../modules/outils.js'
+import { calcul, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Effectuer une division avec une fraction'
 export const interactifReady = true
@@ -39,7 +40,7 @@ export default function QuotientEntierQuiVaBienParFraction () {
     \\dfrac{${b}\\times ${a.d}}{${a.n}}=
     ${c}\\times ${a.d}=${c * a.d}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
-    Pour multiplier $${b}$ par $${a.inverse().texFraction}$, 
+    Pour multiplier $${b}$ par $${a.inverse().texFraction}$,
     on commence par diviser $${b}$ par $${a.n}$, ce qui donne $${b / a.n}$,
      puis on multiplie par $${a.d}$, ce qui donne $${b / a.n}\\times ${a.d}=${c * a.d}$.      `)
     }

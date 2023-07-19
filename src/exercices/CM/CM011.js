@@ -1,7 +1,8 @@
+import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Quart'
 export const amcReady = true

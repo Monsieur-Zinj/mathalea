@@ -1,8 +1,10 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texPrix } from '../../lib/format/style.js'
+import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, miseEnEvidence, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul } from '../../modules/outils.js'
 
 // une fonction pour les textes de correction
 /**

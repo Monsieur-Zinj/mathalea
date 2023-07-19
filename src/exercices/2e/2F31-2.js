@@ -1,16 +1,10 @@
-import { estParfait } from '../../lib/outils/puissance.js'
-import { tableauVariationsFonction } from '../../modules/mathFonctions/outilsMaths.js'
+import { abs } from '../../lib/outils/nombres.js'
+import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import {
-  listeQuestionsToContenu,
-  choice,
-  randint,
-  abs,
-  sp,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
+import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
 export const dateDePublication = '31/01/2022'
 export const dateDeModifImportante = '12/07/2023'

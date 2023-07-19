@@ -1,6 +1,7 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, miseEnEvidence, choice } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, combinaisonListes, choice } from '../../modules/outils.js'
 export const titre = 'Comparer deux nombres entiers'
 
 export const dateDePublication = '07/08/2022'

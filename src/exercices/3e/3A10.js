@@ -1,9 +1,10 @@
+import { texteEnCouleur } from '../../lib/embellissements.js'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, combinaisonListesSansChangerOrdre, texteEnCouleur, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, combinaisonListesSansChangerOrdre, contraindreValeur } from '../../modules/outils.js'
 
 export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
 

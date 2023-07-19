@@ -1,6 +1,7 @@
+import { arrondi } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, arrondi } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Calculer des sommes contenant des puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'

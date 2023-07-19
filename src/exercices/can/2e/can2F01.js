@@ -1,8 +1,9 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import {
-  randint, calcul, choice, texteEnCouleur
+  randint, calcul, choice
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une image avec le second degré'
 export const interactifReady = true

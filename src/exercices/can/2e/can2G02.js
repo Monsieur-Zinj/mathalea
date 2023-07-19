@@ -1,7 +1,8 @@
+import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul, creerNomDePolygone } from '../../../modules/outils.js'
+import { randint, calcul } from '../../../modules/outils.js'
 import {
   point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit
 } from '../../../modules/2d.js'

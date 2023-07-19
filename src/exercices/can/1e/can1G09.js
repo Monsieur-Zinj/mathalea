@@ -1,7 +1,8 @@
 import { rienSi1 } from '../../../lib/outils/ecritures.js'
+import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { choice, abs } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils.js'
 import {
   polygoneAvecNom, point, cercleCentrePoint, grille, pointSurCercle, texteParPosition, segment
 } from '../../../modules/2d.js'

@@ -1,6 +1,8 @@
+import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, extraireRacineCarree, randint, sp, calcul, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Résoudre une équation avec une fonction de référence'
 export const interactifReady = true

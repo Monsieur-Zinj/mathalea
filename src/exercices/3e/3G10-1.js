@@ -1,4 +1,6 @@
+import { miseEnCouleur, miseEnEvidence } from '../../lib/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
@@ -8,10 +10,7 @@ import { context } from '../../modules/context.js'
 import {
   randint,
   choice,
-  numAlpha,
   listeQuestionsToContenu,
-  miseEnCouleur,
-  miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

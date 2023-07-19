@@ -1,4 +1,5 @@
-import { choice, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer le quart ou le tiers'
 export const interactifReady = true

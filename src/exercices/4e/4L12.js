@@ -1,6 +1,7 @@
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Démontrer l\'équivalence de deux programmes de calcul'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

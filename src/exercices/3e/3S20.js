@@ -3,10 +3,11 @@ import {
   simplificationDeFractionAvecEtapes,
   texFractionReduite
 } from '../../lib/outils/deprecatedFractions.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, numAlpha, ppcm } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ppcm } from '../../modules/outils.js'
 
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
 

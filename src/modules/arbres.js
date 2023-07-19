@@ -1,7 +1,8 @@
 import { add, number, multiply } from 'mathjs'
+import { arrondi } from '../lib/outils/nombres.js'
 import { homothetie, latexParCoordonnees, latexParPoint, point, segment, translation, vecteur } from './2d.js'
 import { fraction } from './fractions.js'
-import { arrondi, calcul } from './outils.js'
+import { calcul } from './outils.js'
 
 export function texProba (proba, rationnel, precision) {
   return rationnel ? fraction(proba, 1).toLatex() : number(arrondi(proba, precision)).toString().replace('.', '{,}')

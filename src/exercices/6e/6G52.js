@@ -1,6 +1,7 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, shuffle, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, shuffle } from '../../modules/outils.js'
 import { point, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, pointSurDroite, droiteParPointEtPente } from '../../modules/2d.js'
 import { labelOnLine } from './6G14.js'
 import { context } from '../../modules/context.js'

@@ -1,8 +1,8 @@
+import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  range1,
   shuffle,
   combinaisonListes,
   calcul,

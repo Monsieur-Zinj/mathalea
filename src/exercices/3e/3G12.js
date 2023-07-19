@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { arcenciel, texcolors } from '../../lib/format/style.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import { codageAngle, labelPoint, rotation, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
@@ -10,7 +11,6 @@ import {
   choice,
   egal,
   listeQuestionsToContenu,
-  miseEnEvidence,
   randint,
   shuffle
 } from '../../modules/outils.js'

@@ -1,7 +1,8 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { listeDesDiviseurs, texFactorisation } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6

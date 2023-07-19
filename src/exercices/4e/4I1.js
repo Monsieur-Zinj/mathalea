@@ -1,6 +1,7 @@
+import { texteEnCouleur } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, shuffle, calcul, texteEnCouleur, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, shuffle, calcul, combinaisonListes } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin.js'
 
@@ -113,7 +114,7 @@ export default function TracerAvecScratch () {
             nom: myPolyName(n).name,
             codeScratch: `\\begin{scratch}
 \\blockinit{quand \\greenflag est cliqué}
-\\blockpen{stylo en position d'écriture} 
+\\blockpen{stylo en position d'écriture}
 \\blockrepeat{répéter \\ovalnum{${n}} fois}
 {
 \\blockmove{avancer de \\ovalnum{${myPolyName(n).nbPas}} pas}
@@ -254,7 +255,7 @@ export default function TracerAvecScratch () {
         enonces.push({
           enonce: `
           ${scratchblock(situations[0].codeScratch)}
-          <br> 
+          <br>
           ${situations[0].fig}
           `,
           question: '',

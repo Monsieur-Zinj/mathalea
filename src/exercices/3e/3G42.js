@@ -1,5 +1,6 @@
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import { texteGras } from '../../lib/format/style.js'
+import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -7,8 +8,6 @@ import {
   randint,
   listeQuestionsToContenu,
   choice,
-  nombreDeChiffresDe,
-  nombreDeChiffresDansLaPartieDecimale,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { point3d, vecteur3d, cylindre3d, sphere3d } from '../../modules/3d.js'

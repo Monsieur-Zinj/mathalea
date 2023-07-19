@@ -1,6 +1,7 @@
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { point, pointSurSegment, pointIntersectionDD, droite, segment, rotation, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 

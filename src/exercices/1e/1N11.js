@@ -1,8 +1,10 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { arcenciel } from '../../lib/format/style.js'
+import { signe } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, signe, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Déterminer les termes d\'une suite définie par récurrence'
 

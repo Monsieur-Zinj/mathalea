@@ -3,8 +3,9 @@ import {
   ecritureParentheseSiMoins,
   ecritureParentheseSiNegatif, rienSi1
 } from '../../lib/outils/ecritures.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Réduire, si possible, une expression littérale simple'

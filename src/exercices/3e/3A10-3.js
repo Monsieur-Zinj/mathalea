@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { warnMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN, obtenirListeFacteursPremiers, premiersEntreBornes } from '../../lib/outils/primalite.js'
@@ -7,7 +8,6 @@ import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  miseEnEvidence,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

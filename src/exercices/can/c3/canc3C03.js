@@ -1,5 +1,6 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, miseEnEvidence } from '../../../modules/outils.js'
+import { randint, choice } from '../../../modules/outils.js'
 export const titre = 'Trouver le nombre dans une table de multiplication '
 export const interactifReady = true
 export const interactifType = 'mathLive'

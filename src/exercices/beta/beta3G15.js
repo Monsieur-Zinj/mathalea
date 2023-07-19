@@ -1,6 +1,7 @@
+import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, numAlpha, calcul, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calcul, randint } from '../../modules/outils.js'
 import { droite, tracePointSurDroite, labelPoint, tracePoint, rotation, translation2Points, homothetie, symetrieAxiale, point } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Utiliser toutes les transformations'

@@ -1,8 +1,9 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { context } from '../../../modules/context.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { choice, listeQuestionsToContenu, miseEnEvidence, randint } from '../../../modules/outils.js'
+import { choice, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer avec des puissances'
 export const interactifReady = true
@@ -52,8 +53,8 @@ export default function CalculPuissanceSimple () {
         case 'b':
           texte = `Donner l${c[index][1]} de $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           setReponse(this, i, [`${a}^{${b - 1}}`], { formatInteractif: 'texte' })
-          texteCorr = `L${c[index][1]} de $${a}^{${b}}$ se calcule  par 
-      : <br> 
+          texteCorr = `L${c[index][1]} de $${a}^{${b}}$ se calcule  par
+      : <br>
       
       $ ${a}^{${b}}\\div ${a}=\\dfrac{${a}^{${b}}}{${a}}=${a}^{${b} - 1}=${a}^{${miseEnEvidence(b - 1)}}$`
           if (context.isAmc) {

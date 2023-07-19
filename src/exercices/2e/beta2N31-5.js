@@ -1,12 +1,12 @@
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   calcul,
   combinaisonListes,
-  randint,
-  arrondi
+  randint
 } from '../../modules/outils.js'
 import {
   setReponse

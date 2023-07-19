@@ -1,7 +1,8 @@
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, miseEnEvidence, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 export const titre = 'Ranger une liste de nombres entiers dans l\'ordre croissant ou décroissant'
 
 /**

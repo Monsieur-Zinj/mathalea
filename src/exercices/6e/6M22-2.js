@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
+import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { pointAdistance, point, arc, codageSegments, rotation, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, arrondi, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 
 export const titre = 'Calculer périmètre et aire de portions de cercles/disques'
 

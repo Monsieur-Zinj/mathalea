@@ -1,6 +1,8 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texteEnCouleur, sp } from '../../../modules/outils.js'
+import { randint, calcul, choice } from '../../../modules/outils.js'
 export const titre = 'Calculer un prix après une évolution en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'

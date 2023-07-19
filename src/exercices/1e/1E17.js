@@ -1,5 +1,6 @@
+import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, numAlpha, randint, shuffle2tableaux } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle2tableaux } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
 export const interactifReady = false

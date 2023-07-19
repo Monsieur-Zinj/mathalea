@@ -2,12 +2,12 @@ import Decimal from 'decimal.js'
 import { evaluate, format } from 'mathjs'
 import { context } from '../../modules/context.js'
 import {
-  extraireRacineCarree,
-  miseEnEvidence,
-  nombreDeChiffresDansLaPartieDecimale,
-  sp,
   tropDeChiffres
 } from '../../modules/outils.js'
+import { miseEnEvidence } from '../embellissements.js'
+import { extraireRacineCarree } from './calculs.js'
+import { nombreDeChiffresDansLaPartieDecimale } from './nombres.js'
+import { sp } from './outilString.js'
 const math = { format, evaluate }
 /**
  *

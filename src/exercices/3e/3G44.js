@@ -1,18 +1,15 @@
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres.js'
+import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  rangeMinMax,
   choice,
   calcul,
-  arrondi,
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-  sp,
-  nombreDeChiffresDe,
   shuffle,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

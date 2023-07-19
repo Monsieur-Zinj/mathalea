@@ -1,5 +1,6 @@
+import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
 import Exercice from '../../Exercice.js'
-import { extraireRacineCarree, choice } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils.js'
 export const titre = 'Calculer avec une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,27 +36,27 @@ export default function CalculAvecRacineCarree2 () {
           this.question = `Écrire $\\sqrt{${a}}+\\sqrt{${b}}$ sous la forme $a\\sqrt{b}$ avec $a$ et $b$ entiers et $b$ le plus petit possible. `
           this.correction = `On simpifie $\\sqrt{${b}}$ en $${reduction[0]}\\sqrt{${reduction[1]}}$, car
     $\\sqrt{${b}}=\\sqrt{${reduction[0]}^2\\times ${reduction[1]}} =
-    \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}} 
+    \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}}
     =${reduction[0]}\\sqrt{${reduction[1]}}$.<br>
-    Ainsi : 
+    Ainsi :
     <br>
     $\\begin{aligned}
     \\sqrt{${a}}+\\sqrt{${b}}&=\\sqrt{${a}}+${reduction[0]}\\sqrt{${reduction[1]}}\\\\
     &= ${reduction[0] + 1}\\sqrt{${reduction[1]}}
-    \\end{aligned}$ 
+    \\end{aligned}$
   `
         } else {
           this.question = `Écrire $\\sqrt{${b}}+\\sqrt{${a}}$ sous la forme $a\\sqrt{b}$ avec $a$ et $b$ entiers et $b$ le plus petit possible. `
           this.correction = `On simpifie $\\sqrt{${b}}$ en $${reduction[0]}\\sqrt{${reduction[1]}}$, car
   $\\sqrt{${b}}=\\sqrt{${reduction[0]}^2\\times ${reduction[1]}} =
-  \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}} 
+  \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}}
   =${reduction[0]}\\sqrt{${reduction[1]}}$.<br>
-  Ainsi : 
+  Ainsi :
   <br>
   $\\begin{aligned}
   \\sqrt{${b}}+\\sqrt{${a}}&=${reduction[0]}\\sqrt{${reduction[1]}}+\\sqrt{${a}}\\\\
-  &= ${reduction[0] + 1}\\sqrt{${reduction[1]}}   
-  \\end{aligned}$ 
+  &= ${reduction[0] + 1}\\sqrt{${reduction[1]}}
+  \\end{aligned}$
 `
         }
         this.reponse = [`${reduction[0] + 1}\\sqrt{${reduction[1]}}`]
@@ -70,14 +71,14 @@ export default function CalculAvecRacineCarree2 () {
           this.question = `Écrire $\\sqrt{${a}}-\\sqrt{${b}}$ sous la forme $a\\sqrt{b}$ avec $a$ et $b$ entiers et $b$ le plus petit possible. `
           this.correction = `On simpifie $\\sqrt{${b}}$ en $${reduction[0]}\\sqrt{${reduction[1]}}$, car
     $\\sqrt{${b}}=\\sqrt{${reduction[0]}^2\\times ${reduction[1]}} =
-    \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}} 
+    \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}}
     =${reduction[0]}\\sqrt{${reduction[1]}}$.<br>
-    Ainsi : 
+    Ainsi :
     <br>
     $\\begin{aligned}
     \\sqrt{${a}}-\\sqrt{${b}}&=\\sqrt{${a}}-${reduction[0]}\\sqrt{${reduction[1]}}\\\\
-    &= ${1 - reduction[0]}\\sqrt{${reduction[1]}} 
-    \\end{aligned}$ 
+    &= ${1 - reduction[0]}\\sqrt{${reduction[1]}}
+    \\end{aligned}$
   `
           if (1 - reduction[0] === -1) {
             this.reponse = [`${1 - reduction[0]}\\sqrt{${reduction[1]}}`]
@@ -86,14 +87,14 @@ export default function CalculAvecRacineCarree2 () {
           this.question = `Écrire $\\sqrt{${b}}-\\sqrt{${a}}$ sous la forme $a\\sqrt{b}$ avec $a$ et $b$ entiers et $b$ le plus petit possible. `
           this.correction = `On simpifie $\\sqrt{${b}}$ en $${reduction[0]}\\sqrt{${reduction[1]}}$, car
   $\\sqrt{${b}}=\\sqrt{${reduction[0]}^2\\times ${reduction[1]}} =
-  \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}} 
+  \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}}
   =${reduction[0]}\\sqrt{${reduction[1]}}$.<br>
-  Ainsi : 
+  Ainsi :
   <br>
   $\\begin{aligned}
   \\sqrt{${b}}-\\sqrt{${a}}&=${reduction[0]}\\sqrt{${reduction[1]}}-\\sqrt{${a}}\\\\
   &= ${reduction[0] - 1}\\sqrt{${reduction[1]}}
-  \\end{aligned}$ 
+  \\end{aligned}$
 `
           if (1 - reduction[0] === 1) {
             this.reponse = [`${reduction[0] - 1}\\sqrt{${reduction[1]}}`, `\\sqrt{${reduction[1]}}`]

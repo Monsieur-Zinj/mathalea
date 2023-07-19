@@ -4,13 +4,13 @@ import {
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
   combinaisonListes,
   calcul,
-  nombreDeChiffresDansLaPartieEntiere,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

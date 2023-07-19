@@ -1,5 +1,6 @@
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
-import { choice, randint, signe } from '../../../modules/outils.js'
+import { signe } from '../../../lib/outils/nombres.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Développer avec la simple distributivité'
 export const interactifReady = true

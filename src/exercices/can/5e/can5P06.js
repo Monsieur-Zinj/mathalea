@@ -1,7 +1,8 @@
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, calcul, sp } from '../../../modules/outils.js'
+import { randint, choice, calcul } from '../../../modules/outils.js'
 export const titre = 'Écrire sous la forme d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,7 +1,8 @@
+import { nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, nombreDeChiffresDe } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

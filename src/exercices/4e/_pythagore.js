@@ -1,5 +1,6 @@
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { calcul, miseEnEvidence, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { calcul } from '../../modules/outils.js'
 
 /**
    * Crée une rédaction du théorème de Pythagore adaptée à la recherche de l'hypoténuse ou d'un côté de l'angle droit

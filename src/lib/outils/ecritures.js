@@ -3,7 +3,10 @@ import { equal, Fraction, round } from 'mathjs'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction } from '../../modules/fractions.js'
-import { arrondi, egal, lettreDepuisChiffre, miseEnEvidence } from '../../modules/outils.js'
+import { egal } from '../../modules/outils.js'
+import { miseEnEvidence } from '../embellissements.js'
+import { arrondi } from './nombres.js'
+import { lettreDepuisChiffre } from './outilString.js'
 import { stringNombre, texNombre } from './texNombre.js'
 
 /**
@@ -296,24 +299,24 @@ export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
         result += `${ecritureAlgebrique(d)}`
       }
     } else // degré 1 pas de degré 2 ni de degré 3
-    if (c !== 0) {
-      switch (c) {
-        case 1:
-          result += `${x}`
-          break
-        case -1:
-          result += `-${x}`
-          break
-        default:
-          result += `${c}${x}`
-          break
+      if (c !== 0) {
+        switch (c) {
+          case 1:
+            result += `${x}`
+            break
+          case -1:
+            result += `-${x}`
+            break
+          default:
+            result += `${c}${x}`
+            break
+        }
+        if (d !== 0) {
+          result += `${ecritureAlgebrique(d)}`
+        }
+      } else { // degré 0 a=0, b=0 et c=0
+        result += `${d}`
       }
-      if (d !== 0) {
-        result += `${ecritureAlgebrique(d)}`
-      }
-    } else { // degré 0 a=0, b=0 et c=0
-      result += `${d}`
-    }
   }
   return result
 }

@@ -1,5 +1,6 @@
+import { range } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
 import { boite } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Compléter des patrons de solides'

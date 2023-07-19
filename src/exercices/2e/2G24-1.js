@@ -1,13 +1,13 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import {
   listeQuestionsToContenu,
   randint,
-  choice,
-  creerNomDePolygone
+  choice
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import {

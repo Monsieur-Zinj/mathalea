@@ -1,6 +1,7 @@
+import { texteEnCouleur } from '../../lib/embellissements.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, choice } from '../../modules/outils.js'
 import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 export const titre = 'Résoudre les équations produit-nul'
 

@@ -1,8 +1,9 @@
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { point, rotation, afficheMesureAngle, sensDeRotation, homothetie, cibleCouronne, texteParPoint, similitude, segment } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'

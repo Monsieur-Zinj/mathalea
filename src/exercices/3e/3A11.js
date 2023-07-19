@@ -1,10 +1,11 @@
 import { warnMessage } from '../../lib/format/message.js'
 import { modalPdf } from '../../lib/outils/modales.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { decompositionFacteursPremiersArray, premiersEntreBornes } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 export const titre = 'Rendre irréductible une fraction'
 
 /**

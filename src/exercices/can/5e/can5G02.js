@@ -1,8 +1,9 @@
+import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { degTan } from '../../../modules/mathFonctions/trigo.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, calcul, creerNomDePolygone } from '../../../modules/outils.js'
+import { randint, choice, calcul } from '../../../modules/outils.js'
 import {
   // eslint-disable-next-line no-unused-vars
   point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom

@@ -1,4 +1,5 @@
-import { randint, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un quotient entier'
 export const interactifReady = true
@@ -29,7 +30,7 @@ export default function Division5e () {
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On décompose $${c}$ en $${b * 10}+${c - 10 * b}=${b}\\times 10+${b}\\times ${(c - 10 * b) / b}=${b}(10+${(c - 10 * b) / b})$.<br>
-        Ainsi : 
+        Ainsi :
      $${c} \\div ${b}=10+${(c - 10 * b) / b}=${a}$.<br>
      `)
     this.canEnonce = this.question// 'Compléter'

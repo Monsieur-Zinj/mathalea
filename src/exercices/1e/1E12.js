@@ -1,14 +1,16 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures.js'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { repere, courbe } from '../../modules/2d.js'
 
 export const titre = 'Trouver l\'équation d\'une parabole'

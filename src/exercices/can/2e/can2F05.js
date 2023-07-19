@@ -1,6 +1,7 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, calcul, miseEnEvidence } from '../../../modules/outils.js'
+import { randint, calcul } from '../../../modules/outils.js'
 export const titre = 'Déterminer un antécédent avec la racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +28,7 @@ export default function AntecedentFonctionRacine () {
     const p = calcul(randint(1, 4) * m)
     const a = calcul(randint(5, 10) * m)
     const maFraction = fraction(a - p, m)
-    this.question = `Déterminer l'antécédent de $${a}$ 
+    this.question = `Déterminer l'antécédent de $${a}$
     par la fonction $f$ définie sur $\\mathbb{R}_+$ par : $f(x)=${m}\\sqrt{x}+${p}$.`
     this.correction = `L'antécédent de $${a}$ (s'il existe) par la fonction $f$ est la solution de l'équation $f(x)=${a}$.<br>
 Pour résoudre cette équation, on isole la racine carrée dans le membre de gauche.<br>

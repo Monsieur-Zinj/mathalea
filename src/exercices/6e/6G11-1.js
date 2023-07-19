@@ -1,3 +1,4 @@
+import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import {
   angle,
   codageAngleDroit,
@@ -20,9 +21,7 @@ import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 import {
   gestionnaireFormulaireTexte,
-  lettreDepuisChiffre,
   listeQuestionsToContenu,
-  numAlpha,
   randint,
   shuffle
 } from '../../modules/outils.js'

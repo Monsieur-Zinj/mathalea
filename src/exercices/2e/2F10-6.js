@@ -5,9 +5,10 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB, rienSi1
 } from '../../lib/outils/ecritures.js'
+import { abs } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, abs, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'

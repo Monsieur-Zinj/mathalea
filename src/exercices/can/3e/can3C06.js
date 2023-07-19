@@ -1,6 +1,7 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, abs } from '../../../modules/outils.js'
+import { randint, calcul, choice } from '../../../modules/outils.js'
 export const titre = 'Calculer avec des carrés/priorité opératoire'
 export const interactifReady = true
 export const interactifType = 'mathLive'

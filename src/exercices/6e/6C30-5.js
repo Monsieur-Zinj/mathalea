@@ -1,7 +1,9 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { sp } from '../../lib/outils/outilString.js'
 import { texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, combinaisonListes, randint, choice, miseEnEvidence, sp } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true

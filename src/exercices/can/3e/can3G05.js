@@ -1,6 +1,7 @@
+import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import { choice, creerNomDePolygone, randint } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 import {
   point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
 } from '../../../modules/2d.js'
@@ -79,7 +80,7 @@ export default function Trigo () {
       case 'e':
         this.question = `Donner la valeur de $\\sin\\widehat{${nom[0]}}$ sous forme d'une fraction irréductible.<br>
         `
-        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a :<br> 
+        this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a :<br>
         $\\sin\\widehat{${nom[0]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[0]}}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
       <br>`
         this.reponse = `\\dfrac{${b}}{${c}}`

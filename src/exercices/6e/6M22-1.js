@@ -1,3 +1,6 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
+import { arrondi } from '../../lib/outils/nombres.js'
+import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
   afficheLongueurSegment,
@@ -14,11 +17,8 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  arrondi,
   listeQuestionsToContenu,
-  miseEnEvidence,
-  randint,
-  sp
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

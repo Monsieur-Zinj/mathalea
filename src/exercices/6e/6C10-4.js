@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, nombreDeChiffresDansLaPartieEntiere, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Effectuer addition de deux entiers'

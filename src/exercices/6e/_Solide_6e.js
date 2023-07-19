@@ -1,7 +1,8 @@
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, enleveDoublonNum, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, enleveDoublonNum, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { point, labelPoint, segment, polygone, translation2Points, similitude, grille, seyes } from '../../modules/2d.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 

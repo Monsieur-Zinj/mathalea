@@ -1,4 +1,5 @@
-import { choice, listeQuestionsToContenu, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { choice, listeQuestionsToContenu } from '../../modules/outils.js'
 
 import Exercice from '../Exercice.js'
 

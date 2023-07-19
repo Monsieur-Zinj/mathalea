@@ -1,8 +1,9 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, choice, calcul, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const titre = 'Fractions égales et égalité des produits en croix'

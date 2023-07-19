@@ -1,3 +1,4 @@
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -5,7 +6,7 @@ import {
   reduireAxPlusB, rienSi1
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, choice, randint, combinaisonListes, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice, randint, combinaisonListes } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 

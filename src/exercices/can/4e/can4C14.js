@@ -1,5 +1,7 @@
+import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { arrondi } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { choice, randint, arrondi, miseEnEvidence } from '../../../modules/outils.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Augmenter un nombre d\'une fraction'
 export const interactifReady = true

@@ -1,5 +1,6 @@
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { choice, combinaisonListes, contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import Trinome from '../../modules/Trinome.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

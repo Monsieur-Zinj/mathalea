@@ -1,3 +1,5 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
+import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fraction } from '../../modules/fractions.js'
@@ -6,7 +8,7 @@ import {
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
 
-import { listeQuestionsToContenu, miseEnEvidence, randint, shuffle, choice, calcul, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, choice, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

@@ -1,6 +1,7 @@
 import { lampeMessage } from '../../lib/format/message.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { choice, compteOccurences, gestionnaireFormulaireTexte, lettreDepuisChiffre, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { choice, compteOccurences, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Compléter un script Scratch - 1'

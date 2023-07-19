@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp } from '../../modules/outils.js'
+import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { choice, contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, rotation, similitude, texteParPoint, longueur, segment, homothetie, polygoneRegulierParCentreEtRayon, latexParCoordonneesBox, droite, latexParPoint, pointIntersectionDD } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 import { calculer } from '../../modules/outilsMathjs.js'

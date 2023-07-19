@@ -1,5 +1,7 @@
+import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { randint, sp, texteEnCouleur } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une moyenne avec des décimaux'
 export const interactifReady = true

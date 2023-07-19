@@ -1,3 +1,5 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
 import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -6,9 +8,7 @@ import {
   randint,
   combinaisonListesSansChangerOrdre,
   texEnumerate,
-  miseEnEvidence,
-  itemize,
-  numAlpha
+  itemize
 } from '../../modules/outils.js'
 import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
 
