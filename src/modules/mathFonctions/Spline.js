@@ -134,16 +134,16 @@ export class Spline {
    * retourne un array décrivant les variations de la Spline sur son domaine de déf
    * @returns {*[]|null}
    */
-  variations () {
-    return variationsFonction(this.derivee, this.noeuds[0].x, this.noeuds[this.n - 1].x)
+  variations (step) {
+    return variationsFonction(this.derivee, this.noeuds[0].x, this.noeuds[this.n - 1].x,step ?? new FractionEtendue(1,100))
   }
 
   /**
    * retourne les signes pris par la Spline sur son domaine de déf
    * @returns {T[]}
    */
-  signes () {
-    return signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x)
+  signes (step) {
+    return signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x,step ?? new FractionEtendue(1,100) )
   }
 
   /**

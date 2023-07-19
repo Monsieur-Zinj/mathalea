@@ -89,7 +89,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
     this.exoCustomResultat = true
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -106,18 +106,20 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       this.spline = theSpline
       bornes = theSpline.trouveMaxes()
       const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin, bornes.yMax, true, true)
-
-      const nombreAntecedentCherches0 = randint(1, nbAntecedentsEntiersMaximum)
-      const y0 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches0, bornes.yMin, bornes.yMax, true, true)
-      const solutions0 = theSpline.solve(y0)
-      const nombreAntecedentCherches1 = randint(0, nbAntecedentsEntiersMaximum, nombreAntecedentCherches0)
-      const y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin, bornes.yMax, true, true)
-      const solutions1 = theSpline.solve(y1)
       const nbAntecedentsMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin - 1, bornes.yMax + 1, false, false)
-      const nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
-      const y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin, bornes.yMax, false, false), 1)
+      let nombreAntecedentCherches0,y0,nombreAntecedentCherches1,y1,nombreAntecedentsCherches2,y2
+     do {
+       nombreAntecedentCherches0 = randint(1, nbAntecedentsEntiersMaximum)
+       y0 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches0, bornes.yMin, bornes.yMax, true, true)
+       nombreAntecedentCherches1 = randint(0, nbAntecedentsEntiersMaximum, nombreAntecedentCherches0)
+       y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin, bornes.yMax, true, true)
+       nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
+       y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin, bornes.yMax, false, false), 1)
+     } while (y0===0 || y1===0)
+      
+      const solutions0 = theSpline.solve(y0)
+      const solutions1 = theSpline.solve(y1)
       const reponse1 = solutions1.length === 0 ? 'aucune' : `${solutions1.join(';')}`
-
       const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
       const nomD1 = texteParPosition(`$y=${y1}$`, bornes.xMax + 1.5, y1 + 0.3, 'milieu', 'green', 1.5)
@@ -131,14 +133,10 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       objetsCorrection1.push(horizontale1, nomD1)
       objetsCorrection2.push(horizontale2, nomD2)
 
-      for (let j = 0; j < nombreAntecedentCherches1; j++) {
-        objetsCorrection1.push(lectureAntecedent(solutions1[j], y1, 1, 1, 'red', '', ''))
+      for (let j = 0; j < nombreAntecedentCherches0; j++) {
+        objetsCorrection1.push(lectureAntecedent(solutions0[j], y0, 1, 1, 'red', '', ''))
       }
-      // for (let j = 0; j < nombreAntecedentCherches1; j++) {
-      //   for (let k = 0; k < theSpline.visible.length; k++) {
-      //    theSpline.visible[k] = theSpline.y[k] === y1
-      //  }
-      // }
+      
 
       for (const antecedentY2 of theSpline.solve(y2)) {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
@@ -154,8 +152,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       setReponse(this, 3 * i + 1, reponse1, { formatInteractif: 'texte' })
       setReponse(this, 3 * i + 2, y2)
       const correctionPartA = `${numAlpha(0)} Le nombre de solutions de l'équation $f(x)=${y0}$ est donné par le nombre d'antécédents de $${y0}$ par $f$. <br>
-          ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$.'} <br>`
-      const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses) d'équation $y = ${y1}$.`}<br>
+          ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$ (tracé rouge en pointillés).'}<br>`
+      const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses tracée en pointillés verts) d'équation $y = ${y1}$.`}<br>
           On en déduit : ${solutions1.length === 0 ? '$S=\\emptyset$.' : `$S=\\{${solutions1.join('\\,;\\,')}\\}$.`}<br>`
       const correctionPartC = `${numAlpha(2)}  Par exemple, l'équation $f(x)=${texNombre(y2, 1)}$ possède exactement ${nombreAntecedentsCherches2} solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.<br>`
       const repere1 = repere({
@@ -187,6 +185,11 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 1.5 }
 
       })
+      for (let j = 0; j < nombreAntecedentCherches1; j++) {
+        for (let k = 0; k < theSpline.visible.length; k++) {
+          theSpline.visible[k] = theSpline.y[k] === y1
+        }
+      }
       const courbeCorrection = theSpline.courbe({
         repere: repere1,
         epaisseur: 1.2,
