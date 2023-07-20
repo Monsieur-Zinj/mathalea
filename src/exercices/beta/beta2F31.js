@@ -1,9 +1,10 @@
+import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { courbe, droite } from '../../modules/2d.js'
+import { droite } from '../../modules/2d.js'
 export const titre = 'Croissance de fonction ?'
 
 /**

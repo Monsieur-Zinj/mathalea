@@ -1,3 +1,4 @@
+import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures.js'
@@ -6,7 +7,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { courbe, texteParPosition } from '../../../modules/2d.js'
+import { texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire graphiquement les valeurs de $a$ et $b$ dans $ax^2+b$'

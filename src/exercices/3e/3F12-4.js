@@ -1,3 +1,4 @@
+import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { abs, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -13,7 +14,6 @@ import { context } from '../../modules/context.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { courbe } from '../../modules/2d.js'
 export const titre = 'Lire l\'image d\'un nombre à partir d\'un graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
