@@ -16,12 +16,12 @@ import {
   tracePoint,
   translation,
   vecteur
-} from '../modules/2d.js'
-import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../modules/2dGeneralites.js'
-import { axeY, labelY, pointDansRepere } from './2d/reperes.js'
-import { texcolors } from './format/style.js'
-import { combinaisonListes } from './outils/arrayOutils.js'
-import { numberFormat, texNombre } from './outils/texNombre.js'
+} from '../../modules/2d.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
+import { axeY, labelY, pointDansRepere } from './reperes.js'
+import { texcolors } from '../format/style.js'
+import { combinaisonListes } from '../outils/arrayOutils.js'
+import { numberFormat, texNombre } from '../outils/texNombre.js'
 
 /**
  * Trace un graphique cartésien dans un repère

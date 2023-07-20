@@ -1,4 +1,4 @@
-import { diagrammeBarres } from '../../lib/diagrammes.js'
+import { diagrammeBarres } from '../../lib/2d/diagrammes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { decompositionFacteursPremiers } from '../../lib/outils/primalite.js'
 import { listeEntiersSommeConnue } from '../../modules/debarras/listeEntiersSommeConnue.js'

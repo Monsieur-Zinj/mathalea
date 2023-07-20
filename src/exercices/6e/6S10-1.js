@@ -1,5 +1,5 @@
 import { repere } from '../../lib/2d/reperes.js'
-import { traceBarre, traceGraphiqueCartesien } from '../../lib/diagrammes.js'
+import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texcolors } from '../../lib/format/style.js'
 import { numAlpha } from '../../lib/outils/outilString.js'

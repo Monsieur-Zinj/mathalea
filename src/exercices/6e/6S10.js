@@ -1,5 +1,5 @@
 import { repere } from '../../lib/2d/reperes.js'
-import { traceBarre } from '../../lib/diagrammes.js'
+import { traceBarre } from '../../lib/2d/diagrammes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

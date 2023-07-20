@@ -1,5 +1,5 @@
 import { repere } from '../../lib/2d/reperes.js'
-import { traceGraphiqueCartesien } from '../../lib/diagrammes.js'
+import { traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { lampeMessage } from '../../lib/format/message.js'

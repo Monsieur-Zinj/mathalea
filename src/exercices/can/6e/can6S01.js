@@ -1,5 +1,5 @@
 import { repere } from '../../../lib/2d/reperes.js'
-import { traceBarreHorizontale } from '../../../lib/diagrammes.js'
+import { traceBarreHorizontale } from '../../../lib/2d/diagrammes.js'
 import { prenom } from '../../../lib/outils/Personne.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

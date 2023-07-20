@@ -1,4 +1,4 @@
-import { diagrammeBarres } from '../../lib/diagrammes.js'
+import { diagrammeBarres } from '../../lib/2d/diagrammes.js'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'

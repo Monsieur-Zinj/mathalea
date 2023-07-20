@@ -1,5 +1,5 @@
 import { droiteGraduee, grille, repere } from '../../../lib/2d/reperes.js'
-import { traceBarre } from '../../../lib/diagrammes.js'
+import { traceBarre } from '../../../lib/2d/diagrammes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { sp } from '../../../lib/outils/outilString.js'
