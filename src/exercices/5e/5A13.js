@@ -9,7 +9,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Décomposition en facteurs premiers'
+export const titre = 'Décomposer en facteurs premiers'
 
 /**
 * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
