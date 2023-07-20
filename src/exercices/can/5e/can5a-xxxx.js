@@ -1,3 +1,4 @@
+import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -10,7 +11,6 @@ import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
-import { droiteGraduee } from '../../../modules/2d.js'
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'

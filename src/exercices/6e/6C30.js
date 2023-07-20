@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { grille, seyes } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
@@ -7,7 +8,6 @@ import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.j
 import Operation from '../../modules/operations.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { grille, seyes } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const amcReady = true

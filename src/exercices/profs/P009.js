@@ -1,9 +1,10 @@
+import { repere } from '../../lib/2d/reperes.js'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { repere, traceBarre } from '../../modules/2d.js'
+import { traceBarre } from '../../modules/2d.js'
 
 export const titre = 'Simulation d\'expériences aléatoires'
 export const ref = 'P009'

@@ -1,3 +1,4 @@
+import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
@@ -9,7 +10,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
-  point, droiteGraduee, pave, droite, segment, milieu, codageAngle, rotation, tracePoint, codageAngleDroit, texteParPosition, polygone
+  point, pave, droite, segment, milieu, codageAngle, rotation, tracePoint, codageAngleDroit, texteParPosition, polygone
 } from '../../../modules/2d.js'
 import { paveLPH3d } from '../../../modules/3d.js'
 import { round, min } from 'mathjs'

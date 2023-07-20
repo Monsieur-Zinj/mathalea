@@ -1,4 +1,5 @@
-import { Courbe, Repere } from '../../modules/2d.js'
+import { Repere } from '../../lib/2d/reperes.js'
+import { Courbe } from '../../modules/2d.js'
 import {
   tableauSignesFonction,
   tableauVariationsFonction

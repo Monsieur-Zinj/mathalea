@@ -1,3 +1,4 @@
+import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
@@ -16,7 +17,6 @@ import {
   calcul,
   listeQuestionsToContenu
 } from '../../modules/outils.js'
-import { droiteGraduee } from '../../modules/2d.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
