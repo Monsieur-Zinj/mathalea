@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { labyrinthe } from '../../modules/2d.js'
 export const dateDePublication = '12/10/2022'
 export const titre = 'Explorer un labyrinthe de nombres premiers'
 

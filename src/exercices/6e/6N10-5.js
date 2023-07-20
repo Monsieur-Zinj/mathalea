@@ -1,9 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Parcourir un labyrinthe de numération décimale'
 export const amcReady = true
