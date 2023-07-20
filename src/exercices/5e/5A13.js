@@ -1,4 +1,4 @@
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { compareNombres } from '../../lib/outils/nombres.js'
 import { texFactorisation } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -7,9 +7,10 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { sp } from '../../lib/outils/outilString.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Décomposition en facteurs premiers'
+export const titre = 'Décomposer en facteurs premiers'
 
 /**
 * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
@@ -20,18 +21,19 @@ export const uuid = '7f50c'
 export const ref = '5A13'
 export default function ExerciceDecomposerEnFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers rangés dans l'ordre croissant."
   this.spacing = 2
   this.nbQuestions = 6
   this.sup = 2 // 4 facteurs par défaut
   this.sup2 = false // pas de multiplication par 100
-  this.sup3 = false
-  this.sup4 = false
+  this.sup3 = false // Que pour les 2ndes
+  this.sup4 = false // Decomposition avec des puissances
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
 
   this.nouvelleVersion = function () {
-    if (this.level === 2) {
+    this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers"
+    this.consigne += this.interactif ? " rangés dans l'ordre croissant." : "."
+      if (this.level === 2) {
       this.sup = 3
       this.sup2 = true
     }
@@ -80,11 +82,9 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
         n = n * facteurs[k]
       }
       texte = '$ ' + texNombre(n) + ' =$'
-      if (!this.correctionDetaillee) {
-        texteCorr = '$ ' + texNombre(n) + ' = '
-      } else {
-        texteCorr = ''
-      }
+      texteCorr = ''
+      if (!this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' = $'
+        
       reponse = ''
       facteurs.sort(compareNombres) // classe les facteurs dans l'ordre croissant
       let ensembleDeFacteurs = new Set(facteurs)
@@ -107,34 +107,39 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       let debutDecomposition = ''
       let decompositionFinale = ''
       for (let k = 0; k < facteurs.length - 1; k++) {
-        if (!this.sup3 && !this.sup4) {
+       if (!this.sup3 && !this.sup4) {
           if (!this.correctionDetaillee) {
-            texteCorr += facteurs[k] + ' \\times '
-          } else {
+          texteCorr += `$${miseEnEvidence(facteurs[k] + ' \\times ')}$`
+          }
+        }
+        if (this.correctionDetaillee) {
             debutDecomposition += facteurs[k] + ' \\times  '
             for (let j = k + 1; j < facteurs.length; j++) {
               produitRestant = produitRestant * facteurs[j]
             }
             texteCorr += '$' + texNombre(n) + ' = ' + debutDecomposition + produitRestant + '$<br>'
-            decompositionFinale = debutDecomposition + produitRestant
+            decompositionFinale = sp() + debutDecomposition + produitRestant
             produitRestant = 1
-          }
+          
         }
         reponse += facteurs[k] + '\\times'
       }
-      if (!this.correctionDetaillee) texteCorr += '$'
+     
       if (!this.sup3 && !this.sup4) {
         if (!this.correctionDetaillee) {
-          texteCorr += facteurs[facteurs.length - 1]
+          texteCorr += `$${miseEnEvidence(facteurs[facteurs.length - 1])}$`
         }
       } else {
-        texteCorr += '$' + texFactorisation(n, true) + '$'
-      }
+        if (this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' ='+sp()+' $'
+        decompositionFinale=sp() + texFactorisation(n, true)
+        texteCorr += `$${miseEnEvidence(decompositionFinale)}$`
+        if (this.correctionDetaillee) texteCorr +='<br>'
+        }
       if (this.correctionDetaillee) {
-        texteCorr += '<br>' + texteEnCouleurEtGras(`Donc la décomposition en produit de facteurs premiers de $\\mathbf{${texNombre(n)}}$ vaut $\\mathbf{${decompositionFinale}}$`)
+        texteCorr += `<br>Donc la décomposition en produit de facteurs premiers de $${miseEnEvidence(texNombre(n),'black')}$ est $${miseEnEvidence(decompositionFinale)}$.`
       }
       reponse += facteurs[facteurs.length - 1]
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i,'largeur75 inline nospacebefore')
       setReponse(this, i, [reponse, produitAvecPuissances])
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
