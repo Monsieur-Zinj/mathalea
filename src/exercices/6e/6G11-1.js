@@ -1,3 +1,4 @@
+import { grille, seyes } from '../../lib/2d/reperes.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import {
@@ -6,7 +7,6 @@ import {
   codageSegment,
   droite,
   droiteParPointEtPerpendiculaire,
-  grille,
   homothetie,
   labelPoint,
   milieu,
@@ -14,7 +14,6 @@ import {
   pointIntersectionDD,
   pointSurDroite,
   rotation,
-  seyes,
   tracePoint
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

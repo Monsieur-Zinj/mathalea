@@ -1,5 +1,6 @@
+import { repere } from '../../../lib/2d/reperes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { courbeSpline, droiteParPointEtPente, point, repere } from '../../../modules/2d.js'
+import { courbeSpline, droiteParPointEtPente, point } from '../../../modules/2d.js'
 import { splineCatmullRom } from '../../../modules/mathFonctions/SplineCatmullRom.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

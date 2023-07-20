@@ -1,3 +1,4 @@
+import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
@@ -7,7 +8,6 @@ import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
 export const interactifReady = true

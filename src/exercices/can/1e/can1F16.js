@@ -1,10 +1,11 @@
+import { repere } from '../../../lib/2d/reperes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import { repere, courbe, latexParCoordonnees, texteParPosition } from '../../../modules/2d.js'
+import { courbe, latexParCoordonnees, texteParPosition } from '../../../modules/2d.js'
 export const titre = 'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
