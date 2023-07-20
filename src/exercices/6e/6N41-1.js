@@ -1,4 +1,4 @@
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
@@ -64,7 +64,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
       }
       const maximum = parseInt(this.sup)
       texte = `Trouver la sortie en ne passant que par les cases contenant des fractions égales à $${texFractionReduite(num, table)}$.`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${nbL - monchemin[monchemin.length - 1][1]}$.`, 'black')}<br>`
+      texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
       let listeMultiples = []
 
@@ -124,6 +124,6 @@ export default function ExerciceLabyrintheFractionsEgales () {
   }
   this.besoinFormulaireNumerique = ['Facteur maximum']
   this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe', 8, 'Entre 2 et 8\n1 si vous laissez le hasard décider']
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe', 8, 'Entre 3 et 8\n1 si vous laissez le hasard décider']
+  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
 }

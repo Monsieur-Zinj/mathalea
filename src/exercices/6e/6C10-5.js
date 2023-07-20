@@ -1,4 +1,4 @@
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, choice, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
@@ -62,9 +62,9 @@ export default function ExerciceLabyrintheMultiples () {
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
 
-      texte = `${texteEnCouleurEtGras('Trouver la sortie en ne passant que par les cases contenant un multiple de ', 'black')}$${table[q]}$.<br>`
+      texte = `Trouver la sortie en ne passant que par les cases contenant un multiple de $${table[q]}$.<br>`
       // texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${nbL - monChemin[monChemin.length - 1][1]}$.`, 'black')}<br>`
+      texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction des tableaux de nombres
       listeMultiples = []
       const listeNonMultiples = []
@@ -99,6 +99,6 @@ export default function ExerciceLabyrintheMultiples () {
   }
   this.besoinFormulaireNumerique = ['Tables', 4, '1 : Tables de 2,5 et 10\n2 : Tables de 3 et 9\n3 : Tables de 4,6,7 et 8\n4 : Mélange']
   this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe', 8, 'Entre 2 et 8\n1 si vous laissez le hasard décider']
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe', 8, 'Entre 3 et 8\n1 si vous laissez le hasard décider']
+  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
 }

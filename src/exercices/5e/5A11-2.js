@@ -1,5 +1,5 @@
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
@@ -52,9 +52,9 @@ export default function ExerciceLabyrintheDivisibilite2 () {
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin, tailleChiffre) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
-      texte = `${texteEnCouleurEtGras('Trouver la sortie en ne passant que par les cases contenant un nombre divisible par ', 'black')}$${tables[q]}$.<br>`
+      texte = `Trouver la sortie en ne passant que par les cases contenant un nombre divisible par $${tables[q]}$.<br>`
       // texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${nbL - monChemin[monChemin.length - 1][1]}$.`, 'black')}<br>`
+      texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let listeMultiples = []
       const listeNonMultiples = []
@@ -80,6 +80,6 @@ export default function ExerciceLabyrintheDivisibilite2 () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe', 8, 'Entre 2 et 8\n1 si vous laissez le hasard décider']
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe', 8, 'Entre 3 et 8\n1 si vous laissez le hasard décider']
+  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
 }
