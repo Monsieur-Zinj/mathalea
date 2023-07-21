@@ -1,12 +1,13 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 export const titre = '2S30-6' // Probabilité A ou B dans situation concrète
 
 const multiple = (n, d) => n % d === 0
-const impair = (n, _) => n % 2 // ou not(multiple(n,2))
-const pair = (n, _) => !(n % 2)
+const impair = (n ) => n % 2 // ou not(multiple(n,2))
+const pair = (n ) => !(n % 2)
 const inf = (n, d) => n < d
 const sup = (n, d) => n > d
 const egal = (n, d) => n === d

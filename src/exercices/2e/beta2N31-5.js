@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre.js'
@@ -5,7 +6,6 @@ import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   calcul,
-  combinaisonListes,
   randint
 } from '../../modules/outils.js'
 import {

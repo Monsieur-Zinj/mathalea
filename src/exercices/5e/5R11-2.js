@@ -1,10 +1,11 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, egal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, egal } from '../../modules/outils.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const interactifReady = true
@@ -43,7 +44,7 @@ export default function PlacerPointsSurAxeRelatifs () {
   //   return ((xF - abs0) / 3 / pas1 + abs0)
   // }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
     let typesDeQuestions
     const pointsSolutions = []

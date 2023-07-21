@@ -1,6 +1,7 @@
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 
 /**
@@ -17,7 +18,7 @@ export default function ReduireDinstinctionSommeProduit () {
     this.nbQuestions = 4
   } else {
     this.nbQuestions = 2
-  };
+  }
   this.consigne = ''
   // this.nbQuestions = 4;
   this.nbCols = 1
@@ -57,12 +58,12 @@ export default function ReduireDinstinctionSommeProduit () {
         enonces[0].correction_produit += `${texteEnCouleur(`$${n * p}${inc}^2=${inc}^2$`)}`
       } else {
         enonces[0].correction_produit += `${texteEnCouleur(` $${n * p}${inc}^2$`)}`
-      };
+      }
       if (isUn(n * p)) {
         enonces[0].correction_somme += `${texteEnCouleur(` $${n + p}${inc}=${inc}$`)}`
       } else {
         enonces[0].correction_somme += `${texteEnCouleur(` $${n + p}${inc}$`)}`
-      };
+      }
       if (isUn(n) && isUn(p)) {
         enonces[0].correction_produit = `$${inc}\\times ${inc} =$ ${texteEnCouleur(` $${inc}^2$`)} `
       }
@@ -78,12 +79,12 @@ export default function ReduireDinstinctionSommeProduit () {
         enonces[1].correction_produit += `${texteEnCouleur(`$${n * p}${inc}^2=${inc}^2$`)}`
       } else {
         enonces[1].correction_produit += `${texteEnCouleur(` $${n * p}${inc}^2$`)}`
-      };
+      }
       if (isUn(n * p)) {
         enonces[1].correction_somme += `${texteEnCouleur(` $${n + p}${inc}=${inc}$`)}`
       } else {
         enonces[1].correction_somme += `${texteEnCouleur(` $${n + p}${inc}$`)}`
-      };
+      }
       if (isUn(n) && isUn(p)) {
         enonces[1].correction_produit = `$${inc}\\times ${inc} =$ ${texteEnCouleur(` $${inc}^2$`)} `
       }
@@ -98,12 +99,12 @@ export default function ReduireDinstinctionSommeProduit () {
         enonces[2].correction_produit += `${texteEnCouleur(`$${n * p}${inc}^2=${inc}^2$`)}`
       } else {
         enonces[2].correction_produit += `${texteEnCouleur(` $${n * p}${inc}^2$`)}`
-      };
+      }
       if (isUn(n * p)) {
         enonces[2].correction_somme += `${texteEnCouleur(` $${inc}$`)}`
       } else {
         enonces[2].correction_somme += `${texteEnCouleur(` $${n + p}${inc}$`)}`
-      };
+      }
       if (isUn(n) && isUn(p)) {
         enonces[2].correction_produit = `$${inc}\\times ${inc} =$ ${texteEnCouleur(` $${inc}^2$`)} `
       }
@@ -118,15 +119,15 @@ export default function ReduireDinstinctionSommeProduit () {
         enonces[3].correction_produit += `${texteEnCouleur(`$${inc}^2$`)}`
       } else {
         enonces[3].correction_produit += `${texteEnCouleur(` $${n * p}${inc}^2$`)}`
-      };
+      }
       if (isUn(n * p)) {
         enonces[3].correction_somme += `${texteEnCouleur(` $${inc}$`)}`
       } else {
         enonces[3].correction_somme += `${texteEnCouleur(` $${n + p}${inc}$`)}`
-      };
+      }
       if (isUn(n) && isUn(p)) {
         enonces[3].correction_produit = `$${inc}\\times ${inc} =$ ${texteEnCouleur(` $${inc}^2$`)} `
-      };
+      }
 
       switch (listeTypeDeQuestions[i]) {
         case 0:// produit puis somme
@@ -141,7 +142,7 @@ export default function ReduireDinstinctionSommeProduit () {
             texteCorr = enonces[0].correction_produit
             texteCorr += '<br>'
             texteCorr += enonces[0].correction_somme
-          };
+          }
           break
         case 1:// x puis +
           texte = `${enonces[1].enonce}.`
@@ -155,7 +156,7 @@ export default function ReduireDinstinctionSommeProduit () {
             texteCorr = enonces[1].correction_produit
             texteCorr += '<br>'
             texteCorr += enonces[1].correction_somme
-          };
+          }
           break
         case 2:// somme puis produit
           texte = `${enonces[2].enonce}.`
@@ -169,7 +170,7 @@ export default function ReduireDinstinctionSommeProduit () {
             texteCorr = enonces[2].correction_somme
             texteCorr += '<br>'
             texteCorr += enonces[2].correction_produit
-          };
+          }
           break
         case 3:// + puis x
           texte = `${enonces[3].enonce}.`
@@ -183,7 +184,7 @@ export default function ReduireDinstinctionSommeProduit () {
             texteCorr = enonces[3].correction_somme
             texteCorr += '<br>'
             texteCorr += enonces[3].correction_produit
-          };
+          }
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -204,8 +205,8 @@ function isUn (n) {
     return true
   } else {
     return false
-  };
-};
+  }
+}
 function sliceUn (n) {
   if (n === 1) {
     return ''

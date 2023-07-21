@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
 import { max } from 'mathjs'
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires.js'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
@@ -13,10 +14,8 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  choice,
   listeQuestionsToContenu,
-  randint,
-  shuffle
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

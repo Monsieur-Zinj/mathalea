@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -5,7 +6,7 @@ import {
   reduireAxPlusB
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { } from '../../modules/2d.js'
 export const titre = 'Nombre dérivé de fonctions de références'
 
@@ -23,7 +24,7 @@ export default function Tauxvariation () {
   this.video = '' // Id YouTube ou url
   this.sup = 1
   // this.sup = parseInt(this.sup)
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

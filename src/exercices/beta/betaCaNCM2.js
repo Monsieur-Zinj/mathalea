@@ -1,7 +1,8 @@
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Course aux nombres CM2'
@@ -15,7 +16,7 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Référence
 */
-export default function CourseAuxNombresCM (numeroExercice) {
+export default function CourseAuxNombresCM () {
   Exercice.call(this) // Héritage de la classe Exercice()
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."

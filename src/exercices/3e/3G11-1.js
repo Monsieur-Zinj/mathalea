@@ -1,7 +1,8 @@
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 

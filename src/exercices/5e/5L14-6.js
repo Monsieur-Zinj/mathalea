@@ -1,6 +1,7 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import ChoisirUneExpressionLitterale from './_Choisir_expression_litterale.js'
 
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression numérique'
@@ -48,7 +49,7 @@ export default function DeterminerDerniereOperationExpNum () {
       texteCorr = '$'
       for (let l = 1; l < str.length - 1; l++) {
         texteCorr += `${str[l]}=`
-      };
+      }
       texteCorr += `${str[str.length - 1]}`
       texteCorr += `<br>La dernière opération dans $${str[1]}$ est donc une ${texteEnCouleurEtGras(lastOp)}.`
 

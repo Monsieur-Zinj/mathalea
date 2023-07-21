@@ -1,10 +1,11 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { ecritureNombreRelatif } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { Relatif } from '../../modules/Relatif.js'
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, randint, combinaisonListes
+  listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const interactifReady = true

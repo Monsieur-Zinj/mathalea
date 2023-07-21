@@ -1,7 +1,8 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { labelPoint, texteSurArc, homothetie, point, rotation, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
 import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
@@ -1065,7 +1066,7 @@ export default function ExercicesAnglesAIC () {
           Les angles $\widehat{${anglesA[a].nom}}$ et $\widehat{${nomAngleSolution}}$ sont ${angles} et formés par des droites parallèles.
           <br>
           Donc ils sont de même mesure.
-          <br>De plus, 
+          <br>De plus,
           ${calculs !== undefined ? calculs : String.raw` les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ et vert sont opposés par le sommet.<br> Donc ils sont de même mesure.`}
           <br>
           Donc l'angle $\widehat{${anglesB[b].nom}}$ mesure ${mesure}.

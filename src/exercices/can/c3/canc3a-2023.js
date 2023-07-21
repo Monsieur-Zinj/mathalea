@@ -1,10 +1,11 @@
+import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms.js'
-import { listeQuestionsToContenu, shuffle, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import Grandeur from '../../../modules/Grandeur.js'

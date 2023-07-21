@@ -1,3 +1,4 @@
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { katexPopup2, lampeMessage, warnMessage } from '../../lib/format/message.js'
 import { modalPdf } from '../../lib/outils/modales.js'
@@ -6,7 +7,7 @@ import { decompositionFacteursPremiers, pgcd } from '../../lib/outils/primalite.
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, ppcm, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
 export const titre = 'Résoudre un exercice d\'engrenages'
 export const dateDeModifImportante = '01/04/2023'
@@ -42,7 +43,7 @@ export default function PpcmEngrenages () {
       // this.boutonAide = '';
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A13.pdf', 'Aide-mémoire - Arithmétique (Sébastien Lozano)', 'Aide-mémoire')
     } else { // sortie LaTeX
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -79,19 +80,19 @@ export default function PpcmEngrenages () {
         txtPopup += '<b>les nombres a et b sont premiers entre eux.</b>'
       } else {
         txtPopup += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
-      };
+      }
       let txtPopupBis = `Soient deux nombres entiers a et b, lorsque le plus grang diviseur commun à $a$ et $b$ vaut $1$ ${context.isHtml ? '' : '\\\\'} ( $pgcd(a,b)=1$ ), on dit que `
       if (context.isHtml) {
         txtPopupBis += '<b>les nombres a et b sont premiers entre eux.</b>'
       } else {
         txtPopupBis += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
-      };
+      }
       let txtPopupTer = 'Soient deux nombres entiers a et b, lorsque $a$ et $b$ n\'ont pas d\'autre diviseur commun que $1$, on dit que '
       if (context.isHtml) {
         txtPopupTer += '<b>les nombres a et b sont premiers entre eux.</b>'
       } else {
         txtPopupTer += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
-      };
+      }
 
       switch (typesDeQuestions) {
         case 1:
@@ -123,11 +124,11 @@ export default function PpcmEngrenages () {
                 texteCorr += '$ ; '
               } else {
                 texteCorr += `${texNombre(k * nbDentsr1)}$ ; `
-              };
+              }
               if (k % 5 === 0) {
                 texteCorr += '<br>'
               }
-            };
+            }
             texteCorr += '$\\ldots$ '
             texteCorr += '<br>'
             texteCorr += ` Liste des premiers multiples de $${nbDentsr2}$ : <br>`
@@ -141,11 +142,11 @@ export default function PpcmEngrenages () {
                 texteCorr += '$ ; '
               } else {
                 texteCorr += `${texNombre(k * nbDentsr2)}$ ; `
-              };
+              }
               if (k % 5 === 0) {
                 texteCorr += '<br>'
               }
-            };
+            }
             texteCorr += '$\\ldots$ '
             texteCorr += '<br>'
             if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
@@ -169,14 +170,14 @@ export default function PpcmEngrenages () {
               texteCorr += ' tour '
             } else {
               texteCorr += ' tours '
-            };
+            }
             texteCorr += 'pour la roue n$\\degree$1.'
             texteCorr += `<br>Cela correspond à $(${ppcm(nbDentsr1, nbDentsr2)}\\text{ dents})\\div (${nbDentsr2}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$`
             if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
               texteCorr += ' tour '
             } else {
               texteCorr += ' tours '
-            };
+            }
             texteCorr += 'pour la roue n$\\degree$2.'
           }
           break
@@ -206,7 +207,7 @@ export default function PpcmEngrenages () {
               'Trois définitions équivalentes au choix',
               `<br>- ${txtPopup} ${context.isHtml ? '<br>- ' : '\\\\- '} ${txtPopupBis} ${context.isHtml ? '<br>- ' : '\\\\- '} ${txtPopupTer}`
             )
-          };
+          }
           texte += context.isHtml ? '' : '?'
           texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
           texteCorr = 'Pour un nombre de dents plus élevé, il est plus commode d\'utiliser les décompositions en produit de facteurs premiers.'
@@ -267,14 +268,14 @@ export default function PpcmEngrenages () {
             texteCorr += ' tour '
           } else {
             texteCorr += ' tours '
-          };
+          }
           texteCorr += 'pour la roue n$\\degree$1.'
           texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${nbDentsr2}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$`
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
             texteCorr += ' tour '
           } else {
             texteCorr += ' tours '
-          };
+          }
           texteCorr += 'pour la roue n$\\degree$2.'
           break
         case 3: // déterminer le nombre de dents d'une roue connaissant l'autre et le nombre de tours necessaires à la re-synchro
@@ -290,32 +291,32 @@ export default function PpcmEngrenages () {
             texte += ' tour '
           } else {
             texte += ' tours '
-          };
+          }
           texte += ` pendant que la roue n$\\degree$2 en fait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$.`
           texteCorr = `Puisque la roue n$\\degree$2, qui a $${nbDentsr2}$ dents, fait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$ `
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
             texteCorr += ' tour '
           } else {
             texteCorr += ' tours '
-          };
+          }
           texteCorr += `, cela représente $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
           texteCorr += `<br>La roue n$\\degree$1 doit donc aussi tourner de $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents, ceci en $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
             texteCorr += ' tour '
           } else {
             texteCorr += ' tours '
-          };
+          }
           texteCorr += '.'
           texteCorr += `<br> On obtient donc $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}\\text{`
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
             texteCorr += ' tour '
           } else {
             texteCorr += ' tours '
-          };
+          }
           texteCorr += `}) = ${nbDentsr1} \\text{ dents/tour}.$`
           texteCorr += `<br>La roue n$\\degree$1 a donc $${nbDentsr1}$ dents.`
           break
-      };
+      }
 
       if (this.questionJamaisPosee(i, nbDentsr1, nbDentsr2)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

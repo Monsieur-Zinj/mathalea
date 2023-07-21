@@ -1,4 +1,5 @@
-import { choice, shuffle } from '../../modules/outils.js'
+
+import { choice, shuffle } from './arrayOutils.js'
 
 /**
  * Renvoie un prénom féminin au hasard
@@ -42,7 +43,7 @@ export function prenom (n = 1) {
  * le 14/03/2021
  */
 class Personne {
-  constructor ({ prenom = '', genre = '', pronom = '', Pronom = '' } = {}) {
+  constructor ({ prenom = '', genre = '', pronom = '' } = {}) {
     let choix
     this.prenom = ''
     this.genre = ''

@@ -1,8 +1,9 @@
+import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { RedactionPythagore } from './_pythagore.js'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 

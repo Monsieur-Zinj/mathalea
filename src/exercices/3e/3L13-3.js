@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
@@ -16,7 +17,6 @@ import {
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  choice,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu
 } from '../../modules/outils.js'

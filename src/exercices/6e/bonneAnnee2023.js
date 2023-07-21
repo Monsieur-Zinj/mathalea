@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { numAlphaNum, sp } from '../../lib/outils/outilString.js'
@@ -6,7 +7,7 @@ import { cercle, courbe, droite, labelPoint, latexParCoordonnees, point, repere,
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { combinaisonListes, listeQuestionsToContenu, gestionnaireFormulaireTexte, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, gestionnaireFormulaireTexte, randint } from '../../modules/outils.js'
 import { RedactionPythagore } from '../4e/_pythagore.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Bonne année...'

@@ -1,4 +1,4 @@
-import { choice } from '../../modules/outils.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 import Transformations from '../6e/_Transformations.js'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Transformations.js'
 export const titre = 'Trouver l\'image d\'un point par une homothétie ou une rotation'

@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -5,8 +6,6 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  choice,
-  combinaisonListes,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint
@@ -292,7 +291,7 @@ export default function CalculerCaracteristiques () {
             [1700 + randint(2, 8) * 10, effectifHasard[2]], // 'Cadre'
             [3500 + randint(2, 8) * 10, total - 1 - effectifHasard[0] - effectifHasard[1] - effectifHasard[2]], // 'Cadre supérieur'
             [8000 + randint(2, 8) * 100, 1]] // 'Dirigeant'
-          const effectifTotal = salaires.reduce((accumulator, currentValue, currentIndex) => {
+          const effectifTotal = salaires.reduce((accumulator, currentValue) => {
             return accumulator + currentValue[1]
           }, 0)
           if (listePairOuImpair[i] === 'pair' && effectifTotal % 2 === 1) {
@@ -361,7 +360,7 @@ export default function CalculerCaracteristiques () {
           const notes = listeDeNotes(nombreNotes, min, max, true).sort() // on récupère une série de notes (pointures) distinctes et ordonnées
           const effectifs = listeDeNotes(nombreNotes, randint(2, 4), randint(8, 12)) // on récupère une liste d'effectifs
           const pointures = Array.from(notes, (x, i) => [x, effectifs[i]])
-          const effectifTotal = pointures.reduce((accumulator, currentValue, currentIndex) => {
+          const effectifTotal = pointures.reduce((accumulator, currentValue) => {
             return accumulator + currentValue[1]
           }, 0)
           if (listePairOuImpair[i] === 'pair' && effectifTotal % 2 === 1) {
@@ -430,7 +429,7 @@ export default function CalculerCaracteristiques () {
             [11 + randint(0, 2), randint(1, 4)],
             [14 + randint(0, 2), randint(1, 3)],
             [18 + randint(0, 2), randint(1, 3)]] //
-          const effectifTotal = notes.reduce((accumulator, currentValue, currentIndex) => {
+          const effectifTotal = notes.reduce((accumulator, currentValue) => {
             return accumulator + currentValue[1]
           }, 0)
           if (listePairOuImpair[i] === 'pair' && effectifTotal % 2 === 1) {

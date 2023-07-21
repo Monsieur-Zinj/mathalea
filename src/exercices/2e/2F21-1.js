@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix, texteGras } from '../../lib/format/style.js'
@@ -8,7 +9,7 @@ import Decimal from 'decimal.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 import { repere, texteParPosition, point, courbeInterpolee, antecedentParDichotomie, segment, courbe } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { exp } from 'mathjs'
 export const titre = 'Modéliser une situation à l\'aide d\'une fonction'
 export const dateDePublication = '14/02/2023'

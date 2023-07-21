@@ -1,4 +1,4 @@
-import { choice } from '../../modules/outils.js'
+import { choice } from './arrayOutils.js'
 import { sp } from './outilString.js'
 
 /**

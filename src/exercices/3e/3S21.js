@@ -1,9 +1,10 @@
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { choice, combinaisonListesSansChangerOrdre, contraindreValeur, listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre } from '../../modules/arbres.js'
 
@@ -230,7 +231,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, sup, sup2, sup3) {
 }
 
 // On tire deux boules dans une urne avec remise
-function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2, niveau) { // tirage dans une urne avec remise
+function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2) { // tirage dans une urne avec remise
   const [b1Color, b2Color] = shuffle(['bleue', 'rouge', 'verte', 'orange', 'noire', 'jaune']).splice(0, 2)
 
   const b1Char = premiereLettreEnMajuscule(b1Color.charAt(0))

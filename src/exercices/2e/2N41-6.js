@@ -1,10 +1,9 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
-  randint,
-  choice,
-  combinaisonListes
+  randint
 } from '../../modules/outils.js'
 import {
   setReponse

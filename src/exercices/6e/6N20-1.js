@@ -1,13 +1,13 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { modalTexteCourt } from '../../lib/outils/modales.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {
-  combinaisonListes,
   listeQuestionsToContenu,
   randint,
-  gestionnaireFormulaireTexte, choice
+  gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
@@ -43,7 +43,7 @@ export default function EncadrerFractionEntre2Entiers () {
     ? ['Dénominateurs à choisir (nombres séparés par des tirets', 'De 2 à 9\n10: mélange']
     : ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.correctionDetailleeDisponible = !this.lycee
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

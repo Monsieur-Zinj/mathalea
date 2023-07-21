@@ -1,3 +1,4 @@
+import { choice, creerCouples } from '../../lib/outils/arrayOutils.js'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -5,8 +6,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import {
   calcul,
-  choice,
-  creerCouples,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint

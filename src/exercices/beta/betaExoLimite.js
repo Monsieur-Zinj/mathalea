@@ -1,6 +1,7 @@
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { courbe, repere } from '../../modules/2d.js'
 export const titre = 'Lecture graphique de limites'
 
@@ -19,7 +20,7 @@ export default function NomExercice () {
   this.sup = false // x>2 au lieu de x->2+
   this.sup2 = false // asymptotes
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

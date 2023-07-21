@@ -1,8 +1,9 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Utiliser la distance entre deux points dans un repère orthonormé'
 

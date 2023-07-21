@@ -1,8 +1,9 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, calcul } from '../../../modules/outils.js'
+import { randint, calcul } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite explicite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,8 +38,8 @@ export default function CalculTermeSuiteExp () {
         this.question = `Soit $(u_n)$ une suite définie par :<br>
         
         $u_n = `
-        if (a === 1) { this.question += 'n' } else if (a === -1) { this.question += '-n' } else { this.question += `${a}n` };
-        if (b > 0) { this.question += `+${b}$.` } else { this.question += `${b}$.` };
+        if (a === 1) { this.question += 'n' } else if (a === -1) { this.question += '-n' } else { this.question += `${a}n` }
+        if (b > 0) { this.question += `+${b}$.` } else { this.question += `${b}$.` }
         this.question += `<br>
         
         Calculer $u_{${k}}$.
@@ -77,12 +78,12 @@ export default function CalculTermeSuiteExp () {
             this.question += `${a}n^2$
             `
           }
-        };
-        if (b === 1) { this.question += ' $+n$' };
-        if (b > 1) { this.question += `$+${b}n$` };
-        if (b === -1) { this.question += '$-n$' };
-        if (b < -1) { this.question += `$${b}n$` };
-        if (c > 0) { this.question += `$+${c}$` };
+        }
+        if (b === 1) { this.question += ' $+n$' }
+        if (b > 1) { this.question += `$+${b}n$` }
+        if (b === -1) { this.question += '$-n$' }
+        if (b < -1) { this.question += `$${b}n$` }
+        if (c > 0) { this.question += `$+${c}$` }
         if (c < 0) { this.question += `$${c}$` }
         this.question += `<br>
         
@@ -93,7 +94,7 @@ export default function CalculTermeSuiteExp () {
           if (a === -1) { this.correction += `-${k}^2` } else {
             this.correction += `${a}\\times ${k}^2`
           }
-        };
+        }
         if (b === 1) {
           this.correction += `+${k}`
         } else {

@@ -1,5 +1,6 @@
 import Algebrite from 'algebrite'
 import { abs, divide, evaluate, format, fraction, isInteger, max, multiply, pow, round, subtract } from 'mathjs'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -16,8 +17,6 @@ import {
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {
-  choice,
-  combinaisonListes,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint

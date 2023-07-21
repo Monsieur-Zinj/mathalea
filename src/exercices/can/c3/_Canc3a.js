@@ -1,3 +1,4 @@
+import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -10,7 +11,7 @@ import {
   point, grille, droiteGraduee, plot, segment, milieu, segmentAvecExtremites, texteParPosition, polygoneAvecNom, polygone
 } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
-import { randint, shuffle, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 
 import Decimal from 'decimal.js'
 export const titre = 'Classe CAN C3'

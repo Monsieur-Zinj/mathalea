@@ -1,7 +1,8 @@
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, shuffle, calcul, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calcul } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin.js'
 
@@ -38,7 +39,7 @@ export default function TracerAvecScratch () {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -133,7 +134,7 @@ export default function TracerAvecScratch () {
           tabAbsDemLutin2 = [0, 4 * myPolyName(n).nbPas, 8 * myPolyName(n).nbPas, 12 * myPolyName(n).nbPas]
         } else {
           tabAbsDemLutin2 = [0, 2 * myPolyName(n).nbPas, 4 * myPolyName(n).nbPas, 6 * myPolyName(n).nbPas]
-        };
+        }
         // on mélange tout ça !
         tabAbsDemLutin2 = shuffle(tabAbsDemLutin2)
         // Les figures de l'énoncé
@@ -156,7 +157,7 @@ export default function TracerAvecScratch () {
         for (let k = 1; k < n + 1; k++) {
           avance(myPolyName(n).nbPas, lutin2)
           tournerD(calcul(360 / n, 2), lutin2)
-        };
+        }
         // le lutin2 fait un polygone régulier avec un côté de plus
         leveCrayon(lutin2)
         allerA(tabAbsDemLutin2[1], 0, lutin2)
@@ -164,7 +165,7 @@ export default function TracerAvecScratch () {
         for (let k = 1; k < n + 1 + 1; k++) {
           avance(myPolyName(n + 1).nbPas, lutin2)
           tournerD(calcul(360 / (n + 1), 2), lutin2)
-        };
+        }
 
         // le lutin2 fait un polygone régulier avec un côté de moins
         leveCrayon(lutin2)
@@ -173,7 +174,7 @@ export default function TracerAvecScratch () {
         for (let k = 1; k < n; k++) {
           avance(myPolyName(n - 1).nbPas, lutin2)
           tournerD(calcul(360 / (n - 1), 2), lutin2)
-        };
+        }
 
         // le lutin2 fait une figure ouverte à n côtés
         leveCrayon(lutin2)
@@ -182,7 +183,7 @@ export default function TracerAvecScratch () {
         for (let k = 1; k < n + 1; k++) {
           avance(myPolyName(n).nbPas, lutin2)
           tournerD(calcul((360 / n) - 10, 2), lutin2)
-        };
+        }
         allerA(tabAbsDemLutin2[3], 0, lutin2)
 
         const mesAppelsEnonce = [
@@ -213,7 +214,7 @@ export default function TracerAvecScratch () {
         for (let k = 1; k < n + 1; k++) {
           avance(myPolyName(n).nbPas, lutin3)
           tournerD(calcul(360 / n, 2), lutin3)
-        };
+        }
         // le lutin3 fait un polygone régulier avec un côté de plus
         lutin3.color = colorToLatexOrHTML('red')
         leveCrayon(lutin3)
@@ -222,7 +223,7 @@ export default function TracerAvecScratch () {
         for (let k = 1; k < n + 1 + 1; k++) {
           avance(myPolyName(n + 1).nbPas, lutin3)
           tournerD(calcul(360 / (n + 1), 2), lutin3)
-        };
+        }
 
         // le lutin3 fait un polygone régulier avec un côté de moins
         leveCrayon(lutin3)
@@ -231,7 +232,7 @@ export default function TracerAvecScratch () {
         for (let k = 1; k < n; k++) {
           avance(myPolyName(n - 1).nbPas, lutin3)
           tournerD(calcul(360 / (n - 1), 2), lutin3)
-        };
+        }
 
         // le lutin3 fait une figure ouverte à n côtés
         leveCrayon(lutin3)
@@ -240,7 +241,7 @@ export default function TracerAvecScratch () {
         for (let k = 1; k < n + 1; k++) {
           avance(myPolyName(n).nbPas, lutin3)
           tournerD(calcul((360 / n) - 10, 2), lutin3)
-        };
+        }
         allerA(tabAbsDemLutin2[3], 0, lutin3)
 
         const mesAppelsCorr = [
@@ -286,7 +287,7 @@ export default function TracerAvecScratch () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[1].enonce}`
@@ -296,7 +297,7 @@ export default function TracerAvecScratch () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
         case 3:
           texte = `${enonces[2].enonce}`
@@ -306,7 +307,7 @@ export default function TracerAvecScratch () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[2].correction}`
-          };
+          }
           break
         case 4:
           texte = `${enonces[3].enonce}`
@@ -316,7 +317,7 @@ export default function TracerAvecScratch () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[3].correction}`
-          };
+          }
           break
         case 5:
           texte = `${enonces[4].enonce}`
@@ -326,9 +327,9 @@ export default function TracerAvecScratch () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[4].correction}`
-          };
+          }
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

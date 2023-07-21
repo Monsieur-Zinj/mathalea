@@ -1,6 +1,6 @@
 import { isArray, isInteger } from 'mathjs'
 import { context } from '../modules/context.js'
-import { choice } from '../modules/outils.js'
+import { choice } from './outils/arrayOutils.js'
 
 /**
  * Met en couleur et en gras

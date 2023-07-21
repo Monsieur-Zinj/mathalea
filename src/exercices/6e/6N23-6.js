@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import {
   arrondi,
@@ -11,8 +12,6 @@ import Operation from '../../modules/operations.js'
 import {
   listeQuestionsToContenu,
   randint,
-  choice,
-  combinaisonListes,
   calcul,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

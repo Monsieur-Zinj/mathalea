@@ -1,8 +1,9 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
 export const interactifReady = true
@@ -119,7 +120,7 @@ export default function NatureSuiteEx () {
           // u = randint(1, 10) * choice([-1, 1])
           b = randint(-10, 10, [-1, 0, 1, a])
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =`
-          if (a === 1) { texte += `${ecritureParentheseSiNegatif(b)}^n$` } else { texte += `${a}\\times${ecritureParentheseSiNegatif(b)}^n$` };
+          if (a === 1) { texte += `${ecritureParentheseSiNegatif(b)}^n$` } else { texte += `${a}\\times${ecritureParentheseSiNegatif(b)}^n$` }
 
           if (this.interactif) {
             texte += `<br>Alors, $(${s}_n)$ est une suite ...`
@@ -155,7 +156,7 @@ export default function NatureSuiteEx () {
           } else {
             texteCorr = `$${s}_{n+1} =${a}\\times ${ecritureParentheseSiNegatif(b)}^{n+1}=${ecritureParentheseSiNegatif(b)}\\times \\underbrace{${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)}^{n}}_{${s}_{n}}=${ecritureParentheseSiNegatif(b)}\\times ${s}_{n}$.
          `
-          };
+          }
           texteCorr += `  <br>
         On en déduit que $(${s}_n)$ est une suite géométrique de raison $${b}$ et de premier terme $${s}_0=${a}\\times ${ecritureParentheseSiNegatif(b)}^0=${a}$.`
 

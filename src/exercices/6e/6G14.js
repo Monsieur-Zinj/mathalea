@@ -1,3 +1,4 @@
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
@@ -6,10 +7,8 @@ import {
   listeQuestionsToContenu,
   randint,
   egal,
-  shuffle,
   contraindreValeur,
-  choice,
-  gestionnaireFormulaireTexte, combinaisonListesSansChangerOrdre
+  gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import {
   point,

@@ -1,3 +1,4 @@
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { infoMessage, lampeMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -7,7 +8,6 @@ import { context } from '../../modules/context.js'
 import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
 import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs.js'
 import {
-  combinaisonListesSansChangerOrdre,
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'

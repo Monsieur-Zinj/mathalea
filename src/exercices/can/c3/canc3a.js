@@ -1,3 +1,4 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { personne, prenom } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
@@ -7,7 +8,6 @@ import {
   listeQuestionsToContenu,
   randint,
   calcul,
-  choice,
   gestionnaireFormulaireTexte
 } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
@@ -28,7 +28,7 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '32a0f'
 export const ref = 'canc3a'
-export default function CourseAuxNombresCM (numeroExercice) {
+export default function CourseAuxNombresCM () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 30
   if (this.interactif) {

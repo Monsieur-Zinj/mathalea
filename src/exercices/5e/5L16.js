@@ -1,5 +1,6 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, choice, contraindreValeur } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -28,7 +29,7 @@ export default function SimplifierEcritureLitterale () {
   this.nbCols = 2
   this.nbColsCorr = 2
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

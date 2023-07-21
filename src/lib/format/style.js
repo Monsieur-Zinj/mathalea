@@ -5,7 +5,7 @@
  */
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { choice } from '../../modules/outils.js'
+import { choice } from '../outils/arrayOutils.js'
 import { texNombre } from '../outils/texNombre.js'
 
 export function couleurAleatoire () {

@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { labelLatexPoint, labelPoint, texteParPoint, tracePoint } from '../../modules/2d.js'
@@ -15,7 +16,6 @@ import {
 } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
 import {
-  combinaisonListes,
   listeQuestionsToContenuSansNumero,
   randint
 } from '../../modules/outils.js'

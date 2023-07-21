@@ -1,9 +1,10 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, choice, calcul } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenuSansNumero, calcul } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 

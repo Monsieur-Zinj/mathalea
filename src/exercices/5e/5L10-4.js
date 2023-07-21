@@ -1,10 +1,11 @@
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, polygone } from '../../modules/2d.js'
 export const titre = 'Produire une formule à partir d\'un tableau'
 
@@ -245,4 +246,4 @@ $${situations[k].secondeQ}$
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Les mêmes unités\n2 : Unités différentes']
   // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
-};
+}
