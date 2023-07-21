@@ -1,3 +1,4 @@
+import { afficheLongueurSegment, afficheMesureAngle } from '../../../lib/2d/codages.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
@@ -5,7 +6,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import {
-  point, labelPoint, afficheLongueurSegment, afficheMesureAngle, pointAdistance, segment
+  point, labelPoint, pointAdistance, segment
 } from '../../../modules/2d.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'

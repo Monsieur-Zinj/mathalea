@@ -1,4 +1,11 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import {
+  droite,
+  droiteParPointEtParallele,
+  droiteParPointEtPente,
+  droiteParPointEtPerpendiculaire
+} from '../../lib/2d/droites.js'
+import { rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
@@ -14,11 +21,6 @@ import {
 import {
   point,
   pointIntersectionDD,
-  droite,
-  droiteParPointEtParallele,
-  droiteParPointEtPerpendiculaire,
-  droiteParPointEtPente,
-  rotation,
   latexParCoordonneesBox,
   pointSurDroite,
   segment

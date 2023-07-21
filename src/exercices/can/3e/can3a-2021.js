@@ -1,4 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
+import { codageSegment } from '../../../lib/2d/codages.js'
+import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
@@ -9,7 +11,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, polygoneAvecNom, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
+  point, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse
 } from '../../../modules/2d.js'
 import { listeQuestionsToContenu, randint, printlatex } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'

@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
+import { barycentre, carre, polygone } from '../../lib/2d/polygones.js'
+import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { afficheLongueurSegment, barycentre, carre, latexParPoint, point, polygone, rotation } from '../../modules/2d.js'
+import {  point } from '../../modules/2d.js'
 
 export const titre = 'Calculer une valeur manquante avec l\'égalité de Pythagore'
 
@@ -23,7 +25,7 @@ export default function CalculerValeurManquanteVisuelPythagore () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    let objetsEnonce, objetsEnonceml, objetsCorrection, paramsEnonce, paramsCorrection
+    let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
     context.fenetreMathalea2d = [-11.7, -6.4, 18.3, 13.6]
     const A = point(4, 0, 'A')
     const B = point(0, 3, 'B')
@@ -46,15 +48,16 @@ export default function CalculerValeurManquanteVisuelPythagore () {
     car3.couleurDeRemplissage = colorToLatexOrHTML('green')
     const bar3 = barycentre(car3)
     bar3.positionLabel = 'center'
+    /*
     const q1 = latexParPoint('? \\text{ cm}^2', bar1)
     const l1 = afficheLongueurSegment(b, c)
     const l2 = afficheLongueurSegment(c, a)
     const q2 = latexParPoint('9 \\text{ cm}^2', bar2)
     const q3 = latexParPoint('16 \\text{ cm}^2', bar3)
-
+*/
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      objetsEnonceml = [] // Idem pour l'enoncé à main levée si besoin
+      // objetsEnonceml = [] // Idem pour l'enoncé à main levée si besoin
       objetsCorrection = [] // Idem pour la correction
 
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.

@@ -1,7 +1,8 @@
+import { droite } from '../../lib/2d/droites.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { demiDroite, droite, labelPoint, point, segmentAvecExtremites } from '../../modules/2d.js'
+import { demiDroite, labelPoint, point, segmentAvecExtremites } from '../../modules/2d.js'
 export const titre = 'Choisir la bonne figure'
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'

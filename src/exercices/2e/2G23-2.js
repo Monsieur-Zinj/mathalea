@@ -1,4 +1,5 @@
 import { repere } from '../../lib/2d/reperes.js'
+import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -15,7 +16,6 @@ import {
   nomVecteurParPosition,
   texteParPosition,
   longueur,
-  homothetie,
   tracePoint,
   segment,
   latexParPoint

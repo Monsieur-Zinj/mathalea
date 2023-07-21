@@ -5,7 +5,7 @@
  * @author Rémi Angot
  */
 
-import { affiniteOrtho, homothetie, symetrieAxiale } from './2d.js'
+import { affiniteOrtho, homothetie, symetrieAxiale } from '../lib/2d/transformations.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
 
 // JSDOC Validee par EE Juin 2022
@@ -164,7 +164,7 @@ function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefini
     }
     code += `<animate attributeType="CSS"
     attributeName="visibility"
-    from="hidden" 
+    from="hidden"
     to="hidden"
     values="hidden;visible;hidden"
     keyTimes="0; ${pourcentage}; 1"

@@ -1,3 +1,4 @@
+import { droite } from '../../../lib/2d/droites.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
@@ -8,7 +9,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint, egal, calcul } from '../../../modules/outils.js'
-import { texteParPosition, segment, droite } from '../../../modules/2d.js'
+import { texteParPosition, segment } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -11,7 +11,8 @@
  * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
  */
 
-import { boite, segment, texteParPositionEchelle } from './2d.js'
+import { boite } from '../lib/2d/polygones.js'
+import { segment, texteParPositionEchelle } from './2d.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
 import { avance, tournerD, tournerG } from './2dLutin.js'
 import { randint } from './outils.js'

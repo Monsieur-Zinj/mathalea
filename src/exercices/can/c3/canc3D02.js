@@ -1,6 +1,7 @@
+import { rotation } from '../../../lib/2d/transformations.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { personne } from '../../../lib/outils/Personne.js'
-import { cercle, point, rotation, segment, texteParPosition } from '../../../modules/2d.js'
+import { cercle, point, segment, texteParPosition } from '../../../modules/2d.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { calcul, randint } from '../../../modules/outils.js'

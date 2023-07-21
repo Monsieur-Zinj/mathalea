@@ -1,14 +1,14 @@
+import { afficheLongueurSegment } from '../../lib/2d/codages.js'
+import { rotation } from '../../lib/2d/transformations.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
-  afficheLongueurSegment,
   cercle,
   latexParPoint,
   point,
   pointAdistance,
-  rotation,
   segment,
   tracePoint
 } from '../../modules/2d.js'
@@ -54,7 +54,7 @@ export default function PerimetreAireDisques (pa = 3) {
   this.spacingCorr = 2
   this.nbQuestions = 4
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

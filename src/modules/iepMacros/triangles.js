@@ -1,6 +1,9 @@
+import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import { homothetie, rotation } from '../../lib/2d/transformations.js'
+import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import { randint } from '../outils.js'
-import { cercle, droite, droiteParPointEtPerpendiculaire, homothetie, longueur, point, pointAdistance, pointIntersectionDD, pointIntersectionLC, pointSurSegment, rotation, triangle2points2longueurs } from '../2d.js'
+import { cercle, longueur, point, pointAdistance, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from '../2d.js'
 
 /**
    * Macro de construction d'un triangle à partir de ses 3 dimensions. Le premier point aura pour coordonnées (6,0).
@@ -253,7 +256,7 @@ export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description
      * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
      * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
      */
-export const triangle2longueurs1angle = function (NOM, AB, AC, BAC, description = true, mesure = false) {
+export const triangle2longueurs1angle = function (NOM, AB, AC, BAC, description = true) {
   const angle = randint(-20, 20)
   const a1 = BAC
   const A = point(6, 0)

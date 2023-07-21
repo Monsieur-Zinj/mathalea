@@ -1,3 +1,5 @@
+import { carre } from '../lib/2d/polygones.js'
+import { rotation, translation } from '../lib/2d/transformations.js'
 import { miseEnEvidence } from '../lib/embellissements.js'
 import { extraireRacineCarree } from '../lib/outils/calculs.js'
 import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
@@ -15,7 +17,7 @@ import {
   calcul,
   egal
 } from './outils.js'
-import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
+import { point, vecteur, segment, cercle, arc, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
 import { colorToLatexOrHTML } from './2dGeneralites.js'

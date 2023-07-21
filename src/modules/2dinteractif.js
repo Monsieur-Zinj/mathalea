@@ -1,4 +1,5 @@
-import { point, polygone, tracePoint } from './2d.js'
+import { polygone } from '../lib/2d/polygones.js'
+import { point, tracePoint } from './2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites.js'
 import { context } from './context.js'
 
@@ -32,7 +33,7 @@ function PointCliquable (x, y, options) {
     code += '</g>'
     return code
   }
-  const moi = this // Pour utiliser this dans les fonctions
+ 
   const gestionDeLaSouris = () => {
     document.removeEventListener('exercicesAffiches', gestionDeLaSouris)
     const groupe = document.getElementById(`${this.id}`)
@@ -47,18 +48,18 @@ function PointCliquable (x, y, options) {
       groupe.addEventListener('mouseover', mouseOverEffect)
       groupe.addEventListener('mouseout', mouseOutEffect)
       groupe.addEventListener('click', mouseClick)
-      function mouseOverEffect () {
+      const mouseOverEffect = ()=> {
         for (const key in over) {
           this.style[key] = over[key]
         }
       }
-      function mouseOutEffect () {
+      const mouseOutEffect = ()=> {
         for (const key in out) {
           this.style[key] = out[key]
         }
       }
-      function mouseClick () {
-        if (moi.etat) {
+      const mouseClick =  () =>{
+        if (this.etat) {
           // On désactive le point
           groupe.addEventListener('mouseover', mouseOverEffect)
           groupe.addEventListener('mouseout', mouseOutEffect)
@@ -66,7 +67,7 @@ function PointCliquable (x, y, options) {
           for (const key in out) {
             this.style[key] = out[key]
           }
-          moi.etat = false
+          this.etat = false
           changeEtatPoint(false)
         } else {
           // On désactive les listeners
@@ -76,7 +77,7 @@ function PointCliquable (x, y, options) {
           for (const key in click) {
             this.style[key] = click[key]
           }
-          moi.etat = true
+          this.etat = true
         }
       }
     }
@@ -133,7 +134,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
     bordure.hachures = rectangle.hachures
     return bordure.tikz(coeff)
   }
-  const moi = this // Pour utiliser this dans les fonctions
+ 
   const gestionDeLaSouris = () => {
     document.removeEventListener('exercicesAffiches', gestionDeLaSouris)
     const groupe = document.getElementById('rectangle' + this.id)
@@ -150,18 +151,18 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
       groupe.addEventListener('mouseover', mouseOverEffect)
       groupe.addEventListener('mouseout', mouseOutEffect)
       groupe.addEventListener('click', mouseClick)
-      function mouseOverEffect () {
+      const mouseOverEffect = ()=> {
         for (const key in over) {
           this.style[key] = over[key]
         }
       }
-      function mouseOutEffect () {
+      const mouseOutEffect =()=> {
         for (const key in out) {
           this.style[key] = out[key]
         }
       }
-      function mouseClick () {
-        if (moi.etat) {
+      const mouseClick =()=> {
+        if (this.etat) {
           // On désactive le point
           groupe.addEventListener('mouseover', mouseOverEffect)
           groupe.addEventListener('mouseout', mouseOutEffect)
@@ -169,7 +170,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
           for (const key in out) {
             this.style[key] = out[key]
           }
-          moi.etat = false
+          this.etat = false
           changeEtatPoint(false)
         } else {
           // On désactive les listeners
@@ -179,7 +180,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
           for (const key in click) {
             this.style[key] = click[key]
           }
-          moi.etat = true
+          this.etat = true
         }
       }
     }

@@ -1,22 +1,19 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
+import { droite } from '../lib/2d/droites.js'
+import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones.js'
+import { translation } from '../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires.js'
 import { arrondi } from '../lib/outils/nombres.js'
 import {
   distancePointDroite,
-  droite,
   labelPoint,
   longueur,
   norme,
   point,
   pointIntersectionDD,
   pointSurSegment,
-  polygone,
-  polygoneAvecNom,
-  polyline,
-  renommePolygone,
   segment,
   tracePoint,
-  translation,
   vecteur
 } from './2d.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, vide2d } from './2dGeneralites.js'

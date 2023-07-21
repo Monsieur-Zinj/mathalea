@@ -1,4 +1,14 @@
-import { droite, projectionOrtho, pointSurSegment, droiteParPointEtParallele, longueur, homothetie, rotation, angleOriente, pointSurDroite, similitude, translation, point, vecteur, translation2Points, cercle, pointIntersectionLC, droiteParPointEtPerpendiculaire } from '../2d.js'
+import { angleOriente } from '../../lib/2d/angles.js'
+import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import {
+  homothetie,
+  projectionOrtho,
+  rotation,
+  similitude,
+  translation,
+  translation2Points
+} from '../../lib/2d/transformations.js'
+import { pointSurSegment, longueur, pointSurDroite, point, vecteur, cercle, pointIntersectionLC } from '../2d.js'
 
 /**
    * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment

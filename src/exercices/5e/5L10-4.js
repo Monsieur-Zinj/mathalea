@@ -1,3 +1,4 @@
+import { polygone } from '../../lib/2d/polygones.js'
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -6,7 +7,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, polygone } from '../../modules/2d.js'
+import { point } from '../../modules/2d.js'
 export const titre = 'Produire une formule à partir d\'un tableau'
 
 /**

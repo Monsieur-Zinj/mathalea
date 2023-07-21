@@ -1,3 +1,6 @@
+import { droite } from '../../lib/2d/droites.js'
+import { polygone } from '../../lib/2d/polygones.js'
+import { symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
@@ -5,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { cercle, droite, longueur, point, polygone, symetrieAxiale, translation, vecteur } from '../../modules/2d.js'
+import { cercle, longueur, point, vecteur } from '../../modules/2d.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer l\'aire d\'un disque'
@@ -27,7 +30,7 @@ export default function EncadrerAireDisque () {
   this.sup = 10
   this.sup2 = 10
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let texte = ''
     this.listeQuestions = []
     this.listeCorrections = [''] // Liste de questions corrigées

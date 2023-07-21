@@ -1,10 +1,14 @@
-import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { angleOriente, codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { codageSegments } from '../../lib/2d/codages.js'
+import { droite, mediatrice } from '../../lib/2d/droites.js'
+import { polygone } from '../../lib/2d/polygones.js'
+import { affiniteOrtho, rotation, similitude, translation2Points } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageSegments, longueur, angleOriente } from '../../modules/2d.js'
+import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, segment, longueur } from '../../modules/2d.js'
 
 export default function UtiliserLeCodagePourDecrire () {
   Exercice.call(this)

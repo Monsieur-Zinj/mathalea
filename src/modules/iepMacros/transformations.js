@@ -1,6 +1,7 @@
+import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
-import { longueur, homothetie, vecteur, symetrieAxiale, milieu, rotation, translation } from '../2d.js'
+import { longueur, vecteur, milieu } from '../2d.js'
 import { randint } from '../outils.js'
 
 /**
