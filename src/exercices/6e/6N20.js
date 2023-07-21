@@ -1,11 +1,10 @@
+import { choice, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  enleveElement,
-  choice,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

@@ -1,6 +1,7 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { puissanceEnProduit } from '../../lib/outils/puissance.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

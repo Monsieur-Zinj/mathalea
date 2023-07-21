@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureNombreRelatif,
@@ -9,7 +10,6 @@ import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  combinaisonListes,
   calcul,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

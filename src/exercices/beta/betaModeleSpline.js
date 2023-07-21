@@ -1,10 +1,11 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { inferieurSuperieur } from '../../modules/mathFonctions/outilsMaths.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere } from '../../modules/2d.js'
-import { choice, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true

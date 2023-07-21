@@ -1,8 +1,9 @@
+import { choice, combinaisonListesSansChangerOrdre, enleveElementBis } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction, listeFractions } from '../../modules/fractions.js'
 
 export const titre = 'Problèmes additifs et de comparaison sur les rationnels'

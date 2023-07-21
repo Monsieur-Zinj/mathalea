@@ -1,7 +1,7 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Lister tous les diviseurs d’un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'

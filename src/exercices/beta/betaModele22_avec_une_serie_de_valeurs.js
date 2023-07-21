@@ -28,7 +28,7 @@ export default class NomExercice extends Exercice {
     this.video = ''
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

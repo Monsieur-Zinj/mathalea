@@ -1,6 +1,7 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
-import { combinaisonListes, listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -32,7 +33,7 @@ export default function LireAbscisseDecimale () {
   this.sup = 1
   this.listePackages = 'tkz-euclide'
   this.interactif = false
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions

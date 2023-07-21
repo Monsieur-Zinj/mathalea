@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction, texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import {
   ecritureAlgebrique,
@@ -7,7 +8,7 @@ import {
 } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 

@@ -1,9 +1,10 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures.js'
 import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true

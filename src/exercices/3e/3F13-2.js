@@ -1,8 +1,9 @@
+import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { graphiqueInterpole, point, polygoneRegulier, repere } from '../../modules/2d.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Spécial escape game'

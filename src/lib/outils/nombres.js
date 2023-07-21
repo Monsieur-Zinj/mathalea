@@ -6,7 +6,7 @@
  */
 import Decimal from 'decimal.js'
 import { round } from 'mathjs'
-import { enleveElement } from '../../modules/outils.js'
+import { enleveElement } from './arrayOutils.js'
 
 export function signe (a) { // + ou -
   let result = ''

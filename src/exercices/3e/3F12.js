@@ -1,3 +1,4 @@
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines.js'
@@ -6,7 +7,6 @@ import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  combinaisonListesSansChangerOrdre,
   texEnumerate,
   itemize
 } from '../../modules/outils.js'

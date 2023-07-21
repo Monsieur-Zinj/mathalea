@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texMasse, texPrix } from '../../lib/format/style.js'
@@ -9,8 +10,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { Decimal } from 'decimal.js'
 import {
-  choice,
-  combinaisonListes,
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'

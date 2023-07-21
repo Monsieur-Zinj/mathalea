@@ -1,8 +1,9 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import { joursParMois } from '../../lib/outils/dateEtHoraires.js'
 import Exercice from '../Exercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
-import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -67,7 +68,7 @@ export default function CalculerDesMoyennes () {
         const notes = listeDeNotes(nombreNotes, min, max, true).sort() // on récupère une série de notes (pointures) distinctes et ordonnées
         const effectifs = listeDeNotes(nombreNotes, randint(2, 4), randint(8, 12)) // on récupère une liste d'effectifs
         const pointures = Array.from(notes, (x, i) => [x, effectifs[i]])
-        const effectifTotal = pointures.reduce((accumulator, currentValue, currentIndex) => { return accumulator + currentValue[1] }, 0)
+        const effectifTotal = pointures.reduce((accumulator, currentValue) => { return accumulator + currentValue[1] }, 0)
         texte = OutilsStats.texteSalaires(pointures, [], 'pointures')
         texte += '<br>Calculer la pointure moyenne des membres de ce club.'
         const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)

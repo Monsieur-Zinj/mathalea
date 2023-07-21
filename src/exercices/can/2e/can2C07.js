@@ -1,6 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
 import Exercice from '../../Exercice.js'
-import { choice } from '../../../modules/outils.js'
 export const titre = 'Calculer avec une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

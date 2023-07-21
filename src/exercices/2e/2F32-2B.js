@@ -1,10 +1,11 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere, texteParPosition } from '../../modules/2d.js'
-import { choice, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -79,7 +80,7 @@ export default class BetaModeleSpline extends Exercice {
     this.nbQuestions = 1 // Nombre de questions par défaut
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

@@ -1,3 +1,4 @@
+import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import {
@@ -12,7 +13,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {
   randint,
-  shuffle,
   calcul,
   listeQuestionsToContenu
 } from '../../modules/outils.js'

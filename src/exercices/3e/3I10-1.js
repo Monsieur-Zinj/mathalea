@@ -1,10 +1,10 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { lampeMessage } from '../../lib/format/message.js'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { texteGras } from '../../lib/format/style.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import {
-  choice,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint

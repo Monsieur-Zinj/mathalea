@@ -1,3 +1,4 @@
+import { combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { range } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
@@ -7,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, compteOccurences, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true

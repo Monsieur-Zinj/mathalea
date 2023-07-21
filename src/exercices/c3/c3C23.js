@@ -1,5 +1,6 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { choice, randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Opérations simples avec des fractions'
 export const interactifReady = true
@@ -24,7 +25,7 @@ export default function CalculsFractionsSimples () {
   this.tailleDiaporama = 4
   this.version = 'c3'
 
-  this.nouvelleVersion = function (i) {
+  this.nouvelleVersion = function () {
     /* if (this.version === '6') {
       this.sup = 4
     } */

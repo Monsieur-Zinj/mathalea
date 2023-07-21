@@ -1,8 +1,9 @@
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { lampeMessage } from '../../lib/format/message.js'
 import { modalYoutube } from '../../lib/outils/modales.js'
 import { texteGras } from '../../lib/format/style.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -30,9 +31,9 @@ function Syracuse ({ N }) {
           u = u / 2
         } else {
           u = 3 * u + 1
-        };
+        }
         sortie.push(u)
-      };
+      }
     }
     return sortie
   }
@@ -42,7 +43,7 @@ function Syracuse ({ N }) {
     const sortie = []
     for (let i = 0; i < suite.length; i++) {
       sortie.push([i, suite[i]])
-    };
+    }
     return sortie
   }
 
@@ -66,14 +67,14 @@ function Syracuse ({ N }) {
     let compteur = 1
     while (this.suiteDeSyracuse(entier)[compteur] > this.suiteDeSyracuse(entier)[0]) {
       compteur += 1
-    };
+    }
     return compteur - 1
   }
-};
+}
 
 function syracuse ({ N = '1' }) {
   return new Syracuse({ N })
-};
+}
 
 export const uuid = '9ff49'
 export const ref = '3I1-1'
@@ -117,7 +118,7 @@ export default function ConjectureDeSyracuse () {
     let entier = randint(1, 200)
     while (syracuse({ N: entier }).tempsDeVol() > 25 || syracuse({ N: entier }).tempsDeVol() < 5 || syracuse({ N: entier }).altitudeMaximale() > 100) {
       entier = randint(1, 200)
-    };
+    }
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Petite intro connaissances
@@ -129,7 +130,7 @@ export default function ConjectureDeSyracuse () {
         stringIntro += '<br><br>'
       } else {
         stringIntro += '\\par\\vspace{0.5cm}'
-      };
+      }
       stringIntro += `${texteGras('Algorithme de Syracuse :')}<br>`
       stringIntro += `
           On choisit un nombre entier strictement positif<br>
@@ -273,7 +274,7 @@ export default function ConjectureDeSyracuse () {
             texteCorr = 'Dès la première application de l\'algorithme la valer trouvée est inférieure à la valeur initiale.'
           } else {
             texteCorr = `Il faut appliquer au minimum ${texteGras(syracuse({ N: entier }).tempsDeVolEnAltitude())} fois l'algorithme pour que la valeur calculée suivante soit strictement inférieure à la valeur initiale.`
-          };
+          }
           texteCorr += '<br><br>'
           // texteCorr += `${syracuse({N:entier}).tempsDeVolEnAltitude()}<br><br>`;
           texteCorr += texteEnCouleurEtGras('Remarque - ' + stringConnaissance.cas5.titre) + ' : ' + stringConnaissance.cas5.texte + '<br><br>'
@@ -282,7 +283,7 @@ export default function ConjectureDeSyracuse () {
             texteCorr += mathalea2d(paramsCorrection, objetsCorrectionPlus)
           }
           break
-      };
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions

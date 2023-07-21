@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { sommeDesTermesParSigne } from '../../lib/outils/calculs.js'
 import {
   ecritureAlgebrique,
@@ -11,8 +12,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
-  randint,
-  choice
+  randint
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

@@ -1,11 +1,12 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, gestionnaireFormulaireTexte, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
 export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 
-export const titre = 'Labyrinthe de multiples basé sur les critères de divisibilité'
+export const titre = 'Parcourir un labyrinthe de multiples basé sur les critères de divisibilité'
 
 /**
  * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)

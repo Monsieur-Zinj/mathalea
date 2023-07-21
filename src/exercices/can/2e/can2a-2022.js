@@ -1,3 +1,4 @@
+import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -12,7 +13,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { point, polygoneAvecNom, codageAngleDroit, droite, labelPoint, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, shuffle, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

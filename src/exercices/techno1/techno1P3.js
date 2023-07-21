@@ -1,6 +1,7 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { randint, calcul, choice } from '../../modules/outils.js'
+import { randint, calcul } from '../../modules/outils.js'
 export const titre = 'Proportions'
 export const interactifReady = true
 export const interactifType = 'mathLive'

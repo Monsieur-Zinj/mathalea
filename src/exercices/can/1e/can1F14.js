@@ -1,3 +1,4 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -6,7 +7,7 @@ import {
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer un nombre dérivé'
 export const interactifReady = true
 export const interactifType = 'mathLive'

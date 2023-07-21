@@ -1,6 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver l’opposé ou l’inverse d’une fraction'
 export const interactifReady = true

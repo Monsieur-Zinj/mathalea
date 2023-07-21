@@ -1,10 +1,10 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
-  gestionnaireFormulaireTexte,
-  choice
+  gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import {

@@ -1,7 +1,8 @@
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { arrondi, range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
@@ -11,7 +12,7 @@ export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '20/12/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export default function CourseAuxNombres2024 (numeroExercice) {
+export default function CourseAuxNombres2024 () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

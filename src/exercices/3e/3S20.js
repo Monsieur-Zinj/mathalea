@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   deprecatedTexFraction, fractionSimplifiee,
   simplificationDeFractionAvecEtapes,
@@ -7,7 +8,7 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ppcm } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
 
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
 

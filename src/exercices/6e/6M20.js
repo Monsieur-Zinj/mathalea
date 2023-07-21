@@ -1,8 +1,9 @@
+import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { longueur, segment, afficheLongueurSegment, afficheCoteSegment, codageAngleDroit, polygoneAvecNom, triangle2points1hauteur, point, rotation } from '../../modules/2d.js'
-import { combinaisonListesSansChangerOrdre, listeQuestionsToContenu, randint, shuffle, calcul, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -46,7 +47,7 @@ export default function AireDeTriangles () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
     this.autoCorrection = []

@@ -1,3 +1,4 @@
+import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -10,7 +11,7 @@ import {
   point, repere, courbe, labelPoint, segment, milieu, texteParPosition, codageSegment
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, printlatex, shuffle, choice, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, printlatex, calcul } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

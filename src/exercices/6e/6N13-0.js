@@ -1,5 +1,6 @@
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Connaître les préfixes utilisés dans les unités'
@@ -28,7 +29,7 @@ export default class sensDesPrefixes extends Exercice {
     this.besoinFormulaire2Numerique = ['Choix des préfixes', 2, '1 : De milli à kilo\n2 : De nano à téra']
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.consigne = 'Compléter '
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)

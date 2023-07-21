@@ -1,5 +1,6 @@
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
@@ -26,7 +27,7 @@ export default class PuissancesEtPrefixe extends Exercice {
     this.besoinFormulaireNumerique = ['Type de questions', 2, '1: On part de la puissance de 10\n2: On part du préfixe']
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.interactifType = (this.sup === 1) ? 'listeDeroulante' : 'mathLive'
     this.consigne = (this.sup === 1) ? 'Compléter avec le préfixe correspondant.' : 'Compléter avec la puissance de 10 correspondant à ce préfixe.'
     this.listeQuestions = []

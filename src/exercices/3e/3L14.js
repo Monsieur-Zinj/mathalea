@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
@@ -6,8 +7,7 @@ import { fraction } from '../../modules/fractions.js'
 import {
   listeQuestionsToContenu,
   randint,
-  combinaisonListes,
-  choice, contraindreValeur
+  contraindreValeur
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

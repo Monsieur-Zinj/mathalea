@@ -1,11 +1,12 @@
 /* eslint-disable camelcase */
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { texteGras } from '../../lib/format/style.js'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, codageSegments, grille, angleOriente } from '../../modules/2d.js'
 import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
@@ -48,7 +49,7 @@ export default function TrianglesEgaux () {
           p = polygone(A, B, C) // on trace le polygone ABC
           aireABC = aireTriangle(p) // Je savais bien que cette formule servirait un jour !
           if (aireABC < 11 && aireABC > 5) { trouve = true }
-        };
+        }
         G = barycentre(p) // le barycentre de ABC
         const angleChoisi1 = choice([0, 90, 270])
         p = rotation(p, G, angleChoisi1) // on tourne ABC de façon aléatoire autour de son barycentre

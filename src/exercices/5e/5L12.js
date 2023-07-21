@@ -1,9 +1,10 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 
 export const titre = 'Réduire une expression littérale'
 

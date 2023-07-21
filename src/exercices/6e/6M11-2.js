@@ -1,9 +1,10 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { arrondi, troncature } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { texteSurSegment, cercle, codageAngleDroit, droite, codageSegments, point, polygoneAvecNom, segment, codageSegment, pointIntersectionCC, pointIntersectionDD, droiteParPointEtPerpendiculaire, arc, pointSurCercle } from '../../modules/2d.js'
 import { texTexte } from '../../lib/format/texTexte.js'
 import { context } from '../../modules/context.js'
@@ -42,7 +43,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
   this.sup2 = true
   this.sup3 = 1 // Ne pas oublier !
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

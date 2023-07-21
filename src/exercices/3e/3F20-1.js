@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { pgcd, premierAvec } from '../../lib/outils/primalite.js'
@@ -10,8 +11,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import {
-  choice,
-  combinaisonListes,
   contraindreValeur, gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint
@@ -45,7 +44,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
 
   this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.besoinFormulaire2Texte = this.lycee
       ? ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Expression par graphique (formule des accroissements)\n10: Expression par valeurs (formule des accroissements)\n11: Mélange']
       : ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange']

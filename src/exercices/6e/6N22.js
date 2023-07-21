@@ -1,7 +1,8 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, choice, randint, quotientier, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, quotientier, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
 import { fractionCliquable } from '../../modules/2dinteractif.js'
@@ -36,7 +37,7 @@ export default function FractionsCalculsSimples () {
   this.correctionDetaillee = true
   this.correctionDetailleeDisponible = true
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     if (this.correctionDetaillee) this.nbColsCorr = 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

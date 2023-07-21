@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -8,7 +9,7 @@ import { modalTexteLong } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, segment, repere, courbe } from '../../modules/2d.js'
 
 export const titre = 'Calcul du discriminant d\'une équation du second degré'

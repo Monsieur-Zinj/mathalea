@@ -1,3 +1,4 @@
+import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite.js'
 import { texPrix } from '../../../lib/format/style.js'
@@ -7,8 +8,6 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
   listeQuestionsToContenu,
   randint,
-  choice,
-  shuffle,
   gestionnaireFormulaireTexte
 } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
@@ -30,7 +29,7 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '3a526'
 export const ref = 'can6a-xxxx'
-export default function CourseAuxNombres6e (numeroExercice) {
+export default function CourseAuxNombres6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 30
   if (this.interactif) {

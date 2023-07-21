@@ -1,6 +1,7 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer une dérivée et écrire le résultat sous la forme d’un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'

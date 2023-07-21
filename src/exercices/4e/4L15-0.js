@@ -1,3 +1,4 @@
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/embellissements.js'
 import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
@@ -6,7 +7,7 @@ import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Trouver l\'erreur dans une résolution d\'équation du premier degré'
 
 /**

@@ -1,9 +1,10 @@
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 export const titre = 'Reconnaître des tableaux de proportionnalité'
 
 /**
@@ -283,4 +284,4 @@ export default function TableauxEtProportionnalite () {
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
-};
+}

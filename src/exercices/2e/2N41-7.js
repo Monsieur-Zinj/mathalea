@@ -1,6 +1,7 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Factoriser avec les identités remarquables (niveau II)'
 
@@ -109,7 +110,7 @@ export default function FactoriserIdentitesremarquables2 () {
               texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
                                     ${b + d}(${reduireAxPlusB(a - c, b - d)})$  `
             }
-          } ;
+          }
           break
       }
       if (this.questionJamaisPosee(i, a, b, c, d, k, typesDeQuestions)) {

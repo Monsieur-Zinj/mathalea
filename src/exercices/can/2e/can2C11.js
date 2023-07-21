@@ -1,7 +1,8 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, calcul } from '../../../modules/outils.js'
+import { randint, calcul } from '../../../modules/outils.js'
 export const titre = 'Passer du coefficient multiplicateur au taux d’évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'

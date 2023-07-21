@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { translation, polygone, point, segment, rotation, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, codageAngleDroit, codageSegments, latexParCoordonnees, pointIntersectionDD, droiteHorizontaleParPoint, droiteVerticaleParPoint, pointSurDroite } from '../../modules/2d.js'
@@ -5,7 +6,7 @@ import { imagePointParTransformation } from '../../modules/imagePointParTransfor
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { egal, listeQuestionsToContenuSansNumero, randint, choice } from '../../modules/outils.js'
+import { egal, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'

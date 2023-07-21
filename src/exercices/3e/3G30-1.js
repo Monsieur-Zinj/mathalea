@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import {
   afficheMesureAngle,
@@ -19,7 +20,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { choice, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d\'un angle en fonction des côtés du triangle'

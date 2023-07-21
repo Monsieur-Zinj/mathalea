@@ -1,6 +1,7 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

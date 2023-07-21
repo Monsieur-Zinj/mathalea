@@ -1,5 +1,6 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { choice, combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Convertir des durées'
@@ -26,7 +27,7 @@ export default function ConversionsDeDurees () {
   this.spacing = 2
   this.nbQuestions = 5
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

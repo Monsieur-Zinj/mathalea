@@ -1,7 +1,8 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Mesure principale d\'un angle'
@@ -25,7 +26,7 @@ export default function MesurePrincipale () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

@@ -1,3 +1,4 @@
+import { choice } from '../lib/outils/arrayOutils.js'
 import { nomDuMois } from '../lib/outils/dateEtHoraires.js'
 import { deprecatedTexFraction } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
@@ -6,9 +7,6 @@ import { arrondi } from '../lib/outils/nombres.js'
 import { prenom } from '../lib/outils/Personne.js'
 import { texteGras } from '../lib/format/style.js'
 import { stringNombre, texNombre } from '../lib/outils/texNombre.js'
-import {
-  choice
-} from './outils.js'
 
 function underbraceMediane (nbVal) {
   let sortie

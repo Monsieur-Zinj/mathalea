@@ -1,6 +1,7 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
-import { calcul, choice } from '../../../modules/outils.js'
+import { calcul } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Lire l\'abscisse décimale d\'un point sur une droite graduée'

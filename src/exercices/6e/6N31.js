@@ -1,8 +1,9 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texPrix } from '../../lib/format/style.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Comparer des nombres décimaux'
 export const amcReady = true

@@ -1,3 +1,4 @@
+import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { warnMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
@@ -5,10 +6,10 @@ import { cribleEratostheneN } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
-export const titre = 'Primalité ou pas'
+export const titre = 'Justifier la primalité ou pas'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -45,7 +46,7 @@ export default function PremierOuPas5e () {
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-5A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
       this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -62,7 +63,7 @@ export default function PremierOuPas5e () {
     let stringRappel = 'Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>' + cribleEratostheneN(100)[0]
     for (let k = 1; k < cribleEratostheneN(30).length; k++) {
       stringRappel += ', ' + cribleEratostheneN(30)[k]
-    };
+    }
     stringRappel += '.'
     this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
 
@@ -84,14 +85,14 @@ export default function PremierOuPas5e () {
           N = 3 * randint(34, 3333) // on initialise avant la boucle car on a peut être de la chance
           while ((N % 2 === 0) || (N % 5 === 0)) {
             N = 3 * randint(34, 3333)
-          };
+          }
           texte = nombreAvecEspace(N)
           texteCorr = 'Comme ' + N.toString().charAt(0)
           sum3 = Number(N.toString().charAt(0))
           for (let k = 1; k < N.toString().length; k++) {
             texteCorr += ' + ' + N.toString().charAt(k)
             sum3 += Number(N.toString().charAt(k))
-          };
+          }
           texteCorr += ` = ${sum3} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
@@ -110,14 +111,14 @@ export default function PremierOuPas5e () {
           N = 9 * randint(12, 1111) // on initialise avant la boucle car on a peut être de la chance
           while ((N % 2 === 0) || (N % 5 === 0)) {
             N = 9 * randint(34, 3333)
-          };
+          }
           texte = nombreAvecEspace(N)
           texteCorr = 'Comme ' + N.toString().charAt(0)
           sum9 = Number(N.toString().charAt(0))
           for (let k = 1; k < N.toString().length; k++) {
             texteCorr += ' + ' + N.toString().charAt(k)
             sum9 += Number(N.toString().charAt(k))
-          };
+          }
           texteCorr += ` = ${sum9} est un multiple de 9 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 9 et lui-même, `
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
@@ -145,7 +146,7 @@ export default function PremierOuPas5e () {
             texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)} `
           } else {
             texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
-          };
+          }
           texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
           break
@@ -183,7 +184,7 @@ export default function PremierOuPas5e () {
           texteCorr += tabPremiersATester[0]
           for (let k = 1; k < tabPremiersATester.length; k++) {
             texteCorr += ', ' + tabPremiersATester[k]
-          };
+          }
           texteCorr += ', le reste n\'est jamais nul.'
           texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
           texteCorr += '<hr>'
@@ -192,13 +193,13 @@ export default function PremierOuPas5e () {
           texteCorr += tabPremiersToTest[0]
           for (let k = 1; k < tabPremiersToTest.length - 1; k++) {
             texteCorr += ', ' + tabPremiersToTest[k]
-          };
+          }
           texteCorr += ', le reste n\'est jamais nul.'
           texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
           bonneReponse = 'oui'
           break
         }
-      };
+      }
       if (this.interactif || context.isAmc) {
         this.autoCorrection[i] = {}
         this.autoCorrection[i].options = { ordered: true }

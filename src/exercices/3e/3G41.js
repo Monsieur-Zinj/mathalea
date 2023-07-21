@@ -1,7 +1,8 @@
+import { choice, compteOccurences, enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, compteOccurences, shuffle, enleveDoublonNum, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { cube } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"

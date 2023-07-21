@@ -1,6 +1,7 @@
+import { shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
-import { randint, shuffle } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser la règle des signes'
 export const interactifReady = true

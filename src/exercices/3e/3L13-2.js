@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { warnMessage } from '../../lib/format/message.js'
@@ -10,11 +11,8 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  choice,
-  combinaisonListesSansChangerOrdre,
   listeQuestionsToContenu,
-  randint,
-  shuffle
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

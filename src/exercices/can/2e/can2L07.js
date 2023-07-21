@@ -1,5 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'

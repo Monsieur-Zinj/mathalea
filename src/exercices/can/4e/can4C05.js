@@ -1,6 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer la somme de fractions à dénominateurs compatibles'
 export const interactifReady = true

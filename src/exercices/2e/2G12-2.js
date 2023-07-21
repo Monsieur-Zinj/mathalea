@@ -1,10 +1,11 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, segment, axes, grille } from '../../modules/2d.js'
 
 export const titre = 'Déterminer les coordonnées du milieu d\'un segment dans un repère'
@@ -95,7 +96,7 @@ export default function Milieu () {
           if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
           if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};${yI0}\\right)$` }
 
-          ;
+          
           break
         case 2: // cas où on connaît A et I, on cherche B
 

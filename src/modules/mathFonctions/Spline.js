@@ -1,10 +1,11 @@
 import { abs, round, polynomialRoot, acos} from 'mathjs'
+import { choice } from '../../lib/outils/arrayOutils.js'
 
 
 import { Courbe, point, Segment, tracePoint } from '../2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
 import FractionEtendue from '../FractionEtendue.js'
-import { choice, egal } from '../outils.js'
+import { egal } from '../outils.js'
 import { MatriceCarree } from './MatriceCarree.js'
 import { rationnalise, signesFonction, variationsFonction } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'

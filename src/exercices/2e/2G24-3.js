@@ -1,12 +1,11 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
-  randint,
-  choice,
-  combinaisonListes
+  randint
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 export const interactifReady = true

@@ -1,5 +1,5 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { choice } from '../../modules/outils.js'
 export const titre = 'Problème : produit de 3 âges'
 export const interactifReady = true
 export const interactifType = 'mathLive'

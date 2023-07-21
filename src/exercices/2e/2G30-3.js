@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -5,7 +6,7 @@ import {
   reduireAxPlusB
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer une équation cartésienne de droite à partir de deux points'
 // totoche
 /**

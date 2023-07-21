@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
@@ -6,7 +7,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu, randint, combinaisonListes, choice
+  listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Résoudre algébriquement une équation f(x)=k avec une fonction de référence'

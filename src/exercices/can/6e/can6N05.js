@@ -1,5 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, choice, randint } from '../../../modules/outils.js'
+import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le chiffre des ...'
 export const interactifReady = true

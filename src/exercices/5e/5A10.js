@@ -1,8 +1,9 @@
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, contraindreValeur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, contraindreValeur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -107,13 +108,13 @@ export default function ListeDesDiviseurs5e () {
           }
           if (!context.isHtml) {
             texte += '$\\medskip$'
-          };
+          }
           texte += '<br>'
           if (context.isHtml) {
             texte += '$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n'
           } else {
             texte += '$\\begin{array}{|c|c|c|}\n'
-          };
+          }
           texte += '\\hline\n'
           texte += `\\text{Facteur n°1} & \\text{Facteur n°2} & \\text{Produit donnant } ${M} \\\\\n`
           texte += '\\hline\n'
@@ -122,27 +123,27 @@ export default function ListeDesDiviseurs5e () {
             for (let m = 0; m < (listeDesDiviseurs(M).length / 2); m++) {
               texte += texteOuPas(listeDesDiviseurs(M)[m]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`
               texte += '\\hline\n'
-            };
+            }
           } else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
             for (let m = 0; m < ((listeDesDiviseurs(M).length - 1) / 2); m++) {
               texte += texteOuPas(listeDesDiviseurs(M)[m]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`
-            };
+            }
             texte += texteOuPas(listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2]) + ' & ' + texteOuPas(listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2]) + `& ${texteOuPas(M)} \\\\\n`
             texte += '\\hline\n'
-          };
+          }
           texte += '\\end{array}\n$'
           texte += '<br>'
           // correction
           texteCorr = `Le tableau suivant contient tous les couples de facteurs dont le produit vaut ${M}.`
           if (!context.isHtml) {
             texteCorr += '$\\medskip$'
-          };
+          }
           texteCorr += '<br>'
           if (context.isHtml) {
             texteCorr += '$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n'
           } else {
             texteCorr += '$\\begin{array}{|c|c|c|}\n'
-          };
+          }
           texteCorr += '\\hline\n'
           texteCorr += `\\text{Facteur n°1} & \\text{Facteur n°2} & \\text{Produit donnant } ${M} \\\\\n`
           texteCorr += '\\hline\n'
@@ -151,24 +152,24 @@ export default function ListeDesDiviseurs5e () {
             for (let m = 0; m < (listeDesDiviseurs(M).length / 2); m++) {
               texteCorr += listeDesDiviseurs(M)[m] + ' & ' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)] + `& ${M} \\\\\n`
               texteCorr += '\\hline\n'
-            };
+            }
           } else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
             for (let m = 0; m < ((listeDesDiviseurs(M).length - 1) / 2); m++) {
               texteCorr += listeDesDiviseurs(M)[m] + ' & ' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)] + `& ${M} \\\\\n`
-            };
+            }
             texteCorr += listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2] + ' & ' + listeDesDiviseurs(M)[(nbDiviseursM - 1) / 2] + `& ${M} \\\\\n`
             texteCorr += '\\hline\n'
-          };
+          }
           texteCorr += '\\end{array}\n$'
           if (!context.isHtml) {
             texteCorr += '$\\medskip$'
-          };
+          }
           texteCorr += '<br>'
           texteCorr += `${M} a donc ${nbDiviseursM} diviseurs qui sont : `
           texteCorr += '1'
           for (let w = 1; w < listeDesDiviseurs(M).length; w++) {
             texteCorr += ' ; ' + listeDesDiviseurs(M)[w]
-          };
+          }
           texteCorr += '.'
           break
         case 2: // liste des diviseurs
@@ -186,22 +187,22 @@ export default function ListeDesDiviseurs5e () {
           if (listeDesDiviseurs(M).length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDesDiviseurs(M).length / 2); m++) {
               texteCorr += '' + listeDesDiviseurs(M)[m] + '$\\times $' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)] + ` = ${M}<br>`
-            };
+            }
           } else {
             for (let m = 0; m < ((listeDesDiviseurs(M).length - 1) / 2); m++) {
               texteCorr += '' + listeDesDiviseurs(M)[m] + '$\\times $' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - m - 1)] + '<br>'
-            };
+            }
             texteCorr += '' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - 1) / 2] + '$\\times $' + listeDesDiviseurs(M)[(listeDesDiviseurs(M).length - 1) / 2] + ` = ${M}<br>`
-          };
+          }
           texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${M}.<br>`
           texteCorr += `La liste des diviseurs de ${M} est donc `
           texteCorr += '1'
           for (let w = 1; w < listeDesDiviseurs(M).length; w++) {
             texteCorr += ' ; ' + listeDesDiviseurs(M)[w]
-          };
+          }
           texteCorr += '.'
           break
-      };
+      }
       setReponse(this, i, JSON.stringify(listeDesDiviseurs(M)).replace('[', '').replace(']', ''), { formatInteractif: 'texte' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur35 inline', { texte: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 

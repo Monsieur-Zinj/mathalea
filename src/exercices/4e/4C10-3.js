@@ -1,10 +1,11 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Multiplication de deux entiers relatifs'

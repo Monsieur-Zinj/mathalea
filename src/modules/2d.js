@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import earcut from 'earcut'
 import { abs, ceil, floor, Fraction, fraction, isNumeric, max, random, round } from 'mathjs'
+import { combinaisonListes, combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils.js'
 import { texcolors } from '../lib/format/style.js'
 import { arrondi, nombreDeChiffresDe, rangeMinMax, unSiPositifMoinsUnSinon } from '../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../lib/outils/outilString.js'
@@ -13,10 +14,7 @@ import { rationnalise } from './mathFonctions/outilsMaths.js'
 import { degCos, degSin, radians } from './mathFonctions/trigo.js'
 import {
   calcul,
-  combinaisonListes,
-  combinaisonListesSansChangerOrdre,
   egal,
-  enleveElement,
   inferieurouegal,
   randint,
   superieurouegal
