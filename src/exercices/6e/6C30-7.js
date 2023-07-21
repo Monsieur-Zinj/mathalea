@@ -1,3 +1,4 @@
+import { glisseNombre } from '../../lib/2d/GlisseNombre.js'
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { lampeMessage } from '../../lib/format/message.js'
@@ -10,7 +11,6 @@ import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.j
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
-import { glisseNombre } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true

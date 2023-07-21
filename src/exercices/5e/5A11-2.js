@@ -1,8 +1,9 @@
+import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
+import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../Exercice.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { labyrinthe } from '../../modules/2d.js'
 export const dateDePublication = '16/11/2021'
 export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 export const titre = 'Parcourir un labyrinthe de multiples avec critères choisis équilibrés '

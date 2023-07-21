@@ -1,4 +1,5 @@
-import { courbeSpline, repere } from '../../../modules/2d.js'
+import { courbeSpline } from '../../../lib/2d/courbes.js'
+import { repere } from '../../../lib/2d/reperes.js'
 import { splineCatmullRom } from '../../../modules/mathFonctions/SplineCatmullRom.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

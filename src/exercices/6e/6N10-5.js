@@ -1,8 +1,9 @@
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Parcourir un labyrinthe de numération décimale'
 export const amcReady = true
@@ -75,7 +76,7 @@ export default function ExerciceLabyrintheNumeration () {
     const chiffre = randint(1, 9)
     texte = `Trouver la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un $${miseEnEvidence(chiffre, 'black')}$.<br>`
     texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
-      
+    
     const nombreLaby = []
     const rangs = [inversePosition[rang], inversePosition[rangbis], rangbis]
 

@@ -1,9 +1,9 @@
+import { grille, seyes } from '../../lib/2d/reperes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { grille, seyes } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Représenter une fraction de l\'unité'
 export const amcReady = true

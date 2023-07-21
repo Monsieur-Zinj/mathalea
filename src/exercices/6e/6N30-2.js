@@ -1,3 +1,4 @@
+import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
@@ -6,7 +7,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, egal, calcul } from '../../modules/outils.js'
-import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
+import { labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Placer un point d\'abscisse décimale'
 export const interactifReady = true

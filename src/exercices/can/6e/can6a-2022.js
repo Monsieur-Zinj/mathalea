@@ -1,3 +1,4 @@
+import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
@@ -7,7 +8,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, grille, droiteGraduee, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
+  point, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 
