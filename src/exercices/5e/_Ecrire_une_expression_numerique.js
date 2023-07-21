@@ -1,4 +1,4 @@
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
@@ -10,6 +10,7 @@ import {
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -78,14 +79,16 @@ export default function EcrireUneExpressionNumerique (calculMental) {
         case 1:
           this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
           texte = `${expf}.`
-          texteCorr = `${expf} s'écrit : ${expn}.`
+          expn = expn.split(' ou ') // Pour traiter le cas du 'ou'.
+          texteCorr = `${expf} s'écrit : $${miseEnEvidence(expn[0].substring(1,expn[0].length-1))}$`
+          texteCorr += expn.length>1 ? ` ou $${miseEnEvidence(expn[1].substring(1,expn[1].length-1))}$.` :'.'
           break
         case 2:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
           this.consigne = 'Traduire le calcul par une phrase en français.'
           texte = `${expn}`
           expf = 'l' + expf.substring(1)
-          texteCorr = `${expn} s'écrit : ${expf}.`
+          texteCorr = `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
           break
         case 3:
           if (this.interactif) {
@@ -99,18 +102,27 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           texteCorr = `${expf} s'écrit : ${resultats[1]}.<br>`
 
           if (!this.litteral) {
-            if (!this.sup4) {
-              texteCorr = `${expc}`
-            } else {
-              texteCorr = ''
+            texteCorr = ''
+              if (!this.sup4) {
+              // texteCorr = `${expc}`
+              const expc2=expc.substring(1,expc.length-1).split('=')
+              texteCorr+=`$${miseEnEvidence(expc2[0])} =$`+ sp()
+              for (let ee=1;ee<expc2.length-1;ee++) {
+                texteCorr+=`$${expc2[ee]}  = $`+ sp()
+              }
+              texteCorr+=`$${miseEnEvidence(expc2[expc2.length-1])}$`
+              
+             } else {
               // On découpe
               const etapes = expc.split('=')
+              let nbEtapes = 0
               etapes.forEach(function (etape) {
+                nbEtapes++
                 etape = etape.replace('$', '')
                 if (context.isHtml) {
                   texteCorr += '<br>'
                 }
-                texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+                texteCorr += (nbEtapes=== etapes.length || nbEtapes===1) ? `${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1)+' = ')} $${miseEnEvidence(etape)}$ <br>` : `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
               })
             }
           } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`

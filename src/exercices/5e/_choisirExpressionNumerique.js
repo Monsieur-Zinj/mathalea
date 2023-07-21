@@ -141,7 +141,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 9)
             a = randint(2, 9)
           }
-          expf = `La somme de ${nombreAvecEspace(a)} et du produit de ${nombreAvecEspace(b)} et $${nombreAvecEspace(c)}$`
+          expf = `La somme de ${nombreAvecEspace(a)} et du produit de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
           expn = `$${texNombre(a)}+${texNombre(b)} \\times ${texNombre(c)}$`
           expc = `$${texNombre(a)}+${texNombre(b)} \\times ${texNombre(c)}=${texNombre(a)}+${texNombre(b * c)} = ${texNombre(a + (b * c))}$`
           repNum = arrondi(a + b * c)
@@ -153,7 +153,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 9)
             a = randint(2, 9) + b * c
           }
-          expf = `La différence entre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et $${nombreAvecEspace(c)}$`
+          expf = `La différence entre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
           expn = `$${texNombre(a)}-${texNombre(b)} \\times ${texNombre(c)}$`
           expc = `$${texNombre(a)}-${texNombre(b)} \\times ${texNombre(c)}=${texNombre(a)}-${texNombre(b * c)} = ${texNombre(a - (b * c))}$`
           repNum = arrondi(a - b * c)
@@ -165,7 +165,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 6) * c
             a = randint(2, 9)
           }
-          expf = `La somme de ${nombreAvecEspace(a)} et du quotient de ${nombreAvecEspace(b)} par $${nombreAvecEspace(c)}$`
+          expf = `La somme de ${nombreAvecEspace(a)} et du quotient de ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$${texNombre(a)}+${texNombre(b)} \\div ${texNombre(c)}$ ou $${texNombre(a)}+\\dfrac{${texNombre(b)}}{${texNombre(c)}}$`
           expc = `$${texNombre(a)}+${texNombre(b)} \\div ${texNombre(c)}=${texNombre(a)}+${texNombre(b / c)} = ${texNombre(a + (b / c))}$`
           repNum = arrondi(a + b / c)
@@ -178,7 +178,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 6) * c
             a = randint(2, 9) + b * c
           }
-          expf = `La différence entre ${nombreAvecEspace(a)} et le quotient de ${nombreAvecEspace(b)} par $${nombreAvecEspace(c)}$`
+          expf = `La différence entre ${nombreAvecEspace(a)} et le quotient de ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$${texNombre(a)}-${texNombre(b)} \\div ${texNombre(c)}$ ou $${texNombre(a)}-\\dfrac{${texNombre(b)}}{${texNombre(c)}}$`
           expc = `$${texNombre(a)}-${texNombre(b)} \\div ${texNombre(c)}=${texNombre(a)}-${texNombre(b / c)} = ${texNombre(a - (b / c))}$`
           repNum = arrondi(a - b / c)

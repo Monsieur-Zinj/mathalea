@@ -1,9 +1,10 @@
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from '../CM/_TrouverSolutionMathador.js'
 import Exercice from '../Exercice.js'
 
-export const titre = 'Traduire une succession des opérations par une expression'
+export const titre = 'Traduire une succession d\'opérations par une expression'
 
 /**
  * Transformer un programme de calcul avec les 4 opérations dans un ordre aléatoire en un seul calcul.
@@ -38,7 +39,7 @@ export default function ÉcrireUneExpressionMathador () {
         texte += `$${calculsSuccessifs[j]}$<br>`
       }
       texte += 'Écris cette succession d\'opérations en une seule expression.'
-      texteCorr = `L'expression correspondante au calcul de ${quidam} est<br>$${expression}$ ou $${solutionMathador[4]}$.`
+      texteCorr = `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

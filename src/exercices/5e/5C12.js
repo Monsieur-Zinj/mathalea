@@ -1,11 +1,12 @@
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
-import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
+// import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
+import { miseEnEvidence } from '../../lib/embellissements.js'
 export { interactifReady, interactifType, amcType, amcReady } from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Calculer une expression numérique en détaillant les calculs'
 
@@ -30,19 +31,6 @@ export default function CalculerUneExpressionNumerique () {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    /*
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [2, 3, 4, 5]
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-        typesDeQuestionsDisponibles[0] = this.sup % 6
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-      }
-    }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    */
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       min: 2,
       max: 5,
@@ -51,63 +39,81 @@ export default function CalculerUneExpressionNumerique () {
       saisie: this.sup
     })
 
-    let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
+    let expf; let expn; let expc; let decimal; let nbOperations; let resultats
+    // let nbval
     if (this.sup2) {
       decimal = 10
     } else {
       decimal = 1
     }
 
-    for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      // let val1
+      // let val2
       this.autoCorrection[i] = {}
       nbOperations = listeTypeDeQuestions[i]
-      val1 = randint(2, 5)
-      val2 = randint(6, 9)
-      if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
-      if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, !this.sup2) }
+      // A priori, this.litteral jamais défini. Du coup, mise en commentaires de nombreuses lignes et correction de certaines d'entre elles.
+      // val1 = randint(2, 5)
+      // val2 = randint(6, 9)
+      // if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
+      // if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, !this.sup2) }
+      if (this.version > 2 && nbOperations === 1) nbOperations++
+      resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2)
       expf = resultats[0]
       expn = resultats[1]
       expc = resultats[2]
-      nbval = resultats[3]
+      // nbval = resultats[3]
       if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
       this.consigne = 'Calculer en respectant les priorités opératoires.'
-      if (!this.litteral) {
+       // if (!this.litteral) {
         if (!this.sup4) {
           texte = `${expn}`
         } else {
           texte = `${lettreDepuisChiffre(i + 1)} = ${expn}`
         }
+      /*
       } else if (nbval === 2) {
         texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
       } else {
         texte = `Pour $x=${val1}$, calculer ${expn}.`
       }
+      */
 
-      if (!this.litteral) {
+       // if (!this.litteral) {
+        texteCorr = ''
         if (!this.sup4) {
-          texteCorr = `${expc}`
+          expc=expc.substring(1,expc.length-1).split(' = ')
+          for (let ee=0;ee<expc.length-1;ee++) {
+            texteCorr+=`$${expc[ee]}  = $`+ sp()
+          }
+          texteCorr+=`$${miseEnEvidence(expc[expc.length-1])}$`
         } else {
-          texteCorr = ''
           // On découpe
           const etapes = expc.split('=')
+          let nbEtapes = 0
           etapes.forEach(function (etape) {
+            nbEtapes++
             etape = etape.replace('$', '')
             if (context.isHtml) {
               texteCorr += '<br>'
             }
-            texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+            texteCorr += `${lettreDepuisChiffre(i + 1)} = `
+            texteCorr += nbEtapes=== etapes.length ? `$${miseEnEvidence(etape)}$ <br>` : `$${etape}$ <br>`
           })
         }
+        /*
       } else if (nbval === 2) {
         texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
       } else {
         texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
       }
+*/
 
-      reponse = this.litteral ? parseInt(expc.split('=')[expc.split('=').length - 1]) : resultats[4]
+      // reponse = this.litteral ? parseInt(expc.split('=')[expc.split('=').length - 1]) : resultats[4]
+      reponse =  resultats[4]
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: ' = ' })
         } else if (context.isAmc) {
           texte += '<br>Détailler les calculs dans le cadre et coder le résultat.<br>'
         }
