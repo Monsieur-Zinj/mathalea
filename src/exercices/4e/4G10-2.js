@@ -27,7 +27,7 @@ export default class nomExercice extends Exercice {
     this.nbQuestions = 1
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

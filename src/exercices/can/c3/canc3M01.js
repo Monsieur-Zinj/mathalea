@@ -1,6 +1,7 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { context } from '../../../modules/context.js'
-import { choice, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver la bonne unité'
 export const dateDePublication = '5/11/2021'

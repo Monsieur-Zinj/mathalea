@@ -1,8 +1,9 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { splineCatmullRom } from '../../modules/mathFonctions/SplineCatmullRom.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { courbe, repere } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { max, min } from 'mathjs'
 
 export const titre = 'Resoudre graphiquement une équation'
@@ -27,7 +28,7 @@ export default class nomExercice extends Exercice {
     this.video = '' // Id YouTube ou url
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

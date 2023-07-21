@@ -1,7 +1,8 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Comparer des images dans un tableau de variations'
@@ -23,7 +24,7 @@ export default function Variationsapartirtableau () {
   this.video = '' // Id YouTube ou url
   this.listePackages = ['tkz-tab']//, 'tkz-fct', 'tkz-euclide'
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

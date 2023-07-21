@@ -1,8 +1,9 @@
+import { combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/embellissements.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Trouver l\'opposé d\'un nombre relatif'
 export const dateDeModifImportante = '26/11/2021'
 
@@ -24,7 +25,7 @@ export default function TrouverOppose () {
     this.nbQuestions = 1
   } else {
     this.nbQuestions = 1
-  };
+  }
 
   this.titre = titre
   this.consigne = 'Compléter le tableau suivant.'
@@ -39,7 +40,7 @@ export default function TrouverOppose () {
       typesDeQuestionsDisponibles = [1]
     } else {
       typesDeQuestionsDisponibles = [1]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -88,7 +89,7 @@ export default function TrouverOppose () {
           nbLigneNombresOpp[k] = ''
           nbLigneNombresOppCorr[k] = miseEnEvidence(nb.opp)
         }
-      };
+      }
 
       const enonces = []
       enonces.push({
@@ -111,7 +112,7 @@ export default function TrouverOppose () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[1].enonce}`
@@ -121,7 +122,7 @@ export default function TrouverOppose () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
       }
 

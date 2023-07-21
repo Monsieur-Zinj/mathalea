@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
@@ -5,7 +6,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { point, milieu, pointSurSegment, labelPoint, segment, polygone, codageAngleDroit, texteSurSegment, texteParPoint, longueur } from '../../modules/2d.js'
 export const titre = 'Problèmes avec le théorème de Thalès'
 

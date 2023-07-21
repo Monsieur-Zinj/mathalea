@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -5,7 +6,7 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 // import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 // import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 // import { courbeSpline } from '../../modules/2d.js'

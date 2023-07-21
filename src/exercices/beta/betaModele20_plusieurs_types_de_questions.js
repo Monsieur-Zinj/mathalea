@@ -1,5 +1,6 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -22,7 +23,7 @@ export default class nomExercice extends Exercice {
     this.video = '' // Id YouTube ou url
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

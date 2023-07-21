@@ -1,5 +1,6 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { toTex, resoudre, calculer, aleaVariables } from '../../modules/outilsMathjs.js'
 import { simplify } from 'mathjs'
 export const titre = 'Nom de l\'exercice'
@@ -24,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.video = '' // Id YouTube ou url
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

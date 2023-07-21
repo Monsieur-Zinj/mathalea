@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'
@@ -5,7 +6,7 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

@@ -1,3 +1,4 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
@@ -5,7 +6,7 @@ import { arcenciel } from '../../../lib/format/style.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { signe } from '../../../lib/outils/nombres.js'
-import { randint, choice, calcul } from '../../../modules/outils.js'
+import { randint, calcul } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite récurrente'
 export const interactifReady = true
 export const interactifType = 'mathLive'

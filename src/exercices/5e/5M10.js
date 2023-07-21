@@ -1,7 +1,8 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { pointAdistance, point, parallelogramme2points1hauteur, afficheLongueurSegment, projectionOrtho, milieu, droite, segment, codageAngleDroit } from '../../modules/2d.js'
-import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
@@ -45,7 +46,7 @@ export default function AireDuParallelogramme () {
     return params
   }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
     this.autoCorrection = []

@@ -1,10 +1,11 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, egal, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, egal, calcul } from '../../modules/outils.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Placer un point d\'abscisse décimale'
@@ -34,7 +35,7 @@ export default function PlacerPointsSurAxe () {
     return (abs0 + (x - abs0) * 3 * pas1)
   }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     // numeroExercice est 0 pour l'exercice 1
     const pointsSolutions = []

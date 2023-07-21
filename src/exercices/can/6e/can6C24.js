@@ -1,7 +1,8 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, choice, randint } from '../../../modules/outils.js'
+import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier ou diviser par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true

@@ -1,7 +1,8 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, combinaisonListes, printlatex, listeQuestionsToContenuSansNumero, choice } from '../../modules/outils.js'
+import { randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 

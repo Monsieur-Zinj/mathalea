@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { createList } from '../../lib/format/lists.ts'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -8,8 +9,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
-  randint,
-  choice
+  randint
 } from '../../modules/outils.js'
 import { polygone, point, segment, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
@@ -36,7 +36,7 @@ export default function DesChocolatsDansDesBoites () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     context.anglePerspective = 50
     const premier1 = choice([2, 3, 5, 7])
     const premier2 = choice([2, 3, 5, 7])

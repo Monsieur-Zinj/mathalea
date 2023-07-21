@@ -1,10 +1,11 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { latexParCoordonnees, point, polygone, segment, texteParPositionEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -221,7 +222,7 @@ export default function ProblemesAiresRectangles () {
       texteCorr += `On en déduit que son aire est $${texNombre(longueursHorizontales[listeCellules[etapeAireInconnue - 1][0]], 1)}\\times ${texNombre(longueursVerticales[listeCellules[etapeAireInconnue - 1][1]], 1)} = ${texNombre(aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 2)}\\text{ cm}^2$.<br>`
       reponse = [aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 'cm^2']
     } else {
-      ;[texteCorr, colonneOuLigne] = etapesDeUnAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, nombreTotalEtapes, colonneOuLigne)
+      [texteCorr, colonneOuLigne] = etapesDeUnAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, nombreTotalEtapes, colonneOuLigne)
       if (colonneOuLigne) {
         if (longueursVerticales[listeCellules[listeCellules.length - 1][1]] === longueursHorizontales[listeCellules[listeCellules.length - 1][0]]) {
           texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit

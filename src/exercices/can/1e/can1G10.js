@@ -1,6 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { choice } from '../../../modules/outils.js'
 import {
   point, cercleCentrePoint, polygoneAvecNom, grille, pointSurCercle, segment, texteParPosition
 } from '../../../modules/2d.js'

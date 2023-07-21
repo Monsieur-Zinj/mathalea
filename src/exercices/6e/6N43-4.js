@@ -1,6 +1,7 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

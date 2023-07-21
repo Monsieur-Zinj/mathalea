@@ -42,7 +42,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
     }
-    ;
+    
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -77,13 +77,13 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
         }
         tabRangsb[k] = randint(0, rgMaxb, tabRangsExclusb)
       }
-      ;
+      
       // on choisit les premiers
       const tabPremiersb = []
       for (let k = 0; k < tabRangsb.length; k++) {
         tabPremiersb[k] = cribleEratostheneN(maxPremierb)[tabRangsb[k]]
       }
-      ;
+      
       // on range les facteurs premiers dans l'ordre croissant
       tabPremiersb.sort(function (a, b) {
         return a - b
@@ -93,38 +93,38 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       for (let k = 0; k < tabRangsb.length; k++) {
         tabMultiplicitesb[k] = randint(1, this.sup ? 4 : 2)
       }
-      ;
+      
       texte = ''
       let nombreADecomposerb = 1
       for (let k = 0; k < tabRangsb.length; k++) {
         for (let m = 0; m < tabMultiplicitesb[k]; m++) {
           nombreADecomposerb = nombreADecomposerb * tabPremiersb[k]
         }
-        ;
+        
       }
-      ;
+      
       texte += `La décomposition en facteurs premiers de $${texNombre(nombreADecomposerb)}$ est : $`
       if (tabMultiplicitesb[0] === 1) {
         texte += `${tabPremiersb[0]}`
       } else {
         texte += `${tabPremiersb[0]}^{${tabMultiplicitesb[0]}}`
       }
-      ;
+      
       for (let k = 1; k < tabPremiersb.length; k++) {
         if (tabMultiplicitesb[k] === 1) {
           texte += `\\times ${tabPremiersb[k]}`
         } else {
           texte += `\\times ${tabPremiersb[k]}^{${tabMultiplicitesb[k]}}`
         }
-        ;
+        
       }
-      ;
+      
       texte += '$. <br>'
       texte += numAlpha(0) + ' Compléter le tableau ci-dessous.'
       if (!context.isHtml) {
         texte += '$\\medskip$'
       }
-      ;
+      
       // on crée le tableau des entetes de lignes et des colonnes
       let entLignes = []
       const contenuLignes = []
@@ -133,15 +133,15 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       for (let k = 0; k < tabMultiplicitesb[0] + 1; k++) {
         entLignes.push('\\phantom{plusLarge}' + tabPremiersb[0] + '^{' + k + '}\\phantom{plusLarge}')
       }
-      ;
+      
       // les entetes des colonnes
       for (let m = 0; m < tabMultiplicitesb[1] + 1; m++) {
         for (let l = 0; l < tabMultiplicitesb[2] + 1; l++) {
           entColonnes.push(tabPremiersb[1] + '^{' + m + '}\\times' + tabPremiersb[2] + '^{' + l + '}')
         }
-        ;
+        
       }
-      ;
+      
       // tableau pour la permutation circulaire
       const tabTemp = entLignes
       // on y affecte les lignes
@@ -158,15 +158,15 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
           // contenuLignes.push(`l : `+l+`, c : `+Number(c));
           contenuLignes.push('')
         }
-        ;
+        
       }
-      ;
+      
       texte += '<br>'
       texte += tableauColonneLigne(entColonnes, entLignes, contenuLignes)
       if (!context.isHtml) {
         texte += '$\\medskip$'
       }
-      ;
+      
       texte += '<br>'
       texte += numAlpha(1) + ` En déduire le nombre de diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
       texte += numAlpha(2) + ` Enfin, dresser la liste des diviseurs de $${texNombre(nombreADecomposerb)}$.<br>`
@@ -178,16 +178,16 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       } else {
         texteCorr += `${tabPremiersb[0]}^{${tabMultiplicitesb[0]}}`
       }
-      ;
+      
       for (let k = 1; k < tabPremiersb.length; k++) {
         if (tabMultiplicitesb[k] === 1) {
           texteCorr += `\\times ${tabPremiersb[k]}`
         } else {
           texteCorr += `\\times ${tabPremiersb[k]}^{${tabMultiplicitesb[k]}}`
         }
-        ;
+        
       }
-      ;
+      
       texteCorr += '$ : <br>'
       texteCorr += numAlpha(0) + ' Le tableau donne :'
       // on crée le tableau des entetes de lignes et des colonnes
@@ -202,16 +202,16 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
         entLignesCorr.push(tabPremiersb[0] + '^{' + k + '}')
         entLignesCorrRes.push(tabPremiersb[0] ** k)
       }
-      ;
+      
       // les entetes des colonnes
       for (let m = 0; m < tabMultiplicitesb[1] + 1; m++) {
         for (let l = 0; l < tabMultiplicitesb[2] + 1; l++) {
           entColonnesCorr.push(tabPremiersb[1] + '^{' + m + '}\\times' + tabPremiersb[2] + '^{' + l + '}')
           entColonnesCorrRes.push(tabPremiersb[1] ** m * tabPremiersb[2] ** l)
         }
-        ;
+        
       }
-      ;
+      
       // tableaux pour les permutations circulaires
       const tabTempCorr = entLignesCorr
       const tab1TempCorr = entLignesCorrRes
@@ -231,9 +231,9 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
           // contenuLignesCorr.push(`l : `+l+`, c : `+Number(c));
           contenuLignesCorr.push(entLignesCorr[l] + '\\times' + entColonnesCorr[c] + '=' + miseEnEvidence(texNombre(entLignesCorrRes[l] * entColonnesCorrRes[c])))
         }
-        ;
+        
       }
-      ;
+      
       texteCorr += '<br>'
       texteCorr += tableauColonneLigne(entColonnesCorr, entLignesCorr, contenuLignesCorr)
       texteCorr += '<br>'
@@ -247,7 +247,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       for (let k = 0; k < tabMultiplicitesb[0]; k++) {
         texteCorr += `$${tabPremiersb[0]}^{` + k + '}$ ou '
       }
-      ;
+      
       texteCorr += `$${tabPremiersb[0]}^{` + tabMultiplicitesb[0] + `}$ d'où le facteur $(${tabMultiplicitesb[0]}+1)$.`
 
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[1]}$ avec la multiplicité $${tabMultiplicitesb[1]}$`
@@ -255,7 +255,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       for (let k = 0; k < tabMultiplicitesb[1]; k++) {
         texteCorr += `$${tabPremiersb[1]}^{` + k + '}$ ou '
       }
-      ;
+      
       texteCorr += `$${tabPremiersb[1]}^{` + tabMultiplicitesb[1] + `}$ d'où le facteur $(${tabMultiplicitesb[1]}+1)$.`
 
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[2]}$ avec la multiplicité $${tabMultiplicitesb[2]}$`
@@ -263,7 +263,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       for (let k = 0; k < tabMultiplicitesb[2]; k++) {
         texteCorr += `$${tabPremiersb[2]}^{` + k + '}$ ou '
       }
-      ;
+      
       texteCorr += `$${tabPremiersb[2]}^{` + tabMultiplicitesb[2] + `}$ d'où le facteur $(${tabMultiplicitesb[2]}+1)$.`
       texteCorr += '<br>'
       texteCorr += numAlpha(2) + ` Enfin, voici la liste des $${(tabMultiplicitesb[0] + 1) * (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1)}$ diviseurs de $${texNombre(nombreADecomposerb)}$ issus du tableau ci-dessus : `
@@ -271,7 +271,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       for (let w = 1; w < listeDesDiviseurs(nombreADecomposerb).length; w++) {
         texteCorr += '\\text{ ; }' + texNombre(listeDesDiviseurs(nombreADecomposerb)[w])
       }
-      ;
+      
       texteCorr += '.$'
       //   break
       // };

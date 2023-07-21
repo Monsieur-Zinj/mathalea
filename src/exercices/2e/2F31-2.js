@@ -1,10 +1,11 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { abs } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
+import { tableauVariationsFonction } from '../../modules/mathFonctions/outilsMaths.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
 export const dateDePublication = '31/01/2022'
 export const dateDeModifImportante = '12/07/2023'
@@ -225,6 +226,9 @@ export default function EncadrerAvecFctRef () {
           break
         }
         case 'racine carrée': {
+          const estParfait = function(a){
+            return Number.isInteger(Math.sqrt(a))
+          }
           latex = true
           const N = choice([1, 2, 3])
           fonction = x => Math.sqrt(x)

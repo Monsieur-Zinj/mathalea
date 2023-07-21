@@ -1,6 +1,7 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { calcul, choice, randint } from '../../../modules/outils.js'
+import { calcul, randint } from '../../../modules/outils.js'
 export const titre = 'Calculer des longueurs à partir des périmètres'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,7 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { courbeSpline, droiteParPointEtPente, point, repere } from '../../../modules/2d.js'
 import { splineCatmullRom } from '../../../modules/mathFonctions/SplineCatmullRom.js'
-import { choice, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const interactifReady = true

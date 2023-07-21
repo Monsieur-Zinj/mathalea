@@ -1,7 +1,8 @@
+import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true

@@ -1,3 +1,4 @@
+import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import {
   angle,
@@ -22,8 +23,7 @@ import { context } from '../../modules/context.js'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint,
-  shuffle
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

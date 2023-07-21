@@ -1,8 +1,9 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer le coefficient d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'

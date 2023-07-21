@@ -1,3 +1,4 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
@@ -7,7 +8,7 @@ import { texteGras } from '../../lib/format/style.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'
-import { randint, itemize, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { randint, itemize, listeQuestionsToContenu } from '../../modules/outils.js'
 
 export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'

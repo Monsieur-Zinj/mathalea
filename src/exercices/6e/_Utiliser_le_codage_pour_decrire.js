@@ -1,7 +1,8 @@
+import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, shuffle, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageAngleDroit, codageSegments, codageAngle, longueur, angleOriente } from '../../modules/2d.js'
 
 export default function UtiliserLeCodagePourDecrire () {

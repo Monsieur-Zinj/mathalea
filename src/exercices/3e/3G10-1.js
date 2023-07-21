@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -9,7 +10,6 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {
   randint,
-  choice,
   listeQuestionsToContenu,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
@@ -39,7 +39,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
   context.fenetreMathalea2d = [-9, -9, 9, 9]
   this.sup = '4-5-6'
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

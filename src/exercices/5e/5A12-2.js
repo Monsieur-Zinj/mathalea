@@ -1,8 +1,9 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { premiersEntreBornes } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
@@ -38,7 +39,7 @@ export default class PremierOuPas extends Exercice {
     this.video = '' // Id YouTube ou url
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

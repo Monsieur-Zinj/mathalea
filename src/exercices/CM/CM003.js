@@ -1,9 +1,7 @@
+import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
-  creerCouples,
-  choice,
-  combinaisonListes,
   randint,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'

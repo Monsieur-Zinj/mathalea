@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance.js'
@@ -7,8 +8,6 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  choice,
-  combinaisonListes,
   listeQuestionsToContenuSansNumero,
   randint
 } from '../../modules/outils.js'

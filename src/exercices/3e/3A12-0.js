@@ -1,8 +1,9 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { combinaisonListes, contraindreValeur, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { engrenages } from '../../modules/2d/engrenage.js'
@@ -55,11 +56,11 @@ export default class EngrenagesAnimes extends Exercice {
           result += '$ ; '
         } else {
           result += `${texNombre(k * nbDentsRoueA, 0)}$ ; `
-        };
+        }
         if (k % 5 === 0) {
           result += '<br>'
         }
-      };
+      }
       result += '$\\ldots$ '
       result += '<br>'
       return result

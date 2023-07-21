@@ -1,11 +1,12 @@
 // import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 // import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere, texteParPosition } from '../../modules/2d.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
-import { choice, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement.'
@@ -126,7 +127,7 @@ export default class BetaModeleSpline extends Exercice {
     this.correctionDetaillee = false
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

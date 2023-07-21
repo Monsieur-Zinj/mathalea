@@ -1,3 +1,4 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
@@ -6,7 +7,7 @@ import {
 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import {
-  randint, choice
+  randint
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une ordonnée à partir de l’abscisse d’un point'
 export const interactifReady = true

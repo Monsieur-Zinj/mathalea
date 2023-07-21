@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import {
   ecritureAlgebrique,
@@ -10,7 +11,7 @@ import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
-  listeQuestionsToContenu, randint, combinaisonListes, choice
+  listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
 export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 

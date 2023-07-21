@@ -1,3 +1,4 @@
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
@@ -6,7 +7,7 @@ import { texPrix, texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { point, segment, repere, courbe } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
 
@@ -23,7 +24,7 @@ export default function GraphiquesEtProportionnalite2 () {
     this.nbQuestions = 2
   } else {
     this.nbQuestions = 1
-  };
+  }
 
   this.titre = titre
   this.consigne = ''
@@ -42,7 +43,7 @@ export default function GraphiquesEtProportionnalite2 () {
       typesDeQuestionsDisponibles = [1]
     } else {
       typesDeQuestionsDisponibles = [1]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -198,7 +199,7 @@ export default function GraphiquesEtProportionnalite2 () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
       }
 

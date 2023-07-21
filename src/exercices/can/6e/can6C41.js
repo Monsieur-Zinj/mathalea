@@ -1,4 +1,4 @@
-import { choice } from '../../../modules/outils.js'
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Comparer des fractions de même dénominateur/numérateur'

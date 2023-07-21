@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { quatriemeProportionnelle } from '../../lib/outils/calculs.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
@@ -24,8 +25,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  choice,
-  combinaisonListes,
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'

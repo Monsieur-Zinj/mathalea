@@ -1,7 +1,8 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
 
 /**
@@ -19,7 +20,7 @@ export default function FormeLitteraleIntroduireUneLettre () {
     this.nbQuestions = 3
   } else {
     this.nbQuestions = 2
-  };
+  }
 
   this.titre = titre
   this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé."
@@ -37,7 +38,7 @@ export default function FormeLitteraleIntroduireUneLettre () {
       typesDeQuestionsDisponibles = [1]
     } else {
       typesDeQuestionsDisponibles = [1]
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -52,7 +53,7 @@ export default function FormeLitteraleIntroduireUneLettre () {
           return obj.plur
         } else {
           return obj.sing
-        };
+        }
       }
 
       // une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
@@ -95,7 +96,7 @@ export default function FormeLitteraleIntroduireUneLettre () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
       }
 

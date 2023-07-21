@@ -1,8 +1,9 @@
+import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 
 export const titre = 'Encadrer un décimal par deux entiers consécutifs'
 
@@ -21,7 +22,7 @@ export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
     this.nbQuestions = 3
   } else {
     this.nbQuestions = 3
-  };
+  }
 
   this.consigne = 'Encadrer chaque nombre proposé par deux nombres entiers consécutifs.'
 
@@ -39,7 +40,7 @@ export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
     } else {
       // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = shuffle([0, 1, 2])
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -92,7 +93,7 @@ export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
-          };
+          }
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -102,7 +103,7 @@ export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[1].correction}`
-          };
+          }
           break
         case 2:
           texte = `${enonces[2].enonce}`
@@ -112,9 +113,9 @@ export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
             texteCorr = ''
           } else {
             texteCorr = `${enonces[2].correction}`
-          };
+          }
           break
-      };
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

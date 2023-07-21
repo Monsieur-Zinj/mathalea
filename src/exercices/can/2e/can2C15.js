@@ -1,6 +1,7 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction, obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { choice, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un nombre connaissant son inverse'
 export const interactifReady = true

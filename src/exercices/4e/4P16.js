@@ -30,7 +30,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

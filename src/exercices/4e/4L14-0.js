@@ -1,7 +1,8 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 
 export const titre = 'Tester si un nombre est solution d\'une équation'
 

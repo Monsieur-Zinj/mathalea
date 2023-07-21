@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
@@ -9,8 +10,6 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  choice,
-  combinaisonListes,
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'

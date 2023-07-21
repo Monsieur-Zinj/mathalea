@@ -1,3 +1,4 @@
+import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import {
   deprecatedTexFraction,
@@ -6,7 +7,7 @@ import {
 } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'

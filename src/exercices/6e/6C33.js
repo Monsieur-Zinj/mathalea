@@ -1,10 +1,11 @@
+import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { nombreDeChiffresDansLaPartieEntiere, range1, rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, filtrer } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Calculer en utilisant les priorités opératoires'
@@ -75,8 +76,8 @@ export default function Priorites () {
     } else {
       questionsDisponibles = range1(22)
     }
-    if (!this.sup3) questionsDisponibles = filtrer(rangeMinMax(13, 22), questionsDisponibles)
-    if (!this.sup4) questionsDisponibles = filtrer([2, 3, 5, 8, 11, 12, 15, 16, 17, 21, 22], questionsDisponibles)
+    if (!this.sup3) questionsDisponibles   = questionsDisponibles.filter(el=>!rangeMinMax(13, 22).includes(el))
+    if (!this.sup4) questionsDisponibles = questionsDisponibles.filter(el=>![2, 3, 5, 8, 11, 12, 15, 16, 17, 21, 22].includes(el))
     const listeTypeDeQuestions = combinaisonListes(
       questionsDisponibles,
       this.nbQuestions

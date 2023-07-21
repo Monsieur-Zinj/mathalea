@@ -1,5 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texRacineCarree } from '../../../lib/outils/texNombre.js'
-import { choice, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$'
 export const interactifReady = true

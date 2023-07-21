@@ -1,7 +1,8 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Déterminer les termes d\'une suite définie de façon explicite'
 
@@ -35,9 +36,9 @@ export default function TermeDUneSuiteDefinieExplicitement () {
           k = randint(0, 20)
 
           texte = 'Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = '
-          if (a === 1) { texte += 'n' } else if (a === -1) { texte += '-n' } else { texte += `${a}n` };
+          if (a === 1) { texte += 'n' } else if (a === -1) { texte += '-n' } else { texte += `${a}n` }
 
-          if (b > 0) { texte += `+${b}$.` } else { texte += `${b}$.` };
+          if (b > 0) { texte += `+${b}$.` } else { texte += `${b}$.` }
           texte += `<br>Calculer $u_{${k}}$.`
 
           texteCorr = `Dans l'expression de $u_n$ on remplace $n$ par ${k}, on obtient : $u_{${k}} =`
@@ -68,12 +69,12 @@ export default function TermeDUneSuiteDefinieExplicitement () {
             } else {
               texte += `${a}n^2$`
             }
-          };
-          if (b === 1) { texte += '$+n$' };
-          if (b > 1) { texte += `$+${b}n$` };
-          if (b === -1) { texte += '$-n$' };
-          if (b < -1) { texte += `$${b}n$` };
-          if (c > 0) { texte += `$+${c}$.` };
+          }
+          if (b === 1) { texte += '$+n$' }
+          if (b > 1) { texte += `$+${b}n$` }
+          if (b === -1) { texte += '$-n$' }
+          if (b < -1) { texte += `$${b}n$` }
+          if (c > 0) { texte += `$+${c}$.` }
           if (c < 0) { texte += `$${c}$.` }
           texte += `<br>Calculer $u_{${k}}$.`
 
@@ -82,7 +83,7 @@ export default function TermeDUneSuiteDefinieExplicitement () {
             if (a === -1) { texteCorr += `-${k}^2` } else {
               texteCorr += `${a}\\times ${k}^2`
             }
-          };
+          }
           if (b === 1) {
             texteCorr += `+${k}`
           } else {
@@ -103,10 +104,10 @@ export default function TermeDUneSuiteDefinieExplicitement () {
           k = randint(1, 9)
 
           texte = 'Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{'
-          if (a === 1) { texte += 'n' } else if (a === -1) { texte += '-n' } else { texte += `${a}n` };
-          if (b > 0) { texte += `+${b}}{` } else { texte += `${b}}{` };
-          if (c === 1) { texte += 'n' } else if (c === -1) { texte += '-n' } else { texte += `${c}n` };
-          if (d > 0) { texte += `+${d}}$.` } else { texte += `${d}}$.` };
+          if (a === 1) { texte += 'n' } else if (a === -1) { texte += '-n' } else { texte += `${a}n` }
+          if (b > 0) { texte += `+${b}}{` } else { texte += `${b}}{` }
+          if (c === 1) { texte += 'n' } else if (c === -1) { texte += '-n' } else { texte += `${c}n` }
+          if (d > 0) { texte += `+${d}}$.` } else { texte += `${d}}$.` }
 
           texte += `<br>Calculer $u_{${k}}$.`
           frac = fraction(a * k + b, c * k + d)

@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import { texteGras } from '../../lib/format/style.js'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
@@ -7,7 +8,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import {
   randint,
   listeQuestionsToContenu,
-  choice,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { point3d, vecteur3d, cylindre3d, sphere3d } from '../../modules/3d.js'

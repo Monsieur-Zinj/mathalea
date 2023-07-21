@@ -1,10 +1,11 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -37,7 +38,7 @@ export default function LireAbscisseRelative () {
     return (abs0 + (x - abs0) * 3 * pas1)
   }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []

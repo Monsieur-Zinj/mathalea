@@ -1,6 +1,7 @@
+import { combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { randint, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, combinaisonListes, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { randint, contraindreValeur, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 import Decimal from 'decimal.js'

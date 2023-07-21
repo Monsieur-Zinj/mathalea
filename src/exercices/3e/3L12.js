@@ -1,11 +1,10 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import {
   randint,
-  choice,
-  listeQuestionsToContenuSansNumero,
-  combinaisonListes
+  listeQuestionsToContenuSansNumero
 } from '../../modules/outils.js'
 import {
   setReponse

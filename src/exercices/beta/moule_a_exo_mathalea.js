@@ -1,5 +1,6 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 
 export const titre = 'Exo zéro Mathalea'
 

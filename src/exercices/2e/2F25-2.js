@@ -1,3 +1,4 @@
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import {
   ecritureAlgebrique,
@@ -6,7 +7,7 @@ import {
   reduireAxPlusB, rienSi1
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, choice, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 

@@ -1,3 +1,4 @@
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { arcenciel, texcolors } from '../../lib/format/style.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
@@ -8,11 +9,9 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
-  choice,
   egal,
   listeQuestionsToContenu,
-  randint,
-  shuffle
+  randint
 } from '../../modules/outils.js'
 import { pavage } from '../../modules/Pavage.js'
 import Exercice from '../Exercice.js'

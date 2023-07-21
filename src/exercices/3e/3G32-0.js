@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { creerNomDePolygone, lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
@@ -7,7 +8,6 @@ import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint,
-  choice,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone } from '../../modules/2d.js'

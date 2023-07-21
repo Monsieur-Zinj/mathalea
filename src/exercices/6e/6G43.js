@@ -1,6 +1,7 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { cube } from '../../modules/3d.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

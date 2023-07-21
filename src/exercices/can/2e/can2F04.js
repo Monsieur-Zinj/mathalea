@@ -1,8 +1,9 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Trouver les valeurs interdites d’une fonction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

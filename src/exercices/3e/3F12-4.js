@@ -40,7 +40,7 @@ export default function ImageGraphique () {
   // this.nbQuestionsModifiable = false
   this.nbCols = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -60,7 +60,7 @@ export default function ImageGraphique () {
       d = randint(-5, 5)
       c = randint(-5, 5)
       ymax = 7
-    };
+    }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       initialiseVariables()
 

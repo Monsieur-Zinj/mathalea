@@ -106,7 +106,7 @@ function ObjetLutin () {
         optionsDraw = '[' + tableauOptions.join(',') + ']'
       }
       code += `\n\t\\draw${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
-    };
+    }
     return code
   }
 }

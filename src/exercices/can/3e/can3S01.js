@@ -1,5 +1,6 @@
+import { choice } from '../../../lib/outils/arrayOutils.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true

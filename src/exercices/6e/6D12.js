@@ -1,7 +1,8 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { minToHoraire, minToHour } from '../../lib/outils/dateEtHoraires.js'
 import { prenom, prenomF } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -38,7 +39,7 @@ export default function CalculsDeDureesOuHoraires () {
   this.nbColsCorr = 1
   this.spacingCorr = 2
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

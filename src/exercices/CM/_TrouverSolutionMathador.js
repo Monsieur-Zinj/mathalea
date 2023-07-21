@@ -1,4 +1,4 @@
-import { choice, shuffle } from '../../modules/outils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 
 /**
  * @author Jean-Claude Lhote

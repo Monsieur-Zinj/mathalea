@@ -1,6 +1,7 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Citer les propriétés des parallélogrammes'
 
 export const dateDeModifImportante = '08/05/2022'

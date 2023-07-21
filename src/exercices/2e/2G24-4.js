@@ -1,3 +1,4 @@
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -8,7 +9,6 @@ import { signe } from '../../../lib/outils/nombres.js'
 import {
   listeQuestionsToContenu,
   randint,
-  choice,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

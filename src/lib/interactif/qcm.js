@@ -1,7 +1,7 @@
 import { context } from '../../modules/context.js'
+import { shuffleJusqua } from '../outils/arrayOutils.js'
 import { get } from '../html/dom.js'
 import { messageFeedback } from '../../modules/messages.js'
-import { shuffleJusqua } from '../../modules/outils.js'
 import { gestionCan } from './gestionCan.js'
 import { afficheScore } from './gestionInteractif.js'
 export function verifQuestionQcm (exercice, i) {

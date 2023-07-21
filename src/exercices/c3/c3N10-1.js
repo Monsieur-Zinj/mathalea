@@ -1,9 +1,9 @@
+import { shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   randint,
   contraindreValeur,
   listeQuestionsToContenu,
-  shuffle2tableaux,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

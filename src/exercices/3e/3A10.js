@@ -1,10 +1,11 @@
+import { combinaisonListesSansChangerOrdre, shuffle, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, combinaisonListesSansChangerOrdre, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, egal, randint, contraindreValeur } from '../../modules/outils.js'
 
 export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
 
@@ -52,7 +53,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide-mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide-mémoire')
       // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
     } else { // sortie LaTeX
-    };
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -169,7 +170,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
             diviseurs[j] = nombreAvecEspace(diviseurs[j])
             multiples[j] = nombreAvecEspace(multiples[j])
             quotients[j] = nombreAvecEspace(quotients[j])
-          };
+          }
           // on crée les phrases
           textes[0] = `${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`
           textesCorr[0] = `${diviseurs[0]} est un diviseur de ${multiples[0]} car ${multiples[0]}=${diviseurs[0]}$\\times$${quotients[0]}.`
@@ -200,7 +201,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
             texte += '<br>'
             texteCorr += textesCorr[j]
             texteCorr += '<br>'
-          };
+          }
           texte += textes[5]
           // texte +=`<br>`;
           texteCorr += textesCorr[5]
@@ -239,22 +240,22 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           if (listeDiviseursM.length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseursM.length / 2); m++) {
               texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
-            };
+            }
           } else {
             for (let m = 0; m < ((listeDiviseursM.length - 1) / 2); m++) {
               texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
-            };
+            }
             texteCorr += '' + listeDiviseursM[(listeDiviseursM.length - 1) / 2] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - 1) / 2] + ` = ${M}<br>`
-          };
+          }
           texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${M}.<br>`
           texteCorr += `La liste des diviseurs de ${M} est donc `
           texteCorr += '1'
           for (let w = 1; w < listeDiviseursM.length; w++) {
             texteCorr += ' ; ' + listeDiviseursM[w]
-          };
+          }
           texteCorr += '.'
           break
-      };
+      }
 
       if (this.questionJamaisPosee(i, typeDeQuestion, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

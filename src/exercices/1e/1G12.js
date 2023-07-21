@@ -1,6 +1,7 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'cos et sin associés à un réel x '
@@ -25,7 +26,7 @@ export default function MesurePrincipale () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
   this.sup = 1
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
