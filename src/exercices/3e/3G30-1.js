@@ -1,9 +1,9 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages.js'
 import { projectionOrtho, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import {
-  afficheMesureAngle,
   droite,
   longueur,
   nommePolygone,
@@ -11,8 +11,7 @@ import {
   pointSurSegment,
   polygone,
   segment,
-  texteParPoint,
-  texteSurSegment
+  texteParPoint
 } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'

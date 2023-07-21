@@ -1,10 +1,10 @@
+import { afficheLongueurSegment } from '../../lib/2d/codages.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
-  afficheLongueurSegment,
   cercle,
   latexParPoint,
   point,

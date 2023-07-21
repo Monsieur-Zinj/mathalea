@@ -1,7 +1,6 @@
 import { floor } from 'mathjs'
 import {
   cercle,
-  CodageMilieu,
   Droite,
   droite,
   longueur,
@@ -18,6 +17,7 @@ import {
 import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import { codageAngleDroit } from './angles.js'
+import { CodageMilieu } from './codages.js'
 import { projectionOrtho, rotation, similitude } from './transformations.js'
 
 /**

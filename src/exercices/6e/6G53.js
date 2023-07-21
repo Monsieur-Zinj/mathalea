@@ -1,11 +1,12 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { afficheLongueurSegment } from '../../lib/2d/codages.js'
 import { projectionOrtho } from '../../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, polygoneAvecNom, droite, segment, tracePoint, labelPoint, distancePointDroite, afficheLongueurSegment } from '../../modules/2d.js'
+import { point, polygoneAvecNom, droite, segment, tracePoint, labelPoint, distancePointDroite } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Mesurer la distance d\'un point à une droite'
 

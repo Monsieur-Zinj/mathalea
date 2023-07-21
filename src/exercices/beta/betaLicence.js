@@ -1,11 +1,12 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { codageSegments } from '../../lib/2d/codages.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { codageSegments, point, polygone, segment, texteParPosition } from '../../modules/2d.js'
+import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'QCM de positionnement'
 export const interactifReady = true
 export const interactifType = 'qcm'

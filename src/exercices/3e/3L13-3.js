@@ -1,3 +1,4 @@
+import { codageSegments } from '../../lib/2d/codages.js'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
@@ -7,7 +8,6 @@ import { prenom } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
-  codageSegments,
   point,
   polygone,
   polygoneAvecNom,

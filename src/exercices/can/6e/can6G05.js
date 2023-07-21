@@ -1,4 +1,5 @@
-import { codageSegments, droite, labelPoint, point, segment, segmentAvecExtremites, tracePointSurDroite } from '../../../modules/2d.js'
+import { codageSegments } from '../../../lib/2d/codages.js'
+import { droite, labelPoint, point, segment, segmentAvecExtremites, tracePointSurDroite } from '../../../modules/2d.js'
 import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'

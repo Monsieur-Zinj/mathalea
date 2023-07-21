@@ -1,10 +1,11 @@
+import { afficheCoteSegment, codageCarre, codageSegments } from '../../lib/2d/codages.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, segment, codageCarre, polygoneRegulierParCentreEtRayon, nommePolygone, afficheCoteSegment, codageSegments } from '../../modules/2d.js'
+import { point, segment, polygoneRegulierParCentreEtRayon, nommePolygone } from '../../modules/2d.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
 /**

@@ -1,5 +1,6 @@
 import Algebrite from 'algebrite'
 import { abs, divide, evaluate, format, fraction, isInteger, max, multiply, pow, round, subtract } from 'mathjs'
+import { texteSurArc, texteSurSegment } from '../../lib/2d/codages.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
@@ -9,9 +10,7 @@ import {
   arcPointPointAngle,
   labelPoint,
   point,
-  segmentAvecExtremites,
-  texteSurArc,
-  texteSurSegment
+  segmentAvecExtremites
 } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'

@@ -1,3 +1,4 @@
+import { codageMilieu } from '../../lib/2d/codages.js'
 import { rotation, translation } from '../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texcolors } from '../../lib/format/style.js'
@@ -6,7 +7,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint } from '../../modules/outils.js'
-import { tracePoint, labelPoint, codageMilieu, segment, texteParPosition, vecteur } from '../../modules/2d.js'
+import { tracePoint, labelPoint, segment, texteParPosition, vecteur } from '../../modules/2d.js'
 import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
 

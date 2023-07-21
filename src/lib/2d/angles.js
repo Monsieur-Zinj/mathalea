@@ -3,7 +3,6 @@ import {
   arc,
   cercle,
   cercleCentrePoint,
-  CodageAngle,
   latexParPoint,
   point,
   pointSurCercle,
@@ -16,6 +15,7 @@ import {
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
+import { CodageAngle } from './codages.js'
 import { homothetie, rotation } from './transformations.js'
 
 export function Rapporteur ({

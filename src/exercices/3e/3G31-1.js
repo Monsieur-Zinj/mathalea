@@ -1,17 +1,15 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { afficheLongueurSegment, afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages.js'
 import { similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
   angle,
   labelPoint,
   longueur,
   point,
-  polygone,
-  texteSurSegment
+  polygone
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
