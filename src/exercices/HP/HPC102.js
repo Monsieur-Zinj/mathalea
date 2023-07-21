@@ -1,3 +1,5 @@
+import { courbe, integrale } from '../../lib/2d/courbes.js'
+import { repere } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
@@ -7,7 +9,6 @@ import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { create, all, sqrt } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { integrale, repere, courbe } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

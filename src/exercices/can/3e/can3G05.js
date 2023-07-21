@@ -1,10 +1,11 @@
+import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import {
-  point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
+  point, segment, polygoneAvecNom, rotation, afficheLongueurSegment, pointAdistance, similitude
 } from '../../../modules/2d.js'
 export const titre = 'Utiliser la trigonométrie'
 export const interactifReady = true

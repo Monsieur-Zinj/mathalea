@@ -1,3 +1,4 @@
+import { repere } from '../../lib/2d/reperes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -9,7 +10,6 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import {
-  repere,
   point,
   vecteur,
   nomVecteurParPosition,

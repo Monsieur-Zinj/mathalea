@@ -1,3 +1,4 @@
+import { repere } from '../../lib/2d/reperes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -11,7 +12,6 @@ import {
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import {
-  repere,
   point,
   tracePoint,
   labelPoint,

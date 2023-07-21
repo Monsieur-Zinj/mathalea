@@ -1,3 +1,4 @@
+import { repere } from '../../lib/2d/reperes.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
@@ -5,7 +6,7 @@ import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { repere, droite, segment, tracePoint, labelPoint, point } from '../../modules/2d.js'
+import { droite, segment, tracePoint, labelPoint, point } from '../../modules/2d.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -21,7 +22,7 @@ export const amcType = 'AMCHybride'
 */
 export const uuid = '41e6f'
 export const ref = '2G35-7'
-export default function Lecturegraphiquedeaetb (numeroExercice) {
+export default function Lecturegraphiquedeaetb () {
   Exercice.call(this)
 
   this.nbQuestions = 3// On complète le nb de questions

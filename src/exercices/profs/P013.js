@@ -1,4 +1,6 @@
-import { courbeInterpolee, point, repere, tracePoint } from '../../modules/2d.js'
+import { courbeInterpolee } from '../../lib/2d/courbes.js'
+import { repere } from '../../lib/2d/reperes.js'
+import { point, tracePoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Interpolation cosinusoïdale'

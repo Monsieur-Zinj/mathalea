@@ -1,7 +1,7 @@
 <script>
+  import { repere } from '../lib/2d/reperes.js'
   import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
   import HeaderExercice from '../components/exercice/HeaderExercice.svelte'
-  import { repere } from '../modules/2d'
   import { spline, trieNoeuds } from '../modules/mathFonctions/Spline.js'
   export let indiceExercice
   export let indiceLastExercice

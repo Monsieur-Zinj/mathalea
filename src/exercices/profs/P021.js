@@ -1,4 +1,4 @@
-import { repere } from '../../modules/2d.js'
+import { repere } from '../../lib/2d/reperes.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'

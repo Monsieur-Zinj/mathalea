@@ -1,6 +1,7 @@
+import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { codageAngleDroit, labelPoint, point, polygoneRegulier, tracePoint } from '../../modules/2d.js'
+import { labelPoint, point, polygoneRegulier, tracePoint } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

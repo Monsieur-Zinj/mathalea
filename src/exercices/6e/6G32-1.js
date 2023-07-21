@@ -1,10 +1,11 @@
+import { codageAngle } from '../../lib/2d/angles.js'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texcolors, texteGras } from '../../lib/format/style.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codageAngle, texteParPosition } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, texteParPosition } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
 

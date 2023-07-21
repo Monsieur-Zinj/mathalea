@@ -1,7 +1,8 @@
+import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { creerNomDePolygone, numAlpha, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { codageAngleDroit, codageSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment } from '../../modules/2d.js'
+import { codageSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -41,7 +42,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   this.sup = 4
   this.sup2 = 3
   this.sup3 = true
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

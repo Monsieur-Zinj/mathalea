@@ -1,8 +1,8 @@
+import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import {
   afficheMesureAngle,
-  codageAngleDroit,
   droite,
   longueur,
   nommePolygone,

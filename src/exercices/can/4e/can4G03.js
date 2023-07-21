@@ -1,3 +1,4 @@
+import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/embellissements.js'
 import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
@@ -7,7 +8,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import {
-  point, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude, texteParPosition
+  point, pointAdistance, polygoneAvecNom, milieu, similitude, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true

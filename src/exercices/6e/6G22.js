@@ -1,3 +1,4 @@
+import { codageAngle } from '../../lib/2d/angles.js'
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { couleurTab } from '../../lib/format/style.js'
@@ -6,7 +7,7 @@ import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, pointSurSegment, segment, polygoneAvecNom, labelPoint, droite, pointIntersectionDD, codageAngle, angleOriente, polyline } from '../../modules/2d.js'
+import { point, pointSurSegment, segment, polygoneAvecNom, labelPoint, droite, pointIntersectionDD, angleOriente, polyline } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

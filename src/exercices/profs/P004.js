@@ -1,9 +1,10 @@
+import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { troncature } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, calcul } from '../../modules/outils.js'
-import { point, segment, droiteGraduee } from '../../modules/2d.js'
+import { point, segment } from '../../modules/2d.js'
 
 export const titre = 'Droites graduées avec zoom'
 export const ref = 'P004'
