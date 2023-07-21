@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 
-export const titre = 'Distributivité numérique'
+export const titre = 'Utiliser la distributivité pour du calcul numérique'
 
 export const dateDePublication = '26/11/2022'
 
