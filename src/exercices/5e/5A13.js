@@ -83,7 +83,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       }
       texte = '$ ' + texNombre(n) + ' =$'
       texteCorr = ''
-      if (!this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' = $'
+      if (!this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' = $' + sp()
         
       reponse = ''
       facteurs.sort(compareNombres) // classe les facteurs dans l'ordre croissant
