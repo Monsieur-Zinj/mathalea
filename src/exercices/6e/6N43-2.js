@@ -38,13 +38,7 @@ export default function TableauCriteresDeDivisibilite () {
         'Compléter le tableau en mettant oui ou non dans chaque case.'
     } else {
       this.consigne =
-        'Mettre une croix dans la ou les cases qui conviennent.'
-    }
-    let espace = ''
-    if (context.isHtml) {
-      espace = '&emsp;'
-    } else {
-      espace = '\\qquad'
+        'Mettre une croix dans la case qui convient (ou les cases qui conviennent).'
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -142,7 +136,7 @@ export default function TableauCriteresDeDivisibilite () {
             {
               texte: '5',
               statut: false,
-              feedback: "Le chiffre des unités n'est ni 0 ni 5."
+              feedback: "Le chiffre des unités n'est ni 0, ni 5."
             },
             {
               texte: '9',
@@ -150,7 +144,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: 'Le chiffre des unités est 0, 2, 4, 6 ou 8, il est donc divisible par 2.'
             }
@@ -177,7 +171,7 @@ export default function TableauCriteresDeDivisibilite () {
             {
               texte: '5',
               statut: false,
-              feedback: "Le chiffre des unités n'est ni 0 ni 5."
+              feedback: "Le chiffre des unités n'est ni 0, ni 5."
             },
             {
               texte: '9',
@@ -185,7 +179,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: 'Ce nombre est divisible par 3 car la somme de ses chiffres est divisible par 3.'
             }
@@ -211,7 +205,7 @@ export default function TableauCriteresDeDivisibilite () {
             {
               texte: '5',
               statut: false,
-              feedback: "Le chiffre des unités n'est ni 0 ni 5."
+              feedback: "Le chiffre des unités n'est ni 0, ni 5."
             },
             {
               texte: '9',
@@ -219,7 +213,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: 'Correct !'
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: 'Ce nombre est divisible par 9 et par 3 car la somme de ses chiffres est divisible par 9.'
             }
@@ -253,7 +247,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: `Ce nombre est divisible par 5 car son chiffre des unités est $${tableauDeNombres[i].toString().charAt(tableauDeNombres[i].toString().length - 1)}$.`
             }
@@ -287,7 +281,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: 'Ce nombre est un multiple de 10. Il est donc divisible par 2 et par 5.'
             }
@@ -313,7 +307,7 @@ export default function TableauCriteresDeDivisibilite () {
             {
               texte: '5',
               statut: false,
-              feedback: "Le chiffre des unités n'est ni 0 ni 5."
+              feedback: "Le chiffre des unités n'est ni 0, ni 5."
             },
             {
               texte: '9',
@@ -321,7 +315,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: 'Ce nombre est un nombre pair. Il est donc divisible par 2.'
             }
@@ -347,7 +341,7 @@ export default function TableauCriteresDeDivisibilite () {
             {
               texte: '5',
               statut: false,
-              feedback: "Le chiffre des unités n'est ni 0 ni 5."
+              feedback: "Le chiffre des unités n'est ni 0, ni 5."
             },
             {
               texte: '9',
@@ -355,7 +349,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: 'Correct !'
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: 'Ce nombre est un nombre pair. Il est donc divisible par 2.'
             }
@@ -389,7 +383,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: 'Ce nombre est un nombre pair. Il est donc divisible par 2.'
             }
@@ -423,7 +417,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: 'Correct !'
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: false,
               feedback: 'Ce nombre est un nombre pair. Il est donc divisible par 2.'
             }
@@ -449,7 +443,7 @@ export default function TableauCriteresDeDivisibilite () {
             {
               texte: '5',
               statut: false,
-              feedback: "Le chiffre des unités n'est ni 0 ni 5."
+              feedback: "Le chiffre des unités n'est ni 0, ni 5."
             },
             {
               texte: '9',
@@ -457,7 +451,7 @@ export default function TableauCriteresDeDivisibilite () {
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'aucun',
+              texte: 'aucun de ces nombres',
               statut: true,
               feedback: 'Correct !'
             }
@@ -470,7 +464,7 @@ export default function TableauCriteresDeDivisibilite () {
         lastChoice: 4
       }
       if (!context.isAmc && this.modeQcm) {
-        texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible par ${espace} `
+        texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible par : `
         texte += propositionsQcm(this, i).texte
         texte += '<br>'
       }
