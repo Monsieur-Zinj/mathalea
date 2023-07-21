@@ -1,4 +1,5 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
@@ -6,13 +7,10 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre2 } from '../../lib/outils/texNombre.js'
 import {
-  barycentre,
   latexParPoint,
   longueur,
   milieu,
-  nommePolygone,
   point,
-  polygone,
   segment
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

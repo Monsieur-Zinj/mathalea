@@ -1,5 +1,6 @@
 import { codageAngle, codageAngleDroit, rapporteur } from '../../../lib/2d/angles.js'
 import { droite } from '../../../lib/2d/droites.js'
+import { polygone } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
@@ -12,7 +13,7 @@ import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, labelPoint, segment, milieu, arc, texteParPosition, tracePoint, polygone, pointSurSegment, angleModulo
+  point, labelPoint, segment, milieu, arc, texteParPosition, tracePoint, pointSurSegment, angleModulo
 } from '../../../modules/2d.js'
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'

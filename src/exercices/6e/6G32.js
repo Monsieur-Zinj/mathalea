@@ -1,5 +1,6 @@
 import { afficheLongueurSegment } from '../../lib/2d/codages.js'
 import { droite } from '../../lib/2d/droites.js'
+import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { homothetie, rotation, symetrieAxiale } from '../../lib/2d/transformations.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
@@ -8,7 +9,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { labelPoint, point, segmentAvecExtremites, distancePointDroite, longueur, pointSurDroite, tracePoint, polygone, nommePolygone, angle, arc, latexParPoint, angleOriente } from '../../modules/2d.js'
+import { labelPoint, point, segmentAvecExtremites, distancePointDroite, longueur, pointSurDroite, tracePoint, angle, arc, latexParPoint, angleOriente } from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'
 
 // Gestion de la date de publication initiale

@@ -1,5 +1,6 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
 import { droite } from '../lib/2d/droites.js'
+import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones.js'
 import { translation } from '../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires.js'
 import { arrondi } from '../lib/outils/nombres.js'
@@ -11,10 +12,6 @@ import {
   point,
   pointIntersectionDD,
   pointSurSegment,
-  polygone,
-  polygoneAvecNom,
-  polyline,
-  renommePolygone,
   segment,
   tracePoint,
   vecteur

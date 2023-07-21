@@ -1,3 +1,4 @@
+import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
@@ -5,7 +6,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import {
-  point, segment, milieu, polygoneAvecNom, texteParPosition
+  point, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true

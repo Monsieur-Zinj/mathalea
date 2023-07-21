@@ -2,8 +2,6 @@ import {
   arc,
   point,
   Point,
-  polygone,
-  Polygone,
   segment,
   Segment,
   vecteur,
@@ -13,6 +11,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites
 import { radians } from '../../modules/mathFonctions/trigo.js'
 import { egal } from '../../modules/outils.js'
 import { Droite, droite } from './droites.js'
+import { Polygone, polygone } from './polygones.js'
 
 /**
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v

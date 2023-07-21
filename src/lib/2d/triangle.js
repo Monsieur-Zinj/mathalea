@@ -8,14 +8,14 @@ import {
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
-  pointSurSegment,
-  polygone
+  pointSurSegment
 } from '../../modules/2d.js'
 import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import { codageAngleDroit } from './angles.js'
 import { CodageMilieu } from './codages.js'
 import { Droite, droite, mediatrice } from './droites.js'
+import { polygone } from './polygones.js'
 import { projectionOrtho, rotation, similitude } from './transformations.js'
 
 /**

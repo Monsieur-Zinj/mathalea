@@ -1,3 +1,4 @@
+import { polygone } from '../../lib/2d/polygones.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
@@ -10,7 +11,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, contraindreValeur } from '../../modules/outils.js'
-import { angleOriente, point, pointSurSegment, polygone, texteParPoint } from '../../modules/2d.js'
+import { angleOriente, point, pointSurSegment, texteParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 

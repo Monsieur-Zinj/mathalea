@@ -1,3 +1,4 @@
+import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/embellissements.js'
@@ -10,7 +11,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
-  point, plot, segment, milieu, segmentAvecExtremites, texteParPosition, polygoneAvecNom, polygone
+  point, plot, segment, milieu, segmentAvecExtremites, texteParPosition
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'

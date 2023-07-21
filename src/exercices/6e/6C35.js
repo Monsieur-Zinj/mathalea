@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
 import { max } from 'mathjs'
+import { polygone } from '../../lib/2d/polygones.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires.js'
@@ -8,7 +9,7 @@ import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
+import { point, segment, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

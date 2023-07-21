@@ -7,8 +7,6 @@ import {
   point,
   pointSurCercle,
   pointSurSegment,
-  polygone,
-  polyline,
   segment,
   texteParPoint,
   texteParPosition
@@ -16,6 +14,7 @@ import {
 import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { CodageAngle } from './codages.js'
+import { polygone, polyline } from './polygones.js'
 import { homothetie, rotation } from './transformations.js'
 
 export function Rapporteur ({
