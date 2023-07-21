@@ -42,6 +42,9 @@ export default function CalculEffectifFrequence () {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url
   this.correctionDetailleeDisponible = false
+  this.spacing = 2 // Interligne des questions
+  this.spacingCorr = 2 // Interligne des réponses
+
 
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
   this.nouvelleVersion = function () {

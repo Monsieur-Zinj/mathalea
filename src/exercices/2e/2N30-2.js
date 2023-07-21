@@ -1,6 +1,4 @@
 export const titre = 'Additionner ou soustraire deux fractions'
-
-// eslint-disable-next-line import/first
 import ExerciceAdditionnerOuSoustraireDesFractions from '../4e/4C21.js'
 
 export { interactifReady, interactifType } from '../4e/4C21.js'

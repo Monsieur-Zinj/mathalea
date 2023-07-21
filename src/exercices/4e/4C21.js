@@ -181,15 +181,9 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
         den = b
       }
 
-      // if (this.sup3) {
       texteCorr += `=${deprecatedTexFraction(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
-      if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction)'
-      // } else {
-      //   texteCorr += `=${texFraction(num, den)}`
-      //   texteCorr += '$'
-      // }
-
+      
       const myTexteCorrCol = texteCorr
       if (this.sup4) {
         texteCorr = ''
@@ -205,12 +199,10 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
         if (context.isHtml) {
           texteCorr += '<br>'
         }
-        texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[etapes.length - 1].replace('$', '')}$ <br>`
-      } else {
-        texteCorr = myTexteCorrCol
+        texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[etapes.length - 1].replace('$', '')}$`
       }
-      // Pour l'instant pour tester je mets num et den dans reponse
-
+      if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction.)'
+      
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '=' })
       }
