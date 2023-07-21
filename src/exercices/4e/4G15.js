@@ -1,9 +1,10 @@
+import { droite, mediatrice } from '../../lib/2d/droites.js'
 import { rotation, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { polygone, point, milieu, pointSurSegment, droite, mediatrice, pointAdistance, longueur, vecteur, latexParPoint, tracePoint, labelPoint, polygoneAvecNom, renommePolygone, nommePolygone } from '../../modules/2d.js'
+import { polygone, point, milieu, pointSurSegment, pointAdistance, longueur, vecteur, latexParPoint, tracePoint, labelPoint, polygoneAvecNom, renommePolygone, nommePolygone } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 

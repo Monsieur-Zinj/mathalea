@@ -1,10 +1,10 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
+import { droite } from '../lib/2d/droites.js'
 import { translation } from '../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires.js'
 import { arrondi } from '../lib/outils/nombres.js'
 import {
   distancePointDroite,
-  droite,
   labelPoint,
   longueur,
   norme,

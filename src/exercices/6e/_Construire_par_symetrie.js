@@ -1,4 +1,10 @@
 import { codageMediatrice, codageMilieu } from '../../lib/2d/codages.js'
+import {
+  dessousDessus, droite,
+  droiteHorizontaleParPoint,
+  droiteParPointEtPente,
+  droiteVerticaleParPoint
+} from '../../lib/2d/droites.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { aireTriangle } from '../../lib/2d/triangle.js'
@@ -7,7 +13,7 @@ import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, contraindreValeur } from '../../modules/outils.js'
-import { point, tracePoint, pointSurDroite, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, segment, polygone, nommePolygone, droiteHorizontaleParPoint, dessousDessus, longueur, vecteur, norme, texteParPoint } from '../../modules/2d.js'
+import { point, tracePoint, pointSurDroite, labelPoint, segment, polygone, nommePolygone, longueur, vecteur, norme, texteParPoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const dateDeModificationImportante = '14/11/2021'
 export const amcReady = true

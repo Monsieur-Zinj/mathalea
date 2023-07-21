@@ -1,4 +1,5 @@
 import { codageBissectrice, codageMediatrice } from '../../lib/2d/codages.js'
+import { bissectrice, mediatrice } from '../../lib/2d/droites.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import {
   centreGraviteTriangle,
@@ -11,7 +12,7 @@ import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, mediatrice, bissectrice, polygone, nommePolygone } from '../../modules/2d.js'
+import { point, polygone, nommePolygone } from '../../modules/2d.js'
 export const titre = 'Déterminer la nature d\'une droite remarquable'
 
 /**

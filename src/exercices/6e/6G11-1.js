@@ -1,13 +1,12 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { codageSegment } from '../../lib/2d/codages.js'
+import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import {
   angle,
-  droite,
-  droiteParPointEtPerpendiculaire,
   labelPoint,
   milieu,
   point,

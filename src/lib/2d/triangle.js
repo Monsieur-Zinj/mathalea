@@ -1,10 +1,7 @@
 import { floor } from 'mathjs'
 import {
   cercle,
-  Droite,
-  droite,
   longueur,
-  mediatrice,
   milieu,
   point,
   Point,
@@ -18,6 +15,7 @@ import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import { codageAngleDroit } from './angles.js'
 import { CodageMilieu } from './codages.js'
+import { Droite, droite, mediatrice } from './droites.js'
 import { projectionOrtho, rotation, similitude } from './transformations.js'
 
 /**

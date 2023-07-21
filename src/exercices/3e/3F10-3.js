@@ -1,3 +1,4 @@
+import { droiteParPointEtPente } from '../../lib/2d/droites.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
@@ -6,7 +7,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { droiteParPointEtPente, point, tracePoint, texteParPosition, labelPoint } from '../../modules/2d.js'
+import { point, tracePoint, texteParPosition, labelPoint } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
