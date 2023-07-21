@@ -1,6 +1,5 @@
 import { isNumeric } from 'mathjs'
 import {
-  angleOriente,
   arc,
   latexParPoint,
   longueur,
@@ -18,7 +17,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites
 import { context } from '../../modules/context.js'
 import { nombreDeChiffresDe } from '../outils/nombres.js'
 import { stringNombre } from '../outils/texNombre.js'
-import { codageAngle, codageAngleDroit } from './angles.js'
+import { angleOriente, codageAngle, codageAngleDroit } from './angles.js'
 import { droite, mediatrice } from './droites.js'
 import { rotation, similitude, translation } from './transformations.js'
 

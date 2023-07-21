@@ -1,5 +1,4 @@
 import {
-  angleOriente,
   demiDroite,
   longueur,
   milieu,
@@ -15,6 +14,7 @@ import {
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal } from '../../modules/outils.js'
+import { angleOriente } from './angles.js'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages.js'
 import { homothetie, rotation, symetrieAxiale, translation } from './transformations.js'
 
