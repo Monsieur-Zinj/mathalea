@@ -1,11 +1,12 @@
 import { codageAngle } from '../../lib/2d/angles.js'
+import { triangle2points2angles } from '../../lib/2d/triangle.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { nommePolygone, point, triangle2points2angles } from '../../modules/2d.js'
+import { nommePolygone, point } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Somme des angles dans un triangle'

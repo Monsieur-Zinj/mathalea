@@ -1,10 +1,11 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { translation2Points } from '../../lib/2d/transformations.js'
+import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
-import { afficheLongueurSegment, droite, droiteParPointEtPerpendiculaire, labelPoint, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
+import { afficheLongueurSegment, droite, droiteParPointEtPerpendiculaire, labelPoint, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, vecteur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Transformer une figure par translation'
 

@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { grille } from '../../lib/2d/reperes.js'
 import { rotation } from '../../lib/2d/transformations.js'
+import { aireTriangle } from '../../lib/2d/triangle.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { texteGras } from '../../lib/format/style.js'
@@ -9,7 +10,7 @@ import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, codageSegments, angleOriente } from '../../modules/2d.js'
+import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, arc, codageSegments, angleOriente } from '../../modules/2d.js'
 import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const interactifReady = true

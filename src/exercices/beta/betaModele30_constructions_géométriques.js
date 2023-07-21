@@ -1,4 +1,5 @@
 import { rotation } from '../../lib/2d/transformations.js'
+import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   carre,
@@ -6,8 +7,7 @@ import {
   point,
   pointAdistance,
   segmentAvecExtremites,
-  tracePoint,
-  triangle2points2longueurs
+  tracePoint
 } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
