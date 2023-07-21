@@ -1,5 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
@@ -75,8 +74,8 @@ export default function ExerciceLabyrintheNumeration () {
 
     const chiffre = randint(1, 9)
     texte = `Trouver la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un $${miseEnEvidence(chiffre, 'black')}$.<br>`
-    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${nbL - monchemin[monchemin.length - 1][1]}$.`, 'black')}<br>`
-
+    texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
+      
     const nombreLaby = []
     const rangs = [inversePosition[rang], inversePosition[rangbis], rangbis]
 
@@ -136,6 +135,6 @@ export default function ExerciceLabyrintheNumeration () {
   this.besoinFormulaireCaseACocher = ['Avec des dizaines de mille et des dix-millièmes']
   // this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, ' 1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
   this.besoinFormulaire2Numerique = ['Quel chiffre recherché ?', 3, ' 1 : Unité ou au-dessus\n 2 : En dessous de l\'unité\n 3 : Peu importe']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe', 8, 'Entre 2 et 8\n1 si vous laissez le hasard décider']
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe', 8, 'Entre 3 et 8\n1 si vous laissez le hasard décider']
+  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
 } // Fin de l'exercice.

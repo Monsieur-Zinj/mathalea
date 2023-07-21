@@ -1,6 +1,5 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import Exercice from '../Exercice.js'
+import { miseEnEvidence } from '../../lib/embellissements.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
@@ -60,8 +59,8 @@ export default function ExerciceLabyrinthePremiers3e () {
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin, choice(['blue', 'green', 'red'])) // On trace le chemin solution
 
-      texte = `${texteEnCouleurEtGras('Trouver la sortie en ne passant que par les cases contenant un nombre premier.', 'black')}<br>`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie est le numéro $${nbL - 1 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
+      texte = `Trouver la sortie en ne passant que par les cases contenant un nombre premier.<br>`
+      texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let mauvaisesReponses = []
       const bonnesReponses = combinaisonListes(nbPremiers, nbC * nbL)
