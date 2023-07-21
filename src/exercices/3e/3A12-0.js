@@ -22,6 +22,7 @@ export default class EngrenagesAnimes extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
     this.nbCols = 1
     this.nbColsCorr = 1
     this.sup = 1
@@ -65,7 +66,6 @@ export default class EngrenagesAnimes extends Exercice {
       result += '<br>'
       return result
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const objetsCorrection = []
       let interA, interB, interC, interABC
@@ -76,9 +76,10 @@ export default class EngrenagesAnimes extends Exercice {
       let texteCorr = '' // Idem pour le texte de la correction.
       let remiseAZero
       const divM2d = document.createElement('div') // Notre nouveau div de type HTMLElement (et non plus un string)
+      divM2d.setAttribute('id','divM2d')
       let roues = []
       let rouesCorr
-      switch (listeTypesDeQuestions[i]) {
+      switch (listeTypesDeQuestions[0]) {
         case 1:
           do {
             nbDentsRoueA = randint(8, 25)
@@ -99,6 +100,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
           remiseAZero = () => {
+            try {
             clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
@@ -125,7 +127,11 @@ export default class EngrenagesAnimes extends Exercice {
                 clearInterval(interB)
               }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
             }
+          } catch(e){
+            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, {divM2d: divM2d})
+            }
           }
+          
 
           break
         case 2:
@@ -148,6 +154,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
           remiseAZero = () => {
+            try {
             clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
@@ -173,6 +180,9 @@ export default class EngrenagesAnimes extends Exercice {
                 clearInterval(interA)
                 clearInterval(interB)
               }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
+            }
+          } catch(e){
+              window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, {divM2d: divM2d})
             }
           }
 
@@ -199,6 +209,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
           remiseAZero = () => {
+            try {
             clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
@@ -225,6 +236,9 @@ export default class EngrenagesAnimes extends Exercice {
                 clearInterval(interB)
               }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
             }
+          } catch(e){
+          window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, {divM2d: divM2d})
+        }
           }
           break
         case 4:
@@ -246,6 +260,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
           remiseAZero = () => {
+            try {
             clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
@@ -272,6 +287,9 @@ export default class EngrenagesAnimes extends Exercice {
                 clearInterval(interB)
               }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
             }
+          } catch(e){
+          window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, {divM2d: divM2d})
+        }
           }
           break
         case 5:
@@ -358,11 +376,11 @@ export default class EngrenagesAnimes extends Exercice {
       const paramsCorrection = Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 20, scale: 0.75 })
 
       texte += mathalea2d(paramsEnonce, objetsEnonce)
-      texteCorr += context.isHtml ? `<div id="animRoues${numeroExercice}C${i}"></div>` : ''
+      texteCorr += context.isHtml ? `<div id="animRoues${numeroExercice}"></div>` : ''
 
       divM2d.innerHTML = mathalea2d(paramsCorrection, objetsCorrection)
       const insertInDom = function () {
-        const div = document.querySelector(`#animRoues${numeroExercice}C${i - 1}`) // Quand insertInDom sera exécuté, le i aura été incrémenté d'où ce i - 1
+        const div = document.querySelector(`#animRoues${numeroExercice}`) // Quand insertInDom sera exécuté, le i aura été incrémenté d'où ce i - 1
         if (div) {
           div.innerHTML = ''
           div.appendChild(divM2d)
@@ -379,14 +397,8 @@ export default class EngrenagesAnimes extends Exercice {
 
       document.addEventListener('exercicesAffiches', remiseAZero)
       document.addEventListener('exercicesAffiches', insertInDom)
-
-      if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
-      }
-      cpt++
-    }
+    this.listeQuestions[0]= texte
+    this.listeCorrections[0]=texteCorr
     listeQuestionsToContenu(this)
   }
 }
