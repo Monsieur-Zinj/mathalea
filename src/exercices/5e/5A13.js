@@ -31,7 +31,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
   this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
 
   this.nouvelleVersion = function () {
-    this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers"
+    this.consigne = this.nbQuestions>1?"Écrire les nombres suivants sous la forme d'un produit de facteurs premiers":"Écrire le nombre suivant sous la forme d'un produit de facteurs premiers"
     this.consigne += this.interactif ? " rangés dans l'ordre croissant." : "."
       if (this.level === 2) {
       this.sup = 3
