@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
 import { quatriemeProportionnelle } from '../../lib/outils/calculs.js'
@@ -7,8 +8,6 @@ import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   barycentre,
-  codageAngle,
-  codageAngleDroit,
   homothetie,
   latexParPoint,
   longueur,

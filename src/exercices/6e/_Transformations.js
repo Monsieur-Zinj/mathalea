@@ -1,3 +1,4 @@
+import { codageAngleDroit } from '../../lib/2d/angles.js'
 import {
   choice,
   combinaisonListes,
@@ -10,7 +11,7 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint, codageSegments, codageAngleDroit, pointSurDroite } from '../../modules/2d.js'
+import { point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint, codageSegments, pointSurDroite } from '../../modules/2d.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir } from '../../modules/2dGeneralites.js'

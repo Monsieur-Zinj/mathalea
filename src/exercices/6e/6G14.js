@@ -1,3 +1,4 @@
+import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
@@ -18,7 +19,6 @@ import {
   droiteParPointEtPerpendiculaire,
   droiteParPointEtPente,
   rotation,
-  codageAngleDroit,
   latexParCoordonneesBox,
   pointSurDroite,
   segment

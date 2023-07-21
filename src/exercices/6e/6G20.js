@@ -1,3 +1,4 @@
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
@@ -5,7 +6,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, barycentre, vecteur, polygone, carre, nommePolygone, translation, rotation, homothetie, similitude, codageAngleDroit, codageSegments, codageAngle } from '../../modules/2d.js'
+import { point, barycentre, vecteur, polygone, carre, nommePolygone, translation, rotation, homothetie, similitude, codageSegments } from '../../modules/2d.js'
 export const titre = 'Nommer et coder des polygones'
 
 /**

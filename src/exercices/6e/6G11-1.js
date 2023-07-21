@@ -1,9 +1,9 @@
+import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import {
   angle,
-  codageAngleDroit,
   codageSegment,
   droite,
   droiteParPointEtPerpendiculaire,

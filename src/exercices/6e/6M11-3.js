@@ -1,5 +1,6 @@
+import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { codageAngleDroit, codageSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment, cercle, pointIntersectionCC } from '../../modules/2d.js'
+import { codageSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment, cercle, pointIntersectionCC } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -41,7 +42,7 @@ export default function AireCarresRectanglesTriangles () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let texte = ''; let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')
     this.listeQuestions = []

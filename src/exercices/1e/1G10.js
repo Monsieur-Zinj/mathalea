@@ -1,3 +1,4 @@
+import { cercleTrigo } from '../../lib/2d/angles.js'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { valeursTrigo } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
@@ -5,7 +6,6 @@ import { listeQuestionsToContenu, contraindreValeur } from '../../modules/outils
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-import { cercleTrigo } from '../../modules/2d.js'
 export const titre = 'Valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
 export const interactifType = 'mathLive'

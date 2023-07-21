@@ -1,3 +1,4 @@
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -5,8 +6,6 @@ import {
   afficheLongueurSegment,
   afficheMesureAngle,
   angle,
-  codageAngle,
-  codageAngleDroit,
   labelPoint,
   longueur,
   point,

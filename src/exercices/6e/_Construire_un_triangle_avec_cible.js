@@ -1,3 +1,4 @@
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { cibleRonde, dansLaCibleRonde } from '../../lib/2d/cibles.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
@@ -6,7 +7,7 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { codageSegments, point, pointIntersectionDD, longueur, pointAdistance, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codageAngle, texteParPoint, angle } from '../../modules/2d.js'
+import { codageSegments, point, pointIntersectionDD, longueur, pointAdistance, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, rotation, similitude, afficheLongueurSegment, afficheMesureAngle, texteParPoint, angle } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 

@@ -1,3 +1,4 @@
+import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -7,7 +8,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.j
 import { fraction } from '../../../modules/fractions.js'
 import Decimal from 'decimal.js'
 import {
-  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
+  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'

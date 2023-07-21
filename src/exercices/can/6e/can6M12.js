@@ -1,6 +1,7 @@
+import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
-import { codageSegments, milieu, texteParPosition, point, segment, codageAngleDroit } from '../../../modules/2d.js'
+import { codageSegments, milieu, texteParPosition, point, segment } from '../../../modules/2d.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
