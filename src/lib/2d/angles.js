@@ -4,20 +4,19 @@ import {
   cercle,
   cercleCentrePoint,
   CodageAngle,
-  homothetie,
   latexParPoint,
   point,
   pointSurCercle,
   pointSurSegment,
   polygone,
   polyline,
-  rotation,
   segment,
   texteParPoint,
   texteParPosition
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
+import { homothetie, rotation } from './transformations.js'
 
 export function Rapporteur ({
   x = 0,

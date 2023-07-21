@@ -1,4 +1,5 @@
-import { angleOriente, centreCercleCirconscrit, droite, longueur, milieu, pointSurSegment, projectionOrtho, rotation } from '../2d.js'
+import { projectionOrtho, rotation } from '../../lib/2d/transformations.js'
+import { angleOriente, centreCercleCirconscrit, droite, longueur, milieu, pointSurSegment } from '../2d.js'
 
 /**
  * Trace la médiatrice de [AB] au compas. Le paramétrage des longueurs correspond à la distance entre le milieu du segment et le point d'intersection des arcs de cercles

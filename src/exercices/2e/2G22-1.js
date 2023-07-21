@@ -1,9 +1,10 @@
 import { repere } from '../../lib/2d/reperes.js'
+import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, homothetie, longueur, latexParPoint } from '../../modules/2d.js'
+import { point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, longueur, latexParPoint } from '../../modules/2d.js'
 
 export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées'
 

@@ -1,5 +1,6 @@
+import { translation } from '../lib/2d/transformations.js'
 import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from './2dGeneralites.js'
-import { texteParPosition, latexParCoordonnees, point, polygone, segment, translation, vecteur } from './2d.js'
+import { texteParPosition, latexParCoordonnees, point, polygone, segment, vecteur } from './2d.js'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote

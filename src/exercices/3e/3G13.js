@@ -1,15 +1,14 @@
 import Algebrite from 'algebrite'
 import { abs, divide, evaluate, format, fraction, isInteger, max, multiply, pow, round, subtract } from 'mathjs'
+import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {
   arcPointPointAngle,
-  homothetie,
   labelPoint,
   point,
-  rotation,
   segmentAvecExtremites,
   texteSurArc,
   texteSurSegment

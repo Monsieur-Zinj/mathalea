@@ -1,10 +1,10 @@
+import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   carre,
   labelPoint,
   point,
   pointAdistance,
-  rotation,
   segmentAvecExtremites,
   tracePoint,
   triangle2points2longueurs

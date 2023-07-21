@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
+import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/embellissements.js'
 import { arrondi } from '../../lib/outils/nombres.js'
@@ -9,7 +10,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, segment, rotation, afficheCoteSegment, longueur } from '../../modules/2d.js'
+import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, segment, afficheCoteSegment, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC

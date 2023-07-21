@@ -1,16 +1,13 @@
+import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations.js'
 import { nombreAvecEspace } from '../lib/outils/texNombre.js'
 import { egal } from './outils.js'
 import {
   barycentre,
-  homothetie,
   point,
   polygone,
   polygoneRegulier,
-  rotation,
-  similitude,
   texteParPosition,
   tracePoint,
-  translation,
   vecteur
 } from './2d.js'
 

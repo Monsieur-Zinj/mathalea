@@ -1,8 +1,9 @@
+import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, droite, segment, rotation, longueur } from '../../modules/2d.js'
+import { point, pointSurSegment, pointIntersectionDD, droite, segment, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angles'

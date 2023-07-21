@@ -1,11 +1,12 @@
 import { codageAngle } from '../../lib/2d/angles.js'
+import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { degCos, degSin } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, demiDroite, triangle2points1angle1longueur, texteParPoint, rotation, pointAdistance } from '../../modules/2d.js'
+import { point, tracePoint, demiDroite, triangle2points1angle1longueur, texteParPoint, pointAdistance } from '../../modules/2d.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true

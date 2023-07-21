@@ -1,5 +1,6 @@
 // import iepLoadPromise from 'instrumenpoche'
-import { angleOriente, droite, homothetie, longueur, milieu, norme, point, pointAdistance, pointSurSegment, rotation, segment, translation, translation2Points, vecteur } from './2d.js'
+import { homothetie, rotation, translation, translation2Points } from '../lib/2d/transformations.js'
+import { angleOriente, droite, longueur, milieu, norme, point, pointAdistance, pointSurSegment, segment, vecteur } from './2d.js'
 import { context } from './context.js'
 import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables.js'
 import { paralleleAuCompas, paralleleAuCompasAvecDescription, paralleleRegleEquerre2points3epoint, paralleleRegleEquerreDroitePointAvecDescription, perpendiculaireCompasPoint, perpendiculaireCompasPointSurLaDroite, perpendiculaireRegleEquerre2points3epoint, perpendiculaireRegleEquerreDroitePoint, perpendiculaireRegleEquerrePointSurLaDroite } from './iepMacros/parallelesEtPerpendiculaires.js'
@@ -1084,9 +1085,9 @@ export default class Alea2iep {
   /**
  * Masque le trait d'id fourni
  * @param {int} id
- * @param {objet} options Défaut : { tempo: 0, vitesse: 200 }
+ * @param {objet} options Défaut : { tempo: 0, vitesse: 200 } // @fixme tempo n'étant pas utilisée je l'ai supprimé des arguments
  */
-  traitMasquer (id, { tempo = 0, vitesse = 200 } = {}) {
+  traitMasquer (id, {  vitesse = 200 } = {}) {
     this.liste_script.push(`<action mouvement="masquer" objet="trait" id="${id}" vitesse="${vitesse}" />`)
   }
 

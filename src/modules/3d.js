@@ -1,4 +1,5 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
+import { translation } from '../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires.js'
 import { arrondi } from '../lib/outils/nombres.js'
 import {
@@ -16,7 +17,6 @@ import {
   renommePolygone,
   segment,
   tracePoint,
-  translation,
   vecteur
 } from './2d.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, vide2d } from './2dGeneralites.js'

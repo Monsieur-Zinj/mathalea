@@ -4,7 +4,8 @@
  ************************************************
  */
 
-import { translation2Points, longueur, pointSurSegment, similitude, pointAdistance, droite, homothetie } from '../2d.js'
+import { homothetie, similitude, translation2Points } from '../../lib/2d/transformations.js'
+import { longueur, pointSurSegment, pointAdistance, droite } from '../2d.js'
 
 /**
    * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs
@@ -13,9 +14,8 @@ import { translation2Points, longueur, pointSurSegment, similitude, pointAdistan
    * @param {point} C
    * @param {string} nomD
    * @param {boolean} description
-   * @param {boolean} csDejaTraces À true (par défaut), les 2 côtés seront faits immédiatement, sinon, on les tracera à la règle.
    */
-export function parallelogramme3sommetsConsecutifs (A, B, C, nomD = '', description = true, csDejaTraces = true) {
+export function parallelogramme3sommetsConsecutifs (A, B, C, nomD = '', description = true) {
   const D = translation2Points(C, B, A)
   D.nom = nomD
   const xMin = Math.min(A.x, B.x, C.x, D.x)
@@ -27,8 +27,10 @@ export function parallelogramme3sommetsConsecutifs (A, B, C, nomD = '', descript
   this.pointCreer(A, A.nom, 0)
   this.pointCreer(B, B.nom, 0)
   this.pointCreer(C, C.nom, 0)
-  this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses côtés opposés sont de même longueur.`, xMin - 1, yMin - 1)
-  this.compasEcarter2Points(B, A)
+  if (description) {
+    this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses côtés opposés sont de même longueur.`, xMin - 1, yMin - 1)
+  }
+   this.compasEcarter2Points(B, A)
   this.textePosition(`${B.nom + A.nom} = ${C.nom + D.nom}`, xMin - 1, yMin - 2)
   this.compasTracerArcCentrePoint(C, D)
   this.compasEcarter2Points(B, C)

@@ -1,4 +1,5 @@
-import { point, pointAdistance, rotation, pointSurSegment, polygoneAvecNom } from '../2d.js'
+import { rotation } from '../../lib/2d/transformations.js'
+import { point, pointAdistance, pointSurSegment, polygoneAvecNom } from '../2d.js'
 import { randint } from '../outils.js'
 
 /**

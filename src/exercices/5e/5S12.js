@@ -1,5 +1,6 @@
 import { repere } from '../../lib/2d/reperes.js'
 import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
+import { rotation, translation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
@@ -11,7 +12,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { segment, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, cercleCentrePoint } from '../../modules/2d.js'
+import { segment, arc, point, motifs, tracePoint, vecteur, carre, texteParPosition, cercleCentrePoint } from '../../modules/2d.js'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModificationImportante = '17/04/2022'

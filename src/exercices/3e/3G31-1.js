@@ -1,4 +1,5 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -10,7 +11,6 @@ import {
   longueur,
   point,
   polygone,
-  similitude,
   texteSurSegment
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

@@ -1,4 +1,5 @@
-import { cercle, point, rotation, segment } from '../../../modules/2d.js'
+import { rotation } from '../../../lib/2d/transformations.js'
+import { cercle, point, segment } from '../../../modules/2d.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'

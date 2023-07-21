@@ -1,8 +1,9 @@
+import { homothetie, rotation, symetrieAxiale, translation2Points } from '../../lib/2d/transformations.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, calcul, randint } from '../../modules/outils.js'
-import { droite, tracePointSurDroite, labelPoint, tracePoint, rotation, translation2Points, homothetie, symetrieAxiale, point } from '../../modules/2d.js'
+import { droite, tracePointSurDroite, labelPoint, tracePoint, point } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Utiliser toutes les transformations'
 

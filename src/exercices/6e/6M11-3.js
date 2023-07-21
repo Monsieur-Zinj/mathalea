@@ -1,6 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { rotation, similitude, translation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { codageSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment, cercle, pointIntersectionCC } from '../../modules/2d.js'
+import { codageSegments, pointAdistance, polygoneAvecNom, point, vecteur, afficheLongueurSegment, cercle, pointIntersectionCC } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
