@@ -1,6 +1,7 @@
-import { point, segment, texteParPosition, vecteur } from '../../modules/2d.js'
+import { point, texteParPosition } from '../../modules/2d.js'
 import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { segment, vecteur } from './segmentsVecteurs.js'
 
 export function GlisseNombre (nombre = '', decalage = 0) {
   ObjetMathalea2D.call(this, {})

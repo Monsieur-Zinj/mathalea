@@ -1,12 +1,12 @@
 import { barycentre, polygone, polygoneRegulier } from '../lib/2d/polygones.js'
+import { vecteur } from '../lib/2d/segmentsVecteurs.js'
 import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations.js'
 import { nombreAvecEspace } from '../lib/outils/texNombre.js'
 import { egal } from './outils.js'
 import {
   point,
   texteParPosition,
-  tracePoint,
-  vecteur
+  tracePoint
 } from './2d.js'
 
 /**

@@ -5,6 +5,7 @@ import {
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire
 } from '../../lib/2d/droites.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
@@ -22,8 +23,7 @@ import {
   point,
   pointIntersectionDD,
   latexParCoordonneesBox,
-  pointSurDroite,
-  segment
+  pointSurDroite
 } from '../../modules/2d.js'
 
 export const amcReady = true

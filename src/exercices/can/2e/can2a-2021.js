@@ -1,6 +1,7 @@
 import { codageSegment } from '../../../lib/2d/codages.js'
 import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
+import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
@@ -11,7 +12,7 @@ import { context } from '../../../modules/context.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, labelPoint, segment, milieu, texteParPosition
+  point, labelPoint, milieu, texteParPosition
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, printlatex, calcul } from '../../../modules/outils.js'

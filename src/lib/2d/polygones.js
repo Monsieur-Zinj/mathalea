@@ -1,20 +1,18 @@
 import earcut from 'earcut'
 import {
   latexParCoordonnees,
-  longueur,
   Point,
   point,
   pointAdistance,
   pointSurSegment,
-  segment,
   texteParPoint,
-  texteParPositionEchelle,
-  vecteur
+  texteParPositionEchelle
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
+import { longueur, segment, vecteur } from './segmentsVecteurs.js'
 import { homothetie, rotation, translation } from './transformations.js'
 import { aireTriangle } from './triangle.js'
 

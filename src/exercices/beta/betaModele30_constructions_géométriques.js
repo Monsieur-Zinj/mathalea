@@ -1,4 +1,5 @@
 import { carre } from '../../lib/2d/polygones.js'
+import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -6,7 +7,6 @@ import {
   labelPoint,
   point,
   pointAdistance,
-  segmentAvecExtremites,
   tracePoint
 } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'

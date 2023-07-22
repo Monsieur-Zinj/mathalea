@@ -1,5 +1,7 @@
 import { antecedentParDichotomie, courbe, courbeInterpolee } from '../../lib/2d/courbes.js'
+import { droiteParPointEtPente } from '../../lib/2d/droites.js'
 import { repere } from '../../lib/2d/reperes.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom, prenomM } from '../../lib/outils/Personne.js'
@@ -10,7 +12,7 @@ import Decimal from 'decimal.js'
 
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
-import { texteParPosition, point, segment } from '../../modules/2d.js'
+import { texteParPosition, point } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { exp } from 'mathjs'
 export const titre = 'Modéliser une situation à l\'aide d\'une fonction'
@@ -227,7 +229,8 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             })
 
             const f = x => a + c1 * x
-            const g = x => prix2
+            const Cg = droiteParPointEtPente(point(0,prix2),0,'','red')
+            Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -3,
               xmax: 11,
@@ -240,11 +243,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }), courbe(g, {
-              repere: r1,
-              color: 'red',
-              epaisseur: 2
-            }), TexteX, TexteY
+            }),Cg, TexteX, TexteY
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = `  Une société de location de véhicules particuliers propose le tarif suivant pour un week-end de location :<br>
           ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(c, 2)}$ € par km parcouru (dans la limite de $${texNombre(km, 0)}$ km).<br>
@@ -314,7 +313,8 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
               grilleSecondaireXMax: 130
             })
             const f = x => x ** 2 / a1
-            const g = x => b
+            const Cg = droiteParPointEtPente(point(0,b),0,'','red')
+            Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -2.5,
               xmax: 14.5,
@@ -327,11 +327,7 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }), courbe(g, {
-              repere: r1,
-              color: 'red',
-              epaisseur: 2
-            }), TexteX, TexteY
+            }),Cg, TexteX, TexteY
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = `  Sur toute sèche, la distance de freinage en mètres, d'une voiture est modélisée de la façon suivante : <br>
           En notant $v$ la vitesse du véhicule (en km/h), sa distance de freinage $d(v)$  (en m) est donnée par le carré de sa vitesse divisée par $${texNombre(a, 1)}$.<br>
@@ -403,7 +399,8 @@ Voici la courbe représentative de la fonction $d$ avec la solution de la questi
               grilleSecondaireXMax: 300
             })
             const f = x => a - b * x
-            const g = x => c
+            const Cg = droiteParPointEtPente(point(0,c),0,'','red')
+            Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -4,
               xmax: 17,
@@ -416,11 +413,7 @@ Voici la courbe représentative de la fonction $d$ avec la solution de la questi
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }), courbe(g, {
-              repere: r1,
-              color: 'red',
-              epaisseur: 2
-            }), TexteX, TexteY
+            }), Cg, TexteX, TexteY
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = ` Le nombre d’abonnés à une revue dépend du prix de l’abonnement à cette revue, prix exprimé en euros.<br>
           On considère que l’on a la relation : <br>
@@ -524,7 +517,8 @@ Pour avoir $${texNombre(c)}$ abonnés, la directrice des abonnements doit fixer 
               grilleSecondaireXMax: 70
             })
             const f = x => a1 * x
-            const g = x => prix1
+            const Cg = droiteParPointEtPente(point(0,prix1),0,'','red')
+            Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -3,
               xmax: 16,
@@ -537,11 +531,7 @@ Pour avoir $${texNombre(c)}$ abonnés, la directrice des abonnements doit fixer 
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }), courbe(g, {
-              repere: r1,
-              color: 'red',
-              epaisseur: 2
-            }), TexteX, TexteY
+            }),Cg, TexteX, TexteY
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = `  Dans une station service, le prix de l'essence sans plomb 95 est de $${texNombre(a)}$ € le litre.<br>
 Dans cette station, il n'est pas possible de prendre moins de $${b}$ litres d'essence.<br>
@@ -826,7 +816,8 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const f = x => a * x * exp(b * x)
             const fprime = x => (a + a * b * x) * exp(b * x)
-            const g = x => 0.5
+            const Cg = droiteParPointEtPente(point(0,0.5),0,'','red')
+            Cg.epaisseur = 2
             const s0 = antecedentParDichotomie(0, 7, fprime, 0, 0.01)
             const s1 = antecedentParDichotomie(0, s0 * 1.5, f, 0.5, 0.01)
             const s2 = antecedentParDichotomie(s0 * 1.5, 6 * 1.5, f, 0.5, 0.01)
@@ -921,13 +912,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
               color: 'blue',
               epaisseur: 2
             }),
-            r1, o, sAAx, sAAy, sCCx, sBBx, sBxCx, Texte1, Texte2, Texte3, Texte4], [courbe(g, {
-              repere: r1,
-              xMin: 0,
-              xMax: 9,
-              color: 'red',
-              epaisseur: 2
-            }),
+            r1, o, sAAx, sAAy, sCCx, sBBx, sBxCx, Texte1, Texte2, Texte3, Texte4, Cg,
             r1, o])
             texte = `             Le Code de la route interdit toute conduite d’un véhicule lorsque le taux d’alcoolémie est supérieur ou égal à $0,5$ g/L.<br>
             Le taux d’alcoolémie d’une personne pendant les $10$ heures suivant la consommation d’une certaine quantité d’alcool est modélisé par la fonction $${nom}$.<br>

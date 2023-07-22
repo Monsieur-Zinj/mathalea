@@ -1,4 +1,5 @@
 import { repere } from '../../lib/2d/reperes.js'
+import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -15,10 +16,7 @@ import {
   point,
   tracePoint,
   labelPoint,
-  segment,
-  nomVecteurParPosition,
-  texteParPosition,
-  vecteur
+  texteParPosition
 } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'

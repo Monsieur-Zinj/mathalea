@@ -1,9 +1,9 @@
+import { segment } from '../lib/2d/segmentsVecteurs.js'
 import { combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils.js'
 import { nombreAvecEspace } from '../lib/outils/texNombre.js'
 import {
   latexParCoordonnees,
   point,
-  segment,
   texteParPoint,
   texteParPointEchelle,
   texteParPositionEchelle

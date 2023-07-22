@@ -1,10 +1,11 @@
 import { droite } from '../../lib/2d/droites.js'
+import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { point, tracePointSurDroite, demiDroite, labelPoint, segment } from '../../modules/2d.js'
+import { point, tracePointSurDroite, labelPoint } from '../../modules/2d.js'
 
 export const titre = 'Donner description et notation de droites, segments et demi-droites'
 

@@ -1,5 +1,6 @@
 import { droite } from '../../../lib/2d/droites.js'
 import { repere } from '../../../lib/2d/reperes.js'
+import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
@@ -8,7 +9,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import {
   texteParPosition,
-  point, tracePoint, segment, milieu
+  point, tracePoint, milieu
 } from '../../../modules/2d.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer le coefficient directeur d\'une droite (graphique)'

@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
+import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
 import {
@@ -14,7 +15,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import {
-  point, labelPoint, segment, milieu, texteParPosition
+  point, labelPoint, milieu, texteParPosition
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import FractionEtendue from '../../../modules/FractionEtendue.js'

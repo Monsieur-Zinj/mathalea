@@ -1,4 +1,5 @@
 import { grille } from '../../lib/2d/reperes.js'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -11,9 +12,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import {
   point,
   tracePoint,
-  labelPoint,
-  vecteur,
-  segment
+  labelPoint
 } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'

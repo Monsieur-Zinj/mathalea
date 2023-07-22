@@ -1,4 +1,5 @@
 import { afficheLongueurSegment } from '../../lib/2d/codages.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { miseEnEvidence } from '../../lib/embellissements.js'
 import { arrondi } from '../../lib/outils/nombres.js'
@@ -9,7 +10,6 @@ import {
   latexParPoint,
   point,
   pointAdistance,
-  segment,
   tracePoint
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

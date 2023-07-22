@@ -1,7 +1,8 @@
+import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
-import { longueur, vecteur, milieu } from '../2d.js'
+import { milieu } from '../2d.js'
 import { randint } from '../outils.js'
 
 /**

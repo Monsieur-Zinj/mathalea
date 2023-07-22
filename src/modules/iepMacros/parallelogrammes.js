@@ -5,8 +5,9 @@
  */
 
 import { droite } from '../../lib/2d/droites.js'
+import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie, similitude, translation2Points } from '../../lib/2d/transformations.js'
-import { longueur, pointSurSegment, pointAdistance } from '../2d.js'
+import { pointSurSegment, pointAdistance } from '../2d.js'
 
 /**
    * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs

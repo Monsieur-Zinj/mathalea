@@ -3,14 +3,11 @@ import {
   cercle,
   cercleCentrePoint,
   latexParPoint,
-  longueur,
   point,
   pointSurCercle,
   pointSurSegment,
-  segment,
   texteParPoint,
-  texteParPosition,
-  vecteur
+  texteParPosition
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -18,6 +15,7 @@ import { egal } from '../../modules/outils.js'
 import { arrondi, unSiPositifMoinsUnSinon } from '../outils/nombres.js'
 import { CodageAngle } from './codages.js'
 import { polygone, polyline } from './polygones.js'
+import { longueur, segment, vecteur } from './segmentsVecteurs.js'
 import { homothetie, rotation } from './transformations.js'
 
 export function Rapporteur ({

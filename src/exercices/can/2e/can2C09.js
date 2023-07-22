@@ -1,4 +1,5 @@
 import { codageSegments } from '../../../lib/2d/codages.js'
+import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/embellissements.js'
 import {
@@ -10,7 +11,7 @@ import { stringNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import { point, segmentAvecExtremites, segment, texteParPosition, milieu } from '../../../modules/2d.js'
+import { point, texteParPosition, milieu } from '../../../modules/2d.js'
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

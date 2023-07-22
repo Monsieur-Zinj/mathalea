@@ -1,6 +1,7 @@
-import { latexParCoordonnees, milieu, point, segment, texteParPosition } from '../../modules/2d.js'
+import { latexParCoordonnees, milieu, point, texteParPosition } from '../../modules/2d.js'
 import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { polygone, polyline } from './polygones.js'
+import { segment } from './segmentsVecteurs.js'
 
 /**
  * fonction utilisée par la classe Tableau pour créer une flèche

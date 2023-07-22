@@ -1,7 +1,6 @@
 import { floor } from 'mathjs'
 import {
   cercle,
-  longueur,
   milieu,
   point,
   Point,
@@ -16,6 +15,7 @@ import { codageAngleDroit } from './angles.js'
 import { CodageMilieu } from './codages.js'
 import { Droite, droite, mediatrice } from './droites.js'
 import { polygone } from './polygones.js'
+import { longueur } from './segmentsVecteurs.js'
 import { projectionOrtho, rotation, similitude } from './transformations.js'
 
 /**

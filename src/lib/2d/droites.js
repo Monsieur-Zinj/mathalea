@@ -1,21 +1,17 @@
 import {
-  demiDroite,
-  longueur,
   milieu,
-  norme,
   point,
   pointSurDroite,
   pointSurSegment,
-  segment,
   texteParPosition,
-  traceCompas,
-  vecteur
+  traceCompas
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal } from '../../modules/outils.js'
 import { angleOriente } from './angles.js'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages.js'
+import { demiDroite, longueur, norme, segment, vecteur } from './segmentsVecteurs.js'
 import { homothetie, rotation, symetrieAxiale, translation } from './transformations.js'
 
 /**  Trace une droite

@@ -3,6 +3,7 @@ import { codageSegments } from '../../../lib/2d/codages.js'
 import { droite } from '../../../lib/2d/droites.js'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, repere } from '../../../lib/2d/reperes.js'
+import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/embellissements.js'
@@ -16,7 +17,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
-  point, segment, milieu, labelPoint, demiDroite, segmentAvecExtremites, tracePoint, texteParPosition
+  point, milieu, labelPoint, tracePoint, texteParPosition
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'

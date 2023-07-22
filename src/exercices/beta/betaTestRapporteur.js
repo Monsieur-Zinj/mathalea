@@ -1,9 +1,10 @@
 import { rapporteur } from '../../lib/2d/angles.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { arc, point, segment } from '../../modules/2d.js'
+import { arc, point } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 

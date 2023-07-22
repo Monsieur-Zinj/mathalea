@@ -1,7 +1,8 @@
 import { add, number, multiply } from 'mathjs'
+import { segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
 import { homothetie, translation } from '../lib/2d/transformations.js'
 import { arrondi } from '../lib/outils/nombres.js'
-import { latexParCoordonnees, latexParPoint, point, segment, vecteur } from './2d.js'
+import { latexParCoordonnees, latexParPoint, point } from './2d.js'
 import { fraction } from './fractions.js'
 import { calcul } from './outils.js'
 

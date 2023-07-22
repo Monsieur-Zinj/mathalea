@@ -3,7 +3,6 @@ import {
   latexParCoordonnees,
   plot,
   point,
-  segment,
   texteParPoint,
   texteParPosition,
   tracePoint
@@ -13,6 +12,7 @@ import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { arrondi, rangeMinMax } from '../outils/nombres.js'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre.js'
+import { segment } from './segmentsVecteurs.js'
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades

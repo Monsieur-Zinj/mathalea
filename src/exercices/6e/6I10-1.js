@@ -1,12 +1,13 @@
 import { polygone } from '../../lib/2d/polygones.js'
 import { grille } from '../../lib/2d/reperes.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { degCos, degSin } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, texteParPosition, segment } from '../../modules/2d.js'
+import { point, texteParPosition } from '../../modules/2d.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

@@ -2,6 +2,7 @@ import { angle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages.js'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites.js'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones.js'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { projectionOrtho } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
@@ -15,7 +16,7 @@ import {
   randint,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import { point, segment, texteParPosition, milieu, tracePoint, labelPoint, pointAdistance, longueur, cercle, pointIntersectionLC } from '../../modules/2d.js'
+import { point, texteParPosition, milieu, tracePoint, labelPoint, pointAdistance, cercle, pointIntersectionLC } from '../../modules/2d.js'
 import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
