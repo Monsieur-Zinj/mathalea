@@ -562,7 +562,7 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
  */
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   let x, y
-  if (f.a * d.b - f.b * d.a === 0) {
+  if (egal(f.a * d.b - f.b * d.a, 0,0.000001)) {
     // Les droites sont parallèles, pas de point d'intersection
     return false
   } else {
