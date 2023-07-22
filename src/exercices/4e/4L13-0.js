@@ -2,7 +2,7 @@ import { afficheCoteSegment, codageCarre, codageSegments } from '../../lib/2d/co
 import { nommePolygone, polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../lib/embellissements.js'
+import { texteEnCouleur } from '../../lib/outils/embellissements.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

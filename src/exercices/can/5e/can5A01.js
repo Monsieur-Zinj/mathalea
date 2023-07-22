@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { scratchblock } from '../../../modules/scratchblock.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 

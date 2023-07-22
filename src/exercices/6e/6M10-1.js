@@ -1,7 +1,7 @@
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'

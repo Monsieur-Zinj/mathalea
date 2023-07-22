@@ -1,6 +1,6 @@
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'

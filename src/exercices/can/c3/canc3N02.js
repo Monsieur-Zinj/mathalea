@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

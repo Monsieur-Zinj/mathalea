@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString.js'

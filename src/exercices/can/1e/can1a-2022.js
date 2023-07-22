@@ -3,7 +3,7 @@ import { droite } from '../../../lib/2d/droites.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,

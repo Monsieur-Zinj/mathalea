@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'

@@ -1,5 +1,5 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -236,4 +236,4 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de 10\n3 : Encadrer entre deux multiples consécutifs de 100']
   // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
-};
+}

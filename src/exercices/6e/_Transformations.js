@@ -10,7 +10,7 @@ import {
   enleveElementBis,
   enleveElementNo
 } from '../../lib/outils/arrayOutils.js'
-import { miseEnCouleur, miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'

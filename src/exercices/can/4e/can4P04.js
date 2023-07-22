@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { prenom } from '../../../lib/outils/Personne.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'

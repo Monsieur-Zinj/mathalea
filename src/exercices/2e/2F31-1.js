@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

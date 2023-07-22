@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { droite, droiteParPointEtPente, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

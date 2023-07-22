@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Connaître les tables de multiplication (avec des divisions)'

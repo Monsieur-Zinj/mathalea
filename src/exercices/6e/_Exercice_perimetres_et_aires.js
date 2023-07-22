@@ -4,7 +4,7 @@ import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } from '../../lib/outils/nombres.js'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'

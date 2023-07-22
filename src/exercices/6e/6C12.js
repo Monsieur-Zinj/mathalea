@@ -1,5 +1,5 @@
 import { choice, enleveElementNo } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { arrondi, range, rangeMinMax, troncature } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF } from '../../lib/outils/Personne.js'

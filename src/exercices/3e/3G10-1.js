@@ -4,7 +4,7 @@ import { droiteHorizontaleParPoint, droiteParPointEtPente, droiteVerticaleParPoi
 import { repere } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { miseEnCouleur, miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

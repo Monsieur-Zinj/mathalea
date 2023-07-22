@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'

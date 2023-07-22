@@ -1,5 +1,5 @@
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import {

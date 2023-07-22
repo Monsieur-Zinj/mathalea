@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { warnMessage } from '../../lib/format/message.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
@@ -76,22 +76,7 @@ export default function EqResolvantesThales () {
       return sortie
     }
 
-    // Un fonction pour afficher la simplification si c'est possible
-    // eslint-disable-next-line no-unused-vars
-    function simplificationSiPossible (bool, frac, inc) {
-      let sortie
-      if (!bool) {
-        sortie = `
-        ${texteEnCouleurEtGras('On simplifie la fraction.')}<br>
-        $${inc}=${frac.texFractionSimplifiee}$<br></br>
-        `
-      } else {
-        sortie = ''
-      }
-      return sortie
-    }
-
-    if (this.debug) {
+        if (this.debug) {
       typesDeQuestionsDisponibles = [0, 1, 2, 3]
     } else {
       typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])

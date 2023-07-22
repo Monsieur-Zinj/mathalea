@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { context } from '../../../modules/context.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 

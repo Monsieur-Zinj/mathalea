@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'

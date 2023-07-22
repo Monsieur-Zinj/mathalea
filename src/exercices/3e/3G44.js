@@ -1,6 +1,6 @@
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'

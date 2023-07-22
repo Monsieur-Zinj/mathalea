@@ -1,4 +1,4 @@
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'

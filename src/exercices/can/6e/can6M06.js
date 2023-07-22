@@ -1,6 +1,6 @@
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { longueur } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import { randint } from '../../../modules/outils.js'

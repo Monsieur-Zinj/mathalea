@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, combinaisonListes2, enleveElement, enleveElementNo } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

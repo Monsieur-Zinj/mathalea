@@ -1,7 +1,7 @@
 import { afficheLongueurSegment } from '../../lib/2d/codages.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'

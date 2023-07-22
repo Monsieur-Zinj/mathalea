@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { lampeMessage } from '../../lib/format/message.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'

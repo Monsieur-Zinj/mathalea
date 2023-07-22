@@ -2,7 +2,7 @@ import { antecedentInterpole, graphiqueInterpole, imageInterpolee } from '../../
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { arrondi, numTrie } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

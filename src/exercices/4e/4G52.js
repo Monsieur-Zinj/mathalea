@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { labelPoint, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'

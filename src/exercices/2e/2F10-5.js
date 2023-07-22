@@ -1,7 +1,7 @@
 import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { reduireAxPlusB, rienSi1, ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

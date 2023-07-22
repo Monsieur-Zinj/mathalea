@@ -1,4 +1,4 @@
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint, calcul } from '../../../modules/outils.js'

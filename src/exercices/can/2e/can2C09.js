@@ -1,7 +1,7 @@
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import {
   deprecatedTexFraction,
   simplificationDeFractionAvecEtapes,

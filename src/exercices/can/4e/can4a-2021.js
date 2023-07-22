@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import {
   deprecatedTexFraction,
   simplificationDeFractionAvecEtapes,

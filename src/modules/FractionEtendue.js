@@ -1,7 +1,7 @@
 import { carre } from '../lib/2d/polygones.js'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
 import { rotation, translation } from '../lib/2d/transformations.js'
-import { miseEnEvidence } from '../lib/embellissements.js'
+import { miseEnEvidence } from '../lib/outils/embellissements.js'
 import { extraireRacineCarree } from '../lib/outils/calculs.js'
 import { fractionSimplifiee } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
