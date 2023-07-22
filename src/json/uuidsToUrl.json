@@ -631,6 +631,7 @@
   "d633a": "2e/2G12-4.js",
   "2b8bf": "2e/2G21-1.js",
   "3a3ec": "2e/2G22-1.js",
+  "d2b57": "2e/2G23-1.js",
   "fa7b9": "2e/2G23-2.js",
   "f71c1": "2e/2G24-1.js",
   "14a2c": "2e/2G24-3.js",
@@ -1184,8 +1185,8 @@
   "de353": "profs/P020.js",
   "4c7ca": "profs/P021.js",
   "betaFonction": "beta/betaEtudeFonction.js",
-  "betaGeom": "beta/betaModeleApiGeom.js",
   "57cf4": "beta/betaModele00_simple_Course_au_Nombres.js",
+  "15fd6": "beta/betaModeleSimpleAutomatismes.js",
   "betaSpline": "beta/betaModeleSpline.js",
   "efeee": "beta/betaTexNombre.js"
 }

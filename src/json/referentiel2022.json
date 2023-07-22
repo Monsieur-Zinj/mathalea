@@ -7338,7 +7338,7 @@
         "id": "5A11-1",
         "uuid": "a3870",
         "url": "5e/5A11-1.js",
-        "titre": "Labyrinthe de multiples basé sur les critères de divisibilité",
+        "titre": "Parcourir un labyrinthe de multiples basé sur les critères de divisibilité",
         "dateModification": "05/10/2022",
         "tags": {}
       },
@@ -7346,7 +7346,7 @@
         "id": "5A11-2",
         "uuid": "5618d",
         "url": "5e/5A11-2.js",
-        "titre": "Labyrinthe de multiples avec critères choisis équilibrés ",
+        "titre": "Parcourir un labyrinthe de multiples avec critères choisis équilibrés ",
         "datePublication": "16/11/2021",
         "dateModification": "05/10/2022",
         "tags": {}
@@ -7355,7 +7355,7 @@
         "id": "5A11",
         "uuid": "a55d2",
         "url": "5e/5A11.js",
-        "titre": "Critères de divisibilité (plusieurs possibles)",
+        "titre": "Utiliser les critères de divisibilité (plusieurs possibles)",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -7367,7 +7367,7 @@
         "id": "5A12-1",
         "uuid": "36074",
         "url": "5e/5A12-1.js",
-        "titre": "Primalité ou pas",
+        "titre": "Justifier la primalité ou pas",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -7393,7 +7393,7 @@
         "id": "5A12-3",
         "uuid": "05079",
         "url": "5e/5A12-3.js",
-        "titre": "Explorer un labyrinthe de nombres premiers",
+        "titre": "Parcourir un labyrinthe de nombres premiers",
         "datePublication": "12/10/2022",
         "tags": {}
       },
@@ -7401,7 +7401,7 @@
         "id": "5A13",
         "uuid": "7f50c",
         "url": "5e/5A13.js",
-        "titre": "Décomposition en facteurs premiers",
+        "titre": "Décomposer en facteurs premiers",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -7420,7 +7420,7 @@
         "id": "5C11-2",
         "uuid": "3406a",
         "url": "5e/5C11-2.js",
-        "titre": "Traduire une succession des opérations par une expression",
+        "titre": "Traduire une succession d'opérations par une expression",
         "tags": {}
       },
       "5C11": {
@@ -7446,7 +7446,7 @@
         "id": "5C12-2",
         "uuid": "41f23",
         "url": "5e/5C12-2.js",
-        "titre": "Distributivité numérique",
+        "titre": "Utiliser la distributivité pour du calcul numérique",
         "datePublication": "26/11/2022",
         "tags": {}
       },
@@ -7454,7 +7454,7 @@
         "id": "5C12-3",
         "uuid": "9103e",
         "url": "5e/5C12-3.js",
-        "titre": "Distributivité et calcul mental",
+        "titre": "Utiliser la distributivité pour du calcul mental",
         "datePublication": "26/11/2022",
         "tags": {}
       },
@@ -11046,11 +11046,11 @@
         "id": "2F22-1",
         "uuid": "a2ac2",
         "url": "2e/2F22-1.js",
-        "titre": "Recherche d'antécédents",
-        "datePublication": "22/06/2023",
+        "titre": "Résoudre graphiquement une équation du type f(x)=k.",
+        "datePublication": "06/07/2023",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive"
+          "interactifType": "custom"
         }
       },
       "2F22-3": {
@@ -11118,6 +11118,7 @@
         "url": "2e/2F31-2.js",
         "titre": "Utiliser les variations des fonctions de référence pour comparer ou encadrer",
         "datePublication": "31/01/2022",
+        "dateModification": "12/07/2023",
         "tags": {}
       },
       "2F31-3": {
@@ -11261,18 +11262,32 @@
         "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées",
         "tags": {}
       },
+      "2G23-1": {
+        "id": "2G23-1",
+        "uuid": "d2b57",
+        "url": "2e/2G23-1.js",
+        "titre": "Déterminer graphiquement les images de points par des translations",
+        "datePublication": "13/07/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
       "2G23-2": {
         "id": "2G23-2",
         "uuid": "fa7b9",
         "url": "2e/2G23-2.js",
-        "titre": "Coordonnées de vecteurs et translations",
-        "tags": {}
+        "titre": "Calculer les coordonnées d'un point par une translation",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "2G24-1": {
         "id": "2G24-1",
         "uuid": "f71c1",
         "url": "2e/2G24-1.js",
-        "titre": "Déterminer les coordonnées d'un vecteur à partir des coordonnées de deux points",
+        "titre": "Calculer les coordonnées d'un vecteur à partir des coordonnées de deux points",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
