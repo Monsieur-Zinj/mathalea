@@ -6,7 +6,7 @@ import Exercice from '../Exercice.js'
 import { contraindreValeur, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { engrenages } from '../../modules/2d/engrenage.js'
+import { engrenages } from '../../lib/2d/engrenage.js'
 
 export const titre = 'Problèmes avec des engrenages'
 export const dateDePublication = '05/10/2022'
