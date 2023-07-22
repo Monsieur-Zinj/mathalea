@@ -1,5 +1,6 @@
 import { repere } from '../../lib/2d/reperes.js'
 import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -14,9 +15,7 @@ import {
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import {
   point,
-  tracePoint,
-  labelPoint,
-  texteParPosition
+  tracePoint
 } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'

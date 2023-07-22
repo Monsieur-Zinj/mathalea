@@ -1,4 +1,4 @@
-import { texteParPosition } from '../../../modules/2d.js'
+import { texteParPosition } from '../../../lib/2d/textes.js'
 import Pyramide from '../../../modules/pyramide.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'

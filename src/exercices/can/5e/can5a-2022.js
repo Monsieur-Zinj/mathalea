@@ -3,6 +3,7 @@ import { droite } from '../../../lib/2d/droites.js'
 import { polygone } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
@@ -14,7 +15,7 @@ import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, labelPoint, milieu, arc, texteParPosition, tracePoint, pointSurSegment
+  point, milieu, arc, tracePoint, pointSurSegment
 } from '../../../modules/2d.js'
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'

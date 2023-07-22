@@ -1,6 +1,7 @@
 // on importe les fonctions nécessaires.
 import { grille } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { texteParPoint } from '../../lib/2d/textes.js'
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
@@ -8,7 +9,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { point, tracePoint, texteParPoint } from '../../modules/2d.js'
+import { point, tracePoint } from '../../modules/2d.js'
 import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
 import { afficheScore } from '../../lib/interactif/gestionInteractif.js'
 import { scratchblock } from '../../modules/scratchblock.js'

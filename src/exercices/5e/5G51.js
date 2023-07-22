@@ -1,5 +1,6 @@
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { similitude, translation2Points } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
@@ -7,7 +8,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, milieu, labelPoint } from '../../modules/2d.js'
+import { point, tracePoint, milieu } from '../../modules/2d.js'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 

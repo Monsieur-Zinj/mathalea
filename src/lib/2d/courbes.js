@@ -1,10 +1,11 @@
-import { point, texteParPosition, tracePoint } from '../../modules/2d.js'
+import { point, tracePoint } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { rationnalise } from '../../modules/mathFonctions/outilsMaths.js'
 import { inferieurouegal } from '../../modules/outils.js'
 import { motifs, polygone, polyline } from './polygones.js'
 import { segment } from './segmentsVecteurs.js'
+import { texteParPosition } from './textes.js'
 
 export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {
   ObjetMathalea2D.call(this, {})

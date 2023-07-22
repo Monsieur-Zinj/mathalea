@@ -1,7 +1,8 @@
 import { boite, nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { grille } from '../../lib/2d/reperes.js'
+import { texteParPosition } from '../../lib/2d/textes.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
-import { point, texteParPosition } from '../../modules/2d.js'
+import { point } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 

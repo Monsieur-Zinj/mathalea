@@ -2,12 +2,12 @@ import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { afficheLongueurSegment, afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {
-  labelPoint,
   point
 } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

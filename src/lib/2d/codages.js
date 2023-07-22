@@ -1,12 +1,9 @@
 import { isNumeric } from 'mathjs'
 import {
   arc,
-  latexParPoint,
   milieu,
   point,
   pointSurSegment,
-  TexteParPoint,
-  texteParPoint,
   tracePointSurDroite
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
@@ -16,6 +13,7 @@ import { stringNombre } from '../outils/texNombre.js'
 import { angleOriente, codageAngle, codageAngleDroit } from './angles.js'
 import { droite, mediatrice } from './droites.js'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'
+import { latexParPoint, TexteParPoint, texteParPoint } from './textes.js'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**

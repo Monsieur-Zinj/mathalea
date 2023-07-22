@@ -2,10 +2,7 @@ import { fraction, max } from 'mathjs'
 import {
   arc,
   cercle,
-  latexParPoint,
   point,
-  texteParPoint,
-  texteParPosition,
   tracePoint
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
@@ -15,6 +12,7 @@ import { texcolors } from '../format/style.js'
 import { combinaisonListes } from '../outils/arrayOutils.js'
 import { numberFormat, texNombre } from '../outils/texNombre.js'
 import { segment, vecteur } from './segmentsVecteurs.js'
+import { latexParPoint, texteParPoint, texteParPosition } from './textes.js'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**

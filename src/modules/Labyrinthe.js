@@ -1,12 +1,9 @@
 import { segment } from '../lib/2d/segmentsVecteurs.js'
+import { latexParCoordonnees, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes.js'
 import { combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils.js'
 import { nombreAvecEspace } from '../lib/outils/texNombre.js'
 import {
-  latexParCoordonnees,
-  point,
-  texteParPoint,
-  texteParPointEchelle,
-  texteParPositionEchelle
+  point
 } from './2d.js'
 import { randint } from './outils.js'
 

@@ -2,6 +2,7 @@ import { antecedentParDichotomie, courbe, courbeInterpolee } from '../../lib/2d/
 import { droiteParPointEtPente } from '../../lib/2d/droites.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom, prenomM } from '../../lib/outils/Personne.js'
@@ -12,7 +13,7 @@ import Decimal from 'decimal.js'
 
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
-import { texteParPosition, point } from '../../modules/2d.js'
+import { point } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { exp } from 'mathjs'
 export const titre = 'Modéliser une situation à l\'aide d\'une fonction'

@@ -2,12 +2,12 @@ import { cross, dot, matrix, multiply, norm } from 'mathjs'
 import { droite } from '../lib/2d/droites.js'
 import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones.js'
 import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../lib/2d/textes.js'
 import { translation } from '../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires.js'
 import { arrondi } from '../lib/outils/nombres.js'
 import {
   distancePointDroite,
-  labelPoint,
   point,
   pointIntersectionDD,
   pointSurSegment,

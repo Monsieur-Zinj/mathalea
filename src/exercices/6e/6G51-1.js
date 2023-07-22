@@ -1,10 +1,11 @@
 import { droite } from '../../lib/2d/droites.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { pointAdistance, tracePoint, labelPoint, pointSurDroite } from '../../modules/2d.js'
+import { pointAdistance, tracePoint, pointSurDroite } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Reconnaître des points alignés'
 

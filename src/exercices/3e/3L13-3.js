@@ -1,6 +1,7 @@
 import { codageSegments } from '../../lib/2d/codages.js'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../../lib/2d/textes.js'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
@@ -10,8 +11,7 @@ import { prenom } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import {
-  point,
-  texteParPosition
+  point
 } from '../../modules/2d.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

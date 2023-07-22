@@ -1,6 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { repere } from '../../../lib/2d/reperes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
@@ -12,7 +13,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { context } from '../../../modules/context.js'
 import {
-  point, labelPoint, milieu, texteParPosition, tracePoint
+  point, milieu, tracePoint
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'

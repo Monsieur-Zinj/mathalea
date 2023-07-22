@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
+import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
-import { texteParPosition } from '../../../modules/2d.js'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

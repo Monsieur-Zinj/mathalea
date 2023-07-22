@@ -1,12 +1,13 @@
 import { droite } from '../../lib/2d/droites.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, pointSurSegment, pointIntersectionDD, labelPoint } from '../../modules/2d.js'
+import { point, tracePoint, pointSurSegment, pointIntersectionDD } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC

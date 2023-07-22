@@ -1,10 +1,10 @@
 import { carre } from '../../lib/2d/polygones.js'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
-  labelPoint,
   point,
   pointAdistance,
   tracePoint

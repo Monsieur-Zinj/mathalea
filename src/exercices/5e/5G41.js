@@ -4,6 +4,7 @@ import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../.
 import { droite } from '../../lib/2d/droites.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { demiDroite, longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
@@ -15,7 +16,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { cercle, cercleCentrePoint, pointIntersectionDD, texteParPosition, pointAdistance, point, labelPoint, tracePoint, traceCompas, milieu, pointIntersectionCC } from '../../modules/2d.js'
+import { cercle, cercleCentrePoint, pointIntersectionDD, pointAdistance, point, tracePoint, traceCompas, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
 export const titre = 'Construire des quadrilatères particuliers'
 

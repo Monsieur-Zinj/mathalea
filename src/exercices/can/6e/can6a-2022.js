@@ -1,6 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
@@ -10,7 +11,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, milieu, labelPoint, texteParPosition
+  point, milieu
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 

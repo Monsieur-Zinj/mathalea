@@ -1,9 +1,9 @@
+import { texteParPosition } from '../../lib/2d/textes.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { texteParPosition } from '../../modules/2d.js'
 import { pavage } from '../../modules/Pavage.js'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'

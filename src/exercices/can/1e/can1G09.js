@@ -1,13 +1,14 @@
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { grille } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { rienSi1 } from '../../../lib/outils/ecritures.js'
 import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
-  point, cercleCentrePoint, pointSurCercle, texteParPosition
+  point, cercleCentrePoint, pointSurCercle
 } from '../../../modules/2d.js'
 export const titre = 'Associer un point à un réel sur un cercle trigonométrique '
 export const interactifReady = true

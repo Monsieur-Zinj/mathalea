@@ -13,7 +13,7 @@
 
 import { boite } from '../lib/2d/polygones.js'
 import { segment } from '../lib/2d/segmentsVecteurs.js'
-import { texteParPositionEchelle } from './2d.js'
+import { texteParPositionEchelle } from '../lib/2d/textes.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
 import { avance, tournerD, tournerG } from './2dLutin.js'
 import { randint } from './outils.js'

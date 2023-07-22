@@ -2,6 +2,7 @@ import Decimal from 'decimal.js'
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
+import { latexParPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
@@ -10,7 +11,6 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {
-  latexParPoint,
   milieu,
   point
 } from '../../modules/2d.js'

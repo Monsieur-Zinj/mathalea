@@ -1,10 +1,11 @@
 /* eslint-disable no-useless-constructor */
+import { labelPoint, latexParCoordonnees, latexParPoint } from '../../lib/2d/textes.js'
 /* eslint-disable no-unused-vars */
 import { context } from '../context.js'
 import { GVCartesian, GVCoordinates } from './coordinates.js'
 import { aleaName } from '../outilsMathjs.js'
 import { dot, round, cross } from 'mathjs'
-import { latexParCoordonnees, latexParPoint, tracePoint, point, labelPoint } from '../2d.js'
+import { tracePoint, point } from '../2d.js'
 import { circularPermutation, getDimensions } from './outils.js'
 /**
   * @class
@@ -43,8 +44,8 @@ export class GVGraphicObject {
     * @param figures
     */
   moveRight (...figures/** GVGraphicObject[] */) {
-    const [xmin1, ymin1, xmax1, ymax1] = getDimensions(this)
-    const [xmin2, ymin2, xmax2, ymax2] = getDimensions(...figures)
+    const [xmin1, ymin1, ymax1] = getDimensions(this)
+    const [, ymin2, xmax2, ymax2] = getDimensions(...figures)
     const P1 = new GVPoint(xmin1, ymin1)
     const P2 = new GVPoint(xmax2, ymax2)
     const t = new GVVector(P1, P2)
@@ -378,7 +379,7 @@ export class GVSegment extends GVLine {
     this.getEquation()
   }
 
-  showLabel (scaleppc /** number */ = 1) {
+  showLabel () {
     let label /** any */
     const P = new GVPoint((this.A.x + this.B.x) / 2, (this.A.y + this.B.y) / 2)
     if (context.isHtml) {
@@ -494,7 +495,7 @@ export class GVRectangle extends GVPolygon {
   ratio /** number */
   constructor (...args /** GVPoint[] */) {
     super(...args)
-    const [A, B, C, D] = args
+    const [A, B, C, ] = args
     const dimensions = [Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2), Math.sqrt((C.x - B.x) ** 2 + (C.y - B.y) ** 2)].sort()
     this.largeur = dimensions[0]
     this.longueur = dimensions[1]

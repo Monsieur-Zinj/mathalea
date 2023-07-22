@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
@@ -7,7 +8,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calcul } from '../../../modules/outils.js'
 import {
-  point, labelPoint, texteParPosition, milieu, tracePoint
+  point, milieu, tracePoint
 } from '../../../modules/2d.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
