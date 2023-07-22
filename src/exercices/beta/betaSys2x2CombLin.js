@@ -6,11 +6,11 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
-import { matriceCarree } from '../../modules/MatriceCarree.js'
 import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
 
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
+import { matriceCarree } from '../../modules/mathFonctions/MatriceCarree.js'
 export const titre = '2G35-3' // Résoudre un système 2x2 par combinaisons linéaire
 
 // Représentation d'un système 2x2
