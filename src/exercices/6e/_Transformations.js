@@ -1,6 +1,9 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
 import { droiteHorizontaleParPoint, droiteParPointEtPente, droiteVerticaleParPoint } from '../../lib/2d/droites.js'
+import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
+import { labelLatexPoint, latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.js'
 import { translation } from '../../lib/2d/transformations.js'
 import {
   choice,
@@ -9,12 +12,11 @@ import {
   enleveElementBis,
   enleveElementNo
 } from '../../lib/outils/arrayOutils.js'
-import { miseEnCouleur, miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { point, tracePoint, segment, vecteur, latexParCoordonnees, milieu, texteParPositionEchelle, labelLatexPoint, pointSurDroite } from '../../modules/2d.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir } from '../../modules/2dGeneralites.js'

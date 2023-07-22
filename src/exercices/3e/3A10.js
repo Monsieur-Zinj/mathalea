@@ -1,5 +1,5 @@
 import { combinaisonListesSansChangerOrdre, shuffle, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../lib/embellissements.js'
+import { texteEnCouleur } from '../../lib/outils/embellissements.js'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'

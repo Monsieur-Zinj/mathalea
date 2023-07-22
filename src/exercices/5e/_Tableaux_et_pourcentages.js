@@ -1,5 +1,5 @@
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texPrix } from '../../lib/format/style.js'
 import { sp } from '../../lib/outils/outilString.js'

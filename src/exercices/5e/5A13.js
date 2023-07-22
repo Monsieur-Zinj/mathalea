@@ -1,4 +1,5 @@
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { compareNombres } from '../../lib/outils/nombres.js'
 import { texFactorisation } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -84,7 +85,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       texte = '$ ' + texNombre(n) + ' =$'
       texteCorr = ''
       if (!this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' = $' + sp()
-        
+      
       reponse = ''
       facteurs.sort(compareNombres) // classe les facteurs dans l'ordre croissant
       let ensembleDeFacteurs = new Set(facteurs)

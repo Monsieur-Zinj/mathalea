@@ -1,17 +1,13 @@
+import { cercle } from '../../lib/2d/cercle.js'
 import { afficheLongueurSegment } from '../../lib/2d/codages.js'
+import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { latexParPoint } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
-import {
-  cercle,
-  latexParPoint,
-  point,
-  pointAdistance,
-  segment,
-  tracePoint
-} from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

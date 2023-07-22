@@ -1,5 +1,8 @@
 import { codageSegments } from '../../lib/2d/codages.js'
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { axes, grille } from '../../lib/2d/reperes.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
@@ -8,7 +11,6 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, segment } from '../../modules/2d.js'
 
 export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogramme'
 

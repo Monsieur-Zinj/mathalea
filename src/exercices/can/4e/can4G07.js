@@ -1,13 +1,13 @@
 import { codageSegments } from '../../../lib/2d/codages.js'
+import { point } from '../../../lib/2d/points.js'
+import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calcul } from '../../../modules/outils.js'
-import {
-  point, labelPoint, segment
-} from '../../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

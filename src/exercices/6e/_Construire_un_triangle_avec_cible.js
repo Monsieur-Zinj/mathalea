@@ -1,8 +1,18 @@
 import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { cercle, traceCompas } from '../../lib/2d/cercle.js'
 import { cibleRonde, dansLaCibleRonde } from '../../lib/2d/cibles.js'
 import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import {
+  point,
+  pointAdistance,
+  pointIntersectionCC,
+  pointIntersectionDD,
+  pointIntersectionLC
+} from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
+import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
+import { texteParPoint } from '../../lib/2d/textes.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
@@ -11,7 +21,6 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { point, pointIntersectionDD, longueur, pointAdistance, segmentAvecExtremites, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, texteParPoint } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 

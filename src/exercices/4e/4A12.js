@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { warnMessage } from '../../lib/format/message.js'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { personne } from '../../lib/outils/Personne.js'

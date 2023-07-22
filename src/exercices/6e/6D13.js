@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../lib/embellissements.js'
+import { texteEnCouleur } from '../../lib/outils/embellissements.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

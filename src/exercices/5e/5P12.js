@@ -1,4 +1,4 @@
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { objet } from '../6e/6C35.js'
 import Exercice from '../Exercice.js'
@@ -21,7 +21,7 @@ export default function PartagerSelonUnRatio () {
   this.sup = 1
   this.correctionDetailleeDisponible = true
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

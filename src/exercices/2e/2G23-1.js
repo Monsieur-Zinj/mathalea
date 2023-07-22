@@ -1,4 +1,7 @@
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { grille } from '../../lib/2d/reperes.js'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -8,13 +11,6 @@ import {
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import {
-  point,
-  tracePoint,
-  labelPoint,
-  vecteur,
-  segment
-} from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Déterminer graphiquement les images de points par des translations'

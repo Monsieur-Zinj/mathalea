@@ -1,15 +1,14 @@
 import { droite } from '../../../lib/2d/droites.js'
+import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { repere } from '../../../lib/2d/reperes.js'
+import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import {
-  texteParPosition,
-  point, tracePoint, segment, milieu
-} from '../../../modules/2d.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer une équation de droite (graphique)'
 export const interactifReady = true

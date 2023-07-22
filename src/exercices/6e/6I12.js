@@ -1,5 +1,8 @@
 // on importe les fonctions nécessaires.
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { grille } from '../../lib/2d/reperes.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { texteParPoint } from '../../lib/2d/textes.js'
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
@@ -7,7 +10,6 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { point, segment, tracePoint, texteParPoint } from '../../modules/2d.js'
 import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
 import { afficheScore } from '../../lib/interactif/gestionInteractif.js'
 import { scratchblock } from '../../modules/scratchblock.js'
@@ -265,7 +267,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
 
   // Pour pouvoir récupérer this dans la correction interactive
-  const exercice = this
   // Pour distinguer les deux types de codage de recuperation des résultats
   this.exoCustomResultat = false
   // Gestion de la correction
@@ -283,7 +284,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       figure.removeEventListener('click', mouseSvgClick)
       if (figure.etat) nbFiguresCliquees++
     }
-    if (nbFiguresCliquees === 1 && figures[exercice.indiceBonneFigure].etat) {
+    if (nbFiguresCliquees === 1 && figures[this.indiceBonneFigure].etat) {
       divFeedback.innerHTML = '😎'
       nbBonnesReponses++
     } else {

@@ -1,7 +1,10 @@
+import { point } from '../../lib/2d/points.js'
+import { polygone } from '../../lib/2d/polygones.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../../lib/2d/textes.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { polygone, segment, point, texteParPosition } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify, compare, evaluate } from 'mathjs'
 import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
@@ -1384,7 +1387,7 @@ export default function EquationsProgression () {
           intro = 'On peut regrouper les termes opposés pour faciliter les calculs.<br>'
           questions.push({
             texte: `Calculer $${toTex(lettres[0] + '=' + expression, { supprPlusMoins: false })}$`,
-            texteCorr: intro + calcul.map((x, i) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
+            texteCorr: intro + calcul.map((x) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
           })
           // Regrouper les nombres de même signe
           calcul = []
@@ -1398,7 +1401,7 @@ export default function EquationsProgression () {
           expression = aleaExpression(aleaName(['(a)', '(b)', '(c)', '(d)', '(e)']).join('+'), variables)
           calcul.push(expression)
           let newNode = parse(expression)
-          newNode = newNode.transform((node, path, parent) => {
+          newNode = newNode.transform((node) => {
             if (node.isParenthesisNode) terms.push(node)
             return node
           })
@@ -1414,7 +1417,7 @@ export default function EquationsProgression () {
           intro = 'On peut additionner les termes positifs entre eux puis les termes négatifs entre eux puis terminer le calcul.<br>'
           questions.push({
             texte: `Calculer $${toTex(lettres[1] + '=' + expression, { supprPlusMoins: false })}$`,
-            texteCorr: intro + calcul.map((x, i) => `$${toTex(lettres[1] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
+            texteCorr: intro + calcul.map((x) => `$${toTex(lettres[1] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
           })
           exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
           exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
@@ -1441,7 +1444,7 @@ export default function EquationsProgression () {
           expression = aleaExpression('(a)+(b)+(-c)+(d)+(e)', variables)
           calcul.push(expression)
           let newNode = parse(expression)
-          newNode = newNode.transform((node, path, parent) => {
+          newNode = newNode.transform((node) => {
             if (node.isParenthesisNode) terms.push(node)
             return node
           })
@@ -1457,7 +1460,7 @@ export default function EquationsProgression () {
           intro = 'On peut transfomer toutes les soustractions en additions.<br>'
           questions.push({
             texte: `Calculer $${toTex(lettres[0] + '=' + expression1, { supprPlusMoins: false })}$`,
-            texteCorr: intro + calcul.map((x, i) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
+            texteCorr: intro + calcul.map((x) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
           })
           // Deuxième calcul
           // Calcul astucieux
@@ -1476,7 +1479,7 @@ export default function EquationsProgression () {
           expression = aleaExpression('(a)+(e)+(b)+(-c)+(d)', variables)
           calcul.push(expression)
           newNode = parse(expression)
-          newNode = newNode.transform((node, path, parent) => {
+          newNode = newNode.transform((node) => {
             if (node.isParenthesisNode) terms.push(node)
             return node
           })
@@ -1492,7 +1495,7 @@ export default function EquationsProgression () {
           intro = 'On peut transfomer toutes les soustractions en additions.<br>'
           questions.push({
             texte: `Calculer $${toTex(lettres[0] + '=' + expression1, { supprPlusMoins: false })}$`,
-            texteCorr: intro + calcul.map((x, i) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
+            texteCorr: intro + calcul.map((x) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
           })
           exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
           exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')

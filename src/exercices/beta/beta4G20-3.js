@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { point } from '../../lib/2d/points.js'
 import { barycentre, carre, polygone } from '../../lib/2d/polygones.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -6,7 +7,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import {  point } from '../../modules/2d.js'
 
 export const titre = 'Calculer une valeur manquante avec l\'égalité de Pythagore'
 

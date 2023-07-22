@@ -1,4 +1,7 @@
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
+import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
+import { latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -10,16 +13,6 @@ import {
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import {
-  point,
-  vecteur,
-  nomVecteurParPosition,
-  texteParPosition,
-  longueur,
-  tracePoint,
-  segment,
-  latexParPoint
-} from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un point par une translation'

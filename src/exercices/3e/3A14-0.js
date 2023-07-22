@@ -1,4 +1,7 @@
+import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { createList } from '../../lib/format/lists.ts'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
@@ -12,7 +15,6 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'
-import { point, segment, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { pyramide3d, pave3d, point3d, polygone3d } from '../../modules/3d.js'
 

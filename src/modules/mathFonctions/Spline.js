@@ -1,9 +1,10 @@
 import { abs, round, polynomialRoot, acos} from 'mathjs'
 import { Courbe } from '../../lib/2d/courbes.js'
+import { point, tracePoint } from '../../lib/2d/points.js'
+import { Segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 
 
-import { point, Segment, tracePoint } from '../2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
 import FractionEtendue from '../FractionEtendue.js'
 import { egal } from '../outils.js'

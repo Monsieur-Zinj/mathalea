@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'

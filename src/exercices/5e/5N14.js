@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import {
   deprecatedTexFraction,
   obtenirListeFractionsIrreductibles,

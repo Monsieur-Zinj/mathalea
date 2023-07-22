@@ -1,20 +1,14 @@
-import {
-  arc,
-  cercle,
-  longueur,
-  milieu,
-  point,
-  pointSurSegment,
-  segment,
-  texteParPoint,
-  texteParPosition
-} from '../../modules/2d.js'
+
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
 import { lettreDepuisChiffre } from '../outils/outilString.js'
 import { nombreAvecEspace } from '../outils/texNombre.js'
+import { arc, cercle } from './cercle.js'
+import { milieu, point, pointSurSegment } from './points.js'
 import { grille } from './reperes.js'
+import { longueur, segment } from './segmentsVecteurs.js'
+import { texteParPoint, texteParPosition } from './textes.js'
 import { rotation, similitude } from './transformations.js'
 
 /**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit

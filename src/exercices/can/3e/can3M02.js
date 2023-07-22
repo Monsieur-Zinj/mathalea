@@ -1,5 +1,5 @@
 import { shuffle } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texteExposant } from '../../../lib/outils/ecritures.js'
 import { randint, calcul } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

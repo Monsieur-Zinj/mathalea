@@ -1,4 +1,7 @@
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
+import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -11,15 +14,6 @@ import {
   randint
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import {
-  point,
-  tracePoint,
-  labelPoint,
-  segment,
-  nomVecteurParPosition,
-  texteParPosition,
-  vecteur
-} from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un vecteur à partir des coordonnées de deux points'
@@ -123,7 +117,7 @@ export default function Calculercoordonneesvecteurs () {
       const A = point(xA, yA, nomsPoints[0]) // On définit et on trace le point A
       const B = point(xB, yB, nomsPoints[1]) // On définit et on trace le point B
       const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      tracePoint.taille = 1.5
+      traceAetB.taille = 1.5
       const labelAetB = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
       const vecteurAB = vecteur(A, B, 'red') // On créé le vecteur AB
       const vecteurABRep = vecteurAB.representant(A, 'red') // On trace le vecteur AB

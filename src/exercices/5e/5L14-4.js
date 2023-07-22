@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../lib/embellissements.js'
+import { texteEnCouleur } from '../../lib/outils/embellissements.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'

@@ -1,5 +1,5 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../lib/embellissements.js'
+import { texteEnCouleur } from '../../lib/outils/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, calcul } from '../../modules/outils.js'

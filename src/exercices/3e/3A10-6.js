@@ -1,4 +1,4 @@
-import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texteGras } from '../../lib/format/style.js'
 import { sommeDesChiffres } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'

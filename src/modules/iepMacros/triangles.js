@@ -1,9 +1,17 @@
+import { cercle } from '../../lib/2d/cercle.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import {
+  point,
+  pointAdistance,
+  pointIntersectionDD,
+  pointIntersectionLC,
+  pointSurSegment
+} from '../../lib/2d/points.js'
+import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import { randint } from '../outils.js'
-import { cercle, longueur, point, pointAdistance, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from '../2d.js'
 
 /**
    * Macro de construction d'un triangle à partir de ses 3 dimensions. Le premier point aura pour coordonnées (6,0).

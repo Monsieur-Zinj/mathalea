@@ -1,6 +1,8 @@
+import { arcPointPointAngle, cercle } from '../../lib/2d/cercle.js'
 import { texteSurSegment } from '../../lib/2d/codages.js'
+import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
-import { arcPointPointAngle, cercle, segment, point } from '../2d.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 export function getMathalea2DExport (graphic /** GVGraphicView */) {

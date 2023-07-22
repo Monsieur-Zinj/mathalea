@@ -1,4 +1,4 @@
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { abs } from '../../lib/outils/nombres.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

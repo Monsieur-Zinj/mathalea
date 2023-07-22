@@ -1,13 +1,10 @@
+import { point, tracePoint } from '../lib/2d/points.js'
 import { barycentre, polygone, polygoneRegulier } from '../lib/2d/polygones.js'
+import { vecteur } from '../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../lib/2d/textes.js'
 import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations.js'
 import { nombreAvecEspace } from '../lib/outils/texNombre.js'
 import { egal } from './outils.js'
-import {
-  point,
-  texteParPosition,
-  tracePoint,
-  vecteur
-} from './2d.js'
 
 /**
  * Classe Pavage : permet de créer des pavages de polygones en un tour de main et de manipuler les polygones qu'il contient

@@ -1,18 +1,12 @@
 import { angle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { codageSegment } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import { milieu, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
-import {
-  labelPoint,
-  milieu,
-  point,
-  pointIntersectionDD,
-  pointSurDroite,
-  tracePoint
-} from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'

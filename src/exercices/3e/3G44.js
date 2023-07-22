@@ -1,5 +1,8 @@
+import { tracePoint } from '../../lib/2d/points.js'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
@@ -17,7 +20,6 @@ import { CodageAngleDroit3D, cone3d, cube3d, cylindre3d, droite3d, pave3d, point
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { labelPoint, longueur, segment, tracePoint } from '../../modules/2d.js'
 import { RedactionPythagore } from '../4e/_pythagore.js'
 
 export const titre = 'Déterminer des longueurs dans la géométrie dans l\'espace'

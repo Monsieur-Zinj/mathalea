@@ -1,21 +1,14 @@
 import { fraction, max } from 'mathjs'
-import {
-  arc,
-  cercle,
-  latexParPoint,
-  point,
-  segment,
-  texteParPoint,
-  texteParPosition,
-  tracePoint,
-  vecteur
-} from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
+import { arc, cercle } from './cercle.js'
+import { point, tracePoint } from './points.js'
 import { carre, motifs, polygone, polyline } from './polygones.js'
 import { axeY, labelY, pointDansRepere } from './reperes.js'
 import { texcolors } from '../format/style.js'
 import { combinaisonListes } from '../outils/arrayOutils.js'
 import { numberFormat, texNombre } from '../outils/texNombre.js'
+import { segment, vecteur } from './segmentsVecteurs.js'
+import { latexParPoint, texteParPoint, texteParPosition } from './textes.js'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**

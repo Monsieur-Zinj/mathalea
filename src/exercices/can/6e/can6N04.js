@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
+import { texteParPosition } from '../../../lib/2d/textes.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../../lib/outils/primalite.js'
-import { texteParPosition } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint } from '../../../modules/outils.js'

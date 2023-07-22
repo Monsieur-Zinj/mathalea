@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import {
   tropDeChiffres
 } from '../../modules/outils.js'
-import { miseEnEvidence } from '../embellissements.js'
+import { miseEnEvidence } from './embellissements.js'
 import { extraireRacineCarree } from './calculs.js'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres.js'
 import { sp } from './outilString.js'

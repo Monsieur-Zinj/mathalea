@@ -1,8 +1,12 @@
 import { courbe } from '../../../lib/2d/courbes.js'
 import { droite } from '../../../lib/2d/droites.js'
+import { milieu, plot, point, tracePoint } from '../../../lib/2d/points.js'
+import { pave } from '../../../lib/2d/projections3d.js'
 import { repere } from '../../../lib/2d/reperes.js'
+import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -18,7 +22,6 @@ import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { Arbre } from '../../../modules/arbres.js'
-import { pave, point, tracePoint, labelPoint, segment, milieu, texteParPosition, plot } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, printlatex } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'

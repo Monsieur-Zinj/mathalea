@@ -1,8 +1,11 @@
 import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles.js'
+import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { polygone } from '../../../lib/2d/polygones.js'
+import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../../lib/embellissements.js'
+import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../../lib/outils/embellissements.js'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -14,9 +17,6 @@ import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.j
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { scratchblock } from '../../../modules/scratchblock.js'
-import {
-  point, segment, milieu, labelPoint, tracePoint, texteParPosition
-} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'

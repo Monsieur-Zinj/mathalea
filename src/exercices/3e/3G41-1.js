@@ -1,3 +1,6 @@
+import { pointSurSegment, tracePoint } from '../../lib/2d/points.js'
+import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
 import { translation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
@@ -6,7 +9,6 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pave3d, point3d } from '../../modules/3d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { labelPoint, longueur, pointSurSegment, segment, tracePoint, vecteur } from '../../modules/2d.js'
 export const titre = 'Construire la section d\'un plan dans un un pavé droit'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC

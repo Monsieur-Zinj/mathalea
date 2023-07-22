@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { troncature } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'

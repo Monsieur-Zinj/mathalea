@@ -1,7 +1,10 @@
+import { milieu, plot, point } from '../../../lib/2d/points.js'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
+import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/embellissements.js'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
@@ -9,9 +12,6 @@ import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import {
-  point, plot, segment, milieu, segmentAvecExtremites, texteParPosition
-} from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 

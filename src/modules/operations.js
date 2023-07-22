@@ -1,7 +1,8 @@
 import { base10VersBaseN } from '../exercices/PE/PEA13.js'
+import { segment } from '../lib/2d/segmentsVecteurs.js'
+import { texteParPosition } from '../lib/2d/textes.js'
 import { nombreDeChiffresDansLaPartieEntiere, ordreDeGrandeur } from '../lib/outils/nombres.js'
 import Decimal from 'decimal.js'
-import { texteParPosition, segment } from './2d.js'
 import { context } from './context.js'
 import { mathalea2d } from './2dGeneralites.js'
 /**
@@ -33,7 +34,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return blancs
   }
 
-  const DivisionPosee3d = function (divid, divis, precision = 0, retenuesOn) {
+  const DivisionPosee3d = function (divid, divis, precision = 0) {
     const objets = []; let zeroutile = false; const periode = 0
     precision = Math.min(precision, nombreDeChiffresApresLaVirgule(divid.div(divis)))
     const decalage = nombreDeChiffresApresLaVirgule(divis)

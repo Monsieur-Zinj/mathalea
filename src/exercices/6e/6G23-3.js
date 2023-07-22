@@ -1,10 +1,11 @@
 import { droite } from '../../lib/2d/droites.js'
+import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points.js'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, contraindreValeur } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, segment, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

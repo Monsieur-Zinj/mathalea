@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { rangeMinMax } from '../../../lib/outils/nombres.js'
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
