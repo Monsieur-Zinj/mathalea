@@ -555,7 +555,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigA[indexA][0], tabfigA[indexA][1]], [0, 0], [xV1, yV1])
           }
         }
-        texteAMC1 = numAlpha(0) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} quel est le numéro de l'image de la figure ${numA} ?`, context.isAmc ? 'black' : 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
+        texteAMC1 = numAlpha(0) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]}, quel est le numéro de l'image de la figure ${numA} ?`, context.isAmc ? 'black' : 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
         texte += texteAMC1
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure image de la figure ${numA}  dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} porte le numéro ${num1}.<br>`, context.isAmc ? 'black' : 'green')
         // Deuxième question : une figure dans tabfigD, l'image dans tabfigB...
@@ -596,7 +596,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigD[indexD][0], tabfigD[indexD][1]], [0, 0], [xV2, yV2])
           }
         }
-        texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} quel est le numéro de l'image de la figure ${numD} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+        texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]}, quel est le numéro de l'image de la figure ${numD} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
         texte += '<br>' + texteAMC2
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure image de la figure ${numD}  dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} porte le numéro ${num2}.<br>`, context.isAmc ? 'black' : 'red')
 
@@ -638,7 +638,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigC[indexC][0], tabfigC[indexC][1]], [0, 0], [xV3, yV3])
           }
         }
-        texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quel est le numéro de l'image de la figure ${numC} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+        texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]}, quel est le numéro de l'image de la figure ${numC} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
         texte += '<br>' + texteAMC3
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, context.isAmc ? 'black' : 'blue')
 
