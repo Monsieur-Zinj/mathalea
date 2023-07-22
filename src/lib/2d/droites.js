@@ -7,7 +7,7 @@ import { codageBissectrice, codageMediatrice, codageSegments } from './codages.j
 import { milieu, point, pointSurDroite, pointSurSegment } from './points.js'
 import { demiDroite, longueur, norme, segment, vecteur } from './segmentsVecteurs.js'
 import { texteParPosition } from './textes.js'
-import { homothetie, rotation, symetrieAxiale, translation } from './transformations.js'
+import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations.js'
 
 /**  Trace une droite
  * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
@@ -821,4 +821,17 @@ export function Bissectrice (
 // JSDOC Validee par EE Juin 2022
 export function bissectrice (A, O, B, couleurBissectrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, mark = '×', tailleLosange = 5, epaisseurBissectrice = 1, opaciteBissectrice = 1, pointillesBissectrice = '') {
   return new Bissectrice(A, O, B, couleurBissectrice, color, couleurConstruction, construction, detail, mark, tailleLosange, epaisseurBissectrice, opaciteBissectrice, pointillesBissectrice)
+}
+
+/**  Donne la distance entre le point A et la droite d
+ * @param {point} A
+ * @param {droite} d
+ * @example distancePointDroite (M, d1) // Retourne la distance entre le point M et la droite d1
+ * @author Jean-Claude Lhote
+ * @return {longueur}
+ */
+// JSDOC Validee par EE Aout 2022
+export function distancePointDroite (A, d) {
+  const M = projectionOrtho(A, d)
+  return longueur(A, M, 9)
 }
