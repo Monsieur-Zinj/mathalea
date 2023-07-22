@@ -7,7 +7,6 @@ import {
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { } from '../../modules/2d.js'
 export const titre = 'Nombre dérivé de fonctions de références'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
