@@ -1,4 +1,5 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
+import { milieu, point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
@@ -15,9 +16,6 @@ import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import {
-  point, milieu
-} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'

@@ -1,14 +1,10 @@
 import { ceil, fraction, Fraction } from 'mathjs'
-import {
-  plot,
-  point,
-  tracePoint
-} from '../../modules/2d.js'
 import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { arrondi, rangeMinMax } from '../outils/nombres.js'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre.js'
+import { plot, point, tracePoint } from './points.js'
 import { segment } from './segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.js'
 

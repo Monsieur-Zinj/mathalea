@@ -1,5 +1,6 @@
 import { angleOriente } from '../../lib/2d/angles.js'
 import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import { point, pointIntersectionLC, pointSurDroite, pointSurSegment } from '../../lib/2d/points.js'
 import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import {
   homothetie,
@@ -9,7 +10,7 @@ import {
   translation,
   translation2Points
 } from '../../lib/2d/transformations.js'
-import { pointSurSegment, pointSurDroite, point, cercle, pointIntersectionLC } from '../2d.js'
+import { cercle } from '../2d.js'
 
 /**
    * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment

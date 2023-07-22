@@ -1,9 +1,9 @@
 import Decimal from 'decimal.js'
-import { LabelPoint, point } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { arrondi } from '../outils/nombres.js'
 import { stringNombre } from '../outils/texNombre.js'
+import { LabelPoint, point } from './points.js'
 
 /**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
  * @param  {...any} args Points mis à la suite

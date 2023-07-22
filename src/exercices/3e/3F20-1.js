@@ -1,4 +1,5 @@
 import { droite } from '../../lib/2d/droites.js'
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { polyline } from '../../lib/2d/polygones.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPoint } from '../../lib/2d/textes.js'
@@ -7,7 +8,6 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outil
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { pgcd, premierAvec } from '../../lib/outils/primalite.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
-import { point, tracePoint } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

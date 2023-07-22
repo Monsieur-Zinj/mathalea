@@ -1,3 +1,4 @@
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { carre, motifs } from '../../lib/2d/polygones.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
@@ -15,7 +16,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { arc, point, tracePoint, cercleCentrePoint } from '../../modules/2d.js'
+import { arc, cercleCentrePoint } from '../../modules/2d.js'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModificationImportante = '17/04/2022'

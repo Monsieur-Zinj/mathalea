@@ -1,8 +1,4 @@
 import {
-  milieu,
-  point,
-  pointSurDroite,
-  pointSurSegment,
   traceCompas
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
@@ -10,6 +6,7 @@ import { context } from '../../modules/context.js'
 import { egal } from '../../modules/outils.js'
 import { angleOriente } from './angles.js'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages.js'
+import { milieu, point, pointSurDroite, pointSurSegment } from './points.js'
 import { demiDroite, longueur, norme, segment, vecteur } from './segmentsVecteurs.js'
 import { texteParPosition } from './textes.js'
 import { homothetie, rotation, symetrieAxiale, translation } from './transformations.js'

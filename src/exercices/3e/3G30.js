@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js'
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { milieu, point } from '../../lib/2d/points.js'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParPoint } from '../../lib/2d/textes.js'
@@ -10,10 +11,6 @@ import { quatriemeProportionnelle } from '../../lib/outils/calculs.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import {
-  milieu,
-  point
-} from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

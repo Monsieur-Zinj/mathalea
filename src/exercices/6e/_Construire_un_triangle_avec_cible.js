@@ -2,6 +2,13 @@ import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { cibleRonde, dansLaCibleRonde } from '../../lib/2d/cibles.js'
 import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import {
+  point,
+  pointAdistance,
+  pointIntersectionCC,
+  pointIntersectionDD,
+  pointIntersectionLC
+} from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPoint } from '../../lib/2d/textes.js'
@@ -13,7 +20,7 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { point, pointIntersectionDD, pointAdistance, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas } from '../../modules/2d.js'
+import { cercle, traceCompas } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 

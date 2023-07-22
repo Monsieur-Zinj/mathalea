@@ -1,16 +1,14 @@
 import {
   arc,
   cercle,
-  cercleCentrePoint,
-  point,
-  pointSurCercle,
-  pointSurSegment
+  cercleCentrePoint
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal } from '../../modules/outils.js'
 import { arrondi, unSiPositifMoinsUnSinon } from '../outils/nombres.js'
 import { CodageAngle } from './codages.js'
+import { point, pointSurCercle, pointSurSegment } from './points.js'
 import { polygone, polyline } from './polygones.js'
 import { longueur, segment, vecteur } from './segmentsVecteurs.js'
 import { latexParPoint, texteParPoint, texteParPosition } from './textes.js'

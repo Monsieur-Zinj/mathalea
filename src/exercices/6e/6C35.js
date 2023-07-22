@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
 import { max } from 'mathjs'
+import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
@@ -11,7 +12,6 @@ import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import { point } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

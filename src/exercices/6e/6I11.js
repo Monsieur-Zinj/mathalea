@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { point } from '../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
@@ -7,7 +8,6 @@ import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { point } from '../../modules/2d.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

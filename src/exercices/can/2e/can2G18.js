@@ -1,3 +1,4 @@
+import { point } from '../../../lib/2d/points.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
@@ -8,7 +9,6 @@ import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-import { point } from '../../../modules/2d.js'
 export const titre = 'Déterminer les coordonnées d’un vecteur à partir d’un graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'

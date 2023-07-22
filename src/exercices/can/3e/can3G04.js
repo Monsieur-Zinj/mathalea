@@ -1,3 +1,4 @@
+import { milieu, point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
@@ -7,9 +8,6 @@ import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import {
-  point, milieu
-} from '../../../modules/2d.js'
 export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'

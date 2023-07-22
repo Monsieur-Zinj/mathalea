@@ -1,3 +1,4 @@
+import { point } from '../lib/2d/points.js'
 import { carre } from '../lib/2d/polygones.js'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../lib/2d/textes.js'
@@ -19,7 +20,7 @@ import {
   calcul,
   egal
 } from './outils.js'
-import { point, cercle, arc } from './2d.js'
+import { cercle, arc } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
 import { colorToLatexOrHTML } from './2dGeneralites.js'

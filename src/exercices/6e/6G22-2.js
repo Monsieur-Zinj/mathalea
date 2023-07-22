@@ -1,4 +1,5 @@
 import { codageAngle } from '../../lib/2d/angles.js'
+import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPoint } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
@@ -9,7 +10,6 @@ import { degCos, degSin } from '../../modules/mathFonctions/trigo.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, pointAdistance } from '../../modules/2d.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true

@@ -1,4 +1,5 @@
 import { codageSegment } from '../../../lib/2d/codages.js'
+import { milieu, point } from '../../../lib/2d/points.js'
 import { polygone } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
@@ -11,9 +12,6 @@ import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import {
-  point, milieu
-} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'

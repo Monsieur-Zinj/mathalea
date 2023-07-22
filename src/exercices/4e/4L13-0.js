@@ -1,4 +1,5 @@
 import { afficheCoteSegment, codageCarre, codageSegments } from '../../lib/2d/codages.js'
+import { point } from '../../lib/2d/points.js'
 import { nommePolygone, polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -7,7 +8,6 @@ import { prenom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point } from '../../modules/2d.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
 /**

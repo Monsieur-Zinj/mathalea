@@ -1,3 +1,4 @@
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
@@ -13,10 +14,6 @@ import {
   randint
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import {
-  point,
-  tracePoint
-} from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un vecteur à partir des coordonnées de deux points'

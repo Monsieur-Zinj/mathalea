@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { texteSurSegment } from '../../lib/2d/codages.js'
+import { milieu, point, pointSurSegment } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes.js'
@@ -12,7 +13,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, milieu, pointSurSegment } from '../../modules/2d.js'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
 /**

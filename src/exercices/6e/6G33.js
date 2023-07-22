@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { codageSegments } from '../../lib/2d/codages.js'
+import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
@@ -7,7 +8,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point } from '../../modules/2d.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

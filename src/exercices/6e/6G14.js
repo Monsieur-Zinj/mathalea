@@ -5,6 +5,7 @@ import {
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire
 } from '../../lib/2d/droites.js'
+import { point, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonneesBox } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
@@ -20,11 +21,6 @@ import {
   contraindreValeur,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
-import {
-  point,
-  pointIntersectionDD,
-  pointSurDroite
-} from '../../modules/2d.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC

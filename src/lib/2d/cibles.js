@@ -1,15 +1,13 @@
 import {
   arc,
-  cercle,
-  milieu,
-  point,
-  pointSurSegment
+  cercle
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
 import { lettreDepuisChiffre } from '../outils/outilString.js'
 import { nombreAvecEspace } from '../outils/texNombre.js'
+import { milieu, point, pointSurSegment } from './points.js'
 import { grille } from './reperes.js'
 import { longueur, segment } from './segmentsVecteurs.js'
 import { texteParPoint, texteParPosition } from './textes.js'

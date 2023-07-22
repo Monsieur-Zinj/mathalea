@@ -1,5 +1,6 @@
 import { courbe } from '../../lib/2d/courbes.js'
 import { droiteParPointEtPente } from '../../lib/2d/droites.js'
+import { point } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
@@ -9,7 +10,6 @@ import Exercice from '../Exercice.js'
 
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
-import { point } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { sqrt } from 'mathjs'
 import { context } from '../../modules/context.js'

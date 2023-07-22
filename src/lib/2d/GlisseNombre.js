@@ -1,6 +1,6 @@
-import { point } from '../../modules/2d.js'
 import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { point } from './points.js'
 import { segment, vecteur } from './segmentsVecteurs.js'
 import { texteParPosition } from './textes.js'
 

@@ -1,11 +1,11 @@
 /* eslint-disable no-useless-constructor */
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { labelPoint, latexParCoordonnees, latexParPoint } from '../../lib/2d/textes.js'
 /* eslint-disable no-unused-vars */
 import { context } from '../context.js'
 import { GVCartesian, GVCoordinates } from './coordinates.js'
 import { aleaName } from '../outilsMathjs.js'
 import { dot, round, cross } from 'mathjs'
-import { tracePoint, point } from '../2d.js'
 import { circularPermutation, getDimensions } from './outils.js'
 /**
   * @class

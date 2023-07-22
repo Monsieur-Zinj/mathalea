@@ -1,4 +1,5 @@
 import { droite } from '../../lib/2d/droites.js'
+import { point, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage.js'
@@ -8,7 +9,6 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, pointSurDroite } from '../../modules/2d.js'
 export const titre = 'Appartient ou n\'appartient pas ?'
 export const dateDePublication = '05/10/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 

@@ -1,8 +1,8 @@
 import { mediatrice } from '../../lib/2d/droites.js'
+import { point } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Exo zéro Mathalea2d'

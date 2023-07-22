@@ -1,6 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { afficheLongueurSegment, codageMilieu } from '../../lib/2d/codages.js'
 import { droite, mediatrice } from '../../lib/2d/droites.js'
+import { point, pointAdistance, pointIntersectionDD, pointIntersectionLC, tracePoint } from '../../lib/2d/points.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -9,7 +10,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint, pointAdistance, pointIntersectionLC, cercle, pointIntersectionDD } from '../../modules/2d.js'
+import { cercle } from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés de la médiatrice'
 
 /**

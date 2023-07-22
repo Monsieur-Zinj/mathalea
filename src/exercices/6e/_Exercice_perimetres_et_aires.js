@@ -1,6 +1,14 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { afficheLongueurSegment, codageSegments, texteSurSegment } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import {
+  point,
+  pointAdistance,
+  pointIntersectionCC,
+  pointIntersectionLC,
+  pointSurCercle,
+  pointSurSegment, tracePoint
+} from '../../lib/2d/points.js'
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
@@ -14,7 +22,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint, calcul }
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, pointAdistance, arc, pointSurCercle, pointIntersectionLC, cercle, tracePoint, pointSurSegment, pointIntersectionCC } from '../../modules/2d.js'
+import { arc, cercle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { texTexte } from '../../lib/format/texTexte.js'
 import Grandeur from '../../modules/Grandeur.js'

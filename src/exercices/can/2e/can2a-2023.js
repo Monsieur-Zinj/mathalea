@@ -1,6 +1,7 @@
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { courbeInterpolee } from '../../../lib/2d/courbes.js'
 import { droite } from '../../../lib/2d/droites.js'
+import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { grille, repere } from '../../../lib/2d/reperes.js'
 import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
@@ -14,9 +15,6 @@ import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import {
-  point, milieu, tracePoint
-} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'

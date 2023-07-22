@@ -1,3 +1,4 @@
+import { point } from '../../lib/2d/points.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
@@ -6,7 +7,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calcul } from '../../modules/outils.js'
-import { point } from '../../modules/2d.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
 export const ref = 'P006'

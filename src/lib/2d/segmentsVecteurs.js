@@ -1,11 +1,5 @@
 import {
-  Cercle,
-  milieu,
-  point,
-  Point,
-  pointIntersectionDD,
-  pointIntersectionLC,
-  pointSurSegment
+  Cercle
 } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -13,6 +7,7 @@ import { calcul, randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
 import { angleOriente } from './angles.js'
 import { Droite, droite } from './droites.js'
+import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './points.js'
 import { texteParPosition } from './textes.js'
 import { rotation, similitude, translation } from './transformations.js'
 

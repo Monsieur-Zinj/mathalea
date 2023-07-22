@@ -1,7 +1,7 @@
+import { milieu, point, pointAdistance } from '../../lib/2d/points.js'
 import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { milieu, point, pointAdistance } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Réaliser le quotient de deux longueurs à la règle non graduée et au compas'
 

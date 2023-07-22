@@ -1,3 +1,4 @@
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
@@ -6,7 +7,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Placer un événement sur une échelle de probabilités'
 

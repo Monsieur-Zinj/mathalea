@@ -1,5 +1,6 @@
 import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles.js'
 import { droite } from '../../../lib/2d/droites.js'
+import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { polygone } from '../../../lib/2d/polygones.js'
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
@@ -16,7 +17,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import {
-  point, pave, milieu, tracePoint
+  pave
 } from '../../../modules/2d.js'
 import { paveLPH3d } from '../../../modules/3d.js'
 import { round, min } from 'mathjs'

@@ -1,11 +1,11 @@
 import { droite } from '../../lib/2d/droites.js'
+import { point, tracePoint, tracePointSurDroite } from '../../lib/2d/points.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation, symetrieAxiale, translation2Points } from '../../lib/2d/transformations.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, calcul, randint } from '../../modules/outils.js'
-import { tracePointSurDroite, tracePoint, point } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Utiliser toutes les transformations'
 

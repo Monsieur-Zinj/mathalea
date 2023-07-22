@@ -1,4 +1,5 @@
 import { droite } from '../../lib/2d/droites.js'
+import { point, pointAdistance, pointIntersectionDD } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
@@ -6,7 +7,6 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, pointAdistance, pointIntersectionDD } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les symboles ∈ et ∉'
 

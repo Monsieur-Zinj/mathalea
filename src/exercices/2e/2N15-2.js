@@ -1,3 +1,4 @@
+import { point } from '../../lib/2d/points.js'
 import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -6,7 +7,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point } from '../../modules/2d.js'
 
 /* auteur Stéphane Guyon */
 export const titre = 'Résoudre une équation avec des valeurs absolues'

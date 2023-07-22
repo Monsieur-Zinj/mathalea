@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { droite } from '../../lib/2d/droites.js'
+import { point, pointIntersectionDD } from '../../lib/2d/points.js'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonneesBox, latexParPoint, texteParPoint } from '../../lib/2d/textes.js'
@@ -7,7 +8,6 @@ import { homothetie, rotation, similitude } from '../../lib/2d/transformations.j
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, pointIntersectionDD } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'

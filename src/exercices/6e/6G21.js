@@ -1,6 +1,14 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { afficheLongueurSegment, codageSegments, texteSurSegment } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
+import {
+  milieu,
+  point,
+  pointAdistance,
+  pointIntersectionCC,
+  pointIntersectionLC,
+  tracePoint
+} from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
@@ -12,7 +20,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { point, pointAdistance, cercle, tracePoint, pointIntersectionLC, pointIntersectionCC, traceCompas, milieu } from '../../modules/2d.js'
+import { cercle, traceCompas } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire un triangle avec les instruments'

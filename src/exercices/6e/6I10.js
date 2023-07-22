@@ -1,3 +1,4 @@
+import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
@@ -6,7 +7,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point } from '../../modules/2d.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { afficheLongueurSegment, afficheMesureAngle, codageSegment } from '../../../lib/2d/codages.js'
+import { milieu, point, pointAdistance } from '../../../lib/2d/points.js'
 import { polygone } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../../lib/2d/textes.js'
@@ -8,9 +9,6 @@ import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import {
-  point, pointAdistance, milieu
-} from '../../../modules/2d.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer un produit scalaire sur des figures géométriques classiques '

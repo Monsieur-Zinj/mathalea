@@ -1,4 +1,5 @@
 import { droite, mediatrice } from '../../lib/2d/droites.js'
+import { milieu, point, pointAdistance, pointSurSegment, tracePoint } from '../../lib/2d/points.js'
 import { nommePolygone, polygone, polygoneAvecNom, renommePolygone } from '../../lib/2d/polygones.js'
 import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes.js'
@@ -7,7 +8,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, milieu, pointSurSegment, pointAdistance, tracePoint } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 

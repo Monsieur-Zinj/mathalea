@@ -1,3 +1,4 @@
+import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
@@ -9,7 +10,6 @@ import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { point } from '../../modules/2d.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, nouveau paramètre, couleur appropriée dans la correction, AMC

@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
@@ -8,7 +9,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, tracePoint } from '../../modules/2d.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'

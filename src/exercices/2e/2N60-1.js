@@ -1,4 +1,5 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { milieu, point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
@@ -16,7 +17,6 @@ import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, itemize, randint } from '../../modules/outils.js'
-import { milieu, point } from '../../modules/2d.js'
 export const titre = 'Modéliser un problème par une inéquation.'
 export const dateDePublication = '14/02/2023'
 /**

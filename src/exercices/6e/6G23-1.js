@@ -1,4 +1,5 @@
 import { afficheMesureAngle } from '../../lib/2d/codages.js'
+import { point, pointSurSegment } from '../../lib/2d/points.js'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
@@ -8,7 +9,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { point, pointSurSegment } from '../../modules/2d.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true

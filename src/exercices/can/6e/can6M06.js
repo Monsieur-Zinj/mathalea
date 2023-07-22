@@ -1,3 +1,4 @@
+import { milieu, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { longueur } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
@@ -8,7 +9,7 @@ import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
-  tracePoint, point, milieu, pointAdistance, cercle, pointIntersectionCC
+  cercle
 } from '../../../modules/2d.js'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer le périmètre d’une figure'
