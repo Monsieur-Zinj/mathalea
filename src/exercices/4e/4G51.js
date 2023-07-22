@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { milieu, point, tracePoint } from '../../lib/2d/points.js'
+import { cone, semiEllipse } from '../../lib/2d/projections3d.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
@@ -10,7 +11,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { cone, semiEllipse } from '../../modules/2d.js'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 
