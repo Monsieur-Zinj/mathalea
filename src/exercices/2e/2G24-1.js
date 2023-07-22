@@ -121,7 +121,7 @@ export default function Calculercoordonneesvecteurs () {
       const A = point(xA, yA, nomsPoints[0]) // On définit et on trace le point A
       const B = point(xB, yB, nomsPoints[1]) // On définit et on trace le point B
       const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      tracePoint.taille = 1.5
+      traceAetB.taille = 1.5
       const labelAetB = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
       const vecteurAB = vecteur(A, B, 'red') // On créé le vecteur AB
       const vecteurABRep = vecteurAB.representant(A, 'red') // On trace le vecteur AB
