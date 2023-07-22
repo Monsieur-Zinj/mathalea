@@ -1,9 +1,10 @@
-import { Cercle, cercle } from '../../modules/2d.js'
+
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { radians } from '../../modules/mathFonctions/trigo.js'
 import { egal, inferieurouegal, randint, superieurouegal } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
+import { Cercle, cercle } from './cercle.js'
 import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites.js'
 import { carre, polygone } from './polygones.js'
 import { DemiDroite, longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'

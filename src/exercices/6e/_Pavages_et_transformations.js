@@ -1,4 +1,5 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { arc } from '../../lib/2d/cercle.js'
 import { codageSegments } from '../../lib/2d/codages.js'
 import { droiteHorizontaleParPoint, droiteVerticaleParPoint, mediatrice } from '../../lib/2d/droites.js'
 import { milieu, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
@@ -9,7 +10,6 @@ import { rotation, similitude, translation } from '../../lib/2d/transformations.
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import { arc } from '../../modules/2d.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir, fixeBordures } from '../../modules/2dGeneralites.js'

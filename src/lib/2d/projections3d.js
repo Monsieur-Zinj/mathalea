@@ -1,6 +1,6 @@
 import { abs, random, round } from 'mathjs'
-import { Cercle } from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { Cercle } from './cercle.js'
 import { afficheCoteSegment } from './codages.js'
 import { point, pointAdistance } from './points.js'
 import { pattern, polygone } from './polygones.js'

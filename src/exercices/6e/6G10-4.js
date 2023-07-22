@@ -1,3 +1,4 @@
+import { cercle } from '../../lib/2d/cercle.js'
 import { droite } from '../../lib/2d/droites.js'
 import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
@@ -10,7 +11,6 @@ import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilStrin
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { cercle } from '../../modules/2d.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'

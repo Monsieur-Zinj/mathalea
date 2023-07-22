@@ -1,4 +1,5 @@
 import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { cercle, traceCompas } from '../../lib/2d/cercle.js'
 import { cibleRonde, dansLaCibleRonde } from '../../lib/2d/cibles.js'
 import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
@@ -20,7 +21,6 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { cercle, traceCompas } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 

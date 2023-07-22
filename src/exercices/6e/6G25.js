@@ -1,3 +1,4 @@
+import { cercle } from '../../lib/2d/cercle.js'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
 import { codageMediatrice } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire, positionLabelDroite } from '../../lib/2d/droites.js'
@@ -10,7 +11,6 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { cercle } from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 export const amcReady = true
 export const amcType = 'AMCOpen'

@@ -1,3 +1,4 @@
+import { arc, cercleCentrePoint } from '../../lib/2d/cercle.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { carre, motifs } from '../../lib/2d/polygones.js'
 import { repere } from '../../lib/2d/reperes.js'
@@ -11,7 +12,6 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, calcul } from '../../modules/outils.js'
-import { arc, cercleCentrePoint } from '../../modules/2d.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 

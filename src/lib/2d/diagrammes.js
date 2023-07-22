@@ -1,9 +1,6 @@
 import { fraction, max } from 'mathjs'
-import {
-  arc,
-  cercle
-} from '../../modules/2d.js'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
+import { arc, cercle } from './cercle.js'
 import { point, tracePoint } from './points.js'
 import { carre, motifs, polygone, polyline } from './polygones.js'
 import { axeY, labelY, pointDansRepere } from './reperes.js'

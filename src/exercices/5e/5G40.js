@@ -1,3 +1,4 @@
+import { cercle, cercleCentrePoint, traceCompas } from '../../lib/2d/cercle.js'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
 import { codageSegments } from '../../lib/2d/codages.js'
 import { droite } from '../../lib/2d/droites.js'
@@ -12,7 +13,6 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { cercleCentrePoint, cercle, traceCompas } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire des parallélogrammes avec dispositif d\'auto-correction'

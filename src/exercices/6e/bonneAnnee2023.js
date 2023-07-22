@@ -1,3 +1,4 @@
+import { cercle } from '../../lib/2d/cercle.js'
 import { courbe } from '../../lib/2d/courbes.js'
 import { droite } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
@@ -10,7 +11,6 @@ import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { numAlphaNum, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { cercle } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'

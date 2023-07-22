@@ -1,12 +1,10 @@
-import {
-  arc,
-  cercle
-} from '../../modules/2d.js'
+
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
 import { lettreDepuisChiffre } from '../outils/outilString.js'
 import { nombreAvecEspace } from '../outils/texNombre.js'
+import { arc, cercle } from './cercle.js'
 import { milieu, point, pointSurSegment } from './points.js'
 import { grille } from './reperes.js'
 import { longueur, segment } from './segmentsVecteurs.js'

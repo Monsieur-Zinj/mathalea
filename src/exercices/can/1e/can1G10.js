@@ -1,3 +1,4 @@
+import { cercleCentrePoint } from '../../../lib/2d/cercle.js'
 import { point, pointSurCercle } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { grille } from '../../../lib/2d/reperes.js'
@@ -6,9 +7,6 @@ import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import {
-  cercleCentrePoint
-} from '../../../modules/2d.js'
 export const titre = 'Associer une mesure d\'angle à un  point du cercle trigonométrique '
 export const interactifReady = true
 export const interactifType = 'mathLive'

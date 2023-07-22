@@ -1,4 +1,5 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { arc, cercle } from '../../lib/2d/cercle.js'
 import { afficheLongueurSegment, codageSegments, texteSurSegment } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
 import {
@@ -22,7 +23,6 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint, calcul }
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { arc, cercle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { texTexte } from '../../lib/format/texTexte.js'
 import Grandeur from '../../modules/Grandeur.js'

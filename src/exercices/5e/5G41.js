@@ -1,4 +1,5 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { cercle, cercleCentrePoint, traceCompas } from '../../lib/2d/cercle.js'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
 import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
 import { droite } from '../../lib/2d/droites.js'
@@ -24,7 +25,6 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { cercle, cercleCentrePoint, traceCompas } from '../../modules/2d.js'
 
 export const titre = 'Construire des quadrilatères particuliers'
 

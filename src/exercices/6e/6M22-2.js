@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
+import { arc } from '../../lib/2d/cercle.js'
 import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages.js'
 import { point, pointAdistance } from '../../lib/2d/points.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { arc } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
