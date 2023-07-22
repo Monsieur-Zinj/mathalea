@@ -1,4 +1,4 @@
-import EncodeurTexte from '../Profs/P020.js'
+import EncodeurTexte from "../profs/P020.js"
 export const titre = 'Message secret à décoder avec les tables de multiplication'
 
 export const uuid = 'fe6e0'

@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outil
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
-import { signe } from '../../../lib/outils/nombres.js'
+import { signe } from '../../lib/outils/nombres.js'
 
 import {
   listeQuestionsToContenu,

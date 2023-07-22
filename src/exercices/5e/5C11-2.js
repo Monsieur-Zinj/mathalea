@@ -1,4 +1,4 @@
-import { miseEnEvidence } from '../../lib/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from '../CM/_TrouverSolutionMathador.js'
