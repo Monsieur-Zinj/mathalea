@@ -1,5 +1,6 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { calcul, randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
 import { angleOriente } from './angles.js'
@@ -23,7 +24,7 @@ export function Vecteur (arg1, arg2, nom = '') {
   if (arguments.length === 1) {
     this.nom = arg1
   } else {
-    if (typeof arg1 === 'number') {
+    if (typeof arg1 === 'number' || arg1 instanceof FractionEtendue) {
       this.x = arg1
       this.y = arg2
     } else {
