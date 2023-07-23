@@ -252,16 +252,17 @@ export default class ConstruireParSymetrie extends Exercice {
             numQuestion = -1
             enonce = ''
           }
-          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(d)$.<br>`
-          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(d)$.<br>`
-          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$, symétrique de $${p1nom[2]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$, symétrique de $${p1nom[3]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$, symétrique de $${p1nom[4]}$ par rapport à la droite $(d)$.<br>`
           enonce += numAlpha(numQuestion + 4) + ' Coder la figure.<br><br>'
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) + 1)
 
-          correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+          //correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+//correction = 'Contrôler votre figure en vérifiant qu\'elle "ressemble" à la figure ci-dessous.<br><br>'
 
           break
         case 1: // symétries axiales d'axes à 45° de points (6ème)
@@ -306,16 +307,17 @@ export default class ConstruireParSymetrie extends Exercice {
             numQuestion = -1
             enonce = ''
           }
-          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(d)$.<br>`
-          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(d)$.<br>`
-          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$, symétrique de $${p1nom[2]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$, symétrique de $${p1nom[3]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$, symétrique de $${p1nom[4]}$ par rapport à la droite $(d)$.<br>`
           enonce += numAlpha(numQuestion + 4) + ' Coder la figure.<br><br>'
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) + 1)
 
-          correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+          //correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+//correction = 'Contrôler votre figure en vérifiant qu\'elle "ressemble" à la figure ci-dessous.<br><br>'
 
           break
         case 2: // Axe de symétrie légèrement penché (utilisation du quadrillage plus complexe)
@@ -360,16 +362,17 @@ export default class ConstruireParSymetrie extends Exercice {
             numQuestion = -1
             enonce = ''
           }
-          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(d)$.<br>`
-          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(d)$.<br>`
-          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 1) + ` Construire le point $${p1nom[2]}'$, symétrique de $${p1nom[2]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 2) + ` Construire le point $${p1nom[3]}'$, symétrique de $${p1nom[3]}$ par rapport à la droite $(d)$.<br>`
+          enonce += numAlpha(numQuestion + 3) + ` Construire le point $${p1nom[4]}'$, symétrique de $${p1nom[4]}$ par rapport à la droite $(d)$.<br>`
           enonce += numAlpha(numQuestion + 4) + ' Coder la figure.<br><br>'
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) + 1)
 
-          correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+          //correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+//correction = 'Contrôler votre figure en vérifiant qu\'elle "ressemble" à la figure ci-dessous.<br><br>'
           break
 
         case 3: // symétrie axiale (Axe vertical ou horizontal) d'un triangle
@@ -437,7 +440,8 @@ export default class ConstruireParSymetrie extends Exercice {
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
-          correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+          //correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+//correction = 'Contrôler votre figure en vérifiant qu\'elle "ressemble" à la figure ci-dessous.<br><br>'
 
           break
         case 4: // symetrie axiale (Axe à 45°) d'un triangle
@@ -493,7 +497,8 @@ export default class ConstruireParSymetrie extends Exercice {
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
-          correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+          //correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+//correction = 'Contrôler votre figure en vérifiant qu\'elle "ressemble" à la figure ci-dessous.<br><br>'
           break
         case 5: // symetrie axiale Axe légèrement penché
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
@@ -544,7 +549,8 @@ export default class ConstruireParSymetrie extends Exercice {
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
 
-          correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+          //correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
+//correction = 'Contrôler votre figure en vérifiant qu\'elle "ressemble" à la figure ci-dessous.<br><br>'
           break
         case 6: // 3 symétries centrales de points
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)

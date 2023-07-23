@@ -32,7 +32,7 @@ export default class PremierOuPas extends Exercice {
     super()
     this.titre = titre
     this.consigne = 'Les nombres suivants sont-ils premiers ?'
-    this.consigneCorrection = 'Il faut mémoriser la liste des nombres premiers inférieur à $30$ : $2, 3, 5, 7, 11, 13, 17, 19, 23$ et $29$.' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
+    this.consigneCorrection = 'Il faut mémoriser la liste des nombres premiers inférieurs à $30$ : $2, 3, 5, 7, 11, 13, 17, 19, 23$ et $29$.' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
     this.nbQuestions = 3 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -48,15 +48,7 @@ export default class PremierOuPas extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const listePremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-    /** inutile : $${egalOuApprox(rsltDiv, 2)}$ $${texNombre(rsltDiv, 2)}$ fait le travail
-     * function EcritEgalOuApprox (nombre, precision) {
-     * if (nombre.equals(nombre.toFixed(precision))) {
-     *   return `= $${nombre}$`
-     * } else {
-     *   return `$\\approx $ $${nombre.toFixed(precision)}$`
-     * }
-    }
-    */
+    
     function EcritListeDivisions (dividende, nombremax) {
       let ind
       let rsltDiv
@@ -172,6 +164,7 @@ export default class PremierOuPas extends Exercice {
           }
           break
       }
+      //nombreATrouver=23
       texte = `${nombreATrouver}`
       if (this.interactif && !context.isAmc) {
         texte += propositionsQcm(this, i).texte

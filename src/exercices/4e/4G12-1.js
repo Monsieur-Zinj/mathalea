@@ -6,7 +6,7 @@ import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPointEchelle } from '../../lib/2d/textes.js'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texcolors } from '../../lib/format/style.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
@@ -100,7 +100,7 @@ export default function TrouverLaTransformations () {
     const Est = (arrivee - depart === 6) // si on va vers la droite il y a 6 numéros d'écart entre arrivée et départ sinon, c'est 1 (vers le haut)
     switch (type) {
       case 'symax': // vers l'est la droite est définie par arrivee et arrivee+1 sinon c'est arrivee et arrivee+6
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie d'axe $(${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})$.`
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par ${texteEnCouleurEtGras('la symétrie d\'axe ')}$${miseEnEvidence('('+noeuds[arrivee].nom + (Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom)+')')}$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie d'axe $(${sp(1)}\\ldots${sp(1)})$.`
         texteInteractif = `la symétrie d'axe (${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})`
         axe = Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6])
@@ -121,9 +121,9 @@ export default function TrouverLaTransformations () {
         animation = rotationAnimee(poly1, centre, leSens ? 90 : -90, 'begin="0s" dur="5s" repeatCount="indefinite"')
         return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu de $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
-        texteInteractif = `la symétrie de centre le milieu de [${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]`
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par ${texteEnCouleurEtGras('la symétrie dont le centre est le milieu de ')}$${miseEnEvidence('['+ noeuds[arrivee].nom + (Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom))+']'}$.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie dont le centre est le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
+        texteInteractif = `la symétrie dont le centre est le milieu de [${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]`
         centre = milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6])
         animation = rotationAnimee(poly1, centre, 180, 'begin="0s" dur="5s" repeatCount="indefinite"')
         return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre }
@@ -230,7 +230,7 @@ export default function TrouverLaTransformations () {
           case 'rot180':
             //    trans = definitElements('rot180', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
-                  `la symétrie de centre le milieu de [${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}]`
+                  `la symétrie dont le centre est le milieu de [${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}]`
             )
             break
 

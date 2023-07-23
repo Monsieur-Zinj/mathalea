@@ -46,22 +46,6 @@ export default function Transformations () {
 
   this.nouvelleVersion = function () {
     let nbImages
-    /*
-    let choixTransformation;
-
-    if (!this.sup) { // Si aucune liste n'est saisie
-      choixTransformation = rangeMinMax(1, 3)
-    } else {
-      if (typeof this.sup === 'number') {
-        choixTransformation = combinaisonListes([contraindreValeur(1, 10, this.sup, 10)], 3)
-      } else {
-        choixTransformation = combinaisonListes(this.sup.split('-'), 3) // Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < 3; i++) {
-          choixTransformation[i] = contraindreValeur(1, 10, parseInt(choixTransformation[i]), 10) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    */
 
     const choixTransformation = gestionnaireFormulaireTexte({
       max: 10,
@@ -221,7 +205,7 @@ export default function Transformations () {
             ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', d1.color)}$.<br>`
             texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-            ` Le symétrique du point $${antecedents[i]}$ par rapport à $(d_1)$ est le point $${miseEnEvidence(images[i])}$.<br>`
+            ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_1)', d1.color)}$ est le point $${miseEnEvidence(images[i])}$.<br>`
             objetsEnonce.push(d1, traceAnt, latexParCoordonnees('(d_1)', 4.8, 4.2, d1.color, 20, 10, '', 12))
 
             objetsCorrection.push(d1, traceAnt, traceIm, latexParCoordonnees('(d_1)', 4.8, 4.2, d1.color, 20, 10, '', 12),
@@ -240,7 +224,7 @@ export default function Transformations () {
             ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', d2.color)}$.<br>`
             texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-            ` Le symétrique du point $${antecedents[i]}$ par rapport à $(d_2)$ est le point $${miseEnEvidence(images[i])}$.<br>`
+            ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_2)', d2.color)}$ est le point $${miseEnEvidence(images[i])}$.<br>`
             objetsEnonce.push(d2, traceAnt, latexParCoordonnees('(d_2)', 4.3, -3.7, d2.color, 20, 10, '', 12))
             objetsCorrection.push(d2, traceAnt, traceIm, latexParCoordonnees('(d_2)', 4.3, -3.7, d2.color, 15, 10, '', 12),
               segment(M[i], N[i], d2.color), codageSegments('||', d2.color, M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
@@ -258,7 +242,7 @@ export default function Transformations () {
             ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_3)', d3.color)}$.<br>`
             texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-            ` Le symétrique du point $${antecedents[i]}$ par rapport à $(d_3)$ est le point $${miseEnEvidence(images[i])}$.<br>`
+            ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_3)', d3.color)}$ est le point $${miseEnEvidence(images[i])}$.<br>`
             objetsEnonce.push(d3, traceAnt, latexParCoordonnees('(d_3)', -4.2, 0.3, d3.color, 20, 10, '', 12))
             objetsCorrection.push(d3, traceAnt, traceIm, latexParCoordonnees('(d_3)', -4.2, 0.3, d3.color, 15, 10, '', 12),
               segment(M[i], N[i], d3.color), codageSegments('///', d3.color, M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
@@ -276,7 +260,7 @@ export default function Transformations () {
           ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_4)', d4.color)}$.<br>`
             texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-            ` Le symétrique du point $${antecedents[i]}$ par rapport à $(d_4)$ est le point $${miseEnEvidence(images[i])}$.<br>`
+            ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_4)', d4.color)}$ est le point $${miseEnEvidence(images[i])}$.<br>`
             objetsEnonce.push(d4, traceAnt, latexParCoordonnees('(d_4)', 0.2, 4.5, d4.color, 15, 10, '', 12))
             objetsCorrection.push(d4, traceAnt, traceIm, latexParCoordonnees('(d_4)', 0.2, 4.5, d4.color, 20, 10, '', 12),
               segment(M[i], N[i], d4.color), codageSegments('OO', d4.color, M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
