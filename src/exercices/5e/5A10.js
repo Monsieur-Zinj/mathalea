@@ -24,7 +24,6 @@ export default function ListeDesDiviseurs5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
-  // this.consigne += `<br>`;
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 3
@@ -43,17 +42,6 @@ export default function ListeDesDiviseurs5e () {
     this.autoCorrection = []
 
     this.sup3 = contraindreValeur(2, 16, parseInt(this.sup3), 10)
-    /*
-    let nombresDeChiffresMax
-    if (typeof this.sup === 'number') {
-      nombresDeChiffresMax = [contraindreValeur(1, 5, parseInt(this.sup), 2)]
-    } else {
-      nombresDeChiffresMax = this.sup.split('-')
-      for (let i = 0; i < nombresDeChiffresMax.length; i++) {
-        nombresDeChiffresMax[i] = contraindreValeur(1, 5, parseInt(nombresDeChiffresMax[i]), 2)
-      }
-    }
-    */
     const nombresDeChiffresMax = gestionnaireFormulaireTexte({
       max: 5,
       defaut: 2,
@@ -61,17 +49,7 @@ export default function ListeDesDiviseurs5e () {
       saisie: this.sup,
       shuffle: false
     })
-    /*
-    let nombresDeDiviseursMax
-    if (typeof this.sup2 === 'number') {
-      nombresDeDiviseursMax = [contraindreValeur(2, parseInt(this.sup3), parseInt(this.sup2), 6)]
-    } else {
-      nombresDeDiviseursMax = this.sup2.split('-')
-      for (let i = 0; i < nombresDeDiviseursMax.length; i++) {
-        nombresDeDiviseursMax[i] = contraindreValeur(2, parseInt(this.sup3), parseInt(nombresDeDiviseursMax[i]), 6)
-      }
-    }
-  */
+    
     const nombresDeDiviseursMax = gestionnaireFormulaireTexte({
       min: 2,
       max: parseInt(this.sup3),
@@ -86,7 +64,7 @@ export default function ListeDesDiviseurs5e () {
     const nbDiviseursMax = combinaisonListesSansChangerOrdre(nombresDeDiviseursMax, this.nbQuestions)
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-
+    const listeDesMDejaTrouves = []
     for (let i = 0, listeDiviseursM = [], nbDiviseursM, M, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       if (nbDiviseursMax[i] > 10) {
@@ -96,8 +74,9 @@ export default function ListeDesDiviseurs5e () {
         M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)
         listeDiviseursM = listeDesDiviseurs(M)
         nbDiviseursM = listeDiviseursM.length
-      } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i])
-
+      } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i] || listeDesMDejaTrouves.indexOf(M)!==-1)
+      listeDesMDejaTrouves.push(M)
+      
       switch (typesDeQuestions) {
         case 1:
           texte = ''
