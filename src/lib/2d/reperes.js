@@ -1392,7 +1392,12 @@ export function Repere ({
       )
     }
     for (const x of xLabelListe) {
-      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+      let l
+      if (typeof x === 'number') {
+        l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+      } else {
+        l = latexParCoordonnees(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart * 2, 'black', 20, 20, '', 8)
+      }
       l.isVisible = false
       objets.push(l)
     }
@@ -1404,7 +1409,12 @@ export function Repere ({
       )
     }
     for (const y of yLabelListe) {
-      const l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+      let l
+      if (typeof y === 'number') {
+        l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+      } else {
+        l = latexParCoordonnees(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite, 'black', 20, 20, '', 8)
+      }
       l.isVisible = false
       objets.push(l)
     }

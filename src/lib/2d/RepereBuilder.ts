@@ -1,4 +1,5 @@
 import {Repere} from './reperes.js'
+import {round} from "mathjs";
 
 /**
  * exemple : const repere = new RepereBuilder({xMin: -5, xMax:5, yMin: -3, yMax: 3}).setUniteX(1).setUniteY(2).buildCustom()
@@ -40,6 +41,8 @@ export default class RepereBuilder {
     private yLabelMax: number
     private yLabelMin: number
     private yLabelDistance: number
+    private xLabelListe: number[] | { valeur: number, texte: string }[]
+    private yLabelListe: number[] | { valeur: number, texte: string }[]
 
     /**
      * Le constructeur de l'objet RepereBuilder. Les paramètres à fournir sont minimales. Le reste est à configurer via les setters et l'instanciation du repère se fait à travers les builders exposés.
@@ -103,7 +106,9 @@ export default class RepereBuilder {
                 xLabelDistance: this.xLabelDistance,
                 yLabelMin: this.yLabelMin,
                 yLabelMax: this.yLabelMax,
-                yLabelDistance: this.yLabelDistance
+                yLabelDistance: this.yLabelDistance,
+                xLabelListe: this.xLabelListe,
+                yLabelListe: this.yLabelListe
             }
         )
     }
@@ -123,6 +128,33 @@ export default class RepereBuilder {
      * Un build libre pour faire ce qu'on veut
      */
     buildCustom() {
+        return this.build()
+    }
+
+    /**
+     * Un build pour la trigo
+     * @param {number} n diviseur de Pi pour graduer l'axe des abscisses.
+     */
+    buildTrigo(n) {
+        const labels = []
+        let i = 0
+        for (let x = 0; x < this.xLabelMax; x += Math.PI / n) {
+            if (x !== 0) {
+                labels.push({valeur: round(x, 2), texte: `\\frac{${i > 1 ? i.toString() : ''}\\Pi}{${n}}`})
+            }
+            i++
+        }
+        i = 0
+        for (let x = 0; x > this.xLabelMin; x -= Math.PI / n) {
+            if (x !== 0) {
+                labels.push({
+                    valeur: round(x, 2),
+                    texte: `\\frac{${i < -1 ? i.toString() : '-'}\\Pi}{${n}}`
+                })
+            }
+            i--
+        }
+        this.xLabelListe = labels
         return this.build()
     }
 
@@ -235,6 +267,24 @@ export default class RepereBuilder {
         this.yLabelMin = yMin
         this.yLabelMax = yMax
         this.yLabelDistance = dy
+        return this
+    }
+
+    /**
+     * Une méthode pour renseigner des labels non standards
+     * @param {{valeur: number, texte: string}[]} labels un array de valeurs et leurs traduction en latex
+     */
+    setLabelsX(labels) {
+        this.xLabelListe = labels
+        return this
+    }
+
+    /**
+     * Une méthode pour renseigner des labels non standards
+     * @param {{valeur: number, texte: string}[]} labels un array de valeurs et leurs traduction en latex
+     */
+    setLabelsY(labels) {
+        this.yLabelListe = labels
         return this
     }
 }

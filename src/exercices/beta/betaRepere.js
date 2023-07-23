@@ -19,7 +19,7 @@ export default class BetaRepere extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.sup = '-10;10;-6;6'
+    this.sup = '-5;5;-1.5;1.5'
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
     this.besoinFormulaireTexte = ['xMin, xMax, yMin, yMax séparés par des ; ']
@@ -34,15 +34,15 @@ export default class BetaRepere extends Exercice {
     } while (isNaN(yMax))
     //
     const repere = new RepereBuilder({ xMin, xMax, yMin, yMax })
-      .setUniteX(1)
-      .setUniteY(2)
-      .setThickX({ xMin: -8, xMax: 8, dx: 1 })
-      .setThickY({ yMin: -5, yMax: 5, dy: 1 })
-      .setGrille({ grilleX: { dx: 1, xMin: -10, xMax: 10 }, grilleY: { dy: 1, yMin: -6, yMax: 6 } })
-      .setGrilleSecondaire({ grilleX: { dx: 0.5, xMin: -8, xMax: 8 }, grilleY: { dy: 0.5, yMin: -5, yMax: 5 } })
-      .setLabelX({ dx: 1, xMin: -8, xMax: 8 })
-      .setLabelY({ dy: 1, yMin: -4, yMax: 4 })
-      .buildCustom()
+      .setUniteX(3)
+      .setUniteY(3)
+      .setThickX({ xMin: -5, xMax: 5, dx: Math.PI / 4 })
+      .setThickY({ yMin: -1, yMax: 1, dy: 0.5 })
+      .setGrille({ grilleX: { dx: Math.PI / 4, xMin: -5, xMax: 5 }, grilleY: { dy: 0.5, yMin: -1, yMax: 1 } })
+      //.setGrilleSecondaire({ grilleX: { dx: 0.5, xMin: -8, xMax: 8 }, grilleY: { dy: 0.5, yMin: -5, yMax: 5 } })
+      .setLabelX({ dx: Math.PI / 4, xMin: -5, xMax: 5 })
+      .setLabelY({ dy: 1, yMin: -1, yMax: 1 })
+      .buildTrigo(4)
     const texteEnonce = mathalea2d(Object.assign({}, fixeBordures([repere])), repere)
     this.listeQuestions.push(texteEnonce)
     listeQuestionsToContenu(this)// On envoie l'exercice à la fonction de mise en page
