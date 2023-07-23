@@ -1352,7 +1352,9 @@ export function Repere ({
   // LES THICKS
   if (axeXisVisible) {
     if (!xThickListe) {
-      xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
+      xThickListe = rangeMinMax(0, xThickMax, [0], xThickDistance).concat(
+        rangeMinMax(0, -xThickMin, [0], xThickDistance).map(el=>-el)
+      )
     }
     for (const x of xThickListe) {
       const thick = segment(x * xUnite, ordonneeAxe * yUnite - thickHauteur, x * xUnite, ordonneeAxe * yUnite + thickHauteur, thickCouleur)
@@ -1363,7 +1365,9 @@ export function Repere ({
   }
   if (axeYisVisible) {
     if (!yThickListe) {
-      yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance)
+      yThickListe = rangeMinMax(0, yThickMax, [0], yThickDistance).concat(
+        rangeMinMax(0, -yThickMin, [0], yThickDistance).map(el=>-el)
+      )
     }
     for (const y of yThickListe) {
       const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite, thickCouleur)
@@ -1375,7 +1379,9 @@ export function Repere ({
   // LES LABELS
   if (axeXisVisible) {
     if (!xLabelListe) {
-      xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
+      xLabelListe = rangeMinMax(0, xLabelMax, [0], xLabelDistance).concat(
+        rangeMinMax(0, -xLabelMin, [0], xLabelDistance).map(el=>-el)
+      )
     }
     for (const x of xLabelListe) {
       const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
