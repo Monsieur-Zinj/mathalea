@@ -1248,7 +1248,9 @@ export function Repere ({
         grilleYDistance = yThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleYListe = rangeMinMax(grilleYMin, grilleYMax, [], grilleYDistance)
+      grilleYListe = rangeMinMax(0, grilleYMax, [0], grilleYDistance).concat(
+        rangeMinMax(0, -grilleYMin, [0], grilleYDistance).map(el => -el)
+      )
     }
     for (const y of grilleYListe) {
       if (y !== 0 || !axeXisVisible) {
@@ -1277,11 +1279,13 @@ export function Repere ({
         grilleXDistance = xThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleXListe = rangeMinMax(grilleXMin, grilleXMax, [], grilleXDistance)
+      grilleXListe = rangeMinMax(0, grilleXMax, [0], grilleXDistance).concat(
+        rangeMinMax(0, -grilleXMin, [0], grilleXDistance).map(el => -el)
+      )
     }
     for (const x of grilleXListe) {
       if (x !== 0 || !axeYisVisible) {
-        const traitV = segment(x * xUnite, yMin * yUnite, x * xUnite, yMax * yUnite, grilleXCouleur)
+        const traitV = segment(x * xUnite, (this.grilleYMin ? this.grilleYMin : yMin) * yUnite, x * xUnite, (this.grilleYMax ? this.grilleYMax : yMax) * yUnite, grilleXCouleur)
         traitV.isVisible = false
         traitV.opacite = grilleXOpacite
         traitV.epaisseur = grilleEpaisseur
@@ -1309,10 +1313,12 @@ export function Repere ({
         grilleSecondaireYDistance = yThickDistance / 2
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance)
+      grilleSecondaireYListe = rangeMinMax(0, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance).concat(
+        rangeMinMax(0, -grilleSecondaireYMin, grilleYListe, grilleSecondaireYDistance).map(el => -el)
+      )
     }
     for (const y of grilleSecondaireYListe) {
-      const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite, grilleSecondaireYCouleur)
+      const traitH = segment((grilleSecondaireXMin ? grilleSecondaireXMin : xMin) * xUnite, y * yUnite, (grilleSecondaireXMax ? grilleSecondaireXMax : xMax) * xUnite, y * yUnite, grilleSecondaireYCouleur)
       traitH.isVisible = false
       traitH.opacite = grilleSecondaireYOpacite
       traitH.epaisseur = grilleSecondaireEpaisseur
@@ -1336,10 +1342,12 @@ export function Repere ({
         grilleSecondaireXDistance = xThickDistance / 2
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance)
+      grilleSecondaireXListe = rangeMinMax(0, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance).concat(
+        rangeMinMax(0, -grilleSecondaireXMin, grilleXListe, grilleSecondaireXDistance).map(el => -el)
+      )
     }
     for (const x of grilleSecondaireXListe) {
-      const traitV = segment(x * xUnite, yMin * yUnite, x * xUnite, yMax * yUnite, grilleSecondaireXCouleur)
+      const traitV = segment(x * xUnite, (grilleSecondaireYMin ? grilleSecondaireYMin : yMin) * yUnite, x * xUnite, (grilleSecondaireYMax ? grilleSecondaireYMax : yMax) * yUnite, grilleSecondaireXCouleur)
       traitV.isVisible = false
       traitV.opacite = grilleSecondaireXOpacite
       traitV.epaisseur = grilleSecondaireEpaisseur
@@ -1353,7 +1361,7 @@ export function Repere ({
   if (axeXisVisible) {
     if (!xThickListe) {
       xThickListe = rangeMinMax(0, xThickMax, [0], xThickDistance).concat(
-        rangeMinMax(0, -xThickMin, [0], xThickDistance).map(el=>-el)
+        rangeMinMax(0, -xThickMin, [0], xThickDistance).map(el => -el)
       )
     }
     for (const x of xThickListe) {
@@ -1366,7 +1374,7 @@ export function Repere ({
   if (axeYisVisible) {
     if (!yThickListe) {
       yThickListe = rangeMinMax(0, yThickMax, [0], yThickDistance).concat(
-        rangeMinMax(0, -yThickMin, [0], yThickDistance).map(el=>-el)
+        rangeMinMax(0, -yThickMin, [0], yThickDistance).map(el => -el)
       )
     }
     for (const y of yThickListe) {
@@ -1380,7 +1388,7 @@ export function Repere ({
   if (axeXisVisible) {
     if (!xLabelListe) {
       xLabelListe = rangeMinMax(0, xLabelMax, [0], xLabelDistance).concat(
-        rangeMinMax(0, -xLabelMin, [0], xLabelDistance).map(el=>-el)
+        rangeMinMax(0, -xLabelMin, [0], xLabelDistance).map(el => -el)
       )
     }
     for (const x of xLabelListe) {
@@ -1391,7 +1399,9 @@ export function Repere ({
   }
   if (axeYisVisible) {
     if (!yLabelListe) {
-      yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
+      yLabelListe = rangeMinMax(0, yLabelMax, [0], yLabelDistance).concat(
+        rangeMinMax(0, -yLabelMin, [0], yLabelDistance).map(el => -el)
+      )
     }
     for (const y of yLabelListe) {
       const l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
