@@ -42,7 +42,7 @@ export default function SommeFractionsDecimales () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     // this.sup2 = contraindreValeur(1, 3, this.sup2, 3)
-    this.consigne = "Donner l'écriture décimale de "
+    this.consigne = "Donner le résultat de "
     this.consigne += this.nbQuestions === 1 ? 'ce' : 'chaque'
     switch (this.sup2) {
       case 1 :
@@ -55,24 +55,7 @@ export default function SommeFractionsDecimales () {
         this.consigne += ' calcul sous forme d\'une fraction décimale puis en écriture décimale.'
         break
     }
-    /*
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = range1(6)
-    } else {
-      if (typeof (this.sup) === 'number') {
-        this.sup = Math.max(Math.min(parseInt(this.sup), 7), 1)
-        typesDeQuestionsDisponibles[0] = this.sup
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsDisponibles[i]), 6)
-        }
-      }
-    }
-    if (compteOccurences(typesDeQuestionsDisponibles, 7) > 0) typesDeQuestionsDisponibles = range1(6) // Teste si l'utilisateur a choisi tout
-    */
-
+    
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 6,
       defaut: 7,
