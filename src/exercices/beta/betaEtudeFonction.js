@@ -1,13 +1,11 @@
 import { Courbe } from '../../lib/2d/courbes.js'
 import { Repere } from '../../lib/2d/reperes.js'
-import {
-  tableauSignesFonction,
-  tableauVariationsFonction
-} from '../../modules/mathFonctions/outilsMaths.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { fraction } from '../../modules/fractions.js'
+import { tableauSignesFonction, tableauVariationsFonction } from '../../modules/mathFonctions/outilsMaths.js'
 import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true
@@ -31,7 +29,7 @@ export default class BetaEtudeFonction extends Exercice {
     this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = ['Degré du polynôme:', 5]
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -63,10 +61,10 @@ export default class BetaEtudeFonction extends Exercice {
     const derivee = x => 1 + Math.log(Math.abs(x)) // pour le tableau de variations
     const latexFonction = 'x\\ln(|x|)' // pour l'énoncé
      */
-    const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
+    const { xMin, xMax, yMin, yMax } = { xMin: -4, xMax: 4, yMin: -10, yMax: 10 } // pour le repère et la courbe
     const repere1 = new Repere({
-      xMin: -10,
-      xMax: 10,
+      xMin: -4,
+      xMax: 4,
       yMin: -10,
       yMax: 10,
       xUnite: 1,
@@ -92,18 +90,28 @@ export default class BetaEtudeFonction extends Exercice {
     objetsCorrection.push(courbe1)
     let texteCorrection = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection)), objetsCorrection)
     texteCorrection += '<br>voici les signes de f : '
-    const tableauSignes = tableauSignesFonction(fonction, xMin, xMax)
-    const tableauVariations = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
+    const tableauSignes = tableauSignesFonction(fonction, xMin, xMax, {
       latex: false,
-      ligneDerivee: true,
+      step: fraction(1, 1000),
       substituts: [
-        { antVal: -10, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
-        { antVal: 10, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
+        { antVal: -4, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
+        { antVal: 4, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
         { antVal: -0.37, antTex: '-\\frac{1}{e}', imgVal: 0.4, imgTex: '\\frac{1}{e}' },
         { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
       ]
     })
-
+    const tableauVariations = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
+      latex: false,
+      ligneDerivee: true,
+      step: fraction(1, 100),
+      substituts: [
+        { antVal: -4, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
+        { antVal: 4, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
+        { antVal: -0.37, antTex: '-\\frac{1}{e}', imgVal: 0.4, imgTex: '\\frac{1}{e}' },
+        { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
+      ]
+    })
+    
     texteCorrection += `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
     texteCorrection += `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauVariations])), tableauVariations)}`
     this.listeQuestions.push(texteEnonce)
