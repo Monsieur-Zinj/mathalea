@@ -6,8 +6,9 @@ import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, texEnumerateSansNumero } from '../../modules/outils.js'
-
-export const titre = 'Vocabulaire des triangles'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+export const dateDeModifImportante = '25/07/2023'
+export const titre = 'Utiliser le vocabulaire des triangles'
 
 /**
  * Vocabulaire des triangles
@@ -32,7 +33,6 @@ export default function VocabulaireDesTriangles () {
   let typeDeQuestionsDisponibles
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.sup = parseInt(this.sup)
     if (this.classe === 6) {
       if (this.sup === 1) {
         this.nbQuestions = 4
@@ -63,14 +63,8 @@ export default function VocabulaireDesTriangles () {
         texteIntro += '<br>'
         texteIntro += '- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.'
       }
-      // this.introduction = lampeMessage({
-      // titre : `Quelques définitions`,
-      // texte : texte_intro,
-      // couleur : `nombres`
-      // });
-      this.boutonAide = modalTexteLong(
+       this.boutonAide = modalTexteLong(
         numeroExercice,
-        // `<i class="lightbulb outline icon"></i> Quelques définitions`,
         '<i class="info circle icon"></i> Quelques définitions',
         texteIntro,
         'Aide',
@@ -171,7 +165,7 @@ export default function VocabulaireDesTriangles () {
           texte = `${triangleQuelconque.getNom()} est un triangle tel que ${triangleQuelconque.getLongueurs()[0]} $= ${texNombre(triangleQuelconque.l1)}$ cm ; `
           texte += `${triangleQuelconque.getLongueurs()[1]} $= ${texNombre(triangleQuelconque.l2)}$ cm et ${triangleQuelconque.getLongueurs()[2]} $= ${texNombre(
             triangleQuelconque.l3)}$ cm.`
-          texteCorr = `Les 3 côtés du triangle ${triangleQuelconque.getNom()} sont différents donc ${triangleQuelconque.getNom()} est un triangle quelconque.`
+          texteCorr = `Les 3 côtés du triangle ${triangleQuelconque.getNom()} sont différents et nous n'avons aucune information sur les angles donc ${triangleQuelconque.getNom()} est un triangle ${texteEnCouleurEtGras('quelconque')}.`
           break
         case 2: // triangle quelconque par les angles
           while (!triangleQuelconque.isTrueTriangleAngles()) {
@@ -185,7 +179,7 @@ export default function VocabulaireDesTriangles () {
 
           texte = `${triangleQuelconque.getNom()} est un triangle tel que ${triangleQuelconque.getAngles()[0]} $= ${triangleQuelconque.a1}\\degree$ ; `
           texte += ` ${triangleQuelconque.getAngles()[1]} $= ${triangleQuelconque.a2}\\degree$ et  ${triangleQuelconque.getAngles()[2]} $= ${triangleQuelconque.a3}\\degree$ .`
-          texteCorr = `Les 3 angles du triangle ${triangleQuelconque.getNom()} sont différents donc ${triangleQuelconque.getNom()} est un triangle quelconque.`
+          texteCorr = `Les 3 angles du triangle ${triangleQuelconque.getNom()} sont différents donc ${triangleQuelconque.getNom()} est un triangle ${texteEnCouleurEtGras('quelconque')}.`
           break
 
         case 3: // triangle isocèle sans conversion
@@ -198,7 +192,7 @@ export default function VocabulaireDesTriangles () {
           }
           texte = `${triangleIsocele.getNom()} est un triangle tel que ${triangleIsocele.getLongueurs()[0]} $= ${texNombre(triangleIsocele.l1)}$ cm ; `
           texte += `${triangleIsocele.getLongueurs()[1]} $= ${texNombre(triangleIsocele.l2)}$ cm et ${triangleIsocele.getLongueurs()[2]} $= ${texNombre(triangleIsocele.l3)}$ cm.`
-          texteCorr = `Les longueurs des côtés ${triangleIsocele.getCotes()[0]} et ${triangleIsocele.getCotes()[1]} du triangle ${triangleIsocele.getNom()} valent toutes les deux $${texNombre(triangleIsocele.l1)}$ cm donc ${triangleIsocele.getNom()} est un triangle isocèle en ${triangleIsocele.getSommets()[1]}.`
+          texteCorr = `Les longueurs des côtés ${triangleIsocele.getCotes()[0]} et ${triangleIsocele.getCotes()[1]} du triangle ${triangleIsocele.getNom()} valent toutes les deux $${texNombre(triangleIsocele.l1)}$ cm donc ${triangleIsocele.getNom()} est un triangle ${texteEnCouleurEtGras('isocèle')} en ${triangleIsocele.getSommets()[1]}.`
           break
         case 4: // triangle isocèle avec conversion
           while (!triangleIsocele.isTrueTriangleLongueurs()) {
@@ -210,7 +204,7 @@ export default function VocabulaireDesTriangles () {
           }
           texte = `${triangleIsocele.getNom()} est un triangle tel que ${triangleIsocele.getLongueurs()[0]} $= ${triangleIsocele.l1 * 10}$ mm ; `
           texte += `${triangleIsocele.getLongueurs()[1]} $= ${texNombre(triangleIsocele.l2)}$ cm et ${triangleIsocele.getLongueurs()[2]} $= ${texNombre(triangleIsocele.l3)}$ cm.`
-          texteCorr = `${triangleIsocele.getLongueurs()[0]} $= ${texNombre(triangleIsocele.l1 * 10)}$ mm $= ${texNombre(triangleIsocele.l1)}$ cm = ${triangleIsocele.getLongueurs()[1]}, ${triangleIsocele.getNom()} a donc deux côtés égaux, c'est un triangle isocèle en ${triangleIsocele.getSommets()[1]}.`
+          texteCorr = `${triangleIsocele.getLongueurs()[0]} $= ${texNombre(triangleIsocele.l1 * 10)}$ mm $= ${texNombre(triangleIsocele.l1)}$ cm = ${triangleIsocele.getLongueurs()[1]}, ${triangleIsocele.getNom()} a donc deux côtés égaux, c'est un triangle ${texteEnCouleurEtGras('isocèle')} en ${triangleIsocele.getSommets()[1]}.`
           break
         case 5: // triangle équilatéral sans conversion
           while (!triangleEquilateral.isTrueTriangleLongueurs()) {
@@ -221,7 +215,7 @@ export default function VocabulaireDesTriangles () {
           }
           texte = `${triangleEquilateral.getNom()} est un triangle tel que ${triangleEquilateral.getLongueurs()[0]} $= ${texNombre(triangleEquilateral.l1)}$ cm ; `
           texte += `${triangleEquilateral.getLongueurs()[1]} $= ${texNombre(triangleEquilateral.l2)}$ cm et ${triangleEquilateral.getLongueurs()[2]} $= ${texNombre(triangleEquilateral.l3)}$ cm.`
-          texteCorr = `Les longeurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle équilatéral.`
+          texteCorr = `Les longeurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
           break
         case 6: // triangle équilatéral avec conversion
           while (!triangleEquilateral.isTrueTriangleLongueurs()) {
@@ -237,7 +231,7 @@ export default function VocabulaireDesTriangles () {
           texteCorr = `${triangleEquilateral.getLongueurs()[1]} $= ${texNombre(triangleEquilateral.l2 * 10)}$ mm $= ${triangleEquilateral.l2}$ cm.`
           texteCorr += `<br> ${triangleEquilateral.getLongueurs()[2]} $= ${texNombre(triangleEquilateral.l3 / 10)}$ dm $= ${texNombre(triangleEquilateral.l3)}$ cm.`
           texteCorr += `<br> ${triangleEquilateral.getLongueurs()[0]} $= ${texNombre(triangleEquilateral.l1)}$ cm.`
-          texteCorr += `<br> Les longeurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle équilatéral.`
+          texteCorr += `<br> Les longeurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
           break
         case 7: // triangle rectangle pas de conversion necessaire
           l1 = randint(longueurMin, longueurMax)
@@ -250,10 +244,10 @@ export default function VocabulaireDesTriangles () {
           texte += 'et '
           if (this.classe === 6) {
             texte += ` qui a un angle droit en ${triangleRectangle.getSommets()[1]}.`
-            texteCorr = `Le triangle ${triangleRectangle.getNom()} a un angle droit en ${triangleRectangle.getSommets()[1]} donc ${triangleRectangle.getNom()} est rectangle en ${triangleRectangle.getSommets()[1]}.`
+            texteCorr = `Le triangle ${triangleRectangle.getNom()} a un angle droit en ${triangleRectangle.getSommets()[1]} donc ${triangleRectangle.getNom()} est ${texteEnCouleurEtGras('rectangle')} en ${triangleRectangle.getSommets()[1]}.`
           } else {
             texte += `${triangleRectangle.getAngles()[0]} $= ${triangleRectangle.a1}\\degree$.`
-            texteCorr = `L'angle ${triangleRectangle.getAngles()[0]} du triangle ${triangleRectangle.getNom()} est un angle droit donc ${triangleRectangle.getNom()} est rectangle en ${triangleRectangle.getSommets()[1]}.`
+            texteCorr = `L'angle ${triangleRectangle.getAngles()[0]} du triangle ${triangleRectangle.getNom()} est un angle droit donc ${triangleRectangle.getNom()} est ${texteEnCouleurEtGras('rectangle')} en ${triangleRectangle.getSommets()[1]}.`
           }
 
           break
@@ -270,12 +264,12 @@ export default function VocabulaireDesTriangles () {
             texte += `qui a un angle droit en ${triangleIsoceleRectangle.getSommets()[1]}.`
             texteCorr = `Le triangle ${triangleIsoceleRectangle.getNom()} a un angle droit en ${triangleIsoceleRectangle.getSommets()[1]} donc ${triangleIsoceleRectangle.getNom()} est rectangle en ${triangleIsoceleRectangle.getSommets()[1]}.`
             texteCorr += `<br> ${triangleIsoceleRectangle.getLongueurs()[0]} $=$ ${triangleIsoceleRectangle.getLongueurs()[1]} $= ${texNombre(triangleIsoceleRectangle.l1)}$ cm donc ${triangleIsoceleRectangle.getNom()} est isocèle en ${triangleIsoceleRectangle.getSommets()[1]}.`
-            texteCorr += `<br> Le triangle ${triangleIsoceleRectangle.getNom()} est donc isocèle et rectangle en ${triangleIsoceleRectangle.getSommets()[1]}.`
+            texteCorr += `<br> Le triangle ${triangleIsoceleRectangle.getNom()} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${triangleIsoceleRectangle.getSommets()[1]}.`
           } else {
             texte += `${triangleIsoceleRectangle.getAngles()[0]} $= ${triangleIsoceleRectangle.a1}\\degree$.`
             texteCorr = `L'angle ${triangleIsoceleRectangle.getAngles()[0]} du triangle ${triangleIsoceleRectangle.getNom()} est un angle droit donc ${triangleIsoceleRectangle.getNom()} est rectangle en ${triangleIsoceleRectangle.getSommets()[1]}.`
             texteCorr += `<br> ${triangleIsoceleRectangle.getLongueurs()[0]} $=$ ${triangleIsoceleRectangle.getLongueurs()[1]} $= ${triangleIsoceleRectangle.l1}$ cm donc ${triangleIsoceleRectangle.getNom()} est isocèle en ${triangleIsoceleRectangle.getSommets()[1]}.`
-            texteCorr += `<br> Le triangle ${triangleIsoceleRectangle.getNom()} est donc isocèle et rectangle en ${triangleIsoceleRectangle.getSommets()[1]}.`
+            texteCorr += `<br> Le triangle ${triangleIsoceleRectangle.getNom()} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${triangleIsoceleRectangle.getSommets()[1]}.`
           }
           break
         case 9: // triangle isocèle rectangle avec conversion
@@ -290,12 +284,12 @@ export default function VocabulaireDesTriangles () {
             texte += `qui a un angle droit en ${triangleIsoceleRectangle.getSommets()[1]}.`
             texteCorr = `Le triangle ${triangleIsoceleRectangle.getNom()} a un angle droit en ${triangleIsoceleRectangle.getSommets()[1]} donc ${triangleIsoceleRectangle.getNom()} est rectangle en ${triangleIsoceleRectangle.getSommets()[1]}.`
             texteCorr += `<br> ${triangleIsoceleRectangle.getLongueurs()[0]} $= ${triangleIsoceleRectangle.l1 * 10}$ mm $= ${texNombre(triangleIsoceleRectangle.l1)}$ cm =${triangleIsoceleRectangle.getLongueurs()[1]} donc ${triangleIsoceleRectangle.getNom()} est isocèle en ${triangleIsoceleRectangle.getSommets()[1]}.`
-            texteCorr += `<br> Le triangle ${triangleIsoceleRectangle.getNom()} est donc isocèle et rectangle en ${triangleIsoceleRectangle.getSommets()[1]}.`
+            texteCorr += `<br> Le triangle ${triangleIsoceleRectangle.getNom()} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${triangleIsoceleRectangle.getSommets()[1]}.`
           } else {
             texte += `${triangleIsoceleRectangle.getAngles()[0]} $= ${triangleIsoceleRectangle.a1}\\degree$.`
             texteCorr = `L'angle ${triangleIsoceleRectangle.getAngles()[0]} du triangle ${triangleIsoceleRectangle.getNom()} est un angle droit donc ${triangleIsoceleRectangle.getNom()} est rectangle en ${triangleIsoceleRectangle.getSommets()[1]}.`
             texteCorr += `<br> ${triangleIsoceleRectangle.getLongueurs()[0]} $= ${texNombre(triangleIsoceleRectangle.l1 * 10)}$ mm $= ${texNombre(triangleIsoceleRectangle.l1)}$ cm =${triangleIsoceleRectangle.getLongueurs()[1]} donc ${triangleIsoceleRectangle.getNom()} est isocèle en ${triangleIsoceleRectangle.getSommets()[1]}.`
-            texteCorr += `<br> Le triangle ${triangleIsoceleRectangle.getNom()} est donc isocèle et rectangle en ${triangleIsoceleRectangle.getSommets()[1]}.`
+            texteCorr += `<br> Le triangle ${triangleIsoceleRectangle.getNom()} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${triangleIsoceleRectangle.getSommets()[1]}.`
           }
           break
         case 10: // triangle isocèle par les angles
@@ -308,7 +302,7 @@ export default function VocabulaireDesTriangles () {
           }
           texte = `${triangleIsocele.getNom()} est un triangle tel que ${triangleIsocele.getAngles()[0]} $= ${triangleIsocele.a1}\\degree$ ; `
           texte += ` ${triangleIsocele.getAngles()[1]} $= ${triangleIsocele.a2}\\degree$ et  ${triangleIsocele.getAngles()[2]} $= ${triangleIsocele.a3}\\degree$ .`
-          texteCorr = `Le triangle ${triangleIsocele.getNom()} a deux angles égaux, ${triangleIsocele.getAngles()[0]} = ${triangleIsocele.getAngles()[1]} $= ${triangleIsocele.a1}\\degree$ donc ${triangleIsocele.getNom()} est un triangle isocèle en ${triangleIsocele.getSommets()[0]}.`
+          texteCorr = `Le triangle ${triangleIsocele.getNom()} a deux angles égaux, ${triangleIsocele.getAngles()[0]} = ${triangleIsocele.getAngles()[1]} $= ${triangleIsocele.a1}\\degree$ donc ${triangleIsocele.getNom()} est un triangle ${texteEnCouleurEtGras('isocèle')} en ${triangleIsocele.getSommets()[0]}.`
           break
         case 11: // triangle équilatéral par les angles
           triangleEquilateral.a1 = 60
@@ -317,7 +311,7 @@ export default function VocabulaireDesTriangles () {
 
           texte = `${triangleEquilateral.getNom()} est un triangle tel que ${triangleEquilateral.getAngles()[0]} $= ${triangleEquilateral.a1}\\degree$ ; `
           texte += ` ${triangleEquilateral.getAngles()[1]} $= ${triangleEquilateral.a2}\\degree$ et  ${triangleEquilateral.getAngles()[2]} $= ${triangleEquilateral.a3}\\degree$.`
-          texteCorr = `Le triangle ${triangleEquilateral.getNom()} a trois angles égaux, ${triangleEquilateral.getAngles()[0]} = ${triangleEquilateral.getAngles()[1]} = ${triangleEquilateral.getAngles()[2]} $= ${triangleEquilateral.a1}\\degree$ donc ${triangleEquilateral.getNom()} est un triangle équilateral.`
+          texteCorr = `Le triangle ${triangleEquilateral.getNom()} a trois angles égaux, ${triangleEquilateral.getAngles()[0]} = ${triangleEquilateral.getAngles()[1]} = ${triangleEquilateral.getAngles()[2]} $= ${triangleEquilateral.a1}\\degree$ donc ${triangleEquilateral.getNom()} est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -330,6 +324,6 @@ export default function VocabulaireDesTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs']
+  if (this.classe === 6) {this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs']}
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
 }
