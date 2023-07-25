@@ -296,7 +296,7 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
         }
         case 'cube': {
           latex = false
-          const N = 1 // choice([1, 2])
+          const N = choice([1, 2])
           fonction = x => x ** 3
           derivee = x => 3 * x ** 2
           latex = false
@@ -332,13 +332,55 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
             }
             texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${symbole}${a}$ alors $x^3$ ......`
             texteCorrAvantTableau = `$x${symbole} ${a}$ signifie $x\\in ${intervalle}$. <br>
-Puisque $${a}^3=${Math.pow(a, 3)}$ et que la fonction cube est strictement croissante sur $\\mathbb{R}$, on obtient son tableau de variations
+Puisque $(${a})^3=${Math.pow(a, 3)}$ et que la fonction cube est strictement croissante sur $\\mathbb{R}$, on obtient son tableau de variations
 sur l'intervalle $]-\\infty;${a}]$ : <br>`
             texteCorrApresTableau = `On constate que le ${inférieur ? ' maximum ' : ' minimum '} de $x^3$ sur $${intervalle}$ est $${Math.pow(a, 3)}$. <br>
 On en déduit que si  $x${symbole}${a}$ alors  $x^3${symbole} ${Math.pow(a, 3)}$.
 <br> Remarque :  la fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.<br>
 Ainsi les antécédents et les images sont rangées dans le même ordre : <br>
 Si $x${symbole}${a}$ alors  $x^3${symbole} ${Math.pow(a, 3)}$.`
+          } else { // cas a<x<b
+            let a, b;
+            while (a === b) {
+              a = choice([
+                randint(-10, 10),
+                10 * randint(-10, 10)
+              ])
+              b = choice([
+                randint(-10, 10),
+                10 * randint(-10, 10)
+              ])
+            }
+            if (a > b) {
+              [a, b] = [b, a]
+            }
+            [xMin, xMax] = [a, b]
+            const inférieur = choice([true, false]) // a < x < b ou b > x > a ?
+            substituts = []
+            let inégalité
+            let intervalle
+            if (large1 && inférieur) {
+              inégalité = `${a} \\leqslant x \\leqslant ${b}`
+              intervalle = `[${a} ; ${b}]`
+            } else if (large1 && !inférieur) {
+              inégalité = `${b} \\geqslant x \\geqslant ${a}`
+              intervalle = `[${a} ; ${b}]`
+            } else if ((!large1) && inférieur) {
+              inégalité = `${a} < x < ${b}`
+              intervalle = `]${a} ; ${b}[`
+            } else { // (! large) && (! inférieur)
+              inégalité = `${b} > x > ${a}`
+              intervalle = `]${a} ; ${b}[`
+            }
+            texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${inégalité}$ alors $x^3$ ......`
+            texteCorrAvantTableau = `$${inégalité}$ signifie $x\\in ${intervalle}$. <br>
+Puisque $(${a})^3=${Math.pow(a, 3)}$ et $(${b})^3=${Math.pow(b, 3)}$, et que la fonction cube est strictement croissante sur $\\mathbb{R}$, on obtient son tableau de variations
+sur l'intervalle $${intervalle}$ : <br>`
+            texteCorrApresTableau = `On constate que le minimum de $x^3$ sur $${intervalle}$ est $${Math.pow(a, 3)}$, et son maximum sur le même intervalle est $${Math.pow(b, 3)}$. <br>
+On en déduit que si  $${inégalité}$ alors : $${Math.pow(a, 3)} ${large1?' \\leqslant ' : ' < '} x^3 ${ large1 ? ' \\leqslant ' : ' < '} ${Math.pow(b, 3)}$.
+<br> Remarque :  la fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.<br>
+Ainsi les antécédents et les images sont rangées dans le même ordre : <br>
+Si $${inégalité}$ alors : $${Math.pow(a, 3)} ${large1?' \\leqslant ' : ' < '} x^3 ${ large1 ? ' \\leqslant ' : ' < '} ${Math.pow(b, 3)}$.`
           }
           break
         }
