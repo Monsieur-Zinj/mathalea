@@ -50,25 +50,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    /*
-    let QuestionsDisponibles
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 3)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles = [contraindreValeur(1, 4, this.sup, 4)]
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 4, parseInt(QuestionsDisponibles[i]), 4) // parseInt en fait un tableau d'entiers
-        }
-        // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
-      }
-    }
-    enleveDoublonNum(QuestionsDisponibles)
-    if (compteOccurences(QuestionsDisponibles, 4)) QuestionsDisponibles = rangeMinMax(1, 3)
-    */
-
+    
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 3,
       defaut: 4,
