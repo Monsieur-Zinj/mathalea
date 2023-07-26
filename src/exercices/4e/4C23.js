@@ -1,25 +1,26 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 
-export const titre = 'Somme, différence ou produit de fractions'
+export const titre = 'Effectuer somme, différence ou produit de fractions'
 export const interactifType = 'mathLive'
 export const interactifReady = true
+export const dateDePublication = '15/09/2021'
+export const dateDeModifImportante = '26/07/2023'
 
 /**
- * Description didactique de l'exercice
+ * Effectuer somme, différence ou produit de fractions
  * @author Mireille Gain
- * Référence 4C23-1
- * Date de publication septembre 2021
 */
+
 export const uuid = '374b6'
 export const ref = '4C23'
 export default function SommeOuProduitFractions () {
@@ -35,30 +36,33 @@ export default function SommeOuProduitFractions () {
   this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.sup = 1
+  this.sup = "1-3"
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = false
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = parseInt(this.sup)
+    
+    let typeQuestionsDisponibles = []
+    const typeQuestionsPossibles = [['type1', 'type2'],['type3', 'type4'],['type5', 'type6'],['type7', 'type8']]
 
-    let typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] // On crée 6 types de questions
-    switch (this.sup) {
-      case 1:
-        typeQuestionsDisponibles = ['type1', 'type1', 'type1', 'type1', 'type2', 'type2', 'type5', 'type6']
-        break
-      case 2:
-        typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type3', 'type3', 'type4', 'type5', 'type6']
-        break
-      case 3:
-        typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8']
-        break
+    const QuestionsDisponibles = gestionnaireFormulaireTexte({
+      max: 4,
+      defaut: 5,
+      melange: 5,
+      nbQuestions: this.nbQuestions,
+      shuffle: true,
+      saisie: this.sup,
+      enleveDoublons: false
+    })
+
+    for (let ee=0 ; ee < QuestionsDisponibles.length ; ee++) {
+      typeQuestionsDisponibles.push(typeQuestionsPossibles[QuestionsDisponibles[ee]-1][randint(0,1)])
     }
-
+    typeQuestionsDisponibles = shuffle(typeQuestionsDisponibles)
+    
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, num1, num2, den1, den2, den3, k, k2, alea, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       // les numérateurs
@@ -271,5 +275,9 @@ export default function SommeOuProduitFractions () {
 
     listeQuestionsToContenuSansNumero(this, false) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Somme et produit\n2 : Somme ou différence, et produit\n3 : Avec priorité opératoire']
+  this.besoinFormulaireTexte = [
+    'Type de questions',
+    'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Avec priorités opératoires\n4 : Mélange'
+  ]
+  
 }

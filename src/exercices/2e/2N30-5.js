@@ -1,10 +1,7 @@
-export const titre = 'Fractions et priorités opératoires'
-
-// eslint-disable-next-line import/first
+export const titre = 'Effectuer somme, différence ou produit de fractions'
 import SommeOuProduitFractions from '../4e/4C23.js'
 
 export { interactifReady, interactifType } from '../4e/4C23.js'
-// export { amcReady, amcType } from '../4e/4C23.js'
 
 /**
  * Clone de 4C23 pour les 2nde
