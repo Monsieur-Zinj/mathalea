@@ -22,34 +22,29 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '12/04/2023'
+export const dateDeModifImportante = '25/07/2023' // EE : Ajout de this.sup4 et correction coquilles sur aire et puis aussi sur précision au dixième
 
 /**
- * Deux figures composés de rectangles et de triangles sont tracés.
+ * Il faut calculer le périmètre et/ou l'aire par addition ou soustraction d'aires
  *
- * Il faut calculer le périmètre et l'aire par addition ou soustraction d'aires
- *
- * Pas de version LaTeX
- *
- * Un seul type de figure pour l'instant.
  * @author Rémi Angot
- * Référence 6M11-2
  */
 export const uuid = '5999f'
 export const ref = '6M11-2'
 export default function PerimetreOuAireDeFiguresComposees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "Calculer le périmètre et l'aire des figures suivantes."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.sup = 7
   this.sup2 = true
-  this.sup3 = 1 // Ne pas oublier !
+  this.sup3 = 1
+  this.sup4 = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = this.sup4 === 3 ? "Calculer le périmètre et l'aire des figures suivantes." : this.sup4 === 1 ? "Calculer le périmètre des figures suivantes." : "Calculer l'aire des figures suivantes."
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -67,23 +62,6 @@ export default function PerimetreOuAireDeFiguresComposees () {
       [36, 77, 85],
       [39, 80, 89]
     ]
-
-    /*
-    let questionsDisponibles
-    if (!this.sup) { // Si aucune liste n'est saisie
-      questionsDisponibles = rangeMinMax(1, 6)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        questionsDisponibles = [contraindreValeur(1, 6, this.sup, 2)]
-      } else {
-        questionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < questionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          questionsDisponibles[i] = contraindreValeur(1, 6, parseInt(questionsDisponibles[i]), 2) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    const typesDeQuestions = this.sup2 ? combinaisonListes(questionsDisponibles, this.nbQuestions) : combinaisonListesSansChangerOrdre(questionsDisponibles, this.nbQuestions)
-    */
 
     const typesDeQuestions = gestionnaireFormulaireTexte({
       max: 6,
@@ -129,11 +107,11 @@ export default function PerimetreOuAireDeFiguresComposees () {
 
           texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(l1)} cm`
           texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2)} cm et ${stringNombre(l1)} cm.<br>`
-          texteCorr += `$\\mathcal{P}_{1}=${texNombre(L1 + L2)}+${texNombre(hyp)}+${texNombre(L1)}+${texNombre(l1)}=${texNombre(L1 + L2 + hyp + L1 + l1)}${sp()}${texTexte('cm')}$<br>`
-          texteCorr += `$\\mathcal{A}_{1}=(${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)}\\div2)=${texNombre(L1 * l1)}+${texNombre((L2 * l1) / 2)}=${texNombre(L1 * l1 + (L2 * l1) / 2)}${sp()}${texTexte('cm')}^2$`
-          texteCorr += '<br>'
+          texteCorr += this.sup4 !==2 ? `$\\mathcal{P}=${texNombre(L1 + L2)}+${texNombre(hyp)}+${texNombre(L1)}+${texNombre(l1)}=${texNombre(L1 + L2 + hyp + L1 + l1)}${sp()}${texTexte('cm')}$<br>`:''
+          texteCorr += this.sup4 !==1 ? `$\\mathcal{A}=(${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)}\\div2)=${texNombre(L1 * l1)}+${texNombre((L2 * l1) / 2)}=${texNombre(L1 * l1 + (L2 * l1) / 2)}${sp()}${texTexte('cm')}^2$`:''
+          
           perimetre = [arrondi(L1 + L2 + hyp + L1 + l1, 1), arrondi(L1 + L2 + hyp + L1 + l1, 1)] // Volontairement doublés pour être synchrone avec les cercles
-          aire = [arrondi(L1 * l1 + (L2 * l1) / 2, 1), arrondi(L1 * l1 + (L2 * l1) / 2, 1)]
+          aire = [arrondi(L1 * l1 + (L2 * l1) / 2, 2), arrondi(L1 * l1 + (L2 * l1) / 2, 2)]
           break
         }
         case 2 : { // 'rectangle_moins_triangle': {
@@ -159,11 +137,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objets2)
 
           texteCorr = `La figure est un carré de côté ${stringNombre(c)} cm auquel il faut enlever un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(c1)} cm et ${stringNombre(c2)} cm.<br>`
-          texteCorr += `$\\mathcal{P}_{2}=${texNombre(c)}+${texNombre(c)}+${texNombre(c)}+${texNombre(c1)}+${texNombre(c2)}=${texNombre(3 * c + c1 + c2)}${sp()}${texTexte('cm')}$<br>`
-          texteCorr += `$\\mathcal{A}_{2}=(${texNombre(c)}\\times${texNombre(c)})-(${texNombre(c1)}\\times${texNombre(c2)}\\div2)=${texNombre(c ** 2 - (c1 * c2) / 2)}${sp()}${texTexte('cm')}^2$`
-          texteCorr += '<br>'
+          texteCorr += this.sup4 !== 2 ?`$\\mathcal{P}=${texNombre(c)}+${texNombre(c)}+${texNombre(c)}+${texNombre(c1)}+${texNombre(c2)}=${texNombre(3 * c + c1 + c2)}${sp()}${texTexte('cm')}$<br>` : ''
+          texteCorr += this.sup4 !== 1 ?`$\\mathcal{A}=(${texNombre(c)}\\times${texNombre(c)})-(${texNombre(c1)}\\times${texNombre(c2)}\\div2)=${texNombre(c ** 2 - (c1 * c2) / 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
           perimetre = [arrondi(3 * c + c1 + c2, 1), arrondi(3 * c + c1 + c2, 1)]
-          aire = [arrondi(c ** 2 - (c1 * c2) / 2, 1), arrondi(c ** 2 - (c1 * c2) / 2, 1)]
+          aire = [arrondi(c ** 2 - (c1 * c2) / 2, 2), arrondi(c ** 2 - (c1 * c2) / 2, 2)]
           break
         }
         case 3 : { // 'rectangle_moins_deux_triangles': {
@@ -207,11 +184,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objets2)
 
           texteCorr = `La figure est un carré de côté ${stringNombre(c)} cm auquel il faut enlever un triangle de ${stringNombre(c)} cm de base et ${stringNombre(h)} cm de hauteur.<br>`
-          texteCorr += `$\\mathcal{P}_{2}=${texNombre(c)}+${texNombre(c)}+${texNombre(c)}+${texNombre(c1)}+${texNombre(c2)}=${texNombre(3 * c + c1 + c2)}${sp()}${texTexte('cm')}$<br>`
-          texteCorr += `$\\mathcal{A}_{2}=(${texNombre(c)}\\times${texNombre(c)})-(${texNombre(c)}\\times${h}\\div2)=${texNombre(c * c)}-${texNombre((c * h) / 2)}=${texNombre(c ** 2 - (c * h) / 2)}${sp()}${texTexte('cm')}^2$`
-          texteCorr += '<br>'
+          texteCorr += this.sup4 !== 2 ?`$\\mathcal{P}=${texNombre(c)}+${texNombre(c)}+${texNombre(c)}+${texNombre(c1)}+${texNombre(c2)}=${texNombre(3 * c + c1 + c2)}${sp()}${texTexte('cm')}$<br>` : ''
+          texteCorr += this.sup4 !== 1 ?`$\\mathcal{A}=(${texNombre(c)}\\times${texNombre(c)})-(${texNombre(c)}\\times${h}\\div2)=${texNombre(c * c)}-${texNombre((c * h) / 2)}=${texNombre(c ** 2 - (c * h) / 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
           perimetre = [arrondi(3 * c + c1 + c2, 1), arrondi(3 * c + c1 + c2, 1)]
-          aire = [arrondi(c ** 2 - (c * h) / 2, 1), arrondi(c ** 2 - (c * h) / 2, 1)]
+          aire = [arrondi(c ** 2 - (c * h) / 2, 2), arrondi(c ** 2 - (c * h) / 2, 2)]
           break
         }
         case 4 : { // 'rectangle_demi_cercle': {
@@ -239,18 +215,18 @@ export default function PerimetreOuAireDeFiguresComposees () {
 
           texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(L2)} cm`
           texteCorr += ` et d'un demi cercle de rayon ${stringNombre(L2 / 2)} cm.<br>`
-          texteCorr += `$\\mathcal{P}_{1}=${texNombre(L1)}+${texNombre(L2)}+${texNombre(L1)}+(${texNombre(L2)}\\times \\pi \\div 2) \\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * Math.PI / 2, 3), 3)}${sp()}${texTexte('cm')}$.<br>`
-          texteCorr += `$\\mathcal{A}_{1}=(${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times\\pi \\div 2) \\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, 3), 3)}${sp()}${texTexte('cm')}^2$`
-          texteCorr += `<br>Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}_{1}\\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}$.`
-          texteCorr += `<br>Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}_{1}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>`
-          /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors :<br> $\\mathcal{P}_{1}\\approx ${texNombre(L1)}+${texNombre(L2)}+${texNombre(L2)}+(${texNombre(L2)}\\times 3,14 \\div 2) \\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * 3.14 / 2, 3), 3)}${sp()}${texTexte('cm')}$.<br>`
-          texteCorr += `$\\mathcal{A}_{1}\\approx (${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times 3,14 \\div 2) \\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14 / 2, 3), 3)}${sp()}${texTexte('cm')}^2$`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}_{1}\\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * 3.14 / 2, 1))}${sp()}${texTexte('cm')}$`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}_{1}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14 / 2, 1))}${sp()}${texTexte('cm')}^2$<br>`
-          texteCorr += '<br>' */
-          perimetre = [troncature(L1 + L2 + L1 + L2 * Math.PI / 2, this.sup3 - 1), troncature(L1 + L2 + L1 + L2 * Math.PI / 2 + Math.pow(10, this.sup3 - 1), this.sup3 - 1),
+          texteCorr += this.sup4 !==2 ? `$\\mathcal{P}=${texNombre(L1)}+${texNombre(L2)}+${texNombre(L1)}+(${texNombre(L2)}\\times \\pi \\div 2) \\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * Math.PI / 2, 3), 3)}${sp()}${texTexte('cm')}$<br>` : ''
+          texteCorr += this.sup4 !==1 ? `$\\mathcal{A}=(${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times\\pi \\div 2) \\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, 3), 3)}${sp()}${texTexte('cm')}^2$<br>` : ''
+          texteCorr += this.sup4 !==2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}$.<br>` : ''
+          texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>` : ''
+          /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors :<br> $\\mathcal{P}\\approx ${texNombre(L1)}+${texNombre(L2)}+${texNombre(L2)}+(${texNombre(L2)}\\times 3,14 \\div 2) \\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * 3.14 / 2, 3), 3)}${sp()}${texTexte('cm')}$.<br>`
+          texteCorr += this.sup4 !==1 ? `$\\mathcal{A}\\approx (${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times 3,14 \\div 2) \\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14 / 2, 3), 3)}${sp()}${texTexte('cm')}^2$`
+          texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * 3.14 / 2, 1))}${sp()}${texTexte('cm')}$`
+          texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14 / 2, 1))}${sp()}${texTexte('cm')}^2$<br>`
+           */
+          perimetre = [troncature(L1 + L2 + L1 + L2 * Math.PI / 2, this.sup3 - 1), troncature(L1 + L2 + L1 + L2 * Math.PI / 2 + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
             troncature(L1 + L2 + L1 + L2 * Math.PI / 2, 0), troncature(L1 + L2 + L1 + L2 * Math.PI / 2 + 1, 0)]
-          aire = [troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2 + Math.pow(10, this.sup3 - 1), this.sup3 - 1),
+          aire = [troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2 + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
             troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, 0), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2 + 1, 0)]
           break
         }
@@ -286,18 +262,18 @@ export default function PerimetreOuAireDeFiguresComposees () {
 
           texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(L2)} cm`
           texteCorr += ` et de deux demi-cercles de rayon ${stringNombre(L2 / 2)} cm.<br>`
-          texteCorr += `$\\mathcal{P}_{1}=${texNombre(L1)}+${texNombre(L1)}+(${texNombre(L2)}\\times \\pi) \\approx ${texNombre(L1 + L1 + L2 * Math.PI, 3)}${sp()}${texTexte('cm')}$<br>`
-          texteCorr += `$\\mathcal{A}_{1}=(${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times\\pi)\\approx ${texNombre(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, 3)}${sp()}${texTexte('cm')}^2$`
-          texteCorr += `<br>Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}_{1}\\approx ${texNombre(troncature(L1 + L1 + L2 * Math.PI, this.sup3 - 1))}${sp()}${texTexte('cm')}$.`
-          texteCorr += `<br>Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}_{1}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>`
-          /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors : <br> $\\mathcal{P}_{1}\\approx ${texNombre(L1)}+${texNombre(L1)}+(${texNombre(L2)}\\times 3,14) \\approx ${texNombre(L1 + L1 + L2 * 3.14, 3)}${sp()}${texTexte('cm')}$<br>`
-          texteCorr += `$\\mathcal{A}_{1}\\approx (${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times 3,14)\\approx ${texNombre(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14, 3)}${sp()}${texTexte('cm')}^2$`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}_{1}\\approx ${texNombre(troncature(L1 + L1 + L2 * 3.14, 1))}${sp()}${texTexte('cm')}$.`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}_{1}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14, 1))}${sp()}${texTexte('cm')}^2$.<br>`
-          texteCorr += '<br>' */
-          perimetre = [troncature(L1 + L1 + L2 * Math.PI, this.sup3 - 1), troncature(L1 + L1 + L2 * Math.PI + Math.pow(10, this.sup3 - 1), this.sup3 - 1),
+          texteCorr += this.sup4 !==2 ? `$\\mathcal{P}=${texNombre(L1)}+${texNombre(L1)}+(${texNombre(L2)}\\times \\pi) \\approx ${texNombre(L1 + L1 + L2 * Math.PI, 3)}${sp()}${texTexte('cm')}$<br>`  : ''
+          texteCorr += this.sup4 !==1 ? `$\\mathcal{A}=(${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times\\pi)\\approx ${texNombre(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, 3)}${sp()}${texTexte('cm')}^2$<br>` : ''
+          texteCorr += this.sup4 !==2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L1 + L2 * Math.PI, this.sup3 - 1))}${sp()}${texTexte('cm')}$.<br>` : ''
+          texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>` : ''
+          /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors : <br> $\\mathcal{P}\\approx ${texNombre(L1)}+${texNombre(L1)}+(${texNombre(L2)}\\times 3,14) \\approx ${texNombre(L1 + L1 + L2 * 3.14, 3)}${sp()}${texTexte('cm')}$<br>`
+          texteCorr += this.sup4 !==1 ? `$\\mathcal{A}\\approx (${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times 3,14)\\approx ${texNombre(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14, 3)}${sp()}${texTexte('cm')}^2$`
+          texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L1 + L2 * 3.14, 1))}${sp()}${texTexte('cm')}$.`
+          texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14, 1))}${sp()}${texTexte('cm')}^2$.<br>`
+           */
+          perimetre = [troncature(L1 + L1 + L2 * Math.PI, this.sup3 - 1), troncature(L1 + L1 + L2 * Math.PI + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
             troncature(L1 + L1 + L2 * Math.PI, 0), troncature(L1 + L1 + L2 * Math.PI + 1, 0)]
-          aire = [troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI + Math.pow(10, this.sup3 - 1), this.sup3 - 1),
+          aire = [troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
             troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, 0), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI + 1, 0)]
           break
         }
@@ -331,28 +307,28 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(l1)} cm, `
           texteCorr += `d'un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2)} cm et ${stringNombre(l1)} cm `
           texteCorr += `et d'un demi-cercle de rayon ${stringNombre(l1 / 2)}${sp()}cm.<br>`
-          texteCorr += `$\\mathcal{P}_{1}=${texNombre(L1)}+${texNombre(L1 + L2)}+(${texNombre(l1)}\\times \\pi \\div 2)+${texNombre(hyp)}\\approx${texNombre(troncature(L1 + L1 + hyp + L2 + l1 * Math.PI / 2, 3))}${sp()}${texTexte('cm')}$<br>`
-          texteCorr += `$\\mathcal{A}_{1}=(${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)} \\div 2) + (\\pi \\times${texNombre(l1)} \\div 2)\\approx${texNombre(troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, 3))}${sp()}${texTexte('cm')}^2$`
-          texteCorr += `<br>Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}_{1}\\approx ${texNombre(troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}$.`
-          texteCorr += `<br>Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}_{1}\\approx ${texNombre(troncature(L1 * l1 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + L2 * l1 / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>`
-          /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors :<br> $\\mathcal{P}_{1}\\approx ${texNombre(L1)}+${texNombre(L1 + L2)}+(${texNombre(l1)}\\times 3,14 \\div 2)+${texNombre(hyp)}\\approx${texNombre(troncature(L1 + L1 + hyp + L2 + l1 * 3.14 / 2, 3))}${sp()}${texTexte('cm')}$.<br>`
-          texteCorr += `$\\mathcal{A}_{1}\\approx (${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)} \\div 2) + (3,14 \\times${texNombre(l1)} \\div 2)\\approx${texNombre(troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * 3.14 / 2, 3))}${sp()}${texTexte('cm')}^2$`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}_{1}\\approx ${texNombre(troncature(L1 + L1 + L2 + hyp + l1 * 3.14 / 2, 1))}${sp()}${texTexte('cm')}$.`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}_{1}\\approx ${texNombre(troncature(L1 * l1 + (l1 / 2) * (l1 / 2) * 3.14 / 2 + L2 * l1 / 2, 1))}${sp()}${texTexte('cm')}^2$.<br>`
-          texteCorr += '<br>' */
-          perimetre = [troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, this.sup3 - 1), troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2 + Math.pow(10, this.sup3 - 1), this.sup3 - 1),
+          texteCorr += this.sup4 !==2 ? `$\\mathcal{P}=${texNombre(L1)}+${texNombre(L1 + L2)}+(${texNombre(l1)}\\times \\pi \\div 2)+${texNombre(hyp)}\\approx${texNombre(troncature(L1 + L1 + hyp + L2 + l1 * Math.PI / 2, 3))}${sp()}${texTexte('cm')}$<br>` : ''
+          texteCorr += this.sup4 !==1 ? `$\\mathcal{A}=(${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)} \\div 2) + (\\pi \\times${texNombre(l1)} \\div 2)\\approx${texNombre(troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, 3))}${sp()}${texTexte('cm')}^2$<br>` : ''
+          texteCorr += this.sup4 !==2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}$.<br>` : ''
+          texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * l1 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + L2 * l1 / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>` : ''
+          /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors :<br> $\\mathcal{P}\\approx ${texNombre(L1)}+${texNombre(L1 + L2)}+(${texNombre(l1)}\\times 3,14 \\div 2)+${texNombre(hyp)}\\approx${texNombre(troncature(L1 + L1 + hyp + L2 + l1 * 3.14 / 2, 3))}${sp()}${texTexte('cm')}$.<br>`
+          texteCorr += this.sup4 !==1 ? `$\\mathcal{A}\\approx (${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)} \\div 2) + (3,14 \\times${texNombre(l1)} \\div 2)\\approx${texNombre(troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * 3.14 / 2, 3))}${sp()}${texTexte('cm')}^2$`
+          texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L1 + L2 + hyp + l1 * 3.14 / 2, 1))}${sp()}${texTexte('cm')}$.`
+          texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * l1 + (l1 / 2) * (l1 / 2) * 3.14 / 2 + L2 * l1 / 2, 1))}${sp()}${texTexte('cm')}^2$.<br>`
+           */
+          perimetre = [troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, this.sup3 - 1), troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2 + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
             troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, 0), troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2 + 1, 0)]
-          aire = [troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, this.sup3 - 1), troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + Math.pow(10, this.sup3 - 1), this.sup3 - 1),
+          aire = [troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, this.sup3 - 1), troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
             troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, 0), troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + 1, 0)]
           break
         }
       }
-      texte += ajouteChampTexteMathLive(this, i * 2, 'largeur25 inline nospacebefore unites[longueurs]', { texte: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ' })
-      texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'largeur25 inline nospacebefore unites[aires]', { texte: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ' })
+      texte += this.sup4 !==2 ? ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), 'largeur25 inline nospacebefore unites[longueurs]', { texte: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ' }) : ''
+      texte += this.sup4 !==1 ?ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), 'largeur25 inline nospacebefore unites[aires]', { texte: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ' }) : ''
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: 'Calculer le périmètre et l\'aire de la figure suivante.\\\\' + texte,
+          enonce: (this.sup4 === 3 ? 'Calculer le périmètre et l\'aire de la figure suivante.\\\\' : this.sup4 === 2 ? 'Calculer le périmètre de la figure suivante.\\\\' : 'Calculer l\'aire de la figure suivante.\\\\') + texte,
           options: { multicols: true, barreseparation: false, numerotationEnonce: true },
           propositions: [
             {
@@ -361,10 +337,13 @@ export default function PerimetreOuAireDeFiguresComposees () {
                 enonce: 'Indiquer ci-dessous les calculs : <br>',
                 numQuestionVisible: false,
                 texte: texteCorr,
-                statut: 6,
+                statut: this.sup4 !==3 ? 3 : 6,
                 pointilles: false
               }]
-            },
+            }
+          ]
+        }
+        if (this.sup4 !== 2) this.autoCorrection[i].propositions.push(
             {
               type: 'AMCNum',
               propositions: [
@@ -383,8 +362,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
                   }
                 }
               ]
-            },
-            {
+            }
+          )
+            if (this.sup4 !== 1) this.autoCorrection[i].propositions.push(
+              {
               type: 'AMCNum',
               propositions: [
                 {
@@ -403,11 +384,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
                 }
               ]
             }
-          ]
-        }
+          )
       } else {
-        setReponse(this, i * 2, [new Grandeur(perimetre[0], 'cm'), new Grandeur(perimetre[1], 'cm')], { formatInteractif: 'unites' })
-        setReponse(this, i * 2 + 1, [new Grandeur(aire[0], 'cm^2'), new Grandeur(aire[1], 'cm^2')], { formatInteractif: 'unites' })
+        if (this.sup4 !== 2) setReponse(this, i * (this.sup4 === 3 ? 2 : 1), [new Grandeur(perimetre[0], 'cm'), new Grandeur(perimetre[1], 'cm')], { formatInteractif: 'unites' })
+        if (this.sup4 !== 1) setReponse(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), [new Grandeur(aire[0], 'cm^2'), new Grandeur(aire[1], 'cm^2')], { formatInteractif: 'unites' })
       }
       if (this.questionJamaisPosee(i, perimetre, aire)) {
         this.listeQuestions.push(texte)
@@ -424,4 +404,6 @@ export default function PerimetreOuAireDeFiguresComposees () {
   ]
   this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des figures choisies']
   this.besoinFormulaire3Numerique = ['Choix de la précision : ', 2, '1 : À l\'unité\n 2 : Au dixième']
+  this.besoinFormulaire4Numerique = ['Choix de la demande : ', 3, '1 : Que le périmètre\n 2 : Que l\'aire\n3 : Périmètre et aire']
+  
 }
