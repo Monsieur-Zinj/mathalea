@@ -1,7 +1,8 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { sp } from '../../lib/outils/outilString.js'
-import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite.js'
-import Exercice from '../Exercice.js'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils.js'
+import { sp } from '../../../lib/outils/outilString.js'
+import { listeDesDiviseurs, premiersEntreBornes } from '../../../lib/outils/primalite.js'
+import Exercice from '../../Exercice.js'
+
 export const titre = 'Lister tous les diviseurs d’un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,7 +15,7 @@ export const uuid = '15fd6'
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
  * Référence
-*/
+ */
 export default class ModeleAutomatisme2nde extends Exercice {
   constructor () {
     super()
@@ -24,7 +25,7 @@ export default class ModeleAutomatisme2nde extends Exercice {
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau', 3]
   }
-
+  
   nouvelleVersion () {
     // Dans ce modèle, j'ai pris la première question du fichier Doc-Automatismes-2de-acOT-GTCAN-2023.pdf.
     // La question posée est de lister tous les diviseurs d'un entier.
