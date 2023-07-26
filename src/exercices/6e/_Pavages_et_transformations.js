@@ -187,9 +187,9 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(2, [tabfigA[indexA][0], tabfigA[indexA][1]], [xmil1, ymil1])
           }
         }
-        texteAMC1 = numAlpha(0) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_1)', context.isAmc ? 'black' : 'green')}$  ?` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
+        texteAMC1 = numAlpha(0) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_1)', context.isAmc ? 'black' : 'green')}$  ?` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
         texte += texteAMC1
-        texteCorr += numAlpha(0) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_1)', context.isAmc ? 'black' : 'green')}$  porte le numéro ${texteEnCouleurEtGras(num1)}.<br>`
+        texteCorr += numAlpha(0) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_1)', context.isAmc ? 'black' : 'green')}$  porte le numéro ${texteEnCouleurEtGras(num1)}.<br>`
 
         // Deuxième question : une figure type D par symétrie d'axe // à [AC] est une figure type B. le symétrique du sommet B est le sommet D
         indexD = randint(0, nx * ny - 1)
@@ -232,9 +232,9 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(1, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
           }
         }
-        texteAMC2 = numAlpha(1) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_2)', context.isAmc ? 'black' : 'red')}$  ?` + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+        texteAMC2 = numAlpha(1) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_2)', context.isAmc ? 'black' : 'red')}$  ?` + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
         texte += '<br>' + texteAMC2
-        texteCorr += '<br>' + numAlpha(1) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_2)', context.isAmc ? 'black' : 'red')}$  porte le numéro ${texteEnCouleurEtGras(num2)}.<br>`
+        texteCorr += '<br>' + numAlpha(1) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_2)', context.isAmc ? 'black' : 'red')}$  porte le numéro ${texteEnCouleurEtGras(num2)}.<br>`
 
         // troisième question : une figure type D par symétrie d'axe // à [DC] est une figure type A. le symétrique du sommet D est le sommet A'
         indexC = randint(0, nx * ny - 1)
@@ -276,9 +276,9 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3])
           }
         }
-        texteAMC3 = numAlpha(2) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  ?` + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+        texteAMC3 = numAlpha(2) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  ?` + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
         texte += '<br>' + texteAMC3
-        texteCorr += '<br>' + numAlpha(2) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  porte le numéro ${texteEnCouleurEtGras(num3)}.<br>`
+        texteCorr += '<br>' + numAlpha(2) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  porte le numéro ${texteEnCouleurEtGras(num3)}.<br>`
 
         objetsEnonce.push(mediatrice1, mediatrice2, mediatrice3)
         objetsCorrection.push(mediatrice1, mediatrice2, mediatrice3, symetrieAnimee(quad[numA], mediatrice1, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), symetrieAnimee(quad[numD], mediatrice2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), symetrieAnimee(quad[numC], mediatrice3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
@@ -381,9 +381,9 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(7, [tabfigC[indexA][0], tabfigC[indexA][1]], [xmil1, ymil1])
           }
         }
-        texteAMC1 = numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} ?`, context.isAmc ? 'black' : 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
+        texteAMC1 = numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie de centre ${s0} ?`, context.isAmc ? 'black' : 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
         texte += texteAMC1
-        texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} porte le numéro ${num1}.<br>`, context.isAmc ? 'black' : 'green')
+        texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numA} dans la symétrie de centre ${s0} porte le numéro ${num1}.<br>`, context.isAmc ? 'black' : 'green')
         // Deuxième question : une figure dans tabfigD, une symétrie par rapport au milieu d'un [C'D'], le résultat est une figure dans tabfigA et C' est l'image de D !
         indexD = randint(0, nx * ny - 1)
         numD = tabfigD[indexD][2]
@@ -418,9 +418,9 @@ export default function PavagesEtTransformations () {
           }
         }
 
-        texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+        texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie de centre ${s1} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
         texte += '<br>' + texteAMC2
-        texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} porte le numéro ${num2}.<br>`, context.isAmc ? 'black' : 'red')
+        texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numD} dans la symétrie de centre ${s1} porte le numéro ${num2}.<br>`, context.isAmc ? 'black' : 'red')
         // troisième question : une figure dans tabfigC, une symétrie par rapport au symétrique du milieu de [A'D'] par rapport au milieu de [C'D']... pas très clair
         // le résultat est une figure dans tabfigD et le point (C'+ vecteur AC) a pour image D' !
         indexC = randint(0, nx * ny - 1)
@@ -454,9 +454,9 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(7, [tabfigC[indexC][0] + xC, tabfigC[indexC][1] + yC], [xmil3, ymil3])
           }
         }
-        texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+        texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie de centre ${s2} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
         texte += '<br>' + texteAMC3
-        texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, context.isAmc ? 'black' : 'blue')
+        texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie de centre ${s2} porte le numéro ${num3}.<br>`, context.isAmc ? 'black' : 'blue')
 
         objetsEnonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
         objetsCorrection.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3)
