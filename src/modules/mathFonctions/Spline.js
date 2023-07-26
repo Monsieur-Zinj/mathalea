@@ -221,10 +221,10 @@ export class Spline {
    */
   trouveMaxes () {
     if (Array.isArray(this.noeuds) && this.noeuds.length > 0) {
-      const xMin = Math.floor(Math.min(...this.noeuds.map(el => el.x)) - 1)
-      const yMin = Math.floor(Math.min(...this.noeuds.map(el => el.y)) - 1)
-      const xMax = Math.ceil(Math.max(...this.noeuds.map(el => el.x)) + 1)
-      const yMax = Math.ceil(Math.max(...this.noeuds.map(el => el.y)) + 1)
+      const xMin = Math.floor(Math.min(...this.noeuds.map(el => el.x)))
+      const yMin = Math.floor(Math.min(...this.noeuds.map(el => el.y)))
+      const xMax = Math.ceil(Math.max(...this.noeuds.map(el => el.x)))
+      const yMax = Math.ceil(Math.max(...this.noeuds.map(el => el.y)))
       return { xMin, xMax, yMin, yMax }
     }
   }
