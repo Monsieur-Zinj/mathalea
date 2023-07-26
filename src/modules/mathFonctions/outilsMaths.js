@@ -102,12 +102,12 @@ export function expTrinome (a, b, c) {
  * renvoie les solutions (intervalles) de f(x) < y (ou f(x)<=y ou f(x)>y ou f(x)>=y)
  * @param {function} fonction une fonction x=>f(x)
  * @param {number} y la valeur de y à atteindre
- * @param {number} xMin la borne gauche du domaine de définition
- * @param {number} xMax la borne droite du domaine de définition
+ * @param {number|FractionEtendue} xMin la borne gauche du domaine de définition
+ * @param {number|FractionEtendue} xMax la borne droite du domaine de définition
  * @param {boolean} inferieur si true < si false >
  * @param {boolean} strict si true < ou > sinon <= ou >=
  * @param {Object} [options]
- * @param {number} options.step le pas de recherche en x.
+ * @param {number|FractionEtendue} options.step le pas de recherche en x.
  * @return {{borneG: {x: number, included: boolean, y: number}, borneD: {x: number, included: boolean, y: number}}[]} le ou les intervalles dans une liste
  */
 export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, strict = false, { step = new FractionEtendue(1, 100) } = {}) {
@@ -165,9 +165,9 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
 /**
  *
  * @param {function} fonction du type (x)=>number
- * @param {number} xMin
- * @param {number} xMax
- * @param {number} step // fournir un step adapté à l'intervalle pour ne pas louper les valeurs particulières et pour ne pas ralentir le navigateur
+ * @param {number|FractionEtenedue} xMin
+ * @param {number|FractionEtenedue} xMax
+ * @param {number|FractionEtenedue} step // fournir un step adapté à l'intervalle pour ne pas louper les valeurs particulières et pour ne pas ralentir le navigateur
  * @returns {*[]}
  */
 export function signesFonction (fonction, xMin, xMax, step = new FractionEtendue(1, 100), tolerance = 0.005) {
@@ -181,7 +181,7 @@ export function signesFonction (fonction, xMin, xMax, step = new FractionEtendue
   for (let x = new FractionEtendue(xMin); x <= xMax; x = x.sommeFraction(step)) {
     try {
       image = fonction(x)
-      // ci-dessous on detecte les zéros à tolérance près
+      // ci-dessous on détecte les zéros à tolérance près
       if (image instanceof FractionEtendue) {
         const y = Math.abs(image.valeurDecimale)
         if (y < tolerance) {
@@ -269,9 +269,10 @@ export function signesFonction (fonction, xMin, xMax, step = new FractionEtendue
  * retourne un tableau décrivant les variations de la fonction
  * Attention, la fonction fournie doit avoir une methode derivee(x) qui retourne la valeur de la dérivée en x
  * @param {(x)=>number} derivee
- * @param {number} xMin
- * @param {number} xMax
- * @param {number} step // fournir un step adapté à l'intervalle pour ne pas louper les valeurs particulières et pour ne pas ralentir le navigateur
+ * @param {number|FractionEtendue} xMin
+ * @param {number|FractionEtendue} xMax
+ * @param {number|FractionEtendue} step // fournir un step adapté à l'intervalle pour ne pas louper les valeurs particulières et pour ne pas ralentir le navigateur
+ * @param {number|FractionEtendue} tolerance // écart maximum à zéro pour assimiler f(x) à zéro
  * @returns {null|*[]}
  */
 export function variationsFonction (derivee, xMin, xMax, step, tolerance = 0.005) {
@@ -368,6 +369,17 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
 }
 
+/**
+ * renvoie le tableau de signes d'une fonction
+ * @param fonction
+ * @param {number|FractionEtendue} xMin
+ * @param {number|FractionEtendue} xMax
+ * @param {boolean} latex // mettre true si des substituts latex sont utilisés
+ * @param {{antVal:number, antTex:string, imgVal:number, imgTex:string}[]} substituts valeur à remplacer dans le tableau (valeur au centième)
+ * @param {number|FractionEtendue} step // pas de balayage pour trouver les solutions de f(x)=0
+ * @param {number|FractionEtendue} tolerance // écart maximum à zéro pour assimiler f(x) à zéro
+ * @returns {TableauDeVariation}
+ */
 export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts, step, tolerance } = {
   latex: false,
   substituts: null,
@@ -424,12 +436,12 @@ export function tableauSignesFonction (fonction, xMin, xMax, { latex, substituts
  *
  * @param {function} fonction
  * @param {function} derivee
- * @param {number} xMin
- * @param {number} xMax
- * @param {boolean} latex
+ * @param {number|FractionEtendue} xMin
+ * @param {number|FractionEtendue} xMax
+ * @param {boolean} latex // mettre true si des substituts latex sont utilisés
  * @param {{antVal: number, antTex: string, imgVal: number, imgTex: string}[]} substituts
- * @param {number} step
- * @param {number} tolerance la valeur en dessous de laquelle les images sont considérées comme des zéros
+ * @param {number|FractionEtendue} step // pas de balayage pour trouver les solutions de f'(x)=0
+ * @param {number|FractionEtendue} tolerance la valeur en dessous de laquelle les images sont considérées comme des zéros
  * @param {boolean} ligneDerivee Mettre à true pour faire apparaître la ligne de f'
  * @returns {TableauDeVariation}
  */
