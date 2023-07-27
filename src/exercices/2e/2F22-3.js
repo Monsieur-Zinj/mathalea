@@ -2,13 +2,12 @@
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { tableauSignesFonction } from '../../modules/mathFonctions/outilsMaths.js'
 // import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { spline } from '../../modules/mathFonctions/Spline.js'
-import Exercice from '../Exercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { stringNombre } from '../../lib/outils/texNombre.js'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement.'
 export const interactifReady = true
@@ -64,19 +63,11 @@ const noeuds4 = [{ x: -6, y: 3, deriveeGauche: 1, deriveeDroit: 1, isVisible: tr
 // une liste des listes
 const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4]//, , noeuds2noeuds1, noeuds2,
 
-/**
- * trouve les extrema mais ne fonctionne que si les extrema se trouvent en des noeuds.
- * @param {{x: number, y:number,deriveeGauche:number,deriveeDroit:number, isVisible:boolean}[]} nuage les noeuds
- * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
- */
-function trouveMaxes (nuage) {
-  const xMin = Math.floor(Math.min(...nuage.map(el => el.x)) - 1)
-  const yMin = Math.floor(Math.min(...nuage.map(el => el.y)) - 1)
-  const xMax = Math.ceil(Math.max(...nuage.map(el => el.x)) + 1)
-  const yMax = Math.ceil(Math.max(...nuage.map(el => el.y)) + 1)
-  return { xMin, xMax, yMin, yMax }
-}
-let coeffX; let coeffY; let deltaX; let deltaY
+let coeffX
+let coeffY
+let deltaX
+let deltaY
+
 /**
  * choisit les caractèristique de la transformation de la courbe
  * @returns {{coeffX: -1|1, deltaX: int, deltaY: int, coeffY: -1|1}}
@@ -127,12 +118,19 @@ export default class BetaModeleSpline extends Exercice {
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 3, defaut: 1, nbQuestions: this.nbQuestions })
+    const typeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      melange: 3,
+      defaut: 1,
+      nbQuestions: this.nbQuestions
+    })
     // const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 4, nbQuestions: this.nbQuestions })
     // boucle de création des différentes questions
     for (let i = 0; i < this.nbQuestions; i++) {
@@ -147,7 +145,7 @@ export default class BetaModeleSpline extends Exercice {
       }))
       const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
       const maSpline = spline(nuage)
-      const { xMin, xMax, yMin, yMax } = trouveMaxes(nuage)
+      const { xMin, xMax, yMin, yMax } = maSpline.trouveMaxes()
       const repere1 = repere({
         xMin: xMin - 1,
         xMax: xMax + 1,
@@ -176,7 +174,7 @@ export default class BetaModeleSpline extends Exercice {
       texteEnonce += '<br>Dresser le tableau de signes de $f(x)$ sur son ensemble de définition.'
       // const objetsCorrection = [repere1]
       // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
-
+      
       let texteCorrection
       texteCorrection = `<br>L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`
       if (this.correctionDetaillee) {
@@ -186,47 +184,10 @@ export default class BetaModeleSpline extends Exercice {
       texteCorrection += `Tableau de signes de $f(x)$ sur $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$ :<br>
           `
       // on stocke le tableau de signes dans une variable
-      const signes = maSpline.signes()
-      // console.log(JSON.stringify(signes))
-      const initialValue = []
-      const premiereLigne = signes.reduce((previousElt, currentElt) => previousElt.concat([stringNombre(currentElt.xG, 1), 10]), initialValue)
-      premiereLigne.push(stringNombre(signes[signes.length - 1].xD), 10)
-      const tabLine = ['Line', 30]
-      if (maSpline.image(maSpline.x[0]) === 0) {
-        tabLine.push('z', 20)
-      } else {
-        tabLine.push('', 20)
-      }
-      for (const signe of signes) {
-        tabLine.push(signe.signe, 20)
-        tabLine.push('z', 20)
-      }
-      if (maSpline.image(maSpline.x[maSpline.n - 1]) !== 0) {
-        tabLine.splice(-3, 3)
-      }
-      // for (let k = 0; k < signes.length; k++) {
-      // texteCorrection += `<br>Sur [${signes[k].xG};${signes[k].xD}] la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
-      // }
-
-      texteCorrection += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-        tabInit: [
-          [
-            // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-            ['$x$', 2, 30], ['$f(x)$', 2, 50]
-          ],
-          // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-          premiereLigne
-        ],
-        // tabLines ci-dessous contient les autres lignes du tableau.
-        tabLines: [tabLine],
-        colorBackground: '',
-        espcl: 3.5, // taille en cm entre deux antécédents
-        deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-        lgt: 5, // taille de la première colonne en cm
-        hauteurLignes: [15, 15],
-        latex: true
-      }))
-
+      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { latex: false, step: 1, tolerance: 0.1 })
+      
+      texteCorrection += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures([tableau])), tableau)
+      
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
     }
