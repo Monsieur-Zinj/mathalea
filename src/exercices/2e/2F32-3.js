@@ -1,14 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Déterminer un extremum ou encadrer par lecture d\'un tableau de variations'
 export const dateDePublication = '20/12/2021'
 /**
-* @author Gilles Mora
-*/
+ * @author Gilles Mora
+ */
 export const uuid = 'acee0'
 export const ref = '2F32-3'
 export default function LireUnTableauDevariations () {
@@ -51,10 +51,10 @@ export default function LireUnTableauDevariations () {
             ligne1 = ['Var', 10, `-/$${-y1}$`, 10, `+/$${-y2}$`, 10, `-/$${-y3}$`, 10, `+/$${-y4}$`, 10]
           }
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-
+          
           texte = ` Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$.<br><br>
               `
-          texte += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.6 }, tableauDeVariation({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -68,12 +68,12 @@ export default function LireUnTableauDevariations () {
             colorBackground: '',
             espcl: 3, // taille en cm entre deux antécédents
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-            lgt: 3, // taille de la première colonne en cm
-            hauteurLignes: [15, 15]
-          }))
-
+            lgt: 3, // taille de la première colonne en cm,
+            scale: 0.6
+          })
+          
           texte += ' <br>Déterminer le minimum et le maximum de $f$ sur son ensemble de définition. Préciser en quelles valeurs de $x$ ils sont atteints.'
-
+          
           texteCorr = `$\\bullet~$ $f$ admet un maximum en $a$ sur un intervalle $I$ signifie que pour tout réel $x$ de $I$, $f(x)\\leqslant f(a)$.<br>
           Le nombre $f(a)$ est le maximum de $f$ sur $I$.<br>
           $\\bullet~$ $f$ admet un minimum en $b$ sur un intervalle $I$ signifie que pour tout réel $x$ de $I$, $f(x)\\geqslant f(b)$.<br>
@@ -131,7 +131,7 @@ export default function LireUnTableauDevariations () {
           }
           texte = ` Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$.<br><br>
               `
-          texte += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.6 }, tableauDeVariation({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -146,9 +146,9 @@ export default function LireUnTableauDevariations () {
             espcl: 3, // taille en cm entre deux antécédents
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
-            hauteurLignes: [15, 15]
-          }))
-
+            scale: 0.6
+          })
+          
           texte += ' <br>Encadrer le plus précisément possible $f(x)$ (en déterminant les valeurs de $m$ et de $M$ telles que $m\\leqslant f(x)\\leqslant M$) dans chacun des cas suivants :<br>'
           texte += numAlpha(0) + ` $x\\in[${x1};${x3}]$<br>`
           texte += numAlpha(1) + ` $x\\in[${x2};${x4}]$`

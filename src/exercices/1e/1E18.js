@@ -1,12 +1,12 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
-import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Trinome from '../../modules/Trinome.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Trinome from '../../modules/Trinome.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Équations et inéquations du second degré'
 export const interactifReady = false
 
@@ -15,7 +15,7 @@ export const dateDePublication = '28/10/2022'
 /**
  * Bilan sur les différentes formes d'équations et d'inéquations
  * @author Rémi Angot
-*/
+ */
 export const uuid = 'b9252'
 export const ref = '1E18'
 export default class EquationsEtInequations extends Exercice {
@@ -23,7 +23,7 @@ export default class EquationsEtInequations extends Exercice {
     super()
     this.nbQuestions = 4
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -39,7 +39,7 @@ export default class EquationsEtInequations extends Exercice {
     }
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const listeTypeInequation = combinaisonListes(['<', '\\leq', '>', '\\geq'], this.nbQuestions)
-
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -50,13 +50,13 @@ export default class EquationsEtInequations extends Exercice {
         const c = randint(-5, 5, [0, a])
         const d = randint(-5, 5, [0, b])
         texte += `$(${b}${ecritureAlgebriqueSauf1(a)}x)(${rienSi1(c)}x${ecritureAlgebrique(d)}) ${typeInequation} 0$`
-
+        
         let x1 = new FractionEtendue(-b, a)
         let x2 = new FractionEtendue(-d, c)
         texteCorr += 'On cherche l\'ensemble des $x$ tels que : ' + texte + '.'
         texteCorr += `<br><br>$${b}${ecritureAlgebriqueSauf1(a)}x = 0 \\iff x= ${x1.simplifie().texFraction}`
         texteCorr += ` \\qquad \\text{et} \\qquad ${rienSi1(c)}x${ecritureAlgebrique(d)} = 0 \\iff x= ${x2.simplifie().texFraction}$`
-
+        
         // t pour la ligne pointillée, z pour la ligne pointillée et le zéro
         let ligne1 = a > 0 ? ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20] : ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
         let ligne2 = c > 0 ? ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20] : ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
@@ -66,11 +66,11 @@ export default class EquationsEtInequations extends Exercice {
         }
         const ligne3 = a * c > 0 ? ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20] : ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         texteCorr += '<br><br>On en déduit le signe du polynôme dans un tableau de signes :'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -9, xmax: 30, ymax: 1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-              ['$x$', 2, 30], [`$${b}${ecritureAlgebriqueSauf1(a)}x$`, 2, 50], [`$${rienSi1(c)}x${ecritureAlgebrique(d)}$`, 2, 50], [`$(${b}${ecritureAlgebriqueSauf1(a)}x)(${rienSi1(c)}x${ecritureAlgebrique(d)})$`, 2, 100]],
+              ['$x$', 3, 30], [`$${b}${ecritureAlgebriqueSauf1(a)}x$`, 2, 50], [`$${rienSi1(c)}x${ecritureAlgebrique(d)}$`, 2, 50], [`$(${b}${ecritureAlgebriqueSauf1(a)}x)(${rienSi1(c)}x${ecritureAlgebrique(d)})$`, 2, 100]],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
             ['$-\\infty$', 30, `$${x1.simplifie().texFraction}$`, 20, `$${x2.simplifie().texFraction}$`, 20, '$+\\infty$', 30]
           ],
@@ -81,10 +81,10 @@ export default class EquationsEtInequations extends Exercice {
           deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [20, 15, 15, 15]
-        }))
-
+        })
+        
         texteCorr += '<br> Finalement '
-
+        
         if ((typeInequation === '>' && a * c > 0) || (typeInequation === '<' && a * c < 0)) {
           texteCorr += `$S=\\left]-\\infty;${x1.simplifie().texFraction}\\right[\\cup\\left]${x2.simplifie().texFraction};+\\infty\\right[$.`
         } else if ((typeInequation === '<' && a * c > 0) || (typeInequation === '>' && a * c < 0)) {
@@ -163,7 +163,7 @@ export default class EquationsEtInequations extends Exercice {
         const x = new FractionEtendue(-b, a)
         texteCorr += `<br><br>Finalement $S=\\left\\{ 0 \\,;\\, ${x.simplifie().texFraction}  \\right\\}$.`
       }
-
+      
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

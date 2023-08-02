@@ -1,10 +1,10 @@
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Comparer des images dans un tableau de variations'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -23,11 +23,11 @@ export default function Variationsapartirtableau () {
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.video = '' // Id YouTube ou url
   this.listePackages = ['tkz-tab']//, 'tkz-fct', 'tkz-euclide'
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5']//
     this.nbQuestionsModifiable = true
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -48,9 +48,9 @@ export default function Variationsapartirtableau () {
         case 'type1':// parabole en U ; 2 images sur intervalle où f croissant
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$.<br><br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
+          
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -64,19 +64,18 @@ export default function Variationsapartirtableau () {
             colorBackground: '',
             espcl: 2, // taille en cm entre deux antécédents
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-            lgt: 3, // taille de la première colonne en cm
-            hauteurLignes: [15, 15]
-          }))
+            lgt: 3 // taille de la première colonne en cm
+          })
           texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$. <br>
           `
           texteCorr += `De plus, $${a1}\\in[${x1};${x2}]$, $${a2}\\in[${x1};${x2}]$ et $${a1}<${a2}$.<br>`
           if (context.isHtml) {
             ligne1 = ['Var', 5, `-/$${y1}$`, 5, 't/', 5, 't/', 5, `+/$${y2}$`, 5, `-/$${y3}$`, 5]
             // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 50, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
-                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                   ['$x$', 2, 10], ['$f(x)$', 4, 10]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -89,9 +88,8 @@ export default function Variationsapartirtableau () {
               colorBackground: '',
               espcl: 3, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-              lgt: 3, // taille de la première colonne en cm
-              hauteurLignes: [15, 15]
-            }))
+              lgt: 3 // taille de la première colonne en cm
+            })
           } else {
             texteCorr += `<br>\\begin{tikzpicture}%[scale=0.6]
            \\tkzTabInit[lgt=1.5,espcl=5]{$x$/1,$f(x)$/2}{$${x1}$,$${x2}$,$${x3}$}
@@ -130,9 +128,9 @@ export default function Variationsapartirtableau () {
         case 'type2':// parabole en U ; 2 images sur intervalle où f décroissant
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a3})$ et $f(${a4})$.<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
+          
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -146,19 +144,18 @@ export default function Variationsapartirtableau () {
             colorBackground: '',
             espcl: 2, // taille en cm entre deux antécédents
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-            lgt: 3, // taille de la première colonne en cm
-            hauteurLignes: [15, 15]
-          }))
-
+            lgt: 3 // taille de la première colonne en cm
+          })
+          
           texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$.<br>
           De plus,`
           texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$ et $${a3}<${a4}$.<br>`
           if (context.isHtml) {
             ligne1 = ['Var', 5, `-/$${y1}$`, 5, `+/$${y2}$`, 5, 't/', 5, 't/', 5, `-/$${y3}$`, 5] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
-                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                   ['$x$', 2, 10], ['$f(x)$', 3, 50]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -169,9 +166,8 @@ export default function Variationsapartirtableau () {
               colorBackground: '',
               espcl: 3.5, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-              lgt: 3, // taille de la première colonne en cm
-              hauteurLignes: [15, 15]
-            }))
+              lgt: 3 // taille de la première colonne en cm
+            })
           } else {
             texteCorr += `<br>\\begin{tikzpicture}%[scale=0.6]
            \\tkzTabInit[lgt=1.5,espcl=5]{$x$/1,$f(x)$/2}{$${x1}$,$${x2}$,$${x3}$}
@@ -211,9 +207,9 @@ export default function Variationsapartirtableau () {
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$.<br>`
           y3 = randint(y1 - 12, y1 - 2)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
+          
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -227,10 +223,9 @@ export default function Variationsapartirtableau () {
             colorBackground: '',
             espcl: 3.5, // taille en cm entre deux antécédents
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-            lgt: 3, // taille de la première colonne en cm
-            hauteurLignes: [15, 15]
-          }))
-
+            lgt: 3 // taille de la première colonne en cm
+          })
+          
           texteCorr = `D'après le tableau de variations, $f(${x3})=${y3}$.<br> `
           texteCorr += `D'autre part, $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, '
@@ -266,9 +261,9 @@ export default function Variationsapartirtableau () {
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$.<br>`
           y3 = randint(y1 + 2, y2 - 1)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
+          
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -282,10 +277,9 @@ export default function Variationsapartirtableau () {
             colorBackground: '',
             espcl: 3.5, // taille en cm entre deux antécédents
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-            lgt: 3, // taille de la première colonne en cm
-            hauteurLignes: [15, 15]
-          }))
-
+            lgt: 3 // taille de la première colonne en cm
+          })
+          
           texteCorr = `D'après le tableau de variations,  $f(${x3})=${y3}$.<br>`
           texteCorr += `D'autre part,  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, '
@@ -321,9 +315,9 @@ export default function Variationsapartirtableau () {
         case 'type5':// parabole en U ; 2 images sur intervalle où f non monotone. On ne peut conclure
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a3})$.<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
+          
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += mathalea2d({ xmin: -0.5, ymin: -6.5, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -337,10 +331,9 @@ export default function Variationsapartirtableau () {
             colorBackground: '',
             espcl: 3.5, // taille en cm entre deux antécédents
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-            lgt: 3, // taille de la première colonne en cm
-            hauteurLignes: [15, 15]
-          }))
-
+            lgt: 3 // taille de la première colonne en cm
+          })
+          
           texteCorr = `D'après le tableau de variations :<br>$\\bullet$  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction est croissante.`
           texteCorr += ` <br>$\\bullet$  $${a3}\\in[${x2};${x3}]$, intervalle sur lequel la fonction est décroissante. <br><br>`
           texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$.<br><br>`

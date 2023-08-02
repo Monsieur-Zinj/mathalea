@@ -1,19 +1,19 @@
+import Decimal from 'decimal.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Decimal from 'decimal.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const dateDePublication = '01/10/2022'
 export const titre = 'Dresser et utiliser le tableau de signes d\'une fonction affine en lien avec son sens de variation'
 
 /**
-* @author Gilles Mora
-* 2F10-7
-*/
+ * @author Gilles Mora
+ * 2F10-7
+ */
 
 export const uuid = '46bec'
 export const ref = '2F10-7'
@@ -57,7 +57,7 @@ export default function SignefonctionaffineVariation () {
             a = choice([1, 2, 5, 10]) * choice([-1, 1])// coefficient a de la fonction affine
             b = randint(1, 15) * choice([-1, 1])// coefficient b de la fonction affine
             sol = new Decimal(-b).div(a)
-
+            
             texte = `Une fonction affine $${nom}$  définie sur $\\mathbb R$ est strictement ${a > 0 ? 'croissante' : 'décroissante'}. De plus $${nom}(${texNombre(sol, 1)})=0$.<br>
         ${numAlpha(0)} Dresser son tableau de signes sur $\\mathbb R$.<br>
         ${numAlpha(1)} Donner une fonction $${nom}$ vérifiant les conditions précédentes.`
@@ -71,11 +71,11 @@ export default function SignefonctionaffineVariation () {
             } else {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
-
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
-                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                   ['$x$', 1.5, 10], [`$${nom}(x)$`, 2, 50]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -88,8 +88,8 @@ export default function SignefonctionaffineVariation () {
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 5, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
-            }))
-
+            })
+            
             texteCorr += `<br> ${numAlpha(1)} La fonction doit vérifier les trois conditions : <br>
         $\\bullet$ être une fonction affine ; <br>
         $\\bullet$ être strictement ${a > 0 ? 'croissante' : 'décroissante'} ;<br>
@@ -116,7 +116,7 @@ export default function SignefonctionaffineVariation () {
             sol = -b / a
             x = randint(-10, 10, sol)
             y = a * x + b
-
+            
             texte = `Une fonction affine $${nom}$  définie sur $\\mathbb R$ vérifie $${nom}(${texNombre(sol, 1)})=0$ et $${nom}(${x})=${y}$.<br>
            Dresser son tableau de signes sur $\\mathbb R$. Justifier.
          `
@@ -147,11 +147,11 @@ export default function SignefonctionaffineVariation () {
             } else {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
-
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
-                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                   ['$x$', 1.5, 10], [`$${nom}(x)$`, 2, 50]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -164,11 +164,11 @@ export default function SignefonctionaffineVariation () {
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 5, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
-            }))
+            })
           }
           break
         case 'Signes2':
-
+          
           a = randint(-5, 5, 0)// coefficient b de la fonction affine
           b = a * randint(-6, 6, 0)// coefficient a de la fonction affine
           sol = -b / a
@@ -186,11 +186,11 @@ export default function SignefonctionaffineVariation () {
           } else {
             ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
           }
-
-          texte += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          
+          texte += tableauDeVariation({
             tabInit: [
               [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                 ['$x$', 1.5, 10], [`$${nom}(x)$`, 2, 50]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -203,7 +203,7 @@ export default function SignefonctionaffineVariation () {
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 5, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
-          }))
+          })
           texte += `<br> ${numAlpha(0)} Donner le sens de varitions de $${nom}$ sur $\\mathbb R$.<br>
         ${numAlpha(1)} Comparer $${nom}(${x1})$ et $${nom}(${x2})$.`
           texteCorr = `${numAlpha(0)} D'après le tableau de signes, les images sont  ${a > 0 ? 'd\'abord négatives, puis positives' : 'd\'abord positives, puis négatives'}.<br>
@@ -228,7 +228,7 @@ export default function SignefonctionaffineVariation () {
       }
       cpt++
     }
-
+    
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Donner le tableau de signes.\n2 : Utiliser le tableau de signes.\n3 : Mélange.']

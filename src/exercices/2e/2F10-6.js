@@ -4,20 +4,20 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
-  reduireAxPlusB, rienSi1
+  reduireAxPlusB,
+  rienSi1
 } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 export const dateDeModificationImportante = '18/05/2023'
 /**
-* @author Stéphane Guyon mise à jour et ajout de cas Gilles Mora
-* 2F10-6
-*/
+ * @author Stéphane Guyon mise à jour et ajout de cas Gilles Mora
+ * 2F10-6
+ */
 export const uuid = 'b72b0'
 export const ref = '2F10-6'
 export default function Variationsfonctionaffine () {
@@ -31,7 +31,7 @@ export default function Variationsfonctionaffine () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 4
-
+  
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
@@ -50,7 +50,7 @@ export default function Variationsfonctionaffine () {
       typesDeQuestionsDisponibles = [1, 2, 3]
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
+    
     for (let i = 0, a, b, c, d, fc, fd, ligne1, typesDeQuestions, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       const nom = [
@@ -78,15 +78,15 @@ export default function Variationsfonctionaffine () {
             ligne1 = ['Var', 10, '-/', 30, '+/', 30]
           } else {
             texteCorr += `Comme $a=${a}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
-
+            
             ligne1 = ['Var', 10, '+/', 30, '-/', 30]
           }
           texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
-          texteCorr += mathalea2d({ xmin: -2, ymin: -5.1, xmax: 15, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 2, 30], [`$${nomF}(x)$`, 2, 50]
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 30], [`$${nomF}(x)$`, 3, 50]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               ['$-\\infty$', 30, '$+\\infty$', 30]
@@ -98,9 +98,9 @@ export default function Variationsfonctionaffine () {
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 20]
-          }))
+          })
           break
-
+        
         case 2:
           a = randint(-10, 10, 0) // coefficient a de la fonction affine
           b = randint(-10, 10) // coefficient b de la fonction affine
@@ -125,15 +125,15 @@ export default function Variationsfonctionaffine () {
             ligne1 = ['Var', 10, '-/', 30, '+/', 30]
           } else {
             texteCorr += `Comme $a=${texFractionReduite(a, d)}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
-
+            
             ligne1 = ['Var', 10, '+/', 30, '-/', 30]
           }
           texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
-          texteCorr += mathalea2d({ xmin: -2, ymin: -5.1, xmax: 15, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 2, 30], [`$${nomF}(x)$`, 2, 50]
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 30], [`$${nomF}(x)$`, 3, 50]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               ['$-\\infty$', 30, '$+\\infty$', 30]
@@ -145,9 +145,9 @@ export default function Variationsfonctionaffine () {
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 20]
-          }))
+          })
           break
-
+        
         case 3:
           a = randint(-10, 10, 0) // coefficient a de la fonction affine
           b = randint(-10, 10) // coefficient b de la fonction affine
@@ -171,16 +171,16 @@ export default function Variationsfonctionaffine () {
             ligne1 = ['Var', 10, `-/$${fc}$`, 30, `+/$${fd}$`, 30]
           } else {
             texteCorr += `Comme $a=${a}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
-
+            
             ligne1 = ['Var', 10, `+/$${fc}$`, 30, `-/$${fd}$`, 30]
           }
           texteCorr += `De plus, $${nomF}(${c})=${a === 1 ? '' : `${a}\\times`} ${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(b)}=${fc}$ et $${nomF}(${d})=${a === 1 ? '' : `${a}\\times`}${ecritureParentheseSiNegatif(d)}${ecritureAlgebrique(b)}=${fd}$.<br>`
           texteCorr += 'On obtient ainsi le tableau de variations :<br><br>'
-          texteCorr += mathalea2d({ xmin: -2, ymin: -5.1, xmax: 15, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 2, 30], [`$${nomF}(x)$`, 2, 50]
+                ['$x$', 2, 30], [`$${nomF}(x)$`, 3, 50]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               [`$${c}$`, 30, `$${d}$`, 30]
@@ -192,10 +192,10 @@ export default function Variationsfonctionaffine () {
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 20]
-          }))
+          })
           break
       }
-
+      
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -204,7 +204,7 @@ export default function Variationsfonctionaffine () {
       }
       cpt++
     }
-
+    
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de question ', 4, '1 : Avec des  entiers\n2 : Avec des fractions\n3 : Sur un intervalle borné\n4 : Mélange des cas précédents']

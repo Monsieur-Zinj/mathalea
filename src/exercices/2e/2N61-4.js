@@ -1,16 +1,16 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { texSymbole } from '../../lib/format/style.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModificationImportante = '03/04/2022'
@@ -48,7 +48,7 @@ export default function ExerciceInequationQuotient () {
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
   this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -227,7 +227,7 @@ export default function ExerciceInequationQuotient () {
           ligne3 = ['Line', 50, '', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20] // Le dénominateur change de signe en premier donc la double barre (, 'd', 20) intervient en premier
         }
         // Affichage du tableau de signes
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$\\cfrac{x${ecritureAlgebrique(a)}}{x${ecritureAlgebrique(b)}}$`, ecart, 50]
@@ -238,9 +238,8 @@ export default function ExerciceInequationQuotient () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 8,
-          hauteurLignes: [15, 15, 15, 25]
-        }))
+          lgt: 8
+        })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité et selon l'ordre des racines (l'intervalle sera toujours ouvert pour la racine du dénominateur)
         if (Math.min(-a, -b) === -a) {
           if ((signes[i] === '<' || signes[i] === '≤')) {
@@ -333,7 +332,7 @@ export default function ExerciceInequationQuotient () {
           }
         }
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}}$`, ecart, 200]
@@ -344,9 +343,8 @@ export default function ExerciceInequationQuotient () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 25]
-        }))
+          lgt: 10
+        })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         let interieur, exterieur
         if (-b / a < -d / c) { // Si la valeur interdite est la deuxième (intervale forcément ouvert avec valGrand)
@@ -540,7 +538,7 @@ export default function ExerciceInequationQuotient () {
           ligne4 = ['Line', 30, '', 0, '+', 20, zero1, 20, '-', 20, zero2, 20, '+', 20, zero3, 20, '-', 20]
         }
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -12.6, xmax: 40, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$${e}x${ecritureAlgebrique(f)}$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)}}$`, ecart, 200]
@@ -551,9 +549,8 @@ export default function ExerciceInequationQuotient () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 15, 25]
-        }))
+          lgt: 10
+        })
         let solutions1et3
         let solutions2et4
         if (zero1 === 'z') { // Si le "vrai zéro" est en première position (les double barres en position 2 et 3), les crochets seront ouverts en valMoyen et valGrand
@@ -644,7 +641,7 @@ export default function ExerciceInequationQuotient () {
           }
         }
         // Affiche le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$(${c}x${ecritureAlgebrique(d)})^2$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})^2}$`, ecart, 200]
@@ -655,9 +652,8 @@ export default function ExerciceInequationQuotient () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 25]
-        }))
+          lgt: 10
+        })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         let gauche
         let droite
@@ -777,7 +773,7 @@ export default function ExerciceInequationQuotient () {
           }
         }
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a + e * c}x${ecritureAlgebrique(b + e * d)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$\\cfrac{${a + e * c}x${ecritureAlgebrique(b + e * d)}}{${c}x${ecritureAlgebrique(d)}}$`, ecart, 200]
@@ -788,9 +784,8 @@ export default function ExerciceInequationQuotient () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 25]
-        }))
+          lgt: 10
+        })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         let interieur, exterieur
         if (-(b + e * d) / (a + e * c) < -d / c) { // Si la valeur interdite est la deuxième (intervale forcément ouvert avec valGrand)
@@ -839,7 +834,7 @@ export default function ExerciceInequationQuotient () {
   }
   // Choisit le type de question à l'aide d'un formulaire numérique (la réponse sera stockée dans this.sup)
   this.besoinFormulaireNumerique = [
-    "Type d'inéquation",
+    'Type d\'inéquation',
     5,
     '1: (x+a)/(x+b)<0\n2: (ax+b)/(cx+d)<0\n3: (ax+b)/[(cx+d)(ex+f)]<0\n4: (ax+b)/(cx+d)²<0\n5: (ax+b)/(cx+d)+e<0\n6: Tous les types précédents'
   ]

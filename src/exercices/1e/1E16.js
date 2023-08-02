@@ -5,17 +5,17 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Résoudre une inéquation du second degré'
 
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
  * @author Stéphane Guyon
  * Référence 1E11
-*/
+ */
 export const uuid = '77bcc'
 export const ref = '1E16'
 export default function ResoudreEquationDegre2 () {
@@ -27,7 +27,7 @@ export default function ResoudreEquationDegre2 () {
   this.nbColsCorr = 2
   this.spacingCorr = 3
   this.sup = 1
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -35,7 +35,7 @@ export default function ResoudreEquationDegre2 () {
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal', 'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)
     }
-
+    
     for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, ligne1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       //* ***************************************************
       if (listeTypeDeQuestions[i] === 'strictement supérieur') {
@@ -58,19 +58,19 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
           texteCorr += '>0$'
-
+          
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
           // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
           // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
-        // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
+          
+          // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         } else {
           texteCorr += '<0$'
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On en déduit le signe du polynôme dans un tableau de signes :'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -85,7 +85,7 @@ export default function ResoudreEquationDegre2 () {
           deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [12, 15]
-        }))
+        })
         if (a > 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}[\\cup]${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=]${x1};${x2}[$.` }
       }
       //* ********************************************************
@@ -109,19 +109,19 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
           texteCorr += '>0$.'
-
+          
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
           // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
           // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
-        // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
+          
+          // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         } else {
           texteCorr += `<0$, on peut dire que $P(x)\\geq 0$ sur $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$`
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -3.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -136,7 +136,7 @@ export default function ResoudreEquationDegre2 () {
           deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [10, 10]
-        }))
+        })
         if (a > 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=[${x1};${x2}]$.` }
       }
       //* ******************************************************************
@@ -160,19 +160,19 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
           texteCorr += '>0 :$'
-
+          
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
           // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
           // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
-        // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
+          
+          // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         } else {
           texteCorr += '<0 :$'
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -187,7 +187,7 @@ export default function ResoudreEquationDegre2 () {
           deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [15, 15]
-        }))
+        })
         if (a < 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=[${x1};${x2}]$.` }
       }
       //* **************************************
@@ -211,19 +211,19 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
           texteCorr += '>0 :$'
-
+          
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
           // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
           // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
-        // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
+          
+          // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         } else {
           texteCorr += '<0 :$'
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -238,7 +238,7 @@ export default function ResoudreEquationDegre2 () {
           deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [15, 15]
-        }))
+        })
         if (a < 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}[\\cup]${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=]${x1};${x2}[$.` }
       }
       //* *************************************************************

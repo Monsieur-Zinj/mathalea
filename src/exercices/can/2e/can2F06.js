@@ -1,11 +1,11 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures.js'
-import Exercice from '../../Exercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { tableauDeVariation } from '../../../modules/TableauDeVariation.js'
+import Exercice from '../../Exercice.js'
+
 export const titre = 'Dresser le tableau de signes d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -17,7 +17,7 @@ export const dateDePublication = '15/12/2021' // La date de publication initiale
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence
-*/
+ */
 export const uuid = '73ab4'
 export const ref = 'can2F06'
 export default function TableauSignes () {
@@ -45,10 +45,10 @@ export default function TableauSignes () {
             options: { vertical: true },
             propositions: [
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                       ['$x$', 2, 30], ['$f(x)$', 2, 50]
                     ],
                     // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -59,16 +59,16 @@ export default function TableauSignes () {
                   colorBackground: '',
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                  lgt: 5, // taille de la première colonne en cm
-                  hauteurLignes: [15, 15]
-                })),
+                  lgt: 5,
+                  scale: 1
+                }),
                 statut: true
               },
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                       ['$x$', 2, 30], ['$f(x)$', 2, 50]
                     ],
                     // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -79,16 +79,16 @@ export default function TableauSignes () {
                   colorBackground: '',
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                  lgt: 5, // taille de la première colonne en cm
-                  hauteurLignes: [15, 15]
-                })),
+                  lgt: 5,
+                  scale: 1
+                }),
                 statut: false
               },
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                       ['$x$', 2, 30], ['$f(x)$', 2, 50]
                     ],
                     // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -100,8 +100,8 @@ export default function TableauSignes () {
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 5, // taille de la première colonne en cm
-                  hauteurLignes: [15, 15]
-                })),
+                  scale: 1
+                }),
                 statut: false
               }
             ]
@@ -112,7 +112,7 @@ export default function TableauSignes () {
             options: { vertical: true },
             propositions: [
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -127,12 +127,12 @@ export default function TableauSignes () {
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 5, // taille de la première colonne en cm
-                  hauteurLignes: [15, 15]
-                })),
+                  scale: 1
+                }),
                 statut: true
               },
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -147,12 +147,12 @@ export default function TableauSignes () {
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 5, // taille de la première colonne en cm
-                  hauteurLignes: [15, 15]
-                })),
+                  scale: 1
+                }),
                 statut: false
               },
               {
-                texte: mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -167,8 +167,8 @@ export default function TableauSignes () {
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 5, // taille de la première colonne en cm
-                  hauteurLignes: [15, 15]
-                })),
+                  scale: 1
+                }),
                 statut: false
               }
             ]
@@ -180,7 +180,7 @@ export default function TableauSignes () {
         b = randint(0, 6) * choice([-1, 1])// coefficient b de la fonction affine
         texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$. `
       }
-
+      
       texteCorr = `$f$ est une fonction affine. Elle s’annule en $x_0=${texFractionReduite(-b, a)}$. `
       if (a > 0) {
         texteCorr += `<br>Comme $${a}>0~$, $~f(x)$ est positif pour $~x>${texFractionReduite(-b, a)} ~$ et négatif pour $~x<${texFractionReduite(-b, a)} $.<br>`
@@ -189,7 +189,7 @@ export default function TableauSignes () {
         texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $.<br>`
         ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
       }
-      texteCorr += mathalea2d({ xmin: -0.5, ymin: -4.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+      texteCorr += tableauDeVariation({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -203,9 +203,8 @@ export default function TableauSignes () {
         colorBackground: '',
         espcl: 3.5, // taille en cm entre deux antécédents
         deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-        lgt: 5, // taille de la première colonne en cm
-        hauteurLignes: [15, 15]
-      }))
+        lgt: 5 // taille de la première colonne en cm
+      })
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)

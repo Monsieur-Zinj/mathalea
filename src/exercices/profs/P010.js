@@ -6,10 +6,11 @@ import { rotation, translation } from '../../lib/2d/transformations.js'
 import { fractionSimplifiee, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { calcul, listeQuestionsToContenu, printlatex, xcas } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Étude de fonctions de degré 3'
 export const ref = 'P010'
 export const uuid = '691a8'
@@ -18,7 +19,7 @@ export const uuid = '691a8'
  * tableau de variation d'une fonction et tracé de la courbe (polynomes de degré <= 3)
  * @author Jean-Claude Lhote
  * Référence P010
-*/
+ */
 export default function VariationPolynomeDegre3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -33,11 +34,11 @@ export default function VariationPolynomeDegre3 () {
   this.video = '' // Id YouTube ou url
   this.listePackages = 'tkz-tab'
   this.typeExercice = 'xcas'
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    
     // un tableau correct en exemple
     // escpl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents
     // lgt = taille de la première colonne tout est en cm
@@ -50,16 +51,33 @@ export default function VariationPolynomeDegre3 () {
     // On intercale une largeur estimée pour le texte éventuel
     // Pour plus d'info sur le codage des variations, voir ce tuto : https://zestedesavoir.com/tutoriels/439/des-tableaux-de-variations-et-de-signes-avec-latex/
     // reste à faire les types 'Ima', 'Val' et 'Slope"
-
-    let a; let b; let c; let a1; let b1; let c1; let xx; let xxs; let rac = []; let tableau; let x1s; let fx1s; let x3s; let x2s
+    
+    let a
+    let b
+    let c
+    let a1
+    let b1
+    let c1
+    let xx
+    let xxs
+    let rac = []
+    let tableau
+    let x1s
+    let fx1s
+    let x3s
+    let x2s
     let delta, x1, x2, x3, X1, X3, XXs, minima, mafonction, maderivee, MaFonction, solutions
     let YMAXI, YMINI, XMINI, XMAXI, texte, scalex, scaley
     const coefF = this.sup.split('/')
     for (let i = 0; i < coefF.length; i++) {
       coefF[i] = parseFloat(coefF[i])
     }
-    const vecteurs = []; let A; let B; let C; let tangente
-
+    const vecteurs = []
+    let A
+    let B
+    let C
+    let tangente
+    
     const trouverLesRacines = function (a0, b0, c0) { // Une fonction locale pour trouver les racines d'une équation du 2nd degré
       delta = b0 * b0 - 4 * a0 * c0 // on calcule les racines de f'
       if (delta < 0) {
@@ -104,23 +122,23 @@ export default function VariationPolynomeDegre3 () {
       mafonction = x => a * x ** 3 + b * x ** 2 + c * x + d
       MaFonction = `${a}*x^3+${b}*x^2+${c}x+${d}`
       maderivee = x => 3 * a * x ** 2 + 2 * b * x + c
-
+      
       if (a < 0) {
         if (maderivee(-b / 3 / a) > 0) { // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
           rac = trouverLesRacines(a1, b1, c1)
           if (this.sup3) {
             tableau = tableauDeVariation({
               colorBackground: 'white',
-              escpl: 5,
-              delatcl: 0.8,
+              escpl: 6,
+              delatcl: 1,
               lgt: 3.5,
               hauteurLignes: [30, 20, 30],
-              tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 1.5, 60]],
+              tabInit: [[['$x$', 3, 30], ['$f\'(x)$', 2, 60], ['$f(x)$', 5, 60]],
                 ['$-\\infty$', 30, `$${rac[2]}$`, 70, `$${rac[3]}$`, 70, '$+\\infty$', 30]],
               tabLines:
-              [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
-                ['Var', 10, '+/$+\\infty$', 30, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '-/$-\\infty$', 30]
-              ]
+                [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
+                  ['Var', 10, '+/$+\\infty$', 30, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '-/$-\\infty$', 30]
+                ]
             })
           } else {
             tableau = tableauDeVariation({
@@ -129,12 +147,12 @@ export default function VariationPolynomeDegre3 () {
               delatcl: 0.8,
               lgt: 3.5,
               hauteurLignes: [30, 20, 30],
-              tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 1.5, 25]],
+              tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
                 ['$-\\infty$', 30, `$${rac[2]}$`, 70, `$${rac[3]}$`, 70, '$+\\infty$', 30]],
               tabLines:
-              [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
-                ['Var', 10, '+/$+\\infty$', 30, `-/$${texNombre(mafonction(rac[0]), 2)}$`, 50, `+/$${texNombre(mafonction(rac[1]), 2)}$`, 50, '-/$-\\infty$', 30]
-              ]
+                [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
+                  ['Var', 10, '+/$+\\infty$', 30, `-/$${texNombre(mafonction(rac[0]), 2)}$`, 50, `+/$${texNombre(mafonction(rac[1]), 2)}$`, 50, '-/$-\\infty$', 30]
+                ]
             })
           }
           XMINI = Math.round(rac[0]) - 2
@@ -169,7 +187,7 @@ export default function VariationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [30, 20, 30],
-            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2, 25]],
+            tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
               ['$-\\infty$', 30, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '-', 20],
@@ -198,7 +216,7 @@ export default function VariationPolynomeDegre3 () {
             deltacl: 0.6,
             lgt: 3.5,
             hauteurLignes: [30, 20, 30],
-            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+            tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
               ['$-\\infty$', 30, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '+', 20],
@@ -217,7 +235,7 @@ export default function VariationPolynomeDegre3 () {
           C = rotation(B, A, 180)
           tangente = segment(C, B, 'red')
           tangente.styleExtremites = '<->' /
-          vecteurs.push(tangente)
+            vecteurs.push(tangente)
         } else { // la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
           rac = trouverLesRacines(a1, b1, c1)
           if (this.sup3) {
@@ -226,12 +244,12 @@ export default function VariationPolynomeDegre3 () {
               escpl: 3.5,
               delatcl: 0.8,
               lgt: 3.5,
-              tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+              tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
                 ['$-\\infty$', 30, `$${texNombre(rac[0], 2)}$`, 60, `$${texNombre(rac[1], 2)}$`, 60, '$+\\infty$', 30]],
               tabLines:
-              [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
-                ['Var', 10, '-/$-\\infty$', 30, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '+/$+\\infty$', 30]
-              ]
+                [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
+                  ['Var', 10, '-/$-\\infty$', 30, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '+/$+\\infty$', 30]
+                ]
             })
           } else {
             tableau = tableauDeVariation({
@@ -239,12 +257,12 @@ export default function VariationPolynomeDegre3 () {
               escpl: 3.5,
               delatcl: 0.8,
               lgt: 3.5,
-              tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+              tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
                 ['$-\\infty$', 30, `$${texNombre(rac[0], 2)}$`, 60, `$${texNombre(rac[1], 2)}$`, 60, '$+\\infty$', 30]],
               tabLines:
-              [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
-                ['Var', 10, '-/$-\\infty$', 30, `+/$${texNombre(mafonction(rac[0]), 2)}$`, 50, `-/$${texNombre(mafonction(rac[1]), 2)}$`, 50, '+/$+\\infty$', 30]
-              ]
+                [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
+                  ['Var', 10, '-/$-\\infty$', 30, `+/$${texNombre(mafonction(rac[0]), 2)}$`, 50, `-/$${texNombre(mafonction(rac[1]), 2)}$`, 50, '+/$+\\infty$', 30]
+                ]
             })
           }
           XMINI = Math.round(rac[0]) - 2
@@ -300,7 +318,7 @@ export default function VariationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+            tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
               ['$-\\infty$', 30, `$${rac[2]}$`, 60, `$${x2s}$`, 60, `$${rac[3]}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, 'R/', 0, '-', 20, 'R/', 0, 'z', 20, 'R/', 0, '+', 20, 'R/', 0],
@@ -328,7 +346,7 @@ export default function VariationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+            tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
               ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20],
@@ -354,7 +372,7 @@ export default function VariationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+            tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
               ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20],
@@ -383,7 +401,7 @@ export default function VariationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+            tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
               ['$-\\infty$', 30, `$${rac[2]}$`, 60, `$${x2s}$`, 60, `$${rac[3]}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, 'R/', 0, '+', 20, 'R/', 0, 'z', 20, 'R/', 0, '-', 20, 'R/', 0],
@@ -411,7 +429,7 @@ export default function VariationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+            tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
               ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20],
@@ -437,7 +455,7 @@ export default function VariationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+            tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
               ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20],
@@ -469,7 +487,7 @@ export default function VariationPolynomeDegre3 () {
           delatcl: 0.8,
           lgt: 3.5,
           hauteurLignes: [20, 20, 20, 20, 20],
-          tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+          tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
             ['$-\\infty$', 30, `$${texFractionSigne(-d, c)}$`, 60, '$+\\infty$', 30]],
           tabLines:
             [['Line', 30, 'R/', 0, 'R/', 0, '+', 20, 'R/', 0],
@@ -488,7 +506,7 @@ export default function VariationPolynomeDegre3 () {
           delatcl: 0.8,
           lgt: 3.5,
           hauteurLignes: [20, 20, 20, 20, 20],
-          tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
+          tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 5, 25]],
             ['$-\\infty$', 30, `$${texFractionSigne(-d, c)}$`, 60, '$+\\infty$', 30]],
           tabLines:
             [['Line', 30, 'R/', 0, 'R/', 0, '-', 20, 'R/', 0],
@@ -504,13 +522,13 @@ export default function VariationPolynomeDegre3 () {
     } else { // fonction constante
       mafonction = () => d
       maderivee = () => 0
-
+      
       tableau = tableauDeVariation({
         colorBackground: 'white',
         escpl: 3.5,
         delatcl: 0.8,
         lgt: 3.5,
-        tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 1.5, 60]],
+        tabInit: [[['$x$', 3, 15], ['$f\'(x)$', 2, 30], ['$f(x)$', 3, 25]],
           ['$-\\infty$', 30, '$+\\infty$', 30]],
         tabLines:
           [['Line', 30, 'R/', 0, '$0$', 20, 'R/', 0],
@@ -522,11 +540,11 @@ export default function VariationPolynomeDegre3 () {
       if (d > 0) { YMINI = 0 }
       YMAXI = 10 ** (Math.ceil(Math.log10(d)))
     }
-
+    
     const pas = calcul(10 ** Math.ceil(Math.log10((Math.abs((YMAXI - YMINI) / 20)))) / 2)
     scalex = Math.abs(10 / (XMAXI - XMINI))
     scaley = calcul(20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI))))
-
+    
     const monrepere = repere({
       xUnite: scalex,
       yUnite: scaley,
@@ -541,9 +559,15 @@ export default function VariationPolynomeDegre3 () {
     const macourbe = courbe(mafonction, { repere: monrepere, step: 0.1, epaisseur: 1 })
     texte = 'Étude des variations de la fonction $f(x)='
     texte += `${printlatex(fxstring)}$.<br>`
-    texte += mathalea2d({ xmin: 0, ymin: -8, xmax: 21, ymax: 1, pixelsParCm: 30 }, tableau)
+    texte += tableau
     if (this.sup2) {
-      texte += '<br>' + mathalea2d({ xmin: (XMINI - 1) * scalex, ymin: (YMINI - 1) * scaley, xmax: (XMAXI + 2) * scalex, ymax: (YMAXI + 1) * scaley, pixelsParCm: 30 }, macourbe, monrepere, vecteurs) + '<br>'
+      texte += '<br>' + mathalea2d({
+        xmin: (XMINI - 1) * scalex,
+        ymin: (YMINI - 1) * scaley,
+        xmax: (XMAXI + 2) * scalex,
+        ymax: (YMAXI + 1) * scaley,
+        pixelsParCm: 30
+      }, macourbe, monrepere, vecteurs) + '<br>'
       solutions = xcas('fsolve(' + fxstring + '=0,x)').replace('[', '').replace(']', '').split(',')
       if (solutions[0] === '') {
         texte += 'À la vue du tableau de variation de la fonction $f$, il n\'y a pas de solution à l\'équation $f(x)=0$.'
@@ -560,12 +584,12 @@ export default function VariationPolynomeDegre3 () {
         }
       }
     }
-
+    
     const texteCorr = ''
-
+    
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
-
+    
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Coefficients de $ax^3+bx^2+cx+d$ séparés par des /', '-1/-2/3/1 par exemple']

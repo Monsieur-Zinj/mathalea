@@ -29,7 +29,7 @@ export default class BetaEtudeFonction extends Exercice {
     this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = ['Degré du polynôme:', 5]
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -90,30 +90,19 @@ export default class BetaEtudeFonction extends Exercice {
     objetsCorrection.push(courbe1)
     let texteCorrection = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection)), objetsCorrection)
     texteCorrection += '<br>voici les signes de f : '
-    const tableauSignes = tableauSignesFonction(fonction, xMin, xMax, {
-      latex: false,
-      step: fraction(1, 1000),
-      substituts: [
-        { antVal: -4, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
-        { antVal: 4, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
-        { antVal: -0.37, antTex: '-\\frac{1}{e}', imgVal: 0.4, imgTex: '\\frac{1}{e}' },
-        { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
-      ]
-    })
+    const tableauSignes = tableauSignesFonction(fonction, xMin, xMax, { latex: true })
     const tableauVariations = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
-      latex: false,
       ligneDerivee: true,
-      step: fraction(1, 100),
       substituts: [
-        { antVal: -4, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
-        { antVal: 4, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
+        { antVal: -10, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
+        { antVal: 10, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
         { antVal: -0.37, antTex: '-\\frac{1}{e}', imgVal: 0.4, imgTex: '\\frac{1}{e}' },
         { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
       ]
     })
-    
-    texteCorrection += `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
-    texteCorrection += `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauVariations])), tableauVariations)}`
+
+    texteCorrection += tableauSignes //`<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
+    texteCorrection += tableauVariations //`<br>${mathalea2d(Object.assign({}, fixeBordures([tableauVariations])), tableauVariations)}`
     this.listeQuestions.push(texteEnonce)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenu(this)// On envoie l'exercice à la fonction de mise en page

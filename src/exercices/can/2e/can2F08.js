@@ -1,12 +1,12 @@
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
-import Exercice from '../../Exercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { tableauDeVariation } from '../../../modules/TableauDeVariation.js'
+import Exercice from '../../Exercice.js'
+
 export const titre = 'Encadrer en utilisant un tableau de variations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence
-*/
+ */
 export const uuid = 'e0405'
 export const ref = 'can2F08'
 export default function EncadrerTableau () {
@@ -29,7 +29,7 @@ export default function EncadrerTableau () {
   this.tailleDiaporama = 2
   this.listePackages = ['tkz-tab']
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -53,30 +53,13 @@ export default function EncadrerTableau () {
       }
       // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
       question1 = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :<br>`
-
+      
       this.canEnonce = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :
       
-    ` + mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.4 }, tableauDeVariation({
-          tabInit: [
-            [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-              ['$x$', 2, 10], ['$f(x)$', 4, 30]
-            ],
-            // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-            [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
-          ],
-          // tabLines ci-dessous contient les autres lignes du tableau.
-          tabLines: [ligne1],
-          colorBackground: '',
-          espcl: 3, // taille en cm entre deux antécédents
-          deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-          lgt: 3, // taille de la première colonne en cm
-          hauteurLignes: [15, 15]
-        }))
-      question1 += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.6 }, tableauDeVariation({
+    ` + tableauDeVariation({
         tabInit: [
           [
-          // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+            // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
             ['$x$', 2, 10], ['$f(x)$', 4, 30]
           ],
           // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -88,8 +71,25 @@ export default function EncadrerTableau () {
         espcl: 3, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 3, // taille de la première colonne en cm
-        hauteurLignes: [15, 15]
-      }))
+        scale: 0.4
+      })
+      question1 += tableauDeVariation({
+        tabInit: [
+          [
+            // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+            ['$x$', 2, 10], ['$f(x)$', 4, 30]
+          ],
+          // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+          [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
+        ],
+        // tabLines ci-dessous contient les autres lignes du tableau.
+        tabLines: [ligne1],
+        colorBackground: '',
+        espcl: 3, // taille en cm entre deux antécédents
+        deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+        lgt: 3, // taille de la première colonne en cm
+        scale: 0.6
+      })
       if (choice([true, false])) {
         question1 += `  <br>
       Encadrer le plus précisément possible $f(x)$ lorsque $x\\in[${x1}\\,;\\,${x3}]$.`
