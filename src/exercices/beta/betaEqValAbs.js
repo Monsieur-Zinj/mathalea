@@ -1,16 +1,16 @@
 import { texMasse } from '../../lib/format/style.js'
-import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint, xcas } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Résoudre une équation avec une valeur absolue'
 
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
  * Référence
-*/
+ */
 export default function EquationAvecUneValeurAbsolue () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations :'
@@ -23,32 +23,32 @@ export default function EquationAvecUneValeurAbsolue () {
   this.typeExercice = 'xcas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    
     for (let i = 0, texte, etape, texteCorr, a, b, pente, signe, entier, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0) + '*x+' + randint(-20, 20)
       b = randint(-5, 5, 0) + '*x+' + randint(-20, 20)
       etape = [
-            `a:=simplify(${a})`,
-            'pente:=lcoeff(a)',
-            `b:=simplify(${b})`,
-            'x1:=solve(a)(1)'
+        `a:=simplify(${a})`,
+        'pente:=lcoeff(a)',
+        `b:=simplify(${b})`,
+        'x1:=solve(a)(1)'
       ].forEach(e => `${xcas(e)}`)
       pente = +`${xcas('pente')}` > 0 ? 'croissante' : 'décroissante'
       signe = +`${xcas('pente')}` > 0 ? '-+' : '+-'
       etape = [
-            `cas1:=simplify(${signe[0]}a)`,
-            `cas2:=simplify(${signe[1]}a)`,
-            'scas1:=solve(cas1=b)',
-            'xcas1:=piecewise(len(scas1)>0, scas1(1), i)',
-            'scas2:=solve(cas2=b)',
-            'xcas2:=piecewise(len(scas2)>0, scas2(1), i)'
+        `cas1:=simplify(${signe[0]}a)`,
+        `cas2:=simplify(${signe[1]}a)`,
+        'scas1:=solve(cas1=b)',
+        'xcas1:=piecewise(len(scas1)>0, scas1(1), i)',
+        'scas2:=solve(cas2=b)',
+        'xcas2:=piecewise(len(scas2)>0, scas2(1), i)'
       ].forEach(e => `${xcas(e)}`)
-
+      
       // Enoncé
       texte = `$${xcas('abs(a)')}=${xcas('b')}$`
       // Corrigé
@@ -56,8 +56,8 @@ export default function EquationAvecUneValeurAbsolue () {
       entier = (1e3 * +`${xcas('approx(x1,4)')}`) % 1 === 0 ? '' : `\\simeq${xcas('approx(x1,4)')}`
       texteCorr += `<br>On aura $${xcas('a')}=0$ lorsque $x=${xcas('x1')}${entier}$`
       texteCorr += `<br>De plus la droite $y=${xcas('a')}$ est ${pente}, ce qui permet d'obtenir le tableau des signes suivant :`
-
-      texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+      
+      texteCorr += tableauDeVariation({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -71,18 +71,16 @@ export default function EquationAvecUneValeurAbsolue () {
           ['Line', 20, '', 0, `$${xcas('cas1')}$`, 50, 'z', 20, `$${xcas('cas2')}$`, 50],
           ['Line', 20, '', 0, '$\\text{Cas 1}$', 50, 't', 20, '$\\text{Cas 2}$', 50]
         ],
-
+        
         colorBackground: '',
         espcl: 3.5, // taille en cm entre deux antécédents
         deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-        lgt: 8, // taille de la première colonne en cm
-        hauteurLignes: [15, 15, 15, 10]
-
-      }))
-
+        lgt: 8
+      })
+      
       texteCorr += `<br>$\\underline{\\text{Cas 1}}$ : On cherche $x\\in ]-\\infty,${xcas('x1')}]$ tels que : $${xcas('cas1')}=${xcas('b')}$`
       texteCorr += `<br>Ce qui donne $${xcas('simplify(cas1-b)')}=0$ d'où `
-
+      
       if (`${xcas('xcas1')}` === 'i') {
         texteCorr += 'une impossibilité.'
       } else {
@@ -97,7 +95,7 @@ export default function EquationAvecUneValeurAbsolue () {
       }
       texteCorr += `<br>$\\underline{\\text{Cas 2}}$ : On cherche $x\\in [${xcas('x1')},+\\infty[$ tels que : $${xcas('cas2')}=${xcas('b')}$`
       texteCorr += `<br>Ce qui donne $${xcas('simplify(cas2-b)')}=0$ d'où `
-
+      
       if (`${xcas('xcas2')}` === 'i') {
         texteCorr += 'une impossibilité.'
       } else {
@@ -111,7 +109,7 @@ export default function EquationAvecUneValeurAbsolue () {
           texteCorr += `<br>Cette solution $\\underline{\\text{ne convient pas}}$ car $x=${xcas('xcas2')}${entier}\\notin [${xcas('x1')},+\\infty[$`
         }
       }
-
+      
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

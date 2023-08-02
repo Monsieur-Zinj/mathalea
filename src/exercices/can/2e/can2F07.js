@@ -1,12 +1,12 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
-import Exercice from '../../Exercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { choice } from '../../../lib/outils/arrayOutils.js'
 
 import { context } from '../../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { tableauDeVariation } from '../../../modules/TableauDeVariation.js'
+import Exercice from '../../Exercice.js'
+
 export const titre = 'Lire les extremums dans un tableau de variations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence
-*/
+ */
 export const uuid = 'd5b6c'
 export const ref = 'can2F07'
 export default function ExtremumsTableau () {
@@ -31,7 +31,7 @@ export default function ExtremumsTableau () {
   this.tailleDiaporama = 2
   this.listePackages = ['tkz-tab']
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -53,14 +53,14 @@ export default function ExtremumsTableau () {
       } else {
         ligne1 = ['Var', 10, `-/$${-y1}$`, 10, `+/$${-y2}$`, 10, `-/$${-y3}$`, 10, `+/$${-y4}$`, 10]
       }
-
+      
       texte = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1}\\,;\\,${x4}]$ :<br>
       `
-
-      texte += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+      
+      texte += tableauDeVariation({
         tabInit: [
           [
-          // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+            // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
             ['$x$', 3, 8], ['$f(x)$', 4, 20]
           ],
           // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -72,12 +72,12 @@ export default function ExtremumsTableau () {
         espcl: 3, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 3, // taille de la première colonne en cm
-        hauteurLignes: [15, 15]
-      })) + '<br>'
+        scale: 0.39
+      }) + '<br>'
       this.canEnonce = texte
       if (choice([true, false])) {
         texte += '   Le maximum de $f$ est  : '
-
+        
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += '<br> Il est atteint en $x=$ '
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
@@ -88,7 +88,7 @@ export default function ExtremumsTableau () {
           if (M === y1) {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${y1}$, c'est-à-dire  $f(x)\\leqslant f(${x1})$.<br>
       Ainsi, le maximum de $f$ est $${y1}$. Il est atteint en $x=${x1}$.`
-
+            
             if (!context.isAmc) {
               setReponse(this, 2 * i, y1)
               setReponse(this, 2 * i + 1, x1)
@@ -136,7 +136,7 @@ export default function ExtremumsTableau () {
           } else {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${y3}$, c'est-à-dire  $f(x)\\leqslant f(${x3})$.<br>
       Ainsi, le maximum de $f$ est $${y3}$. Il est atteint en $x=${x3}$.  `
-
+            
             if (!context.isAmc) {
               setReponse(this, 2 * i, y3)
               setReponse(this, 2 * i + 1, x3)
@@ -287,9 +287,9 @@ export default function ExtremumsTableau () {
         Il est atteint en $x=\\ldots$`
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += '<br> Il est atteint en $x=$ '
-
+        
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
-
+        
         if (choix === 1) {
           if (m === y2) {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${y2}$, c'est-à-dire  $f(x)\\geqslant f(${x2})$.<br>

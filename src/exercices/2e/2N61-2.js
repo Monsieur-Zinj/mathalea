@@ -1,18 +1,18 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lampeMessage } from '../../lib/format/message.js'
 import { texSymbole, texteGras } from '../../lib/format/style.js'
-import { sp } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { sp } from '../../lib/outils/outilString.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModificationImportante = '03/04/2022'
@@ -41,11 +41,11 @@ export default function ExerciceInequationProduit () {
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 4 // Choix du nombre de questions
-
+  
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
   this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -198,7 +198,7 @@ export default function ExerciceInequationProduit () {
           ligne2 = ligneMPP
         }
         // Affiche le tableau de signes : xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -212,10 +212,8 @@ export default function ExerciceInequationProduit () {
           colorBackground: '',
           espcl: 3.5, // taille en cm entre deux antécédents
           deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-          lgt: 8, // taille de la première colonne en cm
-          hauteurLignes: [15, 15, 15, 15]
-
-        }))
+          lgt: 8 // taille de la première colonne en cm
+        })
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} ${separateur} ${Math.max(-a, -b)} \\right${pDroite} $.`
@@ -267,7 +265,7 @@ export default function ExerciceInequationProduit () {
         }
         // Affiche le tableau de signes (voir les commentaires du premier type d'exercice)
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$x${ecritureAlgebrique(c)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
@@ -278,9 +276,8 @@ export default function ExerciceInequationProduit () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 15, 15]
-        }))
+          lgt: 10
+        })
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
@@ -351,7 +348,7 @@ export default function ExerciceInequationProduit () {
           ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
@@ -362,9 +359,8 @@ export default function ExerciceInequationProduit () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 15]
-        }))
+          lgt: 10
+        })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         const interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} ${separateur} ${valGrand} \\right${pDroite} $.`
         const exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
@@ -530,7 +526,7 @@ export default function ExerciceInequationProduit () {
           ligne4 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         // Affiche enfin le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 40, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$${e}x${ecritureAlgebrique(f)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})$`, 2, 200]
@@ -541,9 +537,8 @@ export default function ExerciceInequationProduit () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 15, 15]
-        }))
+          lgt: 10
+        })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         const solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valMoyen}${separateur} ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         const solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} ${separateur} ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
@@ -622,7 +617,7 @@ export default function ExerciceInequationProduit () {
           }
         }
         // Affiche le tableau
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -8.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$(${a}x${ecritureAlgebrique(b)})^2$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
@@ -633,9 +628,8 @@ export default function ExerciceInequationProduit () {
           colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
-          lgt: 10,
-          hauteurLignes: [15, 15, 15, 15]
-        }))
+          lgt: 10
+        })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         const gauche = `<br> L'ensemble de solutions de l'inéquation est $S = ${singletonGauche} \\left] -\\infty${separateur} ${texFractionReduite(-d, c)} \\right${pDroite} ${singletonDroite} $.`
         const droite = `<br> L'ensemble de solutions de l'inéquation est $S = ${singletonGauche} \\left${pGauche} ${texFractionReduite(-d, c)}${separateur} +\\infty \\right[ ${singletonDroite} $.`
@@ -680,7 +674,7 @@ export default function ExerciceInequationProduit () {
           correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
         }
       }
-
+      
       if (this.interactif && !context.isAmc) {
         texte += `<br> ${texteGras('Saisir S, l\'ensemble des solutions de cette inéquation.')}${sp(10)}`
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur50 lycee nospacebefore', { texte: '<br>S = ' })
@@ -705,7 +699,7 @@ export default function ExerciceInequationProduit () {
   }
   // Choisit le type de question à l'aide d'un formulaire numérique (la réponse sera stockée dans this.sup)
   this.besoinFormulaireNumerique = [
-    "Type d'inéquation",
+    'Type d\'inéquation',
     6,
     '1: (x+a)(x+b)<0\n2: (x+a)(x+b)(x+c)<0\n3: (ax+b)(cx+d)<0\n4: (ax+b)(cx+d)(ex+f)<0\n5: (ax+b)²(cx+d)<0\n6: Tous les types précédents'
   ]

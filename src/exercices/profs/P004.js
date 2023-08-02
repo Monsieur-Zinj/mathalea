@@ -3,9 +3,9 @@ import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { troncature } from '../../lib/outils/nombres.js'
-import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, calcul } from '../../modules/outils.js'
+import { calcul, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Droites graduées avec zoom'
 export const ref = 'P004'
@@ -23,12 +23,13 @@ export default function FeuilleDeZooms () {
   this.sup = 1
   this.titre = titre
   this.nbQuestionsModifiable = false
-
+  
   this.nouvelleVersion = function () {
     this.contenu = ''
     let texte = ''
     const noms = choisitLettresDifferentes(5, 'QFN')
-    let xmin, origine, xmax, x1, x2, x3, x21, x31, pA1, pA2, pB1, pB2, pC1, pC2, pD1, pD2, sA, sB, sC, sD, extremite, fenetre
+    let xmin, origine, xmax, x1, x2, x3, x21, x31, pA1, pA2, pB1, pB2, pC1, pC2, pD1, pD2, sA, sB, sC, sD, extremite,
+      fenetre
     const objets = []
     for (let n = 0; n < 8 / parseInt(this.sup); n++) {
       objets.length = 0
@@ -37,10 +38,10 @@ export default function FeuilleDeZooms () {
         origine = Math.round(xmin + 0.2)
         const thickOff = 0.1
         xmax = origine + 9.2
-
-        x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
+        
+        x1 = xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10
         extremite = '->'
-
+        
         const d1 = droiteGraduee({
           x: 0,
           y: 3,
@@ -86,7 +87,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-
+        
         pA1 = point((Math.floor(x1) - xmin) * 3, 3)
         pA2 = point(Math.floor(x1) - xmin + 1.5, 0)
         pB1 = point((Math.floor(x1) + 1 - xmin) * 3, 3)
@@ -100,7 +101,7 @@ export default function FeuilleDeZooms () {
       } else {
         xmin = randint(1, 15)
         xmax = xmin + 1
-        x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+        x1 = xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001
         x2 = troncature(x1, 1)
         x21 = troncature(x1, 2)
         x3 = calcul(x2 + 0.1)
@@ -108,7 +109,7 @@ export default function FeuilleDeZooms () {
         xmin = Math.floor(x2)
         xmax = xmin + 1
         const thickOff = 0.001
-
+        
         extremite = '->'
         const d1 = droiteGraduee({
           x: 0,
@@ -183,7 +184,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-
+        
         pA1 = point((x2 - xmin) * 30, 6)
         pA2 = point(6.5, 3)
         pB1 = point((x3 - xmin) * 30, 6)
@@ -204,7 +205,7 @@ export default function FeuilleDeZooms () {
         objets.push(d1, d2, d3, sA, sB, sC, sD)
       }
       texte = mathalea2d(fenetre, objets)
-
+      
       this.contenu += texte
       this.contenu += '<br>'
       this.listeQuestions[0] = this.contenu

@@ -39,11 +39,13 @@ export function setPhraseDuree (duree) {
  * @author sylvain
  */
 export function getUniqueStringBasedOnTimeStamp (prefix = '') {
-  const timeStamp = String(new Date().getTime())
-  let unique = ''
+  // /!\ ATTENTION new Date().getTime() est en ms et n'est pas assez précis pour donner des chaînes uniques
+  // const timeStamp = String(new Date().getTime())
+  const timeStamp = String(performance.now().toString().replace('.','') + Math.random()).replace('.','')
+  // let unique = ''
 
-  for (let i = 0; i < timeStamp.length; i += 2) {
-    unique += Number(timeStamp.substring(i, 2)).toString(36)
-  }
-  return `${prefix}${unique}`
+  // for (let i = 0; i < timeStamp.length; i += 2) {
+  //   unique += Number(timeStamp.substring(i, 2)).toString(36)
+  // }
+  return `${prefix}${timeStamp}`
 }

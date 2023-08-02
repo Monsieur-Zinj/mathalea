@@ -64,11 +64,10 @@ export default class LectureSigneAffine extends Exercice {
       -6,
       6,
       {
-        latex: false,
         step: 1,
         substituts: [
-          { antVal: -6, antTex: '-∞' },
-          { antVal: 6, antTex: '+∞' },
+          { antVal: -6, antTex: '-\\infty' },
+          { antVal: 6, antTex: '+\\infty' },
         ]
       })
     const repere = new RepereBuilder({ xMin: -6, xMax: 6, yMin: -6, yMax: 6 }).buildStandard()

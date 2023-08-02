@@ -3,18 +3,19 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Dresser un tableau de variations à partir d\'une courbe'
 export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
  * Référence
-*/
+ */
 export const uuid = '05b52'
 export const ref = '2F30-1'
 export default function VariationsCourbe () {
@@ -47,7 +48,7 @@ export default function VariationsCourbe () {
         ['f'], ['g'], ['h'], ['u'],
         ['v'], ['w']
       ]
-
+      
       switch (listeTypeQuestions[i]) {
         case 'typeE1':// croissante, décroissante
           x0 = randint(-6, -3)
@@ -82,7 +83,7 @@ export default function VariationsCourbe () {
             grilleXMax: 6,
             grilleYMax: y1 + 2
           })
-
+          
           gr = courbeInterpolee(
             [
               [x0, y0], [x1, y1], [x2, y2]
@@ -106,10 +107,10 @@ export default function VariationsCourbe () {
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
             Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
-
+          
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
             Son tableau de variations est : <br><br>`
-          texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -125,10 +126,10 @@ export default function VariationsCourbe () {
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 2.5, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
-          })) + '<br>'
-
+          }) + '<br>'
+          
           break
-
+        
         case 'typeE2':// décroissante, croissante
           x0 = randint(-6, -3)
           y0 = randint(2, 4)
@@ -185,13 +186,13 @@ export default function VariationsCourbe () {
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
         Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
-
+          
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                 ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -204,9 +205,9 @@ export default function VariationsCourbe () {
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
-          })) + '<br>'
+          }) + '<br>'
           break
-
+        
         case 'typeE3':// décroissante, croissante, décroissante
           x0 = randint(-6, -4)
           y0 = randint(3, 5)
@@ -266,13 +267,13 @@ export default function VariationsCourbe () {
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
         Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
-
+          
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                 ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -285,9 +286,9 @@ export default function VariationsCourbe () {
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
-          })) + '<br>'
+          }) + '<br>'
           break
-
+        
         case 'typeE4':// croissante, décroissante, croissante
           x0 = randint(-6, -5)
           y0 = randint(-5, -3)
@@ -347,13 +348,13 @@ export default function VariationsCourbe () {
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
         Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
-
+          
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                 ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -366,9 +367,9 @@ export default function VariationsCourbe () {
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
-          })) + '<br>'
+          }) + '<br>'
           break
-
+        
         case 'typeE5':// croissante, décroissante, croissante, décroissante
           x0 = randint(-6, -5)
           y0 = randint(-5, -3)
@@ -431,13 +432,13 @@ export default function VariationsCourbe () {
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
         Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
-
+          
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                 ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -450,9 +451,9 @@ export default function VariationsCourbe () {
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
-          })) + '<br>'
+          }) + '<br>'
           break
-
+        
         case 'typeE6':// décroissante, croissante, décroissante, croissante
           x0 = randint(-6, -4)
           y0 = randint(3, 5)
@@ -515,13 +516,13 @@ export default function VariationsCourbe () {
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
         Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
-
+          
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
-              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                 ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
@@ -534,9 +535,9 @@ export default function VariationsCourbe () {
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
-          }))
+          })
           break
-
+        
         case 'typeE7':// avec des grandes valeurs
           if (choice([true, false])) { // croissante, décroissante, croissante
             nom = choice(nomF)
@@ -552,11 +553,11 @@ export default function VariationsCourbe () {
             A1 = point(x1 * 0.03, y1 * 0.15)
             A2 = point(x2 * 0.03, y2 * 0.15)
             A3 = point(x3 * 0.03, y3 * 0.15)
-
+            
             Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 2
             o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-
+            
             r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -586,7 +587,7 @@ export default function VariationsCourbe () {
               grilleSecondaireYMax: 100,
               grilleSecondaireYOpacite: 0.1
             })
-
+            
             gr = courbeInterpolee(
               [
                 [x0, y0], [x1, y1], [x2, y2], [x3, y3]
@@ -598,24 +599,24 @@ export default function VariationsCourbe () {
                 xMin: 0,
                 xMax: 800
               })
-
+            
             graphique = mathalea2d({
-              xmin: -2,
-              xmax: 24,
-              ymin: -2,
-              ymax: 16,
-              pixelsParCm: 20,
-              scale: 0.5,
-              style: 'margin: auto'
-            }
-            , r1, o, gr, Tk)
+                xmin: -2,
+                xmax: 24,
+                ymin: -2,
+                ymax: 16,
+                pixelsParCm: 20,
+                scale: 0.5,
+                style: 'margin: auto'
+              }
+              , r1, o, gr, Tk)
             texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
         Dresser son tableau de variations sur son ensemble de définition.<br><br>`
             texte += `${graphique}`
-
+            
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
             Son tableau de variations est : <br><br>`
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -631,7 +632,7 @@ export default function VariationsCourbe () {
               deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 3, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
-            }))
+            })
           } else { // décroissante, croissante, décroissante
             nom = choice(nomF)
             x0 = randint(0, 10) * 10
@@ -646,11 +647,11 @@ export default function VariationsCourbe () {
             A1 = point(x1 * 0.03, y1 * 0.15)
             A2 = point(x2 * 0.03, y2 * 0.15)
             A3 = point(x3 * 0.03, y3 * 0.15)
-
+            
             Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 2
             o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-
+            
             r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -680,7 +681,7 @@ export default function VariationsCourbe () {
               grilleSecondaireYMax: 100,
               grilleSecondaireYOpacite: 0.1
             })
-
+            
             gr = courbeInterpolee(
               [
                 [x0, y0], [x1, y1], [x2, y2], [x3, y3]
@@ -692,24 +693,24 @@ export default function VariationsCourbe () {
                 xMin: 0,
                 xMax: 800
               })
-
+            
             graphique = mathalea2d({
-              xmin: -2,
-              xmax: 24,
-              ymin: -2,
-              ymax: 16,
-              pixelsParCm: 20,
-              scale: 0.5,
-              style: 'margin: auto'
-            }
-            , r1, o, gr, Tk)
+                xmin: -2,
+                xmax: 24,
+                ymin: -2,
+                ymax: 16,
+                pixelsParCm: 20,
+                scale: 0.5,
+                style: 'margin: auto'
+              }
+              , r1, o, gr, Tk)
             texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
             Dresser son tableau de variations sur son ensemble de définition.<br><br>`
             texte += `${graphique}`
-
+            
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
                 Son tableau de variations est : <br><br>`
-            texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -725,7 +726,7 @@ export default function VariationsCourbe () {
               deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 3, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
-            }))
+            })
           }
           break
       }
