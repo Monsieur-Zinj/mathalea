@@ -1,9 +1,10 @@
 import { courbeSpline } from '../../lib/2d/courbes.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { splineCatmullRom } from '../../modules/mathFonctions/SplineCatmullRom.js'
-import Exercice from '../Exercice.js'
+import { splineCatmullRom } from '../../lib/mathFonctions/SplineCatmullRom.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Interpollation de Catmull-Rom'
 export const ref = 'P014'
 export const uuid = '295a8'
@@ -12,7 +13,7 @@ export const uuid = '295a8'
  * Trace une courbe interpolee par des splines.
  * @author Jean-Claude Lhote
  * Référence P014
-*/
+ */
 export default function TraceCourbeInterpolee1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -26,7 +27,7 @@ export default function TraceCourbeInterpolee1 () {
   this.sup3 = 1
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-
+  
   this.nouvelleVersion = function () {
     const liste = this.sup.split(';')
     const ordonnees = []
@@ -43,7 +44,7 @@ export default function TraceCourbeInterpolee1 () {
     const xMax = xMin + (ordonnees.length - 1) * pas
     let yMin = 100
     let yMax = -100
-
+    
     for (let i = 0; i < liste.length; i++) {
       yMin = Math.min(yMin, ordonnees[i])
       yMax = Math.max(yMax, ordonnees[i])
@@ -54,9 +55,18 @@ export default function TraceCourbeInterpolee1 () {
       x0: xMin,
       step: pas
     })
-    const c = courbeSpline(f, { repere: r, step: 0.1, xMin, xMax, yMin, yMax, tracenoeuds: true, color: couleurs[parseInt(this.sup3) - 1].colCourbe })
+    const c = courbeSpline(f, {
+      repere: r,
+      step: 0.1,
+      xMin,
+      xMax,
+      yMin,
+      yMax,
+      tracenoeuds: true,
+      color: couleurs[parseInt(this.sup3) - 1].colCourbe
+    })
     objets.push(r, c)
-
+    
     if (this.sup2) {
       for (let i = 0, p; i < liste.length; i++) {
         p = tracePoint(point(xMin + i * pas, ordonnees[i]))

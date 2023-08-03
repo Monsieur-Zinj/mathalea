@@ -1,4 +1,4 @@
-import { resolutionSystemeLineaire3x3 } from '../mathFonctions/outilsMaths.js'
+import { resolutionSystemeLineaire3x3 } from '../../lib/mathFonctions/outilsMaths.js'
 import { randint } from '../outils.js'
 
 /**

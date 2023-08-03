@@ -1,8 +1,9 @@
 <script>
-  import { repere } from '../lib/2d/reperes.js'
-  import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
   import HeaderExercice from '../components/exercice/HeaderExercice.svelte'
-  import { spline, trieNoeuds } from '../modules/mathFonctions/Spline.js'
+  import { repere } from '../lib/2d/reperes.js'
+  import { spline, trieNoeuds } from '../lib/mathFonctions/Spline.js'
+  import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
+  
   export let indiceExercice
   export let indiceLastExercice
   const headerExerciceProps = {
@@ -19,8 +20,9 @@
     { x: 1, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     { x: 3, y: 4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
   ]
-
+  
   let contenu = ''
+  
   function refreshCourb () {
     if (trieNoeuds(noeuds)) {
       const f = spline(noeuds)
@@ -31,14 +33,14 @@
       contenu = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
     }
   }
-
+  
   function removeNoeud () {
     if (noeuds.length < 4) return
     noeuds.pop()
     noeuds = noeuds
     refreshCourb()
   }
-
+  
   function addNoeud () {
     noeuds.push({
       x: noeuds.at(-1).x + 1,
@@ -50,24 +52,27 @@
     noeuds = noeuds
     refreshCourb()
   }
-function copy () {
-  noeuds = noeuds
-  navigator.clipboard.writeText(JSON.stringify(noeuds))
-  alert('Noeuds copiés dans le presse-papier')
-}
-async function paste () {
-  const jsonNoeuds = (await navigator.clipboard.readText()).replaceAll('x', '"x"')
-    .replaceAll('y', '"y"')
-    .replaceAll('deriveeGauche', '"deriveeGauche"')
-    .replaceAll('deriveeDroit', '"deriveeDroit"')
-    .replaceAll('isVisible', '"isVisible"')
-  try {
-    noeuds = JSON.parse(jsonNoeuds)
-    alert('Presse-papier importé')
-  } catch (e) {
-    console.error(e.message)
+  
+  function copy () {
+    noeuds = noeuds
+    navigator.clipboard.writeText(JSON.stringify(noeuds))
+    alert('Noeuds copiés dans le presse-papier')
   }
-}
+  
+  async function paste () {
+    const jsonNoeuds = (await navigator.clipboard.readText()).replaceAll('x', '"x"')
+      .replaceAll('y', '"y"')
+      .replaceAll('deriveeGauche', '"deriveeGauche"')
+      .replaceAll('deriveeDroit', '"deriveeDroit"')
+      .replaceAll('isVisible', '"isVisible"')
+    try {
+      noeuds = JSON.parse(jsonNoeuds)
+      alert('Presse-papier importé')
+    } catch (e) {
+      console.error(e.message)
+    }
+  }
+  
   refreshCourb()
 </script>
 
@@ -129,9 +134,9 @@ async function paste () {
         />
       {/each}
       <button on:click={removeNoeud}
-        ><i class="bx bx-lg bx-minus-circle" /></button
+      ><i class="bx bx-lg bx-minus-circle"/></button
       >
-      <button on:click={addNoeud}><i class="bx bx-lg bx-plus-circle" /></button>
+      <button on:click={addNoeud}><i class="bx bx-lg bx-plus-circle"/></button>
       <button on:click={copy}><i class="bx bx-lg bx-clipboard"/></button>
       <button on:click={paste}><i class="bx bx-lg bx-download"/></button>
     </div>

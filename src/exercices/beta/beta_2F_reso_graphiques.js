@@ -1,11 +1,11 @@
+import { max, min } from 'mathjs'
 import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
+import { splineCatmullRom } from '../../lib/mathFonctions/SplineCatmullRom.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { splineCatmullRom } from '../../modules/mathFonctions/SplineCatmullRom.js'
-import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { max, min } from 'mathjs'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Resoudre graphiquement une équation'
 
@@ -17,7 +17,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Description didactique de l'exercice
  * @author
  * Référence
-*/
+ */
 export default class nomExercice extends Exercice {
   constructor () {
     super()
@@ -28,20 +28,20 @@ export default class nomExercice extends Exercice {
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.video = '' // Id YouTube ou url
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    
     const typeQuestionsDisponibles = ['2solA'] // On créé 3 types de questions
-
+    
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     // règles de bon codage :
     // définir les variables au plus près de leur utilisation
     // éviter les variables globales qui changent de valeur à chaque tour de boucle : on ne verra pas si on oublie d'en initialiser une (ç vaut aussi pour texte et texteCorr même si on a toujours fait autrement)
     // ne mettre dans le switch case que ce qui est différent d'un case à l'autre => le tronc commun n'est à coder qu'une fois, donc à corriger une fois
-
+    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const tabY = []
       let x0 = -3 // on l'initialise pour ne pas qu'il se retrouve undefined par oubli
@@ -62,14 +62,14 @@ export default class nomExercice extends Exercice {
       const ymax = max(...tabY, 1)
       let texte = `Résoudre $f(x)=${tabY[1]}$` // Le LateX entre deux symboles $, les variables dans des ${ }
       const r = repere({ xMin: x0, xMax: x0 + 10, yMin: ymin, yMax: ymax, xUnite: 2, yUnite: 2 })
-
+      
       const f = splineCatmullRom({ tabY, x0, step: 2 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
       const F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
       // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
       const c = courbe(F, { repere: r, step: 0.1, color: 'red', epaisseur: 5 }) // F peut ainsi être utilisée dans courbe.
-
+      
       texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c)
-
+      
       const antecedents = f.solve(y)
       let texteCorr = `Correction ${i + 1} de type 1 : `
       if (antecedents.length > 0) {

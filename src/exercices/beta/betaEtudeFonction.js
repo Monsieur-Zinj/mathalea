@@ -1,9 +1,8 @@
 import { Courbe } from '../../lib/2d/courbes.js'
 import { Repere } from '../../lib/2d/reperes.js'
+import { tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { fraction } from '../../modules/fractions.js'
-import { tableauSignesFonction, tableauVariationsFonction } from '../../modules/mathFonctions/outilsMaths.js'
-import { Polynome } from '../../modules/mathFonctions/Polynome.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
@@ -29,7 +28,7 @@ export default class BetaEtudeFonction extends Exercice {
     this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = ['Degré du polynôme:', 5]
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -100,7 +99,7 @@ export default class BetaEtudeFonction extends Exercice {
         { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
       ]
     })
-
+    
     texteCorrection += tableauSignes //`<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
     texteCorrection += tableauVariations //`<br>${mathalea2d(Object.assign({}, fixeBordures([tableauVariations])), tableauVariations)}`
     this.listeQuestions.push(texteEnonce)

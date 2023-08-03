@@ -1,10 +1,11 @@
+import { all, create } from 'mathjs'
+import { MatriceCarree } from '../../lib/mathFonctions/MatriceCarree.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { create, all } from 'mathjs'
-import { MatriceCarree } from '../../modules/mathFonctions/MatriceCarree.js'
+import Exercice from '../Exercice.js'
+
 const math = create(all)
 
 export const titre = 'Calcul de déterminant'
@@ -17,7 +18,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Description didactique de l'exercice
  * @author Maxime Nguyen
  * Référence HPC104
-*/
+ */
 export const uuid = '2806f'
 export const ref = 'HPC104'
 export default class nomExercice extends Exercice {
@@ -26,18 +27,18 @@ export default class nomExercice extends Exercice {
     this.titre = titre
     this.consigne = 'Calcul du déterminant d\'une matrice carrée'
     this.nbQuestions = 3
-
+    
     this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Matrice 2x2\n2 : Matrice 3x3'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
     this.sup = 2 // Valeur du paramètre par défaut
     // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
     //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
-
+    
     this.nbCols = 2
     this.nbColsCorr = 2
     this.tailleDiaporama = 3
     this.video = ''
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -67,11 +68,12 @@ export default class nomExercice extends Exercice {
             table.push(ligne)
           }
           const matrice = new MatriceCarree(table)
-
+          
           texte = `Calculer le déterminant de la matrice $${nommatrice} = ${matrice.toTex()}$.` // Les questions sont modifiées en fonction de la difficulté
           texteCorr = ''
           texteCorr += `On calcule $det(${nommatrice}) = ${ecritureParentheseSiNegatif(table[0][0])} \\times ${ecritureParentheseSiNegatif(table[1][1])} - ${ecritureParentheseSiNegatif(table[1][0])} \\times ${ecritureParentheseSiNegatif(table[0][1])}  = ${matrice.determinant()}$.`
-          break }
+          break
+        }
         case 'type2': {
           const n = 3
           const m = 3
@@ -90,7 +92,8 @@ export default class nomExercice extends Exercice {
           texte = `Calculer le déterminant de la matrice $${nommatrice} = ${matrice.toTex()}$.` // Les questions sont modifiées en fonction de la difficulté
           texteCorr = ''
           texteCorr += `On calcule $det(${nommatrice}) = ${matrice.determinant()}$.`
-          break }
+          break
+        }
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

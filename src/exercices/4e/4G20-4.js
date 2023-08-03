@@ -1,12 +1,12 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import { degCos } from '../../modules/mathFonctions/trigo.js'
-import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { degCos } from '../../lib/mathFonctions/trigo.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +23,7 @@ export const ref = '4G20-4'
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-
+  
   this.nbQuestions = 3
   this.nbCols = 2 // Valeur différente de 3 car sinon en Latex, 3 colonnes, c'est trop
   this.nbColsCorr = 1
@@ -31,15 +31,15 @@ export default function ArrondirUneValeur () {
   this.interactifType = interactifType
   this.interactifReady = interactifReady
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
-
+  
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.consigne = "Arrondir chaque nombre à l'unité, puis au dixième, puis au centième."
-
+    this.consigne = 'Arrondir chaque nombre à l\'unité, puis au dixième, puis au centième.'
+    
     this.listeQuestions = []
     this.listeCorrections = []
     let n, nb, rac, angle, v
-
+    
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[3 * i] = {}
       this.autoCorrection[3 * i + 1] = {}
@@ -59,28 +59,28 @@ export default function ArrondirUneValeur () {
           nb = `\\dfrac{${texNombre(v, 1)}}{\\cos(${angle})}`
         }
       }
-
+      
       texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}.$`
-
+      
       texte += '<br>Arrondi à l\'unité : '
       texte += ajouteChampTexteMathLive(this, 3 * i)
       texteCorr = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}.$`
-      texteCorr += "<br>Arrondi à l'unité : "
+      texteCorr += '<br>Arrondi à l\'unité : '
       texteCorr += `$${texNombre(n, 0)}$`
       setReponse(this, 3 * i, n.round())
-
+      
       texte += '<br>Arrondi au dixième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 1)
       texteCorr += '<br>Arrondi au dixième : '
       texteCorr += `$${texNombre(n, 1)}$`
       setReponse(this, 3 * i + 1, n.toDP(1))
-
+      
       texte += '<br>Arrondi au centième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 2)
       texteCorr += '<br>Arrondi au centième : '
       texteCorr += `$${texNombre(n, 2)}$`
       setReponse(this, 3 * i + 2, n.toDP(2))
-
+      
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

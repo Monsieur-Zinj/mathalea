@@ -1,10 +1,10 @@
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
+import { etudeFonction } from '../../../lib/mathFonctions/etudeFonction.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-
-import { tableauDeVariation } from '../../../modules/TableauDeVariation.js'
 import Exercice from '../../Exercice.js'
 
 export const titre = 'Encadrer en utilisant un tableau de variations'
@@ -56,7 +56,7 @@ export default function EncadrerTableau () {
       
       this.canEnonce = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :
       
-    ` + tableauDeVariation({
+    ` + etudeFonction({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -73,7 +73,7 @@ export default function EncadrerTableau () {
         lgt: 3, // taille de la première colonne en cm
         scale: 0.4
       })
-      question1 += tableauDeVariation({
+      question1 += etudeFonction({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

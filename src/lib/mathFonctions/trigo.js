@@ -1,5 +1,5 @@
-import { arrondi } from '../../lib/outils/nombres.js'
-import { calcul } from '../outils.js'
+import { calcul } from '../../modules/outils.js'
+import { arrondi } from '../outils/nombres.js'
 
 /**
  * Convertit un angle de radian vers degrés et fonction inverse
@@ -281,7 +281,7 @@ export function valeursTrigo ({ modulos = [-1, 1] }) {
   let mesAngles = anglesDeBase.slice()
   const mesAnglesNiv1 = mesAngles.slice()
   const nombreAnglesDeBase = mesAngles.length
-
+  
   // ici on complète la liste avec tous les angles associés en faisant attention de ne pas ajouter deux fois les mêmes.
   for (let i = 0; i < nombreAnglesDeBase; i++) {
     mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
@@ -289,7 +289,7 @@ export function valeursTrigo ({ modulos = [-1, 1] }) {
   // On supprime les doublons en comparant la mesure en degrés
   mesAngles = [...new Map(mesAngles.map(item => [item.degres, item])).values()]
   const mesAnglesNiv2 = mesAngles.slice()
-
+  
   for (let i = 0; i < nombreAnglesDeBase; i++) {
     for (const k of modulos) {
       if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))

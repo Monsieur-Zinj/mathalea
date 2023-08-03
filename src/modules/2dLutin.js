@@ -6,9 +6,9 @@
 
 import { angleModulo } from '../lib/2d/angles.js'
 import { point } from '../lib/2d/points.js'
+import { radians } from '../lib/mathFonctions/trigo.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites.js'
 import { context } from './context.js'
-import { radians } from './mathFonctions/trigo.js'
 
 /**
  * Renvoie la mesure d'angle (entre -180° et 180°) dans le cercle trigonométrique à partir d'une mesure d'angle donnée en degrés, qu'utilise Scratch.
@@ -27,7 +27,7 @@ export function angleScratchTo2d (x) {
 }
 
 function ObjetLutin () {
-  ObjetMathalea2D.call(this, { })
+  ObjetMathalea2D.call(this, {})
   this.x = 0
   this.y = 0
   this.xMin = 0
@@ -72,8 +72,8 @@ function ObjetLutin () {
         style += ` stroke-opacity="${opacite}" `
       }
       code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-          coeff
-        )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color[0]}" ${style}  />`
+        coeff
+      )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color[0]}" ${style}  />`
     }
     if (this.isVisible && this.animation !== '') {
       code += '\n <g>' + this.animation + '</g>'
@@ -111,23 +111,24 @@ function ObjetLutin () {
     return code
   }
 }
+
 /**
-   * Crée une nouvelle instance de l'objet lutin
-   * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
-   * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
-   * @returns {object} Instance d'un lutin
-   */
+ * Crée une nouvelle instance de l'objet lutin
+ * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
+ * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
+ * @returns {object} Instance d'un lutin
+ */
 export function creerLutin (...args) {
   return new ObjetLutin(...args)
 }
 
 /**
-   * Fait avancer le lutin de d unités de lutin dans la direction de son orientation
-   * @param {number} d Nombre d'unités choisi pour avancer
-   * @param {ObjetLutin} lutin Lutin
-   * @example avance(5, lutin) // Fait avancer le lutin de 5 unités
-   * @author Jean-Claude Lhote
-   */
+ * Fait avancer le lutin de d unités de lutin dans la direction de son orientation
+ * @param {number} d Nombre d'unités choisi pour avancer
+ * @param {ObjetLutin} lutin Lutin
+ * @example avance(5, lutin) // Fait avancer le lutin de 5 unités
+ * @author Jean-Claude Lhote
+ */
 // JSDOC Validee par EE Juin 2022
 export function avance (d, lutin = context.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   const xdepart = lutin.x
@@ -145,54 +146,59 @@ export function avance (d, lutin = context.lutin) { // A faire avec pointSurCerc
 }
 
 /**
-   * Fait entrer le lutin dans le mode "trace"
-   * @param {ObjetLutin} lutin
-   * @example baisseCrayon(lutin) // Met lutin en mode "trace"
-   */
+ * Fait entrer le lutin dans le mode "trace"
+ * @param {ObjetLutin} lutin
+ * @example baisseCrayon(lutin) // Met lutin en mode "trace"
+ */
 export function baisseCrayon (lutin = context.lutin) {
   lutin.crayonBaisse = true
 }
+
 /**
-   * Fait sortir le lutin du mode "trace"
-   * @param {ObjetLutin} lutin
-   * @example leveCrayon(lutin) // Sort lutin du mode "trace"
-   */
+ * Fait sortir le lutin du mode "trace"
+ * @param {ObjetLutin} lutin
+ * @example leveCrayon(lutin) // Sort lutin du mode "trace"
+ */
 // JSDOC Validee par EE Juin 2022
 export function leveCrayon (lutin = context.lutin) {
   lutin.crayonBaisse = false
 }
+
 /**
-   * Fixe l'orientation du lutin à a degrés (au sens Mathalea2d=trigo)
-   * Voire la fonction angleScratchTo2d(angle_scratch) pour la conversion
-   * @param {number} a
-   * @param {ObjetLutin} lutin
-   */
+ * Fixe l'orientation du lutin à a degrés (au sens Mathalea2d=trigo)
+ * Voire la fonction angleScratchTo2d(angle_scratch) pour la conversion
+ * @param {number} a
+ * @param {ObjetLutin} lutin
+ */
 export function orienter (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(a)
 }
+
 /**
-   * Fait tourner de a degrés le lutin dans le sens direct
-   * @param {number} a
-   * @param {ObjetLutin} lutin
-   */
+ * Fait tourner de a degrés le lutin dans le sens direct
+ * @param {number} a
+ * @param {ObjetLutin} lutin
+ */
 export function tournerG (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(lutin.orientation + a)
 }
+
 /**
-   * Fait tourner de a degrés le lutin dans le sens indirect
-   * @param {number} a
-   * @param {ObjetLutin} lutin
-   */
+ * Fait tourner de a degrés le lutin dans le sens indirect
+ * @param {number} a
+ * @param {ObjetLutin} lutin
+ */
 export function tournerD (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(lutin.orientation - a)
 }
+
 /**
-   * Déplace le lutin de sa position courante à (x;y)
-   * @param {number} x Nouvelle abscisse
-   * @param {number} y Nouvelle ordonnée
-   * @param {ObjetLutin} lutin Lutin
-   * @example allerA(10,-5,lutin) // Le lutin prend pour coordonnées (10 ; -5).
-   */
+ * Déplace le lutin de sa position courante à (x;y)
+ * @param {number} x Nouvelle abscisse
+ * @param {number} y Nouvelle ordonnée
+ * @param {ObjetLutin} lutin Lutin
+ * @example allerA(10,-5,lutin) // Le lutin prend pour coordonnées (10 ; -5).
+ */
 // JSDOC Validee par EE Juin 2022
 export function allerA (x, y, lutin = context.lutin) {
   const xdepart = lutin.x
@@ -208,12 +214,13 @@ export function allerA (x, y, lutin = context.lutin) {
   lutin.xMax = Math.max(lutin.xMax, lutin.x)
   lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
+
 /**
-   * Change en x à l'abscisse du lutin
-   * @param {number} x Nouvelle abscisse
-   * @param {ObjetLutin} lutin Lutin
-   * @example mettrexA(10,lutin) // L'abscisse de lutin devient 10.
-   */
+ * Change en x à l'abscisse du lutin
+ * @param {number} x Nouvelle abscisse
+ * @param {ObjetLutin} lutin Lutin
+ * @example mettrexA(10,lutin) // L'abscisse de lutin devient 10.
+ */
 export function mettrexA (x, lutin = context.lutin) {
   const xdepart = lutin.x
   lutin.x = x / context.unitesLutinParCm
@@ -224,12 +231,13 @@ export function mettrexA (x, lutin = context.lutin) {
   lutin.xMin = Math.min(lutin.xMin, lutin.x)
   lutin.xMax = Math.max(lutin.xMax, lutin.x)
 }
+
 /**
-   * change en y l'ordonnée du lutin
-   * @param {number} y Nouvelle ordonnée
-   * @param {ObjetLutin} lutin Lutin
-   * @example mettreyA(10,lutin) // L'ordonnée de lutin devient 10.
-   */
+ * change en y l'ordonnée du lutin
+ * @param {number} y Nouvelle ordonnée
+ * @param {ObjetLutin} lutin Lutin
+ * @example mettreyA(10,lutin) // L'ordonnée de lutin devient 10.
+ */
 export function mettreyA (y, lutin = context.lutin) {
   const ydepart = lutin.y
   lutin.y = y / context.unitesLutinParCm
@@ -240,12 +248,13 @@ export function mettreyA (y, lutin = context.lutin) {
   lutin.yMin = Math.min(lutin.yMin, lutin.y)
   lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
+
 /**
-   * Ajoute x à l'abscisse du lutin
-   * @param {number} x Valeur à ajouter à l'abscisse
-   * @param {ObjetLutin} lutin Lutin
-   * @example ajouterAx(10,lutin) // L'abscisse de lutin est augmentée de 10.
-   */
+ * Ajoute x à l'abscisse du lutin
+ * @param {number} x Valeur à ajouter à l'abscisse
+ * @param {ObjetLutin} lutin Lutin
+ * @example ajouterAx(10,lutin) // L'abscisse de lutin est augmentée de 10.
+ */
 // JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
 export function ajouterAx (x, lutin = context.lutin) {
   const xdepart = lutin.x
@@ -257,12 +266,13 @@ export function ajouterAx (x, lutin = context.lutin) {
   lutin.xMin = Math.min(lutin.xMin, lutin.x)
   lutin.xMax = Math.max(lutin.xMax, lutin.x)
 }
+
 /**
-   * Ajoute y à l'ordonnée du lutin
-   * @param {number} y Valeur à ajouter à l'ordonnée
-   * @param {ObjetLutin} lutin Lutin
-   * @example ajouterAy(10,lutin) // L'ordonnée de lutin est augmentée de 10.
-   */
+ * Ajoute y à l'ordonnée du lutin
+ * @param {number} y Valeur à ajouter à l'ordonnée
+ * @param {ObjetLutin} lutin Lutin
+ * @example ajouterAy(10,lutin) // L'ordonnée de lutin est augmentée de 10.
+ */
 // JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
 export function ajouterAy (y, lutin = context.lutin) {
   const ydepart = lutin.y
@@ -276,15 +286,16 @@ export function ajouterAy (y, lutin = context.lutin) {
 }
 
 /**
-   * Fait "vibrer" le lutin, tempo fois autour de sa position courante
-   * @param {number} tempo Nombre de vibrations
-   * @param {ObjetLutin} lutin Lutin
-   * @example attendre(5, lutin) // Fait "vibrer" 5 fois le lutin
-   * @author Jean-Claude Lhote
-   */
+ * Fait "vibrer" le lutin, tempo fois autour de sa position courante
+ * @param {number} tempo Nombre de vibrations
+ * @param {ObjetLutin} lutin Lutin
+ * @example attendre(5, lutin) // Fait "vibrer" 5 fois le lutin
+ * @author Jean-Claude Lhote
+ */
 // JSDOC Validee par EE Juin 2022
 export function attendre (tempo, lutin = context.lutin) {
-  const x = lutin.x; const y = lutin.y
+  const x = lutin.x
+  const y = lutin.y
   lutin.listeTraces.push([x, y, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   for (let i = 0; i < tempo; i++) {
     lutin.listeTraces.push([x + 0.08, y, x + 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])

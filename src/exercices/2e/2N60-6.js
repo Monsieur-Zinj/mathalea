@@ -1,4 +1,5 @@
 import { texteGras } from '../../lib/format/style.js'
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
@@ -13,7 +14,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import Exercice from '../Exercice.js'
 
 export const dateDePublication = '25/05/2023'
@@ -116,7 +116,7 @@ export default function PositionRelative () {
             } else {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
-            texteCorr += tableauDeVariation({
+            texteCorr += etudeFonction({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -199,7 +199,7 @@ export default function PositionRelative () {
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
                 
-                texteCorr += tableauDeVariation({
+                texteCorr += etudeFonction({
                   tabInit: [
                     [
                       ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
@@ -259,7 +259,7 @@ export default function PositionRelative () {
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
                 
-                texteCorr += tableauDeVariation({
+                texteCorr += etudeFonction({
                   tabInit: [
                     [
                       ['$x$', 2.5, 30], [`$x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], [`$x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
@@ -336,7 +336,7 @@ export default function PositionRelative () {
                   $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                    $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
                 
-                texteCorr += tableauDeVariation({
+                texteCorr += etudeFonction({
                   tabInit: [
                     [
                       ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
@@ -395,7 +395,7 @@ export default function PositionRelative () {
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
                 
-                texteCorr += tableauDeVariation({
+                texteCorr += etudeFonction({
                   tabInit: [
                     [
                       ['$x$', 2.5, 30], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$`, 2, 75], [`$${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$`, 2, 75], ['$f(x)-g(x)$', 2, 200]
@@ -459,7 +459,7 @@ export default function PositionRelative () {
               
               `
               
-              texteCorr += tableauDeVariation({
+              texteCorr += etudeFonction({
                 tabInit: [
                   [
                     ['$x$', 2.5, 30],
@@ -539,7 +539,7 @@ export default function PositionRelative () {
           
           `
               
-              texteCorr += tableauDeVariation({
+              texteCorr += etudeFonction({
                 tabInit: [
                   [
                     ['$x$', 2.5, 30],

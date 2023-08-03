@@ -3,12 +3,12 @@ import { polygone } from '../../lib/2d/polygones.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
+import { degCos, degSin } from '../../lib/mathFonctions/trigo.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { degCos, degSin } from '../../modules/mathFonctions/trigo.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -37,7 +37,7 @@ export default function ColorierDeplacement () {
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.listePackages = 'scratch3' // pour dessiner les blocs en LaTeX/Tikz
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -52,6 +52,7 @@ export default function ColorierDeplacement () {
         return codeTikz
       }
     }
+    
     function calculerDeplacementsLutin (rotation, deplacement) {
       let ajoutX = 0
       let ajoutY = 0
@@ -75,7 +76,7 @@ export default function ColorierDeplacement () {
       }
       return [ajoutX, ajoutY]
     }
-
+    
     function fleche (x, y, direction) {
       let depart, arrivee
       switch (direction) {
@@ -101,6 +102,7 @@ export default function ColorierDeplacement () {
       fleche.color = colorToLatexOrHTML('white')
       return fleche
     }
+    
     let texte = '' // texte de l'énoncé
     let texteCorr = '' // texte du corrigé
     let codeTikz = '' // code pour dessiner les blocs en tikz
@@ -151,20 +153,20 @@ export default function ColorierDeplacement () {
     }
     codeSvg += '</pre>'
     codeTikz += '\\end{scratch}'
-
+    
     const xLutinMin = Math.min(...lstX)
     const xLutinMax = Math.max(...lstX)
     const yLutinMin = Math.min(...lstY)
     const yLutinMax = Math.max(...lstY)
-
+    
     if (context.isHtml) {
       texte += '<table style="width: 100%"><tr><td>'
     } else {
       texte += '\\begin{minipage}[t]{.25\\textwidth}'
     }
-
+    
     texte += scratchblocksTikz(codeSvg, codeTikz)
-
+    
     if (context.isHtml) {
       texte += '</td><td>'
       texte += '             '
@@ -173,15 +175,15 @@ export default function ColorierDeplacement () {
       texte += '\\end{minipage} '
       texte += '\\hfill \\begin{minipage}[t]{.74\\textwidth}'
     }
-
+    
     const xGrilleMin = xLutinMin - 2
     const xGrilleMax = xLutinMax + 3
     const yGrilleMin = yLutinMin - 3
     const yGrilleMax = yLutinMax + 2
-
+    
     const r2 = grille(xGrilleMin, yGrilleMin, xGrilleMax, yGrilleMax, 'black', 0.8, 1)
     lstObjet.push(r2)
-
+    
     let p // carré gris représentant le lutin en position de départ
     p = polygone(point(lstX[0], lstY[0]), point(lstX[0] + 1, lstY[0]), point(lstX[0] + 1, lstY[0] - 1), point(lstX[0], lstY[0] - 1))
     p.opacite = 0.5
@@ -197,23 +199,30 @@ export default function ColorierDeplacement () {
     for (let i = 0; i < (yGrilleMax - yGrilleMin); i++) {
       lstObjet.push(texteParPosition(String(i), xGrilleMin - 0.25, yGrilleMax - i - 0.5, 'gauche', 'black', 1)) // affiche de 0 à 9... à gauche de la grille
     }
-
+    
     texte += 'Au départ, le lutin est situé dans la case grisée et regarde vers la droite. Chaque déplacement se fait dans une case adjacente. Exécuter le programme.<br><br>'
     if (!context.isHtml) { texte += '\\begin{center}' }
-    texte += mathalea2d({ xmin: xGrilleMin - 3, xmax: xGrilleMax + 1, ymin: yGrilleMin - 1, ymax: yGrilleMax + 1, pixelsParCm: 20, scale: 0.5 }, lstObjet)
+    texte += mathalea2d({
+      xmin: xGrilleMin - 3,
+      xmax: xGrilleMax + 1,
+      ymin: yGrilleMin - 1,
+      ymax: yGrilleMax + 1,
+      pixelsParCm: 20,
+      scale: 0.5
+    }, lstObjet)
     if (context.isHtml) {
       texte += '</td></tr></table>'
     } else {
       texte += '\\end{center}\\end{minipage} '
       texte += '\\hfill \\null'
     }
-
+    
     // CORRECTION
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
     let xLutin = 0 // position initiale du carré
     let yLutin = 0 // position initiale du carré
     const couleur = 'red'
-
+    
     // on fait un dessin par passage dans la boucle
     if (context.isHtml) {
       texteCorr += '<table style="width:100%"><tr><td style="text-align:center">'
@@ -236,7 +245,14 @@ export default function ColorierDeplacement () {
       if (this.sup2) {
         texteCorr += `Passage n° ${k + 1} dans la boucle : <br>`
       }
-      texteCorr += mathalea2d({ xmin: xGrilleMin - 3, xmax: xGrilleMax + 1, ymin: yGrilleMin - 1, ymax: yGrilleMax + 1, pixelsParCm: 20, scale: 0.4 }, lstObjet)
+      texteCorr += mathalea2d({
+        xmin: xGrilleMin - 3,
+        xmax: xGrilleMax + 1,
+        ymin: yGrilleMin - 1,
+        ymax: yGrilleMax + 1,
+        pixelsParCm: 20,
+        scale: 0.4
+      }, lstObjet)
       if (context.isHtml) {
         if (k % 3 === 2) {
           texteCorr += '</td></tr><tr><td style="text-align:center">' // retour à la ligne après 3 grilles dessinées en HTML
@@ -250,11 +266,11 @@ export default function ColorierDeplacement () {
       }
     }
     context.isHtml ? texteCorr += '</td></tr></table>' : texteCorr += '\\end{minipage}'
-
+    
     if (context.isAmc) {
       this.autoCorrection = [{ propositions: [{ statut: 3, sanscadre: true }] }]
     }
-
+    
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)

@@ -1,14 +1,15 @@
 import { abs, acos, polynomialRoot, round } from 'mathjs'
-import { Courbe } from '../../lib/2d/courbes.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { Segment } from '../../lib/2d/segmentsVecteurs.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
 
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
-import FractionEtendue from '../FractionEtendue.js'
-import { egal } from '../outils.js'
+import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
+import { egal } from '../../modules/outils.js'
+import { Courbe } from '../2d/courbes.js'
+import { point, tracePoint } from '../2d/points.js'
+import { Segment } from '../2d/segmentsVecteurs.js'
+import { choice } from '../outils/arrayOutils.js'
+import { signesFonction, variationsFonction } from './etudeFonction.js'
 import { MatriceCarree } from './MatriceCarree.js'
-import { rationnalise, signesFonction, variationsFonction } from './outilsMaths.js'
+import { rationnalise } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 
 /**

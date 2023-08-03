@@ -1,3 +1,4 @@
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
@@ -6,7 +7,6 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Résoudre une inéquation du second degré'
@@ -70,7 +70,7 @@ export default function ResoudreEquationDegre2 () {
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On en déduit le signe du polynôme dans un tableau de signes :'
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -121,7 +121,7 @@ export default function ResoudreEquationDegre2 () {
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -172,7 +172,7 @@ export default function ResoudreEquationDegre2 () {
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -223,7 +223,7 @@ export default function ResoudreEquationDegre2 () {
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

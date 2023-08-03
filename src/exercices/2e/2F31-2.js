@@ -1,9 +1,9 @@
+import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { abs } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { tableauVariationsFonction } from '../../modules/mathFonctions/outilsMaths.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

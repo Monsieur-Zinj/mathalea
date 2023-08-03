@@ -2,6 +2,7 @@ import { courbe } from '../../lib/2d/courbes.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
@@ -10,7 +11,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import Exercice from '../Exercice.js'
 
 export const dateDeModifImportante = '06/07/2023'
@@ -124,7 +124,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             ligne1 = ['Line', 25, '', 0, '+', 20, 'z', 20, '-']
           }
           texteCorr += ' D\'où le tableau de signes suivant :<br>'
-          texteCorr += tableauDeVariation({
+          texteCorr += etudeFonction({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -215,7 +215,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             ligne1 = ['Line', 25, '', 0, '+', 20, 'z', 20, '-']
           }
           texteCorr += ' D\'où le tableau de signes suivant :<br>'
-          texteCorr += tableauDeVariation({
+          texteCorr += etudeFonction({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

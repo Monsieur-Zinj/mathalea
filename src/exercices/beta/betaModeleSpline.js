@@ -1,11 +1,11 @@
 import { repere } from '../../lib/2d/reperes.js'
+import { inferieurSuperieur } from '../../lib/mathFonctions/etudeFonction.js'
+import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { inferieurSuperieur } from '../../modules/mathFonctions/outilsMaths.js'
-import { spline } from '../../modules/mathFonctions/Spline.js'
-import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true
@@ -65,6 +65,7 @@ function nombreAntecedents (choix) {
       return randint(0, 3)
   }
 }
+
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
  * @author Jean-Claude Lhote
@@ -75,16 +76,23 @@ export default class BetaModeleSpline extends Exercice {
     super()
     this.titre = titre
     this.sup = '4'
-    this.spacingCorr=2.5
+    this.spacingCorr = 2.5
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.besoinFormulaireTexte = ['Réglages des questions :', '1 : Un seul antécédent\n2 : Deux antécédents\n3 : trois antécédents\n4 : De un à trois antécédents\n5 : De 0 à 3 antécédents\n6 : Mélange']
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 4, nbQuestions: this.nbQuestions })
+    const typeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 5,
+      melange: 6,
+      defaut: 4,
+      nbQuestions: this.nbQuestions
+    })
     // boucle de création des différentes questions
     for (let i = 0; i < this.nbQuestions; i++) {
       const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe()
@@ -101,7 +109,7 @@ export default class BetaModeleSpline extends Exercice {
       const nombreAntecedentCherches = nombreAntecedents(Number(typeDeQuestions[i]))
       const y0 = maSpline.trouveYPourNAntecedents(nombreAntecedentCherches, yMin, yMax)
       const solutions = inferieurSuperieur(maSpline.fonction, y0, xMin + 1, xMax - 1, true, false)
-
+      
       const reponse = solutions.length === 0
         ? 'aucun'
         : solutions.map((intervalle) => intervalle.borneG.x === intervalle.borneD.x
@@ -126,7 +134,7 @@ export default class BetaModeleSpline extends Exercice {
       texteEnonce += `<br>Quel sont les solutions de l'équation $f(x)<=${y0}$ ?`
       texteEnonce += '<br>Donnez un tableau de signes de f.'
       texteEnonce += '<br>Donnez les variations de f.'
-
+      
       const objetsCorrection = [repere1]
       const courbeAvecTraces = maSpline.courbe({
         repere: repere1,
@@ -138,15 +146,15 @@ export default class BetaModeleSpline extends Exercice {
       let texteCorrection = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection)), objetsCorrection)
       texteCorrection += `<br>voici les solutions de $f(x)<=${y0}$ : ${reponse}.`
       texteCorrection += '<br>voici les signes de f : '
-      const signes = maSpline.signes(new FractionEtendue(1,120))
+      const signes = maSpline.signes(new FractionEtendue(1, 120))
       for (let k = 0; k < signes.length; k++) {
         texteCorrection += `<br>Sur $[${signes[k].xG.texFSD};${signes[k].xD.texFSD}]$ la fonction est ${signes[k].signe === '+' ? 'positive' : 'négative'}`
       }
-      const variations = maSpline.variations(new FractionEtendue(1,3))
+      const variations = maSpline.variations(new FractionEtendue(1, 3))
       for (let k = 0; k < variations.length; k++) {
         texteCorrection += `<br>Sur $[${variations[k].xG.texFSD};${variations[k].xD.texFSD}]$ la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
       }
-
+      
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
     }

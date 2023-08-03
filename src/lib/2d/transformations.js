@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { radians } from '../../modules/mathFonctions/trigo.js'
 import { egal } from '../../modules/outils.js'
+import { radians } from '../mathFonctions/trigo.js'
 import { arc } from './cercle.js'
 import { Droite, droite } from './droites.js'
 import { Point, point } from './points.js'

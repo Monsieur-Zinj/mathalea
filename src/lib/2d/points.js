@@ -1,8 +1,7 @@
-
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { radians } from '../../modules/mathFonctions/trigo.js'
 import { egal, inferieurouegal, randint, superieurouegal } from '../../modules/outils.js'
+import { radians } from '../mathFonctions/trigo.js'
 import { arrondi } from '../outils/nombres.js'
 import { Cercle, cercle } from './cercle.js'
 import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites.js'
@@ -562,7 +561,7 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
  */
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   let x, y
-  if (egal(f.a * d.b - f.b * d.a, 0,0.000001)) {
+  if (egal(f.a * d.b - f.b * d.a, 0, 0.000001)) {
     // Les droites sont parallèles, pas de point d'intersection
     return false
   } else {

@@ -1,8 +1,7 @@
-
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { rationnalise } from '../../modules/mathFonctions/outilsMaths.js'
 import { inferieurouegal } from '../../modules/outils.js'
+import { rationnalise } from '../mathFonctions/outilsMaths.js'
 import { point, tracePoint } from './points.js'
 import { motifs, polygone, polyline } from './polygones.js'
 import { segment } from './segmentsVecteurs.js'
