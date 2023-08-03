@@ -1,7 +1,7 @@
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Déterminer un extremum ou encadrer par lecture d\'un tableau de variations'
@@ -54,7 +54,7 @@ export default function LireUnTableauDevariations () {
           
           texte = ` Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$.<br><br>
               `
-          texte += tableauDeVariation({
+          texte += etudeFonction({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -131,7 +131,7 @@ export default function LireUnTableauDevariations () {
           }
           texte = ` Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$.<br><br>
               `
-          texte += tableauDeVariation({
+          texte += etudeFonction({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

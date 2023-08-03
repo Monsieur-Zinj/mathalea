@@ -4,14 +4,15 @@ import { demiDroite } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPoint } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { triangle2points1angle1longueur } from '../../lib/2d/triangle.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { degCos, degSin } from '../../lib/mathFonctions/trigo.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { degCos, degSin } from '../../modules/mathFonctions/trigo.js'
-import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'qcmMono'
@@ -25,7 +26,7 @@ export const dateDePublication = '03/12/2022'
  * Reconnaître un angle nul, aigu, droit, obtus, plat
  * @author Guillaume Valmont
  * 6G22-2
-*/
+ */
 export const uuid = 'fe08e'
 export const ref = '6G22-2'
 export default class ReconnaitreUnAngleParticulier extends Exercice {
@@ -38,7 +39,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
     this.besoinFormulaireCaseACocher = ['Points confondus dans le cas des angles nuls']
     this.sup = false
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -101,14 +102,14 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       texte = ''
       texteCorr = ''
       // On construit les questions
-
+      
       const questionReponse =
-      {
-        question: enonceFigure + '$\\widehat{' + A.nom + B.nom + C.nom + '}$ est un angle :',
-        propositions: ['nul', 'aigu', 'droit', 'obtus', 'plat'],
-        reponses: [listeTypeQuestions[i]],
-        explications
-      }
+        {
+          question: enonceFigure + '$\\widehat{' + A.nom + B.nom + C.nom + '}$ est un angle :',
+          propositions: ['nul', 'aigu', 'droit', 'obtus', 'plat'],
+          reponses: [listeTypeQuestions[i]],
+          explications
+        }
       const propositions = []
       for (const proposition of questionReponse.propositions) {
         let statut = false

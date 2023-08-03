@@ -1,7 +1,7 @@
 import { texMasse } from '../../lib/format/style.js'
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, xcas } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Résoudre une équation avec une valeur absolue'
@@ -57,7 +57,7 @@ export default function EquationAvecUneValeurAbsolue () {
       texteCorr += `<br>On aura $${xcas('a')}=0$ lorsque $x=${xcas('x1')}${entier}$`
       texteCorr += `<br>De plus la droite $y=${xcas('a')}$ est ${pente}, ce qui permet d'obtenir le tableau des signes suivant :`
       
-      texteCorr += tableauDeVariation({
+      texteCorr += etudeFonction({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

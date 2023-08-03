@@ -1,13 +1,14 @@
 import { afficheMesureAngle, codageSegments } from '../../../lib/2d/codages.js'
 import { point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
+import { degTan } from '../../../lib/mathFonctions/trigo.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { degTan } from '../../../modules/mathFonctions/trigo.js'
-import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { calcul, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +18,7 @@ export const interactifType = 'mathLive'
  * @author Gilles Mora
  * Référence
  * Date de publication
-*/
+ */
 export const uuid = '7b386'
 export const ref = 'can5G02'
 export default function AngleTriangleIsocele () {
@@ -27,10 +28,10 @@ export default function AngleTriangleIsocele () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-
+  
   this.nouvelleVersion = function () {
     let a, A, B, C, objets, nom, pol, xmin, xmax, ymin, ymax
-
+    
     switch (choice(['a', 'b'])) {
       case 'a':
         nom = creerNomDePolygone(3, ['QD'])
@@ -39,7 +40,7 @@ export default function AngleTriangleIsocele () {
         B = point(5, 0, nom[1])
         C = point(2.5, 2.5 * degTan(a), nom[2])
         pol = polygoneAvecNom(A, B, C)
-
+        
         objets = []
         if (a > 60) {
           xmin = Math.min(A.x, B.x, C.x) - 2
@@ -50,7 +51,17 @@ export default function AngleTriangleIsocele () {
           objets.push(afficheMesureAngle(B, A, C, 'black', 1, a + '°'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
         `
-          this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 1, style: 'margin: auto' }, objets)
+          this.question += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 10,
+            mainlevee: false,
+            amplitude: 0.3,
+            scale: 1,
+            style: 'margin: auto'
+          }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
         Ainsi $\\widehat{${nom[2]}}=180°-2\\times ${a}°=${texNombre(180 - 2 * a)}°$
@@ -65,7 +76,17 @@ export default function AngleTriangleIsocele () {
           objets.push(afficheMesureAngle(B, A, C, 'black', 1, a + '°'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
             `
-          this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
+          this.question += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 30,
+            mainlevee: false,
+            amplitude: 0.3,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
             Ainsi $\\widehat{${nom[2]}}=180°-2\\times ${a}°=${texNombre(180 - 2 * a)}°$
@@ -90,7 +111,17 @@ export default function AngleTriangleIsocele () {
           objets.push(afficheMesureAngle(A, C, B, 'black', 2.5, 180 - 2 * a + '°'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br>
             `
-          this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
+          this.question += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 10,
+            mainlevee: false,
+            amplitude: 0.3,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
           Ainsi $\\widehat{${nom[1]}}=(180-${(180 - 2 * a)})\\div 2=${texNombre(a)}$.
@@ -105,7 +136,17 @@ export default function AngleTriangleIsocele () {
           objets.push(afficheMesureAngle(A, C, B, 'black', 0.4, 180 - 2 * a + '°'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br>
               `
-          this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 35, mainlevee: false, amplitude: 0.3, scale: 0.8, style: 'margin: auto' }, objets)
+          this.question += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 35,
+            mainlevee: false,
+            amplitude: 0.3,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, objets)
           this.optionsChampTexte = { texteApres: ' °' }
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
           Ainsi $\\widehat{${nom[1]}}=(180-${(180 - 2 * a)})\\div 2=${texNombre(a)}$.

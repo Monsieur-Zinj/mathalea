@@ -1,12 +1,13 @@
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { spline } from '../../modules/mathFonctions/Spline.js'
-import Exercice from '../Exercice.js'
+import { spline } from '../../lib/mathFonctions/Spline.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -80,7 +81,7 @@ export default class BetaModeleSpline extends Exercice {
     this.sup = '4'
     this.nbQuestions = 1 // Nombre de questions par défaut
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -141,7 +142,7 @@ export default class BetaModeleSpline extends Exercice {
       setReponse(this, 4 * i + 1, solutionMax)
       setReponse(this, 4 * i + 2, Math.min(...nuage.map(el => el.y)))
       setReponse(this, 4 * i + 3, solutionMin)
-
+      
       const texteCorrection = `Le point le plus haut de la courbe a pour coordonnées $(${solutionMax}\\,;\\,${Math.max(...nuage.map(el => el.y))})$.<br>
       On en déduit que le maximum de $f$ est $${Math.max(...nuage.map(el => el.y))}$. Il est atteint en $x=${solutionMax}$.<br>
       Le point le plus bas de la courbe a pour coordonnées $(${solutionMin}\\,;\\,${Math.min(...nuage.map(el => el.y))})$.<br>

@@ -1,15 +1,15 @@
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { degCos } from '../../lib/mathFonctions/trigo.js'
 import { choice, combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { troncature } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { degCos } from '../../modules/mathFonctions/trigo.js'
-import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
@@ -29,13 +29,13 @@ export const uuid = 'ab793'
 export const ref = '6N31-3'
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
-
+  
   this.nbQuestions = 3
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
   this.spacingCorr = context.isHtml ? 2.5 : 1
-
+  
   this.nouvelleVersion = function () {
     if (this.version === 3) {
       this.sup = 3
@@ -54,12 +54,15 @@ export default function ArrondirUneValeur () {
     if (!context.isAmc && !this.interactif) {
       this.consigne = 'Encadrer '
       this.consigne += this.nbQuestions > 1 ? 'chaque' : 'ce'
-      this.consigne += " nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."
+      this.consigne += ' nombre à l\'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi.'
     } else {
-      this.consigne = "Quels sont les encadrements où la valeur orange est la valeur arrondie du nombre à l'unité, au dixième et au centième ?"
+      this.consigne = 'Quels sont les encadrements où la valeur orange est la valeur arrondie du nombre à l\'unité, au dixième et au centième ?'
     }
-
-    const tabrep = []; const tabicone = []; const preTabRep = []; let preTabIcone = []
+    
+    const tabrep = []
+    const tabicone = []
+    const preTabRep = []
+    let preTabIcone = []
     let espace = ''
     if (context.isHtml) {
       espace = '<br>'
@@ -87,7 +90,7 @@ export default function ArrondirUneValeur () {
           n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
           nb = texNombre(n)
           texte = `$${nb}$`
-
+          
           break
         case 2: // arrondir une fraction
           den = choice([7, 9, 11, 13])
@@ -129,8 +132,8 @@ export default function ArrondirUneValeur () {
           texte = `$${nb}\\quad \\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nbSansDegree}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}$.`
           break
       }
-
-      texteCorr = "Encadrement et arrondi à l'unité : "
+      
+      texteCorr = 'Encadrement et arrondi à l\'unité : '
       if (di < 5) {
         texteCorr += `$\\phantom{1234567}${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
         preTabRep[0] = `$${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
@@ -152,7 +155,7 @@ export default function ArrondirUneValeur () {
         tabrep.push(preTabRep[0], preTabRep[1])
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
-
+      
       texteCorr += '<br>Encadrement et arrondi au dixième : '
       if (ci < 5) {
         texteCorr += `$\\phantom{123}${miseEnEvidence(texNombre(troncature(n, 1)))} < ${nb} < ${texNombre(troncature(n + 0.1, 1))}$`
@@ -175,7 +178,7 @@ export default function ArrondirUneValeur () {
         tabrep.push(preTabRep[0], preTabRep[1])
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
-
+      
       texteCorr += `<br>Encadrement et arrondi au centième : ${sp()}`
       if (mi < 5) {
         texteCorr += `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
@@ -254,15 +257,24 @@ export default function ArrondirUneValeur () {
           propositions: [
             {
               type: 'AMCOpen',
-              propositions: [{ enonce: 'Encadrer ' + texte + " à l'unité et entourer son arrondi à l'unité.", statut: 1 }]
+              propositions: [{
+                enonce: 'Encadrer ' + texte + ' à l\'unité et entourer son arrondi à l\'unité.',
+                statut: 1
+              }]
             },
             {
               type: 'AMCOpen',
-              propositions: [{ enonce: 'Encadrer ' + texte + ' au dixième et entourer son arrondi au dixième.', statut: 1 }]
+              propositions: [{
+                enonce: 'Encadrer ' + texte + ' au dixième et entourer son arrondi au dixième.',
+                statut: 1
+              }]
             },
             {
               type: 'AMCOpen',
-              propositions: [{ enonce: 'Encadrer ' + texte + ' au centième et entourer son arrondi au centième.', statut: 1 }]
+              propositions: [{
+                enonce: 'Encadrer ' + texte + ' au centième et entourer son arrondi au centième.',
+                statut: 1
+              }]
             }
           ]
         }

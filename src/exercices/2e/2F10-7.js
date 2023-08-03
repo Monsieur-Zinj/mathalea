@@ -1,10 +1,10 @@
 import Decimal from 'decimal.js'
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import Exercice from '../Exercice.js'
 
 export const dateDePublication = '01/10/2022'
@@ -72,7 +72,7 @@ export default function SignefonctionaffineVariation () {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
             
-            texteCorr += tableauDeVariation({
+            texteCorr += etudeFonction({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -148,7 +148,7 @@ export default function SignefonctionaffineVariation () {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
             
-            texteCorr += tableauDeVariation({
+            texteCorr += etudeFonction({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -187,7 +187,7 @@ export default function SignefonctionaffineVariation () {
             ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
           }
           
-          texte += tableauDeVariation({
+          texte += etudeFonction({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

@@ -1,6 +1,6 @@
 import { fraction, matrix, parse } from 'mathjs'
-import FractionEtendue from '../FractionEtendue.js'
-import { egal } from '../outils.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
+import { egal } from '../../modules/outils.js'
 import { rationnalise } from './outilsMaths.js'
 
 /**
@@ -27,11 +27,11 @@ export class MatriceCarree {
       }
     } else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
       this.dim = table.length
-      for (const ligne of table){ // on copie table dans this.table, élément par élément mais en convertissant en FractionEtendue
+      for (const ligne of table) { // on copie table dans this.table, élément par élément mais en convertissant en FractionEtendue
         this.table.push([])
-        for(const elt of ligne){
+        for (const elt of ligne) {
           const val = rationnalise(elt)
-          this.table[this.table.length-1].push(val)
+          this.table[this.table.length - 1].push(val)
         }
       }
     }
@@ -86,7 +86,7 @@ export class MatriceCarree {
           ligne = []
           for (let j = 0; j < n; j++) {
             M = this.matriceReduite(i, j)
-            ligne.push( M.determinant().multiplieEntier((-1) ** (i + j)).simplifie())
+            ligne.push(M.determinant().multiplieEntier((-1) ** (i + j)).simplifie())
           }
           resultat.push(ligne)
         }
@@ -135,8 +135,8 @@ export class MatriceCarree {
      */
     this.multiplieParReel = function (k) { // retourne k * la matrice on essaye de convertir k en FractionEtendue
       const n = this.dim
-      k=fraction(k.toFixed(2))
-      k = new FractionEtendue(k.s*k.n,k.d)
+      k = fraction(k.toFixed(2))
+      k = new FractionEtendue(k.s * k.n, k.d)
       const resultat = []
       let ligne
       for (let i = 0; i < n; i++) {
@@ -148,7 +148,7 @@ export class MatriceCarree {
       }
       return matriceCarree(resultat)
     }
-
+    
     /**
      * Méthode : Calcule le produit d'une matrice nxn par un vecteur 1xn (matrice colonne): retourne un vecteur 1xn.
      *
@@ -161,7 +161,7 @@ export class MatriceCarree {
         for (let i = 0; i < n; i++) {
           somme = new FractionEtendue(0)
           for (let j = 0; j < n; j++) {
-            V[j]=rationnalise(V[j])
+            V[j] = rationnalise(V[j])
             somme = somme.sommeFraction(this.table[i][j].produitFraction(V[j])).simplifie()
           }
           resultat.push(somme)

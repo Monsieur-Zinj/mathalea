@@ -3,6 +3,7 @@ import { texSymbole, texteGras } from '../../lib/format/style.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
@@ -10,7 +11,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import Exercice from '../Exercice.js'
 
 export const interactifReady = true
@@ -198,7 +198,7 @@ export default function ExerciceInequationProduit () {
           ligne2 = ligneMPP
         }
         // Affiche le tableau de signes : xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -265,7 +265,7 @@ export default function ExerciceInequationProduit () {
         }
         // Affiche le tableau de signes (voir les commentaires du premier type d'exercice)
         texteCorr += 'On peut donc en déduire le tableau de signes suivant : <br>'
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$x${ecritureAlgebrique(c)}$`, 2, 50], [`$(x${ecritureAlgebrique(a)})(x${ecritureAlgebrique(b)})(x${ecritureAlgebrique(c)})$`, 2, 150]
@@ -348,7 +348,7 @@ export default function ExerciceInequationProduit () {
           ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         // Affiche enfin le tableau
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, 2, 200]
@@ -526,7 +526,7 @@ export default function ExerciceInequationProduit () {
           ligne4 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         // Affiche enfin le tableau
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$${e}x${ecritureAlgebrique(f)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)})$`, 2, 200]
@@ -617,7 +617,7 @@ export default function ExerciceInequationProduit () {
           }
         }
         // Affiche le tableau
-        texteCorr += tableauDeVariation({
+        texteCorr += etudeFonction({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$(${a}x${ecritureAlgebrique(b)})^2$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})^2(${c}x${ecritureAlgebrique(d)})$`, 2, 200]

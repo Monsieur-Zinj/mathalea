@@ -1,11 +1,8 @@
 import { droite } from '../../../lib/2d/droites.js'
 import RepereBuilder from '../../../lib/2d/RepereBuilder.ts'
+import { tableauSignesFonction, trouveFonctionAffine } from '../../../lib/mathFonctions/etudeFonction.js'
+import { rationnalise } from '../../../lib/mathFonctions/outilsMaths.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import {
-  rationnalise,
-  tableauSignesFonction,
-  trouveFonctionAffine
-} from '../../../modules/mathFonctions/outilsMaths.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 

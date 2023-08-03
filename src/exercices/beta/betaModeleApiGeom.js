@@ -1,8 +1,9 @@
-import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Figure from 'apigeom'
-import { spline } from '../../modules/mathFonctions/Spline.js'
-import PointOnSpline from '../../modules/mathFonctions/SplineApiGeom.js'
+import { spline } from '../../lib/mathFonctions/Spline.js'
+import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Géométrie dynamique'
 export const uuid = 'betaGeom'
 
@@ -11,14 +12,14 @@ export const dateDePublication = '11/07/2024' // La date de publication initiale
 /**
  * Description didactique de l'exercice
  * @author Rémi Angot
-*/
+ */
 export default class ExerciceApiGeom extends Exercice {
   constructor () {
     super()
     this.consigne = ''
     this.nbQuestions = 1 // Nombre de questions par défaut
   }
-
+  
   nouvelleVersion (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -43,7 +44,7 @@ export default class ExerciceApiGeom extends Exercice {
     // circonscrit.fillColor = 'orange'
     // circonscrit.fillOpacity = 0.1
     // p.thickness = 2
-
+    
     const mySpline = spline([
       { x: -10, y: 5, deriveeGauche: -2, deriveeDroit: -2, isVisible: false },
       { x: -2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
@@ -51,20 +52,26 @@ export default class ExerciceApiGeom extends Exercice {
       { x: 5, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
       { x: 12, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: false }
     ])
-
+    
     for (let i = 0; i < mySpline.n - 1; i++) {
-      figure.create('Graph2', { f: mySpline.fonctions[i], xMin: mySpline.x[i], xMax: mySpline.x[i + 1], step: 0.1, thickness: 1.2 })
+      figure.create('Graph2', {
+        f: mySpline.fonctions[i],
+        xMin: mySpline.x[i],
+        xMax: mySpline.x[i + 1],
+        step: 0.1,
+        thickness: 1.2
+      })
     }
-
+    
     const M = new PointOnSpline(figure, { spline: mySpline, label: 'M', thickness: 2 })
     M.draw()
     M.createSegmentToAxeX()
     M.createSegmentToAxeY()
     const textX = figure.create('DynamicX', { point: M })
     const textY = figure.create('DynamicY', { point: M })
-
+    
     figure.create('Grid')
-
+    
     this.listeQuestions[0] = `<div id="apiGeomEx${numeroExercice}F0"></div>`
     this.listeCorrections[0] = ''
     document.addEventListener('exercicesAffiches', () => {
@@ -75,7 +82,7 @@ export default class ExerciceApiGeom extends Exercice {
       textX.dynamicText.div.style.fontWeight = 'bolder'
       textY.dynamicText.div.style.fontWeight = 'bolder'
     })
-
+    
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }

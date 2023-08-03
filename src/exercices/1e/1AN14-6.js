@@ -1,11 +1,12 @@
+import { derivative, divide, parse, simplify } from 'mathjs'
+import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { Polynome } from '../../modules/mathFonctions/Polynome.js'
-import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { simplify, parse, derivative, divide } from 'mathjs'
+import Exercice from '../Exercice.js'
 import { prettyTex } from './1AN14-4.js'
+
 const math = { simplify, parse, derivative }
 export const titre = 'Dérivée d\'une composée affine'
 
@@ -21,7 +22,7 @@ export default function DeriveeComposee () {
   Exercice.call(this)
   this.titre = titre
   // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-  this.consigne = "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
+  this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
   this.nbQuestions = 5
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
@@ -33,13 +34,13 @@ export default function DeriveeComposee () {
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
-
+  
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
-
+    
     // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['monome', 'racine', 'inv']
     if (this.sup) {
@@ -65,7 +66,7 @@ export default function DeriveeComposee () {
       // Expression finale de la fonction
       exprF = typeF === 'monome' ? f.toMathExpr() : f + '(x)'
       expression = typeF === 'monome' ? `${rienSi1(f.monomes[f.deg])}(${polAff})^${f.deg}` : `${f}(${polAff})`
-
+      
       // Enoncé
       namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = `$${namef}:x\\longmapsto ${prettyTex(math.simplify(expression, reglesDeSimplifications))}$`
@@ -121,7 +122,7 @@ export default function DeriveeComposee () {
       }
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
-
+      
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)

@@ -1,18 +1,19 @@
+import * as pkg from '@cortex-js/compute-engine'
+import { all, create } from 'mathjs'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { fractionLatexToMathjs } from '../../lib/mathFonctions/outilsMaths.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
-import { calculer } from '../../modules/outilsMathjs.js'
-import { create, all } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { fractionLatexToMathjs } from '../../modules/mathFonctions/outilsMaths.js'
 import { context } from '../../modules/context.js'
-import * as pkg from '@cortex-js/compute-engine'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculer } from '../../modules/outilsMathjs.js'
+import Exercice from '../Exercice.js'
+
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
@@ -20,8 +21,21 @@ export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
 export const interactifType = 'custom'
 const math = create(all)
+
 export class Yohaku {
-  constructor ({ type = 'entiers', largeur = 2, hauteur = 2, taille = 3, Case = null, cellules = [], resultats = [], operation = 'addition', valeurMax = 50, solution = false, cellulesPreremplies = [] }) {
+  constructor ({
+    type = 'entiers',
+    largeur = 2,
+    hauteur = 2,
+    taille = 3,
+    Case = null,
+    cellules = [],
+    resultats = [],
+    operation = 'addition',
+    valeurMax = 50,
+    solution = false,
+    cellulesPreremplies = []
+  }) {
     this.largeur = largeur
     this.hauteur = hauteur
     this.Case = Case
@@ -52,7 +66,7 @@ export class Yohaku {
           case 'fractions positives dénominateurs premiers':
             cellules.push(math.fraction(randint(1, this.valeurMax), choice([2, 3, 5, 7])))
             break
-
+          
           case 'fractions positives' :
             cellules.push(math.fraction(randint(1, this.valeurMax), randint(2, this.valeurMax)))
             break
@@ -90,7 +104,7 @@ export class Yohaku {
     }
     this.cellules = cellules
   }
-
+  
   // méthode qui calcule les résultats si on le veut (sinon on peut les renseigner dans this.resultats manuellement)
   calculeResultats () {
     let valeurs
@@ -109,7 +123,7 @@ export class Yohaku {
       this.resultats[i] = this.operate(valeurs)
     }
   }
-
+  
   // fonction utilisée par calculeResultats
   operate (valeurs) {
     let initialValue
@@ -142,7 +156,7 @@ export class Yohaku {
         }
     }
   }
-
+  
   representation () {
     const lignes = []
     const colonnes = []
@@ -247,7 +261,16 @@ export default function FabriqueAYohaku () {
         }
       }
       const largeur = this.type === 'littéraux' ? operateur === 'addition' ? 4 : 5 : 2
-      const yohaku = new Yohaku({ type, taille, largeur, operation: operateur, cellules: donnees, Case, valeurMax, cellulesPreremplies })
+      const yohaku = new Yohaku({
+        type,
+        taille,
+        largeur,
+        operation: operateur,
+        cellules: donnees,
+        Case,
+        valeurMax,
+        cellulesPreremplies
+      })
       yohaku.calculeResultats()
       const mot = type === 'littéraux' ? ['expressions', 'contenues'] : ['nombres', 'contenus']
       texte = operateur === 'addition'
@@ -256,7 +279,10 @@ export default function FabriqueAYohaku () {
       texte += `<br>Compléter la grille avec des ${mot[0]} qui conviennent (plusieurs solutions possibles).<br>`
       texte += yohaku.representation()
       for (let k = 0; k < yohaku.cellulesPreremplies.length; k++) {
-        texte += ajouteChampTexteMathLive(this, i * taille ** 2 + k, 'largeur10 inline nospacebefore', { texte: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
+        texte += ajouteChampTexteMathLive(this, i * taille ** 2 + k, 'largeur10 inline nospacebefore', {
+          texte: `${lettreMinusculeDepuisChiffre(k + 1)}=`,
+          tailleExtensible: true
+        })
         texte += sp(4)
       }
       texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'

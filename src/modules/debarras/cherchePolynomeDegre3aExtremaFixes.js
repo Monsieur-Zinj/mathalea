@@ -1,4 +1,4 @@
-import { matriceCarree } from '../mathFonctions/MatriceCarree.js'
+import { matriceCarree } from '../../lib/mathFonctions/MatriceCarree.js'
 import { egal } from '../outils.js'
 
 /**

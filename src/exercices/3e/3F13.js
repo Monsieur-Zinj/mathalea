@@ -1,21 +1,22 @@
 /* eslint-disable no-sequences */
+import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { resolutionSystemeLineaire2x2 } from '../../modules/mathFonctions/outilsMaths.js'
-import Exercice from '../Exercice.js'
+import { resolutionSystemeLineaire2x2 } from '../../lib/mathFonctions/outilsMaths.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphique'
 
 /**
-* Un graphique étant tracé, déterminer les antécédents de nombres donnés.
-* La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
-*
-* @author Rémi Angot
-* 3F13
-*/
+ * Un graphique étant tracé, déterminer les antécédents de nombres donnés.
+ * La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
+ *
+ * @author Rémi Angot
+ * 3F13
+ */
 export const uuid = '8117d'
 export const ref = '3F13'
 export default function AntecedentGraphique () {
@@ -29,7 +30,7 @@ export default function AntecedentGraphique () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.listeAvecNumerotation = false
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -37,7 +38,7 @@ export default function AntecedentGraphique () {
     this.contenuCorrection = '' // Liste de questions corrigées
     let a, b, c, x1, x2, x3, fx1, fx2, fx3, numa, dena, numb, denb, texte, texteCorr, f
     this.sup = Number(this.sup)
-
+    
     function initialiseVariables () {
       if (context.isHtml) { // repère -10 || 10
         x1 = randint(-6, -3)
@@ -57,11 +58,11 @@ export default function AntecedentGraphique () {
         c = randint(-3, 3)
       }
     }
-
+    
     initialiseVariables()
-
+    
     texte = 'On a tracé ci-dessous la courbe représentative de la fonction $f$.<br>'
-
+    
     if (this.sup === 1) {
       a = new Decimal(fx2 - fx1).div(x2 - x1)
       b = a.mul(x1).sub(fx1)
@@ -75,7 +76,7 @@ export default function AntecedentGraphique () {
         texteCorr = `$${fx1}$ possède une infinité d'antécédents : on note $f(x)=${fx1}$ quel que soit $x$.<br>`
       }
     }
-
+    
     if (this.sup === 2) {
       if (randint(1, 4) < 2) { // une fois sur 4 il n'y a qu'un seul antécédent
         const x0 = randint(-2, 2)
@@ -114,6 +115,6 @@ export default function AntecedentGraphique () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
   }
-
+  
   this.besoinFormulaireNumerique = ['Type de fonctions', 2, '1 : Affine\n2 : Polynôme du 2nd degré']
 }

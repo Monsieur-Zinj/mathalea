@@ -1,15 +1,12 @@
 import { abs, derivative, parse, simplify } from 'mathjs'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { Polynome } from '../../lib/mathFonctions/Polynome.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { signe } from '../../lib/outils/nombres.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { Polynome } from '../../modules/mathFonctions/Polynome.js'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 const math = { simplify, parse, derivative }
@@ -39,7 +36,7 @@ export function prettyTex (expression) {
 export default function DeriveeProduit () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
+  this.consigne = 'Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l\'expression de sa fonction dérivée.'
   this.nbQuestions = 5
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
@@ -52,14 +49,14 @@ export default function DeriveeProduit () {
   // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
-
+  
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.sup2 = Boolean(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
-
+    
     // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
     if (this.sup === 2) {
@@ -107,7 +104,7 @@ export default function DeriveeProduit () {
       // Ensemble de dérivation
       ensembleDerivation = listeTypeFonctions.includes('racine') ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       ensembleDerivation = listeTypeFonctions.includes('inv') ? '\\mathbb{R}^*' : ensembleDerivation
-
+      
       // Enoncé
       namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
@@ -221,7 +218,7 @@ export default function DeriveeProduit () {
           }
           break
         }
-
+        
         default:
           texteCorr += 'Correction non encore implémentée.'
           break
@@ -231,7 +228,7 @@ export default function DeriveeProduit () {
       if (this.interactif) {
         texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texte: `$${namef}'(x)=$` })
       }
-
+      
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)

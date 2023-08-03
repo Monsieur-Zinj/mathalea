@@ -3,12 +3,12 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation, translation } from '../../lib/2d/transformations.js'
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { fractionSimplifiee, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { calcul, listeQuestionsToContenu, printlatex, xcas } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Étude de fonctions de degré 3'
@@ -127,7 +127,7 @@ export default function VariationPolynomeDegre3 () {
         if (maderivee(-b / 3 / a) > 0) { // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
           rac = trouverLesRacines(a1, b1, c1)
           if (this.sup3) {
-            tableau = tableauDeVariation({
+            tableau = etudeFonction({
               colorBackground: 'white',
               escpl: 6,
               delatcl: 1,
@@ -141,7 +141,7 @@ export default function VariationPolynomeDegre3 () {
                 ]
             })
           } else {
-            tableau = tableauDeVariation({
+            tableau = etudeFonction({
               colorBackground: 'white',
               escpl: 5,
               delatcl: 0.8,
@@ -181,7 +181,7 @@ export default function VariationPolynomeDegre3 () {
           tangente.styleExtremites = '<->'
           vecteurs.push(tangente)
         } else { //  la dérivée croit jusqu'à un maximum <0 , il n'y a pas de zéro donc négatif sur tout l'interval
-          tableau = tableauDeVariation({
+          tableau = etudeFonction({
             colorBackground: 'white',
             escpl: 5,
             delatcl: 0.8,
@@ -210,7 +210,7 @@ export default function VariationPolynomeDegre3 () {
         }
       } else {
         if (maderivee(-b / 3 / a) > 0) { //  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
-          tableau = tableauDeVariation({
+          tableau = etudeFonction({
             colorBackground: 'white',
             escpl: 3.5,
             deltacl: 0.6,
@@ -239,7 +239,7 @@ export default function VariationPolynomeDegre3 () {
         } else { // la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
           rac = trouverLesRacines(a1, b1, c1)
           if (this.sup3) {
-            tableau = tableauDeVariation({
+            tableau = etudeFonction({
               colorBackground: 'white',
               escpl: 3.5,
               delatcl: 0.8,
@@ -252,7 +252,7 @@ export default function VariationPolynomeDegre3 () {
                 ]
             })
           } else {
-            tableau = tableauDeVariation({
+            tableau = etudeFonction({
               colorBackground: 'white',
               escpl: 3.5,
               delatcl: 0.8,
@@ -312,7 +312,7 @@ export default function VariationPolynomeDegre3 () {
       if (a > 0) {
         if (minima < 0) { // f(x)=0 a deux solutions
           rac = trouverLesRacines(a, b, c)
-          tableau = tableauDeVariation({
+          tableau = etudeFonction({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -340,7 +340,7 @@ export default function VariationPolynomeDegre3 () {
           tangente.styleExtremites = '<->'
           vecteurs.push(tangente)
         } else if (minima > 0) { // f(x)=0 n'a pas de solution f(x)>0 pour tout x
-          tableau = tableauDeVariation({
+          tableau = etudeFonction({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -366,7 +366,7 @@ export default function VariationPolynomeDegre3 () {
           tangente.styleExtremites = '<->'
           vecteurs.push(tangente)
         } else { // f(x)=0 a une solution unique : minima=0
-          tableau = tableauDeVariation({
+          tableau = etudeFonction({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -395,7 +395,7 @@ export default function VariationPolynomeDegre3 () {
       } else { // a<0
         if (minima > 0) { // f(x)=0 a deux solutions
           rac = trouverLesRacines(a, b, c)
-          tableau = tableauDeVariation({
+          tableau = etudeFonction({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -423,7 +423,7 @@ export default function VariationPolynomeDegre3 () {
           tangente.styleExtremites = '<->'
           vecteurs.push(tangente)
         } else if (minima < 0) { // f(x)=0 n'a pas de solution f(x)<0 pour tout x
-          tableau = tableauDeVariation({
+          tableau = etudeFonction({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -449,7 +449,7 @@ export default function VariationPolynomeDegre3 () {
           tangente.styleExtremites = '<->'
           vecteurs.push(tangente)
         } else { // f(x)=0 a une solution unique : minima=0 désigne ici un maximum
-          tableau = tableauDeVariation({
+          tableau = etudeFonction({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -481,7 +481,7 @@ export default function VariationPolynomeDegre3 () {
       maderivee = () => c
       x2 = -d / c
       if (c > 0) { // croissante
-        tableau = tableauDeVariation({
+        tableau = etudeFonction({
           colorBackground: 'white',
           escpl: 3.5,
           delatcl: 0.8,
@@ -500,7 +500,7 @@ export default function VariationPolynomeDegre3 () {
         YMINI = Math.round(mafonction(x2)) - 4
         YMAXI = Math.round(mafonction(x2)) + 4
       } else { // décroissante
-        tableau = tableauDeVariation({
+        tableau = etudeFonction({
           colorBackground: 'white',
           escpl: 3.5,
           delatcl: 0.8,
@@ -523,7 +523,7 @@ export default function VariationPolynomeDegre3 () {
       mafonction = () => d
       maderivee = () => 0
       
-      tableau = tableauDeVariation({
+      tableau = etudeFonction({
         colorBackground: 'white',
         escpl: 3.5,
         delatcl: 0.8,

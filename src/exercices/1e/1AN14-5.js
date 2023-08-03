@@ -1,13 +1,14 @@
+import { derivative, fraction, parse, simplify } from 'mathjs'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { Polynome } from '../../modules/mathFonctions/Polynome.js'
-import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { simplify, parse, derivative, fraction } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import Exercice from '../Exercice.js'
 import { prettyTex } from './1AN14-4.js'
+
 const math = { simplify, parse, derivative, fraction }
 export const titre = 'Dérivée d\'un quotient'
 export const dateDePublication = '22/01/2022'
@@ -26,7 +27,7 @@ export default function DeriveeQuotient () {
   Exercice.call(this)
   this.titre = titre
   // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-  this.consigne = "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
+  this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
   this.nbQuestions = 5
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
@@ -39,14 +40,14 @@ export default function DeriveeQuotient () {
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
-
+  
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.sup2 = Boolean(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
-
+    
     // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['poly/poly1', 'mon/poly1']
     if (this.sup2) {
@@ -74,7 +75,7 @@ export default function DeriveeQuotient () {
       const termeNum = ['pol', 'mon'].includes(typeNum.substr(0, 3)) ? fNum.toMathExpr() : fNum
       const termeDen = ['pol', 'mon'].includes(typeDen.substr(0, 3)) ? fDen.toMathExpr() : fDen
       expression = `(${termeNum})/(${termeDen})`
-
+      
       // Énoncé
       nameF = lettreMinusculeDepuisChiffre(i + 6)
       texte = ''

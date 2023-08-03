@@ -1,4 +1,5 @@
 import { simplify } from 'mathjs'
+import { matriceCarree } from '../../lib/mathFonctions/MatriceCarree.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -6,11 +7,11 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
-import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
 
 import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { matriceCarree } from '../../modules/mathFonctions/MatriceCarree.js'
+
 export const titre = '2G35-3' // Résoudre un système 2x2 par combinaisons linéaire
 
 // Représentation d'un système 2x2
@@ -20,14 +21,14 @@ const axby = (a, b, niveau) => niveau === 1
   : simplify(a + '*x+' + b + '*y').toString().replaceAll('*', '') // Ecriture avec factorisation ou parenthèse (niveau 2)
 
 const dessSysteme = (s, d, niveau) =>
-    `\\begin{cases} ${axby(s.a11, s.a12, niveau)} & =  ${d[0]} \\\\
+  `\\begin{cases} ${axby(s.a11, s.a12, niveau)} & =  ${d[0]} \\\\
                     ${axby(s.a21, s.a22, niveau)} & =  ${d[1]} \\end{cases}`
 
 /**
  * Description didactique de l'exercice
  * @author Eric Schrafstetter
  * Référence
-*/
+ */
 export default function Systeme2x2parCombinaisonLineaire () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Résoudre chacun des systèmes suivants $\\emph{par combinaisons}$'
@@ -42,7 +43,7 @@ export default function Systeme2x2parCombinaisonLineaire () {
     const niveau = +this.sup // Niveau 1 = écriture ax+by = c ; Niveau 2 = parenthèses ou factorisation
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    
     for (let i = 0, texte, texteCorr, sys, varSol, varCoeff, coeff, droit, mat, equationX, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       sys = {}
@@ -55,12 +56,12 @@ export default function Systeme2x2parCombinaisonLineaire () {
       droit = coeff.multiplieVecteur([sys.xS, sys.yS]) // Vecteur à droite du système
       mat = dessSysteme(sys, droit, niveau) // Représentation du système
       equationX = rienSi1(sys.a11) + 'x' + ecritureAlgebrique(sys.a12 * sys.yS) + '=' + droit[0] // Equation finale en x
-
+      
       texte = `$${mat}$`
-
+      
       texteCorr = 'Donnons un nom à chacune des lignes du système :<br>'
       texteCorr += `$\\begin{matrix} L_1 \\\\ L_2 \\end{matrix}${mat}$<br>`
-
+      
       const m = ppcm(abs(sys.a11), abs(sys.a21)) // ppcm entre les coefficients en x
       const c1 = m / sys.a11 // coeff multiplicateur
       const c2 = m / sys.a21
@@ -91,7 +92,7 @@ export default function Systeme2x2parCombinaisonLineaire () {
       texteCorr += `Remplaçons $y$ par $${sys.yS}$ dans $L_1$ (on aurait pu aussi utiliser $L_2$):<br>`
       texteCorr += `$L_1$ : $${equationX}$ et donc $x=${sys.xS}$<br>`
       texteCorr += `$\\underline{Conclusion}$ : $S=\\{(${sys.xS},${sys.yS})\\}$<br>`
-
+      
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

@@ -1,7 +1,8 @@
-import Exercice from '../Exercice.js'
+import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -12,7 +13,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Description didactique de l'exercice
  * @author
  * Référence
-*/
+ */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
@@ -24,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.tailleDiaporama = 3
     this.video = ''
   }
-
+  
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -36,15 +37,15 @@ export default class NomExercice extends Exercice {
       const d = randint(24, 39)
       // Cet exercice montre juste comment fonctionne la fonction tableauDeVariation
       // Pour le voir appliqué en conditions réelles, voir 2N61-2 pour des tableaux de signes et P010 pour des tableaux de variations
-
+      
       // Les lignes sont des tableaux qui alternent chaîne de caractère et 'nombre de pixels de largeur estimée du texte pour le centrage'
       // La première chaîne : 'Line' indique que c'est pour un tableau de signes et valeurs, 'Var' indique que c'est une ligne de variations
       ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'd', 20, '+', 20] // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
       ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '-', 20, 'd', 20, '+', 20] // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
       ligne3 = ['Var', 10, '+/$+\\infty$', 30, 'R/', 90, '-/50', 90, '+/$+\\infty$', 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-
+      
       // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-      texte = mathalea2d({ xmin: -0.5, ymin: -9.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+      texte = mathalea2d({ xmin: -0.5, ymin: -9.1, xmax: 30, ymax: 0.1, scale: 0.5 }, etudeFonction({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

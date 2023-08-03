@@ -1,19 +1,17 @@
+import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { abs, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import {
-  chercheMinMaxFonction,
-  resolutionSystemeLineaire2x2,
-  resolutionSystemeLineaire3x3
-} from '../../modules/mathFonctions/outilsMaths.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Decimal from 'decimal.js'
-import { context } from '../../modules/context.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { chercheMinMaxFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3 } from '../../lib/mathFonctions/outilsMaths.js'
+import { abs, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
+import { numAlpha } from '../../lib/outils/outilString.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const titre = 'Lire l\'image d\'un nombre à partir d\'un graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,12 +19,12 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
-* Un graphique étant tracé, déterminer l'image de nombres donnés.
-* La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
-*
-* @author Rémi Angot
-* 3F12-4
-*/
+ * Un graphique étant tracé, déterminer l'image de nombres donnés.
+ * La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
+ *
+ * @author Rémi Angot
+ * 3F12-4
+ */
 export const uuid = 'b8946'
 export const ref = '3F12-4'
 export default function ImageGraphique () {
@@ -40,17 +38,17 @@ export default function ImageGraphique () {
   this.pointsParQuestions = 3
   // this.nbQuestionsModifiable = false
   this.nbCols = 1
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     this.sup = parseInt(this.sup)
     let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, numa, dena, numb, denb, numc, denc, ymax, f
-
+    
     function initialiseVariables () {
       x1 = randint(-6, -3)
       x2 = randint(x1 + 3, 2)
@@ -62,21 +60,22 @@ export default function ImageGraphique () {
       c = randint(-5, 5)
       ymax = 7
     }
+    
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       initialiseVariables()
-
+      
       texte = 'On a tracé ci-dessous la courbe représentative de la fonction $f$.<br>'
       const r = repere({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
       if (this.sup === 1) {
         a = new Decimal(fx2 - fx1).div(x2 - x1)
         b = a.mul(x1).sub(fx1)
         f = x => a * x - b
-
+        
         texte += `Déterminer par lecture graphique les images de $${x1}$ et de $${x2}$ par cette fonction $f$.<br>`
         texteCorr = `L'image de $${x1}$ est $${fx1}$, on note $f(${x1})=${fx1}$.<br>`
         texteCorr += `L'image de $${x2}$ est $${fx2}$, on note $f(${x2})=${fx2}$.`
       }
-
+      
       if (this.sup === 2) {
         x1 = randint(-6, -3)
         x3 = randint(1, 6)
@@ -94,10 +93,10 @@ export default function ImageGraphique () {
         b = new Decimal(numb).div(denb)
         x2 = 0
         fx2 = c
-
+        
         f = x => a * x ** 2 + b * x + c
       }
-
+      
       if (this.sup === 3) {
         [[numa, dena], [numb, denb], [numc, denc]] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
         let [extremum1, extremum2] = chercheMinMaxFonction([numa / dena, numb / denb, numc / denc, d])
@@ -113,10 +112,10 @@ export default function ImageGraphique () {
         a = new Decimal(numa).div(dena)
         b = new Decimal(numb).div(denb)
         c = new Decimal(numc).div(denc)
-
+        
         f = x => a * x ** 3 + b * x ** 2 + c * x + d
       }
-
+      
       if (this.sup === 2 || this.sup === 3) {
         texte += `Déterminer par lecture graphique les images de $${x1}$, de $${x2}$ et de $${x3}$ par cette fonction $f$.<br>`
         texteCorr = `L'image de $${x1}$ est $${fx1}$, on note $f(${x1})=${fx1}$.<br>`
@@ -125,7 +124,7 @@ export default function ImageGraphique () {
       }
       const C = courbe(f, { repere: r, step: 0.25 })
       texte += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C)
-
+      
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + '<br>',
@@ -210,6 +209,6 @@ export default function ImageGraphique () {
     }
     listeQuestionsToContenu(this)
   }
-
+  
   this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
 }

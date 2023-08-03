@@ -1,3 +1,5 @@
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { choisiDelta } from '../../lib/mathFonctions/outilsMaths.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import {
@@ -7,11 +9,10 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
-import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, egal } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { choisiDelta } from '../../modules/mathFonctions/outilsMaths.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { egal, listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const interactifReady = false
 // export const interactifType = 'mathLive'
 export const titre = 'Factoriser, si possible, un polynôme du second degré'
@@ -20,7 +21,7 @@ export const titre = 'Factoriser, si possible, un polynôme du second degré'
  *
  * @author Stéphane Guyon
  * Référence 1E13
-*/
+ */
 export const uuid = '334ca'
 export const ref = '1E13'
 export default function Resolutionavecformecanonique () {
@@ -31,7 +32,7 @@ export default function Resolutionavecformecanonique () {
   this.nbColsCorr = 1
   this.spacingCorr = 3
   this.sup = 1
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -51,7 +52,7 @@ export default function Resolutionavecformecanonique () {
       texteCorr += '<br>On cherche les éventuelles racine(s) du polynôme.'
       texteCorr += '<br>On commence par calculer le discriminant : $\\Delta = b^2-4ac$'
       texteCorr += `<br>$\\Delta = ${b}^2-4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${delta}$`
-
+      
       // test des solutions
       if (delta < 0) {
         texteCorr += '<br>Le discriminant étant négatif, d\'après le cours, le polynôme n\'admet aucune racine réelle.'
@@ -78,12 +79,12 @@ export default function Resolutionavecformecanonique () {
           stringX1 = x1.texFractionSimplifiee
           x2String = x2.oppose().ecritureAlgebrique
           stringX2 = x2.texFractionSimplifiee
-        /*  } else {
-            x1String = x1.ecritureAlgebrique
-            stringX1 = x1.oppose().texFractionSimplifiee
-            x2String = x2.ecritureAlgebrique
-            stringX2 = x2.oppose().texFractionSimplifiee
-          } */
+          /*  } else {
+              x1String = x1.ecritureAlgebrique
+              stringX1 = x1.oppose().texFractionSimplifiee
+              x2String = x2.ecritureAlgebrique
+              stringX2 = x2.oppose().texFractionSimplifiee
+            } */
         } else { // présence d'un radical x1String contient ce qui est après x dans le facteur 1 stringX1 contient son opposé (transposé dans l'autre membre) Idem pour x2String et stringX2
           if (a < 0) {
             if (b < 0) { // a et b négatifs
@@ -144,7 +145,7 @@ export default function Resolutionavecformecanonique () {
         if (!egal(Math.abs(2 * a) / p, 1)) { // présence de traits de fraction donc réécriture du produit nul
           texteCorr += `<br> Finalement, $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=${rienSi1(a)}\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)$`
         } else { // cas de delta  = 0
-        // pour l'instant pas de delta nul avec choisiDelta
+          // pour l'instant pas de delta nul avec choisiDelta
         }
       }
       texte += ajouteChampTexteMathLive(this, i)
