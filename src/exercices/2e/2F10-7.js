@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -72,7 +72,7 @@ export default function SignefonctionaffineVariation () {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
             
-            texteCorr += etudeFonction({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -148,7 +148,7 @@ export default function SignefonctionaffineVariation () {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
             
-            texteCorr += etudeFonction({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -187,7 +187,7 @@ export default function SignefonctionaffineVariation () {
             ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
           }
           
-          texte += etudeFonction({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

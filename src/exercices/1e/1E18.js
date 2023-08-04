@@ -1,4 +1,4 @@
-import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
 import { context } from '../../modules/context.js'
@@ -66,7 +66,7 @@ export default class EquationsEtInequations extends Exercice {
         }
         const ligne3 = a * c > 0 ? ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20] : ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         texteCorr += '<br><br>On en déduit le signe du polynôme dans un tableau de signes :'
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

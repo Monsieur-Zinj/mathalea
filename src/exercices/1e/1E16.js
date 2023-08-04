@@ -1,4 +1,4 @@
-import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
@@ -70,7 +70,7 @@ export default function ResoudreEquationDegre2 () {
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On en déduit le signe du polynôme dans un tableau de signes :'
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -121,7 +121,7 @@ export default function ResoudreEquationDegre2 () {
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -172,7 +172,7 @@ export default function ResoudreEquationDegre2 () {
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -223,7 +223,7 @@ export default function ResoudreEquationDegre2 () {
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
         texteCorr += '<br>On peut résumer le signe du polynôme dans un tableau de signes :'
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

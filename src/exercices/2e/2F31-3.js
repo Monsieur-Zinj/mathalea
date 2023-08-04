@@ -1,5 +1,5 @@
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -50,7 +50,7 @@ export default function Variationsapartirtableau () {
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
           
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += etudeFonction({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -72,7 +72,7 @@ export default function Variationsapartirtableau () {
           if (context.isHtml) {
             ligne1 = ['Var', 5, `-/$${y1}$`, 5, 't/', 5, 't/', 5, `+/$${y2}$`, 5, `-/$${y3}$`, 5]
             // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-            texteCorr += etudeFonction({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -130,7 +130,7 @@ export default function Variationsapartirtableau () {
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
           
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += etudeFonction({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -152,7 +152,7 @@ export default function Variationsapartirtableau () {
           texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$ et $${a3}<${a4}$.<br>`
           if (context.isHtml) {
             ligne1 = ['Var', 5, `-/$${y1}$`, 5, `+/$${y2}$`, 5, 't/', 5, 't/', 5, `-/$${y3}$`, 5] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-            texteCorr += etudeFonction({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -209,7 +209,7 @@ export default function Variationsapartirtableau () {
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
           
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += etudeFonction({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -263,7 +263,7 @@ export default function Variationsapartirtableau () {
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
           
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += etudeFonction({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -317,7 +317,7 @@ export default function Variationsapartirtableau () {
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
           
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          texte += etudeFonction({
+          texte += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

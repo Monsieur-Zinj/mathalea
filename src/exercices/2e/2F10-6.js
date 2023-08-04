@@ -1,4 +1,4 @@
-import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import {
@@ -82,7 +82,7 @@ export default function Variationsfonctionaffine () {
             ligne1 = ['Var', 10, '+/', 30, '-/', 30]
           }
           texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -129,7 +129,7 @@ export default function Variationsfonctionaffine () {
             ligne1 = ['Var', 10, '+/', 30, '-/', 30]
           }
           texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -176,7 +176,7 @@ export default function Variationsfonctionaffine () {
           }
           texteCorr += `De plus, $${nomF}(${c})=${a === 1 ? '' : `${a}\\times`} ${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(b)}=${fc}$ et $${nomF}(${d})=${a === 1 ? '' : `${a}\\times`}${ecritureParentheseSiNegatif(d)}${ecritureAlgebrique(b)}=${fd}$.<br>`
           texteCorr += 'On obtient ainsi le tableau de variations :<br><br>'
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

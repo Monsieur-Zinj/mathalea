@@ -1,6 +1,6 @@
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { etudeFonction } from '../../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 
 import { context } from '../../../modules/context.js'
@@ -57,7 +57,7 @@ export default function ExtremumsTableau () {
       texte = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1}\\,;\\,${x4}]$ :<br>
       `
       
-      texte += etudeFonction({
+      texte += tableauDeVariation({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
