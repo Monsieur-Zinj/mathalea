@@ -2,7 +2,7 @@ import { courbeInterpolee } from '../../lib/2d/courbes.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
-import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
@@ -110,7 +110,7 @@ export default function VariationsCourbe () {
           
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
             Son tableau de variations est : <br><br>`
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -189,7 +189,7 @@ export default function VariationsCourbe () {
           
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -270,7 +270,7 @@ export default function VariationsCourbe () {
           
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -351,7 +351,7 @@ export default function VariationsCourbe () {
           
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -435,7 +435,7 @@ export default function VariationsCourbe () {
           
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -519,7 +519,7 @@ export default function VariationsCourbe () {
           
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
         Son tableau de variations est : <br><br>`
-          texteCorr += etudeFonction({
+          texteCorr += tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -616,7 +616,7 @@ export default function VariationsCourbe () {
             
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
             Son tableau de variations est : <br><br>`
-            texteCorr += etudeFonction({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -710,7 +710,7 @@ export default function VariationsCourbe () {
             
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
                 Son tableau de variations est : <br><br>`
-            texteCorr += etudeFonction({
+            texteCorr += tableauDeVariation({
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

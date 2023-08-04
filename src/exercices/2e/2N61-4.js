@@ -2,7 +2,7 @@ import { texSymbole } from '../../lib/format/style.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
@@ -227,7 +227,7 @@ export default function ExerciceInequationQuotient () {
           ligne3 = ['Line', 50, '', 0, '+', 20, 'd', 20, '-', 20, 'z', 20, '+', 20] // Le dénominateur change de signe en premier donc la double barre (, 'd', 20) intervient en premier
         }
         // Affichage du tableau de signes
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2, 30], [`$x${ecritureAlgebrique(a)}$`, 2, 50], [`$x${ecritureAlgebrique(b)}$`, 2, 50], [`$\\cfrac{x${ecritureAlgebrique(a)}}{x${ecritureAlgebrique(b)}}$`, ecart, 50]
@@ -332,7 +332,7 @@ export default function ExerciceInequationQuotient () {
           }
         }
         // Affiche enfin le tableau
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}}$`, ecart, 200]
@@ -538,7 +538,7 @@ export default function ExerciceInequationQuotient () {
           ligne4 = ['Line', 30, '', 0, '+', 20, zero1, 20, '-', 20, zero2, 20, '+', 20, zero3, 20, '-', 20]
         }
         // Affiche enfin le tableau
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$${e}x${ecritureAlgebrique(f)}$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})(${e}x${ecritureAlgebrique(f)}}$`, ecart, 200]
@@ -641,7 +641,7 @@ export default function ExerciceInequationQuotient () {
           }
         }
         // Affiche le tableau
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$(${c}x${ecritureAlgebrique(d)})^2$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{(${c}x${ecritureAlgebrique(d)})^2}$`, ecart, 200]
@@ -773,7 +773,7 @@ export default function ExerciceInequationQuotient () {
           }
         }
         // Affiche enfin le tableau
-        texteCorr += etudeFonction({
+        texteCorr += tableauDeVariation({
           tabInit: [
             [
               ['$x$', 2.5, 30], [`$${a + e * c}x${ecritureAlgebrique(b + e * d)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$\\cfrac{${a + e * c}x${ecritureAlgebrique(b + e * d)}}{${c}x${ecritureAlgebrique(d)}}$`, ecart, 200]

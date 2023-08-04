@@ -1,5 +1,5 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
-import { etudeFonction } from '../../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures.js'
@@ -45,7 +45,7 @@ export default function TableauSignes () {
             options: { vertical: true },
             propositions: [
               {
-                texte: etudeFonction({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -65,7 +65,7 @@ export default function TableauSignes () {
                 statut: true
               },
               {
-                texte: etudeFonction({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -85,7 +85,7 @@ export default function TableauSignes () {
                 statut: false
               },
               {
-                texte: etudeFonction({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -112,7 +112,7 @@ export default function TableauSignes () {
             options: { vertical: true },
             propositions: [
               {
-                texte: etudeFonction({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -132,7 +132,7 @@ export default function TableauSignes () {
                 statut: true
               },
               {
-                texte: etudeFonction({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -152,7 +152,7 @@ export default function TableauSignes () {
                 statut: false
               },
               {
-                texte: etudeFonction({
+                texte: tableauDeVariation({
                   tabInit: [
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -189,7 +189,7 @@ export default function TableauSignes () {
         texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $.<br>`
         ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
       }
-      texteCorr += etudeFonction({
+      texteCorr += tableauDeVariation({
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

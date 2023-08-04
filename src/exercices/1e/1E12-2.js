@@ -1,4 +1,4 @@
-import { etudeFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
@@ -47,7 +47,7 @@ export default class EtudeParabole extends Exercice {
     } else {
       variations = ['Var', 30, '-/', 10, `+/$${p.beta.simplifie().texFraction}$`, 10, '-/']
     }
-    correction1 += '<br><br>' + etudeFonction({
+    correction1 += '<br><br>' + tableauDeVariation({
       tabInit: [
         [
           // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
