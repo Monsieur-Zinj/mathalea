@@ -5,9 +5,17 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Calculer un carré'
 export const dateDePublication = '17/01/2023'
+export const dateDeModifImportante = '5/8/2023' // Rémi Angot a ajouté l'interactivité
+export const interactifReady = true 
+export const interactifType = 'mathLive'
+
+
 
 /**
 * Calculer de carré d'un nombre
@@ -26,7 +34,7 @@ export default class calculsDeCarre extends Exercice {
     super()
     this.titre = titre
     this.sup = 1
-    this.nbQuestions = 1
+    this.nbQuestions = 6
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
     context.isHtml ? this.spacing = 2 : this.spacing = 2
     this.consigneModifiable = false
@@ -73,21 +81,26 @@ export default class calculsDeCarre extends Exercice {
           texte = `$${signe * entier}$`
           texteCorr = signe === -1 ? `$(${signe * entier})^2` : `$${signe * entier}^2`
           texteCorr += `=${miseEnEvidence(entier * entier)}$`
+          setReponse(this, i, entier * entier)
           break
         case 2: // décimal relatif
           texte = `$${texNombre(signe * decimal, 2)}$`
           texteCorr = signe === -1 ? `$(${texNombre(signe * decimal, 2)})^2` : `$${texNombre(signe * decimal, 2)}^2`
           texteCorr += `=${miseEnEvidence(texNombre(decimal.pow(2), 2))}$`
+          setReponse(this, i, decimal.pow(2))
           break
         case 3: // fractionnaire relatif
           texte = signe === -1 ? '$-' : '$'
           texte += `\\dfrac{${numerateur}}{${denominateur}}$`
           texteCorr = signe === -1 ? `$\\left(-\\dfrac{${numerateur}}{${denominateur}}\\right)^2` : `$\\left(\\dfrac{${numerateur}}{${denominateur}}\\right)^2`
           texteCorr += `=${miseEnEvidence(`\\dfrac{${numerateur * numerateur}}{${denominateur * denominateur}}`)}$`
+          setReponse(this, i, new FractionEtendue(numerateur * numerateur, denominateur * denominateur), { formatInteractif: 'fractionEgale' })
           break
       }
 
+      
       if (this.questionJamaisPosee(i, texte)) {
+        texte += ajouteChampTexteMathLive(this, i)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
