@@ -89,7 +89,6 @@
    * @returns {string} titre
    * @author sylvain
    */
-
   function buildQuestionTitle (dim: number, nbOfQuestions: number) {
     const navigationHeaderElt = document.getElementById('navigationHeaderID')
     const questionTitleElt = document.getElementById('questionTitleID0')
@@ -185,7 +184,7 @@
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
-      mathaleaRenderDiv(document.querySelector<HTMLElement>('section'))
+      mathaleaRenderDiv(document.querySelector<HTMLElement>('body'))
       loadMathLive()
     }
     let hauteurExercice = window.document.querySelector('section').scrollHeight
