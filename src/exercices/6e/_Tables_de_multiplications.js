@@ -21,6 +21,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   Exercice.call(this)
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
+  this.sup3 = 2 // 1: on commence toujours par le nombre de la table, 2: on mélange
   this.titre = 'Tables de multiplication'
   this.consigne = 'Calculer : '
   this.spacing = 2
@@ -31,42 +32,14 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     3,
     '1 : Classique\n2 : À trous\n3 : Mélange'
   ]
+  this.besoinFormulaire3Numerique = ['Le facteur de gauche est celui de la table', 2, '1 : Oui\n2 : Non']
 
   this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    /* if (!this.sup) {
-    // Si aucune table n'est saisie
-      this.sup = '2-3-4-5-6-7-8-9'
-    } */
-    // let tables = []
-    /* if (typeof this.sup === 'number') {
-    // Si c'est un nombre c'est qu'il y a qu'une seule table
-      tables[0] = this.sup
-    } else {
-      tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
-    }
-    for (let i = 0; i < tables.length; i++) {
-      tables[i] = parseInt(tables[i])
-    }
-    */
-    /*
-    if (!this.sup) { // Si aucune liste n'est saisie
-      tables[0] = rangeMinMax(2, 9)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        tables = [contraindreValeur(2, 9, this.sup, randint(2, 9))]
-      } else {
-        tables = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < tables.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          tables[i] = contraindreValeur(2, 9, parseInt(tables[i]), 9) // parseInt en fait un tableau d'entiers
-        }
-        // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
-      }
-    } */
-    const tables = gestionnaireFormulaireTexte({
+    let tables = gestionnaireFormulaireTexte({
       min: 2,
       max: 9,
       defaut: randint(2, 9),
@@ -74,6 +47,9 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       saisie: this.sup
     })
 
+    tables = [...new Set(tables)]
+    // gestionnaireFormulaireTexte transforme la saisie 5 en [5, 5, 5, 5, 5] ce qui n'était pas le comportement souhaité à l'origine de l'exercice
+    // [...new Set(tables)] permet d'enlever les doublons ajoutés par gestionnaireFormulaireTexte
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -92,7 +68,8 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       }
       if (typesDeQuestions === 'classique') {
       // classique
-        if (choice([true, false])) {
+        const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
+        if (choice(ordre)) {
           texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = `
           texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, { numeric: true }) : '$'
           texteCorr = `$ ${texNombre(a)} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
@@ -104,9 +81,11 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         setReponse(this, i, a * b)
       } else {
       // a trous
+      console.log(tables)
         if (tables.length > 2) {
         // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
-          if (randint(1, 2) === 1) {
+          const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
+          if (choice(ordre)) {
             texte = '$ ' + a + ' \\times '
             texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true, texteApres: `$ = ${a * b} $` }) : `   \\ldots\\ldots = ${a * b}$`
             setReponse(this, i, b)
