@@ -7,7 +7,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
-export const titre = 'Lecture graphique de domaines de définition'
+export const titre = 'Lecture graphique de domaine de définition'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -127,7 +127,8 @@ export default class LectureEnsebleDef extends Exercice {
     }
     
     this.question = mathalea2d(Object.assign({}, fixeBordures([repere])), [repere, courbeAvecTrace]) + 'Quel est l\'ensemble de définition de la fonction représentée ci-dessus ?'
-    this.correction = `L'ensemble de définition de la fonction est $[${xmin};${xmax}]$.`
-    this.reponse = '' // @fixme compléter choisir la forme de la réponse
+    this.correction = `L'ensemble de définition de la fonction est $${xmin === '-\\infty' ? ']' : '['}${xmin};${xmax}${xmax === '+\\infty' ? '[' : ']'}$.`
+    this.reponse = `${xmin === '-\\infty' ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${xmax === '+\\infty' ? '\\right\\lbrack' : '\\right\\rbrack'}`
+    this.formatInteractif = 'texte'
   }
 }
