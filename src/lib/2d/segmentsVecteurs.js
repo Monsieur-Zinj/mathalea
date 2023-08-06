@@ -226,7 +226,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.color = colorToLatexOrHTML(color)
     this.styleExtremites = styleExtremites
   }
-  this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
+  this.bordures = [Math.min(this.x1, this.x2), Math.min(this.y1, this.y2), Math.max(this.x1, this.x2), Math.max(this.y1, this.y2)]
   this.extremite1 = point(this.x1, this.y1)
   this.extremite2 = point(this.x2, this.y2)
   this.longueur = Math.sqrt((this.x2 - this.x1) ** 2 + (this.y2 - this.y1) ** 2)

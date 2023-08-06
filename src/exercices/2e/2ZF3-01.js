@@ -1,10 +1,10 @@
-import { droite } from '../../../lib/2d/droites.js'
-import RepereBuilder from '../../../lib/2d/RepereBuilder.ts'
-import { tableauSignesFonction, trouveFonctionAffine } from '../../../lib/mathFonctions/etudeFonction.js'
 import { rationnalise } from '../../../lib/mathFonctions/outilsMaths.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { droite } from '../../lib/2d/droites.js'
+import RepereBuilder from '../../lib/2d/RepereBuilder.js'
+import { tableauSignesFonction, trouveFonctionAffine } from '../../lib/mathFonctions/etudeFonction.js'
 
 export const titre = 'Lister tous les diviseurs d’un entier'
 export const interactifReady = true
@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'e39b8'
-export const ref = '2AF301'
+export const ref = '2ZF3-01'
 
 /**
  * trois niveaux, trouver les signes d'une fonction affine

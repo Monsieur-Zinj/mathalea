@@ -128,7 +128,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 2, 25], [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50]
+                ['$x$', 3, 25], [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               ['$-\\infty$', 20, `$${zero.texFSD}$`, 20, '$+\\infty$', 30]
@@ -219,7 +219,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 2, 25], [`${b === 0 ? `$f(x)=${a.texFSD}x$` : `$f(x)=${a.texFSD}x${ecritureAlgebrique(b)}$`}`, 2, 50]
+                ['$x$', 3, 25], [`${b === 0 ? `$f(x)=${a.texFSD}x$` : `$f(x)=${a.texFSD}x${ecritureAlgebrique(b)}$`}`, 2, 50]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               ['$-\\infty$', 20, `$${zero.texFSD}$`, 20, '$+\\infty$', 30]
