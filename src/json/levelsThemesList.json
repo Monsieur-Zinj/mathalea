@@ -164,26 +164,25 @@
   "can1S": {
     "titre": "Suites"
   },
-
-  "c3C1" : {
+  "c3C1": {
     "titre": "Calculs - Niveau 1"
   },
-  "c3C2" : {
+  "c3C2": {
     "titre": "Calculs - Niveau 2"
   },
-  "c3C3" : {
+  "c3C3": {
     "titre": "Calculs - Niveau 3"
   },
-  "c3I1" : {
+  "c3I1": {
     "titre": "Programmation"
   },
-  "c3N1" : {
+  "c3N1": {
     "titre": "Numération et fractions - Niveau 1"
   },
-  "c3N2" : {
+  "c3N2": {
     "titre": "Numération et fractions - Niveau 2"
   },
-  "c3N3" : {
+  "c3N3": {
     "titre": "Numération et fractions - Niveau 3"
   },
   "6N1": {
@@ -873,23 +872,31 @@
     "titre": "Echantillonnage",
     "sousThemes": {}
   },
+  "2ZA": {
+    "titre": "Automatismes - arithmétique",
+    "sousThemes": {}
+  },
+  "2ZF": {
+    "titre": "Automatismes - fonctions",
+    "sousThemes": {}
+  },
   "1AN": {
-    "titre" : "Analyse"
+    "titre": "Analyse"
   },
   "1E1": {
-    "titre" : "Équations"
+    "titre": "Équations"
   },
   "1F1": {
-    "titre" : "Fonctions"
+    "titre": "Fonctions"
   },
   "1G1": {
-    "titre" : "Géométrie"
+    "titre": "Géométrie"
   },
   "1N1": {
-    "titre" : "Suites"
+    "titre": "Suites"
   },
   "1P1": {
-    "titre" : "Probabilités"
+    "titre": "Probabilités"
   },
   "PEA1": {
     "titre": "Numération et bases"
@@ -897,8 +904,20 @@
   "PEG2": {
     "titre": "À la règle et au compas"
   },
-  "ExC1": { "titre": "Calculs avec nombres complexes", "sousThemes": {} },
-  "ExE1": { "titre": "Équations", "sousThemes": {} },
-  "ExL1": { "titre": "Calcul littéral", "sousThemes": {} },
-  "HPC1": { "titre": "Calculs", "sousThemes": {} }
+  "ExC1": {
+    "titre": "Calculs avec nombres complexes",
+    "sousThemes": {}
+  },
+  "ExE1": {
+    "titre": "Équations",
+    "sousThemes": {}
+  },
+  "ExL1": {
+    "titre": "Calcul littéral",
+    "sousThemes": {}
+  },
+  "HPC1": {
+    "titre": "Calculs",
+    "sousThemes": {}
+  }
 }
