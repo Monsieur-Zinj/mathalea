@@ -6271,7 +6271,7 @@
         "uuid": "5999f",
         "url": "6e/6M11-2.js",
         "titre": "Calculer périmètre et aire de figures composées",
-        "dateModification": "12/04/2023",
+        "dateModification": "25/07/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7476,14 +7476,14 @@
         "id": "5G10-1",
         "uuid": "ce9ef",
         "url": "5e/5G10-1.js",
-        "titre": "Construire le symétrique d'un point par rapport à une droite",
+        "titre": "Construire le symétrique de différents points par rapport à une droite",
         "tags": {}
       },
       "5G10-2": {
         "id": "5G10-2",
         "uuid": "8ea24",
         "url": "5e/5G10-2.js",
-        "titre": "Construire le symétrique d'une figure par rapport à une droite",
+        "titre": "Construire le symétrique d'un triangle par rapport à une droite",
         "tags": {}
       },
       "5G10": {
@@ -7509,7 +7509,7 @@
         "id": "5G11-2",
         "uuid": "49786",
         "url": "5e/5G11-2.js",
-        "titre": "Construire l'image d'une figure par symétrie centrale",
+        "titre": "Construire l'image d'un triangle par symétrie centrale",
         "tags": {}
       },
       "5G11-3": {
@@ -7576,7 +7576,7 @@
         "id": "5G12-1",
         "uuid": "261bf",
         "url": "5e/5G12-1.js",
-        "titre": "Symétrique d'une figure dans un pavage",
+        "titre": "Trouver le symétrique d'une figure dans un pavage",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -7613,7 +7613,11 @@
         "uuid": "76ea9",
         "url": "5e/5G12.js",
         "titre": "Trouver l'image d'une figure par symétrie centrale dans un pavage",
-        "tags": {}
+        "dateModification": "23/07/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "5G13": {
         "id": "5G13",
@@ -7636,7 +7640,8 @@
         "id": "5G20-1",
         "uuid": "c3781",
         "url": "5e/5G20-1.js",
-        "titre": "Vocabulaire des triangles",
+        "titre": "Utiliser le vocabulaire des triangles",
+        "dateModification": "25/07/2023",
         "tags": {}
       },
       "5G20-2": {
@@ -7657,7 +7662,7 @@
         "id": "5G21-1",
         "uuid": "f789c",
         "url": "5e/5G21-1.js",
-        "titre": "Constructibilité des triangles via les longueurs",
+        "titre": "Justifier la construction des triangles via les longueurs",
         "tags": {}
       },
       "5G22-1": {
@@ -8870,7 +8875,9 @@
         "id": "4C23",
         "uuid": "374b6",
         "url": "4e/4C23.js",
-        "titre": "Somme, différence ou produit de fractions",
+        "titre": "Effectuer somme, différence ou produit de fractions",
+        "datePublication": "15/09/2021",
+        "dateModification": "26/07/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -9238,7 +9245,11 @@
         "url": "4e/4G20-3.js",
         "titre": "Calculer un carré",
         "datePublication": "17/01/2023",
-        "tags": {}
+        "dateModification": "5/8/2023",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       },
       "4G20-4": {
         "id": "4G20-4",
@@ -11669,7 +11680,7 @@
         "id": "2N30-5",
         "uuid": "6575c",
         "url": "2e/2N30-5.js",
-        "titre": "Fractions et priorités opératoires",
+        "titre": "Effectuer somme, différence ou produit de fractions",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"

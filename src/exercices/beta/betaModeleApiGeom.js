@@ -1,6 +1,6 @@
 import Figure from 'apigeom'
 import { spline } from '../../lib/mathFonctions/Spline.js'
-import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom.js'
+import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

@@ -727,6 +727,7 @@
   "0cf54": "2e/2S30-3.js",
   "e1938": "2e/2S30-4.js",
   "cee5d": "2e/2S30-5.js",
+  "15fd6": "2e/2ZA1-01.js",
   "4c8c7": "1e/1AN11.js",
   "1a60f": "1e/1AN14-4.js",
   "b32f2": "1e/1AN14-5.js",
@@ -1186,7 +1187,6 @@
   "4c7ca": "profs/P021.js",
   "betaFonction": "beta/betaEtudeFonction.js",
   "57cf4": "beta/betaModele00_simple_Course_au_Nombres.js",
-  "15fd6": "beta/betaModeleSimpleAutomatismes.js",
   "betaSpline": "beta/betaModeleSpline.js",
   "efeee": "beta/betaTexNombre.js"
 }
