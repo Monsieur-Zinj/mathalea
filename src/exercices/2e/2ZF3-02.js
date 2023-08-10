@@ -1,6 +1,6 @@
 import { courbe } from '../../lib/2d/courbes.js'
 import { plot } from '../../lib/2d/points.js'
-import RepereBuilder from '../../lib/2d/RepereBuilder'
+import RepereBuilder from '../../lib/2d/RepereBuilder.ts'
 import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

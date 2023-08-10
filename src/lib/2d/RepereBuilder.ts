@@ -74,6 +74,7 @@ export default class RepereBuilder {
      * @private
      */
     private build() {
+        // @ts-ignore
         return new Repere({
                 xMin: this.xMin,
                 xMax: this.xMax,
@@ -135,7 +136,7 @@ export default class RepereBuilder {
      * Un build pour la trigo
      * @param {number} n diviseur de Pi pour graduer l'axe des abscisses.
      */
-    buildTrigo(n) {
+    buildTrigo(n: number) {
         const labels = []
         let i = 0
         for (let x = 0; x < this.xLabelMax; x += Math.PI / n) {
@@ -182,7 +183,7 @@ export default class RepereBuilder {
      * @param {number} xMin la dernière
      * @param {number} dx la distance entre deux graduations
      */
-    setThickX({xMax, xMin, dx}) {
+    setThickX({xMax, xMin, dx}: { xMax: number, xMin: number, dx: number }) {
         this.xThickDistance = dx
         this.xThickMin = xMin
         this.xThickMax = xMax
@@ -195,7 +196,7 @@ export default class RepereBuilder {
      * @param {number} yMin la dernière
      * @param {number} dy la distance entre deux graduations
      */
-    setThickY({yMax, yMin, dy}) {
+    setThickY({yMax, yMin, dy}: { yMax: number, yMin: number, dy: number }) {
         this.yThickDistance = dy
         this.yThickMin = yMin
         this.yThickMax = yMax
@@ -207,7 +208,7 @@ export default class RepereBuilder {
      * @param {{dx: number, xMin: number, xMax: number}} grilleX
      * @param {{dy: number, yMin: number, yMax: number}} grilleY
      */
-    setGrille({grilleX, grilleY}: { grilleX: { dx, xMin, xMax }, grilleY: { dy, yMin, yMax } }) {
+    setGrille({grilleX, grilleY}: { grilleX: { dx: number, xMin: number, xMax: number }, grilleY: { dy: number, yMin: number, yMax: number } }) {
         if (grilleX) {
             this.grilleX = true
             this.grilleXDistance = grilleX.dx ?? 1
@@ -228,7 +229,7 @@ export default class RepereBuilder {
      * @param {{dx: number, xMin: number, xMax: number}} grilleX
      * @param {{dy: number, yMin: number, yMax: number}} grilleY
      */
-    setGrilleSecondaire({grilleX, grilleY}: { grilleX: { dx, xMin, xMax }, grilleY: { dy, yMin, yMax } }) {
+    setGrilleSecondaire({grilleX, grilleY}: { grilleX: { dx: number, xMin: number, xMax: number }, grilleY: { dy: number, yMin: number, yMax: number } }) {
         if (grilleX) {
             this.grilleSecondaireX = true
             this.grilleSecondaireXDistance = grilleX.dx ?? 1
@@ -250,7 +251,7 @@ export default class RepereBuilder {
      * @param {number} xMin le premier
      * @param {number} xMax le dernier
      */
-    setLabelX({dx, xMin, xMax}) {
+    setLabelX({dx, xMin, xMax}: { xMax: number, xMin: number, dx: number }) {
         this.xLabelMin = xMin
         this.xLabelMax = xMax
         this.xLabelDistance = dx
@@ -263,7 +264,7 @@ export default class RepereBuilder {
      * @param {number} yMin le premier
      * @param {number} yMax le dernier
      */
-    setLabelY({dy, yMin, yMax}) {
+    setLabelY({dy, yMin, yMax}: { yMax: number, yMin: number, dy: number }) {
         this.yLabelMin = yMin
         this.yLabelMax = yMax
         this.yLabelDistance = dy
