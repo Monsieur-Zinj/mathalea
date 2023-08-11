@@ -27,7 +27,7 @@ if (typeof window.iMathAlea === 'undefined') {
         const question = window.iMathAlea[parseInt(event.data.iframe)].question
         if ((event.data.action === 'mathalea:init' || event.data.action === 'mathalea:resize') && typeof event.data.hauteurExercice !== 'undefined') {
           let hauteur = event.data.hauteurExercice
-          hauteur += 50
+          // hauteur += 50
           iframe.setAttribute('height', hauteur.toString())
         }
         if (event.data.action === 'mathalea:score') {
