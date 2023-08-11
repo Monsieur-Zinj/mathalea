@@ -38,6 +38,7 @@
   const isCorrectionVisible: boolean[] = []
   const divsCorrection: HTMLDivElement[] = []
   let currentWindowWidth: number = document.body.clientWidth
+  let eleveSection: HTMLDivElement
 
   function urlToDisplay () {
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
@@ -145,11 +146,13 @@
     const resizeObserver = new ResizeObserver(x=>{
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get('iframe')
-      window.parent.postMessage({ hauteurExercice: x[0].borderBoxSize[0].blockSize, action: 'mathalea:resize', iframe }, '*')
+      window.parent.postMessage({ hauteurExercice: x[0].contentRect.height - 50, action: 'mathalea:resize', iframe }, '*')
       // ou x[0].contentRect.height ou x[0].contentBoxSize[0].blockSize ou x[0].borderBoxSize[0].inlineSize ou x[0].target.scrollHeight
+      // todo : retirer le -50 mais pas tout de suite au risque de créer une page de hauteur infinie si le cache n'est pas à jour
     });
-    resizeObserver.observe(document.querySelector("section"));
+    resizeObserver.observe(eleveSection);
     return () => {
+      /* onDestroy function */
       resizeObserver.disconnect()
     }
   })
@@ -240,7 +243,7 @@
 </script>
 
 <svelte:window bind:innerWidth={currentWindowWidth} />
-<section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
+<section bind:this={eleveSection} class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
   <div
     class="fixed z-20 h-16 bottom-4 right-2 {($globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
     $globalOptions.title.length > 0
