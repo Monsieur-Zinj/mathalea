@@ -142,6 +142,16 @@
     exercices = exercices
     await tick()
     buildQuestions()
+    const resizeObserver = new ResizeObserver(x=>{
+      const url = new URL(window.location.href)
+      const iframe = url.searchParams.get('iframe')
+      window.parent.postMessage({ hauteurExercice: x[0].borderBoxSize[0].blockSize, action: 'mathalea:resize', iframe }, '*')
+      // ou x[0].contentRect.height ou x[0].contentBoxSize[0].blockSize ou x[0].borderBoxSize[0].inlineSize ou x[0].target.scrollHeight
+    });
+    resizeObserver.observe(document.querySelector("section"));
+    return () => {
+      resizeObserver.disconnect()
+    }
   })
 
   async function buildQuestions () {
@@ -191,11 +201,6 @@
     const url = new URL(window.location.href)
     const iframe = url.searchParams.get('iframe')
     window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: 'mathalea:init', iframe }, '*')
-    // Au bout de 0,5 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
-    setTimeout(() => {
-      hauteurExercice = window.document.querySelector('section').scrollHeight
-      window.parent.postMessage({ hauteurExercice, action: 'mathalea:resize', iframe }, '*')
-    }, 500)
   }
 
   async function checkQuestion (i: number) {
