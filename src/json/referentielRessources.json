@@ -13,6 +13,13 @@
       "url": "ressources/iframe.ts",
       "tags": {}
     },
+    "mathApp": {
+      "id": "iframe",
+      "uuid": "iframe",
+      "titre": "Iframe",
+      "url": "ressources/mathApp.ts",
+      "tags": {}
+    },
     "xcas": {
       "id": "xcas",
       "uuid": "xcas",
