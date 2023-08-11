@@ -9,14 +9,12 @@ class challengeRelatif {
   iframe: HTMLIFrameElement
   constructor () {
     this.typeExercice = 'html'
-    this.titre = 'Challenge relatifs'
+    this.titre = 'Permis calcul littéral'
     this.container = document.createElement('div')
     this.iframe = document.createElement('iframe')
     this.iframe.setAttribute('width', '400px')
     this.iframe.setAttribute('height', '300px')
     this.iframe.classList.add('my-10')
-
-    this.iframe.setAttribute('src', 'https://coopmaths.fr/challenge/?mathalea')
     this.iframe.setAttribute('allowfullscreen', '')
     this.container.appendChild(this.iframe)
     const updateVideoSize = () => {
@@ -40,6 +38,7 @@ class challengeRelatif {
   }
 
   get html () {
+    this.iframe.setAttribute('src', `https://www.mathix.org/permis_litteral/?mathalea&numeroExercice=${this.numeroExercice}`)
     this.handleScore()
     return this.container
   }

@@ -98,6 +98,7 @@
   "iframe": "ressources/iframe.ts",
   "mathApp": "ressources/mathApp.ts",
   "challengeRelatif": "apps/challengeRelatif.ts",
+  "permisLitteral": "apps/permisLitteral.ts",
   "video": "ressources/video.ts",
   "spline": "OutilSpline.svelte",
   "test": "Test.svelte",
