@@ -831,7 +831,7 @@
             </div>
             <div class="{$transitionsBetweenQuestions.isQuestThenSolModeActive ? 'flex' : 'hidden'} flex-row justify-start items-center pr-4 pl-6">
               <input
-                id="checkbox-choice"
+                id="checkbox-choice-8"
                 aria-describedby="checkbox-choice"
                 type="checkbox"
                 class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {!$transitionsBetweenQuestions.isQuestThenSolModeActive
@@ -841,7 +841,7 @@
                 disabled={!$transitionsBetweenQuestions.isQuestThenSolModeActive}
               />
               <label
-                for="checkbox-choice"
+                for="checkbox-choice-8"
                 class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {!$transitionsBetweenQuestions.isQuestThenSolModeActive
                   ? 'text-opacity-10 dark:text-opacity-10'
                   : 'text-opacity-70 dark:text-opacity-70'}"
@@ -877,7 +877,7 @@
             <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct {exercices.length == 1 ? 'text-opacity-20' : 'text-opacity-100'}">Choix aléatoire</div>
             <div class="flex flex-row justify-start items-center px-4">
               <input
-                id="checkbox-choice"
+                id="checkbox-choice-6"
                 aria-describedby="checkbox-choice"
                 type="checkbox"
                 class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercices.length == 1
@@ -888,7 +888,7 @@
                 disabled={exercices.length == 1}
               />
               <label
-                for="checkbox-choice"
+                for="checkbox-choice-6"
                 class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length == 1
                   ? 'text-opacity-10 dark:text-opacity-10'
                   : 'text-opacity-70 dark:text-opacity-70'}"
