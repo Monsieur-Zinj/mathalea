@@ -44,7 +44,7 @@
     "getNewUuid": "node --loader ts-node/esm tasks/getNewUuid.js",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "transpile": "tsc > journal.log",
+    "transpile": "tsc > journal.log"
   },
   "dependencies": {
     "@bugsnag/js": "^7.20.2",
