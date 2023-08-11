@@ -27,7 +27,7 @@
       ComponentExercice = (await import('./ExerciceStatic.svelte')).default
     } else if (urlExercice && urlExercice.includes('.svelte')) {
       // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
-      ComponentExercice = (await import('../exercicesInteractifs/' + urlExercice.replace('.svelte', '') + '.svelte')).default
+      ComponentExercice = (await import('../../exercicesInteractifs/' + urlExercice.replace('.svelte', '') + '.svelte')).default
     } else {
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
