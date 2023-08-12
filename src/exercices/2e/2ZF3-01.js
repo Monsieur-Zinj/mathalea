@@ -1,10 +1,10 @@
+import { droite } from '../../lib/2d/droites.js'
+import RepereBuilder from '../../lib/2d/RepereBuilder.ts'
+import { tableauSignesFonction, trouveFonctionAffine } from '../../lib/mathFonctions/etudeFonction.js'
 import { rationnalise } from '../../lib/mathFonctions/outilsMaths.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { droite } from '../../lib/2d/droites.js'
-import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { tableauSignesFonction, trouveFonctionAffine } from '../../lib/mathFonctions/etudeFonction.js'
 
 export const titre = 'Lister tous les diviseurs d’un entier'
 export const interactifReady = true
