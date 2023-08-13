@@ -13,6 +13,7 @@ export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
+export const titre = "Conversions d'aires"
 
 /**
  * Conversions d'aires en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -35,7 +36,6 @@ export default function ExerciceConversionsAires () {
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
   this.sup4 = false // tableau
-  this.titre = "Conversions d'aires"
   this.spacing = 2
   this.nbColsCorr = 1
   this.amcReady = amcReady

@@ -10,6 +10,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const titre = 'Tables de multiplication'
+
 /**
  * Tables de multiplication classiques, à trou ou un mélange des deux.
  *

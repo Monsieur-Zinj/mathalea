@@ -36,7 +36,6 @@ export const uuid = '6a336'
 export const ref = '6G14'
 export default function ProprietesParallelesPerpendiculaires () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
