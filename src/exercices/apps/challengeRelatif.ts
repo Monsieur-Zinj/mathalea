@@ -1,6 +1,8 @@
 import { get } from 'svelte/store'
 import { resultsByExercice, globalOptions } from '../../components/store'
 
+export const uuid = 'challengeRelatif'
+
 class challengeRelatif {
   typeExercice: string
   numeroExercice: number

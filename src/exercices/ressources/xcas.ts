@@ -1,9 +1,12 @@
 import { xcas } from '../../modules/outils.js'
 import { mathaleaRenderDiv } from '../../lib/mathalea.js'
-import { createButon, createTextInput } from './components.js'
+import { createButon, createTextInput } from './_components.js'
 import { createList } from '../../lib/format/lists.js'
 import type { List } from '../../lib/format/lists.js'
 import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time.js'
+
+export const uuid = 'xcas'
+
 class xCas {
   typeExercice: string
   titre: string

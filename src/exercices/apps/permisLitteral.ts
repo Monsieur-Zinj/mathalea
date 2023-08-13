@@ -1,6 +1,7 @@
 import { get } from 'svelte/store'
 import { resultsByExercice, globalOptions } from '../../components/store'
 
+export const uuid = 'permisLitteral'
 class challengeRelatif {
   typeExercice: string
   numeroExercice: number

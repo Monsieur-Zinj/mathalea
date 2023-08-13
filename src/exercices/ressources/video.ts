@@ -1,7 +1,9 @@
 import { exercicesParams, globalOptions } from '../../components/store'
 import { get } from 'svelte/store'
-import { createButon, createIButton, createTextInput } from './components'
+import { createButon, createIButton, createTextInput } from './_components'
 import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time'
+
+export const uuid = 'video'
 
 class ressourceVideo {
   typeExercice: string

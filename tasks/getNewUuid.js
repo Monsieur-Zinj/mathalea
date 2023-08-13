@@ -1,11 +1,38 @@
-/**
- * Ce script récupère les uuid de tous les exercices des sous-répertoires de src/exercices.
- * Il vérifie qu'il n'y a pas de doublon et en propose un nouveau qui pourra être utilisé dans un nouvel exercice
- */
-
-import fs from 'fs'
+import fs from 'fs/promises'
 import path from 'path'
-import { uuidOk } from './fileCheck.js'
+
+async function readUuids (dirPath, uuidSet) {
+  const files = await fs.readdir(dirPath)
+
+  await Promise.all(
+    files.map(async (file) => {
+      const filePath = path.join(dirPath, file)
+      const stat = await fs.stat(filePath)
+
+      if (stat.isDirectory()) {
+        await readUuids(filePath, uuidSet)
+      } else if (stat.isFile()) {
+        // Si ce n'est pas un fichier .js ou .ts, on ne fait rien
+        if (file.match(/\.jsx?|\.ts$/) &&
+          !file.startsWith('_') &&
+          !filePath.includes('/beta/') &&
+          file !== 'Exercice.js' &&
+          file !== 'ExerciceTs.ts') {
+          const data = await fs.readFile(filePath, 'utf8')
+          const match = data.match(/export const uuid = '(.*)'/)
+          if (match) {
+            if (uuidMap.has(match[1])) {
+              console.error('\x1b[31m%s\x1b[0m', `uuid ${match[1]} en doublon  dans ${filePath} et ${uuidMap.get(match[1])}`)
+            }
+            uuidMap.set(match[1], filePath.replace('src/exercices/', ''))
+          } else {
+            console.error('\x1b[31m%s\x1b[0m', `uuid non trouvé dans ${filePath}`)
+          }
+        }
+      }
+    })
+  )
+}
 
 /**
  * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités)
@@ -21,47 +48,31 @@ function createUuid () {
   return uuid
 }
 
-/**
- *
- * @param {string} dir
- * @returns {string[]} un tableau de tous les fichiers contenus dans le dossier et tous les sous-dossiers
- */
-function getAllFiles (dir) {
-  const files = []
-  fs.readdirSync(dir).forEach(entry => {
-    if (entry === 'Exercice.js' || entry === 'ExerciceTs.ts') return
-    const fullEntry = path.join(dir + path.sep, entry)
-    if (fs.statSync(fullEntry).isDirectory()) {
-      getAllFiles(fullEntry).forEach(file => files.push(file))
-    } else if (/\.js$/.test(entry) && !/^_/.test(entry)) {
-      files.push(fullEntry)
-    } // sinon on ignore
+const exercicesDir = './src/exercices'
+const uuidMap = new Map()
+
+readUuids(exercicesDir, uuidMap)
+  .then(() => {
+    const uuidToUrl = Array.from(uuidMap.entries())
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .reduce((obj, [uuid, filePath]) => {
+        obj[uuid] = filePath
+        return obj
+      }, {})
+    const json = JSON.stringify(uuidToUrl, null, 2)
+    return fs.writeFile('src/json/uuidsToUrl.json', json)
   })
-  return files
-}
-
-const allExercices = getAllFiles('./src/exercices/')
-
-const uuids = new Set()
-let errors = ''
-
-for (let url of allExercices) {
-  url = '../' + url
-  try {
-    const { uuid } = await import(url)
-    uuidOk(uuid, url)
-    uuids.add(uuid)
-  } catch (error) {
-    console.log(error)
-    errors = error + '\n'
-  }
-}
+  .then(() => {
+    console.log('uuidsToUrl a été mis à jour')
+  })
+  .catch((err) => {
+    console.error(err)
+  })
 
 let uuid = createUuid()
-while (uuids.has(uuid)) {
-  uuid = createUuid
+while (uuidMap.has(uuid)) {
+  uuid = createUuid()
 }
-console.log(errors)
 console.log('Le nouvel uuid généré est :', uuid)
 console.log('Vous pouvez maintenant ajouter la ligne suivante au nouvel exercice :')
 console.log(`export const uuid = '${uuid}'`)
