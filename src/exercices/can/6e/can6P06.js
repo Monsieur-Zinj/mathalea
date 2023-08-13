@@ -1,5 +1,8 @@
 import CalculerUnPourcentage from '../../6e/6N33-2.js'
-export { interactifReady, interactifType, amcType, amcReady } from '../../6e/6N33-2.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcType = 'AMCNum'
+export const amcReady = true
 export const titre = 'Résoudre un problème de calcul de pourcentage par complément à 100%'
 
 export const dateDePublication = '15/11/2022'

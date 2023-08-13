@@ -1,7 +1,10 @@
 import ExercicePerimetresEtAires from './_Exercice_perimetres_et_aires.js'
 
 export const titre = 'Calculer le périmètre et l\'aire de disques ou demi-disques'
-export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_perimetres_et_aires.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 export const dateDeModificationImportante = '11/04/2023'
 

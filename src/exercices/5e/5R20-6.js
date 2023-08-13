@@ -1,7 +1,8 @@
 import FabriqueAYohaku from '../6e/_Yohaku.js'
 export const titre = 'Résoudre un Yohaku additif nombres relatifs niveau 1'
 export const dateDePublication = '10/08/2022'
-export { interactifReady, interactifType } from '../6e/_Yohaku.js'
+export const interactifReady = true
+export const interactifType = 'custom'
 
 export const uuid = '598c3'
 export const ref = '5R20-6'

@@ -32,9 +32,9 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
   this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
 
   this.nouvelleVersion = function () {
-    this.consigne = this.nbQuestions>1?"Écrire les nombres suivants sous la forme d'un produit de facteurs premiers":"Écrire le nombre suivant sous la forme d'un produit de facteurs premiers"
-    this.consigne += this.interactif ? " rangés dans l'ordre croissant." : "."
-      if (this.level === 2) {
+    this.consigne = this.nbQuestions > 1 ? "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers" : "Écrire le nombre suivant sous la forme d'un produit de facteurs premiers"
+    this.consigne += this.interactif ? " rangés dans l'ordre croissant." : '.'
+    if (this.level === 2) {
       this.sup = 3
       this.sup2 = true
     }
@@ -85,7 +85,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       texte = '$ ' + texNombre(n) + ' =$'
       texteCorr = ''
       if (!this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' = $' + sp()
-      
+
       reponse = ''
       facteurs.sort(compareNombres) // classe les facteurs dans l'ordre croissant
       let ensembleDeFacteurs = new Set(facteurs)
@@ -108,39 +108,38 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       let debutDecomposition = ''
       let decompositionFinale = ''
       for (let k = 0; k < facteurs.length - 1; k++) {
-       if (!this.sup3 && !this.sup4) {
+        if (!this.sup3 && !this.sup4) {
           if (!this.correctionDetaillee) {
-          texteCorr += `$${miseEnEvidence(facteurs[k] + ' \\times ')}$`
+            texteCorr += `$${miseEnEvidence(facteurs[k] + ' \\times ')}$`
           }
         }
         if (this.correctionDetaillee) {
-            debutDecomposition += facteurs[k] + ' \\times  '
-            for (let j = k + 1; j < facteurs.length; j++) {
-              produitRestant = produitRestant * facteurs[j]
-            }
-            texteCorr += '$' + texNombre(n) + ' = ' + debutDecomposition + produitRestant + '$<br>'
-            decompositionFinale = sp() + debutDecomposition + produitRestant
-            produitRestant = 1
-          
+          debutDecomposition += facteurs[k] + ' \\times  '
+          for (let j = k + 1; j < facteurs.length; j++) {
+            produitRestant = produitRestant * facteurs[j]
+          }
+          texteCorr += '$' + texNombre(n) + ' = ' + debutDecomposition + produitRestant + '$<br>'
+          decompositionFinale = sp() + debutDecomposition + produitRestant
+          produitRestant = 1
         }
         reponse += facteurs[k] + '\\times'
       }
-     
+
       if (!this.sup3 && !this.sup4) {
         if (!this.correctionDetaillee) {
           texteCorr += `$${miseEnEvidence(facteurs[facteurs.length - 1])}$`
         }
       } else {
-        if (this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' ='+sp()+' $'
-        decompositionFinale=sp() + texFactorisation(n, true)
+        if (this.correctionDetaillee) texteCorr += '$ ' + texNombre(n) + ' =' + sp() + ' $'
+        decompositionFinale = sp() + texFactorisation(n, true)
         texteCorr += `$${miseEnEvidence(decompositionFinale)}$`
-        if (this.correctionDetaillee) texteCorr +='<br>'
-        }
+        if (this.correctionDetaillee) texteCorr += '<br>'
+      }
       if (this.correctionDetaillee) {
-        texteCorr += `<br>Donc la décomposition en produit de facteurs premiers de $${miseEnEvidence(texNombre(n),'black')}$ est $${miseEnEvidence(decompositionFinale)}$.`
+        texteCorr += `<br>Donc la décomposition en produit de facteurs premiers de $${miseEnEvidence(texNombre(n), 'black')}$ est $${miseEnEvidence(decompositionFinale)}$.`
       }
       reponse += facteurs[facteurs.length - 1]
-      texte += ajouteChampTexteMathLive(this, i,'largeur75 inline nospacebefore')
+      texte += ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')
       setReponse(this, i, [reponse, produitAvecPuissances])
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

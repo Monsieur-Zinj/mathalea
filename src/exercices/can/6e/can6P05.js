@@ -1,5 +1,8 @@
 import AppliquerUnPourcentage from './can6P04.js'
-export { interactifReady, interactifType, amcReady, amcType } from './can6P04.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 export const titre = 'Appliquer un pourcentage (bis)'
 export const dateDePublication = '13/11/2021'
 /*!

@@ -1,7 +1,9 @@
 import DistributiviteSimpleDoubleReduction from '../3e/3L11-3.js'
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
-export { interactifReady, interactifType } from '../3e/3L11-3.js'
-// export { amcReady, amcType } from '../3e/3L11-3.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcType = 'AMCHybride'
+export const amcReady = true
 
 /**
  * Clone de 3L11-3 pour les 2nde

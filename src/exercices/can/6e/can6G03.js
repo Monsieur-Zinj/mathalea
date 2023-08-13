@@ -1,5 +1,8 @@
 import DenombrerCubes from '../../6e/6G43.js'
-export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6G43.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcType = 'AMCNum'
+export const amcReady = true
 export const titre = 'Compter les cubes manquants'
 
 /*!

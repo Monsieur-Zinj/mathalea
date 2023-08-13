@@ -1,6 +1,9 @@
 import PavagesEtTransformations from '../6e/_Pavages_et_transformations.js'
 export const titre = 'Trouver le symétrique d\'une figure dans un pavage'
-export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Pavages_et_transformations.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Exercice en html seulement. Symétrie centrale dans un pavage.

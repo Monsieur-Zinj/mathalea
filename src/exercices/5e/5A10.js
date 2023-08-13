@@ -9,7 +9,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const dateDeModifImportante = '28/10/2021'
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
-
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -49,7 +48,7 @@ export default function ListeDesDiviseurs5e () {
       saisie: this.sup,
       shuffle: false
     })
-    
+
     const nombresDeDiviseursMax = gestionnaireFormulaireTexte({
       min: 2,
       max: parseInt(this.sup3),
@@ -74,9 +73,9 @@ export default function ListeDesDiviseurs5e () {
         M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)
         listeDiviseursM = listeDesDiviseurs(M)
         nbDiviseursM = listeDiviseursM.length
-      } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i] || listeDesMDejaTrouves.indexOf(M)!==-1)
+      } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i] || listeDesMDejaTrouves.indexOf(M) !== -1)
       listeDesMDejaTrouves.push(M)
-      
+
       switch (typesDeQuestions) {
         case 1:
           texte = ''

@@ -1,6 +1,7 @@
 import FonctionsAffinesOuLineaires from '../3e/3F20-2.js'
 export const titre = 'Faire un bilan sur les fonctions affines et/ou linéaires'
-export { interactifReady, interactifType } from '../3e/3F20-2.js'
+export const interactifType = 'mathLive'
+export const interactifReady = true
 export const dateDePublication = '17/05/2023'
 export const dateDeModificationImportante = '21/05/2023'
 /** clone de 3F20-1

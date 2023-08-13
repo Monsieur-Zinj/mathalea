@@ -1,6 +1,9 @@
 import ExerciceConversions from '../6e/_Exercice_conversions.js'
 export const titre = "Conversion d'unités des préfixes k,h,da vers unité de référence"
-export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Exercice_conversions.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '13/11/2020'

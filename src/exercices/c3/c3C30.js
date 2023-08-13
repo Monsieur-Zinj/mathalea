@@ -1,6 +1,9 @@
 import MultiplierDecimauxPar101001000 from '../6e/6C30-1.js'
 export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
-export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C30-1.js'
+export const amcReady = true
+export const amcType = 'AMCNum' // Question numérique
+export const interactifReady = true
+export const interactifType = 'mathLive'
 /**
  *Clone de 6C30-1 pour les CM1-CM2
  *

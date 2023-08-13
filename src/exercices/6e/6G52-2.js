@@ -1,6 +1,7 @@
 import ProprietesParallelesPerpendiculaires from './6G14.js'
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
-export { amcReady, amcType } from '../6e/6G14.js'
+export const amcReady = true
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const dateDePublication = '21/09/2023'
 

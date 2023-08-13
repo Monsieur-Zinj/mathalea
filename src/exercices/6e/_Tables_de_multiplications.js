@@ -9,6 +9,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const titre = 'Tables de multiplication'
 /**
  * Tables de multiplication classiques, à trou ou un mélange des deux.
  *
@@ -22,7 +23,6 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
   this.sup3 = 2 // 1: on commence toujours par le nombre de la table, 2: on mélange
-  this.titre = 'Tables de multiplication'
   this.consigne = 'Calculer : '
   this.spacing = 2
 
@@ -81,7 +81,6 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         setReponse(this, i, a * b)
       } else {
       // a trous
-      console.log(tables)
         if (tables.length > 2) {
         // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
           const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]

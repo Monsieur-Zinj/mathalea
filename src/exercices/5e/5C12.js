@@ -7,7 +7,10 @@ import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 // import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-export { interactifReady, interactifType, amcType, amcReady } from './_Ecrire_une_expression_numerique.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpenNum'
 export const titre = 'Calculer une expression numérique en détaillant les calculs'
 
 /**

@@ -15,7 +15,7 @@ export const dateDePublication = '16/04/2022' // La date de publication initiale
 /** import { valeursTrigo } from './../../modules/fonctionsMaths';
  import { rangeMinMax } from './../../../../build/modules/outils';
  import { contraindreValeur } from './../../../../www/build/modules/outils';
- 
+
  * donner les valeurs remarquables du cosinus et du sinus avec trois niveaux :
  * 1 : quart de cercle trigo, 2 : avec les angles associés, 3 : avec les angles modulo 2kpi.
  * @author Stéphane Guyon - Jean Claude Lhote - Loïc Geeraerts
@@ -41,7 +41,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     // TODO: solutionnaire détaillé
     // TODO: Peut-être mettre en paramètre l'étendue des modulos pour avoir un contrôle sur le niveau de difficulté
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -71,37 +71,37 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     if (this.sup === 3) {
       mesAnglesAleatoires = shuffle(mesAngles.liste3)
     }
-    
+
     const typeQuestionsDisponibles = []
     for (let i = 0; i < mesAnglesAleatoires.length; i++) {
       typeQuestionsDisponibles.push(['cos', mesAnglesAleatoires[i]])
       typeQuestionsDisponibles.push(['sin', mesAnglesAleatoires[i]])
     }
-    
+
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 127;) {
       const monAngle = listeTypeQuestions[i][1]
-      
+
       texte = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radians}\\right)$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
       texteCorr = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radians}\\right)`
       let valeurFonction = ''
       // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc ça permet d'atteindre la propriété souhaitée dans l'objet Angle.
       // monAngle[listeTypeQuestions[i][0]] fait référence à monAngle.cos ou à monAngle.sin selon la valeur de listeTypeQuestions[i][0].
-      
+
       setReponse(this, i, monAngle[listeTypeQuestions[i][0]], { formatInteractif: 'calcul' })
       // dans quelques cas, les valeurs de cos et sin sont multiples et contenues dans une liste avec en premier '1/2', en deuxième la valeur décimale '0.5'
       valeurFonction = Array.isArray(monAngle[listeTypeQuestions[i][0]]) ? monAngle[listeTypeQuestions[i][0]][0] : monAngle[listeTypeQuestions[i][0]]
       texteCorr += `=${valeurFonction}$`
-      
+
       texteCorr += '<br><br>'
       texteCorr += cercleTrigo(monAngle, listeTypeQuestions[i][0])
-      
+
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i][0][0], listeTypeQuestions[i][1].radians)) { // On regarde l'angle en radian et le type de fonction
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        
+
         i++
       }
       cpt++

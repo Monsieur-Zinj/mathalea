@@ -29,13 +29,13 @@ export const uuid = 'ab793'
 export const ref = '6N31-3'
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  
+
   this.nbQuestions = 3
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
   this.spacingCorr = context.isHtml ? 2.5 : 1
-  
+
   this.nouvelleVersion = function () {
     if (this.version === 3) {
       this.sup = 3
@@ -58,7 +58,7 @@ export default function ArrondirUneValeur () {
     } else {
       this.consigne = 'Quels sont les encadrements où la valeur orange est la valeur arrondie du nombre à l\'unité, au dixième et au centième ?'
     }
-    
+
     const tabrep = []
     const tabicone = []
     const preTabRep = []
@@ -90,7 +90,7 @@ export default function ArrondirUneValeur () {
           n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
           nb = texNombre(n)
           texte = `$${nb}$`
-          
+
           break
         case 2: // arrondir une fraction
           den = choice([7, 9, 11, 13])
@@ -132,7 +132,7 @@ export default function ArrondirUneValeur () {
           texte = `$${nb}\\quad \\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nbSansDegree}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}$.`
           break
       }
-      
+
       texteCorr = 'Encadrement et arrondi à l\'unité : '
       if (di < 5) {
         texteCorr += `$\\phantom{1234567}${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
@@ -155,7 +155,7 @@ export default function ArrondirUneValeur () {
         tabrep.push(preTabRep[0], preTabRep[1])
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
-      
+
       texteCorr += '<br>Encadrement et arrondi au dixième : '
       if (ci < 5) {
         texteCorr += `$\\phantom{123}${miseEnEvidence(texNombre(troncature(n, 1)))} < ${nb} < ${texNombre(troncature(n + 0.1, 1))}$`
@@ -178,7 +178,7 @@ export default function ArrondirUneValeur () {
         tabrep.push(preTabRep[0], preTabRep[1])
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
-      
+
       texteCorr += `<br>Encadrement et arrondi au centième : ${sp()}`
       if (mi < 5) {
         texteCorr += `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`

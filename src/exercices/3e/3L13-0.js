@@ -1,6 +1,8 @@
 import ExerciceEquationASolutionEntiere from '../4e/4L20-0.js'
-
-export { interactifReady, interactifType, amcReady, amcType, titre } from '../4e/4L20-0.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * Équation du premier degré

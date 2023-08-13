@@ -1,6 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import Transformations from '../6e/_Transformations.js'
-export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Transformations.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 export const titre = 'Trouver l\'image d\'un point par une homothétie ou une rotation'
 export const dateDeModifImportante = '15/01/2023' //  Par EE
 

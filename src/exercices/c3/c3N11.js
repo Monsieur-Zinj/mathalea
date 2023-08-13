@@ -1,5 +1,8 @@
 import LireAbscisseEntiere2d from '../6e/6N11.js'
-export { titre, amcReady, amcType, interactifType, interactifReady } from '../6e/6N11.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, milliers, millions, milliards

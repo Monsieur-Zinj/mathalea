@@ -4,7 +4,6 @@ import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC qcm Mult
 export const interactifReady = true

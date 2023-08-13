@@ -1,7 +1,9 @@
 import FactoriserParNombreOux from '../3e/3L11-4.js'
 export const titre = 'Factoriser une expression'
-export { interactifReady, interactifType } from '../3e/3L11-4.js'
-export { amcReady, amcType } from '../3e/3L11-4.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
  * Clone de 3L11-4 pour les 2nde

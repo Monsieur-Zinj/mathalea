@@ -37,7 +37,6 @@ export const uuid = 'd4088'
 export const ref = '3G10-1'
 export default function TransformationsDuPlanEtCoordonnees () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1

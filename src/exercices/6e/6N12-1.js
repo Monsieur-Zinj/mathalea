@@ -1,5 +1,8 @@
 import MultiplierUnNombreParPuissanceDeDix from './6C30-6.js'
-export { interactifReady, interactifType, amcReady, amcType } from './6C30-6.js'
+export const amcReady = true
+export const amcType = 'qcmMono'
+export const interactifReady = true
+export const interactifType = 'qcm'
 export const titre = 'Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ?'
 
 // Gestion de la date de publication initiale

@@ -1,9 +1,10 @@
-export const titre = 'Fractions égales et égalité des produits en croix 4e'
-
-// eslint-disable-next-line import/first
 import EqResolvantesThales from '../5e/5N14-3.js'
-export { amcReady, amcType } from '../5e/5N14-3.js'
-export { interactifReady, interactifType } from '../5e/5N14-3.js'
+
+export const titre = 'Fractions égales et égalité des produits en croix 4e'
+export const amcReady = true
+export const amcType = 'qcmMono'
+export const interactifType = 'qcm'
+export const interactifReady = true
 
 export const dateDePublication = '24/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 

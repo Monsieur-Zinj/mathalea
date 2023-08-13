@@ -1,5 +1,8 @@
 import Exercice from '../../4e/4C37.js'
-export { interactifReady, interactifType } from '../../4e/4C37.js'
+export const amcReady = true
+export const amcType = 'qcmMono' // type de question AMC
+export const interactifReady = true
+export const interactifType = 'qcm'
 export const titre = 'Déterminer le signe d’une puissance'
 
 export const dateDePublication = '04/07/2022'

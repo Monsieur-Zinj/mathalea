@@ -1,6 +1,9 @@
 import ExerciceConversions from './_Exercice_conversions.js'
 export const titre = 'Effectuer des conversions avec tous les préfixes de milli à tera'
-export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_conversions.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * @author Rémi Angot

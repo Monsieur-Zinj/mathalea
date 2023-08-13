@@ -31,10 +31,6 @@ export const uuid = 'f4b95'
 export const ref = '3S12'
 export default function CalculEffectifFrequence () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  // this.consigne = 'Répondre aux questions à l\'aide du graphique et de calculs.'
   this.nbQuestions = 1 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
@@ -45,7 +41,6 @@ export default function CalculEffectifFrequence () {
   this.correctionDetailleeDisponible = false
   this.spacing = 2 // Interligne des questions
   this.spacingCorr = 2 // Interligne des réponses
-
 
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
   this.nouvelleVersion = function () {

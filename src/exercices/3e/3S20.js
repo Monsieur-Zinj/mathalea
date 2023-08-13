@@ -21,7 +21,6 @@ export const uuid = '04f53'
 export const ref = '3S20'
 export default function FonctionsProbabilite2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
@@ -302,35 +301,35 @@ export default function FonctionsProbabilite2 () {
               texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
             }
           } else // quidam a plus de chances de gagner
-          if (p2[n[0] - 1] < 0) {
-            texteCorr += `${quidam} a raison de penser avoir plus de chances de gagner car $${texFractionReduite(fra2[n[0] - 1], p1[1])}<${texFractionReduite(fra1[n[0] - 1], p1[0])}$.<br>`
-            // choix du nombre cible qui favorise quidame
-            trouve = false
-            for (let j = r - 2; j >= 0; j--) {
-              if (p2[j] > 0) {
-                texteCorr += numAlpha(2) + ` ${quidame} devrait choisir ${j + 2} comme nombre cible.<br>Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>Celle de ${quidam} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et $${texFractionReduite(fra1[j], p1[0])}<${deprecatedTexFraction(fra2[j], p1[1])}$.<br>`
-                trouve = true
+            if (p2[n[0] - 1] < 0) {
+              texteCorr += `${quidam} a raison de penser avoir plus de chances de gagner car $${texFractionReduite(fra2[n[0] - 1], p1[1])}<${texFractionReduite(fra1[n[0] - 1], p1[0])}$.<br>`
+              // choix du nombre cible qui favorise quidame
+              trouve = false
+              for (let j = r - 2; j >= 0; j--) {
+                if (p2[j] > 0) {
+                  texteCorr += numAlpha(2) + ` ${quidame} devrait choisir ${j + 2} comme nombre cible.<br>Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>Celle de ${quidam} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et $${texFractionReduite(fra1[j], p1[0])}<${deprecatedTexFraction(fra2[j], p1[1])}$.<br>`
+                  trouve = true
+                }
+                if (trouve === true) { break }
               }
-              if (trouve === true) { break }
-            }
-            if (trouve === false) {
-              texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidame} d'avoir plus de chance que ${quidam} de gagner.<br>`
-            }
-          } else { // Ils ont autant de chances de gagner l'un que l'autre
-            texteCorr += `${quidam} et ${quidame} ont autant de chances de gagner car ils ont tous deux la même probabilité de faire ${n[0] + 1}, ce qui répond à la question ${numAlpha(3)}.<br>`
-            // choix du nombre cible qui favorise quidam
-            trouve = false
-            for (let j = r - 2; j >= 0; j--) {
-              if (p2[j] < 0) {
-                texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
-                trouve = true
+              if (trouve === false) {
+                texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidame} d'avoir plus de chance que ${quidam} de gagner.<br>`
               }
-              if (trouve === true) { break }
+            } else { // Ils ont autant de chances de gagner l'un que l'autre
+              texteCorr += `${quidam} et ${quidame} ont autant de chances de gagner car ils ont tous deux la même probabilité de faire ${n[0] + 1}, ce qui répond à la question ${numAlpha(3)}.<br>`
+              // choix du nombre cible qui favorise quidam
+              trouve = false
+              for (let j = r - 2; j >= 0; j--) {
+                if (p2[j] < 0) {
+                  texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
+                  trouve = true
+                }
+                if (trouve === true) { break }
+              }
+              if (trouve === false) {
+                texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.<br>`
+              }
             }
-            if (trouve === false) {
-              texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.<br>`
-            }
-          }
           if (p2[n[0] - 1] === 0) {
             texteCorr += numAlpha(3) + ` Il a été déjà répondu à cette question à la question ${numAlpha(1)}.<br>`
           } else { // choix de la cible pour un jeu équitable

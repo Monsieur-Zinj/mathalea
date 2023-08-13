@@ -1,7 +1,10 @@
 import TablesDeMultiplications from './_Tables_de_multiplications.js'
 
 export const titre = 'Réviser les tables de multiplication'
-export { interactifReady, interactifType, amcReady, amcType } from './_Tables_de_multiplications.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * Tables de multiplication classiques, à trou ou un mélange des deux.

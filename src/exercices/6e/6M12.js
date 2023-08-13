@@ -1,6 +1,9 @@
 import ExerciceConversionsLongueurs from './_ExerciceConversionsLongueurs.js'
 export const titre = 'Convertir des longueurs'
-export { interactifReady, interactifType, amcReady, amcType } from './_ExerciceConversionsLongueurs.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = 'true'
+export const amcType = 'AMCNum'
 /** */
 // Référence 6M12
 export const uuid = '3cb1d'

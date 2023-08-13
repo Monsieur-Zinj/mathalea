@@ -1,10 +1,8 @@
-export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
-
-// eslint-disable-next-line import/first
 import ExerciceFractionsDifferentesEcritures from '../6e/6N20-2.js'
 
-export { interactifReady, interactifType } from '../6e/6N20-2.js'
-// export { amcReady, amcType } from '../6e/6N20-2.js'
+export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Clone de 6N20-2 pour les 2nde

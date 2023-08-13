@@ -11,7 +11,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
-
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 export const titre = 'Additionner ou soustraire deux fractions'
@@ -183,7 +182,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
 
       texteCorr += `=${deprecatedTexFraction(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
-      
+
       const myTexteCorrCol = texteCorr
       if (this.sup4) {
         texteCorr = ''
@@ -202,7 +201,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
         texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[etapes.length - 1].replace('$', '')}$`
       }
       if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction.)'
-      
+
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '=' })
       }

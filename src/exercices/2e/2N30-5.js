@@ -1,7 +1,8 @@
-export const titre = 'Effectuer somme, différence ou produit de fractions'
 import SommeOuProduitFractions from '../4e/4C23.js'
+export const titre = 'Effectuer somme, différence ou produit de fractions'
 
-export { interactifReady, interactifType } from '../4e/4C23.js'
+export const interactifType = 'mathLive'
+export const interactifReady = true
 
 /**
  * Clone de 4C23 pour les 2nde

@@ -1,5 +1,6 @@
 import ExerciceDecomposerEnFacteursPremiers from '../../5e/5A13.js'
-export { interactifReady, interactifType } from '../../5e/5A13.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Décomposer en produit de facteurs premiers'
 
 /*!

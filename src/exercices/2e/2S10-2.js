@@ -32,9 +32,6 @@ export const uuid = '612a5'
 export const ref = '2S10-2'
 export default function Proportions () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 1

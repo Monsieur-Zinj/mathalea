@@ -1,7 +1,10 @@
 import SigneProduitQuotientRelatifs from './4C10-0.js'
 
 export const titre = 'Signe d\'un produit de nombres relatifs'
-export { interactifReady, interactifType, amcReady, amcType } from './4C10-0.js'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 
 /**
  * Signe du produit de relatifs

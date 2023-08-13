@@ -37,7 +37,6 @@ export const uuid = '0ac11'
 export const ref = '3G31'
 export default function CalculDAngle () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nbCols = 1

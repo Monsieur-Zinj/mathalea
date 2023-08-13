@@ -1,7 +1,9 @@
 import NotationScientifique from '../4e/4C32.js'
 export const titre = 'Notation scientifique'
-export { amcReady, amcType } from '../4e/4C32.js'
-export { interactifReady, interactifType } from '../4e/4C32.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum' // type de question AMC
 
 /**
  * Clone de 4C32 pour les 2nde

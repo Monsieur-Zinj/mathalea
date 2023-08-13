@@ -1,5 +1,8 @@
 import ExerciceEquationASolutionEntiere from '../../4e/4L20-0.js'
-export { interactifReady, interactifType, amcReady, amcType } from '../../4e/4L20-0.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 export const titre = 'Résoudre une équation ax+b=cx+d'
 
 /*!

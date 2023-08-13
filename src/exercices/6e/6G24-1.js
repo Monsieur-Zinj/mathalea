@@ -1,7 +1,8 @@
 import ConstruireParSymetrie from '../6e/_Construire_par_symetrie.js'
 export const titre = 'Construire le symétrique d\'un point par rapport à une droite'
 export const dateDeModificationImportante = '14/11/2021'
-export { amcReady, amcType } from '../6e/_Construire_par_symetrie.js'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 /**
  * Référence 6G24-1
  * @author Jean-Claude Lhote

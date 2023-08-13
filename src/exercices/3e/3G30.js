@@ -42,7 +42,6 @@ export const uuid = 'bd6b1'
 export const ref = '3G30'
 export default function CalculDeLongueur () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1

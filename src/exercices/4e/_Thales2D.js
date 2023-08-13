@@ -17,7 +17,6 @@ import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.j
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
-
 export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2'
 export const interactifReady = true

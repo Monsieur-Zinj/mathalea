@@ -119,19 +119,19 @@ export default function PavagesEtTransformations () {
 
     for (let y = 0; y < ny; y++) { // On initialise les tableaux avec les coordonnées des puntos de référence (A,B,C et D) de chaque translaté et son numéro dans le pavage.
       for (let x = 0; x < nx; x++) {
-        xAxy = new FractionEtendue(Math.round((x * xAI + y * xAJ)*100),100)
-        yAxy = new FractionEtendue(Math.round((x * yAI + y * yAJ)*100),100)
+        xAxy = new FractionEtendue(Math.round((x * xAI + y * xAJ) * 100), 100)
+        yAxy = new FractionEtendue(Math.round((x * yAI + y * yAJ) * 100), 100)
         numAxy = 2 * x + 4 * y * nx
         tabfigA.push([xAxy, yAxy, numAxy])
         quad[numAxy] = translation(polygone(A, B, C, D), vecteur(xAxy, yAxy))
         quadCorr[numAxy] = translation(polygone(A, B, C, D), vecteur(xAxy, yAxy))
-        tabfigB.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xB*100),100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yB*100),100)), numAxy + 1])
+        tabfigB.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xB * 100), 100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yB * 100), 100)), numAxy + 1])
         quad[numAxy + 1] = translation(rotation(polygone(A, B, C, D), I, 180), vecteur(xAxy, yAxy))
         quadCorr[numAxy + 1] = translation(rotation(polygone(A, B, C, D), I, 180), vecteur(xAxy, yAxy))
-        tabfigD.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xD*100),100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yD*100),100)), numAxy + 2 * nx])
+        tabfigD.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xD * 100), 100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yD * 100), 100)), numAxy + 2 * nx])
         quad[numAxy + 2 * nx] = translation(rotation(polygone(A, B, C, D), J, 180), vecteur(xAxy, yAxy))
         quadCorr[numAxy + 2 * nx] = translation(rotation(polygone(A, B, C, D), J, 180), vecteur(xAxy, yAxy))
-        tabfigC.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xC*100),100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yC*100),100)), numAxy + 2 * nx + 1])
+        tabfigC.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xC * 100), 100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yC * 100), 100)), numAxy + 2 * nx + 1])
         quad[numAxy + 2 * nx + 1] = translation(translation(polygone(A, B, C, D), vecteur(A, C)), vecteur(xAxy, yAxy))
         quadCorr[numAxy + 2 * nx + 1] = translation(translation(polygone(A, B, C, D), vecteur(A, C)), vecteur(xAxy, yAxy))
       }

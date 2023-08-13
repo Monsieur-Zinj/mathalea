@@ -1,10 +1,10 @@
-export const titre = 'Diviser des fractions'
-
-// eslint-disable-next-line import/first
 import ExerciceDiviserFractions from '../4e/4C22-2.js'
 
-export { interactifReady, interactifType } from '../4e/4C22-2.js'
-export { amcReady, amcType } from '../4e/4C22-2.js'
+export const titre = 'Diviser des fractions'
+export const amcReady = true
+export const amcType = 'AMCNum' // type de question AMC
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Clone de 4C22-2 pour les 2nde

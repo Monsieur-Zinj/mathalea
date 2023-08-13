@@ -1,7 +1,8 @@
 import ExerciceDecomposerEnFacteursPremiers from '../5e/5A13.js'
 export const titre = 'Décomposition en facteurs premiers'
 export const dateDeModifImportante = '2/11/2021'
-export { interactifReady, interactifType } from '../5e/5A13.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 /**
  * Clone de 5A13 pour les 2nde
  *

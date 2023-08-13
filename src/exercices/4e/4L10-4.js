@@ -1,6 +1,7 @@
 import { ExoRose } from '../6e/_Roses.js'
 export const titre = 'Résoudre une Rose additive avec calcul littéral'
-export { interactifReady, interactifType } from '../6e/_Roses.js'
+export const interactifReady = true
+export const interactifType = 'custom'
 export const dateDePublication = '12/08/2022'
 
 /**

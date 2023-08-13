@@ -66,7 +66,7 @@ export class Yohaku {
           case 'fractions positives dénominateurs premiers':
             cellules.push(math.fraction(randint(1, this.valeurMax), choice([2, 3, 5, 7])))
             break
-          
+
           case 'fractions positives' :
             cellules.push(math.fraction(randint(1, this.valeurMax), randint(2, this.valeurMax)))
             break
@@ -104,7 +104,7 @@ export class Yohaku {
     }
     this.cellules = cellules
   }
-  
+
   // méthode qui calcule les résultats si on le veut (sinon on peut les renseigner dans this.resultats manuellement)
   calculeResultats () {
     let valeurs
@@ -123,7 +123,7 @@ export class Yohaku {
       this.resultats[i] = this.operate(valeurs)
     }
   }
-  
+
   // fonction utilisée par calculeResultats
   operate (valeurs) {
     let initialValue
@@ -156,7 +156,7 @@ export class Yohaku {
         }
     }
   }
-  
+
   representation () {
     const lignes = []
     const colonnes = []

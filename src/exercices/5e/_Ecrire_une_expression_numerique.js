@@ -80,8 +80,8 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
           texte = `${expf}.`
           expn = expn.split(' ou ') // Pour traiter le cas du 'ou'.
-          texteCorr = `${expf} s'écrit : $${miseEnEvidence(expn[0].substring(1,expn[0].length-1))}$`
-          texteCorr += expn.length>1 ? ` ou $${miseEnEvidence(expn[1].substring(1,expn[1].length-1))}$.` :'.'
+          texteCorr = `${expf} s'écrit : $${miseEnEvidence(expn[0].substring(1, expn[0].length - 1))}$`
+          texteCorr += expn.length > 1 ? ` ou $${miseEnEvidence(expn[1].substring(1, expn[1].length - 1))}$.` : '.'
           break
         case 2:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
@@ -103,16 +103,15 @@ export default function EcrireUneExpressionNumerique (calculMental) {
 
           if (!this.litteral) {
             texteCorr = ''
-              if (!this.sup4) {
+            if (!this.sup4) {
               // texteCorr = `${expc}`
-              const expc2=expc.substring(1,expc.length-1).split('=')
-              texteCorr+=`$${miseEnEvidence(expc2[0])} =$`+ sp()
-              for (let ee=1;ee<expc2.length-1;ee++) {
-                texteCorr+=`$${expc2[ee]}  = $`+ sp()
+              const expc2 = expc.substring(1, expc.length - 1).split('=')
+              texteCorr += `$${miseEnEvidence(expc2[0])} =$` + sp()
+              for (let ee = 1; ee < expc2.length - 1; ee++) {
+                texteCorr += `$${expc2[ee]}  = $` + sp()
               }
-              texteCorr+=`$${miseEnEvidence(expc2[expc2.length-1])}$`
-              
-             } else {
+              texteCorr += `$${miseEnEvidence(expc2[expc2.length - 1])}$`
+            } else {
               // On découpe
               const etapes = expc.split('=')
               let nbEtapes = 0
@@ -122,7 +121,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
                 if (context.isHtml) {
                   texteCorr += '<br>'
                 }
-                texteCorr += (nbEtapes=== etapes.length || nbEtapes===1) ? `${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1)+' = ')} $${miseEnEvidence(etape)}$ <br>` : `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+                texteCorr += (nbEtapes === etapes.length || nbEtapes === 1) ? `${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1) + ' = ')} $${miseEnEvidence(etape)}$ <br>` : `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
               })
             }
           } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`

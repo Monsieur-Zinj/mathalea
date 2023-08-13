@@ -1,6 +1,9 @@
 import ConversionHeuresMinutesOuMinutesEtSecondes from '../../6e/6D13.js'
 export const titre = 'Convertir minutes<->heures ou secondes<->minutes'
-export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6D13.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /*!
  * Alias de 6D13.js

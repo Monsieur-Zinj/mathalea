@@ -1,7 +1,10 @@
 import AppliquerPourcentage from '../6e/6N33-1.js'
 export const titre = 'Appliquer un pourcentage (calculs simples)'
 export const dateDePublication = '19/06/2022'
-export { interactifReady, interactifType } from '../6e/6N33-1.js'
+export const amcReady = true
+export const amcType = 'AMCNum' // type de question AMC
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Clone de 6N33-1 pour les 1er

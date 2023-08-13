@@ -1,6 +1,7 @@
 import { ExoRose } from './_Roses.js'
 export const titre = 'Résoudre une Rose additive'
-export { interactifReady, interactifType } from './_Roses.js'
+export const interactifReady = true
+export const interactifType = 'custom'
 export const dateDePublication = '12/08/2022'
 /**
  * Travailler les tables de multiplication autrement

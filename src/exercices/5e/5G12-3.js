@@ -1,6 +1,7 @@
 import TrouverLaTransformations from '../4e/4G12-1.js'
 export const titre = 'Identifier une transformation'
-export { interactifReady, interactifType } from '../4e/4G12-1.js'
+export const interactifReady = true // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
+export const interactifType = 'listeDeroulante'
 export const dateDePublication = '4/12/2021'
 
 /*!
@@ -12,7 +13,7 @@ export const uuid = '2d343'
 export const ref = '5G12-3'
 export default function TrouverLaTransformations5e () {
   TrouverLaTransformations.call(this)
-  this.titre = titre
+  // this.titre = titre
   this.version = 1
   this.nbQuestions = 1
   this.besoinFormulaireNumerique = false

@@ -49,14 +49,14 @@ export default function DeriveeProduit () {
   // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
-  
+
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.sup2 = Boolean(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
-    
+
     // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
     if (this.sup === 2) {
@@ -104,7 +104,7 @@ export default function DeriveeProduit () {
       // Ensemble de dérivation
       ensembleDerivation = listeTypeFonctions.includes('racine') ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       ensembleDerivation = listeTypeFonctions.includes('inv') ? '\\mathbb{R}^*' : ensembleDerivation
-      
+
       // Enoncé
       namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
@@ -218,7 +218,7 @@ export default function DeriveeProduit () {
           }
           break
         }
-        
+
         default:
           texteCorr += 'Correction non encore implémentée.'
           break
@@ -228,7 +228,7 @@ export default function DeriveeProduit () {
       if (this.interactif) {
         texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texte: `$${namef}'(x)=$` })
       }
-      
+
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)

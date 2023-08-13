@@ -45,7 +45,6 @@ export const ref = '3L13-3'
 export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.nbQuestions = 2
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes\n6 : programmes2\n7 : tarifs\n8 : spectacle\n9 : isocèle\n10 : Thalès\n11 : Thalès2\n12 : Mélange']
     this.sup = '12'

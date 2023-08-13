@@ -1,5 +1,8 @@
 import Thales2D from '../4e/_Thales2D.js'
-export { interactifReady, interactifType, amcReady, amcType, titre } from '../4e/_Thales2D.js'
+export const amcReady = true
+export const amcType = 'AMCOpenNum✖︎2'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Calcul de longueurs avec le théorème de Thalès

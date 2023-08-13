@@ -1,7 +1,7 @@
 import FactoriserIdentitesRemarquables3 from '../3e/3L12.js'
 export const titre = 'Factoriser a²-b²'
-export { interactifReady, interactifType } from '../3e/3L12.js'
-// export { amcReady, amcType } from '../3e/3L12.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Clone de 3L12 pour les 2nde

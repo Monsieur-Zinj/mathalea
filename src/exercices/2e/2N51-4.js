@@ -1,7 +1,9 @@
 import ExerciceEquation1 from '../4e/4L20.js'
 export const titre = 'Équations du premier degré'
-export { interactifReady, interactifType } from '../4e/4L20.js'
-export { amcReady, amcType } from '../4e/4L20.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Clone de 4L20 pour les 2nde

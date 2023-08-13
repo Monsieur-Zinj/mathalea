@@ -36,7 +36,7 @@ export default function SommeOuProduitFractions () {
   this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.sup = "1-3"
+  this.sup = '1-3'
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = false
   this.listeAvecNumerotation = false
@@ -44,9 +44,9 @@ export default function SommeOuProduitFractions () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    
+
     let typeQuestionsDisponibles = []
-    const typeQuestionsPossibles = [['type1', 'type2'],['type3', 'type4'],['type5', 'type6'],['type7', 'type8']]
+    const typeQuestionsPossibles = [['type1', 'type2'], ['type3', 'type4'], ['type5', 'type6'], ['type7', 'type8']]
 
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 4,
@@ -58,11 +58,11 @@ export default function SommeOuProduitFractions () {
       enleveDoublons: false
     })
 
-    for (let ee=0 ; ee < QuestionsDisponibles.length ; ee++) {
-      typeQuestionsDisponibles.push(typeQuestionsPossibles[QuestionsDisponibles[ee]-1][randint(0,1)])
+    for (let ee = 0; ee < QuestionsDisponibles.length; ee++) {
+      typeQuestionsDisponibles.push(typeQuestionsPossibles[QuestionsDisponibles[ee] - 1][randint(0, 1)])
     }
     typeQuestionsDisponibles = shuffle(typeQuestionsDisponibles)
-    
+
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, num1, num2, den1, den2, den3, k, k2, alea, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       // les numérateurs
@@ -279,5 +279,4 @@ export default function SommeOuProduitFractions () {
     'Type de questions',
     'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Avec priorités opératoires\n4 : Mélange'
   ]
-  
 }

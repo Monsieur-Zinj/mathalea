@@ -1,7 +1,7 @@
 import CalculerEtendues from '../3e/3S15.js'
 export const titre = 'Calculer des étendues'
-export { interactifReady, interactifType } from '../3e/3S15.js'
-// export { amcReady, amcType } from '../3e/3S15.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Clone de 5S21 pour les 2nde

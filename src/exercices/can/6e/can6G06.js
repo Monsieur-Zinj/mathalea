@@ -1,6 +1,9 @@
 import NombreDeFacesEtDAretes from '../../6e/6G44.js'
 export const titre = 'Compter les arêtes et les faces'
-export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6G44.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /*!
  * @author Jean-Claude Lhote

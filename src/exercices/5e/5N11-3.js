@@ -23,7 +23,6 @@ export const uuid = '0e58f'
 export const ref = '5N11-3'
 export default function FractionVersPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Compléter :'
   this.nbQuestions = 6
   this.nbCols = 2

@@ -1,6 +1,6 @@
 import identitesCalculs from '../3e/3L11-5.js'
-export { interactifReady, interactifType } from '../3e/3L11-5.js'
-// export { amcReady, amcType } from '../3e/3L11-5.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * * Calcul mental autour des identités remarquables

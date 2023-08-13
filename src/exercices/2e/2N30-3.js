@@ -1,10 +1,11 @@
-export const titre = 'Multiplier des fractions'
-
-// eslint-disable-next-line import/first
 import ExerciceMultiplierFractions from '../4e/4C22.js'
 
-export { interactifReady, interactifType } from '../4e/4C22.js'
-export { amcReady, amcType } from '../4e/4C22.js'
+export const titre = 'Multiplier des fractions'
+
+export const amcReady = true
+export const amcType = 'AMCNum' // type de question AMC
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Clone de 4C22 pour les 2nde

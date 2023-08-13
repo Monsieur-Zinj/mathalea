@@ -1,5 +1,8 @@
 import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
-export { interactifReady, interactifType, amcType, amcReady } from './_Ecrire_une_expression_numerique.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpenNum'
 export const titre = 'Traduire une phrase par une expression et la calculer'
 
 /**

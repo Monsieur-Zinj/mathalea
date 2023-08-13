@@ -31,6 +31,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModificationImportante = '11/04/2023'
+export const titre = "Calculs de périmètres et d'aires"
 
 /**
  * Déterminer le périmètre et l'aire d'un carré, d'un rectangle, d'un triangle rectangle, d'un disque
@@ -45,7 +46,6 @@ export default function ExercicePerimetresEtAires () {
   // Calculer le périmètre et l'aire de figures
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '1-2'
-  this.titre = "Calculs de périmètres et d'aires"
   this.consigne = ''
   this.spacing = 1
   this.nbQuestions = 4

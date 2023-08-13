@@ -1,7 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import Transformations from '../6e/_Transformations.js'
 export const titre = 'Trouver l\'image d\'un point par une symétrie axiale ou centrale ou par une translation'
-export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Transformations.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Transformations : trouver un point numéroté par une des transformations sauf rotation et homothetie

@@ -1,6 +1,9 @@
 import Transformations from './_Transformations.js'
 export const titre = 'Trouver l\'image d\'un point par une symétrie axiale'
-export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Transformations.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux

@@ -1,8 +1,9 @@
 import LectureDiagrammeBarre from '../6e/6S10.js'
 export const titre = 'Lire un diagramme en barres'
-
-export { interactifReady, interactifType } from '../6e/6S10.js'
-export { amcReady, amcType } from '../6e/6S10.js'
+export const amcReady = true
+export const amcType = 'AMCHybride'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Lire un diagramme en barres

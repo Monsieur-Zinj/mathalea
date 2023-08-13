@@ -10,7 +10,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
 export const amcReady = true
 export const amcType = 'AMCOpenNum' // type de question AMC
 

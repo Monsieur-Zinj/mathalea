@@ -1,7 +1,9 @@
 import PrioritesEtRelatifsEtPuissances from '../4e/4C34.js'
 export const titre = 'Calculs utilisant les priorités opératoires et les puissances'
-export { amcReady, amcType } from '../4e/4C34.js'
-// export { interactifReady, interactifType } from '../4e/4C34.js' // Problème pour rendre 4C34 interactif => en attente
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpenNum' // type de question AMC
 
 /**
  * Clone de 4C34 pour les 2nde
