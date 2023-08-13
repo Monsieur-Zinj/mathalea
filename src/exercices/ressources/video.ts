@@ -4,6 +4,7 @@ import { createButon, createIButton, createTextInput } from './_components'
 import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time'
 
 export const uuid = 'video'
+export const titre = 'Vidéo'
 
 class ressourceVideo {
   typeExercice: string

@@ -3,6 +3,7 @@ import { get } from 'svelte/store'
 import { createButon, createTextInput } from './_components'
 
 export const uuid = 'iframe'
+export const titre = 'Ressource externe'
 class ressourceVideo {
   typeExercice: string
   numeroExercice: number

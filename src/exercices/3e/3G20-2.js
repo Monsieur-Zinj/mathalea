@@ -1,6 +1,7 @@
 import RelationDeThales from '../4e/_RelationDeThales.js'
-export const titre = 'Écrire une relation de Thalès'
 export const dateDePublication = '05/01/2023'
+export const titre = 'Écrire une relation de Thalès'
+
 /**
  * Relation de Thalès
  * @author Sébastien LOZANO

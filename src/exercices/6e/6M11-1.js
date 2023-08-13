@@ -50,13 +50,13 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    
+
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 3,
       defaut: 4,
       melange: 4,
-      nbQuestions: this.nbQuestions,
-      shuffle: false,
+      nbQuestions: 6,
+      shuffle: true,
       saisie: this.sup,
       enleveDoublons: true
     })

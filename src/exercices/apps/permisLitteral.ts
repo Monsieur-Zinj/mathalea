@@ -2,6 +2,8 @@ import { get } from 'svelte/store'
 import { resultsByExercice, globalOptions } from '../../components/store'
 
 export const uuid = 'permisLitteral'
+export const titre = 'Permis calcul littéral'
+
 class challengeRelatif {
   typeExercice: string
   numeroExercice: number
@@ -10,7 +12,7 @@ class challengeRelatif {
   iframe: HTMLIFrameElement
   constructor () {
     this.typeExercice = 'html'
-    this.titre = 'Permis calcul littéral'
+    this.titre = titre
     this.container = document.createElement('div')
     this.iframe = document.createElement('iframe')
     this.iframe.setAttribute('width', '400px')
