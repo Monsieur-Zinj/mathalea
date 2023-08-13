@@ -39,9 +39,9 @@
     "start": "vite",
     "build2": "vite build",
     "build": "node --loader ts-node/esm tasks/makeJson& vite build",
-    "build:dicos": "node --loader ts-node/esm tasks/makeJson.js",
-    "makeJson": "node --loader ts-node/esm tasks/makeJson.js",
-    "getNewUuid": "node --loader ts-node/esm tasks/getNewUuid.js",
+    "makeJson": "node tasks/updateMenus.js",
+    "getNewUuid": "node tasks/updateMenus.js",
+    "updateMenu": "node tasks/updateMenus.js",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "transpile": "tsc > journal.log"

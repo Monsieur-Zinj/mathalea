@@ -1,5 +1,5 @@
 {
-  "c3a": {
+  "canc3a": {
     "titre": "Annales aléatoires"
   },
   "can6a": {
@@ -23,16 +23,16 @@
   "Annales": {
     "titre": "Annales aléatoires"
   },
-  "c3C": {
+  "canc3C": {
     "titre": "Calculs"
   },
-  "c3D": {
+  "canc3D": {
     "titre": "Durées"
   },
-  "c3M": {
+  "canc3M": {
     "titre": "Mesure"
   },
-  "c3N": {
+  "canc3N": {
     "titre": "Numération"
   },
   "can6C": {
@@ -163,6 +163,9 @@
   },
   "can1S": {
     "titre": "Suites"
+  },
+  "canExC": {
+    "titre": "Nombres complexes"
   },
   "c3C1": {
     "titre": "Calculs - Niveau 1"
@@ -741,6 +744,9 @@
   "3I1": {
     "titre": "Algorithmique",
     "sousThemes": {}
+  },
+  "200": {
+    "titre": "Automatismes"
   },
   "2N1": {
     "titre": "Manipuler les nombres réels",

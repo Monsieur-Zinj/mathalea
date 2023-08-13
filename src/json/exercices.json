@@ -23,7 +23,7 @@
     "url": "1e/1AN14-4.js",
     "uuid": "1a60f",
     "id": "1AN14-4",
-    "titre": "Dérivée d\\'un produit",
+    "titre": "Dérivée d'un produit",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -34,7 +34,7 @@
     "url": "1e/1AN14-5.js",
     "uuid": "b32f2",
     "id": "1AN14-5",
-    "titre": "Dérivée d\\'un quotient",
+    "titre": "Dérivée d'un quotient",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -45,7 +45,7 @@
     "url": "1e/1AN14-6.js",
     "uuid": "3391d",
     "id": "1AN14-6",
-    "titre": "Dérivée d\\'une composée affine",
+    "titre": "Dérivée d'une composée affine",
     "tags": {
       "interactif": false,
       "amc": false
@@ -55,7 +55,7 @@
     "url": "1e/1E10.js",
     "uuid": "feb39",
     "id": "1E10",
-    "titre": "Calcul du discriminant d\\'une équation du second degré",
+    "titre": "Calcul du discriminant d'une équation du second degré",
     "tags": {
       "interactif": false,
       "amc": false
@@ -75,7 +75,7 @@
     "url": "1e/1E11-1.js",
     "uuid": "731f0",
     "id": "1E11-1",
-    "titre": "Calculer le discriminant d\\'un polynôme du second degré",
+    "titre": "Calculer le discriminant d'un polynôme du second degré",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -98,7 +98,7 @@
     "url": "1e/1E11-3.js",
     "uuid": "60504",
     "id": "1E11-3",
-    "titre": "Déterminer la forme canonique d\\'un polynôme du second degré",
+    "titre": "Déterminer la forme canonique d'un polynôme du second degré",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -131,7 +131,7 @@
     "url": "1e/1E12.js",
     "uuid": "392b3",
     "id": "1E12",
-    "titre": "Trouver l\\'équation d\\'une parabole",
+    "titre": "Trouver l'équation d'une parabole",
     "tags": {
       "interactif": false,
       "amc": false
@@ -141,7 +141,7 @@
     "url": "1e/1E12-1.js",
     "uuid": "a896e",
     "id": "1E12-1",
-    "titre": "Lecture graphique d\\'éléments caractéristiques d\\'un trinôme",
+    "titre": "Lecture graphique d'éléments caractéristiques d'un trinôme",
     "tags": {
       "interactif": false,
       "amc": false
@@ -183,7 +183,7 @@
     "url": "1e/1E15.js",
     "uuid": "fe4df",
     "id": "1E15",
-    "titre": "Déterminer le nombre de solutions d\\'une équation du second degré avec paramètre",
+    "titre": "Déterminer le nombre de solutions d'une équation du second degré avec paramètre",
     "tags": {
       "interactif": false,
       "amc": false
@@ -203,7 +203,7 @@
     "url": "1e/1E17.js",
     "uuid": "8fde1",
     "id": "1E17",
-    "titre": "Utiliser les différentes formes d\\'un polynôme du second degré",
+    "titre": "Utiliser les différentes formes d'un polynôme du second degré",
     "tags": {
       "interactif": false,
       "amc": false
@@ -244,7 +244,7 @@
     "url": "1e/1G11.js",
     "uuid": "a720c",
     "id": "1G11",
-    "titre": "Mesure principale d\\'un angle",
+    "titre": "Mesure principale d'un angle",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -266,7 +266,7 @@
     "url": "1e/1N10.js",
     "uuid": "f0c2d",
     "id": "1N10",
-    "titre": "Déterminer les termes d\\'une suite définie de façon explicite",
+    "titre": "Déterminer les termes d'une suite définie de façon explicite",
     "tags": {
       "interactif": false,
       "amc": false
@@ -276,7 +276,7 @@
     "url": "1e/1N11.js",
     "uuid": "b8c14",
     "id": "1N11",
-    "titre": "Déterminer les termes d\\'une suite définie par récurrence",
+    "titre": "Déterminer les termes d'une suite définie par récurrence",
     "tags": {
       "interactif": false,
       "amc": false
@@ -286,7 +286,7 @@
     "url": "1e/1N12.js",
     "uuid": "cfac9",
     "id": "1N12",
-    "titre": "Somme des termes d\\'une suite arithmétique",
+    "titre": "Somme des termes d'une suite arithmétique",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -308,7 +308,7 @@
     "url": "1e/1N13.js",
     "uuid": "974a9",
     "id": "1N13",
-    "titre": "Somme des termes d\\'une suite géométrique",
+    "titre": "Somme des termes d'une suite géométrique",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -322,6 +322,39 @@
     "titre": "Probabilités conditionnelles",
     "tags": {
       "interactif": false,
+      "amc": false
+    }
+  },
+  "200A1-01": {
+    "url": "2e/200A1-01.js",
+    "uuid": "15fd6",
+    "id": "200A1-01",
+    "titre": "Lister tous les diviseurs d’un entier",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
+  },
+  "200F3-01": {
+    "url": "2e/200F3-01.js",
+    "uuid": "e39b8",
+    "id": "200F3-01",
+    "titre": "Lister tous les diviseurs d’un entier",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
+  },
+  "20F3-02": {
+    "url": "2e/200F3-02.js",
+    "uuid": "e46e6",
+    "id": "20F3-02",
+    "titre": "Lecture graphique de domaine de définition",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
     }
   },
@@ -341,7 +374,7 @@
     "url": "2e/2F10-2.js",
     "uuid": "93f13",
     "id": "2F10-2",
-    "titre": "Donner l\\'expression d\\'une fonction affine graphiquement",
+    "titre": "Donner l'expression d'une fonction affine graphiquement",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -353,7 +386,7 @@
     "url": "2e/2F10-3.js",
     "uuid": "c360e",
     "id": "2F10-3",
-    "titre": "Représentation graphique d\\'une fonction affine",
+    "titre": "Représentation graphique d'une fonction affine",
     "tags": {
       "interactif": false,
       "amc": false
@@ -374,7 +407,7 @@
     "url": "2e/2F10-5.js",
     "uuid": "03b71",
     "id": "2F10-5",
-    "titre": "Déterminer le signe d\\'une fonction affine",
+    "titre": "Déterminer le signe d'une fonction affine",
     "tags": {
       "interactif": false,
       "amc": false
@@ -384,7 +417,7 @@
     "url": "2e/2F10-6.js",
     "uuid": "b72b0",
     "id": "2F10-6",
-    "titre": "Déterminer le sens de variation d\\'une fonction affine",
+    "titre": "Déterminer le sens de variation d'une fonction affine",
     "tags": {
       "interactif": false,
       "amc": false
@@ -394,7 +427,7 @@
     "url": "2e/2F10-7.js",
     "uuid": "46bec",
     "id": "2F10-7",
-    "titre": "Dresser et utiliser le tableau de signes d\\'une fonction affine en lien avec son sens de variation",
+    "titre": "Dresser et utiliser le tableau de signes d'une fonction affine en lien avec son sens de variation",
     "tags": {
       "interactif": false,
       "amc": false
@@ -415,7 +448,7 @@
     "url": "2e/2F11-1.js",
     "uuid": "b6cc0",
     "id": "2F11-1",
-    "titre": "Déterminer l\\'image d\\'un nombre par une fonction de référence",
+    "titre": "Déterminer l'image d'un nombre par une fonction de référence",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -457,7 +490,7 @@
     "url": "2e/2F20-1.js",
     "uuid": "36795",
     "id": "2F20-1",
-    "titre": "Montrer qu\\'un point appartient ou non à une courbe",
+    "titre": "Montrer qu'un point appartient ou non à une courbe",
     "tags": {
       "interactif": false,
       "amc": false
@@ -467,7 +500,7 @@
     "url": "2e/2F20-2.js",
     "uuid": "ec059",
     "id": "2F20-2",
-    "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l\\'abscisse ou l\\'ordonnée",
+    "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l'abscisse ou l'ordonnée",
     "tags": {
       "interactif": false,
       "amc": false
@@ -477,7 +510,7 @@
     "url": "2e/2F21-1.js",
     "uuid": "5621b",
     "id": "2F21-1",
-    "titre": "Modéliser une situation à l\\'aide d\\'une fonction",
+    "titre": "Modéliser une situation à l'aide d'une fonction",
     "tags": {
       "interactif": false,
       "amc": false
@@ -498,7 +531,7 @@
     "url": "2e/2F22-3.js",
     "uuid": "a7860",
     "id": "2F22-3",
-    "titre": "Déterminer le tableau de signes d\\'une fonction graphiquement.",
+    "titre": "Déterminer le tableau de signes d'une fonction graphiquement.",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -509,7 +542,7 @@
     "url": "2e/2F23-1.js",
     "uuid": "4dced",
     "id": "2F23-1",
-    "titre": "Utiliser les différentes formes d\\'un polynôme du second degré",
+    "titre": "Utiliser les différentes formes d'un polynôme du second degré",
     "tags": {
       "interactif": false,
       "amc": false
@@ -519,7 +552,7 @@
     "url": "2e/2F25-1.js",
     "uuid": "6e82d",
     "id": "2F25-1",
-    "titre": "Propriétés graphiques de la parité d\\'une fonction",
+    "titre": "Propriétés graphiques de la parité d'une fonction",
     "tags": {
       "interactif": false,
       "amc": false
@@ -529,7 +562,7 @@
     "url": "2e/2F25-2.js",
     "uuid": "1e362",
     "id": "2F25-2",
-    "titre": "Étudier la parité d\\'une fonction",
+    "titre": "Étudier la parité d'une fonction",
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
@@ -541,7 +574,7 @@
     "url": "2e/2F30-1.js",
     "uuid": "05b52",
     "id": "2F30-1",
-    "titre": "Dresser un tableau de variations à partir d\\'une courbe",
+    "titre": "Dresser un tableau de variations à partir d'une courbe",
     "tags": {
       "interactif": false,
       "amc": false
@@ -605,7 +638,7 @@
     "url": "2e/2F32-3.js",
     "uuid": "acee0",
     "id": "2F32-3",
-    "titre": "Déterminer un extremum ou encadrer par lecture d\\'un tableau de variations",
+    "titre": "Déterminer un extremum ou encadrer par lecture d'un tableau de variations",
     "tags": {
       "interactif": false,
       "amc": false
@@ -615,7 +648,7 @@
     "url": "2e/2G10-1.js",
     "uuid": "430b9",
     "id": "2G10-1",
-    "titre": "Déterminer des angles en utilisant les cas d\\'égalité",
+    "titre": "Déterminer des angles en utilisant les cas d'égalité",
     "tags": {
       "interactif": false,
       "amc": false
@@ -686,7 +719,7 @@
     "url": "2e/2G12-2.js",
     "uuid": "4b25a",
     "id": "2G12-2",
-    "titre": "Déterminer les coordonnées du milieu d\\'un segment dans un repère",
+    "titre": "Déterminer les coordonnées du milieu d'un segment dans un repère",
     "tags": {
       "interactif": false,
       "amc": false
@@ -696,7 +729,7 @@
     "url": "2e/2G12-3.js",
     "uuid": "31760",
     "id": "2G12-3",
-    "titre": "Démontrer qu\\'un quadrilatère est ou non un parallélogramme",
+    "titre": "Démontrer qu'un quadrilatère est ou non un parallélogramme",
     "tags": {
       "interactif": false,
       "amc": false
@@ -706,7 +739,7 @@
     "url": "2e/2G12-4.js",
     "uuid": "d633a",
     "id": "2G12-4",
-    "titre": "Déterminer la nature d\\'un polygone",
+    "titre": "Déterminer la nature d'un polygone",
     "tags": {
       "interactif": false,
       "amc": false
@@ -747,7 +780,7 @@
     "url": "2e/2G23-2.js",
     "uuid": "fa7b9",
     "id": "2G23-2",
-    "titre": "Calculer les coordonnées d\\'un point par une translation",
+    "titre": "Calculer les coordonnées d'un point par une translation",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -758,7 +791,7 @@
     "url": "2e/2G24-1.js",
     "uuid": "f71c1",
     "id": "2G24-1",
-    "titre": "Calculer les coordonnées d\\'un vecteur à partir des coordonnées de deux points",
+    "titre": "Calculer les coordonnées d'un vecteur à partir des coordonnées de deux points",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -791,7 +824,7 @@
     "url": "2e/2G24-4.js",
     "uuid": "68693",
     "id": "2G24-4",
-    "titre": "Calculer les coordonnées du produit d\\'un vecteur par un réel",
+    "titre": "Calculer les coordonnées du produit d'un vecteur par un réel",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -802,7 +835,7 @@
     "url": "2e/2G24-5.js",
     "uuid": "222f6",
     "id": "2G24-5",
-    "titre": "Calculer les coordonnées d\\'un point à partir d\\'une égalité vectorielle",
+    "titre": "Calculer les coordonnées d'un point à partir d'une égalité vectorielle",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -846,7 +879,7 @@
     "url": "2e/2G30-4.js",
     "uuid": "0ec77",
     "id": "2G30-4",
-    "titre": "Déterminer une équation cartésienne de droite à partir d\\'un point et d\\'un vecteur directeur",
+    "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur",
     "tags": {
       "interactif": false,
       "amc": false
@@ -856,7 +889,7 @@
     "url": "2e/2G30-5.js",
     "uuid": "d1da3",
     "id": "2G30-5",
-    "titre": "Déterminer une équation cartésienne à partir d\\'un point et de la pente",
+    "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente",
     "tags": {
       "interactif": false,
       "amc": false
@@ -876,7 +909,7 @@
     "url": "2e/2G33-2.js",
     "uuid": "e715d",
     "id": "2G33-2",
-    "titre": "Déterminer si des droites $(d)$ et $(d\\')$ sont parallèles, sécantes ou confondues :",
+    "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
     "tags": {
       "interactif": false,
       "amc": false
@@ -910,7 +943,7 @@
     "url": "2e/2N10-2.js",
     "uuid": "8164e",
     "id": "2N10-2",
-    "titre": "Placer un point d\\'abscisse décimale",
+    "titre": "Placer un point d'abscisse décimale",
     "tags": {
       "interactif": true,
       "interactifType": "custom",
@@ -1011,7 +1044,7 @@
     "url": "2e/2N15-1.js",
     "uuid": "0d8b3",
     "id": "2N15-1",
-    "titre": "Utiliser la notion de valeur absolue d\\'une quantité",
+    "titre": "Utiliser la notion de valeur absolue d'une quantité",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1031,7 +1064,7 @@
     "url": "2e/2N20-1.js",
     "uuid": "7cf48",
     "id": "2N20-1",
-    "titre": "Écrire la liste de tous les diviseurs d\\'un entier",
+    "titre": "Écrire la liste de tous les diviseurs d'un entier",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -1086,7 +1119,7 @@
     "url": "2e/2N20-6.js",
     "uuid": "74939",
     "id": "2N20-6",
-    "titre": "Compter/lister les diviseurs d\\'un entier à partir de sa décomposition en facteurs premiers",
+    "titre": "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1106,7 +1139,7 @@
     "url": "2e/2N20-8.js",
     "uuid": "3ec5c",
     "id": "2N20-8",
-    "titre": "Déterminer la parité d\\'une expression",
+    "titre": "Déterminer la parité d'une expression",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1116,7 +1149,7 @@
     "url": "2e/2N30-1.js",
     "uuid": "45726",
     "id": "2N30-1",
-    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\\'écriture décimale",
+    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -1251,7 +1284,7 @@
     "url": "2e/2N32-1.js",
     "uuid": "55cc0",
     "id": "2N32-1",
-    "titre": "Existence d\\'une racine carrée",
+    "titre": "Existence d'une racine carrée",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1313,7 +1346,7 @@
     "url": "2e/2N32-7.js",
     "uuid": "4771d",
     "id": "2N32-7",
-    "titre": "Rendre entier le dénominateur d\\'une fraction",
+    "titre": "Rendre entier le dénominateur d'une fraction",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1347,7 +1380,7 @@
     "url": "2e/2N40-2.js",
     "uuid": "98658",
     "id": "2N40-2",
-    "titre": "Calculer la valeur d\\'une expression littérale",
+    "titre": "Calculer la valeur d'une expression littérale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -1503,7 +1536,7 @@
     "url": "2e/2N42-3.js",
     "uuid": "327cf",
     "id": "2N42-3",
-    "titre": "Utiliser les différentes formes d\\'un polynôme du second degré",
+    "titre": "Utiliser les différentes formes d'un polynôme du second degré",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1535,7 +1568,7 @@
     "url": "2e/2N50-3.js",
     "uuid": "846b8",
     "id": "2N50-3",
-    "titre": "Modéliser une situation  à l\\'aide d\\'une équation",
+    "titre": "Modéliser une situation  à l'aide d'une équation",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1545,7 +1578,7 @@
     "url": "2e/2N50-4.js",
     "uuid": "cf5b7",
     "id": "2N50-4",
-    "titre": "Modéliser une situation géométrique à l\\'aide d\\'une équation",
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1555,7 +1588,7 @@
     "url": "2e/2N51-1.js",
     "uuid": "71e5c",
     "id": "2N51-1",
-    "titre": "Tester si un nombre est solution d\\'une équation",
+    "titre": "Tester si un nombre est solution d'une équation",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1565,7 +1598,7 @@
     "url": "2e/2N51-2.js",
     "uuid": "ad208",
     "id": "2N51-2",
-    "titre": "Trouver l\\'erreur dans une résolution d\\'équation du premier degré",
+    "titre": "Trouver l'erreur dans une résolution d'équation du premier degré",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1668,7 +1701,7 @@
     "url": "2e/2N60-3.js",
     "uuid": "e32f3",
     "id": "2N60-3",
-    "titre": "Utiliser les propriétés de conservation du sens d\\'une inégalité",
+    "titre": "Utiliser les propriétés de conservation du sens d'une inégalité",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1688,7 +1721,7 @@
     "url": "2e/2N60-5.js",
     "uuid": "2844c",
     "id": "2N60-5",
-    "titre": "Montrer qu\\'un nombre est ou n\\'est pas solution d\\'une inéquation",
+    "titre": "Montrer qu'un nombre est ou n'est pas solution d'une inéquation",
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
@@ -1732,7 +1765,7 @@
     "url": "2e/2S10-1.js",
     "uuid": "ae913",
     "id": "2S10-1",
-    "titre": "Connaître les différentes écritures d\\'une proportion",
+    "titre": "Connaître les différentes écritures d'une proportion",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1766,7 +1799,7 @@
     "url": "2e/2S11-1.js",
     "uuid": "05db7",
     "id": "2S11-1",
-    "titre": "Calculer un CM à partir d\\'un taux d\\'évolution et inversement",
+    "titre": "Calculer un CM à partir d'un taux d'évolution et inversement",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -1788,7 +1821,7 @@
     "url": "2e/2S12-2.js",
     "uuid": "018f3",
     "id": "2S12-2",
-    "titre": "Déterminer un taux d\\'évolution global",
+    "titre": "Déterminer un taux d'évolution global",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -1799,7 +1832,7 @@
     "url": "2e/2S12-3.js",
     "uuid": "509db",
     "id": "2S12-3",
-    "titre": "Déterminer un taux d\\'évolution réciproque",
+    "titre": "Déterminer un taux d'évolution réciproque",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -1883,39 +1916,6 @@
       "amc": true
     }
   },
-  "2ZA1-01": {
-    "url": "2e/2ZA1-01.js",
-    "uuid": "15fd6",
-    "id": "2ZA1-01",
-    "titre": "Lister tous les diviseurs d’un entier",
-    "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
-      "amc": false
-    }
-  },
-  "2ZF3-01": {
-    "url": "2e/2ZF3-01.js",
-    "uuid": "e39b8",
-    "id": "2ZF3-01",
-    "titre": "Lister tous les diviseurs d’un entier",
-    "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
-      "amc": false
-    }
-  },
-  "2ZF3-02": {
-    "url": "2e/2ZF3-02.js",
-    "uuid": "e46e6",
-    "id": "2ZF3-02",
-    "titre": "Lecture graphique de domaine de définition",
-    "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
-      "amc": false
-    }
-  },
   "3A10": {
     "url": "3e/3A10.js",
     "uuid": "5b60d",
@@ -1966,7 +1966,7 @@
     "url": "3e/3A10-4.js",
     "uuid": "4117b",
     "id": "3A10-4",
-    "titre": "Compter et lister les diviseurs d\\'un entier à partir de sa décomposition en facteurs premiers",
+    "titre": "Compter et lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
     "tags": {
       "interactif": false,
       "amc": false
@@ -1988,7 +1988,7 @@
     "url": "3e/3A10-6.js",
     "uuid": "5636e",
     "id": "3A10-6",
-    "titre": "Trouver un chiffre pour qu\\'un nombre soit divisible par un autre",
+    "titre": "Trouver un chiffre pour qu'un nombre soit divisible par un autre",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2020,7 +2020,7 @@
     "url": "3e/3A11-0.js",
     "uuid": "1871d",
     "id": "3A11-0",
-    "titre": "Simplifier des fractions à l\\'aide des nombres premiers",
+    "titre": "Simplifier des fractions à l'aide des nombres premiers",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2044,7 +2044,7 @@
     "url": "3e/3A12.js",
     "uuid": "ce352",
     "id": "3A12",
-    "titre": "Résoudre un exercice d\\'engrenages",
+    "titre": "Résoudre un exercice d'engrenages",
     "tags": {
       "interactif": false,
       "amc": false
@@ -2088,7 +2088,7 @@
     "url": "3e/3A13-2.js",
     "uuid": "d8bf2",
     "id": "3A13-2",
-    "titre": "Déterminer reste et quotient d\\'une division euclidienne à partir d\\'une égalité",
+    "titre": "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2112,7 +2112,7 @@
     "url": "3e/3A13-4.js",
     "uuid": "b0cee",
     "id": "3A13-4",
-    "titre": "Indiquer une égalité à partir d\\'une division euclidienne",
+    "titre": "Indiquer une égalité à partir d'une division euclidienne",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2168,7 +2168,7 @@
     "url": "3e/3F10-2.js",
     "uuid": "ba520",
     "id": "3F10-2",
-    "titre": "Fonction : calculs d\\'images (et d\\'antécédents)",
+    "titre": "Fonction : calculs d'images (et d'antécédents)",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2202,7 +2202,7 @@
     "url": "3e/3F12-2.js",
     "uuid": "082d7",
     "id": "3F12-2",
-    "titre": "Déterminer l\\'image d\\'un nombre par une fonction d\\'après sa forme algébrique",
+    "titre": "Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2226,7 +2226,7 @@
     "url": "3e/3F12-4.js",
     "uuid": "b8946",
     "id": "3F12-4",
-    "titre": "Lire l\\'image d\\'un nombre à partir d\\'un graphique",
+    "titre": "Lire l'image d'un nombre à partir d'un graphique",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2238,7 +2238,7 @@
     "url": "3e/3F13.js",
     "uuid": "8117d",
     "id": "3F13",
-    "titre": "Lire les antécédents d\\'un nombre à partir d\\'un graphique",
+    "titre": "Lire les antécédents d'un nombre à partir d'un graphique",
     "tags": {
       "interactif": false,
       "amc": false
@@ -2352,7 +2352,7 @@
     "url": "3e/3G10-1.js",
     "uuid": "d4088",
     "id": "3G10-1",
-    "titre": "Trouver les coordonnées de l\\'image d\\'un point par une rotation et une homothétie",
+    "titre": "Trouver les coordonnées de l'image d'un point par une rotation et une homothétie",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2364,7 +2364,7 @@
     "url": "3e/3G10-2.js",
     "uuid": "d5f34",
     "id": "3G10-2",
-    "titre": "Trouver l\\'image d\\'un point par une homothétie ou une rotation",
+    "titre": "Trouver l'image d'un point par une homothétie ou une rotation",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2376,7 +2376,7 @@
     "url": "3e/3G10-3.js",
     "uuid": "19ce6",
     "id": "3G10-3",
-    "titre": "Construire l\\'image d\\'un point par une rotation avec cible auto-corrective",
+    "titre": "Construire l'image d'un point par une rotation avec cible auto-corrective",
     "tags": {
       "interactif": false,
       "amc": false
@@ -2386,7 +2386,7 @@
     "url": "3e/3G11.js",
     "uuid": "18e25",
     "id": "3G11",
-    "titre": "Construire l\\'image d\\'un point par une homothétie avec cible auto-corrective",
+    "titre": "Construire l'image d'un point par une homothétie avec cible auto-corrective",
     "tags": {
       "interactif": false,
       "amcType": "AMCHybride",
@@ -2407,7 +2407,7 @@
     "url": "3e/3G12.js",
     "uuid": "442e0",
     "id": "3G12",
-    "titre": "Trouver l\\'image d\\'une figure par une rotation dans un pavage",
+    "titre": "Trouver l'image d'une figure par une rotation dans un pavage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2419,7 +2419,7 @@
     "url": "3e/3G12-1.js",
     "uuid": "034f1",
     "id": "3G12-1",
-    "titre": "Trouver l\\'image d\\'une figure par une rotation de 90 degrés dans un pavage",
+    "titre": "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2529,7 +2529,7 @@
     "url": "3e/3G30-1.js",
     "uuid": "0d1f7",
     "id": "3G30-1",
-    "titre": "Exprimer le cosinus, le sinus ou la tangente d\\'un angle en fonction des côtés du triangle",
+    "titre": "Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2553,7 +2553,7 @@
     "url": "3e/3G31-1.js",
     "uuid": "35e0b",
     "id": "3G31-1",
-    "titre": "Calculer toutes les mesures d\\'angle d\\'une figure complexe",
+    "titre": "Calculer toutes les mesures d'angle d'une figure complexe",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2577,7 +2577,7 @@
     "url": "3e/3G32-0.js",
     "uuid": "2045e",
     "id": "3G32-0",
-    "titre": "Problèmes nécessitant un calcul de longueur à l\\'aide de la trigonométrie",
+    "titre": "Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2671,7 +2671,7 @@
     "url": "3e/3G41-1.js",
     "uuid": "a3cb9",
     "id": "3G41-1",
-    "titre": "Construire la section d\\'un plan dans un un pavé droit",
+    "titre": "Construire la section d'un plan dans un un pavé droit",
     "tags": {
       "interactif": false,
       "amcType": "AMCOpen",
@@ -2682,7 +2682,7 @@
     "url": "3e/3G42.js",
     "uuid": "8c803",
     "id": "3G42",
-    "titre": "Volume d\\'une boule",
+    "titre": "Volume d'une boule",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2705,7 +2705,7 @@
     "url": "3e/3G44.js",
     "uuid": "57c70",
     "id": "3G44",
-    "titre": "Déterminer des longueurs dans la géométrie dans l\\'espace",
+    "titre": "Déterminer des longueurs dans la géométrie dans l'espace",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2793,7 +2793,7 @@
     "url": "3e/3L10.js",
     "uuid": "603a8",
     "id": "3L10",
-    "titre": "Supprimer les parenthèses puis réduire l\\'expression",
+    "titre": "Supprimer les parenthèses puis réduire l'expression",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -2817,7 +2817,7 @@
     "url": "3e/3L10-2.js",
     "uuid": "c88ba",
     "id": "3L10-2",
-    "titre": "Supprimer les parenthèses puis réduire l\\'expression (niveau 2)",
+    "titre": "Supprimer les parenthèses puis réduire l'expression (niveau 2)",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3091,7 +3091,7 @@
     "url": "3e/3P10-1.js",
     "uuid": "4ce2d",
     "id": "3P10-1",
-    "titre": "Coefficient multiplicateur d\\'une variation en pourcentage",
+    "titre": "Coefficient multiplicateur d'une variation en pourcentage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3114,7 +3114,7 @@
     "url": "3e/3S14.js",
     "uuid": "b8afd",
     "id": "3S14",
-    "titre": "Calculer des caractéristiques d\\'une série",
+    "titre": "Calculer des caractéristiques d'une série",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3237,7 +3237,7 @@
     "url": "4e/4C10-0.js",
     "uuid": "450ae",
     "id": "4C10-0",
-    "titre": "Signe d\\'un produit ou d\\'un quotient de nombres relatifs",
+    "titre": "Signe d'un produit ou d'un quotient de nombres relatifs",
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
@@ -3249,7 +3249,7 @@
     "url": "4e/4C10-1.js",
     "uuid": "4fd42",
     "id": "4C10-1",
-    "titre": "Signe d\\'un produit de nombres relatifs",
+    "titre": "Signe d'un produit de nombres relatifs",
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
@@ -3273,7 +3273,7 @@
     "url": "4e/4C10-2.js",
     "uuid": "aa4f9",
     "id": "4C10-2",
-    "titre": "Signe d\\'un quotient de nombres relatifs",
+    "titre": "Signe d'un quotient de nombres relatifs",
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
@@ -3465,7 +3465,7 @@
     "url": "4e/4C22-1.js",
     "uuid": "43cea",
     "id": "4C22-1",
-    "titre": "Trouver l\\'inverse d\\'un nombre",
+    "titre": "Trouver l'inverse d'un nombre",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3533,7 +3533,7 @@
     "url": "4e/4C24.js",
     "uuid": "612b9",
     "id": "4C24",
-    "titre": "Simplifier des fractions à l\\'aide des nombres premiers",
+    "titre": "Simplifier des fractions à l'aide des nombres premiers",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3577,7 +3577,7 @@
     "url": "4e/4C30-2.js",
     "uuid": "93df9",
     "id": "4C30-2",
-    "titre": "Écriture décimale d\\'une puissance de 10",
+    "titre": "Écriture décimale d'une puissance de 10",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3589,7 +3589,7 @@
     "url": "4e/4C30-3.js",
     "uuid": "36f8b",
     "id": "4C30-3",
-    "titre": "Écriture décimale ou fractionnaire d\\'une puissance",
+    "titre": "Écriture décimale ou fractionnaire d'une puissance",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3624,7 +3624,7 @@
     "url": "4e/4C32-0.js",
     "uuid": "5d72b",
     "id": "4C32-0",
-    "titre": "Écriture décimale d\\'un calcul avec des puissances de 10",
+    "titre": "Écriture décimale d'un calcul avec des puissances de 10",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3749,7 +3749,7 @@
     "url": "4e/4C37.js",
     "uuid": "67432",
     "id": "4C37",
-    "titre": "Déterminer le signe d\\'une puissance",
+    "titre": "Déterminer le signe d'une puissance",
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
@@ -3761,7 +3761,7 @@
     "url": "4e/4F12.js",
     "uuid": "b428e",
     "id": "4F12",
-    "titre": "Résoudre un problème s\\'appuyant sur la lecture d\\'une représentation graphique",
+    "titre": "Résoudre un problème s'appuyant sur la lecture d'une représentation graphique",
     "tags": {
       "interactif": false,
       "amcType": "AMCHybride",
@@ -3772,7 +3772,7 @@
     "url": "4e/4G10.js",
     "uuid": "cf7ce",
     "id": "4G10",
-    "titre": "Trouver l\\'image d\\'un point par une symétrie axiale ou centrale ou par une translation",
+    "titre": "Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3784,7 +3784,7 @@
     "url": "4e/4G10-1.js",
     "uuid": "7b40c",
     "id": "4G10-1",
-    "titre": "Trouver les coordonnées de l\\'image d\\'un point par une translation et une rotation",
+    "titre": "Trouver les coordonnées de l'image d'un point par une translation et une rotation",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3806,7 +3806,7 @@
     "url": "4e/4G11.js",
     "uuid": "3bfb6",
     "id": "4G11",
-    "titre": "Trouver l\\'image d\\'une figure par une translation dans un pavage",
+    "titre": "Trouver l'image d'une figure par une translation dans un pavage",
     "tags": {
       "interactif": false,
       "amc": false
@@ -3816,7 +3816,7 @@
     "url": "4e/4G11-1.js",
     "uuid": "48253",
     "id": "4G11-1",
-    "titre": "Trouver l\\'image d\\'une figure par une translation dans un pavage",
+    "titre": "Trouver l'image d'une figure par une translation dans un pavage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3894,7 +3894,7 @@
     "url": "4e/4G20-2.js",
     "uuid": "f5cbd",
     "id": "4G20-2",
-    "titre": "Déterminer la racine carrée d\\'un carré parfait (calcul mental)",
+    "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3928,7 +3928,7 @@
     "url": "4e/4G20-5.js",
     "uuid": "9c484",
     "id": "4G20-5",
-    "titre": "Trouver la valeur arrondie d\\'une racine carrée",
+    "titre": "Trouver la valeur arrondie d'une racine carrée",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4038,7 +4038,7 @@
     "url": "4e/4G41.js",
     "uuid": "22810",
     "id": "4G41",
-    "titre": "Utiliser le cosinus pour calculer la mesure d\\'un angle dans un triangle rectangle",
+    "titre": "Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4124,7 +4124,7 @@
     "url": "4e/4L10-2.js",
     "uuid": "af8bb",
     "id": "4L10-2",
-    "titre": "Donner l\\'expression littérale d\\'un périmètre et d\\'une aire de quadrilatère",
+    "titre": "Donner l'expression littérale d'un périmètre et d'une aire de quadrilatère",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4168,7 +4168,7 @@
     "url": "4e/4L12.js",
     "uuid": "501f9",
     "id": "4L12",
-    "titre": "Démontrer l\\'équivalence de deux programmes de calcul",
+    "titre": "Démontrer l'équivalence de deux programmes de calcul",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4210,7 +4210,7 @@
     "url": "4e/4L14-0.js",
     "uuid": "a1c9a",
     "id": "4L14-0",
-    "titre": "Tester si un nombre est solution d\\'une équation",
+    "titre": "Tester si un nombre est solution d'une équation",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4220,7 +4220,7 @@
     "url": "4e/4L14-1.js",
     "uuid": "5ecb8",
     "id": "4L14-1",
-    "titre": "Tester si un nombre est solution d\\'une équation du premier degré",
+    "titre": "Tester si un nombre est solution d'une équation du premier degré",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4230,7 +4230,7 @@
     "url": "4e/4L14-2.js",
     "uuid": "1188b",
     "id": "4L14-2",
-    "titre": "Tester si un nombre est solution d\\'une équation du second degré",
+    "titre": "Tester si un nombre est solution d'une équation du second degré",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4240,7 +4240,7 @@
     "url": "4e/4L15-0.js",
     "uuid": "df5a3",
     "id": "4L15-0",
-    "titre": "Trouver l\\'erreur dans une résolution d\\'équation du premier degré",
+    "titre": "Trouver l'erreur dans une résolution d'équation du premier degré",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4295,7 +4295,7 @@
     "url": "4e/4P10.js",
     "uuid": "72c5a",
     "id": "4P10",
-    "titre": "Résoudre des problèmes de grandeurs composées et de conversion d\\'unités complexes",
+    "titre": "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4305,7 +4305,7 @@
     "url": "4e/4P10-1.js",
     "uuid": "c668a",
     "id": "4P10-1",
-    "titre": "Résoudre un problème de proportionnalité à l\\'aide d\\'un graphique",
+    "titre": "Résoudre un problème de proportionnalité à l'aide d'un graphique",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4369,7 +4369,7 @@
     "url": "5e/5A10.js",
     "uuid": "4828d",
     "id": "5A10",
-    "titre": "Écrire la liste de tous les diviseurs d\\'un entier",
+    "titre": "Écrire la liste de tous les diviseurs d'un entier",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4476,7 +4476,7 @@
     "url": "5e/5C11-2.js",
     "uuid": "3406a",
     "id": "5C11-2",
-    "titre": "Traduire une succession d\\'opérations par une expression",
+    "titre": "Traduire une succession d'opérations par une expression",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4530,7 +4530,7 @@
     "url": "5e/5G10.js",
     "uuid": "da157",
     "id": "5G10",
-    "titre": "Trouver l\\'image d\\'un point par une symétrie axiale",
+    "titre": "Trouver l'image d'un point par une symétrie axiale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4552,7 +4552,7 @@
     "url": "5e/5G10-2.js",
     "uuid": "8ea24",
     "id": "5G10-2",
-    "titre": "Construire le symétrique d\\'un triangle par rapport à une droite",
+    "titre": "Construire le symétrique d'un triangle par rapport à une droite",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4562,7 +4562,7 @@
     "url": "5e/5G11.js",
     "uuid": "ec32b",
     "id": "5G11",
-    "titre": "Trouver l\\'image d\\'un point par une symétrie axiale ou centrale",
+    "titre": "Trouver l'image d'un point par une symétrie axiale ou centrale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4574,7 +4574,7 @@
     "url": "5e/5G11-1.js",
     "uuid": "8d4bf",
     "id": "5G11-1",
-    "titre": "Construire le symétrique d\\'un point par symétrie centrale",
+    "titre": "Construire le symétrique d'un point par symétrie centrale",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4584,7 +4584,7 @@
     "url": "5e/5G11-2.js",
     "uuid": "49786",
     "id": "5G11-2",
-    "titre": "Construire l\\'image d\\'un triangle par symétrie centrale",
+    "titre": "Construire l'image d'un triangle par symétrie centrale",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4594,7 +4594,7 @@
     "url": "5e/5G11-3.js",
     "uuid": "34032",
     "id": "5G11-3",
-    "titre": "Construire le symétrique d\\'un point avec cible auto-corrective",
+    "titre": "Construire le symétrique d'un point avec cible auto-corrective",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4604,7 +4604,7 @@
     "url": "5e/5G11-4.js",
     "uuid": "08f60",
     "id": "5G11-4",
-    "titre": "Trouver les coordonnées de l\\'image d\\'un point par une symétrie centrale",
+    "titre": "Trouver les coordonnées de l'image d'un point par une symétrie centrale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4616,7 +4616,7 @@
     "url": "5e/5G11-5.js",
     "uuid": "2d2bb",
     "id": "5G11-5",
-    "titre": "Trouver les coordonnées de l\\'image d\\'un point par une symétrie axiale ou centrale",
+    "titre": "Trouver les coordonnées de l'image d'un point par une symétrie axiale ou centrale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4640,7 +4640,7 @@
     "url": "5e/5G12.js",
     "uuid": "76ea9",
     "id": "5G12",
-    "titre": "Trouver l\\'image d\\'une figure par symétrie centrale dans un pavage",
+    "titre": "Trouver l'image d'une figure par symétrie centrale dans un pavage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4651,7 +4651,7 @@
     "url": "5e/5G12-1.js",
     "uuid": "261bf",
     "id": "5G12-1",
-    "titre": "Trouver le symétrique d\\'une figure dans un pavage",
+    "titre": "Trouver le symétrique d'une figure dans un pavage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4746,7 +4746,7 @@
     "url": "5e/5G22.js",
     "uuid": "796f3",
     "id": "5G22",
-    "titre": "Déterminer la nature d\\'une droite remarquable",
+    "titre": "Déterminer la nature d'une droite remarquable",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4796,7 +4796,7 @@
     "url": "5e/5G30-1.js",
     "uuid": "d12db",
     "id": "5G30-1",
-    "titre": "Déterminer des angles en utilisant les cas d\\'égalité",
+    "titre": "Déterminer des angles en utilisant les cas d'égalité",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4846,7 +4846,7 @@
     "url": "5e/5G40.js",
     "uuid": "b611a",
     "id": "5G40",
-    "titre": "Construire des parallélogrammes avec dispositif d\\'auto-correction",
+    "titre": "Construire des parallélogrammes avec dispositif d'auto-correction",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4866,7 +4866,7 @@
     "url": "5e/5G40-2.js",
     "uuid": "588fe",
     "id": "5G40-2",
-    "titre": "Reconnaître un parallélogramme à partir du codage d\\'une figure",
+    "titre": "Reconnaître un parallélogramme à partir du codage d'une figure",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4971,7 +4971,7 @@
     "url": "5e/5L10-4.js",
     "uuid": "7aba6",
     "id": "5L10-4",
-    "titre": "Produire une formule à partir d\\'un tableau",
+    "titre": "Produire une formule à partir d'un tableau",
     "tags": {
       "interactif": false,
       "amc": false
@@ -5023,7 +5023,7 @@
     "url": "5e/5L14.js",
     "uuid": "17e39",
     "id": "5L14",
-    "titre": "Calculer la valeur d\\'une expression littérale",
+    "titre": "Calculer la valeur d'une expression littérale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5076,7 +5076,7 @@
     "url": "5e/5L14-5.js",
     "uuid": "72764",
     "id": "5L14-5",
-    "titre": "Calculer la valeur d\\'une expression littérale de degré 1 à 1 inconnue",
+    "titre": "Calculer la valeur d'une expression littérale de degré 1 à 1 inconnue",
     "tags": {
       "interactif": false,
       "amc": false
@@ -5106,7 +5106,7 @@
     "url": "5e/5L16.js",
     "uuid": "e2e64",
     "id": "5L16",
-    "titre": "Simplifier l\\'écriture d\\'une expression littérale",
+    "titre": "Simplifier l'écriture d'une expression littérale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5169,7 +5169,7 @@
     "url": "5e/5N11-3.js",
     "uuid": "0e58f",
     "id": "5N11-3",
-    "titre": "Écrire une fraction sur 100 puis sous la forme d\\'un pourcentage",
+    "titre": "Écrire une fraction sur 100 puis sous la forme d'un pourcentage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5181,7 +5181,7 @@
     "url": "5e/5N11-4.js",
     "uuid": "6b534",
     "id": "5N11-4",
-    "titre": "Exprimer une fraction sous la forme d\\'une valeur approchée d\\'un pourcentage",
+    "titre": "Exprimer une fraction sous la forme d'une valeur approchée d'un pourcentage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5335,7 +5335,7 @@
     "url": "5e/5P13.js",
     "uuid": "edb61",
     "id": "5P13",
-    "titre": "Utiliser ou trouver des échelles d\\'un plan",
+    "titre": "Utiliser ou trouver des échelles d'un plan",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5346,7 +5346,7 @@
     "url": "5e/5P14.js",
     "uuid": "4db23",
     "id": "5P14",
-    "titre": "Exprimer une proportion sous la forme d\\'un pourcentage",
+    "titre": "Exprimer une proportion sous la forme d'un pourcentage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5382,7 +5382,7 @@
     "url": "5e/5R10.js",
     "uuid": "61b4a",
     "id": "5R10",
-    "titre": "Trouver le terme manquant d\\'une somme de nombres relatifs",
+    "titre": "Trouver le terme manquant d'une somme de nombres relatifs",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5394,7 +5394,7 @@
     "url": "5e/5R10-0.js",
     "uuid": "cab80",
     "id": "5R10-0",
-    "titre": "Trouver l\\'opposé d\\'un nombre relatif",
+    "titre": "Trouver l'opposé d'un nombre relatif",
     "tags": {
       "interactif": false,
       "amc": false
@@ -5414,7 +5414,7 @@
     "url": "5e/5R11.js",
     "uuid": "cd7ce",
     "id": "5R11",
-    "titre": "Lire l\\'abscisse relative d\\'un point",
+    "titre": "Lire l'abscisse relative d'un point",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5426,7 +5426,7 @@
     "url": "5e/5R11-2.js",
     "uuid": "6d576",
     "id": "5R11-2",
-    "titre": "Placer un point d\\'abscisse un nombre relatif",
+    "titre": "Placer un point d'abscisse un nombre relatif",
     "tags": {
       "interactif": true,
       "interactifType": "custom",
@@ -5438,7 +5438,7 @@
     "url": "5e/5R12.js",
     "uuid": "cf83c",
     "id": "5R12",
-    "titre": "Déterminer les coordonnées (positives) d\\'un point",
+    "titre": "Déterminer les coordonnées (positives) d'un point",
     "tags": {
       "interactif": false,
       "amc": false
@@ -5448,7 +5448,7 @@
     "url": "5e/5R12-2.js",
     "uuid": "ab968",
     "id": "5R12-2",
-    "titre": "Déterminer les coordonnées (relatives) d\\'un point",
+    "titre": "Déterminer les coordonnées (relatives) d'un point",
     "tags": {
       "interactif": false,
       "amc": false
@@ -5559,7 +5559,7 @@
     "url": "5e/5R22-2.js",
     "uuid": "070b4",
     "id": "5R22-2",
-    "titre": "Simplifier l\\'écriture d\\'une somme de 2 relatifs et calculer",
+    "titre": "Simplifier l'écriture d'une somme de 2 relatifs et calculer",
     "tags": {
       "interactif": false,
       "amc": false
@@ -5847,7 +5847,7 @@
     "url": "6e/6C11-3.js",
     "uuid": "d0cd7",
     "id": "6C11-3",
-    "titre": "Indiquer une égalité à partir d\\'une division euclidienne",
+    "titre": "Indiquer une égalité à partir d'une division euclidienne",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6117,7 +6117,7 @@
     "url": "6e/6C31-2.js",
     "uuid": "013ef",
     "id": "6C31-2",
-    "titre": "Donner des valeurs approchées d\\'un quotient décimal",
+    "titre": "Donner des valeurs approchées d'un quotient décimal",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6163,7 +6163,7 @@
     "url": "6e/6C34.js",
     "uuid": "b3843",
     "id": "6C34",
-    "titre": "Déterminer le dernier chiffre d\\'un calcul",
+    "titre": "Déterminer le dernier chiffre d'un calcul",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6306,7 +6306,7 @@
     "url": "6e/6G10-6.js",
     "uuid": "9af23",
     "id": "6G10-6",
-    "titre": "Appartient ou n\\'appartient pas ?",
+    "titre": "Appartient ou n'appartient pas ?",
     "tags": {
       "interactif": false,
       "amc": false
@@ -6527,7 +6527,7 @@
     "url": "6e/6G23-1.js",
     "uuid": "c7f7a",
     "id": "6G23-1",
-    "titre": "Mesurer un angle sans rapporteur sur l\\'énoncé",
+    "titre": "Mesurer un angle sans rapporteur sur l'énoncé",
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
@@ -6583,7 +6583,7 @@
     "url": "6e/6G24.js",
     "uuid": "e9d29",
     "id": "6G24",
-    "titre": "Trouver l\\'image d\\'un point par une symétrie axiale",
+    "titre": "Trouver l'image d'un point par une symétrie axiale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6595,7 +6595,7 @@
     "url": "6e/6G24-1.js",
     "uuid": "91a00",
     "id": "6G24-1",
-    "titre": "Construire le symétrique d\\'un point par rapport à une droite",
+    "titre": "Construire le symétrique d'un point par rapport à une droite",
     "tags": {
       "interactif": false,
       "amcType": "AMCOpen",
@@ -6606,7 +6606,7 @@
     "url": "6e/6G24-2.js",
     "uuid": "adfb5",
     "id": "6G24-2",
-    "titre": "Construire le symétrique d\\'une figure par rapport à une droite (cas simples)",
+    "titre": "Construire le symétrique d'une figure par rapport à une droite (cas simples)",
     "tags": {
       "interactif": false,
       "amcType": "AMCOpen",
@@ -6617,7 +6617,7 @@
     "url": "6e/6G24-3.js",
     "uuid": "60e16",
     "id": "6G24-3",
-    "titre": "Construire le symétrique d\\'un point avec cible auto-corrective",
+    "titre": "Construire le symétrique d'un point avec cible auto-corrective",
     "tags": {
       "interactif": false,
       "amc": false
@@ -6662,7 +6662,7 @@
     "url": "6e/6G25-2.js",
     "uuid": "f5569",
     "id": "6G25-2",
-    "titre": "Trouver l\\'image d\\'une figure par une symétrie axiale dans un pavage carré",
+    "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6674,7 +6674,7 @@
     "url": "6e/6G25-3.js",
     "uuid": "328b1",
     "id": "6G25-3",
-    "titre": "Trouver l\\'image d\\'une figure par une symétrie axiale dans un pavage",
+    "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6776,7 +6776,7 @@
     "url": "6e/6G44.js",
     "uuid": "da6a4",
     "id": "6G44",
-    "titre": "Trouver le nombre de faces ou d\\'arêtes d\\'un solide",
+    "titre": "Trouver le nombre de faces ou d'arêtes d'un solide",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6840,7 +6840,7 @@
     "url": "6e/6G53.js",
     "uuid": "29c3b",
     "id": "6G53",
-    "titre": "Mesurer la distance d\\'un point à une droite",
+    "titre": "Mesurer la distance d'un point à une droite",
     "tags": {
       "interactif": false,
       "amc": false
@@ -6895,7 +6895,7 @@
     "url": "6e/6M10.js",
     "uuid": "83be1",
     "id": "6M10",
-    "titre": "Calculer le périmètre et l\\'aire de polygones usuels",
+    "titre": "Calculer le périmètre et l'aire de polygones usuels",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6907,7 +6907,7 @@
     "url": "6e/6M10-1.js",
     "uuid": "9a5fe",
     "id": "6M10-1",
-    "titre": "Problèmes d\\'aires de rectangles",
+    "titre": "Problèmes d'aires de rectangles",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6918,7 +6918,7 @@
     "url": "6e/6M11.js",
     "uuid": "eb45a",
     "id": "6M11",
-    "titre": "Calculer l\\'aire de carrés, rectangles et triangles rectangles",
+    "titre": "Calculer l'aire de carrés, rectangles et triangles rectangles",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6978,7 +6978,7 @@
     "url": "6e/6M20.js",
     "uuid": "06b1a",
     "id": "6M20",
-    "titre": "Calculer l\\'aire de triangles",
+    "titre": "Calculer l'aire de triangles",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7001,7 +7001,7 @@
     "url": "6e/6M22.js",
     "uuid": "ac571",
     "id": "6M22",
-    "titre": "Calculer le périmètre et l\\'aire de disques ou demi-disques",
+    "titre": "Calculer le périmètre et l'aire de disques ou demi-disques",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7046,7 +7046,7 @@
     "url": "6e/6M25.js",
     "uuid": "dc7ba",
     "id": "6M25",
-    "titre": "Connaître le cours sur le périmètre et l\\'aire",
+    "titre": "Connaître le cours sur le périmètre et l'aire",
     "tags": {
       "interactif": false,
       "amc": false
@@ -7182,7 +7182,7 @@
     "url": "6e/6N10-6.js",
     "uuid": "c5438",
     "id": "6N10-6",
-    "titre": "Donner l\\'écriture (décimale ou en fraction décimale) d\\'une somme (ou différence) de nombres avec fractions décimales",
+    "titre": "Donner l'écriture (décimale ou en fraction décimale) d'une somme (ou différence) de nombres avec fractions décimales",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7206,7 +7206,7 @@
     "url": "6e/6N11.js",
     "uuid": "acd4a",
     "id": "6N11",
-    "titre": "Lire l\\'abscisse entière d\\'un point (grands nombres)",
+    "titre": "Lire l'abscisse entière d'un point (grands nombres)",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7218,7 +7218,7 @@
     "url": "6e/6N11-2.js",
     "uuid": "4f2a3",
     "id": "6N11-2",
-    "titre": "Placer un point d\\'abscisse entière (grands nombres)",
+    "titre": "Placer un point d'abscisse entière (grands nombres)",
     "tags": {
       "interactif": true,
       "interactifType": "custom",
@@ -7240,7 +7240,7 @@
     "url": "6e/6N11-4.js",
     "uuid": "3bba9",
     "id": "6N11-4",
-    "titre": "Ranger une liste de nombres entiers dans l\\'ordre croissant ou décroissant",
+    "titre": "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant",
     "tags": {
       "interactif": false,
       "amc": false
@@ -7342,7 +7342,7 @@
     "url": "6e/6N20-2.js",
     "uuid": "ab44e",
     "id": "6N20-2",
-    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\\'écriture décimale",
+    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7410,7 +7410,7 @@
     "url": "6e/6N23.js",
     "uuid": "4b9d5",
     "id": "6N23",
-    "titre": "Donner l\\'écriture décimale d\\'une fraction décimale",
+    "titre": "Donner l'écriture décimale d'une fraction décimale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7470,7 +7470,7 @@
     "url": "6e/6N23-4.js",
     "uuid": "e8e24",
     "id": "6N23-4",
-    "titre": "Donner l\\'écriture décimale d\\'un nombre à partir de différents textes",
+    "titre": "Donner l'écriture décimale d'un nombre à partir de différents textes",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7494,7 +7494,7 @@
     "url": "6e/6N23-6.js",
     "uuid": "d5e44",
     "id": "6N23-6",
-    "titre": "Calculer la valeur décimale d\\'une fraction",
+    "titre": "Calculer la valeur décimale d'une fraction",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7518,7 +7518,7 @@
     "url": "6e/6N23-8.js",
     "uuid": "708a9",
     "id": "6N23-8",
-    "titre": "Donner l\\'écriture décimale d\\'une fraction décimale",
+    "titre": "Donner l'écriture décimale d'une fraction décimale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7552,7 +7552,7 @@
     "url": "6e/6N30.js",
     "uuid": "c1888",
     "id": "6N30",
-    "titre": "Lire l\\'abscisse décimale d\\'un point",
+    "titre": "Lire l'abscisse décimale d'un point",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7564,7 +7564,7 @@
     "url": "6e/6N30-1.js",
     "uuid": "8418e",
     "id": "6N30-1",
-    "titre": "Lire l\\'abscisse décimale d\\'un point (niveau 2)",
+    "titre": "Lire l'abscisse décimale d'un point (niveau 2)",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7576,7 +7576,7 @@
     "url": "6e/6N30-2.js",
     "uuid": "e528e",
     "id": "6N30-2",
-    "titre": "Placer un point d\\'abscisse décimale",
+    "titre": "Placer un point d'abscisse décimale",
     "tags": {
       "interactif": true,
       "interactifType": "custom",
@@ -7609,7 +7609,7 @@
     "url": "6e/6N31-2.js",
     "uuid": "843e5",
     "id": "6N31-2",
-    "titre": "Trouver ordre de grandeur d\\'opérations sur les décimaux",
+    "titre": "Trouver ordre de grandeur d'opérations sur les décimaux",
     "tags": {
       "interactif": false,
       "amc": false
@@ -7655,7 +7655,7 @@
     "url": "6e/6N31-6.js",
     "uuid": "d2b82",
     "id": "6N31-6",
-    "titre": "Trouver une valeur approchée ou un arrondi d\\'un décimal",
+    "titre": "Trouver une valeur approchée ou un arrondi d'un décimal",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7666,7 +7666,7 @@
     "url": "6e/6N32.js",
     "uuid": "c28e5",
     "id": "6N32",
-    "titre": "Représenter une fraction de l\\'unité",
+    "titre": "Représenter une fraction de l'unité",
     "tags": {
       "interactif": false,
       "amcType": "AMCHybride",
@@ -7677,7 +7677,7 @@
     "url": "6e/6N33.js",
     "uuid": "ddb83",
     "id": "6N33",
-    "titre": "Calculer la fraction d\\'un nombre",
+    "titre": "Calculer la fraction d'un nombre",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7689,7 +7689,7 @@
     "url": "6e/6N33-0.js",
     "uuid": "a168c",
     "id": "6N33-0",
-    "titre": "Calculer la fraction d\\'une quantité",
+    "titre": "Calculer la fraction d'une quantité",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7701,7 +7701,7 @@
     "url": "6e/6N33-1.js",
     "uuid": "66756",
     "id": "6N33-1",
-    "titre": "Calculer mentalement le pourcentage d\\'un nombre",
+    "titre": "Calculer mentalement le pourcentage d'un nombre",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -7878,7 +7878,7 @@
     "url": "6e/6P13.js",
     "uuid": "064ce",
     "id": "6P13",
-    "titre": "Augmenter ou diminuer d\\'un pourcentage",
+    "titre": "Augmenter ou diminuer d'un pourcentage",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -8338,7 +8338,7 @@
     "url": "profs/P009.js",
     "uuid": "691a7",
     "id": "P009",
-    "titre": "Simulation d\\'expériences aléatoires",
+    "titre": "Simulation d'expériences aléatoires",
     "tags": {
       "interactif": false,
       "amc": false
@@ -8358,7 +8358,7 @@
     "url": "profs/P011.js",
     "uuid": "697a7",
     "id": "P011",
-    "titre": "Construction animée d\\'un triangle",
+    "titre": "Construction animée d'un triangle",
     "tags": {
       "interactif": false,
       "amc": false
@@ -8418,7 +8418,7 @@
     "url": "profs/P017.js",
     "uuid": "0ff0f",
     "id": "P017",
-    "titre": "Encadrer l\\'aire d\\'un disque",
+    "titre": "Encadrer l'aire d'un disque",
     "tags": {
       "interactif": false,
       "amc": false
@@ -8488,7 +8488,7 @@
     "url": "PE/PEA12.js",
     "uuid": "3441e",
     "id": "PEA12",
-    "titre": "Additions et soustractions dans d\\'autres bases",
+    "titre": "Additions et soustractions dans d'autres bases",
     "tags": {
       "interactif": false,
       "amc": false
@@ -8498,7 +8498,7 @@
     "url": "PE/PEA13.js",
     "uuid": "a7016",
     "id": "PEA13",
-    "titre": "Multiplications dans d\\'autres bases",
+    "titre": "Multiplications dans d'autres bases",
     "tags": {
       "interactif": false,
       "amc": false
@@ -8518,7 +8518,7 @@
     "url": "PE/PEG21.js",
     "uuid": "838fb",
     "id": "PEG21",
-    "titre": "Tracer une racine au compas et à la règle non graduée à l\\'aide du théorème de la hauteur",
+    "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de la hauteur",
     "tags": {
       "interactif": false,
       "amc": false
@@ -8528,7 +8528,7 @@
     "url": "PE/PEG22.js",
     "uuid": "b752a",
     "id": "PEG22",
-    "titre": "Tracer une racine au compas et à la règle non graduée à l\\'aide du théorème de Pythagore",
+    "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de Pythagore",
     "tags": {
       "interactif": false,
       "amc": false
@@ -8614,7 +8614,7 @@
     "url": "c3/c3C10-4.js",
     "uuid": "ed7fc",
     "id": "c3C10-4",
-    "titre": "Tables d\\'addition",
+    "titre": "Tables d'addition",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -8638,7 +8638,7 @@
     "url": "c3/c3C12.js",
     "uuid": "e2a48",
     "id": "c3C12",
-    "titre": "Dernier chiffre d\\'un calcul",
+    "titre": "Dernier chiffre d'un calcul",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -8741,7 +8741,7 @@
     "url": "c3/c3N11.js",
     "uuid": "c0fb1",
     "id": "c3N11",
-    "titre": "Lire l\\'abscisse entière d\\'un point (grands nombres)",
+    "titre": "Lire l'abscisse entière d'un point (grands nombres)",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -8753,7 +8753,7 @@
     "url": "c3/c3N20.js",
     "uuid": "ec7e4",
     "id": "c3N20",
-    "titre": "Donner l\\'écriture décimale à partir d\\'un somme d\\'entiers et de fractions décimales",
+    "titre": "Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -9141,7 +9141,7 @@
     "url": "can/1e/can1G10.js",
     "uuid": "33ae8",
     "id": "can1G10",
-    "titre": "Associer une mesure d\\'angle à un  point du cercle trigonométrique ",
+    "titre": "Associer une mesure d'angle à un  point du cercle trigonométrique ",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -9152,7 +9152,7 @@
     "url": "can/1e/can1G11.js",
     "uuid": "18b46",
     "id": "can1G11",
-    "titre": "Donner la mesure d\\'un angle à partir des cosinus et sinus ",
+    "titre": "Donner la mesure d'un angle à partir des cosinus et sinus ",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -9918,7 +9918,7 @@
     "url": "can/2e/can2G06.js",
     "uuid": "1f62f",
     "id": "can2G06",
-    "titre": "Déterminer le coefficient directeur d\\'une droite",
+    "titre": "Déterminer le coefficient directeur d'une droite",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -10006,7 +10006,7 @@
     "url": "can/2e/can2G14.js",
     "uuid": "0dfad",
     "id": "can2G14",
-    "titre": "Déterminer les coordonnées d\\'un point avec une translation",
+    "titre": "Déterminer les coordonnées d'un point avec une translation",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -10062,7 +10062,7 @@
     "url": "can/2e/can2G19.js",
     "uuid": "6082f",
     "id": "can2G19",
-    "titre": "Déterminer le coefficient directeur d\\'une droite (graphique)",
+    "titre": "Déterminer le coefficient directeur d'une droite (graphique)",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -10084,7 +10084,7 @@
     "url": "can/2e/can2G21.js",
     "uuid": "21bc0",
     "id": "can2G21",
-    "titre": "Lire les coordonnées d\\'un point dans un repère",
+    "titre": "Lire les coordonnées d'un point dans un repère",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -10206,7 +10206,7 @@
     "url": "can/2e/can2L11.js",
     "uuid": "b5c9c",
     "id": "can2L11",
-    "titre": "Exprimer une variable en fonction d\\'une autre",
+    "titre": "Exprimer une variable en fonction d'une autre",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -10447,7 +10447,7 @@
     "url": "can/3e/can3C14.js",
     "uuid": "3f875",
     "id": "can3C14",
-    "titre": "Passer d\\'un décimal à une fraction irréductible",
+    "titre": "Passer d'un décimal à une fraction irréductible",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -11002,7 +11002,7 @@
     "url": "can/4e/can4C14.js",
     "uuid": "bcb79",
     "id": "can4C14",
-    "titre": "Augmenter un nombre d\\'une fraction",
+    "titre": "Augmenter un nombre d'une fraction",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -11502,7 +11502,7 @@
     "url": "can/5e/can5C17.js",
     "uuid": "b1881",
     "id": "can5C17",
-    "titre": "Écrire la valeur décimale d\\'une somme de fractions",
+    "titre": "Écrire la valeur décimale d'une somme de fractions",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -11561,7 +11561,7 @@
     "url": "can/5e/can5C22.js",
     "uuid": "67f09",
     "id": "can5C22",
-    "titre": "Passer d\\'un décimal à une fraction",
+    "titre": "Passer d'un décimal à une fraction",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -11585,7 +11585,7 @@
     "url": "can/5e/can5C24.js",
     "uuid": "4d164",
     "id": "can5C24",
-    "titre": "Écrire la valeur décimale d\\'une fraction",
+    "titre": "Écrire la valeur décimale d'une fraction",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -11809,7 +11809,7 @@
     "url": "can/5e/can5P09.js",
     "uuid": "7b350",
     "id": "can5P09",
-    "titre": "Calculer un prix à partir d\\'un prix au kg",
+    "titre": "Calculer un prix à partir d'un prix au kg",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -12768,7 +12768,7 @@
     "url": "can/6e/can6N07.js",
     "uuid": "34d01",
     "id": "can6N07",
-    "titre": "Lire l\\'abscisse décimale d\\'un point sur une droite graduée",
+    "titre": "Lire l'abscisse décimale d'un point sur une droite graduée",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -12816,7 +12816,7 @@
     "url": "can/6e/can6N11.js",
     "uuid": "79452",
     "id": "can6N11",
-    "titre": "Écrire sous forme d\\'une fraction décimale",
+    "titre": "Écrire sous forme d'une fraction décimale",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -13240,7 +13240,7 @@
     "url": "can/c3/canc3D01.js",
     "uuid": "2ce11",
     "id": "canc3D01",
-    "titre": "Lire l\\'heure",
+    "titre": "Lire l'heure",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -13345,7 +13345,7 @@
     "url": "can/c3/canc3N04.js",
     "uuid": "de7d5",
     "id": "canc3N04",
-    "titre": "Arrondir à l\\'unité",
+    "titre": "Arrondir à l'unité",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -13462,7 +13462,7 @@
     "url": "techno1/techno1P2-2.js",
     "uuid": "86f71",
     "id": "techno1P2-2",
-    "titre": "Proportion d\\'une sous-population",
+    "titre": "Proportion d'une sous-population",
     "tags": {
       "interactif": false,
       "amc": false
@@ -13496,7 +13496,7 @@
     "url": "techno1/techno1P5.js",
     "uuid": "5b5c0",
     "id": "techno1P5",
-    "titre": "Déterminer un effectif à partir d\\'une proportion",
+    "titre": "Déterminer un effectif à partir d'une proportion",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",

@@ -1,3 +1,20 @@
+/**
+ * Ce script permet de mettre à jour les fichiers :
+ * - src/json/exercices.json
+ * - src/json/exercicesNonInteractifs.json
+ * - src/json/uuidsToUrl.json
+ * - src/json/referentiel2022.json
+ *
+ * Il permet aussi de générer un uuid pour un nouvel exercice
+ * Il faut lancer ce script après avoir créé un nouvel exercice
+ * Ce script s'appuie sur emptyRef2022.json qui contient les niveaux et les catégories
+ * Les titres des niveaux, thèmes et sous-thèmes sont gérés dans src/levelsThemesList.json
+ *
+ * ToDo : arrêter l'utilisation de referentielRessources.json
+ *
+ * Remarque : nouveau fonctionnement au 13 aout 2023 en remplacement de makJson.js
+ */
+
 import { readFileSync } from 'fs'
 import fs from 'fs/promises'
 import path from 'path'
@@ -47,7 +64,8 @@ async function readInfos (dirPath) {
             data.match(/export const titre = "(.*)"/) ||
             data.match(/export let titre = '(.*)'/)
           if (matchTitre) {
-            infos.titre = matchTitre[1]
+            // ToDo : Est-ce qu'il y a d'autres caractères spéciaux à gérer que l'apostrophe ?
+            infos.titre = matchTitre[1].replaceAll('\\\'', '\'')
           } else {
             console.error('\x1b[31m%s\x1b[0m', `titre non trouvé dans ${filePath}`)
           }
@@ -161,7 +179,7 @@ readInfos(exercicesDir, uuidMap)
         }
       }
     }
-    fs.writeFile('src/json/newReferentiel2022.json', JSON.stringify(referentiel2022, null, 2).replaceAll('"c3"', '"CM1/CM2"'))
+    fs.writeFile('src/json/referentiel2022.json', JSON.stringify(referentiel2022, null, 2).replaceAll('"c3"', '"CM1/CM2"'))
   })
   .then(() => {
     console.log('uuidsToUrl et referentiel2022 ont été mis à jour')

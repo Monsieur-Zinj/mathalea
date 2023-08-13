@@ -1,5 +1,5 @@
 import { droite } from '../../lib/2d/droites.js'
-import RepereBuilder from '../../lib/2d/RepereBuilder.ts'
+import RepereBuilder from '../../lib/2d/RepereBuilder.js'
 import { tableauSignesFonction, trouveFonctionAffine } from '../../lib/mathFonctions/etudeFonction.js'
 import { rationnalise } from '../../lib/mathFonctions/outilsMaths.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'e39b8'
-export const ref = '2ZF3-01'
+export const ref = '200F3-01'
 
 /**
  * trois niveaux, trouver les signes d'une fonction affine
@@ -29,7 +29,7 @@ export default class LectureSigneAffine extends Exercice {
     this.sup = 3
     this.besoinFormulaireNumerique = ['Niveau', 3]
   }
-  
+
   nouvelleVersion () {
     // Dans ce modèle, j'ai pris la première question du fichier Doc-Automatismes-2de-acOT-GTCAN-2023.pdf.
     // La question posée est de lister tous les diviseurs d'un entier.
@@ -48,10 +48,9 @@ export default class LectureSigneAffine extends Exercice {
         ;[a, b] = trouveFonctionAffine(0, y, x, 0)
       }
         break
-      case 3: { // coefficient rationnel
+      case 3: // coefficient rationnel
         b = 0
         a = Math.random() < 0.5 ? randint(-3, 3, 0) : 1 / randint(-4, 4, 0)
-      }
         break
     }
     a = rationnalise(a)
@@ -64,7 +63,7 @@ export default class LectureSigneAffine extends Exercice {
         step: 1,
         substituts: [
           { antVal: -6, antTex: '-\\infty' },
-          { antVal: 6, antTex: '+\\infty' },
+          { antVal: 6, antTex: '+\\infty' }
         ]
       })
     const repere = new RepereBuilder({ xMin: -6, xMax: 6, yMin: -6, yMax: 6 }).buildStandard()

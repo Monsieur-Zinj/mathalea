@@ -1,6 +1,6 @@
 import { courbe } from '../../lib/2d/courbes.js'
 import { plot } from '../../lib/2d/points.js'
-import RepereBuilder from '../../lib/2d/RepereBuilder.ts'
+import RepereBuilder from '../../lib/2d/RepereBuilder.js'
 import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'e46e6'
-export const ref = '2ZF3-02'
+export const ref = '20F3-02'
 
 /**
  * trois niveaux, trouver les signes d'une fonction affine
@@ -30,7 +30,7 @@ export default class LectureEnsebleDef extends Exercice {
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau', 3]
   }
-  
+
   nouvelleVersion () {
     // Dans ce modèle, j'ai pris la première question du fichier Doc-Automatismes-2de-acOT-GTCAN-2023.pdf.
     // La question posée est de lister tous les diviseurs d'un entier.
@@ -52,7 +52,7 @@ export default class LectureEnsebleDef extends Exercice {
       }))
       return spline(nuage)
     }
-    
+
     const noeuds1 = [
       { x: -2 + randint(-1, 1), y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: 0, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
@@ -104,7 +104,6 @@ export default class LectureEnsebleDef extends Exercice {
           courbeAvecTrace = [
             courbe(parabole, { repere, xMax: -dx + 1, step: 0.05, epaisseur: 1 }),
             plot(-dx + 1, parabole(-dx + 1), { rayon: 0.1 })]
-          
         }
       }
         break
@@ -125,7 +124,7 @@ export default class LectureEnsebleDef extends Exercice {
       }
         break
     }
-    
+
     this.question = mathalea2d(Object.assign({}, fixeBordures([repere])), [repere, courbeAvecTrace]) + 'Quel est l\'ensemble de définition de la fonction représentée ci-dessus ?'
     this.correction = `L'ensemble de définition de la fonction est $${xmin === '-\\infty' ? ']' : '['}${xmin};${xmax}${xmax === '+\\infty' ? '[' : ']'}$.`
     this.reponse = `${xmin === '-\\infty' ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${xmax === '+\\infty' ? '\\right\\lbrack' : '\\right\\rbrack'}`

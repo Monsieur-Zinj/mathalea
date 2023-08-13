@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '15fd6'
-export const ref = '2ZA1-01'
+export const ref = '200A1-01'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -26,7 +26,7 @@ export default class ModeleAutomatisme2nde extends Exercice {
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau', 3]
   }
-  
+
   nouvelleVersion () {
     // Dans ce modèle, j'ai pris la première question du fichier Doc-Automatismes-2de-acOT-GTCAN-2023.pdf.
     // La question posée est de lister tous les diviseurs d'un entier.
