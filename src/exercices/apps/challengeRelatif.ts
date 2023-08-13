@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-import { globalOptions, resultsByExercice } from '../../components/store'
+import { globalOptions, resultsByExercice, exercicesParams } from '../../components/store'
 
 export const uuid = 'challengeRelatif'
 export const titre = 'Challenge relatifs'
@@ -21,25 +21,34 @@ class challengeRelatif {
     this.iframe.classList.add('my-10')
     this.iframe.setAttribute('allowfullscreen', '')
     this.container.appendChild(this.iframe)
-    const updateVideoSize = () => {
+    const updateIframeSize = () => {
       if (window.innerWidth > window.innerHeight) {
         this.iframe.setAttribute('width', '100%')
-        this.iframe.setAttribute('height', (document.body.offsetHeight * 0.75).toString())
+        this.iframe.setAttribute('height', (document.body.offsetWidth * 0.75).toString())
       } else {
         this.iframe.setAttribute('width', '100%')
-        this.iframe.setAttribute('height', (document.body.offsetHeight * 1.5).toString())
+        this.iframe.setAttribute('height', (document.body.offsetWidth * 1.5).toString())
       }
     }
-    window.addEventListener('resize', updateVideoSize)
-    this.container.addEventListener('addedToDom', updateVideoSize)
+    window.addEventListener('resize', updateIframeSize)
+    window.addEventListener('orientationchange', updateIframeSize)
+    this.container.addEventListener('addedToDom', updateIframeSize)
+    window.addEventListener('message', (event) => {
+      if (event.data?.type === 'mathaleaSettings' && event.data?.numeroExercice === this.numeroExercice) {
+        this.sup = event.data.url
+        exercicesParams.update((l) => {
+          l[this.numeroExercice].sup = event.data.url
+          return l
+        })
+      }
+    })
   }
 
   get html () {
     this.handleScore()
     let url = `https://coopmaths.fr/challenge/?mathalea&numeroExercice=${this.numeroExercice}`
-
     if (this.sup !== undefined) {
-      url += `&params=${this.sup}`
+      url = this.sup + `&numeroExercice=${this.numeroExercice}`
     }
     if (get(globalOptions).v === 'eleve') {
       url += '&v=eleve'

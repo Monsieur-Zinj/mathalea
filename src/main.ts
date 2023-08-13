@@ -17,7 +17,8 @@ async function handleBugsnag () {
   const key = getBugsnagApiKey.default() || ''
   Bugsnag.start(key)
 }
-if (document.location.href.includes('coopmaths.fr')) {
+
+if (document.location.hostname === 'coopmaths.fr') {
   handleBugsnag()
 }
 
