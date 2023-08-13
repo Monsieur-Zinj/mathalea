@@ -1,5 +1,4 @@
-import { get } from 'svelte/store'
-import { resultsByExercice, globalOptions } from '../../components/store'
+import { resultsByExercice } from '../../components/store'
 
 export const uuid = 'permisLitteral'
 export const titre = 'Permis calcul littéral'
@@ -29,15 +28,8 @@ class challengeRelatif {
         this.iframe.setAttribute('height', (document.body.offsetHeight * 1.5).toString())
       }
     }
-    const initExercice = () => {
-      const vue = get(globalOptions).v
-      const message = { type: 'mathaleaSendNumeroExercice', numeroExercice: this.numeroExercice, vue }
-      this.iframe.contentWindow.postMessage(message, '*')
-    }
     window.addEventListener('resize', updateVideoSize)
     this.container.addEventListener('addedToDom', updateVideoSize)
-    this.container.addEventListener('exerciceChange', updateVideoSize)
-    this.iframe.addEventListener('load', initExercice)
   }
 
   get html () {
