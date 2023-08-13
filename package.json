@@ -59,6 +59,7 @@
     "earcut": "^2.2.4",
     "file-saver": "^2.0.5",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
+    "apigeom": "git+https://forge.aeif.fr/coopmaths/apigeom.git",
     "jszip": "^3.10.1",
     "jszip-utils": "^0.1.0",
     "katex": "^0.16.7",
