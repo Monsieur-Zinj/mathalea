@@ -92,12 +92,12 @@ export function DroiteGraduee ({
   LegendePosition = (Max - Min) * Unite + 1.5
 } = {}) {
   ObjetMathalea2D.call(this, {})
-  
+
   // Les propriétés exportables
   this.Unite = Unite
   this.Min = Min
   this.Max = Max
-  
+
   const objets = []
   let S
   let T
@@ -125,7 +125,7 @@ export function DroiteGraduee ({
   if (thickTer) factor = 1 / thickTerDist
   else if (thickSec) factor = 1 / thickSecDist
   else factor = 1 / thickDistance
-  
+
   const Min2 = Math.ceil((Min + thickOffset) * factor) // début des graduations (ne coïncide pas nécéssairement avec le début de la droite)
   const Max2 = Math.floor((Max - thickOffset) * factor) // fin des graduations
   const pas1 = Math.round(thickDistance * factor)
@@ -192,7 +192,7 @@ export function DroiteGraduee ({
       objets.push(T, lab)
     }
   }
-  
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -1103,7 +1103,6 @@ export function papierPointe ({
   })
 }
 
-
 export function Repere ({
   /**
    * repere({xUnite, yUnite, xMin, xMax, yMin, yMax, axeX, axeY, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
@@ -1395,7 +1394,7 @@ export function Repere ({
       )
     }
     for (const y of grilleSecondaireYListe) {
-      const traitH = segment((grilleSecondaireXMin ? grilleSecondaireXMin : xMin) * xUnite, y * yUnite, (grilleSecondaireXMax ? grilleSecondaireXMax : xMax) * xUnite, y * yUnite, grilleSecondaireYCouleur)
+      const traitH = segment((grilleSecondaireXMin || xMin) * xUnite, y * yUnite, (grilleSecondaireXMax || xMax) * xUnite, y * yUnite, grilleSecondaireYCouleur)
       traitH.isVisible = false
       traitH.opacite = grilleSecondaireYOpacite
       traitH.epaisseur = grilleSecondaireEpaisseur
@@ -1424,7 +1423,7 @@ export function Repere ({
       )
     }
     for (const x of grilleSecondaireXListe) {
-      const traitV = segment(x * xUnite, (grilleSecondaireYMin ? grilleSecondaireYMin : yMin) * yUnite, x * xUnite, (grilleSecondaireYMax ? grilleSecondaireYMax : yMax) * yUnite, grilleSecondaireXCouleur)
+      const traitV = segment(x * xUnite, (grilleSecondaireYMin || yMin) * yUnite, x * xUnite, (grilleSecondaireYMax || yMax) * yUnite, grilleSecondaireXCouleur)
       traitV.isVisible = false
       traitV.opacite = grilleSecondaireXOpacite
       traitV.epaisseur = grilleSecondaireEpaisseur
