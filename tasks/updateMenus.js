@@ -36,7 +36,12 @@ async function readInfos (dirPath) {
           if (matchRef) {
             infos.id = matchRef[1]
           } else {
-            console.error('\x1b[31m%s\x1b[0m', `ref non trouvé dans ${filePath}`)
+            if (!filePath.includes('beta') &&
+              !filePath.includes('/apps/') &&
+              !filePath.includes('/ressources/')
+            ) {
+              console.error('\x1b[31m%s\x1b[0m', `ref non trouvé dans ${filePath}`)
+            }
           }
           const matchTitre = data.match(/export const titre = '(.*)'/) ||
             data.match(/export const titre = "(.*)"/) ||

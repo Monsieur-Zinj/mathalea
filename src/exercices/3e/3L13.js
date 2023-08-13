@@ -3,6 +3,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const titre = 'Résoudre une équation du premier degré'
 
 /**
  * Équation du premier degré

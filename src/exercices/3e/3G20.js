@@ -3,6 +3,7 @@ export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const titre = 'Calculer des longueurs avec le théorème de Thalès'
 
 /**
  * Calcul de longueurs avec le théorème de Thalès

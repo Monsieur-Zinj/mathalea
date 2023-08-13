@@ -3,6 +3,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const titre = 'Lire l\'abscisse entière d\'un point (grands nombres)'
+
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, milliers, millions, milliards
