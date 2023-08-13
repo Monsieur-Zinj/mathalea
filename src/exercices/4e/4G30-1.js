@@ -1,5 +1,6 @@
 import RelationDeThales from './_RelationDeThales.js'
-export { titre } from './_RelationDeThales.js'
+
+export const titre = 'Écrire une relation de Thalès'
 export const dateDePublication = '05/01/2023'
 /**
  * Relation de Thalès

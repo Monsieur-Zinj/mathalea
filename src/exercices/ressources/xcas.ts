@@ -6,6 +6,7 @@ import type { List } from '../../lib/format/lists.js'
 import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time.js'
 
 export const uuid = 'xcas'
+export const titre = 'xCas'
 
 class xCas {
   typeExercice: string
@@ -13,7 +14,7 @@ class xCas {
   html: HTMLDivElement
   constructor () {
     this.typeExercice = 'html xcas'
-    this.titre = 'xCas'
+    this.titre = titre
     this.html = document.createElement('div')
     let firstTime:boolean = true
     const intro = document.createElement('p')

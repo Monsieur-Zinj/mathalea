@@ -15,7 +15,7 @@ export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const titre = "Étudier la parité d'une fonction"
+export const titre = 'Étudier la parité d\'une fonction'
 export const dateDeModifImportante = '19/06/2023'
 /**
  * Reconnaître parité fonction
