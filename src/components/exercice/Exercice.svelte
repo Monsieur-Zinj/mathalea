@@ -1,19 +1,20 @@
 <script lang="ts">
-  import { mathaleaHandleParamOfOneExercice, mathaleaLoadExerciceFromUuid } from '../../lib/mathalea'
-  import { onMount, SvelteComponent } from 'svelte'
-  import { globalOptions } from '../store'
-  import type { InterfaceParams } from 'src/lib/types'
+  import {mathaleaHandleParamOfOneExercice, mathaleaLoadExerciceFromUuid} from '../../lib/mathalea'
+  import {onMount, SvelteComponent} from 'svelte'
+  import {globalOptions} from '../store'
+  import type {InterfaceParams} from 'src/lib/types'
   import uuidToUrl from '../../json/uuidsToUrl.json'
-
+  import ExerciceStaticSvelteComponent from "./ExerciceStatic.svelte";
+  
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
-
+  
   let exercice
-  let ComponentExercice: typeof SvelteComponent
+  let ComponentExercice: SvelteComponent | ExerciceStaticSvelteComponent
   let optionsComponent: object
-
+  
   onMount(async () => {
     const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
     if (
@@ -22,23 +23,23 @@
       paramsExercice.uuid.substring(0, 4) === 'e3c_' ||
       paramsExercice.uuid.substring(0, 4) === 'bac_'
     ) {
-      optionsComponent = { uuid: paramsExercice.uuid }
+      optionsComponent = {uuid: paramsExercice.uuid}
       ComponentExercice = (await import('./ExerciceStatic.svelte')).default
     } else if (urlExercice && urlExercice.includes('.svelte')) {
       // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
-      ComponentExercice = (await import(`../../exercicesInteractifs/${urlExercice.replace('.svelte', '')}.svelte`)).default
+      ComponentExercice = (await import('../../exercicesInteractifs/' + urlExercice.replace('.svelte', '') + '.svelte')).default
     } else {
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
       exercice.numeroExercice = indiceExercice
       if (exercice.typeExercice && exercice.typeExercice.includes('html')) {
         mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-        optionsComponent = { exercice }
+        optionsComponent = {exercice}
         ComponentExercice = (await import('./ExerciceHtml.svelte')).default
       } else {
         mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
         if (paramsExercice.duration) exercice.duree = paramsExercice.duration
-        optionsComponent = { exercice, isCorrectionVisible }
+        optionsComponent = {exercice, isCorrectionVisible}
         if ($globalOptions.v === 'eleve') {
           ComponentExercice = (await import('./ExerciceVueEleve.svelte')).default
         } else {
@@ -49,7 +50,7 @@
   })
 </script>
 
-<svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} />
+<svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice}/>
 
 <style>
 </style>

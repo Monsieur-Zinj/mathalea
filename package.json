@@ -39,7 +39,7 @@
     "start": "vite",
     "build2": "vite build",
     "build": "node --loader ts-node/esm tasks/makeJson& vite build",
-    "build:dicos": "node --loader ts-node/esm tasks/makeJsonJson.js",
+    "build:dicos": "node --loader ts-node/esm tasks/makeJson.js",
     "makeJson": "node --loader ts-node/esm tasks/makeJson.js",
     "getNewUuid": "node --loader ts-node/esm tasks/getNewUuid.js",
     "preview": "vite preview",

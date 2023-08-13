@@ -1103,24 +1103,101 @@ export function papierPointe ({
   })
 }
 
-/**
- * repere({xUnite, yUnite, xMin, xMax, yMin, yMax, axeX, axeY, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
- * thickHauteur, thickCouleur, xThickDistance, xThickListe, xThickMin, xThickMax, yThickDistance, yThickListe,
- * yThickMin, yThickMax, xLabelDistance, xLabelListe, xLabelMin, xLabelMax, yLabelDistance, yLabelListe,
- * yLabelMin, yLabelMax, xLegende,xLegendePosition, yLegende, yLegendePosition, grille, grilleDistance,
- * grilleCouleur,grilleOpacite, grilleEpaisseur, grilleSecondaire, grilleSecondaireDistance, grilleSecondaireCouleur,
- * grilleSecondaireOpacite, grilleSecondaireEpaisseur, grilleX, grilleXListe, grilleXDistance, grilleXMin, grilleXMax,
- * grilleXCouleur, grilleXOpacite, grilleY, grilleYListe, grilleYDistance, grilleYMin, grilleYMax, grilleYCouleur,
- * grilleYOpacite, grilleSecondaireX, grilleSecondaireXListe, grilleSecondaireXDistance, grilleSecondaireXMin, grilleSecondaireXMax,
- * grilleSecondaireXCouleur, grilleSecondaireXOpacite, grilleSecondaireY, grilleSecondaireYListe, grilleSecondaireYDistance,
- * grilleSecondaireYMin, grilleSecondaireYMax, grilleSecondaireYCouleur, grilleSecondaireYOpacite})
- *
- * repere() trace un repère classique. De nombreux paramètres permettent d'en modifier l'aspect
- *
- * @author Rémi Angot
- */
 
 export function Repere ({
+  /**
+   * repere({xUnite, yUnite, xMin, xMax, yMin, yMax, axeX, axeY, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
+   * thickHauteur, thickCouleur, xThickDistance, xThickListe, xThickMin, xThickMax, yThickDistance, yThickListe,
+   * yThickMin, yThickMax, xLabelDistance, xLabelListe, xLabelMin, xLabelMax, yLabelDistance, yLabelListe,
+   * yLabelMin, yLabelMax, xLegende,xLegendePosition, yLegende, yLegendePosition, grille, grilleDistance,
+   * grilleCouleur,grilleOpacite, grilleEpaisseur, grilleSecondaire, grilleSecondaireDistance, grilleSecondaireCouleur,
+   * grilleSecondaireOpacite, grilleSecondaireEpaisseur, grilleX, grilleXListe, grilleXDistance, grilleXMin, grilleXMax,
+   * grilleXCouleur, grilleXOpacite, grilleY, grilleYListe, grilleYDistance, grilleYMin, grilleYMax, grilleYCouleur,
+   * grilleYOpacite, grilleSecondaireX, grilleSecondaireXListe, grilleSecondaireXDistance, grilleSecondaireXMin, grilleSecondaireXMax,
+   * grilleSecondaireXCouleur, grilleSecondaireXOpacite, grilleSecondaireY, grilleSecondaireYListe, grilleSecondaireYDistance,
+   * grilleSecondaireYMin, grilleSecondaireYMax, grilleSecondaireYCouleur, grilleSecondaireYOpacite})
+   *
+   * repere() trace un repère classique. De nombreux paramètres permettent d'en modifier l'aspect
+   *
+   * @author Rémi Angot
+   * @param {number}  xUnite = 1,
+   * @param {number}  yUnite = 1,
+   * @param {number}  xMin = -10,
+   * @param {number}  xMax = 10,
+   * @param {number}  yMin = -10,
+   * @param {number}  yMax = 10,
+   * @param {boolean}  axeXisVisible = true,
+   * @param {boolean}  axeYisVisible = true,
+   * @param {number}  axesEpaisseur = 2,
+   * @param {string}  axesCouleur = 'black',
+   * @param {string}  axeXStyle = '->',
+   * @param {string}  axeYStyle = '->',
+   * @param {number}  thickEpaisseur = 2,
+   * @param {number}  thickHauteur = 0.2,
+   * @param {string}  thickCouleur = axesCouleur,
+   * @param {number}  xThickDistance = 1,
+   * @param {number[]|boolean}  xThickListe = false,
+   * @param {number}  xThickMin = xMin + xThickDistance,
+   * @param {number}  xThickMax = xMax - xThickDistance,
+   * @param {number}  yThickDistance = 1,
+   * @param {number[]|boolean}  yThickListe = false,
+   * @param {number}  yThickMin = yMin + yThickDistance,
+   * @param {number}  yThickMax = yMax - yThickDistance,
+   * @param {number}  xLabelDistance = xThickDistance,
+   * @param {number[]|boolean}  xLabelListe = false,
+   * @param {number}  xLabelMin = xThickMin,
+   * @param {number}  xLabelMax = xThickMax,
+   * @param {number}  yLabelDistance = yThickDistance,
+   * @param {number[]|boolean}  yLabelListe = false,
+   * @param {number}  yLabelMin = yThickMin,
+   * @param {number}  yLabelMax = yThickMax,
+   * @param {number}  precisionLabelX = 1,
+   * @param {number}  precisionLabelY = 1,
+   * @param {number}  xLabelEcart = 0.5,
+   * @param {number}  yLabelEcart = 0.5,
+   * @param {string}  xLegende = '',
+   * @param {number}  xLegendePosition = [],
+   * @param {string}  yLegende = '',
+   * @param {number}  yLegendePosition = [],
+   * @param {boolean}  grille = true,
+   * @param {number}  grilleDistance = false,
+   * @param {string}  grilleCouleur = 'black',
+   * @param {number}  grilleOpacite = 0.5,
+   * @param {number}  grilleEpaisseur = 1,
+   * @param {boolean}  grilleSecondaire = false,
+   * @param {number}  grilleSecondaireDistance = false,
+   * @param {string}  grilleSecondaireCouleur = 'gray',
+   * @param {number}  grilleSecondaireOpacite = 0.3,
+   * @param {number}  grilleSecondaireEpaisseur = 1,
+   * @param {boolean}  grilleX = grille,
+   * @param {number[]|boolean}  grilleXListe = false,
+   * @param {number}  grilleXDistance = grilleDistance,
+   * @param {number|boolean}  grilleXMin = false,
+   * @param {number|boolean}  grilleXMax = false,
+   * @param {string}  grilleXCouleur = grilleCouleur,
+   * @param {number}  grilleXOpacite = grilleOpacite,
+   * @param {boolean}  grilleY = grille,
+   * @param {number[]|boolean}  grilleYListe = false,
+   * @param {number}  grilleYDistance = grilleDistance,
+   * @param {number|boolean}  grilleYMin = false,
+   * @param {number|boolean}  grilleYMax = false,
+   * @param {string}  grilleYCouleur = grilleCouleur,
+   * @param {number}  grilleYOpacite = grilleOpacite,
+   * @param {boolean}  grilleSecondaireX = grilleSecondaire,
+   * @param {number[]|boolean}  grilleSecondaireXListe = false,
+   * @param {number}  grilleSecondaireXDistance = grilleSecondaireDistance,
+   * @param {number|boolean}  grilleSecondaireXMin = false,
+   * @param {number|boolean}  grilleSecondaireXMax = false,
+   * @param {string}  grilleSecondaireXCouleur = grilleSecondaireCouleur,
+   * @param {number}  grilleSecondaireXOpacite = grilleSecondaireOpacite,
+   * @param {boolean}  grilleSecondaireY = grilleSecondaire,
+   * @param {number[]|boolean}  grilleSecondaireYListe = false,
+   * @param {number}  grilleSecondaireYDistance = grilleSecondaireDistance,
+   * @param {number|boolean}  grilleSecondaireYMin = false,
+   * @param {number|boolean}  grilleSecondaireYMax = false,
+   * @param {string}  grilleSecondaireYCouleur = grilleSecondaireCouleur,
+   * @param {number}  grilleSecondaireYOpacite = grilleSecondaireOpacite
+   */
   xUnite = 1,
   yUnite = 1,
   xMin = -10,
@@ -1200,7 +1277,7 @@ export function Repere ({
   grilleSecondaireYOpacite = grilleSecondaireOpacite
 }) {
   ObjetMathalea2D.call(this, {})
-  
+
   // Les propriétés exportables
   this.xUnite = xUnite
   this.yUnite = yUnite
@@ -1208,9 +1285,9 @@ export function Repere ({
   this.xMax = xMax
   this.yMin = yMin
   this.yMax = yMax
-  
+
   this.bordures = [xMin * xUnite - 1, yMin * yUnite - 1, xMax * xUnite + 1 + xLegende.length / 3, yMax * yUnite + 1]
-  
+
   const objets = []
   // LES AXES
   const ordonneeAxe = Math.max(0, yMin)
@@ -1233,7 +1310,7 @@ export function Repere ({
   axeX.isVisible = false
   axeY.isVisible = false
   // GRILLE PRINCIPALE
-  
+
   // Les traits horizontaux
   if (grilleY) {
     if (!grilleYListe) {
@@ -1296,9 +1373,9 @@ export function Repere ({
       }
     }
   }
-  
+
   // GRILLE SECONDAIRE
-  
+
   // Les traits horizontaux
   if (grilleSecondaireY) {
     if (!grilleSecondaireYListe) {
@@ -1426,7 +1503,7 @@ export function Repere ({
   if (yLegende.length > 0) {
     objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
   }
-  
+
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
