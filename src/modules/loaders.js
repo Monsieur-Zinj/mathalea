@@ -1,14 +1,13 @@
-/* global jQuery */
 import loadjs from 'loadjs'
 import { context } from './context.js'
 import { UserFriendlyError } from './messages.js'
-import { clavierLongueur } from '../lib/interactif/claviers/longueur_ANCIEN.js'
-import { clavierTrigo } from '../lib/interactif/claviers/trigo.js'
-import { clavierCollege } from '../lib/interactif/claviers/college.js'
-import { clavierLycee } from '../lib/interactif/claviers/lycee.js'
-import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
-import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
-import { clavierHms } from '../lib/interactif/claviers/clavierHms.js'
+// import { clavierLongueur } from '../lib/interactif/claviers/longueur_ANCIEN.js'
+// import { clavierTrigo } from '../lib/interactif/claviers/trigo.js'
+// import { clavierCollege } from '../lib/interactif/claviers/college.js'
+// import { clavierLycee } from '../lib/interactif/claviers/lycee.js'
+// import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
+// import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
+import { CLAVIER_HMS } from '../lib/interactif/claviers/clavierHms.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -150,78 +149,83 @@ export async function loadMathLive () {
   if (champs.length > 0) {
     await import('mathlive')
     for (const mf of champs) {
-      mf.setOptions(clavierCollege)
-
-      // Evite les problèmes de positionnement du clavier mathématique dans les iframes
-      if (context.vue === 'exMoodle') {
-        const events = ['focus', 'input']
-        events.forEach(e => {
-          mf.addEventListener(e, () => {
-            setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
-              const position = jQuery(mf).offset().top + jQuery(mf).outerHeight() + 'px'
-              document.body.style.setProperty('--keyboard-position', position)
-            })
-          })
-        })
-      }
-
-      if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
-        // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
-        mf.setOptions({
-          virtualKeyboardMode: 'onfocus'
-        })
-      }
-      const listeParamClavier = mf.classList
-      if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) {
-        let jj = 0
-        while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
-        const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
-        mf.setOptions(clavierConfiguration(contenuUnites))
-      }
-      if (mf.classList.contains('lycee')) {
-        mf.setOptions(clavierLycee)
-      }
-      if (mf.classList.contains('college6eme')) {
-        mf.setOptions(clavierCollege6eme)
-      }
-      if (mf.classList.contains('longueur')) {
-        mf.setOptions(clavierLongueur)
-      }
+      mf.mathVirtualKeyboardPolicy = 'manual'
+      // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
-        mf.setOptions(clavierHms)
-      }
-      if (mf.classList.contains('grecTrigo')) {
-        mf.setOptions(clavierTrigo)
-      }
-      let style = 'font-size: 20px;'
-
-      if (mf.classList.contains('inline')) {
-        if (mf.classList.contains('nospacebefore')) {
-          style += 'margin-left:5px;'
-        } else {
-          style += 'margin-left: 25px;'
-        }
-        style += ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
-          style += ' width: 25%;'
-        }
+        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_HMS })
       } else {
-        style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
+        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' })
       }
-      if (mf.classList.contains('largeur10')) {
-        style += ' width: 10%;'
-      }
-      if (mf.classList.contains('largeur25')) {
-        style += ' width: 25%;'
-      }
-      if (mf.classList.contains('largeur50')) {
-        style += ' width: 50%;'
-      }
-      if (mf.classList.contains('largeur75')) {
-        style += ' width: 75%;'
-      }
-      style += ' min-width: 200px'
-      mf.style = style
+      //   // Evite les problèmes de positionnement du clavier mathématique dans les iframes
+      //   if (context.vue === 'exMoodle') {
+      //     const events = ['focus', 'input']
+      //     events.forEach(e => {
+      //       mf.addEventListener(e, () => {
+      //         setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
+      //           const position = jQuery(mf).offset().top + jQuery(mf).outerHeight() + 'px'
+      //           document.body.style.setProperty('--keyboard-position', position)
+      //         })
+      //       })
+      //     })
+      //   }
+
+      //   if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
+      //     // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
+      //     mf.setOptions({
+      //       virtualKeyboardMode: 'onfocus'
+      //     })
+      //   }
+      //   const listeParamClavier = mf.classList
+      //   if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) {
+      //     let jj = 0
+      //     while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
+      //     const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
+      //     mf.setOptions(clavierConfiguration(contenuUnites))
+      //   }
+      //   if (mf.classList.contains('lycee')) {
+      //     mf.setOptions(clavierLycee)
+      //   }
+      //   if (mf.classList.contains('college6eme')) {
+      //     mf.setOptions(clavierCollege6eme)
+      //   }
+      //   if (mf.classList.contains('longueur')) {
+      //     mf.setOptions(clavierLongueur)
+      //   }
+      //   if (mf.classList.contains('clavierHms')) {
+      //     mf.setOptions(clavierHms)
+      //   }
+      //   if (mf.classList.contains('grecTrigo')) {
+      //     mf.setOptions(clavierTrigo)
+      //   }
+      //   let style = 'font-size: 20px;'
+
+    //   if (mf.classList.contains('inline')) {
+    //     if (mf.classList.contains('nospacebefore')) {
+    //       style += 'margin-left:5px;'
+    //     } else {
+    //       style += 'margin-left: 25px;'
+    //     }
+    //     style += ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
+    //     if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
+    //       style += ' width: 25%;'
+    //     }
+    //   } else {
+    //     style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
+    //   }
+    //   if (mf.classList.contains('largeur10')) {
+    //     style += ' width: 10%;'
+    //   }
+    //   if (mf.classList.contains('largeur25')) {
+    //     style += ' width: 25%;'
+    //   }
+    //   if (mf.classList.contains('largeur50')) {
+    //     style += ' width: 50%;'
+    //   }
+    //   if (mf.classList.contains('largeur75')) {
+    //     style += ' width: 75%;'
+    //   }
+    //   style += ' min-width: 200px'
+    //   mf.style = style
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive

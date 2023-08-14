@@ -50,6 +50,34 @@ const collegeKeyboard = {
   }
 }
 
+export const CLAVIER_TEST = {
+  rows: [
+    [
+      '+',
+      '-',
+      '\\times',
+      '\\frac{#@}{#?}',
+      '=',
+      '.',
+      '(',
+      ')',
+      '\\sqrt{#0}',
+      '#@^{#?}'
+    ],
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+  ]
+}
+
+export const CLAVIER_HMS = {
+  rows: [
+    ['7', '8', '9', '[separator]', '{\\:\\text{h}\\:}'],
+    ['4', '5', '6', '[separator]', '{\\:\\text{min}\\:}'],
+    ['1', '2', '3', '[separator]', '{\\:\\text{s}\\:}'],
+    ['0', { label: '[backspace]', command: 'deleteBackward', width: 1 }, '[separator]', '[separator]', '[separator]']
+    // ['0', { label: '[backspace]', command: 'deleteBackward', width: 1 }, { label: '[hide-keyboard]', command: 'hideVirtualKeyboard', width: 1 }, '[separator]', '[separator]']
+  ]
+}
+
 export const clavierHms = {
   customVirtualKeyboardLayers: collegeKeyboardLayer,
   customVirtualKeyboards: collegeKeyboard,
