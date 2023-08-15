@@ -21,7 +21,7 @@ let timerId: ReturnType<typeof setTimeout>
 let firstTime = true
 
 /**
-   * Fonction pour recevoir les paramètres des exercices depuis une plateforme extérieure comme Moodle
+   * Fonction pour recevoir les paramètres des exercices depuis Capytale
   */
 async function toolSetActivityParams ({ mode, activity, workflow, studentAssignment }: ActivityParams) {
   // mode : create (le prof créé sa séance), assignment (l'élève voit sa copie), review (le prof voit la copie d'un élève), view (le prof voit la séance d'un collègue dans la bibliothèque et pourra la cloner)
@@ -81,19 +81,26 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   for (const exercice of studentAssignment) {
     for (const answer in exercice.answers) {
       // La réponse correspond à un champs texte
-      const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
+      const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
       if (field !== null) {
-        field.setValue(exercice.answers[answer])
+        if ('setValue' in field) {
+          // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
+          field.setValue(exercice.answers[answer])
+        } else if ('value' in field) {
+          // C'est un HTMLInputElement (créé avec ajouteChampTexte)
+          field.value = exercice.answers[answer]
+        }
       }
       // La réponse correspond à une case à cocher qui doit être cochée
       const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-      // @ts-ignore
-      if (checkBox !== null && exercice.answers[answer] === 1) {
+      if (checkBox !== null && exercice.answers[answer] === '1') {
         checkBox.checked = true
       }
       // La réponse correspond à une liste déroulante
       const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-      select.value = exercice.answers[answer]
+      if (select !== null) {
+        select.value = exercice.answers[answer]
+      }
     }
     if (exercice.state === 'done') {
       // On attent que le bouton de correction soit chargé
@@ -132,7 +139,6 @@ export function sendToCapytaleSaveStudentAssignment () {
     }
     i++
   }
-  console.log('Envoi des résultats à Capytale', results, evaluation)
   rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation })
 }
 
@@ -141,12 +147,11 @@ function sendToCapytaleActivityParams () {
 }
 
 export default async function handleCapytale () {
-  console.log('Communication avec Capytale')
   rpc.expose('platformGetActivityParams', sendToCapytaleActivityParams)
   try {
     const activityParams = await rpc.call<ActivityParams>('toolGetActivityParams', {})
     toolSetActivityParams(activityParams)
   } catch (error) {
-    console.log('Problème de communication avec Capytale', error)
+    console.error('Problème de communication avec Capytale', error)
   }
 }
