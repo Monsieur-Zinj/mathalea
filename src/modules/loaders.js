@@ -1,4 +1,3 @@
-/* global jQuery */
 import loadjs from 'loadjs'
 import { context } from './context.js'
 import { UserFriendlyError } from './messages.js'
@@ -158,7 +157,7 @@ export async function loadMathLive () {
         events.forEach(e => {
           mf.addEventListener(e, () => {
             setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
-              const position = jQuery(mf).offset().top + jQuery(mf).outerHeight() + 'px'
+              const position = mf.offsetTop + mf.offsetHeight + 'px'
               document.body.style.setProperty('--keyboard-position', position)
             })
           })
