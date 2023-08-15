@@ -89,7 +89,7 @@ export function Polyline (...points) {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
-    
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -124,11 +124,11 @@ export function Polyline (...points) {
         tableauOptions.push(' dashed ')
         break
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    
+
     let optionsDraw = []
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -163,7 +163,7 @@ export function Polyline (...points) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     tableauOptions.push(`decorate,decoration={random steps , segment length=3pt, amplitude = ${amp}pt}`)
-    
+
     let optionsDraw = []
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -246,7 +246,7 @@ export function Polygone (...points) {
     ymax = Math.max(ymax, unPoint.y)
   }
   this.bordures = [xmin, ymin, xmax, ymax]
-  
+
   this.binomesXY = function (coeff) {
     let liste = ''
     for (const point of this.listePoints) {
@@ -274,9 +274,9 @@ export function Polygone (...points) {
       return this._triangulation
     }
   })
-  
+
   this._aire = null
-  
+
   Object.defineProperty(this, 'aire', {
     get: () => {
       if (this._aire === null) {
@@ -289,7 +289,7 @@ export function Polygone (...points) {
       return this._aire
     }
   })
-  
+
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -311,7 +311,7 @@ export function Polygone (...points) {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
-    
+
     if (this.hachures) {
       if (this.couleurDeRemplissage.length < 1) {
         this.couleurDeRemplissage = colorToLatexOrHTML('none')
@@ -366,11 +366,11 @@ export function Polygone (...points) {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity=${this.opacite}`)
     }
-    
+
     if (this.couleurDeRemplissage[1] !== '' && this.couleurDeRemplissage[1] !== 'none') {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}${this.opaciteDeRemplissage !== 1 ? ', opacity = ' + this.opaciteDeRemplissage : ''}}`)
     }
-    
+
     if (this.hachures) {
       tableauOptions.push(pattern({
         motif: this.hachures,
@@ -385,7 +385,7 @@ export function Polygone (...points) {
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    
+
     let binomeXY = ''
     for (const point of this.listePoints) {
       binomeXY += `(${arrondi(point.x)},${arrondi(point.y)})--`
@@ -568,7 +568,8 @@ export class Boite {
     texteMath = false,
     echelleFigure = 1
   } = {}) {
-    ObjetMathalea2D.call(this, {})
+    // ObjetMathalea2D.call(this, {}) rectification due aux latexParCoordonnees() qui ne sont plus des ObjetsMathalea2d comme les autres
+    // Jean-Claude Lhote 15/08/2023
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
     this.bordures = this.forme.bordures
     if (colorFill !== 'none') {
@@ -585,12 +586,14 @@ export class Boite {
     } else {
       this.texte = false
     }
-    this.svg = function (coeff) {
-      return this.texte ? this.forme.svg(coeff) + this.texte.svg(coeff) : this.forme.svg(coeff)
-    }
-    this.tikz = function () {
-      return this.texte ? this.forme.tikz() + this.texte.tikz() : this.forme.tikz()
-    }
+    /*  this.svg = function (coeff) {
+                return this.texte ? this.forme.svg(coeff) + this.texte.svg(coeff) : this.forme.svg(coeff)
+              }
+              this.tikz = function () {
+                return this.texte ? this.forme.tikz() + this.texte.tikz() : this.forme.tikz()
+              }
+             */
+    return this.texte ? [this.texte, this.forme] : this.forme
   }
 }
 
@@ -677,9 +680,9 @@ export function PolygoneATrous ({
 }) {
   ObjetMathalea2D.call(this, {})
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
-  
+
   this._triangulation = null
-  
+
   Object.defineProperty(this, 'triangulation', {
     get: () => { // retourne la liste de triangles 2d.
       if (this._triangulation === null) {
@@ -694,7 +697,7 @@ export function PolygoneATrous ({
       return this._triangulation
     }
   })
-  
+
   const sommetsContour = [] // on crée le polygone extérieur
   for (let i = 0; i < 2 * holes[0]; i += 2) {
     sommetsContour.push(point(data[i], data[i + 1]))
@@ -745,7 +748,7 @@ export function PolygoneATrous ({
       return this._aire
     }
   })
-  
+
   this.svg = function (coeff) {
     let code = this.contour.svg(coeff)
     for (let i = 0; i < this.trous.length; i++) {
