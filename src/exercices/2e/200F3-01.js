@@ -1,5 +1,5 @@
 import { droite } from '../../lib/2d/droites.js'
-import RepereBuilder from '../../lib/2d/RepereBuilder.js'
+import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { tableauSignesFonction, trouveFonctionAffine } from '../../lib/mathFonctions/etudeFonction.js'
 import { rationnalise } from '../../lib/mathFonctions/outilsMaths.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
