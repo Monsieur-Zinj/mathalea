@@ -7,8 +7,10 @@ import { UserFriendlyError } from './messages.js'
 // import { clavierLycee } from '../lib/interactif/claviers/lycee.js'
 // import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
 // import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
-import { CLAVIER_HMS } from '../lib/interactif/claviers/clavierHms.js'
-import { CLAVIER_LYCEE, inlineShortcutsLycee } from '../lib/interactif/claviers/lycee.js'
+import { CLAVIER_HMS, raccourcisHMS } from '../lib/interactif/claviers/clavierHms.js'
+import { CLAVIER_LYCEE, raccourcisLycee } from '../lib/interactif/claviers/lycee.js'
+import { CLAVIER_COLLEGE, raccourcisCollege } from '../lib/interactif/claviers/college.js'
+import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/college6eme.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -155,11 +157,17 @@ export async function loadMathLive () {
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_HMS })
+        mf.inlineShortcuts = raccourcisHMS
       } else if (mf.classList.contains('lycee')) {
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_LYCEE })
-        mf.inlineShortcuts = inlineShortcutsLycee
+        mf.inlineShortcuts = raccourcisLycee
+      } else if (mf.classList.contains('college6eme')) {
+        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_COLLEGE6EME })
+        mf.inlineShortcuts = raccourcis6eme
       } else {
-        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' })
+        //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' })
+        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_COLLEGE })
+        mf.inlineShortcuts = raccourcisCollege
       }
       //   // Evite les problèmes de positionnement du clavier mathématique dans les iframes
       //   if (context.vue === 'exMoodle') {
@@ -202,35 +210,35 @@ export async function loadMathLive () {
       //   if (mf.classList.contains('grecTrigo')) {
       //     mf.setOptions(clavierTrigo)
       //   }
-      //   let style = 'font-size: 20px;'
+      let style = 'font-size: 20px;'
 
-    //   if (mf.classList.contains('inline')) {
-    //     if (mf.classList.contains('nospacebefore')) {
-    //       style += 'margin-left:5px;'
-    //     } else {
-    //       style += 'margin-left: 25px;'
-    //     }
-    //     style += ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-    //     if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
-    //       style += ' width: 25%;'
-    //     }
-    //   } else {
-    //     style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
-    //   }
-    //   if (mf.classList.contains('largeur10')) {
-    //     style += ' width: 10%;'
-    //   }
-    //   if (mf.classList.contains('largeur25')) {
-    //     style += ' width: 25%;'
-    //   }
-    //   if (mf.classList.contains('largeur50')) {
-    //     style += ' width: 50%;'
-    //   }
-    //   if (mf.classList.contains('largeur75')) {
-    //     style += ' width: 75%;'
-    //   }
-    //   style += ' min-width: 200px'
-    //   mf.style = style
+      if (mf.classList.contains('inline')) {
+        if (mf.classList.contains('nospacebefore')) {
+          style += 'margin-left:5px;'
+        } else {
+          style += 'margin-left: 25px;'
+        }
+        style += ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
+        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
+          style += ' width: 25%;'
+        }
+      } else {
+        style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
+      }
+      if (mf.classList.contains('largeur10')) {
+        style += ' width: 10%;'
+      }
+      if (mf.classList.contains('largeur25')) {
+        style += ' width: 25%;'
+      }
+      if (mf.classList.contains('largeur50')) {
+        style += ' width: 50%;'
+      }
+      if (mf.classList.contains('largeur75')) {
+        style += ' width: 75%;'
+      }
+      style += ' min-width: 200px'
+      mf.style = style
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive

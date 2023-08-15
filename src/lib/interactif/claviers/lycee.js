@@ -375,7 +375,7 @@ export const // clavierLycee = {
   // customVirtualKeyboardLayers: lyceeKeyboardLayer,
   // customVirtualKeyboards: lyceeKeyboard,
   // virtualKeyboards: 'lyceeKeyboard roman',
-  inlineShortcutsLycee = {
+  raccourcisLycee = {
     D: { mode: 'math', value: 'd' },
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
