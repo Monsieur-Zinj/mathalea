@@ -11,6 +11,7 @@ import { CLAVIER_HMS, raccourcisHMS } from '../lib/interactif/claviers/clavierHm
 import { CLAVIER_LYCEE, raccourcisLycee } from '../lib/interactif/claviers/lycee.js'
 import { CLAVIER_COLLEGE, raccourcisCollege } from '../lib/interactif/claviers/college.js'
 import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/college6eme.js'
+import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -164,6 +165,9 @@ export async function loadMathLive () {
       } else if (mf.classList.contains('college6eme')) {
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_COLLEGE6EME })
         mf.inlineShortcuts = raccourcis6eme
+      } else if (mf.classList.contains('grecTrigo')) {
+        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_GRECTRIGO })
+        mf.inlineShortcuts = raccourcisTrigo
       } else {
         //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' })
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_COLLEGE })
@@ -195,21 +199,7 @@ export async function loadMathLive () {
       //     const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
       //     mf.setOptions(clavierConfiguration(contenuUnites))
       //   }
-      //   if (mf.classList.contains('lycee')) {
-      //     mf.setOptions(clavierLycee)
-      //   }
-      //   if (mf.classList.contains('college6eme')) {
-      //     mf.setOptions(clavierCollege6eme)
-      //   }
-      //   if (mf.classList.contains('longueur')) {
-      //     mf.setOptions(clavierLongueur)
-      //   }
-      //   if (mf.classList.contains('clavierHms')) {
-      //     mf.setOptions(clavierHms)
-      //   }
-      //   if (mf.classList.contains('grecTrigo')) {
-      //     mf.setOptions(clavierTrigo)
-      //   }
+
       let style = 'font-size: 20px;'
 
       if (mf.classList.contains('inline')) {
