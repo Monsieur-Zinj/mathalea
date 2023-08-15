@@ -92,7 +92,7 @@ export default function ResoudreGraphFonctionRef () {
 
             })
             const f = x => x ** 2
-            const Cg = droiteParPointEtPente(point(0,3),0,'','green')
+            const Cg = droiteParPointEtPente(point(0, 3), 0, '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -5,
@@ -116,12 +116,12 @@ export default function ResoudreGraphFonctionRef () {
               color: 'blue',
               epaisseur: 2
             }),
-              Cg // Ne pas utilisé courbe() pour tracer une droite !!!
-           /* courbe(g, {
+            Cg // Ne pas utilisé courbe() pour tracer une droite !!!
+            /* courbe(g, {
               repere: r1,
               color: 'green',
               epaisseur: 2
-            })*/
+            }) */
             , r1, o, sAAx, sBBx, sAxBx, crochet1O, crochet2O, Texte1, Texte2, Texte3, Texte4)
             const graphiqueCF = mathalea2d({
               xmin: -6,
@@ -135,7 +135,7 @@ export default function ResoudreGraphFonctionRef () {
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }),Cg
+            }), Cg
             , r1, o, sAAx, sBBx, sAxBx, crochet1F, crochet2F, Texte1, Texte2, Texte3, Texte4)
             texte = `Résoudre graphiquement l'inéquation : $x^2${choix ? '<' : ' \\leqslant '}${a}$.<br>`
             if (!context.isHtml) {
@@ -201,7 +201,7 @@ export default function ResoudreGraphFonctionRef () {
 
             })
             const f = x => x ** 2
-            const Cg = droiteParPointEtPente(point(0,3),0,'','green')
+            const Cg = droiteParPointEtPente(point(0, 3), 0, '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -5,
@@ -312,9 +312,9 @@ export default function ResoudreGraphFonctionRef () {
 
             })
             const f = x => 1 / x
-            const Cg1 = droiteParPointEtPente(point(0,2),0,'','green')
+            const Cg1 = droiteParPointEtPente(point(0, 2), 0, '', 'green')
             Cg1.epaisseur = 2
-            const Cg2 = droiteParPointEtPente(point(0,-1),0,'','green')
+            const Cg2 = droiteParPointEtPente(point(0, -1), 0, '', 'green')
             Cg2.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -5,
@@ -339,7 +339,7 @@ export default function ResoudreGraphFonctionRef () {
               color: 'blue',
               epaisseur: 2
             }),
-           Cg1
+            Cg1
             , r1, o, sAAx, crochet1O, crochet1F, sAxIO, sAxI2Ax, Texte1, Texte2, Texte3)
 
             const graphiqueCF1 = mathalea2d({ // 1/x<=k avec k>0
@@ -463,9 +463,9 @@ export default function ResoudreGraphFonctionRef () {
 
             })
             const f = x => 1 / x
-            const Cg1 = droiteParPointEtPente(point(0,2),0,'','green')
+            const Cg1 = droiteParPointEtPente(point(0, 2), 0, '', 'green')
             Cg1.epaisseur = 2
-            const Cg2 = droiteParPointEtPente(point(0,-1),0,'','green')
+            const Cg2 = droiteParPointEtPente(point(0, -1), 0, '', 'green')
             Cg2.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -5,
@@ -490,7 +490,7 @@ export default function ResoudreGraphFonctionRef () {
               color: 'blue',
               epaisseur: 2
             }),
-          Cg1   , r1, o, sAAx, sAxO, Texte1, Texte2, Texte3, crochet1O, crochet1O2B)
+            Cg1, r1, o, sAAx, sAxO, Texte1, Texte2, Texte3, crochet1O, crochet1O2B)
 
             const graphiqueCF1 = mathalea2d({ // 1/x>=k avec a>0
               xmin: -6,
@@ -504,7 +504,7 @@ export default function ResoudreGraphFonctionRef () {
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }),Cg1    , r1, o, sAAx, sAxO, Texte1, Texte2, Texte3, crochet1O2, crochet1O2B)
+            }), Cg1, r1, o, sAAx, sAxO, Texte1, Texte2, Texte3, crochet1O2, crochet1O2B)
 
             const graphiqueCO2 = mathalea2d({ // 1/x>k avec a<0
               xmin: -6,
@@ -519,7 +519,7 @@ export default function ResoudreGraphFonctionRef () {
               color: 'blue',
               epaisseur: 2
             }),
-           Cg2  , r1, o, sA2A2x, sAxIA2x, sAxIPAx, crochet1F2, crochet1O2B, Texte1B, Texte2, Texte3B)
+            Cg2, r1, o, sA2A2x, sAxIA2x, sAxIPAx, crochet1F2, crochet1O2B, Texte1B, Texte2, Texte3B)
             const graphiqueCF2 = mathalea2d({ // 1/x>=k avec a<0
               xmin: -6,
               xmax: 6,
@@ -532,7 +532,7 @@ export default function ResoudreGraphFonctionRef () {
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }),Cg2   , r1, o, sA2A2x, sAxIA2x, sAxIPAx, crochet1F2B, crochet1O2B, Texte1B, Texte2, Texte3B)
+            }), Cg2, r1, o, sA2A2x, sAxIA2x, sAxIPAx, crochet1F2B, crochet1O2B, Texte1B, Texte2, Texte3B)
 
             texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$.<br>`
             if (!context.isHtml) {
@@ -590,7 +590,7 @@ export default function ResoudreGraphFonctionRef () {
 
             })
             const f = x => sqrt(x)
-            const Cg = droiteParPointEtPente(point(0,1.5),0,'','green')
+            const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -2,
@@ -614,7 +614,7 @@ export default function ResoudreGraphFonctionRef () {
               color: 'blue',
               epaisseur: 2
             }),
-           Cg
+            Cg
             , r1, o, sAAx, sAxBx, crochet2O, Texte1, Texte2, Texte3)
             const graphiqueCF = mathalea2d({
               xmin: -1,
@@ -682,7 +682,7 @@ export default function ResoudreGraphFonctionRef () {
 
             })
             const f = x => sqrt(x)
-            const Cg = droiteParPointEtPente(point(0,1.5),0,'','green')
+            const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -2,
@@ -706,7 +706,7 @@ export default function ResoudreGraphFonctionRef () {
               color: 'blue',
               epaisseur: 2
             }),
-           Cg
+            Cg
             , r1, o, sAAx, sAxAInf, crochet1F, Texte1, Texte2, Texte3)
             const graphiqueCF = mathalea2d({
               xmin: -1,
@@ -720,7 +720,7 @@ export default function ResoudreGraphFonctionRef () {
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }), Cg   , r1, o, sAAx, sAxAInf, crochet2O, Texte1, Texte2, Texte3)
+            }), Cg, r1, o, sAAx, sAxAInf, crochet2O, Texte1, Texte2, Texte3)
             texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'

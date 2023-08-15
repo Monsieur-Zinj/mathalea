@@ -28,10 +28,10 @@ export default function AngleTriangleIsocele () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  
+
   this.nouvelleVersion = function () {
     let a, A, B, C, objets, nom, pol, xmin, xmax, ymin, ymax
-    
+
     switch (choice(['a', 'b'])) {
       case 'a':
         nom = creerNomDePolygone(3, ['QD'])
@@ -40,7 +40,7 @@ export default function AngleTriangleIsocele () {
         B = point(5, 0, nom[1])
         C = point(2.5, 2.5 * degTan(a), nom[2])
         pol = polygoneAvecNom(A, B, C)
-        
+
         objets = []
         if (a > 60) {
           xmin = Math.min(A.x, B.x, C.x) - 2

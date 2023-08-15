@@ -23,11 +23,11 @@ export default function Variationsapartirtableau () {
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.video = '' // Id YouTube ou url
   this.listePackages = ['tkz-tab']//, 'tkz-fct', 'tkz-euclide'
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    
+
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5']//
     this.nbQuestionsModifiable = true
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -48,7 +48,7 @@ export default function Variationsapartirtableau () {
         case 'type1':// parabole en U ; 2 images sur intervalle où f croissant
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$.<br><br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
           texte += tableauDeVariation({
             tabInit: [
@@ -128,7 +128,7 @@ export default function Variationsapartirtableau () {
         case 'type2':// parabole en U ; 2 images sur intervalle où f décroissant
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a3})$ et $f(${a4})$.<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
           texte += tableauDeVariation({
             tabInit: [
@@ -146,7 +146,7 @@ export default function Variationsapartirtableau () {
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3 // taille de la première colonne en cm
           })
-          
+
           texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$.<br>
           De plus,`
           texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$ et $${a3}<${a4}$.<br>`
@@ -207,7 +207,7 @@ export default function Variationsapartirtableau () {
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$.<br>`
           y3 = randint(y1 - 12, y1 - 2)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
           texte += tableauDeVariation({
             tabInit: [
@@ -225,7 +225,7 @@ export default function Variationsapartirtableau () {
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3 // taille de la première colonne en cm
           })
-          
+
           texteCorr = `D'après le tableau de variations, $f(${x3})=${y3}$.<br> `
           texteCorr += `D'autre part, $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, '
@@ -261,7 +261,7 @@ export default function Variationsapartirtableau () {
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$.<br>`
           y3 = randint(y1 + 2, y2 - 1)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
           texte += tableauDeVariation({
             tabInit: [
@@ -279,7 +279,7 @@ export default function Variationsapartirtableau () {
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3 // taille de la première colonne en cm
           })
-          
+
           texteCorr = `D'après le tableau de variations,  $f(${x3})=${y3}$.<br>`
           texteCorr += `D'autre part,  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, '
@@ -315,7 +315,7 @@ export default function Variationsapartirtableau () {
         case 'type5':// parabole en U ; 2 images sur intervalle où f non monotone. On ne peut conclure
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a3})$.<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, `-/$${y3}$`, 10] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
           texte += tableauDeVariation({
             tabInit: [
@@ -333,7 +333,7 @@ export default function Variationsapartirtableau () {
             deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3 // taille de la première colonne en cm
           })
-          
+
           texteCorr = `D'après le tableau de variations :<br>$\\bullet$  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction est croissante.`
           texteCorr += ` <br>$\\bullet$  $${a3}\\in[${x2};${x3}]$, intervalle sur lequel la fonction est décroissante. <br><br>`
           texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$.<br><br>`

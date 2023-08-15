@@ -30,7 +30,7 @@ export default function AntecedentGraphique () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.listeAvecNumerotation = false
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -38,7 +38,7 @@ export default function AntecedentGraphique () {
     this.contenuCorrection = '' // Liste de questions corrigées
     let a, b, c, x1, x2, x3, fx1, fx2, fx3, numa, dena, numb, denb, texte, texteCorr, f
     this.sup = Number(this.sup)
-    
+
     function initialiseVariables () {
       if (context.isHtml) { // repère -10 || 10
         x1 = randint(-6, -3)
@@ -58,11 +58,11 @@ export default function AntecedentGraphique () {
         c = randint(-3, 3)
       }
     }
-    
+
     initialiseVariables()
-    
+
     texte = 'On a tracé ci-dessous la courbe représentative de la fonction $f$.<br>'
-    
+
     if (this.sup === 1) {
       a = new Decimal(fx2 - fx1).div(x2 - x1)
       b = a.mul(x1).sub(fx1)
@@ -76,7 +76,7 @@ export default function AntecedentGraphique () {
         texteCorr = `$${fx1}$ possède une infinité d'antécédents : on note $f(x)=${fx1}$ quel que soit $x$.<br>`
       }
     }
-    
+
     if (this.sup === 2) {
       if (randint(1, 4) < 2) { // une fois sur 4 il n'y a qu'un seul antécédent
         const x0 = randint(-2, 2)
@@ -115,6 +115,6 @@ export default function AntecedentGraphique () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
   }
-  
+
   this.besoinFormulaireNumerique = ['Type de fonctions', 2, '1 : Affine\n2 : Polynôme du 2nd degré']
 }

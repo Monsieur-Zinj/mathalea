@@ -24,7 +24,7 @@ export default class BetaRepere extends Exercice {
     this.nbQuestionsModifiable = false
     this.besoinFormulaireTexte = ['xMin, xMax, yMin, yMax séparés par des ; ']
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -39,7 +39,7 @@ export default class BetaRepere extends Exercice {
       .setThickX({ xMin: -5, xMax: 5, dx: Math.PI / 4 })
       .setThickY({ yMin: -1, yMax: 1, dy: 0.5 })
       .setGrille({ grilleX: { dx: Math.PI / 4, xMin: -5, xMax: 5 }, grilleY: { dy: 0.5, yMin: -1, yMax: 1 } })
-      //.setGrilleSecondaire({ grilleX: { dx: 0.5, xMin: -8, xMax: 8 }, grilleY: { dy: 0.5, yMin: -5, yMax: 5 } })
+      // .setGrilleSecondaire({ grilleX: { dx: 0.5, xMin: -8, xMax: 8 }, grilleY: { dy: 0.5, yMin: -5, yMax: 5 } })
       .setLabelX({ dx: Math.PI / 4, xMin: -5, xMax: 5 })
       .setLabelY({ dy: 1, yMin: -1, yMax: 1 })
       .buildTrigo(4)

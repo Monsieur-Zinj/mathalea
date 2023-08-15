@@ -51,7 +51,7 @@ export default function LireUnTableauDevariations () {
             ligne1 = ['Var', 10, `-/$${-y1}$`, 10, `+/$${-y2}$`, 10, `-/$${-y3}$`, 10, `+/$${-y4}$`, 10]
           }
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
-          
+
           texte = ` Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$.<br><br>
               `
           texte += tableauDeVariation({
@@ -71,9 +71,9 @@ export default function LireUnTableauDevariations () {
             lgt: 3, // taille de la première colonne en cm,
             scale: 0.6
           })
-          
+
           texte += ' <br>Déterminer le minimum et le maximum de $f$ sur son ensemble de définition. Préciser en quelles valeurs de $x$ ils sont atteints.'
-          
+
           texteCorr = `$\\bullet~$ $f$ admet un maximum en $a$ sur un intervalle $I$ signifie que pour tout réel $x$ de $I$, $f(x)\\leqslant f(a)$.<br>
           Le nombre $f(a)$ est le maximum de $f$ sur $I$.<br>
           $\\bullet~$ $f$ admet un minimum en $b$ sur un intervalle $I$ signifie que pour tout réel $x$ de $I$, $f(x)\\geqslant f(b)$.<br>
@@ -148,7 +148,7 @@ export default function LireUnTableauDevariations () {
             lgt: 3, // taille de la première colonne en cm
             scale: 0.6
           })
-          
+
           texte += ' <br>Encadrer le plus précisément possible $f(x)$ (en déterminant les valeurs de $m$ et de $M$ telles que $m\\leqslant f(x)\\leqslant M$) dans chacun des cas suivants :<br>'
           texte += numAlpha(0) + ` $x\\in[${x1};${x3}]$<br>`
           texte += numAlpha(1) + ` $x\\in[${x2};${x4}]$`

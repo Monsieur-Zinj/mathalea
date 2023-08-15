@@ -172,7 +172,7 @@ export default function PavageEtTranslation2d () {
       }
     }
     if (couples.length < this.nbQuestions) {
-      console.log('trop de questions, augmentez la taille du pavage')
+      console.error('trop de questions, augmentez la taille du pavage')
       return
     }
 

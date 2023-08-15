@@ -31,7 +31,7 @@ export default function EquationAvecUnLogarithme () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const Txtsimplifier = '<br>L\'équation étant du type $\\ln(a)=\\ln(b)$, nous pouvons enlever les logarithmes des 2 côtés de l\'égalité :'
     const TxtConclusion = '<br>$\\underline{\\text{Conclusion}}$ :'
-    for (let i = 0, texte, texteCorr, droites, c, a, b, nbelt, formule, u, v, x1, x2, etape, faux, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, droites, c, a, b, nbelt, formule, u, v, x1, x2, faux, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       droites = []
       c = []
@@ -93,7 +93,7 @@ export default function EquationAvecUnLogarithme () {
           texteCorr += ` et $x_2=\\dfrac{${ecritureAlgebrique(-a[1])}+${texRacineCarree(b)}}{2\\times ${ecritureParentheseSiNegatif(a[0])}}${EgalEnviron(x2)}$`
           // On va vérifier si les solutions conviennent
           // eslint-disable-next-line no-unused-vars
-          etape = [x1, x2].forEach((v, i) => {
+          ;[x1, x2].forEach((v, i) => {
             texteCorr += `<br>Vérifions si $x_${i + 1}$ est bien dans le domaine de définition de l'équation : `
             faux = false
             for (let j = 0; j < 3; j++) {

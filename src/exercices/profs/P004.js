@@ -23,7 +23,7 @@ export default function FeuilleDeZooms () {
   this.sup = 1
   this.titre = titre
   this.nbQuestionsModifiable = false
-  
+
   this.nouvelleVersion = function () {
     this.contenu = ''
     let texte = ''
@@ -38,10 +38,10 @@ export default function FeuilleDeZooms () {
         origine = Math.round(xmin + 0.2)
         const thickOff = 0.1
         xmax = origine + 9.2
-        
+
         x1 = xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10
         extremite = '->'
-        
+
         const d1 = droiteGraduee({
           x: 0,
           y: 3,
@@ -87,7 +87,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-        
+
         pA1 = point((Math.floor(x1) - xmin) * 3, 3)
         pA2 = point(Math.floor(x1) - xmin + 1.5, 0)
         pB1 = point((Math.floor(x1) + 1 - xmin) * 3, 3)
@@ -109,7 +109,7 @@ export default function FeuilleDeZooms () {
         xmin = Math.floor(x2)
         xmax = xmin + 1
         const thickOff = 0.001
-        
+
         extremite = '->'
         const d1 = droiteGraduee({
           x: 0,
@@ -184,7 +184,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-        
+
         pA1 = point((x2 - xmin) * 30, 6)
         pA2 = point(6.5, 3)
         pB1 = point((x3 - xmin) * 30, 6)
@@ -205,7 +205,7 @@ export default function FeuilleDeZooms () {
         objets.push(d1, d2, d3, sA, sB, sC, sD)
       }
       texte = mathalea2d(fenetre, objets)
-      
+
       this.contenu += texte
       this.contenu += '<br>'
       this.listeQuestions[0] = this.contenu

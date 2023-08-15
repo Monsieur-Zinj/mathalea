@@ -12,10 +12,8 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Calculer un carré'
 export const dateDePublication = '17/01/2023'
 export const dateDeModifImportante = '5/8/2023' // Rémi Angot a ajouté l'interactivité
-export const interactifReady = true 
+export const interactifReady = true
 export const interactifType = 'mathLive'
-
-
 
 /**
 * Calculer de carré d'un nombre
@@ -98,7 +96,6 @@ export default class calculsDeCarre extends Exercice {
           break
       }
 
-      
       if (this.questionJamaisPosee(i, texte)) {
         texte += ajouteChampTexteMathLive(this, i)
         this.listeQuestions.push(texte)

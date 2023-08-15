@@ -194,7 +194,7 @@ export default function RelationRec () {
             setReponse(this, 2 * i, ['0,9', `${deprecatedTexFraction(9, 10)}`])
             setReponse(this, 2 * i + 1, b)
           }
-          
+
           this.canEnonce = texte
           this.canReponseACompleter = ''
           break

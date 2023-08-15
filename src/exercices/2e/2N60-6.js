@@ -38,7 +38,7 @@ export default function PositionRelative () {
     '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange'
   ]
   this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -90,7 +90,7 @@ export default function PositionRelative () {
               <br>
               ${pgcd(d - b, a - c) === 1 ? 'L\'' : `Comme $\\dfrac{${d - b}}{${a - c}}=${texFractionReduite(d - b, a - c)}$, l'`}  ensemble $S$ des solutions de l'inéquation est
               $S= ${a - c > 0 ? `\\left]-\\infty\\,;\\,${texFractionReduite(d - b, a - c)}\\right[` : `\\left]${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty\\right[`}$.<br>`
-            
+
             texteCorr += `${numAlpha(1)} Position relative : <br>
               La courbe $\\mathscr{C}_f$ est en dessous de la courbe $\\mathscr{C}_g$ sur l'intervalle $${a - c > 0 ? `\\left]-\\infty\\,;\\,${texFractionReduite(d - b, a - c)}\\right[` : `\\left]${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty\\right[`}$.`
             texteCorr += `<br>${remarque}`
@@ -132,7 +132,7 @@ export default function PositionRelative () {
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 5 // taille de la première colonne en cm
             })
-            
+
             texteCorr += `Comme $f(x)-g(x)>0$ sur l'intervalle $${a - c > 0 ? `\\left]${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty\\right[` : `\\left]-\\infty\\,;\\,${texFractionReduite(d - b, a - c)}\\right[`}$,
                   la courbe $\\mathscr{C}_f$ est au dessus de la courbe $\\mathscr{C}_g$ sur cet intervalle et elle est en dessous sur $${a - c > 0 ? `\\left]-\\infty\\,;\\,${texFractionReduite(d - b, a - c)}\\right[` : `\\left]${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty\\right[`}$.
                   `
@@ -162,10 +162,10 @@ export default function PositionRelative () {
                 $f(x)-g(x)=(x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})(x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`})$.<br>
                 `
               }
-              
+
               texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
         ${numAlpha(2)} Quelle interprétation graphique peut-on en donner ?`
-              
+
               texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
             $\\begin{aligned}
             f(x) - g(x)&=(${reduirePolynomeDegre3(0, 1, b, c)})-(${reduireAxPlusB(b, d)})\\\\
@@ -198,7 +198,7 @@ export default function PositionRelative () {
                 ${numAlpha(1)} Comme $x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ s'annule en
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
-                
+
                 texteCorr += tableauDeVariation({
                   tabInit: [
                     [
@@ -258,7 +258,7 @@ export default function PositionRelative () {
                  Comme $x-${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ s'annule en
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $x+${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
-                
+
                 texteCorr += tableauDeVariation({
                   tabInit: [
                     [
@@ -298,10 +298,10 @@ export default function PositionRelative () {
                   $f(x)-g(x)=(${d - c === 1 || d - c === 4 || d - c === 9 || d - c === 16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x)(${d - c === 1 || d - c === 4 || c - d === 9 || c - d === 16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x)$.<br>
                   `
               }
-              
+
               texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
           ${numAlpha(2)} Quelle interprétation graphique peut-on en donner ?`
-              
+
               texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
               $\\begin{aligned}
               f(x) - g(x)&=(${reduirePolynomeDegre3(0, -1, b, -c)})-(${reduireAxPlusB(b, -d)})\\\\
@@ -335,7 +335,7 @@ export default function PositionRelative () {
                   ${numAlpha(1)} Comme $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$ s'annule en
                   $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                    $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
-                
+
                 texteCorr += tableauDeVariation({
                   tabInit: [
                     [
@@ -347,7 +347,7 @@ export default function PositionRelative () {
                   colorBackground: '',
                   espcl: 3.5,
                   deltacl: 0.8,
-                  lgt: 10,
+                  lgt: 10
                 })
                 texteCorr += `<br>${numAlpha(2)} Comme $f(x)-g(x)>0$ pour $x\\in]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}[$, $\\mathscr{C}_f$ est au dessus de $\\mathscr{C}_g$ sur cet inetrvalle. <br>
                     $\\mathscr{C}_f$ est en dessous de $\\mathscr{C}_g$ sur $]-\\infty\\,;\\,${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}[$ et sur $]${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}\\,;\\,+\\infty [$.`
@@ -394,7 +394,7 @@ export default function PositionRelative () {
                 ${numAlpha(1)} Comme $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}-x$ s'annule en
                 $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}$ et
                  $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `${extraireRacineCarree(d - c)[0]}` : `\\sqrt{${d - c}}`}+x$ s'annule en $${c - d === -1 || c - d === -4 || c - d === -9 || c - d === -16 ? `-${extraireRacineCarree(d - c)[0]}` : `-\\sqrt{${d - c}}`}$, on obtient le tableau de signes : <br>`
-                
+
                 texteCorr += tableauDeVariation({
                   tabInit: [
                     [
@@ -453,12 +453,12 @@ export default function PositionRelative () {
                 ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
                 ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
               }
-              
+
               texteCorr += `  $x$ s'annule en $0$ et $${rienSi1(a)}x${ecritureAlgebrique(b - d)}$ s'annule en $${texFractionReduite(d - b, a)}$.<br>
               On obtient le tableau de signes : <br>
               
               `
-              
+
               texteCorr += tableauDeVariation({
                 tabInit: [
                   [
@@ -503,7 +503,7 @@ export default function PositionRelative () {
               texte += `${numAlpha(0)} Montrer que pour tout $x$ de $\\mathbb R$, $f(x) - g(x)=x(${rienSi1(a)}x${ecritureAlgebrique(b - d)})$.<br>`
               texte += `${numAlpha(1)} Étudier pour tout $x$ de $\\mathbb R$, le signe de $f(x)-g(x)$.<br>
       ${numAlpha(2)} Quelle interprétation graphique peut-on en donner ?`
-              
+
               texteCorr = `${numAlpha(0)}  Pour tout $x$ de $\\mathbb R$, <br>
           $\\begin{aligned}
           f(x) - g(x)&=(${reduirePolynomeDegre3(0, a, b, c)}) -(${reduireAxPlusB(d, c)})\\\\
@@ -533,12 +533,12 @@ export default function PositionRelative () {
                 ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
                 ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
               }
-              
+
               texteCorr += ` ${numAlpha(1)} $x$ s'annule en $0$ et $${rienSi1(a)}x${ecritureAlgebrique(b - d)}$ s'annule en $${texFractionReduite(d - b, a)}$.<br>
           On obtient le tableau de signes : <br>
           
           `
-              
+
               texteCorr += tableauDeVariation({
                 tabInit: [
                   [

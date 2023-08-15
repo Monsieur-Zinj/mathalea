@@ -27,7 +27,7 @@ export default function Resolutionavecformecanonique () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacingCorr = 3
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -47,12 +47,12 @@ export default function Resolutionavecformecanonique () {
       texteCorr = `On veut résoudre dans $\\mathbb{R}$ l'équation $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0\\quad(1)$.`
       texteCorr += '<br>On reconnaît une équation du second degré sous la forme $ax^2+bx+c = 0$.'
       texteCorr += '<br>La consigne nous amène à commencer par écrire le polynôme du second degré sous forme canonique, <br>c\'est à dire sous la forme :  $a(x-\\alpha)^2+\\beta$,'
-      
+
       // On simplifie par a si a !==1
       if (a !== 1) {
         texteCorr += `<br>On commence par diviser les deux membres de l'égalité par le coefficient $a$ qui vaut ici $${a}$.`
         texteCorr += `<br>$(1)\\iff\\quad x^2 ${b1.valeurDecimale === 1 ? '+ ' : b1.valeurDecimale === -1 ? '- ' : b1.simplifie().ecritureAlgebrique} x ${c1.simplifie().ecritureAlgebrique}=0$`
-        
+
         // fin du test si a<>1
       }
       // ******************************************************************************************************************
@@ -166,7 +166,7 @@ export default function Resolutionavecformecanonique () {
       } else { // cas de delta  = 0
         // pour l'instant pas de delta nul avec choisiDelta
       }
-      
+
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)

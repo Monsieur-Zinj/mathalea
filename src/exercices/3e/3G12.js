@@ -212,7 +212,7 @@ export default function PavageEtRotation2D () {
       }
     }
     if (couples.length < this.nbQuestions) {
-      console.log('Trop de questions, augmentez la taille du pavage !')
+      console.error('Trop de questions, augmentez la taille du pavage !')
       return
     }
 

@@ -258,7 +258,7 @@ export default function UnitesDeVolumesEtDeCapacite () {
   if (!(context.vue === 'diap')) this.besoinFormulaire4Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique']
 }
 
-function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = false) {
+function buildTab (a, uniteA, r, uniteR, ligne = 2, correction = false) {
   const tabRep = function (nbre, uniteNbre) {
     const res = []
     let caseARemplir

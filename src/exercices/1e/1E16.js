@@ -27,7 +27,7 @@ export default function ResoudreEquationDegre2 () {
   this.nbColsCorr = 2
   this.spacingCorr = 3
   this.sup = 1
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -35,7 +35,7 @@ export default function ResoudreEquationDegre2 () {
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal', 'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)
     }
-    
+
     for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, ligne1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       //* ***************************************************
       if (listeTypeDeQuestions[i] === 'strictement supérieur') {
@@ -58,12 +58,12 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
           texteCorr += '>0$'
-          
+
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
           // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
           // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         } else {
           texteCorr += '<0$'
@@ -109,12 +109,12 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
           texteCorr += '>0$.'
-          
+
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
           // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
           // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         } else {
           texteCorr += `<0$, on peut dire que $P(x)\\geq 0$ sur $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$`
@@ -160,12 +160,12 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
           texteCorr += '>0 :$'
-          
+
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
           // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
           // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         } else {
           texteCorr += '<0 :$'
@@ -211,12 +211,12 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
           texteCorr += '>0 :$'
-          
+
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
           // 'z' pour avoir un zéro sur des pointillés, 't' pour juste les pointillés, 'd' pour des double barres
           // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-          
+
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         } else {
           texteCorr += '<0 :$'

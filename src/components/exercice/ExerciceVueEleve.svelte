@@ -6,7 +6,7 @@
   import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../lib/interactif/interactif'
   import { loadMathLive } from '../../modules/loaders'
   import { mathaleaFormatExercice, mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../lib/mathalea'
-    import HeaderExerciceVueEleve from './HeaderExerciceVueEleve.svelte'
+  import HeaderExerciceVueEleve from './HeaderExerciceVueEleve.svelte'
   import InteractivityIcon from '../icons/TwoStatesIcon.svelte'
   import type { MathfieldElement } from 'mathlive'
   import { sendToCapytaleSaveStudentAssignment } from '../../lib/handleCapytale'
@@ -78,7 +78,7 @@
           }
           // La réponse correspond à une case à cocher qui doit être cochée
           const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-          if (checkBox !== null && objAnswers[answer] === 1) {
+          if (checkBox !== null && objAnswers[answer] === '1') {
             checkBox.checked = true
           }
         }

@@ -29,7 +29,7 @@ export default function EncadrerTableau () {
   this.tailleDiaporama = 2
   this.listePackages = ['tkz-tab']
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -53,26 +53,26 @@ export default function EncadrerTableau () {
       }
       // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
       question1 = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :<br>`
-      
+
       this.canEnonce = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :
       
     ` + tableauDeVariation({
-        tabInit: [
-          [
+          tabInit: [
+            [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-            ['$x$', 2, 10], ['$f(x)$', 4, 30]
+              ['$x$', 2, 10], ['$f(x)$', 4, 30]
+            ],
+            // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+            [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
           ],
-          // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-          [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
-        ],
-        // tabLines ci-dessous contient les autres lignes du tableau.
-        tabLines: [ligne1],
-        colorBackground: '',
-        espcl: 3, // taille en cm entre deux antécédents
-        deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-        lgt: 3, // taille de la première colonne en cm
-        scale: 0.4
-      })
+          // tabLines ci-dessous contient les autres lignes du tableau.
+          tabLines: [ligne1],
+          colorBackground: '',
+          espcl: 3, // taille en cm entre deux antécédents
+          deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+          lgt: 3, // taille de la première colonne en cm
+          scale: 0.4
+        })
       question1 += tableauDeVariation({
         tabInit: [
           [

@@ -45,7 +45,7 @@ export default function ExerciceLabyrintheDivisibilite1 () {
     let texte, texteCorr
     let laby = []
     let monChemin
-   
+
     const tables = gestionnaireFormulaireTexte({
       min: 2,
       max: 20,

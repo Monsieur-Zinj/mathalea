@@ -44,7 +44,8 @@
     "updateMenu": "node tasks/updateMenus.js",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "transpile": "tsc > journal.log"
+    "transpile": "tsc > journal.log",
+    "lint": "eslint src/exercices/**/* --ext .js,.ts --fix"
   },
   "dependencies": {
     "@bugsnag/js": "^7.20.2",

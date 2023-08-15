@@ -118,7 +118,7 @@ export default class BetaModeleSpline extends Exercice {
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -174,7 +174,7 @@ export default class BetaModeleSpline extends Exercice {
       texteEnonce += '<br>Dresser le tableau de signes de $f(x)$ sur son ensemble de définition.'
       // const objetsCorrection = [repere1]
       // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
-      
+
       let texteCorrection
       texteCorrection = `<br>L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`
       if (this.correctionDetaillee) {
@@ -185,9 +185,9 @@ export default class BetaModeleSpline extends Exercice {
           `
       // on stocke le tableau de signes dans une variable
       const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.1 })
-      
+
       texteCorrection += tableau
-      
+
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
     }

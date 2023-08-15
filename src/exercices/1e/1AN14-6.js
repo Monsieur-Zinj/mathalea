@@ -34,13 +34,13 @@ export default function DeriveeComposee () {
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
-  
+
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
-    
+
     // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['monome', 'racine', 'inv']
     if (this.sup) {
@@ -66,7 +66,7 @@ export default function DeriveeComposee () {
       // Expression finale de la fonction
       exprF = typeF === 'monome' ? f.toMathExpr() : f + '(x)'
       expression = typeF === 'monome' ? `${rienSi1(f.monomes[f.deg])}(${polAff})^${f.deg}` : `${f}(${polAff})`
-      
+
       // Enoncé
       namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = `$${namef}:x\\longmapsto ${prettyTex(math.simplify(expression, reglesDeSimplifications))}$`
@@ -122,7 +122,7 @@ export default function DeriveeComposee () {
       }
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
-      
+
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)

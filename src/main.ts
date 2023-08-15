@@ -38,6 +38,6 @@ window.notify = function notify (error, metadatas) {
     Bugsnag.notify(error)
   } else {
     console.error('message qui aurait été envoyé à bugsnag s\'il avait été configuré', error)
-    if (metadatas) console.log('avec les metadatas', metadatas)
+    if (metadatas) console.info('avec les metadatas', metadatas)
   }
 }

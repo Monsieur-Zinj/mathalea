@@ -31,7 +31,7 @@ export default function ExtremumsTableau () {
   this.tailleDiaporama = 2
   this.listePackages = ['tkz-tab']
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -53,10 +53,10 @@ export default function ExtremumsTableau () {
       } else {
         ligne1 = ['Var', 10, `-/$${-y1}$`, 10, `+/$${-y2}$`, 10, `-/$${-y3}$`, 10, `+/$${-y4}$`, 10]
       }
-      
+
       texte = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1}\\,;\\,${x4}]$ :<br>
       `
-      
+
       texte += tableauDeVariation({
         tabInit: [
           [
@@ -77,7 +77,7 @@ export default function ExtremumsTableau () {
       this.canEnonce = texte
       if (choice([true, false])) {
         texte += '   Le maximum de $f$ est  : '
-        
+
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += '<br> Il est atteint en $x=$ '
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
@@ -88,7 +88,7 @@ export default function ExtremumsTableau () {
           if (M === y1) {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${y1}$, c'est-à-dire  $f(x)\\leqslant f(${x1})$.<br>
       Ainsi, le maximum de $f$ est $${y1}$. Il est atteint en $x=${x1}$.`
-            
+
             if (!context.isAmc) {
               setReponse(this, 2 * i, y1)
               setReponse(this, 2 * i + 1, x1)
@@ -136,7 +136,7 @@ export default function ExtremumsTableau () {
           } else {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${y3}$, c'est-à-dire  $f(x)\\leqslant f(${x3})$.<br>
       Ainsi, le maximum de $f$ est $${y3}$. Il est atteint en $x=${x3}$.  `
-            
+
             if (!context.isAmc) {
               setReponse(this, 2 * i, y3)
               setReponse(this, 2 * i + 1, x3)
@@ -287,9 +287,9 @@ export default function ExtremumsTableau () {
         Il est atteint en $x=\\ldots$`
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += '<br> Il est atteint en $x=$ '
-        
+
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
-        
+
         if (choix === 1) {
           if (m === y2) {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${y2}$, c'est-à-dire  $f(x)\\geqslant f(${x2})$.<br>

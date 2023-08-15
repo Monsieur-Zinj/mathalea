@@ -37,7 +37,7 @@ export async function getShortenedCurrentUrl (addendum = '') {
     const request = await fetch(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(url)}`)
     response = await request.json()
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
   const shortUrl = '' + response.result.full_short_link
   return '' + shortUrl

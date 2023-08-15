@@ -63,7 +63,7 @@ export default function VocabulaireDesTriangles () {
         texteIntro += '<br>'
         texteIntro += '- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.'
       }
-       this.boutonAide = modalTexteLong(
+      this.boutonAide = modalTexteLong(
         numeroExercice,
         '<i class="info circle icon"></i> Quelques définitions',
         texteIntro,
@@ -324,6 +324,6 @@ export default function VocabulaireDesTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-  if (this.classe === 6) {this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs']}
+  if (this.classe === 6) { this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs'] }
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
 }

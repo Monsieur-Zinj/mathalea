@@ -24,8 +24,6 @@
    * Ajouter la ressource courante à la liste
    */
   function addToList () {
-    console.log('Ressource cliquée :')
-    console.log(ressource)
     const newRessource = {
       url: ressource.get('url'),
       id: ressource.get('id'),

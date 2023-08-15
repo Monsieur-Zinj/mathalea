@@ -25,7 +25,7 @@ export default function TraceCourbeSpline () {
   this.sup3 = '1/1/1/1'
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  
+
   this.nouvelleVersion = function () {
     const noeuds = []
     const listeCoords = this.sup.split('/')
@@ -51,7 +51,7 @@ export default function TraceCourbeSpline () {
     for (let i = 0; i < noeuds.length; i++) {
       noeuds[i].isVisible = !(listeVisibles[i] === null || listeVisibles[i] === '0')
     }
-    
+
     const f = spline(noeuds)
     const { xMin, xMax, yMin, yMax } = f.trouveMaxes()
     const r = repere({ xMin, xMax, yMin, yMax })

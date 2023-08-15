@@ -43,7 +43,7 @@ export default function Systeme2x2parCombinaisonLineaire () {
     const niveau = +this.sup // Niveau 1 = écriture ax+by = c ; Niveau 2 = parenthèses ou factorisation
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    
+
     for (let i = 0, texte, texteCorr, sys, varSol, varCoeff, coeff, droit, mat, equationX, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       sys = {}
@@ -56,12 +56,12 @@ export default function Systeme2x2parCombinaisonLineaire () {
       droit = coeff.multiplieVecteur([sys.xS, sys.yS]) // Vecteur à droite du système
       mat = dessSysteme(sys, droit, niveau) // Représentation du système
       equationX = rienSi1(sys.a11) + 'x' + ecritureAlgebrique(sys.a12 * sys.yS) + '=' + droit[0] // Equation finale en x
-      
+
       texte = `$${mat}$`
-      
+
       texteCorr = 'Donnons un nom à chacune des lignes du système :<br>'
       texteCorr += `$\\begin{matrix} L_1 \\\\ L_2 \\end{matrix}${mat}$<br>`
-      
+
       const m = ppcm(abs(sys.a11), abs(sys.a21)) // ppcm entre les coefficients en x
       const c1 = m / sys.a11 // coeff multiplicateur
       const c2 = m / sys.a21
@@ -92,7 +92,7 @@ export default function Systeme2x2parCombinaisonLineaire () {
       texteCorr += `Remplaçons $y$ par $${sys.yS}$ dans $L_1$ (on aurait pu aussi utiliser $L_2$):<br>`
       texteCorr += `$L_1$ : $${equationX}$ et donc $x=${sys.xS}$<br>`
       texteCorr += `$\\underline{Conclusion}$ : $S=\\{(${sys.xS},${sys.yS})\\}$<br>`
-      
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

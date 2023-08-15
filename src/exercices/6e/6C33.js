@@ -76,8 +76,8 @@ export default function Priorites () {
     } else {
       questionsDisponibles = range1(22)
     }
-    if (!this.sup3) questionsDisponibles   = questionsDisponibles.filter(el=>!rangeMinMax(13, 22).includes(el))
-    if (!this.sup4) questionsDisponibles = questionsDisponibles.filter(el=>![2, 3, 5, 8, 11, 12, 15, 16, 17, 21, 22].includes(el))
+    if (!this.sup3) questionsDisponibles = questionsDisponibles.filter(el => !rangeMinMax(13, 22).includes(el))
+    if (!this.sup4) questionsDisponibles = questionsDisponibles.filter(el => ![2, 3, 5, 8, 11, 12, 15, 16, 17, 21, 22].includes(el))
     const listeTypeDeQuestions = combinaisonListes(
       questionsDisponibles,
       this.nbQuestions

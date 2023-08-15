@@ -95,12 +95,12 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
     this.nbQuestionsModifiable = false
     this.exoCustomResultat = true
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let bornes = {}
       const objetsEnonce = []
@@ -123,7 +123,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
         y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin, bornes.yMax, false, false), 1)
       } while (y0 === 0 || y1 === 0)
-      
+
       const solutions0 = theSpline.solve(y0)
       const solutions1 = theSpline.solve(y1)
       const reponse1 = solutions1.length === 0 ? 'aucune' : `${solutions1.join(';')}`
@@ -139,15 +139,15 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       horizontale2.epaisseur = 2
       objetsCorrection1.push(horizontale1, nomD1)
       objetsCorrection2.push(horizontale2, nomD2)
-      
+
       for (let j = 0; j < nombreAntecedentCherches0; j++) {
         objetsCorrection1.push(lectureAntecedent(solutions0[j], y0, 1, 1, 'red', '', ''))
       }
-      
+
       for (const antecedentY2 of theSpline.solve(y2)) {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
       }
-      
+
       let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
       enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + '<br>'
       enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexte(this, 3 * i + 1, 'inline largeur25') + '<br>'
@@ -189,7 +189,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         color: 'blue',
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 1.5 }
-        
+
       })
       for (let j = 0; j < nombreAntecedentCherches1; j++) {
         for (let k = 0; k < theSpline.visible.length; k++) {
@@ -203,11 +203,11 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 1.5 }
       })
-      
+
       objetsEnonce.push(repere1, courbeATracer)
       objetsCorrection1.push(repere1, courbeCorrection)
       objetsCorrection2.push(repere1, courbeATracer)
-      
+
       const origine = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
       texte = `Voici la représentation graphique $\\mathscr{C}_f$ d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.<br>`
       texte += mathalea2d(Object.assign({
@@ -230,7 +230,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  
+
   correctionInteractive = (i) => {
     let resultat1, resultat2, resultat3
     for (let k = 0; k < 3; k++) {

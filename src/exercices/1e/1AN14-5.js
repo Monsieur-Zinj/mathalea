@@ -40,14 +40,14 @@ export default function DeriveeQuotient () {
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
-  
+
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.sup2 = Boolean(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
-    
+
     // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['poly/poly1', 'mon/poly1']
     if (this.sup2) {
@@ -75,7 +75,7 @@ export default function DeriveeQuotient () {
       const termeNum = ['pol', 'mon'].includes(typeNum.substr(0, 3)) ? fNum.toMathExpr() : fNum
       const termeDen = ['pol', 'mon'].includes(typeDen.substr(0, 3)) ? fDen.toMathExpr() : fDen
       expression = `(${termeNum})/(${termeDen})`
-      
+
       // Énoncé
       nameF = lettreMinusculeDepuisChiffre(i + 6)
       texte = ''

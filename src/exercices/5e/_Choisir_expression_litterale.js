@@ -14,7 +14,7 @@ import { estentier, randint, calcul } from '../../modules/outils.js'
  * Référence 5C12, 5L14-4, 5L14-6 et exrire_une_expression_numerique
  * Ajout de la structure de l'expression le 14/08/2021 : Guillaume Valmont
  */
-export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 = 1, val2 = 2, timesOn = true, calculMental = true) {
+export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 = 1, val2 = 2, timesOn = true) {
   let expf; let expl; let expc; const arrondir = Math.log10(decimal)
   let a = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
   let b = arrondi(randint(2 * decimal, 10 * decimal, [a * decimal]) / decimal, arrondir)

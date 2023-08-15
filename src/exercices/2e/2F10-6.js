@@ -31,7 +31,7 @@ export default function Variationsfonctionaffine () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 4
-  
+
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
@@ -50,7 +50,7 @@ export default function Variationsfonctionaffine () {
       typesDeQuestionsDisponibles = [1, 2, 3]
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    
+
     for (let i = 0, a, b, c, d, fc, fd, ligne1, typesDeQuestions, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       const nom = [
@@ -78,7 +78,7 @@ export default function Variationsfonctionaffine () {
             ligne1 = ['Var', 10, '-/', 30, '+/', 30]
           } else {
             texteCorr += `Comme $a=${a}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
-            
+
             ligne1 = ['Var', 10, '+/', 30, '-/', 30]
           }
           texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
@@ -100,7 +100,7 @@ export default function Variationsfonctionaffine () {
             hauteurLignes: [15, 20]
           })
           break
-        
+
         case 2:
           a = randint(-10, 10, 0) // coefficient a de la fonction affine
           b = randint(-10, 10) // coefficient b de la fonction affine
@@ -125,7 +125,7 @@ export default function Variationsfonctionaffine () {
             ligne1 = ['Var', 10, '-/', 30, '+/', 30]
           } else {
             texteCorr += `Comme $a=${texFractionReduite(a, d)}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
-            
+
             ligne1 = ['Var', 10, '+/', 30, '-/', 30]
           }
           texteCorr += 'On peut synthétiser cela dans un tableau de variations :<br><br>'
@@ -147,7 +147,7 @@ export default function Variationsfonctionaffine () {
             hauteurLignes: [15, 20]
           })
           break
-        
+
         case 3:
           a = randint(-10, 10, 0) // coefficient a de la fonction affine
           b = randint(-10, 10) // coefficient b de la fonction affine
@@ -171,7 +171,7 @@ export default function Variationsfonctionaffine () {
             ligne1 = ['Var', 10, `-/$${fc}$`, 30, `+/$${fd}$`, 30]
           } else {
             texteCorr += `Comme $a=${a}<0$ , la fonction $${nomF}$ est strictement décroissante sur $\\mathbb{R}$.<br>`
-            
+
             ligne1 = ['Var', 10, `+/$${fc}$`, 30, `-/$${fd}$`, 30]
           }
           texteCorr += `De plus, $${nomF}(${c})=${a === 1 ? '' : `${a}\\times`} ${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(b)}=${fc}$ et $${nomF}(${d})=${a === 1 ? '' : `${a}\\times`}${ecritureParentheseSiNegatif(d)}${ecritureAlgebrique(b)}=${fd}$.<br>`
@@ -195,7 +195,7 @@ export default function Variationsfonctionaffine () {
           })
           break
       }
-      
+
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -204,7 +204,7 @@ export default function Variationsfonctionaffine () {
       }
       cpt++
     }
-    
+
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de question ', 4, '1 : Avec des  entiers\n2 : Avec des fractions\n3 : Sur un intervalle borné\n4 : Mélange des cas précédents']

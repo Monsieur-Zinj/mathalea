@@ -978,7 +978,7 @@ ${consigne[this.sup3 - 1]}` + '<br>' + graph
             }
             rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
-          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y, j) => y.map(z => { z.color = colorToLatexOrHTML('blue'); return z }))
+          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y) => y.map(z => { z.color = colorToLatexOrHTML('blue'); return z }))
           const cotesRectangles = rectangles.filter(x => x[0] instanceof GVSegment)
           const sommetsRectangles = rectangles.filter(x => x[0] instanceof GVPoint)
           const graph = graphic.getFigure(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[aleaRectangle])
@@ -1073,7 +1073,7 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
             }
             rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
-          rectangles.filter((x, i) => (i === 1 || i === 2 * rectangleImage + 1)).map((y, j) => y.map(z => { z.color = colorToLatexOrHTML('blue'); return z }))
+          rectangles.filter((x, i) => (i === 1 || i === 2 * rectangleImage + 1)).map((y) => y.map(z => { z.color = colorToLatexOrHTML('blue'); return z }))
           const cotesRectangles = rectangles.filter(x => x[0] instanceof GVSegment)
           const sommetsRectangles = rectangles.filter(x => x[0] instanceof GVPoint)
           const graph = graphic.getFigure(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[rectangleImage])

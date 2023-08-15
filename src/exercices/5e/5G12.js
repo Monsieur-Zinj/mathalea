@@ -18,7 +18,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '23/07/2023' 
+export const dateDeModifImportante = '23/07/2023'
 
 /**
  * Publié le 14/12/2020
@@ -199,7 +199,7 @@ export default function PavageEtDemiTour2D () {
     texte += '<br>'
     for (let i = 0; i < this.nbQuestions; i++) {
       texte += `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ ?`
-      setReponse(this,i,couples[i][1])
+      setReponse(this, i, couples[i][1])
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur72') + '<br>'
       texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure ${couples[i][1]}<br>`
       if (this.correctionDetaillee) {

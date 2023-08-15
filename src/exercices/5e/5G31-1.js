@@ -14,4 +14,4 @@ export default function ConstructibiliteDesTrianglesAngles () {
   this.exo = this.beta + '5G31-1'
   this.titre = titre
   ConstructibiliteDesTriangles.call(this)
-};
+}

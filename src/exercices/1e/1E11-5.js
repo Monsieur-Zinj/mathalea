@@ -32,7 +32,7 @@ export default function Resolutionavecdelta () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacingCorr = 3
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -50,7 +50,7 @@ export default function Resolutionavecdelta () {
       texteCorr += '<br>On reconnaît une équation du second degré sous la forme $ax^2+bx+c = 0$.'
       texteCorr += '<br>On commence par calculer le discriminant : $\\Delta = b^2-4ac$'
       texteCorr += `<br>$\\Delta = ${b}^2-4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${delta}$`
-      
+
       // test des solutions
       if (delta < 0) {
         texteCorr += '<br>Le discriminant étant négatif, d\'après le cours, l\'équation n\'admet pas de solutions réelles.'
@@ -72,7 +72,7 @@ export default function Resolutionavecdelta () {
             x1 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie().oppose()).simplifie()
             x2 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie()).simplifie()
           }
-          
+
           //   if (a < 0) {
           stringX1 = x1.ecritureAlgebrique
           stringX2 = x2.ecritureAlgebrique
@@ -108,7 +108,7 @@ export default function Resolutionavecdelta () {
       } else { // cas de delta  = 0
         // pour l'instant pas de delta nul avec choisiDelta
       }
-      
+
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)

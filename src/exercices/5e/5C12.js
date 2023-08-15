@@ -68,12 +68,12 @@ export default function CalculerUneExpressionNumerique () {
       // nbval = resultats[3]
       if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
       this.consigne = 'Calculer en respectant les priorités opératoires.'
-       // if (!this.litteral) {
-        if (!this.sup4) {
-          texte = `${expn}`
-        } else {
-          texte = `${lettreDepuisChiffre(i + 1)} = ${expn}`
-        }
+      // if (!this.litteral) {
+      if (!this.sup4) {
+        texte = `${expn}`
+      } else {
+        texte = `${lettreDepuisChiffre(i + 1)} = ${expn}`
+      }
       /*
       } else if (nbval === 2) {
         texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
@@ -82,29 +82,29 @@ export default function CalculerUneExpressionNumerique () {
       }
       */
 
-       // if (!this.litteral) {
-        texteCorr = ''
-        if (!this.sup4) {
-          expc=expc.substring(1,expc.length-1).split(' = ')
-          for (let ee=0;ee<expc.length-1;ee++) {
-            texteCorr+=`$${expc[ee]}  = $`+ sp()
-          }
-          texteCorr+=`$${miseEnEvidence(expc[expc.length-1])}$`
-        } else {
-          // On découpe
-          const etapes = expc.split('=')
-          let nbEtapes = 0
-          etapes.forEach(function (etape) {
-            nbEtapes++
-            etape = etape.replace('$', '')
-            if (context.isHtml) {
-              texteCorr += '<br>'
-            }
-            texteCorr += `${lettreDepuisChiffre(i + 1)} = `
-            texteCorr += nbEtapes=== etapes.length ? `$${miseEnEvidence(etape)}$ <br>` : `$${etape}$ <br>`
-          })
+      // if (!this.litteral) {
+      texteCorr = ''
+      if (!this.sup4) {
+        expc = expc.substring(1, expc.length - 1).split(' = ')
+        for (let ee = 0; ee < expc.length - 1; ee++) {
+          texteCorr += `$${expc[ee]}  = $` + sp()
         }
-        /*
+        texteCorr += `$${miseEnEvidence(expc[expc.length - 1])}$`
+      } else {
+        // On découpe
+        const etapes = expc.split('=')
+        let nbEtapes = 0
+        etapes.forEach(function (etape) {
+          nbEtapes++
+          etape = etape.replace('$', '')
+          if (context.isHtml) {
+            texteCorr += '<br>'
+          }
+          texteCorr += `${lettreDepuisChiffre(i + 1)} = `
+          texteCorr += nbEtapes === etapes.length ? `$${miseEnEvidence(etape)}$ <br>` : `$${etape}$ <br>`
+        })
+      }
+      /*
       } else if (nbval === 2) {
         texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
       } else {
@@ -113,7 +113,7 @@ export default function CalculerUneExpressionNumerique () {
 */
 
       // reponse = this.litteral ? parseInt(expc.split('=')[expc.split('=').length - 1]) : resultats[4]
-      reponse =  resultats[4]
+      reponse = resultats[4]
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: ' = ' })

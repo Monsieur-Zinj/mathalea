@@ -80,7 +80,7 @@ export default class BetaModeleSpline extends Exercice {
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.besoinFormulaireTexte = ['Réglages des questions :', '1 : Un seul antécédent\n2 : Deux antécédents\n3 : trois antécédents\n4 : De un à trois antécédents\n5 : De 0 à 3 antécédents\n6 : Mélange']
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -109,7 +109,7 @@ export default class BetaModeleSpline extends Exercice {
       const nombreAntecedentCherches = nombreAntecedents(Number(typeDeQuestions[i]))
       const y0 = maSpline.trouveYPourNAntecedents(nombreAntecedentCherches, yMin, yMax)
       const solutions = inferieurSuperieur(maSpline.fonction, y0, xMin + 1, xMax - 1, true, false)
-      
+
       const reponse = solutions.length === 0
         ? 'aucun'
         : solutions.map((intervalle) => intervalle.borneG.x === intervalle.borneD.x
@@ -134,7 +134,7 @@ export default class BetaModeleSpline extends Exercice {
       texteEnonce += `<br>Quel sont les solutions de l'équation $f(x)<=${y0}$ ?`
       texteEnonce += '<br>Donnez un tableau de signes de f.'
       texteEnonce += '<br>Donnez les variations de f.'
-      
+
       const objetsCorrection = [repere1]
       const courbeAvecTraces = maSpline.courbe({
         repere: repere1,
@@ -154,7 +154,7 @@ export default class BetaModeleSpline extends Exercice {
       for (let k = 0; k < variations.length; k++) {
         texteCorrection += `<br>Sur $[${variations[k].xG.texFSD};${variations[k].xD.texFSD}]$ la fonction est ${variations[k].variation === 'croissant' ? 'croissante' : 'décroissante'}`
       }
-      
+
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
     }
