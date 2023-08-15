@@ -117,11 +117,11 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       let nombreAntecedentCherches0, y0, nombreAntecedentCherches1, y1, nombreAntecedentsCherches2, y2
       do {
         nombreAntecedentCherches0 = randint(1, nbAntecedentsEntiersMaximum)
-        y0 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches0, bornes.yMin, bornes.yMax, true, true)
+        y0 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches0, bornes.yMin - 1, bornes.yMax + 1, true, true)
         nombreAntecedentCherches1 = randint(0, nbAntecedentsEntiersMaximum, nombreAntecedentCherches0)
-        y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin, bornes.yMax, true, true)
+        y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
         nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
-        y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin, bornes.yMax, false, false), 1)
+        y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin - 1, bornes.yMax + 1, false, false), 1)
       } while (y0 === 0 || y1 === 0)
 
       const solutions0 = theSpline.solve(y0)
@@ -151,9 +151,11 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
       enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + '<br>'
       enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexte(this, 3 * i + 1, 'inline largeur25') + '<br>'
-      if (this.interactif) { enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir "aucune" s\'il n\'y en a pas).<br>' }
+      if (this.interactif) {
+        enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir "aucune" s\'il n\'y en a pas).<br>'
+      }
       enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` +
-        ajouteChampTexte(this, 3 * i + 2, 'inline largeur25')
+                ajouteChampTexte(this, 3 * i + 2, 'inline largeur25')
       setReponse(this, 3 * i, nombreAntecedentCherches0)
       setReponse(this, 3 * i + 1, reponse1, { formatInteractif: 'texte' })
       setReponse(this, 3 * i + 2, y2)
@@ -215,11 +217,11 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         style: 'display: block'
       }, fixeBordures(objetsEnonce)), objetsEnonce, origine) + enonceSousRepere
       texteCorr = correctionPartA +
-        // mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
-        correctionPartB +
-        mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
-        correctionPartC +
-        mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection2)), objetsCorrection2, origine)
+                // mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
+                correctionPartB +
+                mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
+                correctionPartC +
+                mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection2)), objetsCorrection2, origine)
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
@@ -248,7 +250,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
           break
         case 1:
           if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
-            (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+                        (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
             divFeedback.innerHTML = '😎'
             resultat2 = 'OK'
           } else {
