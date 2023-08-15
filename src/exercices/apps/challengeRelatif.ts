@@ -35,9 +35,9 @@ class challengeRelatif {
     this.container.addEventListener('addedToDom', updateIframeSize)
     window.addEventListener('message', (event) => {
       if (event.data?.type === 'mathaleaSettings' && event.data?.numeroExercice === this.numeroExercice) {
-        this.sup = event.data.url
+        this.sup = event.data.urlParams
         exercicesParams.update((l) => {
-          l[this.numeroExercice].sup = event.data.url
+          l[this.numeroExercice].sup = event.data.urlParams
           return l
         })
       }
@@ -46,14 +46,17 @@ class challengeRelatif {
 
   get html () {
     this.handleScore()
-    let url = `https://coopmaths.fr/challenge/?mathalea&numeroExercice=${this.numeroExercice}`
+    const url = new URL(`https://coopmaths.fr/challenge/?mathalea&numeroExercice=${this.numeroExercice}`)
     if (this.sup !== undefined) {
-      url = this.sup + `&numeroExercice=${this.numeroExercice}`
+      const searchParams = new URLSearchParams(this.sup)
+      for (const [key, value] of searchParams.entries()) {
+        url.searchParams.append(key, value)
+      }
     }
     if (get(globalOptions).v === 'eleve') {
-      url += '&v=eleve'
+      url.searchParams.append('v', 'eleve')
     }
-    this.iframe.setAttribute('src', url)
+    this.iframe.setAttribute('src', url.toString())
     return this.container
   }
 
