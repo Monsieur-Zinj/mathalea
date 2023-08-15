@@ -1,4 +1,5 @@
 // Définit un clavier personnalisé cf https://cortexjs.io/mathlive/guides/virtual-keyboards/
+/*
 const lyceeKeyboardLayer = {
   lyceeLayer: {
     styles: '',
@@ -182,12 +183,15 @@ const lyceeKeyboardLayer = {
 const lyceeKeyboard = {
   lyceeKeyboard: {
     label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
+    toolip: 'Clavier mathématique', // Tooltip when hovering over the label
     layer: 'lyceeLayer'
   }
 }
+*/
 
-export const CLAVIER_LYCEE = {
+export const CLAVIER_LYCEE = [{
+  label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
+  tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
   rows: [
     [
       { class: 'small', latex: '\\bigcup' }, /// Union
@@ -363,7 +367,9 @@ export const CLAVIER_LYCEE = {
 
     ]
   ]
-}
+} //,
+// 'alphabetic'
+]
 
 export const // clavierLycee = {
   // customVirtualKeyboardLayers: lyceeKeyboardLayer,

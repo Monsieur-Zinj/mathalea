@@ -151,6 +151,7 @@ export async function loadMathLive () {
     await import('mathlive')
     for (const mf of champs) {
       mf.mathVirtualKeyboardPolicy = 'manual'
+      mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_HMS })
