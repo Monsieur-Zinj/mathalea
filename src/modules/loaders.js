@@ -8,6 +8,7 @@ import { UserFriendlyError } from './messages.js'
 // import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
 // import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
 import { CLAVIER_HMS } from '../lib/interactif/claviers/clavierHms.js'
+import { CLAVIER_LYCEE, inlineShortcutsLycee } from '../lib/interactif/claviers/lycee.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -153,6 +154,9 @@ export async function loadMathLive () {
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_HMS })
+      } else if (mf.classList.contains('lycee')) {
+        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_LYCEE })
+        mf.inlineShortcuts = inlineShortcutsLycee
       } else {
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' })
       }

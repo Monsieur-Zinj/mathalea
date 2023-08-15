@@ -50,24 +50,6 @@ const collegeKeyboard = {
   }
 }
 
-export const CLAVIER_TEST = {
-  rows: [
-    [
-      '+',
-      '-',
-      '\\times',
-      '\\frac{#@}{#?}',
-      '=',
-      '.',
-      '(',
-      ')',
-      '\\sqrt{#0}',
-      '#@^{#?}'
-    ],
-    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-  ]
-}
-
 export const CLAVIER_HMS = {
   rows: [
     ['7', '8', '9', '[separator]', '{\\:\\text{h}\\:}'],
