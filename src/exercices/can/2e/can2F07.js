@@ -77,7 +77,6 @@ export default function ExtremumsTableau () {
       this.canEnonce = texte
       if (choice([true, false])) {
         texte += '   Le maximum de $f$ est  : '
-
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += '<br> Il est atteint en $x=$ '
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
