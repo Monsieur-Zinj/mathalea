@@ -6,12 +6,12 @@
   export let indiceExercice: number
   export let indiceLastExercice: number
   
-  function getExerciceByUuid(uuid: string) {
-    for (const [examen, liste] of Object.entries(referentielStatic)) {
-      for (const [anneOuTag, record] of Object.entries(liste)) {
-        for (const exercice of record) {
-          if (exercice.uuid === uuid) {
-            return exercice
+  function getExerciceByUuid (uuid: string) {
+    for (const examen in referentielStatic) {
+      for (const anneOuTag in referentielStatic[examen]) {
+        for (const exercice in referentielStatic[examen][anneOuTag]) {
+          if (referentielStatic[examen][anneOuTag][exercice].uuid === uuid) {
+            return referentielStatic[examen][anneOuTag][exercice]
           }
         }
       }
