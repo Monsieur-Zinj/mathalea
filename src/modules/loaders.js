@@ -12,6 +12,7 @@ import { CLAVIER_LYCEE, raccourcisLycee } from '../lib/interactif/claviers/lycee
 import { CLAVIER_COLLEGE, raccourcisCollege } from '../lib/interactif/claviers/college.js'
 import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/college6eme.js'
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
+import { clavierConfiguration, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -168,11 +169,21 @@ export async function loadMathLive () {
       } else if (mf.classList.contains('grecTrigo')) {
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_GRECTRIGO })
         mf.inlineShortcuts = raccourcisTrigo
+      } else if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) { // Gestion du clavier Unites
+        const listeParamClavier = mf.classList
+        let jj = 0
+        while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
+        const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
+        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = clavierConfiguration(contenuUnites) })
+        mf.inlineShortcuts = raccourcisUnites
       } else {
-        //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' })
+        //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut
         mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_COLLEGE })
         mf.inlineShortcuts = raccourcisCollege
       }
+
+      // *******              REMI : A TOI D'ADAPTER LE CODE CI-DESSOUS             ********
+
       //   // Evite les problèmes de positionnement du clavier mathématique dans les iframes
       //   if (context.vue === 'exMoodle') {
       //     const events = ['focus', 'input']
@@ -192,13 +203,14 @@ export async function loadMathLive () {
       //       virtualKeyboardMode: 'onfocus'
       //     })
       //   }
-      //   const listeParamClavier = mf.classList
-      //   if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) {
-      //     let jj = 0
-      //     while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
-      //     const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
-      //     mf.setOptions(clavierConfiguration(contenuUnites))
-      //   }
+
+      if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) {
+        const listeParamClavier = mf.classList
+        let jj = 0
+        while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
+        const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
+        mf.setOptions(clavierConfiguration(contenuUnites))
+      }
 
       let style = 'font-size: 20px;'
 
