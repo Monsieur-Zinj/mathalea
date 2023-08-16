@@ -105,22 +105,22 @@ export function LabelLatexPoint ({
     }
   }
   /*
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of objets) {
-        code += objet.svg(coeff) + '\n'
-      }
-      code = `<g id="${this.id}">${code}</g>`
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of objets) {
-        code += objet.tikz() + '\n'
-      }
-      return code
-    }
-     */
+                                this.svg = function (coeff) {
+                                  let code = ''
+                                  for (const objet of objets) {
+                                    code += objet.svg(coeff) + '\n'
+                                  }
+                                  code = `<g id="${this.id}">${code}</g>`
+                                  return code
+                                }
+                                this.tikz = function () {
+                                  let code = ''
+                                  for (const objet of objets) {
+                                    code += objet.tikz() + '\n'
+                                  }
+                                  return code
+                                }
+                                 */
   return objets
 }
 
@@ -534,9 +534,9 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
   this.svg = function () {
     let divLatex
     if (colorBackground !== '') {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%)" >${katex.renderToString('\\colorbox{' + this.colorBackground[0] + '}{ ' + taille + ' \\color{' + this.color[0] + '}{$' + this.texte + '$}}')}</div>`
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%)" >${katex.renderToString('\\colorbox{' + this.colorBackground[0] + '}{ ' + taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
     } else {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%)" >${katex.renderToString(taille + ' \\color{' + this.color[0] + '}{$' + this.texte + '$}')}</div>`
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%)" >${katex.renderToString('\\color{' + this.color[0] + '}' + taille + ' ' + this.texte)}</div>`
     }
     return { divLatex, x: x - 0.7, y: y + 0.7 }
   }

@@ -8,6 +8,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { context } from '../../../modules/context.js'
+
 export const titre = 'Calculer des probabilités à partir d’un arbre'
 export const dateDePublication = '25/12/2021'
 export const interactifReady = true
@@ -19,7 +20,7 @@ export const amcType = 'AMCNum'
  * On donne un arbre de probabilité et on doit calculer une probabilité partielle manquante
  * @author Jean-Claude Lhote
  * Référence can2P03
-*/
+ */
 export const uuid = 'd15f3'
 export const ref = 'can1P04'
 export default function CalculProbaArbre2e () {
@@ -34,6 +35,7 @@ export default function CalculProbaArbre2e () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
+    const rationnel = this.sup
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -47,7 +49,7 @@ export default function CalculProbaArbre2e () {
       // On définit l'arbre complet
       omega = new Arbre({
         racine: true,
-        rationnel: false,
+        rationnel,
         nom: '',
         proba: 1,
         visible: false,
@@ -55,36 +57,36 @@ export default function CalculProbaArbre2e () {
         enfants: [
           new Arbre(
             {
-              rationnel: false,
+              rationnel,
               nom: 'A',
               proba: pA,
               enfants: [new Arbre(
                 {
-                  rationnel: false,
+                  rationnel,
                   nom: 'C',
                   proba: pAC
                 }),
               new Arbre(
                 {
-                  rationnel: false,
+                  rationnel,
                   nom: '\\bar C',
                   proba: number(1 - pAC)
                 })
               ]
             }),
           new Arbre({
-            rationnel: false,
+            rationnel,
             nom: '\\bar A',
             proba: number(1 - pA),
             enfants: [new Arbre({
-              rationnel: false,
+              rationnel,
               nom: 'C',
               proba: pBC,
               visible: false,
               alter: 'x'
             }),
             new Arbre({
-              rationnel: false,
+              rationnel,
               nom: '\\bar C',
               proba: number(1 - pBC),
               visible: false,
@@ -101,7 +103,7 @@ export default function CalculProbaArbre2e () {
       texte = `On donne l'arbre de probabilités ci-dessous et $P(C)=${texProba(pC)}$.<br>
       
       `
-      texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 6, style: 'inline' }, ...objets)
+      texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 6, style: 'inline' }, objets)
       texte += `<br>
       
       $x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\ldots'}`
@@ -114,7 +116,14 @@ export default function CalculProbaArbre2e () {
       this.canEnonce = `On donne l'arbre de probabilités ci-dessous et $P(C)=${texProba(pC)}$.<br>
       
       `
-      this.canEnonce += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 6, style: 'inline', scale: 0.5 }, ...objets)
+      this.canEnonce += mathalea2d({
+        xmin: -0.1,
+        xmax: 14,
+        ymin: 0,
+        ymax: 6,
+        style: 'inline',
+        scale: 0.5
+      }, objets)
       this.canReponseACompleter = `   
       $x=\\ldots$ `
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {
