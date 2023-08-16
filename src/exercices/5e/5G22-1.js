@@ -93,12 +93,12 @@ export default function ProprietesMediatrice () {
         }
         objetsCorrection.push(codageMilieu(A, B, 'red', '||', false), mediatriceAB)
         if (listeSurLaMediatrice[i]) { // S'il est sur la médiatrice
-          texteCorr = `$CA = CB = ${texNombre(arrondi(longueur(C, A), 1))}$ donc le point $C$ est équidistant de $A$ et de $B$.<br>`
-          texteCorr += 'Comme un point équidistant de $A$ et de $B$ appartient à la médiatrice du segment [$AB$],<br>'
-          texteCorr += 'alors, le point $C$ appartient à la médiatrice du segment [$AB$]'
+          texteCorr = `$CA = CB = ${texNombre(arrondi(longueur(C, A), 1))}$ $cm$ donc le point $C$ est équidistant de $A$ et de $B$.<br>`
+          texteCorr += 'Comme tout point équidistant de $A$ et de $B$ appartient à la médiatrice du segment [$AB$],<br>'
+          texteCorr += 'alors, le point $C$ appartient à la médiatrice du segment [$AB$].'
         } else { // Si le point C doit ne pas être sur la médiatrice,
           texteCorr = `$CA = ${texNombre(arrondi(longueur(C, A), 1))}$ alors que $CB = ${texNombre(arrondi(longueur(C, B), 1))}$ donc le point C n'est pas équidistant de A et de B.<br>`
-          texteCorr += 'Comme un point qui n\'est pas équidistant de A et de B n\'appartient pas à la médiatrice du segment [AB],<br>'
+          texteCorr += 'Comme tout point qui n\'est pas équidistant de A et de B n\'appartient pas à la médiatrice du segment [AB],<br>'
           texteCorr += 'alors, le point C n\'appartient pas à la médiatrice du segment [AB].'
         }
       } else if (listeTypeDeQuestions[i] === 'equidistant') {
@@ -114,11 +114,11 @@ export default function ProprietesMediatrice () {
         objetsEnonce.push(codageMilieu(A, B, 'red', '||', false), mediatriceAB)
         if (listeSurLaMediatrice[i]) { // S'il est sur la médiatrice
           texteCorr = 'Le point C appartient à la médiatrice du segment [AB].<br>'
-          texteCorr += 'Comme un point qui appartient à la médiatrice d\'un segment est équidistant des extrémités de ce segment,<br>'
+          texteCorr += 'Comme tout point qui appartient à la médiatrice d\'un segment est équidistant des extrémités de ce segment,<br>'
           texteCorr += 'alors le point C est équidistant de A et de B.'
         } else { // Si le point C doit ne pas être sur la médiatrice,
           texteCorr = 'Le point C n\'appartient pas à la médiatrice du segment [AB].<br>'
-          texteCorr += 'Comme un point qui n\'appartient pas à la médiatrice d\'un segment n\'est pas équidistant des extrémités de ce segment,<br>'
+          texteCorr += 'Comme tout point qui n\'appartient pas à la médiatrice d\'un segment n\'est pas équidistant des extrémités de ce segment,<br>'
           texteCorr += 'alors le point C n\'est pas équidistant de A et de B.'
         }
       }
