@@ -204,14 +204,6 @@ export async function loadMathLive () {
       //     })
       //   }
 
-      if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) {
-        const listeParamClavier = mf.classList
-        let jj = 0
-        while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
-        const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
-        mf.setOptions(clavierConfiguration(contenuUnites))
-      }
-
       let style = 'font-size: 20px;'
 
       if (mf.classList.contains('inline')) {
