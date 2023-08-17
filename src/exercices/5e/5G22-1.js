@@ -5,29 +5,31 @@ import { droite, mediatrice } from '../../lib/2d/droites.js'
 import { point, pointAdistance, pointIntersectionDD, pointIntersectionLC, tracePoint } from '../../lib/2d/points.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Utiliser les propriétés de la médiatrice'
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+export const titre = 'Utiliser les propriétés de la médiatrice d\'un segment'
+export const dateDePublication = '05/08/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModificationImportante = '17/08/2023'
 
 /**
- * Utiliser les propriétés de la médiatrice
+ * Utiliser les propriétés de la médiatrice d'un segment
  * @author Guillaume Valmont
- * Référence 5G22-1
- * Date de publication 05/08/2021
 */
+
 export const uuid = '3acc1'
 export const ref = '5G22-1'
 export default function ProprietesMediatrice () {
   Exercice.call(this)
   this.nbQuestions = 4
 
-  this.besoinFormulaireNumerique = ['Situation', 3, '1 : C appartenant (ou pas) à la médiatrice\n2 : C équidistant (ou pas) de A et de B\n3 : Mélange']
+  this.besoinFormulaireNumerique = ['Situation', 3, '1 : Liée à une médiatrice (ou pas)\n2 : Liée à une équidistance (ou pas)\n3 : Mélange']
   this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['Inclure des situations où le point C n\'appartient pas à la médiatrice']
+  this.besoinFormulaire2CaseACocher = ['Inclure des situations où aucun point n\'appartient pas à la médiatrice']
   this.sup2 = true
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -36,7 +38,6 @@ export default function ProprietesMediatrice () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles, listeSurLaMediatrice
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['appartient']
@@ -57,16 +58,17 @@ export default function ProprietesMediatrice () {
       // Construction des objets
       objetsEnonce = []
       objetsCorrection = []
-      A = point(0, 0, 'A', 'below')
-      B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), 'B')
+      const nomDesPoints = shuffle(creerNomDePolygone(22, ['O', 'Q', 'W', 'X']))
+      A = point(0, 0, nomDesPoints[0], 'below')
+      B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), nomDesPoints[1])
       mediatriceAB = mediatrice(A, B, '', 'red')
       // Le point C est au dessus ou en dessous une fois sur deux
       if (randint(0, 99) > 50) {
-        C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), 'C', 1)
+        C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 1)
       } else {
-        C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), 'C', 2)
+        C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 2)
       }
-      if (!listeSurLaMediatrice[i]) C = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, 'C', 'above') // s'il ne doit pas être sur la médiatrice, on l'en éloigne
+      if (!listeSurLaMediatrice[i]) C = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, nomDesPoints[2], 'above') // s'il ne doit pas être sur la médiatrice, on l'en éloigne
       segmentAB = segment(A, B)
       segmentAC = segment(A, C)
       segmentBC = segment(B, C)
@@ -83,7 +85,7 @@ export default function ProprietesMediatrice () {
       // Construction des énoncés et des corrections
       if (listeTypeDeQuestions[i] === 'appartient') {
         objetsEnonce.push(segmentAC, segmentBC, affLongueurAC, affLongueurBC) // On affiche les longueurs dans l'énoncé
-        texte = 'Le point $C$ appartient-il à la médiatrice du segment [$AB$] ? Justifier.<br>'
+        texte = `Le point $${nomDesPoints[2]}$ appartient-il à la médiatrice du segment [$${nomDesPoints[0]}${nomDesPoints[1]}$] ? Justifier.<br>`
         // On construit et code la médiatrice puis on la push dans la correction
         D = pointIntersectionDD(mediatriceAB, droite(A, B))
         if (C.x > A.x) {
@@ -93,17 +95,17 @@ export default function ProprietesMediatrice () {
         }
         objetsCorrection.push(codageMilieu(A, B, 'red', '||', false), mediatriceAB)
         if (listeSurLaMediatrice[i]) { // S'il est sur la médiatrice
-          texteCorr = `$CA = CB = ${texNombre(arrondi(longueur(C, A), 1))}$ $cm$ donc le point $C$ est équidistant de $A$ et de $B$.<br>`
-          texteCorr += 'Comme tout point équidistant de $A$ et de $B$ appartient à la médiatrice du segment [$AB$],<br>'
-          texteCorr += 'alors, le point $C$ appartient à la médiatrice du segment [$AB$].'
+          texteCorr = `$${nomDesPoints[2]}${nomDesPoints[0]} = ${nomDesPoints[2]}${nomDesPoints[1]} = ${texNombre(arrondi(longueur(C, A), 1))}$ $cm$ donc le point $${nomDesPoints[2]}$ est équidistant de $${nomDesPoints[0]}$ et de $${nomDesPoints[1]}$.<br>`
+          texteCorr += `Comme tout point équidistant de $${nomDesPoints[0]}$ et de $${nomDesPoints[1]}$ appartient à la médiatrice du segment [$${nomDesPoints[0]}${nomDesPoints[1]}$], `
+          texteCorr += `alors le point $${nomDesPoints[2]}$ appartient à la médiatrice du segment [$${nomDesPoints[0]}${nomDesPoints[1]}$].`
         } else { // Si le point C doit ne pas être sur la médiatrice,
-          texteCorr = `$CA = ${texNombre(arrondi(longueur(C, A), 1))}$ alors que $CB = ${texNombre(arrondi(longueur(C, B), 1))}$ donc le point C n'est pas équidistant de A et de B.<br>`
-          texteCorr += 'Comme tout point qui n\'est pas équidistant de A et de B n\'appartient pas à la médiatrice du segment [AB],<br>'
-          texteCorr += 'alors, le point C n\'appartient pas à la médiatrice du segment [AB].'
+          texteCorr = `$${nomDesPoints[2]}${nomDesPoints[0]} = ${texNombre(arrondi(longueur(C, A), 1))}$ alors que $${nomDesPoints[2]}${nomDesPoints[1]} = ${texNombre(arrondi(longueur(C, B), 1))}$ donc le point $${nomDesPoints[2]}$ n'est pas équidistant de $${nomDesPoints[0]} et de $${nomDesPoints[1]}.<br>`
+          texteCorr += `Comme tout point qui n'est pas équidistant de $${nomDesPoints[0]} et de $${nomDesPoints[1]} n'appartient pas à la médiatrice du segment [$${nomDesPoints[0]}${nomDesPoints[1]}$], `
+          texteCorr += `alors le point $${nomDesPoints[2]}$ n'appartient pas à la médiatrice du segment [$${nomDesPoints[0]}${nomDesPoints[1]}$].`
         }
       } else if (listeTypeDeQuestions[i] === 'equidistant') {
         objetsCorrection.push(segmentAC, segmentBC, affLongueurAC, affLongueurBC) // On affiche les longueurs dans la correction
-        texte = 'Le point C est-il équidistant de A et de B ? Justifier.<br>'
+        texte = `Le point $${nomDesPoints[2]}$ est-il équidistant de $${nomDesPoints[0]}$ et de $${nomDesPoints[1]}$ ? Justifier.<br>`
         // On construit et code la médiatrice puis on la push dans l'énoncé
         D = pointIntersectionDD(mediatriceAB, droite(A, B))
         if (C.x > A.x) {
@@ -113,13 +115,13 @@ export default function ProprietesMediatrice () {
         }
         objetsEnonce.push(codageMilieu(A, B, 'red', '||', false), mediatriceAB)
         if (listeSurLaMediatrice[i]) { // S'il est sur la médiatrice
-          texteCorr = 'Le point C appartient à la médiatrice du segment [AB].<br>'
-          texteCorr += 'Comme tout point qui appartient à la médiatrice d\'un segment est équidistant des extrémités de ce segment,<br>'
-          texteCorr += 'alors le point C est équidistant de A et de B.'
-        } else { // Si le point C doit ne pas être sur la médiatrice,
-          texteCorr = 'Le point C n\'appartient pas à la médiatrice du segment [AB].<br>'
-          texteCorr += 'Comme tout point qui n\'appartient pas à la médiatrice d\'un segment n\'est pas équidistant des extrémités de ce segment,<br>'
-          texteCorr += 'alors le point C n\'est pas équidistant de A et de B.'
+          texteCorr = `Le point $${nomDesPoints[2]}$ appartient à la médiatrice du segment [$${nomDesPoints[0]}${nomDesPoints[1]}$].<br>`
+          texteCorr += 'Comme tout point qui appartient à la médiatrice d\'un segment est équidistant des extrémités de ce segment, '
+          texteCorr += `alors le point $${nomDesPoints[2]}$ est équidistant de $${nomDesPoints[0]}$ et de $${nomDesPoints[1]}$.`
+        } else { // Si le point $${nomDesPoints[2]}$ doit ne pas être sur la médiatrice,
+          texteCorr = `Le point $${nomDesPoints[2]}$ n'appartient pas à la médiatrice du segment [$${nomDesPoints[0]}${nomDesPoints[1]}$].<br>`
+          texteCorr += 'Comme tout point qui n\'appartient pas à la médiatrice d\'un segment n\'est pas équidistant des extrémités de ce segment, '
+          texteCorr += `alors le point $${nomDesPoints[2]}$ n'est pas équidistant de $${nomDesPoints[0]}$ et de $${nomDesPoints[1]}$.`
         }
       }
       // On push les objets

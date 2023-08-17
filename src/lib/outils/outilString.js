@@ -19,7 +19,7 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
     polygone += String.fromCharCode(premiersommet + augmentation)
   }
 
-  if (listeAEviter.length < 26 - nbsommets - 1) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
+  if (listeAEviter.length <= 26 - nbsommets) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
     let cpt = 0
     while (possedeUnCaractereInterdit(polygone, listeAEviter) && cpt < 20) {
       polygone = ''

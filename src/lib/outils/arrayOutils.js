@@ -18,7 +18,7 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
       result.push([i, j])
     }
   }
-  
+
   temp = shuffle(result).slice(0) // créer un clone du tableau result mélangé
   result = temp.slice(0)
   while (result.length < nombreDeCouplesMin) {
@@ -164,20 +164,20 @@ export function shuffle (array) {
   let currentIndex = array.length
   let temporaryValue
   let randomIndex
-  
+
   // While there remain elements to shuffle...
   const arrayBis = [...array]
   while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex)
     currentIndex -= 1
-    
+
     // And swap it with the current element.
     temporaryValue = arrayBis[currentIndex]
     arrayBis[currentIndex] = arrayBis[randomIndex]
     arrayBis[randomIndex] = temporaryValue
   }
-  
+
   return arrayBis
 }
 
@@ -212,7 +212,7 @@ export function shuffleLettres (txt) {
 export function shuffle2tableaux (obj1, obj2) {
   let index = obj1.length
   let rnd, tmp1, tmp2
-  
+
   while (index) {
     rnd = Math.floor(Math.random() * index)
     index -= 1
