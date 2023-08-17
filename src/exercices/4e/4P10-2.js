@@ -25,4 +25,4 @@ export default function TableauxEtQuatriemeProportionnelle () {
   this.titre = titre
   this.consigne = 'Déterminer la quatrième proportionnelle dans les tableaux suivants.'
   this.sup = 1
-};
+}

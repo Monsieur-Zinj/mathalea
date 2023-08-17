@@ -24,7 +24,7 @@ export function verifQuestionQcm (exercice, i) {
       if (check.checked) {
         // Sauvegarde pour les exports Moodle, Capytale...
         if (exercice.answers === undefined) { exercice.answers = {} }
-        exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = 1
+        exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '1'
         // Gestion du feedback de toutes les cases cochées
         if (exercice.autoCorrection[i].propositions[indice].feedback) {
           messageFeedback({
@@ -179,7 +179,7 @@ export function exerciceQcm (exercice) {
       const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
       if (button) {
         if (!button.hasMathaleaListener) {
-          button.addEventListener('click', event => {
+          button.addEventListener('click', () => {
             let nbQuestionsValidees = 0
             let nbQuestionsNonValidees = 0
             for (let i = 0; i < exercice.autoCorrection.length; i++) {

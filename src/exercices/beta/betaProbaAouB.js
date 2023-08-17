@@ -6,8 +6,8 @@ import Exercice from '../Exercice.js'
 export const titre = '2S30-6' // Probabilité A ou B dans situation concrète
 
 const multiple = (n, d) => n % d === 0
-const impair = (n ) => n % 2 // ou not(multiple(n,2))
-const pair = (n ) => !(n % 2)
+const impair = (n) => n % 2 // ou not(multiple(n,2))
+const pair = (n) => !(n % 2)
 const inf = (n, d) => n < d
 const sup = (n, d) => n > d
 const egal = (n, d) => n === d

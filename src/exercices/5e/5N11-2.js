@@ -14,4 +14,4 @@ export default function TableauxEtPourcentagesPourcentConstant () {
   this.exo = '5N11-2'
   this.titre = titre
   TableauxEtPourcentages.call(this)
-};
+}

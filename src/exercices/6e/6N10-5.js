@@ -76,7 +76,7 @@ export default function ExerciceLabyrintheNumeration () {
     const chiffre = randint(1, 9)
     texte = `Trouver la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un $${miseEnEvidence(chiffre, 'black')}$.<br>`
     texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
-    
+
     const nombreLaby = []
     const rangs = [inversePosition[rang], inversePosition[rangbis], rangbis]
 

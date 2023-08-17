@@ -58,18 +58,11 @@ export default function ProbaLoiVA () {
             ['a', `${texNombre(p2, 2)}`, `${texNombre(p1, 2)}`])
 
           tableau = choice([tableau1, tableau2, tableau3])
-          texte = ` Ce tableau  donne la loi de probabilité d’une variable aléatoire $X$ :<br>
-          
-          `
-          texte += `${tableau}`
-
+          texte = 'Ce tableau  donne la loi de probabilité d’une variable aléatoire $X$.<br>'
+          texte += `${tableau}<br>`
+          texte += `Quelle est la valeur de $a$ ?${sp(5)}`
           if (this.interactif) {
-            texte += `${sp(4)}$a= $ `
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-          } else {
-            texte += `
-          
-          Quelle est la valeur de $a$ ?`
           }
 
           texteCorr = ` La somme des probabilités est égale à $1$.<br>
@@ -77,8 +70,9 @@ export default function ProbaLoiVA () {
       `
           reponse = p3
           setReponse(this, i, reponse)
-          this.canEnonce = texte
-          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$a=\\ldots$')
+
           break
 
         case 2:// fraction
@@ -104,27 +98,19 @@ export default function ProbaLoiVA () {
             ['a', `${f1.texFraction}`, `${f2.texFraction}`])
 
           tableau = choice([tableau1, tableau2, tableau3])//, tableau2, tableau3
-          texte = `Ce tableau donne la loi de probabilité d’une variable aléatoire $X$<br>
-          
-          `
-          texte += `${tableau}`
-
+          texte = 'Ce tableau donne la loi de probabilité d’une variable aléatoire $X$.<br>'
+          texte += `${tableau}<br>`
+          texte += `Quelle est la valeur de $a$ ?${sp(5)}`
           if (this.interactif) {
-            texte += `${sp(4)}$a=$`
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-          } else {
-            texte += `
-          
-          Quelle est la valeur de $a$ ?`
           }
-
           texteCorr = ` La somme des probabilités est égale à $1$.<br>
           Ainsi, $a=1-${f1.texFraction}-${f2.texFraction}=\\dfrac{${fraction[1] * fraction[3]}}{${fraction[1] * fraction[3]}}-\\dfrac{${fraction[0] * fraction[3]}}{${fraction[1] * fraction[3]}}-\\dfrac{${fraction[2] * fraction[1]}}{${fraction[1] * fraction[3]}}=${f3.texFraction}${f3.texSimplificationAvecEtapes()}$.
       `
           reponse = f3
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           this.canEnonce = texte
-          this.canReponseACompleter = ''
+          this.canReponseACompleter = '$a=\\ldots$'
           break
       }
       if (this.questionJamaisPosee(i, a, b, c)) {

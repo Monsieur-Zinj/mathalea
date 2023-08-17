@@ -39,7 +39,7 @@ export default function Agrandissement () {
   8 : Conservation des angles
   9 : Mélange`]
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 8, melange: 9, defaut: 9, nbQuestions: this.nbQuestions, shuffle: true }) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

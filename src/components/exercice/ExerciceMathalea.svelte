@@ -227,6 +227,7 @@
   }
 
   async function updateDisplay() {
+    if (exercice == null) return
     if (exercice.seed === undefined) {
       exercice.applyNewSeed()
     }

@@ -57,7 +57,7 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
   this.epaisseur = epaisseur
   this.pointilles = pointilles
   this.opacite = opacite
-  
+
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -79,7 +79,7 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
         this.style += ' stroke-dasharray="5 5" '
         break
     }
-    
+
     if (this.hachures) {
       if (this.couleurDeRemplissage.length < 1) {
         this.couleurDeRemplissage = colorToLatexOrHTML('none')
@@ -103,9 +103,9 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
         this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
-      
+
       return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff
-      }" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
+            }" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
@@ -134,7 +134,7 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
         tableauOptions.push(' dashed ')
         break
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -144,7 +144,7 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage[1] !== 'none') {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
     }
-    
+
     if (this.hachures) {
       tableauOptions.push(pattern({
         motif: this.hachures,
@@ -156,7 +156,7 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
     }
-    
+
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
@@ -167,7 +167,7 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -192,13 +192,13 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
     optionsDraw = '[' + tableauOptions.join(',') + ']'
-    
+
     const code = `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
     return code
   }
@@ -296,10 +296,10 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
   this.pointilles = 0
-  const med = rotation(M, Omega, angle / 2)
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }
+  const med = rotation(M, Omega, angle / 2)
   const l = longueur(Omega, M)
   let large = 0
   let sweep = 0
@@ -346,7 +346,7 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
         if (this.couleurDeRemplissage.length < 1) {
           this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
-        
+
         return pattern({
           motif: this.hachures,
           id: this.id,
@@ -430,14 +430,14 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
         tableauOptions.push(' dashed ')
         break
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (rayon && (this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage !== '')) {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`)
     }
-    
+
     if (this.hachures) {
       tableauOptions.push(pattern({
         motif: this.hachures,
@@ -455,7 +455,7 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
   let code, P
-  
+
   this.svgml = function (coeff, amp) {
     this.style = ''
     if (this.epaisseur !== 1) {
@@ -480,7 +480,7 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     code += `" stroke="${color}" ${this.style}/>`
     return code
   }
-  
+
   this.tikzml = function (amp) {
     let optionsDraw = []
     const tableauOptions = []
@@ -497,9 +497,9 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
-    
+
     optionsDraw = '[' + tableauOptions.join(',') + ']'
-    
+
     return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }

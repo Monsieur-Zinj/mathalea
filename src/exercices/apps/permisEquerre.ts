@@ -3,10 +3,10 @@ import ExternalApp from './_ExternalApp'
 export const uuid = 'permisEquerre'
 export const titre = 'Permis équerre'
 
-class permisLitteral extends ExternalApp {
+class permisEquerre extends ExternalApp {
   constructor () {
-    super('https://mathix.org/permis_litteral/index.html?mathalea=1')
+    super('https://mathix.org/permis_equerre/index.html?mathalea=1')
   }
 }
 
-export default permisLitteral
+export default permisEquerre

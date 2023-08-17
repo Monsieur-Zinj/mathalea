@@ -45,14 +45,14 @@ export default function CalculDAngleFigureComplexe () {
   // this.sup = 1; // Niveau de difficulté
   // this.tailleDiaporama = 3; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     for (let i = 0; i < this.nbQuestions; i++) {
       const typesDeQuestion = choice(['BA-AD-BAC', 'BA-AD-ACB'])
       let texte, texteCorr
-      
+
       const B = point(0, 0, '', 'below')
       const A = point(randint(4, 7), 0, '', 'below')
       const C = point(0, randint(3, 7, longueur(A, B)), '', 'above') // On exclue AB pour ne pas avoir un triangle isocèle
@@ -83,9 +83,9 @@ export default function CalculDAngleFigureComplexe () {
       const a5 = codageAngle(A, C, D, 1.2)
       a5.epaisseur = 2
       const ACB = Math.round(angle(A, C, B))
-      
+
       const objetsMathalea = [t1, t2, c1, c2, labels]
-      
+
       switch (typesDeQuestion) { // Suivant le type de question, le contenu sera différent
         case 'BA-AD-BAC':
           if (this.sup) {
@@ -203,77 +203,77 @@ export default function CalculDAngleFigureComplexe () {
       texte += '<br>'
       if (context.isAmc) {
         this.autoCorrection.push({
-            enonce: texte,
-            enonceAvant: false,
-            enonceApresNumQuestion: true,
-            options: { barreseparation: true },
-            propositions: [
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  multicolsBegin: true,
-                  reponse: {
-                    texte: numAlpha(0) + `<br>Valeur arrondie à l'unité de $\\widehat{${A.nom + C.nom + D.nom}}$`,
-                    valeur: ACD,
-                    alignement: 'center',
-                    param: {
-                      digits: 3,
-                      decimals: 0,
-                      signe: false,
-                      approx: 0
-                    }
+          enonce: texte,
+          enonceAvant: false,
+          enonceApresNumQuestion: true,
+          options: { barreseparation: true },
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                multicolsBegin: true,
+                reponse: {
+                  texte: numAlpha(0) + `<br>Valeur arrondie à l'unité de $\\widehat{${A.nom + C.nom + D.nom}}$`,
+                  valeur: ACD,
+                  alignement: 'center',
+                  param: {
+                    digits: 3,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
                   }
-                }]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: numAlpha(1) + typesDeQuestion === 'BA-AD-BAC' ? `Valeur arrondie à l'unité  de $\\widehat{${B.nom + C.nom + A.nom}}$` : `Valeur arrondie à l'unité de $\\widehat{${B.nom + A.nom + C.nom}}$`,
-                    valeur: typesDeQuestion === 'BA-AD-BAC' ? 90 - BAC : 90 - ACB,
-                    alignement: 'center',
-                    param: {
-                      digits: 3,
-                      decimals: 0,
-                      signe: false,
-                      approx: 0
-                    }
-                  }
-                }]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  multicolsEnd: true,
-                  reponse: {
-                    texte: numAlpha(2) + `Valeur arrondie à l'unité  de $\\widehat{${C.nom + D.nom + A.nom}}$`,
-                    valeur: 90 - ACD,
-                    alignement: 'center',
-                    param: {
-                      digits: 3,
-                      decimals: 0,
-                      signe: false,
-                      approx: 0
-                    }
-                  }
-                }]
+                }
               }]
-          }
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: numAlpha(1) + typesDeQuestion === 'BA-AD-BAC' ? `Valeur arrondie à l'unité  de $\\widehat{${B.nom + C.nom + A.nom}}$` : `Valeur arrondie à l'unité de $\\widehat{${B.nom + A.nom + C.nom}}$`,
+                  valeur: typesDeQuestion === 'BA-AD-BAC' ? 90 - BAC : 90 - ACB,
+                  alignement: 'center',
+                  param: {
+                    digits: 3,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                multicolsEnd: true,
+                reponse: {
+                  texte: numAlpha(2) + `Valeur arrondie à l'unité  de $\\widehat{${C.nom + D.nom + A.nom}}$`,
+                  valeur: 90 - ACD,
+                  alignement: 'center',
+                  param: {
+                    digits: 3,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }]
+        }
         )
       }
-      
+
       if (this.questionJamaisPosee(i, nom, BAC)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
       }
     }
-    
+
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireCaseACocher = ['Figure codée']

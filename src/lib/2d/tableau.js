@@ -1,5 +1,4 @@
-
-import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { fixeBordures } from '../../modules/2dGeneralites.js'
 import { milieu, point } from './points.js'
 import { polygone, polyline } from './polygones.js'
 import { segment } from './segmentsVecteurs.js'
@@ -109,7 +108,8 @@ export function Tableau ({
   flecheGauche = false,
   flecheGaucheSens = 'haut'
 } = {}) {
-  ObjetMathalea2D.call(this, {})
+  // ObjetMathalea2D.call(this, {}) rectification due aux latexParCoordonnees() qui ne sont plus des ObjetsMathalea2d comme les autres
+  // Jean-Claude Lhote 15/08/2023
   if (ligne1 && ligne2) {
     nbColonnes = Math.max(ligne1.length, ligne2.length, nbColonnes)
   }
@@ -216,38 +216,40 @@ export function Tableau ({
   }
   const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
   this.bordures = [xmin, ymin, xmax, ymax]
-  
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
+  /*
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.svg(coeff)
+      }
+      code = `<g id="${this.id}">${code}</g>`
+      return code
     }
-    code = `<g id="${this.id}">${code}</g>`
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-  this.svgml = function (coeff, amp) {
-    let code = ''
-    for (const objet of objets) {
-      if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
-      else code += '\n\t' + objet.svgml(coeff, amp)
-    }
-    return code
-  }
-  this.tikzml = function (amp) {
-    let code = ''
-    for (const objet of objets) {
-      if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
-      else code += '\n\t' + objet.tikzml(amp)
-    }
-    return code
-  }
+      this.tikz = function () {
+        let code = ''
+        for (const objet of objets) {
+          code += '\n\t' + objet.tikz()
+        }
+        return code
+      }
+      this.svgml = function (coeff, amp) {
+        let code = ''
+        for (const objet of objets) {
+          if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
+          else code += '\n\t' + objet.svgml(coeff, amp)
+        }
+        return code
+      }
+      this.tikzml = function (amp) {
+        let code = ''
+        for (const objet of objets) {
+          if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
+          else code += '\n\t' + objet.tikzml(amp)
+        }
+        return code
+      }
+       */
+  return objets
 }
 
 export function tableau (...args) {

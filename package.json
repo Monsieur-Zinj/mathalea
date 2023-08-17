@@ -39,12 +39,13 @@
     "start": "vite",
     "build2": "vite build",
     "build": "node --loader ts-node/esm tasks/makeJson& vite build",
-    "makeJson": "node tasks/updateMenus.js",
-    "getNewUuid": "node tasks/updateMenus.js",
-    "updateMenu": "node tasks/updateMenus.js",
+    "makeJson": "node tasks/updateMenu.js",
+    "getNewUuid": "node tasks/updateMenu.js",
+    "updateMenu": "node tasks/updateMenu.js",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "transpile": "tsc > journal.log"
+    "transpile": "tsc > journal.log",
+    "lint": "eslint src/exercices/**/* --ext .js,.ts --fix"
   },
   "dependencies": {
     "@bugsnag/js": "^7.20.2",

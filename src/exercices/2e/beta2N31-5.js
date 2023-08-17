@@ -21,6 +21,7 @@ import {
   round
 } from 'mathjs'
 
+export const uuid = 'a1d0b'
 export const titre = 'Calculer avec des nombres en écriture scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,12 +1,12 @@
 import { droite } from '../../lib/2d/droites.js'
-import RepereBuilder from '../../lib/2d/RepereBuilder.js'
+import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { tableauSignesFonction, trouveFonctionAffine } from '../../lib/mathFonctions/etudeFonction.js'
 import { rationnalise } from '../../lib/mathFonctions/outilsMaths.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
-export const titre = 'Lister tous les diviseurs d’un entier'
+export const titre = 'Lecture graphique du signe d\'une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -45,7 +45,7 @@ export default class LectureSigneAffine extends Exercice {
       case 2: { // coefficient entier relatif
         const y = randint(-3, 3, 0)
         const x = randint(-3, 3, 0)
-        ;[a, b] = trouveFonctionAffine(0, y, x, 0)
+                ;[a, b] = trouveFonctionAffine(0, y, x, 0)
       }
         break
       case 3: // coefficient rationnel
@@ -69,7 +69,7 @@ export default class LectureSigneAffine extends Exercice {
     const repere = new RepereBuilder({ xMin: -6, xMax: 6, yMin: -6, yMax: 6 }).buildStandard()
     const d = droite(a.valeurDecimale, -1, b.valeurDecimale)
     this.question = 'Dresser le tableau de signes de la fonction représentée ci-dessous.<br>' + mathalea2d(Object.assign({}, fixeBordures([repere, d])), [repere, d])
-    this.correction = 'Le tableau de signes de la fonction est représenté ci-dessous.<br>' + mathalea2d(Object.assign({}, fixeBordures([tableau])), tableau)
+    this.correction = 'Le tableau de signes de la fonction est représenté ci-dessous.<br>' + tableau
     this.reponse = '' // @fixme compléter choisir la forme de la réponse
   }
 }

@@ -230,7 +230,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             })
 
             const f = x => a + c1 * x
-            const Cg = droiteParPointEtPente(point(0,prix2),0,'','red')
+            const Cg = droiteParPointEtPente(point(0, prix2), 0, '', 'red')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -3,
@@ -244,7 +244,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }),Cg, TexteX, TexteY
+            }), Cg, TexteX, TexteY
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = `  Une société de location de véhicules particuliers propose le tarif suivant pour un week-end de location :<br>
           ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(c, 2)}$ € par km parcouru (dans la limite de $${texNombre(km, 0)}$ km).<br>
@@ -314,7 +314,7 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
               grilleSecondaireXMax: 130
             })
             const f = x => x ** 2 / a1
-            const Cg = droiteParPointEtPente(point(0,b),0,'','red')
+            const Cg = droiteParPointEtPente(point(0, b), 0, '', 'red')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -2.5,
@@ -328,7 +328,7 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }),Cg, TexteX, TexteY
+            }), Cg, TexteX, TexteY
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = `  Sur toute sèche, la distance de freinage en mètres, d'une voiture est modélisée de la façon suivante : <br>
           En notant $v$ la vitesse du véhicule (en km/h), sa distance de freinage $d(v)$  (en m) est donnée par le carré de sa vitesse divisée par $${texNombre(a, 1)}$.<br>
@@ -400,7 +400,7 @@ Voici la courbe représentative de la fonction $d$ avec la solution de la questi
               grilleSecondaireXMax: 300
             })
             const f = x => a - b * x
-            const Cg = droiteParPointEtPente(point(0,c),0,'','red')
+            const Cg = droiteParPointEtPente(point(0, c), 0, '', 'red')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -4,
@@ -518,7 +518,7 @@ Pour avoir $${texNombre(c)}$ abonnés, la directrice des abonnements doit fixer 
               grilleSecondaireXMax: 70
             })
             const f = x => a1 * x
-            const Cg = droiteParPointEtPente(point(0,prix1),0,'','red')
+            const Cg = droiteParPointEtPente(point(0, prix1), 0, '', 'red')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
               xmin: -3,
@@ -532,7 +532,7 @@ Pour avoir $${texNombre(c)}$ abonnés, la directrice des abonnements doit fixer 
               repere: r1,
               color: 'blue',
               epaisseur: 2
-            }),Cg, TexteX, TexteY
+            }), Cg, TexteX, TexteY
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = `  Dans une station service, le prix de l'essence sans plomb 95 est de $${texNombre(a)}$ € le litre.<br>
 Dans cette station, il n'est pas possible de prendre moins de $${b}$ litres d'essence.<br>
@@ -817,7 +817,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const f = x => a * x * exp(b * x)
             const fprime = x => (a + a * b * x) * exp(b * x)
-            const Cg = droiteParPointEtPente(point(0,0.5),0,'','red')
+            const Cg = droiteParPointEtPente(point(0, 0.5), 0, '', 'red')
             Cg.epaisseur = 2
             const s0 = antecedentParDichotomie(0, 7, fprime, 0, 0.01)
             const s1 = antecedentParDichotomie(0, s0 * 1.5, f, 0.5, 0.01)

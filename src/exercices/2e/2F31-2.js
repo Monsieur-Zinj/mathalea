@@ -54,7 +54,7 @@ export default function EncadrerAvecFctRef () {
       let a, b // Les valeurs seuils
       const large1 = choice([true, false]) // pour décider des inégalités larges ou pas
       const large2 = choice([true, false])
-      
+
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'carré': {
           const N = choice([1, 2, 3, 4, 5])
@@ -81,7 +81,7 @@ export default function EncadrerAvecFctRef () {
                 texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $0$. <br>
         On en déduit que si  $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $x^2\\geqslant 0$.`
               }
-              
+
               break
             case 2: // cas x>a
               a = randint(-12, 12, 0)
@@ -104,7 +104,7 @@ export default function EncadrerAvecFctRef () {
           On en déduit que si  $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $x^2\\geqslant 0$.
           `
               }
-              
+
               break
             case 3: // cas a<x<b avec a>0
               a = randint(1, 10)
@@ -120,7 +120,7 @@ export default function EncadrerAvecFctRef () {
               <br> Remarque : la fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre sur cet intervalle.<br>
               Ainsi les antécédents et les images sont rangées dans le même ordre : <br>
             Si  $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors $${sp(2)}${a}^2 ${large1 ? '\\leqslant' : ' < '} x^2 ${large2 ? '\\leqslant' : ' < '}${b}^2$, soit $${sp(2)}${a ** 2} ${large1 ? '\\leqslant' : ' < '} x^2 ${large2 ? '\\leqslant' : ' < '}${b ** 2}$.`
-              
+
               break
             case 4: // cas a<x<b avec b<0
               a = -randint(2, 12)
@@ -136,7 +136,7 @@ export default function EncadrerAvecFctRef () {
                   <br> Remarque :  la fonction carré étant strictement décroissante sur $]-\\infty;0]$, elle change l'ordre sur cet intervalle.<br>
                   Ainsi les antécédents et les images sont rangées dans l'ordre inverse : <br>
             Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(2)}$(${a})^2 ${large1 ? '\\geqslant' : ' > '} x^2 ${large2 ? '\\geqslant' : ' > '}(${b})^2$ soit $${a ** 2} ${large1 ? '\\geqslant' : ' > '} x^2 ${large2 ? '\\geqslant' : ' > '}${b ** 2}$.`
-              
+
               break
             case 5: // cas a<x<b avec a<0 et b>0
               a = randint(-10, -1)
@@ -150,7 +150,7 @@ export default function EncadrerAvecFctRef () {
                   `
               texteCorrApresTableau = `On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $0$ et son maximum est $${Math.max(abs(a), b) ** 2}$. <br>
               On en déduit que si  $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(2)}$0 ${large1 ? '\\leqslant' : ' < '} x^2 ${large2 ? '\\leqslant' : ' < '}${Math.max(abs(a), b) ** 2}$.`
-              
+
               break
           }
         }
@@ -175,7 +175,7 @@ export default function EncadrerAvecFctRef () {
                   <br> Remarque :  la fonction inverse étant strictement décroissante sur $]0; +\\infty[$, elle change l'ordre.<br>
                   Ainsi les antécédents et les images sont rangées dans l'ordre inverse : <br>
             Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(2)}$\\dfrac{1}{${a}} ${large1 ? '\\geqslant' : ' > '} \\dfrac{1}{x} ${large2 ? '\\geqslant' : ' > '}\\dfrac{1}{${b}}$ `
-              
+
               break
             case 2: // cas a<x<b avec b<0
               a = randint(-20, -3)
@@ -223,7 +223,7 @@ export default function EncadrerAvecFctRef () {
                 substituts = [{ antVal: a, antTex: '-\\infty', imgVal: 1 / a, imgTex: '' },
                   { antVal: a, antTex: b.toString(), imgVal: 1 / b, imgTex: `\\frac{1}{${b}}` }]
               }// a est toujours le min et b le max
-              
+
               break
           }
           xMin = a
@@ -262,7 +262,7 @@ Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $\\sqrt{x}${large1 ? '\\leqsla
               const racineDeA = estParfait(a) ? Math.sqrt(a).toString() : `\\sqrt{${a}}`
               substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: racineDeA },
                 { antVal: 10000, antTex: '+\\infty', imgVal: 100, imgTex: '+\\infty' }]
-              
+
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\sqrt{x}$ ......`
               texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
 Puisque la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
@@ -283,7 +283,7 @@ Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\sqrt{x}${large1 ? '\\geqsla
               const racineDeB = estParfait(b) ? Math.sqrt(b).toString() : `\\sqrt{${b}}`
               substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: racineDeA },
                 { antVal: b, antTex: b.toString(), imgVal: Math.sqrt(b), imgTex: racineDeB }]
-              
+
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a}${large1 ? ' \\leqslant ' : ' < '} x ${large1 ? '\\leqslant' : ' < '} ${b}$ alors  ...... $\\sqrt{x}$ ......`
               texteCorrAvantTableau = `$${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large1 ? ']' : ' [ '}$. <br>
 Puisque la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations

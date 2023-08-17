@@ -81,7 +81,7 @@ export default class BetaModeleSpline extends Exercice {
     this.sup = '4'
     this.nbQuestions = 1 // Nombre de questions par défaut
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -142,7 +142,7 @@ export default class BetaModeleSpline extends Exercice {
       setReponse(this, 4 * i + 1, solutionMax)
       setReponse(this, 4 * i + 2, Math.min(...nuage.map(el => el.y)))
       setReponse(this, 4 * i + 3, solutionMin)
-      
+
       const texteCorrection = `Le point le plus haut de la courbe a pour coordonnées $(${solutionMax}\\,;\\,${Math.max(...nuage.map(el => el.y))})$.<br>
       On en déduit que le maximum de $f$ est $${Math.max(...nuage.map(el => el.y))}$. Il est atteint en $x=${solutionMax}$.<br>
       Le point le plus bas de la courbe a pour coordonnées $(${solutionMin}\\,;\\,${Math.min(...nuage.map(el => el.y))})$.<br>

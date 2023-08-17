@@ -42,4 +42,4 @@ export default function BetaRotation3d () {
     objets.push(Axex.c2d, Axey.c2d, Axez.c2d)
     this.contenu = mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.7 }, objets)
   }
-};
+}

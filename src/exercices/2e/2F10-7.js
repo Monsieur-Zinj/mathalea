@@ -57,7 +57,7 @@ export default function SignefonctionaffineVariation () {
             a = choice([1, 2, 5, 10]) * choice([-1, 1])// coefficient a de la fonction affine
             b = randint(1, 15) * choice([-1, 1])// coefficient b de la fonction affine
             sol = new Decimal(-b).div(a)
-            
+
             texte = `Une fonction affine $${nom}$  définie sur $\\mathbb R$ est strictement ${a > 0 ? 'croissante' : 'décroissante'}. De plus $${nom}(${texNombre(sol, 1)})=0$.<br>
         ${numAlpha(0)} Dresser son tableau de signes sur $\\mathbb R$.<br>
         ${numAlpha(1)} Donner une fonction $${nom}$ vérifiant les conditions précédentes.`
@@ -71,7 +71,7 @@ export default function SignefonctionaffineVariation () {
             } else {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
-            
+
             texteCorr += tableauDeVariation({
               tabInit: [
                 [
@@ -89,7 +89,7 @@ export default function SignefonctionaffineVariation () {
               lgt: 5, // taille de la première colonne en cm
               hauteurLignes: [15, 15]
             })
-            
+
             texteCorr += `<br> ${numAlpha(1)} La fonction doit vérifier les trois conditions : <br>
         $\\bullet$ être une fonction affine ; <br>
         $\\bullet$ être strictement ${a > 0 ? 'croissante' : 'décroissante'} ;<br>
@@ -116,7 +116,7 @@ export default function SignefonctionaffineVariation () {
             sol = -b / a
             x = randint(-10, 10, sol)
             y = a * x + b
-            
+
             texte = `Une fonction affine $${nom}$  définie sur $\\mathbb R$ vérifie $${nom}(${texNombre(sol, 1)})=0$ et $${nom}(${x})=${y}$.<br>
            Dresser son tableau de signes sur $\\mathbb R$. Justifier.
          `
@@ -147,7 +147,7 @@ export default function SignefonctionaffineVariation () {
             } else {
               ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
             }
-            
+
             texteCorr += tableauDeVariation({
               tabInit: [
                 [
@@ -168,7 +168,7 @@ export default function SignefonctionaffineVariation () {
           }
           break
         case 'Signes2':
-          
+
           a = randint(-5, 5, 0)// coefficient b de la fonction affine
           b = a * randint(-6, 6, 0)// coefficient a de la fonction affine
           sol = -b / a
@@ -186,7 +186,7 @@ export default function SignefonctionaffineVariation () {
           } else {
             ligne1 = ['Line', 10, '', 0, '+', 20, 'z', 20, '-']
           }
-          
+
           texte += tableauDeVariation({
             tabInit: [
               [
@@ -228,7 +228,7 @@ export default function SignefonctionaffineVariation () {
       }
       cpt++
     }
-    
+
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Donner le tableau de signes.\n2 : Utiliser le tableau de signes.\n3 : Mélange.']

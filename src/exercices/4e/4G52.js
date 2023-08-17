@@ -29,18 +29,18 @@ export default function ReperagePaveDroit () {
   this.consigne = 'Dans le repère $(A;I;J;K)$ :'
   this.nbQuestions = 3
   this.tailleDiaporama = 2
-  
+
   this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
   this.sup = 1
-  
+
   this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
   this.sup2 = 1
-  
+
   this.nouvelleVersion = function () { // c'est ici que les données sont relatives
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.introduction = '' // consigne avant les question y mettre le dessin + texte
-    
+
     const hauteur = 12
     const largeur = 12
     const profondeur = 12
@@ -62,7 +62,7 @@ export default function ReperagePaveDroit () {
     const F = point3d(largeur, 0, hauteur, true, 'F', 'above right')
     const G = point3d(largeur, profondeur, hauteur, true, 'G', 'above right')
     const H = point3d(0, profondeur, hauteur, true, 'H', 'above left')
-    
+
     const objetsAtracer = []
     let nbgraduationx = randint(2, 4)
     let nbgraduationy = randint(2, 3)
@@ -78,14 +78,14 @@ export default function ReperagePaveDroit () {
     const I = point3d(deltax, 0, 0, true, 'I', 'below right')
     const J = point3d(0, deltay, 0, false, 'J', 'left')
     const K = point3d(0, 0, deltaz, true, 'K', 'left')
-    
+
     objetsAtracer.push(labelPoint(A, B, C, D, E, F, G, H, I, J, K))
-    
+
     for (let i = 0; i <= nbgraduationy; i++) {
       for (let j = 0, M, N, s; j <= nbgraduationz; j++) {
         M = point3d(0, i * deltay, j * deltaz)
         N = point3d(largeur, i * deltay, j * deltaz)
-        
+
         if ((i === 0) || (j === nbgraduationz)) {
           s = arete3d(M, N, 'black', true)
         } else {
@@ -106,7 +106,7 @@ export default function ReperagePaveDroit () {
         objetsAtracer.push(s.c2d)
       }
     }
-    
+
     for (let i = 0, M, N, s; i <= nbgraduationx; i++) {
       M = point3d(i * deltax, 0, 0)
       N = point3d(i * deltax, 0, hauteur)
@@ -131,12 +131,12 @@ export default function ReperagePaveDroit () {
       s = arete3d(M, N, 'black', true)
       objetsAtracer.push(s.c2d)
     }
-    
+
     let typesDeQuestionsDisponibles = ['placer', 'lire']
     if (this.sup2 === 1) typesDeQuestionsDisponibles = ['placer']
     if (this.sup2 === 2) typesDeQuestionsDisponibles = ['lire']
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    
+
     for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, x, y, z, t, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       x = 0
@@ -183,7 +183,7 @@ export default function ReperagePaveDroit () {
         }, objetsAtracerCorr)
         texteCorr += `<br>Le point $${lettreDepuisChiffre(i + 12)}$ a pour coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
       }
-      
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

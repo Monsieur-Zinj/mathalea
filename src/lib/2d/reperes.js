@@ -91,8 +91,8 @@ export function DroiteGraduee ({
   Legende = '',
   LegendePosition = (Max - Min) * Unite + 1.5
 } = {}) {
-  ObjetMathalea2D.call(this, {})
-
+  // ObjetMathalea2D.call(this, {}) on ne fait plus un ObjetMathalea2d, mais une liste d'objets à cause des latexParCoordonnees()
+// correctif Jean-Claude Lhote 15/08/2023
   // Les propriétés exportables
   this.Unite = Unite
   this.Min = Min
@@ -192,7 +192,7 @@ export function DroiteGraduee ({
       objets.push(T, lab)
     }
   }
-
+  /*
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -223,6 +223,8 @@ export function DroiteGraduee ({
     }
     return code
   }
+ */
+  return objets
 }
 
 /**  Trace un axe gradué

@@ -162,7 +162,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
           })
           const maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
           const A = point(-b / a, 0, '')
-          
+
           const lA = labelPoint(A, 'red')
           const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
           tA.taille = 5
@@ -173,7 +173,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             ` + mathalea2d({ xmin: -8, xmax: 8, ymin: -7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
         }
           break
-        
+
         case 2: {
           const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
           const b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
@@ -253,7 +253,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
           })
           const maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
           const A = point(-b / a, 0, '')
-          
+
           const lA = labelPoint(A, 'red')
           const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
           tA.taille = 5
@@ -265,7 +265,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
         }
           break
       }
-      
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

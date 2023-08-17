@@ -370,7 +370,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2) { // tirage
 }
 
 // On tire deux boules dans une urne sans remise
-function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { // tirage dans une urne avec remise
+function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2) { // tirage dans une urne avec remise
   const [b1Color, b2Color] = shuffle(['bleue', 'rouge', 'verte', 'orange', 'noire', 'jaune']).splice(0, 2)
 
   const b1Char = premiereLettreEnMajuscule(b1Color.charAt(0))

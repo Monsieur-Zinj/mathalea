@@ -27,18 +27,18 @@ export default class nomExercice extends Exercice {
     this.titre = titre
     this.consigne = 'Calcul du déterminant d\'une matrice carrée'
     this.nbQuestions = 3
-    
+
     this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Matrice 2x2\n2 : Matrice 3x3'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
     this.sup = 2 // Valeur du paramètre par défaut
     // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
     //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
-    
+
     this.nbCols = 2
     this.nbColsCorr = 2
     this.tailleDiaporama = 3
     this.video = ''
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -68,7 +68,7 @@ export default class nomExercice extends Exercice {
             table.push(ligne)
           }
           const matrice = new MatriceCarree(table)
-          
+
           texte = `Calculer le déterminant de la matrice $${nommatrice} = ${matrice.toTex()}$.` // Les questions sont modifiées en fonction de la difficulté
           texteCorr = ''
           texteCorr += `On calcule $det(${nommatrice}) = ${ecritureParentheseSiNegatif(table[0][0])} \\times ${ecritureParentheseSiNegatif(table[1][1])} - ${ecritureParentheseSiNegatif(table[1][0])} \\times ${ecritureParentheseSiNegatif(table[0][1])}  = ${matrice.determinant()}$.`

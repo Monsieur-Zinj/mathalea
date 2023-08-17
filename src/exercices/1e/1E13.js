@@ -32,7 +32,7 @@ export default function Resolutionavecformecanonique () {
   this.nbColsCorr = 1
   this.spacingCorr = 3
   this.sup = 1
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -52,7 +52,7 @@ export default function Resolutionavecformecanonique () {
       texteCorr += '<br>On cherche les éventuelles racine(s) du polynôme.'
       texteCorr += '<br>On commence par calculer le discriminant : $\\Delta = b^2-4ac$'
       texteCorr += `<br>$\\Delta = ${b}^2-4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${delta}$`
-      
+
       // test des solutions
       if (delta < 0) {
         texteCorr += '<br>Le discriminant étant négatif, d\'après le cours, le polynôme n\'admet aucune racine réelle.'

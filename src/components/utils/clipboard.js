@@ -51,7 +51,7 @@ export function copyQRCodeImageToClipboard (imageId, dialogId) {
         showDialogForLimitedTime(dialogId + '-1', 1000)
       })
       .catch((e) => {
-        console.log('Error: ', e.message)
+        console.error('Error: ', e.message)
       })
   } else {
     showDialogForLimitedTime(dialogId + '-2', 2000)

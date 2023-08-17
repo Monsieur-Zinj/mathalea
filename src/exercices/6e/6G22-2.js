@@ -39,7 +39,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
     this.besoinFormulaireCaseACocher = ['Points confondus dans le cas des angles nuls']
     this.sup = false
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -102,7 +102,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       texte = ''
       texteCorr = ''
       // On construit les questions
-      
+
       const questionReponse =
         {
           question: enonceFigure + '$\\widehat{' + A.nom + B.nom + C.nom + '}$ est un angle :',

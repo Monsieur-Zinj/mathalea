@@ -48,14 +48,14 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
   const url = uuidToUrl[uuid as keyof typeof uuidToUrl]
   let filename, directory, isCan
   if (url) {
-    [filename, directory, isCan] = url.split('/').reverse()
+    [filename, directory, isCan] = url.replaceAll('\\', '/').split('/').reverse()
   }
   try {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
     // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
     // L'extension doit-être visible donc on l'enlève avant de la remettre...
     let module: any
-    if (isCan) {
+    if (isCan === 'can') {
       if (filename.includes('.ts')) {
         module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
       } else {

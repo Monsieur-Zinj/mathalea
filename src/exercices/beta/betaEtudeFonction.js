@@ -28,7 +28,7 @@ export default class BetaEtudeFonction extends Exercice {
     this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = ['Degré du polynôme:', 5]
   }
-  
+
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -99,9 +99,9 @@ export default class BetaEtudeFonction extends Exercice {
         { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
       ]
     })
-    
-    texteCorrection += tableauSignes //`<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
-    texteCorrection += tableauVariations //`<br>${mathalea2d(Object.assign({}, fixeBordures([tableauVariations])), tableauVariations)}`
+
+    texteCorrection += tableauSignes // `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
+    texteCorrection += tableauVariations // `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauVariations])), tableauVariations)}`
     this.listeQuestions.push(texteEnonce)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenu(this)// On envoie l'exercice à la fonction de mise en page

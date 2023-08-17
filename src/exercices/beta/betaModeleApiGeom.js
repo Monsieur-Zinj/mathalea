@@ -19,7 +19,7 @@ export default class ExerciceApiGeom extends Exercice {
     this.consigne = ''
     this.nbQuestions = 1 // Nombre de questions par défaut
   }
-  
+
   nouvelleVersion (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -44,7 +44,7 @@ export default class ExerciceApiGeom extends Exercice {
     // circonscrit.fillColor = 'orange'
     // circonscrit.fillOpacity = 0.1
     // p.thickness = 2
-    
+
     const mySpline = spline([
       { x: -10, y: 5, deriveeGauche: -2, deriveeDroit: -2, isVisible: false },
       { x: -2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
@@ -52,7 +52,7 @@ export default class ExerciceApiGeom extends Exercice {
       { x: 5, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
       { x: 12, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: false }
     ])
-    
+
     for (let i = 0; i < mySpline.n - 1; i++) {
       figure.create('Graph2', {
         f: mySpline.fonctions[i],
@@ -62,16 +62,16 @@ export default class ExerciceApiGeom extends Exercice {
         thickness: 1.2
       })
     }
-    
+
     const M = new PointOnSpline(figure, { spline: mySpline, label: 'M', thickness: 2 })
     M.draw()
     M.createSegmentToAxeX()
     M.createSegmentToAxeY()
     const textX = figure.create('DynamicX', { point: M })
     const textY = figure.create('DynamicY', { point: M })
-    
+
     figure.create('Grid')
-    
+
     this.listeQuestions[0] = `<div id="apiGeomEx${numeroExercice}F0"></div>`
     this.listeCorrections[0] = ''
     document.addEventListener('exercicesAffiches', () => {
@@ -82,7 +82,7 @@ export default class ExerciceApiGeom extends Exercice {
       textX.dynamicText.div.style.fontWeight = 'bolder'
       textY.dynamicText.div.style.fontWeight = 'bolder'
     })
-    
+
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }

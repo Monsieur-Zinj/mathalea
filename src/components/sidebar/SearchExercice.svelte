@@ -139,7 +139,7 @@
       try {
         results.push(exercice.titre && (exercice.titre.toLowerCase().includes(input.toLowerCase()) || exercice.id.toLowerCase().includes(input.toLowerCase())))
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
     if (!isCanPossible) {

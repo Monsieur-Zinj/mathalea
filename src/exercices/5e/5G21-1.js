@@ -1,10 +1,10 @@
 import ConstructibiliteDesTriangles from './_Constructibilite_des_triangles.js'
 
 export const titre = 'Justifier la construction des triangles via les longueurs'
+export const dateDeModificationImportante = '17/08/2023'
 
 /**
- * Vocabulaire des triangles
- * 5G21-1
+ * Justifier la construction des triangles via les longueurs'
  * Mise à jour le 2021-01-25
  * @author Sébastien Lozano
  */

@@ -76,7 +76,7 @@ export default function EqResolvantesThales () {
       return sortie
     }
 
-        if (this.debug) {
+    if (this.debug) {
       typesDeQuestionsDisponibles = [0, 1, 2, 3]
     } else {
       typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])

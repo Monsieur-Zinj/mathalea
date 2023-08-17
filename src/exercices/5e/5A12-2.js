@@ -48,7 +48,7 @@ export default class PremierOuPas extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const listePremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-    
+
     function EcritListeDivisions (dividende, nombremax) {
       let ind
       let rsltDiv
@@ -164,7 +164,7 @@ export default class PremierOuPas extends Exercice {
           }
           break
       }
-      //nombreATrouver=23
+      // nombreATrouver=23
       texte = `${nombreATrouver}`
       if (this.interactif && !context.isAmc) {
         texte += propositionsQcm(this, i).texte

@@ -60,7 +60,7 @@ export default function ExerciceLabyrinthePremiers3e () {
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin, choice(['blue', 'green', 'red'])) // On trace le chemin solution
 
-      texte = `Trouver la sortie en ne passant que par les cases contenant un nombre premier.<br>`
+      texte = 'Trouver la sortie en ne passant que par les cases contenant un nombre premier.<br>'
       texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let mauvaisesReponses = []

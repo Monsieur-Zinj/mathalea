@@ -50,13 +50,14 @@ export function LabelLatexPoint ({
   hauteur = 10,
   couleurDeRemplissage = ''
 } = {}) {
-  ObjetMathalea2D.call(this, {})
+  // ObjetMathalea2D.call(this, {}) rectification due aux latexParCoordonnees() qui ne sont plus des ObjetsMathalea2d comme les autres
+  // Jean-Claude Lhote 15/08/2023
   this.taille = taille
   this.largeur = largeur
   this.hauteur = hauteur
   this.couleurDeRemplissage = couleurDeRemplissage
   this.color = color
-  
+
   const offset = 0.25 * Math.log10(this.taille) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
   let x
   let y
@@ -103,22 +104,24 @@ export function LabelLatexPoint ({
         break
     }
   }
-  
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += objet.svg(coeff) + '\n'
-    }
-    code = `<g id="${this.id}">${code}</g>`
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += objet.tikz() + '\n'
-    }
-    return code
-  }
+  /*
+                                this.svg = function (coeff) {
+                                  let code = ''
+                                  for (const objet of objets) {
+                                    code += objet.svg(coeff) + '\n'
+                                  }
+                                  code = `<g id="${this.id}">${code}</g>`
+                                  return code
+                                }
+                                this.tikz = function () {
+                                  let code = ''
+                                  for (const objet of objets) {
+                                    code += objet.tikz() + '\n'
+                                  }
+                                  return code
+                                }
+                                 */
+  return objets
 }
 
 /**
@@ -206,7 +209,7 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
           anchor = 'east'
         }
         code = `\\draw [color=${this.color[1]}] (${arrondi(A.x)},${arrondi(A.y)
-        }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
+                }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
         if (orientation === 'gauche') {
@@ -231,30 +234,30 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
       else style += ` style="font-size:${this.taille}px;fill:${this.color[0]};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-          coeff
-        )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage[0]
-        }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
-          coeff
-        )})" id="${this.id}" >${texte}</text>\n `
+                    coeff
+                )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage[0]
+                }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
+                    coeff
+                )})" id="${this.id}" >${texte}</text>\n `
       } else {
         switch (orientation) {
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
-            }" id="${this.id}" >${texte}</text>\n `
+                            coeff
+                        )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+                        }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
-            }" id="${this.id}" >${texte}</text>\n `
+                            coeff
+                        )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+                        }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
-            }" id="${this.id}" >${texte}</text>\n `
+                            coeff
+                        )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+                        }" id="${this.id}" >${texte}</text>\n `
             break
         }
       }
@@ -271,7 +274,7 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
           anchor = 'east'
         }
         code = `\\draw [color=${this.color[1]}] (${arrondi(A.x)},${arrondi(A.y)
-        }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
+                }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
         if (orientation === 'gauche') {
@@ -322,7 +325,7 @@ export function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 
           anchor = 'east'
         }
         code = `\\draw [color=${this.color[1]}] (${arrondi(A.x)},${arrondi(A.y)
-        }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
+                }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
         if (orientation === 'gauche') {
@@ -347,34 +350,34 @@ export function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 
       else style += ` style="font-size:${this.taille}px;fill:${this.color[0]};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-          coeff
-        )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color[0]
-        }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
-          coeff
-        )})" id="${this.id}" >${texte}</text>\n `
+                    coeff
+                )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color[0]
+                }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
+                    coeff
+                )})" id="${this.id}" >${texte}</text>\n `
       } else {
         switch (orientation) {
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]
-            }" id="${this.id}" >${texte}</text>\n `
+                            coeff
+                        )}" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]
+                        }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="end" dominant-baseline="central" fill="${this.color[0]
-            }" id="${this.id}" >${texte}</text>\n `
+                            coeff
+                        )}" text-anchor="end" dominant-baseline="central" fill="${this.color[0]
+                        }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="start" dominant-baseline="central" fill="${this.color[0]
-            }" id="${this.id}" >${texte}</text>\n `
+                            coeff
+                        )}" text-anchor="start" dominant-baseline="central" fill="${this.color[0]
+                        }" id="${this.id}" >${texte}</text>\n `
             break
         }
       }
-      
+
       return code
     }
     this.tikz = function () {
@@ -389,7 +392,7 @@ export function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 
           anchor = 'east'
         }
         code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${arrondi(A.x)},${arrondi(A.y)
-        }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
+                }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
         if (orientation === 'gauche') {
@@ -531,13 +534,13 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
   this.svg = function () {
     let divLatex
     if (colorBackground !== '') {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%)" >${katex.renderToString('\\colorbox{' + this.colorBackground[0] + '}{ ' + taille + ' \\color{' + this.color[0] + '}{$' + this.texte + '$}}')}</div>`
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%)" >${katex.renderToString('\\colorbox{' + this.colorBackground[0] + '}{ ' + taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
     } else {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%)" >${katex.renderToString(taille + ' \\color{' + this.color[0] + '}{$' + this.texte + '$}')}</div>`
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%)" >${katex.renderToString('\\color{' + this.color[0] + '}' + taille + ' ' + this.texte)}</div>`
     }
     return { divLatex, x: x - 0.7, y: y + 0.7 }
   }
-  
+
   this.tikz = function () {
     let code
     if (this.colorBackground !== '') {
@@ -545,7 +548,7 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {${taille} \\color${this.color[1]}{$${texte}$}};`
     }
-    
+
     return code
   }
 }
@@ -587,7 +590,7 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
   else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
   else if (this.tailleCaracteres < 10) taille = '\\small'
   else taille = '\\normalsize'
-  
+
   let style = ''
   if (options.anchor !== undefined && options.anchor !== '') {
     switch (options.anchor) {
@@ -624,7 +627,7 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
   if (this.colorBackground !== '') {
     style += `background-color: ${this.colorBackground[0]};`
   }
-  
+
   this.svg = function (coeff) {
     const demiLargeur = this.largeur / 2
     const centrage = 0 // 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
@@ -635,7 +638,7 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
     // <circle cx="${this.x * coeff - demiLargeur}" cy="${-this.y * coeff - centrage - this.hauteur / 2}" r="1" fill="red" stroke="blue" stroke-width="2"  />
     // <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="1" fill="red" stroke="blue" stroke-width="2"  />`
   }
-  
+
   this.tikz = function () {
     let code
     if (this.colorBackground !== '') {
@@ -643,7 +646,7 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {${taille} \\color${this.color[1]}{$${texte}$}};`
     }
-    
+
     return code
   }
 }
