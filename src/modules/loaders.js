@@ -13,6 +13,7 @@ import { CLAVIER_COLLEGE, raccourcisCollege } from '../lib/interactif/claviers/c
 import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/college6eme.js'
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierConfiguration, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
+
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -154,33 +155,45 @@ export async function loadMathLive () {
   if (champs.length > 0) {
     await import('mathlive')
     for (const mf of champs) {
+      let clavier, raccourcis
       mf.mathVirtualKeyboardPolicy = 'manual'
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
-        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_HMS })
-        mf.inlineShortcuts = raccourcisHMS
+        clavier = CLAVIER_HMS
+        raccourcis = raccourcisHMS
       } else if (mf.classList.contains('lycee')) {
-        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_LYCEE })
-        mf.inlineShortcuts = raccourcisLycee
+        clavier = CLAVIER_LYCEE
+        raccourcis = raccourcisLycee
       } else if (mf.classList.contains('college6eme')) {
-        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_COLLEGE6EME })
-        mf.inlineShortcuts = raccourcis6eme
+        clavier = CLAVIER_COLLEGE6EME
+        raccourcis = raccourcis6eme
       } else if (mf.classList.contains('grecTrigo')) {
-        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_GRECTRIGO })
-        mf.inlineShortcuts = raccourcisTrigo
-      } else if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) { // Gestion du clavier Unites
+        clavier = CLAVIER_GRECTRIGO
+        raccourcis = raccourcisTrigo
+      } else if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
         const listeParamClavier = mf.classList
-        let jj = 0
-        while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
-        const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
-        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = clavierConfiguration(contenuUnites) })
-        mf.inlineShortcuts = raccourcisUnites
+        let index = 0
+        while (!listeParamClavier[index].includes('nites') && !listeParamClavier[index].includes('nités')) {
+          index++
+        }
+        // récupère tous les mots de listeParamClavier[index]
+        const contenuUnites = listeParamClavier[index].match(/[a-zA-Z]+/g)
+        // vire le mot 'unités'
+        contenuUnites.shift()
+
+        clavier = clavierConfiguration(contenuUnites)
+        raccourcis = raccourcisUnites
       } else {
         //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut
-        mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = CLAVIER_COLLEGE })
-        mf.inlineShortcuts = raccourcisCollege
+
+        clavier = CLAVIER_COLLEGE
+        raccourcis = raccourcisCollege
       }
+      mf.addEventListener('focusin', () => {
+        window.mathVirtualKeyboard.layouts = clavier
+      })
+      mf.inlineShortcuts = raccourcis
 
       // *******              REMI : A TOI D'ADAPTER LE CODE CI-DESSOUS             ********
 
@@ -232,13 +245,16 @@ export async function loadMathLive () {
         style += ' width: 75%;'
       }
       style += ' min-width: 200px'
-      mf.style = style
+      mf.setAttribute('style', style)
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight
-    window.parent.postMessage({ hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
+    window.parent.postMessage({
+      hauteurExercice,
+      iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle'))
+    }, '*')
     const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
     document.dispatchEvent(domExerciceInteractifReady)
   }

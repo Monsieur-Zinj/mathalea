@@ -349,11 +349,11 @@ const CLAVIER_MASSES = {
 
 export function clavierConfiguration (tabConf) {
   const clavierVirtuel = []
-  for (let ee = 0; ee < tabConf.length; ee++) {
-    if (tabConf[ee].indexOf('ongueur') !== -1) clavierVirtuel.push(CLAVIER_LONGUEURS) // Pour pouvoir saisir longueur sans se soucier du pluriel ou de la majuscule initiale
-    else if (tabConf[ee].indexOf('ire') !== -1) clavierVirtuel.push(CLAVIER_AIRES)
-    else if (tabConf[ee].indexOf('olume') !== -1) clavierVirtuel.push(CLAVIER_VOLUMES)
-    else if (tabConf[ee].indexOf('asse') !== -1) clavierVirtuel.push(CLAVIER_MASSES)
+  for (let index = 0; index < tabConf.length; index++) {
+    if (tabConf[index].includes('ongueur')) clavierVirtuel.push(CLAVIER_LONGUEURS) // Pour pouvoir saisir longueur sans se soucier du pluriel ou de la majuscule initiale
+    else if (tabConf[index].includes('ire')) clavierVirtuel.push(CLAVIER_AIRES)
+    else if (tabConf[index].includes('olume')) clavierVirtuel.push(CLAVIER_VOLUMES)
+    else if (tabConf[index].includes('asse')) clavierVirtuel.push(CLAVIER_MASSES)
   }
   return clavierVirtuel
 }
