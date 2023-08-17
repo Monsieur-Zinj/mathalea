@@ -9,6 +9,7 @@ import completerScriptDiviseurs from './3I12-3.js'
 import comprendreScriptListeMultiples from './3I12-4.js'
 import completerScriptMultiple from './3I12-1.js'
 export const titre = 'Différents exercices d\'algorithmique'
+export const uuid = 'f56d8'
 
 export default function ExosScratch () {
   Exercice.call(this)

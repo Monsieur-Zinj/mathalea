@@ -24,7 +24,7 @@ async function readInfos (dirPath) {
 
   await Promise.all(
     files.map(async (file) => {
-      const filePath = path.join(dirPath, file)
+      const filePath = path.posix.join(dirPath, file)
       const stat = await fs.stat(filePath)
 
       if (stat.isDirectory()) {

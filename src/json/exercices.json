@@ -340,17 +340,17 @@
     "url": "2e/200F3-01.js",
     "uuid": "e39b8",
     "id": "200F3-01",
-    "titre": "Lister tous les diviseurs d’un entier",
+    "titre": "Lecture graphique du signe d'une fonction affine",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
     }
   },
-  "20F3-02": {
+  "200F3-02": {
     "url": "2e/200F3-02.js",
     "uuid": "e46e6",
-    "id": "20F3-02",
+    "id": "200F3-02",
     "titre": "Lecture graphique de domaine de définition",
     "tags": {
       "interactif": true,
