@@ -25,8 +25,6 @@ export const uuid = '796f3'
 export const ref = '5G22'
 export default function DroiteRemarquableDuTriangle () {
   Exercice.call(this) // Héritage de la classe Exercice()
-
-  this.titre = titre
   this.consigne = ''
   this.spacing = 2
   this.nbQuestions = 1
@@ -35,7 +33,6 @@ export default function DroiteRemarquableDuTriangle () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -52,8 +49,8 @@ export default function DroiteRemarquableDuTriangle () {
     let A0, B0, C0, G
     let typesDeQuestionsDisponibles
     if (this.sup === 1) typesDeQuestionsDisponibles = [1, 2]
-    if (this.sup === 2) typesDeQuestionsDisponibles = [3, 4]
-    if (this.sup === 3) typesDeQuestionsDisponibles = [1, 2, 3, 4]
+    else if (this.sup === 2) typesDeQuestionsDisponibles = [3, 4]
+    else typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, angle, rapport, texte, texteCorr; i < this.nbQuestions; i++) { // this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       triangles[i] = new Triangles()
@@ -106,7 +103,7 @@ export default function DroiteRemarquableDuTriangle () {
           break
       }
 
-      texte = `Quelle est la nature de la droite tracée en bleu pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
+      texte = `Quelle est la nature de la droite tracée en bleu dans le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
