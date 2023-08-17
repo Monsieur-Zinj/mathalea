@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = 'Fonction : calculs d\'images (et d\'antécédents)'
+export const titre = 'Calculer images (et antécédents) de fonctions'
 
 /**
 * Répondre à des questions sur les fonctions.
@@ -37,7 +37,6 @@ export default function CalculsImagesFonctions () {
   this.nbQuestionsModifiable = true
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
