@@ -1,5 +1,5 @@
-import {get, writable} from 'svelte/store'
-import type {CallerComponentType, InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice} from '../lib/types'
+import { get, writable } from 'svelte/store'
+import type { CallerComponentType, InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice } from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -34,11 +34,11 @@ export const exercicesParams = writable<InterfaceParams[]>([])
  * Le paramètre `es` est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions + affichage deux colonnes
  */
-export const globalOptions = writable<InterfaceGlobalOptions>({v: '', z: '1', title: 'Évaluation', presMode: 'un_exo_par_page', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true, oneShot: false, twoColumns: false})
+export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'un_exo_par_page', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true, oneShot: false, twoColumns: false })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
-export const questionsOrder = writable({isQuestionsShuffled: false, indexes: []})
-export const selectedExercises = writable({isActive: false, indexes: [], count: 1})
+export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
+export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
 
 interface InterfaceTransitionsBetweenQuestions {
     isActive: boolean,
@@ -48,10 +48,10 @@ interface InterfaceTransitionsBetweenQuestions {
     tune: '0' | '1' | '2' | '3'
 }
 
-export const transitionsBetweenQuestions = writable<InterfaceTransitionsBetweenQuestions>({isActive: true, isNoisy: false, isQuestThenSolModeActive: false, questThenQuestAndSolDisplay: false, tune: '0'})
+export const transitionsBetweenQuestions = writable<InterfaceTransitionsBetweenQuestions>({ isActive: true, isNoisy: false, isQuestThenSolModeActive: false, questThenQuestAndSolDisplay: false, tune: '0' })
 
 // pour la gestion du mode sombre
-export const darkMode = writable({isActive: false})
+export const darkMode = writable({ isActive: false })
 
 // sauvegarde des résultats des exercices
 export const resultsByExercice = writable<InterfaceResultExercice[]>([])
@@ -71,9 +71,9 @@ export const callerComponent = writable<CallerComponentType>('')
 /**
  * Déplace un exercice dans exercicesParams
  */
-export function moveExercice(liste: InterfaceParams[], iDepart: number, iArrivee: number): InterfaceParams[] {
-    liste.splice(iArrivee, 0, liste.splice(iDepart, 1)[0])
-    return liste
+export function moveExercice (liste: InterfaceParams[], iDepart: number, iArrivee: number): InterfaceParams[] {
+  liste.splice(iArrivee, 0, liste.splice(iDepart, 1)[0])
+  return liste
 }
 
 let urlToWrite: URL
@@ -82,114 +82,114 @@ let timerId: ReturnType<typeof setTimeout>
 /**
  * Complète l'URL courante avec les éléments relatifs au diaporama
  */
-export function updateGlobalOptionsInURL(url: URL) {
-    const options = get(globalOptions)
-    const selectedExexercicesStore = get(selectedExercises)
-    const questionsOrderStore = get(questionsOrder)
-    if (options.v) {
-        url.searchParams.append('v', options.v)
+export function updateGlobalOptionsInURL (url: URL) {
+  const options = get(globalOptions)
+  const selectedExexercicesStore = get(selectedExercises)
+  const questionsOrderStore = get(questionsOrder)
+  if (options.v) {
+    url.searchParams.append('v', options.v)
+  } else {
+    url.searchParams.delete('v')
+  }
+  if (options.z && options.z !== '1') {
+    url.searchParams.append('z', options.z)
+  } else {
+    url.searchParams.delete('z')
+  }
+  if (options.nbVues && options.nbVues > 1) {
+    url.searchParams.append('nbVues', options.nbVues.toString())
+  } else {
+    url.searchParams.delete('nbVues')
+  }
+  if (options.durationGlobal) {
+    url.searchParams.append('dGlobal', options.durationGlobal.toString())
+  } else {
+    url.searchParams.delete('dGlobal')
+  }
+  if (options.choice) {
+    url.searchParams.append('choice', options.choice.toString())
+  } else {
+    url.searchParams.delete('choice')
+  }
+  if (options.shuffle) {
+    url.searchParams.append('shuffle', options.shuffle ? '1' : '0')
+  } else {
+    url.searchParams.delete('shuffle')
+  }
+  if (options.trans) {
+    url.searchParams.append('trans', options.trans ? '1' : '0')
+  } else {
+    url.searchParams.delete('trans')
+  }
+  if (typeof options.sound !== 'undefined') {
+    url.searchParams.append('sound', options.sound.toString())
+  } else {
+    url.searchParams.delete('sound')
+  }
+  if (options.v === 'eleve') {
+    if (options.title.length > 0) {
+      url.searchParams.append('title', options.title)
     } else {
-        url.searchParams.delete('v')
+      url.searchParams.delete('title')
     }
-    if (options.z && options.z !== '1') {
-        url.searchParams.append('z', options.z)
+    if (options.iframe !== undefined && options.iframe.length > 0) {
+      url.searchParams.append('iframe', options.iframe)
     } else {
-        url.searchParams.delete('z')
+      url.searchParams.delete('iframe')
     }
-    if (options.nbVues && options.nbVues > 1) {
-        url.searchParams.append('nbVues', options.nbVues.toString())
+    if (options.answers !== undefined && options.answers.length > 0) {
+      url.searchParams.append('answers', JSON.stringify(options.answers))
     } else {
-        url.searchParams.delete('nbVues')
+      url.searchParams.delete('answers')
     }
-    if (options.durationGlobal) {
-        url.searchParams.append('dGlobal', options.durationGlobal.toString())
+    if (typeof options !== 'undefined') {
+      let es = presModeId.indexOf(options.presMode).toString()
+      es += options.setInteractive
+      es += options.isSolutionAccessible ? '1' : '0'
+      es += options.isInteractiveFree ? '1' : '0'
+      es += options.oneShot ? '1' : '0'
+      es += options.twoColumns ? '1' : '0'
+      url.searchParams.append('es', es)
+    }
+    if (options.done) {
+      url.searchParams.append('done', options.done)
     } else {
-        url.searchParams.delete('dGlobal')
+      url.searchParams.delete('done')
     }
-    if (options.choice) {
-        url.searchParams.append('choice', options.choice.toString())
-    } else {
-        url.searchParams.delete('choice')
+  } else {
+    url.searchParams.delete('title')
+    url.searchParams.delete('es')
+    url.searchParams.delete('iframe')
+    url.searchParams.delete('answers')
+    url.searchParams.delete('recorder')
+    url.searchParams.delete('done')
+  }
+  if (options.recorder) {
+    url.searchParams.append('recorder', options.recorder)
+  } else {
+    url.searchParams.delete('recorder')
+  }
+  if (options.v === 'can' || options.v === 'diaporama') {
+    if (selectedExexercicesStore) {
+      url.searchParams.append('selectedExercises', JSON.stringify(selectedExexercicesStore))
     }
-    if (options.shuffle) {
-        url.searchParams.append('shuffle', options.shuffle ? '1' : '0')
-    } else {
-        url.searchParams.delete('shuffle')
+    if (questionsOrderStore) {
+      url.searchParams.append('questionsOrder', JSON.stringify(questionsOrderStore))
     }
-    if (options.trans) {
-        url.searchParams.append('trans', options.trans ? '1' : '0')
-    } else {
-        url.searchParams.delete('trans')
-    }
-    if (typeof options.sound !== 'undefined') {
-        url.searchParams.append('sound', options.sound.toString())
-    } else {
-        url.searchParams.delete('sound')
-    }
-    if (options.v === 'eleve') {
-        if (options.title.length > 0) {
-            url.searchParams.append('title', options.title)
-        } else {
-            url.searchParams.delete('title')
-        }
-        if (options.iframe !== undefined && options.iframe.length > 0) {
-            url.searchParams.append('iframe', options.iframe)
-        } else {
-            url.searchParams.delete('iframe')
-        }
-        if (options.answers !== undefined && options.answers.length > 0) {
-            url.searchParams.append('answers', JSON.stringify(options.answers))
-        } else {
-            url.searchParams.delete('answers')
-        }
-        if (typeof options !== 'undefined') {
-            let es = presModeId.indexOf(options.presMode).toString()
-            es += options.setInteractive
-            es += options.isSolutionAccessible ? '1' : '0'
-            es += options.isInteractiveFree ? '1' : '0'
-            es += options.oneShot ? '1' : '0'
-            es += options.twoColumns ? '1' : '0'
-            url.searchParams.append('es', es)
-        }
-        if (options.done) {
-            url.searchParams.append('done', options.done)
-        } else {
-            url.searchParams.delete('done')
-        }
-    } else {
-        url.searchParams.delete('title')
-        url.searchParams.delete('es')
-        url.searchParams.delete('iframe')
-        url.searchParams.delete('answers')
-        url.searchParams.delete('recorder')
-        url.searchParams.delete('done')
-    }
-    if (options.recorder) {
-        url.searchParams.append('recorder', options.recorder)
-    } else {
-        url.searchParams.delete('recorder')
-    }
-    if (options.v === 'can' || options.v === 'diaporama') {
-        if (selectedExexercicesStore) {
-            url.searchParams.append('selectedExercises', JSON.stringify(selectedExexercicesStore))
-        }
-        if (questionsOrderStore) {
-            url.searchParams.append('questionsOrder', JSON.stringify(questionsOrderStore))
-        }
-    }
-    const currentUrl = new URL(window.location.href)
-    if (currentUrl.searchParams.has('triche')) {
-        url.searchParams.append('triche', '1')
-    }
-    urlToWrite = url
-    // On ne met à jour l'url qu'une fois toutes les 0,5 s
-    // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
-    if (timerId === undefined) {
-        timerId = setTimeout(() => {
-            window.history.pushState({}, '', urlToWrite)
-            timerId = undefined
-        }, 500)
-    }
+  }
+  const currentUrl = new URL(window.location.href)
+  if (currentUrl.searchParams.has('triche')) {
+    url.searchParams.append('triche', '1')
+  }
+  urlToWrite = url
+  // On ne met à jour l'url qu'une fois toutes les 0,5 s
+  // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
+  if (timerId === undefined) {
+    timerId = setTimeout(() => {
+      window.history.pushState({}, '', urlToWrite)
+      timerId = undefined
+    }, 500)
+  }
 }
 
 export const presModeId: ['liste_exos', 'un_exo_par_page', 'liste_questions', 'une_question_par_page'] = ['liste_exos', 'un_exo_par_page', 'liste_questions', 'une_question_par_page']
