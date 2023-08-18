@@ -42,7 +42,6 @@ export const ref = '2N50-1'
 export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.nbQuestions = 1
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes\n6 : programmes2\n7 : spectacle\n8 : isocèle\n9 : Mélange']
     this.sup = '9'
