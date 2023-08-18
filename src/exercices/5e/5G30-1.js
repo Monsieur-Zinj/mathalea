@@ -4,7 +4,7 @@ import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -83,13 +83,13 @@ export default function EgaliteDAngles () {
       enonce += `${numAlpha(3)} En déduire la mesure de l'angle $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$.<br>`
       enonce += `${numAlpha(4)} En utilisant la question ${numAlpha(2)} déterminer la mesure de l'angle $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$.<br>`
       enonce += `${numAlpha(5)} Vérifier la conjecture suivante : « La somme des angles d'un quadrilatère vaut 360°.»<br>`
-      correction = `${numAlpha(0)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[4]}${noms[0]}${noms[1]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ mesure $${a}\\degree$.<br>`
+      correction = `${numAlpha(0)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[4]}${noms[0]}${noms[1]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ mesure $${miseEnEvidence(a)}\\degree$.<br>`
       correction += `${numAlpha(1)} Les angles $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ mesure $180\\degree-${a}\\degree=${miseEnEvidence(180 - a, gras)}\\degree$.<br>`
-      correction += `${numAlpha(2)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[1]}${noms[3]}${noms[2]}}=180\\degree-\\widehat{${noms[3]}${noms[1]}${noms[2]}}-\\widehat{${noms[1]}${noms[2]}${noms[3]}}=180\\degree-${a}\\degree-${c}\\degree=${180 - a - c}\\degree$.<br>`
+      correction += `${numAlpha(2)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[1]}${noms[3]}${noms[2]}}=180\\degree-\\widehat{${noms[3]}${noms[1]}${noms[2]}}-\\widehat{${noms[1]}${noms[2]}${noms[3]}}=180\\degree-${a}\\degree-${c}\\degree=${miseEnEvidence(180 - a - c)}\\degree$.<br>`
       correction += `${numAlpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${miseEnEvidence(a + c, gras)}\\degree$.<br>`
       correction += `${numAlpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${miseEnEvidence(180 - a - c, gras)}\\degree$.<br>`
-      correction += `${numAlpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${miseEnEvidence(180 - a, gras)}\\degree+${miseEnEvidence(a + c, gras)}\\degree+${miseEnEvidence(180 - a - c, gras)}\\degree=180\\degree+180\\degree=360\\degree$.<br>`
-      correction += '$\\phantom{f}$ La conjecture est finalement vraie.'
+      correction += `${numAlpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${miseEnEvidence(180 - a, 'blue')}\\degree+${miseEnEvidence(a + c, 'blue')}\\degree+${miseEnEvidence(180 - a - c, 'blue')}\\degree=${miseEnEvidence(360)}\\degree$.<br>`
+      correction += '$\\phantom{f/}$ La conjecture est bien vérifiée.'
       const params = { xmin: Math.min(A.x - 8, C.x - 8, E.x - 8), ymin: Math.min(A.y - 1, E.y - 1, C.y - 1), xmax: Math.max(E.x + 2, A.x + 2, C.x + 2), ymax: Math.max(C.y + 2, A.y + 2, E.y + 2), scale: 0.7 }
 
       return [objets, params, enonce, correction]
@@ -126,14 +126,14 @@ export default function EgaliteDAngles () {
       enonce += `${numAlpha(1)} En déduire la mesure de l'angle $\\widehat{${noms[3]}${noms[2]}${noms[0]}}$.<br>`
       enonce += `${numAlpha(2)} Déterminer si les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles.<br>`
       enonce += `${numAlpha(3)} Si on considère que les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur, Déterminer la nature du quadrilatère $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$.<br>`
-      correction = `${numAlpha(0)} Les angles $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[2]}${noms[3]}${noms[1]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ mesure $180\\degree-${d}\\degree=${180 - d}\\degree$.<br>`
-      correction += `${numAlpha(1)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[0]}${noms[2]}${noms[3]}}=180-\\widehat{${noms[3]}${noms[0]}${noms[2]}}-\\widehat{${noms[0]}${noms[3]}${noms[2]}}=180\\degree-${a}\\degree-${180 - d}\\degree=${-a + d}\\degree$.<br>`
+      correction = `${numAlpha(0)} Les angles $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[2]}${noms[3]}${noms[1]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ mesure $180\\degree-${d}\\degree=${miseEnEvidence(180 - d)}\\degree$.<br>`
+      correction += `${numAlpha(1)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[0]}${noms[2]}${noms[3]}}=180-\\widehat{${noms[3]}${noms[0]}${noms[2]}}-\\widehat{${noms[0]}${noms[3]}${noms[2]}}=180\\degree-${a}\\degree-${180 - d}\\degree=${miseEnEvidence(-a + d)}\\degree$.<br>`
       correction += `${numAlpha(2)} Pour les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ coupées par la sécante $(${noms[2]}${noms[4]})$ les angles $\\widehat{${noms[0]}${noms[2]}${noms[3]}}$ et $\\widehat{${noms[1]}${noms[4]}${noms[3]}}$ sont des angles alternes-internes.<br>`
       correction += '$\\phantom{c/}$ Or, si des angles alternes-internes sont égaux, alors cela signifie que les droites coupées par la sécante sont parallèles.<br>'
-      correction += `$\\phantom{c/}$ Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont donc parallèles.<br>`
+      correction += `$\\phantom{c/}$ Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont donc ${texteEnCouleurEtGras('parallèles')}.<br>`
       correction += `${numAlpha(3)} Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles et les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur.<br>`
-      correction += '$\\phantom{c/}$ Or, un quadrilatère qui possède des côtés opposés parallèles et de même longueur est un parallèlogramme.<br>'
-      correction += `$\\phantom{c/}$ Donc $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$ est un parallèlogramme et $${noms[3]}$ est son centre.`
+      correction += '$\\phantom{c/}$ Or, un quadrilatère qui possède des côtés opposés parallèles et de même longueur est un parallélogramme.<br>'
+      correction += `$\\phantom{c/}$ Donc $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$ est un ${texteEnCouleurEtGras('parallélogramme')} et $${noms[3]}$ est son centre.`
       const params = { xmin: Math.min(A.x, B.x, C.x, D.x, E.x) - 1, ymin: Math.min(A.y, B.y, C.y, D.y, E.y) - 1, xmax: Math.max(A.x, B.x, C.x, D.x, E.x) + 2, ymax: Math.max(A.y, B.y, C.y, D.y, E.y) + 2 }
 
       return [objets, params, enonce, correction]
@@ -153,5 +153,5 @@ export default function EgaliteDAngles () {
     this.listeCorrections.push(figure[3])
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Numéro de figure', 3, '1 : Le trapèze\n2 : Le papillon\n3 : Au hasard']
+  this.besoinFormulaireNumerique = ['Type de figure', 3, '1 : Le trapèze\n2 : Le papillon\n3 : Au hasard']
 }
