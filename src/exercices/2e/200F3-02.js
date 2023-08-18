@@ -1,4 +1,4 @@
-import { courbe } from '../../lib/2d/courbes.js'
+import { courbe, croche } from '../../lib/2d/courbes.js'
 import { plot } from '../../lib/2d/points.js'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { spline } from '../../lib/mathFonctions/Spline.js'
@@ -67,6 +67,7 @@ export default class LectureEnsebleDef extends Exercice {
       { x: 5 + randint(-1, 1), y: -2 + randint(-1, 1), deriveeGauche: -2, deriveeDroit: -2, isVisible: true }
     ]
     let courbeAvecTrace, xmin, xmax, repere
+    let ouvertDroit, ouvertGauche
     switch (this.sup) {
       case 1: { // défini aux 2 extrémités par des points d'abscisses entières
         const spline = aleatoiriseSpline(choice([noeuds1, noeuds2]))
@@ -78,13 +79,29 @@ export default class LectureEnsebleDef extends Exercice {
           yMin: yMin - 2,
           yMax: yMax + 2
         }).setGrille({ grilleX: true, grilleY: true }).buildStandard()
-        courbeAvecTrace = spline.courbe({
+        ouvertGauche = Math.random() < 0.5
+        ouvertDroit = Math.random() < 0.5
+
+        courbeAvecTrace = [spline.courbe({
           repere,
-          ajouteNoeuds: true,
+          color: 'blue',
+          ajouteNoeuds: false,
           optionsNoeuds: { style: '.', epaisseur: 2 }
-        })//,
-        //   arc(point(spline.x[0] - 0.1, spline.y[0] - 0.1), point(spline.x[0] - 0.1, spline.y[0]), point(spline.x[0] - 0.1, spline.y[0] + 0.1), false),
-        //  arc(point(spline.x[spline.n - 1] + 0.1, spline.y[spline.n - 1] + 0.1), point(spline.x[spline.n - 1] + 0.1, spline.y[spline.n - 1]), point(spline.x[spline.n - 1] + 0.1, spline.y[spline.n - 1] - 0.1), false)]
+        })]
+        if (ouvertGauche) {
+          courbeAvecTrace.push(
+            croche(spline.x[0], spline.y[0], 'gauche', 0.1, 'blue')
+          )
+        } else {
+          courbeAvecTrace.push(plot(spline.x[0], spline.y[0], { couleur: 'blue' }))
+        }
+        if (ouvertDroit) {
+          courbeAvecTrace.push(
+            croche(spline.x[spline.n - 1], spline.y[spline.n - 1], 'droit', 0.1, 'blue')
+          )
+        } else {
+          courbeAvecTrace.push(plot(spline.x[spline.n - 1], spline.y[spline.n - 1], { couleur: 'blue' }))
+        }
       }
         break
       case 2: { // borné à droite mais pas à gauche.
@@ -101,12 +118,16 @@ export default class LectureEnsebleDef extends Exercice {
         if (choice([true, false])) {
           xmin = -dx - 1
           xmax = '+\\infty'
+          ouvertGauche = false
+          ouvertDroit = true
           courbeAvecTrace = [
             courbe(parabole, { repere, xMin: -dx - 1, step: 0.05, epaisseur: 1 }),
             plot(-dx - 1, parabole(-dx - 1), { rayon: 0.1 })]
         } else {
           xmax = -dx + 1
           xmin = '-\\infty'
+          ouvertGauche = true
+          ouvertDroit = false
           courbeAvecTrace = [
             courbe(parabole, { repere, xMax: -dx + 1, step: 0.05, epaisseur: 1 }),
             plot(-dx + 1, parabole(-dx + 1), { rayon: 0.1 })]
@@ -126,14 +147,16 @@ export default class LectureEnsebleDef extends Exercice {
         }).setGrille({ grilleX: true, grilleY: true }).buildStandard()
         xmin = '-\\infty'
         xmax = '+\\infty'
+        ouvertGauche = true
+        ouvertDroit = true
         courbeAvecTrace = courbe(hyperbole, { repere, xMin: -5, xMax: 5, step: 0.05, epaisseur: 1 })
       }
         break
     }
 
     this.question = mathalea2d(Object.assign({}, fixeBordures([repere])), [repere, courbeAvecTrace]) + 'Quel est l\'ensemble de définition de la fonction représentée ci-dessus ?'
-    this.correction = `L'ensemble de définition de la fonction est $${xmin === '-\\infty' ? ']' : '['}${xmin};${xmax}${xmax === '+\\infty' ? '[' : ']'}$.`
-    this.reponse = `${xmin === '-\\infty' ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${xmax === '+\\infty' ? '\\right\\lbrack' : '\\right\\rbrack'}`
+    this.correction = `L'ensemble de définition de la fonction est $${ouvertGauche ? ']' : '['}${xmin};${xmax}${ouvertDroit ? '[' : ']'}$.`
+    this.reponse = `${ouvertGauche ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${ouvertDroit ? '\\right\\lbrack' : '\\right\\rbrack'}`
     this.formatInteractif = 'texte'
   }
 }

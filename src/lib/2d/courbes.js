@@ -6,6 +6,7 @@ import { point, tracePoint } from './points.js'
 import { motifs, polygone, polyline } from './polygones.js'
 import { segment } from './segmentsVecteurs.js'
 import { texteParPosition } from './textes.js'
+import { arc } from './cercle.js'
 
 export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {
   ObjetMathalea2D.call(this, {})
@@ -18,7 +19,7 @@ export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textA
   this.textAbs = textAbs
   this.textOrd = textOrd
   this.color = color
-  
+
   this.svg = function (coeff) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
@@ -93,7 +94,7 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
   this.textAbs = textAbs
   this.textOrd = textOrd
   this.color = color
-  
+
   this.svg = function (coeff) {
     const x0 = this.x / this.xscale
     const y0 = this.y / this.yscale
@@ -196,15 +197,15 @@ export function Courbe (f, {
   let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   xunite = repere.xUnite
   yunite = repere.yUnite
-  
+
   if (isNaN(xunite)) {
     xunite = xUnite
   }
-  
+
   if (isNaN(yunite)) {
     yunite = yUnite
   }
-  
+
   const objets = []
   let points = []
   let pas
@@ -232,7 +233,7 @@ export function Courbe (f, {
   p = polyline([...points], this.color)
   p.epaisseur = epaisseur
   objets.push(p)
-  
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -347,7 +348,7 @@ export function Integrale (f, {
   const ymax = repere.yMax
   const xunite = repere.xUnite
   const yunite = repere.yUnite
-  
+
   const objets = []
   const points = []
   let pas
@@ -379,7 +380,7 @@ export function Integrale (f, {
   p.opaciteDeRemplissage = opacite
   p.hachures = motifs(hachures)
   objets.push(p)
-  
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -489,15 +490,15 @@ export function CourbeSpline (f, {
   let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   xunite = repere.xUnite
   yunite = repere.yUnite
-  
+
   if (isNaN(xunite)) {
     xunite = xUnite
   }
-  
+
   if (isNaN(yunite)) {
     yunite = yUnite
   }
-  
+
   const objets = []
   if (traceNoeuds) {
     for (let i = 0; i < f.x.length; i++) {
@@ -536,7 +537,7 @@ export function CourbeSpline (f, {
   p.epaisseur = epaisseur
   p.opacite = 0.7
   objets.push(p)
-  
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -790,4 +791,22 @@ export function antecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
   }
   if (cpt > 1000) return false
   return xmoy
+}
+
+/**
+ * crée un petit demi-cercle en x,y pour marquer une courbe sur un intervalle ouvert
+ * @param {number} x
+ * @param {number} y
+ * @param {'gauche'|'droite'} sens 'gauche' par défaut
+ * @param {number} rayon
+ * @param {string} couleur
+ * @returns {Arc}
+ */
+export function croche (x, y, sens = 'gauche', rayon = 0.1, couleur = 'black') {
+  const centre = point(x + (sens === 'gauche' ? -rayon : rayon), y)
+  const dessous = point(x + (sens === 'gauche' ? -rayon : rayon), y - rayon)
+  const dessus = point(x + (sens === 'gauche' ? -rayon : rayon), y + rayon)
+  const croche = sens === 'gauche' ? arc(dessous, centre, dessus) : arc(dessus, centre, dessous)
+  croche.color = colorToLatexOrHTML(couleur)
+  return croche
 }

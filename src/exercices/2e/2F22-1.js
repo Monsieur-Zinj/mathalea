@@ -194,8 +194,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
 
       })
       for (let j = 0; j < nombreAntecedentCherches1; j++) {
-        for (let k = 0; k < theSpline.visible.length; k++) {
-          theSpline.visible[k] = theSpline.y[k] === y1
+        for (let k = 0; k < theSpline.visibles.length; k++) {
+          theSpline.visibles[k] = theSpline.y[k] === y1
         }
       }
       const courbeCorrection = theSpline.courbe({

@@ -18,9 +18,9 @@ import { Polynome } from './Polynome.js'
  */
 export class Spline {
   /**
-   * Passer au moins deux noeuds, sinon ça ne peut pas fonctionner
-   * @param {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>} noeuds la liste des noeuds avec leurs nombres dérivés
-   */
+     * Passer au moins deux noeuds, sinon ça ne peut pas fonctionner
+     * @param {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>} noeuds la liste des noeuds avec leurs nombres dérivés
+     */
   constructor (noeuds) {
     this.polys = []
     if (noeuds.length < 2) { // on ne peut pas interpoler une courbe avec moins de 2 noeuds
@@ -30,7 +30,7 @@ export class Spline {
       window.notify('Il y a un problème avec ces noeuds (peut-être un doublon ?) ', { noeuds })
       return
     } // les noeuds comportent une anomalie : deux valeur de x identiques
-    
+
     for (let i = 0; i < noeuds.length - 1; i++) {
       const x0 = noeuds[i].x
       const y0 = noeuds[i].y
@@ -74,16 +74,16 @@ export class Spline {
     this.n = this.noeuds.length
     this.x = this.noeuds.map((noeud) => noeud.x)
     this.y = this.noeuds.map((noeud) => noeud.y)
-    this.visible = this.noeuds.map((noeud) => noeud.isVisible) // On récupère la visibilité des noeuds pour la courbe
+    this.visibles = this.noeuds.map((noeud) => noeud.isVisible) // On récupère la visibilité des noeuds pour la courbe
     this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
     // this.step = step // on en a besoin pour la dérivée...
     this.fonctions = this.convertPolyFunction()
   }
-  
+
   /**
-   * convertit les polynomes en fonctions
-   * @returns {Function[]}
-   */
+     * convertit les polynomes en fonctions
+     * @returns {Function[]}
+     */
   convertPolyFunction () {
     const f = []
     for (let i = 0; i < this.n - 1; i++) {
@@ -91,12 +91,12 @@ export class Spline {
     }
     return f
   }
-  
+
   /**
-   * retourne les solutions de f(x) = y sur son domaine de définition
-   * @param {number} y
-   * @returns {number[]}
-   */
+     * retourne les solutions de f(x) = y sur son domaine de définition
+     * @param {number} y
+     * @returns {number[]}
+     */
   solve (y) {
     const antecedents = []
     for (let i = 0; i < this.polys.length; i++) {
@@ -132,44 +132,44 @@ export class Spline {
     }
     return antecedents
   }
-  
+
   /**
-   * retourne un array décrivant les variations de la Spline sur son domaine de déf
-   * @returns {*[]|null}
-   */
+     * retourne un array décrivant les variations de la Spline sur son domaine de déf
+     * @returns {*[]|null}
+     */
   variations (step) {
     return variationsFonction(this.derivee, this.noeuds[0].x, this.noeuds[this.n - 1].x, step ?? new FractionEtendue(1, 100))
   }
-  
+
   /**
-   * retourne les signes pris par la Spline sur son domaine de déf
-   * @returns {T[]}
-   */
+     * retourne les signes pris par la Spline sur son domaine de déf
+     * @returns {T[]}
+     */
   signes (step) {
     return signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x, step ?? new FractionEtendue(1, 10), 0.001)
   }
-  
+
   /**
-   * retourne le nombre d'antécédents entiers trouvés pour une valeur y donnée
-   * @param {number} y
-   * @returns {number}
-   */
+     * retourne le nombre d'antécédents entiers trouvés pour une valeur y donnée
+     * @param {number} y
+     * @returns {number}
+     */
   nombreAntecedentsEntiers (y) {
     const solutions = this.solve(y)
     const solutionsEntieres = solutions.filter(sol => Number.isInteger(sol))
     return solutionsEntieres.length
   }
-  
+
   /**
-   * retourne le nombre d'antécédents de y
-   * @param {number} y
-   * @returns {number}
-   */
+     * retourne le nombre d'antécédents de y
+     * @param {number} y
+     * @returns {number}
+     */
   nombreAntecedents (y) {
     const solutions = this.solve(y)
     return solutions.length
   }
-  
+
   nombreAntecedentsMaximum (yMin, yMax, yentier = true, entiers = true) {
     let nbMax = 0
     for (let k = yMin; k < yMax; k += yentier ? 1 : 0.1) {
@@ -181,14 +181,14 @@ export class Spline {
     }
     return nbMax
   }
-  
+
   /**
-   * Retourne une valeur de y (si trouvée) pôur laquelle il y a exactement n antécédents
-   * @param {number} n
-   * @param {number} yMin
-   * @param {number} yMax
-   * @returns {string|*}
-   */
+     * Retourne une valeur de y (si trouvée) pôur laquelle il y a exactement n antécédents
+     * @param {number} n
+     * @param {number} yMin
+     * @param {number} yMax
+     * @returns {string|*}
+     */
   trouveYPourNAntecedents (n, yMin, yMax, yEntier = true, antecedentsEntiers = true) {
     const candidats = []
     if (Number.isInteger(yMin) && Number.isInteger(yMax)) {
@@ -214,12 +214,12 @@ export class Spline {
     }
     return choice(candidats) // normalement, il ne devrait jamais retourner cette valeur.
   }
-  
+
   /**
-   * retourne les min et max pour un repère contenant la courbe si ceux-ci sont sur des noeuds (c'est vivement consseillé)
-   * Ne fonctionne pas si yMax ou yMin sont atteints entre deux noeuds
-   * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
-   */
+     * retourne les min et max pour un repère contenant la courbe si ceux-ci sont sur des noeuds (c'est vivement consseillé)
+     * Ne fonctionne pas si yMax ou yMin sont atteints entre deux noeuds
+     * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
+     */
   trouveMaxes () {
     if (Array.isArray(this.noeuds) && this.noeuds.length > 0) {
       const xMin = Math.floor(Math.min(...this.noeuds.map(el => el.x)))
@@ -229,11 +229,11 @@ export class Spline {
       return { xMin, xMax, yMin, yMax }
     }
   }
-  
+
   /**
-   * retourne le minimum et le maximum de la fonction
-   * @returns {{yMin: number, yMax: number}}
-   */
+     * retourne le minimum et le maximum de la fonction
+     * @returns {{yMin: number, yMax: number}}
+     */
   amplitude () {
     let yMin = 1000
     let yMax = -1000
@@ -337,20 +337,20 @@ export class Spline {
     }
     return { yMin, yMax }
   }
-  
+
   /**
-   * fournit la fonction à passer pour simuler une fonction mathématique du type (x)=>f(x)
-   * @returns {function(*): number|*}
-   */
+     * fournit la fonction à passer pour simuler une fonction mathématique du type (x)=>f(x)
+     * @returns {function(*): number|*}
+     */
   get fonction () {
     return x => this.image(rationnalise(x))
   }
-  
+
   /**
-   * Retourne l'image de x par la fonction
-   * @param {number} x
-   * @returns {number|*}
-   */
+     * Retourne l'image de x par la fonction
+     * @param {number} x
+     * @returns {number|*}
+     */
   image (x) {
     let trouveK = false
     let k = 0
@@ -372,12 +372,12 @@ export class Spline {
       return this.fonctions[k](rationnalise(x))
     }
   }
-  
+
   /**
-   * retourne un array de polynomes dérivés (degré 2) de ceux de la Spline utilisé par derivee() pour définir la dérivée pour tout x du domaine
-   * la fonction est continue, mais les dérivées à gauche et à droite des noeuds ne seront pas identiques
-   * donc on ne peut pas en faire une Spline.
-   */
+     * retourne un array de polynomes dérivés (degré 2) de ceux de la Spline utilisé par derivee() pour définir la dérivée pour tout x du domaine
+     * la fonction est continue, mais les dérivées à gauche et à droite des noeuds ne seront pas identiques
+     * donc on ne peut pas en faire une Spline.
+     */
   get derivees () {
     const derivees = []
     for (let i = 0; i < this.polys.length; i++) {
@@ -385,10 +385,10 @@ export class Spline {
     }
     return derivees
   }
-  
+
   /**
-   * retourne une fonction dérivée de la spline sur son domaine de définition
-   */
+     * retourne une fonction dérivée de la spline sur son domaine de définition
+     */
   get derivee () {
     const intervalles = []
     for (let i = 0; i < this.noeuds.length - 1; i++) {
@@ -399,17 +399,17 @@ export class Spline {
       return this.derivees[index].image(rationnalise(x))
     }
   }
-  
+
   /**
-   * crée l'objet mathalea2d correspondant à la courbe tracée
-   * @param {Repere} repere
-   * @param {number} step
-   * @param {string} color
-   * @param {number} epaisseur
-   * @param {boolean} ajouteNoeuds
-   * @param {Object} optionsNoeuds
-   * @returns {Trace}
-   */
+     * crée l'objet mathalea2d correspondant à la courbe tracée
+     * @param {Repere} repere
+     * @param {number} step
+     * @param {string} color
+     * @param {number} epaisseur
+     * @param {boolean} ajouteNoeuds
+     * @param {Object} optionsNoeuds
+     * @returns {Trace}
+     */
   courbe ({
     repere,
     step = new FractionEtendue(1, 10),
@@ -477,14 +477,14 @@ export function trieNoeuds (noeuds) {
  */
 export class Trace extends ObjetMathalea2D {
   /**
-   * @param {Spline | SplineCatmullRom}spline La splineCatmulRom ou Spline dont on veut la Trace
-   * @param {Repere} repere le repère associé
-   * @param {number} step le pas entre deux points
-   * @param {string} color la couleur
-   * @param {number} epaisseur son épaisseur
-   * @param {boolean} ajouteNoeuds si true, des points sont ajoutés aux endroits des noeuds
-   * @param {Object} optionsNoeud
-   */
+     * @param {Spline | SplineCatmullRom}spline La splineCatmulRom ou Spline dont on veut la Trace
+     * @param {Repere} repere le repère associé
+     * @param {number} step le pas entre deux points
+     * @param {string} color la couleur
+     * @param {number} epaisseur son épaisseur
+     * @param {boolean} ajouteNoeuds si true, des points sont ajoutés aux endroits des noeuds
+     * @param {Object} optionsNoeud
+     */
   constructor (spline, {
     repere,
     step = new FractionEtendue(1, 10),
@@ -510,7 +510,7 @@ export class Trace extends ObjetMathalea2D {
         s.epaisseur = epaisseur
         objets.push(s)
       }
-      if (ajouteNoeuds && spline.visible[i]) {
+      if (ajouteNoeuds && spline.visibles[i]) {
         const noeud = point(spline.x[i], spline.y[i])
         const traceNoeud = tracePoint(noeud)
         if (optionsNoeuds) {
@@ -518,14 +518,20 @@ export class Trace extends ObjetMathalea2D {
             traceNoeud.color = colorToLatexOrHTML(optionsNoeuds.color)
             traceNoeud.couleurDeRemplissage = colorToLatexOrHTML(optionsNoeuds.color)
           }
-          if (optionsNoeuds.epaisseur) { traceNoeud.epaisseur = optionsNoeuds.epaisseur }
-          if (optionsNoeuds.style) { traceNoeud.style = optionsNoeuds.style }
-          if (optionsNoeuds.taille) { traceNoeud.taille = optionsNoeuds.taille }
+          if (optionsNoeuds.epaisseur) {
+            traceNoeud.epaisseur = optionsNoeuds.epaisseur
+          }
+          if (optionsNoeuds.style) {
+            traceNoeud.style = optionsNoeuds.style
+          }
+          if (optionsNoeuds.taille) {
+            traceNoeud.taille = optionsNoeuds.taille
+          }
         }
         objets.push(traceNoeud)
       }
     }
-    if (ajouteNoeuds && spline.visible[spline.n - 1]) {
+    if (ajouteNoeuds && spline.visibles[spline.n - 1]) {
       const noeud = point(spline.x[spline.n - 1], spline.y[spline.n - 1])
       const traceNoeud = tracePoint(noeud)
       if (optionsNoeuds) {
@@ -533,9 +539,15 @@ export class Trace extends ObjetMathalea2D {
           traceNoeud.color = colorToLatexOrHTML(optionsNoeuds.color)
           traceNoeud.couleurDeRemplissage = colorToLatexOrHTML(optionsNoeuds.color)
         }
-        if (optionsNoeuds.epaisseur) { traceNoeud.epaisseur = optionsNoeuds.epaisseur }
-        if (optionsNoeuds.style) { traceNoeud.style = optionsNoeuds.style }
-        if (optionsNoeuds.taille) { traceNoeud.taille = optionsNoeuds.taille }
+        if (optionsNoeuds.epaisseur) {
+          traceNoeud.epaisseur = optionsNoeuds.epaisseur
+        }
+        if (optionsNoeuds.style) {
+          traceNoeud.style = optionsNoeuds.style
+        }
+        if (optionsNoeuds.taille) {
+          traceNoeud.taille = optionsNoeuds.taille
+        }
       }
       objets.push(traceNoeud)
     }
