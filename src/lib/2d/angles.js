@@ -1,4 +1,3 @@
-
 import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal } from '../../modules/outils.js'
@@ -42,7 +41,7 @@ export function Rapporteur ({
     arcPlein = 360
     nbDivisions = 36
   }
-  
+
   const centre = point(this.x, this.y)
   azimut = rotation(point(this.x + 1, this.y), centre, depart)
   let azimut2 = pointSurSegment(centre, azimut, this.taille)
@@ -114,7 +113,7 @@ export function Rapporteur ({
   }
   objets.push(rayon)
   this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
-  
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -296,7 +295,7 @@ export function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
   this.color = color
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage
-  
+
   this.svg = function (coeff) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
@@ -403,6 +402,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
+ * @param {number} [echelleMark=1] Taille relative de la marque de l'angle
  * @example codageAngle(H,K,30)
  * // Code l'angle de centre K, avec H sur un côté de l'angle et avec 30° comme mesure d'angle orienté,
  * // en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
@@ -418,13 +418,13 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @return {CodageAngle|CodageAngleDroit}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
+export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1, { echelleMark = 1 } = {}) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(A, O, angle)
   }
   if ((angle === 90 || angle === -90) && !noAngleDroit) {
     return new CodageAngleDroit(A, O, rotation(A, O, angle), color, taille, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
-  } else return new CodageAngle(A, O, angle, taille, mark, color, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte)
+  } else return new CodageAngle(A, O, angle, taille, mark, color, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte, { echelleMark })
 }
 
 export function NomAngleParPosition (nom, x, y, color, s) {

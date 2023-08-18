@@ -661,7 +661,7 @@ export function fixeBordures (objets, {
     } else {
       if (Array.isArray(objetOuArray.bordures) && objetOuArray.bordures.length === 4) {
         if (objetOuArray.bordures.filter((el) => isNaN(el)).length > 0) {
-          window.notify(`Ìl y a un problème avec les bordures de ${JSON.stringify(objet)}`)
+          window.notify(`Ìl y a un problème avec les bordures de ${JSON.stringify(objetOuArray)}`)
         } else {
           xmin = Math.min(xmin, objetOuArray.bordures[0])
           xmax = Math.max(xmax, objetOuArray.bordures[2])

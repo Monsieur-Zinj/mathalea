@@ -1,4 +1,4 @@
-import { isNumeric } from 'mathjs'
+import { isNumber, isNumeric } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { nombreDeChiffresDe } from '../outils/nombres.js'
@@ -144,7 +144,7 @@ export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
   this.depart = pointSurSegment(O, A, 1.5)
   const demiangle = angleOriente(A, O, B) / 2
   const lieu = rotation(this.depart, O, demiangle)
-  
+
   this.svg = function (coeff) {
     const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     const a2 = codageAngle(pointSurSegment(this.centre, lieu, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
@@ -224,7 +224,7 @@ export function CodageCarre (c, color = 'black', mark = '×') {
       color
     )
   )
-  
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -604,7 +604,7 @@ export function AfficheCoteSegment (
   ObjetMathalea2D.call(this, {})
   const positionCoteSVG = positionCote * 20 / context.pixelsParCm
   const positionCoteTIKZ = positionCote / context.scale
-  
+
   this.svg = function (coeff) {
     let valeur
     const A = s.extremite1
@@ -635,7 +635,7 @@ export function AfficheCoteSegment (
     }
     return '\n\t' + cote.svg(coeff) + '\n\t' + valeur.svg(coeff)
   }
-  
+
   this.tikz = function () {
     let valeur
     const A = s.extremite1
@@ -694,13 +694,15 @@ export function afficheCoteSegment (s, Cote = '', positionCote = 0.5, couleurCot
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [mark='||'] Symbole posé sur le segment
  * @param {string} [color='black'] Couleur du symbole : du type 'blue' ou du type '#f15929'
+ * @param {number} [echelle=1] Taille relative du symbole
  * @example codageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
  * @example codageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
+ * @example codageAngle(H,K,'x','green',{echelle : 3}) // Code le segment [HK] avec la marque verte 'x' et de taille 3.
  * @author Rémi Angot
  * @return {TexteParPoint}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageSegment (A, B, mark = '||', color = 'black') {
+export function codageSegment (A, B, mark = '||', color = 'black', echelle = 1) {
   const O = milieu(A, B)
   const s = segment(A, B)
   s.isVisible = false
@@ -710,14 +712,14 @@ export function codageSegment (A, B, mark = '||', color = 'black') {
   } else {
     angle = -parseInt(s.angleAvecHorizontale) + 180
   }
-  return new TexteParPoint(mark, O, angle, color)
+  return new TexteParPoint(mark, O, angle, color, echelle)
 }
 
 /**
  * Code plusieurs segments de la même façon
  * @param {string} [mark = '||'] Symbole posé sur le segment
  * @param {string} [color = 'black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @param  {Point|Point[]|Segment} args Les segments différement codés.
+ * @param  {Point|Point[]|Segment|number} args Les segments différement codés + Taille relative du codage
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @author Rémi Angot
@@ -726,30 +728,32 @@ export function codageSegment (A, B, mark = '||', color = 'black') {
 // JSDOC Validee par EE Juin 2022
 export function CodageSegments (mark = '||', color = 'black', ...args) {
   ObjetMathalea2D.call(this, {})
+  const isEchelle = isNumber(args[args.length - 1])
+  const echelle = isEchelle ? args[args.length - 1] : 1
   this.svg = function (coeff) {
     let code = ''
     if (Array.isArray(args[0])) {
-      // Si on donne une liste de points
+      // Si on donne un tableau de points
       for (let i = 0; i < args[0].length - 1; i++) {
-        const codage = codageSegment(args[0][i], args[0][i + 1], mark, color)
+        const codage = codageSegment(args[0][i], args[0][i + 1], mark, color, echelle)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
       }
-      const codage = codageSegment(args[0][args[0].length - 1], args[0][0], mark, color)
+      const codage = codageSegment(args[0][args[0].length - 1], args[0][0], mark, color, echelle)
       codage.isVisible = false
       code += codage.svg(coeff)
       code += '\n'
     } else if (args[0].constructor === Segment) {
-      for (let i = 0; i < args.length; i++) {
-        const codage = codageSegment(args[i].extremite1, args[i].extremite2, mark, color)
+      for (let i = 0; i < (isEchelle ? args.length - 1 : args.length); i++) {
+        const codage = codageSegment(args[i].extremite1, args[i].extremite2, mark, color, echelle)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
       }
     } else {
-      for (let i = 0; i < args.length; i += 2) {
-        const codage = codageSegment(args[i], args[i + 1], mark, color)
+      for (let i = 0; i < (isEchelle ? args.length - 1 : args.length); i += 2) {
+        const codage = codageSegment(args[i], args[i + 1], mark, color, echelle)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
@@ -763,7 +767,7 @@ export function CodageSegments (mark = '||', color = 'black', ...args) {
     if (Array.isArray(args[0])) {
       // Si on donne une liste de points
       for (let i = 0; i < args[0].length - 1; i++) {
-        code += codageSegment(args[0][i], args[0][i + 1], mark, color).tikz()
+        code += codageSegment(args[0][i], args[0][i + 1], mark, color, echelle).tikz()
         code += '\n'
       }
       code += codageSegment(
@@ -774,7 +778,7 @@ export function CodageSegments (mark = '||', color = 'black', ...args) {
       ).tikz()
       code += '\n'
     } else if (args[0].constructor === Segment) {
-      for (let i = 0; i < args.length; i++) {
+      for (let i = 0; i < isEchelle ? args.length - 1 : args.length; i++) {
         code += codageSegment(
           args[i].extremite1,
           args[i].extremite2,
@@ -784,8 +788,8 @@ export function CodageSegments (mark = '||', color = 'black', ...args) {
         code += '\n'
       }
     } else {
-      for (let i = 0; i < args.length; i += 2) {
-        code += codageSegment(args[i], args[i + 1], mark, color).tikz()
+      for (let i = 0; i < isEchelle ? args.length - 1 : args.length; i += 2) {
+        code += codageSegment(args[i], args[i + 1], mark, color, echelle).tikz()
         code += '\n'
       }
     }
@@ -797,9 +801,11 @@ export function CodageSegments (mark = '||', color = 'black', ...args) {
  * Code plusieurs segments de la même façon
  * @param {string} [mark = '||'] Symbole posé sur le segment
  * @param {string} [color = 'black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @param  {Points|Point[]|Segments} args Les segments différement codés. Voir exemples.
+ * @param {Points|Point[]|Segments|number} args Les segments différement codés + Taille relative du codage. Voir exemples.
  * @example codageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
+ * @example codageSegments('×','blue',A,B, B,C, C,D, 1.2) // Code les segments [AB], [BC] et [CD] avec une croix bleue et une taille de 1.2
  * @example codageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
+ * @example codageSegments('×','blue',[A,B,C,D],1.5) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées) et une taille de la marque de 1.5
  * @example codageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
  * @example codageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
  * @author Rémi Angot
@@ -826,6 +832,7 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
+ * @param {number} [echelleMark=1] Pour choisir la taille relative de la marque
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -844,13 +851,14 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
+export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1, { echelleMark = 1 } = {}) {
   ObjetMathalea2D.call(this, {})
   this.color = color
   this.debut = debut
   this.centre = centre
   this.taille = taille
   this.mark = mark
+  this.echelleMark = echelleMark
   this.epaisseur = epaisseur
   this.opacite = opacite
   this.couleurDeRemplissage = couleurDeRemplissage
@@ -872,7 +880,7 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
     arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     objets.push(arcangle)
     if (this.mark !== '') {
-      const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color)
+      const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color, this.echelleMark)
       t.isVisible = false
       objets.push(t)
     }
@@ -895,7 +903,7 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
     }
     return code
   }
-  
+
   this.svgml = function (coeff, amp) {
     let code = ''
     const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
@@ -908,7 +916,7 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
     arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).svg(coeff) + '\n'
+    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color, this.echelleMark).svg(coeff) + '\n'
     if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
     if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).svg(coeff) + '\n'
     code += arcangle.svgml(coeff, amp)
@@ -926,7 +934,7 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
     arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color, this.echelleMark).tikz() + '\n'
     if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
     if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).tikz() + '\n'
     code += arcangle.tikz()
@@ -943,7 +951,7 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
     arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, M, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    if (this.mark !== '') code += texteParPoint(mark, M, 90 - d.angleAvecHorizontale, this.color, this.echelleMark).tikz() + '\n'
     if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
     if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).tikz() + '\n'
     code += arcangle.tikzml(amp)
