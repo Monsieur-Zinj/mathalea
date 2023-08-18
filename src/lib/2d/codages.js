@@ -144,7 +144,7 @@ export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
   this.depart = pointSurSegment(O, A, 1.5)
   const demiangle = angleOriente(A, O, B) / 2
   const lieu = rotation(this.depart, O, demiangle)
-  
+
   this.svg = function (coeff) {
     const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     const a2 = codageAngle(pointSurSegment(this.centre, lieu, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
@@ -224,7 +224,7 @@ export function CodageCarre (c, color = 'black', mark = '×') {
       color
     )
   )
-  
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -604,7 +604,7 @@ export function AfficheCoteSegment (
   ObjetMathalea2D.call(this, {})
   const positionCoteSVG = positionCote * 20 / context.pixelsParCm
   const positionCoteTIKZ = positionCote / context.scale
-  
+
   this.svg = function (coeff) {
     let valeur
     const A = s.extremite1
@@ -635,7 +635,7 @@ export function AfficheCoteSegment (
     }
     return '\n\t' + cote.svg(coeff) + '\n\t' + valeur.svg(coeff)
   }
-  
+
   this.tikz = function () {
     let valeur
     const A = s.extremite1
@@ -895,7 +895,7 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
     }
     return code
   }
-  
+
   this.svgml = function (coeff, amp) {
     let code = ''
     const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
