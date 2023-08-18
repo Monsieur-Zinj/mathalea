@@ -24,36 +24,16 @@ export default function UtiliserLeCodagePourDecrire () {
     this.listeCorrections = [] // Liste de questions corrigées
     let nom; let paramsEnonce; let paramsCorrection; let objetsEnonce; let objetsCorrection
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF
-    /*
-    let typesDeQuestionsDisponibles
-    if (this.classe === 6) { typesDeQuestionsDisponibles = [1, 2, 3] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
-    let listeTypeDeQuestions = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      listeTypeDeQuestions = typesDeQuestionsDisponibles
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeTypeDeQuestions[0] = contraindreValeur(1, 5, this.sup, 5)
-      } else {
-        listeTypeDeQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeTypeDeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeTypeDeQuestions[i] = contraindreValeur(1, 5, parseInt(listeTypeDeQuestions[i]), 5) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-
-    if (compteOccurences(listeTypeDeQuestions, 5) > 0) listeTypeDeQuestions = typesDeQuestionsDisponibles // Teste si l'utilisateur a choisi tout
-    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-    */
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: this.classe === 6 ? 3 : 4,
-      defaut: 5,
-      melange: 5,
+      defaut: this.classe === 6 ? 4 : 5,
+      melange: this.classe === 6 ? 4 : 5,
       nbQuestions: this.nbQuestions,
       saisie: this.sup
     })
 
-    if (this.classe === 6) listeTypeDeQuestions.forEach(function (item, i) { if (item === 4) listeTypeDeQuestions[i] = randint(1, 3) })
+    // if (this.classe === 6) listeTypeDeQuestions.forEach(function (item, i) { if (item === 4) listeTypeDeQuestions[i] = randint(1, 3) })
 
     let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -93,7 +73,7 @@ export default function UtiliserLeCodagePourDecrire () {
           s8 = segment(E, F)
           s4 = segment(B, C)
           paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1.5), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
-          objetsEnonce.push(s1, s2, s4, s8, s7, s3, s6, s5, codageAngleDroit(B, A, C), codageSegments('//', 'black', A, F, F, C), codageSegments('|||', 'black', A, E, E, C), codageSegments('O', 'black', B, D, D, C), labelPoint(A, B, C, D, E, F), codageAngleDroit(A, E, F))
+          objetsEnonce.push(s1, s2, s4, s8, s7, s3, s6, s5, codageAngleDroit(B, A, C), codageSegments('//', 'black', A, F, F, C, 2), codageSegments('|||', 'black', A, E, E, C, 2), codageSegments('O', 'black', B, D, D, C, 2), labelPoint(A, B, C, D, E, F), codageAngleDroit(A, E, F))
           texte = 'À l\'aide du schéma ci-dessous, déterminer :<br>'
           texte += '- deux segments de même longueur ;<br>'
           texte += '- le milieu d\'un segment ;<br>'
@@ -119,7 +99,7 @@ export default function UtiliserLeCodagePourDecrire () {
           paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
           objetsCorrection.push(labelPoint(A, B, C, D, E, F), s1, s2, s4, s5, s6)
           objetsCorrection.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A))
-          objetsCorrection.push(codageSegments('||', 'black', D, E, C, E), codageSegments('O', 'black', A, B, B, C, C, D, D, A), codageSegments('|||', 'black', F, C, B, F))
+          objetsCorrection.push(codageSegments('||', 'black', D, E, C, E, 2), codageSegments('O', 'black', A, B, B, C, C, D, D, A, 2), codageSegments('|||', 'black', F, C, B, F, 2))
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un carré et $${sommets[3] + sommets[2] + sommets[4]}$ est un triangle équilatéral ($${sommets[4]}$ est à l'intérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`
           texte += ` $${sommets[1] + sommets[2] + sommets[5]}$ est un triangle isocèle en $${sommets[5]}$ ($${sommets[5]}$ est à l'extérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`
           texte += 'Représenter cette configuration par un schéma à main levée et ajouter les codages nécessaires.'
@@ -139,7 +119,7 @@ export default function UtiliserLeCodagePourDecrire () {
           paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
           objetsCorrection.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5)
           objetsCorrection.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A))
-          objetsCorrection.push(codageSegments('||', 'black', D, E, E, B, A, E, E, C, F, C, B, F), codageSegments('O', 'black', A, B, D, C), codageSegments('/', 'black', A, D, B, C))
+          objetsCorrection.push(codageSegments('||', 'black', D, E, E, B, A, E, E, C, F, C, B, F, 2), codageSegments('O', 'black', A, B, D, C, 2), codageSegments('/', 'black', A, D, B, C, 2))
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`
           texte += 'Représenter cette configuration par un schéma à main levée et ajouter les codages nécessaires.'
@@ -158,11 +138,14 @@ export default function UtiliserLeCodagePourDecrire () {
           s2 = segment(A, C)
           paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.8 }
           objetsEnonce.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5)
-          objetsEnonce.push(codageAngle(D, A, B, 2, '|', 'red', 2), codageAngle(B, C, D, 2, '|', 'red', 2), codageAngle(A, B, F, 2, '|', 'red', 2))
-          objetsEnonce.push(codageAngle(A, B, C, 2, '||', 'blue', 2), codageAngle(A, D, C, 2, '||', 'blue', 2))
-          objetsEnonce.push(codageAngle(B, A, F, 2, '///', 'green', 3), codageAngle(B, F, A, 2, '///', 'green', 3))
-
-          objetsEnonce.push(codageSegments('||', 'black', B, E, E, D), codageSegments('O', 'black', A, E, E, C))
+          objetsEnonce.push(codageAngle(D, A, B, 2, '|', 'red', 2, 1, 'none', 0.2, false, false, '', 1, { echelleMark: 2 }))
+          objetsEnonce.push(codageAngle(B, C, D, 2, '|', 'red', 2, 1, 'none', 0.2, false, false, '', 1, { echelleMark: 2 }))
+          objetsEnonce.push(codageAngle(A, B, F, 2, '|', 'red', 2, 1, 'none', 0.2, false, false, '', 1, { echelleMark: 2 }))
+          objetsEnonce.push(codageAngle(A, B, C, 2, '||', 'blue', 2, 1, 'none', 0.2, false, false, '', 1, { echelleMark: 2 }))
+          objetsEnonce.push(codageAngle(A, D, C, 2, '||', 'blue', 2, 1, 'none', 0.2, false, false, '', 1, { echelleMark: 2 }))
+          objetsEnonce.push(codageAngle(B, A, F, 2, '|||', 'green', 2, 1, 'none', 0.2, false, false, '', 1, { echelleMark: 2 }))
+          objetsEnonce.push(codageAngle(B, F, A, 2, '|||', 'green', 2, 1, 'none', 0.2, false, false, '', 1, { echelleMark: 2 }))
+          objetsEnonce.push(codageSegments('VV', 'black', B, E, E, D, 2), codageSegments('O', 'black', A, E, E, C, 2))
           texte = 'À l\'aide du schéma ci-dessous, déterminer :<br>'
           texte += `- la nature du triangle $${sommets[0] + sommets[1] + sommets[5]}$ ;<br>`
           texte += `- la nature du quadrilatère $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ ;<br>`
@@ -186,10 +169,18 @@ export default function UtiliserLeCodagePourDecrire () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : À propos d\'angles dans un polygone dessiné (pas en 6ème)\n5 : Mélange'
+  console.log(this.classe)
+  if (this.classe === 5) {
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : À propos d\'angles dans un polygone dessiné\n5 : Mélange'
+      ]
     ]
-  ]
+  } else {
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : Mélange'
+      ]
+    ]
+  }
 }
