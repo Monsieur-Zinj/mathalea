@@ -1,13 +1,19 @@
 import loadjs from 'loadjs'
 import { context } from './context.js'
 import { UserFriendlyError } from './messages.js'
-import { clavierLongueur } from '../lib/interactif/claviers/longueur_ANCIEN.js'
-import { clavierTrigo } from '../lib/interactif/claviers/trigo.js'
-import { clavierCollege } from '../lib/interactif/claviers/college.js'
-import { clavierLycee } from '../lib/interactif/claviers/lycee.js'
-import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
-import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
-import { clavierHms } from '../lib/interactif/claviers/clavierHms.js'
+// import { clavierLongueur } from '../lib/interactif/claviers/longueur_ANCIEN.js'
+// import { clavierTrigo } from '../lib/interactif/claviers/trigo.js'
+// import { clavierCollege } from '../lib/interactif/claviers/college.js'
+// import { clavierLycee } from '../lib/interactif/claviers/lycee.js'
+// import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
+// import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
+import { CLAVIER_HMS, raccourcisHMS } from '../lib/interactif/claviers/clavierHms.js'
+import { CLAVIER_LYCEE, raccourcisLycee } from '../lib/interactif/claviers/lycee.js'
+import { CLAVIER_COLLEGE, raccourcisCollege } from '../lib/interactif/claviers/college.js'
+import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/college6eme.js'
+import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
+import { clavierConfiguration, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
+
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -149,49 +155,68 @@ export async function loadMathLive () {
   if (champs.length > 0) {
     await import('mathlive')
     for (const mf of champs) {
-      mf.setOptions(clavierCollege)
-
-      // Evite les problèmes de positionnement du clavier mathématique dans les iframes
-      if (context.vue === 'exMoodle') {
-        const events = ['focus', 'input']
-        events.forEach(e => {
-          mf.addEventListener(e, () => {
-            setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
-              const position = mf.offsetTop + mf.offsetHeight + 'px'
-              document.body.style.setProperty('--keyboard-position', position)
-            })
-          })
-        })
-      }
-
-      if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
-        // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
-        mf.setOptions({
-          virtualKeyboardMode: 'onfocus'
-        })
-      }
-      const listeParamClavier = mf.classList
-      if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) {
-        let jj = 0
-        while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
-        const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
-        mf.setOptions(clavierConfiguration(contenuUnites))
-      }
-      if (mf.classList.contains('lycee')) {
-        mf.setOptions(clavierLycee)
-      }
-      if (mf.classList.contains('college6eme')) {
-        mf.setOptions(clavierCollege6eme)
-      }
-      if (mf.classList.contains('longueur')) {
-        mf.setOptions(clavierLongueur)
-      }
+      let clavier, raccourcis
+      mf.mathVirtualKeyboardPolicy = 'manual'
+      mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
+      // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
-        mf.setOptions(clavierHms)
+        clavier = CLAVIER_HMS
+        raccourcis = raccourcisHMS
+      } else if (mf.classList.contains('lycee')) {
+        clavier = CLAVIER_LYCEE
+        raccourcis = raccourcisLycee
+      } else if (mf.classList.contains('college6eme')) {
+        clavier = CLAVIER_COLLEGE6EME
+        raccourcis = raccourcis6eme
+      } else if (mf.classList.contains('grecTrigo')) {
+        clavier = CLAVIER_GRECTRIGO
+        raccourcis = raccourcisTrigo
+      } else if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
+        const listeParamClavier = mf.classList
+        let index = 0
+        while (!listeParamClavier[index].includes('nites') && !listeParamClavier[index].includes('nités')) {
+          index++
+        }
+        // récupère tous les mots de listeParamClavier[index]
+        const contenuUnites = listeParamClavier[index].match(/[a-zA-Z]+/g)
+        // vire le mot 'unités'
+        contenuUnites.shift()
+
+        clavier = clavierConfiguration(contenuUnites)
+        raccourcis = raccourcisUnites
+      } else {
+        //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut
+
+        clavier = CLAVIER_COLLEGE
+        raccourcis = raccourcisCollege
       }
-      if (mf.classList.contains('grecTrigo')) {
-        mf.setOptions(clavierTrigo)
-      }
+      mf.addEventListener('focusin', () => {
+        window.mathVirtualKeyboard.layouts = clavier
+      })
+      mf.inlineShortcuts = raccourcis
+
+      // *******              REMI : A TOI D'ADAPTER LE CODE CI-DESSOUS             ********
+
+      //   // Evite les problèmes de positionnement du clavier mathématique dans les iframes
+      //   if (context.vue === 'exMoodle') {
+      //     const events = ['focus', 'input']
+      //     events.forEach(e => {
+      //       mf.addEventListener(e, () => {
+      //         setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
+      //           const position = jQuery(mf).offset().top + jQuery(mf).outerHeight() + 'px'
+      //           document.body.style.setProperty('--keyboard-position', position)
+      //         })
+      //       })
+      //     })
+      //   }
+
+      //   if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
+      //     // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
+      //     mf.setOptions({
+      //       virtualKeyboardMode: 'onfocus'
+      //     })
+      //   }
+
       let style = 'font-size: 20px;'
 
       if (mf.classList.contains('inline')) {
@@ -220,13 +245,16 @@ export async function loadMathLive () {
         style += ' width: 75%;'
       }
       style += ' min-width: 200px'
-      mf.style = style
+      mf.setAttribute('style', style)
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight
-    window.parent.postMessage({ hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
+    window.parent.postMessage({
+      hauteurExercice,
+      iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle'))
+    }, '*')
     const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
     document.dispatchEvent(domExerciceInteractifReady)
   }

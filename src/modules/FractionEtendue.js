@@ -630,9 +630,7 @@ class FractionEtendue extends Fraction {
   inverse () {
     if (this.n !== 0) {
       return new FractionEtendue(this.den, this.num)
-    
-    }
-    else {
+    } else {
       window.notify('FractionEtendue.inverse() : division par zéro', { fraction: this })
       return NaN
     }
