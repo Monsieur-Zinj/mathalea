@@ -189,7 +189,7 @@ const lyceeKeyboard = {
 }
 */
 
-export const CLAVIER_LYCEE = [{
+export const CLAVIER_LYCEE = {
   label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
   tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
   rows: [
@@ -367,9 +367,7 @@ export const CLAVIER_LYCEE = [{
 
     ]
   ]
-} //,
-// 'alphabetic'
-]
+}
 
 export const // clavierLycee = {
   // customVirtualKeyboardLayers: lyceeKeyboardLayer,
