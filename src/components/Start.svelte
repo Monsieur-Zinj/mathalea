@@ -1,71 +1,34 @@
 <script lang="ts">
-  import Exercice from './exercice/Exercice.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
-  import Footer from './Footer.svelte'
-  import NiveauListeExos from './sidebar/NiveauListeExos.svelte'
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from './store'
-  import codeList from '../json/codeToLevelList.json'
-  import referentiel from '../json/referentiel2022.json'
-  import referentielStatic from '../json/referentielStatic.json'
+  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent } from './store'
+  import SideMenu from './sidebar/SideMenu.svelte'
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
   import { flip } from 'svelte/animate'
   import { onMount } from 'svelte'
-  import { toMap } from './utils/toMap'
-  import { resizeTags } from './utils/measures'
-  import { findPropPaths, findDuplicates } from './utils/searching'
-  import SearchExercice from './sidebar/SearchExercice.svelte'
-  import { isRecent } from './utils/handleDate'
-  import type { InterfaceReferentiel, ReferentielForList } from 'src/lib/types'
+  import { updateReferentiel } from './utils/referentielsUtils'
+  import Exercice from './exercice/Exercice.svelte'
+  import Button from './forms/Button.svelte'
+  import ButtonsDeck from './outils/ButtonsDeck.svelte'
+  import NavBarV2 from './header/NavBarV2.svelte'
   import InteractivityIcon from './icons/TwoStatesIcon.svelte'
+  import FullScreenIcon from './icons/TwoStatesIcon.svelte'
+  import Footer from './Footer.svelte'
+  import LatexIcon from './icons/LatexIcon.svelte'
+  import AmcIcon from './icons/AmcIcon.svelte'
+  import MoodleIcon from './icons/MoodleIcon.svelte'
+  import ChipsList from './setup/ChipsList.svelte'
+  import referentielRessources from '../json/referentielRessources.json'
+  import { toMap } from './utils/toMap'
+  import type { ReferentielForList } from '../lib/types'
   import handleCapytale from '../lib/handleCapytale'
-  // import SideMenuList from "./sidebar/SideMenuList.svelte"
 
   let isNavBarVisible: boolean = true
-  let isExercisesListVisible: boolean = true
-  const filtres: string[] = []
+  let chipsListDisplayed: boolean = false
   let divExercices: HTMLDivElement
-  let zoom: number = 1
-  let setAllInteractifClicked: boolean = false
-  let isInteractiveOnlySelected: boolean = false
-  let isAmcOnlySelected: boolean = false
-  // let testSideMenuList: ReferentielForList = { title: "Choix des exos", content: [], type: "exercices" }
+  $: isMenuOpen = $isSideMenuVisible
 
   /**
-   * Pour afficher les menus de boutons lorsqu'il n'y a pas assez de place pour les afficher tous
-   * La function est appelé par deux boutons correspondant aux réglages de la partie Exercices
-   * et à l'exportation
-   * @param menuID {"settings" | "export"} le nom du menu à afficher
-   * (ni `id`, ni `name` mais une chaîne arbitraire choisie par le développeur permettant de faire un switch/case)
-   * @author sylvain
+   * Démarrage
    */
-  function handleMenuVisibility (menuID: 'settings' | 'export') {
-    switch (menuID) {
-      case 'settings':
-        $isSettingsMenuVisible = !$isSettingsMenuVisible
-        if ($isExportMenuVisible) {
-          $isExportMenuVisible = false
-        }
-        break
-      case 'export':
-        $isExportMenuVisible = !$isExportMenuVisible
-        if ($isSettingsMenuVisible) {
-          $isSettingsMenuVisible = false
-        }
-        break
-    }
-  }
-
-  // Récupération des informations de l'URL
-  let isInitialUrlHandled = false
-  function urlToDisplay () {
-    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
-    globalOptions.update(() => {
-      return urlOptions
-    })
-    isInitialUrlHandled = true
-    zoom = Number(urlOptions.z)
-  }
-
   // À la construction du component ou à la navigation dans l'historique du navigateur
   // on met à jour l'url headerStart
   onMount(() => {
@@ -74,6 +37,9 @@
     if ($globalOptions.recorder === 'capytale') {
       handleCapytale()
     }
+    // Réglage du vecteur de translation pour le dé au loading
+    const root = document.documentElement
+    root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
   })
   addEventListener('popstate', urlToDisplay)
 
@@ -95,205 +61,17 @@
     }
   }
 
-  // Réorganisation du référentiel
-  // Suppression de la rubrique calcul mental
-  // On renomme les chapitres pour la partie statique
-  let filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
-  // @ts-ignore
-  delete filteredReferentiel['Calcul mental']
-  // @ts-ignore
-  filteredReferentiel['3e']['Brevet des collèges par thèmes - APMEP'] = filteredReferentiel.static['Brevet des collèges par thèmes - APMEP']
-  // @ts-ignore
-  filteredReferentiel.PE['CRPE (2022-2023) par année'] = filteredReferentiel.static['CRPE (2022-2023) par année']
-  // @ts-ignore
-  filteredReferentiel.PE['CRPE (2022-2023) par thèmes'] = filteredReferentiel.static['CRPE (2022-2023) par thèmes']
-  // @ts-ignore
-  filteredReferentiel.PE['CRPE (2015-2019) par thèmes - COPIRELEM'] = filteredReferentiel.static['CRPE (2015-2019) par thèmes - COPIRELEM']
-  // @ts-ignore
-  filteredReferentiel.PE['CRPE (2015-2019) par année - COPIRELEM'] = filteredReferentiel.static['CRPE (2015-2019) par année - COPIRELEM']
-  let referentielMap = toMap(filteredReferentiel)
-  let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
-
-  let itemsAccepted = []
-  function updateReferentiel () {
-    if (itemsAccepted.length === 0) {
-      // pas de filtres sélectionnés
-      filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
-    } else {
-      filteredReferentiel = Object.keys({ ...referentiel, static: { ...referentielStatic } })
-        .filter((key) => itemsAccepted.includes(key))
-        .reduce((obj, key) => {
-          const ref = { ...referentiel, static: { ...referentielStatic } }
-          return {
-            ...obj,
-            [key]: ref[key]
-          }
-        }, {})
-      // console.log("first list :")
-      // console.log(filteredReferentiel)
-    }
-
-    function buildReferentiel (listOfEntries) {
-      const referentiel = {}
-      for (const path of listOfEntries) {
-        let schema = referentiel
-        let obj = { ...filteredReferentiel }
-        for (let i = 0; i < path.length - 1; i++) {
-          const elt = path[i]
-          if (!schema[elt]) {
-            schema[elt] = {}
-          }
-          schema = schema[elt]
-          obj = { ...obj[path[i]] }
-        }
-        schema[path[path.length - 1]] = obj[path[path.length - 1]]
-      }
-      return referentiel
-    }
-    // Construction du tableau des chemins vers les exercices ayant la propriété `amc` et/ou `interactif`
-    if (isAmcOnlySelected && !isInteractiveOnlySelected) {
-      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === 'amc').map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
-      filteredReferentiel = { ...buildReferentiel(amcCompatible) }
-    } else if (isInteractiveOnlySelected && !isAmcOnlySelected) {
-      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === 'interactif').map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
-      filteredReferentiel = { ...buildReferentiel(interactiveCompatible) }
-    } else if (isAmcOnlySelected && isInteractiveOnlySelected) {
-      const amcCompatible = findPropPaths(filteredReferentiel, (key) => key === 'amc').map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
-      const interactiveCompatible = findPropPaths(filteredReferentiel, (key) => key === 'interactif').map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
-      // garder que les doublons
-      const bothCompatible = findDuplicates(amcCompatible.concat(interactiveCompatible))
-      filteredReferentiel = { ...buildReferentiel(bothCompatible) }
-    }
-
-    /**
-     * Détecter si une valeur est un objet
-     * @param val valeur à analyser
-     */
-    const isObject = (val: unknown) => val && typeof val === 'object' && !Array.isArray(val)
-
-    /**
-     * Construit un object contenant les références des exercices ayant une date
-     * de modification ou de publication récente (<= 1mois)
-     * en parcourant récursivement l'objet passé en paramètre
-     * Inspiration : {@link https://stackoverflow.com/questions/15690706/recursively-looping-through-an-object-to-build-a-property-list/53620876#53620876}
-     * @param {any} obj objet à parcourir (récursivement)
-     * @return {[string]} objet des exos nouveaux
-     * @author sylvain
-     */
-    function getRecentExercises (obj: InterfaceReferentiel[]): InterfaceReferentiel[] {
-      const recentExercises: InterfaceReferentiel[] = []
-      /**
-       * On parcourt récursivement l'objet référentiel et on en profite pour peupler
-       * le tableau recentExercises avec les exercices dont les dates de publication
-       * ou de modification sont récentes
-       * @param obj Objet à parcourir
-       */
-      const traverseObject = (obj: InterfaceReferentiel[]): InterfaceReferentiel[] => {
-        return Object.entries(obj).reduce((product, [key, value]) => {
-          if (isObject(value as InterfaceReferentiel)) {
-            if ('uuid' in value) {
-              // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
-              if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
-                // @ts-ignore
-                recentExercises.push({ [key]: value })
-              }
-              return null
-            } else {
-              return traverseObject(value)
-            }
-          }
-        }, [])
-      }
-      traverseObject(obj)
-      const recentExercisesAsObject = {}
-      recentExercises.forEach((exo) => Object.assign(recentExercisesAsObject, exo))
-      return recentExercisesAsObject
-    }
-
-    filteredReferentiel['Nouveautés'] = getRecentExercises(filteredReferentiel)
-    const keysToBeFirst = { Nouveautés: null }
-    filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
-    referentielMap = toMap(filteredReferentiel)
-    arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
-    // testSideMenuList.content = [...arrayReferentielFiltre]
-  }
-  updateReferentiel()
-
   /**
-   * Retrouve le titre d'un niveau basé sur son
-   * @param levelId
+   * Gestion du redimentionnement de la largeur du menu des choix
    */
-  function codeToLevelTitle (code: string) {
-    if (codeList[code]) {
-      return codeList[code]
-    } else {
-      return code
-    }
-  }
-
-  /* ---------------------------------------------------------------------
-    Gestion du menu de recherche des exercices
-  --------------------------------------------------------------------- */
-  let nbExercisesInList: number
-  // let isSideMenuVisible: boolean = false
-  $: {
-    nbExercisesInList = $exercicesParams.length
-    if (nbExercisesInList === 0) {
-      $isSideMenuVisible = true
-      isNavBarVisible = true
-    }
-  }
-  const searchOptions = [
-    {
-      value: 'list',
-      label: 'Liste'
-    },
-    {
-      value: 'theme',
-      label: 'Themes'
-    }
-  ]
-  const searchOption = 'list'
-  function handleSideMenu (event: CustomEvent) {
-    $isSideMenuVisible = event.detail.isListVisible
-    if (!$isSideMenuVisible) {
-      globalOptions.update((params) => {
-        params.v = 'l2'
-        return params
-      })
-    } else {
-      globalOptions.update((params) => {
-        delete params.v
-        return params
-      })
-    }
-  }
-
-  function quitFullScreen () {
-    globalOptions.update((params) => {
-      delete params.v
-      return params
-    })
-  }
-
-  function fullScreen () {
-    globalOptions.update((params) => {
-      params.v = 'l'
-      return params
-    })
-  }
-
-  /**
-   * Gestion du redimentionnement des colonnes
-   */
-  let expanding = null
+  let expanding : HTMLElement = null
   let sidebarWidth = 400
-  let sbWidth = sidebarWidth
+  const sbWidth = sidebarWidth
   function stopResizing () {
     expanding = null
   }
 
-  function startResizing (type, event: MouseEvent) {
+  function startResizing (type: HTMLElement, event: MouseEvent) {
     expanding = type
   }
 
@@ -302,31 +80,45 @@
     event.preventDefault()
     sidebarWidth = event.pageX
   }
+  /**
+   * Gestion du référentiel
+   */
+  // Construction pour affichage dans SideMenu du tableau des entrées du référentiel
+  const itemsSelected: string[] = []
+  let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
+  // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
+  $: exercisesReferentielForSideMenu = { title: 'Choix des exercices', content: [...arrayReferentielFiltre], type: 'exercices' }
+  // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
+  // let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
+  // for (const [key, value] of Object.entries(referentielOutils)) {
+  //   arrayReferentiel.content.push(value)
+  // }
+  const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
+  const ressourcesReferentielForSideMenu: ReferentielForList = { title: 'Choix des ressources', content: [...ressourcesReferentielArray], type: 'ressources' }
+  // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
+  //   ressourcesReferentiel.content.push(value)
+  // }
 
-  function newDataForAll () {
-    // console.log($globalOptions, $exercicesParams)
-    const newDataForAll = new window.Event('newDataForAll', {
-      bubbles: true
-    })
-    document.dispatchEvent(newDataForAll)
+  /**
+   * Gestion des filtres
+   */
+  let isInteractiveOnlySelected: boolean = false
+  let isAmcOnlySelected: boolean = false
+  function updateFilters (filters) {
+    let itemsAccepted = [...filters.levels]
+    if (filters.types.includes('static')) {
+      itemsAccepted = [...itemsAccepted, 'static']
+    }
+    isAmcOnlySelected = filters.types.includes('amc')
+    isInteractiveOnlySelected = filters.types.includes('interactif')
+    arrayReferentielFiltre = updateReferentiel(isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted)
   }
 
-  function setAllInteractif () {
-    const setAllInteractif = new window.Event('setAllInteractif', {
-      bubbles: true
-    })
-    setAllInteractifClicked = true
-    document.dispatchEvent(setAllInteractif)
-  }
+  /**
+   * Gestion de la taille des éléments affichés
+   */
 
-  function removeAllInteractif () {
-    const removeAllInteractif = new window.Event('removeAllInteractif', {
-      bubbles: true
-    })
-    setAllInteractifClicked = false
-    document.dispatchEvent(removeAllInteractif)
-  }
-
+  let zoom: number = 1
   function zoomMinus () {
     // zoom -= 0.1
     zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
@@ -344,245 +136,232 @@
       params.z = zoom.toString()
       return params
     })
-    // figures Scratch
     const scratchDivs = document.getElementsByClassName('scratchblocks')
     for (const scratchDiv of scratchDivs) {
       const svgDivs = scratchDiv.getElementsByTagName('svg')
-      resizeTags(svgDivs, $globalOptions.z)
+      for (const svg of svgDivs) {
+        if (svg.hasAttribute('data-width') === false) {
+          const originalWidth = svg.getAttribute('width')
+          svg.dataset.width = originalWidth
+        }
+        if (svg.hasAttribute('data-height') === false) {
+          const originalHeight = svg.getAttribute('height')
+          svg.dataset.height = originalHeight
+        }
+        const w = Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
+        const h = Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
+        svg.setAttribute('width', w.toString())
+        svg.setAttribute('height', h.toString())
+      }
     }
-    // QCM
-    const checkboxes = document.querySelectorAll('[id^=checkEx')
-    resizeTags(checkboxes, $globalOptions.z)
   }
 
-  function toggleSideMenu () {
-    $isSideMenuVisible = !$isSideMenuVisible
+  /**
+   * Gestion des données
+   */
+  function newDataForAll () {
+    // console.log($globalOptions, $exercicesParams)
+    const newDataForAll = new window.Event('newDataForAll', {
+      bubbles: true
+    })
+    document.dispatchEvent(newDataForAll)
+  }
+  // Récupération des informations de l'URL
+  let isInitialUrlHandled = false
+  function urlToDisplay () {
+    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
+    globalOptions.update(() => {
+      return urlOptions
+    })
+    isInitialUrlHandled = true
+    zoom = Number(urlOptions.z)
   }
 
-  function toggleExercisesList () {
-    isExercisesListVisible = !isExercisesListVisible
+  /**
+   * Gestion de l'interactivité
+   */
+  let setAllInteractifClicked: boolean = false
+  function setAllInteractif () {
+    const setAllInteractif = new window.Event('setAllInteractif', {
+      bubbles: true
+    })
+    setAllInteractifClicked = true
+    document.dispatchEvent(setAllInteractif)
   }
 
-  function updateFilters (filters) {
-    itemsAccepted = [...filters.levels]
-    if (filters.types.includes('static')) {
-      itemsAccepted = [...itemsAccepted, 'static']
-    }
-    // console.log(itemsAccepted)
-    isAmcOnlySelected = filters.types.includes('amc')
-    isInteractiveOnlySelected = filters.types.includes('interactif')
-    updateReferentiel()
+  function removeAllInteractif () {
+    const removeAllInteractif = new window.Event('removeAllInteractif', {
+      bubbles: true
+    })
+    setAllInteractifClicked = false
+    document.dispatchEvent(removeAllInteractif)
+  }
+
+  /**
+   *  Gestion du plain écran
+   */
+  function quitFullScreen () {
+    globalOptions.update((params) => {
+      delete params.v
+      return params
+    })
+  }
+
+  function fullScreen () {
+    globalOptions.update((params) => {
+      params.v = 'l'
+      return params
+    })
   }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class="scrollbar-hide h-screen {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
-  <!-- <Header /> -->
-  {#if isNavBarVisible}
-    <div id="headerStart" class="shrink-0 z-40 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
-      <NavBarV2 subtitle="Conception de document" subtitleType="design" />
-    </div>
-  {/if}
-  <!-- Gestion du mode sombre -->
-  <div class="flex flex-col h-[calc(100vh-7rem)] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mt-6 md:mt-0">
-    <main
-      class="ml-0 md:ml-4 flex flex-col md:flex-row h-[calc(100vh-7rem)] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-      on:mousemove={resizing}
-    >
-      <!-- Version du menu pour breakpoint < LG -->
-      <div class="flex md:hidden">
-        {#if $isSideMenuVisible || nbExercisesInList === 0}
-          <div class="w-full flex flex-col md:h-full">
-            <div class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-4">
-              <div class="flex flex-row justify justify-between items-center {isExercisesListVisible ? 'mb-6' : 'mb-0'} text-coopmaths-struct dark:text-coopmathsdark-struct">
-                <div class="font-bold text-xl">Choix des exercices</div>
-                <button
-                  type="button"
-                  class="md:hidden text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                  on:click={toggleExercisesList}
-                >
-                  <i class="bx bxs-up-arrow {isExercisesListVisible ? 'rotate-0' : 'rotate-180'} transition-transform ease-in-out duration-500" />
-                </button>
+<div class={$darkMode.isActive ? 'dark' : ''} id="startComponent" on:mousemove={resizing} role="menu" tabindex="0">
+  <div class="flex flex-col scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+    <!-- Entête -->
+    {#if isNavBarVisible}
+      <div id="headerStart" class="sticky top-0 shrink-0 z-50 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
+        <NavBarV2 subtitle="Conception de document" subtitleType="design" />
+      </div>
+    {/if}
+
+    <!-- Affichage Partie Gauche : Menu + Contenu -->
+    <div class="flex-1 relative flex flex-col md:flex-row h-full bg-coopmaths-canvas">
+      <!-- Menu Choix Exos et Ressources -->
+      <div class="mt-6 sm:mt-0">
+        <div
+          id="choiceMenuWrapper"
+          class="{$globalOptions.v !== 'l' ? 'sm:h-[calc(100vh-7rem)]' : 'sm:h-screen'} sticky top-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+        >
+          <SideMenu
+            bind:isMenuOpen
+            isMenuCloseable={$exercicesParams.length !== 0}
+            bind:sidebarWidth
+            referentiels={[exercisesReferentielForSideMenu, ressourcesReferentielForSideMenu]}
+            on:filters={(e) => {
+              updateFilters(e.detail)
+            }}
+          />
+        </div>
+      </div>
+
+      <!-- Dragbar -->
+      <div
+        id="dragbar"
+        class="hidden {isMenuOpen
+          ? 'md:flex'
+          : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
+        on:mousedown={startResizing.bind(this, 'moving')}
+        role="menu"
+        tabindex="0"
+      />
+
+      <!-- Affichage Partie Droite -->
+      <div
+        class="w-full h-screen {$globalOptions.v !== 'l'
+          ? 'sm:h-[calc(100vh-7rem)]'
+          : 'sm:h-screen'} sticky top-0 overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      >
+        <!-- Barre de boutons  -->
+        <div
+          style="--sidebarWidth:{sidebarWidth}; --isMenuOpen:{isMenuOpen ? 1 : 0}"
+          class="{$exercicesParams.length === 0
+            ? 'hidden'
+            : 'relative z-50 flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'} {$globalOptions.v !== 'l' ? 'md:top-28' : 'md:top-0'}"
+          id="barre-boutons"
+        >
+          <ButtonsDeck barWidthPercentage={80}>
+            <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
+              <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte">
+                <Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomMinus} />
               </div>
-              <div class="{isExercisesListVisible ? '' : 'hidden'} h-full">
-                <SearchExercice
-                  referentiel={filteredReferentiel}
-                  on:filters={(e) => {
-                    updateFilters(e.detail)
-                  }}
-                />
-                <ul>
-                  {#each arrayReferentielFiltre as item, i}
-                    <li>
-                      <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
-                    </li>
-                  {/each}
-                </ul>
+              <div class="tooltip tooltip-bottom" data-tip="Augmenter la taille du texte">
+                <Button title="" icon="bx-zoom-in" classDeclaration="flex items-center text-3xl" on:click={zoomPlus} />
               </div>
-            </div>
-            <!-- barre des boutons commandes (résumé) -->
-            <div class="w-full flex flex-row justify-center items-center space-x-20 pt-4 px-4 md:hidden">
-              <button
-                type="button"
-                on:click={() => {
-                  handleMenuVisibility('settings')
-                }}
-                class="{$isSettingsMenuVisible
-                  ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark rounded-t-lg'
-                  : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'} text-coopmaths-action dark:text-coopmathsdark-action p-2"
-              >
-                <i class="bx bx-slider bx-sm" />
-              </button>
-              {#if !$isInIframe}
-                <button
-                  type="button"
-                  on:click={() => {
-                    handleMenuVisibility('export')
-                  }}
-                  class="{$isExportMenuVisible
-                    ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark rounded-t-lg'
-                    : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'} text-coopmaths-action dark:text-coopmathsdark-action p-2"
-                >
-                  <i class="bx bx-export rotate-90 bx-sm" />
-                </button>
-              {/if}
-            </div>
-            <!-- barre des boutons commandes (tous les boutons SETTINGS) ==> POUR < LG SEULEMENT -->
-            <div
-              class="{$isSettingsMenuVisible
-                ? 'flex md:hidden'
-                : 'hidden'} rounded-lg w-5/6 mx-auto text-3xl flex-row justify-center items-center px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:bg-coopmaths-canvas md:dark:bg-coopmathsdark-canvas"
-            >
-              <button
-                type="button"
-                on:click={() => {
-                  zoomMinus()
-                  handleMenuVisibility('settings')
-                }}
-                class="tooltip tooltip-top tooltip-neutral"
-                data-tip="Réduire la taille du texte"
-              >
-                <i class="bx bx-sm px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-              </button>
-              <button
-                type="button"
-                on:click={() => {
-                  zoomPlus()
-                  handleMenuVisibility('settings')
-                }}
-                class="tooltip tooltip-top tooltip-neutral"
-                data-tip="Augmenter la taille du texte"
-              >
-                <i class="bx bx-sm px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-              </button>
               <button
                 type="button"
                 on:click={() => {
                   setAllInteractifClicked ? removeAllInteractif() : setAllInteractif()
-                  handleMenuVisibility('settings')
+                  // handleMenuVisibility("settings")
                 }}
-                class="tooltip tooltip-top tooltip-neutral"
+                class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : 'Tous les exercices en interactif'}
               >
-                <!-- <i
-                class="bx px-2 tooltip-top tooltip-neutral hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
-                  ? 'bxs-edit'
-                  : 'bx-edit'}"
-              /> -->
                 <div class="px-2">
-                  <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={6} />
+                  <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={7} />
                 </div>
               </button>
-              <button
-                type="button"
-                on:click={() => {
-                  newDataForAll()
-                  handleMenuVisibility('settings')
-                }}
-                class="tooltip tooltip-top tooltip-neutral"
-                data-tip="Nouveaux énoncés"
-              >
-                <i class="bx bx-sm px-2 bx-refresh hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-              </button>
-              <button
-                type="button"
-                on:click={() => {
-                  $exercicesParams.length = 0
-                  handleMenuVisibility('settings')
-                }}
-                class="tooltip tooltip-top tooltip-neutral"
-                data-tip="Supprimer tous les exercices"
-              >
-                <i class="bx bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest px-2 bx-trash" />
-              </button>
-              {#if $globalOptions.v === 'l'}
-                <div class="flex flex-row justify-end items-center">
-                  <button
-                    type="button"
-                    on:click={() => {
-                      handleMenuVisibility('settings')
-                      quitFullScreen()
-                    }}
-                    class="tooltip tooltip-top tooltip-neutral"
-                    data-tip="Quitter le plein écran"
-                  >
-                    <i
-                      class="bx bx-sm ml-2 bx-md px-2 bx-exit-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    />
-                  </button>
-                </div>
-              {/if}
-              {#if $globalOptions.v !== 'l'}
-                <button
-                  type="button"
-                  class="tooltip tooltip-top tooltip-neutral"
-                  data-tip="Plein écran"
+              <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
+                <Button
+                  title=""
+                  icon="bx-transfer"
+                  classDeclaration="flex items-center text-3xl rotate-90"
                   on:click={() => {
-                    handleMenuVisibility('settings')
+                    chipsListDisplayed = !chipsListDisplayed
+                  }}
+                />
+              </div>
+              <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés"><Button title="" icon="bx-refresh" classDeclaration="flex items-center text-3xl" on:click={newDataForAll} /></div>
+              <div class="tooltip tooltip-bottom" data-tip="Supprimer tous les exercices">
+                <Button
+                  title=""
+                  icon="bx-trash"
+                  classDeclaration="text-3xl"
+                  on:click={() => {
+                    $exercicesParams.length = 0
+                  }}
+                />
+              </div>
+              <button
+                type="button"
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip={$globalOptions.v !== 'l' ? 'Plein écran' : 'Quitter le plein écran'}
+                on:click={() => {
+                  // handleMenuVisibility("settings")
+                  if ($globalOptions.v === 'l') {
+                    quitFullScreen()
+                  } else {
+                    fullScreen()
+                  }
+                }}
+              >
+                <div class="px-2">
+                  <FullScreenIcon isOnStateActive={$globalOptions.v !== 'l'}>
+                    <i
+                      slot="icon_to_switch_on"
+                      class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                    />
+                    <i
+                      slot="icon_to_switch_off"
+                      class="bx bx-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                    />
+                  </FullScreenIcon>
+                </div>
+              </button>
+            </div>
+            <div slot="export-buttons" class="flex flex-row justify-end items-center space-x-4">
+              <div class="tooltip tooltip-bottom" data-tip="Diaporama">
+                <Button
+                  title=""
+                  icon="bx-slideshow"
+                  classDeclaration="flex items-center text-3xl"
+                  on:click={() => {
+                    $callerComponent = ''
+                    // handleMenuVisibility("export")
                     globalOptions.update((params) => {
-                      params.v = 'l'
+                      params.v = 'diaporama'
                       return params
                     })
                   }}
-                  ><i class="bx bx-sm px-2 bx-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                </button>
-              {/if}
-            </div>
-            <!-- boutons d'exports SEULEMENT POUR LARGEUR < LG -->
-            <div
-              class="{$isExportMenuVisible
-                ? 'flex md:hidden'
-                : 'hidden'} rounded-lg text-3xl flex-row w-5/6 mx-auto justify-center items-center space-x-4 px-4 py-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:bg-coopmaths-canvas md:dark:bg-coopmathsdark-canvas"
-            >
+                />
+              </div>
               <button
                 type="button"
-                class="tooltip tooltip-top tooltip-neutral"
-                data-tip="Diaporama"
-                on:click={() => {
-                  $callerComponent = ''
-                  handleMenuVisibility('export')
-                  globalOptions.update((params) => {
-                    params.v = 'diaporama'
-                    return params
-                  })
-                }}
-              >
-                <i class="bx bx-sm bx-slideshow hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-              </button>
-              <!-- <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Config pour élèves">
-                    <i
-                      class="bx bx-link  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
-                      {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}"
-                    />
-                  </label>
-                  <ModalSettingsVueEleve /> -->
-              <button
-                type="button"
-                class="tooltip tooltip-top tooltip-neutral"
+                class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip="Lien pour les élèves"
                 on:click={() => {
                   $callerComponent = ''
-                  handleMenuVisibility('export')
+                  // handleMenuVisibility("export")
                   globalOptions.update((params) => {
                     params.v = 'confeleve'
                     return params
@@ -590,7 +369,7 @@
                 }}
               >
                 <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
-                  <i class="bx bx-sm bx-link" />
+                  <i class="bx text-3xl bx-link" />
                   <div class="absolute -bottom-1 -right-1">
                     <i class="scale-75 bx bx-xs bxs-graduation" />
                   </div>
@@ -598,10 +377,10 @@
               </button>
               <button
                 type="button"
-                class="tooltip tooltip-top tooltip-neutral"
+                class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip="LaTeX"
                 on:click={() => {
-                  handleMenuVisibility('export')
+                  // handleMenuVisibility("export")
                   $callerComponent = ''
                   globalOptions.update((params) => {
                     params.v = 'latex'
@@ -609,529 +388,95 @@
                   })
                 }}
               >
-                <i>
-                  <svg
-                    width="32.000004"
-                    height="31.999998"
-                    viewBox="0 0 8.4666675 8.4666661"
-                    version="1.1"
-                    id="svg507"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-4 h-4 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
-                  >
-                    <defs id="defs504" />
-                    <g id="layer1">
-                      <g id="g1669" transform="matrix(1.108044,0,0,1.0300717,-0.36352999,-0.1273056)">
-                        <g
-                          aria-label="A"
-                          id="text313"
-                          style="font-stretch:ultra-condensed;font-size:7.54751px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                          transform="matrix(1.2141816,0,0,1.0476377,-0.50895982,-0.00588555)"
-                        >
-                          <path
-                            d="m 1.3966823,5.6710072 h 0.6113484 l 0.083023,-1.1321266 h 0.3471854 l 0.083023,1.1321266 H 3.1326097 L 2.634474,0.1235872 H 1.9023655 Z M 2.264646,1.4745915 2.3854062,3.6784645 H 2.1514334 Z"
-                            id="path1647"
-                          />
-                        </g>
-                        <g
-                          aria-label="E"
-                          id="text371"
-                          style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                        >
-                          <path
-                            d="M 4.4998348,1.4087978 V 8.3430815 H 6.0659451 V 7.2958631 H 5.2828899 V 5.3901144 h 0.566064 V 4.2768552 H 5.2828899 V 2.4560161 H 6.0659451 V 1.4087978 Z"
-                            id="path1653"
-                          />
-                        </g>
-                        <g
-                          aria-label="L"
-                          id="text309"
-                          style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                          transform="translate(-0.16940966)"
-                        >
-                          <path d="M 0.4974923,0.12358906 V 7.0578728 h 1.5944135 v -0.94344 H 1.2805475 V 0.12358906 Z" id="path1644" />
-                        </g>
-                        <g
-                          aria-label="T"
-                          id="text367"
-                          style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                        >
-                          <path d="M 2.8936626,1.1708074 H 3.4691609 V 7.0578728 H 4.2522161 V 1.1708074 H 4.8277145 V 0.12358906 H 2.8936626 Z" id="path1650" />
-                        </g>
-                        <g
-                          aria-label="X"
-                          id="text375"
-                          style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                        >
-                          <path
-                            d="M 6.9125229,5.1426897 7.2049893,7.0578728 H 7.9691756 L 7.5163245,4.6049289 C 7.4408493,4.2086841 7.3748085,3.8030049 7.2993333,3.4161945 L 7.9597412,0.12358906 H 7.1861205 C 7.1012109,0.68021864 6.9974325,1.2462826 6.9125229,1.8029122 L 6.6389253,0.12358906 H 5.8653045 L 6.1955085,1.774609 c 0.094344,0.518892 0.2264256,1.1226935 0.330204,1.6415855 L 5.8558701,7.0578728 h 0.7641864 z"
-                            id="path1656"
-                          />
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </i>
-              </button>
-              <button type="button" class="tooltip tooltip-top tooltip-neutral" data-tip="AMC">
-                <i>
-                  <svg
-                    viewBox="0 0 8.4759316 8.4576318"
-                    version="1.1"
-                    id="svg4191"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-4 h-4 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest hover:stroke-coopmaths-action-lightest stroke-coopmaths-action dark:stroke-coopmathsdark-action dark:hover:stroke-coopmathsdark-action-lightest"
-                  >
-                    <defs id="defs4188" />
-                    <g id="layer1" transform="translate(0.00463201,-0.00451693)">
-                      <g id="g4703" transform="matrix(0.68088189,0,0,0.64722958,-14.592662,0.40513752)">
-                        <path id="rect9846" style="display:inline;fill:none;stroke-width:1.08479" d="M 21.967594,0.542395 H 33.331265 V 11.906066 H 21.967594 Z" />
-                        <path
-                          style="display:inline;fill-opacity:1;stroke-width:0.353;stroke-dasharray:none"
-                          d="m 30.187147,10.138692 c -3.21818,-4.0175496 -3.01441,-3.9353796 -5.07458,-2.0463796 -4.03864,3.7030996 -4.28539,3.6763596 -0.9908,-0.10736 1.03241,-1.18568 1.8771,-2.22601 1.8771,-2.31183 0,-0.0858 -0.79128,-0.54447 -1.7584,-1.01921 -1.93433,-0.94953 -2.0473,-1.18716 -1.13073,-2.37828 l 0.62296,-0.80956 1.45065,1.05084 c 0.79785,0.57796 1.56133,1.22995 1.69663,1.44886 0.33319,0.53911 1.85035,-1.5541 2.36047,-3.25671996 0.27287,-0.91077 0.60202,-1.32803 1.0476,-1.32803 1.07062,0 0.77611,1.39994 -0.80291,3.81656996 -1.45263,2.22318 -1.45263,2.22318 -0.75445,2.99567 1.35314,1.49715 3.64953,5.2880896 3.54188,5.8470396 -0.0716,0.3719 -0.78625,-0.27974 -2.08542,-1.90161 z"
-                          id="path6447"
-                        />
-                      </g>
-                    </g>
-                  </svg>
-                </i>
+                <LatexIcon class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest" />
               </button>
               <button
                 type="button"
-                class="tooltip tooltip-top tooltip-neutral"
-                data-tip="Moodle"
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip="AMC"
                 on:click={() => {
+                  // handleMenuVisibility("export")
+                  $callerComponent = ''
                   globalOptions.update((params) => {
-                    $callerComponent = ''
+                    params.v = 'amc'
+                    return params
+                  })
+                }}
+              >
+                <AmcIcon class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+              </button>
+              <button
+                type="button"
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip="LaTeX"
+                on:click={() => {
+                  // handleMenuVisibility("export")
+                  $callerComponent = ''
+                  globalOptions.update((params) => {
                     params.v = 'moodle'
                     return params
                   })
                 }}
               >
-                <i>
-                  <svg
-                    viewBox="0 0 8.4666661 8.4666661"
-                    version="1.1"
-                    id="svg2697"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
-                  >
-                    <defs id="defs2694" />
-                    <g id="layer1">
-                      <path
-                        id="path5800"
-                        d="M 5.6190408,1.3436103 C 3.1929106,1.6410426 2.0896442,1.8517723 -6.6666665e-8,3.0631178 L 0.01937674,3.1181452 l 0.1660648,0.00168 c -0.0151705,0.1672543 -0.0417532,0.580651 -0.00793,1.2022881 -0.2318563,0.6710048 -0.005861,1.1268667 0.20632167,1.622751 0.0336508,-0.51578 0.0301858,-1.0806985 -0.12822484,-1.6428984 -0.0331509,-0.6174618 -0.005861,-1.0234456 0.009137,-1.1813718 l 1.38524723,0.013274 a 6.3367299,6.3367299 0 0 0 0.041012,0.8119988 c 2.413e-4,7.41e-5 4.827e-4,1.465e-4 7.24e-4,2.465e-4 -0.019394,0.1136922 -0.029686,0.2337457 -0.029686,0.3610258 V 7.1230563 H 3.0168247 V 4.4640923 C 3.0166023,4.3152495 3.0333743,4.1870108 3.0661804,4.0780232 3.4148371,4.0207547 3.7437413,3.892485 4.0371069,3.6999667 4.2663963,3.8138486 4.3816797,4.0680313 4.3816797,4.4640923 v 2.658964 h 1.354546 V 4.4640923 C 5.7372083,3.9080313 5.9669011,3.6300947 6.425373,3.6302654 6.8838432,3.6304378 7.1130792,3.9083588 7.1130792,4.4640923 v 2.658964 H 8.4666667 V 4.3070919 C 8.466496,3.7267978 8.2649892,3.2877561 7.8621894,2.9899135 7.5078576,2.7238375 7.0286125,2.5907977 6.4244128,2.5907977 c -0.6608527,0 -1.1162405,0.1571004 -1.3661083,0.4713116 -0.066043,-0.071577 -0.1408956,-0.1345516 -0.2236867,-0.1898186 5e-5,-9.82e-5 1.207e-4,-1.982e-4 1.948e-4,-2.879e-4 C 4.6513449,2.6664276 4.2917878,2.3859638 4.2917878,2.3859638 L 5.636261,1.403525 Z"
-                      />
-                    </g>
-                  </svg>
-                </i>
+                <MoodleIcon class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
               </button>
             </div>
-          </div>
-        {/if}
-      </div>
-      <!-- Version du menu pour breakpoint >= LG -->
-      <div class="hidden md:flex h-[calc(100vh-7rem)]">
-        <div class="relative h-[calc(100vh-7rem)] print-hidden transition-transform duration-300 {$isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
+          </ButtonsDeck>
+          <!-- Barre des chips -->
           <div
-            bind:clientWidth={sbWidth}
-            style={$isSideMenuVisible || nbExercisesInList === 0 ? `width:${sidebarWidth}px;` : 'width: 0px;'}
-            class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:h-[calc(100vh-7rem)] {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
+            class="{chipsListDisplayed
+              ? 'absolute top-20 sm:top-[3.25rem] right-8 flex flex-row justify-start items-center w-full p-6 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
+              : 'hidden'} "
           >
-            <div id="choiceMenuWrapper" class="flex flex-col overflow-y-auto">
-              <div class="print-hidden hidden md:block absolute top-4 right-2">
-                <button
-                  type="button"
-                  class="inline-flex bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark bg-opacity-60 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest m-0 p-0"
-                  on:click={toggleSideMenu}
-                >
-                  <i class="print-hidden bx bx-sm bx-x m-0 p-0" />
-                </button>
-              </div>
-              <!-- <SideMenuList ref={testSideMenuList} moreThanOne={true} /> -->
-              <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
-                <div class="font-bold text-xl">Choix des exercices</div>
-              </div>
-              <SearchExercice
-                referentiel={filteredReferentiel}
-                on:filters={(e) => {
-                  updateFilters(e.detail)
-                }}
-              />
-              <ul class="overflow-y-auto overflow-x-hidden">
-                {#each arrayReferentielFiltre as item, i}
-                  <li>
-                    <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
-                  </li>
-                {/each}
-              </ul>
-            </div>
+            <ChipsList />
           </div>
         </div>
-        <!-- drag bar -->
-        <div
-          id="dragbar"
-          class="hidden {$isSideMenuVisible || nbExercisesInList === 0
-            ? 'md:flex'
-            : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
-          on:mousedown={startResizing.bind(this, 'moving')}
-        />
-      </div>
-      <!-- content -->
-      <div class="w-full">
+        <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
-          <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full min-h-[calc(100vh-7rem)] overflow-y-auto" bind:this={divExercices}>
-            <div class="fixed left-0 {$globalOptions.v !== 'l' ? 'top-[7.5rem]' : 'top-2'} print-hidden hidden md:block">
-              <button
-                type="button"
-                class="p-2 {$isSideMenuVisible
-                  ? 'hidden'
-                  : 'flex'} transition-all delay-300 justify-center items-center rounded-r-lg bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                on:click={toggleSideMenu}
-              >
-                <i class="print-hidden bx bx-sm bx-sidebar" />
-              </button>
-            </div>
-            <!-- barre des boutons commandes (tous les boutons) ==> POUR LG ET + SEULEMENT -->
-            <div
-              id="setupButtonBar"
-              class="fixed {$globalOptions.v !== 'l'
-                ? 'top-28'
-                : 'top-0'} z-50 hidden md:flex md:flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-              style="width: calc(100vw - ({sbWidth}px  + 4px + 5rem));"
-            >
-              <!-- réglages pour tous les exercices de la page -->
-              <div class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-                <button type="button" on:click={zoomMinus} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Réduire la taille du texte">
-                  <div class="inline-flex xl:hidden">
-                    <i class="bx bx-sm px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+          <div id="exercisesWrapper" class="flex flex-col justify-between h-full mt-0 sm:mt-28 {chipsListDisplayed ? 'xl:mt-32' : 'xl:mt-24'}" bind:this={divExercices}>
+            <div class="flex-1">
+              <div class="flex flex-col h-full md:mt-9 lg:mt-0">
+                {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+                  <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+                    <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
                   </div>
-                  <div class="hidden xl:inline-flex">
-                    <i class="bx bx-md px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                  </div>
-                </button>
-                <button type="button" on:click={zoomPlus} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Augmenter la taille du texte">
-                  <div class="inline-flex xl:hidden">
-                    <i class="bx bx-sm px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                  </div>
-                  <div class="hidden xl:inline-flex">
-                    <i class="bx bx-md px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                  </div>
-                </button>
-                <button
-                  type="button"
-                  on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}
-                  class="tooltip tooltip-bottom tooltip-neutral"
-                  data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : 'Tous les exercices en interactif'}
-                >
-                  <!-- <i
-                    class="bx {deviceType() === 'mobile'
-                      ? 'bx-sm'
-                      : 'bx-md'} px-2 tooltip-bottom tooltip-neutral  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
-                      ? 'bxs-edit'
-                      : 'bx-edit'}"
-                  /> -->
-                  <div class="inline-flex xl:hidden">
-                    <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={8} />
-                  </div>
-                  <div class="hidden xl:inline-flex scale-90">
-                    <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={10} />
-                  </div>
-                </button>
-                <button type="button" on:click={newDataForAll} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Nouveaux énoncés">
-                  <div class="inline-flex xl:hidden">
-                    <i class="bx bx-sm px-2 bx-refresh hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                  </div>
-                  <div class="hidden xl:inline-flex">
-                    <i class="bx bx-md px-2 bx-refresh hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                  </div>
-                </button>
-                <button
-                  type="button"
-                  on:click={() => {
-                    $exercicesParams.length = 0
-                  }}
-                  class="tooltip tooltip-bottom tooltip-neutral"
-                  data-tip="Supprimer tous les exercices"
-                >
-                  <div class="inline-flex xl:hidden">
-                    <i class="bx bx-trash bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest px-2" />
-                  </div>
-                  <div class="hidden xl:inline-flex">
-                    <i class="bx bx-trash bx-md text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest px-2" />
-                  </div>
-                </button>
-                {#if $globalOptions.v === 'l'}
-                  <div class="flex flex-row justify-end items-center">
-                    <button type="button" on:click={quitFullScreen} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Quitter le plein écran">
-                      <div class="inline-flex xl:hidden">
-                        <i
-                          class="bx ml-2 bx-sm px-2 bx-exit-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                        />
-                      </div>
-                      <div class="hidden xl:inline-flex">
-                        <i
-                          class="bx ml-2 bx-md px-2 bx-exit-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                        />
-                      </div>
-                    </button>
-                  </div>
-                {/if}
-                {#if $globalOptions.v !== 'l'}
-                  <button
-                    type="button"
-                    class="tooltip tooltip-bottom tooltip-neutral"
-                    data-tip="Plein écran"
-                    on:click={() =>
-                      globalOptions.update((params) => {
-                        params.v = 'l'
-                        return params
-                      })}
-                  >
-                    <div class="inline-flex xl:hidden">
-                      <i class="bx bx-sm px-2 bx-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                    </div>
-                    <div class="hidden xl:inline-flex">
-                      <i class="bx bx-md px-2 bx-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                    </div>
-                  </button>
-                {/if}
+                {/each}
+                <!-- Pied de page -->
               </div>
-              <!-- boutons d'exports -->
-              {#if !$isInIframe}
-                <div class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 mt-4 xl:mt-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-                  <button
-                    type="button"
-                    class="tooltip tooltip-bottom tooltip-neutral"
-                    data-tip="Diaporama"
-                    on:click={() =>
-                      globalOptions.update((params) => {
-                        params.v = 'diaporama'
-                        return params
-                      })}
-                  >
-                    <div class="inline-flex xl:hidden">
-                      <i class="bx bx-sm bx-slideshow hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                    </div>
-                    <div class="hidden xl:inline-flex">
-                      <i class="bx bx-md bx-slideshow hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-                    </div>
-                  </button>
-                  <!-- <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Config pour élèves">
-                      <i
-                        class="bx bx-link  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
-                        {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}"
-                      />
-                    </label>
-                    <ModalSettingsVueEleve /> -->
-                  <button
-                    type="button"
-                    class="tooltip tooltip-bottom tooltip-neutral"
-                    data-tip="Lien pour les élèves"
-                    on:click={() =>
-                      globalOptions.update((params) => {
-                        params.v = 'confeleve'
-                        return params
-                      })}
-                  >
-                    <div class="inline-flex xl:hidden">
-                      <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
-                        <i class="bx bx-sm bx-link" />
-                        <div class="absolute -bottom-1 -right-1">
-                          <i class="scale-75 bx bx-xs bxs-graduation" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="hidden xl:inline-flex">
-                      <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
-                        <i class="bx bx-md bx-link" />
-                        <div class="absolute -bottom-1 -right-0">
-                          <i class="scale-95 bx bx-xs bxs-graduation" />
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                  <button
-                    type="button"
-                    class="tooltip tooltip-bottom tooltip-neutral"
-                    data-tip="LaTeX"
-                    on:click={() => {
-                      globalOptions.update((params) => {
-                        params.v = 'latex'
-                        return params
-                      })
-                    }}
-                  >
-                    <i>
-                      <svg
-                        width="32.000004"
-                        height="31.999998"
-                        viewBox="0 0 8.4666675 8.4666661"
-                        version="1.1"
-                        id="svg507"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-5 h-5 xl:w-7 xl:h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
-                      >
-                        <defs id="defs504" />
-                        <g id="layer1">
-                          <g id="g1669" transform="matrix(1.108044,0,0,1.0300717,-0.36352999,-0.1273056)">
-                            <g
-                              aria-label="A"
-                              id="text313"
-                              style="font-stretch:ultra-condensed;font-size:7.54751px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                              transform="matrix(1.2141816,0,0,1.0476377,-0.50895982,-0.00588555)"
-                            >
-                              <path
-                                d="m 1.3966823,5.6710072 h 0.6113484 l 0.083023,-1.1321266 h 0.3471854 l 0.083023,1.1321266 H 3.1326097 L 2.634474,0.1235872 H 1.9023655 Z M 2.264646,1.4745915 2.3854062,3.6784645 H 2.1514334 Z"
-                                id="path1647"
-                              />
-                            </g>
-                            <g
-                              aria-label="E"
-                              id="text371"
-                              style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                            >
-                              <path
-                                d="M 4.4998348,1.4087978 V 8.3430815 H 6.0659451 V 7.2958631 H 5.2828899 V 5.3901144 h 0.566064 V 4.2768552 H 5.2828899 V 2.4560161 H 6.0659451 V 1.4087978 Z"
-                                id="path1653"
-                              />
-                            </g>
-                            <g
-                              aria-label="L"
-                              id="text309"
-                              style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                              transform="translate(-0.16940966)"
-                            >
-                              <path d="M 0.4974923,0.12358906 V 7.0578728 h 1.5944135 v -0.94344 H 1.2805475 V 0.12358906 Z" id="path1644" />
-                            </g>
-                            <g
-                              aria-label="T"
-                              id="text367"
-                              style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                            >
-                              <path d="M 2.8936626,1.1708074 H 3.4691609 V 7.0578728 H 4.2522161 V 1.1708074 H 4.8277145 V 0.12358906 H 2.8936626 Z" id="path1650" />
-                            </g>
-                            <g
-                              aria-label="X"
-                              id="text375"
-                              style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
-                            >
-                              <path
-                                d="M 6.9125229,5.1426897 7.2049893,7.0578728 H 7.9691756 L 7.5163245,4.6049289 C 7.4408493,4.2086841 7.3748085,3.8030049 7.2993333,3.4161945 L 7.9597412,0.12358906 H 7.1861205 C 7.1012109,0.68021864 6.9974325,1.2462826 6.9125229,1.8029122 L 6.6389253,0.12358906 H 5.8653045 L 6.1955085,1.774609 c 0.094344,0.518892 0.2264256,1.1226935 0.330204,1.6415855 L 5.8558701,7.0578728 h 0.7641864 z"
-                                id="path1656"
-                              />
-                            </g>
-                          </g>
-                        </g>
-                      </svg>
-                    </i>
-                  </button>
-                  <button
-                    type="button"
-                    class="tooltip tooltip-bottom tooltip-neutral"
-                    data-tip="AMC"
-                    on:click={() => {
-                      globalOptions.update((params) => {
-                        params.v = 'amc'
-                        return params
-                      })
-                    }}
-                  >
-                    <i>
-                      <svg
-                        viewBox="0 0 8.4759316 8.4576318"
-                        version="1.1"
-                        id="svg4191"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-4 h-4 xl:w-7 xl:h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest hover:stroke-coopmaths-action-lightest stroke-coopmaths-action dark:stroke-coopmathsdark-action dark:hover:stroke-coopmathsdark-action-lightest"
-                      >
-                        <defs id="defs4188" />
-                        <g id="layer1" transform="translate(0.00463201,-0.00451693)">
-                          <g id="g4703" transform="matrix(0.68088189,0,0,0.64722958,-14.592662,0.40513752)">
-                            <path id="rect9846" style="display:inline;fill:none;stroke-width:1.08479" d="M 21.967594,0.542395 H 33.331265 V 11.906066 H 21.967594 Z" />
-                            <path
-                              style="display:inline;fill-opacity:1;stroke-width:0.353;stroke-dasharray:none"
-                              d="m 30.187147,10.138692 c -3.21818,-4.0175496 -3.01441,-3.9353796 -5.07458,-2.0463796 -4.03864,3.7030996 -4.28539,3.6763596 -0.9908,-0.10736 1.03241,-1.18568 1.8771,-2.22601 1.8771,-2.31183 0,-0.0858 -0.79128,-0.54447 -1.7584,-1.01921 -1.93433,-0.94953 -2.0473,-1.18716 -1.13073,-2.37828 l 0.62296,-0.80956 1.45065,1.05084 c 0.79785,0.57796 1.56133,1.22995 1.69663,1.44886 0.33319,0.53911 1.85035,-1.5541 2.36047,-3.25671996 0.27287,-0.91077 0.60202,-1.32803 1.0476,-1.32803 1.07062,0 0.77611,1.39994 -0.80291,3.81656996 -1.45263,2.22318 -1.45263,2.22318 -0.75445,2.99567 1.35314,1.49715 3.64953,5.2880896 3.54188,5.8470396 -0.0716,0.3719 -0.78625,-0.27974 -2.08542,-1.90161 z"
-                              id="path6447"
-                            />
-                          </g>
-                        </g>
-                      </svg>
-                    </i>
-                  </button>
-                  <button
-                    type="button"
-                    class="tooltip tooltip-bottom tooltip-neutral"
-                    data-tip="Moodle"
-                    on:click={() => {
-                      globalOptions.update((params) => {
-                        params.v = 'moodle'
-                        return params
-                      })
-                    }}
-                  >
-                    <i>
-                      <svg
-                        viewBox="0 0 8.4666661 8.4666661"
-                        version="1.1"
-                        id="svg2697"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-6 h-6 xl:w-8 xl:h-8 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
-                      >
-                        <defs id="defs2694" />
-                        <g id="layer1">
-                          <path
-                            id="path5800"
-                            d="M 5.6190408,1.3436103 C 3.1929106,1.6410426 2.0896442,1.8517723 -6.6666665e-8,3.0631178 L 0.01937674,3.1181452 l 0.1660648,0.00168 c -0.0151705,0.1672543 -0.0417532,0.580651 -0.00793,1.2022881 -0.2318563,0.6710048 -0.005861,1.1268667 0.20632167,1.622751 0.0336508,-0.51578 0.0301858,-1.0806985 -0.12822484,-1.6428984 -0.0331509,-0.6174618 -0.005861,-1.0234456 0.009137,-1.1813718 l 1.38524723,0.013274 a 6.3367299,6.3367299 0 0 0 0.041012,0.8119988 c 2.413e-4,7.41e-5 4.827e-4,1.465e-4 7.24e-4,2.465e-4 -0.019394,0.1136922 -0.029686,0.2337457 -0.029686,0.3610258 V 7.1230563 H 3.0168247 V 4.4640923 C 3.0166023,4.3152495 3.0333743,4.1870108 3.0661804,4.0780232 3.4148371,4.0207547 3.7437413,3.892485 4.0371069,3.6999667 4.2663963,3.8138486 4.3816797,4.0680313 4.3816797,4.4640923 v 2.658964 h 1.354546 V 4.4640923 C 5.7372083,3.9080313 5.9669011,3.6300947 6.425373,3.6302654 6.8838432,3.6304378 7.1130792,3.9083588 7.1130792,4.4640923 v 2.658964 H 8.4666667 V 4.3070919 C 8.466496,3.7267978 8.2649892,3.2877561 7.8621894,2.9899135 7.5078576,2.7238375 7.0286125,2.5907977 6.4244128,2.5907977 c -0.6608527,0 -1.1162405,0.1571004 -1.3661083,0.4713116 -0.066043,-0.071577 -0.1408956,-0.1345516 -0.2236867,-0.1898186 5e-5,-9.82e-5 1.207e-4,-1.982e-4 1.948e-4,-2.879e-4 C 4.6513449,2.6664276 4.2917878,2.3859638 4.2917878,2.3859638 L 5.636261,1.403525 Z"
-                          />
-                        </g>
-                      </svg>
-                    </i>
-                  </button>
-                </div>
-              {/if}
-            </div>
-            <div class="flex-1 mt-2 md:mt-24 xl:mt-12">
-              {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-                <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
-                  <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
-                </div>
-              {/each}
             </div>
             <Footer />
           </div>
         {:else}
-          <div class="relative flex flex-col h-[calc(100vh-7em)] justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
-            <div class="animate-pulse h-full flex flex-col md:flex-row justify-start space-x-6 items-center">
-              <div class="mt-[10px]">
-                <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
-                <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+          <div class="relative flex-1 h-full">
+            <div class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
+              <div class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center">
+                <div class="mt-[10px]">
+                  <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
+                  <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+                </div>
+                <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
               </div>
-              <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
-            </div>
-            <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
-              <Footer />
+              <!-- Pied de page -->
+              <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
+                <Footer />
+              </div>
             </div>
           </div>
         {/if}
       </div>
-    </main>
+    </div>
   </div>
 </div>
 
 <style>
-  /* ::-webkit-scrollbar {
-    display: none;
-  } */
-  #startComponent {
-    scrollbar-width: none;
+  @media (min-width: 768px) {
+    #barre-boutons {
+      width: calc(96vw - (var(--isMenuOpen) * var(--sidebarWidth) * 1px + (1 - var(--isMenuOpen)) * 20px));
+    }
   }
-  #exercisesWrapper {
-    height: calc(100vh - 14rem);
-    min-height: 100%;
-  }
-  #choiceMenuWrapper {
-    height: calc(100vh - 14rem);
-    min-height: 100%;
+  @media (max-width: 768px) {
+    #barre-boutons {
+      width: 100vw;
+    }
   }
 </style>

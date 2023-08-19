@@ -1,5 +1,5 @@
 <script lang="ts">
-  import StartV2 from './StartV2.svelte'
+  import Start from './Start.svelte'
   import Diaporama from './Diaporama.svelte'
   import Can from './Can.svelte'
   import Eleve from './Eleve.svelte'
@@ -71,6 +71,6 @@
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
   {:else}
-    <StartV2 />
+    <Start />
   {/if}
 </div>
