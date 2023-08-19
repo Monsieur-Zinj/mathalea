@@ -4,7 +4,7 @@
  */
 export interface InterfaceGlobalOptions { v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: '0' | '1' | '2' | '3', es?: string, title?: string, presMode?: 'liste_exos' | 'un_exo_par_page' | 'liste_questions' | 'une_question_par_page', setInteractive?: string, isSolutionAccessible?: boolean, isInteractiveFree?: boolean, oneShot?: boolean, recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki', done?: '1', answers?: string, iframe?: string, twoColumns?: boolean }
 
-export interface InterfaceParams { uuid: string, id?: string, alea?: string, interactif?: '0' | '1', cd?: '0' | '1', sup?: string, sup2?: string, sup3?: string, sup4?: string, nbQuestions?: number, duration?: number, cols?: number }
+export interface InterfaceParams { uuid: string, id?: string, alea?: string, interactif?: '0' | '1', cd?: '0' | '1', sup?: string, sup2?: string, sup3?: string, sup4?: string, nbQuestions?: number, duration?: number, cols?: number, type?: 'mathalea' | 'static' | 'app' }
 
 export interface InterfaceReferentiel { uuid: string, id: string, url: string, titre: string, tags: { interactif: boolean, interactifType: string, amc: boolean }, datePublication?: string, dateModification?: string, annee?: string }
 

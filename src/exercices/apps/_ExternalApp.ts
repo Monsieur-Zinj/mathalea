@@ -1,5 +1,6 @@
 import { get } from 'svelte/store'
 import { globalOptions, resultsByExercice, exercicesParams } from '../../components/store'
+import { sendToCapytaleSaveStudentAssignment } from '../../lib/handleCapytale'
 
 const titre = 'Application externe'
 
@@ -11,10 +12,12 @@ class ExternalApp {
   container: HTMLDivElement
   iframe: HTMLIFrameElement
   url: URL
+  state: 'done' | ''
   constructor (url: string) {
     this.url = new URL(url)
     this.titre = titre
     this.typeExercice = 'html'
+    this.state = ''
     this.container = document.createElement('div')
     this.iframe = document.createElement('iframe')
     this.iframe.setAttribute('width', '400px')
@@ -63,14 +66,32 @@ class ExternalApp {
 
   handleScore () {
     window.addEventListener('message', (event) => {
-      if (event.data?.type !== 'mathaleaSendScore') return
-      const numberOfPoints = parseInt(event.data.score)
-      const indice = parseInt(event.data.numeroExercice)
-      const numberOfQuestions = parseInt(event.data.numberOfQuestions)
-      resultsByExercice.update((l) => {
-        l[indice] = { numberOfPoints, numberOfQuestions, indice }
-        return l
-      })
+      if (event.data?.numeroExercice !== this.numeroExercice) return
+      if (event.data?.type === 'mathaleaSendScore') {
+        this.state = 'done'
+        const numberOfPoints = parseInt(event.data.score)
+        const indice = parseInt(event.data.numeroExercice)
+        const numberOfQuestions = parseInt(event.data.numberOfQuestions)
+        const answers = Array.isArray(event.data.finalState) ? event.data.finalState : [event.data.finalState]
+        resultsByExercice.update((l) => {
+          l[indice] = { numberOfPoints, numberOfQuestions, indice, answers }
+          return l
+        })
+        if (get(globalOptions).recorder === 'capytale') {
+          sendToCapytaleSaveStudentAssignment()
+        }
+      } else if (event.data?.type === 'mathaleaHasScore') {
+        const numberOfPoints = parseInt(event.data.score)
+        const indice = parseInt(event.data.numeroExercice)
+        const numberOfQuestions = parseInt(event.data.numberOfQuestions)
+        const answers = Array.isArray(event.data.finalState) ? event.data.finalState : [event.data.finalState]
+        resultsByExercice.update((l) => {
+          l[indice] = { numberOfPoints, numberOfQuestions, indice, answers }
+          return l
+        })
+        const message = { type: 'mathaleaHasScore', score: numberOfPoints, numeroExercice: indice, numberOfQuestions, finalState: answers }
+        this.iframe.contentWindow.postMessage(message, '*')
+      }
     })
   }
 }

@@ -37,7 +37,6 @@
   "homepage": "https://github.com/mathalea/mathalea",
   "scripts": {
     "start": "vite",
-    "build2": "vite build",
     "build": "node --loader ts-node/esm tasks/makeJson& vite build",
     "makeJson": "node tasks/updateMenu.js",
     "getNewUuid": "node tasks/updateMenu.js",

@@ -42,7 +42,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // On charge l'aléa qui a pu être modifié par l'élève
   if (studentAssignment !== null && studentAssignment !== undefined) {
     for (const exercice of studentAssignment) {
-      if (exercice.alea !== undefined && exercice.indice !== undefined) {
+      if (exercice !== null && exercice.alea !== undefined && exercice.indice !== undefined) {
         exercicesParams.update((l) => {
           l[exercice.indice].alea = exercice.alea
           return l
@@ -54,6 +54,10 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     // Enseignant qui crée et paramètre sa séance
   } else {
     mathaleaHandleComponentChange('', 'eleve')
+    globalOptions.update((l) => {
+      l.v = 'eleve'
+      return l
+    })
   }
   if (mode === 'assignment') {
     // Élève sur sa copie
@@ -78,34 +82,41 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   }
   // Attendre pour que les champs texte soient bien chargés
   await new Promise((resolve) => setTimeout(resolve, 500))
-  for (const exercice of studentAssignment) {
-    for (const answer in exercice.answers) {
-      // La réponse correspond à un champs texte
-      const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
-      if (field !== null) {
-        if ('setValue' in field) {
-          // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
-          field.setValue(exercice.answers[answer])
-        } else if ('value' in field) {
-          // C'est un HTMLInputElement (créé avec ajouteChampTexte)
-          field.value = exercice.answers[answer]
+  if (studentAssignment != null) {
+    for (const exercice of studentAssignment) {
+      if (exercice == null) continue
+      if (exercice != null && exercice.answers != null) {
+        for (const answer in exercice.answers) {
+          // La réponse correspond à un champs texte
+          const field = document.querySelector(CSS.escape(`#champTexte${answer}`)) as MathfieldElement | HTMLInputElement
+          if (field !== null) {
+            if ('setValue' in field) {
+              // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
+              field.setValue(exercice.answers[answer])
+            } else if ('value' in field) {
+              // C'est un HTMLInputElement (créé avec ajouteChampTexte)
+              field.value = exercice.answers[answer]
+            }
+          }
+          // La réponse correspond à une case à cocher qui doit être cochée
+          const checkBox = document.querySelector(CSS.escape(`#check${answer}`)) as HTMLInputElement
+          if (checkBox !== null && exercice.answers[answer] === '1') {
+            checkBox.checked = true
+          }
+          // La réponse correspond à une liste déroulante
+          const select = document.querySelector(CSS.escape(`select#${answer}`)) as HTMLSelectElement
+          if (select !== null) {
+            select.value = exercice.answers[answer]
+          }
         }
       }
-      // La réponse correspond à une case à cocher qui doit être cochée
-      const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-      if (checkBox !== null && exercice.answers[answer] === '1') {
-        checkBox.checked = true
+      // On prévient les apps avec un message
+      if (exercice != null) {
+        const message = { type: 'mathaleaHasScore', score: exercice?.numberOfPoints, numeroExercice: exercice?.indice, numberOfQuestions: exercice?.numberOfQuestions, finalState: exercice?.answers }
+        window.postMessage(message, '*')
       }
-      // La réponse correspond à une liste déroulante
-      const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-      if (select !== null) {
-        select.value = exercice.answers[answer]
-      }
-    }
-    if (exercice.state === 'done') {
-      // On attent que le bouton de correction soit chargé
-      // const buttonScore = await waitForElementToExist(`#buttonScoreEx${exercice.indice}`) as HTMLButtonElement
-      const buttonScore = document.querySelector(`#buttonScoreEx${exercice.indice}`) as HTMLButtonElement
+      // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
+      const buttonScore = document.querySelector(CSS.escape(`#buttonScoreEx${exercice.indice}`)) as HTMLButtonElement
       if (buttonScore !== null) {
         buttonScore.click()
       }
