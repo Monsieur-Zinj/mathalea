@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '10/04/2023'
+export const dateDeModifImportante = '19/08/2023'
 
 /**
  * Calculer des caractéristiques d'une série (moyenne, médiane ou étendue)
@@ -50,9 +50,7 @@ export default function CalculerCaracteristiques () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions, shuffle: true })
-
-    const typeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, shuffle: true, enleveDoublons: true })
-    console.log(typeQuestions)
+    const typeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: 3, shuffle: true, enleveDoublons: true })
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
 
     for (let i = 0, cpt = 0, texte, initAMC, texteAMC, reponsesAMC, approxAMC, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
