@@ -1205,6 +1205,7 @@
   "iframe": "ressources/iframe.ts",
   "video": "ressources/video.ts",
   "xcas": "ressources/xcas.ts",
+  "spline": "OutilSpline.svelte",
   "e38d8": "techno1/techno1E2.js",
   "c988f": "techno1/techno1P1.js",
   "a66ad": "techno1/techno1P2-1.js",
