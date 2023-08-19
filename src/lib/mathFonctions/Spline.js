@@ -77,14 +77,14 @@ export class Spline {
     this.visibles = this.noeuds.map((noeud) => noeud.isVisible) // On récupère la visibilité des noeuds pour la courbe
     this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
     // this.step = step // on en a besoin pour la dérivée...
-    this.fonctions = this.convertPolyFunction()
+    this.fonctions = this.#convertPolyFunction()
   }
 
   /**
      * convertit les polynomes en fonctions
      * @returns {Function[]}
      */
-  convertPolyFunction () {
+  #convertPolyFunction () {
     const f = []
     for (let i = 0; i < this.n - 1; i++) {
       f.push(this.polys[i].fonction)
@@ -343,7 +343,7 @@ export class Spline {
      * @returns {function(*): number|*}
      */
   get fonction () {
-    return x => this.image(rationnalise(x))
+    return x => this.#image(rationnalise(x))
   }
 
   /**
@@ -351,7 +351,7 @@ export class Spline {
      * @param {number} x
      * @returns {number|*}
      */
-  image (x) {
+  #image (x) {
     let trouveK = false
     let k = 0
     for (let i = 0; i < this.n - 1; i++) {
