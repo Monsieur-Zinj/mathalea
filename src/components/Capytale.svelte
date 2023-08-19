@@ -15,6 +15,11 @@
   import FormRadio from './forms/FormRadio.svelte'
   import ButtonToggle from './forms/ButtonToggle.svelte'
   import InputText from './forms/InputText.svelte'
+  import referentielRessources from '../json/referentielRessources.json'
+  import type { ReferentielForList } from 'src/lib/types'
+  import { toMap } from './utils/toMap'
+
+
 
   let showSettingsDialog = false
   let isMenuOpen: boolean = true
@@ -49,8 +54,7 @@
   // Construction pour affichage dans SideMenu du tableau des entrées du référentiel
   const itemsSelected: string[] = []
   let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
-  // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
-  $: sideMenuListReferentiel = { title: 'Choix des exercices', content: [...arrayReferentielFiltre], type: 'exercices' }
+  $: exercisesReferentielForSideMenu = { title: 'Choix des exercices', content: [...arrayReferentielFiltre], type: 'exercices' }
 
   /**
    * Gestion du redimentionnement de la largeur du menu des choix
@@ -137,6 +141,9 @@
 
   let urlFeuilleEleve: string = ''
 
+  const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
+  const ressourcesReferentielForSideMenu: ReferentielForList = { title: 'Choix des ressources', content: [...ressourcesReferentielArray], type: 'ressources' }
+
   function updateFilters (filters) {
     let itemsAccepted = [...filters.levels]
     if (filters.types.includes('static')) {
@@ -222,7 +229,7 @@
         bind:isMenuOpen
         isMenuCloseable={$exercicesParams.length !== 0}
         bind:sidebarWidth
-        referentiels={[sideMenuListReferentiel]}
+        referentiels={[exercisesReferentielForSideMenu, ressourcesReferentielForSideMenu]}
         on:filters={(e) => {
           updateFilters(e.detail)
         }}
