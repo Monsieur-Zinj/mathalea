@@ -44,7 +44,8 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "transpile": "tsc > journal.log",
-    "lint": "eslint src/exercices/**/* --ext .js,.ts --fix"
+    "lint": "eslint src/exercices/**/* --ext .js,.ts --fix",
+    "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix"
   },
   "dependencies": {
     "@bugsnag/js": "^7.20.2",

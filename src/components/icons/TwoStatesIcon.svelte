@@ -21,7 +21,7 @@
   </InteractivityIcon>
   ```
  -->
-<div class={isOnStateActive ? "hidden" : "block"}>
+<div class={isOnStateActive ? 'hidden' : 'block'}>
   <slot name="icon_to_switch_on">
     <svg
       xmlns="http://www.w3.org/2000/svg"
