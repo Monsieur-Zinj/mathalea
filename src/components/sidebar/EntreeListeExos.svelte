@@ -1,9 +1,10 @@
 <script lang="ts">
-  import type { InterfaceParams } from 'src/lib/types'
-  import { exercicesParams, globalOptions } from '../store'
-  import { isRecent } from '../utils/handleDate'
+  import type { InterfaceParams } from "src/lib/types"
+  import { exercicesParams, globalOptions } from "../store"
+  import { isRecent } from "../utils/handleDate"
+  import NoInteractivityIcon from "../icons/NoInteractivityIcon.svelte"
 
-  import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+  import renderMathInElement from "katex/dist/contrib/auto-render.js"
 
   export let exercice: Map<string, string | Map>
   export let nestedLevelCount: number
@@ -11,18 +12,18 @@
   let nomDeExercice: HTMLDivElement
 
   $: {
-    if (nomDeExercice && nomDeExercice.outerText.includes('$')) {
+    if (nomDeExercice && nomDeExercice.outerText.includes("$")) {
       renderMathInElement(nomDeExercice, {
         delimiters: [
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false }
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
         ],
         // Les accolades permettent d'avoir une formule non coupée
-        preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
+        preProcess: (chaine: string) => "{" + chaine.replaceAll(String.fromCharCode(160), "\\,") + "}",
         throwOnError: true,
-        errorColor: '#CC0000',
-        strict: 'warn',
-        trust: false
+        errorColor: "#CC0000",
+        strict: "warn",
+        trust: false,
       })
       // console.log(nomDeExercice.outerText)
     }
@@ -32,9 +33,9 @@
     Gestions des exercices via la liste
    --------------------------------------------------------------- */
   const isPresent = (code: string) => {
-    return code === exercice.get('uuid')
+    return code === exercice.get("uuid")
   }
-  const tags = exercice.get('tags')
+  const tags = exercice.get("tags")
   let selectedCount = 0
   let listeCodes: string[]
   // on compte réactivement le nombre d'occurences
@@ -50,23 +51,25 @@
   /**
    * Ajouter l'exercice courant à la liste
    */
-  function addToList () {
+  function addToList() {
     const newExercise = {
-      url: exercice.get('url'),
-      id: exercice.get('id'),
-      uuid: exercice.get('uuid'),
-      interactif: '0'
+      url: exercice.get("url"),
+      id: exercice.get("id"),
+      uuid: exercice.get("uuid"),
+      interactif: "0",
     } as InterfaceParams
-    if ($globalOptions.recorder === 'capytale') {
-      newExercise.interactif = '1'
+    if ($globalOptions.recorder === "capytale") {
+      newExercise.interactif = "1"
     }
     exercicesParams.update((list) => [...list, newExercise])
+    console.log(tags)
+    console.log("Interactif = " + tags.get("interactif"))
   }
   /**
    * Retirer l'exercice de la liste (si plusieurs occurences
    * la première est retirée)
    */
-  function removeFromList () {
+  function removeFromList() {
     const matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
@@ -74,17 +77,17 @@
   /* --------------------------------------------------------------
     Gestions des icônes en début de ligne
    --------------------------------------------------------------- */
-  let icon = 'bxs-message-alt'
-  let rotation = '-rotate-90'
+  let icon = "bxs-message-alt"
+  let rotation = "-rotate-90"
   let mouseIsOut = true
-  function handleMouseOver () {
-    icon = 'bx-trash'
-    rotation = 'rotate-0'
+  function handleMouseOver() {
+    icon = "bx-trash"
+    rotation = "rotate-0"
     mouseIsOut = false
   }
-  function handleMouseOut () {
-    icon = 'bxs-message-alt'
-    rotation = '-rotate-90'
+  function handleMouseOut() {
+    icon = "bxs-message-alt"
+    rotation = "-rotate-90"
     mouseIsOut = true
   }
 </script>
@@ -111,8 +114,8 @@
     on:keydown={addToList}
   >
     <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1" bind:this={nomDeExercice}>
-      {#if exercice.has('lieu')}
-        <span class="font-bold">{exercice.get('typeExercice').toUpperCase()} {exercice.get('mois') || ''} {exercice.get('annee')} - {exercice.get('lieu')} - {exercice.get('numeroInitial')}</span>
+      {#if exercice.has("lieu")}
+        <span class="font-bold">{exercice.get("typeExercice").toUpperCase()} {exercice.get("mois") || ""} {exercice.get("annee")} - {exercice.get("lieu")} - {exercice.get("numeroInitial")}</span>
         <div>
           {#each tags as tag}
             <span
@@ -123,18 +126,25 @@
         </div>
       {:else}
         <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-          <span class="font-bold">{exercice.get('id')} - </span>{exercice.get('titre')}
-          {#if isRecent(exercice.get('datePublication'))}
-            <span
+          <span class="font-bold">{exercice.get("id")} - </span>{exercice.get("titre")}
+          {#if isRecent(exercice.get("datePublication"))}
+            &nbsp;<span
               class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
               >NEW</span
             >
           {/if}
-          {#if isRecent(exercice.get('dateModification'))}
-            <span
+          {#if isRecent(exercice.get("dateModification"))}
+            &nbsp;<span
               class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
               >MAJ</span
             >
+          {/if}
+          {#if !tags.get("interactif")}
+            &nbsp;<span class="tooltip tooltip-bottom tooltip-neutral" data-tip="Pas d'interactivité">
+              <NoInteractivityIcon
+                class="inline-flex h-3 w-3 text-coopmaths-struct darK:text-coopmathsdark-struct fill-coopmaths-struct dark:fill-coopmathsdark-struct stroke-coopmaths-struct dark:stroke-coopmathsdark-struct"
+              />
+            </span>
           {/if}
         </div>
       {/if}
