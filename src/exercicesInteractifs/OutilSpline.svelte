@@ -4,6 +4,10 @@
   import { spline, trieNoeuds } from '../lib/mathFonctions/Spline.js'
   import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
   
+  export const titre = 'Interpolation par splines (avec formulaire)'
+  export const ref = 'P022'
+  export const uuid = 'spline'
+  
   export let indiceExercice
   export let indiceLastExercice
   const headerExerciceProps = {

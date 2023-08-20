@@ -113,6 +113,13 @@ function createUuid () {
   })
   return uuid
 }
+
+// ToDo : automatiser la lecture de exercicesInteractifs
+function handleExerciceSvelte (uuidToUrl) {
+  uuidToUrl.spline = 'OutilSpline.svelte'
+  return uuidToUrl
+}
+
 /**
  * Début du programme principal
  */
@@ -146,7 +153,7 @@ findThemes(referentiel2022, [])
 
 readInfos(exercicesDir, uuidMap)
   .then(() => {
-    const uuidToUrl = Array.from(uuidMap.entries())
+    let uuidToUrl = Array.from(uuidMap.entries())
       .sort((a, b) => a[1].localeCompare(b[1]))
       .reduce((obj, [uuid, filePath]) => {
         obj[uuid] = filePath
@@ -159,6 +166,7 @@ readInfos(exercicesDir, uuidMap)
     }, {})
     fs.writeFile('src/json/exercices.json', JSON.stringify(exercices, null, 2))
     fs.writeFile('src/json/exercicesNonInteractifs.json', JSON.stringify(exercicesNonInteractifs, null, 2))
+    uuidToUrl = handleExerciceSvelte(uuidToUrl)
     fs.writeFile('src/json/uuidsToUrl.json', JSON.stringify(uuidToUrl, null, 2))
     for (const themePath of themesPath) {
       const theme = themePath.split('.').pop()

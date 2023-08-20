@@ -133,5 +133,11 @@
     "url": "profs/P021.js",
     "titre": "Interpollation par splines avec tangentes",
     "tags": {}
+  },
+  "P022": {
+    "id": "P022",
+    "uuid": "spline",
+    "titre": "Interpollation par splines (avec formulaires)",
+    "url": "OutilSpline.svelte"
   }
 }
