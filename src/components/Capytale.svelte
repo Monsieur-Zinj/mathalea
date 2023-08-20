@@ -40,6 +40,11 @@
     // On analyse l'url pour mettre à jour l'affichage
     urlToDisplay()
     handleCapytale()
+    globalOptions.update((params) => {
+      params.presMode = 'un_exo_par_page'
+      params.isInteractiveFree = false
+      return params
+    })
   })
   $: {
     if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -104,7 +109,7 @@
   }
 
   // Gestion de la graine
-  let isDataRandom: boolean = true
+  let isDataRandom: boolean = false
   function handleSeed () {
     for (const param of $exercicesParams) {
       if (!isDataRandom && param.alea === undefined) {
