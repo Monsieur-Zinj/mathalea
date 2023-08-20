@@ -2168,7 +2168,7 @@
     "url": "3e/3F10-2.js",
     "uuid": "ba520",
     "id": "3F10-2",
-    "titre": "Fonction : calculs d'images (et d'antécédents)",
+    "titre": "Calculer images (et antécédents) de fonctions",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -4756,7 +4756,7 @@
     "url": "5e/5G22-1.js",
     "uuid": "3acc1",
     "id": "5G22-1",
-    "titre": "Utiliser les propriétés de la médiatrice",
+    "titre": "Utiliser les propriétés de la médiatrice d'un segment",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4786,7 +4786,7 @@
     "url": "5e/5G30.js",
     "uuid": "2b6a2",
     "id": "5G30",
-    "titre": "Utiliser le codage pour décrire une figure",
+    "titre": "Utiliser le codage pour décrire ou illustrer une figure",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4806,7 +4806,7 @@
     "url": "5e/5G30-2.js",
     "uuid": "19812",
     "id": "5G30-2",
-    "titre": "Angles et parallèles",
+    "titre": "Effectuer des liens entre angles et parallélisme",
     "tags": {
       "interactif": false,
       "amc": false
@@ -4826,7 +4826,7 @@
     "url": "5e/5G31-1.js",
     "uuid": "bcbe1",
     "id": "5G31-1",
-    "titre": "Constructibilité des triangles via les angles",
+    "titre": "Justifier la construction des triangles via les angles",
     "tags": {
       "interactif": false,
       "amc": false
@@ -6264,7 +6264,7 @@
     "url": "6e/6G10-2.js",
     "uuid": "e8f0b",
     "id": "6G10-2",
-    "titre": "Utiliser le codage pour décrire une figure",
+    "titre": "Utiliser le codage pour décrire ou illustrer une figure",
     "tags": {
       "interactif": false,
       "amc": false
