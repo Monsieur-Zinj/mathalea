@@ -7,13 +7,15 @@ import {
   centreGraviteTriangle,
   codageHauteurTriangle,
   codageMedianeTriangle,
-  hauteurTriangle, medianeTriangle
+  hauteurTriangle,
+  medianeTriangle
 } from '../../lib/2d/triangle.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+
 export const titre = 'Déterminer la nature d\'une droite remarquable'
 
 /**
@@ -73,7 +75,7 @@ export default function DroiteRemarquableDuTriangle () {
           d[i] = hauteurTriangle(C[i], B[i], A[i], 'blue')
           d[i].epaisseur = 1
           c[i] = codageHauteurTriangle(C[i], B[i], A[i])
-          objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
+          objets[i] = [t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la hauteur issue de $${sommets[i][2]}$ dans le triangle ${triangles[i].getNom()}.<br>`
           // texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
           break
@@ -81,7 +83,7 @@ export default function DroiteRemarquableDuTriangle () {
           d[i] = mediatrice(A[i], B[i], '', 'blue')
           d[i].epaisseur = 1
           c[i] = codageMediatrice(A[i], B[i])
-          objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
+          objets[i] = [t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
           // texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], mediatrice(A[i], B[i], '', 'blue', 'gray', 'green', true, true, '×', '||', 1))
           break
@@ -89,7 +91,7 @@ export default function DroiteRemarquableDuTriangle () {
           d[i] = medianeTriangle(C[i], B[i], A[i], 'blue')
           d[i].epaisseur = 1
           c[i] = codageMedianeTriangle(B[i], A[i], 'black', '//')
-          objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
+          objets[i] = [t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la médiane issue de $${sommets[i][2]}$ dans le triangle ${triangles[i].getNom()}.<br>`
           // texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
           break
@@ -97,13 +99,20 @@ export default function DroiteRemarquableDuTriangle () {
           d[i] = bissectrice(A[i], B[i], C[i], 'blue')
           d[i].epaisseur = 1
           c[i] = codageBissectrice(A[i], B[i], C[i])
-          objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
+          objets[i] = [t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la bissectrice de l'angle $\\widehat{${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}}$.<br>`
           // texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], bissectrice(A[i], B[i], C[i], 'blue', 'red', 'green', true, true, '×', 3, 1))
           break
       }
 
-      texte = `Quelle est la nature de la droite tracée en bleu dans le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
+      texte = `Quelle est la nature de la droite tracée en bleu dans le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d({
+        xmin: -3,
+        ymin: -3,
+        xmax: 8,
+        ymax: 8,
+        scale: 0.5,
+        pixelsParCm: 20
+      }, ...objets[i])
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

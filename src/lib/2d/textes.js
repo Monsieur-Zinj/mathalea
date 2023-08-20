@@ -105,22 +105,22 @@ export function LabelLatexPoint ({
     }
   }
   /*
-                                this.svg = function (coeff) {
-                                  let code = ''
-                                  for (const objet of objets) {
-                                    code += objet.svg(coeff) + '\n'
-                                  }
-                                  code = `<g id="${this.id}">${code}</g>`
-                                  return code
-                                }
-                                this.tikz = function () {
-                                  let code = ''
-                                  for (const objet of objets) {
-                                    code += objet.tikz() + '\n'
-                                  }
-                                  return code
-                                }
-                                 */
+                                    this.svg = function (coeff) {
+                                      let code = ''
+                                      for (const objet of objets) {
+                                        code += objet.svg(coeff) + '\n'
+                                      }
+                                      code = `<g id="${this.id}">${code}</g>`
+                                      return code
+                                    }
+                                    this.tikz = function () {
+                                      let code = ''
+                                      for (const objet of objets) {
+                                        code += objet.tikz() + '\n'
+                                      }
+                                      return code
+                                    }
+                                     */
   return objets
 }
 
@@ -241,12 +241,6 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
                 )})" id="${this.id}" >${texte}</text>\n `
       } else {
         switch (orientation) {
-          case 'milieu':
-            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-                            coeff
-                        )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
-                        }" id="${this.id}" >${texte}</text>\n `
-            break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
                             coeff
@@ -257,6 +251,12 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
                             coeff
                         )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+                        }" id="${this.id}" >${texte}</text>\n `
+            break
+          default:
+            code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+                            coeff
+                        )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
                         }" id="${this.id}" >${texte}</text>\n `
             break
         }
@@ -279,11 +279,9 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
         let anchor = ''
         if (orientation === 'gauche') {
           anchor = `node[anchor = east,scale=${scale}]`
-        }
-        if (orientation === 'droite') {
+        } else if (orientation === 'droite') {
           anchor = `node[anchor = west,scale=${scale}]`
-        }
-        if (orientation === 'milieu') {
+        } else {
           anchor = `node[anchor = center,scale=${scale}]`
         }
         if (mathOn) {
