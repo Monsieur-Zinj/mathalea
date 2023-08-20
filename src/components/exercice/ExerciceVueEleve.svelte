@@ -262,6 +262,11 @@
   window.onresize = (event) => {
     adjustMathalea2dFiguresWidth(true)
   }
+
+  function isPossibleToRestart (): boolean {
+    return ($globalOptions.setInteractive === '0' || !$globalOptions.oneShot) &&
+    $globalOptions.done !== '1'
+  }
 </script>
 
 <div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
@@ -281,22 +286,7 @@
             }}
           />
         </div>
-        <!-- <button
-          class={$globalOptions.setInteractive === "0" || !$globalOptions.oneShot ? "flex ml-2 tooltip tooltip-right " : "hidden"}
-          data-tip="Nouvel énoncé"
-          type="button"
-          on:click={() => {
-            newData()
-          }}
-        >
-          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
-        </button> -->
-
-        <!-- {#if $globalOptions.isSolutionAccessible && !isInteractif} -->
-        <!-- <div class="ml-2">
-            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} textSize="xs" buttonSize="xs" bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
-          </div> -->
-        <div class={$globalOptions.isSolutionAccessible && !isInteractif ? 'flex ml-2' : 'hidden'}>
+        <div class={isPossibleToRestart() ? 'flex ml-2' : 'hidden'}>
           <Button
             title={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
             icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
