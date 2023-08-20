@@ -2,7 +2,6 @@ import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { abs } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -49,6 +48,7 @@ export default function EncadrerAvecFctRef () {
       let xMin // La borne gauche de l'intervalle d'étude (prévoir une valeur de remplacement pour les infinis + et -)
       let xMax // La borne droite de l'intervalle d'étude
       let substituts = [] // les valeur de substitution pour xMin ou xMax...
+      let tolerance // la tolérance doit être réglée au cas par cas, car pour la dérivée de 1/x entre 17 et 19 par exemple, il y a trop peu de différence avec zéro !
       let texteCorrAvantTableau // la partie de la correction avant le tableau
       let texteCorrApresTableau // la partie de la correction après le tableau
       let a, b // Les valeurs seuils
@@ -60,6 +60,7 @@ export default function EncadrerAvecFctRef () {
           const N = choice([1, 2, 3, 4, 5])
           fonction = x => x ** 2
           derivee = x => 2 * x
+          tolerance = 0.005
           switch (N) {
             case 1: // cas x<a avec a<0 ou a>0
               a = randint(-12, 12, 0)
@@ -159,6 +160,7 @@ export default function EncadrerAvecFctRef () {
           const N = choice([1, 2, 3])
           fonction = x => 1 / x
           derivee = x => -1 / x / x
+          tolerance = 0.000001
           switch (N) {
             case 1: // cas a<x<b avec a>0
               a = randint(2, 20)
@@ -199,8 +201,13 @@ export default function EncadrerAvecFctRef () {
                 const aTemp = -a
                 a = -b
                 b = aTemp
-                substituts = [{ antVal: a, antTex: a.toString(), imgVal: 1 / a, imgTex: `\\frac{1}{${a}}` },
-                  { antVal: b, antTex: '+\\infty', imgVal: 1 / b, imgTex: '' }]
+                substituts = [{
+                  antVal: a,
+                  antTex: a.toString(),
+                  imgVal: 1 / a,
+                  imgTex: `\\frac{1}{${a}}`
+                },
+                { antVal: b, antTex: '+\\infty', imgVal: 1 / b, imgTex: '' }]
                 texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\dfrac{1}{x}$ ......`
                 texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? ']' : ' [ '};+\\infty;${b}[$. <br>
               Puisque la fonction inverse est strictement décroissante sur $]0;+\\infty[$, on obtient son tableau de variations
@@ -237,6 +244,7 @@ export default function EncadrerAvecFctRef () {
           const N = choice([1, 2, 3])
           fonction = x => Math.sqrt(x)
           derivee = x => 1 / 2 / Math.sqrt(x)
+          tolerance = 0.005
           switch (N) {
             case 1: { // cas x<a
               a = randint(1, 100)
@@ -261,7 +269,7 @@ Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $\\sqrt{x}${large1 ? '\\leqsla
               xMax = 10000
               const racineDeA = estParfait(a) ? Math.sqrt(a).toString() : `\\sqrt{${a}}`
               substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: racineDeA },
-                { antVal: 10000, antTex: '+\\infty', imgVal: 100, imgTex: '+\\infty' }]
+                { antVal: 10000, antTex: '+\\infty', imgVal: 100, imgTex: '' }]
 
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\sqrt{x}$ ......`
               texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
@@ -302,6 +310,7 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
           const N = choice([1, 2])
           fonction = x => x ** 3
           derivee = x => 3 * x ** 2
+          tolerance = 0.005
           if (N === 1) { // cas x<a ou x>a
             const a = choice([
               randint(-10, 10),
@@ -387,8 +396,8 @@ Si $${inégalité}$ alors : $${Math.pow(a, 3)} ${large1 ? ' \\leqslant ' : ' < '
           break
         }
       }
-      const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { substituts, step: 1 })
-      texteCorr = texteCorrAvantTableau + mathalea2d(Object.assign({}, fixeBordures([tableau])), tableau) + texteCorrApresTableau
+      const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { substituts, step: 1, tolerance })
+      texteCorr = texteCorrAvantTableau + tableau + texteCorrApresTableau
       if (this.questionJamaisPosee(i, this.listeQuestions[i], xMin, xMax)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
