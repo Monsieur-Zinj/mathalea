@@ -65,7 +65,7 @@ async function readInfos (dirPath) {
             data.match(/export let titre = '(.*)'/)
           if (matchTitre) {
             // ToDo : Est-ce qu'il y a d'autres caractères spéciaux à gérer que l'apostrophe ?
-            infos.titre = matchTitre[1].replaceAll('\\\'', '\'')
+            infos.titre = matchTitre[1].replaceAll('\\\'', '\'').replaceAll('\\\\', '\\')
           } else {
             console.error('\x1b[31m%s\x1b[0m', `titre non trouvé dans ${filePath}`)
           }

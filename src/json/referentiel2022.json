@@ -3894,7 +3894,7 @@
           "url": "can/2e/can2L08.js",
           "uuid": "c1123",
           "id": "can2L08",
-          "titre": "Résoudre une équation du type $\\\\dfrac{x+a}{b}=c$",
+          "titre": "Résoudre une équation du type $\\dfrac{x+a}{b}=c$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -4026,7 +4026,7 @@
           "url": "can/1e/can1F03.js",
           "uuid": "a8936",
           "id": "can1F03",
-          "titre": "Lire graphiquement le signe de $a$ et de $\\\\Delta$",
+          "titre": "Lire graphiquement le signe de $a$ et de $\\Delta$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -4125,7 +4125,7 @@
           "url": "can/1e/can1F12.js",
           "uuid": "e794b",
           "id": "can1F12",
-          "titre": "Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\\\sqrt{x}$",
+          "titre": "Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -4213,7 +4213,7 @@
           "url": "can/1e/can1F20.js",
           "uuid": "5283f",
           "id": "can1F20",
-          "titre": "Résoudre une équation du second degré sans $\\\\Delta$",
+          "titre": "Résoudre une équation du second degré sans $\\Delta$",
           "tags": {
             "interactif": true,
             "interactifType": "qcm",
@@ -9765,7 +9765,7 @@
         "url": "4e/4L15-1.js",
         "uuid": "ce00c",
         "id": "4L15-1",
-        "titre": "Équations du type $\\\\dfrac{x}{a}=\\\\dfrac{b}{c}$",
+        "titre": "Équations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -11313,7 +11313,7 @@
         "url": "2e/2F12-2.js",
         "uuid": "277d3",
         "id": "2F12-2",
-        "titre": "Résoudre graphiquement $f(x)\\\\gt k \\\\quad (\\\\lt k)$ avec une fonction de référence",
+        "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
         "tags": {
           "interactif": false,
           "amc": false
@@ -11812,7 +11812,7 @@
         "url": "2e/2N11-1.js",
         "uuid": "31c01",
         "id": "2N11-1",
-        "titre": "Associer un intervalle de  $\\\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée",
+        "titre": "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée",
         "tags": {
           "interactif": false,
           "amc": false
@@ -11822,7 +11822,7 @@
         "url": "2e/2N11-2.js",
         "uuid": "dc2a5",
         "id": "2N11-2",
-        "titre": "Utiliser et comprendre les symboles $\\\\cup $ et $\\\\cap $ avec les intervalles de $\\\\mathbb{R}$",
+        "titre": "Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$",
         "tags": {
           "interactif": false,
           "amc": false
@@ -12153,7 +12153,7 @@
         "url": "2e/2N32-3.js",
         "uuid": "d9495",
         "id": "2N32-3",
-        "titre": "Écrire le nombre proposé sous la forme $ a\\\\sqrt{b}$",
+        "titre": "Écrire le nombre proposé sous la forme $ a\\sqrt{b}$",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -12461,7 +12461,7 @@
         "url": "2e/2N51-3.js",
         "uuid": "7959f",
         "id": "2N51-3",
-        "titre": "Résoudre une équation du type $\\\\dfrac{x}{a}=\\\\dfrac{b}{c}$",
+        "titre": "Résoudre une équation du type $\\dfrac{x}{a}=\\dfrac{b}{c}$",
         "tags": {
           "interactif": false,
           "amc": false

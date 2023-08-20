@@ -5,14 +5,15 @@
   import NoInteractivityIcon from '../icons/NoInteractivityIcon.svelte'
 
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+  import { onMount } from 'svelte'
 
-  export let exercice: Map<string, string | Map>
+  export let exercice: Map<string, string | Map<string, string>>
   export let nestedLevelCount: number
 
   let nomDeExercice: HTMLDivElement
 
-  $: {
-    if (nomDeExercice && nomDeExercice.outerText.includes('$')) {
+  onMount(() => {
+    if (nomDeExercice && nomDeExercice.innerHTML.includes('$')) {
       renderMathInElement(nomDeExercice, {
         delimiters: [
           { left: '\\[', right: '\\]', display: true },
@@ -25,9 +26,8 @@
         strict: 'warn',
         trust: false
       })
-      // console.log(nomDeExercice.outerText)
     }
-  }
+  })
 
   /* --------------------------------------------------------------
     Gestions des exercices via la liste
@@ -62,8 +62,6 @@
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
-    console.log(tags)
-    console.log('Interactif = ' + tags.get('interactif'))
   }
   /**
    * Retirer l'exercice de la liste (si plusieurs occurences

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { exercicesParams } from '../store'
-  export let ressource
+  export let ressource: Map<'id' | 'url' | 'uuid' | 'titre', string>
 
   /* --------------------------------------------------------------
     Gestions des ressources via la liste
    --------------------------------------------------------------- */
   const isPresent = (code: string) => {
-    return code === ressource.uuid
+    return code === ressource.get('uuid')
   }
   let selectedCount = 0
   let listeCodes: string[]
