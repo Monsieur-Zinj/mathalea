@@ -587,12 +587,12 @@ export class Boite {
       this.texte = false
     }
     /*  this.svg = function (coeff) {
-                return this.texte ? this.forme.svg(coeff) + this.texte.svg(coeff) : this.forme.svg(coeff)
-              }
-              this.tikz = function () {
-                return this.texte ? this.forme.tikz() + this.texte.tikz() : this.forme.tikz()
-              }
-             */
+                    return this.texte ? this.forme.svg(coeff) + this.texte.svg(coeff) : this.forme.svg(coeff)
+                  }
+                  this.tikz = function () {
+                    return this.texte ? this.forme.tikz() + this.texte.tikz() : this.forme.tikz()
+                  }
+                 */
     return this.texte ? [this.texte, this.forme] : this.forme
   }
 }
@@ -843,28 +843,33 @@ export function NommePolygone (p, nom = '', k = 0.5, color = 'black') {
   for (let i = 0; i < p.listePoints.length; i++) {
     if (noms.length > 0) p.listePoints[i].nom = noms[i]
   }
+  const G = barycentre(p)
+  const objets = []
+  let xMin = 1000
+  let xMax = -1000
+  let yMin = 1000
+  let yMax = -1000
+  for (const pt of p.listePoints) {
+    const P = pointSurSegment(G, pt, longueur(G, pt) + (context.isHtml ? k * 20 / context.pixelsParCm : k / context.scale))
+    P.positionLabel = 'center'
+    objets.push(texteParPoint(pt.nom, P, 'milieu', color, 1, 'middle', true))
+    xMin = Math.min(xMin, P.x - 0.5)
+    xMax = Math.max(xMax, P.x + 0.5)
+    yMin = Math.min(yMin, P.y - 0.5)
+    yMax = Math.max(yMax, P.y + 0.5)
+  }
+  this.bordures = [xMin, yMin, xMax, yMax]
   this.svg = function (coeff) {
     let code = ''
-    let P
-    const p = this.poly
-    const d = this.dist
-    const G = barycentre(p)
-    for (let i = 0; i < p.listePoints.length; i++) {
-      P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d * 20 / coeff)
-      P.positionLabel = 'center'
-      code += '\n\t' + texteParPoint(p.listePoints[i].nom, P, 'milieu', 'black', 1, 'middle', true).svg(coeff)
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
   this.tikz = function () {
     let code = ''
-    let P
-    const p = this.poly
-    const d = this.dist
-    const G = barycentre(p)
-    for (let i = 0; i < p.listePoints.length; i++) {
-      P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d / context.scale)
-      code += '\n\t' + texteParPoint(`$${p.listePoints[i].nom}$`, P, 'milieu', color).tikz()
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
     }
     return code
   }
