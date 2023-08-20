@@ -8,7 +8,7 @@ export interface InterfaceParams { uuid: string, id?: string, alea?: string, int
 
 export interface InterfaceReferentiel { uuid: string, id: string, url: string, titre: string, tags: { interactif: boolean, interactifType: string, amc: boolean }, datePublication?: string, dateModification?: string, annee?: string }
 
-export interface InterfaceResultExercice {numberOfPoints: number, numberOfQuestions: number, uuid?: string, title?: string, alea?: string, answers?: string[], indice: number, state?: 'done'}
+export interface InterfaceResultExercice {numberOfPoints: number, numberOfQuestions: number, uuid?: string, title?: string, alea?: string, answers?: string[], indice: number, state?: 'done', type?: 'mathalea' | 'static' | 'app'}
 
 // Pour Capytale
 export interface Activity {globalOptions: InterfaceGlobalOptions, exercicesParams: InterfaceParams[]}
