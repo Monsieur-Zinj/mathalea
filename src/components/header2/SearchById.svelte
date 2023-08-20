@@ -1,8 +1,8 @@
 <script lang="ts">
   import Chips from './Chips.svelte'
-  import { exercicesParams } from '../store'
+  import { exercicesParams, globalOptions } from '../store'
   import refToUuid from '../../json/refToUuid.json'
-    import type { InterfaceReferentiel } from 'src/lib/types'
+    import type { InterfaceParams, InterfaceReferentiel } from 'src/lib/types'
 
   let input: HTMLInputElement
   let listeIdPourLesChips: string[] = []
@@ -95,9 +95,11 @@
 
   function addExercice (id: string) {
     if (!refToUuid[id as keyof typeof refToUuid]) return
+    const interactif: '0' | '1' = ($globalOptions.recorder === 'capytale') ? '1' : '0'
     const newExercise = {
       id,
-      uuid: refToUuid[id as keyof typeof refToUuid]
+      uuid: refToUuid[id as keyof typeof refToUuid],
+      interactif
     }
     exercicesParams.update((list) => [...list, newExercise])
   }

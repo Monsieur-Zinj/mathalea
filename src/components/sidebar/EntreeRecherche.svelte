@@ -1,8 +1,10 @@
 <script lang="ts">
   import { exercicesParams } from '../store'
   import { isRecent } from '../utils/handleDate'
+  import { globalOptions } from '../store'
 
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+  import type { InterfaceReferentiel } from '../../lib/types'
 
   export let exercice: Map<string, string | Map>
 
@@ -55,7 +57,11 @@
     const newExercise = {
       url: exercice.url,
       id: exercice.id,
-      uuid: exercice.uuid
+      uuid: exercice.uuid,
+      interactif: '0'
+    }
+    if ($globalOptions.recorder === 'capytale') {
+      newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
   }
