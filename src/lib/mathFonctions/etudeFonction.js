@@ -897,7 +897,7 @@ export function variationsFonction (derivee, xMin, xMax, step, tolerance = 0.005
         variations.push({ xG: signe.xG, xD: signe.xD, variation: 'decroissant' })
       } // on ne fait rien pour signe.signe==='z'
     }
-    return variations.filter((variation) => variation.xG !== variations.xD)
+    return variations.filter((variation) => variation.xG !== variation.xD)
   } else {
     window.notify('variationsFonction() appelée avec autre chose qu\'une fonction', { derivee })
     return null
@@ -1090,10 +1090,10 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
     tabInit: [
       ligneDerivee
         ? [
-            ['x', 2, 10], ['f′(x)', 2, 10], ['f(x)', 2, 10]
+            ['x', 2, 10], ['f′(x)', 2, 10], ['f(x)', 3, 10]
           ]
         : [
-            ['x', 2, 10], ['f(x)', 2, 10]
+            ['x', 2, 10], ['f(x)', 3, 10]
           ],
       premiereLigne
     ],
