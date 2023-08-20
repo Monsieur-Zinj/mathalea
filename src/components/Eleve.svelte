@@ -143,14 +143,14 @@
     exercices = exercices
     await tick()
     buildQuestions()
-    const resizeObserver = new ResizeObserver(x=>{
+    const resizeObserver = new ResizeObserver(x => {
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get('iframe')
       window.parent.postMessage({ hauteurExercice: x[0].contentRect.height - 50, action: 'mathalea:resize', iframe }, '*')
       // ou x[0].contentRect.height ou x[0].contentBoxSize[0].blockSize ou x[0].borderBoxSize[0].inlineSize ou x[0].target.scrollHeight
       // todo : retirer le -50 mais pas tout de suite au risque de créer une page de hauteur infinie si le cache n'est pas à jour
-    });
-    resizeObserver.observe(eleveSection);
+    })
+    resizeObserver.observe(eleveSection)
     return () => {
       /* onDestroy function */
       resizeObserver.disconnect()
@@ -200,7 +200,7 @@
       mathaleaRenderDiv(document.querySelector<HTMLElement>('body'))
       loadMathLive()
     }
-    let hauteurExercice = window.document.querySelector('section').scrollHeight
+    const hauteurExercice = window.document.querySelector('section').scrollHeight
     const url = new URL(window.location.href)
     const iframe = url.searchParams.get('iframe')
     window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: 'mathalea:init', iframe }, '*')

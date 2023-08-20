@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { exercicesParams } from '../store'
+  import { exercicesParams, globalOptions } from '../store'
   import { isRecent } from '../utils/handleDate'
-  import { globalOptions } from '../store'
 
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
   import type { InterfaceReferentiel } from '../../lib/types'

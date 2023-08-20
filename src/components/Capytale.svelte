@@ -19,8 +19,6 @@
   import type { ReferentielForList } from 'src/lib/types'
   import { toMap } from './utils/toMap'
 
-
-
   let showSettingsDialog = false
   let isMenuOpen: boolean = true
   let divExercices: HTMLDivElement

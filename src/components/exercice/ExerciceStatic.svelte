@@ -5,7 +5,7 @@
   export let uuid: string
   export let indiceExercice: number
   export let indiceLastExercice: number
-  
+
   function getExerciceByUuid (uuid: string) {
     for (const examen in referentielStatic) {
       for (const anneOuTag in referentielStatic[examen]) {
@@ -17,18 +17,17 @@
       }
     }
   }
-  
-  
+
   const exercice = getExerciceByUuid(uuid)
-  
+
   let isCorrectionVisible = false
   let isContentVisible = true
   $: zoomFactor = $globalOptions.z
-  
+
   if (typeof exercice.png === 'string') exercice.png = [exercice.png]
   if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
   const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id.replace('.js', '') : ''
-  const headerExerciceProps = {title: '', id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible}
+  const headerExerciceProps = { title: '', id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible }
   headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ''} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
 </script>
 

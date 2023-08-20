@@ -1062,7 +1062,7 @@
           <ul class="steps w-11/12" bind:this={stepsUl}>
             {#each questions[0] as question, i}
               <span on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)}>
-                  <li class="step step-neutral dark:step-info {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer"  />
+                  <li class="step step-neutral dark:step-info {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" />
               </span>
                {/each}
           </ul>
