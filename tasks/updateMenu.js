@@ -165,7 +165,7 @@ readInfos(exercicesDir, uuidMap)
       return obj
     }, {})
     fs.writeFile('src/json/exercices.json', JSON.stringify(exercices, null, 2))
-    fs.writeFile('src/json/exercicesNonInteractifs.json', JSON.stringify(exercicesNonInteractifs, null, 2))
+    fs.writeFile('src/json/exercicesNonInteractifs.json', JSON.stringify(exercicesNonInteractifs.sort(), null, 2))
     uuidToUrl = handleExerciceSvelte(uuidToUrl)
     fs.writeFile('src/json/uuidsToUrl.json', JSON.stringify(uuidToUrl, null, 2))
     for (const themePath of themesPath) {
