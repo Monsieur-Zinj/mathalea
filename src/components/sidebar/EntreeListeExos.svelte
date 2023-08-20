@@ -142,7 +142,7 @@
           {#if !tags.get("interactif")}
             &nbsp;<span class="tooltip tooltip-bottom tooltip-neutral" data-tip="Pas d'interactivité">
               <NoInteractivityIcon
-                class="inline-flex h-3 w-3 text-coopmaths-struct darK:text-coopmathsdark-struct fill-coopmaths-struct dark:fill-coopmathsdark-struct stroke-coopmaths-struct dark:stroke-coopmathsdark-struct"
+                class="inline-flex h-3 w-3 text-coopmaths-struct dark:text-coopmathsdark-struct fill-coopmaths-struct dark:fill-coopmathsdark-struct stroke-coopmaths-struct dark:stroke-coopmathsdark-struct"
               />
             </span>
           {/if}
