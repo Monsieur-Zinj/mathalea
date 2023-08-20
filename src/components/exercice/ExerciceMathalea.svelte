@@ -461,7 +461,7 @@
             </ul>
           </div>
         </article>
-        {#if isInteractif && !isCorrectionVisible && isContentVisible}
+        {#if isInteractif && interactifReady && !isCorrectionVisible && isContentVisible}
           <button id="verif{indiceExercice}" type="submit" on:click={verifExercice} bind:this={buttonScore}>Vérifier {numberOfAnswerFields > 1 ? "les réponses" : "la réponse"}</button>
         {/if}
         <div bind:this={divScore} />
