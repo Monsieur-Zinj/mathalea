@@ -86,39 +86,42 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     for (const exercice of studentAssignment) {
       if (exercice == null) continue
       if (exercice != null && exercice.answers != null) {
-        for (const answer in exercice.answers) {
-          // La réponse correspond à un champs texte
-          const field = document.querySelector(CSS.escape(`#champTexte${answer}`)) as MathfieldElement | HTMLInputElement
-          if (field !== null) {
-            if ('setValue' in field) {
-              // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
-              field.setValue(exercice.answers[answer])
-            } else if ('value' in field) {
-              // C'est un HTMLInputElement (créé avec ajouteChampTexte)
-              field.value = exercice.answers[answer]
+        if (exercice.type === 'app') {
+          // On prévient les apps avec un message
+          if (exercice != null) {
+            const message = { type: 'mathaleaHasScore', score: exercice?.numberOfPoints, numeroExercice: exercice?.indice, numberOfQuestions: exercice?.numberOfQuestions, finalState: exercice?.answers }
+            window.postMessage(message, '*')
+          }
+        } else {
+          for (const answer in exercice.answers) {
+            // La réponse correspond à un champs texte
+            const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
+            if (field !== null) {
+              if ('setValue' in field) {
+                // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
+                field.setValue(exercice.answers[answer])
+              } else if ('value' in field) {
+                // C'est un HTMLInputElement (créé avec ajouteChampTexte)
+                field.value = exercice.answers[answer]
+              }
+            }
+            // La réponse correspond à une case à cocher qui doit être cochée
+            const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+            if (checkBox !== null && exercice.answers[answer] === '1') {
+              checkBox.checked = true
+            }
+            // La réponse correspond à une liste déroulante
+            const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+            if (select !== null) {
+              select.value = exercice.answers[answer]
             }
           }
-          // La réponse correspond à une case à cocher qui doit être cochée
-          const checkBox = document.querySelector(CSS.escape(`#check${answer}`)) as HTMLInputElement
-          if (checkBox !== null && exercice.answers[answer] === '1') {
-            checkBox.checked = true
-          }
-          // La réponse correspond à une liste déroulante
-          const select = document.querySelector(CSS.escape(`select#${answer}`)) as HTMLSelectElement
-          if (select !== null) {
-            select.value = exercice.answers[answer]
+          // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
+          const buttonScore = document.querySelector(`#buttonScoreEx${exercice.indice}`) as HTMLButtonElement
+          if (buttonScore !== null) {
+            buttonScore.click()
           }
         }
-      }
-      // On prévient les apps avec un message
-      if (exercice != null) {
-        const message = { type: 'mathaleaHasScore', score: exercice?.numberOfPoints, numeroExercice: exercice?.indice, numberOfQuestions: exercice?.numberOfQuestions, finalState: exercice?.answers }
-        window.postMessage(message, '*')
-      }
-      // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
-      const buttonScore = document.querySelector(CSS.escape(`#buttonScoreEx${exercice.indice}`)) as HTMLButtonElement
-      if (buttonScore !== null) {
-        buttonScore.click()
       }
     }
   }

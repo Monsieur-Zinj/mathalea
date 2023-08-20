@@ -13,6 +13,7 @@ class ExternalApp {
   iframe: HTMLIFrameElement
   url: URL
   state: 'done' | ''
+  type = 'app'
   constructor (url: string) {
     this.url = new URL(url)
     this.titre = titre
@@ -49,6 +50,10 @@ class ExternalApp {
   }
 
   get html () {
+    exercicesParams.update((l) => {
+      l[this.numeroExercice].type = 'app'
+      return l
+    })
     this.handleScore()
     if (this.sup !== undefined) {
       const searchParams = new URLSearchParams(this.sup)
@@ -73,8 +78,9 @@ class ExternalApp {
         const indice = parseInt(event.data.numeroExercice)
         const numberOfQuestions = parseInt(event.data.numberOfQuestions)
         const answers = Array.isArray(event.data.finalState) ? event.data.finalState : [event.data.finalState]
+        const type = 'app'
         resultsByExercice.update((l) => {
-          l[indice] = { numberOfPoints, numberOfQuestions, indice, answers }
+          l[indice] = { numberOfPoints, numberOfQuestions, indice, answers, type }
           return l
         })
         if (get(globalOptions).recorder === 'capytale') {
