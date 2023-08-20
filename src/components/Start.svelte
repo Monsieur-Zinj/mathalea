@@ -1,25 +1,25 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent } from './store'
-  import SideMenu from './sidebar/SideMenu.svelte'
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
-  import { flip } from 'svelte/animate'
-  import { onMount } from 'svelte'
-  import { updateReferentiel } from './utils/referentielsUtils'
-  import Exercice from './exercice/Exercice.svelte'
-  import Button from './forms/Button.svelte'
-  import ButtonsDeck from './outils/ButtonsDeck.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
-  import InteractivityIcon from './icons/TwoStatesIcon.svelte'
-  import FullScreenIcon from './icons/TwoStatesIcon.svelte'
-  import Footer from './Footer.svelte'
-  import LatexIcon from './icons/LatexIcon.svelte'
-  import AmcIcon from './icons/AmcIcon.svelte'
-  import MoodleIcon from './icons/MoodleIcon.svelte'
-  import ChipsList from './setup/ChipsList.svelte'
-  import referentielRessources from '../json/referentielRessources.json'
-  import { toMap } from './utils/toMap'
-  import type { ReferentielForList } from '../lib/types'
-  import handleCapytale from '../lib/handleCapytale'
+  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent } from "./store"
+  import SideMenu from "./sidebar/SideMenu.svelte"
+  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
+  import { flip } from "svelte/animate"
+  import { onMount } from "svelte"
+  import { updateReferentiel } from "./utils/referentielsUtils"
+  import Exercice from "./exercice/Exercice.svelte"
+  import Button from "./forms/Button.svelte"
+  import ButtonsDeck from "./outils/ButtonsDeck.svelte"
+  import NavBarV2 from "./header/NavBarV2.svelte"
+  import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
+  import FullScreenIcon from "./icons/TwoStatesIcon.svelte"
+  import Footer from "./Footer.svelte"
+  import LatexIcon from "./icons/LatexIcon.svelte"
+  import AmcIcon from "./icons/AmcIcon.svelte"
+  import MoodleIcon from "./icons/MoodleIcon.svelte"
+  import ChipsList from "./setup/ChipsList.svelte"
+  import referentielRessources from "../json/referentielRessources.json"
+  import { toMap } from "./utils/toMap"
+  import type { ReferentielForList } from "../lib/types"
+  import handleCapytale from "../lib/handleCapytale"
 
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
@@ -34,25 +34,25 @@
   onMount(() => {
     // On analyse l'url pour mettre à jour l'affichage
     urlToDisplay()
-    if ($globalOptions.recorder === 'capytale') {
+    if ($globalOptions.recorder === "capytale") {
       handleCapytale()
     }
     // Réglage du vecteur de translation pour le dé au loading
     const root = document.documentElement
-    root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
+    root.style.setProperty("--vect", "calc((100vw / 10) * 0.5)")
   })
-  addEventListener('popstate', urlToDisplay)
+  addEventListener("popstate", urlToDisplay)
 
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
     if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    if ($globalOptions.v === 'l') {
+    if ($globalOptions.v === "l") {
       // $isSideMenuVisible = false
       isNavBarVisible = false
-    } else if ($globalOptions.v === 'l2') {
+    } else if ($globalOptions.v === "l2") {
       // $isSideMenuVisible = false
       isNavBarVisible = true
-    } else if ($globalOptions.v === 'eleve') {
+    } else if ($globalOptions.v === "eleve") {
       // $isSideMenuVisible = false
       isNavBarVisible = false
     } else {
@@ -64,18 +64,18 @@
   /**
    * Gestion du redimentionnement de la largeur du menu des choix
    */
-  let expanding : HTMLElement = null
+  let expanding: HTMLElement = null
   let sidebarWidth = 400
   const sbWidth = sidebarWidth
-  function stopResizing () {
+  function stopResizing() {
     expanding = null
   }
 
-  function startResizing (type: HTMLElement, event: MouseEvent) {
+  function startResizing(type: HTMLElement, event: MouseEvent) {
     expanding = type
   }
 
-  function resizing (event: MouseEvent) {
+  function resizing(event: MouseEvent) {
     if (!expanding) return
     event.preventDefault()
     sidebarWidth = event.pageX
@@ -87,14 +87,14 @@
   const itemsSelected: string[] = []
   let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
   // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
-  $: exercisesReferentielForSideMenu = { title: 'Choix des exercices', content: [...arrayReferentielFiltre], type: 'exercices' }
+  $: exercisesReferentielForSideMenu = { title: "Choix des exercices", content: [...arrayReferentielFiltre], type: "exercices" }
   // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
   // let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
   // for (const [key, value] of Object.entries(referentielOutils)) {
   //   arrayReferentiel.content.push(value)
   // }
   const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
-  const ressourcesReferentielForSideMenu: ReferentielForList = { title: 'Choix des ressources', content: [...ressourcesReferentielArray], type: 'ressources' }
+  const ressourcesReferentielForSideMenu: ReferentielForList = { title: "Choix des ressources", content: [...ressourcesReferentielArray], type: "ressources" }
   // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
   //   ressourcesReferentiel.content.push(value)
   // }
@@ -104,13 +104,13 @@
    */
   let isInteractiveOnlySelected: boolean = false
   let isAmcOnlySelected: boolean = false
-  function updateFilters (filters) {
+  function updateFilters(filters) {
     let itemsAccepted = [...filters.levels]
-    if (filters.types.includes('static')) {
-      itemsAccepted = [...itemsAccepted, 'static']
+    if (filters.types.includes("static")) {
+      itemsAccepted = [...itemsAccepted, "static"]
     }
-    isAmcOnlySelected = filters.types.includes('amc')
-    isInteractiveOnlySelected = filters.types.includes('interactif')
+    isAmcOnlySelected = filters.types.includes("amc")
+    isInteractiveOnlySelected = filters.types.includes("interactif")
     arrayReferentielFiltre = updateReferentiel(isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted)
   }
 
@@ -119,39 +119,39 @@
    */
 
   let zoom: number = 1
-  function zoomMinus () {
+  function zoomMinus() {
     // zoom -= 0.1
     zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
     updateSize()
   }
 
-  function zoomPlus () {
+  function zoomPlus() {
     // zoom += 0.1
     zoom = Number.parseFloat((zoom + 0.1).toFixed(1))
     updateSize()
   }
 
-  function updateSize () {
+  function updateSize() {
     globalOptions.update((params) => {
       params.z = zoom.toString()
       return params
     })
-    const scratchDivs = document.getElementsByClassName('scratchblocks')
+    const scratchDivs = document.getElementsByClassName("scratchblocks")
     for (const scratchDiv of scratchDivs) {
-      const svgDivs = scratchDiv.getElementsByTagName('svg')
+      const svgDivs = scratchDiv.getElementsByTagName("svg")
       for (const svg of svgDivs) {
-        if (svg.hasAttribute('data-width') === false) {
-          const originalWidth = svg.getAttribute('width')
+        if (svg.hasAttribute("data-width") === false) {
+          const originalWidth = svg.getAttribute("width")
           svg.dataset.width = originalWidth
         }
-        if (svg.hasAttribute('data-height') === false) {
-          const originalHeight = svg.getAttribute('height')
+        if (svg.hasAttribute("data-height") === false) {
+          const originalHeight = svg.getAttribute("height")
           svg.dataset.height = originalHeight
         }
-        const w = Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
-        const h = Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
-        svg.setAttribute('width', w.toString())
-        svg.setAttribute('height', h.toString())
+        const w = Number(svg.getAttribute("data-width")) * Number($globalOptions.z)
+        const h = Number(svg.getAttribute("data-height")) * Number($globalOptions.z)
+        svg.setAttribute("width", w.toString())
+        svg.setAttribute("height", h.toString())
       }
     }
   }
@@ -159,16 +159,16 @@
   /**
    * Gestion des données
    */
-  function newDataForAll () {
+  function newDataForAll() {
     // console.log($globalOptions, $exercicesParams)
-    const newDataForAll = new window.Event('newDataForAll', {
-      bubbles: true
+    const newDataForAll = new window.Event("newDataForAll", {
+      bubbles: true,
     })
     document.dispatchEvent(newDataForAll)
   }
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
-  function urlToDisplay () {
+  function urlToDisplay() {
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       return urlOptions
@@ -181,17 +181,17 @@
    * Gestion de l'interactivité
    */
   let setAllInteractifClicked: boolean = false
-  function setAllInteractif () {
-    const setAllInteractif = new window.Event('setAllInteractif', {
-      bubbles: true
+  function setAllInteractif() {
+    const setAllInteractif = new window.Event("setAllInteractif", {
+      bubbles: true,
     })
     setAllInteractifClicked = true
     document.dispatchEvent(setAllInteractif)
   }
 
-  function removeAllInteractif () {
-    const removeAllInteractif = new window.Event('removeAllInteractif', {
-      bubbles: true
+  function removeAllInteractif() {
+    const removeAllInteractif = new window.Event("removeAllInteractif", {
+      bubbles: true,
     })
     setAllInteractifClicked = false
     document.dispatchEvent(removeAllInteractif)
@@ -200,23 +200,23 @@
   /**
    *  Gestion du plain écran
    */
-  function quitFullScreen () {
+  function quitFullScreen() {
     globalOptions.update((params) => {
       delete params.v
       return params
     })
   }
 
-  function fullScreen () {
+  function fullScreen() {
     globalOptions.update((params) => {
-      params.v = 'l'
+      params.v = "l"
       return params
     })
   }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class={$darkMode.isActive ? 'dark' : ''} id="startComponent" on:mousemove={resizing} role="menu" tabindex="0">
+<div class={$darkMode.isActive ? "dark" : ""} id="startComponent" on:mousemove={resizing} role="menu" tabindex="0">
   <div class="flex flex-col scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <!-- Entête -->
     {#if isNavBarVisible}
@@ -251,7 +251,7 @@
         class="hidden {isMenuOpen
           ? 'md:flex'
           : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
-        on:mousedown={startResizing.bind(this, 'moving')}
+        on:mousedown={startResizing.bind(this, "moving")}
         role="menu"
         tabindex="0"
       />
@@ -285,7 +285,7 @@
                   // handleMenuVisibility("settings")
                 }}
                 class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : 'Tous les exercices en interactif'}
+                data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
               >
                 <div class="px-2">
                   <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={7} />
@@ -315,10 +315,10 @@
               <button
                 type="button"
                 class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip={$globalOptions.v !== 'l' ? 'Plein écran' : 'Quitter le plein écran'}
+                data-tip={$globalOptions.v !== "l" ? "Plein écran" : "Quitter le plein écran"}
                 on:click={() => {
                   // handleMenuVisibility("settings")
-                  if ($globalOptions.v === 'l') {
+                  if ($globalOptions.v === "l") {
                     quitFullScreen()
                   } else {
                     fullScreen()
@@ -326,7 +326,7 @@
                 }}
               >
                 <div class="px-2">
-                  <FullScreenIcon isOnStateActive={$globalOptions.v !== 'l'}>
+                  <FullScreenIcon isOnStateActive={$globalOptions.v !== "l"}>
                     <i
                       slot="icon_to_switch_on"
                       class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -346,10 +346,10 @@
                   icon="bx-slideshow"
                   classDeclaration="flex items-center text-3xl"
                   on:click={() => {
-                    $callerComponent = ''
+                    $callerComponent = ""
                     // handleMenuVisibility("export")
                     globalOptions.update((params) => {
-                      params.v = 'diaporama'
+                      params.v = "diaporama"
                       return params
                     })
                   }}
@@ -360,10 +360,10 @@
                 class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip="Lien pour les élèves"
                 on:click={() => {
-                  $callerComponent = ''
+                  $callerComponent = ""
                   // handleMenuVisibility("export")
                   globalOptions.update((params) => {
-                    params.v = 'confeleve'
+                    params.v = "confeleve"
                     return params
                   })
                 }}
@@ -381,9 +381,9 @@
                 data-tip="LaTeX"
                 on:click={() => {
                   // handleMenuVisibility("export")
-                  $callerComponent = ''
+                  $callerComponent = ""
                   globalOptions.update((params) => {
-                    params.v = 'latex'
+                    params.v = "latex"
                     return params
                   })
                 }}
@@ -396,9 +396,9 @@
                 data-tip="AMC"
                 on:click={() => {
                   // handleMenuVisibility("export")
-                  $callerComponent = ''
+                  $callerComponent = ""
                   globalOptions.update((params) => {
-                    params.v = 'amc'
+                    params.v = "amc"
                     return params
                   })
                 }}
@@ -408,12 +408,12 @@
               <button
                 type="button"
                 class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip="LaTeX"
+                data-tip="Moodle"
                 on:click={() => {
                   // handleMenuVisibility("export")
-                  $callerComponent = ''
+                  $callerComponent = ""
                   globalOptions.update((params) => {
-                    params.v = 'moodle'
+                    params.v = "moodle"
                     return params
                   })
                 }}
