@@ -71,5 +71,3 @@
     </div>
   {/if}
 </div>
-
-export default ExerciceStaticSvelteComponent
