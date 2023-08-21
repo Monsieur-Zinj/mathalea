@@ -38,7 +38,7 @@
   const isCorrectionVisible: boolean[] = []
   const divsCorrection: HTMLDivElement[] = []
   let currentWindowWidth: number = document.body.clientWidth
-  let eleveSection: HTMLDivElement
+  let eleveSection: HTMLElement
 
   function urlToDisplay () {
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
@@ -395,9 +395,11 @@
               <div class="container grid grid-cols-1 {$globalOptions.twoColumns ? '' : 'lg:grid-cols-2'} gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
                 <div class="flex flex-col my-2 py-2">
                   <div class="text-coopmaths-corpus pl-2 pb-2">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html consignes[k]}
                   </div>
                   <div class="text-coopmaths-corpus pl-2 pb-2">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html question}
                     <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
                   </div>
@@ -414,12 +416,14 @@
                           <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
                         </div>
                         <div class="">
+                          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                           {@html consignesCorrections[k]}
                         </div>
                       </div>
                     {/if}
 
                     <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
+                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                       {@html mathaleaFormatExercice(corrections[k])}
                     </div>
                     <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
@@ -460,9 +464,11 @@
                 <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
                   <div class="flex flex-col my-2 py-2">
                     <div class="text-coopmaths-corpus pl-2">
+                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                       {@html consignes[k]}
                     </div>
                     <div class="text-coopmaths-corpus pl-2">
+                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                       {@html question}
                       <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
                     </div>
@@ -481,11 +487,13 @@
                             <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
                           </div>
                           <div class="">
+                            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                             {@html consignesCorrections[k]}
                           </div>
                         </div>
                       {/if}
                       <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
+                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         {@html mathaleaFormatExercice(corrections[k])}
                       </div>
                       <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
