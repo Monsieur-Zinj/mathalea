@@ -1,3 +1,4 @@
+/** eslint-disable svelte/no-at-html-tags */
 <script lang="ts">
   import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../store'
   import { afterUpdate, onMount, tick } from 'svelte'
@@ -21,7 +22,6 @@
   let buttonScore: HTMLButtonElement
   let columnsCount = $exercicesParams[indiceExercice].cols || 1
   let isInteractif = exercice.interactif && exercice?.interactifReady
-  let interactifReady = exercice?.interactifReady
 
   const title = exercice.id ? `${exercice.id.replace('.js', '')} - ${exercice.titre}` : exercice.titre
   // Evènement indispensable pour pointCliquable par exemple
@@ -34,11 +34,6 @@
     title: string
   } = {
     title
-  }
-
-  if ($globalOptions.recorder !== undefined) {
-    // headerExerciceProps.randomReady = false
-    interactifReady = false
   }
 
   $: {
@@ -259,7 +254,7 @@
   }
 
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
-  window.onresize = (event) => {
+  window.onresize = () => {
     adjustMathalea2dFiguresWidth(true)
   }
 
@@ -340,9 +335,10 @@
       </div>
       <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative w-full" style="font-size: {($globalOptions.z || 1).toString()}rem;  line-height: calc({$globalOptions.z || 1});">
         <div class="flex flex-col w-full">
-          {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
+          {#if typeof exercice.consigne !== 'undefined' && exercice.consigne.length !== 0}
             <div>
               <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html exercice.consigne}
               </p>
             </div>
@@ -350,6 +346,7 @@
           {#if exercice.introduction}
             <div>
               <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html exercice.introduction}
               </p>
             </div>
@@ -364,6 +361,7 @@
             {#each exercice.listeQuestions as item, i (i)}
               <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-4 mb-2 lg:mb-4">
                 <li id="exercice{indiceExercice}Q{i}">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                   {@html mathaleaFormatExercice(item)}
                 </li>
                 {#if isCorrectionVisible}
@@ -378,11 +376,13 @@
                         <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
                       </div>
                       <div class="">
+                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         {@html exercice.consigneCorrection}
                       </div>
                     </div>
                     <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
-                      {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                     </div>
                     <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
                     <div
