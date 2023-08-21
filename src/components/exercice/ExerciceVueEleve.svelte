@@ -1,4 +1,3 @@
-/** eslint-disable svelte/no-at-html-tags */
 <script lang="ts">
   import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../store'
   import { afterUpdate, onMount, tick } from 'svelte'
