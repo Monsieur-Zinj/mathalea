@@ -30,7 +30,7 @@ export default function CalculFractionDecimal () {
     let d, reponse
     const n = randint(1, 9)
 
-    switch (choice([1, 2, 3, 4, 5])) {
+    switch (choice([1, 2, 3, 4])) {
       case 1:
         d = new Decimal('0.25')
         reponse = n / d
