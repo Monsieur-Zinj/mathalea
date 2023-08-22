@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import HeaderExercice from './HeaderExercice.svelte'
-  import type TypeExercice from '../utils/typeExercice'
+  import type TypeExercice from '../../exercices/ExerciceTs.js'
   import { globalOptions } from '../store'
   import HeaderExerciceVueEleve from './HeaderExerciceVueEleve.svelte'
   export let exercice: TypeExercice

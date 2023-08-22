@@ -9,7 +9,7 @@
     mathaleaUpdateUrlFromExercicesParams
   } from '../lib/mathalea'
   import { exercicesParams, darkMode, globalOptions, resultsByExercice, isMenuNeededForExercises, isMenuNeededForQuestions } from './store'
-  import type TypeExercice from './utils/typeExercice'
+  import type TypeExercice from '../exercices/ExerciceTs.js'
   import Exercice from './exercice/Exercice.svelte'
   import { onMount, tick } from 'svelte'
   import seedrandom from 'seedrandom'

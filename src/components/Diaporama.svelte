@@ -11,7 +11,7 @@
     mathaleaUpdateUrlFromExercicesParams
   } from '../lib/mathalea'
   import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from './store'
-  import type Exercice from './utils/typeExercice'
+  import type Exercice from '../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
   import { tweened } from 'svelte/motion'
   import { cubicOut } from 'svelte/easing'

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { exercicesParams, darkMode } from './store'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
-  import type TypeExercice from './utils/typeExercice'
+  import type TypeExercice from '../exercices/ExerciceTs.js'
   import Footer from './Footer.svelte'
   import NavBarV2 from './header/NavBarV2.svelte'
   import Latex, { type Exo, type picFile, getExosContentList, getPicsNames, doesLatexNeedsPics, makeImageFilesUrls } from '../lib/Latex'

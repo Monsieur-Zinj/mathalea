@@ -1,5 +1,5 @@
 import preambule from '../lib/latex/preambule.tex?raw'
-import type TypeExercice from '../components/utils/typeExercice'
+import type TypeExercice from '../exercices/ExerciceTs.js'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
 

@@ -3,7 +3,7 @@
   import Footer from './Footer.svelte'
   import NavBarV2 from './header/NavBarV2.svelte'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea.js'
-  import type TypeExercice from './utils/typeExercice'
+  import type TypeExercice from '../exercices/ExerciceTs.js'
 
   const copyCode = async () => {
     try {

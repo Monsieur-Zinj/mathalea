@@ -1,6 +1,6 @@
 <script lang="ts">
   import { afterUpdate, createEventDispatcher } from 'svelte'
-  import type TypeExercice from '../utils/typeExercice'
+  import type TypeExercice from '../exercices/ExerciceTs.js'
 
   export let exercice: TypeExercice
   let nbQuestions: number

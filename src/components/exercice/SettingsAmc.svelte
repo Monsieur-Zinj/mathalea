@@ -1,16 +1,12 @@
 <script lang="ts">
   import { afterUpdate, createEventDispatcher } from 'svelte'
-  import type TypeExercice from '../utils/typeExercice'
+  import type TypeExercice from '../../exercices/ExerciceTs.js'
 
   export let exercice: TypeExercice
   let nbQuestions: number
   let amcType: string
   let digits: number
   let decimals: number
-  let sup: boolean
-  let sup2: boolean
-  let sup3: boolean
-  let sup4: boolean
   let alea: string
   let premierUpdate: boolean = true
 

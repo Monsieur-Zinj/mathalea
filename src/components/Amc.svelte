@@ -4,7 +4,7 @@
   import { mathaleaGetExercicesFromParams, mathaleaHandleExerciceSimple, mathaleaUpdateExercicesParamsFromUrl, mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
   import Footer from './Footer.svelte'
   import { darkMode, exercicesParams } from './store'
-  import type TypeExercice from './utils/typeExercice'
+  import type TypeExercice from '../exercices/ExerciceTs.js'
   import FormRadio from './forms/FormRadio.svelte'
   import NavBarV2 from './header/NavBarV2.svelte'
   import ModalActionWithDialog from './modal/ModalActionWithDialog.svelte'
