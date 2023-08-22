@@ -148,12 +148,22 @@ export function propositionsQcm (exercice, i) {
     texteCorr = '<div class="my-3">'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
       texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline'} my-2">
-      <input type="checkbox" ${!exercice.interactif ? 'disabled' : ''} tabindex="0" style="height: 1rem; width: 1rem;"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
+      <input type="checkbox" 
+        ${!exercice.interactif ? 'disabled' : ''} 
+        tabindex="0"
+        style="height: 1rem; width: 1rem;"
+        class="disabled:cursor-default"  
+        id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div>
       </div>`
       texteCorr += `<div class="${vertical ? '' : 'inline'}">
-      <input type="checkbox" disabled ${exercice.autoCorrection[i].propositions[rep].statut ? 'checked' : ''} tabindex="0" style="height: 1rem; width: 1rem;">
+      <input type="checkbox" 
+        disabled ${exercice.autoCorrection[i].propositions[rep].statut ? 'checked' : ''} 
+        tabindex="0"
+        style="height: 1rem; width: 1rem;"
+        class="disabled:cursor-default"  
+      >
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       </div>`
     }
