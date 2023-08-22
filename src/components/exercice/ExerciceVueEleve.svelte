@@ -359,7 +359,7 @@
           >
             {#each exercice.listeQuestions as item, i (i)}
               <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-4 mb-2 lg:mb-4">
-                <li id="exercice{indiceExercice}Q{i}">
+                <li id="exercice{indiceExercice}Q{i}" style="line-height: {exercice.spacing || 1}">
                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                   {@html mathaleaFormatExercice(item)}
                 </li>

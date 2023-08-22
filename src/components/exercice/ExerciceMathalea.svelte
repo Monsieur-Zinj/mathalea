@@ -422,7 +422,7 @@
             >
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container w-full grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
-                  <li id="exercice{indiceExercice}Q{i}">
+                  <li id="exercice{indiceExercice}Q{i}" style="line-height: {exercice.spacing || 1}">
                     {@html mathaleaFormatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
