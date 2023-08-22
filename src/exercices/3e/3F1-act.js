@@ -120,7 +120,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheFonctions-3F1-act.pdf', 'Aide mémoire sur les fonctions (Sébastien Lozano)', 'Aide mémoire')
       this.boutonAide += modalVideo('conteMathsFonctions', 'https://coopmaths.fr/videos/Fonctions.mp4', 'Petit conte mathématique', 'Intro Vidéo')
-      this.introduction += machineMathsVideo('assets/videos/machineMathsIntro.mp4')
+      this.introduction += machineMathsVideo('videos/machineMathsIntro.mp4')
     } else { // sortie LaTeX
       this.introduction += tikzMachineMaths('maths', '---', 'Proc\\acute{e}d\\acute{e}', 'de\\,calcul', 'ant\\acute{e}c\\acute{e}dent', '\\textit{x}', 'image', '\\textit{y}')
     }
@@ -149,7 +149,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           // machine
           x = randint(2, 99) // augmenter les possibles pour éviter les questions déjà posées?
           if (context.isHtml) {
-            texte += machineMathsVideo('assets/videos/machineMaths-f.mp4')
+            texte += machineMathsVideo('videos/machineMaths-f.mp4')
           } else { // sortie Latex avec Tikz
             texte += tikzMachineMaths('f', '---', 'P\\acute{e}rim\\grave{e}tre', 'd\'un\\,carr\\acute{e}', 'carr\\acute{e}\\,de', `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, 'P\\acute{e}rim\\grave{e}tre', '???\\,cm')
           }
@@ -262,7 +262,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           // machine
           x = randint(2, 99) // augmenter les possibles pour éviter les questions déjà posées?
           if (context.isHtml) {
-            texte += machineMathsVideo('assets/videos/machineMaths-g.mp4')
+            texte += machineMathsVideo('videos/machineMaths-g.mp4')
           } else { // sortie Latex avec Tikz
             texte += tikzMachineMaths('g', '---', 'Aire', 'd\'un\\,carr\\acute{e}', 'carr\\acute{e}\\,de', `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, 'Aire', '???\\,cm^2')
           }
@@ -383,7 +383,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           // machine
           x = randint(2, 99) // augmenter les possibles pour éviter les questions déjà posées?
           if (context.isHtml) {
-            texte += machineMathsVideo('assets/videos/machineMaths-h.mp4')
+            texte += machineMathsVideo('videos/machineMaths-h.mp4')
           } else { // sortie Latex avec Tikz
             texte += tikzMachineMaths('h', '---', 'Multiplier\\,par\\,3', 'Ajouter\\,1', 'nombre\\,de', `d\\acute{e}part\\,${x}`, 'nombre\\,de', 'sortie\\,?')
           }
@@ -506,7 +506,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           // machine
           x = randint(2, 51) // augmenter les possibles pour éviter les questions déjà posées?
           if (context.isHtml) {
-            texte += machineMathsVideo('assets/videos/machineMaths-d.mp4')
+            texte += machineMathsVideo('videos/machineMaths-d.mp4')
           } else { // sortie Latex avec Tikz
             texte += tikzMachineMaths('d', '---', 'nombre \\, total', 'de \\, diviseurs', 'nombre\\,de', `d\\acute{e}part\\,${x}`, 'nombre \\, de', 'diviseurs')
           }

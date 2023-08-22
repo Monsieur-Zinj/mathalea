@@ -202,7 +202,7 @@ export function texCadreParOrange (texte) {
 export function machineMathsVideo (urlVideo) {
   return `
   <div style="text-align:center">
-  <video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
+  <video width="560" height="100%"  loop autoplay muted style="max-width: 100%" >
     <source src="` + urlVideo + `">
     Votre navigateur ne gère pas l'élément <code>video</code>.
   </video>
