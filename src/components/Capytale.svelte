@@ -120,20 +120,24 @@
   }
 
   function handleEleveVueSetUp () {
-    let url = 'https://coopmaths.fr/alea/'
-    for (const [i, exo] of $exercicesParams.entries()) {
-      if (i === 0) {
-        url += `?uuid=${exo.uuid}&id=${exo.id}`
-      } else {
-        url += `&uuid=${exo.uuid}&id=${exo.id}`
-      }
-      if (exo.alea) {
-        url += `&alea=${exo.alea}`
-      }
+    const url = new URL('https://coopmaths.fr/alea/')
+    for (const ex of $exercicesParams) {
+      url.searchParams.append('uuid', ex.uuid)
+      if (ex.id !== undefined) url.searchParams.append('id', ex.id)
+      if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
+      if (ex.duration !== undefined) url.searchParams.append('d', ex.duration.toString())
+      if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
+      if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
+      if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
+      if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
+      if (ex.alea !== undefined) url.searchParams.append('alea', ex.alea)
+      if (ex.interactif === '1') url.searchParams.append('i', '1')
+      if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
+      if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols.toString())
     }
-    url += '&v=eleve'
-    url += '&title=' + $globalOptions.title
-    url += '&es=' + buildUrlAddendumForEsParam(false)
+    url.searchParams.append('v', 'eleve')
+    url.searchParams.append('title', $globalOptions.title)
+    url.searchParams.append('es', buildUrlAddendumForEsParam(false))
     window.open(url, '_blank').focus()
   }
 
