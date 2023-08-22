@@ -3,7 +3,7 @@ import loadjs from 'loadjs'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 // @ts-ignore
 import Exercice from '../exercices/Exercice.js'
-import type TypeExercice from '../components/utils/typeExercice.js'
+import type TypeExercice from '../exercices/ExerciceTs.js'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store.js'
@@ -201,18 +201,20 @@ export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
   //   },
   //   fontsDirectory: '/fonts'
   // })
-  renderMathInElement(div, {
-    delimiters: [
-      { left: '\\[', right: '\\]', display: true },
-      { left: '$', right: '$', display: false }
-    ],
-    // Les accolades permettent d'avoir une formule non coupée
-    preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
-    throwOnError: true,
-    errorColor: '#CC0000',
-    strict: 'warn',
-    trust: false
-  })
+  if (div != null) {
+    renderMathInElement(div, {
+      delimiters: [
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false }
+      ],
+      // Les accolades permettent d'avoir une formule non coupée
+      preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
+      throwOnError: true,
+      errorColor: '#CC0000',
+      strict: 'warn',
+      trust: false
+    })
+  }
   renderScratch('body')
   const params = get(globalOptions)
   zoom = zoom ?? Number(params.z)
