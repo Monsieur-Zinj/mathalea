@@ -18,7 +18,7 @@ export function verifQuestionQcm (exercice, i) {
   let aucuneMauvaiseReponseDonnee = true
   exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
     // La liste de question peut être plus courte que autoCorrection si on n'a pas réussi à générer suffisamment de questions différentes
-    if (exercice.listeQuestions[indice] !== undefined) {
+    if (exercice.listeQuestions[i] !== undefined) {
       const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
       const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
       if (check.checked) {
@@ -35,7 +35,7 @@ export function verifQuestionQcm (exercice, i) {
         }
       }
       if (proposition.statut) {
-        if (check.checked) {
+        if (check.checked === true) {
           nbBonnesReponses++
           if (aucuneMauvaiseReponseDonnee) {
             label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
