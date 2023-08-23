@@ -418,13 +418,13 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @return {CodageAngle|CodageAngleDroit}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1, { echelleMark = 1 } = {}) {
+export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(A, O, angle)
   }
   if ((angle === 90 || angle === -90) && !noAngleDroit) {
     return new CodageAngleDroit(A, O, rotation(A, O, angle), color, taille, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
-  } else return new CodageAngle(A, O, angle, taille, mark, color, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte, { echelleMark })
+  } else return new CodageAngle(A, O, angle, taille, mark, color, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte, { echelleMark, angleArrondi })
 }
 
 export function NomAngleParPosition (nom, x, y, color, s) {

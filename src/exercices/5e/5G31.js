@@ -2,21 +2,38 @@ import { codageAngle } from '../../lib/2d/angles.js'
 import { point } from '../../lib/2d/points.js'
 import { nommePolygone } from '../../lib/2d/polygones.js'
 import { triangle2points2angles } from '../../lib/2d/triangle.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { codageSegments } from '../../lib/2d/codages.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 
-export const titre = 'Somme des angles dans un triangle'
-export const dateDeModifImportante = '04/03/2023'
+export const titre = 'Déterminer la valeur d\'un angle en utilisant la somme des angles dans un triangle'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModifImportante = '23/08/2023'
+/* Modif du 23/08 par EE :
+Passage en interactif
+Figure facultative pour chaque question
+Figure systématique dans la correction de chaque question
+Mise en couleur de la réponse finale
+Uniformisation de chaque question dans sa forme
+Passage d'un paramètre facile/difficile à un paramètre reprenant exhaustivement chaque type de question
+Correction de quelques coquilles
+*/
 
 /**
 * Déterminer la valeur d'un angle dans un triangle.
 *
-* Correction avec détails ou pas. 9 cas différents
+* Correction avec détails ou pas. 13 cas différents
 * * On connaît 2 angles sur 3.
 * * Dans un triangle rectangle, on connaît un angle aigu.
 * * Dans un triangle isocèle, on connaît un angle à la base.
@@ -35,247 +52,494 @@ export const uuid = 'dc8c9'
 export const ref = '5G31'
 export default function ExerciceAnglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 1
+  this.sup = '1-2-3-4-5'
   this.sup2 = false
-  this.titre = titre
-  this.consigne = ''
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
   context.isHtml ? this.spacing = 2 : this.spacing = 2
   this.nbQuestions = 5
-  this.consigneModifiable = false
   this.correctionDetailleeDisponible = true
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  let typesDeQuestionsDisponibles
   const troisiemeAngle = function (a1, a2) {
     if (a1 + a2 <= 180) { return 180 - (a1 + a2) } else { return -1 }
   }
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    if (this.sup === 1) { typesDeQuestionsDisponibles = [1, 2, 4, 5, 9] } else if (this.sup === 2) { typesDeQuestionsDisponibles = [3, 6, 7, 8, 10, 11, 12] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    this.consigne = 'Calculer l\'angle demandé dans les triangles suivants.'
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 12, melange: 13, defaut: 13, nbQuestions: this.nbQuestions, shuffle: false })
     let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    let indiceSetReponse = 0
+    for (let i = 0, texte, texteCorr, texteCorrFinal, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
+      const objetsCorrection = []
+      let reponseInteractive = []
+      const nomAngles = []
+      let choixAngle = shuffle([0, 1, 2]) // Cas général de devoir trouver trois angles
       lettre1 = randint(1, 26) // aleatoirisation du nom des points
       lettre2 = randint(1, 26, [lettre1])
       s1 = lettreDepuisChiffre(lettre1)
       s2 = lettreDepuisChiffre(lettre2)
       lettre3 = randint(1, 24, [lettre1, lettre2])
       s3 = lettreDepuisChiffre(lettre3)
-      const A = point(0, 0, s1)
-      const B = point(4, 0, s2)
+      const A = point(randint(0, 2), 0, s1)
+      const B = point(randint(1, 5), randint(8, 10), s2)
       let triangle, C, angleA, angleB, angleC
-      if (this.correctionDetaillee) { texteCorr = 'Dans un triangle, la somme des angles est égale à $180\\degree$.<br>' } else { texteCorr = '' }
+      texteCorrFinal = ''
+      texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
         case 1: // triangle quelconque 2 angles connus
+          choixAngle = [0]
+          nomAngles.push(s2 + s3 + s1)
           angle1 = randint(10, 40)
           angle2 = randint(20, 100)
           texte = `$${s1 + s2 + s3}$ est un triangle quelconque. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}\\degree$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
-          angleA = codageAngle(B, A, angle2, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
-          objetsEnonce.push(triangle, angleA, angleB)
+          objetsEnonce.push(triangle, nommePolygone(triangle))
+          objetsCorrection.push(triangle, nommePolygone(triangle))
+          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          objetsEnonce.push(angleA, angleB)
+          angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
-            texteCorr += `$\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s3 + s1}} + \\widehat{${s2 + s1 + s3}}=180\\degree$<br>`
-            texteCorr += `Donc $\\widehat{${s2 + s3 + s1}}=180- \\left(\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s1 + s3}}\\right)$.<br>D'où `
+            texteCorr += 'Dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s3 + s1}} + \\widehat{${s2 + s1 + s3}}=180\\degree$<br>`
+            texteCorr += `D'où : $\\widehat{${s2 + s3 + s1}}=180- \\left(\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s1 + s3}}\\right)$.<br>D'où : `
           }
           texteCorr += `$\\widehat{${s2 + s3 + s1}}$= $180\\degree-\\left(${angle1}\\degree+${angle2}\\degree\\right)=180\\degree-${angle1 + angle2}\\degree=${troisiemeAngle(angle1, angle2)}\\degree$.<br>`
-          texteCorr += `L'angle $\\widehat{${s2 + s3 + s1}}$ mesure $${troisiemeAngle(angle1, angle2)}\\degree$.`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(troisiemeAngle(angle1, angle2))}\\degree$.`
+          reponseInteractive = [troisiemeAngle(angle1, angle2)]
           break
         case 2: // Triangle rectangle Un angle aigu connu
+          choixAngle = [0]
+          nomAngles.push(s2 + s3 + s1)
           angle1 = 90
-          angle2 = randint(5, 85)
+          angle2 = randint(20, 70)
           texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s2}$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
-          angleA = codageAngle(B, A, angle2, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
-          angleB = codageAngle(A, B, -angle1, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
-          objetsEnonce.push(triangle, angleA, angleB)
+          objetsEnonce.push(triangle, nommePolygone(triangle))
+          objetsCorrection.push(triangle, nommePolygone(triangle))
+          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, C, 1.5, '|', 'green', 2)
+          objetsEnonce.push(angleA, angleB)
+          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
-            texteCorr += `Comme l'angle $\\widehat{${s1 + s2 + s3}}$ est droit, les angles $\\widehat{${s2 + s3 + s1}}$ et $\\widehat{${s2 + s1 + s3}}$ sont complémentaires.<br>`
-            texteCorr += `On a donc : $\\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=90\\degree$<br>D'où `
+            texteCorr += `Le triangle $${s1 + s2 + s3}$ étant rectangle en $${s2}$, les angles $\\widehat{${s2 + s1 + s3}}$ et $\\widehat{${s2 + s3 + s1}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
+            texteCorr += `D'où : $\\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=90\\degree$<br>D'où : `
           }
           texteCorr += `$\\widehat{${s2 + s3 + s1}}=90\\degree-${angle2}\\degree=${90 - angle2}\\degree$<br>`
-          texteCorr += `L'angle $\\widehat{${s2 + s3 + s1}}$ mesure $${90 - angle2}\\degree$.`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(90 - angle2)}\\degree$.`
+          reponseInteractive = [90 - angle2]
           break
-        case 3: // triangle isocèle, angle au sommet principal connu
-          angle1 = randint(10, 170)
-          angle2 = (180 - angle1) / 2
-          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle1}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
-          triangle = triangle2points2angles(A, B, angle1, angle2)
+        case 12: // triangle isocèle, angle au sommet principal connu
+          choixAngle = [0]
+          nomAngles.push(s2 + s3 + s1)
+          angle1 = randint(30, 150)
+          angle2 = arrondi((180 - angle1) / 2, 1)
+          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s2}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+          triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
-          angleA = codageAngle(B, A, angle1, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
-          angleB = codageAngle(A, B, -angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          angleC = codageAngle(A, C, angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          objetsEnonce.push(triangle, angleA, angleB, angleC)
+          objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
+          objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
+          angleB = codageAngle(A, B, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB.echelleMark = 2
+          objetsEnonce.push(angleB)
+          angleA = codageAngle(B, A, angle2, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA.angleArrondi = 1
+          angleB = codageAngle(A, B, -angle1, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC.angleArrondi = 1
+          objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
             texteCorr += 'Les angles à la base d\'un triangle isocèle sont de même mesure.<br>'
-            texteCorr += `D'où $\\widehat{${s1 + s2 + s3}}=\\widehat{${s2 + s3 + s1}}$.<br>`
-            texteCorr += `On a donc : $\\widehat{${s2 + s1 + s3}}+2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree$.<br>`
+            texteCorr += `D'où : $\\widehat{${s2 + s1 + s3}}=\\widehat{${s2 + s3 + s1}}$.<br>`
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}+ \\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
+            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}+2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree$.<br>`
             texteCorr += `Soit  $${angle1}\\degree+2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree$.<br>`
             texteCorr += `D'où $2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree-${angle1}\\degree$.<br>D'où `
           }
           texteCorr += `$\\widehat{${s2 + s3 + s1}}=\\left(180\\degree-${angle1}\\degree\\right)\\div  2=${180 - angle1}\\degree\\div  2=${texNombre((180 - angle1) / 2)}\\degree$<br>`
-          texteCorr += `L'angle $\\widehat{${s2 + s3 + s1}}$ mesure $${texNombre((180 - angle1) / 2)}\\degree$.`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(texNombre((180 - angle1) / 2))}\\degree$.`
+          reponseInteractive = [arrondi((180 - angle1) / 2, 1)]
           break
-        case 4: // triangle isocèle, angle à la base connu
-          angle2 = randint(10, 80)
-          angle1 = 180 - angle2 * 2
-          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle2}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s1 + s3}}$ ?`
-          triangle = triangle2points2angles(A, B, angle1, angle2)
-          C = triangle.listePoints[2]
-          C.nom = s3
-          angleB = codageAngle(A, B, -angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, true)
-          angleC = codageAngle(A, C, angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          objetsEnonce.push(triangle, angleB, angleC)
-          if (this.correctionDetaillee) {
-            texteCorr += 'Les deux angles à la base d\'un triangle isocèle sont égaux.<br>'
-            texteCorr += `Donc $\\widehat{${s1 + s2 + s3}}=\\widehat{${s2 + s3 + s1}}=${angle2}\\degree$.<br>D'où `
-          }
-          texteCorr += `$\\widehat{${s2 + s1 + s3}}=180\\degree-2\\times ${angle2}\\degree=180\\degree-${2 * angle2}\\degree=${180 - 2 * angle2}\\degree$.<br>`
-          texteCorr += `L'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${180 - 2 * angle2}\\degree$.`
-          break
-        case 5: // cas non aléatoires triangle rectangle isocèle
-          angle1 = 90
-          angle2 = 45
-          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s2}$ et $\\widehat{${s2 + s1 + s3}}=\\widehat{${s2 + s3 + s1}}$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+        case 3: // triangle isocèle, angle à la base connu
+          choixAngle = [0]
+          nomAngles.push(s2 + s3 + s1)
+          angle2 = randint(30, 60, [90])
+          angle1 = angle2
+          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s3}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
-          angleA = codageAngle(B, A, angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          angleB = codageAngle(A, B, -angle1, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          angleC = codageAngle(A, C, angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          objetsEnonce.push(triangle, angleA, angleB, angleC)
+          objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[2], triangle.listePoints[0]), 2))
+          objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[2], triangle.listePoints[0]), 2))
+          angleB = codageAngle(A, B, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB.echelleMark = 2
+          objetsEnonce.push(angleB)
+          angleA = codageAngle(B, A, angle2, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, -angle1, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
-            texteCorr += `Comme $\\widehat{${s2 + s1 + s3}}=\\widehat{${s2 + s3 + s1}}$,<br>`
-            texteCorr += `on a : $2 \\times  \\widehat{${s2 + s1 + s3}} + 90\\degree=180\\degree$.<br>D'où `
-            texteCorr += ` $2 \\times  \\widehat{${s2 + s1 + s3}}=180\\degree-90\\degree=90\\degree$.<br>D'où `
+            texteCorr += 'Les deux angles à la base d\'un triangle isocèle sont égaux.<br>'
+            texteCorr += `Donc $\\widehat{${s1 + s2 + s3}}=\\widehat{${s2 + s1 + s3}}=${angle2}\\degree$.<br>`
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>D\'où : '
           }
-          texteCorr += `$\\widehat{${s2 + s1 + s3}}=90\\degree \\div  2=45\\degree$.<br>`
-          texteCorr += `L'angle $\\widehat{${s2 + s1 + s3}}$ mesure $45\\degree$.`
-
+          texteCorr += `$\\widehat{${s2 + s3 + s1}}=180\\degree-2\\times ${angle2}\\degree=180\\degree-${2 * angle2}\\degree=${180 - 2 * angle2}\\degree$.<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(180 - 2 * angle2)}\\degree$.`
+          reponseInteractive = [180 - 2 * angle2]
           break
-        case 6: // cas non aléatoires triangle rectangle 30,60,90
-          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure le double de l'angle $\\widehat{${s1 + s3 + s2}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1 + s2 + s3}}$ et $\\widehat{${s1 + s3 + s2}}$ ?`
+        case 4: // cas non aléatoire triangle rectangle isocèle
+          choixAngle = [0]
+          nomAngles.push(s1 + s3 + s2)
+          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$ et $\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}$.<br>Quelle est la mesure de l'angle $\\widehat{${s1 + s3 + s2}}$ ?`
+          angle1 = 45
+          angle2 = 90
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          objetsEnonce.push(triangle, nommePolygone(triangle))
+          objetsCorrection.push(triangle, nommePolygone(triangle))
+          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2)
+          angleA.echelleMark = 2
+          angleB = codageAngle(A, B, C, 1.5, '|', 'green', 2)
+          angleB.echelleMark = 2
+          angleC = codageAngle(A, C, B, 1.5, '|', 'green', 2)
+          angleC.echelleMark = 2
+          objetsEnonce.push(angleA, angleB, angleC)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB.angleArrondi = 0
+          angleC.angleArrondi = 0
+          objetsCorrection.push(angleA, angleB, angleC)
+          texteCorr += `$\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `Comme $\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s1 + s3 + s2}}$ et comme $\\widehat{${s1 + s2 + s3}}$ et $\\widehat{${s1 + s3 + s2}}$ sont complémentaires,<br>`
-            texteCorr += `on a : $2 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>D'où `
-            texteCorr += ` $3 \\times  \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>D'où `
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
+            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + 90\\degree=180\\degree$.<br>`
+            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}}=180\\degree-90\\degree=90\\degree$.<br>`
+          } else {
+            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + 90\\degree=180\\degree$.<br>`
           }
-          texteCorr += `$\\widehat{${s1 + s3 + s2}}=90\\degree \\div  3=30\\degree$.<br>`
+          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90\\degree \\div  2=45\\degree$.<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('45')}\\degree$.`
+          reponseInteractive = [45]
+          break
+        case 6: // cas non aléatoire triangle rectangle 30,60,90
+          choixAngle = shuffle([0, 1])
+          nomAngles.push(s1 + s3 + s2, s1 + s2 + s3)
+          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure le double de l'angle $\\widehat{${s1 + s3 + s2}}$.<br>`
+          texte += `Quelles sont les mesures respectives des angles $\\widehat{${nomAngles[choixAngle[0]]}}$ et $\\widehat{${nomAngles[choixAngle[1]]}}$ ?`
+          angle1 = 60
+          angle2 = 90
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          objetsEnonce.push(triangle, nommePolygone(triangle))
+          objetsCorrection.push(triangle, nommePolygone(triangle))
+          angleA = codageAngle(B, A, C, 1, '', 'green', 2)
+          angleA.echelleMark = 2
+          angleB = codageAngle(A, B, C, 1, '||', 'green', 2)
+          angleB.echelleMark = 2
+          angleC = codageAngle(A, C, B, 1, '|', 'green', 1.5)
+          angleC.echelleMark = 2
+          objetsEnonce.push(angleA, angleB, angleC)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB.angleArrondi = 0
+          angleC.angleArrondi = 0
+          objetsCorrection.push(angleA, angleB, angleC)
+          texteCorr += `$\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s1 + s3 + s2}}$.<br>`
+          if (this.correctionDetaillee) {
+            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
+            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
+            texteCorr += `D'où :  $3 \\times  \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
+          }
+          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90\\degree \\div  3=30\\degree$.<br>`
           texteCorr += `$\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s1 + s3 + s2}}=2\\times  30\\degree=60\\degree$<br>`
-          texteCorr += `L'angle $\\widehat{${s1 + s3 + s2}}$ mesure $30\\degree$ et l'angle $\\widehat{${s1 + s2 + s3}}$ mesure $60\\degree$.`
-
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('30')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('60')}\\degree$.`
+          reponseInteractive = [30, 60]
           break
         case 7: // cas non aléatoires triangle rectangle 18,72,90
-          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1 + s3 + s2}}$ mesure le quart de l'angle $\\widehat{${s1 + s2 + s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1 + s2 + s3}}$ et $\\widehat{${s1 + s3 + s2}}$ ?`
+          choixAngle = shuffle([0, 1])
+          nomAngles.push(s1 + s3 + s2, s1 + s2 + s3)
+          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure le quart de l'angle $\\widehat{${s1 + s3 + s2}}$.<br>`
+          texte += `Quelles sont les mesures respectives des angles $\\widehat{${nomAngles[choixAngle[0]]}}$ et $\\widehat{${nomAngles[choixAngle[1]]}}$ ?`
+          angle1 = 18
+          angle2 = 90
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          objetsEnonce.push(triangle, nommePolygone(triangle))
+          objetsCorrection.push(triangle, nommePolygone(triangle))
+          angleA = codageAngle(B, A, C, 1, '', 'green', 2)
+          angleA.echelleMark = 2
+          angleB = codageAngle(A, B, C, 1, '|', 'green', 2)
+          angleB.echelleMark = 2
+          angleC = codageAngle(A, C, B, 1, '||||', 'green', 1.5)
+          angleC.echelleMark = 2
+          objetsEnonce.push(angleA, angleB, angleC)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB.angleArrondi = 1
+          angleC.angleArrondi = 1
+          objetsCorrection.push(angleA, angleB, angleC)
+          texteCorr += `Comme $\\widehat{${s1 + s2 + s3}}=\\dfrac{\\widehat{${s1 + s3 + s2}}}{4}$, on en déduit que $\\widehat{${s1 + s3 + s2}}=4\\times \\widehat{${s1 + s2 + s3}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `Comme $\\widehat{${s1 + s2 + s3}}=\\dfrac{\\widehat{${s1 + s3 + s2}}}{4}$, on a $\\widehat{${s1 + s3 + s2}}=4\\times \\widehat{${s1 + s2 + s3}}$.<br>`
-            texteCorr += `De plus $\\widehat{${s1 + s2 + s3}}$ et $\\widehat{${s1 + s3 + s2}}$ sont complémentaires.<br>`
+            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
             texteCorr += `D'où : $4 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où `
             texteCorr += ` $5 \\times  \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où `
           }
           texteCorr += `$\\widehat{${s1 + s2 + s3}}=90\\degree \\div  5=18\\degree$.<br>`
           texteCorr += `$\\widehat{${s1 + s3 + s2}}=4\\times \\widehat{${s1 + s2 + s3}}=4\\times  18\\degree=72\\degree$.<br>`
-          texteCorr += `L'angle $\\widehat{${s1 + s3 + s2}}$ mesure $72\\degree$ et l'angle $\\widehat{${s1 + s2 + s3}}$ mesure $18\\degree$.`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('72')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('18')}\\degree$.`
+          reponseInteractive = [72, 18]
           break
         case 8: // cas non aléatoires triangle rectangle 15,75,90
-          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ est cinq fois plus grand que l'angle $\\widehat{${s1 + s3 + s2}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1 + s2 + s3}}$ et $\\widehat{${s1 + s3 + s2}}$ ?`
+          choixAngle = shuffle([0, 1])
+          nomAngles.push(s1 + s3 + s2, s1 + s2 + s3)
+          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ est cinq fois plus grand que l'angle $\\widehat{${s1 + s3 + s2}}$.<br>`
+          texte += `Quelles sont les mesures respectives des angles $\\widehat{${nomAngles[choixAngle[0]]}}$ et $\\widehat{${nomAngles[choixAngle[1]]}}$ ?`
+          angle1 = 75
+          angle2 = 90
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          objetsEnonce.push(triangle, nommePolygone(triangle))
+          objetsCorrection.push(triangle, nommePolygone(triangle))
+          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2)
+          angleA.echelleMark = 2
+          angleB = codageAngle(A, B, C, 1.5, '|||||', 'green', 2)
+          angleB.echelleMark = 2
+          angleC = codageAngle(A, C, B, 1.5, '|', 'green', 2)
+          angleC.echelleMark = 2
+          objetsEnonce.push(angleA, angleB, angleC)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB.angleArrondi = 1
+          angleC.angleArrondi = 1
+          objetsCorrection.push(angleA, angleB, angleC)
+          texteCorr += `$\\widehat{${s1 + s2 + s3}}=5\\times \\widehat{${s1 + s3 + s2}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `$\\widehat{${s1 + s2 + s3}}=5\\times \\widehat{${s1 + s3 + s2}}$ et comme $\\widehat{${s1 + s2 + s3}}$ et $\\widehat{${s1 + s3 + s2}}$ sont complémentaires,<br>`
-            texteCorr += ` on a : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>D'où `
-            texteCorr += ` $6 \\times  \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>D'où `
-          }
-          texteCorr += `$\\widehat{${s1 + s3 + s2}}=90\\degree \\div  6=15\\degree$<br>`
+            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
+            texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
+            texteCorr += `D'où : $6 \\times  \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
+          } else texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
+          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90\\degree \\div  6=15\\degree$<br>`
           texteCorr += `$\\widehat{${s1 + s2 + s3}}=5\\times \\widehat{${s1 + s3 + s2}}=5\\times  15\\degree=75\\degree$<br>`
-          texteCorr += `L'angle $\\widehat{${s1 + s3 + s2}}$ mesure $15\\degree$ et l'angle $\\widehat{${s1 + s2 + s3}}$ mesure $75\\degree$.`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('15')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('75')}\\degree$.`
+          reponseInteractive = [15, 75]
           break
-        case 9: // cas non aléatoire triangle équilatéral
-          texte = `$${s1 + s2 + s3}$ est un triangle dont les trois angles sont égaux. Quelles sont les mesures de ses angles ?`
+        case 5: // cas non aléatoire triangle équilatéral
+          choixAngle = [0]
+          nomAngles.push(s1 + s2 + s3)
+          texte = `$${s1 + s2 + s3}$ est un triangle dont les trois angles sont égaux. Quelle est la mesure de chacun de ces angles ?`
           triangle = triangle2points2angles(A, B, 60, 60)
           C = triangle.listePoints[2]
           C.nom = s3
-          angleA = codageAngle(B, A, 60, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          angleB = codageAngle(A, B, -60, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          angleC = codageAngle(A, C, 60, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
-          objetsEnonce.push(triangle, angleA, angleB, angleC)
+          angleA = codageAngle(B, A, 60, 1.5, '|', 'green', 2)
+          angleA.echelleMark = 2
+          angleB = codageAngle(A, B, -60, 1.5, '|', 'green', 2)
+          angleB.echelleMark = 2
+          angleC = codageAngle(A, C, 60, 1.5, '|', 'green', 2)
+          angleC.echelleMark = 2
+          objetsEnonce.push(triangle, angleA, angleB, angleC, nommePolygone(triangle))
+          angleB = codageAngle(A, B, -60, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, 60, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          objetsCorrection.push(triangle, angleA, angleB, angleC, nommePolygone(triangle))
+          texteCorr += `Comme le triangle $${s1 + s2 + s3}$ a trois angles égaux, $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\widehat{${s2 + s1 + s3}}$<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `De plus, $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\widehat{${s2 + s1 + s3}}$<br>`
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
             texteCorr += `D'où $3\\times \\widehat{${s1 + s2 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}=180\\degree\\div  3=60\\degree$.<br>`
           }
-          texteCorr += `On a donc $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\widehat{${s2 + s1 + s3}}=60\\degree$.<br>`
+          texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}=180\\degree\\div  3=60\\degree$.<br>`
+          texteCorr += `On a donc $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}=${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}=${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}=${miseEnEvidence('60')}\\degree$.<br>`
           texteCorr += `Le triangle $${s1 + s2 + s3}$ est un triangle équilatéral.`
+          reponseInteractive = [60]
           break
-        case 10: // cas non aléatoire triangle rectangle 22.5, 67.5,90
-          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1 + s3 + s2}}$ mesure le tiers de l'angle $\\widehat{${s1 + s2 + s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1 + s2 + s3}}$ et $\\widehat{${s1 + s3 + s2}}$ ?`
+        case 9: // cas non aléatoire triangle rectangle 22.5, 67.5,90
+          choixAngle = shuffle([0, 1])
+          nomAngles.push(s1 + s3 + s2, s1 + s2 + s3)
+          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure le tiers de l'angle $\\widehat{${s1 + s3 + s2}}$.<br>`
+          texte += `Quelles sont les mesures respectives des angles $\\widehat{${nomAngles[choixAngle[0]]}}$ et $\\widehat{${nomAngles[choixAngle[1]]}}$ ?`
+          angle1 = 22.5
+          angle2 = 90
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          objetsEnonce.push(triangle, nommePolygone(triangle))
+          objetsCorrection.push(triangle, nommePolygone(triangle))
+          angleA = codageAngle(B, A, C, 1, '', 'green', 2)
+          angleA.echelleMark = 2
+          angleB = codageAngle(A, B, C, 1.5, '|', 'green', 2)
+          angleB.echelleMark = 2
+          angleC = codageAngle(A, C, B, 1.5, '|||', 'green', 2)
+          angleC.echelleMark = 2
+          objetsEnonce.push(angleA, angleB, angleC)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB.angleArrondi = 1
+          angleC.angleArrondi = 1
+          objetsCorrection.push(angleA, angleB, angleC)
+          texteCorr += `Comme $\\widehat{${s1 + s2 + s3}}=\\dfrac{\\widehat{${s1 + s3 + s2}}}{3}$, on en déduit que $\\widehat{${s1 + s3 + s2}}=3\\times \\widehat{${s1 + s2 + s3}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `Comme $\\widehat{${s1 + s2 + s3}}=\\dfrac{\\widehat{${s1 + s3 + s2}}}{3}$, on a $\\widehat{${s1 + s3 + s2}}=3\\times \\widehat{${s1 + s2 + s3}}$.<br>`
-            texteCorr += `De plus $\\widehat{${s1 + s2 + s3}}$ et $\\widehat{${s1 + s3 + s2}}$ sont complémentaires.<br>`
-            texteCorr += `D'où : $3 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où `
-            texteCorr += ` $4 \\times  \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où `
+            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
+            texteCorr += `D'où : $3 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où : `
+            texteCorr += ` $4 \\times  \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où : `
+          } else {
+            texteCorr += `D'où : $3 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où : `
           }
           texteCorr += `$\\widehat{${s1 + s2 + s3}}=90\\degree \\div  4=22,5\\degree$.<br>`
           texteCorr += `$\\widehat{${s1 + s3 + s2}}=3\\times \\widehat{${s1 + s2 + s3}}=3\\times  22,5\\degree=67,5\\degree$<br>`
-          texteCorr += `L'angle $\\widehat{${s1 + s3 + s2}}$ mesure $67,5\\degree$ et l'angle $\\widehat{${s1 + s2 + s3}}$ mesure $22,5\\degree$.`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('22.5')}\\degree$.`
+          reponseInteractive = [67.5, 22.5]
           break
-        case 11: // cas non aléatoire triangle 67.5 , 67.5 , 45.
-          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s2 + s1 + s3}}$ mesure les deux tiers de l'angle $\\widehat{${s1 + s2 + s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1 + s2 + s3}}$, $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s2 + s1 + s3}}$ ?`
+        case 10: // cas non aléatoire triangle 67.5 , 67.5 , 45.
+          nomAngles.push(s1 + s3 + s2, s1 + s2 + s3, s2 + s1 + s3)
+          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s2 + s1 + s3}}$ mesure les deux tiers de l'angle $\\widehat{${s1 + s2 + s3}}$.<br>`
+          texte += `Quelles sont les mesures respectives des angles $\\widehat{${nomAngles[choixAngle[0]]}}$, $\\widehat{${nomAngles[choixAngle[1]]}}$ et $\\widehat{${nomAngles[choixAngle[2]]}}$ ?`
+          angle1 = 67.5
+          angle2 = 45
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('XX', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
+          objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('XX', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
+          angleA = codageAngle(B, A, C, 1.5, '||', 'green', 2)
+          angleA.echelleMark = 2
+          angleB = codageAngle(A, B, C, 1.5, '|||', 'green', 2)
+          angleB.echelleMark = 2
+          objetsEnonce.push(angleA, angleB)
+          angleA = codageAngle(B, A, angle2, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB.angleArrondi = 1
+          angleC.angleArrondi = 1
+          objetsCorrection.push(angleA, angleB, angleC)
+          texteCorr += `Comme $\\widehat{${s2 + s1 + s3}}=\\dfrac{2\\times  \\widehat{${s1 + s3 + s2}}}{3}$, on en déduit que $\\widehat{${s1 + s3 + s2}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `Comme $\\widehat{${s2 + s1 + s3}}=\\dfrac{2\\times  \\widehat{${s1 + s3 + s2}}}{3}$, on a $\\widehat{${s1 + s3 + s2}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}$.<br>`
-            texteCorr += `De plus $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont égaux, alors $\\widehat{${s1 + s2 + s3}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}$.<br>`
+            texteCorr += `De plus, comme le triangle $${s1 + s2 + s3}$ est isocèle en $${s1}$, $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont égaux, alors $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}$.<br>`
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}+\\widehat{${s1 + s2 + s3}}+\\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
+            texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
             texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2}\\times  2 + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $3 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>D'où `
-            texteCorr += ` $4 \\times  \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>D'où `
+            texteCorr += `D'où : $3 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
+            texteCorr += `D'où : $4 \\times  \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>D'où : `
+          } else {
+            texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
           }
           texteCorr += `$\\widehat{${s2 + s1 + s3}}=180\\degree \\div  4=45\\degree$.<br>`
-          texteCorr += `$\\widehat{${s1 + s3 + s2}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}=\\dfrac{3\\times  45\\degree}{2}=\\dfrac{135\\degree}{2}=67,5\\degree$<br>`
-          texteCorr += `L'angle $\\widehat{${s1 + s3 + s2}}$ mesure $67,5\\degree$, l'angle $\\widehat{${s1 + s2 + s3}}$ mesure $67,5\\degree$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $45\\degree$`
+          texteCorr += `$\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}=\\dfrac{3\\times  45\\degree}{2}=\\dfrac{135\\degree}{2}=67,5\\degree$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}\\degree$, l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('45')}\\degree$.`
+          reponseInteractive = [67.5, 67.5, 45]
           break
-        case 12: // cas non aléatoire triangle 72 , 72 , 36.
-          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure le double de l'angle $\\widehat{${s2 + s1 + s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1 + s2 + s3}}$, $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s2 + s1 + s3}}$ ?`
+        case 11: // cas non aléatoire triangle 72 , 72 , 36.
+          nomAngles.push(s1 + s3 + s2, s1 + s2 + s3, s2 + s1 + s3)
+          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure le double de l'angle $\\widehat{${s2 + s1 + s3}}$.<br>`
+          texte += `Quelles sont les mesures respectives des angles $\\widehat{${nomAngles[choixAngle[0]]}}$, $\\widehat{${nomAngles[choixAngle[1]]}}$ et $\\widehat{${nomAngles[choixAngle[2]]}}$ ?`
+          angle1 = 72
+          angle2 = 36
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('|||', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
+          objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('|||', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
+          angleA = codageAngle(B, A, C, 1.5, '|', 'green', 2)
+          angleA.echelleMark = 2
+          angleB = codageAngle(A, B, C, 1.5, '||', 'green', 2)
+          angleB.echelleMark = 2
+          objetsEnonce.push(angleA, angleB)
+          angleA = codageAngle(B, A, angle2, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleC = codageAngle(A, C, B, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          objetsCorrection.push(angleA, angleB, angleC)
+          texteCorr += `On a $\\widehat{${s1 + s2 + s3}}=2\\times  \\widehat{${s2 + s1 + s3}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `On a $\\widehat{${s1 + s2 + s3}}=2\\times  \\widehat{${s2 + s1 + s3}}$.<br>`
-            texteCorr += `De plus $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont égaux, alors $\\widehat{${s1 + s3 + s2}}=2\\times \\widehat{${s2 + s1 + s3}}$.<br>`
-            texteCorr += `D'où : $2 \\times  \\widehat{${s2 + s1 + s3}}\\times  2 + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
+            texteCorr += `De plus, comme le triangle $${s1 + s2 + s3}$ est isocèle en $${s1}$, $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont égaux, alors $\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s2 + s1 + s3}}$.<br>`
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}+\\widehat{${s1 + s2 + s3}}+\\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
+            texteCorr += `D'où : $2 \\times  \\widehat{${s2 + s1 + s3}} + 2 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
             texteCorr += `D'où : $4 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>D'où `
             texteCorr += ` $5 \\times  \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>D'où `
+          } else {
+            texteCorr += `D'où : $2 \\times  \\widehat{${s2 + s1 + s3}} + 2 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
           }
           texteCorr += `$\\widehat{${s2 + s1 + s3}}=180\\degree \\div  5=36\\degree$.<br>`
-          texteCorr += `$\\widehat{${s1 + s3 + s2}}=2\\times \\widehat{${s2 + s1 + s3}}=2\\times  36\\degree=72\\degree$<br>`
-          texteCorr += `L'angle $\\widehat{${s1 + s3 + s2}}$ mesure $72\\degree$, l'angle $\\widehat{${s1 + s2 + s3}}$ mesure $72\\degree$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $36\\degree$`
+          texteCorr += `$\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=2\\times \\widehat{${s2 + s1 + s3}}=2\\times  36\\degree=72\\degree$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('72')}\\degree$, l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('72')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('36')}\\degree$.`
+          reponseInteractive = [72, 72, 36]
           break
       }
-      if (this.sup2 && (this.sup === 1 || (this.sup === 3 && (listeTypeDeQuestions[i] < 6 || listeTypeDeQuestions[i] === 9)))) {
-        const nom = nommePolygone(triangle)
-        objetsEnonce.push(nom)
-        const xmin = Math.min(A.x, B.x, C.x) - 2
-        const xmax = Math.max(A.x, B.x, C.x) + 2
-        const ymin = Math.min(A.y, B.y, C.y) - 2
-        const ymax = Math.max(A.y, B.y, C.y) + 2
-        const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
-        texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+      // Le code ci-dessous permet de changer de l'ordre des angles dans les questions interactives
+      // Cela ne permet pas à un petit malin de noter les réponses et de refaire la question en les remettant à la même place
+      if (this.interactif) {
+        setReponse(this, i + indiceSetReponse, reponseInteractive[choixAngle[0]])
+        texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse, 'inline nospacebefore largeur15', { texte: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`, texteApres: '$\\degree$' })
+        if (reponseInteractive.length > 1) {
+          setReponse(this, i + indiceSetReponse + 1, reponseInteractive[choixAngle[1]])
+          texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse + 1, 'inline nospacebefore largeur15', { texte: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`, texteApres: '$\\degree$' })
+          if (reponseInteractive.length > 2) {
+            setReponse(this, i + indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
+            texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse + 2, 'inline nospacebefore largeur15', { texte: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`, texteApres: '$\\degree$' })
+          }
+        }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      // Code ci-dessous nécessaire car le nombre de questions interactives n'est pas le même selon le type de questions.
+      indiceSetReponse += nomAngles.length
+
+      const nom = nommePolygone(triangle)
+      objetsEnonce.push(nom)
+      const xmin = Math.min(A.x, B.x, C.x) - 2
+      const xmax = Math.max(A.x, B.x, C.x) + 2
+      const ymin = Math.min(A.y, B.y, C.y) - 2
+      const ymax = Math.max(A.y, B.y, C.y) + 2
+      const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
+
+      if (this.sup2) {
+        texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+      } else {
+        texteCorrFinal += this.correctionDetaillee ? '<br>' + mathalea2d(paramsEnonce, objetsEnonce) : ''
+      }
+      texteCorrFinal += texteCorr
+      texteCorrFinal += '<br>' + mathalea2d(Object.assign(fixeBordures(objetsCorrection)), objetsCorrection)
+
+      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeCorrections.push(texteCorrFinal)
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficuté', 3, ' 1 : Facile \n 2 : Difficile \n 3 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Ajouter un schéma aux questions "faciles"']
+  this.besoinFormulaireTexte = [
+    'Situations différentes', [
+      'Nombres séparés par des tirets',
+      '1 : Triangle quelconque avec deux angles aigus connus',
+      '2 : Triangle rectangle avec un angle aigu connu',
+      '3 : Triangle isocèle avec un angle à la base connu',
+      '4 : Triangle rectangle isocèle',
+      '5 : Triangle équilatéral',
+      '6 : Triangle rectangle avec un angle aigu double de l\'autre (*)',
+      '7 : Triangle rectangle avec un angle aigu quart de l\'autre (*)',
+      '8 : Triangle rectangle avec un angle aigu quintuple de l\'autre (*)',
+      '9 : Triangle rectangle avec un angle aigu tiers de l\'autre (*)',
+      '10 : Triangle rectangle avec un angle aigu deux tiers de l\'autre (*)',
+      '11 : Triangle isocèle avec un angle aigu double de l\'autre (*)',
+      '12 : Triangle isocèle avec l\'angle au sommet principal connu (*)',
+      '13 : Mélange',
+      '(*) : Question plus difficile'
+    ].join('\n')
+  ]
+  this.besoinFormulaire2CaseACocher = ['Ajouter un schéma aux questions']
 }
