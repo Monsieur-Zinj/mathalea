@@ -6,8 +6,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'standard',
-    'plugin:svelte/recommended'
+    'standard'
   ],
   overrides: [
     {
@@ -20,27 +19,16 @@ module.exports = {
       parserOptions: {
         sourceType: 'script'
       }
-    },
-    {
-      files: ['*.svelte'],
-      parser: 'svelte-eslint-parser',
-      parserOptions: {
-        parser: {
-          ts: '@typescript-eslint/parser',
-          js: 'espree',
-          typescript: '@typescript-eslint/parser'
-        }
-      }
     }
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json',
-    extraFileExtensions: ['.svelte']
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
   plugins: [
     '@typescript-eslint'
   ],
   rules: {
   }
-} 
+}

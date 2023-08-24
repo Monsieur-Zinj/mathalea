@@ -72,14 +72,15 @@ export function verifQuestionQcm (exercice, i) {
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     } else if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) { // Que du faux
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
-    } else { // Aucune réponse
+    /* } else { // Aucune réponse
       message = ''
+    */
     }
   } else {
     message = 'Bravo !'
   }
   if (nbBonnesReponsesAttendues > nbBonnesReponses) {
-    message += `<br>${nbBonnesReponsesAttendues - nbBonnesReponses} bonne${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} manquante${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''}`
+    message = (message === '' ? '' : '<br>') + `${nbBonnesReponsesAttendues - nbBonnesReponses} bonne${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} manquante${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''}`
   }
   messageFeedback({
     id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,
