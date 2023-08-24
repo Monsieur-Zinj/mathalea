@@ -1005,7 +1005,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu, soient perpendiculaires et soient de même longueur pour être certain que c\'est un losange.'
             }
           ]
-          texteCorr = 'Si un quadrilatères a ses diagonales perpendiculaires et de même longueur alors cela peut être un quadrilatère quelconque (il faudrait en plus que les diagonales se coupent en leur milieu pour que ce soit un carré).'
+          texteCorr = 'Si un quadrilatère a ses diagonales perpendiculaires et de même longueur alors cela peut être un quadrilatère quelconque (il faudrait en plus que les diagonales se coupent en leur milieu pour que ce soit un carré).'
           break
       }
       this.autoCorrection[i].options = {
