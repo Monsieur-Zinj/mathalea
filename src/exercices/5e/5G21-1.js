@@ -1,7 +1,7 @@
 import ConstructibiliteDesTriangles from './_Constructibilite_des_triangles.js'
 
 export const titre = 'Justifier la construction des triangles via les longueurs'
-export const dateDeModificationImportante = '17/08/2023'
+export const dateDeModificationImportante = '24/08/2023'
 
 /**
  * Justifier la construction des triangles via les longueurs'
@@ -12,6 +12,5 @@ export const uuid = 'f789c'
 export const ref = '5G21-1'
 export default function ConstructibiliteDesTrianglesLongueurs () {
   this.exo = '5G21-1'
-  this.titre = titre
   ConstructibiliteDesTriangles.call(this)
 }
