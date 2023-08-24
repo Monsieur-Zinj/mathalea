@@ -36,7 +36,7 @@ export default class anglesTrianglesTableau extends Exercice {
     this.correctionDetailleeDisponible = true
     // Correction détaillée par défaut
     this.correctionDetaillee = true
-    this.besoinFormulaireNumerique = ['Type de triangle', 4, ' 1 : Quelconque \n 2 : Rectangle \n 3 : Isocèle-Équilatéral \n 4 : Mélange']
+    this.besoinFormulaireNumerique = ['Type de triangle', 4, ' 1 : Quelconque \n 2 : Rectangle \n 3 : Isocèle ou équilatéral \n 4 : Mélange']
     // Une fonction pour calculer le troisième angle d'un triangle
     this.troisiemeAngle = function (a1, a2) {
       let sortie = -1
@@ -157,7 +157,7 @@ export default class anglesTrianglesTableau extends Exercice {
       sortie.texte = anglesEnonce.tableau
       if (this.correctionDetaillee) {
         sortie.texteCorr = `Dans le triangle ${triangle.getNom()}, `
-        sortie.texteCorr += `${anglesEnonce.noms[0]} + ${anglesEnonce.noms[1]} + ${anglesEnonce.noms[2]} $=180\\degree$<br>`
+        sortie.texteCorr += `${anglesEnonce.noms[0]} + ${anglesEnonce.noms[1]} + ${anglesEnonce.noms[2]} $=180\\degree$.<br>`
         sortie.texteCorr += `${anglesCorrection.details}<br>`
       }
       sortie.texteCorr += context.isHtml ? '' : '\\medskip '
