@@ -591,6 +591,25 @@ export function fixeBordures (objets, {
   rymax = undefined,
   rzoom = 1
 } = {}) {
+  const majBordures = function (xmin, ymin, xmax, ymax, objets, bordures) {
+    if (!Array.isArray(objets)) {
+      if (objets.bordures == null || objets.bordures.filter((el) => isNaN(el)).length > 0) {
+        window.notify(`Ìl y a un problème avec les bordures de ${objets.constructor.name}`)
+        bordures = false || bordures
+      } else {
+        xmin = Math.min(xmin, objets.bordures[0])
+        xmax = Math.max(xmax, objets.bordures[2])
+        ymin = Math.min(ymin, objets.bordures[1])
+        ymax = Math.max(ymax, objets.bordures[3])
+        bordures = true
+      }
+    } else {
+      for (const objet of objets) {
+        [xmin, ymin, xmax, ymax, bordures] = majBordures(xmin, ymin, xmax, ymax, objet, bordures)
+      }
+    }
+    return [xmin, ymin, xmax, ymax, bordures]
+  }
   let xmin = 1000
   let ymin = 1000
   let xmax = -1000
@@ -599,36 +618,8 @@ export function fixeBordures (objets, {
   rxmin = rxmin !== undefined ? rxmin : -0.5
   rymin = rymin !== undefined ? rymin : -0.5
   rxmax = rxmax !== undefined ? rxmax : 0.5
-  rymax = rymax !== undefined ? rymax : 0.5
-  for (const objetOuArray of objets) {
-    if (Array.isArray(objetOuArray)) {
-      for (const objet of objetOuArray) {
-        if (Array.isArray(objet.bordures) && objet.bordures.length === 4) {
-          if (objet.bordures.filter((el) => isNaN(el)).length > 0) {
-            window.notify(`Ìl y a un problème avec les bordures de ${JSON.stringify(objet)}`)
-          } else {
-            xmin = Math.min(xmin, objet.bordures[0])
-            xmax = Math.max(xmax, objet.bordures[2])
-            ymin = Math.min(ymin, objet.bordures[1])
-            ymax = Math.max(ymax, objet.bordures[3])
-            bordures = true
-          }
-        }
-      }
-    } else {
-      if (Array.isArray(objetOuArray.bordures) && objetOuArray.bordures.length === 4) {
-        if (objetOuArray.bordures.filter((el) => isNaN(el)).length > 0) {
-          window.notify(`Ìl y a un problème avec les bordures de ${JSON.stringify(objetOuArray)}`)
-        } else {
-          xmin = Math.min(xmin, objetOuArray.bordures[0])
-          xmax = Math.max(xmax, objetOuArray.bordures[2])
-          ymin = Math.min(ymin, objetOuArray.bordures[1])
-          ymax = Math.max(ymax, objetOuArray.bordures[3])
-          bordures = true
-        }
-      }
-    }
-  }
+  rymax = rymax !== undefined ? rymax : 0.5;
+  [xmin, ymin, xmax, ymax, bordures] = majBordures(xmin, ymin, xmax, ymax, objets, bordures)
   if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
   return {
     xmin: xmin + rxmin * rzoom,
