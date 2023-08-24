@@ -92,7 +92,7 @@ export default function SujetCAN2023Seconde () {
     const y3 = y2 - randint(1, 4)
 
     for (let i = 0, index = 0, nbChamps, m, lA, s26,
-      A0, A1, A2, A3, s26B, ld, r1, Tk, listeB, moy, objet, graphique, truc, bases, n, gr,
+      A0, A1, A2, A3, s26B, r1, Tk, listeB, moy, objet, graphique, truc, bases, n, gr,
       prix1, N, n1, n2, s, p, nbre, couplenm, r, o, sCote1, sCote2, traceA, texte, texteCorr, reponse, E, choix, a, b, c, d, e, f, k, s1, s2, s3, s4, s5, s6, A, B, C, D, F, G, H, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
@@ -1015,7 +1015,7 @@ export default function SujetCAN2023Seconde () {
             yLabelListe: yB26 === 0 ? [yA26] : [yA26, 1]
           })
 
-          objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, ld, lA, traceA, s26, s26B)
+          objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, lA, traceA, s26, s26B)
 
           texte = 'Donner le coefficient directeur $m$ de la droite.<br>'
           texte += `${objet}<br>`
@@ -1027,7 +1027,7 @@ export default function SujetCAN2023Seconde () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
           }
-          this.canEnonce = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, lA, ld, s26, s26B, traceA)
+          this.canEnonce = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, lA, s26, s26B, traceA)
           this.canReponseACompleter = `Quel est le coefficient directeur de cette droite (d) ?<br>
           $\\ldots$`
           this.listeCanEnonces.push(this.canEnonce)
