@@ -6,7 +6,8 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'standard'
+    'standard',
+    'plugin:svelte/recommended'
   ],
   overrides: [
     {
@@ -18,6 +19,17 @@ module.exports = {
       ],
       parserOptions: {
         sourceType: 'script'
+      }
+    },
+    {
+      files: ['*.svelte'],
+      parser: 'svelte-eslint-parser',
+      parserOptions: {
+        parser: {
+          ts: '@typescript-eslint/parser',
+          js: 'espree',
+          typescript: '@typescript-eslint/parser'
+        }
       }
     }
   ],
