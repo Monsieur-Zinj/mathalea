@@ -7750,9 +7750,10 @@
         "url": "5e/5G31.js",
         "uuid": "dc8c9",
         "id": "5G31",
-        "titre": "Somme des angles dans un triangle",
+        "titre": "Déterminer la valeur d'un angle en utilisant la somme des angles dans un triangle",
         "tags": {
-          "interactif": false,
+          "interactif": true,
+          "interactifType": "mathLive",
           "amc": false
         }
       },
