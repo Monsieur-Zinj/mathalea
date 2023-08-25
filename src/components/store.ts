@@ -177,6 +177,9 @@ export function updateGlobalOptionsInURL (url: URL) {
       url.searchParams.append('questionsOrder', JSON.stringify(questionsOrderStore))
     }
   }
+  if (options.interfaceBeta) {
+    url.searchParams.append('interfaceBeta', '1')
+  }
   const currentUrl = new URL(window.location.href)
   if (currentUrl.searchParams.has('triche')) {
     url.searchParams.append('triche', '1')

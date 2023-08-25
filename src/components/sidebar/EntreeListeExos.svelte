@@ -113,6 +113,7 @@
   >
     <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1" bind:this={nomDeExercice}>
       {#if exercice.has('lieu')}
+      <!-- Exercices d'annales -->
         <span class="font-bold">{exercice.get('typeExercice').toUpperCase()} {exercice.get('mois') || ''} {exercice.get('annee')} - {exercice.get('lieu')} - {exercice.get('numeroInitial')}</span>
         <div>
           {#each tags as tag}
@@ -122,7 +123,8 @@
             >
           {/each}
         </div>
-      {:else}
+      {:else if exercice.has('id')}
+      <!-- Exercice MathALÉA -->
         <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
           <span class="font-bold">{exercice.get('id')} - </span>{exercice.get('titre')}
           {#if isRecent(exercice.get('datePublication'))}
@@ -144,6 +146,11 @@
               />
             </span>
           {/if}
+        </div>
+        {:else }
+       <!-- Exercice de la bibliothèqye -->
+        <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          <span class="font-bold">{exercice.get('uuid')}</span>
         </div>
       {/if}
     </div>

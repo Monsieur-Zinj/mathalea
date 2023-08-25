@@ -6,19 +6,26 @@
   export let indiceExercice: number
   export let indiceLastExercice: number
 
-  function getExerciceByUuid (uuid: string) {
-    for (const examen in referentielStatic) {
-      for (const anneOuTag in referentielStatic[examen]) {
-        for (const exercice in referentielStatic[examen][anneOuTag]) {
-          if (referentielStatic[examen][anneOuTag][exercice].uuid === uuid) {
-            return referentielStatic[examen][anneOuTag][exercice]
-          }
-        }
+function getExerciceByUuid (root: object, targetUUID: string): object | null {
+  if ('uuid' in root) {
+    if (root.uuid === targetUUID) {
+      return root
+    }
+  }
+  for (const child in root) {
+    if (child in root) {
+      if (typeof root[child] !== 'object') continue
+      const foundObject = getExerciceByUuid(root[child], targetUUID)
+      if (foundObject) {
+        return foundObject
       }
     }
   }
 
-  const exercice = getExerciceByUuid(uuid)
+  return null
+}
+
+  const exercice = getExerciceByUuid(referentielStatic, uuid)
 
   let isCorrectionVisible = false
   let isContentVisible = true
@@ -28,7 +35,11 @@
   if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
   const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id.replace('.js', '') : ''
   const headerExerciceProps = { title: '', id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible }
-  headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ''} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
+  if (exercice.typeExercice !== undefined) {
+    headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ''} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
+  } else {
+    headerExerciceProps.title = exercice.uuid
+  }
 </script>
 
 <HeaderExercice

@@ -21,7 +21,8 @@
       paramsExercice.uuid.substring(0, 5) === 'crpe-' ||
       paramsExercice.uuid.substring(0, 4) === 'dnb_' ||
       paramsExercice.uuid.substring(0, 4) === 'e3c_' ||
-      paramsExercice.uuid.substring(0, 4) === 'bac_'
+      paramsExercice.uuid.substring(0, 4) === 'bac_' ||
+      paramsExercice.uuid.startsWith('2nd_')
     ) {
       optionsComponent = { uuid: paramsExercice.uuid }
       ComponentExercice = (await import('./ExerciceStatic.svelte')).default

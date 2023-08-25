@@ -1,15 +1,22 @@
 import type { InterfaceReferentiel } from 'src/lib/types'
 import referentiel from '../../json/referentiel2022.json'
 import referentielStatic from '../../json/referentielStatic.json'
+import referentiel2nd from '../../json/referentiel2nd.json'
 import codeList from '../../json/codeToLevelList.json'
 import { findPropPaths, findDuplicates } from './searching'
 import { toMap } from './toMap'
 import { isRecent } from './handleDate'
+import { get } from 'svelte/store'
+import { globalOptions } from '../store'
 
 // Réorganisation du référentiel
 // Suppression de la rubrique calcul mental
 // On renomme les chapitres pour la partie statique
 const baseReferentiel = { ...referentiel, static: { ...referentielStatic } }
+if (get(globalOptions).interfaceBeta) {
+  baseReferentiel.static['2nd'] = referentiel2nd['2nd']
+  console.log(baseReferentiel.static)
+}
 // @ts-ignore
 delete baseReferentiel['Calcul mental']
 // @ts-ignore
