@@ -1,6 +1,7 @@
 import ConstructibiliteDesTriangles from './_Constructibilite_des_triangles.js'
 
 export const titre = 'Justifier la construction des triangles via les angles'
+export const dateDeModificationImportante = '24/08/2023'
 
 /**
  * Justifier la construction des triangles via les angles
@@ -10,6 +11,5 @@ export const uuid = 'bcbe1'
 export const ref = '5G31-1'
 export default function ConstructibiliteDesTrianglesAngles () {
   this.exo = '5G31-1'
-  this.titre = titre
   ConstructibiliteDesTriangles.call(this)
 }
