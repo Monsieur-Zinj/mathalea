@@ -665,7 +665,7 @@ export function tableauDeVariation ({
     const tabinit1 = tabInit[1]
     let type
     for (let i = 0; i < tabinit0.length; i++) {
-      if (tabinit0[i][0].indexOf(',') !== -1) {
+      if (typeof tabinit0[i][0] === 'string' && tabinit0[i][0].includes(',')) {
         tabinit0[i][0] = `{${tabinit0[i][0]}}`
       }
       codeLatex += ` ${tabinit0[i][0]} / ${tabinit0[i][1]},`
@@ -673,7 +673,7 @@ export function tableauDeVariation ({
     codeLatex = codeLatex.substring(0, codeLatex.length - 1)
     codeLatex += '}{'
     for (let i = 0; i < tabinit1.length / 2; i++) {
-      if (tabinit1[i * 2].indexOf(',') !== -1) {
+      if (typeof tabinit1[i * 2] === 'string' && tabinit1[i * 2].includes(',')) {
         tabinit1[i * 2] = `{${tabinit1[i * 2]}}`
       }
       codeLatex += ` ${tabinit1[i * 2]},`
@@ -685,7 +685,7 @@ export function tableauDeVariation ({
       if (type === 'Val' || type === 'Ima') {
         codeLatex += `\\tkzTab${type}`
         for (let j = 1; j < tabLines[i].length - 1; j++) {
-          if (tabLines[i][j].indexOf(',') !== -1) {
+          if (typeof tabLines[i][j] === 'string' && tabLines[i][j].includes(',')) {
             tabLines[i][j] = `{${tabLines[i][j]}}`
           }
           codeLatex += `{${tabLines[i][j]}},`
