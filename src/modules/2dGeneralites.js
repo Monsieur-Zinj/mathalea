@@ -68,6 +68,7 @@ export function mathalea2d (
     let codeSvg = ''
     if (!Array.isArray(objets)) {
       try {
+        // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
         if (objets.isVisible) {
           if ((!mainlevee) || typeof (objets.svgml) === 'undefined') {
             const code = objets.svg(pixelsParCm)
@@ -118,7 +119,7 @@ export function mathalea2d (
     codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
         }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
         } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
-    codeSvg += ajouteCodeHtml(mainlevee, objets, codeSvg, divsLatex)
+    codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex)
     codeSvg += '\n</svg>'
     codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
     //  pixelsParCm = 20;
