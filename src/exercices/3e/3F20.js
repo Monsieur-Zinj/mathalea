@@ -62,7 +62,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       'expressionParValeurs',
       'expressionParGraphique'
     ]
-    const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: 9 })
+    const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, defaut: 9, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: 9 })
     const antecedents = []
     for (let i = 0, texteAMC, valeurAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const elementAmc = {}

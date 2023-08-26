@@ -1,18 +1,13 @@
 import loadjs from 'loadjs'
 import { context } from './context.js'
 import { UserFriendlyError } from './messages.js'
-// import { clavierLongueur } from '../lib/interactif/claviers/longueur_ANCIEN.js'
-// import { clavierTrigo } from '../lib/interactif/claviers/trigo.js'
-// import { clavierCollege } from '../lib/interactif/claviers/college.js'
-// import { clavierLycee } from '../lib/interactif/claviers/lycee.js'
-// import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
-// import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
 import { CLAVIER_HMS, raccourcisHMS } from '../lib/interactif/claviers/clavierHms.js'
 import { CLAVIER_LYCEE, raccourcisLycee } from '../lib/interactif/claviers/lycee.js'
 import { CLAVIER_COLLEGE, raccourcisCollege } from '../lib/interactif/claviers/college.js'
 import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/college6eme.js'
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
-import { clavierConfiguration, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
+import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
+import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -171,6 +166,9 @@ export async function loadMathLive () {
       } else if (mf.classList.contains('grecTrigo')) {
         clavier = CLAVIER_GRECTRIGO
         raccourcis = raccourcisTrigo
+      } else if (mf.classList.contains('ensemble')) {
+        clavier = CLAVIER_ENSEMBLE
+        raccourcis = raccourcisEnsemble
       } else if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
         const listeParamClavier = mf.classList
         let index = 0
@@ -182,7 +180,7 @@ export async function loadMathLive () {
         // vire le mot 'unités'
         contenuUnites.shift()
 
-        clavier = clavierConfiguration(contenuUnites)
+        clavier = clavierUNITES(contenuUnites)
         raccourcis = raccourcisUnites
       } else {
         //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut

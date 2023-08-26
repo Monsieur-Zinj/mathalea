@@ -76,7 +76,7 @@ export default function ProblemesTrigoLongueur () {
     let hauteur; let teta; let index
     // let M1, MInit, normalH1, R21, P1
     const lettresGrecques = [['α', '\\alpha'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]
-    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions, shuffle: true })
+    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions })
 
     let ii = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].

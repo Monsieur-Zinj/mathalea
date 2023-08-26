@@ -47,9 +47,9 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       } else if (this.sup4 === 4) {
         this.sup = '2-3-4-5'
       }
-      listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions, shuffle: true })
+      listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions })
     } else {
-      listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions, shuffle: true })
+      listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions })
     }
     let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
     if (!calculMental) {

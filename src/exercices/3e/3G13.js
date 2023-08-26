@@ -86,9 +86,9 @@ export default function CalculsHomothetie () {
       '7 : Calculer une aire antécédent',
       '8 : Calculer le rapport à partir des aires',
       '9 : Calculer le rapport connaissant OA et AA\'',
-      '10: Encadrer le rapport k',
-      '11: Encadrer le rapport k connaissant OA et AA\'',
-      '12: Mélange'
+      '10 : Encadrer le rapport k',
+      '11 : Encadrer le rapport k connaissant OA et AA\'',
+      '12 : Mélange'
     ].join('\n')
   ]
   this.besoinFormulaire2Numerique = [
@@ -107,7 +107,7 @@ export default function CalculsHomothetie () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
-    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 11, melange: 12, defaut: 12, nbQuestions: this.nbQuestions, listeOfCase: typeQuestionsDisponibles, shuffle: true })
+    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 11, melange: 12, defaut: 12, nbQuestions: this.nbQuestions, listeOfCase: typeQuestionsDisponibles })
     const kEstEntier = this.sup3 > 1
     const valeursSimples = this.sup3 === 3
     for (let i = 0, approx, environ, melange, donnee1, donnee2, donnee3, donnees, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question

@@ -42,7 +42,7 @@ export default function Agrandissement () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 8, melange: 9, defaut: 9, nbQuestions: this.nbQuestions, shuffle: true }) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 8, melange: 9, defaut: 9, nbQuestions: this.nbQuestions }) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, V1, V2, A1, A2, l1, l2, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       k = new Decimal(randint(1, 20, 10)).div(10)
       V1 = randint(10, 120) // Les données de départ sont entières, on n'utilise pas Decimal() ici

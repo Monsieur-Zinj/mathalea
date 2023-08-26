@@ -52,7 +52,7 @@ export default function VolumeBoule () {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, defaut: 5, shuffle: true, nbQuestions: this.nbQuestions })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, defaut: 5, nbQuestions: this.nbQuestions })
     for (let i = 0, r, d, A, rayon, O, B, OO, o, R, s, c, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.

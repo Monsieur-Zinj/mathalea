@@ -347,7 +347,7 @@ const CLAVIER_MASSES = {
   ]
 }
 
-export function clavierConfiguration (tabConf) {
+export function clavierUNITES (tabConf) {
   const clavierVirtuel = []
   for (let index = 0; index < tabConf.length; index++) {
     if (tabConf[index].includes('ongueur')) clavierVirtuel.push(CLAVIER_LONGUEURS) // Pour pouvoir saisir longueur sans se soucier du pluriel ou de la majuscule initiale
