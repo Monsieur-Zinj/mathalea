@@ -11,7 +11,10 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { sp } from '../../lib/outils/outilString.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const titre = 'Décomposer en facteurs premiers'
+
 
 /**
 * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
@@ -139,8 +142,17 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
         texteCorr += `<br>Donc la décomposition en produit de facteurs premiers de $${miseEnEvidence(texNombre(n), 'black')}$ est $${miseEnEvidence(decompositionFinale)}$.`
       }
       reponse += facteurs[facteurs.length - 1]
+
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte + '\n',
+          propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
+        }
+      }
       texte += ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')
-      setReponse(this, i, [reponse, produitAvecPuissances])
+      if (!context.isAmc) {
+        setReponse(this, i, [reponse, produitAvecPuissances])
+      }
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
