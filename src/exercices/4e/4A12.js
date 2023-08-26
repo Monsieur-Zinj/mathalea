@@ -52,7 +52,7 @@ export default function ProblemesEvenementsRecurrents () {
     const listePremiers = combinaisonListes(preListePremiers, this.nbQuestions * 5)
 
     const valMaxParametre = 6
-    const listeDesProblemes = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: valMaxParametre - 1, melange: valMaxParametre, defaut: 1, shuffle: true })
+    const listeDesProblemes = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: valMaxParametre - 1, melange: valMaxParametre, defaut: 1 })
     const listeDesSaveurs = ['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages']
     let saveurs = []
     for (const probleme of listeDesProblemes) {

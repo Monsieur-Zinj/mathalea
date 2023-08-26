@@ -63,7 +63,7 @@ export default function DivisionFraction () {
       : [7, 8, 9]
     const listeTypeDeQuestions = (!this.sup2)
       ? combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-      : gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions, shuffle: true })// Exercice à la carte
+      : gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions })// Exercice à la carte
 
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;

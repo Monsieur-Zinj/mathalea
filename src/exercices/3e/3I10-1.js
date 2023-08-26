@@ -61,7 +61,7 @@ export default function ScratchMultiScript () {
     this.autoCorrection = []
     const mesQcm = []
     let indexReponse = 0
-    const choixQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, nbQuestions: this.nbQuestions, shuffle: true })
+    const choixQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, nbQuestions: this.nbQuestions })
     const noteLesCouleurs = []
     const lutins = []
     const couleurs = []

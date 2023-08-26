@@ -53,7 +53,7 @@ export default function FonctionsAffinesOuLineaires () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const choixFonction = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 2, defaut: 3, melange: 3, listeOfCase: ['linéaire', 'affine'], nbQuestions: this.nbQuestions, shuffle: true })
+    const choixFonction = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 2, defaut: 3, melange: 3, listeOfCase: ['linéaire', 'affine'], nbQuestions: this.nbQuestions })
     for (let i = 0; i < this.nbQuestions; i++) {
       if (choixFonction[i] === 'affine') {
         // On récupère tout ce qui fait la question, sa correction et l'interactif...

@@ -47,7 +47,7 @@ export default function PourcentageDunNombre () {
     this.autoCorrection = []
     const pourcentages = !this.sup3
       ? combinaisonListes(this.sup === 1 ? [10, 20, 30, 40, 50] : [10, 20, 25, 30, 40, 50, 60, 90], this.nbQuestions)
-      : gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 8, defaut: 9, melange: 9, nbQuestions: this.nbQuestions, shuffle: true, listeOfCase: [10, 20, 25, 30, 40, 50, 60, 90] })
+      : gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 8, defaut: 9, melange: 9, nbQuestions: this.nbQuestions, listeOfCase: [10, 20, 25, 30, 40, 50, 60, 90] })
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;

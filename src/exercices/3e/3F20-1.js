@@ -78,7 +78,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           'expressionParValeurs',
           'expressionParGraphique'
         ]
-    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: this.lycee ? 10 : 8, defaut: this.lycee ? 11 : 9, shuffle: true, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: this.lycee ? 11 : 9 })
+    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: this.lycee ? 10 : 8, defaut: this.lycee ? 11 : 9, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: this.lycee ? 11 : 9 })
     const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
     for (let i = 0, texteAMC, valeurAMC, texte2AMC, valeur2AMC, texte3AMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
