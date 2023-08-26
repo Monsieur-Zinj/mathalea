@@ -44,15 +44,11 @@ import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.j
  * @param {Array} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
  * @param {string} [parametres.Legende = ''] Légende de l'axe
  * @param {number} [parametres.LegendePosition = (Max - Min) * Unite + 1.5] Position de la légende
- * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {number} Unite Nombre de cm par unité
  * @property {number} Min Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
  * @property {number} Max Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
  * @author Jean-Claude Lhote
- * @class
+ * @return {array} Liste d'objets MathAlea2D
  */
 // JSDOC Validee par EE Aout 2022
 export function DroiteGraduee ({

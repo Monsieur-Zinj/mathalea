@@ -1090,7 +1090,7 @@ export default class Alea2iep {
  * @param {int} id
  * @param {objet} options Défaut : { tempo: 0, vitesse: 200 } // @fixme tempo n'étant pas utilisée je l'ai supprimé des arguments
  */
-  traitMasquer (id, {  vitesse = 200 } = {}) {
+  traitMasquer (id, { vitesse = 200 } = {}) {
     this.liste_script.push(`<action mouvement="masquer" objet="trait" id="${id}" vitesse="${vitesse}" />`)
   }
 

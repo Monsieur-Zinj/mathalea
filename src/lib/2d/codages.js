@@ -833,10 +833,6 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
  * @param {number} [echelleMark=1] Pour choisir la taille relative de la marque
- * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {Point} debut Point sur un côté de l'angle
  * @property {Point} centre Sommet de l'angle
  * @property {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
@@ -847,15 +843,14 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  * @property {number} opacite Opacité de la couleur du tracé de l'angle
  * @property {string} couleurDeRemplissage À associer obligatoirement à colorToLatexOrHTML(). 'none' si on ne veut pas de remplissage.
  * @property {number} opaciteDeRemplissage Opacité de la couleur de remplissage de l'angle
- * @property {string} texteACote Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
  * @property {number} tailleTexte Pour choisir la taille du texte à côté de l'angle
  * @property {number} echelleMark Pour choisir la taille relative de la marque
  * @author Jean-Claude Lhote
- * @class
+ * @return {array} Liste d'objets MathAlea2D
  */
 // JSDOC Validee par EE Juin 2022
 export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
-  ObjetMathalea2D.call(this, {})
+//  ObjetMathalea2D.call(this, {})
   this.color = color
   this.debut = debut
   this.centre = centre
@@ -868,9 +863,37 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.angle = angle
   this.tailleTexte = tailleTexte
-  this.texteACote = texteACote
   this.angleArrondi = angleArrondi
-  this.svg = function (coeff) {
+  const objets = []
+
+  const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
+  const P = rotation(depart, this.centre, this.angle / 2)
+  const M = pointSurSegment(this.centre, P, this.taille + 0.6 * 20 / context.pixelsParCm)
+  const d = droite(this.centre, P)
+  d.isVisible = false
+  const mesure = arrondi(Math.abs(angle), this.angleArrondi) + '°'
+  const arcangle = arc(depart, this.centre, this.angle, this.couleurDeRemplissage !== 'none', this.couleurDeRemplissage, this.color)
+  arcangle.isVisible = true
+  arcangle.opacite = this.opacite
+  arcangle.epaisseur = this.epaisseur
+  arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
+  objets.push(arcangle)
+  if (this.mark !== '') {
+    const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color, this.echelleMark)
+    objets.push(t)
+  }
+  if (mesureOn && texteACote === '') {
+    const t = texteParPoint(mesure, M, 'milieu', this.color, this.tailleTexte)
+    objets.push(t)
+  } else if (texteACote !== '') {
+    if (texteACote.includes('$')) {
+      M.positionLabel = 'center'
+      const label = latexParPoint(texteACote.substring(1, texteACote.length - 1), M, this.color)
+      label.colorBackground = colorToLatexOrHTML('transparent') // transparent
+      objets.push(label)
+    } else objets.push(texteParPoint(texteACote, M, 'milieu', this.color, this.tailleTexte))
+  }
+  /* this.svg = function (coeff) {
     let code = ''
     const objets = []
     const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
@@ -961,5 +984,6 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
     if (this.texteACote !== '') code += texteParPoint(this.texteACote, M, 'milieu', this.color, this.tailleTexte).tikz() + '\n'
     code += arcangle.tikzml(amp)
     return code
-  }
+  } */
+  return objets
 }
