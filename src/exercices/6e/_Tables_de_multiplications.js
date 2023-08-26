@@ -45,12 +45,10 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       max: 9,
       defaut: randint(2, 9),
       nbQuestions: this.nbQuestions,
-      saisie: this.sup
+      saisie: this.sup,
+      enleveDoublons: true
     })
 
-    tables = [...new Set(tables)]
-    // gestionnaireFormulaireTexte transforme la saisie 5 en [5, 5, 5, 5, 5] ce qui n'était pas le comportement souhaité à l'origine de l'exercice
-    // [...new Set(tables)] permet d'enlever les doublons ajoutés par gestionnaireFormulaireTexte
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
