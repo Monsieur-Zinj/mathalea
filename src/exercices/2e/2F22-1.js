@@ -3,7 +3,6 @@ import { droiteParPointEtPente } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
@@ -13,6 +12,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre graphiquement une équation du type $f(x)=k$'
 export const interactifReady = true
@@ -148,13 +148,13 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
 
       let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
       enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + '<br>'
-      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.<br>`
+      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25') + '<br>'
       if (this.interactif) {
         enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir "aucune" s\'il n\'y en a pas).<br>'
         enonceSousRepere += 'Solution(s) : ' + ajouteChampTexteMathLive(this, 3 * i + 1, 'alphanumeric nospacebefore inline largeur15') + '<br>'
       }
       enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` +
-      ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25')
+                ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25')
       setReponse(this, 3 * i, nombreAntecedentCherches0)
       setReponse(this, 3 * i + 1, reponse1)
       setReponse(this, 3 * i + 2, y2)
@@ -257,7 +257,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
           }
           break
         case 2:
-          if (this.spline.nombreAntecedents(Number(reponseEleve)) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+          if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
             divFeedback.innerHTML = '😎'
             resultat3 = 'OK'
           } else {
