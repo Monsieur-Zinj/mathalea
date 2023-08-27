@@ -50,23 +50,30 @@ export default function PlacerPointsAbscissesFractionnaires () {
     const pointsSolutions = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     const fractionsUtilisees = [] // Pour s'assurer de ne pas poser 2 fois la même question
+    const tableUtilisées = [[], [],[]]
     for (let i = 0, texte, texteCorr, origine, num, num2, num3, den, A, B, C, traceA, traceB, traceC, labels, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // Placer des demis aux quarts sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : 0
-          den = randint(2, 4)
+          den = randint(2, 4,tableUtilisées[0])
           num = origine * den + randint(1, den * 4)
+          tableUtilisées[0].push(den)
+          if (tableUtilisées[0].length === 3) tableUtilisées[0]=[]
           break
         case 2: // Placer des cinquièmes aux neuvièmes sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : 0
-          den = randint(5, 9)
+          den = randint(5, 9, tableUtilisées[1])
           num = origine * den + randint(1, den * 4)
+          tableUtilisées[1].push(den)
+          if (tableUtilisées[1].length === 5) tableUtilisées[1]=[]
           break
         case 3: // Placer des demis aux neuvièmes à partir d'un entier >=1 sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : randint(1, 7)
-          den = randint(2, 9)
+          den = randint(2, 9, tableUtilisées[2])
           num = randint(origine * den + 1, (origine + 4) * den, den)
+          tableUtilisées[2].push(den)
+          if (tableUtilisées[2].length === 8) tableUtilisées[2]=[]
       }
       if (this.interactif) {
         texte = `Placer le point $${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num, den)}\\right).$`
@@ -147,7 +154,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
         if (B) B.positionLabel = 'above = 0.2'
         if (C) C.positionLabel = 'above = 0.2'
       }
-      console.log(labels)
+      // console.log(labels)
       if (this.interactif) {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num, den)}\\right).$`
         texteCorr += '<br>' + mathalea2d({
