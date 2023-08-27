@@ -16,6 +16,7 @@ export default class Exercice {
   sup4: any
   nouvelleVersion?: (numeroExercice?: number) => void
   correctionInteractive?: (i?: number) => string
+  duree?: number
   seed?: string
   numeroExercice?: number
   typeExercice?: string
