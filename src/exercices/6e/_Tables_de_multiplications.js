@@ -4,7 +4,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -40,7 +40,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let tables = gestionnaireFormulaireTexte({
+    const tables = gestionnaireFormulaireTexte({
       min: 2,
       max: 9,
       defaut: randint(2, 9),
@@ -70,11 +70,11 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
         if (choice(ordre)) {
           texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, { numeric: true }) : '$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore') : '$'
           texteCorr = `$ ${texNombre(a)} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
         } else {
           texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore') : '$'
           texteCorr = `$ ${texNombre(b)} \\times ${texNombre(a)} = ${texNombre(a * b)}$`
         }
         setReponse(this, i, a * b)
@@ -85,16 +85,16 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
           if (choice(ordre)) {
             texte = '$ ' + a + ' \\times '
-            texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true, texteApres: `$ = ${a * b} $` }) : `   \\ldots\\ldots = ${a * b}$`
+            texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texteApres: `$ = ${a * b} $` }) : `   \\ldots\\ldots = ${a * b}$`
             setReponse(this, i, b)
           } else {
-            texte = (this.interactif && context.isHtml) ? ajouteChampTexte(this, i, { numeric: true, texteApres: `$\\times ${b} = ${a * b}$` }) : `$ \\ldots\\ldots \\times ${b} = ${a * b}$`
+            texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texteApres: `$\\times ${b} = ${a * b}$` }) : `$ \\ldots\\ldots \\times ${b} = ${a * b}$`
             setReponse(this, i, a)
           }
         } else {
         // Sinon on demande forcément le 2e facteur
           texte = `$${a} \\times `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true, texteApres: ` = ${a * b}` }) + '$' : `\\ldots\\ldots = ${a * b}$`
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texteApres: ` = ${a * b}` }) + '$' : `\\ldots\\ldots = ${a * b}$`
           setReponse(this, i, b)
         }
         texteCorr = `$${a} \\times ${b} = ${a * b}$`

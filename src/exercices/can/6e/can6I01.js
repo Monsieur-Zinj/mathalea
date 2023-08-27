@@ -10,16 +10,9 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2
 import { context } from '../../../modules/context.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
-import {
-  allerA,
-  angleScratchTo2d,
-  attendre,
-  baisseCrayon,
-  clone,
-  creerLutin,
-  orienter
-} from '../../../modules/2dLutin.js'
-import { ajouteChampTexte, setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../../modules/2dLutin.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { roseDesVents, scratchblock } from '../../../modules/scratchblock.js'
 
 export const titre = 'Noter la couleur (scratch)'
@@ -221,10 +214,8 @@ export default function CanNoteLaCouleur6 () {
         texte = `Cet exercice est tiré de l'excellente activité débranchée ${modalUrl(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
         texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
         texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
-      } else {
-        texte = ''
-      }
-      texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexte(this, q, 'largeur25 inline')}<br><br>`
+      } else { texte = '' }
+      texte += `Exécuter le programme et trouver la couleur à noterXXX. ${ajouteChampTexteMathLive(this, q, 'alphanumeric largeur25 inline')}<br><br>`
       if (context.isHtml) {
         texte += '<table><tr><td>' +
                     scratchblock(pion.codeScratch) + '</td><td>' + mathalea2d(Object.assign({}, fixeBordures([rose])), rose) +

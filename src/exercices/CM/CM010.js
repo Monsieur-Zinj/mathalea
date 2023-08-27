@@ -3,7 +3,8 @@ import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'Tiers'
 export const amcReady = true
 export const interactifReady = true
@@ -46,7 +47,7 @@ export default function Tiers () {
           texte = `$\\text{Le tiers de }${a * 3}$`
           texteCorr = `$\\text{Le tiers de }${a * 3} \\text{ est } ${a}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          texte += ajouteChampTexteMathLive(this, i)
           break
         case 2: // Table de 300
           a = randint(2, 9)
@@ -55,7 +56,7 @@ export default function Tiers () {
             a * 3 * 100
           )} \\text{ est } ${texNombre(a * 100)}$`
           setReponse(this, i, a * 100)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          texte += ajouteChampTexteMathLive(this, i)
           break
         case 3: // Table de 30
           a = randint(2, 9)
@@ -64,7 +65,7 @@ export default function Tiers () {
             a * 3 * 10
           )} \\text{ est } ${texNombre(a * 10)}$`
           setReponse(this, i, a * 10)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          texte += ajouteChampTexteMathLive(this, i)
           break
         case 4: // a,b avec a et b divisibles par 3
           a = randint(2, 9)
@@ -74,7 +75,7 @@ export default function Tiers () {
             a * 3 + (b * 3) / 100
           )} \\text{ est } ${texNombre(a + b / 100)}$`
           setReponse(this, i, calcul(a + b / 100))
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          texte += ajouteChampTexteMathLive(this, i)
           break
       }
 

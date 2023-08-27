@@ -5,9 +5,10 @@ import { repere } from '../../lib/2d/reperes.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Spécial escape game'
 export const interactifReady = true
@@ -69,7 +70,7 @@ export default function PremierEscapeGameMathalea () {
     const type = parseInt(this.sup)
     const mdp = cesar(mots[randint(0, 5) + (type - 1) * 6], 14)
     const absc = []; const ord = []; let car
-    texte += ajouteChampTexte(this, 0, { texte: 'Taper le mot de passe en majuscules :' })
+    texte += ajouteChampTexteMathLive(this, 0, 'alphanumeric', { texte: 'Taper le mot de passe en majuscules : ' })
     texteCorr += `Le mot de passe comporte ${2 + 2 * type} lettres.`
     setReponse(this, 0, mdp, { formatInteractif: 'texte' })
     for (let x = 0; x < type * 2 + 2; x++) {

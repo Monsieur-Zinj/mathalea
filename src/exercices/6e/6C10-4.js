@@ -3,7 +3,8 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
@@ -38,12 +39,13 @@ export default function ExerciceTablesAdditions (max = 20) {
       this.autoCorrection[i] = {}
       a = randint(2, parseInt(this.sup))
       b = randint(2, parseInt(this.sup))
-      texte = `$ ${texNombre(a)} + ${texNombre(b)} =  $`
+      texte = `$ ${texNombre(a)} + ${texNombre(b)} =  $ `
+
       texteCorr = `$ ${texNombre(a)} + ${texNombre(b)} = ${texNombre(a + b)} $`
       setReponse(this, i, a + b)
       if (context.isHtml && this.interactif) {
-        texte += ajouteChampTexte(this, i)
-      }
+        texte += ajouteChampTexteMathLive(this, i)
+      } else texte += '$\\ldots\\ldots$'
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
