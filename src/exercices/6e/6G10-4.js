@@ -13,7 +13,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const titre = 'Connaître le vocabulaire du cercle'
@@ -249,7 +249,7 @@ export default function VocabulaireDuCercle () {
           }
           if (question.sens === '[AB] est ...') {
             reponses = [question.nature]
-            texte += ajouteChampTexte(this, i * questions.length + j, 'inline largeur25 nospacebefore')
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore alphanumeric')
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
           }
         }

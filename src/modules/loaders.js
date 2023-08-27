@@ -169,6 +169,9 @@ export async function loadMathLive () {
       } else if (mf.classList.contains('ensemble')) {
         clavier = CLAVIER_ENSEMBLE
         raccourcis = raccourcisEnsemble
+      } else if (mf.classList.contains('alphanumeric')) {
+        clavier = 'alphabetic'
+        raccourcis = {}
       } else if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
         const listeParamClavier = mf.classList
         let index = 0

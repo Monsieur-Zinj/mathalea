@@ -327,14 +327,14 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   exercice.autoCorrection[i].reponse.param = { digits, decimals, signe, exposantNbChiffres, exposantSigne, approx, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, milieuIntervalle, baseNbChiffres, formatInteractif, precision }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
-
+/*
 /**
  *
  * @param {Exercice} exercice
  * @param {number} i
  * @param {*} param2
  * @returns {string} code HTML du champ texte avec identifiant champTexteEx__Q__ et le span pour le résultat de la question
- */
+
 export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = false, indice } = {}) {
   if (context.isHtml && exercice.interactif) {
     return `<div class="ui form ${inline ? 'inline' : ''}" >
@@ -348,4 +348,4 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
   } else {
     return ''
   }
-}
+} */

@@ -6,7 +6,8 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import { point3d, polygone3d, prisme3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cone3d, cylindre3d, pyramide3d } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
-import { setReponse, ajouteChampTexte } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -27,7 +28,7 @@ export const ref = '6G44-1'
 export const uuid = '051aa'
 export default function ReconnaitreDesSolides () {
   Exercice.call(this)
-  this.nbQuestions = 10
+  this.nbQuestions = 5
   this.formatChampTexte = 'largeur15 inline'
   this.sup = '8' // Type de question
   this.sup2 = false // qcm
@@ -370,7 +371,7 @@ export default function ReconnaitreDesSolides () {
           this.question += propositionsQcm(this, j).texte
         } else {
           setReponse(this, j, this.reponse, { formatInteractif: 'ignorerCasse' })
-          this.question += '<br>' + ajouteChampTexte(this, j, this.reponse)
+          this.question += '<br>' + ajouteChampTexteMathLive(this, j, 'alphanumeric')
         }
         this.listeQuestions.push(this.question)
         this.listeCorrections.push(this.correction)

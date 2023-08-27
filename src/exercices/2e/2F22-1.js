@@ -3,7 +3,7 @@ import { droiteParPointEtPente } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
@@ -14,7 +14,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
-export const titre = 'Résoudre graphiquement une équation du type f(x)=k.'
+export const titre = 'Résoudre graphiquement une équation du type $f(x)=k$'
 export const interactifReady = true
 export const interactifType = 'custom'
 
@@ -132,9 +132,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       const nomD1 = texteParPosition(`$y=${y1}$`, bornes.xMax + 1.5, y1 + 0.3, 'milieu', 'green', 1.5)
       const nomD2 = texteParPosition(`$y=${texNombre(y2, 1)}$`, bornes.xMax + 1.5, y2 + 0.3, 'milieu', 'green', 1.5)
       horizontale1.epaisseur = 2
-      // horizontale1.opacite = 0.5
       horizontale1.pointilles = 2
-      // horizontale2.opacite = 0.5
       horizontale2.pointilles = 2
       horizontale2.epaisseur = 2
       objetsCorrection1.push(horizontale1, nomD1)
@@ -150,14 +148,15 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
 
       let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
       enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + '<br>'
-      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexte(this, 3 * i + 1, 'inline largeur25') + '<br>'
+      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.<br>`
       if (this.interactif) {
         enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir "aucune" s\'il n\'y en a pas).<br>'
+        enonceSousRepere += 'Solution(s) : ' + ajouteChampTexteMathLive(this, 3 * i + 1, 'alphanumeric nospacebefore inline largeur15') + '<br>'
       }
       enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` +
-                ajouteChampTexte(this, 3 * i + 2, 'inline largeur25')
+      ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25')
       setReponse(this, 3 * i, nombreAntecedentCherches0)
-      setReponse(this, 3 * i + 1, reponse1, { formatInteractif: 'texte' })
+      setReponse(this, 3 * i + 1, reponse1)
       setReponse(this, 3 * i + 2, y2)
       const correctionPartA = `${numAlpha(0)} Le nombre de solutions de l'équation $f(x)=${y0}$ est donné par le nombre d'antécédents de $${y0}$ par $f$. <br>
           ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$ (tracé rouge en pointillés).'}<br>`
@@ -217,7 +216,6 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         style: 'display: block'
       }, fixeBordures(objetsEnonce)), objetsEnonce, origine) + enonceSousRepere
       texteCorr = correctionPartA +
-                // mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
                 correctionPartB +
                 mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection1)), objetsCorrection1, origine) +
                 correctionPartC +
