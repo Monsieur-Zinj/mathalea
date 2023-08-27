@@ -1032,7 +1032,7 @@
     "url": "2e/2N14-1.js",
     "uuid": "25fb4",
     "id": "2N14-1",
-    "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
+    "titre": "Déterminer le plus petit ensemble de nombres dans lequel un nombre appartient",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
