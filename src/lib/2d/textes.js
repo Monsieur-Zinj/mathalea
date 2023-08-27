@@ -4,21 +4,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGen
 import { context } from '../../modules/context.js'
 import { arrondi } from '../outils/nombres.js'
 import { stringNombre } from '../outils/texNombre.js'
-import { LabelPoint, point } from './points.js'
-
-/**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {...any} args Points mis à la suite
- * @param {string} [color = 'black'] Couleur des points : du type 'blue' ou du type '#f15929'
- * @example labelPoint(A,B,C) // Retourne le nom des points A, B et C en noir
- * @example labelPoint(A,B,C,'red') // Retourne le nom des points A, B et C en rouge
- * @example labelPoint(A,B,C,'#f15929') // Retourne le nom des points A, B et C en orange (code couleur HTML : #f15929)
- * @author Rémi Angot
- * @return {LabelPoint}
- */
-// JSDOC Validee par EE Septembre 2022
-export function labelPoint (...args) {
-  return new LabelPoint(...args)
-}
+import { point } from './points.js'
 
 /**
  * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.
@@ -104,23 +90,6 @@ export function LabelLatexPoint ({
         break
     }
   }
-  /*
-                                    this.svg = function (coeff) {
-                                      let code = ''
-                                      for (const objet of objets) {
-                                        code += objet.svg(coeff) + '\n'
-                                      }
-                                      code = `<g id="${this.id}">${code}</g>`
-                                      return code
-                                    }
-                                    this.tikz = function () {
-                                      let code = ''
-                                      for (const objet of objets) {
-                                        code += objet.tikz() + '\n'
-                                      }
-                                      return code
-                                    }
-                                     */
   return objets
 }
 
@@ -148,6 +117,76 @@ export function labelLatexPoint ({
   background = ''
 } = {}) {
   return new LabelLatexPoint({ points, color, taille, largeur, hauteur, background })
+}
+
+/**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
+ * @param  {...Point[]} points Points mis à la suite
+ * @param {string} [color = 'black'] Couleur des points : du type 'blue' ou du type '#f15929'
+ * @property {string} color Couleur des points. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} taille Taille de la boite contenant le nom des points
+ * @property {number} largeur Largeur de la boite contenant le nom des points
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
+ * @author Rémi Angot
+ * @class
+ */
+// JSDOC Validee par EE Septembre 2022
+export function labelPoint (...points) {
+  const taille = 1
+
+  // ObjetMathalea2D.call(this, {})
+  let color
+  if (typeof points[points.length - 1] === 'string') {
+    color = colorToLatexOrHTML(points[points.length - 1])
+    points.length--
+  } else {
+    color = colorToLatexOrHTML('black')
+  }
+  const objets = []
+  for (const unPoint of points) {
+    let A
+    if (unPoint.typeObjet === 'point3d') {
+      A = unPoint.c2d
+    } else {
+      A = unPoint
+
+      let x, y
+      if (A.nom !== undefined) {
+        x = A.x
+        y = A.y
+        // if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
+        switch (A.positionLabel) {
+          case 'left':
+            objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y, 'milieu', color[0], taille, 'middle', true))
+            break
+          case 'right':
+            objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y, 'milieu', color[0], taille, 'middle', true))
+            break
+          case 'below':
+            objets.push(texteParPosition(A.nom, x, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+            break
+          case 'above':
+            objets.push(texteParPosition(A.nom, x, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+            break
+          case 'above left':
+            objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+            break
+          case 'above right':
+            objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+            break
+          case 'below left':
+            objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+            break
+          case 'below right':
+            objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+            break
+          default:
+            objets.push(texteParPosition(A.nom, x, y, 'milieu', color[0], taille, 'middle', true))
+            break
+        }
+      }
+    }
+  }
+  return objets
 }
 
 /**  Déplace les labels des sommets d'un polygone s'ils sont mal placés nativement
@@ -194,9 +233,12 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
   }
   texte = texte.replaceAll('$$', '$') // ça arrive que des fonctions ajoutent des $ alors qu'il y en a déjà...
   if (texte.charAt(0) === '$') {
-    A.positionLabel = 'above'
+    if (!A.positionLabel) {
+      A.positionLabel = 'above'
+    }
     this.svg = function (coeff) {
-      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
+      const latex = latexParPoint(texte.substring(1, texte.length - 1), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
+      return latex
     }
     this.tikz = function () {
       let code = ''
@@ -438,7 +480,11 @@ export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', co
  * @author Rémi Angot
  */
 export function texteParPosition (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, opacite) {
-  return new TexteParPoint(texte, point(arrondi(x, 2), arrondi(y, 2)), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
+  if (texte[0] === '$') {
+    return latexParCoordonnees(texte.substring(1, texte.length - 1), x, y)
+  } else {
+    return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
+  }
 }
 
 /**
@@ -495,7 +541,7 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
       y = A.y
       break
   }
-  return latexParCoordonnees(texte, arrondi(x), arrondi(y), color, largeur, hauteur, colorBackground, tailleCaracteres)
+  return latexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
 }
 
 /**

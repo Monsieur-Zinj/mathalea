@@ -7,7 +7,6 @@ import { Cercle, cercle } from './cercle.js'
 import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites.js'
 import { carre, polygone } from './polygones.js'
 import { DemiDroite, longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'
-import { texteParPosition } from './textes.js'
 import { homothetie, rotation, similitude } from './transformations.js'
 
 /**
@@ -46,15 +45,15 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
   this.ySVG = function (coeff) {
     return arrondi(-this.y * coeff, 1)
   }
-  
+
   /**
-   * Teste l'appartenance d'un point à tout type de polygone (non convexe ou convexe). Pour info, la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
-   * @memberof Point
-   * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
-   * @example M.estDansPolygone(p1) // Renvoie true si M appartient au polygone p1, false sinon
-   * @author Jean-Claude Lhote
-   * @return {boolean}
-   */
+     * Teste l'appartenance d'un point à tout type de polygone (non convexe ou convexe). Pour info, la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
+     * @memberof Point
+     * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
+     * @example M.estDansPolygone(p1) // Renvoie true si M appartient au polygone p1, false sinon
+     * @author Jean-Claude Lhote
+     * @return {boolean}
+     */
   // JSDOC Validee par EE Aout 2022
   this.estDansPolygone = function (p) {
     for (const triangle of p.triangulation) {
@@ -62,17 +61,17 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
     }
     return false
   }
-  
+
   /**
-   * Teste l'appartenance d'un point dans un triangle
-   * @memberof Point
-   * @param {Point} A Premier sommet du triangle
-   * @param {Point} B Deuxième sommet du triangle
-   * @param {Point} C Troisième sommet du triangle
-   * @example M.estDansTriangle(V, S, T) // Renvoie true si M appartient au triangle VST, false sinon
-   * @author Eric Elter
-   * @return {boolean}
-   */
+     * Teste l'appartenance d'un point dans un triangle
+     * @memberof Point
+     * @param {Point} A Premier sommet du triangle
+     * @param {Point} B Deuxième sommet du triangle
+     * @param {Point} C Troisième sommet du triangle
+     * @example M.estDansTriangle(V, S, T) // Renvoie true si M appartient au triangle VST, false sinon
+     * @author Eric Elter
+     * @return {boolean}
+     */
   // JSDOC Validee par EE Aout 2022
   this.estDansTriangle = function (A, B, C) {
     const vMA = vecteur(this, A)
@@ -83,15 +82,15 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
     const x3 = vMA.x * vMB.y - vMA.y * vMB.x
     return (superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)) || (inferieurouegal(x1, 0) && inferieurouegal(x2, 0) && inferieurouegal(x3, 0))
   }
-  
+
   /**
-   * Teste l'appartenance d'un point à un polygone convexe
-   * @memberof Point
-   * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
-   * @example M.estDansPolygoneConvexe(p1) // Renvoie true si M appartient au polygone convexe p1, false sinon
-   * @author Jean-Claude Lhote
-   * @return {boolean}
-   */
+     * Teste l'appartenance d'un point à un polygone convexe
+     * @memberof Point
+     * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
+     * @example M.estDansPolygoneConvexe(p1) // Renvoie true si M appartient au polygone convexe p1, false sinon
+     * @author Jean-Claude Lhote
+     * @return {boolean}
+     */
   // JSDOC Validee par EE Aout 2022
   this.estDansPolygoneConvexe = function (p) {
     const l = p.listePoints.length
@@ -106,30 +105,30 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
       else return this.estDansPolygoneConvexe(p2)
     }
   }
-  
+
   /**
-   * Teste l'appartenance d'un point dans un quadrilatère
-   * @memberof Point
-   * @param {Point} A Premier sommet du quadrilatère
-   * @param {Point} B Deuxième sommet du quadrilatère
-   * @param {Point} C Troisième sommet du quadrilatère
-   * @param {Point} D Quatrième sommet du quadrilatère
-   * @example M.estDansQuadrilatere(F, G, H, I) // Renvoie true si M appartient au quadrilatère FGHI, false sinon
-   * @author Eric Elter
-   * @return {boolean}
-   */
+     * Teste l'appartenance d'un point dans un quadrilatère
+     * @memberof Point
+     * @param {Point} A Premier sommet du quadrilatère
+     * @param {Point} B Deuxième sommet du quadrilatère
+     * @param {Point} C Troisième sommet du quadrilatère
+     * @param {Point} D Quatrième sommet du quadrilatère
+     * @example M.estDansQuadrilatere(F, G, H, I) // Renvoie true si M appartient au quadrilatère FGHI, false sinon
+     * @author Eric Elter
+     * @return {boolean}
+     */
   // JSDOC Validee par EE Aout 2022
   this.estDansQuadrilatere = function (A, B, C, D) {
     return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
-  
+
   /**
-   * Teste l'appartenance d'un point sur un segment, un cercle, une droite ou une demi-droite
-   * @memberof Point
-   * @param {Segment | Cercle | Droite | DemiDroite} objet Objet géométrique dont on veut tester si le point en fait partie
-   * @example M.estSur(s) // Renvoie true si M appartient au segment s (au préalablement défini), false sinon
-   * @return {boolean}
-   */
+     * Teste l'appartenance d'un point sur un segment, un cercle, une droite ou une demi-droite
+     * @memberof Point
+     * @param {Segment | Cercle | Droite | DemiDroite} objet Objet géométrique dont on veut tester si le point en fait partie
+     * @example M.estSur(s) // Renvoie true si M appartient au segment s (au préalablement défini), false sinon
+     * @return {boolean}
+     */
   // JSDOC Validee par EE Aout 2022
   this.estSur = function (objet) {
     if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.000001))
@@ -444,7 +443,7 @@ export function TracePointSurDroite (A, O, color = 'black') {
   this.y = A.y
   let M, d
   this.bordures = [A.x - 0.2, A.y - 0.2, A.x + 0.2, A.x + 0.2]
-  
+
   if (O.constructor === Point) {
     if (longueur(this.lieu, O) < 0.001) {
       window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', {
@@ -605,116 +604,6 @@ export function pointAdistance (...args) {
     }
   } else {
     return similitude(B, A, args[2], d, args[3], args[4])
-  }
-}
-
-/**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {...Point[]} points Points mis à la suite
- * @param {string} [color = 'black'] Couleur des points : du type 'blue' ou du type '#f15929'
- * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} color Couleur des points. À associer obligatoirement à colorToLatexOrHTML().
- * @property {number} taille Taille de la boite contenant le nom des points
- * @property {number} largeur Largeur de la boite contenant le nom des points
- * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
- * @author Rémi Angot
- * @class
- */
-// JSDOC Validee par EE Septembre 2022
-export function LabelPoint (...points) {
-  ObjetMathalea2D.call(this, {})
-  if (!this.taille) this.taille = 10
-  if (!this.largeur) this.largeur = 10
-  if (typeof points[points.length - 1] === 'string') {
-    this.color = colorToLatexOrHTML(points[points.length - 1])
-    points.length--
-  } else this.color = colorToLatexOrHTML('black')
-  let xmin = 1000
-  let xmax = -1000
-  let ymin = 1000
-  let ymax = -1000
-  let lePoint
-  for (const unPoint of points) {
-    if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('LabelPoint : argument invalide', { ...points })
-    lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.c2d
-    xmin = Math.min(xmin, lePoint.x - ((lePoint.positionLabel.indexOf('left') + this.positionLabel.indexOf('left')) !== -2 ? 4 : 0)) // 4 à cause de 3G40
-    xmax = Math.max(xmax, lePoint.x + ((lePoint.positionLabel.indexOf('right') + this.positionLabel.indexOf('right')) !== -2 ? 0 : 1))
-    ymin = Math.min(ymin, lePoint.y - ((lePoint.positionLabel.indexOf('below') + this.positionLabel.indexOf('below')) !== -2 ? 0 : 1))
-    ymax = Math.max(ymax, lePoint.y + ((lePoint.positionLabel.indexOf('above') + this.positionLabel.indexOf('above')) !== -2 ? 2 : 0))
-  }
-  this.bordures = [xmin, ymin, xmax, ymax]
-  this.svg = function (coeff) {
-    let code = ''
-    let x
-    let y, A
-    if (Array.isArray(points[0])) {
-      // Si le premier argument est un tableau
-      this.listePoints = points[0]
-    } else {
-      this.listePoints = points
-    }
-    for (const unPoint of this.listePoints) {
-      if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.c2d
-      } else {
-        A = unPoint
-      }
-      if (A.nom !== undefined) {
-        x = A.x
-        y = A.y
-        if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
-        switch (A.positionLabel) {
-          case 'left':
-            code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-          case 'right':
-            code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-          case 'below':
-            code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-          case 'above':
-            code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-          case 'above left':
-            code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-          case 'above right':
-            code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-          case 'below left':
-            code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-          case 'below right':
-            code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-          default:
-            code += texteParPosition(A.nom, x, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-            break
-        }
-      }
-    }
-    
-    code = `<g id="${this.id}">${code}</g>`
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    let A
-    let style = ''
-    if (this.color[0] !== 'black') {
-      style = `,color=${this.color[1]}`
-    }
-    for (const unPoint of points) {
-      if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.c2d
-      } else {
-        A = unPoint
-      }
-      
-      code += A.nom === '' ? '' : `\t\\draw (${arrondi(A.x)},${arrondi(A.y)}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
-    }
-    return code
   }
 }
 
