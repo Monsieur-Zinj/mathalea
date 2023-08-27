@@ -6,8 +6,9 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
 
 export const amcReady = true
@@ -53,7 +54,6 @@ export default function DivisionsEuclidiennesEgalite () {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       q = randint(7, 75)
@@ -89,7 +89,10 @@ export default function DivisionsEuclidiennesEgalite () {
           <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`
           break
       }
-      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: 'Quotient : ', texteApres: sp(5) })
+      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', {
+        texte: 'Quotient : ',
+        texteApres: sp(5)
+      })
       texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: ' Reste : ' })
       setReponse(this, 2 * i, q)
       setReponse(this, 2 * i + 1, r)

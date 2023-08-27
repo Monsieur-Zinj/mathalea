@@ -2,9 +2,10 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Moitié'
 export const amcReady = true
 export const interactifReady = true
@@ -15,7 +16,7 @@ export const amcType = 'AMCNum'
  *  a,b avec a et b pairs ou 1xx avec xx un nombre pair
  * @author Rémi Angot
  * Référence CM009
-*/
+ */
 export const uuid = '14688'
 export const ref = 'CM009'
 export default function Moitie () {
@@ -39,7 +40,6 @@ export default function Moitie () {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 2
@@ -53,7 +53,7 @@ export default function Moitie () {
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${a * 2 + 1}$`
           texteCorr = `$\\text{La moitié de }${a * 2 + 1
-            } \\text{ est } ${texNombre(a + 5 / 10)}$`
+                    } \\text{ est } ${texNombre(a + 5 / 10)}$`
           setReponse(this, i, calcul(a + 5 / 10))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
@@ -61,8 +61,8 @@ export default function Moitie () {
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${texNombre(a * 2 * 100)}$`
           texteCorr = `$\\text{La moitié de }${texNombre(
-            a * 2 * 100
-          )} \\text{ est } ${texNombre(a * 100)}$`
+                        a * 2 * 100
+                    )} \\text{ est } ${texNombre(a * 100)}$`
           setReponse(this, i, a * 100)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
@@ -70,8 +70,8 @@ export default function Moitie () {
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${texNombre((a * 2 + 1) * 100)}$`
           texteCorr = `$\\text{La moitié de }${texNombre(
-            (a * 2 + 1) * 100
-          )} \\text{ est } ${texNombre(a * 100 + 50)}$`
+                        (a * 2 + 1) * 100
+                    )} \\text{ est } ${texNombre(a * 100 + 50)}$`
           setReponse(this, i, a * 100 + 50)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
@@ -79,11 +79,11 @@ export default function Moitie () {
           a = randint(2, 9)
           b = randint(2, 9)
           texte = `$\\text{La moitié de }${texNombre(
-            a * 2 + (b * 2) / 100
-          )}$`
+                        a * 2 + (b * 2) / 100
+                    )}$`
           texteCorr = `$\\text{La moitié de }${texNombre(
-            a * 2 + (b * 2) / 100
-          )} \\text{ est } ${texNombre(a + b / 100)}$`
+                        a * 2 + (b * 2) / 100
+                    )} \\text{ est } ${texNombre(a + b / 100)}$`
           setReponse(this, i, calcul(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
@@ -91,7 +91,7 @@ export default function Moitie () {
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${100 + a * 2}$`
           texteCorr = `$\\text{La moitié de }${100 + a * 2} \\text{ est } ${50 + a
-            }$`
+                    }$`
           setReponse(this, i, 50 + a)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break

@@ -9,7 +9,6 @@ import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store.js'
 import { get } from 'svelte/store'
 // @ts-ignore
-import { setReponse } from './interactif/gestionInteractif.js'
 // @ts-ignore
 import { ajouteChampTexteMathLive } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrl.json'
@@ -22,6 +21,7 @@ import renderScratch from './renderScratch.js'
 import { decrypt, isCrypted } from '../components/utils/urls.js'
 import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
+import { setReponse } from './interactif/gestionInteractif'
 
 function getExerciceStaticByUuid (uuid: string) {
   for (const examen in referentielStatic) {

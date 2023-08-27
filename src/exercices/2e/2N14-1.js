@@ -2,9 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
@@ -46,7 +47,14 @@ export default function EnsembleDeNombres () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 9, melange: 10, defaut: 10, nbQuestions: this.nbQuestions })
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 9,
+      melange: 10,
+      defaut: 10,
+      nbQuestions: this.nbQuestions
+    })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, d, texte, texteCorr, signeAjoute, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
@@ -116,7 +124,9 @@ export default function EnsembleDeNombres () {
 
           b = choice([4, 5, 8, 10])
           a = randint(4, 100)
-          while (a % b === 0) { a = randint(4, 100) }
+          while (a % b === 0) {
+            a = randint(4, 100)
+          }
           a = choice([a, -a])
 
           texte = `$\\dfrac{${a}}{${b}}\\in $`

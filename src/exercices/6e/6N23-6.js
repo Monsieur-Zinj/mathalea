@@ -9,14 +9,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  calcul,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -63,12 +59,18 @@ export default function DivisionFraction () {
       : [7, 8, 9]
     const listeTypeDeQuestions = (!this.sup2)
       ? combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-      : gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions })// Exercice à la carte
+      : gestionnaireFormulaireTexte({
+        saisie: this.sup3,
+        min: 1,
+        max: 9,
+        defaut: 10,
+        melange: 10,
+        nbQuestions: this.nbQuestions
+      })// Exercice à la carte
 
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // fraction : entier divisé par 4 quotient : xx,25 ou xx,75
@@ -120,7 +122,7 @@ export default function DivisionFraction () {
       }
       if (this.sup === 2) {
         this.consigne =
-          'Calculer une valeur approchée au centième près des fractions suivantes.'
+                    'Calculer une valeur approchée au centième près des fractions suivantes.'
       }
       texte = `$${deprecatedTexFraction(texNombre(a), texNombre(b))}$`
       if (this.sup === 1) {
@@ -135,7 +137,12 @@ export default function DivisionFraction () {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
-        this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(q) + nombreDeChiffresDansLaPartieDecimale(q) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(q) + 1, signe: false, exposantNbChiffres: 0 }
+        this.autoCorrection[i].reponse.param = {
+          digits: nombreDeChiffresDansLaPartieEntiere(q) + nombreDeChiffresDansLaPartieDecimale(q) + 2,
+          decimals: nombreDeChiffresDansLaPartieDecimale(q) + 1,
+          signe: false,
+          exposantNbChiffres: 0
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

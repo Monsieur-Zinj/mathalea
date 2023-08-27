@@ -6,9 +6,10 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Mettre bout à bout des segments'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -42,7 +43,10 @@ export default function AjouterDesFractionsDunite () {
       sc = 0.3
     }
 
-    let params; let den; const num = [0, 0, 0, 0]; const f = []
+    let params
+    let den
+    const num = [0, 0, 0, 0]
+    const f = []
 
     const liste = combinaisonListes([5, 6, 7, 8], this.nbQuestions)
 
@@ -53,16 +57,25 @@ export default function AjouterDesFractionsDunite () {
       num[1] = randint(1, den - 1, num[0])
       num[2] = randint(1, den - 1, num[1])
       num[3] = randint(1, den - 1, [num[2], num[0]])
-      for (let j = 0; j < 4; j++) { f[j] = fraction(num[j], den) }
+      for (let j = 0; j < 4; j++) {
+        f[j] = fraction(num[j], den)
+      }
 
       texte = `On place bout à bout 4 segments de longueurs respectives $${f[0].texFraction}$, $${f[1].texFraction}$, $${f[2].texFraction}$ et $${f[3].texFraction}$.<br>`
       texte += 'Quelle est la longueur du segment obtenu ?'
-      setReponse(this, i, new FractionEtendue(num[0] + num[1] + num[2] + num[3], den), { digitsNum: nombreDeChiffresDe(num[0] + num[1] + num[2] + num[3]) + randint(0, 1), digitsDen: nombreDeChiffresDe(den) + randint(0, 1), signe: false, formatInteractif: 'fractionEgale' })
+      setReponse(this, i, new FractionEtendue(num[0] + num[1] + num[2] + num[3], den), {
+        digitsNum: nombreDeChiffresDe(num[0] + num[1] + num[2] + num[3]) + randint(0, 1),
+        digitsDen: nombreDeChiffresDe(den) + randint(0, 1),
+        signe: false,
+        formatInteractif: 'fractionEgale'
+      })
       if (this.interactif && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25')
       }
       texteCorr = 'Voici sur ces dessins, coloriés en rouge, les différents segments :<br>'
-      for (let j = 0; j < 4; j++) { objets.push(f[j].representation(0, 5 - j * 1.25, 5, 0, 'segment', 'red', 0, 1, 1)) }
+      for (let j = 0; j < 4; j++) {
+        objets.push(f[j].representation(0, 5 - j * 1.25, 5, 0, 'segment', 'red', 0, 1, 1))
+      }
       params = {
         xmin: -0.4,
         ymin: -1.5,

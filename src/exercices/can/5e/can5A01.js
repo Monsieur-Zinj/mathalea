@@ -1,12 +1,13 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { scratchblock } from '../../../modules/scratchblock.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Travailler les répétitions (Scratch)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

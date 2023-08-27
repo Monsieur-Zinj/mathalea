@@ -1,8 +1,9 @@
 import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
@@ -16,7 +17,7 @@ export const dateDePublication = '19/06/2022' // La date de publication initiale
  *
  * @author Gilles Mora
  * Référence can1L09
-*/
+ */
 export const uuid = '6adb0'
 export const ref = 'can1L09'
 export default function EquationSecondDegreParticuliere () {

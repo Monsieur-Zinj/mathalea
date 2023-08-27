@@ -6,10 +6,11 @@ import { prenomF } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import { texNombre3 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, estentier, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre des problèmes de masses'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,7 +30,7 @@ export const dateDePublication = '02/11/2021'
  * @author Eric Elter
  * Référence 6C12-1 - Inspiré de 6C12 - Exercice aisément adaptable pour les CM.
  * Date octobre 2021
-*/
+ */
 
 export const uuid = '4e2b2'
 export const ref = '6C12-1'
@@ -55,22 +56,22 @@ export default function QuestionsMasses () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       /* let QuestionsDisponibles = []
 
-      if (!this.sup) { // Si aucune liste n'est saisie
-        QuestionsDisponibles = rangeMinMax(1, 8)
-      } else {
-        if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-          QuestionsDisponibles[0] = contraindreValeur(1, 9, this.sup, 9)
-        } else {
-          QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-          for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-            QuestionsDisponibles[i] = contraindreValeur(1, 9, parseInt(QuestionsDisponibles[i]), 9) // parseInt en fait un tableau d'entiers
-          }
-        }
-      }
-      if (compteOccurences(QuestionsDisponibles, 9) > 0) QuestionsDisponibles = rangeMinMax(1, 8) // Teste si l'utilisateur a choisi tout
-      enleveDoublonNum(QuestionsDisponibles)
-      if (this.sup2) QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, QuestionsDisponibles.length)
-       */
+            if (!this.sup) { // Si aucune liste n'est saisie
+              QuestionsDisponibles = rangeMinMax(1, 8)
+            } else {
+              if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+                QuestionsDisponibles[0] = contraindreValeur(1, 9, this.sup, 9)
+              } else {
+                QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+                for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+                  QuestionsDisponibles[i] = contraindreValeur(1, 9, parseInt(QuestionsDisponibles[i]), 9) // parseInt en fait un tableau d'entiers
+                }
+              }
+            }
+            if (compteOccurences(QuestionsDisponibles, 9) > 0) QuestionsDisponibles = rangeMinMax(1, 8) // Teste si l'utilisateur a choisi tout
+            enleveDoublonNum(QuestionsDisponibles)
+            if (this.sup2) QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, QuestionsDisponibles.length)
+             */
 
       const QuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,
@@ -202,7 +203,8 @@ export default function QuestionsMasses () {
               reponseAMC = troncature(arrondi(PrixUnitaire / 10, 3) + 0.01, 2)
               correctionAMC += `$${texNombre3(PrixUnitaire)} \\div 10 = ${texNombre3(arrondi(PrixUnitaire / 10, 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / 10, 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / 10, 3))} < ${texNombre3(reponseAMC)}$<br>`
               correctionAMC += `Si ${quidame} partageait un kilogramme de ${ArticlePluriel} avec $9$ amis, chacun donnerait équitablement au moins ` + texteEnCouleurEtGras(`$${texPrix(reponseAMC)}$`) + `${sp()}€.<br><br>`
-            } break
+            }
+            break
           case 8 :
             enonceAMC += `Si ${quidame} décidait d'acheter un kilogramme de  ${ArticlePluriel} avec $${Nbpartage}$ camarades, quelle somme équitable minimale devraient-ils, chacun, donner${sp()}?<br><br>`
             correctionAMC += `$1 + ${Nbpartage} = ${Nbpartage + 1}$<br>`
@@ -239,36 +241,36 @@ export default function QuestionsMasses () {
           propositionsAMC[2 * kk] = {
             type: 'AMCOpen',
             propositions:
-            [
-              {
-                texte: correctionAMC,
-                statut: lignesAMC,
-                enonce: enonceAMC,
-                sanscadre: sanscadreAMC
-              }
-            ]
+                            [
+                              {
+                                texte: correctionAMC,
+                                statut: lignesAMC,
+                                enonce: enonceAMC,
+                                sanscadre: sanscadreAMC
+                              }
+                            ]
           }
           propositionsAMC[2 * kk + 1] = {
             type: 'AMCNum',
             propositions:
-             [
-               {
-                 texte: (this.sup4 === 1) ? correctionAMC : '',
-                 statut: '',
-                 reponse:
-                   {
-                     texte: (this.sup4 === 1) ? enonceAMC : '',
-                     valeur: [reponseAMC],
-                     alignement: alignementAMC,
-                     param:
-                       {
-                         digits: digitAMC,
-                         decimals: decimalesAMC,
-                         signe: false
-                       }
-                   }
-               }
-             ]
+                            [
+                              {
+                                texte: (this.sup4 === 1) ? correctionAMC : '',
+                                statut: '',
+                                reponse:
+                                        {
+                                          texte: (this.sup4 === 1) ? enonceAMC : '',
+                                          valeur: [reponseAMC],
+                                          alignement: alignementAMC,
+                                          param:
+                                                {
+                                                  digits: digitAMC,
+                                                  decimals: decimalesAMC,
+                                                  signe: false
+                                                }
+                                        }
+                              }
+                            ]
           }
         }
       }

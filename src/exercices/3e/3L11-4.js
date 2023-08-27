@@ -4,9 +4,10 @@ import { abs } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,12 +15,12 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 /**
-* Utiliser la simple ou la double distributivité et réduire l'expression
-*
-* @author Rémi Angot
-* 3L11-4
-* Ajout du paramétrage : Guillaume Valmont 13/08/2021
-*/
+ * Utiliser la simple ou la double distributivité et réduire l'expression
+ *
+ * @author Rémi Angot
+ * 3L11-4
+ * Ajout du paramétrage : Guillaume Valmont 13/08/2021
+ */
 export const uuid = '5f5a6'
 export const ref = '3L11-4'
 export default function FactoriserParNombreOux () {

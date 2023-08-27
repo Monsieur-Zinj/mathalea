@@ -6,11 +6,12 @@ import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import Decimal from 'decimal.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Lire graphiquement les valeurs de $b$ et $c$ avec une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +23,7 @@ export const dateDePublication = '08/06/2022' // La date de publication initiale
  *
  * @author Gilles Mora
  * Référence can1F05
-*/
+ */
 export const uuid = '053d7'
 export const ref = 'can1F05'
 export default function LectureGraphiqueParabolebEtc () {
@@ -74,7 +75,15 @@ export default function LectureGraphiqueParabolebEtc () {
           
           ` +
 
-          mathalea2d({ xmin: -5, xmax: 5, ymin: Math.floor(f((x1 + x2) / 2)) - 1.5, ymax: Math.max(3, f(0) + 1), pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+                mathalea2d({
+                  xmin: -5,
+                  xmax: 5,
+                  ymin: Math.floor(f((x1 + x2) / 2)) - 1.5,
+                  ymax: Math.max(3, f(0) + 1),
+                  pixelsParCm: 25,
+                  scale: 0.6,
+                  style: 'margin: auto'
+                }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$b=$' })

@@ -146,9 +146,9 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
       }
 
-      let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
-      enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + '<br>'
-      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.` + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25') + '<br>'
+      let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.'
+      enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10')
+      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.`
       if (this.interactif) {
         enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir "aucune" s\'il n\'y en a pas).<br>'
         enonceSousRepere += 'Solution(s) : ' + ajouteChampTexteMathLive(this, 3 * i + 1, 'alphanumeric nospacebefore inline largeur15') + '<br>'

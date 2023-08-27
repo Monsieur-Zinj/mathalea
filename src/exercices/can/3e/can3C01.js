@@ -1,11 +1,12 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { context } from '../../../modules/context.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer avec des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -102,7 +103,7 @@ export default function CalculPuissanceSimple () {
           }
           this.canEnonce = texte
           break
-    // this.optionsChampTexte = { texteApres: "(juste l'exposant)" }
+                // this.optionsChampTexte = { texteApres: "(juste l'exposant)" }
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

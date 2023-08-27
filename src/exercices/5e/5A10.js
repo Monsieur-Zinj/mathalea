@@ -3,10 +3,11 @@ import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, contraindreValeur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const dateDeModifImportante = '28/10/2021'
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 export const interactifReady = true

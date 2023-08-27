@@ -5,13 +5,9 @@ import { cribleEratostheneN, obtenirListeFacteursPremiers, premiersEntreBornes }
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -60,12 +56,12 @@ export default function DecompositionFacteursPremiers () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     /* From Sebastien Lozano
-    let typesDeQuestionsDisponibles = [1, 2, 3]
-    typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
+        let typesDeQuestionsDisponibles = [1, 2, 3]
+        typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
 
-    // let typesDeQuestionsDisponibles = [1];
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    */
+        // let typesDeQuestionsDisponibles = [1];
+        const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+        */
     let stringRappel = 'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' + cribleEratostheneN(100)[0]
     for (let k = 1; k < cribleEratostheneN(100).length; k++) {
       stringRappel += ', ' + cribleEratostheneN(100)[k]
@@ -96,7 +92,7 @@ export default function DecompositionFacteursPremiers () {
       switch (typesDeQuestions) {
         case 1: // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max
           {
-          // on fixe le nombre de facteurs premier entre 3 et 5
+            // on fixe le nombre de facteurs premier entre 3 et 5
             const nbDePremiers = randint(3, 5)
             // on fixe la limite pour le choix des premiers
             const maxPremier = 11
@@ -191,7 +187,7 @@ export default function DecompositionFacteursPremiers () {
           break
         case 2: // deux premiers compris entre 30 et 100 de multiplicité 1
           {
-          // on choisit un rang différent pour chaque premier entre 30 et 100
+            // on choisit un rang différent pour chaque premier entre 30 et 100
             const r1 = randint(0, premiersEntreBornes(30, 100).length - 1)
             const r2 = randint(0, premiersEntreBornes(30, 100).length - 1, r1)
             let premier1 = premiersEntreBornes(30, 100)[r1]
@@ -227,7 +223,7 @@ export default function DecompositionFacteursPremiers () {
           break
         case 3: // un gros premier entre 1000 et 2000
           {
-          // on choisit un rang pour le nombre premier entre 1000 et 2000
+            // on choisit un rang pour le nombre premier entre 1000 et 2000
             const r = randint(0, premiersEntreBornes(1000, 2000).length - 1)
             const premier = premiersEntreBornes(1000, 2000)[r]
             const racinePremier = Math.trunc(Math.sqrt(premier))

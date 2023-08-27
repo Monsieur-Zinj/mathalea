@@ -5,9 +5,10 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntie
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
@@ -47,13 +48,22 @@ export default function MultiplierDecimauxPar101001000 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let typesDeQuestionsDisponibles = []; let typesDeQuestions
+    let typesDeQuestionsDisponibles = []
+    let typesDeQuestions
     if (this.sup === 1 && !this.sup2) typesDeQuestionsDisponibles = [1, 2]
-    if (this.sup === 1 && this.sup2) { typesDeQuestionsDisponibles = [1, 2, 5, 6] }
+    if (this.sup === 1 && this.sup2) {
+      typesDeQuestionsDisponibles = [1, 2, 5, 6]
+    }
     if (this.sup === 2 && !this.sup2) typesDeQuestionsDisponibles = [3, 4]
-    if (this.sup === 2 && this.sup2) { typesDeQuestionsDisponibles = [3, 4, 3, 4, 7, 8, 9, 10] }
-    if (this.sup === 3 && !this.sup2) { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
-    if (this.sup === 3 && this.sup2) { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+    if (this.sup === 2 && this.sup2) {
+      typesDeQuestionsDisponibles = [3, 4, 3, 4, 7, 8, 9, 10]
+    }
+    if (this.sup === 3 && !this.sup2) {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4]
+    }
+    if (this.sup === 3 && this.sup2) {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    }
     if (this.sup2) this.consigne = 'Calculer et compléter.'
     let reponse
     const listeTypeDeQuestions = combinaisonListes(
@@ -68,7 +78,6 @@ export default function MultiplierDecimauxPar101001000 () {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, den;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
@@ -84,8 +93,8 @@ export default function MultiplierDecimauxPar101001000 () {
           b = facteurs[i]
           texte = `$${texNombre(a)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(a)} \\times ${texNombre(
-            b
-          )} = ${miseEnEvidence(texNombre(a * b))}$`
+                        b
+                    )} = ${miseEnEvidence(texNombre(a * b))}$`
           reponse = calcul(a * b)
           break
         case 2: // 10 × a,abcd
@@ -100,8 +109,8 @@ export default function MultiplierDecimauxPar101001000 () {
           b = facteurs[i]
           texte = `$${texNombre(b)}\\times${texNombre(a)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(b)} \\times ${texNombre(
-            a
-          )} = ${miseEnEvidence(texNombre(a * b))}$`
+                        a
+                    )} = ${miseEnEvidence(texNombre(a * b))}$`
           reponse = calcul(a * b)
           break
         case 3: // abcd/10 × 10
@@ -117,8 +126,8 @@ export default function MultiplierDecimauxPar101001000 () {
           }
           texte = `$${deprecatedTexFraction(a, den)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${deprecatedTexFraction(a, den)} \\times ${texNombre(
-            b
-          )} = ${deprecatedTexFraction(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
+                        b
+                    )} = ${deprecatedTexFraction(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
           reponse = calcul(a * b / den)
           break
         case 4: // 10 × abcd/10
@@ -134,9 +143,9 @@ export default function MultiplierDecimauxPar101001000 () {
           }
           texte = `$${texNombre(b)}\\times${deprecatedTexFraction(a, den)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(b)} \\times ${deprecatedTexFraction(
-            a,
-            den
-          )} = ${deprecatedTexFraction(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
+                        a,
+                        den
+                    )} = ${deprecatedTexFraction(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
           reponse = calcul(a * b / den)
           break
         case 5: // .... × 10 = a,abcd
@@ -151,8 +160,8 @@ export default function MultiplierDecimauxPar101001000 () {
           b = facteurs[i]
           texte = `$\\ldots \\times${texNombre(b)} = ${texNombre(a * b)}$`
           texteCorr = `$${miseEnEvidence(
-            texNombre(a)
-          )} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
+                        texNombre(a)
+                    )} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
           reponse = a
           break
         case 6: // 10 × .... = a,abcd
@@ -167,8 +176,8 @@ export default function MultiplierDecimauxPar101001000 () {
           b = facteurs[i]
           texte = `$${texNombre(b)} \\times \\ldots = ${texNombre(a * b)}$`
           texteCorr = `$${texNombre(b)} \\times ${miseEnEvidence(
-            texNombre(a)
-          )}  = ${texNombre(a * b)}$`
+                        texNombre(a)
+                    )}  = ${texNombre(a * b)}$`
           reponse = b
           break
         case 7: // case 3 avec un trou sur l'entier
@@ -183,11 +192,11 @@ export default function MultiplierDecimauxPar101001000 () {
             den = choice([10, 100, 1000])
           }
           texte = `$${deprecatedTexFraction(a, den)}\\times \\ldots = ${texNombre(
-            (a / den) * b
-          )}$`
+                        (a / den) * b
+                    )}$`
           texteCorr = `$${deprecatedTexFraction(a, den)} \\times ${miseEnEvidence(
-            texNombre(b)
-          )} = ${deprecatedTexFraction(a * b, den)} = ${texNombre((a / den) * b)}$`
+                        texNombre(b)
+                    )} = ${deprecatedTexFraction(a * b, den)} = ${texNombre((a / den) * b)}$`
           reponse = b
           break
         case 8: // case 4 avec un trou sur l'entier
@@ -202,14 +211,14 @@ export default function MultiplierDecimauxPar101001000 () {
             den = choice([10, 100, 1000])
           }
           texte = `$ \\ldots \\times${deprecatedTexFraction(a, den)}= ${texNombre(
-            (a / den) * b
-          )}$`
+                        (a / den) * b
+                    )}$`
           texteCorr = `$${miseEnEvidence(
-            texNombre(b)
-          )} \\times ${deprecatedTexFraction(a, den)} = ${deprecatedTexFraction(
-            a * b,
-            den
-          )} = ${texNombre((a / den) * b)}$`
+                        texNombre(b)
+                    )} \\times ${deprecatedTexFraction(a, den)} = ${deprecatedTexFraction(
+                        a * b,
+                        den
+                    )} = ${texNombre((a / den) * b)}$`
           reponse = b
           break
         case 9: // case 3 avec trou sur la fraction
@@ -224,15 +233,15 @@ export default function MultiplierDecimauxPar101001000 () {
             den = choice([10, 100, 1000])
           }
           texte = `$${deprecatedTexFraction(a, '\\ldots')}\\times${texNombre(
-            b
-          )} = ${texNombre((a / den) * b)}$`
+                        b
+                    )} = ${texNombre((a / den) * b)}$`
           texteCorr = `$${deprecatedTexFraction(
-            a,
-            miseEnEvidence(texNombre(den))
-          )} \\times ${texNombre(b)} = ${deprecatedTexFraction(
-            a * b,
-            den
-          )} = ${texNombre((a / den) * b)}$`
+                        a,
+                        miseEnEvidence(texNombre(den))
+                    )} \\times ${texNombre(b)} = ${deprecatedTexFraction(
+                        a * b,
+                        den
+                    )} = ${texNombre((a / den) * b)}$`
           reponse = den
           break
         case 10: // case 4 avec trou sur la fraction
@@ -247,13 +256,13 @@ export default function MultiplierDecimauxPar101001000 () {
             den = choice([10, 100, 1000])
           }
           texte = `$${texNombre(b)}\\times${deprecatedTexFraction(
-            a,
-            '\\ldots'
-          )} = ${texNombre((a / den) * b)}$`
+                        a,
+                        '\\ldots'
+                    )} = ${texNombre((a / den) * b)}$`
           texteCorr = `$${texNombre(b)} \\times ${deprecatedTexFraction(
-            a,
-            miseEnEvidence(texNombre(den))
-          )} = ${deprecatedTexFraction(a * b, den)} = ${texNombre((a / den) * b)}$`
+                        a,
+                        miseEnEvidence(texNombre(den))
+                    )} = ${deprecatedTexFraction(a * b, den)} = ${texNombre((a / den) * b)}$`
           reponse = den
           break
       }
@@ -262,7 +271,12 @@ export default function MultiplierDecimauxPar101001000 () {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
-        this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(reponse) + nombreDeChiffresDansLaPartieDecimale(reponse) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1, signe: false, exposantNbChiffres: 0 }
+        this.autoCorrection[i].reponse.param = {
+          digits: nombreDeChiffresDansLaPartieEntiere(reponse) + nombreDeChiffresDansLaPartieDecimale(reponse) + 2,
+          decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1,
+          signe: false,
+          exposantNbChiffres: 0
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

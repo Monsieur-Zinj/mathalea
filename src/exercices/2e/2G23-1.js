@@ -3,14 +3,12 @@ import { grille } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Déterminer graphiquement les images de points par des translations'
@@ -22,6 +20,7 @@ export const dateDePublication = '13/07/2023'
  */
 export const uuid = 'd2b57'
 export const ref = '2G23-1'
+
 // Une fonction pour créer la liste des noms possibles pour un triangle
 function allTrianglesNames (nomA, nomB, nomC) {
   const nomsSommets = [nomA, nomB, nomC]
@@ -36,6 +35,7 @@ function allTrianglesNames (nomA, nomB, nomC) {
   } while (noms.length < 6)
   return noms
 }
+
 export default function ImagePtParTranslation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -46,7 +46,15 @@ export default function ImagePtParTranslation () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, melange: 4, nbQuestions: this.nbQuestions, listeOfCase: ['t1', 't2', 't3'] })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      defaut: 1,
+      melange: 4,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: ['t1', 't2', 't3']
+    })
     for (let i = 0, ExtrVec, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objets = []
       const A = point(0, 4, 'A', 'above right')

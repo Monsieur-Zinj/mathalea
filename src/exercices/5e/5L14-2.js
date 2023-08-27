@@ -5,8 +5,9 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC NumeriqueChoice
 export const interactifType = 'mathLive'
@@ -15,21 +16,21 @@ export const interactifReady = true
 export const titre = 'Substitution'
 
 /**
-* x, y, z étant 3 entiers compris entre 2 et 9, calculer :
-* * kx
-* * kx-y
-* * xy
-* * x+y
-* * x+y+z
-* * x(y+z)
-* * x^2
-* * x^2+ky
-* * x^2+y^2
-* * ax^2+y^2
-* * ax^2+bx+c
-* @author Rémi Angot
-* 5L14-2
-*/
+ * x, y, z étant 3 entiers compris entre 2 et 9, calculer :
+ * * kx
+ * * kx-y
+ * * xy
+ * * x+y
+ * * x+y+z
+ * * x(y+z)
+ * * x^2
+ * * x^2+ky
+ * * x^2+y^2
+ * * ax^2+y^2
+ * * ax^2+bx+c
+ * @author Rémi Angot
+ * 5L14-2
+ */
 export const uuid = '8865d'
 export const ref = '5L14-2'
 export default function ExerciceSubstituer (difficulte = 1) {
@@ -131,28 +132,28 @@ export default function ExerciceSubstituer (difficulte = 1) {
       }
       setReponse(this, i, reponse, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
       /* this.autoCorrection[i] = {
-        enonce: texte + '\\\\' + this.consigne,
-        propositions: [
-          {
-            texte: texteCorr,
-            statut: 'emplacement à louer',
-            feedback: ''
-          }
-        ],
-        reponse: {
-          texte: 'résultat',
-          valeur: [reponse],
-          param: {
-            digits: 3,
-            decimals: 0,
-            signe: false,
-            exposantNbChiffres: 0,
-            exposantSigne: false,
-            approx: 0
-          }
-        }
-      }
-      */
+              enonce: texte + '\\\\' + this.consigne,
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 'emplacement à louer',
+                  feedback: ''
+                }
+              ],
+              reponse: {
+                texte: 'résultat',
+                valeur: [reponse],
+                param: {
+                  digits: 3,
+                  decimals: 0,
+                  signe: false,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
+              }
+            }
+            */
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

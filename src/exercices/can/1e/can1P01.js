@@ -4,6 +4,7 @@ import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Écrire une probabilté avec les notations'
@@ -17,7 +18,7 @@ export const amcType = 'AMCNum'
  *
  * @author Gilles Mora
  *
-*/
+ */
 export const uuid = '15f6d'
 export const ref = 'can1P01'
 export default function ProbabilitesNotation () {
@@ -51,7 +52,9 @@ export default function ProbabilitesNotation () {
             `
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $= ${texNombre(p2, 2)}$`
             texteCorr = `Il ne s'agit pas d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des élèves du lycée.<br>
             $P(F\\cap R)=${texNombre(p2, 2)}$.`
@@ -71,7 +74,9 @@ export default function ProbabilitesNotation () {
             texte += ' En utilisant les événements $F$ et $R$, compléter  avec une probabilité :<br>'
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $= ${texNombre(p2, 2)}$`
             this.canReponseACompleter = ` En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
@@ -90,7 +95,9 @@ export default function ProbabilitesNotation () {
             texte += ' En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>'
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $= ${texNombre(p2, 2)}$`
             this.canReponseACompleter = ` En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
@@ -105,7 +112,9 @@ export default function ProbabilitesNotation () {
             `
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p2, 2)}$`
             this.canReponseACompleter = ` En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
@@ -124,7 +133,9 @@ export default function ProbabilitesNotation () {
             texte += ' En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>'
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += `$= ${texNombre(p2, 2)}$`
             this.canReponseACompleter = ` En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
@@ -159,7 +170,9 @@ export default function ProbabilitesNotation () {
             }
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p2, 2)}$`
             this.canReponseACompleter = ` En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p2, 2)}$`
@@ -179,7 +192,9 @@ export default function ProbabilitesNotation () {
             }
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p4, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes du fournisseur A.<br>
               $P_A(\\overline{C})=${texNombre(p4, 2)}$.`
@@ -199,7 +214,9 @@ export default function ProbabilitesNotation () {
             }
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes commercialisables.<br>
               $P_C(A)=${texNombre(p6, 2)}$.`
@@ -219,7 +236,9 @@ export default function ProbabilitesNotation () {
             }
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes non commercialisables.<br>
               $P_{\\overline{C}}(\\overline{A})=${texNombre(p6, 2)}$.`
@@ -233,7 +252,9 @@ export default function ProbabilitesNotation () {
             this.canEnonce += ` $${p5}\\,\\%$ des pommes  proviennent du fournisseur A et sont commercialisables.`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes.<br>
               $P(A\\cap C)=${texNombre(p6, 2)}$.`
@@ -248,7 +269,9 @@ export default function ProbabilitesNotation () {
             this.canEnonce += ` $${p5}\\,\\%$ des pommes  proviennent du fournisseur B et sont commercialisables.`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes.<br>
             $P(\\overline{A}\\cap C)=${texNombre(p6, 2)}$.`
@@ -262,7 +285,9 @@ export default function ProbabilitesNotation () {
             this.canEnonce += ` $${p5}\\,\\%$ des pommes  proviennent du fournisseur A et ne sont pas commercialisables.`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes.<br>
           $P(A\\cap \\overline{C})=${texNombre(p6, 2)}$.`
@@ -296,7 +321,9 @@ export default function ProbabilitesNotation () {
             }
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des personnes malades.<br>
                 $P_M(T)=${texNombre(p2, 2)}$.`
@@ -317,7 +344,9 @@ export default function ProbabilitesNotation () {
             }
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des personnes non malades.<br>
                 $P_{\\overline{M}}(\\overline{T})=${texNombre(p2, 2)}$.`
@@ -339,7 +368,9 @@ export default function ProbabilitesNotation () {
             }
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des tests positifs.<br>
                 $P_{T}(\\overline{M})=${texNombre(p2, 2)}$.`
@@ -359,7 +390,9 @@ export default function ProbabilitesNotation () {
             }
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p4, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des tests positifs.<br>
                 $P_{\\overline{T}}(M)=${texNombre(p4, 2)}$.`
@@ -374,7 +407,9 @@ export default function ProbabilitesNotation () {
 
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p4, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des personnes.<br>
                 $P(T\\cap M)=${texNombre(p4, 2)}$.`
@@ -390,7 +425,9 @@ export default function ProbabilitesNotation () {
 
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-            } else { texte += '$\\ldots\\ldots $' }
+            } else {
+              texte += '$\\ldots\\ldots $'
+            }
             texte += ` $ = ${texNombre(p4, 2)}$`
             texteCorr = `Il ne s'agit pas  d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des personnes.<br>
                 $P(T\\cap \\overline{M})=${texNombre(p4, 2)}$.`

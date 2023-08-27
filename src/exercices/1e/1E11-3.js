@@ -6,8 +6,9 @@ import {
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Déterminer la forme canonique d\'un polynôme du second degré'
@@ -16,7 +17,7 @@ export const titre = 'Déterminer la forme canonique d\'un polynôme du second d
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
  * @author Stéphane Guyon
  * Référence 1E11
-*/
+ */
 export const uuid = '60504'
 export const ref = '1E11-3'
 export default function Formacanonique () {
@@ -53,18 +54,38 @@ export default function Formacanonique () {
       texteCorr += `<br>d'où, $P(x)=${(a)}\\big(x-${ecritureParentheseSiNegatif(alpha)}\\big)^2+${ecritureParentheseSiNegatif(beta)}$`
       texteCorr += '<br>Au final, $P(x)='
       if (a === 1 || a === -1) {
-        if (a === -1) { texteCorr += '-' }
-      } else { texteCorr += `${a}` }
+        if (a === -1) {
+          texteCorr += '-'
+        }
+      } else {
+        texteCorr += `${a}`
+      }
       texteCorr += `(x ${ecritureAlgebrique(-alpha)})^2`
-      if (beta !== 0) { texteCorr += `${ecritureAlgebrique(beta)}` }
+      if (beta !== 0) {
+        texteCorr += `${ecritureAlgebrique(beta)}`
+      }
       texteCorr += '$'
       if (beta > 0) {
-        if (alpha > 0) { setReponse(this, i, [`${a}(x-${alpha})^2+${beta}`]) } else { setReponse(this, i, [`${a}(x+${-alpha})^2+${beta}`]) }
+        if (alpha > 0) {
+          setReponse(this, i, [`${a}(x-${alpha})^2+${beta}`])
+        } else {
+          setReponse(this, i, [`${a}(x+${-alpha})^2+${beta}`])
+        }
       }
       if (beta < 0) {
-        if (alpha > 0) { setReponse(this, i, [`${a}(x-${alpha})^2${beta}`]) } else { setReponse(this, i, [`${a}(x+${-alpha})^2${beta}`]) }
+        if (alpha > 0) {
+          setReponse(this, i, [`${a}(x-${alpha})^2${beta}`])
+        } else {
+          setReponse(this, i, [`${a}(x+${-alpha})^2${beta}`])
+        }
       }
-      if (beta === 0) { if (alpha > 0) { setReponse(this, i, [`${a}(x-${alpha})^2`]) } else { setReponse(this, i, [`${a}(x+${-alpha})^2}`]) } }
+      if (beta === 0) {
+        if (alpha > 0) {
+          setReponse(this, i, [`${a}(x-${alpha})^2`])
+        } else {
+          setReponse(this, i, [`${a}(x+${-alpha})^2}`])
+        }
+      }
 
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, b, c)) {

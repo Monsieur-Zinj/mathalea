@@ -4,8 +4,9 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, calcul } from '../../../modules/outils.js'
+import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Reconnaître une fonction affine'
@@ -19,7 +20,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence can3F09
-*/
+ */
 export const uuid = 'b60f4'
 export const ref = 'can3F09'
 export default function ReconnaitreFonctionAffine () {
@@ -99,7 +100,9 @@ export default function ReconnaitreFonctionAffine () {
         a = randint(-9, 9, 0)
         b = randint(2, 10)
         c = randint(-9, 9, 0)
-        while (pgcd(a, b) !== 1) { a = randint(-5, 5, 0) }
+        while (pgcd(a, b) !== 1) {
+          a = randint(-5, 5, 0)
+        }
         if (a === -1) {
           this.listeQuestions.push(`Soit $f(x)=\\dfrac{-x}{${b}}${ecritureAlgebrique(c)}$.<br>
 

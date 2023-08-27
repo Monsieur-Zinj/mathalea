@@ -1,9 +1,10 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Double, moitié, tiers, triple'
 export const amcReady = true
 export const interactifReady = true
@@ -13,7 +14,7 @@ export const amcType = 'AMCNum'
 /**
  * Calculer le double ou le triple d'un nombre, calculer la moitié d'un nombre pair ou le tiers d'un multiple de 3
  * @author Rémi Angot
-* Référence CM014
+ * Référence CM014
  */
 export const uuid = '9d994'
 export const ref = 'CM014'
@@ -38,7 +39,6 @@ export default function DoubleMoitieTiersTriple () {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Double

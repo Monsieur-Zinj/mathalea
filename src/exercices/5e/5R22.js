@@ -12,8 +12,9 @@ import { texNombreCoul } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Additions et soustractions de nombres relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,13 +22,13 @@ export const amcReady = true
 export const amcType = 'AMCOpenNum'
 
 /**
-* Effectuer la somme ou la différence de deux nombres relatifs
-*
-* * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
-* * On peut utiliser des écritures simplifiées (ce qui n'est pas le cas par défaut)
-* @author Rémi Angot modifications par Jean-Claude Lhote (Correction optimisée par Eric Elter)
-* Référence 5R22
-*/
+ * Effectuer la somme ou la différence de deux nombres relatifs
+ *
+ * * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
+ * * On peut utiliser des écritures simplifiées (ce qui n'est pas le cas par défaut)
+ * @author Rémi Angot modifications par Jean-Claude Lhote (Correction optimisée par Eric Elter)
+ * Référence 5R22
+ */
 export const uuid = 'f6ea7'
 export const ref = '5R22'
 export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
@@ -96,7 +97,11 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
           texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929')}${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1])}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)}=`
           texteCorr += `${texNombreCoul(a + b + c + d + e, 'blue', '#f15929')} $`
-        } else if (sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0) { texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929')}$` } else { texteCorr += `${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1], 'blue', '#f15929')}$` }
+        } else if (sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0) {
+          texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0], 'blue', '#f15929')}$`
+        } else {
+          texteCorr += `${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1], 'blue', '#f15929')}$`
+        }
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
         if (this.interactif && context.isHtml) {
@@ -117,7 +122,11 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         if (sommesSignees[0] !== 0 && sommesSignees[1] !== 0) {
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(sommesSignees[0])}+${ecritureNombreRelatifc(sommesSignees[1])} $`
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e)} $<br>`
-        } else if (sommesSignees[0] !== 0) { texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0])}$` } else { texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[1])}$<br>` }
+        } else if (sommesSignees[0] !== 0) {
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0])}$`
+        } else {
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[1])}$<br>`
+        }
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

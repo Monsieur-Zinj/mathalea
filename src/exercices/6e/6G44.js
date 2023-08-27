@@ -1,11 +1,21 @@
 import { shuffle } from '../../lib/outils/arrayOutils.js'
-import { homothetie3d, point3d, polygone3d, prisme3d, pyramide3d, pyramideTronquee3d, translation3d, vecteur3d } from '../../modules/3d.js'
+import {
+  homothetie3d,
+  point3d,
+  polygone3d,
+  prisme3d,
+  pyramide3d,
+  pyramideTronquee3d,
+  translation3d,
+  vecteur3d
+} from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Trouver le nombre de faces ou d\'arêtes d\'un solide'
 export const dateDePublication = '7/11/2021'
 export const interactifReady = true
@@ -49,7 +59,9 @@ export default function NombreDeFacesEtDAretes () {
       }
     } else if (this.sup === 1) {
       typeDeQuestion = choix2.slice(0, this.nbQuestions)
-    } else { typeDeQuestion = choix1.slice(0, this.nbQuestions) }
+    } else {
+      typeDeQuestion = choix1.slice(0, this.nbQuestions)
+    }
     console.log(typeDeQuestion)
     typeDeQuestion = shuffle(typeDeQuestion)
     for (let j = 0, choix; j < this.nbQuestions;) {
@@ -83,7 +95,14 @@ export default function NombreDeFacesEtDAretes () {
             corps.base2.c2d[i].isVisible = false
           }
           objets.push(...corps.c2d, ...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 3 * n
           this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, alors le prisme et les deux pyramides possèdent aussi $${n}$ faces.<br>Ce solide est donc constitué de $3\\times ${n}$ faces, soit $${3 * n}$ faces.`
           break
@@ -93,7 +112,14 @@ export default function NombreDeFacesEtDAretes () {
             corps.base2.c2d[i].isVisible = false
           }
           objets.push(...corps.c2d, ...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 5 * n
           this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, alors elles ont aussi $${n}$ arêtes latérales auxquelles on ajoute les $${n}$ arêtes latérales du prisme.<br>Si on ajoute les $${n}$ arêtes de chacune des bases des pyramides, on obtient donc $5\\times ${n}$ arêtes, soit $${5 * n}$ arêtes.`
           break
@@ -102,7 +128,14 @@ export default function NombreDeFacesEtDAretes () {
             corps.base1.c2d[i].isVisible = false
           }
           objets.push(...corps.c2d, ...chapeau1.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -1, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -1,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 2 * n + 1
           this.correction = `Comme le prisme a $${n}$ faces latérales, alors la pyramide en a $${n}$ aussi.<br>Si on ajoute la face du dessous, ce solide est donc constitué de $2\\times ${n}+1$ faces, soit $${2 * n + 1}$ faces.`
 
@@ -112,35 +145,70 @@ export default function NombreDeFacesEtDAretes () {
             corps.base1.c2d[i].isVisible = false
           }
           objets.push(...corps.c2d, ...chapeau1.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -1, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -1,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 4 * n
           this.correction = `Comme le prisme a $${n}$ arêtes latérales, alors la pyramide en a $${n}$ aussi.<br>En ajoutant les arêtes des deux bases du prisme, soit $2\\times ${n}$ arêtes, on obtient donc $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
 
           break
         case 5: // Prisme + 1 pyramide en dessous -> faces ?
           objets.push(...corps.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 3.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 2 * n + 1
           this.correction = `Comme le prisme a $${n}$ faces latérales, alors la pyramide en a $${n}$ aussi.<br>Si on ajoute la face du dessus, ce solide est donc constitué de $2\\times ${n}+1$ faces, soit $${2 * n + 1}$ faces.`
 
           break
         case 6: // Prisme + 1 pyramide en dessous -> arêtes ?
           objets.push(...corps.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 3.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 4 * n
           this.correction = `Comme le prisme a $${n}$ arêtes latérales, alors la pyramide en a $${n}$ aussi.<br>En ajoutant les arêtes des deux bases du prisme, soit $2\\times ${n}$ arêtes, on obtient donc $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
           break
         case 7: // 2 pyramides -> faces ?
           objets.push(...chapeau1.c2d, ...chapeau2.c2d)
           //  objets.push(...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 2 * n
           this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, elles ont aussi $${n}$ faces latérales.<br>Ce solide est donc constitué de $2\\times ${n}$ faces, soit $${2 * n}$ faces.`
 
           break
         case 8: // 2 pyramides -> arêtes ?
           objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 3 * n
           this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, alors elles ont aussi $${n}$ arêtes latérales auxquelles on ajoute les $${n}$ arêtes de la base commune aux deux pyramide.<br>On obtient donc $3\\times ${n}$ arêtes, soit $${3 * n}$ arêtes.`
           break
@@ -153,7 +221,14 @@ export default function NombreDeFacesEtDAretes () {
             }
           }
           objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 2 * n + 2
           this.correction = `Les deux pyramides tronquées ont une base commune à $${n}$ sommets, elles ont donc $${n}$ faces latérales chacune auxquelles il faut ajouter les deux faces parallèles du dessus et du dessous.<br>Ce solide est donc constitué de $2\\times ${n}+2$ faces, soit $${2 * n + 2}$ faces.`
 
@@ -167,7 +242,14 @@ export default function NombreDeFacesEtDAretes () {
             }
           }
           objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 5 * n
           this.correction = `Les deux pyramides tronquées ont une base commune à $${n}$ sommets.<br>Donc elles ont aussi $${n}$ arêtes latérales chacune.<br>Il faut ajouter les $${n}$ arêtes de la base commune aux deux pyramides.<br>Enfin on ajoute les ${n} arêtes de la face du dessus et les ${n} arêtes de la face du dessous.<br>Au total, il y a $5\\times ${n}$ arêtes, soit $${5 * n}$ arêtes.`
           break
@@ -179,7 +261,14 @@ export default function NombreDeFacesEtDAretes () {
             }
           }
           objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 2 * n + 1
           this.correction = `Le solide est composé d'une pyramide à $${n}$ faces latérales et d'un tronc de pyramide<br>qui possède autant de faces latérales plus une face au dessus<br>Ce solide est donc constitué de $2\\times ${n}+1$ faces, soit $${2 * n + 1}$ faces.`
 
@@ -192,7 +281,14 @@ export default function NombreDeFacesEtDAretes () {
             }
           }
           objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 4 * n
           this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
           break
@@ -205,7 +301,14 @@ export default function NombreDeFacesEtDAretes () {
             chapeau2.c2d[i + 2 * n].pointilles = 2
           }
           objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 2 * n + 1
           this.correction = `Le solide est composé d'une pyramide à $${n}$ faces latérales et d'un tronc de pyramide<br>qui possède autant de faces latérales plus une face au dessus<br>Ce solide est donc constitué de $2\\times ${n}+1$ faces, soit $${2 * n + 1}$ faces.`
 
@@ -219,7 +322,14 @@ export default function NombreDeFacesEtDAretes () {
             chapeau2.c2d[i + 2 * n].pointilles = 2
           }
           objets.push(...chapeau1.c2d, ...chapeau2.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = mathalea2d({
+            xmin: -6,
+            ymin: -2.5,
+            xmax: 6,
+            ymax: 4.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, objets)
           this.reponse = 4 * n
           this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
           break

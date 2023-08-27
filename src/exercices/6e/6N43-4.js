@@ -4,8 +4,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver des phrases avec les mots : divisible, diviseur et multiple'
 export const interactifReady = true
@@ -15,7 +15,7 @@ export const interactifType = 'listeDeroulante'
  * Compléter des phrases avec les mots divisible, divieur et multiple
  * @author Rémi Angot
  * Référence 6N43-4
-*/
+ */
 export const uuid = 'f894a'
 export const ref = '6N43-4'
 export default function DivisibleDiviseurMultiple () {

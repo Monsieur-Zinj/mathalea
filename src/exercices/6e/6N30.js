@@ -6,9 +6,9 @@ import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.j
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { arrondi } from '../../lib/outils/nombres.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire l\'abscisse décimale d\'un point'
 export const interactifReady = true

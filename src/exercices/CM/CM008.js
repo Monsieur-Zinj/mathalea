@@ -1,8 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Soustraire 11'
 export const amcReady = true
 export const interactifReady = true
@@ -13,7 +14,7 @@ export const amcType = 'AMCNum'
  * Un nombre à 2 chiffres -11
  * @author Rémi Angot
  * Référence CM008
-*/
+ */
 export const uuid = 'ee307'
 export const ref = 'CM008'
 export default function Soustraire11 () {
@@ -36,7 +37,6 @@ export default function Soustraire11 () {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (listeTypeDeQuestions[i] === 1) {
         a = randint(12, 99)

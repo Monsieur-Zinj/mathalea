@@ -1,12 +1,9 @@
 import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 export const titre = 'Tables de multiplication et de divisions'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -40,7 +37,14 @@ export default function TablesMultiplicationsDivisions (
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
     }
-    const tables = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup, defaut: 9, max: 9, min: 2, enleveDoublons: true })
+    const tables = gestionnaireFormulaireTexte({
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup,
+      defaut: 9,
+      max: 9,
+      min: 2,
+      enleveDoublons: true
+    })
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],

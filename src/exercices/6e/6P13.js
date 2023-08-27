@@ -6,10 +6,11 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Augmenter ou diminuer d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +32,7 @@ export const dateDeModifImportante = '16/04/2023'
  * Référence 6P13
  * Date de Publication : 23/07/2021
  * Relecture : Novembre 2021 par EE
-*/
+ */
 export const uuid = '064ce'
 export const ref = '6P13'
 export default function AugmenterEtReduireDunPourcentage () {

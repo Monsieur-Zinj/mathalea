@@ -14,11 +14,12 @@ import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, printlatex } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
+
+import { min, round } from 'mathjs'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-import { round, min } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'CAN 3e sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,10 +31,11 @@ export const dateDePublication = '30/03/2022' // La date de publication initiale
  * Description didactique de l'exercice
  * Gilles Mora
  * Référence
-*/
+ */
 function compareNombres (a, b) {
   return a - b
 }
+
 export const uuid = 'afd9f'
 export const ref = 'can3a-2021'
 export default function SujetCAN20213ieme () {
@@ -78,7 +80,11 @@ export default function SujetCAN20213ieme () {
           texteCorr = `$${a} \\times ${b}=${a * b}$`
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
 
           break
@@ -93,7 +99,8 @@ export default function SujetCAN20213ieme () {
             texte = `Le quart de $${a}$ est :  `
             texteCorr = `Prendre le quart d'un nombre revient à le diviser par $4$.<br>
                 Ainsi le quart de $${a}$ est : $${a}\\div 4 =${reponse}$.`
-          } if (m === 'tiers') {
+          }
+          if (m === 'tiers') {
             reponse = Math.round(b / 3)
             texte = `Le tiers de $${b}$ est :  `
             texteCorr = `Prendre le tiers d'un nombre revient à le diviser par $3$.<br>
@@ -101,7 +108,11 @@ export default function SujetCAN20213ieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -114,7 +125,11 @@ export default function SujetCAN20213ieme () {
           texte = `$${a} - ${b}=$ `
           texteCorr = `$${a}-${b}=${reponse}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -128,7 +143,11 @@ export default function SujetCAN20213ieme () {
           texteCorr = `$${texNombre(a, 1)}+${texNombre(b, 2)}=${texNombre(reponse, 2)}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -145,7 +164,9 @@ export default function SujetCAN20213ieme () {
           }
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -163,7 +184,9 @@ export default function SujetCAN20213ieme () {
             reponse = arrondi(b + 0.01, 3)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -199,7 +222,11 @@ export default function SujetCAN20213ieme () {
                   `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -220,7 +247,11 @@ export default function SujetCAN20213ieme () {
       ${texNombre(c * 10000)}+ ${texNombre(b * 1000)} + ${texNombre(a * 10)} =${texNombre(reponse)}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -237,7 +268,9 @@ export default function SujetCAN20213ieme () {
            de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${texNombre(prix, 2, true)}=${texNombre(k * prix, 2, true)}$ €.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €'
+          }
           nbChamps = 1
           break
 
@@ -251,7 +284,11 @@ export default function SujetCAN20213ieme () {
           texteCorr += `$${a}\\times 101 = ${a}\\times (100+1)=${a}\\times 100+${a}\\times 1=${texNombre(a * 100, 0)}+${a}=${texNombre(101 * a, 0)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -342,7 +379,17 @@ export default function SujetCAN20213ieme () {
             demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
           reponse = c
           texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 30,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 1,
+            style: 'margin: auto'
+          }, objets)
           texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
           On obtient donc la longueur $AE$ en divisant par $${k}$ la longueur $AD$.<br>
           $AE=\\dfrac{${d}}{${k}}=${c}$.<br>`
@@ -364,7 +411,11 @@ export default function SujetCAN20213ieme () {
           texteCorr = `$f(${c})=${a}\\times ${c}+${b}=${a * c}+${b}=${reponse}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -397,7 +448,11 @@ export default function SujetCAN20213ieme () {
           $${p}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
          `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -426,11 +481,23 @@ export default function SujetCAN20213ieme () {
             segment(B, D), segment(D, C), s1, s2, c)
           reponse = 3 * b
           texte = 'Donne le volume exact de ce cône.<br>'
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 30,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 1,
+            style: 'margin: auto'
+          }, objets)
           texteCorr = `Le volume du cône est  : $\\dfrac{1}{3}\\times \\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
           Soit : $\\dfrac{1}{3}\\times \\pi \\times 3^2\\times ${b}=${reponse}\\pi$ cm$^3$.  `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\pi$cm$^3$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\pi$cm$^3$'
+          }
           nbChamps = 1
           break
 
@@ -446,7 +513,11 @@ export default function SujetCAN20213ieme () {
           texteCorr = `$${a}\\times ${e[0]}+${a}\\times ${e[1]}=${a}\\times( ${e[0]}+ ${e[1]})=${a}\\times ${e[0] + e[1]}=${texNombre(reponse, 0)}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -459,7 +530,9 @@ export default function SujetCAN20213ieme () {
           texteCorr = `En simplifiant, on obtient : $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}=\\dfrac{${fraction18[0]}}{${fraction18[1]}}=${texNombre(reponse, 2)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -488,7 +561,17 @@ export default function SujetCAN20213ieme () {
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.2, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1.2,
+              style: 'margin: auto'
+            }, objets)
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -504,7 +587,17 @@ export default function SujetCAN20213ieme () {
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -520,7 +613,17 @@ export default function SujetCAN20213ieme () {
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -529,7 +632,11 @@ export default function SujetCAN20213ieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm' } else { texte += ' $\\ldots$ dm ' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm'
+          } else {
+            texte += ' $\\ldots$ dm '
+          }
           nbChamps = 1
           break
 
@@ -543,7 +650,11 @@ export default function SujetCAN20213ieme () {
           En $${b}$ min $30$ s, il aura parcouru : $${b}\\times ${60 * a}+${30 * a}=${texNombre(a * (60 * b + 30), 0)}$ m.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm' } else { texte += '(en m)' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
+          } else {
+            texte += '(en m)'
+          }
           nbChamps = 1
           break
 
@@ -556,7 +667,11 @@ export default function SujetCAN20213ieme () {
           $${a}$ cm$^3 = ${a}\\times 0,001=${texNombre(reponse, 3)}$ L.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += '$\\ldots$ L ' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+          } else {
+            texte += '$\\ldots$ L '
+          }
           nbChamps = 1
           break
 
@@ -575,7 +690,9 @@ export default function SujetCAN20213ieme () {
           reponse = b.simplifie()
 
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -615,7 +732,17 @@ export default function SujetCAN20213ieme () {
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`4x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texteCorr = `La figure est composée de $4$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
           Le périmètre de cette figure est donc : $4\\times x+2\\times ${a}+${b}=4x+${2 * a + b}$.   `
           }
@@ -653,7 +780,17 @@ export default function SujetCAN20213ieme () {
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${4 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $4$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
             Le périmètre de cette figure est donc : $2\\times x+4\\times ${a}+${b}=2x+${4 * a + b}$.   `
           }
@@ -689,7 +826,17 @@ export default function SujetCAN20213ieme () {
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${3 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $3$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
               Le périmètre de cette figure est donc : $2\\times x+3\\times ${a}+${b}=2x+${3 * a + b}$.   `
           }
@@ -724,13 +871,25 @@ export default function SujetCAN20213ieme () {
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`3x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texteCorr = `La figure est composée de $3$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
                 Le périmètre de cette figure est donc : $3\\times x+2\\times ${a}+${b}=3x+${2 * a + b}$.   `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -746,7 +905,9 @@ export default function SujetCAN20213ieme () {
           texteCorr = `En ajoutant $${-a}$ dans chacun des deux membres, on obtient, $-x=${b - a}$, d'où $x=${a - b}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
 
           nbChamps = 1
           break
@@ -761,7 +922,9 @@ export default function SujetCAN20213ieme () {
           texteCorr = `Le capital est augmenté de $${b}\\%$ de $${texNombre(a)}$, soit de $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre(a * b / 100)}$.<br>
           Le capital au bout d'un an sera donc de : $${texNombre(a, 0)}+ ${texNombre(a * b / 100, 0)}=${texNombre(a + a * b / 100, 0)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
+          }
           nbChamps = 1
           break
 
@@ -801,7 +964,9 @@ export default function SujetCAN20213ieme () {
             reponse = [fraction(b + 4, a), fraction(b + 4, a).simplifie()]
           }
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -815,7 +980,11 @@ export default function SujetCAN20213ieme () {
           `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$ ' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$ '
+          }
           nbChamps = 1
           break
 
@@ -849,7 +1018,9 @@ export default function SujetCAN20213ieme () {
               Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-4}$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -867,7 +1038,9 @@ export default function SujetCAN20213ieme () {
           On obtient $${resultat / b} -${a}=${truc}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -892,7 +1065,9 @@ export default function SujetCAN20213ieme () {
             reponse = b
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '%' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '%'
+          }
           nbChamps = 1
           break
       }

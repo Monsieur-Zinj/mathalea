@@ -15,13 +15,14 @@ import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { round, min } from 'mathjs'
+import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,11 +31,12 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '9bc44'
 export const ref = 'can2a-2023'
+
 /**
  * Aléatoirisation du sujet 2023 de CAN seconde
  * Gilles Mora
  * Référence
-*/
+ */
 
 function compareNombres (a, b) {
   return a - b
@@ -102,7 +104,9 @@ export default function SujetCAN2023Seconde () {
           texte = `$${a} \\times ${texNombre(b, 1)}$ `
           texteCorr = `$${a} \\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = `$${a} \\times ${texNombre(b, 1)}$`
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -112,7 +116,11 @@ export default function SujetCAN2023Seconde () {
           break
         case 2:
           c = choice([10, 100])
-          if (c === 10) { b = randint(1, 9) } else { b = randint(21, 59, [30, 40, 50]) }
+          if (c === 10) {
+            b = randint(1, 9)
+          } else {
+            b = randint(21, 59, [30, 40, 50])
+          }
           d = new Decimal(b).div(c)
           reponse = new Decimal(1).sub(d)
 
@@ -122,7 +130,9 @@ export default function SujetCAN2023Seconde () {
           this.canReponseACompleter = ''
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
 
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
@@ -196,7 +206,9 @@ export default function SujetCAN2023Seconde () {
           texte = `$${a} -${b}\\times ${c}$ `
           texteCorr = `$${a} -${b}\\times ${c}=${a}-${b * c}=${miseEnEvidence(reponse)}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -214,7 +226,8 @@ export default function SujetCAN2023Seconde () {
             texte = `Les  ${m} de $${a}$`
             texteCorr = `Prendre les ${m} d'un nombre revient à le diviser par $4$ puis multiplier le résulat par $3$.<br>
                 Ainsi les ${m}  de $${a}$ sont : $(${a}\\div 4)\\times 3  =${miseEnEvidence(reponse)}$.`
-          } if (m === 'deux tiers') {
+          }
+          if (m === 'deux tiers') {
             reponse = Math.round(2 * b / 3)
             texte = `Les ${m} de $${b}$ `
             texteCorr = `Prendre les ${m} d'un nombre revient à le diviser par $3$ puis multiplier le résultat par $2$.<br>
@@ -222,7 +235,9 @@ export default function SujetCAN2023Seconde () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -245,7 +260,7 @@ export default function SujetCAN2023Seconde () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
-            '€'
+                            '€'
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots$ €'
@@ -264,7 +279,9 @@ export default function SujetCAN2023Seconde () {
           $${p}\\,\\%$ de $${a}=${p / 10}\\times ${texNombre(a / 10, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$.
          `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -280,7 +297,9 @@ export default function SujetCAN2023Seconde () {
           texteCorr = `$10^{${n1}}+10^{${n2}}=${texNombre(10 ** n1)} +${texNombre(10 ** n2, 3)}=${miseEnEvidence(texNombre(reponse, 3))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -312,7 +331,9 @@ export default function SujetCAN2023Seconde () {
               texte += '}\\newline'
               texte += '\\medskip'
             }
-            if (context.isHtml) { texte += `<br> Que renvoie  $\\texttt{calcul(${a})}$ ?` }
+            if (context.isHtml) {
+              texte += `<br> Que renvoie  $\\texttt{calcul(${a})}$ ?`
+            }
             reponse = a * a - b
             texteCorr = ` L'algorithme retourne $${a}\\times${a}-${b}=${miseEnEvidence(reponse)}$. `
             this.canEnonce = texte
@@ -341,7 +362,9 @@ export default function SujetCAN2023Seconde () {
               texte += '}\\newline'
               texte += '\\medskip'
             }
-            if (context.isHtml) { texte += `<br> Que renvoie  $\\texttt{calcul(${a},${b})}$ ?` }
+            if (context.isHtml) {
+              texte += `<br> Que renvoie  $\\texttt{calcul(${a},${b})}$ ?`
+            }
             reponse = a * b - c
             texteCorr = ` L'algorithme retourne $${a}\\times${b}-${c}=${miseEnEvidence(reponse)}$. `
             this.canEnonce = texte
@@ -350,7 +373,9 @@ export default function SujetCAN2023Seconde () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
@@ -375,7 +400,9 @@ export default function SujetCAN2023Seconde () {
           La solution de l'équation est : $${miseEnEvidence(reponse)}$.
           `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -391,7 +418,9 @@ export default function SujetCAN2023Seconde () {
           texteCorr = `Multiplier par $0,5$ revient à diviser par $2$. <br>
           Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = `$${a} \\times 0,5$ `
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -438,7 +467,9 @@ export default function SujetCAN2023Seconde () {
 
           reponse = new Decimal(a + b).div(2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte// 'Compléter'
           this.canReponseACompleter = `Abscisse de $A$ : <br>
           $\\ldots$`
@@ -455,7 +486,9 @@ export default function SujetCAN2023Seconde () {
           texteCorr = `Multiplier par $0,25$ revient à diviser par $4$. <br>
           Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -473,7 +506,9 @@ export default function SujetCAN2023Seconde () {
           if (choice([true, false])) {
             texte = `L${c[d][0]} de  $${a}^{${b}}$ `
             setReponse(this, index, [`${a}^{${b + 1}}`], { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            }
             texteCorr = `L${c[d][0]} de $${a}^{${b}}$ se calcule  par
            : <br>
            $${a}\\times ${a}^{${b}}=${a}^{${b} + 1}=${miseEnEvidence(a)}^{${miseEnEvidence(b + 1)}}$`
@@ -481,7 +516,9 @@ export default function SujetCAN2023Seconde () {
             texte = `L${c[d][1]} de $${a}^{${b}}$ `
 
             setReponse(this, index, [`${a}^{${b - 1}}`], { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            }
             texteCorr = `L${c[d][1]} de $${a}^{${b}}$ se calcule  par
        : <br>
        $ ${a}^{${b}}\\div ${a}=\\dfrac{${a}^{${b}}}{${a}}=${a}^{${b} - 1}=${miseEnEvidence(a)}^{${miseEnEvidence(b - 1)}}$`
@@ -501,7 +538,11 @@ export default function SujetCAN2023Seconde () {
             texte = ` $${texNombre(a, 1)}$ m$^3$`
             texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a, 1)}$ m$^3=${miseEnEvidence(texNombre(reponse, 0))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $=\\ldots$ L' }
+            if (this.interactif) {
+              texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+            } else {
+              texte += ' $=\\ldots$ L'
+            }
             this.canEnonce = ` $${texNombre(a, 1)}$ m$^3$`
             this.canReponseACompleter = '$\\ldots\\ldots$ L'
           } else {
@@ -510,7 +551,11 @@ export default function SujetCAN2023Seconde () {
             texte = ` $${texNombre(a, 1)}$ L`
             texteCorr = `Comme $1$ L = $0,001$ m$^3$, $${texNombre(a, 1)}$ L $=${miseEnEvidence(texNombre(reponse, 4))}$  m$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' m$^3$' } else { texte += ' $=\\ldots$ m$^3$' }
+            if (this.interactif) {
+              texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' m$^3$'
+            } else {
+              texte += ' $=\\ldots$ m$^3$'
+            }
             this.canEnonce = ` $${texNombre(a, 1)}$ L`
             this.canReponseACompleter = '$\\ldots\\ldots$ m$^3$'
           }
@@ -549,7 +594,9 @@ export default function SujetCAN2023Seconde () {
                 Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 6)}}_{1\\leqslant ${texNombre(truc, 6)} <10}\\times 10^{-4}$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -572,7 +619,9 @@ export default function SujetCAN2023Seconde () {
             reponse = [`x^2-${a * a}`]
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -593,7 +642,9 @@ export default function SujetCAN2023Seconde () {
           Le prix du jeu viéo après la réduction est donc : $${a}-${texNombre(a * d, 0)}=${miseEnEvidence(texNombre(reponse, 0))}$ €. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
+          }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots$ €'
           this.listeCanEnonces.push(this.canEnonce)
@@ -625,7 +676,9 @@ export default function SujetCAN2023Seconde () {
             this.canReponseACompleter = '$\\ldots$ m$^2$'
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm$^2$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm$^2$'
+          }
 
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
@@ -660,7 +713,17 @@ export default function SujetCAN2023Seconde () {
               demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
             reponse = c
             texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 30,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.6,
+              style: 'margin: auto'
+            }, objets)
             texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
             On obtient donc la longueur $AE$ en divisant par $${k}$ la longueur $AD$.<br>
             $AE=\\dfrac{${d}}{${k}}=${miseEnEvidence(c)}$.<br>`
@@ -669,7 +732,17 @@ export default function SujetCAN2023Seconde () {
               texte += '<br>$AE=$'
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
-            this.canEnonce = '$(BE)$ et $(DC)$ sont parallèles.<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+            this.canEnonce = '$(BE)$ et $(DC)$ sont parallèles.<br>' + mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 30,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.6,
+              style: 'margin: auto'
+            }, objets)
             this.canReponseACompleter = '$AE=\\ldots$'
           } else {
             a = randint(1, 4)// AB
@@ -696,7 +769,17 @@ export default function SujetCAN2023Seconde () {
             reponse = k * c
             texte = `$(AB)//(CD)$. Détermine la longueur $CE$.<br><br>
           `
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 25,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.6,
+              style: 'margin: auto'
+            }, objets)
             texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$.
           On en déduit que la longueur $EC$ est $${k}$ fois plus grande que la longueur $CD$.<br>
           Ainsi, $CE=${k}\\times ${c}=${miseEnEvidence(reponse)}$.`
@@ -705,7 +788,17 @@ export default function SujetCAN2023Seconde () {
               texte += '<br>$CE=$'
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
-            this.canEnonce = '$(AB)$ et $(DC)$ sont parallèles.<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+            this.canEnonce = '$(AB)$ et $(DC)$ sont parallèles.<br>' + mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 25,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.6,
+              style: 'margin: auto'
+            }, objets)
             this.canReponseACompleter = '$CE=\\ldots$'
           }
           this.listeCanEnonces.push(this.canEnonce)
@@ -750,7 +843,9 @@ export default function SujetCAN2023Seconde () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = ''
           this.listeCanEnonces.push(this.canEnonce)
@@ -769,7 +864,11 @@ export default function SujetCAN2023Seconde () {
           texteCorr = ` $${texNombre(b)}\\text{ h }=${texNombre(b)} \\times 60 \\text{ min } =${miseEnEvidence(texNombre(reponse, 0))}\\text{ min}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min' } else { texte += '$=\\ldots$ min' }
+          if (this.interactif) {
+            texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min'
+          } else {
+            texte += '$=\\ldots$ min'
+          }
           this.canEnonce = `$${texNombre(b, 1)}$ h`
           this.canReponseACompleter = '$\\ldots$ min'
           this.listeCanEnonces.push(this.canEnonce)
@@ -811,7 +910,17 @@ export default function SujetCAN2023Seconde () {
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5, s6)
             reponse = new FractionEtendue(7, b)
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 20,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.5,
+              style: 'margin: auto'
+            }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
           }
           if (choix === 'b') {
@@ -844,7 +953,17 @@ export default function SujetCAN2023Seconde () {
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
             reponse = new FractionEtendue(7, b)
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 20,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.5,
+              style: 'margin: auto'
+            }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
           }
           if (choix === 'c') {
@@ -877,7 +996,17 @@ export default function SujetCAN2023Seconde () {
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
             reponse = new FractionEtendue(7, b)
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 20,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.5,
+              style: 'margin: auto'
+            }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
           }
           if (choix === 'd') {
@@ -910,7 +1039,17 @@ export default function SujetCAN2023Seconde () {
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
             reponse = new FractionEtendue(5, b)
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 20,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.5,
+              style: 'margin: auto'
+            }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
           }
           if (choix === 'e') {
@@ -943,7 +1082,17 @@ export default function SujetCAN2023Seconde () {
               texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
             reponse = new FractionEtendue(5, b)
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 20,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.5,
+              style: 'margin: auto'
+            }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
           }
           this.canEnonce = texte
@@ -1015,7 +1164,15 @@ export default function SujetCAN2023Seconde () {
             yLabelListe: yB26 === 0 ? [yA26] : [yA26, 1]
           })
 
-          objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, lA, traceA, s26, s26B)
+          objet = mathalea2d({
+            xmin,
+            xmax,
+            ymin,
+            ymax: ymax + 0.25,
+            pixelsParCm: 30,
+            scale: 0.75,
+            style: 'margin: auto'
+          }, d, r, o, lA, traceA, s26, s26B)
 
           texte = 'Donner le coefficient directeur $m$ de la droite.<br>'
           texte += `${objet}<br>`
@@ -1027,7 +1184,15 @@ export default function SujetCAN2023Seconde () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
           }
-          this.canEnonce = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, lA, s26, s26B, traceA)
+          this.canEnonce = mathalea2d({
+            xmin,
+            xmax,
+            ymin,
+            ymax: ymax + 0.25,
+            pixelsParCm: 30,
+            scale: 0.75,
+            style: 'margin: auto'
+          }, d, r, o, lA, s26, s26B, traceA)
           this.canReponseACompleter = `Quel est le coefficient directeur de cette droite (d) ?<br>
           $\\ldots$`
           this.listeCanEnonces.push(this.canEnonce)
@@ -1260,7 +1425,9 @@ export default function SujetCAN2023Seconde () {
               `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.canEnonce = texte
           this.canReponseACompleter = '$n=\\ldots$'
           this.listeCanEnonces.push(this.canEnonce)

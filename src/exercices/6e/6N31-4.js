@@ -4,9 +4,10 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -19,7 +20,7 @@ export const dateDeModifImportante = '29/10/2021'
  * @author Rémi Angot
  * Référence 6N31-4
  * Ajout AMC : Janvier 2022 par EE
-*/
+ */
 export const uuid = 'b86b9'
 export const ref = '6N31-4'
 export default function IntercalerDecimalEntre2Decimaux () {
@@ -139,7 +140,11 @@ export default function IntercalerDecimalEntre2Decimaux () {
     }
     listeQuestionsToContenu(this)
     if (context.isHtml) {
-      this.contenuCorrection = infoMessage({ titre: 'Remarque', texte: "Il y a une infinité de solutions. La correction ne montre qu'une possibilité.", couleur: 'black' }) + this.contenuCorrection
+      this.contenuCorrection = infoMessage({
+        titre: 'Remarque',
+        texte: "Il y a une infinité de solutions. La correction ne montre qu'une possibilité.",
+        couleur: 'black'
+      }) + this.contenuCorrection
     }
   }
 }

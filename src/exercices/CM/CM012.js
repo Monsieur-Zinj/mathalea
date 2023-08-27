@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Complément à 100'
 export const amcReady = true
 export const interactifReady = true
@@ -11,7 +12,7 @@ export const amcType = 'AMCNum'
 /**
  * 100-...=
  * @author Rémi Angot
-* Référence CM012
+ * Référence CM012
  */
 export const uuid = '67962'
 export const ref = 'CM012'
@@ -30,7 +31,6 @@ export default function ComplementA100 () {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(11, 89)
       texte = `$100-${a}=$`

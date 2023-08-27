@@ -6,9 +6,9 @@ import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Effectuer somme, différence ou produit de fractions'
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const dateDeModifImportante = '26/07/2023'
 /**
  * Effectuer somme, différence ou produit de fractions
  * @author Mireille Gain
-*/
+ */
 
 export const uuid = '374b6'
 export const ref = '4C23'

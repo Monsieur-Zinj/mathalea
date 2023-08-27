@@ -11,15 +11,11 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
-import {
-  contraindreValeur, gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Fonctions affines'
 export const interactifType = 'mathLive'
@@ -78,7 +74,15 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           'expressionParValeurs',
           'expressionParGraphique'
         ]
-    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: this.lycee ? 10 : 8, defaut: this.lycee ? 11 : 9, nbQuestions: this.nbQuestions, listeOfCase: typesDeQuestionsDisponibles, melange: this.lycee ? 11 : 9 })
+    const questionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: this.lycee ? 10 : 8,
+      defaut: this.lycee ? 11 : 9,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: typesDeQuestionsDisponibles,
+      melange: this.lycee ? 11 : 9
+    })
     const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
     for (let i = 0, texteAMC, valeurAMC, texte2AMC, valeur2AMC, texte3AMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -88,7 +92,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       const elementAmc = {}
       const nomFonction = String.fromCharCode(102 + i)
       this.sup = contraindreValeur(1, 3, this.sup, 1)
-      let texte = ''; let texteCorr = ''
+      let texte = ''
+      let texteCorr = ''
       // valeur associée à image0 pour le calcul de coefficient : image0 = coefficient * antecedent0
       // on retrouve ces valeurs antecedent0 et image0 dans l'énoncé pour certaines questions.
       // ce sont antecedent et image qui seront à calculer.

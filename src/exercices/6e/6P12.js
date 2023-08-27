@@ -4,9 +4,10 @@ import { texPrix } from '../../lib/format/style.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +22,7 @@ export const amcType = 'AMCNum'
  * référence 6P12
  * Publié le 11/08/2021
  * Relecture : Novembre 2021 par EE
-*/
+ */
 
 // _____ Les fonctions suivantes renvoient un objet : {texte = ; texteCorr = ;} ______
 // elles correspondent aux différentes situations problèmes
@@ -191,15 +192,15 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
   Elle lit que $${n}$ ${objet} coûtent $${texPrix(x)}$ €. Elle veut en acheter $${y}$.<br>
   Combien va-t-elle dépenser ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' €' })
   const texteCorr = `Commençons par trouver le prix d'${listeDeChose[index1][index2]}. <br>` +
-`Si $${n}$ ${objet} coûtent $${texPrix(x)}$ €, alors ${listeDeChose[index1][index2]} coûte $${miseEnCouleur(n)}$ fois moins cher.<br>` +
-`$${texPrix(x)}$ € $ \\div ${miseEnCouleur(n)} = ${texPrix(x / n)} $ € <br>` +
-texteEnCouleurEtGras(' Conclusion intermédiaire : ', 'black') +
-`${listeDeChose[index1][index2]} coûte $${miseEnCouleur(texPrix(x / n), 'blue')}$ €.<br>` +
+        `Si $${n}$ ${objet} coûtent $${texPrix(x)}$ €, alors ${listeDeChose[index1][index2]} coûte $${miseEnCouleur(n)}$ fois moins cher.<br>` +
+        `$${texPrix(x)}$ € $ \\div ${miseEnCouleur(n)} = ${texPrix(x / n)} $ € <br>` +
+        texteEnCouleurEtGras(' Conclusion intermédiaire : ', 'black') +
+        `${listeDeChose[index1][index2]} coûte $${miseEnCouleur(texPrix(x / n), 'blue')}$ €.<br>` +
         `Cherchons maintenant le prix de $${y}$ ${objet}. <br>` +
-`$${y}$ ${objet}, c'est $${miseEnCouleur(y)}$ fois plus qu'${listeDeChose[index1][index2]}. <br>` +
-`$${y}$ ${objet} coûtent donc $${miseEnCouleur(y)}$ fois plus que $${miseEnCouleur(texPrix(x / n), 'blue')}$ €, le prix d'${listeDeChose[index1][index2]}.` +
-`<br> $${miseEnCouleur(texPrix(x / n), 'blue')}$ € $\\times ${miseEnCouleur(y)} = ${texPrix(x * y / n)}$ €<br>` +
-` ${texteEnCouleurEtGras('Conclusion :', 'black')} $${y}$ ${objet} coûtent $${texPrix(x * y / n)}$ €.`
+        `$${y}$ ${objet}, c'est $${miseEnCouleur(y)}$ fois plus qu'${listeDeChose[index1][index2]}. <br>` +
+        `$${y}$ ${objet} coûtent donc $${miseEnCouleur(y)}$ fois plus que $${miseEnCouleur(texPrix(x / n), 'blue')}$ €, le prix d'${listeDeChose[index1][index2]}.` +
+        `<br> $${miseEnCouleur(texPrix(x / n), 'blue')}$ € $\\times ${miseEnCouleur(y)} = ${texPrix(x * y / n)}$ €<br>` +
+        ` ${texteEnCouleurEtGras('Conclusion :', 'black')} $${y}$ ${objet} coûtent $${texPrix(x * y / n)}$ €.`
   setReponse(exo, i, calcul(x * y / n))
 
   return {
@@ -240,18 +241,18 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
   const quantiteReponse = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal) // Pour la correction
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${stringNombre(quantite)} g de ${liste[alea1].ingredient}. <br>` +
-`Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
-`<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' g' })
+        `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
+        `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' g' })
   const texteCorr = `Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne. <br>` +
-` ${nbPersonneInit} personnes, c'est ${texteEnCouleur(nbPersonneInit)} fois 1 personne. ` +
-`il faut donc ${texteEnCouleur(nbPersonneInit)} fois moins que ${stringNombre(quantite)} g pour 1 personne.<br>` +
-`${stringNombre(quantite)} g $\\div $ ${texteEnCouleur(nbPersonneInit)} = ${liste[alea1].quantites_par_pers[alea3]} g <br>` +
-texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
-` il faut ${texteEnCouleur(liste[alea1].quantites_par_pers[alea3], 'blue')} g de ${liste[alea1].ingredient} pour 1 personne. <br>` +
+        ` ${nbPersonneInit} personnes, c'est ${texteEnCouleur(nbPersonneInit)} fois 1 personne. ` +
+        `il faut donc ${texteEnCouleur(nbPersonneInit)} fois moins que ${stringNombre(quantite)} g pour 1 personne.<br>` +
+        `${stringNombre(quantite)} g $\\div $ ${texteEnCouleur(nbPersonneInit)} = ${liste[alea1].quantites_par_pers[alea3]} g <br>` +
+        texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
+        ` il faut ${texteEnCouleur(liste[alea1].quantites_par_pers[alea3], 'blue')} g de ${liste[alea1].ingredient} pour 1 personne. <br>` +
         ` Cherchons maintenant la quantité nécessaire pour ${nbPersonneFinal} personnes. <br>` +
-` ${nbPersonneFinal} personnes, c'est ${texteEnCouleur(nbPersonneFinal)} fois 1 personne. <br>` +
-`Donc, il faut ${texteEnCouleur(nbPersonneFinal)} fois plus que ${liste[alea1].quantites_par_pers[alea3]} g de ${liste[alea1].ingredient} que pour 1 personne pour faire sa recette.` +
-`<br> ${texteEnCouleur(liste[alea1].quantites_par_pers[alea3], 'blue')} g $\\times$ ${texteEnCouleur(nbPersonneFinal)} = ${quantiteReponse} g <br>
+        ` ${nbPersonneFinal} personnes, c'est ${texteEnCouleur(nbPersonneFinal)} fois 1 personne. <br>` +
+        `Donc, il faut ${texteEnCouleur(nbPersonneFinal)} fois plus que ${liste[alea1].quantites_par_pers[alea3]} g de ${liste[alea1].ingredient} que pour 1 personne pour faire sa recette.` +
+        `<br> ${texteEnCouleur(liste[alea1].quantites_par_pers[alea3], 'blue')} g $\\times$ ${texteEnCouleur(nbPersonneFinal)} = ${quantiteReponse} g <br>
 ${texteEnCouleurEtGras('Conclusion : ', 'black')} ${prenoms[0]} doit utiliser ${quantiteReponse} g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes. `
   setReponse(exo, i, quantiteReponse)
   return {
@@ -306,21 +307,21 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   const volumeFinalAff = stringNombre(volumeFinal) // pour affichage avec bon séparateur.
   const volumeInitialAff = stringNombre(volumeInitial) // pour affichage avec bon séparateur.
   const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut ` +
-  ` ${stringNombre(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[1]} d'eau.<br> ` +
-  `On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
-  `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
+        ` ${stringNombre(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[1]} d'eau.<br> ` +
+        `On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
+        `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
 
   const texteCorr = `Commençons par trouver combien est-ce qu'il faut de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau. <br>` +
-  ` ${volumeInitial} ${liste[alea1].unite_solvant[1]} d'eau, c'est ${texteEnCouleur(volumeInitial)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. ` +
-  `Pour 1 ${liste[alea1].unite_solvant[0]} d'eau, il faut donc ${texteEnCouleur(volumeInitial)} fois moins que ${stringNombre(quantite)} ${liste[alea1].unite_solute}.<br>` +
-  `${stringNombre(quantite)} ${liste[alea1].unite_solute} $\\div $ ${texteEnCouleur(volumeInitial)} = ${stringNombre(quantite / volumeInitial)} ${liste[alea1].unite_solute} <br>` +
-  texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
-  ` il faut ${texteEnCouleur(stringNombre(quantite / volumeInitial), 'blue')} ${liste[alea1].unite_solute} de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau. <br>` +
-      ` Cherchons maintenant la quantité nécessaire pour ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau. <br>` +
-  ` ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(volumeFinalAff)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau.` +
-  ` Il faut donc ${texteEnCouleur(volumeFinalAff)} fois plus de ${liste[alea1].solute} que ${stringNombre(quantite / volumeInitial)} ${liste[alea1].unite_solute} :` +
-  `<br> ${texteEnCouleur(stringNombre(quantite / volumeInitial), 'blue')} ${liste[alea1].unite_solute} $\\times$ ${texteEnCouleur(volumeFinalAff)} = ${stringNombre(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute}<br>` +
-  `${texteEnCouleurEtGras('Conclusion :', 'black')} il faut prévoir ${stringNombre(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute}.`
+        ` ${volumeInitial} ${liste[alea1].unite_solvant[1]} d'eau, c'est ${texteEnCouleur(volumeInitial)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. ` +
+        `Pour 1 ${liste[alea1].unite_solvant[0]} d'eau, il faut donc ${texteEnCouleur(volumeInitial)} fois moins que ${stringNombre(quantite)} ${liste[alea1].unite_solute}.<br>` +
+        `${stringNombre(quantite)} ${liste[alea1].unite_solute} $\\div $ ${texteEnCouleur(volumeInitial)} = ${stringNombre(quantite / volumeInitial)} ${liste[alea1].unite_solute} <br>` +
+        texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
+        ` il faut ${texteEnCouleur(stringNombre(quantite / volumeInitial), 'blue')} ${liste[alea1].unite_solute} de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau. <br>` +
+        ` Cherchons maintenant la quantité nécessaire pour ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau. <br>` +
+        ` ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(volumeFinalAff)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau.` +
+        ` Il faut donc ${texteEnCouleur(volumeFinalAff)} fois plus de ${liste[alea1].solute} que ${stringNombre(quantite / volumeInitial)} ${liste[alea1].unite_solute} :` +
+        `<br> ${texteEnCouleur(stringNombre(quantite / volumeInitial), 'blue')} ${liste[alea1].unite_solute} $\\times$ ${texteEnCouleur(volumeFinalAff)} = ${stringNombre(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute}<br>` +
+        `${texteEnCouleurEtGras('Conclusion :', 'black')} il faut prévoir ${stringNombre(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute}.`
   setReponse(exo, i, calcul(quantite / volumeInitial * volumeFinal))
   return {
     qtexte: texte,
@@ -363,14 +364,14 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
   const texteCorr = `Commençons par trouver quelle est la distance parcourue en 1h. <br>
   1 h, c'est ${texteEnCouleur(dureeQ)} fois moins que ${dureeQ} h.
    En 1 h, le ${liste[alea1].locomotion} parcourt donc une distance ${texteEnCouleur(dureeQ)} fois moins grande qu'en ${dureeQ} h.<br>` +
-  `$${stringNombre(liste[alea1].vitesse[alea2] * facteur * dureeQ)}$ km $\\div $ ${texteEnCouleur(dureeQ)} = ${stringNombre(liste[alea1].vitesse[alea2] * facteur)} km <br>` +
-  texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
-  ` en 1h, le ${liste[alea1].locomotion} parcourt ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km. <br>` +
-      ` Cherchons maintenant la distance parcourue en ${dureeR} h. <br>` +
-  ` ${dureeR} h, c'est ${texteEnCouleur(dureeR)} fois 1 h.` +
-  ` Le ${liste[alea1].locomotion} parcourt donc ${texteEnCouleur(dureeR)} fois plus de distance qu'en 1 h.` +
-  `<br> ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km $\\times$ ${texteEnCouleur(dureeR)} = $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km <br>` +
-  `${texteEnCouleurEtGras('Conclusion :', 'black')} le ${liste[alea1].locomotion} parcourra en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km en ${dureeR} h.`
+        `$${stringNombre(liste[alea1].vitesse[alea2] * facteur * dureeQ)}$ km $\\div $ ${texteEnCouleur(dureeQ)} = ${stringNombre(liste[alea1].vitesse[alea2] * facteur)} km <br>` +
+        texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
+        ` en 1h, le ${liste[alea1].locomotion} parcourt ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km. <br>` +
+        ` Cherchons maintenant la distance parcourue en ${dureeR} h. <br>` +
+        ` ${dureeR} h, c'est ${texteEnCouleur(dureeR)} fois 1 h.` +
+        ` Le ${liste[alea1].locomotion} parcourt donc ${texteEnCouleur(dureeR)} fois plus de distance qu'en 1 h.` +
+        `<br> ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km $\\times$ ${texteEnCouleur(dureeR)} = $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km <br>` +
+        `${texteEnCouleurEtGras('Conclusion :', 'black')} le ${liste[alea1].locomotion} parcourra en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km en ${dureeR} h.`
   setReponse(exo, i, calcul(liste[alea1].vitesse[alea2] * dureeR * facteur))
   return {
     qtexte: texte,
@@ -386,17 +387,17 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
   const prenoms = [prenomF(), prenomM()]
   const texte = `Sur une carte sur laquelle ${distanceCarte} cm représente ${stringNombre(distanceReel)} km dans la réalité, <br>
   ${prenoms[0]} mesure son trajet et elle trouve une distance de ${distanceCarte2} cm. <br>` +
-  'À quelle distance cela correspond dans la réalité ?' + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' km' })
+        'À quelle distance cela correspond dans la réalité ?' + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' km' })
 
   const texteCorr = `Commençons par trouver à combien de km dans la réalité, 1 cm sur la carte correspond. <br>
   1 cm, c'est ${texteEnCouleur(distanceCarte)} fois moins que ${distanceCarte} cm.<br>` +
-  `${stringNombre(distanceReel)} km $\\div $ ${texteEnCouleur(distanceCarte)} = ${stringNombre(distanceReel / distanceCarte)} km <br>` +
-  texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
-  ` 1 cm sur la carte correspond donc à ${texteEnCouleur(stringNombre(distanceReel / distanceCarte), 'blue')} km dans la réalité. <br>` +
-      ' Cherchons maintenant la distance réelle de son trajet. <br>' +
-  ` ${distanceCarte2} cm, c'est ${texteEnCouleur(distanceCarte2)} fois 1 cm.` +
-  `<br> ${texteEnCouleur(stringNombre(distanceReel / distanceCarte), 'blue')} km $\\times$ ${texteEnCouleur(distanceCarte2)} = ${stringNombre(distanceCarte2 * distanceReel / distanceCarte)} km<br>` +
-  `${texteEnCouleurEtGras('Conclusion :', 'black')} son trajet correspond en réalité à une distance de ${stringNombre(distanceCarte2 * distanceReel / distanceCarte)} km.`
+        `${stringNombre(distanceReel)} km $\\div $ ${texteEnCouleur(distanceCarte)} = ${stringNombre(distanceReel / distanceCarte)} km <br>` +
+        texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
+        ` 1 cm sur la carte correspond donc à ${texteEnCouleur(stringNombre(distanceReel / distanceCarte), 'blue')} km dans la réalité. <br>` +
+        ' Cherchons maintenant la distance réelle de son trajet. <br>' +
+        ` ${distanceCarte2} cm, c'est ${texteEnCouleur(distanceCarte2)} fois 1 cm.` +
+        `<br> ${texteEnCouleur(stringNombre(distanceReel / distanceCarte), 'blue')} km $\\times$ ${texteEnCouleur(distanceCarte2)} = ${stringNombre(distanceCarte2 * distanceReel / distanceCarte)} km<br>` +
+        `${texteEnCouleurEtGras('Conclusion :', 'black')} son trajet correspond en réalité à une distance de ${stringNombre(distanceCarte2 * distanceReel / distanceCarte)} km.`
   setReponse(exo, i, calcul(distanceCarte2 * distanceReel / distanceCarte))
   return {
     qtexte: texte,
@@ -445,18 +446,18 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
   const prenoms = [prenomF(), prenomM()]
   const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
   const texte = `${prenoms[0]} doit acheter ${liste[alea1].matiere}. <br>` +
-  `Sur la notice, il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${stringNombre(surfaceInitiale)} m$^2$. <br> ` +
-  `Combien doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)} m$^2$ ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite })
+        `Sur la notice, il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${stringNombre(surfaceInitiale)} m$^2$. <br> ` +
+        `Combien doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)} m$^2$ ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite })
 
   const texteCorr = `Commençons par trouver combien de ${liste[alea1].unite} il faut prévoir pour 1 m$^2$. <br>
   1 m$^2$, c'est ${texteEnCouleur(stringNombre(surfaceInitiale))} fois moins que ${stringNombre(surfaceInitiale)} m$^2$.<br>` +
-  `${qttaffichage} ${liste[alea1].unite} $\\div $ ${texteEnCouleur(stringNombre(surfaceInitiale))} = ${stringNombre(quantite / surfaceInitiale)} ${liste[alea1].unite} <br>` +
-  texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
-  ` on a donc besoin de ${texteEnCouleur(stringNombre(quantite / surfaceInitiale), 'blue')} ${liste[alea1].unite} pour recouvrir 1 m$^2$ . <br>` +
-      ` Cherchons maintenant la quantité de ${liste[alea1].unite} nécessaire pour recouvrir ${stringNombre(surfaceFinale)} m$^2$. <br>` +
-  ` ${stringNombre(surfaceFinale)} m$^2$, c'est ${texteEnCouleur(stringNombre(surfaceFinale))} fois plus que 1 m$^2$.` +
-  `<br> ${texteEnCouleur(stringNombre(quantite / surfaceInitiale), 'blue')} ${liste[alea1].unite} $\\times$ ${texteEnCouleur(stringNombre(surfaceFinale))} = ${stringNombre(quantite * surfaceFinale / surfaceInitiale)} ${liste[alea1].unite}<br>` +
-  `${texteEnCouleurEtGras('Conclusion :', 'black')} ${prenoms[0]} aura besoin de ${stringNombre(quantite * surfaceFinale / surfaceInitiale)} ${liste[alea1].unite} pour recouvrir ${stringNombre(surfaceFinale)} m$^2$.`
+        `${qttaffichage} ${liste[alea1].unite} $\\div $ ${texteEnCouleur(stringNombre(surfaceInitiale))} = ${stringNombre(quantite / surfaceInitiale)} ${liste[alea1].unite} <br>` +
+        texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
+        ` on a donc besoin de ${texteEnCouleur(stringNombre(quantite / surfaceInitiale), 'blue')} ${liste[alea1].unite} pour recouvrir 1 m$^2$ . <br>` +
+        ` Cherchons maintenant la quantité de ${liste[alea1].unite} nécessaire pour recouvrir ${stringNombre(surfaceFinale)} m$^2$. <br>` +
+        ` ${stringNombre(surfaceFinale)} m$^2$, c'est ${texteEnCouleur(stringNombre(surfaceFinale))} fois plus que 1 m$^2$.` +
+        `<br> ${texteEnCouleur(stringNombre(quantite / surfaceInitiale), 'blue')} ${liste[alea1].unite} $\\times$ ${texteEnCouleur(stringNombre(surfaceFinale))} = ${stringNombre(quantite * surfaceFinale / surfaceInitiale)} ${liste[alea1].unite}<br>` +
+        `${texteEnCouleurEtGras('Conclusion :', 'black')} ${prenoms[0]} aura besoin de ${stringNombre(quantite * surfaceFinale / surfaceInitiale)} ${liste[alea1].unite} pour recouvrir ${stringNombre(surfaceFinale)} m$^2$.`
   setReponse(exo, i, calcul(quantite * surfaceFinale / surfaceInitiale, 3))
   return {
     qtexte: texte,
@@ -487,23 +488,23 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     /*
-    let listeIndexSituationsDisponible = []
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      listeIndexSituationsDisponible = rangeMinMax(1, 6)
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
-        listeIndexSituationsDisponible[0] = contraindreValeur(1, 7, this.sup2, 7)
-      } else {
-        listeIndexSituationsDisponible = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeIndexSituationsDisponible.length; i++) { // on a un tableau avec des strings : ['1', '5', '2','toto','45']
-          listeIndexSituationsDisponible[i] = contraindreValeur(1, 7, parseInt(listeIndexSituationsDisponible[i]), 7) // parseInt en fait un tableau d'entiers
+        let listeIndexSituationsDisponible = []
+        if (!this.sup2) { // Si aucune liste n'est saisie
+          listeIndexSituationsDisponible = rangeMinMax(1, 6)
+        } else {
+          if (typeof (this.sup2) === 'number') { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
+            listeIndexSituationsDisponible[0] = contraindreValeur(1, 7, this.sup2, 7)
+          } else {
+            listeIndexSituationsDisponible = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < listeIndexSituationsDisponible.length; i++) { // on a un tableau avec des strings : ['1', '5', '2','toto','45']
+              listeIndexSituationsDisponible[i] = contraindreValeur(1, 7, parseInt(listeIndexSituationsDisponible[i]), 7) // parseInt en fait un tableau d'entiers
+            }
+          }
         }
-      }
-    }
-    if (compteOccurences(listeIndexSituationsDisponible, 7) > 0) listeIndexSituationsDisponible = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
+        if (compteOccurences(listeIndexSituationsDisponible, 7) > 0) listeIndexSituationsDisponible = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
 
-    const listeIndexSituations = combinaisonListes(listeIndexSituationsDisponible, this.nbQuestions)
-    */
+        const listeIndexSituations = combinaisonListes(listeIndexSituationsDisponible, this.nbQuestions)
+        */
 
     const listeIndexSituations = gestionnaireFormulaireTexte({
       max: 6,

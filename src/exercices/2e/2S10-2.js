@@ -4,9 +4,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer une proportion ou appliquer un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,19 +16,19 @@ export const amcType = 'AMCNum' // Les réponses sont des valeurs numériques à
 export const dateDePublication = '9/12/2021'
 export const dateDeModifImportante = '28/04/2023' // ajout du cas entreprise
 /**
-* Problèmes de proportions
-*
-* * Situations variées : spectacle, cadeau, réserve, entreprise
-*
-* * Déterminer l'effectif de la sous population
-* * Calculer une proportion
-* * Retrouver l'effectif de la population totale'
-* * Mélange des 3 types de problèmes
-* @author Florence Tapiero
-* * ajout de lignes pour l'export AMC par Jean-Claude Lhote
-* 2S10-1
-* ajout du cas entreprise par Gilles Mora
-*/
+ * Problèmes de proportions
+ *
+ * * Situations variées : spectacle, cadeau, réserve, entreprise
+ *
+ * * Déterminer l'effectif de la sous population
+ * * Calculer une proportion
+ * * Retrouver l'effectif de la population totale'
+ * * Mélange des 3 types de problèmes
+ * @author Florence Tapiero
+ * * ajout de lignes pour l'export AMC par Jean-Claude Lhote
+ * 2S10-1
+ * ajout du cas entreprise par Gilles Mora
+ */
 export const uuid = '612a5'
 export const ref = '2S10-2'
 export default function Proportions () {

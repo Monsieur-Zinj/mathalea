@@ -7,8 +7,9 @@ import {
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation du second degré'
@@ -17,7 +18,7 @@ export const titre = 'Résoudre une équation du second degré'
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
  * @author Rémi Angot
  * Référence 1E11
-*/
+ */
 export const uuid = 'cf78f'
 export const ref = '1E11-2'
 export default function ResoudreEquationDegre2 () {

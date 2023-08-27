@@ -8,12 +8,13 @@ import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.j
 import { abs } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +23,7 @@ export const amcType = 'AMCHybride'
 /**
  2G35-7, ex 2G50-2
 
-*/
+ */
 export const uuid = '41e6f'
 export const ref = '2G35-7'
 export default function Lecturegraphiquedeaetb () {
@@ -201,8 +202,12 @@ export default function Lecturegraphiquedeaetb () {
           texteCorr += '<br>On cherche un déplacement horizontal correspondant à un déplacement vertical entier.'
           texteCorr += `<br>On lit que pour un déplacement vers la droite de ${d} unités, il faut `
 
-          if (a > 0) { texteCorr += 'monter de ' }
-          if (a < 0) { texteCorr += 'descendre de ' }
+          if (a > 0) {
+            texteCorr += 'monter de '
+          }
+          if (a < 0) {
+            texteCorr += 'descendre de '
+          }
           texteCorr += `${abs(a)} unités.`
           texteCorr += `<br>Il vient : $a=\\dfrac{${a}}{${d}}`
           if (pgcd(a, d) !== 1) {
@@ -217,7 +222,9 @@ export default function Lecturegraphiquedeaetb () {
             texteCorr += `-x${b !== 0 ? ecritureAlgebrique(b) : ''}`
           } else {
             texteCorr += `${texFractionReduite(a, d)}x`
-            if (b !== 0) { texteCorr += `${ecritureAlgebrique(b)}=${reduireAxPlusB(new Decimal(a).div(d), b)}` }
+            if (b !== 0) {
+              texteCorr += `${ecritureAlgebrique(b)}=${reduireAxPlusB(new Decimal(a).div(d), b)}`
+            }
           }
 
           texteCorr += '$.'

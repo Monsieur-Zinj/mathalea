@@ -3,8 +3,9 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer une équation réduite de droite'
 export const dateDeModifImportante = '26/04/2023' // Ajout de l'interactivité et cas de la droite horizontale par Rémi Angot
 
@@ -15,7 +16,7 @@ export const interactifType = 'mathLive'
  * Description didactique de l'exercice
  * @author Stéphane Guyon
  * Référence 2G30-2, ex 2G50-1
-*/
+ */
 export const uuid = '0cee9'
 export const ref = '2G30-2'
 export default function EquationReduiteDeDroites () {
@@ -61,7 +62,10 @@ export default function EquationReduiteDeDroites () {
           texteCorr += `${texFractionReduite(n, d)}x`
         } else {
           // eslint-disable-next-line no-empty
-          if (n === 0) {} else { texteCorr += `${deprecatedTexFraction(n, d)}x` }
+          if (n === 0) {
+          } else {
+            texteCorr += `${deprecatedTexFraction(n, d)}x`
+          }
         }
         texteCorr += '+p$.<br>'
         texteCorr += 'Comme $A \\in (AB)$, les coordonnées du point $A$ vérifient l\'équation, donc :'
@@ -77,12 +81,14 @@ export default function EquationReduiteDeDroites () {
           } else if ((pgcd(n, d) !== 1 || d === 1) && n !== 0) { // m entier  non nul ou fraction réductible
             texteCorr += `${texFractionReduite(n, d)}x$`
           } else { // m fraction irréductible
-            if (n !== 0) { texteCorr += `${texFractionReduite(n, d)}x$` }
+            if (n !== 0) {
+              texteCorr += `${texFractionReduite(n, d)}x$`
+            }
           }
         }
         // cas ou p!=0 :
         if (d * yA - n * xA !== 0) {
-        // on gère cas particulier ou m=+/-1
+          // on gère cas particulier ou m=+/-1
           if (n === d) { // m =1, on écrit x
             texteCorr += 'x' // on écrit x
             if (d * d * yA - n * xA * d > 0) { // p>0
@@ -102,7 +108,9 @@ export default function EquationReduiteDeDroites () {
             texteCorr += `${texFractionReduite(n, d)}x` // on affiche m
           } else {
             // m fraction irréductible non nul :
-            if (n !== 0 && n / d !== 1 && n / d !== -1) { texteCorr += `${texFractionReduite(n, d)}x` }
+            if (n !== 0 && n / d !== 1 && n / d !== -1) {
+              texteCorr += `${texFractionReduite(n, d)}x`
+            }
           }
           if (d * d * yA - n * xA * d > 0 && n / d !== 1 && n / d !== -1) { // p>0
             texteCorr += '+'
@@ -140,7 +148,10 @@ export default function EquationReduiteDeDroites () {
           texteCorr += `${texFractionReduite(n, d)}x`
         } else {
           // eslint-disable-next-line no-empty
-          if (n === 0) {} else { texteCorr += `${deprecatedTexFraction(n, d)}x` }
+          if (n === 0) {
+          } else {
+            texteCorr += `${deprecatedTexFraction(n, d)}x`
+          }
         }
         texteCorr += '+p$.<br>'
         texteCorr += 'Comme $A \\in (AB)$, les coordonnées du point $A$ vérifient l\'équation, donc :'
@@ -151,9 +162,13 @@ export default function EquationReduiteDeDroites () {
         if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
           texteCorr += `$${texFractionReduite(n, d)}x$`
         } else {
-          if (n !== 0) { texteCorr += `$${deprecatedTexFraction(n, d)}x$` }
+          if (n !== 0) {
+            texteCorr += `$${deprecatedTexFraction(n, d)}x$`
+          }
         }
-        if (d * d * yA - n * xA * d > 0) { texteCorr += '$+$' }
+        if (d * d * yA - n * xA * d > 0) {
+          texteCorr += '$+$'
+        }
         texteCorr += `$${texFractionReduite(d * yA - n * xA, d)}$.`
         setReponse(this, i, `y=${texFractionReduite(n, d)}x+(${texFractionReduite(d * yA - n * xA, d)})`)
       }

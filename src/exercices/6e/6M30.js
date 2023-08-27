@@ -6,11 +6,11 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer le volume de solides donnés'
 export const amcReady = true
@@ -47,31 +47,35 @@ export default function CalculDeVolumes () {
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     switch (this.classe) {
-      case 6 : thissup4Max = 2
+      case 6 :
+        thissup4Max = 2
         break
-      case 5 : thissup4Max = 4
+      case 5 :
+        thissup4Max = 4
         break
-      case 4 : thissup4Max = 6
+      case 4 :
+        thissup4Max = 6
         break
-      case 3 : thissup4Max = 7
+      case 3 :
+        thissup4Max = 7
         break
     }
     /*
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup4) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max)
-    } else {
-      if (typeof (this.sup4) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, thissup4Max + 1, this.sup4, thissup4Max + 1)
-      } else {
-        typesDeQuestionsDisponibles = this.sup4.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, thissup4Max + 1, parseInt(typesDeQuestionsDisponibles[i]), thissup4Max + 1) // parseInt en fait un tableau d'entiers
+        let typesDeQuestionsDisponibles = []
+        if (!this.sup4) { // Si aucune liste n'est saisie
+          typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max)
+        } else {
+          if (typeof (this.sup4) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+            typesDeQuestionsDisponibles[0] = contraindreValeur(1, thissup4Max + 1, this.sup4, thissup4Max + 1)
+          } else {
+            typesDeQuestionsDisponibles = this.sup4.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              typesDeQuestionsDisponibles[i] = contraindreValeur(1, thissup4Max + 1, parseInt(typesDeQuestionsDisponibles[i]), thissup4Max + 1) // parseInt en fait un tableau d'entiers
+            }
+          }
         }
-      }
-    }
-    if (compteOccurences(typesDeQuestionsDisponibles, thissup4Max + 1) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max) // Teste si l'utilisateur a choisi tout
-    */
+        if (compteOccurences(typesDeQuestionsDisponibles, thissup4Max + 1) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max) // Teste si l'utilisateur a choisi tout
+        */
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       max: thissup4Max,
       defaut: thissup4Max + 1,
@@ -176,8 +180,8 @@ export default function CalculDeVolumes () {
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(
-              r.pow(2).mul(h), 0
-            )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+                            r.pow(2).mul(h), 0
+                        )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
           } else {
             j = randint(2, 3) // pour le choix de l'unité
             r = new Decimal(randint(2, 10))
@@ -218,7 +222,7 @@ export default function CalculDeVolumes () {
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un prisme droit de hauteur $${texNombre(l, 1)}${listeUnites[j - 1][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$.`
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${h}${listeUnites[j + 1][0]}}{2}\\times${texNombre(l, 1)}${listeUnites[j - 1][0]}=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)
-            }${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}}{2}\\times${texNombre(l.mul(10), 0)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(volume, 2)}${listeUnites[j][1]}`
+                        }${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}}{2}\\times${texNombre(l.mul(10), 0)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(volume, 2)}${listeUnites[j][1]}`
             if (!volume.eq(volume.round())) {
               texteCorr += `\\approx ${volume.round()}${listeUnites[j][1]}$`
             } else {
@@ -241,9 +245,9 @@ export default function CalculDeVolumes () {
             texte += ', arrondi à l\'unité, ' // Il faut toujours arrondir à cause de la présence de Pi
             texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${h}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${deprecatedTexFraction(
-              r * r * h,
-              3
-            )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round())}${listeUnites[j][1]}$`
+                            r * r * h,
+                            3
+                        )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round())}${listeUnites[j][1]}$`
           } else {
             j = randint(2, 3) // pour le choix de l'unité
             r = randint(2, 10)

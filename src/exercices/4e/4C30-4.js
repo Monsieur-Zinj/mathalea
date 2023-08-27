@@ -1,9 +1,10 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Puissances de 10 et préfixes'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
@@ -13,7 +14,7 @@ export const dateDePublication = '12/04/2022' // La date de publication initiale
  * Associer une puissance de 10 à un préfixe
  * @author Rémi Angot
  * Référence 4C30-4
-*/
+ */
 export const uuid = 'b0b3c'
 export const ref = '4C30-4'
 export default class PuissancesEtPrefixe extends Exercice {

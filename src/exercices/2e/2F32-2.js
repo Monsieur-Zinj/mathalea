@@ -9,10 +9,11 @@ import { arrondi, numTrie } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, inferieurouegal, superieurouegal } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { inferieurouegal, listeQuestionsToContenu, randint, superieurouegal } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +26,7 @@ export const dateDeModificationImportante = '5/08/2022'
  * Description didactique de l'exercice
  * @author Jean-Claude Lhote
  * Référence 2F32-2
-*/
+ */
 export const uuid = '573f2'
 export const ref = '2F32-2'
 export default function LecturesGraphiques () {
@@ -91,7 +92,13 @@ export default function LecturesGraphiques () {
       }
     }
     const graph = graphiqueInterpole(noeuds, { repere: r, step: 0.1 })
-    this.introduction = 'Voici la représentation graphique de la fonction $f$ définie sur $[-4;4]$.<br>' + mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, origine) + '<br>'
+    this.introduction = 'Voici la représentation graphique de la fonction $f$ définie sur $[-4;4]$.<br>' + mathalea2d({
+      xmin: -13.5,
+      ymin: -9,
+      xmax: 13.5,
+      ymax: 9,
+      scale: 0.5
+    }, r, graph, origine) + '<br>'
 
     for (let i = 0, x0, y0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -107,7 +114,13 @@ export default function LecturesGraphiques () {
             s[1] = segment(minimum[0] * 3, minimum[1] * 2, 0, minimum[1] * 2, 'red')
             s[1].pointilles = 5
             s[2] = tracePoint(point(minimum[0] * 3, minimum[1] * 2), 'red')
-            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
+            texteCorr += mathalea2d({
+              xmin: -13.5,
+              ymin: -9,
+              xmax: 13.5,
+              ymax: 9,
+              scale: 0.5
+            }, r, graph, s, origine)
           }
           break
         case 'maximum':
@@ -122,7 +135,13 @@ export default function LecturesGraphiques () {
             s[1] = segment(maximum[0] * 3, maximum[1] * 2, 0, maximum[1] * 2, 'red')
             s[1].pointilles = 5
             s[2] = tracePoint(point(maximum[0] * 3, maximum[1] * 2), 'red')
-            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
+            texteCorr += mathalea2d({
+              xmin: -13.5,
+              ymin: -9,
+              xmax: 13.5,
+              ymax: 9,
+              scale: 0.5
+            }, r, graph, s, origine)
           }
           break
 
@@ -145,7 +164,13 @@ export default function LecturesGraphiques () {
             s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
             s[1].pointilles = 5
             s[2] = tracePoint(point(x0 * 3, y0 * 2), 'red')
-            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
+            texteCorr += mathalea2d({
+              xmin: -13.5,
+              ymin: -9,
+              xmax: 13.5,
+              ymax: 9,
+              scale: 0.5
+            }, r, graph, s, origine)
           }
           break
         case 'plusPetitAntécédent':
@@ -170,7 +195,13 @@ export default function LecturesGraphiques () {
             s[0].pointilles = 5
             s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
             s[1].pointilles = 5
-            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
+            texteCorr += mathalea2d({
+              xmin: -13.5,
+              ymin: -9,
+              xmax: 13.5,
+              ymax: 9,
+              scale: 0.5
+            }, r, graph, s, origine)
           }
           break
         case 'plusGrandAntécédent':
@@ -195,7 +226,13 @@ export default function LecturesGraphiques () {
             s[0].pointilles = 5
             s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
             s[1].pointilles = 5
-            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
+            texteCorr += mathalea2d({
+              xmin: -13.5,
+              ymin: -9,
+              xmax: 13.5,
+              ymax: 9,
+              scale: 0.5
+            }, r, graph, s, origine)
           }
           break
         case 'nombreAntécédents':
@@ -244,7 +281,13 @@ export default function LecturesGraphiques () {
               s[l * 2 + 2] = segment(antecedents[l] * 3, 0, antecedents[l] * 3, y0 * 2, 'red')
               s[l * 2 + 2].pointilles = 5
             }
-            texteCorr += mathalea2d({ xmin: -13.5, ymin: -9, xmax: 13.5, ymax: 9, scale: 0.5 }, r, graph, s, origine)
+            texteCorr += mathalea2d({
+              xmin: -13.5,
+              ymin: -9,
+              xmax: 13.5,
+              ymax: 9,
+              scale: 0.5
+            }, r, graph, s, origine)
           }
           break
       }
@@ -270,42 +313,42 @@ export default function LecturesGraphiques () {
       for (let i = 0; i < this.nbQuestions; i++) {
         if (listeTypeQuestions[i] === 'nombreAntécédents') {
           this.autoCorrection[0].propositions[i] =
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: this.listeCorrections[i],
-              statut: '',
-              reponse: {
-                texte: '',
-                valeur: [reponses[i]],
-                param: {
-                  digits: 1,
-                  decimals: 0,
-                  signe: false,
-                  approx: 0
-                }
-              }
-            }]
-          }
+                        {
+                          type: 'AMCNum',
+                          propositions: [{
+                            texte: this.listeCorrections[i],
+                            statut: '',
+                            reponse: {
+                              texte: '',
+                              valeur: [reponses[i]],
+                              param: {
+                                digits: 1,
+                                decimals: 0,
+                                signe: false,
+                                approx: 0
+                              }
+                            }
+                          }]
+                        }
         } else {
           this.autoCorrection[0].propositions[i] =
-          {
-            type: 'AMCNum',
-            propositions: [{
-              texte: this.listeCorrections[i],
-              statut: '',
-              reponse: {
-                texte: '',
-                valeur: [reponses[i]],
-                param: {
-                  digits: 2,
-                  decimals: 1,
-                  signe: true,
-                  approx: 0
-                }
-              }
-            }]
-          }
+                        {
+                          type: 'AMCNum',
+                          propositions: [{
+                            texte: this.listeCorrections[i],
+                            statut: '',
+                            reponse: {
+                              texte: '',
+                              valeur: [reponses[i]],
+                              param: {
+                                digits: 2,
+                                decimals: 1,
+                                signe: true,
+                                approx: 0
+                              }
+                            }
+                          }]
+                        }
         }
       }
     } else listeQuestionsToContenu(this)

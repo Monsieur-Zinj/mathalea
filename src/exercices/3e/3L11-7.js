@@ -3,9 +3,10 @@ import { reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Développer des carrés avec la double distributivité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,11 +15,11 @@ export const amcReady = true
 export const dateDePublication = '12/12/2021'
 
 /**
-* Utiliser la double distributivité pour développer (a+b)² ou (a-b)²
-*
-* @author Rémi Angot (AMC par Eric Elter)
-* 3L11-7
-*/
+ * Utiliser la double distributivité pour développer (a+b)² ou (a-b)²
+ *
+ * @author Rémi Angot (AMC par Eric Elter)
+ * 3L11-7
+ */
 export const uuid = '7cf81'
 export const ref = '3L11-7'
 export default function CarreDoubleDistributivite () {

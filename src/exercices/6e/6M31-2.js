@@ -5,12 +5,13 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { min } from 'mathjs'
 import Decimal from 'decimal.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Convertir des volumes ou des capacités'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -77,7 +78,8 @@ export default function UnitesDeVolumesEtDeCapacite () {
         this.nbQuestions
       )
     }
-    let listeDeN = []; let bonusDecimalesAMC, resultat, resultatFaux
+    let listeDeN = []
+    let bonusDecimalesAMC, resultat, resultatFaux
     if (this.sup2) {
       listeDeN = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
@@ -86,7 +88,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
     for (
       let i = 0, n, uniteFinale, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (this.sup2) {
         switch (listeDeN[i]) {
@@ -130,7 +131,11 @@ export default function UnitesDeVolumesEtDeCapacite () {
           texte = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = n < 1000 ? randint(0, 1) : 0 // Sinon, cela fait trop de digits
           resultat = n.mul(1000000)
-          setReponse(this, i, resultat, { digits: min(nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, 10), decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
+          setReponse(this, i, resultat, {
+            digits: min(nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, 10),
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            signe: false
+          })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=${texNombre(n, 3)}\\times1${sp()}000\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
           texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dam', resultat, 'dm', 2, true, true)
 
@@ -139,7 +144,11 @@ export default function UnitesDeVolumesEtDeCapacite () {
           texte = `$${texNombre(n, 3)}${sp()}\\text{m}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.mul(1000)
-          setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
+          setReponse(this, i, resultat, {
+            digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC,
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            signe: false
+          })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{m}^3=${texNombre(n, 3)}\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
           texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'm', resultat, 'dm', 2, true, true)
           break
@@ -147,7 +156,11 @@ export default function UnitesDeVolumesEtDeCapacite () {
           texte = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.mul(1)
-          setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
+          setReponse(this, i, resultat, {
+            digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC,
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            signe: false
+          })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(resultat, 3)}${sp()}\\text{L}$`
           texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'dm', 2, true, true)
           break
@@ -155,7 +168,11 @@ export default function UnitesDeVolumesEtDeCapacite () {
           texte = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.div(1000)
-          setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
+          setReponse(this, i, resultat, {
+            digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC,
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            signe: false
+          })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=${texNombre(n, 3)}\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 6)}${sp()}\\text{L}$`
           texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'cm', resultat, 'dm', 2, true, true)
           break
@@ -163,7 +180,11 @@ export default function UnitesDeVolumesEtDeCapacite () {
           texte = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=\\dotfill${sp()}\\text{L}$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.div(1000000)
-          setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
+          setReponse(this, i, resultat, {
+            digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC,
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            signe: false
+          })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=${texNombre(n, 3)}\\div1${sp()}000\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 9)}${sp()}\\text{L}$`
           texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'mm', resultat, 'dm', 2, true, true)
           break
@@ -171,7 +192,11 @@ export default function UnitesDeVolumesEtDeCapacite () {
           texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{dm}^3$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.mul(1)
-          setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
+          setReponse(this, i, resultat, {
+            digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC,
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            signe: false
+          })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(resultat, 3)}${sp()}\\text{dm}^3$`
           texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'dm', 2, true, true)
           break
@@ -179,7 +204,11 @@ export default function UnitesDeVolumesEtDeCapacite () {
           texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{cm}^3$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.mul(1000)
-          setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
+          setReponse(this, i, resultat, {
+            digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC,
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            signe: false
+          })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 0)}${sp()}\\text{dm}^3=${texNombre(n, 0)}\\times1${sp()}000${sp()}\\text{cm}^3=${texNombre(n * 1000)}${sp()}\\text{cm}^3$`
           texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'cm', 2, true, true)
           break
@@ -187,7 +216,11 @@ export default function UnitesDeVolumesEtDeCapacite () {
           texte = `$${texNombre(n, 3)}${sp()}\\text{L}=\\dotfill${sp()}\\text{m}^3$`
           bonusDecimalesAMC = randint(0, 1)
           resultat = n.div(1000)
-          setReponse(this, i, resultat, { digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC, decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC, signe: false })
+          setReponse(this, i, resultat, {
+            digits: nombreDeChiffresDe(resultat) + randint(0, 1) + bonusDecimalesAMC,
+            decimals: nombreDeChiffresDansLaPartieDecimale(resultat) + bonusDecimalesAMC,
+            signe: false
+          })
           texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(n, 3)}\\div1${sp()}000${sp()}\\text{m}^3=${texNombre(resultat, 6)}${sp()}\\text{m}^3$`
           texteCorr += (this.sup3 === 1 || this.sup3 === 4) ? '' : '<br>' + buildTab(n, 'dm', resultat, 'm', 2, true, true)
           break
@@ -221,7 +254,10 @@ export default function UnitesDeVolumesEtDeCapacite () {
       } else if (this.interactif && this.interactifType === 'mathLive') {
         uniteFinale = listeTypeDeQuestions[i].split('to')[1]
         uniteFinale = uniteFinale === 'L' ? '$\\text{L}$' : `$\\text{${uniteFinale.split('3')[0]}}^3$`
-        texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true, texteApres: uniteFinale })}$`)
+        texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'inline', {
+                    tailleExtensible: true,
+                    texteApres: uniteFinale
+                })}$`)
         setReponse(this, i, resultat)
       }
 

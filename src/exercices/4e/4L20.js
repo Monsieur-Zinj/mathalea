@@ -6,12 +6,12 @@ import { lampeMessage } from '../../lib/format/message.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { signe, abs } from '../../lib/outils/nombres.js'
+import { abs, signe } from '../../lib/outils/nombres.js'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre une équation du premier degré'
 export const interactifReady = true
@@ -96,7 +96,7 @@ export default function ExerciceEquation1 () {
         d *= choice([-1, 1])
       }
       if (listeTypeDeQuestions[i] === 'ax+b=0' ||
-        listeTypeDeQuestions[i] === 'ax+b=c') {
+                listeTypeDeQuestions[i] === 'ax+b=c') {
         if (listeTypeDeQuestions[i] === 'ax+b=0') {
           c = 0
         }
@@ -126,23 +126,23 @@ export default function ExerciceEquation1 () {
           }
         }
         texteCorr += `$${a}x${ecritureAlgebrique(b)}${miseEnEvidence(
-          ecritureAlgebrique(-1 * b)
-        )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
+                    ecritureAlgebrique(-1 * b)
+                )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
         texteCorr += `$${a}x=${c - b}$<br>`
         if (this.correctionDetaillee) {
           texteCorr += `On divise les deux membres par $${a}$.<br>`
         }
         texteCorr += `$${a}x${miseEnEvidence(
-          '\\div' + ecritureParentheseSiNegatif(a)
-        )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
+                    '\\div' + ecritureParentheseSiNegatif(a)
+                )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
         texteCorr += `$x=${deprecatedTexFraction(c - b, a)}$`
         if (pgcd(abs(a), abs(c - b)) > 1 || a < 0) {
           texteCorr += `<br>$x=${texFractionReduite(c - b, a)}$`
         }
         texteCorr += `<br> La solution est $${texFractionReduite(
-          c - b,
-          a
-        )}$.`
+                    c - b,
+                    a
+                )}$.`
         reponse = fraction(c - b, a).simplifie()
         setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
@@ -162,8 +162,8 @@ export default function ExerciceEquation1 () {
           }
         }
         texteCorr += `$x${ecritureAlgebrique(b)}${miseEnEvidence(
-          ecritureAlgebrique(-1 * b)
-        )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
+                    ecritureAlgebrique(-1 * b)
+                )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
         texteCorr += `$x=${c - b}$`
         texteCorr += `<br> La solution est $${c - b}$.`
         reponse = c - b
@@ -185,8 +185,8 @@ export default function ExerciceEquation1 () {
           texteCorr += `On divise les deux membres par $${a}$.<br>`
         }
         texteCorr += `$${a}x${miseEnEvidence(
-          '\\div' + ecritureParentheseSiNegatif(a)
-        )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
+                    '\\div' + ecritureParentheseSiNegatif(a)
+                )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
         texteCorr += `$x=${deprecatedTexFraction(b, a)}$`
         if (pgcd(abs(a), abs(b)) > 1 || a < 0) {
           texteCorr += `<br>$x=${texFractionReduite(b, a)}$`
@@ -215,31 +215,31 @@ export default function ExerciceEquation1 () {
           }
         } while ((d - b) % (a - c) === 0)
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
-          c
-        )}x${ecritureAlgebrique(d)}$`
+                    c
+                )}x${ecritureAlgebrique(d)}$`
         texteCorr = texte + '<br>'
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (c > 0) {
             texteCorr += `On soustrait $${rienSi1(
-              c
-            )}x$ aux deux membres.<br>`
+                            c
+                        )}x$ aux deux membres.<br>`
           } else {
             texteCorr += `On ajoute $${rienSi1(
-              -1 * c
-            )}x$ aux deux membres.<br>`
+                            -1 * c
+                        )}x$ aux deux membres.<br>`
           }
         }
         texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(
-          b
-        )}${miseEnEvidence(
-          signe(-1 * c) + rienSi1(abs(c)) + 'x'
-        )}=${c}x${ecritureAlgebrique(d)}${miseEnEvidence(
-          signe(-1 * c) + rienSi1(abs(c)) + 'x'
-        )}$<br>`
+                    b
+                )}${miseEnEvidence(
+                    signe(-1 * c) + rienSi1(abs(c)) + 'x'
+                )}=${c}x${ecritureAlgebrique(d)}${miseEnEvidence(
+                    signe(-1 * c) + rienSi1(abs(c)) + 'x'
+                )}$<br>`
         texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
-          b
-        )}=${d}$<br>`
+                    b
+                )}=${d}$<br>`
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -248,28 +248,28 @@ export default function ExerciceEquation1 () {
           }
         }
         texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
-          b
-        )}${miseEnEvidence(
-          ecritureAlgebrique(-1 * b)
-        )}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
+                    b
+                )}${miseEnEvidence(
+                    ecritureAlgebrique(-1 * b)
+                )}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
         texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`
 
         if (this.correctionDetaillee) {
           texteCorr += `On divise les deux membres par $${a - c}$.<br>`
         }
         texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence(
-          '\\div' + ecritureParentheseSiNegatif(a - c)
-        )}=${d -
-        b +
-        miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
+                    '\\div' + ecritureParentheseSiNegatif(a - c)
+                )}=${d -
+                b +
+                miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
         texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}$`
         if (pgcd(abs(d - b), abs(a - c)) > 1 || a - c < 0) {
           texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`
         }
         texteCorr += `<br> La solution est $${texFractionReduite(
-          d - b,
-          a - c
-        )}$.`
+                    d - b,
+                    a - c
+                )}$.`
         reponse = fraction(d - b, a - c).simplifie()
         setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }

@@ -3,25 +3,26 @@ import { texPrix } from '../../lib/format/style.js'
 import { abs } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Variations en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Problèmes de variations en pourcentage
-*
-* * Situations variées : prix soldé ou augmenté, effectif d'un collège ou lycée, facture, population d'une ville
-*
-* * Calculer le résultat d'une évolution
-* * Exprimer l'évolution en pourcentage
-* * Retrouver la situation initiale
-* * Mélange des 3 types de problèmes
-* @author Rémi Angot
-* 3P10
-*/
+ * Problèmes de variations en pourcentage
+ *
+ * * Situations variées : prix soldé ou augmenté, effectif d'un collège ou lycée, facture, population d'une ville
+ *
+ * * Calculer le résultat d'une évolution
+ * * Exprimer l'évolution en pourcentage
+ * * Retrouver la situation initiale
+ * * Mélange des 3 types de problèmes
+ * @author Rémi Angot
+ * 3P10
+ */
 export const uuid = '0bcef'
 export const ref = '3P10'
 export default function EvolutionsEnPourcentage () {

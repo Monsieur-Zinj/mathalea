@@ -3,7 +3,9 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'cos et sin associés à un réel $x$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +17,7 @@ export const dateDePublication = '20/04/2022' // La date de publication initiale
  * Description didactique de l'exercice
  * @author Stéphane Guyon
  * Référence
-*/
+ */
 export const uuid = 'b9e6a'
 export const ref = '1G12'
 export default function MesurePrincipale () {

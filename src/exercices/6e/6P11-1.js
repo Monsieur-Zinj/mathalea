@@ -11,9 +11,10 @@ import { prenom } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, checkSum } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { checkSum, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export let titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -55,11 +56,36 @@ export default function ProportionnaliteParLineariteBis () {
     const sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions)
     const prenomliste = prenom(6)
     const situations = [
-      { lieu: 'À la boulangerie', achat_sing: 'pain au chocolat', achat_plur: 'pains au chocolat', pu: choice([0.7, 0.75, 0.8, 0.85]) },
-      { lieu: 'À la boulangerie', achat_sing: 'croissant', achat_plur: 'croissants', pu: choice([1.05, 1.15, 0.95, 1.25]) },
-      { lieu: 'À la boulangerie', achat_sing: 'baguette', achat_plur: 'baguettes', pu: choice([0.9, 1.3, 1.1, 1.2]) },
-      { lieu: 'Au supermarché', achat_sing: 'bouteille de jus de fruits', achat_plur: 'bouteilles de jus de fruits', pu: choice([1.8, 1.9, 2.1, 2.3]) },
-      { lieu: 'À la charcuterie', achat_sing: 'tranche de jambon', achat_plur: 'tranches de jambon', pu: choice([1.6, 1.7, 2.2, 2.4]) }
+      {
+        lieu: 'À la boulangerie',
+        achat_sing: 'pain au chocolat',
+        achat_plur: 'pains au chocolat',
+        pu: choice([0.7, 0.75, 0.8, 0.85])
+      },
+      {
+        lieu: 'À la boulangerie',
+        achat_sing: 'croissant',
+        achat_plur: 'croissants',
+        pu: choice([1.05, 1.15, 0.95, 1.25])
+      },
+      {
+        lieu: 'À la boulangerie',
+        achat_sing: 'baguette',
+        achat_plur: 'baguettes',
+        pu: choice([0.9, 1.3, 1.1, 1.2])
+      },
+      {
+        lieu: 'Au supermarché',
+        achat_sing: 'bouteille de jus de fruits',
+        achat_plur: 'bouteilles de jus de fruits',
+        pu: choice([1.8, 1.9, 2.1, 2.3])
+      },
+      {
+        lieu: 'À la charcuterie',
+        achat_sing: 'tranche de jambon',
+        achat_plur: 'tranches de jambon',
+        pu: choice([1.6, 1.7, 2.2, 2.4])
+      }
     ]
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

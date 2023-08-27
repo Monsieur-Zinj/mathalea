@@ -9,16 +9,12 @@ import { personne, prenom } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  calcul,
-  gestionnaireFormulaireTexte
-} from '../../../modules/outils.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,7 +25,7 @@ export const amcType = 'AMCNum'
  * Ensemble de questions pour course aux nombres
  * @author Jean-Claude Lhote
  * Référence
-*/
+ */
 export const uuid = '32a0f'
 export const ref = 'canc3a'
 export default function CourseAuxNombresCM () {
@@ -50,7 +46,14 @@ export default function CourseAuxNombresCM () {
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat, objets, A, B, C
 
-    const listeIndex = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, max: 30, defaut: 31, melange: 31, shuffle: false }).map((index) => index - 1)
+    const listeIndex = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      nbQuestions: this.nbQuestions,
+      max: 30,
+      defaut: 31,
+      melange: 31,
+      shuffle: false
+    }).map((index) => index - 1)
 
     const fruits2 = [
       ['pêches', 4.5, 10, 30],
@@ -313,7 +316,14 @@ export default function CourseAuxNombresCM () {
               objets[2].styleExtremites = '|-|'
               objets[3] = afficheCoteSegment(segment(A, C), `${stringNombre(a)}`, -1, 'blue')
               objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
-              texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
+              texte = mathalea2d({
+                xmin: -0.1,
+                xmax: 5.1,
+                ymin: -1.5,
+                ymax: 1.5,
+                pixelsParCm: 20,
+                scale: 1
+              }, objets)
               texteCorr = `$${texNombre(c)} - ${texNombre(a)}=${texNombre(b)}$`
               break
           }
@@ -344,7 +354,14 @@ export default function CourseAuxNombresCM () {
               objets[2].styleExtremites = '|-|'
               objets[3] = afficheCoteSegment(objets[2], `${stringNombre(a)}`, -1, 'blue')
               objets[4] = afficheCoteSegment(segment(C, B), `${stringNombre(b)}`, -1, 'green')
-              texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
+              texte = mathalea2d({
+                xmin: -0.1,
+                xmax: 5.1,
+                ymin: -1.5,
+                ymax: 1.5,
+                pixelsParCm: 20,
+                scale: 1
+              }, objets)
               texteCorr = `$${miseEnEvidence(texNombre(a))} + ${texNombre(b)}=${texNombre(c)}$`
               break
           }
@@ -388,7 +405,14 @@ export default function CourseAuxNombresCM () {
               objets[1] = texteSurSegment(`${stringNombre(a)} cm`, B, A)
               objets[2] = codageSegments('//', 'red', C.listePoints)
               texte = 'Quel est le périmètre de ce polygone ?<br>'
-              texte += mathalea2d({ xmin: -2.5, xmax: 3, ymin: -1, ymax: 5, pixelsParCm: 20, scale: 0.8 }, objets)
+              texte += mathalea2d({
+                xmin: -2.5,
+                xmax: 3,
+                ymin: -1,
+                ymax: 5,
+                pixelsParCm: 20,
+                scale: 0.8
+              }, objets)
               texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}$ cm $=${texNombre(a * b)}$ cm.`
               break
             case 2:
@@ -483,7 +507,14 @@ export default function CourseAuxNombresCM () {
           objets[2].styleExtremites = '|-|'
           objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
           objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
-          texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
+          texte = mathalea2d({
+            xmin: -0.1,
+            xmax: 5.1,
+            ymin: -1.5,
+            ymax: 1.5,
+            pixelsParCm: 20,
+            scale: 1
+          }, objets)
           texteCorr = `$${miseEnEvidence(c)} - ${a}=${b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
@@ -496,7 +527,9 @@ export default function CourseAuxNombresCM () {
           if (resultat !== 0) {
             if (resultat !== 5) {
               texte = `Le film a commencé à $${a}$ h $${b}$. Il s'est terminé à $${d}$ h $${resultat}$.<br> Combien de minutes a-t-il duré ?`
-            } else { texte = `Le film a commencé à $${a}$ h $${b}$. Il s'est terminé à $${d}$ h $0${resultat}$.<br> Combien de minutes a-t-il duré ?` }
+            } else {
+              texte = `Le film a commencé à $${a}$ h $${b}$. Il s'est terminé à $${d}$ h $0${resultat}$.<br> Combien de minutes a-t-il duré ?`
+            }
           } else {
             texte = `Le film a commencé à $${a}$ h $${b}$. Il s'est terminé à $${d}$ h.<br> Combien de minutes a-t-il duré ?`
           }
@@ -527,7 +560,14 @@ export default function CourseAuxNombresCM () {
           objets[2].styleExtremites = '|-|'
           objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
           objets[4] = afficheCoteSegment(segment(C, B), b, -1, 'green')
-          texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
+          texte = mathalea2d({
+            xmin: -0.1,
+            xmax: 5.1,
+            ymin: -1.5,
+            ymax: 1.5,
+            pixelsParCm: 20,
+            scale: 1
+          }, objets)
           texteCorr = `$${a} + ${b}=${c}$`
           setReponse(this, i, c, { formatInteractif: 'calcul' })
           break
@@ -545,7 +585,7 @@ export default function CourseAuxNombresCM () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-  `1 : Somme d'entiers\n
+        `1 : Somme d'entiers\n
   2 : Différence d'entiers\n
   3 : Somme d'entiers avec retenue\n
   4 : Différence d'entiers avec retenue\n

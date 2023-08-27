@@ -5,11 +5,12 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texTexte } from '../../lib/format/texTexte.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Convertir des volumes'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
@@ -45,6 +46,7 @@ export default function ExerciceConversionsVolumes () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+
   function nombreAleatoire (nbChiffres) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
     let a = new Decimal(0)
     for (let i = 0; i < nbChiffres; i++) {
@@ -52,6 +54,7 @@ export default function ExerciceConversionsVolumes () {
     }
     return a
   }
+
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
@@ -85,7 +88,6 @@ export default function ExerciceConversionsVolumes () {
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.autoCorrection[i] = {}
       // On limite le nombre d`essais pour chercher des valeurs nouvelles
@@ -127,60 +129,60 @@ export default function ExerciceConversionsVolumes () {
 
         resultat = a.mul(prefixeMulti[k][2])
         texte =
-          '$ ' +
-          texNombre(a, 3) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          '^3' +
-          ' = \\dotfill ' +
-          texTexte(unite) +
-          '^3' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 3) +
+                    texTexte(prefixeMulti[k][0] + unite) +
+                    '^3' +
+                    ' = \\dotfill ' +
+                    texTexte(unite) +
+                    '^3' +
+                    '$'
         texteCorr =
-          '$ ' +
-          texNombre(a, 3) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          '^3' +
-          ' =  ' +
-          texNombre(a, 3) +
-          '\\times' +
-          prefixeMulti[k][1] +
-          texTexte(unite) +
-          '^3' +
-          ' = ' +
-          texNombre(resultat, 20) +
-          texTexte(unite) +
-          '^3' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 3) +
+                    texTexte(prefixeMulti[k][0] + unite) +
+                    '^3' +
+                    ' =  ' +
+                    texNombre(a, 3) +
+                    '\\times' +
+                    prefixeMulti[k][1] +
+                    texTexte(unite) +
+                    '^3' +
+                    ' = ' +
+                    texNombre(resultat, 20) +
+                    texTexte(unite) +
+                    '^3' +
+                    '$'
         texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, 2, true)
       } else if (div && typesDeQuestions < 4) {
         k = randint(0, 1) // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
         // Le commentaire précédent est sans objet avec Decimal, on peut afficher ici 20 chiffres après la virgule sans passer en notation scientifique !
         resultat = a.div(prefixeMulti[k][2])
         texte =
-          '$ ' +
-          texNombre(a, 3) +
-          texTexte(prefixeDiv[k][0] + unite) +
-          '^3' +
-          ' = \\dotfill ' +
-          texTexte(unite) +
-          '^3' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 3) +
+                    texTexte(prefixeDiv[k][0] + unite) +
+                    '^3' +
+                    ' = \\dotfill ' +
+                    texTexte(unite) +
+                    '^3' +
+                    '$'
         texteCorr =
-          '$ ' +
-          texNombre(a, 3) +
-          texTexte(prefixeDiv[k][0] + unite) +
-          '^3' +
-          ' =  ' +
-          texNombre(a, 3) +
-          '\\div' +
-          prefixeDiv[k][1] +
-          texTexte(unite) +
-          '^3' +
-          ' = ' +
-        texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
-          texTexte(unite) +
-          '^3' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 3) +
+                    texTexte(prefixeDiv[k][0] + unite) +
+                    '^3' +
+                    ' =  ' +
+                    texNombre(a, 3) +
+                    '\\div' +
+                    prefixeDiv[k][1] +
+                    texTexte(unite) +
+                    '^3' +
+                    ' = ' +
+                    texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
+                    texTexte(unite) +
+                    '^3' +
+                    '$'
         texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, 2, true)
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
@@ -201,34 +203,34 @@ export default function ExerciceConversionsVolumes () {
               break
             case 3:
               multiplicationsPar1000 =
-                `\\times 1${sp()}000 \\times 1${sp()}000 \\times 1${sp()}000`
+                                `\\times 1${sp()}000 \\times 1${sp()}000 \\times 1${sp()}000`
               break
           }
           resultat = a.mul(10 ** (3 * ecart))
           texte =
-            '$ ' +
-            texNombre(a, 3) +
-            texTexte(listeUnite[unite2]) +
-            '^3' +
-            ' = \\dotfill ' +
-            texTexte(listeUnite[unite1]) +
-            '^3' +
-            '$'
+                        '$ ' +
+                        texNombre(a, 3) +
+                        texTexte(listeUnite[unite2]) +
+                        '^3' +
+                        ' = \\dotfill ' +
+                        texTexte(listeUnite[unite1]) +
+                        '^3' +
+                        '$'
           texteCorr =
-            '$ ' +
-            texNombre(a, 3) +
-            texTexte(listeUnite[unite2]) +
-            '^3' +
-            ' =  ' +
-            texNombre(a, 3) +
-            multiplicationsPar1000 +
-            texTexte(listeUnite[unite1]) +
-            '^3' +
-            ' = ' +
-            texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
-            texTexte(listeUnite[unite1]) +
-            '^3' +
-            '$'
+                        '$ ' +
+                        texNombre(a, 3) +
+                        texTexte(listeUnite[unite2]) +
+                        '^3' +
+                        ' =  ' +
+                        texNombre(a, 3) +
+                        multiplicationsPar1000 +
+                        texTexte(listeUnite[unite1]) +
+                        '^3' +
+                        ' = ' +
+                        texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
+                        texTexte(listeUnite[unite1]) +
+                        '^3' +
+                        '$'
           texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], 2, true)
         } else {
           switch (ecart) {
@@ -244,29 +246,29 @@ export default function ExerciceConversionsVolumes () {
           }
           resultat = a.div(10 ** (3 * ecart))
           texte =
-            '$ ' +
-            texNombre(a, 3) +
-            texTexte(listeUnite[unite1]) +
-            '^3' +
-            ' = \\dotfill ' +
-            texTexte(listeUnite[unite2]) +
-            '^3' +
-            '$'
+                        '$ ' +
+                        texNombre(a, 3) +
+                        texTexte(listeUnite[unite1]) +
+                        '^3' +
+                        ' = \\dotfill ' +
+                        texTexte(listeUnite[unite2]) +
+                        '^3' +
+                        '$'
           texteCorr =
-            '$ ' +
-            texNombre(a, 3) +
-            texTexte(listeUnite[unite1]) +
-            '^3' +
-            ' =  ' +
-            texNombre(a, 3) +
-            multiplicationsPar1000 +
-            texTexte(listeUnite[unite2]) +
-            '^3' +
-            ' = ' +
-            texNombre(resultat, 20) +
-            texTexte(listeUnite[unite2]) +
-            '^3' +
-            '$'
+                        '$ ' +
+                        texNombre(a, 3) +
+                        texTexte(listeUnite[unite1]) +
+                        '^3' +
+                        ' =  ' +
+                        texNombre(a, 3) +
+                        multiplicationsPar1000 +
+                        texTexte(listeUnite[unite2]) +
+                        '^3' +
+                        ' = ' +
+                        texNombre(resultat, 20) +
+                        texTexte(listeUnite[unite2]) +
+                        '^3' +
+                        '$'
           texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], 2, true)
         }
       }

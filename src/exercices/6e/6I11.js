@@ -13,6 +13,7 @@ import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true

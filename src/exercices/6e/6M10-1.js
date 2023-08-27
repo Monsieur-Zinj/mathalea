@@ -9,11 +9,12 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const dateDePublication = '09/04/2022'
 export const titre = 'Problèmes d\'aires de rectangles'
 export const interactifReady = true
@@ -34,6 +35,7 @@ export default function ProblemesAiresRectangles () {
   this.sup4 = 1
   this.sup3 = true
   this.spacingCorr = context.isHtml ? 3 : 2
+
   function rangeLesLongeurs (longueursHorizontales, longueursVerticales, typeDeGrille) {
     const longueursPossibles = [3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5]
     let tableau = longueursHorizontales.concat(longueursVerticales)
@@ -50,6 +52,7 @@ export default function ProblemesAiresRectangles () {
     }
     return liste
   }
+
   function choisitFormatGrille (nombreEtapes) {
     switch (nombreEtapes) {
       case 1:
@@ -68,6 +71,7 @@ export default function ProblemesAiresRectangles () {
         return [4, 4]
     }
   }
+
   function choisitLongueurs (tables, typeDeGrille) {
     const longueursHorizontales = [choice(tables)]
     for (let i = 1; i < typeDeGrille[0]; i++) longueursHorizontales.push(choice(tables, longueursHorizontales))
@@ -75,6 +79,7 @@ export default function ProblemesAiresRectangles () {
     for (let i = 1; i < typeDeGrille[1]; i++) longueursVerticales.push(choice(tables, longueursVerticales))
     return [longueursHorizontales, longueursVerticales]
   }
+
   function fixeBordures (listeDeTailles, typeDeGrille) {
     const listeEcartsHorizontaux = []
     const listeEcartsVerticaux = []
@@ -92,6 +97,7 @@ export default function ProblemesAiresRectangles () {
     }
     return [xBordures, yBordures]
   }
+
   function creeRectangles (typeDeGrille, xBordures, yBordures) {
     const rectangles = []
     for (let i = 0; i < typeDeGrille[0]; i++) {
@@ -102,6 +108,7 @@ export default function ProblemesAiresRectangles () {
     }
     return rectangles
   }
+
   function calculAires (typeDeGrille, longueursHorizontales, longueursVerticales) {
     const aires = []
     for (let x = 0; x < typeDeGrille[0]; x++) {
@@ -112,6 +119,7 @@ export default function ProblemesAiresRectangles () {
     }
     return aires
   }
+
   function dessineGrille (typeDeGrille, xBordures, yBordures) {
     let segTemp
     const objets = []
@@ -206,10 +214,19 @@ export default function ProblemesAiresRectangles () {
         }
       }
     }
-    const paramsEnonce = { xmin: -3.5, ymin: -0.5, xmax: xBordures[typeDeGrille[0]] + 2.5, ymax: yBordures[typeDeGrille[1]] + 2, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+    const paramsEnonce = {
+      xmin: -3.5,
+      ymin: -0.5,
+      xmax: xBordures[typeDeGrille[0]] + 2.5,
+      ymax: yBordures[typeDeGrille[1]] + 2,
+      pixelsParCm: 30,
+      scale: 0.7,
+      mainlevee: false
+    }
     const texte = mathalea2d(paramsEnonce, objetsEnonce)
     return [texte, alternance, numeroteur, listeCellules]
   }
+
   function redigeCorrection (rectangles, longueursHorizontales, longueursVerticales, aires, nombreTotalEtapes, etapeAireInconnue, alternance, numeroteur, listeCellules) {
     let texteCorr = ''
     let reponse
@@ -250,6 +267,7 @@ export default function ProblemesAiresRectangles () {
     }
     return [texteCorr, reponse]
   }
+
   function etapesDeLaFinAEtapeInconnue (texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue, colonneOuLigne) {
     for (let i = listeCellules.length - 1; i >= etapeAireInconnue; i--) {
       if (!colonneOuLigne) {
@@ -282,6 +300,7 @@ export default function ProblemesAiresRectangles () {
 
     return [texteCorr, colonneOuLigne]
   }
+
   function etapesDeUnAEtapeInconnue (texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeInconnue, colonneOuLigne) {
     for (let i = 0; i < etapeInconnue; i++) {
       if (colonneOuLigne) {
@@ -328,19 +347,19 @@ export default function ProblemesAiresRectangles () {
     this.autoCorrection = []
     let choixDesTables
     /*
-    let nombreTotalEtapes = []
+        let nombreTotalEtapes = []
 
-    if (typeof this.sup === 'number') {
-    // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
-      nombreTotalEtapes[0] = contraindreValeur(1, 7, this.sup, 5)
-    } else {
-      nombreTotalEtapes = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
-      for (let i = 0; i < nombreTotalEtapes.length; i++) {
-        nombreTotalEtapes[i] = contraindreValeur(1, 7, parseInt(nombreTotalEtapes[i]), 5)
-      }
-    }
-    nombreTotalEtapes = combinaisonListes(nombreTotalEtapes, this.nbQuestions)
-*/
+        if (typeof this.sup === 'number') {
+        // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
+          nombreTotalEtapes[0] = contraindreValeur(1, 7, this.sup, 5)
+        } else {
+          nombreTotalEtapes = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
+          for (let i = 0; i < nombreTotalEtapes.length; i++) {
+            nombreTotalEtapes[i] = contraindreValeur(1, 7, parseInt(nombreTotalEtapes[i]), 5)
+          }
+        }
+        nombreTotalEtapes = combinaisonListes(nombreTotalEtapes, this.nbQuestions)
+    */
     const nombreTotalEtapes = gestionnaireFormulaireTexte({
       max: 7,
       defaut: 5,
@@ -349,18 +368,18 @@ export default function ProblemesAiresRectangles () {
     })
 
     /*
-    let typesDeProblemes = []
-    if (typeof this.sup4 === 'number') {
-      // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
-      typesDeProblemes[0] = contraindreValeur(1, 2, this.sup4, 1)
-    } else {
-      typesDeProblemes = this.sup4.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
-      for (let i = 0; i < typesDeProblemes.length; i++) {
-        typesDeProblemes[i] = contraindreValeur(1, 2, parseInt(typesDeProblemes[i]), 1)
-      }
-    }
-    typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
-*/
+        let typesDeProblemes = []
+        if (typeof this.sup4 === 'number') {
+          // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
+          typesDeProblemes[0] = contraindreValeur(1, 2, this.sup4, 1)
+        } else {
+          typesDeProblemes = this.sup4.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
+          for (let i = 0; i < typesDeProblemes.length; i++) {
+            typesDeProblemes[i] = contraindreValeur(1, 2, parseInt(typesDeProblemes[i]), 1)
+          }
+        }
+        typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
+    */
     const typesDeProblemes = gestionnaireFormulaireTexte({
       max: 2,
       defaut: 1,

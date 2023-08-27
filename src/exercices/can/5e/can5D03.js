@@ -2,11 +2,12 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Convertir des fractions d’heures en minutes et inversement'
 export const interactifReady = true
 export const interactifType = 'mathLive'

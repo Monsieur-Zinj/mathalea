@@ -2,8 +2,9 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre une équation du second degré'
@@ -17,7 +18,7 @@ export const dateDePublication = '04/06/2022' // La date de publication initiale
  *
  * @author Gilles Mora
  * Référence can1L04
-*/
+ */
 export const uuid = '7a950'
 export const ref = 'can1L04'
 export default function ResoudreEquationSecondDegre () {
@@ -52,7 +53,9 @@ export default function ResoudreEquationSecondDegre () {
       texte = `$${reduirePolynomeDegre3(0, a, b, c)}=0$.<br>
        Sachant que  $\\Delta=${d}$, donner les solutions de cette équation
         `
-      if (!this.interactif) { texte += '.' } else {
+      if (!this.interactif) {
+        texte += '.'
+      } else {
         texte += 'dans l\'ordre croissant :'
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += ' et '

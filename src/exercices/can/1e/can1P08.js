@@ -7,6 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Compléter le tableau d’une loi de probabilité d’une variable aléatoire'
@@ -20,7 +21,7 @@ export const amcType = 'AMCNum'
  *
  * @author Gilles Mora
 
-*/
+ */
 export const uuid = '0f776'
 export const ref = 'can1P08'
 export default function ProbaLoiVA () {

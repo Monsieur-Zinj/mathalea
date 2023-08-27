@@ -4,11 +4,11 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
@@ -97,7 +97,14 @@ export default function MultiplierDecimaux () {
       texteCorr += Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       setReponse(this, i, reponse)
-      this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+      this.autoCorrection[i].options = {
+        digits: 0,
+        decimals: 0,
+        signe: false,
+        exposantNbChiffres: 0,
+        exposantSigne: false,
+        approx: 0
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

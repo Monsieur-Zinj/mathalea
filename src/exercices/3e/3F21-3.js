@@ -9,11 +9,12 @@ import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +26,7 @@ export const dateDeModifImportante = '28/05/2023'
  * Lire la pente et l'ordonnée à l'origine d'une droite pour en déduire la forme algébrique de la fonction affine
  * @author Rémi Angot (modifié par EE pour l'ajout de paramètres)
  * Référence
-*/
+ */
 export const uuid = '056fa'
 export const ref = '3F21-3'
 export default function PenteEtOrdonneeOrigineDroite () {
@@ -87,9 +88,23 @@ export default function PenteEtOrdonneeOrigineDroite () {
 
       const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])
 
-      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br><br>` + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax, scale: context.isHtml ? 1 : 0.5 }, r, d)
-      const consigneCorrection = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d, c, s1, s2, t1, t2)
-      let question1; let question2; let question3; let indice = 0
+      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br><br>` + mathalea2d({
+        xmin: xMin,
+        xmax: xMax,
+        ymin: yMin,
+        ymax: yMax,
+        scale: context.isHtml ? 1 : 0.5
+      }, r, d)
+      const consigneCorrection = mathalea2d({
+        xmin: xMin,
+        xmax: xMax,
+        ymin: yMin,
+        ymax: yMax
+      }, r, d, c, s1, s2, t1, t2)
+      let question1
+      let question2
+      let question3
+      let indice = 0
       let correction1, correction2, correction3
       if (vocabulaire === 'affine') {
         question1 = numAlpha(indice) + `Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
@@ -106,9 +121,9 @@ export default function PenteEtOrdonneeOrigineDroite () {
       question3 = numAlpha(indice) + `En déduire l'expression algébrique de $${nomFonction}$.`
       question3 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, 'largeur15 inline nospacebefore', { texte: `$${sp(10)}${nomFonction} : x \\mapsto $` })
       correction3 = numAlpha(indice) + `$${nomFonction}$ étant une fonction ${vocabulaire}, on a $${nomFonction} : x \\mapsto $` +
-      ((vocabulaire === 'affine')
-        ? '$ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l\'origine.'
-        : '$ax$ avec $a$ son coefficient directeur (ou pente).')
+                ((vocabulaire === 'affine')
+                  ? '$ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l\'origine.'
+                  : '$ax$ avec $a$ son coefficient directeur (ou pente).')
       correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x$` + (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
 
       if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)

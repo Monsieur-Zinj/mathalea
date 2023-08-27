@@ -3,8 +3,9 @@ import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires.j
 import Exercice from '../Exercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer des étendues'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +18,7 @@ export const dateDeModifImportante = '31/08/2022'
  * Référence 3S15
  * Ajout d'un paramètre "Mélange" par Guillaume Valmont le 31/08/2022
  * 12/01/2023 Mickael Guironnet Refactoring
-*/
+ */
 export const uuid = '36e68'
 export const ref = '3S15'
 export default function CalculerEtendues () {

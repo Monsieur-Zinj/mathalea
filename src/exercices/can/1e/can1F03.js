@@ -5,8 +5,9 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire graphiquement le signe de $a$ et de $\\Delta$'
@@ -20,7 +21,7 @@ export const dateDePublication = '08/06/2022' // La date de publication initiale
  *
  * @author Gilles Mora
  * Référence can1L04
-*/
+ */
 export const uuid = 'a8936'
 export const ref = 'can1F03'
 export default function LectureGraphiqueParabole () {
@@ -73,7 +74,15 @@ export default function LectureGraphiqueParabole () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -1.5, ymax: 6, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({
+            xmin: -5,
+            xmax: 5,
+            ymin: -1.5,
+            ymax: 6,
+            pixelsParCm: 25,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a>0$. <br>
       De plus, elle ne coupe pas l'axe des abscisses, donc $f$ n'a pas de racines et par suite $\\Delta<0$.`
@@ -118,7 +127,15 @@ export default function LectureGraphiqueParabole () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -4.5, ymax: 5, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({
+            xmin: -5,
+            xmax: 5,
+            ymin: -4.5,
+            ymax: 5,
+            pixelsParCm: 25,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
           texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a>0$. <br>
     De plus, elle  coupe  l'axe des abscisses en deux points, donc $f$ a deux racines et par suite $\\Delta>0$.`
           break
@@ -159,7 +176,15 @@ export default function LectureGraphiqueParabole () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -2.5, ymax: 5, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({
+            xmin: -5,
+            xmax: 5,
+            ymin: -2.5,
+            ymax: 5,
+            pixelsParCm: 25,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a>0$. <br>
  De plus, elle  coupe  l'axe des abscisses en un point, donc $f$ a une seule racine et par suite $\\Delta=0$.`
@@ -202,7 +227,15 @@ export default function LectureGraphiqueParabole () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -5.5, ymax: 2, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({
+            xmin: -5,
+            xmax: 5,
+            ymin: -5.5,
+            ymax: 2,
+            pixelsParCm: 25,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
  De plus, elle  coupe  l'axe des abscisses en un point, donc $f$ a une seule racine et par suite $\\Delta=0$.`
@@ -245,7 +278,15 @@ export default function LectureGraphiqueParabole () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -2.5, ymax: 5, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({
+            xmin: -5,
+            xmax: 5,
+            ymin: -2.5,
+            ymax: 5,
+            pixelsParCm: 25,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
  De plus, elle  coupe  l'axe des abscisses en deux points, donc $f$ a deux racines  et par suite $\\Delta>0$.`
@@ -288,7 +329,15 @@ export default function LectureGraphiqueParabole () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -5.5, ymax: 2, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({
+            xmin: -5,
+            xmax: 5,
+            ymin: -5.5,
+            ymax: 2,
+            pixelsParCm: 25,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
  De plus, elle ne coupe pas l'axe des abscisses, donc $f$ n'a pas de racines et par suite $\\Delta<0$.`

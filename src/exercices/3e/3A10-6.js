@@ -3,13 +3,10 @@ import { texteGras } from '../../lib/format/style.js'
 import { sommeDesChiffres } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Trouver un chiffre pour qu\'un nombre soit divisible par un autre'
 // export const amcReady = true
 // export const amcType = 'AMCNum'
@@ -47,11 +44,26 @@ export default function TrouverChiffre () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     // CHOIX DU NOMBRE DE CHIFFRES COMPOSANT LE NOMBRE
-    const nombreDeChiffres = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions })
+    const nombreDeChiffres = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 2,
+      max: 6,
+      melange: 7,
+      defaut: 7,
+      nbQuestions: this.nbQuestions
+    })
 
     // CHOIX DU CRITERE DE DIVISIBILITE
     const choixDiviseurs = ['', 'par 2', 'par 3', 'par 5', 'par 9', 'par 2 et par 3', 'par 2 et par 5', 'par 6', 'par 10']
-    const casChoixDiviseurs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 8, melange: 9, defaut: 9, nbQuestions: this.nbQuestions, shuffle: false })
+    const casChoixDiviseurs = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 8,
+      melange: 9,
+      defaut: 9,
+      nbQuestions: this.nbQuestions,
+      shuffle: false
+    })
 
     for (let i = 0, texte, texteCorr, cpt = 0, nb, positionX, a, tabChiffresX, nbAvecChiffreCache,
       sommePourTroisouNeuf, ajoutPourTroisouNeuf, reponse; i < this.nbQuestions && cpt < 50;) {
@@ -86,11 +98,11 @@ export default function TrouverChiffre () {
               texteCorr += texteEnCouleurEtGras('tout chiffre pair suffit.<br>')
               texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, 0)}, ${nbAvecChiffreCache.replace(symboleChiffreCache, '2')}, ${nbAvecChiffreCache.replace(symboleChiffreCache, '4')}, ${nbAvecChiffreCache.replace(symboleChiffreCache, '6')} et ${nbAvecChiffreCache.replace(symboleChiffreCache, '8')} sont divisibles par 2.`
               /* Cette méthode fonctionne mais par pour un autre cas, donc c'est tout ou rien
-              reponse = diversesReponsesPossibles([0, 2, 4, 6, 8])
-              for (let k = 0; k < reponse.length; k++) {
-                reponse[k] = reponse[k].join(';')
-              }
-              */
+                            reponse = diversesReponsesPossibles([0, 2, 4, 6, 8])
+                            for (let k = 0; k < reponse.length; k++) {
+                              reponse[k] = reponse[k].join(';')
+                            }
+                            */
               reponse = '0;2;4;6;8'
               break
             default : // Le chiffre inconnu n'est pas le chiffre des unités
@@ -101,11 +113,11 @@ export default function TrouverChiffre () {
                 }
                 texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, 8)} et ${nbAvecChiffreCache.replace(symboleChiffreCache, 9)} sont divisibles par 2.`
                 /* Cette méthode ne fonctionne pas car le tableau des diverses réponses possibles est trop grand et ralentit le fonctionnement de l'exercice
-                reponse = diversesReponsesPossibles(rangeMinMax(0, 9))
-                for (let k = 0; k < reponse.length; k++) {
-                  reponse[k] = reponse[k].join(';')
-                }
-                */
+                                reponse = diversesReponsesPossibles(rangeMinMax(0, 9))
+                                for (let k = 0; k < reponse.length; k++) {
+                                  reponse[k] = reponse[k].join(';')
+                                }
+                                */
                 reponse = '0;1;2;3;4;5;6;7;8;9'
               } else { // Le chiffre des unités est impair
                 texteCorr += texteEnCouleurEtGras('aucun chiffre convient') + ' car le nombre ne peut pas être pair.<br>'

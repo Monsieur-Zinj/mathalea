@@ -1,8 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Déterminer la racine carrée d\'un carré parfait (calcul mental)'
 export const amcReady = true
@@ -75,7 +76,13 @@ export default function RacineCareeDeCarresParfaits () {
             this.autoCorrection[i].enonce = `$${c} = \\dots^2$`
             this.autoCorrection[i].propositions = [{ texte: `$${c}=${a}^2$`, statut: '' }]
           }
-          this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, exposantNbChiffres: 0, exposantSigne: false, signe: false }
+          this.autoCorrection[i].reponse.param = {
+            digits: 2,
+            decimals: 0,
+            exposantNbChiffres: 0,
+            exposantSigne: false,
+            signe: false
+          }
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

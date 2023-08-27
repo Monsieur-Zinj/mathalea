@@ -8,10 +8,11 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, calcul, listeQuestionsToContenu } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
 export const amcReady = true
@@ -49,9 +50,43 @@ export default function LireUneAbscisseAvecZoom () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let reponse1; let reponse2A; let reponse2B; let reponse3
-      let d1; let d2; let d3; let d3Corr; let d1Corr; let d2Corr; let extremite; let extreme; const noms = choisitLettresDifferentes(5, 'QFN')
-      let x1 = 0; let x2 = 0; let x3 = 0; const objets = []; let fenetre; let thickOff = 0; const objetsCorr = []; let xmin; let xmax; let origine; let pA1; let pA2; let pB1; let pB2; let sA; let sB; let x21; let x31; let pC1; let pC2; let pD1; let pD2; let sC; let sD
+      let reponse1
+      let reponse2A
+      let reponse2B
+      let reponse3
+      let d1
+      let d2
+      let d3
+      let d3Corr
+      let d1Corr
+      let d2Corr
+      let extremite
+      let extreme
+      const noms = choisitLettresDifferentes(5, 'QFN')
+      let x1 = 0
+      let x2 = 0
+      let x3 = 0
+      const objets = []
+      let fenetre
+      let thickOff = 0
+      const objetsCorr = []
+      let xmin
+      let xmax
+      let origine
+      let pA1
+      let pA2
+      let pB1
+      let pB2
+      let sA
+      let sB
+      let x21
+      let x31
+      let pC1
+      let pC2
+      let pD1
+      let pD2
+      let sC
+      let sD
       if (this.sup === 1) {
         if (this.niveau === 'CM') {
           xmin = 0
@@ -313,7 +348,8 @@ export default function LireUneAbscisseAvecZoom () {
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
-        const partent = Math.floor(x1); const pardec = calcul(x1 - partent)
+        const partent = Math.floor(x1)
+        const pardec = calcul(x1 - partent)
         texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${deprecatedTexFraction(calcul(pardec * 100), 100)}=${deprecatedTexFraction(calcul(x1 * 100), 100)}$.<br>`
 
         reponse1 = x1
@@ -517,7 +553,8 @@ export default function LireUneAbscisseAvecZoom () {
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
         objets.push(d1, d2, d3, sA, sB, sC, sD)
         objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
-        const partent = Math.floor(x1); const pardec = calcul(x1 - partent)
+        const partent = Math.floor(x1)
+        const pardec = calcul(x1 - partent)
         texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${deprecatedTexFraction(calcul(pardec * 1000), 1000)}=${deprecatedTexFraction(calcul(x1 * 1000), 1000)}$.<br>`
         reponse1 = x1
         reponse2A = partent
@@ -535,9 +572,23 @@ export default function LireUneAbscisseAvecZoom () {
         setReponse(this, 1, reponse2A)
         setReponse(this, 2, reponse2B, { formatInteractif: 'fraction' })
         setReponse(this, 3, reponse3, { formatInteractif: 'fraction' })
-        texte += ajouteChampTexteMathLive(this, i * 4, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} comme somme d'un nombre entier et d'une fraction décimale : ` }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: '+' })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
+        texte += ajouteChampTexteMathLive(this, i * 4, 'largeur25 inline nospacebefore', {
+          tailleExtensible: true,
+          texte: `Abscisse de ${noms[1]} en écriture décimale : `
+        })
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur25 inline nospacebefore', {
+          tailleExtensible: true,
+          texte: `Abscisse de ${noms[1]} comme somme d'un nombre entier et d'une fraction décimale : `
+        }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur25 inline nospacebefore', {
+          formatInteractif: 'fraction',
+          tailleExtensible: true,
+          texte: '+'
+        })
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur25 inline nospacebefore', {
+          formatInteractif: 'fraction',
+          tailleExtensible: true,
+          texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `
+        })
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -585,7 +636,7 @@ export default function LireUneAbscisseAvecZoom () {
       }
       texteCorr += mathalea2d(fenetre, objetsCorr)
       if (this.questionJamaisPosee(i, texte)) {
-      // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

@@ -5,8 +5,9 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Puissances : Calculs automatisés et règles de calculs'
 
 export const interactifReady = true
@@ -58,7 +59,6 @@ export default function PuissancesDUnRelatif2 () {
     for (
       let i = 0, base, exp, texte, texteCorr, reponseInteractive, exposantInteractif, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
 
@@ -67,18 +67,18 @@ export default function PuissancesDUnRelatif2 () {
           base = 3 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 3 exposants distincts
           texte = `$\\dfrac{${base}^${exp[0]}\\times ${base * base}}{${base}^${exp[1]
-            } \\times ${base}^${exp[2]}}$`
+                    } \\times ${base}^${exp[2]}}$`
           texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${base * base
-            }}{${base}^${exp[1]} \\times ${base}^${exp[2]}}`
+                    }}{${base}^${exp[1]} \\times ${base}^${exp[2]}}`
           texteCorr += ` = \\dfrac{${base}^${exp[0]}\\times ${base}^{2}}{${base}^${exp[1]} \\times ${base}^${exp[2]}}`
           texteCorr += ` = \\dfrac{${base}^{${exp[0]}+2}}{${base}^{${exp[1]}+${exp[2]}}}`
           texteCorr += ` = \\dfrac{${base}^{${exp[0] + 2}}}{${base}^{${exp[1] + exp[2]
-            }}}`
+                    }}}`
           texteCorr += ` = ${base}^{${exp[0] + 2}-${exp[1] + exp[2]}}`
           texteCorr += ` = ${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
           if (
             exp[0] + 2 - exp[1] - exp[2] === 0 ||
-            exp[0] + 2 - exp[1] - exp[2] === 1
+                        exp[0] + 2 - exp[1] - exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
             texteCorr += '=' + simpExp(base, exp[0] + 2 - exp[1] - exp[2])
@@ -91,13 +91,13 @@ export default function PuissancesDUnRelatif2 () {
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 2 exposants distincts
           texte = `$\\dfrac{${base}^${exp[0]}\\times ${base ** 3}}{${base}^${exp[1]
-            }}$`
+                    }}$`
           texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${base ** 3
-            }}{${base}^${exp[1]}}`
+                    }}{${base}^${exp[1]}}`
           texteCorr += ` = \\dfrac{${base}^${exp[0]}\\times ${base}^3}{${base}^${exp[1]}}`
           texteCorr += ` = \\dfrac{${base}^{${exp[0]}+3}}{${base}^${exp[1]}}`
           texteCorr += ` = \\dfrac{${base}^{${exp[0] + 3}}}{${base}^${exp[1]
-            }}`
+                    }}`
           texteCorr += ` = ${base}^{${exp[0] + 3}-${exp[1]}}`
           texteCorr += ` = ${base}^{${exp[0] + 3 - exp[1]}}`
           if (exp[0] + 3 - exp[1] === 0 || exp[0] + 3 - exp[1] === 1) {
@@ -114,17 +114,17 @@ export default function PuissancesDUnRelatif2 () {
           // le second exposant ne peut valoir que 1 ou 2 la fonction testExp ne convient pas à l'affichage ici
           if (exp[1] === 2) {
             texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2}^${exp[1]
-              }}$`
+                        }}$`
             texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
-              }^${exp[1]}}`
+                        }^${exp[1]}}`
             texteCorr += `=\\dfrac{${base}^{1+${exp[0]}}}{(${base}^2)^${exp[1]}}`
             texteCorr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^{2 \\times ${exp[1]}}}`
             texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{${2 * exp[1]
-              }}}`
+                        }}}`
           } else {
             texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2}}$`
             texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
-              }}`
+                        }}`
             texteCorr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^2}`
           }
           texteCorr += `=${base}^{${1 + exp[0]}-${2 * exp[1]}}`
@@ -141,9 +141,9 @@ export default function PuissancesDUnRelatif2 () {
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
           texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
-            }\\times ${base ** 2}}$`
+                    }\\times ${base ** 2}}$`
           texteCorr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base ** 2
-            }\\times ${base ** 2}}`
+                    }\\times ${base ** 2}}`
           texteCorr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^2\\times ${base}^2}`
           texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{2+2}}`
           texteCorr += `=\\dfrac{${base}^{${1 + exp[0]}}}{${base}^{${2 + 2}}}`
@@ -189,25 +189,25 @@ export default function PuissancesDUnRelatif2 () {
           base = 3 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 4, [1])] // on a besoin de 3 exposants distincts
           texte = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base ** 2
-            }^${exp[2]}}\\times ${base}$`
+                    }^${exp[2]}}\\times ${base}$`
           texteCorr = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base ** 2
-            }^${exp[2]}}\\times ${base}`
+                    }^${exp[2]}}\\times ${base}`
           texteCorr += `=\\dfrac{${base}^{${exp[0]}+${exp[1]}}}{(${base}^2)^${exp[2]}}\\times ${base}`
           texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]
-            }}}{${base}^{2\\times ${exp[2]}}}\\times ${base}`
+                    }}}{${base}^{2\\times ${exp[2]}}}\\times ${base}`
           texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]}}}{${base}^{${2 * exp[2]
-            }}}\\times ${base}`
+                    }}}\\times ${base}`
           texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]
-            }}\\times ${base}}{${base}^{${2 * exp[2]}}}`
+                    }}\\times ${base}}{${base}^{${2 * exp[2]}}}`
           texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1]}+1}}{${base}^{${2 * exp[2]
-            }}}`
+                    }}}`
           texteCorr += `=\\dfrac{${base}^{${exp[0] + exp[1] + 1}}}{${base}^{${2 * exp[2]
-            }}}`
+                    }}}`
           texteCorr += `=${base}^{${exp[0] + exp[1] + 1}-${2 * exp[2]}}`
           texteCorr += `=${base}^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
           if (
             exp[0] + exp[1] + 1 - 2 * exp[2] === 0 ||
-            exp[0] + exp[1] + 1 - 2 * exp[2] === 1
+                        exp[0] + exp[1] + 1 - 2 * exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
             texteCorr += '=' + simpExp(base, exp[0] + exp[1] + 1 - 2 * exp[2])
@@ -220,9 +220,9 @@ export default function PuissancesDUnRelatif2 () {
           base = 2 // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
           texte = `$\\dfrac{${base ** 3}\\times ${base}}{${base ** 2}^${exp[0]
-            }}$`
+                    }}$`
           texteCorr = `$\\dfrac{${base ** 3}\\times ${base}}{${base ** 2}^${exp[0]
-            }}`
+                    }}`
           texteCorr += `=\\dfrac{${base}^3\\times ${base}}{(${base}^2)^${exp[0]}}`
           texteCorr += `=\\dfrac{${base}^{3+1}}{${base}^{2\\times${exp[0]}}}`
           texteCorr += `=\\dfrac{${base}^{4}}{${base}^{${2 * exp[0]}}}`
@@ -244,7 +244,11 @@ export default function PuissancesDUnRelatif2 () {
         // texte += 'case : ' + typesDeQuestions
       }
       if (context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: base, exposantPuissance: exposantInteractif })
+        setReponse(this, i, reponseInteractive, {
+          formatInteractif: 'puissance',
+          basePuissance: base,
+          exposantPuissance: exposantInteractif
+        })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

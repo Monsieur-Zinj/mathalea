@@ -1,4 +1,3 @@
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction.js'
@@ -6,6 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Encadrer en utilisant un tableau de variations'
 export const interactifReady = true
@@ -59,7 +59,7 @@ export default function EncadrerTableau () {
     ` + tableauDeVariation({
           tabInit: [
             [
-            // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 2, 10], ['$f(x)$', 4, 30]
             ],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage

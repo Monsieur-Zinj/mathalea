@@ -1,8 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Donner l\'écriture décimale à partir d\'un somme d\'entiers et de fractions décimales'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,7 +16,7 @@ export const amcType = 'AMCNum'
  * @author Benjamin Angot
  * Référence C3N20
  * 2021-03-24
-*/
+ */
 
 export const uuid = 'ec7e4'
 export const ref = 'c3N20'

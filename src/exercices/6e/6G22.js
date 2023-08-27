@@ -12,11 +12,12 @@ import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { min, max } from 'mathjs'
+import { max, min } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Nommer un angle'
 export const interactifType = ['qcm', 'mathLive']
 export const interactifReady = true
@@ -62,13 +63,13 @@ export default function NommerUnAngle () {
       const numI = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM, numN])
 
       /* A décommenter pour débugguer (et commenter les 6 lignes du dessus)
-      const numA = 1
-      const numB = 2
-      const numC = 3
-      const numI = 9
-      const numM = 13
-      const numN = 14
-      */
+            const numA = 1
+            const numB = 2
+            const numC = 3
+            const numI = 9
+            const numM = 13
+            const numN = 14
+            */
 
       const ordB = randint(0, 2)
       const B = point(0, ordB, lettreDepuisChiffre(numB))
@@ -242,7 +243,15 @@ export default function NommerUnAngle () {
         texteAMC += ' l\'angle '
         marquageAngleConsigne.push(codageAngle(M1, O, 79, 1, marquageAngle[jj]))
         texteAMC += this.sup3
-          ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne)
+          ? 'marqué par le symbole' + mathalea2d({
+            xmin: 0,
+            ymin: 0,
+            xmax: 1.2,
+            ymax: 1.2,
+            pixelsParCm: 20,
+            scale: 0.5,
+            style: 'display:inline'
+          }, marquageAngleConsigne)
           : `${couleurRemplissageAngle[1]}`
         texteAMC += ((this.interactif || context.isAmc) && this.interactifType === 'qcm') ? '.' : `${sp()}?`
         texte += this.sup > 1 ? `${jj === 0 ? '' : '<br>'}${numAlpha(jj)}` : ''
@@ -255,7 +264,15 @@ export default function NommerUnAngle () {
         texteCorr += this.sup > 1 ? `${jj === 0 ? '' : '<br>'}${numAlpha(jj)}` : ''
         texteCorr += 'L\'angle '
         texteCorr += this.sup3
-          ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne)
+          ? 'marqué par le symbole' + mathalea2d({
+            xmin: 0,
+            ymin: 0,
+            xmax: 1.2,
+            ymax: 1.2,
+            pixelsParCm: 20,
+            scale: 0.5,
+            style: 'display:inline'
+          }, marquageAngleConsigne)
           : `${couleurRemplissageAngle[1]}`
         texteCorr += ` se nomme, au choix : $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
@@ -297,7 +314,14 @@ export default function NommerUnAngle () {
           }
         }
       }
-      const params = { xmin: min(0, absA, absC) - 1, ymin: ordC - 1, xmax: max(0, absA, absC) + 1, ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }
+      const params = {
+        xmin: min(0, absA, absC) - 1,
+        ymin: ordC - 1,
+        xmax: max(0, absA, absC) + 1,
+        ymax: ordA + 1,
+        pixelsParCm: 20,
+        scale: 0.5
+      }
       objetsEnonce.push(p1[0], p1[1], segment(A, N), segment(C, M), labelPoint(M, N, Ibis))
       objetsCorrection.push(p1[0], p1[1], segment(A, N), segment(C, M), labelPoint(M, N, Ibis))
       const figureExo = mathalea2d(params, objetsEnonce)

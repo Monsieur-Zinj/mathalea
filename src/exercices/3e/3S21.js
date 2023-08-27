@@ -8,9 +8,10 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { fraction } from '../../modules/fractions.js'
 import { Arbre } from '../../modules/arbres.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '15/01/2022'
 export const interactifReady = true
@@ -20,7 +21,7 @@ export const interactifType = 'mathLive'
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
  * @author Jean-Claude Lhote
  * Référence 3S21
-*/
+ */
 export const uuid = '76230'
 export const ref = '3S21'
 export default function CalculProbaExperience2Epreuves3e () {
@@ -54,11 +55,14 @@ export default function CalculProbaExperience2Epreuves3e () {
     QuestionsDisponibles = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0, NoQuestion = 0, question; i < this.nbQuestions && cpt < 50;) {
       switch (QuestionsDisponibles[i]) {
-        case 1: question = unePieceDeuxUrnes(this, NoQuestion, true, false, true)
+        case 1:
+          question = unePieceDeuxUrnes(this, NoQuestion, true, false, true)
           break
-        case 2: question = urneDeuxTiragesAvecRemise(this, NoQuestion, true, false, true)
+        case 2:
+          question = urneDeuxTiragesAvecRemise(this, NoQuestion, true, false, true)
           break
-        case 3: question = urneDeuxTiragesSansRemise(this, NoQuestion, true, false, true)
+        case 3:
+          question = urneDeuxTiragesSansRemise(this, NoQuestion, true, false, true)
           break
       }
 
@@ -347,7 +351,14 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2) { // tirage
   texteCorr += 'Voici un tableau à double entrée qui représente toutes les issues de cette expérience.<br><br>'
   texteCorr += tableau + '<br><br>'
   texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :<br>'
-  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 9 / card / card }, ...objets) + '<br>'
+  texteCorr += mathalea2d({
+    xmin: 0,
+    xmax: card * 8.5,
+    ymin: 0,
+    ymax: 13,
+    zoom: 0.8,
+    scale: 9 / card / card
+  }, ...objets) + '<br>'
   texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
   texteCorr += `${numAlpha(0)} L'événement «obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}» est réalisé par l'issue {${choix[2] + choix[2]}}.`
   texteCorr += ` On comptabilise ${choix[0] ** 2} issues {${choix[2] + choix[2]}} sur ${card ** 2} issues en tout.<br>`
@@ -487,7 +498,14 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2) { // tirage
   texteCorr += 'On a représenté les issues de l\'expérience par le tableau ci-dessous :<br><br>'
   texteCorr += tableau + '<br><br>'
   texteCorr += 'On peut aussi présenter les issues sous la forme d\'un arbre de dénombrement :<br>'
-  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 9 / card / card }, ...objets) + '<br>'
+  texteCorr += mathalea2d({
+    xmin: 0,
+    xmax: card * 8.5,
+    ymin: 0,
+    ymax: 13,
+    zoom: 0.8,
+    scale: 9 / card / card
+  }, ...objets) + '<br>'
   texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
   texteCorr += `${numAlpha(0)} L'événement «obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}» est réalisé par l'issue {${choix[2] + choix[2]}}.`
   texteCorr += ` On comptabilise ${choix[0] ** 2 - choix[0]} issues {${choix[2] + choix[2]}} sur ${card ** 2 - card} issues en tout.<br>`

@@ -4,10 +4,11 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Lire un diagramme en barres'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -42,10 +43,17 @@ export default function LectureDiagrammeBarre () {
     const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
     switch (parseInt(this.sup)) {
-      case 1: nbAnimaux = 4; break
-      case 2: nbAnimaux = 5; break
-      case 3: nbAnimaux = 6; break
-      default: nbAnimaux = 4
+      case 1:
+        nbAnimaux = 4
+        break
+      case 2:
+        nbAnimaux = 5
+        break
+      case 3:
+        nbAnimaux = 6
+        break
+      default:
+        nbAnimaux = 4
     }
     const propa = []
     const propb = []
@@ -53,7 +61,10 @@ export default function LectureDiagrammeBarre () {
     const lstAnimauxExo = [] // liste des animaux uniquement cités dans l'exercice
     const lstNombresAnimaux = [] // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100] // liste des valeurs à éviter pour les effectifs
-    let N = 0; let nom; let texte; let texteCorr
+    let N = 0
+    let nom
+    let texte
+    let texteCorr
 
     switch (parseInt(this.sup2)) {
       case 1:
@@ -161,7 +172,11 @@ export default function LectureDiagrammeBarre () {
         }
         reponsec = i === 0 ? { texte: `3) encadrement du nombre de ${lstAnimauxExo[numAnimal]} :` } : {}
         if (i === numAnimal) {
-          propc.push({ texte: `entre ${bornesAEviter[0]} et ${bornesAEviter[0] + 10 * coef}`, statut: true, reponse: reponsec })
+          propc.push({
+            texte: `entre ${bornesAEviter[0]} et ${bornesAEviter[0] + 10 * coef}`,
+            statut: true,
+            reponse: reponsec
+          })
         } else {
           borne = choice(bornesinf, bornesAEviter)
           bornesAEviter.push(borne)

@@ -7,9 +7,10 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '28/12/2021'
 export const dateDeModifImportante = '30/08/2022' // Passage en intégralité interactif
@@ -23,7 +24,7 @@ export const amcType = 'AMCNum'
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
  * @author Jean-Claude Lhote (et EE pour passage en interactif intégral)
  * Référence 2S30-5
-*/
+ */
 export const uuid = 'cee5d'
 export const ref = '2S30-5'
 export default function CalculProbaExperience2Epreuves2e () {
@@ -76,10 +77,20 @@ export default function CalculProbaExperience2Epreuves2e () {
         enfants: []
       })
       for (let j = 0; j < 3; j++) {
-        urne1.enfants.push(new Arbre({ nom: B[j], proba: fraction(n1[j], card1), rationnel: true, visible: true }))
+        urne1.enfants.push(new Arbre({
+          nom: B[j],
+          proba: fraction(n1[j], card1),
+          rationnel: true,
+          visible: true
+        }))
       }
       for (let j = 0; j < 3; j++) {
-        urne2.enfants.push(new Arbre({ nom: B[j], proba: fraction(n2[j], card2), rationnel: true, visible: true }))
+        urne2.enfants.push(new Arbre({
+          nom: B[j],
+          proba: fraction(n2[j], card2),
+          rationnel: true,
+          visible: true
+        }))
       }
     } else {
       urne1 = new Arbre({
@@ -102,12 +113,22 @@ export default function CalculProbaExperience2Epreuves2e () {
       })
       for (let j = 0; j < 3; j++) {
         for (let b = 0; b < n1[j]; b++) {
-          urne1.enfants.push(new Arbre({ nom: B[j], proba: fraction(1, card1), rationnel: true, visible: false }))
+          urne1.enfants.push(new Arbre({
+            nom: B[j],
+            proba: fraction(1, card1),
+            rationnel: true,
+            visible: false
+          }))
         }
       }
       for (let j = 0; j < 3; j++) {
         for (let b = 0; b < n2[j]; b++) {
-          urne2.enfants.push(new Arbre({ nom: B[j], proba: fraction(1, card2), rationnel: true, visible: false }))
+          urne2.enfants.push(new Arbre({
+            nom: B[j],
+            proba: fraction(1, card2),
+            rationnel: true,
+            visible: false
+          }))
         }
       }
     }
@@ -313,7 +334,8 @@ export default function CalculProbaExperience2Epreuves2e () {
 
     for (let i = 0, cpt = 0, question, numQuestionInteractif = 0; i < this.nbQuestions && cpt < 50;) {
       switch (i % 2) {
-        case 0: question = unePieceDeuxUrnes(this, i, this.sup, this.sup2, this.sup3, numQuestionInteractif)
+        case 0:
+          question = unePieceDeuxUrnes(this, i, this.sup, this.sup2, this.sup3, numQuestionInteractif)
           break
         case 1:
           question = urneDeuxTiragesAvecRemise(this, i, this.sup, this.sup2, this.sup3, numQuestionInteractif)

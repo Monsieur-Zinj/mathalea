@@ -10,13 +10,10 @@ import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer périmètre et aire de disques'
 export const interactifReady = true
@@ -67,7 +64,14 @@ export default function PerimetreAireDisques (pa = 3) {
         S = segment(M, B)
       }
       S.pointilles = 2
-      texte = mathalea2d({ xmin: 0, ymin: 0, xmax: 2 * r + 1, ymax: 2 * r + 1, pixelsParCm: arrondi(50 / r), scale: arrondi(2.4 / r, 2) }, C, tracePoint(A), S, afficheLongueurSegment(S.extremite1, S.extremite2), latexParPoint('\\mathcal{C}_1', pointAdistance(A, 1.25 * r, 135), 'black', 20, 0, ''))
+      texte = mathalea2d({
+        xmin: 0,
+        ymin: 0,
+        xmax: 2 * r + 1,
+        ymax: 2 * r + 1,
+        pixelsParCm: arrondi(50 / r),
+        scale: arrondi(2.4 / r, 2)
+      }, C, tracePoint(A), S, afficheLongueurSegment(S.extremite1, S.extremite2), latexParPoint('\\mathcal{C}_1', pointAdistance(A, 1.25 * r, 135), 'black', 20, 0, ''))
 
       if (this.sup === 1) {
         this.consigne = this.nbQuestions > 1 ? 'Calculer le périmètre (en $\\text{cm}$) des cercles suivants.' : 'Calculer le périmètre (en $\\text{cm}$) du cercle suivant.'
@@ -94,18 +98,18 @@ export default function PerimetreAireDisques (pa = 3) {
       texteCorr = this.sup === 2
         ? ''
         : `$\\mathcal{P}_1=${i % 2 === 0 ? '2\\times' + texNombre(r) : texNombre(2 * r)}\\times \\pi=${texNombre(2 * r)
-        }\\pi\\approx${texNombre(
-          arrondi(2 * r * Math.PI, 2)
-        )}${sp()}\\text{cm}$<br>`
+                }\\pi\\approx${texNombre(
+                    arrondi(2 * r * Math.PI, 2)
+                )}${sp()}\\text{cm}$<br>`
       texteCorr += this.sup === 2
         ? ''
         : `Les valeurs approchées au dixième de $\\text{cm}$ du périmètre de ce disque sont $${miseEnEvidence(texNombre(reponseL2))}${sp()}\\text{cm}$ et $${miseEnEvidence(texNombre(reponseL2bis))}${sp()}\\text{cm}$.<br>`
       texteCorr += this.sup === 1
         ? ''
         : `$\\mathcal{A}_1=${i % 2 === 0 ? texNombre(r) + '\\times' + texNombre(r) : '\\dfrac{' + texNombre(2 * r) + '}{2}\\times \\dfrac{' + texNombre(2 * r) + '}{2}'}\\times \\pi=${texNombre(r * r)
-            }\\pi\\approx${texNombre(
-          arrondi(r * r * Math.PI, 2)
-        )}${sp()}\\text{cm}^2$<br>`
+                }\\pi\\approx${texNombre(
+                    arrondi(r * r * Math.PI, 2)
+                )}${sp()}\\text{cm}^2$<br>`
       texteCorr += this.sup === 1
         ? ''
         : `Les valeurs approchées au dixième de $\\text{cm}^2$ de l'aire de ce disque sont $${miseEnEvidence(texNombre(reponseA2))}${sp()}\\text{cm}^2$ et $${miseEnEvidence(texNombre(reponseA2bis))}${sp()}\\text{cm}^2$.<br>`

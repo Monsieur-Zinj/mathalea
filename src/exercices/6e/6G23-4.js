@@ -12,9 +12,10 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { min, max } from 'mathjs'
+import { max, min } from 'mathjs'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Mesurer un angle avec rapporteur intégré'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -67,10 +68,10 @@ export default function MesurerUnAngleAvecRapporteur () {
       const numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
       const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
       /* A décommenter pour débugguer (et commenter les 6 lignes du dessus)
-      numA = 1
-      numB = 2
-      numC = 3
-      */
+            numA = 1
+            numB = 2
+            numC = 3
+            */
       const angB = this.sup === 1 ? 90 + sensRot * 90 : (this.sup === 2 ? sensRot * 90 : randint(0, 360) - 180)
 
       // posA (et posB, pos C...) permet de choisir une position du point pour ne pas que celui-ci soit illisible (géné par le rapporteur ou l'orientation d'une demi-droite)
@@ -93,7 +94,14 @@ export default function MesurerUnAngleAvecRapporteur () {
       const AC = segment(A, C1)
       const ACCorr = segment(A, C1, 'red')
       ACCorr.epaisseur = 2
-      const R = rapporteur({ x: 0, y: 0, taille: tailleRapporteur, depart: angC < 0 ? angB + 180 : angB, semi: true, avecNombre: 'deuxSens' })
+      const R = rapporteur({
+        x: 0,
+        y: 0,
+        taille: tailleRapporteur,
+        depart: angC < 0 ? angB + 180 : angB,
+        semi: true,
+        avecNombre: 'deuxSens'
+      })
       sudEst = rotation(sudEst, A, angC < 0 ? angB + 180 : angB)
       nordEst = rotation(nordEst, A, angC < 0 ? angB + 180 : angB)
       sudOuest = rotation(sudOuest, A, angC < 0 ? angB + 180 : angB)
@@ -269,8 +277,24 @@ export default function MesurerUnAngleAvecRapporteur () {
       }
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
 
-      paramsEnonce = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: context.isHtml ? 1 : 0.75, mainlevee: false }
-      paramsCorrection = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 0.9, mainlevee: false }
+      paramsEnonce = {
+        xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
+        ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
+        xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
+        ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
+        pixelsParCm: 20,
+        scale: context.isHtml ? 1 : 0.75,
+        mainlevee: false
+      }
+      paramsCorrection = {
+        xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
+        ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
+        xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
+        ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
+        pixelsParCm: 20,
+        scale: 0.9,
+        mainlevee: false
+      }
       // figureExo = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1, mainlevee: false }, fixeBordures(objetsEnonce)), objetsEnonce)
       figureExo = mathalea2d(paramsEnonce, objetsEnonce)
       if (context.isAmc) {

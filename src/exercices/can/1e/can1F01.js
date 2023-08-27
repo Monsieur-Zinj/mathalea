@@ -2,8 +2,9 @@ import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecriture
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer les coordonnées sommet parabole à partir de la forme canonique'
@@ -17,7 +18,7 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
  * Trouver les coordonnées du sommet d'une parabole donnée par sa forme canonique.
  * @author Gilles Mora
  * Référence can1F01
-*/
+ */
 export const uuid = 'f2035'
 export const ref = 'can1F01'
 export default function CoordonneesSommetParabole () {

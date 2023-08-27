@@ -3,9 +3,10 @@ import { arrondi, range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -65,7 +66,9 @@ export default function CourseAuxNombres2024 () {
           texteCorr = `$${texNombre(2024)}\\times 2=${texNombre(4048)}$`
           reponse = 4048
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
@@ -75,7 +78,9 @@ export default function CourseAuxNombres2024 () {
           texteCorr = `$${texNombre(2024)}\\div 2=${texNombre(1012)}$`
           reponse = 1012
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
@@ -84,7 +89,9 @@ export default function CourseAuxNombres2024 () {
           texteCorr = `La moité de $${texNombre(2024)}$ est $${texNombre(2024)}\\div 2=${texNombre(1012)}$`
           reponse = 1012
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
@@ -93,44 +100,49 @@ export default function CourseAuxNombres2024 () {
           texteCorr = `Le quart de $${texNombre(2024)}$ est $${texNombre(2024)}\\div 4=${texNombre(506)}$`
           reponse = 506
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
 
-        case 5:
-          {
-            const a = randint(78, 299, [100, 200])
-            texte = `$${texNombre(2024)}+${a}$`
-            texteCorr = `$${texNombre(2024)}+${a}=${texNombre(a + 2024, 0)}$`
-            reponse = 2024 + a
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-            nbChamps = 1
+        case 5: {
+          const a = randint(78, 299, [100, 200])
+          texte = `$${texNombre(2024)}+${a}$`
+          texteCorr = `$${texNombre(2024)}+${a}=${texNombre(a + 2024, 0)}$`
+          reponse = 2024 + a
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
+          nbChamps = 1
+        }
           break
 
-        case 6:
-          {
-            const a = randint(78, 299, [100, 200])
-            texte = `$${texNombre(2024)}-${a}$`
-            texteCorr = `$${texNombre(2024)}-${a}=${texNombre(2024 - a, 0)}$`
-            reponse = 2024 - a
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-            nbChamps = 1
+        case 6: {
+          const a = randint(78, 299, [100, 200])
+          texte = `$${texNombre(2024)}-${a}$`
+          texteCorr = `$${texNombre(2024)}-${a}=${texNombre(2024 - a, 0)}$`
+          reponse = 2024 - a
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
+          nbChamps = 1
+        }
           break
-        case 7:
-          {
-            const a = randint(78, 299, [100, 200])
-            texte = `$${a}-${texNombre(2024)}$`
-            texteCorr = `$${a}-${texNombre(2024)}=${texNombre(a - 2024, 0)}$`
-            reponse = a - 2024
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-            nbChamps = 1
+        case 7: {
+          const a = randint(78, 299, [100, 200])
+          texte = `$${a}-${texNombre(2024)}$`
+          texteCorr = `$${a}-${texNombre(2024)}=${texNombre(a - 2024, 0)}$`
+          reponse = a - 2024
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
+          nbChamps = 1
+        }
           break
 
         case 8:
@@ -138,94 +150,100 @@ export default function CourseAuxNombres2024 () {
           texteCorr = `L'écriture scientique de $${texNombre(2024)}$ est $2,024\\times 10^{3}$.`
           reponse = '2,024\\times 10^{3}'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
 
-        case 9:
-          {
-            const calc = [10, 100, 1000]
-            const calc1 = choice(calc)
-            texte = ` $${texNombre(2024)}\\times ${calc1}$`
-            texteCorr = `$${texNombre(2024)}\\times ${calc1}=${texNombre(2024 * calc1, 0)}$`
-            reponse = arrondi(calc1 * 2024, 0)
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-            nbChamps = 1
+        case 9: {
+          const calc = [10, 100, 1000]
+          const calc1 = choice(calc)
+          texte = ` $${texNombre(2024)}\\times ${calc1}$`
+          texteCorr = `$${texNombre(2024)}\\times ${calc1}=${texNombre(2024 * calc1, 0)}$`
+          reponse = arrondi(calc1 * 2024, 0)
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
+          nbChamps = 1
+        }
           break
 
-        case 10:
-          {
-            const a = new Decimal(1).div(choice([10, 100, 1000]))
-            texte = ` $${texNombre(2024)}\\times ${texNombre(a, 3)}$`
-            texteCorr = `$${texNombre(2024)}\\times ${texNombre(a, 3)}=${texNombre(2024 * a, 3)}$`
-            reponse = arrondi(a * 2024, 3)
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-            nbChamps = 1
+        case 10: {
+          const a = new Decimal(1).div(choice([10, 100, 1000]))
+          texte = ` $${texNombre(2024)}\\times ${texNombre(a, 3)}$`
+          texteCorr = `$${texNombre(2024)}\\times ${texNombre(a, 3)}=${texNombre(2024 * a, 3)}$`
+          reponse = arrondi(a * 2024, 3)
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
+          nbChamps = 1
+        }
           break
-        case 11:
-          {
+        case 11: {
+          const a = new Decimal(2024).div(choice([10, 100, 1000]))
+          const calc = [10, 100, 1000]
+          const calc1 = choice(calc)
+          const choix = choice([true, false])
+          if (choix === true) {
+            reponse = arrondi(a * calc1, 3)
+            texte = `$${texNombre(a, 3)}\\times ${texNombre(calc1)}$`
+
+            texteCorr = ` $${texNombre(a, 3)}\\times ${texNombre(calc1)}=${texNombre(a * calc1, 3)}$ `
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            }
+          } else {
             const a = new Decimal(2024).div(choice([10, 100, 1000]))
             const calc = [10, 100, 1000]
             const calc1 = choice(calc)
-            const choix = choice([true, false])
-            if (choix === true) {
-              reponse = arrondi(a * calc1, 3)
-              texte = `$${texNombre(a, 3)}\\times ${texNombre(calc1)}$`
-
-              texteCorr = ` $${texNombre(a, 3)}\\times ${texNombre(calc1)}=${texNombre(a * calc1, 3)}$ `
-              setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-              if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-              }
-            } else {
-              const a = new Decimal(2024).div(choice([10, 100, 1000]))
-              const calc = [10, 100, 1000]
-              const calc1 = choice(calc)
-              const calc2 = new Decimal(1).div(calc1)
-              reponse = arrondi(a * calc2, 6)
-              texte = `$${texNombre(a, 3)}\\times ${texNombre(calc2)}$`
-              texteCorr = ` $${texNombre(a, 3)}\\times ${texNombre(calc2)}=${texNombre(a * calc2, 6)}$ `
-              setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-              if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-              }
+            const calc2 = new Decimal(1).div(calc1)
+            reponse = arrondi(a * calc2, 6)
+            texte = `$${texNombre(a, 3)}\\times ${texNombre(calc2)}$`
+            texteCorr = ` $${texNombre(a, 3)}\\times ${texNombre(calc2)}=${texNombre(a * calc2, 6)}$ `
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
-
-            nbChamps = 1
           }
+
+          nbChamps = 1
+        }
           break
-        case 12:
-          {
-            const choix = choice([true, false])
+        case 12: {
+          const choix = choice([true, false])
 
-            if (choix === true) {
-              reponse = 20.24
-              texte = `$${texNombre(2024)}$ cm  $=$`
+          if (choix === true) {
+            reponse = 20.24
+            texte = `$${texNombre(2024)}$ cm  $=$`
 
-              texteCorr = `
+            texteCorr = `
           Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
           Ainsi  $${texNombre(2024)}$ cm$=${texNombre(2024 / 100, 2)}$ m.  `
-              setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-              if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
-              } else { texte += '  $\\ldots$ m' }
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
             } else {
-              reponse = 202400
-              texte = `$${texNombre(2024)}$ m  $=$ `
-              texteCorr = ` Comme $1$ m $=100$ cm,  alors $${texNombre(2024)}$ m$=${texNombre(202400)}$ cm.`
-              setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-              if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-              } else { texte += '  $\\ldots$ cm' }
+              texte += '  $\\ldots$ m'
             }
-
-            nbChamps = 1
+          } else {
+            reponse = 202400
+            texte = `$${texNombre(2024)}$ m  $=$ `
+            texteCorr = ` Comme $1$ m $=100$ cm,  alors $${texNombre(2024)}$ m$=${texNombre(202400)}$ cm.`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+            } else {
+              texte += '  $\\ldots$ cm'
+            }
           }
+
+          nbChamps = 1
+        }
           break
       }
 

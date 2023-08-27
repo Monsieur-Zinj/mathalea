@@ -5,8 +5,9 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calcul mental et calcul littéral'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -135,7 +136,10 @@ export default function IdentitesCalculs () {
       }
       const coeff = choice([10, 100])
       const coeffSomDif = 100
-      const signesSomDif = choice([[{ str: '-', nb: -1 }, { str: '+', nb: 1 }], [{ str: '+', nb: 1 }, { str: '-', nb: -1 }]])
+      const signesSomDif = choice([[{ str: '-', nb: -1 }, { str: '+', nb: 1 }], [{ str: '+', nb: 1 }, {
+        str: '-',
+        nb: -1
+      }]])
       const lettres = choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
 
       // pour les situations, autant de situations que de cas dans le switch !
@@ -147,7 +151,10 @@ export default function IdentitesCalculs () {
           coeff,
           a_coeff: a * coeff,
           operations: [{ str: '+', nb: 1 }, { str: '+', nb: 1 }],
-          facteurs: [{ str: `${texNombre(a * coeff)}+${bSomme}`, nb: texNombre(a * coeff + bSomme) }, { str: `${texNombre(a * coeff)}+${bSomme}`, nb: texNombre(a * coeff + bSomme) }],
+          facteurs: [{
+            str: `${texNombre(a * coeff)}+${bSomme}`,
+            nb: texNombre(a * coeff + bSomme)
+          }, { str: `${texNombre(a * coeff)}+${bSomme}`, nb: texNombre(a * coeff + bSomme) }],
           carre_de_a_coeff: texNombre(coeff * coeff * a * a),
           // carre_de_coeff:coeff*coeff,
           carre_de_b: texNombre(bSomme * bSomme),
@@ -165,7 +172,10 @@ export default function IdentitesCalculs () {
           coeff,
           a_coeff: a * coeff,
           operations: [{ str: '-', nb: -1 }, { str: '-', nb: -1 }],
-          facteurs: [{ str: `${texNombre(a * coeff)}-${bDifference}`, nb: texNombre(a * coeff - bDifference) }, { str: `${texNombre(a * coeff)}-${bDifference}`, nb: texNombre(a * coeff - bDifference) }],
+          facteurs: [{
+            str: `${texNombre(a * coeff)}-${bDifference}`,
+            nb: texNombre(a * coeff - bDifference)
+          }, { str: `${texNombre(a * coeff)}-${bDifference}`, nb: texNombre(a * coeff - bDifference) }],
           carre_de_a_coeff: texNombre(coeff * coeff * a * a),
           // carre_de_coeff:coeff*coeff,
           carre_de_b: texNombre(bDifference * bDifference),
@@ -183,7 +193,13 @@ export default function IdentitesCalculs () {
           coeff: coeffSomDif,
           a_coeff: a * coeffSomDif,
           operations: signesSomDif,
-          facteurs: [{ str: `${texNombre(a * coeffSomDif)} ${signesSomDif[0].str} ${bSomDif}`, nb: texNombre(a * coeffSomDif + signesSomDif[0].nb * bSomDif) }, { str: `${texNombre(a * coeffSomDif)} ${signesSomDif[1].str} ${bSomDif}`, nb: texNombre(a * coeffSomDif + signesSomDif[1].nb * bSomDif) }],
+          facteurs: [{
+            str: `${texNombre(a * coeffSomDif)} ${signesSomDif[0].str} ${bSomDif}`,
+            nb: texNombre(a * coeffSomDif + signesSomDif[0].nb * bSomDif)
+          }, {
+            str: `${texNombre(a * coeffSomDif)} ${signesSomDif[1].str} ${bSomDif}`,
+            nb: texNombre(a * coeffSomDif + signesSomDif[1].nb * bSomDif)
+          }],
           carre_de_a_coeff: texNombre(coeffSomDif * coeffSomDif * a * a),
           // carre_de_coeff:coeff*coeff,
           carre_de_b: texNombre(bSomDif * bSomDif),

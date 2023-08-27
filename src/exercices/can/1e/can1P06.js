@@ -7,6 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer une probabilté dans un tableau de probabilités'
@@ -20,7 +21,7 @@ export const amcType = 'AMCNum'
  *
  * @author Gilles Mora
 
-*/
+ */
 export const uuid = '73673'
 export const ref = 'can1P06'
 export default function CalculProbaTableau () {
@@ -128,7 +129,9 @@ export default function CalculProbaTableau () {
           if (this.interactif) {
             texte += '<br>$P(\\overline{A}\\cap B)=$. '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
-          } else { texte += `${sp(5)}Déterminer $P(\\overline{A}\\cap B)$. ` }
+          } else {
+            texte += `${sp(5)}Déterminer $P(\\overline{A}\\cap B)$. `
+          }
           texteCorr = ` $P(\\overline{A}\\cap B)=${texNombre(pB - pAinterB, 2)}$ `
           reponse = (new Decimal(pB)).sub(pAinterB)
           setReponse(this, i, reponse)

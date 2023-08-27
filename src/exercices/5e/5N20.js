@@ -6,10 +6,10 @@ import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -19,16 +19,16 @@ export const interactifType = 'mathLive' // Le QCM est prêt mais pas géré
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
 
 /**
-* Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
-*
-* Le résultat de la soustraction sera toujours positif.
-*
-* Le coefficient est paramétrable, par défaut il est inférieur à 11.
-*
-* On peut paramétrer de n'avoir que des soustractions.
-* @author Rémi Angot
-* 5N20
-*/
+ * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
+ *
+ * Le résultat de la soustraction sera toujours positif.
+ *
+ * Le coefficient est paramétrable, par défaut il est inférieur à 11.
+ *
+ * On peut paramétrer de n'avoir que des soustractions.
+ * @author Rémi Angot
+ * 5N20
+ */
 export const uuid = 'd5ee3'
 export const ref = '5N20'
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {

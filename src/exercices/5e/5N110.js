@@ -4,21 +4,22 @@ import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Variation en pourcentages'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
-* Calculer +/- 20, 30, 40 ou 60 %
-* @author Rémi Angot
-* Rendre l'exercice interactif Laurence Candille
-* Date août 2021
-* 5N110
-*/
+ * Calculer +/- 20, 30, 40 ou 60 %
+ * @author Rémi Angot
+ * Rendre l'exercice interactif Laurence Candille
+ * Date août 2021
+ * 5N110
+ */
 export const uuid = 'b2c55'
 export const ref = '5N110'
 export default function VariationEnPourcentages () {

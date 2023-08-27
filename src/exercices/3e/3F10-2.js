@@ -6,10 +6,11 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint, contraindreValeur } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -17,11 +18,11 @@ export const amcType = 'AMCNum'
 export const titre = 'Calculer images (et antécédents) de fonctions'
 
 /**
-* Répondre à des questions sur les fonctions.
-* Aout 2021
-* @author Jean-Claude Lhote
-* 3F10-1
-*/
+ * Répondre à des questions sur les fonctions.
+ * Aout 2021
+ * @author Jean-Claude Lhote
+ * 3F10-1
+ */
 export const uuid = 'ba520'
 export const ref = '3F10-2'
 export default function CalculsImagesFonctions () {
@@ -262,7 +263,10 @@ export default function CalculsImagesFonctions () {
         if (tagImage) {
           texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: `$f(${ant})=$` })
         } else {
-          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '$f($', texteApres: `$)=${img}$` })
+          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur25 inline', {
+            texte: '$f($',
+            texteApres: `$)=${img}$`
+          })
         }
       } else {
         texte = enonce

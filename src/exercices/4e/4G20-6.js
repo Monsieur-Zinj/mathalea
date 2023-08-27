@@ -3,9 +3,10 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Encadrer une racine carrée et en donner un arrondi'
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'mathLive'
@@ -17,7 +18,7 @@ export const amcType = 'AMCHybride'
  * @author Guillaume Valmont  (Amélioration AMC par Eric Elter)
  * Référence 4G20-6
  * Date de publication : 08/08/2021
-*/
+ */
 export const uuid = '516d1'
 export const ref = '4G20-6'
 export default function CalculValeurApprocheeRacineCarree () {

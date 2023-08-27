@@ -3,23 +3,11 @@ import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  calcul,
-  randint
-} from '../../modules/outils.js'
-import {
-  setReponse
-} from '../../lib/interactif/gestionInteractif.js'
-import {
-  ajouteChampTexteMathLive
-} from '../../lib/interactif/questionMathLive.js'
-import {
-  context
-} from '../../modules/context.js'
-import {
-  round
-} from 'mathjs'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { context } from '../../modules/context.js'
+import { round } from 'mathjs'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const uuid = 'a1d0b'
 export const titre = 'Calculer avec des nombres en écriture scientifique'

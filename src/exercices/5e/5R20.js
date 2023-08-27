@@ -3,10 +3,10 @@ import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc } fro
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
@@ -16,12 +16,12 @@ export const interactifType = ['qcm', 'mathLive']
 export const titre = 'Addition de deux entiers relatifs'
 
 /**
-* Additionner deux relatifs inférieurs à la valeur maximale en paramètre qui est par défaut à 20.
-*
-* Paramètre supplémentaire ; utilisation des écritures simplifiées
-* @author Rémi Angot
-* 5R20
-*/
+ * Additionner deux relatifs inférieurs à la valeur maximale en paramètre qui est par défaut à 20.
+ *
+ * Paramètre supplémentaire ; utilisation des écritures simplifiées
+ * @author Rémi Angot
+ * 5R20
+ */
 export const uuid = 'cbc26'
 export const ref = '5R20'
 export default function ExerciceAdditionsRelatifs (max = 20) {

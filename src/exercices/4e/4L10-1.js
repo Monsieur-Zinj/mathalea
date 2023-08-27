@@ -2,13 +2,15 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiMoins,
-  ecritureParentheseSiNegatif, rienSi1
+  ecritureParentheseSiNegatif,
+  rienSi1
 } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Réduire, si possible, une expression littérale simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -63,7 +65,8 @@ export default function ReductionsPiegesClassiques () {
       'ax^2-a',
       'ax^2-ax^2'
     ]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); let typesDeQuestions // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let typesDeQuestions // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(2, 11)

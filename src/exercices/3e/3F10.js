@@ -2,9 +2,10 @@ import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Lire images et antécédents depuis un tableau de valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,7 +15,7 @@ export const amcType = 'AMCHybride'
 /**
  * @author Rémi Angot
  * Référence 3F10
-*/
+ */
 export const uuid = 'b92da'
 export const ref = '3F10'
 export default function ImageAntecedentDepuisTableauOuFleche () {

@@ -4,8 +4,9 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { cube } from '../../modules/3d.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Compter les cubes manquants ou pas'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,13 +14,13 @@ export const amcType = 'AMCNum'
 export const amcReady = true
 
 /**
-* Compter des cubes
-* @author Erwan DUPLESSY
-* 6G43
-* mars 2021
-* Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf
-* Compter des cubes dans un empilement de cubes
-*/
+ * Compter des cubes
+ * @author Erwan DUPLESSY
+ * 6G43
+ * mars 2021
+ * Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf
+ * Compter des cubes dans un empilement de cubes
+ */
 
 export const uuid = '5f115'
 export const ref = '6G43'
@@ -76,7 +77,9 @@ export default function DenombrerCubes () {
       const lstCoordonneesCubes = []
       for (let i = larg - 1; i > -1; i = i - 1) {
         for (let j = long - 1; j > -1; j = j - 1) {
-          for (let k = 0; k < tabHauteurs[i][j]; k++) { lstCoordonneesCubes.push([i, j, k]) }
+          for (let k = 0; k < tabHauteurs[i][j]; k++) {
+            lstCoordonneesCubes.push([i, j, k])
+          }
         }
       }
       return lstCoordonneesCubes

@@ -7,8 +7,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint, texConsigne } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Lire graphiquement images et antécédents'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +20,7 @@ export const amcType = 'AMCHybride'
  * Lecture d'images et antécédents sur un graphe sinusoidale
  * @author Rémi Angot
  * Référence 3F13-1
-*/
+ */
 export const uuid = '4b121'
 export const ref = '3F13-1'
 export default function AntecedentEtImageGraphique () {
@@ -29,7 +30,9 @@ export default function AntecedentEtImageGraphique () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  if (context.isHtml) { this.spacingCorr = 2 }
+  if (context.isHtml) {
+    this.spacingCorr = 2
+  }
 
   this.nouvelleVersion = function () {
     const r = repere({
@@ -63,7 +66,13 @@ export default function AntecedentEtImageGraphique () {
     this.contenu = 'Ci-dessous, on a tracé la courbe représentative de la fonction $f$.'
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        enonce: this.contenu + '<br>' + mathalea2d({ xmin: -7, ymin: -4.5, xmax: 7, ymax: 4.5, pixelsParCm: 30 }, r, gr),
+        enonce: this.contenu + '<br>' + mathalea2d({
+          xmin: -7,
+          ymin: -4.5,
+          xmax: 7,
+          ymax: 4.5,
+          pixelsParCm: 30
+        }, r, gr),
         enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
         enonceAvantUneFois: true, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
         enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.}

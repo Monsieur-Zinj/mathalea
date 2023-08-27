@@ -5,10 +5,11 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF } from '../../lib/outils/Personne.js'
 import { texNombre3 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, estentier, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre des problèmes de prix'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +29,7 @@ export const dateDePublication = '02/11/2021'
  * @author Eric Elter (ES6 : Loïc Geeraerts)
  * Référence 6C12 - Exercice aisément adaptable pour les CM.
  * Date octobre 2021
-*/
+ */
 
 export const uuid = '28d56'
 export const ref = '6C12'
@@ -198,7 +199,8 @@ export default class QuestionsPrix extends Exercice {
               reponseAMC = troncature(arrondi(PrixUnitaire / 10, 3) + 0.01, 2)
               correctionAMC += `$${texNombre3(PrixUnitaire)} \\div 10 \\approx ${texNombre3(arrondi(PrixUnitaire / 10, 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / 10, 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / 10, 3))} < ${texNombre3(reponseAMC)}$<br>`
               correctionAMC += `Si ${quidame} partageait ${ArticleDemonst} ${ArticleSingulier} avec $9$ amis, chacun donnerait équitablement au moins ` + texteEnCouleurEtGras(`$${texNombre3(reponseAMC)}$`) + `${sp()}€.<br><br>`
-            } break
+            }
+            break
           case 8 :
             enonceAMC += `Si ${quidame} décidait d'acheter ${ArticleDemonst} ${ArticleSingulier} avec $${Nbpartage}$ camarades, quelle somme équitable minimale devraient-ils, chacun, donner${sp()}?<br><br>`
             correctionAMC += `$1 + ${Nbpartage} = ${Nbpartage + 1}$<br>`
@@ -235,36 +237,36 @@ export default class QuestionsPrix extends Exercice {
           propositionsAMC[2 * kk] = {
             type: 'AMCOpen',
             propositions:
-          [
-            {
-              texte: correctionAMC,
-              statut: lignesAMC,
-              enonce: enonceAMC,
-              sanscadre: sanscadreAMC
-            }
-          ]
+                            [
+                              {
+                                texte: correctionAMC,
+                                statut: lignesAMC,
+                                enonce: enonceAMC,
+                                sanscadre: sanscadreAMC
+                              }
+                            ]
           }
           propositionsAMC[2 * kk + 1] = {
             type: 'AMCNum',
             propositions:
-           [
-             {
-               texte: (this.sup4 === 1) ? correctionAMC : '',
-               statut: '',
-               alignement: alignementAMC,
-               reponse:
-                 {
-                   texte: (this.sup4 === 1) ? enonceAMC : '',
-                   valeur: [reponseAMC],
-                   param:
-                     {
-                       digits: digitAMC,
-                       decimals: decimalesAMC,
-                       signe: false
-                     }
-                 }
-             }
-           ]
+                            [
+                              {
+                                texte: (this.sup4 === 1) ? correctionAMC : '',
+                                statut: '',
+                                alignement: alignementAMC,
+                                reponse:
+                                        {
+                                          texte: (this.sup4 === 1) ? enonceAMC : '',
+                                          valeur: [reponseAMC],
+                                          param:
+                                                {
+                                                  digits: digitAMC,
+                                                  decimals: decimalesAMC,
+                                                  signe: false
+                                                }
+                                        }
+                              }
+                            ]
           }
         }
       }

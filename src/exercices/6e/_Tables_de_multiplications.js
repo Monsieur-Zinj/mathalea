@@ -2,9 +2,10 @@ import { choice, creerCouples } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -66,7 +67,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         typesDeQuestions = choice(['classique', 'a_trous'])
       }
       if (typesDeQuestions === 'classique') {
-      // classique
+        // classique
         const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
         if (choice(ordre)) {
           texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = `
@@ -79,7 +80,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         }
         setReponse(this, i, a * b)
       } else {
-      // a trous
+        // a trous
         if (tables.length > 2) {
         // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
           const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
@@ -100,7 +101,14 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         texteCorr = `$${a} \\times ${b} = ${a * b}$`
       }
       if (context.isAmc) {
-        this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+        this.autoCorrection[i].reponse.param = {
+          digits: 2,
+          decimals: 0,
+          signe: false,
+          exposantNbChiffres: 0,
+          exposantSigne: false,
+          approx: 0
+        }
       }
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
         this.listeQuestions.push(texte)

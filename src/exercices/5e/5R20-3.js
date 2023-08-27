@@ -10,12 +10,10 @@ import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Additions de 5 nombres relatifs'
 export const interactifReady = true
 
@@ -79,8 +77,8 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       reponse = a + b + c + d + e
       if (this.sup2) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
-          e
-        )}$`
+                    e
+                )}$`
         if (this.interactif && !context.isAmc) {
           texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = $`
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore')
@@ -89,15 +87,15 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
         }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
-          e
-        )} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]}${ecritureAlgebrique(sommeDesTermesParSigne([a, b, c, d, e])[1])} = ${a + b + c + d + e} $`
+                    e
+                )} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]}${ecritureAlgebrique(sommeDesTermesParSigne([a, b, c, d, e])[1])} = ${a + b + c + d + e} $`
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
-          c
-        )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
+                    c
+                )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
         if (this.interactif && !context.isAmc) {
           texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
-            c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $`
+                        c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $`
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore')
         }
 
@@ -105,14 +103,14 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
         }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
-          c
-        )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} $`
+                    c
+                )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} $`
         relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
 
         if ((relatifs[0] > 0) & (relatifs[4] < 0)) {
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(relatifs[0])}+${ecritureNombreRelatifc(relatifs[1])}+${ecritureNombreRelatifc(
-            relatifs[2]
-          )}+${ecritureNombreRelatifc(relatifs[3])}+${ecritureNombreRelatifc(relatifs[4])} $`
+                        relatifs[2]
+                    )}+${ecritureNombreRelatifc(relatifs[3])}+${ecritureNombreRelatifc(relatifs[4])} $`
         }
         const sommesSignees = sommeDesTermesParSigne([relatifs[0], relatifs[1], relatifs[2], relatifs[3], relatifs[4]])
         if (sommesSignees[0] !== 0 && sommesSignees[1] !== 0) {
@@ -126,7 +124,11 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        setReponse(this, i, reponse, { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)), decimals: 0 })
+        setReponse(this, i, reponse, {
+          signe: true,
+          digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)),
+          decimals: 0
+        })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
