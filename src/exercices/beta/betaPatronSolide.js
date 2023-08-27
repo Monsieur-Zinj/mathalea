@@ -1,13 +1,15 @@
-import { boite } from '../../lib/2d/polygones.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { range } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { BoiteBuilder } from '../../lib/2d/polygones.js'
+
 export const titre = 'Compléter des patrons de solides'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
+export const uuid = '865e9'
+export const ref = 'betaPatronSolide'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '16/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
@@ -15,134 +17,235 @@ export const dateDePublication = '16/04/2022' // La date de publication initiale
  * Pour l'instant on va faire les cubes et les parallélépipèdes rectangles
  * @author Jean-Claude Lhote
  * Référence
-*/
+ */
 /** type Cellule = { bordG, bordH } */
+
 /** type Ligne = Cellule[] */
 /** type Patron = Ligne[] */
 
 class ModelePatrons {
   patrons
+
   constructor (a, b, c) {
     this.patrons = [
       [
         [
-          { bordG: a, bordH: b }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: a, bordH: b }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: c, bordH: b }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+            bordG: c,
+            bordH: b
+          }, { bordG: null, bordH: null }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+          { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: b, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: c, bordH: b }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: c, bordH: b }, { bordG: c, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: c, bordH: b }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: c, bordH: b }, { bordG: c, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: b, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+            bordG: a,
+            bordH: c
+          }, { bordG: null, bordH: null }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: b, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: b, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: b, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+            bordG: a,
+            bordH: c
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: b, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: c, bordH: b }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: c, bordH: b }, { bordG: c, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: b, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: c, bordH: a }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: c, bordH: b }, { bordG: c, bordH: a }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+            bordG: c,
+            bordH: b
+          }, { bordG: c, bordH: a }
         ]
       ],
       [
         [
-          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }
+          { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: c, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+          { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+            bordG: b,
+            bordH: c
+          }, { bordG: b, bordH: a }
         ],
         [
-          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+            bordG: null,
+            bordH: null
+          }, { bordG: null, bordH: null }
         ]
       ]
     ]
@@ -155,13 +258,22 @@ class FauxPatrons {
       {
         patron: [
           [
-            { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+            { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+              bordG: a,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+              bordG: b,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+              bordG: null,
+              bordH: null
+            }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
           ]
         ],
         fauxCube: true, // est un faux patron même si a=b=c
@@ -170,13 +282,22 @@ class FauxPatrons {
       {
         patron: [
           [
-            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+              bordG: null,
+              bordH: null
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+              bordG: b,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+              bordG: null,
+              bordH: null
+            }, { bordG: null, bordH: null }
           ]
         ],
         fauxCube: true, // est un faux patron même si a=b=c
@@ -185,13 +306,22 @@ class FauxPatrons {
       {
         patron: [
           [
-            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+              bordG: null,
+              bordH: null
+            }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+              bordG: b,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+              bordG: a,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ]
         ],
         fauxCube: true,
@@ -200,13 +330,22 @@ class FauxPatrons {
       {
         patron: [
           [
-            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+              bordG: null,
+              bordH: null
+            }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+              bordG: b,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+            { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+              bordG: a,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ]
         ],
         fauxCube: true,
@@ -215,13 +354,22 @@ class FauxPatrons {
       {
         patron: [
           [
-            { bordG: a, bordH: b }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+            { bordG: a, bordH: b }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, {
+              bordG: a,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {
+              bordG: b,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, {
+              bordG: null,
+              bordH: null
+            }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
           ]
         ],
         fauxCube: true,
@@ -230,13 +378,22 @@ class FauxPatrons {
       {
         patron: [
           [
-            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+              bordG: null,
+              bordH: null
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+            { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: a }, {
+              bordG: b,
+              bordH: c
+            }, { bordG: null, bordH: null }
           ],
           [
-            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, {
+              bordG: null,
+              bordH: null
+            }, { bordG: null, bordH: null }
           ]
         ],
         fauxCube: false, // Si a===c, c'est bien un patron de pave, il n'est faux que si c!==a (il faudra éviter ce cas pour les pavés)
@@ -245,6 +402,7 @@ class FauxPatrons {
     ]
   }
 }
+
 export default class PatronsSolides extends Exercice {
   constructor () {
     super()
@@ -256,6 +414,7 @@ export default class PatronsSolides extends Exercice {
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
+
     function formateGrille (modele) {
       const largeurs = []
       for (let x = 0, xMax; x < 5; x++) {
@@ -275,6 +434,7 @@ export default class PatronsSolides extends Exercice {
       }
       return [largeurs, hauteurs]
     }
+
     function dessinePatron (modele) {
       const forme = []
       const [largeurs, hauteurs] = formateGrille(modele)
@@ -283,7 +443,12 @@ export default class PatronsSolides extends Exercice {
           for (let y = 0, yOffset = 0; y < 3; y++) {
             if (hauteurs[y] !== 0) {
               if (modele[y][x].bordG) {
-                forme.push(boite({ Xmin: xOffset, Ymin: yOffset, Xmax: xOffset + largeurs[x], Ymax: yOffset + hauteurs[y] }))
+                forme.push(new BoiteBuilder({
+                  xMin: xOffset,
+                  yMin: yOffset,
+                  xMax: xOffset + largeurs[x],
+                  yMax: yOffset + hauteurs[y]
+                }).render())
               }
               yOffset += hauteurs[y]
             }
@@ -293,13 +458,14 @@ export default class PatronsSolides extends Exercice {
       }
       return forme
     }
+
     const dimensions = this.sup.split('-')
     const [a, b, c] = [parseInt(dimensions[0]), parseInt(dimensions[1]), parseInt(dimensions[2])]
     for (let i = 0; i < this.nbQuestions; i++) {
       /*  const a = randint(1, 5)
-        const b = randint(1, 5, a)
-        const c = randint(1, 5, [a, b])
-        */
+                                            const b = randint(1, 5, a)
+                                            const c = randint(1, 5, [a, b])
+                                            */
       const mesModeles = new ModelePatrons(a, b, c)
       const mesFaux = new FauxPatrons(a, b, c)
       const nombreDeFaux = randint(1, 3)

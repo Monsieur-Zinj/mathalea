@@ -1,4 +1,4 @@
-import { boite } from '../lib/2d/polygones.js'
+import { BoiteBuilder } from '../lib/2d/polygones.js'
 import { choice } from '../lib/outils/arrayOutils.js'
 import { stringNombre } from '../lib/outils/texNombre.js'
 import { fraction } from './fractions.js'
@@ -6,14 +6,14 @@ import { randint } from './outils.js'
 
 export default class Pyramide {
   /**
- *
- * @param {object} param0
- * @param {string} param0.operation
- * @param {number} param0.nombreEtages
- * @param {number[]|number[][]} param0.rangeData
- * @param {number[]}  param0.exclusions
- * @param {boolean} param0.fractionOn
- */
+     *
+     * @param {object} param0
+     * @param {string} param0.operation
+     * @param {number} param0.nombreEtages
+     * @param {number[]|number[][]} param0.rangeData
+     * @param {number[]}  param0.exclusions
+     * @param {boolean} param0.fractionOn
+     */
   constructor ({ operation = '+', nombreEtages = 3, rangeData = [1, 10], exclusions = [], fractionOn = false } = {}) {
     this.operation = operation
     this.nombreEtages = nombreEtages
@@ -57,7 +57,10 @@ export default class Pyramide {
     }
   }
 
-  visible = (x, y) => { return this.isVisible[y][x] }
+  visible = (x, y) => {
+    return this.isVisible[y][x]
+  }
+
   estSolvable = function (x, y) {
     if (this.visible(x, y)) return true
     else if (y === this.nombreEtages - 1) return false
@@ -96,25 +99,29 @@ export default class Pyramide {
     const hCase = this.fractionOn ? 2 : 1
     for (let y = this.nombreEtages; y > 0; y--) {
       for (let x = 0; x < y; x++) {
-        if (this.isVisible[y - 1][x]) {
-          objets.push(boite({
-            Xmin: xO + x * 4 + (this.nombreEtages - y) * 2,
-            Ymin: yO + (this.nombreEtages - y) * hCase,
-            Xmax: xO + x * 4 + 4 + (this.nombreEtages - y) * 2,
-            Ymax: yO + (1 + this.nombreEtages - y) * hCase,
-            texteIn: this.fractionOn ? `$${this.valeurs[y - 1][x].texFractionSimplifiee}$` : stringNombre(this.valeurs[y - 1][x], 0),
-            texteOpacite: 1
-          }))
-        } else {
-          objets.push(boite({
-            Xmin: xO + x * 4 + (this.nombreEtages - y) * 2,
-            Ymin: yO + (this.nombreEtages - y) * hCase,
-            Xmax: xO + x * 4 + 4 + (this.nombreEtages - y) * 2,
-            Ymax: yO + (1 + this.nombreEtages - y) * hCase,
-            texteIn: '',
-            texteOpacite: 1
-          }))
-        }
+        //  if (this.isVisible[y - 1][x]) {
+        /* objets.push(boite({
+                                                       Xmin: xO + x * 4 + (this.nombreEtages - y) * 2,
+                                                       Ymin: yO + (this.nombreEtages - y) * hCase,
+                                                       Xmax: xO + x * 4 + 4 + (this.nombreEtages - y) * 2,
+                                                       Ymax: yO + (1 + this.nombreEtages - y) * hCase,
+                                                       texteIn: this.fractionOn ? `$${this.valeurs[y - 1][x].texFractionSimplifiee}$` : stringNombre(this.valeurs[y - 1][x], 0),
+                                                       texteOpacite: 1
+                                                     }))
+                                                     */
+        objets.push(new BoiteBuilder({
+          xMin: xO + x * 4 + (this.nombreEtages - y) * 2,
+          yMin: yO + (this.nombreEtages - y) * hCase,
+          xMax: xO + x * 4 + 4 + (this.nombreEtages - y) * 2,
+          yMax: yO + (1 + this.nombreEtages - y) * hCase
+        }).addTextIn({
+          textIn: !this.isVisible[y - 1][x]
+            ? ''
+            : this.fractionOn
+              ? this.valeurs[y - 1][x].texFractionSimplifiee
+              : stringNombre(this.valeurs[y - 1][x], 0),
+          opacite: 1
+        }).render())
       }
     }
     return objets
