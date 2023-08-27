@@ -7375,7 +7375,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       }
     },
@@ -9059,7 +9060,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amc": false
+          "amcType": "qcmMono",
+          "amc": true
         }
       },
       "4C30-1": {

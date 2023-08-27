@@ -3559,7 +3559,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amc": false
+      "amcType": "qcmMono",
+      "amc": true
     }
   },
   "4C30-1": {
@@ -4449,7 +4450,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     }
   },
   "5C11": {
@@ -8552,6 +8554,49 @@
     "titre": "Réaliser le quotient de deux longueurs à la règle non graduée et au compas",
     "tags": {
       "interactif": false,
+      "amc": false
+    }
+  },
+  "betaFonction": {
+    "url": "beta/betaEtudeFonction.js",
+    "uuid": "betaFonction",
+    "id": "betaFonction",
+    "titre": "Recherche d'antécédents",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
+  },
+  "betaRepere": {
+    "url": "beta/betaRepere.js",
+    "uuid": "95699",
+    "id": "betaRepere",
+    "titre": "essai de RepereBuilder",
+    "tags": {
+      "interactif": false,
+      "amc": false
+    }
+  },
+  "betaSpline": {
+    "url": "beta/betaModeleSpline.js",
+    "uuid": "betaSpline",
+    "id": "betaSpline",
+    "titre": "Recherche d'antécédents",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
+  },
+  "betaTexNombre": {
+    "url": "beta/betaTexNombre.js",
+    "uuid": "efeee",
+    "id": "betaTexNombre",
+    "titre": "Somme de deux entier",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
     }
   },
