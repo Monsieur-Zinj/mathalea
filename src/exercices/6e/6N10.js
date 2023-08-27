@@ -22,7 +22,6 @@ export const dateDeModifImportante = '14/09/2022'
  * Avec des paramètres sur le nombre de chiffres des nombres voulus
  * Avec des paramètres sur la présence obligatoire de nombres avec 80 (et ses copains qui n'aiment pas mettre de S dans leur vin) et avec 100 (et ses copains comme ceux de 80)
  * @author Eric Elter
- * Référence 6N10
  * Relecture : Novembre 2021 par EE
 */
 export const uuid = '0688e'
