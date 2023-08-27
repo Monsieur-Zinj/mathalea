@@ -6,12 +6,13 @@ import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
 import { texteGras } from '../../lib/format/style.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
+
 export const titre = 'Note la couleur (scratch)'
 
 /**
@@ -58,9 +59,17 @@ export default function NoteLaCouleurC3 () {
     this.listeQuestions = []
     this.listeCorrections = []
     let j, test
-    let objetsEnonce = []; let objetsCorrection = []
+    let objetsEnonce = []
+    let objetsCorrection = []
     const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 13, pixelsParCm: 30, scale: echelleDessin }
-    let commandes_disponibles; const sequences_disponibles = []; let sequence; let result; let nb_couleurs; let instruction; let couleurs; let liste_instructions
+    let commandes_disponibles
+    const sequences_disponibles = []
+    let sequence
+    let result
+    let nb_couleurs
+    let instruction
+    let couleurs
+    let liste_instructions
 
     let lutin, lutindepart
     let angledepart
@@ -69,12 +78,21 @@ export default function NoteLaCouleurC3 () {
     context.unitesLutinParCm = 13.33
     context.pixelsParCm = 30
     let pion
-    const lePlateau = plateau2dNLC({ type: this.sup, melange: this.sup4, scale: echelleDessin, relatif: this.relatif, nx: 10, ny: 8, pas: 20, plateau: damier })
+    const lePlateau = plateau2dNLC({
+      type: this.sup,
+      melange: this.sup4,
+      scale: echelleDessin,
+      relatif: this.relatif,
+      nx: 10,
+      ny: 8,
+      pas: 20,
+      plateau: damier
+    })
     for (let q = 0; q < this.nbQuestions;) {
       objetsCorrection = []
       objetsEnonce = []
-      objetsEnonce.push(lePlateau)
-      objetsCorrection.push(lePlateau)
+      objetsEnonce.push(lePlateau.plateau2d)
+      objetsCorrection.push(lePlateau.plateau2d)
       let texte = ''
       let texteCorr = ''
       let compteur = 0
@@ -96,7 +114,16 @@ export default function NoteLaCouleurC3 () {
         xdepart = 10 + randint(1, 8) * 20
         ydepart = 10 + randint(1, 6) * 20
 
-        pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif, nx: 10, ny: 8, pas: 20 })
+        pion = noteLaCouleur({
+          x: xdepart,
+          y: ydepart,
+          orientation: angledepart,
+          plateau: lePlateau.plateauNLC,
+          relatif: this.relatif,
+          nx: 10,
+          ny: 8,
+          pas: 20
+        })
         lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
         lutin.epaisseur = 2
         lutin.pointilles = 2
@@ -176,21 +203,23 @@ export default function NoteLaCouleurC3 () {
         texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
         texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
         texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
-      } else { texte = '' }
+      } else {
+        texte = ''
+      }
       texte += 'Exécuter le programme et trouver la succession de couleur.<br><br>'
       if (context.isHtml) {
         texte += '<table><tr><td>' +
-      scratchblock(pion.codeScratch) +
-      '</td><td>' + `${this.sup === 4 || this.sup === 2
-        ? 'Correspondance chiffre-couleur : <br>0=Blanc ; 1=Noir ; 2=Rouge ; 3=Bleu ; 4=Orange ; 5=Rose ; 6=Jaune ; 7=Vert ; 8=Gris<br>'
-        : ''}` +
-      mathalea2d(paramsCorrection, objetsEnonce) +
-      '</td></tr></table>'
+                    scratchblock(pion.codeScratch) +
+                    '</td><td>' + `${this.sup === 4 || this.sup === 2
+                        ? 'Correspondance chiffre-couleur : <br>0=Blanc ; 1=Noir ; 2=Rouge ; 3=Bleu ; 4=Orange ; 5=Rose ; 6=Jaune ; 7=Vert ; 8=Gris<br>'
+                        : ''}` +
+                    mathalea2d(paramsCorrection, objetsEnonce) +
+                    '</td></tr></table>'
       } else {
         texte += `\\begin{minipage}{.3 \\linewidth} \n\t ${scratchblock(pion.codeScratch)} \n \\end{minipage}
       \\begin{minipage}{.7 \\linewidth} \n\t ${this.sup === 4 || this.sup === 2
-        ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
-        : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
+                    ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
+                    : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
         if (q < this.nbQuestions - 1 && !context.isHtml) {
           texte += '\n\\newpage'
         }

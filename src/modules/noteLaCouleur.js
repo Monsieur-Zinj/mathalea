@@ -11,12 +11,12 @@
  * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
  */
 
-import { boite } from '../lib/2d/polygones.js'
 import { segment } from '../lib/2d/segmentsVecteurs.js'
 import { texteParPositionEchelle } from '../lib/2d/textes.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
 import { avance, tournerD, tournerG } from './2dLutin.js'
 import { randint } from './outils.js'
+import { BoiteBuilder } from '../lib/2d/polygones.js'
 
 class NoteLaCouleur {
   constructor ({
@@ -176,15 +176,24 @@ class NoteLaCouleur {
     }
 
     /**
-          * méthode pour tester une séquence : retourne
-          *
-          * [true,x,y,orientation] si la séquence reste dans le jeu
-          * [false,x,y,orientation] en cas de sortie de plateau.
-          */
+         * méthode pour tester une séquence : retourne
+         *
+         * [true,x,y,orientation] si la séquence reste dans le jeu
+         * [false,x,y,orientation] en cas de sortie de plateau.
+         */
     this.testSequence = function (codes) {
       let sorti = false
       let test
-      const pionfantome = noteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: this.relatif, nx: this.nx, ny: this.ny, pas: this.pas })
+      const pionfantome = noteLaCouleur({
+        x: 0,
+        y: 0,
+        orientation: 0,
+        plateau: this.plateauNLC,
+        relatif: this.relatif,
+        nx: this.nx,
+        ny: this.ny,
+        pas: this.pas
+      })
       pionfantome.currentPos.x = this.currentPos.x
       pionfantome.currentPos.y = this.currentPos.y
       pionfantome.currentOrientation = this.currentOrientation
@@ -203,15 +212,24 @@ class NoteLaCouleur {
       return [!sorti, pionfantome.currentPos.x, pionfantome.currentPos.y, pionfantome.currentOrientation]
     }
     /**
-       *
-       * @param {number} repetitions
-       * @param {string[]} codes la séquence d'instructions à répéter
-       * @returns {boolean} true si la boucle n'a à aucun moment fait sortir le lutin du plateau, false sinon
-       */
+         *
+         * @param {number} repetitions
+         * @param {string[]} codes la séquence d'instructions à répéter
+         * @returns {boolean} true si la boucle n'a à aucun moment fait sortir le lutin du plateau, false sinon
+         */
     this.testBoucle = function (repetitions, codes) {
       let sortiboucle = false
       let test
-      const pionfantome = noteLaCouleur({ x: 0, y: 0, orientation: 0, plateau: this.plateauNLC, relatif: this.relatif, nx: this.nx, ny: this.ny, pas: this.pas })
+      const pionfantome = noteLaCouleur({
+        x: 0,
+        y: 0,
+        orientation: 0,
+        plateau: this.plateauNLC,
+        relatif: this.relatif,
+        nx: this.nx,
+        ny: this.ny,
+        pas: this.pas
+      })
       pionfantome.currentPos.x = this.currentPos.x
       pionfantome.currentPos.y = this.currentPos.y
       pionfantome.currentOrientation = this.currentOrientation
@@ -231,11 +249,20 @@ class NoteLaCouleur {
     }
   }
 }
+
 export function noteLaCouleur ({
-  x = 15, y = 15, orientation = 90, plateau = [], relatif = true, nx = 16, ny = 12, pas = 30
+  x = 15,
+  y = 15,
+  orientation = 90,
+  plateau = [],
+  relatif = true,
+  nx = 16,
+  ny = 12,
+  pas = 30
 } = {}) {
   return new NoteLaCouleur({ x, y, orientation, relatif, plateau, nx, ny, pas })
 }
+
 class Plateau2dNLC {
   constructor ({
     type = 1, melange = false, scale = 0.5, relatif = true, pas = 30, nx = 16, ny = 12,
@@ -255,7 +282,7 @@ class Plateau2dNLC {
     ]
 
   } = {}) {
-    ObjetMathalea2D.call(this, { })
+    ObjetMathalea2D.call(this, {})
     this.relatif = relatif
     this.pas = pas
     this.type = 1
@@ -324,23 +351,77 @@ class Plateau2dNLC {
     for (let X = 0; X < this.nx; X++) {
       for (let Y = 0; Y < this.ny; Y++) {
         switch (type) {
-          case 1:
-            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[ny - 1 - Y][X]), echelleFigure: this.scale })
-            b.opacite = 0.8
+          case 1:// plateau couleur classique
+            b = new BoiteBuilder({
+              xMin: X * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
+              yMin: Y * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
+              xMax: (X + 1) * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
+              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0)
+            }).addColor({
+              color: 'black',
+              opacity: 0.8,
+              backgroudOpacity: 0.7,
+              colorBackground: this.traducColor(this.plateauNLC[ny - 1 - Y][X])
+            }).render()
             break
-          case 2:
-            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 0.7, colorFill: this.traducColor(this.plateauNLC[ny - 1 - Y][X]), tailleTexte: 1.2, texteColor: 'black', texteOpacite: 0.8, texteIn: this.traducNum(this.plateauNLC[ny - 1 - Y][X]), echelleFigure: this.scale })
-            b.opacite = 0.8
+          case 2: // plateau couleur avec numéros
+            b = new BoiteBuilder({
+              xMin: X * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
+              yMin: Y * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
+              xMax: (X + 1) * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
+              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0)
+            })
+              .addColor({
+                color: 'black',
+                opacity: 0.8,
+                backgroudOpacity: 0.7,
+                colorBackground: this.traducColor(this.plateauNLC[ny - 1 - Y][X])
+              })
+              .addTextIn({
+                size: 1.2,
+                textIn: this.traducNum(this.plateauNLC[ny - 1 - Y][X]),
+                color: 'black',
+                opacity: 0.8
+              }).render()
             break
-          case 3:
-            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 0.9, texteColor: 'black', texteOpacite: 0.9, texteIn: this.plateauNLC[ny - 1 - Y][X], echelleFigure: this.scale })
-            b.opacite = 0.8
+          case 3: // plateau N&B avec nom des couleurs
+            b = new BoiteBuilder({
+              xMin: X * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
+              yMin: Y * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
+              xMax: (X + 1) * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
+              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0)
+            }).addColor({
+              color: 'black',
+              opacity: 0.8,
+              backgroudOpacity: 1,
+              colorBackground: 'white'
+            }).addTextIn({
+              color: 'black',
+              opacity: 0.9,
+              textIn: this.plateauNLC[ny - 1 - Y][X],
+              size: 0.9
+            }).render()
             break
-          case 4:
-            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 1.2, texteColor: 'black', texteOpacite: 0.9, texteIn: this.traducNum(this.plateauNLC[ny - 1 - Y][X]), echelleFigure: this.scale })
-            b.opacite = 0.8
+          case 4: // Plateau N&B avec numéros des couleurs
+            b = new BoiteBuilder({
+              xMin: X * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
+              yMin: Y * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0),
+              xMax: (X + 1) * 1.5 + (nx >> 1) * (relatif ? -1.5 : 0),
+              yMax: (Y + 1) * 1.5 + (ny >> 1) * (relatif ? -1.5 : 0)
+            }).addColor({
+              color: 'black',
+              backgroudOpacity: 1,
+              colorBackground: 'white',
+              opacity: 0.8
+            }).addTextIn({
+              size: 1.2,
+              color: 'black',
+              opacity: 0.9,
+              textIn: this.traducNum(this.plateauNLC[ny - 1 - Y][X])
+            }).render()
             break
         }
+
         plateau2d.push(b)
       }
     }
@@ -362,33 +443,7 @@ class Plateau2dNLC {
     flechex.styleExtremites = '->'
     plateau2d.push(flechey)
     plateau2d.push(flechex)
-    let xmin = 1000
-    let ymin = 1000
-    let xmax = -1000
-    let ymax = -1000
-    for (const objet of plateau2d) {
-      if (objet.bordures !== undefined) {
-        xmin = Math.min(xmin, objet.bordures[0])
-        ymin = Math.min(ymin, objet.bordures[1])
-        xmax = Math.max(xmax, objet.bordures[2])
-        ymax = Math.max(ymax, objet.bordures[3])
-      }
-    }
-    this.bordures = [xmin, ymin, xmax, ymax]
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of plateau2d) {
-        code += objet.svg(coeff) + '\n'
-      }
-      return code
-    }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of plateau2d) {
-        code += objet.tikz() + '\n'
-      }
-      return code
-    }
+    this.plateau2d = plateau2d
   }
 }
 
