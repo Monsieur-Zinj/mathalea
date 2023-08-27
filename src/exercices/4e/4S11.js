@@ -2,11 +2,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer des médianes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,11 +18,11 @@ export const dateDeModifImportante = '28/10/2021'
 
 /**
  * Calculs de médianes dans des séries statistiques
-* @author Sébastien Lozano forked de Jean-Claude Lhote
-* Référence 4S11
-* Date initiale 2021-01-12
-* Ajout de l'alternance entre effectif total pair et impair le 18/08/2021 : Guilllaume Valmont
-*/
+ * @author Sébastien Lozano forked de Jean-Claude Lhote
+ * Référence 4S11
+ * Date initiale 2021-01-12
+ * Ajout de l'alternance entre effectif total pair et impair le 18/08/2021 : Guilllaume Valmont
+ */
 export const uuid = '7c068'
 export const ref = '4S11'
 export default function DeterminerDesMedianes () {
@@ -99,7 +100,12 @@ export default function DeterminerDesMedianes () {
       (this.interactif && !context.isAmc) ? texte += '<br><br>Déterminer une médiane de cette série : ' : texte += '<br>Déterminer une médiane de cette série.'
 
       if (Array.isArray(repInteractive)) {
-        setReponse(this, i, repInteractive, { decimals: 1, milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2), approx: 'intervalleStrict', formatInteractif: 'intervalleStrict' })
+        setReponse(this, i, repInteractive, {
+          decimals: 1,
+          milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2),
+          approx: 'intervalleStrict',
+          formatInteractif: 'intervalleStrict'
+        })
       } else {
         setReponse(this, i, repInteractive)
       }

@@ -7,18 +7,14 @@ import {
 } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-// import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-// import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-// import { courbeSpline } from '../../modules/2d.js'
-// export const interactifReady = true
-// export const interactifType = 'mathLive'
+
 export const titre = 'Factoriser un polynôme du second degré avec racines entières'
 
 /**
  *
  * @author Rémi Angot et Stéphane Guyon
  * Référence 1E14
-*/
+ */
 export const uuid = 'a8e1b'
 export const ref = '1E14'
 export default function ResoudreEquationDegre2 () {

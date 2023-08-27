@@ -2,24 +2,21 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpenNum'
 /**
-* Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
-* @author Jean-Claude Lhote
-* Référence 5C11, 5C11-1, 5C12-1, 5L10-1, 5L10-3, 5L14-1 et 5L14-3
-*/
+ * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
+ * @author Jean-Claude Lhote
+ * Référence 5C11, 5C11-1, 5C12-1, 5L10-1, 5L10-3, 5L14-1 et 5L14-3
+ */
 export default function EcrireUneExpressionNumerique (calculMental) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -47,11 +44,31 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       } else if (this.sup4 === 4) {
         this.sup = '2-3-4-5'
       }
-      listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions })
+      listeTypeDeQuestions = gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        min: 1,
+        max: 5,
+        melange: 6,
+        defaut: 6,
+        nbQuestions: this.nbQuestions
+      })
     } else {
-      listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 5, melange: 6, defaut: 6, nbQuestions: this.nbQuestions })
+      listeTypeDeQuestions = gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        min: 2,
+        max: 5,
+        melange: 6,
+        defaut: 6,
+        nbQuestions: this.nbQuestions
+      })
     }
-    let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
+    let expf
+    let expn
+    let expc
+    let decimal
+    let nbval
+    let nbOperations
+    let resultats
     if (!calculMental) {
       decimal = 10
     } else {
@@ -69,7 +86,11 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
-      if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental) }
+      if (!this.litteral) {
+        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental)
+      } else {
+        resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental)
+      }
       expf = resultats[0]
       expn = resultats[1].split('=')[0]
       expn += expn[expn.length - 1] !== '$' ? '$' : ''

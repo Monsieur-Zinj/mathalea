@@ -4,8 +4,9 @@ import { modalUrl } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -50,7 +51,6 @@ export default function MultiplierEntierPar101001000 () {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1:

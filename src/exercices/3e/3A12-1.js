@@ -2,14 +2,11 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre des problèmes avec recherche de diviseurs communs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +21,7 @@ export const amcType = 'AMCHybride'
  * @author Laurence Candille et Jean-Claude Lhote (pour l'export AMC)
  * Référence 3A12-1
  * Date août 2021
-*/
+ */
 export const uuid = '8c05e'
 export const ref = '3A12-1'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
@@ -44,7 +41,15 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const listeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, shuffle: false })
+    const listeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      nbQuestions: this.nbQuestions,
+      shuffle: false
+    })
 
     const nombrePremier = [2, 3, 5, 7, 11]
 

@@ -5,22 +5,24 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer un taux d\'évolution global'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/01/2022'
 export const dateDeModifImportante = '04/05/2023'
 /**
-* Problèmes d'évolutions successives'
-*
-* * Situations variées : prix, habitants, adhérents  ##
-*
-* * Déterminer un taux d'évolution global ou un taux intermédiaire
-* * Mélange des 3 types de problèmes
-* @author Florence Tapiero et Gilles Mora pour le cas problème taux intermédiaire
-* 2S12-2
-*/
+ * Problèmes d'évolutions successives'
+ *
+ * * Situations variées : prix, habitants, adhérents  ##
+ *
+ * * Déterminer un taux d'évolution global ou un taux intermédiaire
+ * * Mélange des 3 types de problèmes
+ * @author Florence Tapiero et Gilles Mora pour le cas problème taux intermédiaire
+ * 2S12-2
+ */
 
 export const uuid = '018f3'
 export const ref = '2S12-2'

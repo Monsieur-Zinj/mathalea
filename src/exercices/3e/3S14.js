@@ -3,15 +3,11 @@ import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer des caractéristiques d\'une série'
 export const interactifReady = true
@@ -49,8 +45,23 @@ export default function CalculerCaracteristiques () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const questionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions })
-    const typeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: 3, enleveDoublons: true })
+    const questionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 6,
+      melange: 7,
+      defaut: 7,
+      nbQuestions: this.nbQuestions
+    })
+    const typeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      nbQuestions: 3,
+      enleveDoublons: true
+    })
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
 
     for (let i = 0, cpt = 0, texte, initAMC, texteAMC, reponsesAMC, approxAMC, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
@@ -263,11 +274,11 @@ export default function CalculerCaracteristiques () {
         case 4 : {
           // les salaires
           /* let salaires = [
-            [1250 + randint(2, 8) * 10, randint(30, 50)], // 'Ouvrier'
-            [1450 + randint(2, 8) * 10, randint(21, 29)], // 'Ouvrier qualifié'
-            [1700 + randint(2, 8) * 10, randint(15, 20)], // 'Cadre'
-            [3500 + randint(2, 8) * 10, randint(5, 10)], // 'Cadre supérieur'
-            [8000 + randint(2, 8) * 100, 1]] // 'Dirigeant' */
+                      [1250 + randint(2, 8) * 10, randint(30, 50)], // 'Ouvrier'
+                      [1450 + randint(2, 8) * 10, randint(21, 29)], // 'Ouvrier qualifié'
+                      [1700 + randint(2, 8) * 10, randint(15, 20)], // 'Cadre'
+                      [3500 + randint(2, 8) * 10, randint(5, 10)], // 'Cadre supérieur'
+                      [8000 + randint(2, 8) * 100, 1]] // 'Dirigeant' */
           const total = randint(80, 99)
           let effectifHasard = []
           switch (randint(1, 3)) {

@@ -10,10 +10,18 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2
 import { context } from '../../../modules/context.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
-import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../../modules/2dLutin.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import {
+  allerA,
+  angleScratchTo2d,
+  attendre,
+  baisseCrayon,
+  clone,
+  creerLutin,
+  orienter
+} from '../../../modules/2dLutin.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { roseDesVents, scratchblock } from '../../../modules/scratchblock.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Noter la couleur (scratch)'
 export const interactifType = 'mathLive'

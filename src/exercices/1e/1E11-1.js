@@ -5,6 +5,7 @@ import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '.
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import Trinome from '../../modules/Trinome.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer le discriminant d\'un polynôme du second degré'

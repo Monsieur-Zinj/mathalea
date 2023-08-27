@@ -6,21 +6,23 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer un taux d\'évolution réciproque'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '16/01/2022'
 
 /**
-* Problèmes d'évolution réciproque'
-*
-* * Situations variées : prix , tarif horaire, nombre d'employés
-* * Déterminer un taux d'évolution réciproque
-* * Mélange des 3 types de problèmes
-* @author Florence Tapiero
-* 2S12-3
-*/
+ * Problèmes d'évolution réciproque'
+ *
+ * * Situations variées : prix , tarif horaire, nombre d'employés
+ * * Déterminer un taux d'évolution réciproque
+ * * Mélange des 3 types de problèmes
+ * @author Florence Tapiero
+ * 2S12-3
+ */
 export const uuid = '509db'
 export const ref = '2S12-3'
 export default function EvolutionsSuccesives () {
@@ -197,7 +199,7 @@ export default function EvolutionsSuccesives () {
       }
       setReponse(this, i, taux)
       if (this.questionJamaisPosee(i, taux)) {
-      // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

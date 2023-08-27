@@ -4,9 +4,10 @@ import { texPrix } from '../../lib/format/style.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
@@ -39,12 +40,13 @@ export default function AppliquerUnPourcentage () {
     const article = [['Un pull', 20, 40], ['Une chemise', 15, 35], ['Un pantalon', 30, 60], ['Un T-shirt', 15, 25], ['Une jupe', 20, 40]]
     const legume = [['Une aubergine', 100, 200], ['Un melon', 200, 300], ['Une tomate', 50, 100], ['Une betterave', 75, 100], ['Une carotte', 30, 50]]
     const listeIndex = [0, 1, 2, 3, 4]
-    const prix = []; const pourcent = []; const masse = []
+    const prix = []
+    const pourcent = []
+    const masse = []
     const index = combinaisonListes(listeIndex, this.nbQuestions)
     for (
       let i = 0, texte, texteCorr, montant, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       pourcent[i] = choice(listePourcentages)
       switch (choix[i]) {

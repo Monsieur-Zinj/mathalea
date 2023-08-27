@@ -6,8 +6,9 @@ import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Recomposer un nombre décimal représenté par des fractions du cube unité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -72,7 +73,13 @@ export default function RecompositionDecimale () {
         }
       }
       xDecal += m * 0.8
-      texte += mathalea2d({ scale: 0.5, xmin: -0.5, ymin: -0.5, xmax: xDecal, ymax: Math.max(e * 9, d + 2.5, Math.ceil(c * 0.75), Math.ceil(m / 10)) }, objets)
+      texte += mathalea2d({
+        scale: 0.5,
+        xmin: -0.5,
+        ymin: -0.5,
+        xmax: xDecal,
+        ymax: Math.max(e * 9, d + 2.5, Math.ceil(c * 0.75), Math.ceil(m / 10))
+      }, objets)
       if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur25')
 
       if (this.correctionDetaillee) {

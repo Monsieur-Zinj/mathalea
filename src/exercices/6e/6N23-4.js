@@ -3,9 +3,10 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -39,23 +40,23 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
     this.autoCorrection = []
 
     /*
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = range1(5)
-    } else {
-      if (typeof (this.sup) === 'number') { // Je n'ai jamais réussi à rentrer dans ce test.
-        this.sup = Math.max(Math.min(parseInt(this.sup), 6), 1)
-        typesDeQuestionsDisponibles[0] = this.sup
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsDisponibles[i]), 6)
+        let typesDeQuestionsDisponibles = []
+        if (!this.sup) { // Si aucune liste n'est saisie
+          typesDeQuestionsDisponibles = range1(5)
+        } else {
+          if (typeof (this.sup) === 'number') { // Je n'ai jamais réussi à rentrer dans ce test.
+            this.sup = Math.max(Math.min(parseInt(this.sup), 6), 1)
+            typesDeQuestionsDisponibles[0] = this.sup
+          } else {
+            typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsDisponibles[i]), 6)
+            }
+          }
         }
-      }
-    }
-    if (compteOccurences(typesDeQuestionsDisponibles, 6) > 0) typesDeQuestionsDisponibles = range1(5) // Teste si l'utilisateur a choisi tout
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    */
+        if (compteOccurences(typesDeQuestionsDisponibles, 6) > 0) typesDeQuestionsDisponibles = range1(5) // Teste si l'utilisateur a choisi tout
+        const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+        */
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,
@@ -131,7 +132,11 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
           break
       }
       const choixDigit = randint(0, 1)
-      setReponse(this, i, reponseAMC, { digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1), decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit, signe: false })
+      setReponse(this, i, reponseAMC, {
+        digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
+        decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+        signe: false
+      })
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
       }

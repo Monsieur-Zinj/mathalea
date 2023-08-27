@@ -7,8 +7,9 @@ import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -102,15 +103,15 @@ export default function ExerciceEquationASolutionEntiere () {
               }
             }
             texteCorr += `$${a}x${ecritureAlgebrique(b)}${miseEnEvidence(
-              ecritureAlgebrique(-1 * b)
-            )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
+                            ecritureAlgebrique(-1 * b)
+                        )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
             texteCorr += `$${a}x=${c - b}$<br>`
             if (this.correctionDetaillee) {
               texteCorr += `On divise les deux membres par $${a}$.<br>`
             }
             texteCorr += `$${a}x${miseEnEvidence(
-              '\\div' + ecritureParentheseSiNegatif(a)
-            )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
+                            '\\div' + ecritureParentheseSiNegatif(a)
+                        )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
             texteCorr += `$x=${deprecatedTexFraction(c - b, a)}=${reponse}$`
             texteCorr += `<br> La solution est $${reponse}$.`
           } while (b === 0)
@@ -132,8 +133,8 @@ export default function ExerciceEquationASolutionEntiere () {
             }
           }
           texteCorr += `$x${ecritureAlgebrique(b)}${miseEnEvidence(
-          ecritureAlgebrique(-1 * b)
-        )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
+                        ecritureAlgebrique(-1 * b)
+                    )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
           texteCorr += `$x=${reponse}$`
           texteCorr += `<br> La solution est $${reponse}$.`
           break
@@ -152,8 +153,8 @@ export default function ExerciceEquationASolutionEntiere () {
             texteCorr += `On divise les deux membres par $${a}$.<br>`
           }
           texteCorr += `$${a}x${miseEnEvidence(
-              '\\div' + ecritureParentheseSiNegatif(a)
-            )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
+                        '\\div' + ecritureParentheseSiNegatif(a)
+                    )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
           texteCorr += `$x=${deprecatedTexFraction(b, a)}=${reponse}$`
           texteCorr += `<br> La solution est $${reponse}$.`
           break
@@ -170,30 +171,30 @@ export default function ExerciceEquationASolutionEntiere () {
           }
           b = (c - a) * reponse + d
           texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
-          c
-        )}x${ecritureAlgebrique(d)}$`
+                        c
+                    )}x${ecritureAlgebrique(d)}$`
           texteCorr = texte + '<br>'
           if (this.correctionDetaillee) {
             if (c > 0) {
               texteCorr += `On soustrait $${rienSi1(
-              c
-            )}x$ aux deux membres.<br>`
+                                c
+                            )}x$ aux deux membres.<br>`
             } else {
               texteCorr += `On ajoute $${rienSi1(
-              -1 * c
-            )}x$ aux deux membres.<br>`
+                                -1 * c
+                            )}x$ aux deux membres.<br>`
             }
           }
           texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(
-          b
-        )}${miseEnEvidence(
-          signe(-1 * c) + rienSi1(abs(c)) + 'x'
-        )}=${c}x${ecritureAlgebrique(d)}${miseEnEvidence(
-          signe(-1 * c) + rienSi1(abs(c)) + 'x'
-        )}$<br>`
+                        b
+                    )}${miseEnEvidence(
+                        signe(-1 * c) + rienSi1(abs(c)) + 'x'
+                    )}=${c}x${ecritureAlgebrique(d)}${miseEnEvidence(
+                        signe(-1 * c) + rienSi1(abs(c)) + 'x'
+                    )}$<br>`
           texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
-          b
-        )}=${d}$<br>`
+                        b
+                    )}=${d}$<br>`
           if (this.correctionDetaillee) {
             if (b > 0) {
               texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -202,20 +203,20 @@ export default function ExerciceEquationASolutionEntiere () {
             }
           }
           texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
-          b
-        )}${miseEnEvidence(
-          ecritureAlgebrique(-1 * b)
-        )}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
+                        b
+                    )}${miseEnEvidence(
+                        ecritureAlgebrique(-1 * b)
+                    )}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
           texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`
 
           if (this.correctionDetaillee) {
             texteCorr += `On divise les deux membres par $${a - c}$.<br>`
           }
           texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence(
-          '\\div' + ecritureParentheseSiNegatif(a - c)
-        )}=${d -
-        b +
-        miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
+                        '\\div' + ecritureParentheseSiNegatif(a - c)
+                    )}=${d -
+                    b +
+                    miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
           texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}=${reponse}$`
           texteCorr += `<br> La solution est $${reponse}$.`
           break

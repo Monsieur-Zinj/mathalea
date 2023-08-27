@@ -6,9 +6,11 @@ import { afficheScore } from './gestionInteractif.js'
 export function mouseOverSvgEffect () {
   this.style.border = '1px solid #1DA962'
 }
+
 export function mouseOutSvgEffect () {
   this.style.border = 'none'
 }
+
 export function mouseSvgClick () {
   if (this.etat) {
     // Déja choisi, donc on le réinitialise

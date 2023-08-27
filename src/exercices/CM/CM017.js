@@ -1,9 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
 export const amcReady = true
 export const interactifReady = true
@@ -13,7 +14,7 @@ export const amcType = 'AMCNum'
  * Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000
  * @author Rémi Angot
  * Référence CM017
-*/
+ */
 export const uuid = 'fc635'
 export const ref = 'CM017'
 export default function DiviserDecimalPar101001000 () {
@@ -31,7 +32,6 @@ export default function DiviserDecimalPar101001000 () {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = choice([
         randint(1, 9),
@@ -43,8 +43,8 @@ export default function DiviserDecimalPar101001000 () {
       b = choice([10, 100, 1000])
       texte = `$${texNombre(a)}\\div${texNombre(b)}=$`
       texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(
-        a / b
-      )}$`
+                a / b
+            )}$`
       setReponse(this, i, calcul(a / b))
       if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
 

@@ -10,10 +10,11 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer périmètre et aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -89,7 +90,15 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
         ...rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
         ...triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)]
       texte = this.sup3
-        ? mathalea2d({ xmin: -3, xmax: 22, ymin: -3, ymax: 8, pixelsParCm: 20, scale: 0.75, mainlevee: false }, objetsEnonce) + '<br>'
+        ? mathalea2d({
+          xmin: -3,
+          xmax: 22,
+          ymin: -3,
+          ymax: 8,
+          pixelsParCm: 20,
+          scale: 0.75,
+          mainlevee: false
+        }, objetsEnonce) + '<br>'
       //  ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.75, mainlevee: false }), objetsEnonce)
         : ''
       if (context.isAmc) {
@@ -111,7 +120,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}=${4 * c
-            }${sp()}\\text{cm}$<br>`
+                            }${sp()}\\text{cm}$<br>`
               setReponse(this, incrementation * i + nbPuces, new Grandeur(c * 4, 'cm'), { formatInteractif: 'unites' })
               if (context.isAmc) {
                 this.autoCorrection[i].propositions.push({
@@ -172,7 +181,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}+${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}=${2 * L + 2 * l
-              }${sp()}\\text{cm}$<br>`
+                            }${sp()}\\text{cm}$<br>`
               setReponse(this, incrementation * i + nbPuces, new Grandeur((L + l) * 2, 'cm'), { formatInteractif: 'unites' })
               if (context.isAmc) {
                 this.autoCorrection[i].propositions.push({
@@ -202,7 +211,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${L * l
-            }${sp()}\\text{cm}^2$<br>`
+                            }${sp()}\\text{cm}^2$<br>`
               setReponse(this, incrementation * i + nbPuces, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
               if (context.isAmc) {
                 this.autoCorrection[i].propositions.push({

@@ -1,10 +1,11 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { egal, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,9 +14,9 @@ export const amcReady = true
 export const dateDeModifImportante = '26/02/2023'
 
 /**
-* Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
-* @author Jean-Claude Lhote  (Amélioration AMC par Eric Elter)
-*/
+ * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
+ * @author Jean-Claude Lhote  (Amélioration AMC par Eric Elter)
+ */
 export const uuid = '4197c'
 export const ref = '3L11-1'
 export default function DoubleDistributivite () {

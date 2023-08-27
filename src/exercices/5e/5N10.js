@@ -2,10 +2,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = "Passer d'une fraction à une écriture décimale et inversement"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +19,7 @@ export const dateDePublication = '16/03/2022'
  * Un paramètre permet de limiter cela aux fractions décimales ou d'y incorporer des fractions "simples" (multiples de 1/2, 1/4, 1/5)
  * @author Guillaume Valmont
  * Référence 5N10
-*/
+ */
 export const uuid = '91d72'
 export const ref = '5N10'
 export default function PasserEcritureDecimaleEcritureFractionnaireInversement () {

@@ -2,7 +2,9 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Connaître les préfixes utilisés dans les unités'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'

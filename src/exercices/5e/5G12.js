@@ -7,13 +7,13 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texcolors } from '../../lib/format/style.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint } from '../../modules/outils.js'
+import { egal, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 export const interactifReady = true
@@ -58,8 +58,14 @@ export default function PavageEtDemiTour2D () {
     }
     const compare2polys = function (poly1, poly2) {
       if (comparenbsommets(poly1, poly2)) {
-        if (comparesommets(poly1, poly2)) { return true } else { return false }
-      } else { return false }
+        if (comparesommets(poly1, poly2)) {
+          return true
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
     }
     const comparenbsommets = function (poly1, poly2) {
       if (poly1.listePoints.length === poly2.listePoints.length) {
@@ -73,7 +79,8 @@ export default function PavageEtDemiTour2D () {
       } else return false
     }
     const comparesommets = function (poly1, poly2) {
-      let trouve = false; let trouves = 0
+      let trouve = false
+      let trouves = 0
       if (comparenbsommets(poly1, poly2)) {
         for (const P of poly1.listePoints) {
           for (const M of poly2.listePoints) {
@@ -88,10 +95,14 @@ export default function PavageEtDemiTour2D () {
           } else {
             trouves -= 100
           }
-          if (trouves < 0) { break }
+          if (trouves < 0) {
+            break
+          }
         }
       }
-      if (trouves === poly1.listePoints.length) { return true } else return false
+      if (trouves === poly1.listePoints.length) {
+        return true
+      } else return false
     }
 
     const demitour = function (pavage, A, numero) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
@@ -108,7 +119,14 @@ export default function PavageEtDemiTour2D () {
       return result
     }
 
-    const objets = []; const objetsCorrection = []; let P1; let P2; let P3; let G1; let G2; let t
+    const objets = []
+    const objetsCorrection = []
+    let P1
+    let P2
+    let P3
+    let G1
+    let G2
+    let t
     const codes = ['/', '//', '///', 'o', 'w', 'X', 'U', '*']
     let taillePavage = this.sup
     if (taillePavage < 1 || taillePavage > 2) {
@@ -120,9 +138,22 @@ export default function PavageEtDemiTour2D () {
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
-    let Nx; let Ny; let index1; let A; let B; let d; let image; let couples = []; let tailles = []; let monpavage; let fenetre
-    let texte = ''; let texteCorr = ''; let typeDePavage = this.sup
-    let nombreTentatives; let nombrePavageTestes = 1
+    let Nx
+    let Ny
+    let index1
+    let A
+    let B
+    let d
+    let image
+    let couples = []
+    let tailles = []
+    let monpavage
+    let fenetre
+    let texte = ''
+    let texteCorr = ''
+    let typeDePavage = this.sup
+    let nombreTentatives
+    let nombrePavageTestes = 1
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
     } else {

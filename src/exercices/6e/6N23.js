@@ -3,9 +3,10 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +38,6 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = choice(
         [
@@ -57,11 +57,11 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
       texte += `$${deprecatedTexFraction(texNombre(a), texNombre(b))}$`
       texte += context.isAmc ? '.' : `${!this.interactif ? '$ = \\dotfill $' : '$=$' + ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
       texteCorr =
-        '$ ' +
-        deprecatedTexFraction(texNombre(a), texNombre(b)) +
-        ' = ' +
-        texNombre(calcul(a / b)) +
-        ' $'
+                '$ ' +
+                deprecatedTexFraction(texNombre(a), texNombre(b)) +
+                ' = ' +
+                texNombre(calcul(a / b)) +
+                ' $'
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {

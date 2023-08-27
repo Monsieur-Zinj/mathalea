@@ -8,9 +8,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Lire l\'abscisse relative d\'un point'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,10 +19,10 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
-* Lire l'abscisse décimale d'un point
-* @author Jean-Claude Lhote et Rémi Angot
-* Référence 5R11
-*/
+ * Lire l'abscisse décimale d'un point
+ * @author Jean-Claude Lhote et Rémi Angot
+ * Référence 5R11
+ */
 export const uuid = 'cd7ce'
 export const ref = '5R11'
 export default function LireAbscisseRelative () {
@@ -48,7 +49,11 @@ export default function LireAbscisseRelative () {
     let objets = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
+    if (this.sup === 4) {
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+    } else {
+      typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions)
+    }
 
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, pas1, pas2, abs1, abs2, abs3, A, B, C, texte, texteCorr; i < this.nbQuestions; i++) {
       objets = []
@@ -74,8 +79,12 @@ export default function LireAbscisseRelative () {
           pas2 = 10
           break
       }
-      x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6)
-      x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
+      x1 = randint(0, 2)
+      x2 = randint(3, 4)
+      x3 = randint(5, 6)
+      x11 = randint(1, 9)
+      x22 = randint(1, 9)
+      x33 = randint(1, 3)
       abs1 = arrondi(abs0 + x1 / pas1 + x11 / pas1 / pas2, typesDeQuestions[i]) // le type de questions est égal au nombre de décimales.
       abs2 = arrondi(abs0 + x2 / pas1 + x22 / pas1 / pas2, typesDeQuestions[i])
       abs3 = arrondi(abs0 + x3 / pas1 + x33 / pas1 / pas2, typesDeQuestions[i])
@@ -99,8 +108,14 @@ export default function LireAbscisseRelative () {
       texte = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
       if (!context.isAmc && this.interactif) {
         texte += `${l1}(` + ajouteChampTexteMathLive(this, 3 * i, 'largeur10 inline nospacebefore', { texteApres: '  )' }) + sp(20)
-        texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur10 inline nospacebefore', { texte: `${l2}(`, texteApres: '  )' }) + sp(20)
-        texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur10 inline nospacebefore', { texte: `${l3}(`, texteApres: '  )' })
+        texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur10 inline nospacebefore', {
+          texte: `${l2}(`,
+          texteApres: '  )'
+        }) + sp(20)
+        texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur10 inline nospacebefore', {
+          texte: `${l3}(`,
+          texteApres: '  )'
+        })
         setReponse(this, 3 * i, abs1)
         setReponse(this, 3 * i + 1, abs2)
         setReponse(this, 3 * i + 2, abs3)

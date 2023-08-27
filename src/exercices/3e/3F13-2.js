@@ -5,9 +5,9 @@ import { repere } from '../../lib/2d/reperes.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Spécial escape game'
@@ -54,11 +54,18 @@ export default function PremierEscapeGameMathalea () {
   // this.sup2 = ''
   this.pasDeVersionLatex = false
   this.nouvelleVersion = function () {
-    const lettres = []; const mots = ['BMDF', 'OGNQ', 'BUQP', 'BAUP', 'BXGE', 'BDUJ', 'MZSXQE', 'BDUEYQ', 'BMDFUQ', 'HMXQGD', 'OAGBXQ', 'PDAUFQ', 'DQXMFUAZ', 'BMDMNAXQ', 'MPPUFUAZ', 'QJBAEMZF', 'RAZOFUAZ', 'OAYBXQJQ']
+    const lettres = []
+    const mots = ['BMDF', 'OGNQ', 'BUQP', 'BAUP', 'BXGE', 'BDUJ', 'MZSXQE', 'BDUEYQ', 'BMDFUQ', 'HMXQGD', 'OAGBXQ', 'PDAUFQ', 'DQXMFUAZ', 'BMDMNAXQ', 'MPPUFUAZ', 'QJBAEMZF', 'RAZOFUAZ', 'OAYBXQJQ']
     let alphabet = []
     this.listeQuestions = []
     this.listeCorrections = []
-    let texte = ''; let texteCorr = ''; let f1; let f2; let f3; let f4; let p
+    let texte = ''
+    let texteCorr = ''
+    let f1
+    let f2
+    let f3
+    let f4
+    let p
     // Initialisation des tableaux
     for (let i = 0; i < 26; i++) {
       alphabet.push(String.fromCharCode(65 + i))
@@ -69,19 +76,29 @@ export default function PremierEscapeGameMathalea () {
 
     const type = parseInt(this.sup)
     const mdp = cesar(mots[randint(0, 5) + (type - 1) * 6], 14)
-    const absc = []; const ord = []; let car
+    const absc = []
+    const ord = []
+    let car
     texte += ajouteChampTexteMathLive(this, 0, 'alphanumeric', { texte: 'Taper le mot de passe en majuscules : ' })
     texteCorr += `Le mot de passe comporte ${2 + 2 * type} lettres.`
     setReponse(this, 0, mdp, { formatInteractif: 'texte' })
     for (let x = 0; x < type * 2 + 2; x++) {
       car = mdp[x]
       alphabet = alphabet.filter(item => item !== car)
-      if (x % 2 === 0) { absc.push(randint(0, 2)) } else { absc.push(randint(3, 5)) }
+      if (x % 2 === 0) {
+        absc.push(randint(0, 2))
+      } else {
+        absc.push(randint(3, 5))
+      }
       // Pour l'abscisse, pas de problème de doublons
       if (x % 2 === 0) {
         ord.push(randint(0, 4))// premier point, l'ordonnée n'est pas contrainte.
-      } else { ord.push(randint(0, 4, ord[x - 1])) } // pour le deuxième, on évite l'ordonnée précédente
-      if (lettres[ord[x]][absc[x]] === '*') { lettres[ord[x]][absc[x]] = car } else if (lettres[ord[x]][absc[x]] !== car) {
+      } else {
+        ord.push(randint(0, 4, ord[x - 1]))
+      } // pour le deuxième, on évite l'ordonnée précédente
+      if (lettres[ord[x]][absc[x]] === '*') {
+        lettres[ord[x]][absc[x]] = car
+      } else if (lettres[ord[x]][absc[x]] !== car) {
         for (let i = 0; i < x; i++) {
           if (absc[i] === absc[x] && ord[i] === ord[x]) {
             ord[x] = (ord[x] + 1) % 5
@@ -105,7 +122,8 @@ export default function PremierEscapeGameMathalea () {
       }
     }
     // On calcule les ordonnées de début et de fin de chaque courbe
-    const ord0 = [0, 0, 0, 0]; const ord6 = [0, 0, 0, 0]
+    const ord0 = [0, 0, 0, 0]
+    const ord6 = [0, 0, 0, 0]
     const r = repere({ xMin: -1, yMin: -1, xMax: 7, yMax: 6, xUnite: 2 })
 
     for (let i = 0; i < type * 2 + 2; i += 2) {
@@ -122,8 +140,16 @@ export default function PremierEscapeGameMathalea () {
         p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
         p.couleurDeRemplissage = colorToLatexOrHTML('gray')
         p.opacite = 0.2
-        f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'black', step: 0.1 })
-        f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'white', step: 0.1 })
+        f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], {
+          repere: r,
+          color: 'black',
+          step: 0.1
+        })
+        f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], {
+          repere: r,
+          color: 'white',
+          step: 0.1
+        })
         f1.epaisseur = 2
         f2.epaisseur = 2
         texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 7, pixelsParCm: 30 }, p, r, f1, f2) + '<br>'
@@ -132,9 +158,21 @@ export default function PremierEscapeGameMathalea () {
         p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
         p.opacite = 0.2
         p.couleurDeRemplissage = colorToLatexOrHTML('gray')
-        f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'red', step: 0.1 })
-        f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'green', step: 0.1 })
-        f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], { repere: r, color: 'blue', step: 0.1 })
+        f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], {
+          repere: r,
+          color: 'red',
+          step: 0.1
+        })
+        f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], {
+          repere: r,
+          color: 'green',
+          step: 0.1
+        })
+        f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], {
+          repere: r,
+          color: 'blue',
+          step: 0.1
+        })
         f1.epaisseur = 2
         f2.epaisseur = 2
         f3.pepaisseur = 2
@@ -144,15 +182,37 @@ export default function PremierEscapeGameMathalea () {
         p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
         p.opacite = 0.2
         p.couleurDeRemplissage = colorToLatexOrHTML('gray')
-        f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'cyan', step: 0.1 })
-        f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'yellow', step: 0.1 })
-        f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], { repere: r, color: 'magenta', step: 0.1 })
-        f4 = graphiqueInterpole([[0, ord0[3]], [absc[6], ord[6]], [absc[7], ord[7]], [7, ord6[3]]], { repere: r, color: 'black', step: 0.1 })
+        f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], {
+          repere: r,
+          color: 'cyan',
+          step: 0.1
+        })
+        f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], {
+          repere: r,
+          color: 'yellow',
+          step: 0.1
+        })
+        f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], {
+          repere: r,
+          color: 'magenta',
+          step: 0.1
+        })
+        f4 = graphiqueInterpole([[0, ord0[3]], [absc[6], ord[6]], [absc[7], ord[7]], [7, ord6[3]]], {
+          repere: r,
+          color: 'black',
+          step: 0.1
+        })
         f1.epaisseur = 2
         f2.epaisseur = 2
         f3.pepaisseur = 2
         f4.epaisseur = 2
-        texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 7, pixelsParCm: 30 }, p, r, f1, f2, f3, f4) + '<br>'
+        texte += mathalea2d({
+          xmin: -1,
+          ymin: -1,
+          xmax: 15,
+          ymax: 7,
+          pixelsParCm: 30
+        }, p, r, f1, f2, f3, f4) + '<br>'
         break
     }
     texte += '$\\begin{array}{|l|' + 'c|'.repeat(6) + '}\n'

@@ -4,15 +4,13 @@ import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/
 import { latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import {
-  ecritureAlgebrique,
-  ecritureParentheseSiNegatif
-} from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
-import { fixeBordures, mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un point par une translation'

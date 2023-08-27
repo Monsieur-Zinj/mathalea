@@ -2,8 +2,9 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Les quatre opérations'
 export const amcReady = true
 export const interactifReady = true
@@ -17,8 +18,8 @@ export const amcType = 'AMCNum'
  * * Niveau 2 Addition 2 chiffres + 2 chiffres ne dépassant pas 100, soustraction dont le résultat est entre 11 et 19, tables de 6 à 9
  * * Niveau 3 Addition 2 chiffre + 2 chiffres dépassant 100, soustraction dont le résultat est entre 21 et 39, table de 7, 8, 11 ou 12,
  * @author Rémi Angot
-* Référence CM004
-  */
+ * Référence CM004
+ */
 export const uuid = 'ac900'
 export const ref = 'CM004'
 export default function QuatreOperations () {
@@ -43,7 +44,6 @@ export default function QuatreOperations () {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // addition

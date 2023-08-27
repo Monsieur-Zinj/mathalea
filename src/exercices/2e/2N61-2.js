@@ -1,7 +1,6 @@
 import { lampeMessage } from '../../lib/format/message.js'
 import { texSymbole, texteGras } from '../../lib/format/style.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -12,6 +11,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -247,7 +247,9 @@ export default function ExerciceInequationProduit () {
         }
         texteCorr += `$x${ecritureAlgebrique(c)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')}${-c}$ <br>`
         // On range les racines dans l'ordre croissant pour pouvoir les mettre dans l'ordre dans le tableau
-        const racines = [-a, -b, -c].sort(function (a, b) { return a - b })
+        const racines = [-a, -b, -c].sort(function (a, b) {
+          return a - b
+        })
         const lignes = [-a, -b, -c]
         // Pour chaque ligne, on cherche la racine correspondante
         for (let j = 0; j < 3; j++) {
@@ -637,32 +639,32 @@ export default function ExerciceInequationProduit () {
           if (c > 0) {
             texteCorr += gauche
             correctionInteractif = [
-              `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
-              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
-              `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+                            `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
+                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
+                            `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
             ]
           } else {
             texteCorr += droite
             correctionInteractif = [
-              `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
-              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
-              `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+                            `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
+                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
+                            `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
             ]
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (c > 0) {
             texteCorr += droite
             correctionInteractif = [
-              `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
-              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
-              `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+                            `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
+                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
+                            `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
             ]
           } else {
             texteCorr += gauche
             correctionInteractif = [
-              `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
-              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
-              `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+                            `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
+                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
+                            `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
             ]
           }
         }

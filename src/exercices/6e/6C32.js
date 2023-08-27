@@ -5,9 +5,10 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre des problèmes de courses au marché'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -96,7 +97,10 @@ export default function ProblemeCourse () {
       this.autoCorrection[0].reponse.param.decimals = 2
     }
     if (this.interactif) {
-      texte += `<br> ${ajouteChampTexteMathLive(this, 0, 'largeur20 inline', { texteApres: ' €', texte: 'Le prix total à payer sera de ' })}`
+      texte += `<br> ${ajouteChampTexteMathLive(this, 0, 'largeur20 inline', {
+                texteApres: ' €',
+                texte: 'Le prix total à payer sera de '
+            })}`
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

@@ -2,17 +2,14 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { modalTexteCourt } from '../../lib/outils/modales.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +22,7 @@ export const dateDeModificationImportante = '14/05/2023' // ajout d'un paramètr
  * @author Rémi Angot (AMC par EE)
  * Référence 6N20-1
  * Relecture : Novembre 2021 par EE
-*/
+ */
 export const uuid = '1f5de'
 export const ref = '6N20-1'
 export default function EncadrerFractionEntre2Entiers () {
@@ -36,7 +33,7 @@ export default function EncadrerFractionEntre2Entiers () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.correctionDetaillee =
-  this.sup = false
+        this.sup = false
   this.sup2 = '11'
   this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
   this.besoinFormulaire2Texte = this.lycee
@@ -48,7 +45,15 @@ export default function EncadrerFractionEntre2Entiers () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const listeDenominateurs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 2, max: this.lycee ? 9 : 10, defaut: this.lycee ? 10 : 11, melange: this.lycee ? 10 : 11, nbQuestions: this.nbQuestions, exclus: this.lycee ? [] : [6, 7, 8, 9] })
+    const listeDenominateurs = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 2,
+      max: this.lycee ? 9 : 10,
+      defaut: this.lycee ? 10 : 11,
+      melange: this.lycee ? 10 : 11,
+      nbQuestions: this.nbQuestions,
+      exclus: this.lycee ? [] : [6, 7, 8, 9]
+    })
     this.liste_de_denominateurs = !this.sup ? this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions) : listeDenominateurs
     const denominateursDifferents = new Set(this.liste_de_denominateurs)
     const nbDenominateursDifferents = denominateursDifferents.size

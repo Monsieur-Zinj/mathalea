@@ -4,8 +4,9 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const dateDePublication = '28/09/22'
@@ -37,21 +38,21 @@ export default function EncadrerUnDecimal () {
     this.autoCorrection = []
 
     /*
-    let listeTypeDeQuestions = []
-    if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
-      listeTypeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
-    } else {
-      const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-      for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        const choixtp = parseInt(quests[i])
-        if (choixtp >= 1 && choixtp <= 3) {
-          listeTypeDeQuestions.push(choixtp)
+        let listeTypeDeQuestions = []
+        if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
+          listeTypeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+        } else {
+          const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+          for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+            const choixtp = parseInt(quests[i])
+            if (choixtp >= 1 && choixtp <= 3) {
+              listeTypeDeQuestions.push(choixtp)
+            }
+          }
+          if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = [1, 2, 3] }
+          listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
         }
-      }
-      if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = [1, 2, 3] }
-      listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-    }
-    */
+        */
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 3,

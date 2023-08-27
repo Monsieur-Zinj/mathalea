@@ -6,15 +6,12 @@ import { texPrix } from '../../../lib/format/style.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Course aux nombres fin de 6e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +23,7 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
  * Référence can Predef6-3
-*/
+ */
 export const uuid = '3a526'
 export const ref = 'can6a-xxxx'
 export default function CourseAuxNombres6e () {
@@ -48,7 +45,14 @@ export default function CourseAuxNombres6e () {
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat, propositions
 
-    const listeIndex = gestionnaireFormulaireTexte({ saisie: this.sup, max: 30, melange: 31, defaut: 31, nbQuestions: this.nbQuestions, shuffle: false }).map((index) => index - 1)
+    const listeIndex = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      max: 30,
+      melange: 31,
+      defaut: 31,
+      nbQuestions: this.nbQuestions,
+      shuffle: false
+    }).map((index) => index - 1)
     const fruits = [
       ['pêches', 4, 10, 30],
       ['noix', 5, 4, 13],
@@ -401,7 +405,13 @@ export default function CourseAuxNombres6e () {
           c = new FractionEtendue(b, a)
           resultat = b / a
 
-          texte = 'Déterminer l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee({
+          texte = 'Déterminer l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: 14,
+            ymax: 1.5,
+            scale: 0.5
+          }, droiteGraduee({
             Unite: 3,
             Min: 0,
             Max: 4.2,
@@ -436,8 +446,13 @@ export default function CourseAuxNombres6e () {
           setReponse(this, q, texPrix(resultat) + '€')
           break
       }
-
-      texte += typeQuestionsDisponibles[listeIndex[i]] === 'q25' ? ajouteChampTexteMathLive(this, q, 'inline largeur10 unites[longueurs]') : ajouteChampTexteMathLive(this, q, 'inline largeur10 ')
+      if (typeQuestionsDisponibles[listeIndex[i]] === 'q25') {
+        texte += ajouteChampTexteMathLive(this, q, 'unites[longueurs]')
+      } else if (typeQuestionsDisponibles[listeIndex[i]] === 'q13') {
+        texte += ajouteChampTexteMathLive(this, q)
+      } else {
+        texte += ajouteChampTexteMathLive(this, q)
+      }
 
       if (this.questionJamaisPosee(i, a, b, c, listeIndex[i])) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -451,7 +466,7 @@ export default function CourseAuxNombres6e () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-  `1 : Moitié et double\n
+        `1 : Moitié et double\n
   2 : Quotient de a par b\n
   3 : Somme astucieuse de 4 nombres entiers\n
   4 : Somme de deux décimaux avec retenue\n

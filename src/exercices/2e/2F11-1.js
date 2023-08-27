@@ -6,9 +6,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +24,7 @@ export const dateDePublication = '18/01/2022' // La date de publication initiale
  *
  * @author Degrange Mathieu
  *
-*/
+ */
 export const uuid = 'b6cc0'
 export const ref = '2F11-1'
 export default function ImageFonctionsRefs () {

@@ -7,25 +7,21 @@ import {
 } from '../../lib/outils/ecritures.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  calcul,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Opérations avec deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Effectuer des opérations avec 2 nombres relatifs
-*
-* * On peut choisir les 4 opérations
-* @author Mickael Guironnet - Rémi Angot
-* 4C10-7
-*/
+ * Effectuer des opérations avec 2 nombres relatifs
+ *
+ * * On peut choisir les 4 opérations
+ * @author Mickael Guironnet - Rémi Angot
+ * 4C10-7
+ */
 export const uuid = '0b020'
 export const ref = '4C10-7'
 export default function ExerciceOperationsRelatifs () {
@@ -45,7 +41,13 @@ export default function ExerciceOperationsRelatifs () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeSignes = combinaisonListes(['-+', '+-', '--', '-+', '+-', '--', '++'], this.nbQuestions)
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup2, max: 4, melange: 5, defaut: 2 })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup2,
+      max: 4,
+      melange: 5,
+      defaut: 2
+    })
     for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       switch (listeTypeDeQuestions[i]) {
         case 2:
@@ -113,7 +115,11 @@ export default function ExerciceOperationsRelatifs () {
             texte = `$ ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)}  =$`
             texteCorr = `$  ${ecritureNombreRelatifc(a)} - ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a - b)} $`
           }
-          setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)), decimals: 0 })
+          setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], {
+            signe: true,
+            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
+            decimals: 0
+          })
           texte += ajouteChampTexteMathLive(this, i)
           break
       }

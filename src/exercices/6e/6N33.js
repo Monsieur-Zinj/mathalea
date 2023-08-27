@@ -5,9 +5,10 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer la fraction d\'un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -75,7 +76,6 @@ export default function FractionDUnNombre () {
     for (
       let i = 0, a, b, k, n, j, fraction, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       fraction = choice(listeFractions)
       a = fraction[0]
@@ -91,89 +91,89 @@ export default function FractionDUnNombre () {
         // Si n * 1/b
         if (calcul(n / b - arrondi(n / b, 4)) === 0) {
           texteCorr += `$${deprecatedTexFraction(
-            a,
-            miseEnEvidence(b)
-          )}\\times${n}=${n}\\div${miseEnEvidence(b)}=${texNombre(
-            calcul(n / b)
-          )}$`
+                        a,
+                        miseEnEvidence(b)
+                    )}\\times${n}=${n}\\div${miseEnEvidence(b)}=${texNombre(
+                        calcul(n / b)
+                    )}$`
         } else { // si résultat décimal
           texteCorr += `$${deprecatedTexFraction(a, b)}\\times${n}=${deprecatedTexFraction(
-            n,
-            b
-          )}${simplificationDeFractionAvecEtapes(n, b)}$`
+                        n,
+                        b
+                    )}${simplificationDeFractionAvecEtapes(n, b)}$`
         } // si résultat non décimal
       } else {
         if (calcul(n / b - arrondi(n / b, 4)) === 0) {
           // si n/b décimal calcul (n/b)*a
           texteCorr += `$${deprecatedTexFraction(
-            a,
-            miseEnEvidence(b)
-          )}\\times${n}=(${n}\\div${miseEnEvidence(
-            b
-          )})\\times${a}=${texNombre(
-            calcul(n / b)
-          )}\\times${a}=${texNombre(calcul((n / b) * a))}$<br>`
+                        a,
+                        miseEnEvidence(b)
+                    )}\\times${n}=(${n}\\div${miseEnEvidence(
+                        b
+                    )})\\times${a}=${texNombre(
+                        calcul(n / b)
+                    )}\\times${a}=${texNombre(calcul((n / b) * a))}$<br>`
         } else {
           if (calcul((n * a) / b - arrondi((n * a) / b, 4)) === 0) {
             // si n/b non décimal, alors on se rabat sur (n*a)/b
             texteCorr += ` $${deprecatedTexFraction(
-              a,
-              miseEnEvidence(b)
-            )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-              b
-            )}=${calcul(n * a)}\\div${miseEnEvidence(
-              b
-            )}=${texNombre(calcul((n / b) * a))}$<br>`
+                            a,
+                            miseEnEvidence(b)
+                        )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
+                            b
+                        )}=${calcul(n * a)}\\div${miseEnEvidence(
+                            b
+                        )}=${texNombre(calcul((n / b) * a))}$<br>`
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
             texteCorr += ` $${deprecatedTexFraction(
-              a,
-              miseEnEvidence(b)
-            )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-              b
-            )}=${calcul(n * a)}\\div${miseEnEvidence(
-              b
-            )}=${deprecatedTexFraction(n * a, miseEnEvidence(b))}$<br>`
+                            a,
+                            miseEnEvidence(b)
+                        )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
+                            b
+                        )}=${calcul(n * a)}\\div${miseEnEvidence(
+                            b
+                        )}=${deprecatedTexFraction(n * a, miseEnEvidence(b))}$<br>`
           }
           j = true
         }
         if (
           calcul((n * a) / b - arrondi((n * a) / b, 4)) === 0 &&
-          this.sup2 &&
-          !j
+                    this.sup2 &&
+                    !j
         ) {
           // Si autres méthodes et si (a*n)/b décimal calcul (n*a)/b
           texteCorr += ` $${deprecatedTexFraction(
-            a,
-            miseEnEvidence(b)
-          )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-            b
-          )}=${calcul(n * a)}\\div${miseEnEvidence(b)}=${texNombre(
-            calcul((n / b) * a)
-          )}$<br>`
+                        a,
+                        miseEnEvidence(b)
+                    )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
+                        b
+                    )}=${calcul(n * a)}\\div${miseEnEvidence(b)}=${texNombre(
+                        calcul((n / b) * a)
+                    )}$<br>`
         } else {
           // si autre méthode et résultat fractionnaire calcul (n*a)/b
           if (this.sup2 && !j) {
             texteCorr += ` $${deprecatedTexFraction(
-              a,
-              miseEnEvidence(b)
-            )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-              b
-            )}=${calcul(n * a)}\\div${miseEnEvidence(
-              b
-            )}=${deprecatedTexFraction(n * a, miseEnEvidence(b))}$<br>`
+                            a,
+                            miseEnEvidence(b)
+                        )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
+                            b
+                        )}=${calcul(n * a)}\\div${miseEnEvidence(
+                            b
+                        )}=${deprecatedTexFraction(n * a, miseEnEvidence(b))}$<br>`
           }
         }
         // si autre méthode et a/b décimal calcul (a/b)*n
         if ((b === 2 || b === 4 || b === 5 || b === 8 || b === 10) && this.sup2) {
           texteCorr += ` $${deprecatedTexFraction(
-            a,
-            miseEnEvidence(b)
-          )}\\times${n}=(${a}\\div${miseEnEvidence(
-            b
-          )})\\times${n}=${texNombre(
-            calcul(a / b)
-          )}\\times${n}=${texNombre(calcul((n / b) * a))}$`
+                        a,
+                        miseEnEvidence(b)
+                    )}\\times${n}=(${a}\\div${miseEnEvidence(
+                        b
+                    )})\\times${n}=${texNombre(
+                        calcul(a / b)
+                    )}\\times${n}=${texNombre(calcul((n / b) * a))}$`
         }
       }
 

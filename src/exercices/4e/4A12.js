@@ -6,15 +6,12 @@ import { personne } from '../../lib/outils/Personne.js'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'mathLive'
 export const amcReady = true // pour définir que l'exercice est exportable AMC
@@ -30,7 +27,7 @@ export const dateDeModifImportante = '10/10/2022'
  * Référence 4A12
  * 30/10/2021
  * Ajout de questions possibles le 10/10/2022 par Guillaume Valmont
-*/
+ */
 export const uuid = 'b16c6'
 export const ref = '4A12'
 export default function ProblemesEvenementsRecurrents () {
@@ -52,7 +49,13 @@ export default function ProblemesEvenementsRecurrents () {
     const listePremiers = combinaisonListes(preListePremiers, this.nbQuestions * 5)
 
     const valMaxParametre = 6
-    const listeDesProblemes = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: valMaxParametre - 1, melange: valMaxParametre, defaut: 1 })
+    const listeDesProblemes = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: valMaxParametre - 1,
+      melange: valMaxParametre,
+      defaut: 1
+    })
     const listeDesSaveurs = ['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages']
     let saveurs = []
     for (const probleme of listeDesProblemes) {

@@ -6,8 +6,9 @@ import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire graphiquement les valeurs de $a$ et $b$ dans $ax^2+b$'
@@ -21,7 +22,7 @@ export const dateDePublication = '17/06/2022' // La date de publication initiale
  *
  * @author Gilles Mora
  * Référence can1F06
-*/
+ */
 export const uuid = '26b38'
 export const ref = 'can1F06'
 export default function LectureGraphiqueParaboleaEtb () {
@@ -73,7 +74,15 @@ export default function LectureGraphiqueParaboleaEtb () {
                         `
             texte += `Déterminer les valeurs de $a$ et $b$.<br>
             
-            ` + mathalea2d({ xmin: -6, xmax: 6, ymin: -1.5, ymax: 8, pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            ` + mathalea2d({
+                xmin: -6,
+                xmax: 6,
+                ymin: -1.5,
+                ymax: 8,
+                pixelsParCm: 25,
+                scale: 0.6,
+                style: 'margin: auto'
+              }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           } else {
             r = repere({
               yUnite: 1,
@@ -99,7 +108,15 @@ export default function LectureGraphiqueParaboleaEtb () {
             `
             texte += `Déterminer les valeurs de $a$ et $b$.<br>
             
-            ` + mathalea2d({ xmin: -6, xmax: 6, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            ` + mathalea2d({
+                xmin: -6,
+                xmax: 6,
+                ymin: -4.5,
+                ymax: 4,
+                pixelsParCm: 25,
+                scale: 0.6,
+                style: 'margin: auto'
+              }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a=$' })
@@ -151,7 +168,15 @@ export default function LectureGraphiqueParaboleaEtb () {
             texte += `Déterminer les valeurs de $a$ et $b$.<br>
             
             ` +
-             mathalea2d({ xmin: -6, xmax: 6, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+                            mathalea2d({
+                              xmin: -6,
+                              xmax: 6,
+                              ymin: -4.5,
+                              ymax: 4,
+                              pixelsParCm: 25,
+                              scale: 0.6,
+                              style: 'margin: auto'
+                            }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           } else {
             r = repere({
               yUnite: 1,
@@ -177,7 +202,15 @@ export default function LectureGraphiqueParaboleaEtb () {
             `
             texte += `Déterminer les valeurs de $a$ et $b$.<br>
             
-            ` + mathalea2d({ xmin: -6, xmax: 6, ymin: -7.5, ymax: 1, pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            ` + mathalea2d({
+                xmin: -6,
+                xmax: 6,
+                ymin: -7.5,
+                ymax: 1,
+                pixelsParCm: 25,
+                scale: 0.6,
+                style: 'margin: auto'
+              }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a=$' })

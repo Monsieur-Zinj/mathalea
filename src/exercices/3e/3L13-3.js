@@ -11,17 +11,14 @@ import { sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true
@@ -225,7 +222,7 @@ export default class ProblemesEnEquation extends Exercice {
               test: 'abs((c*d-a*b))%abs(a-c) == 0 and (c*d-a*b)*(a-c)>0'
             }
             , { valueOf: true })
-        // falls through
+          // falls through
         case 6: // programmes2
           variables = aleaVariables(
             {

@@ -2,15 +2,12 @@ import { choice, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +25,7 @@ export const ref = '6N20'
 export default function ExerciceFractionsDecomposer () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne =
-    "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1."
+        "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1."
   this.spacing = 2
   this.spacingCorr = 2
   this.sup = false // Donner l'écriture décimale
@@ -41,7 +38,14 @@ export default function ExerciceFractionsDecomposer () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const listeDenominateurs = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 2, max: 10, defaut: 11, melange: 11, nbQuestions: this.nbQuestions })
+    const listeDenominateurs = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      min: 2,
+      max: 10,
+      defaut: 11,
+      melange: 11,
+      nbQuestions: this.nbQuestions
+    })
     let fractions = []
     let fractions1 = []
     if (!this.sup2) {
@@ -127,13 +131,13 @@ export default function ExerciceFractionsDecomposer () {
         // ed = fractions[i][2].toString() + fractions[i][3]
       }
       texte =
-        '$ ' +
-        deprecatedTexFraction(a, b) +
-        ' = \\ldots\\ldots + ' +
-        deprecatedTexFraction('\\ldots\\ldots', '\\ldots\\ldots') +
-        ' $'
+                '$ ' +
+                deprecatedTexFraction(a, b) +
+                ' = \\ldots\\ldots + ' +
+                deprecatedTexFraction('\\ldots\\ldots', '\\ldots\\ldots') +
+                ' $'
       texteCorr =
-        '$ ' + deprecatedTexFraction(a, b) + ' = ' + n + '+' + deprecatedTexFraction(c, b) + ' $'
+                '$ ' + deprecatedTexFraction(a, b) + ' = ' + n + '+' + deprecatedTexFraction(c, b) + ' $'
       reponse = `${n} + ${deprecatedTexFraction(c, b)}`
 
       setReponse(this, i, reponse)

@@ -1,19 +1,20 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Quotient de deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Effectuer une division entre 2 nombres relatifs écrite sous la forme d'une fraction.
-*
-* * On peut choisir de n'avoir que des tables de multiplication, par défaut il y a aussi des divisions simples par 2, 3 ou 4
-* @author Rémi Angot
-* 4C10-4
-*/
+ * Effectuer une division entre 2 nombres relatifs écrite sous la forme d'une fraction.
+ *
+ * * On peut choisir de n'avoir que des tables de multiplication, par défaut il y a aussi des divisions simples par 2, 3 ou 4
+ * @author Rémi Angot
+ * 4C10-4
+ */
 export const uuid = 'cdcc1'
 export const ref = '4C10-4'
 export default function ExerciceQuotientsRelatifs () {

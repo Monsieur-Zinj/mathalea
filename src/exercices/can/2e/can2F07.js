@@ -1,4 +1,3 @@
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
@@ -6,6 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire les extremums dans un tableau de variations'
 export const interactifReady = true

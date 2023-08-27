@@ -24,7 +24,9 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
   }
   let saisie = []
   // Sauvegarde pour les exports Moodle, Capytale...
-  if (exercice.answers === undefined) { exercice.answers = {} }
+  if (exercice.answers === undefined) {
+    exercice.answers = {}
+  }
   for (const option of optionsChoisies) {
     saisie.push(option.value)
     exercice.answers[option.id] = option.value

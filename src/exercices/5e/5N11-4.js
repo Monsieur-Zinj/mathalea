@@ -3,9 +3,10 @@ import { texPrix } from '../../lib/format/style.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Exprimer une fraction sous la forme d\'une valeur approchée d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +19,7 @@ export const dateDeModifImportante = '17/03/2022'
  * Référence 5N11-4
  * 2021-02-06
  * Ajout de l'interactivité par Guillaume Valmont le 17/03/2022
-*/
+ */
 export const uuid = '6b534'
 export const ref = '5N11-4'
 export default function ValeurApprocheeDePourcentages () {

@@ -9,12 +9,12 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { codageSegments } from '../../lib/2d/codages.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { arrondi } from '../../lib/outils/nombres.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer la valeur d\'un angle en utilisant la somme des angles dans un triangle'
 export const interactifReady = true
@@ -31,23 +31,23 @@ Correction de quelques coquilles
 */
 
 /**
-* Déterminer la valeur d'un angle dans un triangle.
-*
-* Correction avec détails ou pas. 13 cas différents
-* * On connaît 2 angles sur 3.
-* * Dans un triangle rectangle, on connaît un angle aigu.
-* * Dans un triangle isocèle, on connaît un angle à la base.
-* * Dans un triangle isocèle, on connaît l'angle au sommet principal.
-* * Quelle est la mesure d'un angle aigu dans un triangle rectangle qui a 2 angles égaux ?
-* * Dans un triangle rectangle, un angle aigu mesure le double de l'autre.
-* * Dans un triangle rectangle, un angle aigu mesure le quart de l'autre.
-* * Dans un triangle rectangle, un angle aigu mesure 5 fois l'autre.
-* * Un triangle a 3 angles égaux.
-* * Dans un triangle rectangle, un angle mesure le tiers de l'autre.
-* @author Jean-Claude Lhote
-* Ajout de schémas aux questions "faciles" par Guillaume Valmont le 04/03/2023
-* Référence 5G31
-*/
+ * Déterminer la valeur d'un angle dans un triangle.
+ *
+ * Correction avec détails ou pas. 13 cas différents
+ * * On connaît 2 angles sur 3.
+ * * Dans un triangle rectangle, on connaît un angle aigu.
+ * * Dans un triangle isocèle, on connaît un angle à la base.
+ * * Dans un triangle isocèle, on connaît l'angle au sommet principal.
+ * * Quelle est la mesure d'un angle aigu dans un triangle rectangle qui a 2 angles égaux ?
+ * * Dans un triangle rectangle, un angle aigu mesure le double de l'autre.
+ * * Dans un triangle rectangle, un angle aigu mesure le quart de l'autre.
+ * * Dans un triangle rectangle, un angle aigu mesure 5 fois l'autre.
+ * * Un triangle a 3 angles égaux.
+ * * Dans un triangle rectangle, un angle mesure le tiers de l'autre.
+ * @author Jean-Claude Lhote
+ * Ajout de schémas aux questions "faciles" par Guillaume Valmont le 04/03/2023
+ * Référence 5G31
+ */
 export const uuid = 'dc8c9'
 export const ref = '5G31'
 export default function ExerciceAnglesTriangles () {
@@ -62,14 +62,26 @@ export default function ExerciceAnglesTriangles () {
   this.nbColsCorr = 1
 
   const troisiemeAngle = function (a1, a2) {
-    if (a1 + a2 <= 180) { return 180 - (a1 + a2) } else { return -1 }
+    if (a1 + a2 <= 180) {
+      return 180 - (a1 + a2)
+    } else {
+      return -1
+    }
   }
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 12, melange: 13, defaut: 13, nbQuestions: this.nbQuestions, shuffle: false })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 12,
+      melange: 13,
+      defaut: 13,
+      nbQuestions: this.nbQuestions,
+      shuffle: false
+    })
     let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2
     let indiceSetReponse = 0
     for (let i = 0, texte, texteCorr, texteCorrFinal, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -484,13 +496,22 @@ export default function ExerciceAnglesTriangles () {
       // Cela ne permet pas à un petit malin de noter les réponses et de refaire la question en les remettant à la même place
       if (this.interactif) {
         setReponse(this, i + indiceSetReponse, reponseInteractive[choixAngle[0]])
-        texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse, 'inline nospacebefore largeur15', { texte: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`, texteApres: '$\\degree$' })
+        texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse, 'inline nospacebefore largeur15', {
+          texte: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`,
+          texteApres: '$\\degree$'
+        })
         if (reponseInteractive.length > 1) {
           setReponse(this, i + indiceSetReponse + 1, reponseInteractive[choixAngle[1]])
-          texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse + 1, 'inline nospacebefore largeur15', { texte: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`, texteApres: '$\\degree$' })
+          texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse + 1, 'inline nospacebefore largeur15', {
+            texte: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
+            texteApres: '$\\degree$'
+          })
           if (reponseInteractive.length > 2) {
             setReponse(this, i + indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
-            texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse + 2, 'inline nospacebefore largeur15', { texte: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`, texteApres: '$\\degree$' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse + 2, 'inline nospacebefore largeur15', {
+              texte: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
+              texteApres: '$\\degree$'
+            })
           }
         }
       }

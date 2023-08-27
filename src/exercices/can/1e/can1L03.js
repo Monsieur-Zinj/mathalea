@@ -1,7 +1,8 @@
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver les racines à partir d’une forme factorisée'
@@ -15,7 +16,7 @@ export const dateDePublication = '01/06/2022' // La date de publication initiale
  *
  * @author Gilles Mora
  * Référence can1L03
-*/
+ */
 export const uuid = 'a23a1'
 export const ref = 'can1L03'
 export default function RacinesPoly () {

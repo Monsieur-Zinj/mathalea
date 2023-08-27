@@ -2,9 +2,10 @@ import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.
 import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Course aux nombres CM2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +16,7 @@ export const amcType = 'AMCNum'
  * Ensemble de questions pour course aux nombres
  * @author Jean-Claude Lhote
  * Référence
-*/
+ */
 export default function CourseAuxNombresCM () {
   Exercice.call(this) // Héritage de la classe Exercice()
   if (this.interactif) {
@@ -171,7 +172,7 @@ export default function CourseAuxNombresCM () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-  `1 : Somme d'entiers\n
+        `1 : Somme d'entiers\n
   2 : Différence d'entiers\n
   3 : Somme d'entiers avec retenue\n
   4 : Différence d'entiers avec retenue\n

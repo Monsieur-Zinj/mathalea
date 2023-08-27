@@ -13,10 +13,11 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2'
 export const interactifReady = true
@@ -27,7 +28,7 @@ export const titre = 'Calculer des longueurs avec le théorème de Thalès'
  * Calcul de longueurs avec le théorème de Thalès
  * @author Rémi Angot
  * Utilisée dans 4G30 et 3G20
-*/
+ */
 export default function Thales2D () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
@@ -124,7 +125,7 @@ export default function Thales2D () {
 
       const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
       const boutonAideMathalea2d = creerBoutonMathalea2d(numeroExercice + '_' + i,
-        `if (!document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == 'false')){
+                `if (!document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == 'false')){
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.stroke = 'blue';
           document.getElementById('M2D_${numeroExercice}_${i}_2').style.stroke = 'red';
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.opacity = .5;
@@ -145,7 +146,7 @@ export default function Thales2D () {
   
         }
         `,
-        'Mettre en couleur les 2 triangles')
+                'Mettre en couleur les 2 triangles')
 
       if (k > 0) {
         texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :
@@ -209,13 +210,33 @@ export default function Thales2D () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
-      // Il n'y a qu'une seule question donc test inutile...
+        // Il n'y a qu'une seule question donc test inutile...
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,
             propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-            reponse: { texte: `$\\hspace{21pt}${nomM + nomN}$`, valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1, decimals: 1, approx: 0, signe: false, exposantNbChiffres: 0 } },
-            reponse2: { texte: `$\\hspace{21pt}${nomC + nomB}$`, valeur: reponse2, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse2)) + 1, decimals: 1, approx: 0, signe: false, exposantNbChiffres: 0 } }
+            reponse: {
+              texte: `$\\hspace{21pt}${nomM + nomN}$`,
+              valeur: reponse,
+              param: {
+                digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1,
+                decimals: 1,
+                approx: 0,
+                signe: false,
+                exposantNbChiffres: 0
+              }
+            },
+            reponse2: {
+              texte: `$\\hspace{21pt}${nomC + nomB}$`,
+              valeur: reponse2,
+              param: {
+                digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse2)) + 1,
+                decimals: 1,
+                approx: 0,
+                signe: false,
+                exposantNbChiffres: 0
+              }
+            }
           }
         }
         // Si la question n'a jamais été posée, on en créé une autre

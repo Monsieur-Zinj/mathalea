@@ -5,9 +5,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { pow } from 'mathjs'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const dateDeModifImportante = '02/10/2022'
 export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
 export const interactifReady = true
@@ -137,29 +138,77 @@ export default function ChiffreNombreDe () {
           },
           milliers: {
             unites: { determinant: 'des', cdu: ['unités de milliers', ''], rangs: [2 + (this.sup2 - 2) * 3] },
-            dizaines: { determinant: 'des', cdu: ['dizaines de milliers', ''], rangs: [1 + (this.sup2 - 2) * 3] },
-            centaines: { determinant: 'des', cdu: ['centaines de milliers', ''], rangs: [(this.sup2 - 2) * 3] }
+            dizaines: {
+              determinant: 'des',
+              cdu: ['dizaines de milliers', ''],
+              rangs: [1 + (this.sup2 - 2) * 3]
+            },
+            centaines: {
+              determinant: 'des',
+              cdu: ['centaines de milliers', ''],
+              rangs: [(this.sup2 - 2) * 3]
+            }
           },
           millions: {
             unites: { determinant: 'des', cdu: ['unités de millions', ''], rangs: [2 + (this.sup2 - 3) * 3] },
-            dizaines: { determinant: 'des', cdu: ['dizaines de millions', ''], rangs: [1 + (this.sup2 - 3) * 3] },
-            centaines: { determinant: 'des', cdu: ['centaines de millions', ''], rangs: [(this.sup2 - 3) * 3] }
+            dizaines: {
+              determinant: 'des',
+              cdu: ['dizaines de millions', ''],
+              rangs: [1 + (this.sup2 - 3) * 3]
+            },
+            centaines: {
+              determinant: 'des',
+              cdu: ['centaines de millions', ''],
+              rangs: [(this.sup2 - 3) * 3]
+            }
           }
         },
         nombre: {
           unites: {
-            unites: { determinant: 'd\'', cdu: ['unités', 1], rangs: rangeMinMax(0, 2 + (this.sup2 - 1) * 3) },
-            dizaines: { determinant: 'de', cdu: ['dizaines', 10], rangs: rangeMinMax(0, 1 + (this.sup2 - 1) * 3) },
-            centaines: { determinant: 'de', cdu: ['centaines', 100], rangs: rangeMinMax(0, (this.sup2 - 1) * 3) }
+            unites: {
+              determinant: 'd\'',
+              cdu: ['unités', 1],
+              rangs: rangeMinMax(0, 2 + (this.sup2 - 1) * 3)
+            },
+            dizaines: {
+              determinant: 'de',
+              cdu: ['dizaines', 10],
+              rangs: rangeMinMax(0, 1 + (this.sup2 - 1) * 3)
+            },
+            centaines: {
+              determinant: 'de',
+              cdu: ['centaines', 100],
+              rangs: rangeMinMax(0, (this.sup2 - 1) * 3)
+            }
           },
           milliers: {
-            unites: { determinant: 'd\'', cdu: ['unités de milliers', 1000], rangs: rangeMinMax(0, 2 + (this.sup2 - 2) * 3) },
-            dizaines: { determinant: 'de', cdu: ['dizaines de milliers', 10000], rangs: rangeMinMax(0, 1 + (this.sup2 - 2) * 3) },
-            centaines: { determinant: 'de', cdu: ['centaines de milliers', 100000], rangs: rangeMinMax(0, (this.sup2 - 2) * 3) }
+            unites: {
+              determinant: 'd\'',
+              cdu: ['unités de milliers', 1000],
+              rangs: rangeMinMax(0, 2 + (this.sup2 - 2) * 3)
+            },
+            dizaines: {
+              determinant: 'de',
+              cdu: ['dizaines de milliers', 10000],
+              rangs: rangeMinMax(0, 1 + (this.sup2 - 2) * 3)
+            },
+            centaines: {
+              determinant: 'de',
+              cdu: ['centaines de milliers', 100000],
+              rangs: rangeMinMax(0, (this.sup2 - 2) * 3)
+            }
           },
           millions: {
-            unites: { determinant: 'd\'', cdu: ['unités de millions', 1000000], rangs: rangeMinMax(0, 2 + (this.sup2 - 3) * 3) },
-            dizaines: { determinant: 'de', cdu: ['dizaines de millions', 10000000], rangs: rangeMinMax(0, 1 + (this.sup2 - 3) * 3) },
+            unites: {
+              determinant: 'd\'',
+              cdu: ['unités de millions', 1000000],
+              rangs: rangeMinMax(0, 2 + (this.sup2 - 3) * 3)
+            },
+            dizaines: {
+              determinant: 'de',
+              cdu: ['dizaines de millions', 10000000],
+              rangs: rangeMinMax(0, 1 + (this.sup2 - 3) * 3)
+            },
             centaines: { determinant: 'de', cdu: ['centaines de millions', 100000000], rangs: [0] }
           }
         }

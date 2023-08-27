@@ -6,9 +6,10 @@ import { prenomF } from '../../lib/outils/Personne.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'CAN 6e 10 questions (niveau 1)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +20,7 @@ export const dateDePublication = '/11/2021' // La date de publication initiale a
 /**
  * @author Gilles Mora
  * Référence
-*/
+ */
 export default function Can10Questions6N1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -152,7 +153,13 @@ export default function Can10Questions6N1 () {
             labelsPrincipaux: false
           })
           reponse = c + 3 * a
-          texte = mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 2, scale: 0.5 }, d) + 'Quel est le nombre écrit sous le point A ?'
+          texte = mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: 15,
+            ymax: 2,
+            scale: 0.5
+          }, d) + 'Quel est le nombre écrit sous le point A ?'
           texteCorr = `${texteEnCouleur('Comme les graduations vont de ' + a)} ${texteEnCouleur('en ' + a)} ${texteEnCouleur(', le nombre écrit sous le point $A$ correspond à ')} ${texteEnCouleur(c + 2 * a)} ${texteEnCouleur(' + ' + a)} ${texteEnCouleur('donc c\'est ' + texNombre(c + 3 * a) + '.')}`
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
           break
@@ -267,17 +274,23 @@ export default function Can10Questions6N1 () {
         if (typeQuestionsDisponibles[listeIndex[i]] === '8') {
           if (!this.interactif) {
             texte += ''
-          } else { texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + '€' }
+          } else {
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + '€'
+          }
         } else {
           if (typeQuestionsDisponibles[listeIndex[i]] === '9') {
             if (!this.interactif) {
               texte += ''
-            } else { texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + 'ans' }
+            } else {
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + 'ans'
+            }
           } else {
             if (typeQuestionsDisponibles[listeIndex[i]] === '10') {
               if (!this.interactif) {
                 texte += '... m'
-              } else { texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + ' m' }
+              } else {
+                texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + ' m'
+              }
             } else {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur15')
             }

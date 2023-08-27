@@ -5,12 +5,13 @@ import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +22,7 @@ export const amcType = 'AMCNum'
  * @author jeanclaude Lhote
  * Créé pendant l'été 2021
  * Référence canPredef5-1
-*/
+ */
 export const uuid = '9e40d'
 export const ref = 'can5a-xxxx'
 export default function CourseAuxNombres5e () {
@@ -370,7 +371,13 @@ export default function CourseAuxNombres5e () {
           c = new FractionEtendue(b, a)
           resultat = calcul(b / a)
 
-          texte = 'Déterminer l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee({
+          texte = 'Déterminer l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: 14,
+            ymax: 1.5,
+            scale: 0.5
+          }, droiteGraduee({
             Unite: 3,
             Min: 0,
             Max: 4.2,
@@ -424,7 +431,7 @@ export default function CourseAuxNombres5e () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-  `1 : Multiplication (facteur 12 à 19)\n
+        `1 : Multiplication (facteur 12 à 19)\n
   2 : Somme à abc + de\n
   3 : Différence abc - de\n
   4 : Somme de deux décimaux avec retenue\n

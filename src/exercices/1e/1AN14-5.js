@@ -1,5 +1,4 @@
 import { derivative, fraction, parse, simplify } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -8,6 +7,7 @@ import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { prettyTex } from './1AN14-4.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 const math = { simplify, parse, derivative, fraction }
 export const titre = 'Dérivée d\'un quotient'

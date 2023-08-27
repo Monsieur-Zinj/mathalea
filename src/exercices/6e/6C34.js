@@ -2,9 +2,9 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer le dernier chiffre d\'un calcul'
 export const amcReady = true
@@ -13,10 +13,10 @@ export const interactifType = 'mathLive'
 export const amcType = 'AMCNum' // Question numérique
 
 /**
-* Trouver le dernier chiffre d'un calcul (somme, produit, différence)
-* @author Erwan DUPLESSY
-* 6C34
-*/
+ * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
+ * @author Erwan DUPLESSY
+ * 6C34
+ */
 
 export const uuid = 'b3843'
 export const ref = '6C34'

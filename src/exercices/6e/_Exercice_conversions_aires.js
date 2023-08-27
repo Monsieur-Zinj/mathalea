@@ -5,10 +5,11 @@ import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { texTexte } from '../../lib/format/texTexte.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
@@ -122,11 +123,11 @@ export default function ExerciceConversionsAires () {
       if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
         /*      prefixeMulti = [
-          [' da', '\\times10\\times10', 100],
-          [' h', '\\times100\\times100', 10000],
-          [' k', '\\times1~000\\times1~000', 1000000]
-        ]      // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
-        */
+                  [' da', '\\times10\\times10', 100],
+                  [' h', '\\times100\\times100', 10000],
+                  [' k', '\\times1~000\\times1~000', 1000000]
+                ]      // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
+                */
         const prefixeMulti = [
           [' da', '\\times100', 100],
           [' h', '\\times100\\times100', 10000],
@@ -134,37 +135,37 @@ export default function ExerciceConversionsAires () {
         ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
         resultat = a.mul(prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          '^2' +
-          ' = \\dotfills ' +
-          texTexte(unite) +
-          '^2' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 2) +
+                    texTexte(prefixeMulti[k][0] + unite) +
+                    '^2' +
+                    ' = \\dotfills ' +
+                    texTexte(unite) +
+                    '^2' +
+                    '$'
         texteCorr =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          '^2' +
-          ' =  ' +
-          texNombre(a, 2) +
-          prefixeMulti[k][1] +
-          texTexte(unite) +
-          '^2' +
-          ' = ' +
-          texNombre(resultat, 0) +
-          texTexte(unite) +
-          '^2' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 2) +
+                    texTexte(prefixeMulti[k][0] + unite) +
+                    '^2' +
+                    ' =  ' +
+                    texNombre(a, 2) +
+                    prefixeMulti[k][1] +
+                    texTexte(unite) +
+                    '^2' +
+                    ' = ' +
+                    texNombre(resultat, 0) +
+                    texTexte(unite) +
+                    '^2' +
+                    '$'
         prefixe = prefixeMulti[k][2]
         texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite, 2, true)
       } else if (div && typesDeQuestions < 4) {
         /* prefixeDiv = [
-          [' d', '\\div10\\div10', 100],
-          [' c', '\\div100\\div100', 10000],
-          [' m', '\\div1~000\\div1~000', 1000000]
-        ] */
+                  [' d', '\\div10\\div10', 100],
+                  [' c', '\\div100\\div100', 10000],
+                  [' m', '\\div1~000\\div1~000', 1000000]
+                ] */
         prefixeDiv = [
           [' d', '\\div100', 100],
           [' c', '\\div100\\div100', 10000],
@@ -173,29 +174,29 @@ export default function ExerciceConversionsAires () {
         k = randint(0, 1) // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
         resultat = a.div(prefixeDiv[k][2]) // Attention aux notations scientifiques pour 10e-8
         texte =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeDiv[k][0] + unite) +
-          '^2' +
-          ' = \\dotfills ' +
-          texTexte(unite) +
-          '^2' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 2) +
+                    texTexte(prefixeDiv[k][0] + unite) +
+                    '^2' +
+                    ' = \\dotfills ' +
+                    texTexte(unite) +
+                    '^2' +
+                    '$'
         texteCorr =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeDiv[k][0] + unite) +
-          '^2' +
-          ' =  ' +
-          texNombre(a, 2) +
-          prefixeDiv[k][1] +
-          texTexte(unite) +
-          '^2' +
-          ' = ' +
-          texNombre(resultat, 10) +
-          texTexte(unite) +
-          '^2' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 2) +
+                    texTexte(prefixeDiv[k][0] + unite) +
+                    '^2' +
+                    ' =  ' +
+                    texNombre(a, 2) +
+                    prefixeDiv[k][1] +
+                    texTexte(unite) +
+                    '^2' +
+                    ' = ' +
+                    texNombre(resultat, 10) +
+                    texTexte(unite) +
+                    '^2' +
+                    '$'
         prefixe = prefixeDiv[k][2]
         texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite, 2, true)
       } else if (typesDeQuestions === 4) {
@@ -208,59 +209,59 @@ export default function ExerciceConversionsAires () {
         if (randint(0, 1) > 0) {
           resultat = a.mul(Math.pow(10, 2 * ecart))
           texte =
-            '$ ' +
-            texNombre(a, 2) +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            ' = \\dotfills ' +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            '$'
+                        '$ ' +
+                        texNombre(a, 2) +
+                        texTexte(listeUnite[unite2]) +
+                        '^2' +
+                        ' = \\dotfills ' +
+                        texTexte(listeUnite[unite1]) +
+                        '^2' +
+                        '$'
           texteCorr =
-            '$ ' +
-            texNombre(a, 2) +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            ' =  ' +
-            texNombre(a, 2) +
-            '\\times' +
-            texNombre(Math.pow(10, 2 * ecart)) +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            ' = ' +
-            texNombre(resultat, 0) +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            '$'
+                        '$ ' +
+                        texNombre(a, 2) +
+                        texTexte(listeUnite[unite2]) +
+                        '^2' +
+                        ' =  ' +
+                        texNombre(a, 2) +
+                        '\\times' +
+                        texNombre(Math.pow(10, 2 * ecart)) +
+                        texTexte(listeUnite[unite1]) +
+                        '^2' +
+                        ' = ' +
+                        texNombre(resultat, 0) +
+                        texTexte(listeUnite[unite1]) +
+                        '^2' +
+                        '$'
           prefixe = Math.pow(10, 2 * ecart)
           texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1], 2, true)
         } else {
           resultat = a.div(Math.pow(10, 2 * ecart))
           texte =
-            '$ ' +
-            texNombre(a, 2) +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            ' = \\dotfills ' +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            '$'
+                        '$ ' +
+                        texNombre(a, 2) +
+                        texTexte(listeUnite[unite1]) +
+                        '^2' +
+                        ' = \\dotfills ' +
+                        texTexte(listeUnite[unite2]) +
+                        '^2' +
+                        '$'
           texteCorr =
-            '$ ' +
-            texNombre(a, 2) +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            ' =  ' +
-            texNombre(a, 2) +
-            '\\div' +
-            texNombre(Math.pow(10, 2 * ecart)) +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            ' = ' +
-            texNombre(resultat, 10) +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            '$'
+                        '$ ' +
+                        texNombre(a, 2) +
+                        texTexte(listeUnite[unite1]) +
+                        '^2' +
+                        ' =  ' +
+                        texNombre(a, 2) +
+                        '\\div' +
+                        texNombre(Math.pow(10, 2 * ecart)) +
+                        texTexte(listeUnite[unite2]) +
+                        '^2' +
+                        ' = ' +
+                        texNombre(resultat, 10) +
+                        texTexte(listeUnite[unite2]) +
+                        '^2' +
+                        '$'
           prefixe = Math.pow(10, 2 * ecart)
           texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2], 2, true)
         }
@@ -272,27 +273,27 @@ export default function ExerciceConversionsAires () {
         k = randint(0, 1)
         resultat = a.mul(prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeMulti[k][0]) +
-          ' = \\dotfills ' +
-          texTexte(unite) +
-          '^2' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 2) +
+                    texTexte(prefixeMulti[k][0]) +
+                    ' = \\dotfills ' +
+                    texTexte(unite) +
+                    '^2' +
+                    '$'
         texteCorr =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeMulti[k][0]) +
-          ' =  ' +
-          texNombre(a, 2) +
-          prefixeMulti[k][1] +
-          texTexte(unite) +
-          '^2' +
-          ' = ' +
-          texNombre(resultat, 10) +
-          texTexte(unite) +
-          '^2' +
-          '$'
+                    '$ ' +
+                    texNombre(a, 2) +
+                    texTexte(prefixeMulti[k][0]) +
+                    ' =  ' +
+                    texNombre(a, 2) +
+                    prefixeMulti[k][1] +
+                    texTexte(unite) +
+                    '^2' +
+                    ' = ' +
+                    texNombre(resultat, 10) +
+                    texTexte(unite) +
+                    '^2' +
+                    '$'
         prefixe = prefixeMulti[k][2]
         //    texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite, true, false, true)
         texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite, 2, true, false, true)
@@ -424,15 +425,15 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     }
 
     /*
-    if (hectare) {
-      const headers3 = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\textha}', '\\texta}', '\\textca}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
-      for (let i = first; i < end; i++) {
-        texte += `${headers3[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
-      }
-    }
-    texte += ' \\hline '
+        if (hectare) {
+          const headers3 = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\textha}', '\\texta}', '\\textca}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
+          for (let i = first; i < end; i++) {
+            texte += `${headers3[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
+          }
+        }
+        texte += ' \\hline '
 
-    */
+        */
     // texte += '\\\\'
     if (hectare) {
       for (let i = first; i < first + 2; i++) {

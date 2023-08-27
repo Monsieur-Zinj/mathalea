@@ -4,24 +4,25 @@ import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../..
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
+import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Additionner deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 /**
-* Effectuer la somme de deux fractions
-*
-* * Niveau 1 : 4 fois sur 5 un dénominateur est un multiple de l'autre et une fois sur 5 il faut additionner une fraction et un entier
-* * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
-* * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
-* @author Rémi Angot
-* 4C21-1
-*/
+ * Effectuer la somme de deux fractions
+ *
+ * * Niveau 1 : 4 fois sur 5 un dénominateur est un multiple de l'autre et une fois sur 5 il faut additionner une fraction et un entier
+ * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
+ * * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
+ * @author Rémi Angot
+ * 4C21-1
+ */
 export const uuid = '5e8fc'
 export const ref = '4C21-1'
 export default function ExerciceAdditionnerDesFractions () {
@@ -149,7 +150,13 @@ export default function ExerciceAdditionnerDesFractions () {
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
       reponse = fraction(num, den).simplifie()
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-      setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+      setReponse(this, i, reponse, {
+        formatInteractif: 'fraction',
+        digits: 5,
+        digitsNum: 3,
+        digitsDen: 2,
+        signe: true
+      })
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

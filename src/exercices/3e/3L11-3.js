@@ -2,9 +2,10 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,10 +13,10 @@ export const amcType = 'AMCHybride'
 export const amcReady = true
 
 /**
-* Utiliser la simple ou la double distributivité et réduire l'expression
-*
-* @author Rémi Angot (Amélioration AMC par Eric Elter)
-*/
+ * Utiliser la simple ou la double distributivité et réduire l'expression
+ *
+ * @author Rémi Angot (Amélioration AMC par Eric Elter)
+ */
 export const uuid = '82313'
 export const ref = '3L11-3'
 export default function DistributiviteSimpleDoubleReduction () {

@@ -5,7 +5,6 @@ import { polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { similitude } from '../../lib/2d/transformations.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { degres, radians } from '../../lib/mathFonctions/trigo.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
@@ -15,6 +14,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -91,7 +91,12 @@ export default function CalculDAngleFigureComplexe () {
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)
           }
-          texte = mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, objetsMathalea)
+          texte = mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: D.x + 1,
+            ymax: Math.max(C.y, D.y) + 1
+          }, objetsMathalea)
           if (!this.sup) {
             texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}\\degree$.`
           }
@@ -148,7 +153,12 @@ export default function CalculDAngleFigureComplexe () {
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)
           }
-          texte = mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, objetsMathalea)
+          texte = mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: D.x + 1,
+            ymax: Math.max(C.y, D.y) + 1
+          }, objetsMathalea)
           if (!this.sup) {
             texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}\\degree$.`
           }

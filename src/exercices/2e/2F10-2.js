@@ -10,11 +10,12 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Donner l\'expression d\'une fonction affine graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +24,7 @@ export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '25/05/2023'
 /**
 
-*/
+ */
 export const uuid = '93f13'
 export const ref = '2F10-2'
 export default function Lecturefonctionaffine () {
@@ -44,7 +45,9 @@ export default function Lecturefonctionaffine () {
     } else {
       if (this.sup === 2) {
         typeDeQuestionsDisponibles = ['typeE2']
-      } else { typeDeQuestionsDisponibles = ['typeE1', 'typeE2'] }
+      } else {
+        typeDeQuestionsDisponibles = ['typeE1', 'typeE2']
+      }
     }
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
@@ -245,12 +248,20 @@ export default function Lecturefonctionaffine () {
           if (this.correctionDetaillee) {
             texteCorr += '<br>On cherche un déplacement horizontal (en bleu) correspondant à un déplacement vertical entier (en vert).'
             texteCorr += `<br>On lit que pour un déplacement vers la droite de ${texteEnCouleurEtGras(d + ' unités', 'blue')}, il faut `
-            if (a > 0) { texteCorr += 'monter de ' }
-            if (a < 0) { texteCorr += 'descendre de ' }
+            if (a > 0) {
+              texteCorr += 'monter de '
+            }
+            if (a < 0) {
+              texteCorr += 'descendre de '
+            }
             texteCorr += `${texteEnCouleurEtGras(Math.abs(a) + `${abs(a) === 1 ? ' unité' : ' unités'}`, 'green')}.<br>`
           }
           texteCorr += ' On peut en déduire que l\'expression de la fonction $f$ est '
-          if (b === 0) { texteCorr += `$f(x)=${texFractionReduite(a, d)}x$.<br>` } else { texteCorr += `$f(x)=${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}$.<br>` }
+          if (b === 0) {
+            texteCorr += `$f(x)=${texFractionReduite(a, d)}x$.<br>`
+          } else {
+            texteCorr += `$f(x)=${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}$.<br>`
+          }
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: texte,
@@ -365,7 +376,7 @@ export default function Lecturefonctionaffine () {
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
-      // Si la question n'a jamais été posée, on en crée une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

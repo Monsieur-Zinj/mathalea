@@ -6,11 +6,11 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer des fréquences'
 
@@ -23,9 +23,9 @@ export const dateDeModifImportante = '28/02/2022'
 
 /**
  * Calculs de fréquences dans des séries statistiques
-* @author Jean-Claude Lhote (Interactif et AMC par EE)
-* Référence 5S13
-*/
+ * @author Jean-Claude Lhote (Interactif et AMC par EE)
+ * Référence 5S13
+ */
 export const uuid = '8cdd5'
 export const ref = '5S13'
 export default function CalculerDesFrequences () {
@@ -49,7 +49,9 @@ export default function CalculerDesFrequences () {
         nombreFaces = choice([4, 6, 8, 10])
         nombreTirages = choice([50, 100, 200, 500, 1000])
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
-        do { indexValeur = randint(0, tirages.length - 1) }
+        do {
+          indexValeur = randint(0, tirages.length - 1)
+        }
         while (tirages[indexValeur][1] === 0) // on choisit au hasard l'index d'une valeur dont l'effectif est différent de 0.
         if (nombreDes > 1) {
           texte = `On a réalisé $${nombreTirages}$ lancers de $${nombreDes}$ dés à $${nombreFaces}$ faces.<br>`
@@ -59,27 +61,45 @@ export default function CalculerDesFrequences () {
         texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>'
         if (tirages.length > 12) {
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs 1/2
-          for (let j = 0; j <= Math.round(tirages.length / 2); j++) { texte += '|c' }
+          for (let j = 0; j <= Math.round(tirages.length / 2); j++) {
+            texte += '|c'
+          }
           texte += '}\\hline  \\text{Scores}'
-          for (let j = 0; j < Math.round(tirages.length / 2); j++) { texte += '&' + tirages[j][0] }
+          for (let j = 0; j < Math.round(tirages.length / 2); j++) {
+            texte += '&' + tirages[j][0]
+          }
           texte += '\\\\\\hline \\text{Nombre d\'apparitions}'
-          for (let j = 0; j < Math.round(tirages.length / 2); j++) { texte += '&' + tirages[j][1] }
+          for (let j = 0; j < Math.round(tirages.length / 2); j++) {
+            texte += '&' + tirages[j][1]
+          }
           texte += '\\\\\\hline\\end{array}$<br><br>'
 
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs 2/2
-          for (let j = Math.round(tirages.length / 2); j <= tirages.length; j++) { texte += '|c' }
+          for (let j = Math.round(tirages.length / 2); j <= tirages.length; j++) {
+            texte += '|c'
+          }
           texte += '}\\hline  \\text{Scores}'
-          for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) { texte += '&' + tirages[j][0] }
+          for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
+            texte += '&' + tirages[j][0]
+          }
           texte += '\\\\\\hline \\text{Nombre d\'apparitions}'
-          for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) { texte += '&' + tirages[j][1] }
+          for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
+            texte += '&' + tirages[j][1]
+          }
           texte += '\\\\\\hline\\end{array}$'
         } else {
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau
-          for (let j = 0; j <= tirages.length; j++) { texte += '|c' }
+          for (let j = 0; j <= tirages.length; j++) {
+            texte += '|c'
+          }
           texte += '}\\hline  \\text{Scores}'
-          for (let j = 0; j < tirages.length; j++) { texte += '&' + tirages[j][0] }
+          for (let j = 0; j < tirages.length; j++) {
+            texte += '&' + tirages[j][0]
+          }
           texte += '\\\\\\hline \\text{Nombre d\'apparitions}'
-          for (let j = 0; j < tirages.length; j++) { texte += '&' + tirages[j][1] }
+          for (let j = 0; j < tirages.length; j++) {
+            texte += '&' + tirages[j][1]
+          }
           texte += '\\\\\\hline\\end{array}$'
         }
 
@@ -94,11 +114,15 @@ export default function CalculerDesFrequences () {
         indexValeur = randint(0, notes.length - 1) // on choisit une des notes au hasard
         frequence = 0
         for (let j = 0; j < notes.length; j++) { // frequence va contenir l'effectif de la note choisie
-          if (notes[j] === notes[indexValeur]) { frequence++ }
+          if (notes[j] === notes[indexValeur]) {
+            frequence++
+          }
         }
         texte = `${prenom()} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`
         texte += `$${notes[0]}$`
-        for (let j = 1; j < nombreNotes - 1; j++) { texte += `; $${notes[j]}$ ` } // On liste les notes (série brute)
+        for (let j = 1; j < nombreNotes - 1; j++) {
+          texte += `; $${notes[j]}$ `
+        } // On liste les notes (série brute)
         texte += `et $${notes[nombreNotes - 1]}$.`
 
         texte += `<br><br>Calculer la fréquence de la note $${notes[indexValeur]}$.`
@@ -121,25 +145,39 @@ export default function CalculerDesFrequences () {
         indexValeur = randint(0, temperatures.length - 1) // on choisit l'index d'une valeur au hasard
         frequence = 0
         for (let j = 0; j < temperatures.length; j++) {
-          if (temperatures[j] === temperatures[indexValeur]) { frequence++ } // frequence contient l'effectif de cette valeur
+          if (temperatures[j] === temperatures[indexValeur]) {
+            frequence++
+          } // frequence contient l'effectif de cette valeur
         }
         texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes.<br>`
 
         texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
         texte += '|c'
-        for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '|c' }
+        for (let j = 0; j < Math.round(temperatures.length / 2); j++) {
+          texte += '|c'
+        }
         texte += '}\\hline  \\text{Jour}'
-        for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + texNombre(j + 1) }
+        for (let j = 0; j < Math.round(temperatures.length / 2); j++) {
+          texte += '&' + texNombre(j + 1)
+        }
         texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
-        for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + temperatures[j] }
+        for (let j = 0; j < Math.round(temperatures.length / 2); j++) {
+          texte += '&' + temperatures[j]
+        }
         texte += '\\\\\\hline\\end{array}$<br><br>'
         texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
         texte += '|c'
-        for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '|c' }
+        for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) {
+          texte += '|c'
+        }
         texte += '}\\hline  \\text{Jour}'
-        for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + texNombre(j + 1) }
+        for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) {
+          texte += '&' + texNombre(j + 1)
+        }
         texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
-        for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + temperatures[j] }
+        for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) {
+          texte += '&' + temperatures[j]
+        }
         texte += '\\\\\\hline\\end{array}$'
 
         texte += '<br><br>Calculer la fréquence de la température ' + `$${temperatures[indexValeur]}^\\circ\\text{C}$.`
@@ -158,7 +196,13 @@ export default function CalculerDesFrequences () {
       if (this.interactif) {
         texte += ' (On donnera la valeur exacte en écriture décimale ou fractionnaire)<br>'
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+        setReponse(this, i, reponse, {
+          formatInteractif: 'fractionEgale',
+          digits: 5,
+          digitsNum: 3,
+          digitsDen: 2,
+          signe: true
+        })
       }
       if (context.isAmc) {
         reponse = reponse.simplifie()

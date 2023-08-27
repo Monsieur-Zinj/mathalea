@@ -1,28 +1,32 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import {
-  deprecatedTexFraction, obtenirListeFractionsIrreductibles,
-  obtenirListeFractionsIrreductiblesFaciles, produitDeDeuxFractions, simplificationDeFractionAvecEtapes
+  deprecatedTexFraction,
+  obtenirListeFractionsIrreductibles,
+  obtenirListeFractionsIrreductiblesFaciles,
+  produitDeDeuxFractions,
+  simplificationDeFractionAvecEtapes
 } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Fractions et priorités opératoires'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /** Styles d'expressions :
-    1 : Fractions faciles, tout enchaînement d'opérations possibles
-    2 : Fractions standards, tout enchaînement d'opérations possibles
-    3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
-    4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`
+ 1 : Fractions faciles, tout enchaînement d'opérations possibles
+ 2 : Fractions standards, tout enchaînement d'opérations possibles
+ 3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
+ 4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`
  * @author Jean-Claude Lhote
  * Référence 4C23
  */
@@ -109,21 +113,26 @@ export default function ExerciceAdditionnerFractionProduit () {
         typesDeQuestions,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       if (this.sup === 1) {
-        ab = choice(listeFractionsFaciles); cd = choice(listeFractionsFaciles); ef = choice(listeFractionsFaciles)
+        ab = choice(listeFractionsFaciles)
+        cd = choice(listeFractionsFaciles)
+        ef = choice(listeFractionsFaciles)
       } else {
-        ab = choice(listeFractions); cd = choice(listeFractions); ef = choice(listeFractions)
+        ab = choice(listeFractions)
+        cd = choice(listeFractions)
+        ef = choice(listeFractions)
       }
 
       [a, b] = ab;
       [c, d] = cd;
       [e, f] = ef
 
-      if (this.sup2) { [a, b, c, d, e, f] = [a, b, c, d, e, f].map(e => e * randint(-1, 1, [0])) }
+      if (this.sup2) {
+        [a, b, c, d, e, f] = [a, b, c, d, e, f].map(e => e * randint(-1, 1, [0]))
+      }
 
       operation1 = randint(0, 1) // Pioche la soustraction (0) ou l'addition (1)
       operation2 = this.sup3 ? randint(0, 1) : 1 // Si l'option est cochée, Pioche la division (0) ou la multiplication (1)
@@ -133,7 +142,9 @@ export default function ExerciceAdditionnerFractionProduit () {
 
       switch (typesDeQuestions) {
         case 1: // De la forme : « a⁄b ± c⁄d ×÷ e⁄f »
-          if (piegeObligatoire) { d = b }
+          if (piegeObligatoire) {
+            d = b
+          }
 
           texte += `$${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)}$`
 
@@ -158,7 +169,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           p = pgcd(c * e, d * f)
           if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
             texteCorr += `$=${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}'
-            )}$`
+                        )}$`
             c = (e * c) / p
             d = (f * d) / p
           } else {
@@ -191,7 +202,9 @@ export default function ExerciceAdditionnerFractionProduit () {
           break
 
         case 2: // De la forme : « c⁄d ×÷ e⁄f ± a⁄b »
-          if (piegeObligatoire) { f = b }
+          if (piegeObligatoire) {
+            f = b
+          }
           texte += `$${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
 
           texteCorr = `$${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
@@ -228,9 +241,9 @@ export default function ExerciceAdditionnerFractionProduit () {
           k2 = p / d
           if (k2 !== 1) {
             texteCorr += `$=${deprecatedTexFraction(
-            c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)),
-            d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2))
-          )}$`
+                            c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)),
+                            d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2))
+                        )}$`
           } else {
             if (k1 !== 1) {
               texteCorr += `$=${deprecatedTexFraction(c, d)}$`
@@ -239,9 +252,9 @@ export default function ExerciceAdditionnerFractionProduit () {
 
           if (k1 !== 1) {
             texteCorr += `$ ${texteOperation1} ${deprecatedTexFraction(
-            a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)),
-            b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1))
-          )}$`
+                            a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)),
+                            b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1))
+                        )}$`
           } else {
             if (k2 !== 1) {
               texteCorr += `$ ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
@@ -261,7 +274,13 @@ export default function ExerciceAdditionnerFractionProduit () {
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+        setReponse(this, i, reponse, {
+          formatInteractif: 'fraction',
+          digits: 5,
+          digitsNum: 3,
+          digitsDen: 2,
+          signe: true
+        })
         if (this.sup4) {
           texte = `$${lettreDepuisChiffre(i + 1)} = $ ${texte}`
           // On découpe
@@ -288,7 +307,7 @@ export default function ExerciceAdditionnerFractionProduit () {
   this.besoinFormulaireNumerique = [
     'Style d\'expressions',
     4,
-`   1 : Fractions faciles, tout enchaînement d'opérations possibles
+        `   1 : Fractions faciles, tout enchaînement d'opérations possibles
     2 : Fractions standards, tout enchaînement d'opérations possibles
     3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
     4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`

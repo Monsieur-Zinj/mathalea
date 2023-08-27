@@ -9,8 +9,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer une fonction affine'
 export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2'
@@ -67,7 +68,10 @@ export default function LectureExpressionFonctionsAffines () {
     const listeDroites = []
     const posLab = []
     const nomDroite = []
-    const xmin = -5.5; const ymin = -5.5; const xmax = 5.5; const ymax = 5.5
+    const xmin = -5.5
+    const ymin = -5.5
+    const xmax = 5.5
+    const ymax = 5.5
     context.fenetreMathalea2d = [xmin, ymin, xmax, ymax]
     const pente = []
     let OrdX0
@@ -88,7 +92,11 @@ export default function LectureExpressionFonctionsAffines () {
     pente.push(randint(penteMin * k, penteMax * k, [pente[0], pente[1], pente[2], pente[3], 0]))
     const d = []
     for (let i = 0; i < 5; i++) {
-      if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(Math.round(-1 + pente[i] / k), Math.round(1 + pente[i] / k), [pente[i], 0]) }
+      if (this.lineaire) {
+        OrdX0 = 0
+      } else {
+        OrdX0 = randint(Math.round(-1 + pente[i] / k), Math.round(1 + pente[i] / k), [pente[i], 0])
+      }
       listeDroites.push([OrdX0, pente[i] / k])
     }
     const r = repere({ xMin: xmin - 0.5, yMin: ymin - 0.5, xMax: xmax + 0.5, yMax: ymax + 0.5 })
@@ -125,10 +133,25 @@ export default function LectureExpressionFonctionsAffines () {
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        enonce: "Déterminer l'expression  de la fonction représentée ci-dessous : <br>" + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, scale: 0.5 }, objets2d) + '<br>',
+        enonce: "Déterminer l'expression  de la fonction représentée ci-dessous : <br>" + mathalea2d({
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 30,
+          scale: 0.5
+        }, objets2d) + '<br>',
         propositions: [{ texte: explain, statut: 2 }],
-        reponse: { texte: 'coefficient', valeur: pente[0], param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 } },
-        reponse2: { texte: "ordonnée \\\\\nà l'origine", valeur: listeDroites[0][0], param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 } }
+        reponse: {
+          texte: 'coefficient',
+          valeur: pente[0],
+          param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+        },
+        reponse2: {
+          texte: "ordonnée \\\\\nà l'origine",
+          valeur: listeDroites[0][0],
+          param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+        }
       }
     }
   }

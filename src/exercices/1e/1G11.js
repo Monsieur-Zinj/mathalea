@@ -4,7 +4,9 @@ import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Mesure principale d\'un angle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +18,7 @@ export const dateDePublication = '20/04/2022' // La date de publication initiale
  * Description didactique de l'exercice
  * @author Stéphane Guyon
  * Référence
-*/
+ */
 export const uuid = 'a720c'
 export const ref = '1G11'
 export default function MesurePrincipale () {

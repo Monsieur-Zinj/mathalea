@@ -20,7 +20,7 @@
   import { verifQuestionListeDeroulante } from '../lib/interactif/questionListeDeroulante'
   import ButtonToggle from './forms/ButtonToggle.svelte'
   import { verifQuestionCliqueFigure } from '../lib/interactif/cliqueFigure'
-  import { prepareExerciceCliqueFigure } from '../lib/interactif/interactif'
+  import { prepareExerciceCliqueFigure } from '../lib/interactif/gestionInteractif'
   import BtnZoom from './ui/btnZoom.svelte'
   import { getCanvasFont, getTextWidth, remToPixels } from './utils/measures'
   import Footer2 from './Footer2.svelte'

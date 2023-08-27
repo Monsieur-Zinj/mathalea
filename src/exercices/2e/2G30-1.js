@@ -5,9 +5,10 @@ import { unSiPositifMoinsUnSinon } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = "Déterminer le coefficient directeur d'une droite"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +19,7 @@ export const amcType = 'AMCHybride'
  * Description didactique de l'exercice
  * @author Stéphane Guyon
  * 2G30-1, ex 2G50
-*/
+ */
 export const uuid = '1ea16'
 export const ref = '2G30-1'
 export default function CoefficientDirecteurDeDroite () {

@@ -4,9 +4,10 @@ import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { nombreAvecEspace, stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Problème de vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +16,7 @@ export const interactifType = 'mathLive'
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
  * @author Rémi Angot
  * Référence 5P11-1
-*/
+ */
 export const uuid = 'a29bd'
 export const ref = '5P11-1'
 export default function VitesseDistanceTemps () {

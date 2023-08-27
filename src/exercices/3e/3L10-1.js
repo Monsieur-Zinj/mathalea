@@ -2,9 +2,9 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
 export const interactifReady = true
@@ -51,25 +51,25 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
         case 1:
           // k-(ax+b)
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}-(${printlatex(
-            `${a}${choixLettre}+(${b})`
-          )})$`
+                        `${a}${choixLettre}+(${b})`
+                    )})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}-(${printlatex(
-            `${a}${choixLettre}+(${b})`
-          )})$`
+                        `${a}${choixLettre}+(${b})`
+                    )})$`
           if (k - b !== 0) {
             texteCorr += `<br>$${lettreDepuisChiffre(
-              i + 1
-            )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
+                            i + 1
+                        )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-              `${-a}*${choixLettre}+(${k - b})`
-            )}$`
+                            `${-a}*${choixLettre}+(${k - b})`
+                        )}$`
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
-              i + 1
-            )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
+                            i + 1
+                        )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-              `${-a}*${choixLettre}`
-            )}$`
+                            `${-a}*${choixLettre}`
+                        )}$`
           }
           reponse1 = 0
           reponse2 = -a
@@ -78,25 +78,25 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
         case 2:
           // k+(ax+b)
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}+(${printlatex(
-            `${a}${choixLettre}+(${b})`
-          )})$`
+                        `${a}${choixLettre}+(${b})`
+                    )})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}+(${printlatex(
-            `${a}${choixLettre}+(${b})`
-          )})$`
+                        `${a}${choixLettre}+(${b})`
+                    )})$`
           if (k + b !== 0) {
             texteCorr += `<br>$${lettreDepuisChiffre(
-              i + 1
-            )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
+                            i + 1
+                        )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-              `${a}*${choixLettre}+(${k + b})`
-            )}$`
+                            `${a}*${choixLettre}+(${k + b})`
+                        )}$`
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
-              i + 1
-            )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
+                            i + 1
+                        )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-              `${a}*${choixLettre}`
-            )}$`
+                            `${a}*${choixLettre}`
+                        )}$`
           }
           reponse1 = 0
           reponse2 = a
@@ -105,23 +105,23 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
         case 3:
           // kx-(ax+b)
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${k}${choixLettre}`)}-(${printlatex(
-                `${a}${choixLettre}+(${b})`
-              )})$`
+                        `${a}${choixLettre}+(${b})`
+                    )})$`
           texteCorr = texte
           if (k - a !== 0) {
             texteCorr += `<br>$${lettreDepuisChiffre(
-                  i + 1
-                )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
+                            i + 1
+                        )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                  `(${k - a})*${choixLettre}+(${-b})`
-                )}$`
+                            `(${k - a})*${choixLettre}+(${-b})`
+                        )}$`
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
-                  i + 1
-                )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
+                            i + 1
+                        )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                  `${-b}`
-                )}$`
+                            `${-b}`
+                        )}$`
           }
           reponse1 = 0
           reponse2 = k - a
@@ -130,23 +130,23 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
         case 4:
           // kx+(ax+b)
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${k}${choixLettre}`)}+(${printlatex(
-                  `${a}${choixLettre}+(${b})`
-                )})$`
+                        `${a}${choixLettre}+(${b})`
+                    )})$`
           texteCorr = texte
           if (k + a !== 0) {
             texteCorr += `<br>$${lettreDepuisChiffre(
-                    i + 1
-                  )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
+                            i + 1
+                        )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                    `(${k + a})*${choixLettre}+(${b})`
-                  )}$`
+                            `(${k + a})*${choixLettre}+(${b})`
+                        )}$`
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
-                    i + 1
-                  )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
+                            i + 1
+                        )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                    `${b}`
-                  )}$`
+                            `${b}`
+                        )}$`
           }
           reponse1 = 0
           reponse2 = k + a

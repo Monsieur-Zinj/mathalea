@@ -3,9 +3,10 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
@@ -34,7 +35,6 @@ export default function ExerciceTablesAdditions (max = 20) {
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.autoCorrection[i] = {}
       a = randint(2, parseInt(this.sup))
@@ -49,7 +49,12 @@ export default function ExerciceTablesAdditions (max = 20) {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
-        this.autoCorrection[i].reponse.param = { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)), decimals: 0, exposantNbChiffres: 0, signe: false }
+        this.autoCorrection[i].reponse.param = {
+          digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)),
+          decimals: 0,
+          exposantNbChiffres: 0,
+          signe: false
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

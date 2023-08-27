@@ -6,14 +6,11 @@ import { texMasse, texPrix } from '../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { Decimal } from 'decimal.js'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre des problèmes de proportionnalité avec la linéarité (avec ou sans un tableau)'
 export const interactifReady = true
@@ -107,8 +104,18 @@ export default function ProportionnaliteParLineariteTableau () {
               ligne2: [{ texte: 'Prix (en euros)' }, {
                 texte: `${stringNombre(pp, 2, true, false)}`,
                 math: true
-              }, { texte: `${stringNombre(pg, 2, true, false)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '×' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
+              }, {
+                texte: `${stringNombre(pg, 2, true, false)}`,
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }],
+              flecheHaut: [[1, 2, {
+                texte: '×' + stringNombre(cm, 0),
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }]]
             })
             setReponse(this, i, pg)
             texteApres = '€'
@@ -130,8 +137,18 @@ export default function ProportionnaliteParLineariteTableau () {
               ligne2: [{ texte: `Masse des ${o} (en kg)` }, {
                 texte: `${stringNombre(pp, 3, true, false)}`,
                 math: true
-              }, { texte: `${stringNombre(pg, 3, true, false)}`, math: true, color: '#f15929', gras: true }],
-              flecheHaut: [[1, 2, { texte: '×' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
+              }, {
+                texte: `${stringNombre(pg, 3, true, false)}`,
+                math: true,
+                color: '#f15929',
+                gras: true
+              }],
+              flecheHaut: [[1, 2, {
+                texte: '×' + stringNombre(cm, 0),
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }]]
             })
             setReponse(this, i, pg)
             texteApres = 'kg'
@@ -153,7 +170,12 @@ export default function ProportionnaliteParLineariteTableau () {
                 texte: `${stringNombre(pp, 1)}`,
                 math: true
               }, { texte: `${stringNombre(pg, 1)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '×' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
+              flecheHaut: [[1, 2, {
+                texte: '×' + stringNombre(cm, 0),
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }]]
             })
             setReponse(this, i, pg)
             texteApres = 'cm³'
@@ -176,8 +198,18 @@ export default function ProportionnaliteParLineariteTableau () {
               ligne2: [{ texte: 'Prix (en euros)' }, {
                 texte: `${stringNombre(pg, 2, true, false)}`,
                 math: true
-              }, { texte: `${stringNombre(pp, 2, true, false)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '÷' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
+              }, {
+                texte: `${stringNombre(pp, 2, true, false)}`,
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }],
+              flecheHaut: [[1, 2, {
+                texte: '÷' + stringNombre(cm, 0),
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }]]
             })
             setReponse(this, i, pp)
             texteApres = '€'
@@ -198,7 +230,12 @@ export default function ProportionnaliteParLineariteTableau () {
                 texte: `${stringNombre(pg, 0)}`,
                 math: true
               }, { texte: `${stringNombre(pp, 0)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '÷' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
+              flecheHaut: [[1, 2, {
+                texte: '÷' + stringNombre(cm, 0),
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }]]
             })
             setReponse(this, i, pp)
             texteApres = 'm²'
@@ -220,8 +257,18 @@ export default function ProportionnaliteParLineariteTableau () {
               ligne2: [{ texte: `Masse des ${o} (en kg)` }, {
                 texte: `${stringNombre(pg, 3, true, false)}`,
                 math: true
-              }, { texte: `${stringNombre(pp, 3, true, false)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, { texte: '÷' + stringNombre(cm, 0), math: true, gras: true, color: '#f15929' }]]
+              }, {
+                texte: `${stringNombre(pp, 3, true, false)}`,
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }],
+              flecheHaut: [[1, 2, {
+                texte: '÷' + stringNombre(cm, 0),
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }]]
             })
             setReponse(this, i, pp)
             texteApres = 'kg'
@@ -252,7 +299,12 @@ export default function ProportionnaliteParLineariteTableau () {
                 math: true,
                 gras: true,
                 color: '#f15929'
-              }, { texte: `${stringNombre(pg, 2, true, false)}`, math: true, gras: true, color: '#f15929' }],
+              }, {
+                texte: `${stringNombre(pg, 2, true, false)}`,
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }],
               flecheHaut: [[1, 2, {
                 texte: '÷' + stringNombre(np, 0),
                 math: true,
@@ -316,7 +368,12 @@ export default function ProportionnaliteParLineariteTableau () {
                 math: true,
                 gras: true,
                 color: '#f15929'
-              }, { texte: `${stringNombre(pg, 3, true, false)}`, math: true, gras: true, color: '#f15929' }],
+              }, {
+                texte: `${stringNombre(pg, 3, true, false)}`,
+                math: true,
+                gras: true,
+                color: '#f15929'
+              }],
               flecheHaut: [[1, 2, {
                 texte: '÷' + stringNombre(np, 0),
                 math: true,

@@ -3,14 +3,9 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  calcul,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -47,7 +42,15 @@ export default function PourcentageDunNombre () {
     this.autoCorrection = []
     const pourcentages = !this.sup3
       ? combinaisonListes(this.sup === 1 ? [10, 20, 30, 40, 50] : [10, 20, 25, 30, 40, 50, 60, 90], this.nbQuestions)
-      : gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 8, defaut: 9, melange: 9, nbQuestions: this.nbQuestions, listeOfCase: [10, 20, 25, 30, 40, 50, 60, 90] })
+      : gestionnaireFormulaireTexte({
+        saisie: this.sup4,
+        min: 1,
+        max: 8,
+        defaut: 9,
+        melange: 9,
+        nbQuestions: this.nbQuestions,
+        listeOfCase: [10, 20, 25, 30, 40, 50, 60, 90]
+      })
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;

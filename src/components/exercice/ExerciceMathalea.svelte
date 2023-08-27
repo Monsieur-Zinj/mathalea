@@ -3,7 +3,7 @@
   import { afterUpdate, onMount, tick, onDestroy } from 'svelte'
   import type TypeExercice from '../../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
-  import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../lib/interactif/interactif'
+  import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../lib/interactif/gestionInteractif'
   import { loadMathLive } from '../../modules/loaders'
   import { mathaleaFormatExercice, mathaleaHandleExerciceSimple, mathaleaHandleSup, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../lib/mathalea'
   import HeaderExercice from './HeaderExercice.svelte'

@@ -11,12 +11,12 @@ import { centrage, deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { texcolors } from '../../lib/format/style.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, contraindreValeur, calcul } from '../../modules/outils.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
+import { calcul, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mod } from 'mathjs'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true
@@ -105,8 +105,10 @@ export default function SerieDeTransformations () {
         return pol
     }
   }
+
   function definitElements (type, depart, arrivee, leSens = true, num = 0) {
-    let texte, texteCorr, texteInteractif, axeSymetrie, nomDroite, nomCentreRotation, centreRotation, centreSymetrie, nomSegment
+    let texte, texteCorr, texteInteractif, axeSymetrie, nomDroite, nomCentreRotation, centreRotation,
+      centreSymetrie, nomSegment
     const sensProgression = (arrivee - depart === 6) ? 'Est' : (arrivee - depart === -6) ? 'Ouest' : (arrivee - depart === 1) ? 'Nord' : 'Sud'
     switch (type) {
       case 'symax': // vers l'est la droite est définie par arrivee et arrivee+1 sinon c'est arrivee et arrivee+6
@@ -185,6 +187,7 @@ export default function SerieDeTransformations () {
         return { texte, texteCorr, texteInteractif, type, centre: centreSymetrie }
     }
   }
+
   this.nouvelleVersion = function () {
     if (this.version === 1) {
       this.sup = 1
@@ -339,11 +342,39 @@ export default function SerieDeTransformations () {
         }
       }
       if (this.sup === 1) { // cas des symétries axiales seules (une seule ligne par étape) plus de place pour la figure qui rétrécit en F° du nombre d'étapes.
-        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: calcul(1.1 - chemin.length * 0.03125) }
-        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: calcul(1 - chemin.length * 0.03125) }
+        paramsEnonce = {
+          xmin: -0.5,
+          ymin: -0.5,
+          xmax: 17,
+          ymax: 16.5,
+          pixelsParCm: 20,
+          scale: calcul(1.1 - chemin.length * 0.03125)
+        }
+        paramsCorrection = {
+          xmin: -0.5,
+          ymin: -0.5,
+          xmax: 17,
+          ymax: 16.5,
+          pixelsParCm: 20,
+          scale: calcul(1 - chemin.length * 0.03125)
+        }
       } else { // à partir de la symétrie centrale, il peut y avoir 2 lignes par étapes, donc on rétrécit davantage la figure.
-        paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: calcul(1.2 - chemin.length * 0.05) }
-        paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: calcul(1.1 - chemin.length * 0.05) }
+        paramsEnonce = {
+          xmin: -0.5,
+          ymin: -0.5,
+          xmax: 17,
+          ymax: 16.5,
+          pixelsParCm: 20,
+          scale: calcul(1.2 - chemin.length * 0.05)
+        }
+        paramsCorrection = {
+          xmin: -0.5,
+          ymin: -0.5,
+          xmax: 17,
+          ymax: 16.5,
+          pixelsParCm: 20,
+          scale: calcul(1.1 - chemin.length * 0.05)
+        }
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
         figure = translation(polys[chemin[k]], vecteur(0, 0))

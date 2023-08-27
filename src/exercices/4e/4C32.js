@@ -6,8 +6,9 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Notation scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -117,9 +118,20 @@ export default function NotationScientifique () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (parseInt(this.sup) === 1) {
-          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'ecritureScientifique', digits: listeTypeDeQuestions[i] + 1, decimals: listeTypeDeQuestions[i], signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
+          setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), {
+            formatInteractif: 'ecritureScientifique',
+            digits: listeTypeDeQuestions[i] + 1,
+            decimals: listeTypeDeQuestions[i],
+            signe: false,
+            exposantNbChiffres: 1,
+            exposantSigne: true,
+            approx: 0
+          })
         } else {
-          setReponse(this, i, reponse, { formatInteractif: 'nombreDecimal', decimals: Math.max(0, listeTypeDeQuestions[i] - exp) })
+          setReponse(this, i, reponse, {
+            formatInteractif: 'nombreDecimal',
+            decimals: Math.max(0, listeTypeDeQuestions[i] - exp)
+          })
         }
         if (context.isAmc) {
           this.autoCorrection[i].reponse.valeur = [mantisse.mul(Decimal.pow(10, exp)).toString()]

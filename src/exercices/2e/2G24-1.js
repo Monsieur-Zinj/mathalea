@@ -4,24 +4,22 @@ import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVe
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un vecteur à partir des coordonnées de deux points'
 export const dateDeModificationImportante = '30/06/2023'
 
 /**
-* Coordonnées d'un vecteur à partir de deux points
-* @author Stéphane Guyon & Stéphan Grignon
+ * Coordonnées d'un vecteur à partir de deux points
+ * @author Stéphane Guyon & Stéphan Grignon
  */
 export const uuid = 'f71c1'
 export const ref = '2G24-1'

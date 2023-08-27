@@ -4,8 +4,9 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
@@ -61,7 +62,6 @@ export default function DivisionsEuclidiennes () {
     for (
       let i = 0, texte = '', texteCorr = '', cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
       this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 4, feedback: '' }] }
@@ -100,13 +100,21 @@ export default function DivisionsEuclidiennes () {
       a = b * q + r
       texte = `$${texNombre(a)}\\div${b}$`
       if (r === 0) {
-        texteCorr = Operation({ operande1: a, operande2: b, type: 'divisionE' }) + `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
+        texteCorr = Operation({
+          operande1: a,
+          operande2: b,
+          type: 'divisionE'
+        }) + `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
         setReponse(this, i, [`${a}=${b}\\times ${q}`, `${a}=${q}\\times ${b}`,
-        `${b}\\times ${q}`, `${q}\\times ${b}=${a}`])
+                    `${b}\\times ${q}`, `${q}\\times ${b}=${a}`])
       } else {
-        texteCorr = Operation({ operande1: a, operande2: b, type: 'divisionE' }) + `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
+        texteCorr = Operation({
+          operande1: a,
+          operande2: b,
+          type: 'divisionE'
+        }) + `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
         setReponse(this, i, [`${a}=${b}\\times ${q}+${r}`, `${a}=${q}\\times ${b}+${r}`,
-        `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`])
+                    `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`])
       }
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen

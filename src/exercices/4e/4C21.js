@@ -6,11 +6,12 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, ppcm } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 export const titre = 'Additionner ou soustraire deux fractions'
@@ -18,15 +19,15 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Effectuer la somme ou la différence de deux fractions
-*
-* * Niveau 1 : 4 fois sur 5 un dénominateur est un multiple de l'autre et une fois sur 5 il faut additionner une fraction et un entier
-* * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
-* * Paramètre supplémentaire : utiliser des nombres relatifs (par défaut tous les nombres sont positifs)
-* * 2 fois sur 4 il faut faire une soustraction
-* @author Rémi Angot
-* 4C21
-*/
+ * Effectuer la somme ou la différence de deux fractions
+ *
+ * * Niveau 1 : 4 fois sur 5 un dénominateur est un multiple de l'autre et une fois sur 5 il faut additionner une fraction et un entier
+ * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
+ * * Paramètre supplémentaire : utiliser des nombres relatifs (par défaut tous les nombres sont positifs)
+ * * 2 fois sur 4 il faut faire une soustraction
+ * @author Rémi Angot
+ * 4C21
+ */
 export const uuid = '5f429'
 export const ref = '4C21'
 export default function ExerciceAdditionnerOuSoustraireDesFractions () {
@@ -206,7 +207,12 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '=' })
       }
       reponse = fraction(num, den).simplifie()
-      setReponse(this, i, reponse, { digits: 4, digitsNum: 2, digitsDen: 2, formatInteractif: this.sup3 ? 'fraction' : 'fractionEgale' })
+      setReponse(this, i, reponse, {
+        digits: 4,
+        digitsNum: 2,
+        digitsDen: 2,
+        formatInteractif: this.sup3 ? 'fraction' : 'fractionEgale'
+      })
       if (context.isAmc) texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

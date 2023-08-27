@@ -10,13 +10,14 @@ import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import { round, min } from 'mathjs'
+import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'CAN 6e sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,11 +29,12 @@ export const dateDePublication = '11/04/2022' // La date de publication initiale
  * Description didactique de l'exercice
  * Gilles Mora
  * Référence
-*/
+ */
 
 function compareNombres (a, b) {
   return a - b
 }
+
 export const uuid = '90c8c'
 export const ref = 'can6a-2021'
 export default function SujetCAN2021Sixieme () {
@@ -80,7 +82,11 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `$${a} \\times ${b}=${a * b}$`
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
 
           break
@@ -100,7 +106,9 @@ export default function SujetCAN2021Sixieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -116,7 +124,9 @@ export default function SujetCAN2021Sixieme () {
           if (this.interactif) {
             texte += ':'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-          } else { texte += '$\\ldots$' }
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -145,10 +155,19 @@ export default function SujetCAN2021Sixieme () {
             labelsPrincipaux: false
           })
           reponse = c - a
-          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 2, scale: 0.6, style: 'margin: auto' }, d)
+          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>' + mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: 15,
+            ymax: 2,
+            scale: 0.6,
+            style: 'margin: auto'
+          }, d)
           texteCorr = `Comme les graduations vont de $${a}$ en $${a}$,  le nombre écrit sous le point d'interrogation correspond à $${c}-${a}=${c - a}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
@@ -163,7 +182,9 @@ export default function SujetCAN2021Sixieme () {
           reponse = a + 99
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -179,7 +200,9 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `$${a}$ carreaux de chocolat pèsent $${b}$ g, donc $${a}\\times ${k}$ carreaux pèsent $${b}\\times ${k}$ g, soit $${k * b}$ g.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'g' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'g'
+          }
           nbChamps = 1
           break
 
@@ -220,7 +243,11 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `$${a}\\times ${k}=${a * k}$
                                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -233,7 +260,11 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `Un morceau mesure : $${a}\\div 2=${texNombre(reponse, 1)}$ cm`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+          } else {
+            texte += '$\\ldots$ cm'
+          }
           nbChamps = 1
           break
 
@@ -249,7 +280,8 @@ export default function SujetCAN2021Sixieme () {
             if (m === 'centaines') {
               texteCorr = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${a * 10 + b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
               reponse = a * 10 + b
-            } if (m === 'dizaines') {
+            }
+            if (m === 'dizaines') {
               texteCorr = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 100 + b * 10 + c}\\times 10+${d}$, il y a $${a * 100 + b * 10 + c}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
               reponse = a * 100 + b * 10 + c
             }
@@ -257,13 +289,16 @@ export default function SujetCAN2021Sixieme () {
             if (m === 'centaines') {
               texteCorr = `Comme  $${b * 100 + c * 10 + d}=${b}\\times 100+${c * 10 + d}$, il y a $${b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
               reponse = b
-            } if (m === 'dizaines') {
+            }
+            if (m === 'dizaines') {
               texteCorr = `Comme $${b * 100 + c * 10 + d}=${b * 10 + c}\\times 10+${d}$, il y a $${b * 10 + c}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
               reponse = b * 10 + c
             }
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -277,7 +312,11 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `$${texNombre(a)}\\times ${k}=${texNombre(reponse, 1)}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -291,7 +330,9 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `$${a}-\\dfrac{${b}}{${truc}}=${a}-${texNombre(b / truc, 2)}=${texNombre(a - b / truc, 2)}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -304,7 +345,9 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `Le nombre cherché est donné par la différence : $10-${texNombre(a, 1)}=${texNombre(reponse, 1)}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
@@ -321,7 +364,9 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `J'avais $${b}-${a}$ cartes ce matin, soit $${b - a}$ cartes.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -360,7 +405,11 @@ export default function SujetCAN2021Sixieme () {
 
           reponse = fraction(b.n, b.d).simplifie()
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité' } else { texte += '<br>$\\ldots$ unité' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité'
+          } else {
+            texte += '<br>$\\ldots$ unité'
+          }
           nbChamps = 1
           break
 
@@ -388,7 +437,9 @@ export default function SujetCAN2021Sixieme () {
             texteCorr = 'Le produit de ces deux nombres donne un nombre a trois chiffres.'
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -402,7 +453,11 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `On me rend : $${a}-${texNombre(b)}=${texNombre(a - b)}$ €.`
           reponse = c
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' } else { texte += '$\\ldots$ €' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €'
+          } else {
+            texte += '$\\ldots$ €'
+          }
           nbChamps = 1
           break
 
@@ -432,7 +487,9 @@ export default function SujetCAN2021Sixieme () {
             reponse = nombre18[a][1] * 100
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -445,7 +502,9 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `Le triple de $${a}$ est égal à $${a}\\times 3 =${a * 3}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           break
 
         case 20:
@@ -484,7 +543,9 @@ export default function SujetCAN2021Sixieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km'
-          } else { texte += '$\\ldots$ km' }
+          } else {
+            texte += '$\\ldots$ km'
+          }
 
           nbChamps = 1
 
@@ -544,7 +605,11 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `$${a}$ centaines et $${b}$ milliers $=${texNombre(a * 100, 0)}+${texNombre(b * 1000, 0)}=${texNombre(a * 100 + b * 1000, 0)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
 
           break
@@ -555,7 +620,11 @@ export default function SujetCAN2021Sixieme () {
             reponse = a * 100
             texte = `$${texNombre(a, 0)}$ m  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+            } else {
+              texte += '$\\ldots$ cm'
+            }
             texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
                         Comme : $${texNombre(a, 0)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 0)}$ m$=${texNombre(a * 100, 0)}$ cm.
                         `
@@ -564,7 +633,11 @@ export default function SujetCAN2021Sixieme () {
             reponse = arrondi(a / 100, 2)
             texte = `$${texNombre(a)}$ cm  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm' } else { texte += '$\\ldots$ m' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
+            } else {
+              texte += '$\\ldots$ m'
+            }
             texteCorr = `Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
             Ainsi pour passer des "cm" au "m", on divise par $100$.<br>
               Comme  $${texNombre(a, 0)}\\div 100 =${texNombre(a / 100, 2)}$, alors $${texNombre(a, 0)}$ cm$=${texNombre(a / 100, 2)}$ m.  `
@@ -596,12 +669,24 @@ export default function SujetCAN2021Sixieme () {
           reponse = arrondi(2 * a + b + c, 1)
           texte = `Quel est le périmètre de cette figure ? <br>
             `
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 30,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, objets)
           texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a, 1)}\\times 2+${texNombre(b, 1)}+${texNombre(c, 1)}=${texNombre(2 * a + b + c, 1)}$ cm.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-          } else { texte += '  $\\mathscr{P}=\\ldots$ cm' }
+          } else {
+            texte += '  $\\mathscr{P}=\\ldots$ cm'
+          }
 
           nbChamps = 1
           break
@@ -610,28 +695,37 @@ export default function SujetCAN2021Sixieme () {
           b = choice([a + 1, 2 * a - 1])
           reponse = fraction(b, a)// .simplifie()
           texte = "Quelle est la fraction repérée par le point d'interrogation ?<br>" +
-           mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
-             Unite: 8,
-             Min: 1,
-             Max: 2,
-             x: 0,
-             y: 0,
-             thickSecDist: 1 / a,
-             thickSec: true,
-             thickoffset: 0,
-             axeStyle: '|->',
-             pointListe: [[b / a, '?']],
-             labelPointTaille: 15,
-             pointCouleur: 'blue',
-             pointStyle: 'x',
-             labelsPrincipaux: true,
-             step1: 1,
-             step2: 1
-           }))
+                        mathalea2d({
+                          xmin: -0.5,
+                          ymin: -1,
+                          xmax: 10,
+                          ymax: 1.5,
+                          scale: 0.8,
+                          style: 'margin: auto'
+                        }, droiteGraduee({
+                          Unite: 8,
+                          Min: 1,
+                          Max: 2,
+                          x: 0,
+                          y: 0,
+                          thickSecDist: 1 / a,
+                          thickSec: true,
+                          thickoffset: 0,
+                          axeStyle: '|->',
+                          pointListe: [[b / a, '?']],
+                          labelPointTaille: 15,
+                          pointCouleur: 'blue',
+                          pointStyle: 'x',
+                          labelsPrincipaux: true,
+                          step1: 1,
+                          step2: 1
+                        }))
           texteCorr = `L'unité est divisée en $${a}$. <br>
           $1=\\dfrac{${a}}{${a}}$ et $2=\\dfrac{${2 * a}}{${a}}$. Ainsi, le point d'interrogation est   $\\dfrac{${b}}{${a}}$.`
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -647,7 +741,9 @@ export default function SujetCAN2021Sixieme () {
           `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
+          }
           nbChamps = 1
           break
 
@@ -662,7 +758,9 @@ export default function SujetCAN2021Sixieme () {
           texteCorr = `Elle peut en fabriquer $${a}\\times ${b}=${a * b}$ types différents. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -689,7 +787,11 @@ export default function SujetCAN2021Sixieme () {
           reponse = arrondi(a / 10 + b, 1)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'uA' } else { texte += '<br>Aire $=\\ldots $ uA' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'uA'
+          } else {
+            texte += '<br>Aire $=\\ldots $ uA'
+          }
           nbChamps = 1
           break
       }

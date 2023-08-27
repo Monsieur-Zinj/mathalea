@@ -2,9 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Encadrer avec des puissances de 10'
@@ -90,7 +91,6 @@ export default function PuissancesEncadrement () {
     for (
       let i = 0, signe, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // nombre entier positif, entre 1 et 10, puis 10 et 100 puis ....100 000 et 1 000 000
       const entPos = []

@@ -10,10 +10,11 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer l\'aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -48,7 +49,8 @@ export default function AireCarresRectanglesTriangles () {
   this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
-    let texte = ''; let texteCorr = ''
+    let texte = ''
+    let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
@@ -72,10 +74,18 @@ export default function AireCarresRectanglesTriangles () {
     const J = pointAdistance(I, a, randint(-25, 25), nom[9])
     const K = similitude(I, J, -90, b / a, nom[10])
     const triangle = polygoneAvecNom(I, J, K)
-    this.introduction = mathalea2d({ xmin: -2, xmax: 22, ymin: -3, ymax: 7, pixelsParCm: 20, scale: 0.75, mainlevee: false },
-      carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
-      rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
-      triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)
+    this.introduction = mathalea2d({
+      xmin: -2,
+      xmax: 22,
+      ymin: -3,
+      ymax: 7,
+      pixelsParCm: 20,
+      scale: 0.75,
+      mainlevee: false
+    },
+    carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
+    rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
+    triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)
     )
     for (let i = 0; i < 3; i++) {
       texte = ''
@@ -93,7 +103,14 @@ export default function AireCarresRectanglesTriangles () {
               reponse: {
                 texte: 'Aire en cm\\up{2}',
                 valeur: c * c,
-                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
             }
           }
@@ -101,7 +118,7 @@ export default function AireCarresRectanglesTriangles () {
         case 1 :
           texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}.`
           texteCorr += `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
-          }~\\text{cm}^2$`
+                    }~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
@@ -110,7 +127,14 @@ export default function AireCarresRectanglesTriangles () {
               reponse: {
                 texte: 'Aire en cm\\up{2}',
                 valeur: L * l,
-                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
             }
           }
@@ -126,7 +150,14 @@ export default function AireCarresRectanglesTriangles () {
               reponse: {
                 texte: 'Aire en cm\\up{2}',
                 valeur: calcul((a * b) / 2),
-                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
             }
           }

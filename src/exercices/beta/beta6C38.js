@@ -4,9 +4,10 @@ import { lampeMessage } from '../../lib/format/message.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Augmenter ou diminuer d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +16,7 @@ export const interactifType = 'mathLive'
  * Description didactique de l'exercice
  * @author Laurence CANDILLE
  * Référence
-*/
+ */
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

@@ -5,7 +5,9 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Écriture décimale ou fractionnaire d\'une puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +17,7 @@ export const amcType = 'AMCNum'
 /**
  * Donner l'écriture décimale d'une puissance de 10
  * @author Rémi Angot
-* Référence 4C30-3
+ * Référence 4C30-3
  */
 export const uuid = '36f8b'
 export const ref = '4C30-3'

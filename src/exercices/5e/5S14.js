@@ -5,9 +5,9 @@ import Exercice from '../Exercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,11 +18,11 @@ export const titre = 'Calculer des moyennes'
 export const dateDeModifImportante = '28/02/2022'
 
 /**
-* Calcul de moyennes de série statistiques
-* @author Jean-Claude Lhote et Guillaume Valmont (Interactif et AMC par EE)
-* 12/01/2023 : Mickael Guironnet Refactoring
-* Référence 5S14
-*/
+ * Calcul de moyennes de série statistiques
+ * @author Jean-Claude Lhote et Guillaume Valmont (Interactif et AMC par EE)
+ * 12/01/2023 : Mickael Guironnet Refactoring
+ * Référence 5S14
+ */
 export const uuid = 'ab91d'
 export const ref = '5S14'
 export default function CalculerDesMoyennes () {
@@ -68,7 +68,9 @@ export default function CalculerDesMoyennes () {
         const notes = listeDeNotes(nombreNotes, min, max, true).sort() // on récupère une série de notes (pointures) distinctes et ordonnées
         const effectifs = listeDeNotes(nombreNotes, randint(2, 4), randint(8, 12)) // on récupère une liste d'effectifs
         const pointures = Array.from(notes, (x, i) => [x, effectifs[i]])
-        const effectifTotal = pointures.reduce((accumulator, currentValue) => { return accumulator + currentValue[1] }, 0)
+        const effectifTotal = pointures.reduce((accumulator, currentValue) => {
+          return accumulator + currentValue[1]
+        }, 0)
         texte = OutilsStats.texteSalaires(pointures, [], 'pointures')
         texte += '<br>Calculer la pointure moyenne des membres de ce club.'
         const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
@@ -78,7 +80,13 @@ export default function CalculerDesMoyennes () {
       if (this.interactif) {
         texte += ' (On donnera la valeur exacte en écriture décimale ou fractionnaire)<br>'
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+        setReponse(this, i, reponse, {
+          formatInteractif: 'fractionEgale',
+          digits: 5,
+          digitsNum: 3,
+          digitsDen: 2,
+          signe: true
+        })
       }
       if (context.isAmc) {
         reponse = reponse.simplifie()

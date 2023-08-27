@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Somme de deux nombres mariés'
 export const amcReady = true
 export const interactifReady = true
@@ -12,7 +13,7 @@ export const amcType = 'AMCNum'
  * Somme de deux nombres dont les chiffres des unités sont des compléments à 10
  * @author Rémi Angot
  * Référence CM015
-*/
+ */
 export const uuid = 'fbd32'
 export const ref = 'CM015'
 export default function SommeDeDeuxNombresMaries () {
@@ -29,7 +30,6 @@ export default function SommeDeDeuxNombresMaries () {
     for (
       let i = 0, texte, texteCorr, a, b, u1, u2, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       u1 = randint(1, 9)
       u2 = 10 - u1

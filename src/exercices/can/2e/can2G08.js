@@ -2,8 +2,9 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer les coordonnées d’un vecteur (bis)'
@@ -17,7 +18,7 @@ export const dateDePublication = '30/10/2021' // La date de publication initiale
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence
-*/
+ */
 export const uuid = 'eaebb'
 export const ref = 'can2G08'
 export default function CoordonneesVecteur2 () {

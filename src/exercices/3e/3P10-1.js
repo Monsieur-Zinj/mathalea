@@ -3,21 +3,22 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { modalUrl } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, contraindreValeur } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Coefficient multiplicateur d\'une variation en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Déterminer le coefficient de proportionnalité associé à une évolution en pourcentage ou l'inverse
-*
-*
-* @author Rémi Angot
-* 3P10-1
-*/
+ * Déterminer le coefficient de proportionnalité associé à une évolution en pourcentage ou l'inverse
+ *
+ *
+ * @author Rémi Angot
+ * 3P10-1
+ */
 export const uuid = '4ce2d'
 export const ref = '3P10-1'
 export default function CoefficientEvolution () {

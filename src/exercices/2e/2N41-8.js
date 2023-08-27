@@ -4,9 +4,10 @@ import { abs } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const dateDePublication = '23/04/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,9 +15,9 @@ export const titre = 'Mettre au même dénominateur des expressions littérales'
 
 /**
  * Mettre au même dénominateur des expressions littérales
-* @author Gilles Mora
-* 2N41-8
-*/
+ * @author Gilles Mora
+ * 2N41-8
+ */
 export const uuid = '641bc'
 export const ref = '2N41-8'
 export default function MettreAuMemeDenominateurLit () {
@@ -39,7 +40,9 @@ export default function MettreAuMemeDenominateurLit () {
       typesDeQuestionsDisponibles = [1, 2, 3]
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [4, 5, 6, 7]
-    } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7] } // 1, 2, 3, 4, 5, 6, 7
+    } else {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
+    } // 1, 2, 3, 4, 5, 6, 7
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions, consigne1, consigne2, consigneI1, consigneI2; i < this.nbQuestions && cpt < 50;) {
@@ -50,7 +53,8 @@ export default function MettreAuMemeDenominateurLit () {
       consigneI2 = ' Écrire avec un seul quotient (réduire le numérateur) :<br>'
       switch (typesDeQuestions) {
         case 1:// bx +/- a/x
-          { const a = randint(1, 9)
+          {
+            const a = randint(1, 9)
             const b = randint(-9, 9, 0)
             const choix = choice([true, false])
             texte = consigne1
@@ -68,12 +72,13 @@ export default function MettreAuMemeDenominateurLit () {
             if (this.interactif) {
               texte = consigneI1
               texte += ` $${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}=$` +
-                    ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+                            ajouteChampTexteMathLive(this, i, 'largeur25 inline')
             }
           }
           break
         case 2:// b +/- a/x
-          { const a = randint(1, 9)
+          {
+            const a = randint(1, 9)
             const b = randint(-9, 9, 0)
             const choix = choice([true, false])
             texte = consigne1
@@ -95,14 +100,17 @@ export default function MettreAuMemeDenominateurLit () {
           break
 
         case 3:// a +/- b/(cx+d)
-          { let b
+          {
+            let b
             const a = randint(-5, 5, 0)
             const choix = choice([true, false])
             const c = randint(-2, 5, 0)
             const k = randint(1, 4)
             const d = choice([k * c, randint(-5, 5, 0)])
             b = choice([abs(d - 1), abs(d + 1)])
-            if (b === 0) { b = b + 1 }
+            if (b === 0) {
+              b = b + 1
+            }
             const f = new FractionEtendue(-d, c).simplifie()
             texte = consigne2
             texte += `$${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
@@ -130,14 +138,17 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
           break
 
         case 4:// a/x +/- b/(cx+d)
-          { let b
+          {
+            let b
             const a = randint(-5, 5, 0)
             const choix = choice([true, false])
             const c = randint(-2, 5, 0)
             const k = randint(1, 4)
             const d = choice([k * c, randint(-5, 5, 0)])
             b = choice([abs(d - 1), abs(d + 1)])
-            if (b === 0) { b = b + 1 }
+            if (b === 0) {
+              b = b + 1
+            }
             const f = new FractionEtendue(-d, c).simplifie()
             texte = consigne2
             texte += `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
@@ -165,14 +176,17 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
           break
 
         case 5:// ax+b/(cx+d)
-          { let b
+          {
+            let b
             const a = randint(-3, 9, 0)
 
             const c = randint(-2, 5, 0)
             const k = randint(1, 4)
             const d = choice([k * c, randint(-5, 5, 0)])
             b = choice([abs(d - 1), abs(d + 1)])
-            if (b === 0) { b = b + 1 }
+            if (b === 0) {
+              b = b + 1
+            }
             const f = new FractionEtendue(-d, c).simplifie()
             texte = consigne2
             texte += `$${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
@@ -201,14 +215,17 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
           break
 
         case 6:// ax+e+b/(cx+d)
-          { let b
+          {
+            let b
             const a = randint(-3, 9, 0)
             const e = randint(-5, 5, 0)
             const c = randint(-2, 5, 0)
             const k = randint(1, 4)
             const d = choice([k * c, randint(-5, 5, 0)])
             b = choice([abs(d - 1), abs(d + 1)])
-            if (b === 0) { b = b + 1 }
+            if (b === 0) {
+              b = b + 1
+            }
             const f = new FractionEtendue(-d, c).simplifie()
             texte = consigne2
             texte += `$${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
@@ -238,7 +255,8 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
           break
 
         case 7:// a/(ex+f) +/- b/(cx+d)
-          { let b
+          {
+            let b
             const choix = choice([true, false])
             const a = randint(-3, 9, 0)
             const c = randint(-2, 5, 0)
@@ -247,7 +265,9 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const d = choice([k * c, randint(-5, 5, 0)])
             const f = choice([k * c, randint(-5, 5, 0)])
             b = choice([abs(d - 1), abs(d + 1)])
-            if (b === 0) { b = b + 1 }
+            if (b === 0) {
+              b = b + 1
+            }
             const f1 = new FractionEtendue(-d, c).simplifie()
             const f2 = new FractionEtendue(-f, e).simplifie()
             texte = consigne2

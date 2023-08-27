@@ -3,11 +3,11 @@ import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.j
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
-
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer une relation de récurrence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence
-*/
+ */
 export const uuid = '1eb6e'
 export const ref = 'can1S09'
 export default function RelationRec () {

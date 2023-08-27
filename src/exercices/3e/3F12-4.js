@@ -1,7 +1,6 @@
 import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { chercheMinMaxFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3 } from '../../lib/mathFonctions/outilsMaths.js'
@@ -11,6 +10,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire l\'image d\'un nombre à partir d\'un graphique'
 export const interactifReady = true

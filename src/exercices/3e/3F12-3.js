@@ -6,9 +6,10 @@ import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Compléter un tableau de valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,16 +17,16 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
-* Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
-*
-* * Niveau 1 : Fonctions affines
-* * Niveau 2 : Polynôme du second degré
-* * Niveau 3 : Quotients de fonctions affines
-* * Niveau 4 : (ax+b)(cx+d)
-* * Niveau 5 : Mélange
-* @author Rémi Angot
-* 3F12-3
-*/
+ * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
+ *
+ * * Niveau 1 : Fonctions affines
+ * * Niveau 2 : Polynôme du second degré
+ * * Niveau 3 : Quotients de fonctions affines
+ * * Niveau 4 : (ax+b)(cx+d)
+ * * Niveau 5 : Mélange
+ * @author Rémi Angot
+ * 3F12-3
+ */
 export const uuid = 'afb2f'
 export const ref = '3F12-3'
 export default function TableauDeValeurs () {

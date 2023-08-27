@@ -4,6 +4,7 @@ import { get } from '../html/dom.js'
 import { messageFeedback } from '../../modules/messages.js'
 import { gestionCan } from './gestionCan.js'
 import { afficheScore } from './gestionInteractif.js'
+
 export function verifQuestionQcm (exercice, i) {
   let resultat
   // i est l'indice de la question
@@ -12,7 +13,9 @@ export function verifQuestionQcm (exercice, i) {
   let nbBonnesReponsesAttendues = 0
   // Compte le nombre de réponses justes attendues
   for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
-    if (exercice.autoCorrection[i].propositions[k].statut) { nbBonnesReponsesAttendues++ }
+    if (exercice.autoCorrection[i].propositions[k].statut) {
+      nbBonnesReponsesAttendues++
+    }
   }
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   let aucuneMauvaiseReponseDonnee = true
@@ -23,7 +26,9 @@ export function verifQuestionQcm (exercice, i) {
       const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
       if (check.checked) {
         // Sauvegarde pour les exports Moodle, Capytale...
-        if (exercice.answers === undefined) { exercice.answers = {} }
+        if (exercice.answers === undefined) {
+          exercice.answers = {}
+        }
         exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '1'
         // Gestion du feedback de toutes les cases cochées
         if (exercice.autoCorrection[i].propositions[indice].feedback) {
@@ -63,7 +68,9 @@ export function verifQuestionQcm (exercice, i) {
   spanReponseLigne.style.fontSize = 'large'
   const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
   let message = ''
-  if (eltFeedback) { eltFeedback.innerHTML = '' }
+  if (eltFeedback) {
+    eltFeedback.innerHTML = ''
+  }
   if (resultat === 'KO') {
     // Juste mais incomplet
     if (nbBonnesReponses > 0 && nbMauvaisesReponses === 0 && nbBonnesReponses < nbBonnesReponsesAttendues) {
@@ -72,9 +79,9 @@ export function verifQuestionQcm (exercice, i) {
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     } else if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) { // Que du faux
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
-    /* } else { // Aucune réponse
-      message = ''
-    */
+      /* } else { // Aucune réponse
+              message = ''
+            */
     }
   } else {
     message = 'Bravo !'
@@ -99,7 +106,8 @@ export function propositionsQcm (exercice, i) {
   let texte = ''
   let texteCorr = ''
   let espace = ''
-  let nbCols = 1; let vertical = false
+  let nbCols = 1
+  let vertical = false
   if (exercice.autoCorrection[i].propositions === undefined) {
     window.notify('propositionsQcm a reçu une liste de propositions undefined')
     return { texte: '', texteCorr: '' }

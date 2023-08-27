@@ -11,8 +11,9 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer le périmètre de carrés, rectangles et triangles'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -48,7 +49,8 @@ export default function AireCarresRectanglesTriangles () {
   this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
-    let texte = ''; let texteCorr = ''
+    let texte = ''
+    let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
@@ -83,10 +85,18 @@ export default function AireCarresRectanglesTriangles () {
     const K = pointIntersectionCC(cI, cJ, nom[10], 1)
     K.positionLabel = 'above'
     const triangle = polygoneAvecNom(I, J, K)
-    this.introduction = mathalea2d({ xmin: -2, xmax: 22, ymin: -3, ymax: 7, pixelsParCm: 20, scale: 0.75, mainlevee: false },
-      carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
-      rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
-      triangle, afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)
+    this.introduction = mathalea2d({
+      xmin: -2,
+      xmax: 22,
+      ymin: -3,
+      ymax: 7,
+      pixelsParCm: 20,
+      scale: 0.75,
+      mainlevee: false
+    },
+    carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
+    rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
+    triangle, afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)
     )
     for (let i = 0; i < 3; i++) {
       texte = ''
@@ -104,7 +114,14 @@ export default function AireCarresRectanglesTriangles () {
               reponse: {
                 texte: 'Périmètre en cm',
                 valeur: 4 * c,
-                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
             }
           }
@@ -112,7 +129,7 @@ export default function AireCarresRectanglesTriangles () {
         case 1 :
           texte = 'Calculer le périmètre du rectangle en cm.'
           texteCorr += `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=2\\times ${L}~\\text{cm} + 2\\times${l}~\\text{cm}=${2 * L + 2 * l
-          }~\\text{cm}$`
+                    }~\\text{cm}$`
           setReponse(this, i, new Grandeur(2 * L + 2 * l, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
@@ -121,7 +138,14 @@ export default function AireCarresRectanglesTriangles () {
               reponse: {
                 texte: 'Périmètre en cm',
                 valeur: 2 * L + 2 * l,
-                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
             }
           }
@@ -137,7 +161,14 @@ export default function AireCarresRectanglesTriangles () {
               reponse: {
                 texte: 'Périmètre en cm',
                 valeur: a + b + d,
-                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+                param: {
+                  digits: 2,
+                  decimals: 0,
+                  signe: false,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
               }
             }
           }

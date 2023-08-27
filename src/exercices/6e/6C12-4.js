@@ -1,12 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
-import {
-  jourAuHasard,
-  minToHeuresMinutes,
-  minToHoraire,
-  minToHour,
-  nomDuMois
-} from '../../lib/outils/dateEtHoraires.js'
+import { jourAuHasard, minToHeuresMinutes, minToHoraire, minToHour, nomDuMois } from '../../lib/outils/dateEtHoraires.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
@@ -14,9 +8,11 @@ import { texPrix } from '../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true
@@ -30,7 +26,7 @@ export const dateDePublication = '01/03/2022'
 /**
  * Résoudre des problèmes dont certaines informations sont inutiles.
  * @author Eric Elter
-* Référence 6C12-4 (d'après 6C12-3)
+ * Référence 6C12-4 (d'après 6C12-3)
  */
 export const uuid = '529ad'
 export const ref = '6C12-4'
@@ -53,22 +49,22 @@ export default function ExerciceInformationsProblemes () {
     this.consigne += ' problème.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
     /*
-    let listeDesProblemes = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      listeDesProblemes = rangeMinMax(1, 10)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeDesProblemes[0] = contraindreValeur(1, 11, this.sup, 11)
-      } else {
-        listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeDesProblemes[i] = contraindreValeur(1, 11, parseInt(listeDesProblemes[i]), 11) // parseInt en fait un tableau d'entiers
+        let listeDesProblemes = []
+        if (!this.sup) { // Si aucune liste n'est saisie
+          listeDesProblemes = rangeMinMax(1, 10)
+        } else {
+          if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+            listeDesProblemes[0] = contraindreValeur(1, 11, this.sup, 11)
+          } else {
+            listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              listeDesProblemes[i] = contraindreValeur(1, 11, parseInt(listeDesProblemes[i]), 11) // parseInt en fait un tableau d'entiers
+            }
+          }
         }
-      }
-    }
-    if (compteOccurences(listeDesProblemes, 11) > 0) listeDesProblemes = rangeMinMax(1, 10) // Teste si l'utilisateur a choisi tout
-    listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
-  */
+        if (compteOccurences(listeDesProblemes, 11) > 0) listeDesProblemes = rangeMinMax(1, 10) // Teste si l'utilisateur a choisi tout
+        listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+      */
     const listeDesProblemes = gestionnaireFormulaireTexte({
       max: 10,
       defaut: 11,
@@ -105,7 +101,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb1, 'blue')} \\times ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' livres', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' livres', 'blue') + '<br>'
               texteCorr += `$${miseEnEvidence(reponse)}$ livres sont distribués par le professeur.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'livres' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'livres'
+                })
                 setReponse(this, i + ii, reponse)
               }
               break
@@ -115,7 +114,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' g', 'blue') + `$${sp()}\\times${sp()}${miseEnEvidence(nb4, 'blue')}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' g', 'blue') + '<br>'
               texteCorr += `La masse moyenne des livres distribués à chaque enfant est de $${miseEnEvidence(texNombre(reponse))}$ g.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'g' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'g'
+                })
                 setReponse(this, i + ii, reponse)
               }
               break
@@ -175,7 +177,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb4, 'blue')} \\times ${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `Le prix total des fruits achetés est de $${miseEnEvidence(texPrix(reponse1))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + '€'
+                })
                 setReponse(this, i + ii, reponse1)
               }
               if (context.isAmc) {
@@ -218,7 +223,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb1, 'blue')} \\times ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `Le prix total des légumes achetés est de $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + '€'
+                })
                 setReponse(this, i + ii, reponse2)
               }
               if (context.isAmc) {
@@ -275,7 +283,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb1, 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + '<br>'
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin compte $${miseEnEvidence(texNombre(reponse))}$ habitants.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'habitants' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'habitants'
+                })
                 setReponse(this, i + ii, reponse)
               }
               break
@@ -285,7 +296,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()} ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + '<br>'
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin se situe à $${miseEnEvidence(texNombre(reponse))}$ m d'altitude.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'm' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'm'
+                })
                 setReponse(this, i + ii, reponse)
               }
               break
@@ -345,7 +359,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' cases', 'blue') + `$${sp()}\\times${sp()} ${miseEnEvidence(nb5, 'blue')}$` + `$${sp()}=${miseEnEvidence(texNombre(reponse1), 'blue')}$` + texteEnCouleurEtGras(' cases', 'blue') + '<br>'
               texteCorr += `Il y a $${miseEnEvidence(texNombre(reponse1))}$ cases dans le manga de ${quidam2}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'cases' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'cases'
+                })
                 setReponse(this, i + ii, reponse1)
               }
               if (context.isAmc) {
@@ -388,7 +405,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `On a rendu à ${quidam2} $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + '€'
+                })
                 setReponse(this, i + ii, reponse2)
               }
               if (context.isAmc) {
@@ -456,10 +476,16 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += texteEnCouleurEtGras(nb3, 'blue') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2, 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1]), 'blue') + '<br>'
               texteCorr += `La durée prévue du film est de ${texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1]))}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'h' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'h'
+                })
                 setReponse(this, i + ii, reponse1[0])
                 ii++
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'min' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'min'
+                })
                 setReponse(this, i + ii, reponse1[1])
               }
               if (context.isAmc) {
@@ -520,10 +546,16 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += texteEnCouleurEtGras(nb4, 'blue') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' minutes', 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1]), 'blue') + '<br>'
               texteCorr += `L'émission se termine à ${texteEnCouleurEtGras(minToHoraire(reponse2[0] * 60 + reponse2[1]))}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'h' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'h'
+                })
                 setReponse(this, i + ii, reponse2[0])
                 ii++
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'min' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'min'
+                })
                 setReponse(this, i + ii, reponse2[1])
               }
               if (context.isAmc) {
@@ -605,7 +637,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}\\div${sp()}${miseEnEvidence(nb5, 'blue')}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `La ${personnage1} de ${quidam2} payera $${nb5}$ fois, la somme de $${miseEnEvidence(texPrix(reponse1))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + '€'
+                })
                 setReponse(this, i + ii, reponse1)
               }
               if (context.isAmc) {
@@ -648,7 +683,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `Le montant total des cadeaux offerts à ${quidam2} est de $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + '€'
+                })
                 setReponse(this, i + ii, reponse2)
               }
               if (context.isAmc) {
@@ -709,7 +747,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb1 + 2, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + `$${sp()}=${miseEnEvidence(reponse1, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + '<br>'
               texteCorr += `${quidam2} a $${miseEnEvidence(reponse1)}$ ans.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'ans' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'ans'
+                })
                 setReponse(this, i + ii, reponse1)
               }
               if (context.isAmc) {
@@ -752,7 +793,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' cm', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(texNombre(arrondi(nb5 / 100)), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(texNombre(reponse2), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + '<br>'
               texteCorr += `${quidam2} mesure $${miseEnEvidence(texNombre(reponse2))}$ m.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'm' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'm'
+                })
                 setReponse(this, i + ii, reponse2)
               }
               if (context.isAmc) {
@@ -813,7 +857,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb2, 'blue')} \\times ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `Le ${personnage1} de ${quidam} dépense chaque semaine $${miseEnEvidence(texPrix(reponse1))}$ € pour son journal.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + '€'
+                })
                 setReponse(this, i + ii, reponse1)
               }
               if (context.isAmc) {
@@ -856,10 +903,16 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += texteEnCouleurEtGras(nb3, 'blue') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' min', 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1]), 'blue') + '<br>'
               texteCorr += `Le ${personnage1} de ${quidam} arrive à son travail ${texteEnCouleurEtGras(minToHoraire(reponse2[0] * 60 + reponse2[1]))}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'h' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'h'
+                })
                 setReponse(this, i + ii, reponse2[0])
                 ii++
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'min' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'min'
+                })
                 setReponse(this, i + ii, reponse2[1])
               }
               if (context.isAmc) {
@@ -936,7 +989,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + '<br>'
               texteCorr += `La distance séparant l'entrepôt du premier arrêt est de $${miseEnEvidence(reponse)}$ km.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'km' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'km'
+                })
                 setReponse(this, i + ii, reponse)
               }
               break
@@ -946,7 +1002,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb1, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + '<br>'
               texteCorr += `Le livreur a déposé $${miseEnEvidence(reponse)}$ colis à son deuxième arrêt.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'colis' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'colis'
+                })
                 setReponse(this, i + ii, reponse)
               }
               break
@@ -1008,7 +1067,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}\\div${sp()}${miseEnEvidence(nb4, 'blue')}=${miseEnEvidence(texNombre(reponse2), 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse1), 'blue')}$` + texteEnCouleurEtGras(' kg', 'blue') + '<br>'
               texteCorr += `La masse de chacun des petits conteneurs est de $${miseEnEvidence(texNombre(reponse1))}$ kg.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'kg' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'kg'
+                })
                 setReponse(this, i + ii, reponse1)
               }
               if (context.isAmc) {
@@ -1052,7 +1114,10 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb2, 'blue')} \\times ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + '<br>'
               texteCorr += `La masse totale des gros conteneurs est de $${miseEnEvidence(texNombre(reponse))}$ tonnes.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'tonnes' })
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', {
+                  texte: '',
+                  texteApres: sp(3) + 'tonnes'
+                })
                 setReponse(this, i + ii, reponse)
               }
               if (context.isAmc) {

@@ -5,8 +5,9 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
 
 export const interactifReady = true
@@ -59,7 +60,6 @@ export default function ÉcrireNombresEntiers () {
     for (
       let i = 0, texte, texteCorr, a, b, c, nombre, tranche, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       nombre = 0
       tranche = []

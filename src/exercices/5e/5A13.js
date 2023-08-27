@@ -6,21 +6,21 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { sp } from '../../lib/outils/outilString.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const titre = 'Décomposer en facteurs premiers'
 
-
 /**
-* Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
-* @author Rémi Angot
-5A13
-*/
+ * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
+ * @author Rémi Angot
+ 5A13
+ */
 export const uuid = '7f50c'
 export const ref = '5A13'
 export default function ExerciceDecomposerEnFacteursPremiers () {

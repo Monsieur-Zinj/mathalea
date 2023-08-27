@@ -1,8 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Somme de deux nombres mariés et un entier'
 export const amcReady = true
 export const interactifReady = true
@@ -13,7 +14,7 @@ export const amcType = 'AMCNum'
  * Somme de 3 nombres dont 2 ont des chiffres des unités compléments à 10
  * @author Rémi Angot
  * Référence CM018
-*/
+ */
 export const uuid = '678f9'
 export const ref = 'CM018'
 export default function SommeDeDeuxNombresMariesEtUnEntier () {
@@ -36,7 +37,6 @@ export default function SommeDeDeuxNombresMariesEtUnEntier () {
     for (
       let i = 0, texte, texteCorr, a, b, c, u1, u2, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       u1 = randint(1, 9)
       u2 = 10 - u1

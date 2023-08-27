@@ -1,15 +1,13 @@
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Convertir des grandeurs composées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +17,7 @@ export const dateDePublication = '23/05/2022'
 /**
  * @author Guillaume Valmont
  * Référence 4P16
-*/
+ */
 export const uuid = '63cdb'
 export const ref = '4P16'
 export default class NomExercice extends Exercice {
@@ -36,7 +34,13 @@ export default class NomExercice extends Exercice {
     this.autoCorrection = []
 
     const valMaxParametre = 8
-    const listeDesProblemes = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup, melange: valMaxParametre, max: valMaxParametre - 1, defaut: 1 })
+    const listeDesProblemes = gestionnaireFormulaireTexte({
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup,
+      melange: valMaxParametre,
+      max: valMaxParametre - 1,
+      defaut: 1
+    })
 
     const unitesLongueur = [
       {
@@ -187,6 +191,7 @@ export default class NomExercice extends Exercice {
       }
     ]
     let unite1Depart, unite2Depart, unite1Arrivee, unite2Arrivee, valeurDepart, valeurArrivee
+
     function fixeUnites (unite1, unite2) {
       const index1Depart = randint(0, unite1.length - 1)
       const index2Depart = randint(0, unite2.length - 1)
@@ -197,6 +202,7 @@ export default class NomExercice extends Exercice {
       unite1Arrivee = unite1[index1Arrivee]
       unite2Arrivee = unite2[index2Arrivee]
     }
+
     for (let i = 0, texte, texteCorr, typeDeComposition, operateur, cfrac, times, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       valeurDepart = randint(1, 80) * 9 // Comme ça même si on doit diviser par 3600 le résultat restera décimal
       typeDeComposition = 'quotient'

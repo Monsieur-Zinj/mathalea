@@ -1,14 +1,10 @@
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  contraindreValeur,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Recourir à une décomposition en facteurs premiers dans des cas simples'
 // export const amcReady = true
 // export const amcType = 'AMCNum'
@@ -79,7 +75,14 @@ export default function RecourirDecompositionFacteursPremiers () {
     this.consigne = 'Décomposer en produit de facteurs premiers '
     this.consigne += this.nbQuestions === 1 ? 'le nombre suivant.' : 'les nombres suivants.'
     if (this.interactif) this.consigne += '<br>Indiquer les facteurs par ordre croissant.'
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, defaut: 5, nbQuestions: this.nbQuestions })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: this.nbQuestions
+    })
     const puissanceMax = contraindreValeur(2, 5, this.sup2, 3)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, nbADecomposer; i < this.nbQuestions && cpt < 50;) {

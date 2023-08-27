@@ -10,10 +10,10 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d\'un angle en fonction des côtés du triangle'
 export const amcReady = true
@@ -159,145 +159,145 @@ export default function ExprimerCosSinTan () {
         if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 3 * i, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 3 * i, [
-              `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
-              `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
+                            `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
+                            `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
         } else if (context.isAmc) {
           propositionsAMC[0] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
         }
         texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
         if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 3 * i + 1, [
-              `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
+                            `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
         } else if (context.isAmc) {
           propositionsAMC[1] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
         }
         texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
         if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 3 * i + 2, [
-              `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
-              `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
+                            `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                            `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
           { formatInteractif: 'texte' })
         } else if (context.isAmc) {
           propositionsAMC[2] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
         }
       } else if (this.sup === 2) {
         texte += 'Exprimer les 6 rapports trigonométriques pour ce triangle rectangle, en fonction des longueurs respectives de ses côtés.'
@@ -306,274 +306,274 @@ export default function ExprimerCosSinTan () {
           texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
           texte += ajouteChampTexteMathLive(this, 6 * i, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 6 * i, [
-              `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
-              `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
+                            `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
+                            `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
           texte += ajouteChampTexteMathLive(this, 6 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 6 * i + 1, [
-              `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
+                            `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
           texte += ajouteChampTexteMathLive(this, 6 * i + 2, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 6 * i + 2, [
-              `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
-              `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
+                            `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                            `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
           texte += ajouteChampTexteMathLive(this, 6 * i + 3, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 6 * i + 3, [
-              `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
-              `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
+                            `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
+                            `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
           texte += ajouteChampTexteMathLive(this, 6 * i + 4, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 6 * i + 4, [
-              `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
-              `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
-              `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
+                            `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
+                            `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
+                            `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
           texte += ajouteChampTexteMathLive(this, 6 * i + 5, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 6 * i + 5, [
-              `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
-              `\\frac{${B.nom + A.nom}}{${A.nom + C.nom}}`,
-              `\\frac{${A.nom + B.nom}}{${C.nom + A.nom}}`,
-              `\\frac{${B.nom + A.nom}}{${C.nom + A.nom}}`],
+                            `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                            `\\frac{${B.nom + A.nom}}{${A.nom + C.nom}}`,
+                            `\\frac{${A.nom + B.nom}}{${C.nom + A.nom}}`,
+                            `\\frac{${B.nom + A.nom}}{${C.nom + A.nom}}`],
           { formatInteractif: 'texte' })
         } else if (context.isAmc) {
           propositionsAMC[0] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
           propositionsAMC[1] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
           propositionsAMC[2] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
           propositionsAMC[3] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(3)} Exprimer $\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(3)} Exprimer $\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
           propositionsAMC[4] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(4)} Exprimer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(4)} Exprimer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
           propositionsAMC[5] =
-            {
-              type: 'qcmMono',
-              enonce: `${numAlpha(5)} Exprimer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
-              propositions: [
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                  statut: true,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                },
-                {
-                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                  statut: false,
-                  feedback: ''
-                }
-              ]
-            }
+                        {
+                          type: 'qcmMono',
+                          enonce: `${numAlpha(5)} Exprimer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
+                          propositions: [
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                              statut: true,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            },
+                            {
+                              texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                              statut: false,
+                              feedback: ''
+                            }
+                          ]
+                        }
         }
       } else {
         texteInit = texte
@@ -585,54 +585,54 @@ export default function ExprimerCosSinTan () {
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i, [
-                  `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
-                  `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
-                  `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
-                  `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
+                                    `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                                    `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
+                                    `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
+                                    `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
               { formatInteractif: 'texte' })
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
-                  `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
-                  `\\frac{${B.nom + H.nom}}{${B.nom + A.nom}}`,
-                  `\\frac{${H.nom + B.nom}}{${A.nom + B.nom}}`,
-                  `\\frac{${H.nom + B.nom}}{${B.nom + A.nom}}`],
+                                    `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
+                                    `\\frac{${B.nom + H.nom}}{${B.nom + A.nom}}`,
+                                    `\\frac{${H.nom + B.nom}}{${A.nom + B.nom}}`,
+                                    `\\frac{${H.nom + B.nom}}{${B.nom + A.nom}}`],
               { formatInteractif: 'texte' })
               break
             case 'le sinus' :
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i, [
-                  `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
-                  `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
-                  `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
-                  `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
+                                    `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                                    `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
+                                    `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
+                                    `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
               { formatInteractif: 'texte' })
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
-                  `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
-                  `\\frac{${A.nom + H.nom}}{${B.nom + A.nom}}`,
-                  `\\frac{${H.nom + A.nom}}{${A.nom + B.nom}}`,
-                  `\\frac{${H.nom + A.nom}}{${B.nom + A.nom}}`],
+                                    `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
+                                    `\\frac{${A.nom + H.nom}}{${B.nom + A.nom}}`,
+                                    `\\frac{${H.nom + A.nom}}{${A.nom + B.nom}}`,
+                                    `\\frac{${H.nom + A.nom}}{${B.nom + A.nom}}`],
               { formatInteractif: 'texte' })
               break
             case 'la tangente' :
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i, [
-                  `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
-                  `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`,
-                  `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
-                  `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`],
+                                    `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
+                                    `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`,
+                                    `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                                    `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`],
               { formatInteractif: 'texte' })
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
-                  `\\frac{${A.nom + H.nom}}{${H.nom + B.nom}}`,
-                  `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
-                  `\\frac{${H.nom + A.nom}}{${H.nom + B.nom}}`,
-                  `\\frac{${H.nom + A.nom}}{${B.nom + H.nom}}`],
+                                    `\\frac{${A.nom + H.nom}}{${H.nom + B.nom}}`,
+                                    `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
+                                    `\\frac{${H.nom + A.nom}}{${H.nom + B.nom}}`,
+                                    `\\frac{${H.nom + A.nom}}{${B.nom + H.nom}}`],
               { formatInteractif: 'texte' })
               break
           }
@@ -640,231 +640,231 @@ export default function ExprimerCosSinTan () {
           switch (choixRapportTrigo) {
             case 'le cosinus':
               propositionsAMC[0] =
-                {
-                  type: 'qcmMono',
-                  enonce: `${numAlpha(0)}Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
-                  propositions: [
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                      statut: true,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    }
-                  ]
-                }
+                                {
+                                  type: 'qcmMono',
+                                  enonce: `${numAlpha(0)}Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
+                                  propositions: [
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                                      statut: true,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    }
+                                  ]
+                                }
               propositionsAMC[1] =
-                {
-                  type: 'qcmMono',
-                  enonce: `${numAlpha(1)}Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
-                  propositions: [
-                    {
-                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: true,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    }
-                  ]
-                }
+                                {
+                                  type: 'qcmMono',
+                                  enonce: `${numAlpha(1)}Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
+                                  propositions: [
+                                    {
+                                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
+                                      statut: true,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    }
+                                  ]
+                                }
               break
             case 'le sinus' :
               propositionsAMC[0] =
-                {
-                  type: 'qcmMono',
-                  enonce: `${numAlpha(0)}Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
-                  propositions: [
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                      statut: true,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    }
-                  ]
-                }
+                                {
+                                  type: 'qcmMono',
+                                  enonce: `${numAlpha(0)}Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
+                                  propositions: [
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                                      statut: true,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    }
+                                  ]
+                                }
               propositionsAMC[1] =
-                {
-                  type: 'qcmMono',
-                  enonce: `${numAlpha(1)}Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
-                  propositions: [
-                    {
-                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: true,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    }
-                  ]
-                }
+                                {
+                                  type: 'qcmMono',
+                                  enonce: `${numAlpha(1)}Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
+                                  propositions: [
+                                    {
+                                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
+                                      statut: true,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    }
+                                  ]
+                                }
               break
             case 'la tangente' :
               propositionsAMC[0] =
-                {
-                  type: 'qcmMono',
-                  enonce: `${numAlpha(0)}Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
-                  propositions: [
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
-                      statut: true,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    }
-                  ]
-                }
+                                {
+                                  type: 'qcmMono',
+                                  enonce: `${numAlpha(0)}Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
+                                  propositions: [
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
+                                      statut: true,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    }
+                                  ]
+                                }
               propositionsAMC[1] =
-                {
-                  type: 'qcmMono',
-                  enonce: `${numAlpha(1)}Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
-                  propositions: [
-                    {
-                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
-                      statut: false,
-                      feedback: ''
-                    },
-                    {
-                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
-                      statut: true,
-                      feedback: ''
-                    }
-                  ]
-                }
+                                {
+                                  type: 'qcmMono',
+                                  enonce: `${numAlpha(1)}Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
+                                  propositions: [
+                                    {
+                                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
+                                      statut: false,
+                                      feedback: ''
+                                    },
+                                    {
+                                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
+                                      statut: true,
+                                      feedback: ''
+                                    }
+                                  ]
+                                }
               break
           }
         }

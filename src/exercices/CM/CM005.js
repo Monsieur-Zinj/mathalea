@@ -1,8 +1,9 @@
 import { modalTexteCourt } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Ajouter 9'
 export const amcReady = true
 export const interactifReady = true
@@ -13,7 +14,7 @@ export const amcType = 'AMCNum'
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @author Rémi Angot
  * Référence CM005
-*/
+ */
 export const uuid = '30800'
 export const ref = 'CM005'
 export default function Ajouter9 () {
@@ -35,7 +36,6 @@ export default function Ajouter9 () {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(0, 9) * 10 + randint(1, 9)
       texte = `$${a}+9 = $`

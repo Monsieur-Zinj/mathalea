@@ -4,10 +4,10 @@ import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/depr
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive' // Le QCM est prêt mais pas géré
@@ -15,15 +15,15 @@ export const titre = 'Effectuer des calculs de fractions (à dénominateurs mult
 
 export const dateDePublication = '12/05/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**
-* Effectuer des calculs mêlant fractions (dont un dénominateur est un multiple de l'autre) et priorités opératoires simples .
-*
-* Le résultat de la soustraction peut être négatif.
-*
-* Pour ne pas surcharger la difficulté, le coefficient est limité à 2, 3, 4 ou 5.
+ * Effectuer des calculs mêlant fractions (dont un dénominateur est un multiple de l'autre) et priorités opératoires simples .
+ *
+ * Le résultat de la soustraction peut être négatif.
+ *
+ * Pour ne pas surcharger la difficulté, le coefficient est limité à 2, 3, 4 ou 5.
 
-* @author Mireille Gain
-* 5N20-1
-*/
+ * @author Mireille Gain
+ * 5N20-1
+ */
 export const uuid = '75f80'
 export const ref = '5N20-1'
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
@@ -218,7 +218,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
             } else {
               setReponse(this, i, (new FractionEtendue(a * k - c - k * e, d)), { formatInteractif: 'fraction' })
             }
-          } if (this.interactif) {
+          }
+          if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i)
           }
           break
@@ -285,7 +286,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
-      } cpt++
+      }
+      cpt++
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }

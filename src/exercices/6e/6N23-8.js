@@ -2,10 +2,11 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { ajouteChampTexteMathLive, ajouteChampFractionMathLive } from '../../lib/interactif/questionMathLive.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { ajouteChampFractionMathLive, ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { format } from 'mathjs'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -38,21 +39,21 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
     this.autoCorrection = []
 
     /*
-    let listeTypeDeQuestions = []
-    if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
-      listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions)
-    } else {
-      const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-      for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        const choixtp = parseInt(quests[i])
-        if (choixtp >= 1 && choixtp <= 2) {
-          listeTypeDeQuestions.push(choixtp)
+        let listeTypeDeQuestions = []
+        if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
+          listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions)
+        } else {
+          const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+          for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+            const choixtp = parseInt(quests[i])
+            if (choixtp >= 1 && choixtp <= 2) {
+              listeTypeDeQuestions.push(choixtp)
+            }
+          }
+          if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = [1, 2] }
+          listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
         }
-      }
-      if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = [1, 2] }
-      listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-    }
-    */
+        */
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 2,
@@ -88,7 +89,12 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           break
         case 1: { // / écriture décimale -> fraction décimale
           consi[0] = true
-          const nombre = format(n, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
+          const nombre = format(n, {
+            notation: 'auto',
+            lowerExp: -12,
+            upperExp: 12,
+            precision: 12
+          }).replace('.', ',')
           const rangVirgule = nombre.indexOf(',')
           let nbdigits = 0
           if (rangVirgule !== -1) {

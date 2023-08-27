@@ -12,11 +12,12 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { min, max } from 'mathjs'
+import { max, min } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +29,7 @@ export const dateDePublication = '13/03/2022'
  * Trouver comment agrandir ou réduire des longueurs d'une figure et construire la figure demandée
  * @author Eric Elter
  * Référence 6P14
-*/
+ */
 export const uuid = '4c6e2'
 export const ref = '6P14'
 export default function AgrandirReduireFigure () {
@@ -55,22 +56,22 @@ export default function AgrandirReduireFigure () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     /*
-    let listeTypeQuestions = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      listeTypeQuestions = rangeMinMax(1, 6)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeTypeQuestions[0] = contraindreValeur(1, 7, this.sup, 7)
-      } else {
-        listeTypeQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeTypeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeTypeQuestions[i] = contraindreValeur(1, 7, parseInt(listeTypeQuestions[i]), 7) // parseInt en fait un tableau d'entiers
+        let listeTypeQuestions = []
+        if (!this.sup) { // Si aucune liste n'est saisie
+          listeTypeQuestions = rangeMinMax(1, 6)
+        } else {
+          if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+            listeTypeQuestions[0] = contraindreValeur(1, 7, this.sup, 7)
+          } else {
+            listeTypeQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < listeTypeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              listeTypeQuestions[i] = contraindreValeur(1, 7, parseInt(listeTypeQuestions[i]), 7) // parseInt en fait un tableau d'entiers
+            }
+          }
         }
-      }
-    }
-    if (compteOccurences(listeTypeQuestions, 7) > 0) listeTypeQuestions = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
-    listeTypeQuestions = combinaisonListes(listeTypeQuestions, this.nbQuestions)
-    */
+        if (compteOccurences(listeTypeQuestions, 7) > 0) listeTypeQuestions = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
+        listeTypeQuestions = combinaisonListes(listeTypeQuestions, this.nbQuestions)
+        */
 
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       max: 6,
@@ -115,27 +116,41 @@ export default function AgrandirReduireFigure () {
           objets.push(polygoneInit, codageSegments('||', 'red', polygoneInit.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : B, sensRotation < 0 ? B : A, 'blue', 0.5, '', true), nommePolygone(polygoneInit, nom))
           enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle équilatéral ${nom}. Quelle sera la longueur du côté du triangle à construire ?`
           texte = enonceInit
-          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          enonceAMC = '<br>' + mathalea2d({
+            xmin: min(A.x, B.x, C.x) - 1,
+            ymin: min(A.y, B.y, C.y) - 1,
+            xmax: max(A.x, B.x, C.x) + 1,
+            ymax: max(A.y, B.y, C.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           texte += enonceAMC
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, reponse)
           } else if (!context.isAmc) {
             texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            texte += '<br>' + mathalea2d({
+              xmin: min(A.x, B.x, C.x) - 1,
+              ymin: min(A.y, B.y, C.y) - 1,
+              xmax: max(A.x, B.x, C.x) + 1,
+              ymax: max(A.y, B.y, C.y) + 1,
+              pixelsParCm: 20,
+              scale: 0.5
+            }, objets)
           } else {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 1,
-                    sanscadre: true,
-                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 1,
+                                    sanscadre: true,
+                                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
             propositionsAMC[iiAMC] = {
@@ -173,7 +188,14 @@ export default function AgrandirReduireFigure () {
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, codageSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : BCorr, sensRotation < 0 ? BCorr : A, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
-          texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr += '<br>' + mathalea2d({
+            xmin: min(A.x, BCorr.x, CCorr.x) - 1,
+            ymin: min(A.y, BCorr.y, CCorr.y) - 1,
+            xmax: max(A.x, BCorr.x, CCorr.x) + 1,
+            ymax: max(A.y, BCorr.y, CCorr.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           break
         case 2:
           reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
@@ -202,27 +224,41 @@ export default function AgrandirReduireFigure () {
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
           enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$, du carré ${nom}. Quelle sera la longueur du côté du carré à construire ?`
           texte = enonceInit
-          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          enonceAMC = '<br>' + mathalea2d({
+            xmin: min(A.x, B.x, C.x, D.x) - 1,
+            ymin: min(A.y, B.y, C.y, D.y) - 1,
+            xmax: max(A.x, B.x, C.x, D.x) + 1,
+            ymax: max(A.y, B.y, C.y, D.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           texte += enonceAMC
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, reponse)
           } else if (!context.isAmc) {
             texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du carré ${nom}.`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            texte += '<br>' + mathalea2d({
+              xmin: min(A.x, B.x, C.x, D.x) - 1,
+              ymin: min(A.y, B.y, C.y, D.y) - 1,
+              xmax: max(A.x, B.x, C.x, D.x) + 1,
+              ymax: max(A.y, B.y, C.y, D.y) + 1,
+              pixelsParCm: 20,
+              scale: 0.5
+            }, objets)
           } else {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 1,
-                    sanscadre: true,
-                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 1,
+                                    sanscadre: true,
+                                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
             propositionsAMC[iiAMC] = {
@@ -261,7 +297,14 @@ export default function AgrandirReduireFigure () {
           objets = []
           objets.push(polygoneCorr, codageSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(A, BCorr, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
-          texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x, DCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y, DCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x, DCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y, DCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr += '<br>' + mathalea2d({
+            xmin: min(A.x, BCorr.x, CCorr.x, DCorr.x) - 1,
+            ymin: min(A.y, BCorr.y, CCorr.y, DCorr.y) - 1,
+            xmax: max(A.x, BCorr.x, CCorr.x, DCorr.x) + 1,
+            ymax: max(A.y, BCorr.y, CCorr.y, DCorr.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           break
         case 3:
           absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
@@ -292,7 +335,14 @@ export default function AgrandirReduireFigure () {
           objets.push(afficheLongueurSegment(angleOriente(A, B, C) > 0 ? B : C, angleOriente(A, B, C) > 0 ? C : B, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(B, C, A) > 0 ? C : A, angleOriente(B, C, A) > 0 ? A : C, 'blue', 0.5, '', true))
           enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}. Quelles seront les longueurs respectives de chaque côté du triangle à construire ?`
-          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          enonceAMC = '<br>' + mathalea2d({
+            xmin: min(A.x, B.x, C.x) - 1,
+            ymin: min(A.y, B.y, C.y) - 1,
+            xmax: max(A.x, B.x, C.x) + 1,
+            ymax: max(A.y, B.y, C.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           if (this.interactif) {
             texte = enonceInit
             texte += enonceAMC
@@ -306,20 +356,27 @@ export default function AgrandirReduireFigure () {
             setReponse(this, i + ii, choice([reponse, reponse1, reponse2], [min(reponse, reponse1, reponse2), max(reponse, reponse1, reponse2)]))
           } else if (!context.isAmc) {
             texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            texte += '<br>' + mathalea2d({
+              xmin: min(A.x, B.x, C.x) - 1,
+              ymin: min(A.y, B.y, C.y) - 1,
+              xmax: max(A.x, B.x, C.x) + 1,
+              ymax: max(A.y, B.y, C.y) + 1,
+              pixelsParCm: 20,
+              scale: 0.5
+            }, objets)
           } else {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 1,
-                    sanscadre: true,
-                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 1,
+                                    sanscadre: true,
+                                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
             propositionsAMC[iiAMC] = {
@@ -402,7 +459,14 @@ export default function AgrandirReduireFigure () {
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(BCorr, CCorr, A) > 0 ? CCorr : A, angleOriente(BCorr, CCorr, A) > 0 ? A : CCorr, 'red', 0.5, '', true))
-          texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr += '<br>' + mathalea2d({
+            xmin: min(A.x, BCorr.x, CCorr.x) - 1,
+            ymin: min(A.y, BCorr.y, CCorr.y) - 1,
+            xmax: max(A.x, BCorr.x, CCorr.x) + 1,
+            ymax: max(A.y, BCorr.y, CCorr.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           break
         case 4:
           absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
@@ -433,7 +497,14 @@ export default function AgrandirReduireFigure () {
           objets.push(afficheLongueurSegment(angleOriente(A, B, C) > 0 ? B : C, angleOriente(A, B, C) > 0 ? C : B, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(B, C, A) > 0 ? C : A, angleOriente(B, C, A) > 0 ? A : C, 'blue', 0.5, '', true))
           enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom}, de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.<br>Quelles seront les longueurs respectives des deux autres côtés du triangle à construire ?`
-          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          enonceAMC = '<br>' + mathalea2d({
+            xmin: min(A.x, B.x, C.x) - 1,
+            ymin: min(A.y, B.y, C.y) - 1,
+            xmax: max(A.x, B.x, C.x) + 1,
+            ymax: max(A.y, B.y, C.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           if (this.interactif) {
             texte = enonceInit
             texte += enonceAMC
@@ -444,20 +515,27 @@ export default function AgrandirReduireFigure () {
             setReponse(this, i + ii, max(reponse, reponse1))
           } else if (!context.isAmc) {
             texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            texte += '<br>' + mathalea2d({
+              xmin: min(A.x, B.x, C.x) - 1,
+              ymin: min(A.y, B.y, C.y) - 1,
+              xmax: max(A.x, B.x, C.x) + 1,
+              ymax: max(A.y, B.y, C.y) + 1,
+              pixelsParCm: 20,
+              scale: 0.5
+            }, objets)
           } else {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 1,
-                    sanscadre: true,
-                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 1,
+                                    sanscadre: true,
+                                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
             propositionsAMC[iiAMC] = {
@@ -521,7 +599,14 @@ export default function AgrandirReduireFigure () {
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(BCorr, CCorr, A) > 0 ? CCorr : A, angleOriente(BCorr, CCorr, A) > 0 ? A : CCorr, 'red', 0.5, '', true))
-          texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr += '<br>' + mathalea2d({
+            xmin: min(A.x, BCorr.x, CCorr.x) - 1,
+            ymin: min(A.y, BCorr.y, CCorr.y) - 1,
+            xmax: max(A.x, BCorr.x, CCorr.x) + 1,
+            ymax: max(A.y, BCorr.y, CCorr.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           break
         case 5:
           absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
@@ -556,7 +641,14 @@ export default function AgrandirReduireFigure () {
           objets.push(afficheLongueurSegment(angleOriente(C, D, A) > 0 ? D : A, angleOriente(C, D, A) > 0 ? A : D, 'blue', 0.5, '', true))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
           enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}. Quelles seront les longueurs respectives de chaque côté du rectangle à construire ?`
-          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          enonceAMC = '<br>' + mathalea2d({
+            xmin: min(A.x, B.x, C.x, D.x) - 1,
+            ymin: min(A.y, B.y, C.y, D.y) - 1,
+            xmax: max(A.x, B.x, C.x, D.x) + 1,
+            ymax: max(A.y, B.y, C.y, D.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           if (this.interactif) {
             texte = enonceInit
             texte += enonceAMC
@@ -567,20 +659,27 @@ export default function AgrandirReduireFigure () {
             setReponse(this, i + ii, max(reponse, reponse1))
           } else if (!context.isAmc) {
             texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}.`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            texte += '<br>' + mathalea2d({
+              xmin: min(A.x, B.x, C.x, D.x) - 1,
+              ymin: min(A.y, B.y, C.y, D.y) - 1,
+              xmax: max(A.x, B.x, C.x, D.x) + 1,
+              ymax: max(A.y, B.y, C.y, D.y) + 1,
+              pixelsParCm: 20,
+              scale: 0.5
+            }, objets)
           } else {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 1,
-                    sanscadre: true,
-                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 1,
+                                    sanscadre: true,
+                                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
             propositionsAMC[iiAMC] = {
@@ -644,7 +743,14 @@ export default function AgrandirReduireFigure () {
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
-          texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x, DCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y, DCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x, DCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y, DCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr += '<br>' + mathalea2d({
+            xmin: min(A.x, BCorr.x, CCorr.x, DCorr.x) - 1,
+            ymin: min(A.y, BCorr.y, CCorr.y, DCorr.y) - 1,
+            xmax: max(A.x, BCorr.x, CCorr.x, DCorr.x) + 1,
+            ymax: max(A.y, BCorr.y, CCorr.y, DCorr.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           break
         case 6:
           absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
@@ -679,7 +785,14 @@ export default function AgrandirReduireFigure () {
           objets.push(afficheLongueurSegment(angleOriente(C, D, A) > 0 ? D : A, angleOriente(C, D, A) > 0 ? A : D, 'blue', 0.5, '', true))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
           enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom}, de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}] mesurera $${texNombre(reponse)}$. Quelle sera l'autre dimension du rectangle à construire ?`
-          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          enonceAMC = '<br>' + mathalea2d({
+            xmin: min(A.x, B.x, C.x, D.x) - 1,
+            ymin: min(A.y, B.y, C.y, D.y) - 1,
+            xmax: max(A.x, B.x, C.x, D.x) + 1,
+            ymax: max(A.y, B.y, C.y, D.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           if (this.interactif) {
             texte = enonceInit
             texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
@@ -687,20 +800,27 @@ export default function AgrandirReduireFigure () {
             setReponse(this, i + ii, reponse1)
           } else if (!context.isAmc) {
             texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}] mesurera $${texNombre(reponse)}$.`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            texte += '<br>' + mathalea2d({
+              xmin: min(A.x, B.x, C.x, D.x) - 1,
+              ymin: min(A.y, B.y, C.y, D.y) - 1,
+              xmax: max(A.x, B.x, C.x, D.x) + 1,
+              ymax: max(A.y, B.y, C.y, D.y) + 1,
+              pixelsParCm: 20,
+              scale: 0.5
+            }, objets)
           } else {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 1,
-                    sanscadre: true,
-                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 1,
+                                    sanscadre: true,
+                                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
             propositionsAMC[iiAMC] = {
@@ -746,7 +866,14 @@ export default function AgrandirReduireFigure () {
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
-          texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x, DCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y, DCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x, DCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y, DCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr += '<br>' + mathalea2d({
+            xmin: min(A.x, BCorr.x, CCorr.x, DCorr.x) - 1,
+            ymin: min(A.y, BCorr.y, CCorr.y, DCorr.y) - 1,
+            xmax: max(A.x, BCorr.x, CCorr.x, DCorr.x) + 1,
+            ymax: max(A.y, BCorr.y, CCorr.y, DCorr.y) + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           break
       }
       if (context.isAmc) {

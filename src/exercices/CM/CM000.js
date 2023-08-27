@@ -4,8 +4,8 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 // on importait amcReady de 5L10 cf commit cf25dab mais mieux vaut le déclarer explicitement
 
 export const titre = 'Additions et de soustractions'
@@ -134,7 +134,15 @@ export default function TablesAdditionsSoustractions () {
           break
       }
 
-      this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]), decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0, formatInteractif: 'calcul' }
+      this.autoCorrection[i].reponse.param = {
+        digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]),
+        decimals: 0,
+        signe: false,
+        exposantNbChiffres: 0,
+        exposantSigne: false,
+        approx: 0,
+        formatInteractif: 'calcul'
+      }
       this.autoCorrection[i].enonce = texte
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

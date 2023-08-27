@@ -1,226 +1,197 @@
-import { context } from '../../modules/context.js'
-import { addElement, get, setStyles } from '../html/dom.js'
-import { exerciceCliqueFigure } from './cliqueFigure.js'
-import { exerciceListeDeroulante } from './questionListeDeroulante.js'
-import { verifExerciceMathLive } from './questionMathLive.js'
-import { exerciceQcm } from './qcm.js'
-import { gestionCan } from './gestionCan.js'
+import { addElement, get, setStyles } from '../html/dom'
+import { verifQuestionMathLive } from './mathLive'
+import { verifQuestionQcm } from './qcm'
+import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import Grandeur from '../../modules/Grandeur.js'
 
-import * as pkg from '@cortex-js/compute-engine'
-const { ComputeEngine } = pkg
-
-export function exerciceInteractif (exercice, divScore, buttonScore) {
-  if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
-  if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
-  if (exercice.interactifType === 'cliqueFigure')exerciceCliqueFigure(exercice)
-  if (exercice.interactifType === 'custom') exerciceCustom(exercice)
+export function exerciceInteractif (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
+  if (exercice.interactifType === 'mathLive') return verifExerciceMathLive(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'qcm') return verifExerciceQcm(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'listeDeroulante') return verifExerciceListeDeroulante(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'cliqueFigure') return verifExerciceCliqueFigure(exercice, divScore, buttonScore)
   // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
-  if (exercice.interactifType === 'mathLive') verifExerciceMathLive(exercice, divScore, buttonScore)
-  if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
+  if (exercice.interactifType === 'custom') return verifExerciceCustom(exercice, divScore, buttonScore)
+  //  if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
+  // Il faudra gérer ces exercices non interactifs qui pourraient apparaitre dans une évaluation
 }
 
-/**
- * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
- * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
- * et on y ajoute un listenner pour vérifier les réponses cochées
- * @param {Exercice} exercice
- */
-export function exerciceCustom (exercice) {
-  document.addEventListener('exercicesAffiches', (exercice) => {
-    if (context.vue === 'can') {
-      gestionCan(exercice)
-    }
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-    if (button) {
-      if (!button.hasMathaleaListener) {
-        button.addEventListener('click', event => {
-          let nbBonnesReponses = 0
-          let nbMauvaisesReponses = 0
-          // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
-          let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
-          // On ajoute le div pour le feedback
-          if (!eltFeedback) {
-            const eltExercice = get(`exercice${exercice.numeroExercice}`)
-            eltFeedback = addElement(eltExercice, 'div', { id: `feedbackEx${exercice.numeroExercice}` })
-          }
-          setStyles(eltFeedback, 'marginBottom: 20px')
-          if (eltFeedback) eltFeedback.innerHTML = ''
-          // On utilise la correction définie dans l'exercice
-          if (exercice.exoCustomResultat) {
-            for (let i = 0; i < exercice.nbQuestions; i++) {
-              if (Array.isArray(exercice.correctionInteractive(i))) {
-                for (const result of exercice.correctionInteractive(i)) {
-                  if (result === 'OK') nbBonnesReponses++
-                  else nbMauvaisesReponses++
-                }
-              } else {
-                exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
-              }
-            }
-            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
-          } else {
-            for (let i = 0; i < exercice.nbQuestions; i++) {
-              exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
-            }
-            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
-          }
-          button.classList.add('disabled')
-        })
-        button.hasMathaleaListener = true
-      }
-    }
-  })
-}
-
-/**
- * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
- * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
- * et on y ajoute un listenner pour vérifier les réponses saisies dans les math-field
- * Si le bouton n'existe pas on le crée
- * @param {Exercice} exercice
- */
-export function exerciceNonInteractif (exercice) {
-  document.addEventListener('exercicesAffiches', () => {
-    if (context.vue === 'can') {
-      gestionCan(exercice)
-    }
-
-    if (context.vue === 'eval') {
-      // Si c'est un exo dnb, bac, e3c ou crpe  on affiche plutôt :
-      // => l'image de l'énoncé avec une largeur de 70% du container
-      // => l'image de la correction avec une largeur de 60% du container
-      const myImgs = []
-      const myImgsCor = []
-      if (exercice.typeExercice === 'dnb' || exercice.typeExercice === 'bac' || exercice.typeExercice === 'e3c') {
-        myImgs.push(document.querySelector(`#${exercice.id}`))
-        if (!exercice.correctionIsCachee) myImgsCor.push(document.querySelector(`#${exercice.id}Cor`))
-      }
-      if (exercice.typeExercice === 'crpe') {
-        for (let i = 1; i < exercice.png.length + 1; i++) {
-          myImgs.push(document.querySelector(`#${exercice.id}-${i}`))
-          if (!exercice.correctionIsCachee) myImgsCor.push(document.querySelector(`#${exercice.id}-${i}Cor`))
-        }
-      }
-      for (const myImg of myImgs) {
-        myImg.removeAttribute('width')
-        myImg.style.width = '70%'
-      }
-      if (!exercice.correctionIsCachee) {
-        for (const myImgCor of myImgsCor) {
-          myImgCor.removeAttribute('width')
-          myImgCor.style.width = '60%'
-        }
-      }
-
-      const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
-
-      const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-      button.innerHTML = "Voir la correction pour s'auto-corriger"
-      button.style.margin = '1em'
-
-      let divMsg = document.querySelector(`#msgExNonIteractif${exercice.numeroExercice}-${exercice.id}`)
-      if (!divMsg) divMsg = addElement(divAffichageExo, 'div', { className: '', id: `msgExNonIteractif${exercice.numeroExercice}-${exercice.id}` })
-      divMsg.innerHTML = 'Cet exercice n’est pas interactif, faites-le au brouillon avant de vous auto-corriger.'
-      divMsg.style.color = '#f15929'
-      divMsg.style.fontWeight = 'bold'
-      divMsg.style.fontSize = 'x-large'
-      divMsg.style.display = 'block'
-      divMsg.style.margin = '1em'
-
-      if (button) {
-        if (!button.hasMathaleaListener) {
-          button.addEventListener('click', event => {
-            // Ici on met 1 bonne réponse dans tous les cas car les exos ne sont pas interactifs
-            // Cela signifie que l'exo a été visualisé
-            // À améliorer pour l'enregistrement dans le fichier de scores
-            const nbBonnesReponses = 1
-            const nbMauvaisesReponses = 0
-            const besoinDe2eEssai = false
-            if (!besoinDe2eEssai) {
-              button.classList.add('disabled')
-              afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
-            }
-          })
-          button.hasMathaleaListener = true
-        }
-      }
-    }
-  })
-}
-
-export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses, divScore) {
-  if (context.vue === 'exMoodle') {
-    const hauteurExercice = window.document.querySelector('section').scrollHeight + 20
-    if (!new URLSearchParams(window.location.search).get('moodleJson')) {
-      const scoreRetenu = (score) => {
-        const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
-        return scoreAcceptes.reduce((prev, curr) => {
-          return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
-        })
-      }
-      const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
-      const reponses = {}
-      try {
-        for (let i = 0; i < exercice.autoCorrection.length; i++) {
-          if (document.getElementById(`champTexteEx0Q${i}`)) {
-            reponses[`reponse${i}`] = document.getElementById(`champTexteEx0Q${i}`).value
-          }
-          if (document.getElementById(`checkEx0Q${i}R0`)) {
-            for (let j = 0; j < exercice.autoCorrection[i].propositions.length; j++) {
-              if (document.getElementById(`checkEx0Q${i}R${j}`)) {
-                reponses[`reponse${i}R${j}`] = document.getElementById(`checkEx0Q${i}R${j}`).checked
-              }
-            }
-          }
-        }
-      } catch (error) {
-        console.log('Réponse non sauvegardée')
-      }
-      window.parent.postMessage({ score, hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')), reponses }, '*')
+function verifExerciceMathLive (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
+  let nbBonnesReponses = 0
+  let nbMauvaisesReponses = 0
+  const besoinDe2eEssai = false
+  let resultat
+  for (const i in exercice.autoCorrection) {
+    resultat = verifQuestionMathLive(exercice, i)
+    if (resultat === 'OK') {
+      nbBonnesReponses++
     } else {
-      window.parent.postMessage({ hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
+      nbMauvaisesReponses++ // Il reste à gérer le 2e essai
     }
+  }
+  if (!besoinDe2eEssai) {
+    return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, divButton)
+  }
+}
+
+function verifExerciceQcm (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
+  // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
+  let nbQuestionsValidees = 0
+  let nbQuestionsNonValidees = 0
+  for (let i = 0; i < exercice.autoCorrection.length; i++) {
+    const resultat = verifQuestionQcm(exercice, i)
+    resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
+  }
+  const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
+  uichecks.forEach(function (uicheck) {
+    uicheck.classList.add('read-only')
+  })
+  return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
+}
+
+function verifExerciceListeDeroulante (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
+  let nbQuestionsValidees = 0
+  let nbQuestionsNonValidees = 0
+  const uiselects = document.querySelectorAll(`.ui.dropdown.ex${exercice.numeroExercice}`)
+  uiselects.forEach(function (uiselect) {
+    uiselect.classList.add('disabled')
+  })
+  for (let i = 0; i < exercice.nbQuestions; i++) {
+    const resultat = verifQuestionListeDeroulante(exercice, i)
+    resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
+  }
+  return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
+}
+
+function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
+  let nbBonnesReponses = 0
+  let nbMauvaisesReponses = 0
+  // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
+  let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
+  // On ajoute le div pour le feedback
+  if (!eltFeedback) {
+    const eltExercice = get(`exercice${exercice.numeroExercice}`)
+    eltFeedback = addElement(eltExercice, 'div', { id: `feedbackEx${exercice.numeroExercice}` })
+  }
+  setStyles(eltFeedback, 'marginBottom: 20px')
+  if (eltFeedback) eltFeedback.innerHTML = ''
+  // On utilise la correction définie dans l'exercice
+  if (exercice.exoCustomResultat) {
+    for (let i = 0; i < exercice.nbQuestions; i++) {
+      if (Array.isArray(exercice.correctionInteractive(i))) {
+        for (const result of exercice.correctionInteractive(i)) {
+          if (result === 'OK') nbBonnesReponses++
+          else nbMauvaisesReponses++
+        }
+      } else {
+        exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+      }
+    }
+    afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
   } else {
-    // Envoie un message post avec le nombre de réponses correctes
-    window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses, nbMauvaisesReponses }, '*')
+    for (let i = 0; i < exercice.nbQuestions; i++) {
+      exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+    }
+    return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
   }
-  if (context.timer) {
-    clearInterval(context.timer)
-    // ToDo à sauvegarder dans les résultats
-    // const tempsRestant = document.getElementById('timer').innerText
+}
+
+export function prepareExerciceCliqueFigure (exercice /** Exercice */) {
+  // Dès que l'exercice est affiché, on rajoute des listenners sur chaque éléments de this.figures.
+  for (let i = 0; i < exercice.nbQuestions; i++) {
+    for (const objetFigure of exercice.figures[i]) {
+      const figSvg = document.getElementById(objetFigure.id)
+      if (figSvg) {
+        if (!figSvg.hasMathaleaListener) {
+          figSvg.addEventListener('mouseover', mouseOverSvgEffect)
+          figSvg.addEventListener('mouseout', mouseOutSvgEffect)
+          figSvg.addEventListener('click', mouseSvgClick)
+          figSvg.etat = false
+          figSvg.style.margin = '10px'
+          figSvg.hasMathaleaListener = true
+          // On enregistre que l'élément a déjà un listenner pour ne pas lui remettre le même à l'appui sur "Nouvelles Données"
+        }
+      }
+    }
   }
-  // Appel Fecth via une fonction est-ce que c'est ça qui multiplie les appels ?
+}
+
+function verifExerciceCliqueFigure (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
+  // Gestion de la correction
+  let nbBonnesReponses = 0
+  let nbMauvaisesReponses = 0
+  for (let i = 0; i < exercice.nbQuestions; i++) {
+    verifQuestionCliqueFigure(exercice, i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+  }
+  return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
+}
+
+function verifQuestionCliqueFigure (exercice, i) {
+  // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
+  let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
+  // On ajoute le div pour le feedback
+  if (!eltFeedback) {
+    const eltExercice = get(`exercice${exercice.numeroExercice}`)
+    eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
+  }
+  setStyles(eltFeedback, 'marginBottom: 20px')
+  if (eltFeedback) eltFeedback.innerHTML = ''
+  const figures = []
+  let erreur = false // Aucune erreur détectée
+  let nbFiguresCliquees = 0
+  for (const objetFigure of exercice.figures[i]) {
+    const eltFigure = document.getElementById(objetFigure.id)
+    figures.push(eltFigure)
+    eltFigure.removeEventListener('mouseover', mouseOverSvgEffect)
+    eltFigure.removeEventListener('mouseout', mouseOutSvgEffect)
+    eltFigure.removeEventListener('click', mouseSvgClick)
+    eltFigure.hasMathaleaListener = false
+    if (eltFigure.etat) nbFiguresCliquees++
+    if (eltFigure.etat !== objetFigure.solution) erreur = true
+  }
+  if (nbFiguresCliquees > 0 && !erreur) {
+    eltFeedback.innerHTML = '😎'
+    return 'OK'
+  } else {
+    eltFeedback.innerHTML = '☹️'
+    return 'KO'
+  }
+}
+
+function mouseOverSvgEffect () {
+  this.style.border = '1px solid #1DA962'
+}
+
+function mouseOutSvgEffect () {
+  this.style.border = 'none'
+}
+
+function mouseSvgClick () {
+  if (this.etat) {
+    // Déja choisi, donc on le réinitialise
+    this.style.border = 'none'
+    this.addEventListener('mouseover', mouseOverSvgEffect)
+    this.addEventListener('mouseout', mouseOutSvgEffect)
+    this.addEventListener('click', mouseSvgClick)
+    this.etat = false
+  } else {
+    // Passe à l'état choisi donc on désactive les listenners pour over et pour out
+    this.removeEventListener('mouseover', mouseOverSvgEffect)
+    this.removeEventListener('mouseout', mouseOutSvgEffect)
+    this.style.border = '3px solid #f15929'
+    this.etat = true
+  }
+}
+
+export function afficheScore (exercice /** Exercice */, nbBonnesReponses /** number */, nbMauvaisesReponses /** number */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
+  divButton.classList.add('cursor-not-allowed', 'opacity-50', 'pointer-events-none')
   divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
   divScore.style.color = '#f15929'
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'x-large'
   divScore.style.display = 'inline'
-  // Si l'exercice n'est pas interactif on n'affiche pas la div pour le score
-  if (exercice.interactifType === undefined) {
-    divScore.style.display = 'none'
-  }
-  if (context.vue === 'eval') {
-    const divCorr = get(`divexcorr${exercice.numeroExercice}`)
-    divCorr.style.display = 'block'
-    const divBoutonExercice = get(`btnEx${exercice.numeroExercice + 1}`)
-    divBoutonExercice.classList.add('green')
-    const divExercice = get(`exercice${exercice.numeroExercice}`)
-    if (exercicesEvalRestants()[0]) {
-      const btnExerciceSuivant = addElement(divExercice, 'button', { id: 'btnSuivant', class: 'ui blue button', style: 'display: block' }, 'Exercice suivant')
-      btnExerciceSuivant.focus()
-      if (!btnExerciceSuivant.hasMathaleaListener) {
-        btnExerciceSuivant.addEventListener('click', () => {
-          exercicesEvalRestants()[0].click()
-        })
-        btnExerciceSuivant.hasMathaleaListener = true
-      }
-    }
-  }
+  return { numberOfPoints: nbBonnesReponses, numberOfQuestions: nbBonnesReponses + nbMauvaisesReponses }
 }
-
-const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].circular.ui.button:not(.green):not(.red)')
 
 /**
  * Précise la réponse attendue
@@ -230,7 +201,23 @@ const exercicesEvalRestants = () => document.querySelectorAll('[id ^= "btnEx"].c
  * @param {object} options
  */
 
-export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul', precision = null } = {}) {
+export function setReponse (exercice, i, valeurs, {
+  digits = 0,
+  decimals = 0,
+  signe = false,
+  exposantNbChiffres = 0,
+  exposantSigne = false,
+  approx = 0,
+  aussiCorrect,
+  digitsNum,
+  digitsDen,
+  basePuissance,
+  exposantPuissance,
+  baseNbChiffres,
+  milieuIntervalle,
+  formatInteractif = 'calcul',
+  precision = null
+} = {}) {
   let reponses = []
   const url = new URL(window.location.href)
   if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${i + 1} : `, valeurs)
@@ -252,9 +239,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
     }
   }
   let laReponseDemandee
-  let test
 
-  const engine = new ComputeEngine()
   switch (formatInteractif) {
     case 'Num':
       if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses })
@@ -271,11 +256,13 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
       if (typeof laReponseDemandee === 'number' || typeof laReponseDemandee === 'string') {
         laReponseDemandee = laReponseDemandee.toString().replace(/\s/g, '').replace(',', '.')
       }
-      try {
-        test = engine.parse(laReponseDemandee.toString()).canonical
-      } catch (error) {
-        window.notify('setReponse : type "calcul" la réponse n\'est pas un nombre valide', { reponses, test })
-      }
+      // à quoi sert ce code ? de toute façon, si on ne fournit pas une réponse correcte à setReponse() on le verra bien en testant l'exo !
+      /* try {
+                     test = engine.parse(laReponseDemandee.toString()).canonical
+                   } catch (error) {
+                     window.notify('setReponse : type "calcul" la réponse n\'est pas un nombre valide', { reponses, test })
+                   }
+                   */
       break
     case 'nombreDecimal':
       if (isNaN(reponses[0].toString())) window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
@@ -308,13 +295,13 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
       if (!(reponses[0] instanceof Grandeur)) window.notify('setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !', { reponses })
       break
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
-    // ToFix : vérifier que la réponse est bien un intervalle valide
+      // ToFix : vérifier que la réponse est bien un intervalle valide
       break
     case 'intervalle' :
       // ToFix : vérifier que la réponse est bien un intervalle valide
       break
     case 'puissance' :
-    // ToFix : vérifier que la réponse est bien l'écriture d'une puissance ou en tout cas une réponse acceptable pour ce format
+      // ToFix : vérifier que la réponse est bien l'écriture d'une puissance ou en tout cas une réponse acceptable pour ce format
       break
   }
 
@@ -324,28 +311,22 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = { digits, decimals, signe, exposantNbChiffres, exposantSigne, approx, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, milieuIntervalle, baseNbChiffres, formatInteractif, precision }
+  exercice.autoCorrection[i].reponse.param = {
+    digits,
+    decimals,
+    signe,
+    exposantNbChiffres,
+    exposantSigne,
+    approx,
+    aussiCorrect,
+    digitsNum,
+    digitsDen,
+    basePuissance,
+    exposantPuissance,
+    milieuIntervalle,
+    baseNbChiffres,
+    formatInteractif,
+    precision
+  }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
-/*
-/**
- *
- * @param {Exercice} exercice
- * @param {number} i
- * @param {*} param2
- * @returns {string} code HTML du champ texte avec identifiant champTexteEx__Q__ et le span pour le résultat de la question
-
-export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = false, indice } = {}) {
-  if (context.isHtml && exercice.interactif) {
-    return `<div class="ui form ${inline ? 'inline' : ''}" >
-      <div class="inline  field" >
-      <label>${texte}</label>
-        <input type="text" ${numeric ? 'type="number" min="0" inputmode="numeric" pattern="[0-9]*"' : ''}  id="champTexteEx${exercice.numeroExercice}Q${i}${indice || ''}" >
-        <span>${texteApres}</span>
-        <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>
-      </div>
-      </div>`
-  } else {
-    return ''
-  }
-} */

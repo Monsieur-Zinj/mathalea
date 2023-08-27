@@ -5,10 +5,11 @@ import { sp } from '../../lib/outils/outilString.js'
 import { prenomF } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre des problèmes de type : ... de plus ou ... de moins'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +24,7 @@ export const dateDePublication = '10/07/2021'
  * @author Laurence CANDILLE
  * Référence 6C22
  * Relecture : Novembre 2021 par EE
-*/
+ */
 export const uuid = '99522'
 export const ref = '6C22'
 export default function ProblemesDePlusEtDeMoins () {
