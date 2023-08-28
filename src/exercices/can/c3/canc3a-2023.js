@@ -59,7 +59,7 @@ export default function SujetCAN2023CM2 () {
     // const typeQuestionsDisponibles = [30] // Pour n'avoir que la question en cours de dev
     // On crée un objet avec lesméthodes can2023
     const myCan = new ClasseCan2023()
-    // On crée un objet necessaire à liaison des deux questions sur la vitesse
+    // On crée un objet nécessaire à liaison des deux questions sur la vitesse
     const vitesseCommunePourQ21Q22 = myCan.vitesseCommune()
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

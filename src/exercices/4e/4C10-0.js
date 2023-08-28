@@ -86,7 +86,7 @@ export default function SigneProduitQuotientRelatifs () {
       this.autoCorrection[i] = {}
       // on ne choisit que des nombres compris entre 1 et 20
       const nbMax = 20
-      // Le tableau des relatifs necessaires, il m'en faut max 4 !
+      // Le tableau des relatifs nécessaires, il m'en faut max 4 !
       const num = new Relatif(
         randint(-1, 1, [0]) * randint(1, nbMax),
         randint(-1, 1, [0]) * randint(1, nbMax),
