@@ -16,6 +16,7 @@ export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'
 
 /**
  * fork de 4P10-1 par Jean-Claude Lhote
+ * @author Sébastien LOZANO // je reprécise car j'avais disparu :D
  */
 
 export const uuid = 'c668a'
@@ -182,7 +183,7 @@ export default function GraphiquesEtProportionnalite2 () {
         correction: `
          ${numAlpha(kCorr++)} Ce graphique est une droite qui passe par l'origine.
         <br> ${texteEnCouleur('C\'est donc bien le graphique d\'une situation de proportionnalité.')}
-        <br> ${numAlpha(kCorr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texteEnCouleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
+        <br> ${numAlpha(kCorr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texteEnCouleur(`${situation.qte_max} ${situation.unite}  ${situation.articles} coûtent ${texPrix(calcul(situation.qte_max * situation.prix_unitaire))} €.`)}
         <br> ${situation.figureCorr}
         <br> ${numAlpha(kCorr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
         <br><br> ${texteGras('Première méthode par lecture graphique :')}
@@ -190,7 +191,7 @@ export default function GraphiquesEtProportionnalite2 () {
         <br><br> ${texteGras('Seconde méthode en calculant une quatrième proportionnelle :')}
         <br> $${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €
         donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent : <br> $(${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.articles} $)\\times (${situation.qte2}$ ${situation.articles})  $= ${texPrix(calcul(situation.qte2 * situation.prix_unitaire))}$ €
-        <br><br>${texteEnCouleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte2 * situation.prix_unitaire))}$ €.`)}
+        <br><br>${texteEnCouleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent ${texPrix(calcul(situation.qte2 * situation.prix_unitaire)).replace('{,}', ',')} €.`)}
         `
       })
       switch (listeTypeDeQuestions[i]) {
