@@ -174,8 +174,7 @@
     "id": "1E14",
     "titre": "Factoriser un polynôme du second degré avec racines entières",
     "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
+      "interactif": false,
       "amc": false
     }
   },
@@ -520,7 +519,7 @@
     "url": "2e/2F22-1.js",
     "uuid": "a2ac2",
     "id": "2F22-1",
-    "titre": "Résoudre graphiquement une équation du type f(x)=k.",
+    "titre": "Résoudre graphiquement une équation du type $f(x)=k$",
     "tags": {
       "interactif": true,
       "interactifType": "custom",
@@ -531,10 +530,9 @@
     "url": "2e/2F22-3.js",
     "uuid": "a7860",
     "id": "2F22-3",
-    "titre": "Déterminer le tableau de signes d'une fonction graphiquement.",
+    "titre": "Déterminer le tableau de signes d'une fonction graphiquement",
     "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
+      "interactif": false,
       "amc": false
     }
   },
@@ -7372,7 +7370,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "custom",
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     }
   },
   "6N22": {
@@ -8562,6 +8561,17 @@
     "uuid": "betaFonction",
     "id": "betaFonction",
     "titre": "Recherche d'antécédents",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
+  },
+  "betaPatronSolide": {
+    "url": "beta/betaPatronSolide.js",
+    "uuid": "865e9",
+    "id": "betaPatronSolide",
+    "titre": "Compléter des patrons de solides",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
