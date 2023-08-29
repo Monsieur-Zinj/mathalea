@@ -6,7 +6,7 @@ import Bugsnag from '@bugsnag/js'
 import { tropDeChiffres } from './modules/outils.js'
 
 const app = new App({
-  target: document.getElementById('app')
+  target: document.getElementById('appMathalea')
 })
 
 export default app

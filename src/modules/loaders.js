@@ -149,9 +149,12 @@ export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
   if (champs.length > 0) {
     await import('mathlive')
+    window.mathVirtualKeyboard.targetOrigin = '*'
+    const app = document.querySelector('#appMathalea')
     for (const mf of champs) {
       let clavier, raccourcis
-      mf.mathVirtualKeyboardPolicy = 'manual'
+      mf.mathVirtualKeyboardPolicy = 'sandboxed'
+      mf.virtualKeyboardTargetOrigin = '*'
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
@@ -248,6 +251,7 @@ export async function loadMathLive () {
       style += ' min-width: 200px'
       mf.setAttribute('style', style)
     }
+    window.mathVirtualKeyboard.container = app
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
