@@ -162,7 +162,7 @@ export default function ProblemesAdditifsFractionsBis () {
       for (let i = 0; i < 2; i++) {
         pb3f[
           i
-        ].correction = 'Il s\'agit d\'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>'
+        ].correction = 'Il s\'agit d\'un problème additif. Il va être nécessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>'
         if (listefrac.liste[0].den === listefrac.liste[1].den) {
           pb3f[i].correction += 'Les fractions de l\'énoncé ont déjà le même dénominateur.<br>'
         } else {
@@ -382,7 +382,7 @@ export default function ProblemesAdditifsFractionsBis () {
       for (let i = 0; i < 3; i++) {
         pb4f[
           i
-        ].correction = 'Il s\'agit d\'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>'
+        ].correction = 'Il s\'agit d\'un problème additif. Il va être nécessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>'
 
         if (listefrac2.liste[0].den === denominateurCommun && listefrac2.liste[1].den === denominateurCommun && listefrac2.liste[2].den === denominateurCommun) {
           pb4f[i].correction += 'Les fractions de l\'énoncé ont déjà le même dénominateur.'
