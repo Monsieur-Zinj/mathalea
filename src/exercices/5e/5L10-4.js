@@ -97,7 +97,7 @@ export default function TableauxEtFonction () {
         unitepetitL = unites[1]
         coteInconnuCorr = coteInconnu
         coteInconnuCorrNum = '2' + coteInconnu
-        txtCorr = 'Les unités sont les mêmes il n\'est donc pas necessaire de convertir.'
+        txtCorr = 'Les unités sont les mêmes il n\'est donc pas nécessaire de convertir.'
       }
       if (this.sup === 2) { // unités différentes
         unites = choice([['cm', 'm'], ['m', 'cm']])

@@ -123,7 +123,7 @@ export default function FractionsIrreductibles () {
         }
         n++
       }
-      // on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si necessaire
+      // on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si nécessaire
       if (!bool) { // il n'est pas présent on l'ajoute avec la multipplicité 1
         tabNb1.push(nb1Dist)
         multiplicitesNb1.push(1)
@@ -139,7 +139,7 @@ export default function FractionsIrreductibles () {
         }
         n++
       }
-      // on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si necessaire
+      // on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si nécessaire
       if (!bool) { // il n'est pas présent on l'ajoute avec la multipplicité 1
         tabNb2.push(nb2Dist)
         multiplicitesNb2.push(1)
