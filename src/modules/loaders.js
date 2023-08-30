@@ -150,7 +150,7 @@ export async function loadMathLive () {
   if (champs.length > 0) {
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
-    const app = document.querySelector('#appMathalea')
+    const divKeyboard = document.querySelector('#keyboardMathalea')
     for (const mf of champs) {
       let clavier, raccourcis
       mf.mathVirtualKeyboardPolicy = 'sandboxed'
@@ -251,7 +251,7 @@ export async function loadMathLive () {
       style += ' min-width: 200px'
       mf.setAttribute('style', style)
     }
-    window.mathVirtualKeyboard.container = app
+    window.mathVirtualKeyboard.container = divKeyboard
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
