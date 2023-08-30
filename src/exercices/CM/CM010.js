@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Tiers'
 export const amcReady = true
