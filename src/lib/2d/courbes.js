@@ -1,7 +1,6 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { inferieurouegal } from '../../modules/outils.js'
-import { rationnalise } from '../mathFonctions/outilsMaths.js'
 import { point, tracePoint } from './points.js'
 import { motifs, polygone, polyline } from './polygones.js'
 import { segment } from './segmentsVecteurs.js'
@@ -217,9 +216,9 @@ export function Courbe (f, {
   }
   for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
-    if (isFinite(f(rationnalise(x)))) {
+    if (isFinite(f(x))) {
       if (f(x) < yMax + 1 && f(x) > yMin - 1) {
-        points.push(point(x * xunite, f(rationnalise(x)) * yunite))
+        points.push(point(x * xunite, f(x) * yunite))
       } else {
         p = polyline([...points], this.color)
         p.epaisseur = epaisseur
