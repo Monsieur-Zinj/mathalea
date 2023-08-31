@@ -1468,12 +1468,18 @@ export function Repere ({
     for (const x of xLabelListe) {
       let l
       if (typeof x === 'number') {
-        l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+        if (x >= xMin && x <= xMax) {
+          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+          l.isVisible = false
+          objets.push(l)
+        }
       } else {
-        l = latexParCoordonnees(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart * 2, 'black', 20, 20, '', 8)
+        if (x.valueur <= xMax && x.valeur >= xMin) {
+          l = latexParCoordonnees(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart * 2, 'black', 20, 20, '', 8)
+          l.isVisible = false
+          objets.push(l)
+        }
       }
-      l.isVisible = false
-      objets.push(l)
     }
   }
   if (axeYisVisible) {
@@ -1485,12 +1491,18 @@ export function Repere ({
     for (const y of yLabelListe) {
       let l
       if (typeof y === 'number') {
-        l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+        if (y >= yMin && y <= yMax) {
+          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+          l.isVisible = false
+          objets.push(l)
+        }
       } else {
-        l = latexParCoordonnees(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite, 'black', 20, 20, '', 8)
+        if (l.valeur >= yMin && l.valeur <= yMax) {
+          l = latexParCoordonnees(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite, 'black', 20, 20, '', 8)
+          l.isVisible = false
+          objets.push(l)
+        }
       }
-      l.isVisible = false
-      objets.push(l)
     }
   }
   // LES LÉGENDES
