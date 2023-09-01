@@ -89,6 +89,7 @@
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
     "autoprefixer": "^10.4.15",
+    "big-integer": "^1.6.51",
     "eslint": "^8.48.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.28.1",
