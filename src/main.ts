@@ -17,8 +17,6 @@ const app = new App({
 })
 
 export default app
-const a = BigInt(0)
-console.log(a)
 
 async function handleBugsnag () {
   const fileName = '../_private/bugsnagApiKey.js'
