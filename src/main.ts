@@ -5,11 +5,20 @@ import Bugsnag from '@bugsnag/js'
 // @ts-ignore
 import { tropDeChiffres } from './modules/outils.js'
 
+import bigInt from 'big-integer'
+/* global BigInt */
+if (typeof (BigInt) === 'undefined') {
+  // @ts-ignore
+  window.BigInt = bigInt
+}
+
 const app = new App({
   target: document.getElementById('appMathalea')
 })
 
 export default app
+const a = BigInt(0)
+console.log(a)
 
 async function handleBugsnag () {
   const fileName = '../_private/bugsnagApiKey.js'
