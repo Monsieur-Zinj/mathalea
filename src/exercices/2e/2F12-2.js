@@ -49,7 +49,7 @@ export default function ResoudreGraphFonctionRef () {
     }
     //
     // variables communes à tous les cas et sortis des cases et même de la boucle.
-    const o = latexParCoordonnees('O', -0.2, -0.8, 'black', 0, 0, '')
+    const o = latexParCoordonnees('O', -0.2, -0.3, 'black', 0, 0, '')
     const O = point(0, 0)
 
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -74,10 +74,10 @@ export default function ResoudreGraphFonctionRef () {
             sAxBx.epaisseur = 2
             sAxBx.styleExtremites = choix ? ']-[' : '[-]'
             sAxBx.tailleExtremites = 6
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.3, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=x^2', 3.5, 4.5, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`-\\sqrt{${a}}`, -1.73, -1.5, 'red', 0, 0, '')
-            const Texte4 = latexParCoordonnees(`\\sqrt{${a}}`, 2.03, -1.5, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.7, 'green', 0, 0, '')
+            const Texte2 = latexParCoordonnees('y=x^2', 3, 4.5, 'blue', 0, 0, '')
+            const Texte3 = latexParCoordonnees(`-\\sqrt{${a}}`, -1.73, -0.6, 'red', 0, 0, '')
+            const Texte4 = latexParCoordonnees(`\\sqrt{${a}}`, 1.73, -0.6, 'red', 0, 0, '')
             const r1 = repere({
               xMin: -4,
               yMin: -1,
@@ -110,7 +110,7 @@ export default function ResoudreGraphFonctionRef () {
               xmin: -6,
               xmax: 6,
               ymin: -2,
-              ymax: 5.5,
+              ymax: 5,
               pixelsParCm: 30,
               scale: 1
             }, courbe(f, {
@@ -162,10 +162,10 @@ export default function ResoudreGraphFonctionRef () {
             sAxAxI.epaisseur = 2
             sAxAxI.styleExtremites = '[-'
             sAxAxI.tailleExtremites = 6
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.3, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=x^2', 3.5, 4.5, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`-\\sqrt{${a}}`, -1.73, -1.5, 'red', 0, 0, '')
-            const Texte4 = latexParCoordonnees(`\\sqrt{${a}}`, 2.03, -1.5, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.7, 'green', 0, 0, '')
+            const Texte2 = latexParCoordonnees('y=x^2', 3, 4.5, 'blue', 0, 0, '')
+            const Texte3 = latexParCoordonnees(`-\\sqrt{${a}}`, -1.73, -0.6, 'red', 0, 0, '')
+            const Texte4 = latexParCoordonnees(`\\sqrt{${a}}`, 1.73, -0.6, 'red', 0, 0, '')
             const r1 = repere({
               xMin: -4,
               yMin: -1,
@@ -177,8 +177,8 @@ export default function ResoudreGraphFonctionRef () {
               axeYStyle: '->',
               grilleX: false,
               grilleY: false,
-              xThickListe: [0],
-              yThickListe: [0],
+              xThickListe: [-6],
+              yThickListe: [-6],
               xLabelListe: [-6],
               yLabelListe: [-6]
             })
@@ -252,16 +252,18 @@ export default function ResoudreGraphFonctionRef () {
             sA2xO.styleExtremites = choix ? ']-[' : '[-['
             const sAxIO = segment(AxI, O, 'red')
             sAxIO.epaisseur = 2
+            sAxIO.styleExtremites = '-['
+            sAxIO.tailleExtremites = 6
             const AxI2 = point(4, 0)
             const sAxI2Ax = segment(Ax, AxI2, 'red')
             sAxI2Ax.epaisseur = 2
             sAxI2Ax.tailleExtremites = 6
             sAxI2Ax.styleExtremites = choix ? ']-' : '[-'
             const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.3, 'green', 0, 0, '')
-            const Texte1B = latexParCoordonnees(`y=${a}`, 4, -1.7, 'green', 0, 0, '')
+            const Texte1B = latexParCoordonnees(`y=${a}`, 4, -1.3, 'green', 0, 0, '')
             const Texte2 = latexParCoordonnees('y=\\dfrac{1}{x}', 1.2, 3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`\\dfrac{1}{${a}}`, 1, -1.1, 'red', 0, 0, '')
-            const Texte3B = latexParCoordonnees(`-\\dfrac{1}{${-a}}`, -0.8, 0.7, 'red', 0, 0, '')
+            const Texte3 = latexParCoordonnees(`\\dfrac{1}{${a}}`, 0.5, -1, 'red', 0, 0, '')
+            const Texte3B = latexParCoordonnees(`-\\dfrac{1}{${-a}}`, -1.2, 1, 'red', 0, 0, '')
 
             const r1 = repere({
               xMin: -4,
@@ -383,10 +385,10 @@ export default function ResoudreGraphFonctionRef () {
             sAxO.tailleExtremites = 6
             sAxO.styleExtremites = choix ? ']-[' : '[-['
             const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.3, 'green', 0, 0, '')
-            const Texte1B = latexParCoordonnees(`y=${a}`, 4, -1.7, 'green', 0, 0, '')
+            const Texte1B = latexParCoordonnees(`y=${a}`, 4, -1.3, 'green', 0, 0, '')
             const Texte2 = latexParCoordonnees('y=\\dfrac{1}{x}', 1.2, 3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`\\dfrac{1}{${a}}`, 1, -1.1, 'red', 0, 0, '')
-            const Texte3B = latexParCoordonnees(`-\\dfrac{1}{${-a}}`, -0.8, 0.7, 'red', 0, 0, '')
+            const Texte3 = latexParCoordonnees(`\\dfrac{1}{${a}}`, 0.5, -1, 'red', 0, 0, '')
+            const Texte3B = latexParCoordonnees(`-\\dfrac{1}{${-a}}`, -1.2, 1, 'red', 0, 0, '')
             const r1 = repere({
               xMin: -4,
               yMin: -3,
@@ -475,13 +477,13 @@ export default function ResoudreGraphFonctionRef () {
             const sAAx = segment(A, Ax)
             sAAx.epaisseur = 2
             sAAx.pointilles = 5
-            const sAxBx = segment(Ax, O, 'red')
+            const sAxBx = segment(O, Ax, 'red')
             sAxBx.epaisseur = 2
             sAxBx.tailleExtremites = 6
-            sAxBx.styleExtremites = choix ? ']-[' : '[-['
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 0.8, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=\\sqrt{x}', 4, 2.3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`${a ** 2}`, 2.7, -1, 'red', 0, 0, '')
+            sAxBx.styleExtremites = choix ? '[-[' : '[-]'
+            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 1.2, 'green', 0, 0, '')
+            const Texte2 = latexParCoordonnees('y=\\sqrt{x}', 3, 2.3, 'blue', 0, 0, '')
+            const Texte3 = latexParCoordonnees(`${a ** 2}`, 2.25, -0.6, 'red', 0, 0, '')
             const r1 = repere({
               xMin: -1,
               yMin: -1,
@@ -555,9 +557,9 @@ export default function ResoudreGraphFonctionRef () {
             sAxAInf.epaisseur = 2
             sAxAInf.tailleExtremites = 6
             sAxAInf.styleExtremites = choix ? ']-' : '[-'
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 0.8, 'green', 0, 0, '')
-            const Texte2 = latexParCoordonnees('y=\\sqrt{x}', 4, 2.3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`${a ** 2}`, 2.7, -1, 'red', 0, 0, '')
+            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 1.2, 'green', 0, 0, '')
+            const Texte2 = latexParCoordonnees('y=\\sqrt{x}', 3, 2.3, 'blue', 0, 0, '')
+            const Texte3 = latexParCoordonnees(`${a ** 2}`, 2.25, -0.6, 'red', 0, 0, '')
             const r1 = repere({
               xMin: -1,
               yMin: -1,
