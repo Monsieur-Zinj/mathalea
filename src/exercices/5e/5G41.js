@@ -16,9 +16,8 @@ import { demiDroite, longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
-import { texteGras } from '../../lib/format/style.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -27,19 +26,16 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 
 export const titre = 'Construire des quadrilatères particuliers'
-
+export const dateDeModifImportante = '02/09/2023'
+export const dateDePublication = '03/02/2020'
 /**
  * Construction de quadrilatères avec dispositif d'auto-correction aléatoire
- * Ref 4G41
  * @author Jean-Claude Lhote
- * Publié le 3/02/2020
  */
 export const uuid = '37e37'
 export const ref = '5G41'
 export default function ConstructionsParallelogrammesParticuliers () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
@@ -48,7 +44,6 @@ export default function ConstructionsParallelogrammesParticuliers () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -59,8 +54,8 @@ export default function ConstructionsParallelogrammesParticuliers () {
       return lettre + chiffre
     }
     // On prépare la figure...
-    const noms = choisitLettresDifferentes(5, 'QO', true) // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
-    const nom = `$${noms[0] + noms[1] + noms[2] + noms[3]}$`
+    const noms = choisitLettresDifferentes(5, 'QOX', true) // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
+    const nom = noms[0] + noms[1] + noms[2] + noms[3]
     let A, B, C, D, O, d1, d2, c1, c2, c3, c4, alpha, tri, t1, t2, t3, t4, t5, dd1, dd2
     const objetsEnonce = []; const objetsCorrection = []
     let typesDeQuestionsDisponibles
@@ -68,7 +63,7 @@ export default function ConstructionsParallelogrammesParticuliers () {
     if (this.sup === 1) typesDeQuestionsDisponibles = [1, 2, 3]
     else if (this.sup === 2) typesDeQuestionsDisponibles = [4, 5, 6, 7]
     else typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
-
+    typesDeQuestionsDisponibles = [7, 7]
     const typeDeQuestion = choice(typesDeQuestionsDisponibles)
     switch (typeDeQuestion) {
       case 1:
@@ -83,20 +78,19 @@ export default function ConstructionsParallelogrammesParticuliers () {
         D = pointIntersectionCC(cercle(A, c4), cercle(B, d1), noms[3])
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
-        texte = `${nom} est un parallélogramme tel que `
+        texte = `$${nom}$ est un parallélogramme tel que `
         texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm, $${noms[1] + noms[3]}=${texNombre(d1)}$ cm.<br>`
-        texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
         if (this.correctionDetaillee) {
-          texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu.<br>`
-          texteCorr += `Soit $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.`
-          texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$.<br>Puis $${noms[4]}$, le milieu de $[${noms[1] + noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
+          texteCorr += `Comme $${nom}$ est un parallélogramme, ses diagonales se coupent en leur milieu.<br>`
+          texteCorr += `Nommons $${noms[4]}$, le milieu de $[${noms[1] + noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.`
+          texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$.<br>Puis plaçons $${noms[4]}$, le milieu de $[${noms[1] + noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
         }
         if (longueur(B, D) !== longueur(A, C)) {
-          texteCorr += `Comme $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$ et que $${noms[0] + noms[2]}\\ne ${noms[3] + noms[1]}$, le paralélogramme ${nom} n'est ni un losange, ni un rectangle.<br>`
-          texteCorr += `${nom} ${texteGras('est un simple paraléllogramme')}.<br>`
+          texteCorr += `Comme $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$ et que $${noms[0] + noms[2]}\\ne ${noms[3] + noms[1]}$, le paralélogramme $${nom}$ n'est ni un losange, ni un rectangle.<br>`
+          texteCorr += `$${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est pas un paraléllogramme particulier')}.<br>`
         } else {
-          texteCorr += `Comme $$${noms[0] + noms[2]} = ${noms[3] + noms[1]}$ et que $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$, le paralélogramme ${nom} est un rectangle.<br>`
+          texteCorr += `Comme $$${noms[0] + noms[2]} = ${noms[3] + noms[1]}$ et que $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$, le paralélogramme $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('est un rectangle')}.<br>`
         }
         objetsCorrection.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
         t1 = traceCompas(A, D, 15)
@@ -119,17 +113,17 @@ export default function ConstructionsParallelogrammesParticuliers () {
         B = similitude(A, O, alpha, c4 / c1, noms[1])
         D = rotation(B, O, 180, noms[3])
         C = rotation(A, O, 180, noms[2])
-        texte = `${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
+        texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
         texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm, $${noms[1] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[0] + noms[4] + noms[1]}}=${alpha}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>`
-        texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
         objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
         if (this.correctionDetaillee) {
-          texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
-          texteCorr += `$${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$. La distance ${noms[4] + noms[1]} est égale à la moitié de ${noms[1] + noms[3]}.<br>`
+          texteCorr += `Comme $${nom}$ est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
+          texteCorr += `$${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$. La distance $${noms[4] + noms[1]}$ est égale à la moitié de $${noms[1] + noms[3]}$.<br>`
           texteCorr += `Construisons tout d'abord le point $${noms[2]}$ symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
           texteCorr += `Construisons ensuite un angle $\\widehat{${noms[0] + noms[4] + 'x'}}$ de mesure $${alpha}\\degree$ dans le sens inverse des aiguilles d'une montre.<br>`
-          texteCorr += `Puis le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${texNombre(arrondi(c4 / 2))}$ cm de $${noms[4]}$.<br>`
+          texteCorr += `Construisons enfin le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${texNombre(arrondi(c4 / 2))}$ cm de $${noms[4]}$.<br>`
         }
+        texteCorr += `$${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est pas un paraléllogramme particulier')}.<br>`
         xm = Math.min(A.x, B.x, C.x) - 0.8
         ym = Math.min(A.y, B.y, C.y) - 0.8
         xM = Math.max(A.x, B.x, C.x) + 0.8
@@ -145,17 +139,16 @@ export default function ConstructionsParallelogrammesParticuliers () {
         D = similitude(B, A, 90, c4 / c1, noms[3])
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
-        texte = `${nom} est un parallélogramme tel que `
+        texte = `$${nom}$ est un parallélogramme tel que `
         texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm, $${noms[1] + noms[3]}=${noms[0] + noms[2]}$.<br>`
-        texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
 
-        texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu et comme de plus elles ont la même longueur, ${texteGras(nom)} ${texteGras(' est donc un rectangle')}.<br>`
         if (this.correctionDetaillee) {
-          texteCorr += `Soit $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
+          texteCorr += `Désignons $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$ puis $${noms[4]}$ au milieu de $[${noms[1] + noms[3]}]$.<br>`
-          texteCorr += `Les quatre sommets de ${nom} sont sur le cercle de centre $${noms[4]}$ passant par $${noms[0]}$. $[${noms[0]}${noms[2]}]$ et $[${noms[1]}${noms[3]}]$ sont des diamètres de ce cercle.<br>`
+          texteCorr += `Les quatre sommets de $${nom}$ sont sur le cercle de centre $${noms[4]}$ passant par $${noms[0]}$. $[${noms[0]}${noms[2]}]$ et $[${noms[1]}${noms[3]}]$ sont des diamètres de ce cercle.<br>`
         }
+        texteCorr += `Comme $${nom}$ est un parallélogramme dont les diagonales ont la même longueur, $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('est donc un rectangle')}.<br>`
         objetsCorrection.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
         t1 = cercleCentrePoint(O, A, 'gray')
         t1.opacite = 0.5
@@ -178,16 +171,16 @@ export default function ConstructionsParallelogrammesParticuliers () {
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
 
-        texte = `${nom} est un parallélogramme tel que `
+        texte = `$${nom}$ est un parallélogramme tel que `
         texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[1] + noms[3]}=${texNombre(c4)}$ cm, $[${noms[0] + noms[2]}]\\perp [${noms[1] + noms[3]}]$.<br>`
-        texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
 
-        texteCorr += `Comme ${nom} est un parallélogramme dont les diagonales $[${noms[0] + noms[2]}]$ et $[${noms[1] + noms[3]}]$ sont perpendiculaires, ${nom}${texteGras(' est un losange')}.<br>`
         if (this.correctionDetaillee) {
-          texteCorr += `Il en résulte que le triangle $${noms[0] + noms[1] + noms[3]}$ est isoclèle en $${noms[0]}$.<br>`
+          texteCorr += `Comme $${nom}$ est un parallélogramme dont les diagonales sont perpendiculaires, c'est un losange et alors `
+          texteCorr += `le triangle $${noms[0] + noms[1] + noms[3]}$ est isocèle en $${noms[0]}$.<br>`
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$ puis $${noms[4]}$, le milieu de $[${noms[1] + noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
         }
+        texteCorr += `Comme $${nom}$ est un parallélogramme dont les diagonales sont perpendiculaires, $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('est donc un losange')}.<br>`
         objetsCorrection.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
         t1 = traceCompas(A, D, 15)
         t2 = traceCompas(B, D, 15)
@@ -208,16 +201,17 @@ export default function ConstructionsParallelogrammesParticuliers () {
         D = similitude(B, A, alpha, c4 / c1, noms[3])
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
-        texte = `${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
+        texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
         texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[1] + noms[2] + noms[3]}}=${alpha}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>`
-        texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
         if (this.correctionDetaillee) {
-          texteCorr += `Comme ${nom} est un parallélogramme, ses angles opposés ont la même mesure, donc $\\widehat{${noms[3] + noms[0] + noms[1]}}=${alpha}\\degree$.<br>`
+          texteCorr += `Comme $${nom}$ est un parallélogramme, ses angles opposés ont la même mesure, donc $\\widehat{${noms[3] + noms[0] + noms[1]}}=${alpha}\\degree$.<br>`
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$.<br>`
-          texteCorr += `Puis le point $${noms[2]}$ symétrique  de $${noms[0]}$ par rapport à $${noms[4]}$, milieu de $[${noms[1] + noms[3]}]$.<br>`
+          texteCorr += `Désignons $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$.<br>`
+          texteCorr += `Construisons ensuite le point $${noms[2]}$ symétrique  de $${noms[0]}$ par rapport à $${noms[4]}$, milieu de $[${noms[1] + noms[3]}]$.<br>`
         }
-        texteCorr += `Comme ${nom} est un parallélogramme qui ne possède pas d'angle droit et que ses côtés consécutifs sont de longueurs différentes, ${texteGras('c\'est un simple parallélogramme')}.<br>`
+        texteCorr += `Comme $${nom}$ est un parallélogramme qui ne possède pas d'angle droit et que ses côtés consécutifs sont de longueurs différentes, `
+        texteCorr += `$${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est pas un paraléllogramme particulier')}.<br>`
         t1 = traceCompas(A, D, 15)
         t2 = traceCompas(A, B, 15)
         t3 = traceCompas(O, C, 20)
@@ -240,24 +234,24 @@ export default function ConstructionsParallelogrammesParticuliers () {
         O = pointIntersectionCC(cercle(A, c2), cercle(B, c3), noms[4])
         C = rotation(A, O, 180, noms[2])
         D = rotation(B, O, 180, noms[3])
-        texte = `${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
+        texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
         texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[4] + noms[2]}=${texNombre(c2)}$ cm et $${noms[4] + noms[3]}=${texNombre(c3)}$ cm.<br>`
-        texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
         if (this.correctionDetaillee) {
-          texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
+          texteCorr += `Comme $${nom}$ est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
           texteCorr += `On en déduit que $${noms[0] + noms[4]}=${noms[4] + noms[2]}=${texNombre(c2)}$ cm et que $${noms[1] + noms[4]}=${noms[4] + noms[3]}=${texNombre(c3)}$ cm.<br>`
-          texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[4]}$.<br>`
-          texteCorr += `Puis les points $${noms[2]}$ et $${noms[3]}$ symétriques respectifs de $${noms[0]}$ et $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
+          texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[4]}$ `
+          texteCorr += `puis les points $${noms[2]}$ et $${noms[3]}$ symétriques respectifs de $${noms[0]}$ et $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
         }
         if (c1 * c1 !== (c2 * c2 + c3 * c3)) {
-          texteCorr += `le triangle $${noms[0] + noms[1] + noms[4]}$ n'est pas un triangle rectangle, donc les diagonales ne sont pas perpendiculaires.<br>`
-          if (c2 === c3) texteCorr += `Les diagonales ont la même longueur. ${nom} est un parallélogramme dont les diagonales sont de même longueur, ${texteGras('c\'est donc un rectangle')}.<br>`
-          else texteCorr += `De plus elles n'ont pas la même longueur, donc ${nom} ${texteGras('est un simple parallélogramme')}.<br>`
+          texteCorr += `Le triangle $${noms[0] + noms[1] + noms[4]}$ n'est pas un triangle rectangle, donc les diagonales ne sont pas perpendiculaires.<br>`
+          if (c2 === c3) texteCorr += `Les diagonales ont la même longueur. $${nom}$ est un parallélogramme dont les diagonales sont de même longueur, $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('est donc un rectangle')}.<br>`
+          else texteCorr += `De plus, elles n'ont pas la même longueur, donc $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est pas un paraléllogramme particulier')}.<br>`
         } else {
           texteCorr += `Le triangle $${noms[0] + noms[1] + noms[4]}$ est un triangle rectangle, donc les diagonales sont perpendiculaires.<br>`
-          if (c2 === c3) texteCorr += `de plus les diagonales ont même longueur. ${nom} est un parallélogramme dont les diagonales sont perpendiculaires et de même longueur, ${texteGras('c\'est donc un carré')}.<br>`
+          if (c2 === c3) texteCorr += `de plus les diagonales ont même longueur. $${nom}$ est un parallélogramme dont les diagonales sont perpendiculaires et de même longueur, $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('est donc un carré')}.<br>`
         }
+        texteCorr += '.<br>'
         t1 = traceCompas(A, O, 20)
         t2 = traceCompas(B, O, 20)
         t3 = traceCompas(O, C, 30)
@@ -283,21 +277,20 @@ export default function ConstructionsParallelogrammesParticuliers () {
         dd2 = droite(C, D)
         B = pointIntersectionDD(dd1, dd2, noms[1])
         D = rotation(B, O, 180, noms[3])
-        texte = `${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
+        texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
         texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm.<br>$\\widehat{${noms[4] + noms[0] + noms[1]}}=${c2}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>$\\widehat{${noms[4] + noms[2] + noms[1]}}=${c3}\\degree$  dans le sens des aiguilles d'une montre.<br>`
-        texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
         objetsEnonce.push(tracePoint(A, C), labelPoint(A, C))
         if (this.correctionDetaillee) {
-          texteCorr += `Comme ${nom} est un parallélogramme, ses côtés opposés sont parallèles.<br>`
+          texteCorr += `Comme $${nom}$ est un parallélogramme, ses côtés opposés sont parallèles.<br>`
           texteCorr += `La diagonale $[${noms[0]}${noms[2]}]$ forme des angles $\\widehat{${noms[4] + noms[0] + noms[1]}}$ et $\\widehat{${noms[4] + noms[2] + noms[3]}}$ alternes-internes égaux.<br>`
           texteCorr += `De même les angles $\\widehat{${noms[4] + noms[0] + noms[3]}}$ et $\\widehat{${noms[4] + noms[2] + noms[1]}}$ sont alternes-internes égaux eux aussi.<br>`
           texteCorr += `On en déduit que $\\widehat{${noms[4] + noms[0] + noms[3]}}=\\widehat{${noms[4] + noms[2] + noms[1]}}=${miseEnEvidence(c3, 'red')}\\degree$ et que $\\widehat{${noms[4] + noms[0] + noms[1]}}=\\widehat{${noms[4] + noms[2] + noms[3]}}=${miseEnEvidence(c2, 'blue')}\\degree$.<br>`
-          texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[2]}$.<br>`
-          texteCorr += `Puis le points $${noms[3]}$ symétrique de $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
+          texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[2]}$ `
+          texteCorr += `puis le point $${noms[3]}$ symétrique de $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
         }
 
         texteCorr += `Le triangle $${noms[0] + noms[1] + noms[2]}$ n'est pas un triangle isocèle car ses angles ne sont pas égaux.<br>`
-        texteCorr += `De plus dans ce triangle  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180 - c2 - c3}\\degree$ donc ${nom} ${texteGras('est un simple parallélogramme')}.<br>`
+        texteCorr += `De plus, dans ce triangle $${noms[0] + noms[1] + noms[2]}$,  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180 - c2 - c3}\\degree$ et n'est pas droit donc $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est pas un paraléllogramme particulier')}.<br>`
         t1 = afficheMesureAngle(O, A, B, 'blue', 1, texNombre(c2) + '°')
         t2 = afficheMesureAngle(O, C, B, 'red', 1, texNombre(c3) + '°')
         t3 = traceCompas(O, D, 30)
@@ -311,6 +304,8 @@ export default function ConstructionsParallelogrammesParticuliers () {
         yM = Math.max(A.y, B.y, C.y) + 0.8
         break
     }
+    texte += `Construire le parallélogramme $${nom}$ et préciser si c'est un paraléllogramme particulier.<br>`
+
     const p = polygoneAvecNom(A, B, C, D)
 
     const xMin = Math.min(A.x, B.x, C.x, D.x) - 2
