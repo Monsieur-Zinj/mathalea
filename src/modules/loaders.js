@@ -152,7 +152,7 @@ export async function loadMathLive () {
     window.mathVirtualKeyboard.targetOrigin = '*'
     for (const mf of champs) {
       let clavier, raccourcis
-      mf.mathVirtualKeyboardPolicy = 'manual'
+      mf.mathVirtualKeyboardPolicy = 'sandboxed'
       mf.virtualKeyboardTargetOrigin = '*'
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
@@ -198,27 +198,56 @@ export async function loadMathLive () {
       })
       mf.inlineShortcuts = raccourcis
 
-      // *******              REMI : A TOI D'ADAPTER LE CODE CI-DESSOUS             ********
+      // Evite les problèmes de positionnement du clavier mathématique dans les iframes
+      // if (context.vue === 'exMoodle') {
+      if (window.self !== window.top) { // Si on est dans une iframe
+        if (!document.getElementById('fixKeyboardPositionInIframe')) {
+          const style = document.createElement('style')
+          style.setAttribute('id', 'fixKeyboardPositionInIframe')
+          style.innerHTML = `
+          div.ML__keyboard.is-visible {
+            position: absolute;
+            top: var(--keyboard-position);
+            height: var(--_keyboard-height);
+          }
+          
+          div.ML__keyboard.is-visible .ML__keyboard--plate {
+            position: static;
+            transform: none;
+          }`
+          document.head.appendChild(style)
+        }
+        const events = ['focus', 'input']
+        events.forEach(e => {
+          mf.addEventListener(e, () => {
+            setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
+              // Alternative à jQuery Offset : https://youmightnotneedjquery.com/#offset
+              const box = mf.getBoundingClientRect()
+              const docElem = document.documentElement
+              const offset = {
+                top: box.top + window.scrollY - docElem.clientTop, // pageYOffset remplacé par scrollY
+                left: box.left + window.scrollX - docElem.clientLeft // pageXOffset remplacé par scrollX
+              }
+              // Autre Alternative à jQuery Offset : https://usefulangle.com/post/179/jquery-offset-vanilla-javascript
+              // const rect = mf.getBoundingClientRect();
+              // const offset = {
+              //   top: rect.top + window.scrollY,
+              //   left: rect.left + window.scrollX,
+              // }
+              // Alternative à jQuery outerHeight : https://youmightnotneedjquery.com/#outer_height
+              const position = offset.top + mf.offsetHeight + 'px'
+              document.body.style.setProperty('--keyboard-position', position)
+            })
+          })
+        })
+      }
 
-      //   // Evite les problèmes de positionnement du clavier mathématique dans les iframes
-      //   if (context.vue === 'exMoodle') {
-      //     const events = ['focus', 'input']
-      //     events.forEach(e => {
-      //       mf.addEventListener(e, () => {
-      //         setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
-      //           const position = jQuery(mf).offset().top + jQuery(mf).outerHeight() + 'px'
-      //           document.body.style.setProperty('--keyboard-position', position)
-      //         })
-      //       })
-      //     })
-      //   }
-
-      //   if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
-      //     // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
-      //     mf.setOptions({
-      //       virtualKeyboardMode: 'onfocus'
-      //     })
-      //   }
+      if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
+        // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
+        mf.setOptions({
+          virtualKeyboardMode: 'onfocus'
+        })
+      }
 
       let style = 'font-size: 20px;'
 
