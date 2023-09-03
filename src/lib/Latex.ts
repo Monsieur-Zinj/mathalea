@@ -151,7 +151,7 @@ class Latex {
         if (withQrcode) {
           content += '\n\\end{minipage}'
           content += '\n\\begin{minipage}{0.20\\linewidth}'
-          content += `\n\\qrcode{${getUrlFromExercice(exercice)}}`
+          content += `\n\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}}`
           content += '\n\\end{minipage}'
         }
         content += '\n\\end{exercice}\n'
@@ -236,6 +236,7 @@ class Latex {
       result += '\n\\usepackage{ProfCollege}'
       result += '\n\\usepackage{ProfMaquette}'
       result += '\n\\usepackage{qrcode}'
+      result += '\\usepackage[luatex]{hyperref}}'
       result += '\n\\usepackage{tkz-tab}'
       result += '\n\\usepackage{mathrsfs}'
       result += '\n\\usepackage[margin=1cm]{geometry}'
