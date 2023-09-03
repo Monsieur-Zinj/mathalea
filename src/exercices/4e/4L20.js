@@ -31,17 +31,12 @@ export const uuid = '799c4'
 export const ref = '4L20'
 export default function ExerciceEquation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Résoudre les équations suivantes.'
   this.spacing = 2
   this.interactifType = 'mathLive'
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.correctionDetailleeDisponible = true
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
-  } else {
-    this.correctionDetaillee = true
-  }
+  this.correctionDetaillee = context.isHtml
   this.sup = true // Avec des nombres relatifs
   this.sup2 = 4 // Choix du type d'équation
   this.nbQuestions = 6
@@ -51,6 +46,9 @@ export default function ExerciceEquation1 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    this.consigne = this.nbQuestions === 1
+      ? 'Résoudre l\'équation suivante.'
+      : 'Résoudre les équations suivantes.'
     if (this.interactif) {
       this.introduction = lampeMessage({
         titre: 'Calculatrice autorisée.',
@@ -139,10 +137,10 @@ export default function ExerciceEquation1 () {
         if (pgcd(abs(a), abs(c - b)) > 1 || a < 0) {
           texteCorr += `<br>$x=${texFractionReduite(c - b, a)}$`
         }
-        texteCorr += `<br> La solution est $${texFractionReduite(
+        texteCorr += `<br> La solution est $${miseEnEvidence(texFractionReduite(
                     c - b,
                     a
-                )}$.`
+                ))}$.`
         reponse = fraction(c - b, a).simplifie()
         setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
@@ -165,7 +163,7 @@ export default function ExerciceEquation1 () {
                     ecritureAlgebrique(-1 * b)
                 )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
         texteCorr += `$x=${c - b}$`
-        texteCorr += `<br> La solution est $${c - b}$.`
+        texteCorr += `<br> La solution est $${miseEnEvidence(c - b)}$.`
         reponse = c - b
         setReponse(this, i, fraction(c - b, 1), { formatInteractif: 'fractionEgale' })
       }
@@ -191,7 +189,7 @@ export default function ExerciceEquation1 () {
         if (pgcd(abs(a), abs(b)) > 1 || a < 0) {
           texteCorr += `<br>$x=${texFractionReduite(b, a)}$`
         }
-        texteCorr += `<br> La solution est $${texFractionReduite(b, a)}$.`
+        texteCorr += `<br> La solution est $${miseEnEvidence(texFractionReduite(b, a))}$.`
         reponse = fraction(b, a).simplifie()
         setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
@@ -266,15 +264,15 @@ export default function ExerciceEquation1 () {
         if (pgcd(abs(d - b), abs(a - c)) > 1 || a - c < 0) {
           texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`
         }
-        texteCorr += `<br> La solution est $${texFractionReduite(
+        texteCorr += `<br> La solution est $${miseEnEvidence(texFractionReduite(
                     d - b,
                     a - c
-                )}$.`
+                ))}$.`
         reponse = fraction(d - b, a - c).simplifie()
         setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
         this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
