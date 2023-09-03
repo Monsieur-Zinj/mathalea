@@ -197,7 +197,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
     </div>
 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
-    <ButtonOverleaf {latex} latexFileInfos={{ title, reference, subtitle, style, nbVersions }} disabled={style === 'ProfMaquette'} />
+    <ButtonOverleaf {latex} latexFileInfos={{ title, reference, subtitle, style, nbVersions }} disabled={style === 'ProfMaquette' || style === 'ProfMaquetteQrcode'} />
     <div
       class="flex flex-col md:flex-row justify-start space-x-0 space-y-2 mt-6 md:space-x-4 md:space-y-0"
     >

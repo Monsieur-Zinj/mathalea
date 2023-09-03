@@ -236,6 +236,8 @@ class Latex {
       result += '\n\\usepackage{ProfCollege}'
       result += '\n\\usepackage{ProfMaquette}'
       result += '\n\\usepackage{qrcode}'
+      result += '\n\\usepackage{tkz-tab}'
+      result += '\n\\usepackage{mathrsfs}'
       result += '\n\\usepackage[margin=1cm]{geometry}'
       result += '\n\\pagestyle{empty}'
       result += '\n\\usepackage{enumitem}'
