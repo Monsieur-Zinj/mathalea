@@ -16,7 +16,7 @@ class xCas {
     this.typeExercice = 'html xcas'
     this.titre = titre
     this.html = document.createElement('div')
-    let firstTime:boolean = true
+    let firstTime = true
     const intro = document.createElement('p')
     const field = createTextInput({ autoCorrect: false })
     const button = createButon({ title: 'Exécuter' })

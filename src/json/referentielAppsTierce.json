@@ -1,0 +1,32 @@
+{
+  "groupe01": {
+    "rubrique": "Applications d'Arnaud Durand",
+    "liste": {
+      "app01": {
+        "title":"Permis Littéral",
+        "presentation":
+          "L’idée de ce programme est de proposer une étape certificatrice et formatrice dans le processus d’apprentissage sur le calcul littéral en 5e notamment sur la réduction.",
+        "imgPath": "images/apps/app_permis_litteral.png",
+        "uuid": "permisLitteral"
+      },
+      "app02": {
+        "title":"Permis Équerre",
+        "presentation":
+          "Exerciseur certifiant qui permet d’apprendre puis certifier l’usage de l’équerre.",
+        "imgPath": "images/apps/app_permis_equerre.png",
+        "uuid": "permisEquerre"
+      }
+    }
+  },
+  "groupe02": {
+    "rubrique": "Applications Coopmaths",
+    "liste": {
+      "app01": {
+        "title": "Challenge Relatifs",
+        "presentation": "Calculs avec des nombres relatifs en temps limité.",
+        "imgPath": "images/apps/app_challenge_relatifs.png",
+        "uuid": "challengeRelatif"
+      }
+    }
+  }
+}
