@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { ReferentielForList } from 'src/lib/types'
-  import NiveauListeExos from './NiveauListeExos.svelte'
-  import EntreeListeOutils from '../outils/EntreeListeOutils.svelte'
-  import { codeToLevelTitle } from '../utils/referentielsUtils'
-  import SearchExercice from './SearchExercice.svelte'
-  import { onMount } from 'svelte'
-  import { toObject } from '../utils/toObj'
-  import EntreeListeRessources from './EntreeListeRessources.svelte'
+  import type { ReferentielForList } from "src/lib/types"
+  import NiveauListeExos from "./NiveauListeExos.svelte"
+  import EntreeListeOutils from "../outils/EntreeListeOutils.svelte"
+  import { codeToLevelTitle } from "../utils/referentielsUtils"
+  import SearchExercice from "./SearchExercice.svelte"
+  import { onMount } from "svelte"
+  import { toObject } from "../utils/toObj"
+  import EntreeListeRessources from "./EntreeListeRessources.svelte"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
@@ -30,7 +30,7 @@
   >
     {ref.title}</button
   >
-  <div class={moreThanOne ? 'flex' : 'flex md:hidden'}>
+  <div class={moreThanOne ? "flex" : "flex md:hidden"}>
     <button
       type="button"
       on:click={() => {
@@ -45,24 +45,30 @@
     </button>
   </div>
 </div>
-<ul class={isMenuDeployed ? 'w-full flex flex-col pl-4 ' : 'hidden'}>
-  {#if ref.type === 'outils'}
+<ul class={isMenuDeployed ? "w-full flex flex-col pl-4 " : "hidden"}>
+  {#if ref.type === "outils"}
     {#each ref.content as item, i}
       <li>
         <EntreeListeOutils outil={item} />
       </li>
     {/each}
-  {:else if ref.type === 'exercices'}
+  {:else if ref.type === "exercices"}
     <SearchExercice referentiel={refAsObject} on:filters />
     {#each ref.content as item, i}
       <li>
-        <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+        <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} section={ref.type} />
       </li>
     {/each}
-  {:else if ref.type === 'ressources'}
+  {:else if ref.type === "ressources"}
     {#each ref.content as item, i}
       <li>
         <EntreeListeRessources ressource={item.obj} />
+      </li>
+    {/each}
+  {:else if ref.type === "bibliotheque"}
+    {#each ref.content as item, i}
+      <li>
+        <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} section={ref.type} />
       </li>
     {/each}
   {:else}
