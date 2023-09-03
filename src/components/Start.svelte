@@ -65,13 +65,16 @@
 
   // Contexte pour la bibliothèque de statiques
   import referentielBibliotheque from "../json/referentielBibliotheque.json"
+  import BreadcrumbHeader from "./sidebar/BreadcrumbHeader.svelte"
   const bibliothequeReferentielArray = Array.from(toMap({ ...referentielBibliotheque }), ([key, obj]) => ({ key, obj }))
   const bibliothequeReferentielForSideMenu: ReferentielForList = { title: "Exercices (données statiques)", content: [...bibliothequeReferentielArray], type: "bibliotheque" }
   let showBibliothequeChoiceDialog = false
   let bibliothequeChoiceModal: ModalGridOfCards
-  let bibliothequeInExercisesList: string[]
+  let bibliothequeUuidInExercisesList: string[]
+  let bibliothequePathToSection: string[]
   setContext("bibliothequeChoiceContext", {
-    toggleBibliothequeChoiceDialog: () => {
+    toggleBibliothequeChoiceDialog: (list, section, path) => {
+      bibliothequePathToSection = path
       showBibliothequeChoiceDialog = !showBibliothequeChoiceDialog
       if (showBibliothequeChoiceDialog === false) {
         bibliothequeChoiceModal.closeModal()
@@ -535,7 +538,9 @@
     </div>
   </ModalGridOfCards>
   <ModalGridOfCards bind:this={bibliothequeChoiceModal} bind:displayModal={showBibliothequeChoiceDialog}>
-    <div slot="header">Choix des Applications Tierces</div>
+    <div slot="header">
+      <BreadcrumbHeader path={bibliothequePathToSection} />
+    </div>
   </ModalGridOfCards>
 </div>
 

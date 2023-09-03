@@ -4,6 +4,7 @@
   export let nestedLevelCount: number
   export let section: string
   export let list: any
+  export let pathToThisNode: string[] = []
   const { toggleBibliothequeChoiceDialog } = getContext("bibliothequeChoiceContext")
 </script>
 
@@ -14,8 +15,9 @@
   <button
     type="button"
     on:click={() => {
-      console.log(list)
-      toggleBibliothequeChoiceDialog()
-    }}>{section}</button
+      toggleBibliothequeChoiceDialog(list, section, pathToThisNode)
+    }}
   >
+    {section}
+  </button>
 </div>

@@ -133,7 +133,7 @@
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item, i}
       <li>
         {#if section === "bibliotheque" && nestedLevelCount === 2}
-          <EntreeBibliotheque section={item.key} nestedLevelCount={nestedLevelCount + 1} list={item.obj} />
+          <EntreeBibliotheque section={item.key} nestedLevelCount={nestedLevelCount + 1} list={item.obj} pathToThisNode={[...pathToThisNode, item.key]} />
         {:else if item.obj.has("uuid")}
           <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} exercice={item.obj} />
         {:else}
