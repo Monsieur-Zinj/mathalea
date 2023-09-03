@@ -73,6 +73,20 @@
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
   let bibliothequePathToSection: string[]
+  $: {
+    bibliothequeUuidInExercisesList = []
+    let uuidList: string[] = []
+    for (const entry of $exercicesParams) {
+      uuidList.push(entry.uuid)
+    }
+    for (const exo of $bibliothequeSectionContent) {
+      if (uuidList.includes(exo.uuid)) {
+        bibliothequeUuidInExercisesList.push(exo.uuid)
+      }
+      console.log(bibliothequeUuidInExercisesList)
+    }
+    bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
+  }
   setContext("bibliothequeChoiceContext", {
     toggleBibliothequeChoiceDialog: (path) => {
       bibliothequePathToSection = path
@@ -549,7 +563,7 @@
         {:else}
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {#each $bibliothequeSectionContent as exercise, i}
-              <ImageCard {exercise} />
+              <ImageCard {exercise} selected={bibliothequeUuidInExercisesList.includes(exercise.uuid)} />
             {/each}
           </div>
         {/if}
