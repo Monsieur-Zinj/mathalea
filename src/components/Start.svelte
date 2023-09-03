@@ -66,6 +66,7 @@
   // Contexte pour la bibliothèque de statiques
   import referentielBibliotheque from "../json/referentielBibliotheque.json"
   import BreadcrumbHeader from "./sidebar/BreadcrumbHeader.svelte"
+  import ImageCard from "./ui/ImageCard.svelte"
   const bibliothequeReferentielArray = Array.from(toMap({ ...referentielBibliotheque }), ([key, obj]) => ({ key, obj }))
   const bibliothequeReferentielForSideMenu: ReferentielForList = { title: "Exercices (données statiques)", content: [...bibliothequeReferentielArray], type: "bibliotheque" }
   let showBibliothequeChoiceDialog = false
@@ -542,13 +543,15 @@
       <BreadcrumbHeader path={bibliothequePathToSection} />
     </div>
     <div slot="content">
-      <div class="p2">
+      <div class="mx-2 pt-8">
         {#if $bibliothequeSectionContent.length === 0}
           <div>Pas d'exercices dans cette section</div>
         {:else}
-          {#each $bibliothequeSectionContent as item, i}
-            <div class="py-1">Exercice {i}</div>
-          {/each}
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {#each $bibliothequeSectionContent as exercise, i}
+              <ImageCard {exercise} />
+            {/each}
+          </div>
         {/if}
       </div>
     </div>
