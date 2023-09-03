@@ -19,7 +19,7 @@
   let title = ''
   let reference = ''
   let subtitle = ''
-  let style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can' = 'Coopmaths'
+  let style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can' = 'Coopmaths'
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
   let contents = { content: '', contentCorr: '' }
@@ -120,7 +120,8 @@ export function buildMessageForCopyPaste (picsWanted: boolean) {
  * @author sylvain
  */
 async function copyLaTeXCodeToClipBoard (dialogId: string) {
-  const text = document.querySelector('pre').innerText
+  const pre = document.querySelector('pre') as HTMLPreElement
+  const text = pre.innerText
   navigator.clipboard.writeText(text).then(
     () => {
       showDialogForLimitedTime(dialogId + '-1', 2000)
@@ -150,6 +151,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
               { label: 'Coopmaths', value: 'Coopmaths' },
               { label: 'Classique', value: 'Classique' },
               { label: 'ProfMaquette', value: 'ProfMaquette' },
+              { label: 'ProfMaquette avec QrCode', value: 'ProfMaquetteQrcode' },
               { label: 'Course aux nombres', value: 'Can', isDisabled: isExerciceStaticInTheList }
             ]}
           />
