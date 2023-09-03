@@ -125,13 +125,16 @@ export function mathalea2d (
     codeSvg += '\n</svg>'
     codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
     //  pixelsParCm = 20;
-    return `<div style="padding: 0px 0px;">
-<div style="position: relative; top: 0px; left: 0px;">
-        ${codeSvg}
-        ${divsLatex.join('\n')}
-      </div>
-      </div>
-`
+    if (divsLatex.length > 0) {
+      return `<div class="svgContainer" style="padding: 0px 0px;">
+        <div style="position: relative;">
+          ${codeSvg}
+          ${divsLatex.join('\n')}
+        </div>
+      </div>`
+    } else {
+      return codeSvg
+    }
   } else { // le context est Latex
     // si scale existe autre que 1 il faut que le code reste comme avant
     // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
