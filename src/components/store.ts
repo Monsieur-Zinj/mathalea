@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store'
-import type { CallerComponentType, InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice } from '../lib/types'
+import type { CallerComponentType, InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice, bibliothequeExercise } from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -67,6 +67,9 @@ export const isSideMenuVisible = writable<boolean>(true)
 
 // pour garder trace de la page appelant l'export
 export const callerComponent = writable<CallerComponentType>('')
+
+// pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
+export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
 
 /**
  * Déplace un exercice dans exercicesParams

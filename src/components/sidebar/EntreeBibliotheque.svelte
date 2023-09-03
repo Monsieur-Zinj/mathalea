@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { exercicesParams } from "../store"
+  import { exercicesParams, bibliothequeSectionContent } from "../store"
+  import { toObject } from "../utils/toObj"
   import { getContext } from "svelte"
   export let nestedLevelCount: number
   export let section: string
@@ -15,7 +16,13 @@
   <button
     type="button"
     on:click={() => {
-      toggleBibliothequeChoiceDialog(list, section, pathToThisNode)
+      // const obj = toObject(list)
+      let content = []
+      list.forEach((value) => {
+        content.push(toObject(value))
+      })
+      $bibliothequeSectionContent = [...content]
+      toggleBibliothequeChoiceDialog(pathToThisNode)
     }}
   >
     {section}

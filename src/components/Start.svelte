@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent, bibliothequeSectionContent } from "./store"
   import SideMenu from "./sidebar/SideMenu.svelte"
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
   import { flip } from "svelte/animate"
@@ -73,7 +73,7 @@
   let bibliothequeUuidInExercisesList: string[]
   let bibliothequePathToSection: string[]
   setContext("bibliothequeChoiceContext", {
-    toggleBibliothequeChoiceDialog: (list, section, path) => {
+    toggleBibliothequeChoiceDialog: (path) => {
       bibliothequePathToSection = path
       showBibliothequeChoiceDialog = !showBibliothequeChoiceDialog
       if (showBibliothequeChoiceDialog === false) {
@@ -540,6 +540,17 @@
   <ModalGridOfCards bind:this={bibliothequeChoiceModal} bind:displayModal={showBibliothequeChoiceDialog}>
     <div slot="header">
       <BreadcrumbHeader path={bibliothequePathToSection} />
+    </div>
+    <div slot="content">
+      <div class="p2">
+        {#if $bibliothequeSectionContent.length === 0}
+          <div>Pas d'exercices dans cette section</div>
+        {:else}
+          {#each $bibliothequeSectionContent as item, i}
+            <div class="py-1">Exercice {i}</div>
+          {/each}
+        {/if}
+      </div>
     </div>
   </ModalGridOfCards>
 </div>
