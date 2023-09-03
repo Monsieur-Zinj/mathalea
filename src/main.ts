@@ -12,6 +12,9 @@ if (typeof (BigInt) === 'undefined') {
   window.BigInt = bigInt
 }
 
+const a = BigInt(0)
+console.log(a)
+
 const app = new App({
   target: document.getElementById('appMathalea')
 })
