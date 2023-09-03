@@ -1,9 +1,10 @@
 <script lang="ts">
   import { exercicesParams } from "../store"
-
+  import { getContext } from "svelte"
   export let nestedLevelCount: number
   export let section: string
   export let list: any
+  const { toggleBibliothequeChoiceDialog } = getContext("bibliothequeChoiceContext")
 </script>
 
 <div
@@ -14,6 +15,7 @@
     type="button"
     on:click={() => {
       console.log(list)
+      toggleBibliothequeChoiceDialog()
     }}>{section}</button
   >
 </div>

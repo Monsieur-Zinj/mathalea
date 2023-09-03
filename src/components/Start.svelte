@@ -55,7 +55,7 @@
     appsTierceInExercisesList = appsTierceInExercisesList
   }
   setContext("thirdAppsChoiceContext", {
-    toogleThirdAppsChoiceDialog: () => {
+    toggleThirdAppsChoiceDialog: () => {
       showThirdAppsChoiceDialog = !showThirdAppsChoiceDialog
       if (showThirdAppsChoiceDialog === false) {
         thirdAppsChoiceModal.closeModal()
@@ -68,7 +68,16 @@
   const bibliothequeReferentielArray = Array.from(toMap({ ...referentielBibliotheque }), ([key, obj]) => ({ key, obj }))
   const bibliothequeReferentielForSideMenu: ReferentielForList = { title: "Exercices (données statiques)", content: [...bibliothequeReferentielArray], type: "bibliotheque" }
   let showBibliothequeChoiceDialog = false
+  let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeInExercisesList: string[]
+  setContext("bibliothequeChoiceContext", {
+    toggleBibliothequeChoiceDialog: () => {
+      showBibliothequeChoiceDialog = !showBibliothequeChoiceDialog
+      if (showBibliothequeChoiceDialog === false) {
+        bibliothequeChoiceModal.closeModal()
+      }
+    },
+  })
   /**
    * Démarrage
    */
@@ -524,6 +533,9 @@
         {/each}
       </div>
     </div>
+  </ModalGridOfCards>
+  <ModalGridOfCards bind:this={bibliothequeChoiceModal} bind:displayModal={showBibliothequeChoiceDialog}>
+    <div slot="header">Choix des Applications Tierces</div>
   </ModalGridOfCards>
 </div>
 
