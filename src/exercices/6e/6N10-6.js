@@ -5,11 +5,12 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { max } from 'mathjs'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -76,7 +77,9 @@ export default function SommeFractionsDecimales () {
         case 1: // Somme de deux fractions décimales de même dénominateur
           b = randint(2, 50)
           c = randint(2, 50, [b])
-          while ((b + c) % 10 === 0) { c = randint(2, 50, [b]) } // Pour éviter d'avoir une somme multiple de 10
+          while ((b + c) % 10 === 0) {
+            c = randint(2, 50, [b])
+          } // Pour éviter d'avoir une somme multiple de 10
           texte = `$${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(b + c)
           reponseAMC = calcul(numAMC / denAMC)
@@ -86,9 +89,11 @@ export default function SommeFractionsDecimales () {
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
+            case 2 :
+              texteCorr = `$${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default :
+              texteCorr = `$${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -104,9 +109,11 @@ export default function SommeFractionsDecimales () {
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
+            case 2 :
+              texteCorr = `$${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default :
+              texteCorr = `$${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -114,7 +121,9 @@ export default function SommeFractionsDecimales () {
           b = (choix === 1) ? randint(2, 7) : randint(2, 50)
           c = (choix === 1) ? randint(2, 7, [b, 10 - b]) : randint(2, 50, [b])
           a = randint(2, 20, [b, c])
-          while ((b + c) % 10 === 0) { c = randint(2, 50, [a, b]) } // Pour éviter d'avoir une somme multiple de 10
+          while ((b + c) % 10 === 0) {
+            c = randint(2, 50, [a, b])
+          } // Pour éviter d'avoir une somme multiple de 10
           texte = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b + c)
           reponseAMC = calcul(numAMC / denAMC)
@@ -124,9 +133,11 @@ export default function SommeFractionsDecimales () {
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
+            case 2 :
+              texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default :
+              texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -143,9 +154,11 @@ export default function SommeFractionsDecimales () {
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
+            case 2 :
+              texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default :
+              texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -153,7 +166,9 @@ export default function SommeFractionsDecimales () {
           b = randint(2, 50)
           c = randint(2, 50, [b])
           a = randint(2, 20, [b, c])
-          while ((b + c) % 10 === 0) { c = randint(2, 50, [a, b]) } // Pour éviter d'avoir une somme multiple de 10
+          while ((b + c) % 10 === 0) {
+            c = randint(2, 50, [a, b])
+          } // Pour éviter d'avoir une somme multiple de 10
           texte = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b + c)
           reponseAMC = calcul(numAMC / denAMC)
@@ -163,9 +178,11 @@ export default function SommeFractionsDecimales () {
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
+            case 2 :
+              texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default :
+              texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}+${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b + c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
@@ -182,27 +199,61 @@ export default function SommeFractionsDecimales () {
             this.canReponseACompleter = ''
           }
           switch (this.sup2) {
-            case 2 : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
+            case 2 :
+              texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}$`
               break
-            default : texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
+            default :
+              texteCorr = `$${a}+${deprecatedTexFraction(b, denAMC)}-${deprecatedTexFraction(c, denAMC)}=${a}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(a * denAMC, denAMC)}+${deprecatedTexFraction(b - c, denAMC)}=${deprecatedTexFraction(numAMC, denAMC)}=${texNombre(reponseAMC)}$`
               break
           }
           break
       }
       const choixDigit = randint(0, 1)
       switch (this.sup2) {
-        case 1 : setReponse(this, i, reponseAMC, { digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1), decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit, signe: false })
+        case 1 :
+          setReponse(this, i, reponseAMC, {
+            digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
+            decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+            signe: false
+          })
 
           break
-        case 2 : setReponse(this, i, new FractionEtendue(numAMC, denAMC), { digitsNum: nombreDeChiffresDe(numAMC), digitsDen: nombreDeChiffresDe(denAMC) + 1, signe: false, formatInteractif: 'fraction' })
+        case 2 :
+          setReponse(this, i, new FractionEtendue(numAMC, denAMC), {
+            digitsNum: nombreDeChiffresDe(numAMC),
+            digitsDen: nombreDeChiffresDe(denAMC) + 1,
+            signe: false,
+            formatInteractif: 'fraction'
+          })
           break
         case 3 :
           if (context.isAmc) {
-            if (choice([0, 1]) === 0) setReponse(this, i, new FractionEtendue(numAMC, denAMC), { digitsNum: nombreDeChiffresDe(numAMC), digitsDen: nombreDeChiffresDe(denAMC) + 1, signe: false, formatInteractif: 'fraction' })
-            else setReponse(this, i, reponseAMC, { digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1), decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit, signe: false })
+            if (choice([0, 1]) === 0) {
+              setReponse(this, i, new FractionEtendue(numAMC, denAMC), {
+                digitsNum: nombreDeChiffresDe(numAMC),
+                digitsDen: nombreDeChiffresDe(denAMC) + 1,
+                signe: false,
+                formatInteractif: 'fraction'
+              })
+            } else {
+              setReponse(this, i, reponseAMC, {
+                digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
+                decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+                signe: false
+              })
+            }
           } else {
-            setReponse(this, 2 * i, new FractionEtendue(numAMC, denAMC), { digitsNum: nombreDeChiffresDe(numAMC), digitsDen: nombreDeChiffresDe(denAMC) + 1, signe: false, formatInteractif: 'fraction' })
-            setReponse(this, 2 * i + 1, reponseAMC, { digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1), decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit, signe: false })
+            setReponse(this, 2 * i, new FractionEtendue(numAMC, denAMC), {
+              digitsNum: nombreDeChiffresDe(numAMC),
+              digitsDen: nombreDeChiffresDe(denAMC) + 1,
+              signe: false,
+              formatInteractif: 'fraction'
+            })
+            setReponse(this, 2 * i + 1, reponseAMC, {
+              digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
+              decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+              signe: false
+            })
           }
           break
       }

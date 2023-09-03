@@ -4,9 +4,10 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { fraction as fractionEtendue } from '../../modules/fractions.js'
 import { ajouteChampFractionMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

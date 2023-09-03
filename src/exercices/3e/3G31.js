@@ -11,13 +11,10 @@ import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre2 } from '../../lib/outils/texNombre.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -73,10 +70,10 @@ export default function CalculDAngle () {
       }
       angleABC = randint(35, 55)
       /*
-      if (!context.isHtml && this.sup) {
-           texte += '\\begin{minipage}{.6\\linewidth}\n'
-      }
-      */
+            if (!context.isHtml && this.sup) {
+                 texte += '\\begin{minipage}{.6\\linewidth}\n'
+            }
+            */
       switch (choixRapportTrigo) {
         case 'Acos': // AB=BCxcos(B)
           bc = arrondi(randint(100, 150) / 10, 1)
@@ -101,10 +98,10 @@ export default function CalculDAngle () {
           break
       }
       /*
-      if (!context.isHtml && this.sup) {
-        texte += '\n\\end{minipage}\n'
-      }
-      */
+            if (!context.isHtml && this.sup) {
+              texte += '\n\\end{minipage}\n'
+            }
+            */
       const ratioerreur = randint(80, 120, 100) / 100
       const a = point(0, 0)
       const b = point(ab * ratioerreur, 0)

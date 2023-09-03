@@ -4,8 +4,9 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import * as pkg from '@cortex-js/compute-engine'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +17,7 @@ export const dateDePublication = '20/03/2022' // La date de publication initiale
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Rémi Angot
  * Référence
-*/
+ */
 export default function TestFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

@@ -3,8 +3,9 @@ import { puissanceEnProduit } from '../../lib/outils/puissance.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Puissances : écriture décimale ou fractionnaire'
 
 export const dateDePublication = '14/06/2022'
@@ -14,7 +15,7 @@ export const interactifType = 'mathLive'
 /**
  * @author Rémi Angot
  * Référence 4C35
-*/
+ */
 export const uuid = '125bd'
 export const ref = '4C35'
 export default function PuissanceDecimaleOuFractionnaire () {
@@ -36,7 +37,8 @@ export default function PuissanceDecimaleOuFractionnaire () {
     const typeQuestionsDisponibles = ['puissancePos', 'puissanceNeg', 'negPuissancePaire', 'negPuissanceImpaire', 'negParenthesePuissancePaire', 'negParenthesePuissanceImpaire', 'puissance0', 'puissance1', 'negParenthesePuissancePaireNeg', 'negParenthesePuissanceImpaireNeg'] // On créé 3 types de questions
     const typesDeQuestions = (this.sup) ? typeQuestionsDisponibles : ['puissance0', 'puissance1', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg']
     const listeTypeQuestions = combinaisonListes(typesDeQuestions, this.nbQuestions)
-    let texte/** string */, texteCorr /** string */
+    let texte/** string */, texteCorr
+    /** string */
     let a /** number */, n /** number */, reponse/** any */
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) {

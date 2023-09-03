@@ -5,14 +5,20 @@ import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { texteGras } from '../../lib/format/style.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { ajouterAx, ajouterAy, allerA, angleScratchTo2d, attendre, baisseCrayon, creerLutin, leveCrayon, orienter } from '../../modules/2dLutin.js'
+import {
+  ajouterAx,
+  ajouterAy,
+  allerA,
+  angleScratchTo2d,
+  attendre,
+  baisseCrayon,
+  creerLutin,
+  leveCrayon,
+  orienter
+} from '../../modules/2dLutin.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { scratchblock } from '../../modules/scratchblock.js'
@@ -37,6 +43,7 @@ export default function ScratchMultiScript () {
     const initialValue = 0
     return arr.reduce((previousValue, currentValue) => previousValue + (currentValue < 0 ? 1 : 0), initialValue)
   }
+
   this.spacing = 2
   this.nbQuestions = 1
   this.titre = titre
@@ -61,7 +68,14 @@ export default function ScratchMultiScript () {
     this.autoCorrection = []
     const mesQcm = []
     let indexReponse = 0
-    const choixQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, nbQuestions: this.nbQuestions, shuffle: true })
+    const choixQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      defaut: 1,
+      nbQuestions: this.nbQuestions,
+      shuffle: true
+    })
     const noteLesCouleurs = []
     const lutins = []
     const couleurs = []
@@ -189,7 +203,7 @@ export default function ScratchMultiScript () {
                   pion.currentOrientation = test[3]
                   lutins[i] = test[5]
                 } else {
-                //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
+                  //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               }
               const test2 = pion.testInstruction(`AV${y[i % 3 + 1]}`, lutins[i])
@@ -199,7 +213,7 @@ export default function ScratchMultiScript () {
                 pion.currentOrientation = test2[3]
                 lutins[i] = test2[5]
               } else {
-              //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
+                //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
               }
               if (rotations[(i + 1) % 2] === '\\turnright{}') {
                 const test3 = pion.testInstruction('TD90', lutins[i])
@@ -215,7 +229,7 @@ export default function ScratchMultiScript () {
                   pion.currentOrientation = test3[3]
                   lutins[i] = test3[5]
                 } else {
-                //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
+                  //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               }
               attendre(5, lutins[i])
@@ -264,15 +278,21 @@ export default function ScratchMultiScript () {
                 ajouterAx(x[i % 3 + 1], lutins[i])
                 ajouterAy(y[i % 3 + 1], lutins[i])
                 if (pion.testCoords(lutins[i].x * context.unitesLutinParCm, lutins[i].y * context.unitesLutinParCm)) {
-                  pion.currentPos = { x: lutins[i].x * context.unitesLutinParCm, y: lutins[i].y * context.unitesLutinParCm }
+                  pion.currentPos = {
+                    x: lutins[i].x * context.unitesLutinParCm,
+                    y: lutins[i].y * context.unitesLutinParCm
+                  }
                 } else {
-                //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
+                  //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               } else {
                 ajouterAx(x[i % 3 + 4], lutins[i])
                 ajouterAy(y[i % 3 + 4], lutins[i])
                 if (pion.testCoords(lutins[i].x * context.unitesLutinParCm, lutins[i].y * context.unitesLutinParCm)) {
-                  pion.currentPos = { x: lutins[i].x * context.unitesLutinParCm, y: lutins[i].y * context.unitesLutinParCm }
+                  pion.currentPos = {
+                    x: lutins[i].x * context.unitesLutinParCm,
+                    y: lutins[i].y * context.unitesLutinParCm
+                  }
                 } else {
                   //     throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
@@ -282,15 +302,21 @@ export default function ScratchMultiScript () {
                 ajouterAx(x[i % 3 + 1], lutins[i])
                 ajouterAy(y[i % 3 + 1], lutins[i])
                 if (pion.testCoords(lutins[i].x * context.unitesLutinParCm, lutins[i].y * context.unitesLutinParCm)) {
-                  pion.currentPos = { x: lutins[i].x * context.unitesLutinParCm, y: lutins[i].y * context.unitesLutinParCm }
+                  pion.currentPos = {
+                    x: lutins[i].x * context.unitesLutinParCm,
+                    y: lutins[i].y * context.unitesLutinParCm
+                  }
                 } else {
-                //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
+                  //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               } else {
                 ajouterAx(x[i % 3 + 4], lutins[i])
                 ajouterAy(y[i % 3 + 4], lutins[i])
                 if (pion.testCoords(lutins[i].x * context.unitesLutinParCm, lutins[i].y * context.unitesLutinParCm)) {
-                  pion.currentPos = { x: lutins[i].x * context.unitesLutinParCm, y: lutins[i].y * context.unitesLutinParCm }
+                  pion.currentPos = {
+                    x: lutins[i].x * context.unitesLutinParCm,
+                    y: lutins[i].y * context.unitesLutinParCm
+                  }
                 } else {
                   //   throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
@@ -307,7 +333,10 @@ export default function ScratchMultiScript () {
       }
       texteScratch += '\\end{scratch}'
       let texte = `${(this.interactif || context.isAmc) ? '' : 'Noter la séquence de couleurs produite.<br>'}`
-      texte += deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)
+      texte += deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures(lePlateau.plateau2d), {
+        scale: 0.4,
+        style: 'display: inline'
+      }), lePlateau.plateau2d), 35)
 
       let texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteGras(couleurs[i][0])} `
@@ -329,8 +358,11 @@ export default function ScratchMultiScript () {
       }
       lutins[i].animation += '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
 
-      objetsCorrection.push(lePlateau, lutins[i])
-      texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), { style: 'display: inline', scale: 0.4 }), objetsCorrection)
+      objetsCorrection.push(lePlateau.plateau2d, lutins[i])
+      texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), {
+        style: 'display: inline',
+        scale: 0.4
+      }), objetsCorrection)
       if (!context.isAmc) { // on prépare les
         for (let k = 0; k < couleurs[i].length; k++) {
           this.autoCorrection[indexReponse + k] = {}
@@ -346,7 +378,10 @@ export default function ScratchMultiScript () {
         }
       } else {
         this.autoCorrection[i] = {}
-        this.autoCorrection[i].enonce = `${deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)}`
+        this.autoCorrection[i].enonce = `${deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures(lePlateau.plateau2d), {
+                    scale: 0.4,
+                    style: 'display: inline'
+                }), lePlateau.plateau2d), 35)}`
         this.autoCorrection[i].propositions = []
         this.autoCorrection[i].propositions.push(
           {

@@ -13,15 +13,14 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifType = 'qcm'
 export const interactifReady = true
-export const dateDeModifImportante = '25/01/2023'
+export const dateDePublication = '23/05/2021'
+// export const dateDeModifImportante = '25/01/2023' // 1ere modif
+export const dateDeModifImportante = '26/08/2023'
 
 export const description = 'Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix.<br> 4 niveaux : petits entiers, grands entiers, décimaux, mélange.'
 
 /**
  * * Fractions et égalité des produits en croix
- * * 5N14-3
- * * publication initiale le 23/05/2021
- * * modification le jj/mm/aaaa pour ....
  * @author Sébastien Lozano
  */
 export const uuid = 'd1fb2'
@@ -68,9 +67,9 @@ function justifyEq (bool, deuxFractions, decimal = false) {
     if (decimal) {
       strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
             D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
-            On constate que les produits en croix ne sont pas égaux.<br>
+            On constate que les produits en croix sont égaux.<br>
             `
-      strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
+      strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égaux.`
     } else {
       strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
             D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
@@ -90,7 +89,7 @@ function justifyEq (bool, deuxFractions, decimal = false) {
             D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
             On constate que les produits en croix ne sont pas égaux.<br>
             `
-      strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égales.`
+      strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égaux.`
     }
   }
   return strOut

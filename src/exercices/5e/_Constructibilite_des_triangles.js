@@ -5,7 +5,8 @@ import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 
-export const titre = 'Constructibilité des triangles via les longueurs'
+export const titre = 'Constructibilité des triangles via les longueurs ou les angles'
+export const dateDeModificationImportante = '24/08/2023'
 
 /**
  * Constructibilité des triangles
@@ -22,18 +23,13 @@ export default function ConstructibiliteDesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
   this.nbQuestions = 3
+  this.beta = ''
   if (this.exo === this.beta + '5G21-1') { // via longueurs
-    this.titre = titre
     this.consigne = 'Justifier si les longueurs données permettent de construire le triangle.'
-    this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
-  } else if (this.exo === this.beta + '5G31-1') { // via angles
-    this.titre = 'Justifier la construction des triangles via les angles'
+    // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
+  } else { // via angles
     this.consigne = 'Justifier si les angles donnés permettent de construire le triangle.'
-    this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
-  } else {
-    this.titre = 'Justifier la construction des triangles'
-    this.consigne = 'Justifier si les longueurs ou les angles donnés permettent de construire le triangle.'
-    this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
+    // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
   }
 
   this.nbCols = 1
@@ -44,7 +40,6 @@ export default function ConstructibiliteDesTriangles () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     if (this.exo === this.beta + '5G21-1') { // via longueurs
       if (this.sup === 1) {
         typesDeQuestionsDisponibles = [1, 2, 3]
@@ -389,9 +384,7 @@ export default function ConstructibiliteDesTriangles () {
   }
   if (this.exo === this.beta + '5G21-1') {
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 longueurs\n2 : 2 longueurs et le périmètre']
-  } else if (this.exo === this.beta + '5G31-1') {
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème']
   } else {
-    // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème']
   }
 }

@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Hms from '../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Additionner des durées'
 export const interactifReady = true

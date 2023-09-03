@@ -3,9 +3,10 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -48,7 +49,9 @@ export default function ExerciceNumerationEntier () {
       this.consigne = 'Compléter.'
     }
     this.consigne += this.interactif ? ' Penser à mettre les espaces nécessaires.' : ''
-    if (this.sup) { this.sup3 = 1 } // Si entiers à 1 chiffre choisis, chevauchement impossible.
+    if (this.sup) {
+      this.sup3 = 1
+    } // Si entiers à 1 chiffre choisis, chevauchement impossible.
     if (this.sup3 === 1) { // Sans chevauchement
       listeTypeDeQuestions = combinaisonListes(
         [1],
@@ -102,17 +105,17 @@ export default function ExerciceNumerationEntier () {
       if (this.sup2) {
         texte = `$\\text{${b}  ${rangs[rangB]} et ${a} ${rangs[rangA]}}$`
         texteCorr = `$${b} \\text{ ${rangs[rangB]} et }${a} \\text{ ${rangs[rangA]
-        } : } ${texNombre(b * Math.pow(10, rangB))} + ${texNombre(a * (Math.pow(10, rangA)))} =${texNombre(
-          b * Math.pow(10, rangB) + a * Math.pow(10, rangA)
-        )}$`
+                } : } ${texNombre(b * Math.pow(10, rangB))} + ${texNombre(a * (Math.pow(10, rangA)))} =${texNombre(
+                    b * Math.pow(10, rangB) + a * Math.pow(10, rangA)
+                )}$`
       } else {
         texte = `$\\text{${b}  ${rangs[rangB]} et ${a} ${rangs[rangA]} correspondent à }$`
         texte += !this.interactif ? `$\\text{\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots ${rangs[rangRef]}.}$` : ''
         texteCorr = `$${b} \\text{ ${rangs[rangB]} et }${a} \\text{ ${rangs[rangA]
-        } correspondent à`
+                } correspondent à`
         texteCorr += ` ${texNombre(b * Math.pow(10, rangB - rangRef))} ${rangs[rangRef]} + ${texNombre(a * (Math.pow(10, rangA - rangRef)))} ${rangs[rangRef]} =${texNombre(
-          b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)
-        )} ${rangs[rangRef]}}$`
+                    b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)
+                )} ${rangs[rangRef]}}$`
       }
       const reponse = this.sup2 ? b * Math.pow(10, rangB) + a * Math.pow(10, rangA) : b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)
 

@@ -8,9 +8,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -62,7 +63,6 @@ export default function DivisionDecimale () {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
@@ -86,9 +86,9 @@ export default function DivisionDecimale () {
         case 4: // quotient xx,xx division par 2, 3 , 4 ou 5
           q = calcul(
             randint(2, 5) * 10 +
-            randint(2, 5) +
-            randint(2, 5) / 10 +
-            randint(2, 5) / 100
+                        randint(2, 5) +
+                        randint(2, 5) / 10 +
+                        randint(2, 5) / 100
           )
           b = randint(2, 5)
           a = calcul(b * q)
@@ -96,9 +96,9 @@ export default function DivisionDecimale () {
         case 5: // quotient x,xxx division par 6 à 9
           q = calcul(
             randint(6, 9) +
-            randint(5, 9) / 10 +
-            randint(6, 9) / 100 +
-            randint(6, 9) / 1000
+                        randint(5, 9) / 10 +
+                        randint(6, 9) / 100 +
+                        randint(6, 9) / 1000
           )
           b = randint(6, 9)
           a = calcul(b * q)
@@ -135,7 +135,7 @@ export default function DivisionDecimale () {
       }
       if (this.sup === 2) {
         this.consigne =
-          'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
+                    'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
       }
       texte = `$${texNombre(a)}\\div${b}`
       if (this.sup === 1) {
@@ -152,7 +152,12 @@ export default function DivisionDecimale () {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
-        this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(q) + nombreDeChiffresDansLaPartieDecimale(q) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(q) + 1, signe: false, exposantNbChiffres: 0 }
+        this.autoCorrection[i].reponse.param = {
+          digits: nombreDeChiffresDansLaPartieEntiere(q) + nombreDeChiffresDansLaPartieDecimale(q) + 2,
+          decimals: nombreDeChiffresDansLaPartieDecimale(q) + 1,
+          signe: false,
+          exposantNbChiffres: 0
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

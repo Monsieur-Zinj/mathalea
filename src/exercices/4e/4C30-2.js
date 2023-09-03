@@ -5,9 +5,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Écriture décimale d\'une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +18,7 @@ export const amcType = 'AMCNum'
 /**
  * Donner l'écriture décimale d'une puissance de 10
  * @author Rémi Angot
-* Référence 4C30-2
+ * Référence 4C30-2
  */
 export const uuid = '93df9'
 export const ref = '4C30-2'

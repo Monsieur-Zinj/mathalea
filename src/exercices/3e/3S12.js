@@ -8,10 +8,11 @@ import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilStrin
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer des effectifs et des fréquences'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,11 +22,11 @@ export const dateDePublication = '07/02/2021' // La date de publication initiale
 export const dateDeModifImportante = '10/04/2023'
 
 /**
-* Calculer des effectifs et des fréquences.
-* @author Erwan DUPLESSY
-* 3S12
-* 2021-02-07
-*/
+ * Calculer des effectifs et des fréquences.
+ * @author Erwan DUPLESSY
+ * 3S12
+ * 2021-02-07
+ */
 
 export const uuid = 'f4b95'
 export const ref = '3S12'
@@ -58,7 +59,10 @@ export default function CalculEffectifFrequence () {
       const lstAnimauxExo = [] // liste des animaux uniquement cités dans l'exercice
       const lstNombresAnimaux = [] // liste des effectifs de chaque animal
       let lstVal = [] // liste des valeurs à éviter pour les effectifs
-      let N = 0; let nom = ''; let texte = ''; let texteCorr = ''
+      let N = 0
+      let nom = ''
+      let texte = ''
+      let texteCorr = ''
 
       for (let i = 0; i < nbAnimaux; i++) {
         N = randint(2, 10, lstVal) // choisit un nombre entre 2 et 10 sauf dans les valeurs à éviter
@@ -110,7 +114,14 @@ export default function CalculEffectifFrequence () {
       for (let i = 0; i < nbAnimaux; i++) {
         lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 1 / coef }))
       }
-      texte += '<br>' + mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 12, pixelsParCm: 30, scale: context.isHtml ? 1 : 0.5 }, r, lstElementGraph)
+      texte += '<br>' + mathalea2d({
+        xmin: -5,
+        xmax: 11,
+        ymin: -4,
+        ymax: 12,
+        pixelsParCm: 30,
+        scale: context.isHtml ? 1 : 0.5
+      }, r, lstElementGraph)
 
       let texte0, texte1, texte2, texte3
       const texteAMC = texte

@@ -10,15 +10,11 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import {
-  egal,
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { egal, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pavage } from '../../modules/Pavage.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
 export const dateDePublication = '16/12/2020'

@@ -26,15 +26,15 @@ export default function ResoudreEquationDegre2 () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.spacingCorr = 3
-  this.sup = 1
+  // this.sup = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let listeTypeDeQuestions
-    if (this.sup === 1) {
-      listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal', 'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)
-    }
+    // let listeTypeDeQuestions
+    // if (this.sup === 1) {
+    const listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal', 'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)
+    // }
 
     for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, ligne1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       //* ***************************************************
@@ -47,11 +47,11 @@ export default function ResoudreEquationDegre2 () {
         b = -k * x1 - k * x2
         c = k * x1 * x2
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}>0$`
-        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         texteCorr += '<br>On cherche à résoudre $P(x)>0$.'
         texteCorr += '<br>Pour cela, on cherche ses racines éventuelles.'
         texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-        texteCorr += '<br>$\\Delta>0$ donc le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
+        texteCorr += '<br>$\\Delta>0$ donc le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$.'
         texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
         texteCorr += '<br>On sait qu\'un polynôme du second degré est du signe de $a$ à l\'extérieur de ses racines.'
@@ -69,7 +69,7 @@ export default function ResoudreEquationDegre2 () {
           texteCorr += '<0$'
           ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
         }
-        texteCorr += '<br>On en déduit le signe du polynôme dans un tableau de signes :'
+        texteCorr += '<br>on en déduit le signe du polynôme dans un tableau de signes :'
         texteCorr += tableauDeVariation({
           tabInit: [
             [
@@ -87,9 +87,7 @@ export default function ResoudreEquationDegre2 () {
           hauteurLignes: [12, 15]
         })
         if (a > 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}[\\cup]${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=]${x1};${x2}[$.` }
-      }
-      //* ********************************************************
-      if (listeTypeDeQuestions[i] === 'supérieur ou égal') {
+      } else if (listeTypeDeQuestions[i] === 'supérieur ou égal') {
         // k(x-x1)(x-x2)
         x1 = randint(-5, 2, [0])
         x2 = randint(x1 + 1, 5, [0, -x1])
@@ -98,17 +96,17 @@ export default function ResoudreEquationDegre2 () {
         b = -k * x1 - k * x2
         c = k * x1 * x2
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}\\geq 0$`
-        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         texteCorr += '<br>On cherche à résoudre $P(x)\\geq 0$.'
         texteCorr += '<br>Pour cela, on cherche ses racines éventuelles.'
         texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-        texteCorr += '<br>$\\Delta>0$ donc  le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
+        texteCorr += '<br>$\\Delta>0$ donc  le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$.'
         texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
         texteCorr += '<br>On sait qu\'un polynôme du second degré est du signe de $a$ à l\'extérieur de ses racines.'
         texteCorr += `<br>Comme $a=${a}`
         if (a > 0) {
-          texteCorr += '>0$.'
+          texteCorr += '>0$'
 
           ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
           // '' indique qu'il n'y a rien à afficher dans un tableau de signes (pour laisser un espace sous la borne par exemple)
@@ -138,9 +136,7 @@ export default function ResoudreEquationDegre2 () {
           hauteurLignes: [10, 10]
         })
         if (a > 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=[${x1};${x2}]$.` }
-      }
-      //* ******************************************************************
-      if (listeTypeDeQuestions[i] === 'inférieur ou égal') {
+      } else if (listeTypeDeQuestions[i] === 'inférieur ou égal') {
         // k(x-x1)(x-x2)
         x1 = randint(-5, 2, [0])
         x2 = randint(x1 + 1, 5, [0, -x1])
@@ -149,11 +145,11 @@ export default function ResoudreEquationDegre2 () {
         b = -k * x1 - k * x2
         c = k * x1 * x2
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}\\leq 0$`
-        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         texteCorr += '<br>On cherche à résoudre $P(x)\\leq 0$.'
         texteCorr += '<br>Pour cela, on cherche ses racines éventuelles.'
         texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-        texteCorr += '<br>$\\Delta>0$ donc  le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
+        texteCorr += '<br>$\\Delta>0$ donc  le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$.'
         texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
         texteCorr += '<br>On sait qu\'un polynôme du second degré est du signe de $a$ à l\'extérieur de ses racines.'
@@ -189,9 +185,7 @@ export default function ResoudreEquationDegre2 () {
           hauteurLignes: [15, 15]
         })
         if (a < 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=[${x1};${x2}]$.` }
-      }
-      //* **************************************
-      if (listeTypeDeQuestions[i] === 'strictement inférieur') {
+      } else if (listeTypeDeQuestions[i] === 'strictement inférieur') {
         // k(x-x1)(x-x2)
         x1 = randint(-5, 2, [0])
         x2 = randint(x1 + 1, 5, [0, -x1])
@@ -200,11 +194,11 @@ export default function ResoudreEquationDegre2 () {
         b = -k * x1 - k * x2
         c = k * x1 * x2
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}< 0$`
-        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         texteCorr += '<br>On cherche à résoudre $P(x)< 0$.'
         texteCorr += '<br>Pour cela, on cherche ses racines éventuelles.'
         texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-        texteCorr += '<br>$\\Delta>0$ donc le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
+        texteCorr += '<br>$\\Delta>0$ donc le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$.'
         texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
         texteCorr += '<br>On sait qu\'un polynôme du second degré est du signe de $a$ à l\'extérieur de ses racines.'
@@ -240,9 +234,7 @@ export default function ResoudreEquationDegre2 () {
           hauteurLignes: [15, 15]
         })
         if (a < 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}[\\cup]${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=]${x1};${x2}[$.` }
-      }
-      //* *************************************************************
-      if (listeTypeDeQuestions[i] === 'pasDeSolution1') {
+      } else if (listeTypeDeQuestions[i] === 'pasDeSolution1') {
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])
         y1 = randint(1, 5)
@@ -259,9 +251,9 @@ export default function ResoudreEquationDegre2 () {
         if (b === 0) {
           texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}< 0$`
         }
-        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         if (b === 0) {
-          texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=$${rienSi1(a)}x^2${ecritureAlgebrique(c)}$`
+          texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=$${rienSi1(a)}x^2${ecritureAlgebrique(c)}$.`
         }
         texteCorr += '<br>On cherche à résoudre $P(x)< 0$.'
         texteCorr += '<br>Pour cela, on cherche ses racines éventuelles.'
@@ -275,9 +267,7 @@ export default function ResoudreEquationDegre2 () {
           texteCorr += '<0$, donc $P(x)<0$ pour tout $x$ de $\\mathbb{R}$.'
           texteCorr += '<br> On en déduit $S=\\mathbb{R}$.'
         }
-      }
-      //* *******************************
-      if (listeTypeDeQuestions[i] === 'pasDeSolution2') {
+      } else if (listeTypeDeQuestions[i] === 'pasDeSolution2') {
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])
         y1 = randint(1, 5)
@@ -294,9 +284,9 @@ export default function ResoudreEquationDegre2 () {
         if (b === 0) {
           texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}\\leq0$`
         }
-        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         if (b === 0) {
-          texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=$${rienSi1(a)}x^2${ecritureAlgebrique(c)}$`
+          texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=$${rienSi1(a)}x^2${ecritureAlgebrique(c)}$.`
         }
         texteCorr += '<br>On cherche à résoudre $P(x)\\leq 0$.'
         texteCorr += '<br>Pour cela, on cherche ses racines éventuelles.'
@@ -310,9 +300,7 @@ export default function ResoudreEquationDegre2 () {
           texteCorr += '<0$, donc $P(x)<0$ pour tout $x$ de $\\mathbb{R}$.'
           texteCorr += '<br> On en déduit $S=\\mathbb{R}$.'
         }
-      }
-      //* ************************************************ */
-      if (listeTypeDeQuestions[i] === 'pasDeSolution3') {
+      } else if (listeTypeDeQuestions[i] === 'pasDeSolution3') {
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])
         y1 = randint(1, 5)
@@ -329,9 +317,9 @@ export default function ResoudreEquationDegre2 () {
         if (b === 0) {
           texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}\\geq0$`
         }
-        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         if (b === 0) {
-          texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=$${rienSi1(a)}x^2${ecritureAlgebrique(c)}$`
+          texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=$${rienSi1(a)}x^2${ecritureAlgebrique(c)}$.`
         }
         texteCorr += '<br>On cherche à résoudre $P(x)\\geq 0$.'
         texteCorr += '<br>Pour cela, on cherche ses racines éventuelles.'
@@ -345,8 +333,7 @@ export default function ResoudreEquationDegre2 () {
           texteCorr += '>0$, donc $P(x)>0$ pour tout $x$ de $\\mathbb{R}$.'
           texteCorr += '<br> On en déduit $S=\\mathbb{R}$.'
         }
-      }
-      if (listeTypeDeQuestions[i] === 'pasDeSolution4') {
+      } else if (listeTypeDeQuestions[i] === 'pasDeSolution4') {
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])
         y1 = randint(1, 5)
@@ -363,9 +350,9 @@ export default function ResoudreEquationDegre2 () {
         if (b === 0) {
           texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}> 0$`
         }
-        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         if (b === 0) {
-          texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=$${rienSi1(a)}x^2${ecritureAlgebrique(c)}$`
+          texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=$${rienSi1(a)}x^2${ecritureAlgebrique(c)}$.`
         }
         texteCorr += '<br>On cherche à résoudre $P(x)> 0$.'
         texteCorr += '<br>Pour cela, on cherche ses racines éventuelles.'
@@ -389,5 +376,5 @@ export default function ResoudreEquationDegre2 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire']
+  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire']
 }

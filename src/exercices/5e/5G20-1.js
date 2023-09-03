@@ -233,7 +233,7 @@ export default function VocabulaireDesTriangles () {
           texteCorr += `<br> ${triangleEquilateral.getLongueurs()[0]} $= ${texNombre(triangleEquilateral.l1)}$ cm.`
           texteCorr += `<br> Les longeurs des trois côtés du triangle ${triangleEquilateral.getNom()} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
           break
-        case 7: // triangle rectangle pas de conversion necessaire
+        case 7: // triangle rectangle pas de conversion nécessaire
           l1 = randint(longueurMin, longueurMax)
           triangleRectangle.l1 = l1 + partieDecimale1
           triangleRectangle.l2 = randint(longueurMin, longueurMax, l1) + partieDecimale2

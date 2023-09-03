@@ -33,7 +33,6 @@ async function readInfos (dirPath) {
         // Si ce n'est pas un fichier .js ou .ts, on ne fait rien
         if (file.match(/\.jsx?|\.ts$/) &&
           !file.startsWith('_') &&
-          !filePath.includes('/beta/') &&
           file !== 'Exercice.js' &&
           file !== 'ExerciceTs.ts') {
           const infos = {}
@@ -47,7 +46,8 @@ async function readInfos (dirPath) {
             uuidMap.set(matchUuid[1], filePath.replace('src/exercices/', ''))
             infos.uuid = matchUuid[1]
           } else {
-            console.error('\x1b[31m%s\x1b[0m', `uuid non trouvé dans ${filePath}`)
+            // Pas d'erreur pour les fichiers beta
+            if (!filePath.includes('/beta/')) console.error('\x1b[31m%s\x1b[0m', `uuid non trouvé dans ${filePath}`)
           }
           const matchRef = data.match(/export const ref = '(.*)'/)
           if (matchRef) {

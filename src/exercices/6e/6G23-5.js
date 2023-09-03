@@ -12,9 +12,10 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { min, max } from 'mathjs'
+import { max, min } from 'mathjs'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const amcReady = true // pour définir que l'exercice est exportable AMC
 export const amcType = 'AMCNum'
@@ -42,23 +43,23 @@ export default function CalculerUnAngle () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     /*
-    let QuestionsDisponibles = []
+            let QuestionsDisponibles = []
 
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 15)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles[0] = contraindreValeur(1, 15, this.sup, 15)
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 15, parseInt(QuestionsDisponibles[i]), 15) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(QuestionsDisponibles, 15) > 0) QuestionsDisponibles = rangeMinMax(1, 14) // Teste si l'utilisateur a choisi tout
-    QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
-*/
+            if (!this.sup) { // Si aucune liste n'est saisie
+              QuestionsDisponibles = rangeMinMax(1, 15)
+            } else {
+              if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+                QuestionsDisponibles[0] = contraindreValeur(1, 15, this.sup, 15)
+              } else {
+                QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+                for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+                  QuestionsDisponibles[i] = contraindreValeur(1, 15, parseInt(QuestionsDisponibles[i]), 15) // parseInt en fait un tableau d'entiers
+                }
+              }
+            }
+            if (compteOccurences(QuestionsDisponibles, 15) > 0) QuestionsDisponibles = rangeMinMax(1, 14) // Teste si l'utilisateur a choisi tout
+            QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
+        */
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 14,
       defaut: 15,
@@ -190,12 +191,12 @@ export default function CalculerUnAngle () {
       if (QuestionsDisponibles[i] < 6) angD = sensRot * randint(25, abs(angC) - 25, [90])
 
       /* Ne pas effacer ! Pratique à décommenter pour débugguer
-      numA = 1
-      numB = 2
-      numC = 3
-      numD = 4
-      numE = 5
-      */
+                  numA = 1
+                  numB = 2
+                  numC = 3
+                  numD = 4
+                  numE = 5
+                  */
 
       // Partie commune à tous les cas
       // posA (et posB, pos C...) permet de choisir une position du point pour ne pas que celui-ci soit illisible (géné par le rapporteur ou l'orientation d'une demi-droite)
@@ -268,9 +269,29 @@ export default function CalculerUnAngle () {
       // Commencent ici tous les cas particuliers
 
       // Angle orange de toutes les corrections  '#f15929'
-      if ([8, 13].indexOf(QuestionsDisponibles[i]) !== -1) objetsCorrection.push(afficheMesureAngle(B, A, D, 'pink', 3, '', { ecart: 0.85, colorArc: 'pink', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
-      else if (QuestionsDisponibles[i] === 14) objetsCorrection.push(afficheMesureAngle(E, A, D, 'pink', 3, '', { ecart: 0.85, colorArc: 'pink', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
-      else objetsCorrection.push(afficheMesureAngle(C, A, D, 'pink', 3, '', { ecart: 0.85, colorArc: 'pink', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
+      if ([8, 13].indexOf(QuestionsDisponibles[i]) !== -1) {
+        objetsCorrection.push(afficheMesureAngle(B, A, D, 'pink', 3, '', {
+          ecart: 0.85,
+          colorArc: 'pink',
+          arcEpaisseur: 2,
+          mesureEnGras: true
+        }))
+      } else if (QuestionsDisponibles[i] === 14) { // On remplit les tableaux d'objets Mathalea2d
+        objetsCorrection.push(afficheMesureAngle(E, A, D, 'pink', 3, '', {
+          ecart: 0.85,
+          colorArc: 'pink',
+          arcEpaisseur: 2,
+          mesureEnGras: true
+        }))
+      } // On remplit les tableaux d'objets Mathalea2d
+      else {
+        objetsCorrection.push(afficheMesureAngle(C, A, D, 'pink', 3, '', {
+          ecart: 0.85,
+          colorArc: 'pink',
+          arcEpaisseur: 2,
+          mesureEnGras: true
+        }))
+      } // On remplit les tableaux d'objets Mathalea2d
 
       // Point B
       if (QuestionsDisponibles[i] !== 11) {
@@ -299,8 +320,20 @@ export default function CalculerUnAngle () {
         objetsEnonce.push(codageAngleDroit(B, A, C, 'blue', 0.8, 2))
         objetsCorrection.push(codageAngleDroit(B, A, C, 'blue', 0.8, 2))
       } else if ([2, 3, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) { // Affichage de l'angle plat dans les cas 2, 3, 9 et 10
-        if (QuestionsDisponibles[i] !== 3) objetsEnonce.push(afficheMesureAngle(B, A, C, 'blue', 1.5, '', { ecart: 0.75, saillant: sensRot === -1, colorArc: 'blue', arcEpaisseur: 2 })) // On remplit les tableaux d'objets Mathalea2d
-        objetsCorrection.push(afficheMesureAngle(B, A, C, 'blue', 1.5, '', { ecart: 0.75, saillant: sensRot === -1, colorArc: 'blue', arcEpaisseur: 2 })) // On remplit les tableaux d'objets Mathalea2d
+        if (QuestionsDisponibles[i] !== 3) {
+          objetsEnonce.push(afficheMesureAngle(B, A, C, 'blue', 1.5, '', {
+            ecart: 0.75,
+            saillant: sensRot === -1,
+            colorArc: 'blue',
+            arcEpaisseur: 2
+          }))
+        } // On remplit les tableaux d'objets Mathalea2d
+        objetsCorrection.push(afficheMesureAngle(B, A, C, 'blue', 1.5, '', {
+          ecart: 0.75,
+          saillant: sensRot === -1,
+          colorArc: 'blue',
+          arcEpaisseur: 2
+        })) // On remplit les tableaux d'objets Mathalea2d
       }
 
       // Début de la consigne selon les cas
@@ -346,7 +379,11 @@ export default function CalculerUnAngle () {
 
       // paramètres de la fenêtre Mathalea2d pour l'énoncé
       // paramsEnonce = { xmin: -3 + min(A.x, B1.x, C1.x, D1.x, E.x), ymin: -3 + min(A.y, B1.y, C1.y, D1.y, E.y), xmax: 3 + max(A.x, B1.x, C1.x, D1.x, E.x), ymax: 3 + max(A.y, B1.y, C1.y, D1.y, E.y), pixelsParCm: 20, scale: 1, mainlevee: false }
-      paramsEnonce = Object.assign({ pixelsParCm: 20, scale: context.isHtml ? 1 : 0.5, mainlevee: false }, fixeBordures(objetsEnonce))
+      paramsEnonce = Object.assign({
+        pixelsParCm: 20,
+        scale: context.isHtml ? 1 : 0.5,
+        mainlevee: false
+      }, fixeBordures(objetsEnonce))
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
       // On ajoute au texte de la correction, la figure de la correction
@@ -359,7 +396,7 @@ export default function CalculerUnAngle () {
   }
   this.besoinFormulaireTexte = [
     'Type de questions',
-    `Nombres séparés par des tirets :
+        `Nombres séparés par des tirets :
     1 : Complément d'un angle droit
     2 : Complément d'un angle plat avec affichage angle plat
     3 : Complément d'un angle plat avec précision des points alignés

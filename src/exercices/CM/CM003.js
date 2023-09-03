@@ -1,11 +1,9 @@
 import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 export const titre = 'Tables de multiplication et de divisions'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -39,7 +37,14 @@ export default function TablesMultiplicationsDivisions (
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
     }
-    const tables = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup, defaut: 9, max: 9, min: 2, enleveDoublons: true })
+    const tables = gestionnaireFormulaireTexte({
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup,
+      defaut: 9,
+      max: 9,
+      min: 2,
+      enleveDoublons: true
+    })
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -67,23 +72,23 @@ export default function TablesMultiplicationsDivisions (
           // classique
           texte = '$ ' + a + ' \\times ' + b + ' = $'
           setReponse(this, i, a * b)
-          if (this.interactif) texte = `$${a} \\times ${b} = $` + ajouteChampTexte(this, i)
+          if (this.interactif) texte = `$${a} \\times ${b} = $` + ajouteChampTexteMathLive(this, i)
           texteCorr = '$ ' + a + ' \\times ' + b + ' = ' + a * b + ' $'
         } else {
           if (tables.length > 2) {
             // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
             if (randint(1, 2) === 1) {
               texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
-              if (this.interactif) texte = `$ ${a} \\times $` + ajouteChampTexte(this, i) + `$ = ${a * b} $`
+              if (this.interactif) texte = `$ ${a} \\times $` + ajouteChampTexteMathLive(this, i) + `$ = ${a * b} $`
             } else {
               texte = '$ \\ldots\\ldots' + ' \\times ' + b + ' = ' + a * b + ' $'
-              if (this.interactif) texte = ajouteChampTexte(this, i) + `$ \\times ${b}  = ${a * b} $`
+              if (this.interactif) texte = ajouteChampTexteMathLive(this, i) + `$ \\times ${b}  = ${a * b} $`
             }
             setReponse(this, i, a)
           } else {
             // Sinon on demande forcément le 2e facteur
             texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
-            if (this.interactif) texte = ajouteChampTexte(this, i) + `$ \\times ${b}  = ${a * b} $`
+            if (this.interactif) texte = ajouteChampTexteMathLive(this, i) + `$ \\times ${b}  = ${a * b} $`
             setReponse(this, i, b)
           }
           texteCorr = '$ ' + a + ' \\times ' + b + ' = ' + a * b + ' $'
@@ -93,17 +98,17 @@ export default function TablesMultiplicationsDivisions (
           // classique
           texte = '$ ' + a * b + ' \\div ' + b + ' =$'
           setReponse(this, i, a)
-          if (this.interactif) texte = `$${a * b} \\div ${b} = $` + ajouteChampTexte(this, i)
+          if (this.interactif) texte = `$${a * b} \\div ${b} = $` + ajouteChampTexteMathLive(this, i)
         } else {
           // a trous
           if (choice([true, false])) {
             texte = `$ ${a * b} \\div \\ldots\\ldots = ${a}$`
             setReponse(this, i, b)
-            if (this.interactif) texte = `$${a * b} \\div $` + ajouteChampTexte(this, i) + `$ = ${a}$`
+            if (this.interactif) texte = `$${a * b} \\div $` + ajouteChampTexteMathLive(this, i) + `$ = ${a}$`
           } else {
             texte = `$ \\ldots\\ldots \\div ${b}  = ${a}$`
             setReponse(this, i, a * b)
-            if (this.interactif) texte = ajouteChampTexte(this, i) + `$\\div ${b} = ${a}$`
+            if (this.interactif) texte = ajouteChampTexteMathLive(this, i) + `$\\div ${b} = ${a}$`
           }
         }
         texteCorr = `$ ${a * b} \\div ${b} = ${a}$`

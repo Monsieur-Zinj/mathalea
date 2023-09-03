@@ -3,11 +3,11 @@ import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/depr
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { calculer } from '../../modules/outilsMathjs.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -17,16 +17,16 @@ export const interactifType = 'mathLive' // Le QCM est prêt mais pas géré
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
 
 /**
-* Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
-*
-* Le résultat de la soustraction sera toujours positif.
-*
-* Le coefficient est paramétrable, par défaut il est inférieur à 11.
-*
-* On peut paramétrer de n'avoir que des soustractions.
-* @author Rémi Angot
-* 5N20
-*/
+ * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
+ *
+ * Le résultat de la soustraction sera toujours positif.
+ *
+ * Le coefficient est paramétrable, par défaut il est inférieur à 11.
+ *
+ * On peut paramétrer de n'avoir que des soustractions.
+ * @author Rémi Angot
+ * 5N20
+ */
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max // Correspond au facteur commun

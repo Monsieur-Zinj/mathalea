@@ -2,9 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)'
 export const amcReady = true
 export const interactifReady = true
@@ -73,7 +74,6 @@ export default function DecompositionNombreDecimal () {
     for (
       let i = 0, m, c, d, u, di, ci, mi, n, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (i % typesDeQuestionsDisponibles.length === 0) {
         m = randint(1, 9) // le nombre sera le même tant qu'on peut poser des questions dessus, s'il y a trop de questions, on choisit un autre nombre
@@ -84,15 +84,15 @@ export default function DecompositionNombreDecimal () {
         ci = randint(0, 9, [m, c, d, u, di])
         mi = randint(1, 9, [m, c, d, u, di, ci])
         n =
-          m.toString() +
-          '~' +
-          c.toString() +
-          d.toString() +
-          u.toString() +
-          ',' +
-          di.toString() +
-          ci.toString() +
-          mi
+                    m.toString() +
+                    '~' +
+                    c.toString() +
+                    d.toString() +
+                    u.toString() +
+                    ',' +
+                    di.toString() +
+                    ci.toString() +
+                    mi
       }
       switch (listeTypeDeQuestions[i]) {
         case 1:
@@ -106,7 +106,7 @@ export default function DecompositionNombreDecimal () {
         case 2:
           texte = `La partie décimale du nombre $${n}$ est : `
           texteCorr =
-            texte + `$${miseEnEvidence(texNombre(di / 10 + ci / 100 + mi / 1000))}$`
+                        texte + `$${miseEnEvidence(texNombre(di / 10 + ci / 100 + mi / 1000))}$`
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
           setReponse(this, i, calcul(di / 10 + ci / 100 + mi / 1000))
           this.autoCorrection[i].reponse.param.digits = 6

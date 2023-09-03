@@ -35,12 +35,12 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json',
-    extraFileExtensions: ['.svelte']
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
   plugins: [
     '@typescript-eslint'
   ],
   rules: {
   }
-} 
+}

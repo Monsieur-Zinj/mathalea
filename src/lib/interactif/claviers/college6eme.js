@@ -100,7 +100,8 @@ export const raccourcis6eme = {
   pi: { mode: 'math', value: '\\pi' },
   ang: { mode: 'math', value: '\\widehat{#@}' },
   frac: { mode: 'math', value: '\\frac{#@}{#1}' },
-  '/': { mode: 'math', value: '\\frac{#@}{#1}' }
+  '/': { mode: 'math', value: '\\frac{#@}{#1}' },
+  ' ': { mode: 'math', value: '\\,' }
 }
 /*,
   // virtualKeyboards: 'numeric roman',

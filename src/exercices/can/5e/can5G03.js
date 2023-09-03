@@ -9,6 +9,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { context } from '../../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Compter les points symétriques manquant'
@@ -62,7 +63,7 @@ export default function CompterlesSymetriquesCan5e () {
       d.epaisseur = 2
       d.style = '+'
       d.color =
-      objetsEnonce.push(d)
+                objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
         image = rotation(point(pointsPossibles[0][0], pointsPossibles[0][1]), O, 180)
@@ -110,11 +111,23 @@ export default function CompterlesSymetriquesCan5e () {
         : 'Voici une grille contenant des points et un centre de symétrie.<br>Quel nombre minimum de points faut-il ajouter pour que chacun ait son symétrique ?<br>'
       texteCorr = ''
       // On prépare la figure...
-      texte += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.7 }, ...objetsEnonce, labelPoint(O))
+      texte += mathalea2d({
+        xmin: -0.5,
+        ymin: -0.5,
+        xmax: 6.5,
+        ymax: 6.5,
+        scale: 0.7
+      }, ...objetsEnonce, labelPoint(O))
       if (this.interactif && context.isHtml) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
       }
-      texteCorr += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.5 }, ...objetsEnonce, ...objetsCorrection, labelPoint(O))
+      texteCorr += mathalea2d({
+        xmin: -0.5,
+        ymin: -0.5,
+        xmax: 6.5,
+        ymax: 6.5,
+        scale: 0.5
+      }, ...objetsEnonce, ...objetsCorrection, labelPoint(O))
       setReponse(this, i, pointsEnPlusCorr.length)
       if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
         this.listeQuestions.push(texte)

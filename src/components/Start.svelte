@@ -1,30 +1,67 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent } from './store'
-  import SideMenu from './sidebar/SideMenu.svelte'
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
-  import { flip } from 'svelte/animate'
-  import { onMount } from 'svelte'
-  import { updateReferentiel } from './utils/referentielsUtils'
-  import Exercice from './exercice/Exercice.svelte'
-  import Button from './forms/Button.svelte'
-  import ButtonsDeck from './outils/ButtonsDeck.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
-  import InteractivityIcon from './icons/TwoStatesIcon.svelte'
-  import FullScreenIcon from './icons/TwoStatesIcon.svelte'
-  import Footer from './Footer.svelte'
-  import LatexIcon from './icons/LatexIcon.svelte'
-  import AmcIcon from './icons/AmcIcon.svelte'
-  import MoodleIcon from './icons/MoodleIcon.svelte'
-  import ChipsList from './setup/ChipsList.svelte'
-  import referentielRessources from '../json/referentielRessources.json'
-  import { toMap } from './utils/toMap'
-  import type { ReferentielForList } from '../lib/types'
-  import handleCapytale from '../lib/handleCapytale'
+  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent } from "./store"
+  import SideMenu from "./sidebar/SideMenu.svelte"
+  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from "../lib/mathalea"
+  import { flip } from "svelte/animate"
+  import { onMount } from "svelte"
+  import { updateReferentiel } from "./utils/referentielsUtils"
+  import Exercice from "./exercice/Exercice.svelte"
+  import Button from "./forms/Button.svelte"
+  import ButtonsDeck from "./outils/ButtonsDeck.svelte"
+  import NavBarV2 from "./header/NavBarV2.svelte"
+  import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
+  import FullScreenIcon from "./icons/TwoStatesIcon.svelte"
+  import Footer from "./Footer.svelte"
+  import LatexIcon from "./icons/LatexIcon.svelte"
+  import AmcIcon from "./icons/AmcIcon.svelte"
+  import MoodleIcon from "./icons/MoodleIcon.svelte"
+  import ChipsList from "./setup/ChipsList.svelte"
+  import referentielRessources from "../json/referentielRessources.json"
+  import { toMap } from "./utils/toMap"
+  import { toObject } from "./utils/toObj"
+  import type { ReferentielForList } from "../lib/types"
+  import handleCapytale from "../lib/handleCapytale"
 
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
   let divExercices: HTMLDivElement
   $: isMenuOpen = $isSideMenuVisible
+
+  // Contexte pour le modal des apps tierces
+  import ModalGridOfCards from "./modal/ModalGridOfCards.svelte"
+  let thirdAppsChoiceModal: ModalGridOfCards
+  import referentielAppsTierce from "../json/referentielAppsTierce.json"
+  const appsTierceReferentielArray = Array.from(toMap({ ...referentielAppsTierce }), ([key, obj]) => ({ key, obj }))
+  import { setContext } from "svelte"
+  import Card from "./ui/Card.svelte"
+  let showThirdAppsChoiceDialog = false
+  let appsTierceInExercisesList: string[]
+  $: {
+    appsTierceInExercisesList = []
+    let uuidList: string[] = []
+    for (const entry of $exercicesParams) {
+      uuidList.push(entry.uuid)
+    }
+    for (const group of appsTierceReferentielArray) {
+      // console.log(typeof group)
+      for (const app of group.obj.get("liste").entries()) {
+        const appObj = toObject(app[1])
+        if (uuidList.includes(appObj.uuid)) {
+          appsTierceInExercisesList.push(appObj.uuid)
+        }
+        // console.log(appsTierceInExercisesList)
+      }
+    }
+    appsTierceInExercisesList = appsTierceInExercisesList
+  }
+  setContext("thirdAppsChoiceContext", {
+    toogleThirdAppsChoiceDialog: () => {
+      showThirdAppsChoiceDialog = !showThirdAppsChoiceDialog
+      if (showThirdAppsChoiceDialog === false) {
+        thirdAppsChoiceModal.closeModal()
+      }
+    },
+  })
 
   /**
    * Démarrage
@@ -465,6 +502,23 @@
       </div>
     </div>
   </div>
+  <ModalGridOfCards bind:this={thirdAppsChoiceModal} bind:displayModal={showThirdAppsChoiceDialog}>
+    <div slot="header">Choix des Applications Tierces</div>
+    <div slot="content">
+      <div class="p2">
+        {#each appsTierceReferentielArray as group}
+          <div class="mx-2 pt-8">
+            <div class="font-bold text-2xl text-coopmaths-struct py-4">{group.obj.get("rubrique")}</div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {#each group.obj.get("liste").entries() as app, index}
+                <Card application={toObject(app[1])} selected={appsTierceInExercisesList.includes(toObject(app[1]).uuid)} />
+              {/each}
+            </div>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </ModalGridOfCards>
 </div>
 
 <style>

@@ -5,17 +5,14 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import {
-  randint,
-  listeQuestionsToContenu,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { point3d, vecteur3d, cylindre3d, sphere3d } from '../../modules/3d.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { cylindre3d, point3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -24,11 +21,11 @@ export const amcType = 'AMCNum'
 export const titre = 'Volume d\'une boule'
 
 /**
-* Calculer le volume d'une boule
-* @author Erwan DUPLESSY (AMC par EE)
-* 3G42
-* date : 2021/02/09
-*/
+ * Calculer le volume d'une boule
+ * @author Erwan DUPLESSY (AMC par EE)
+ * 3G42
+ * date : 2021/02/09
+ */
 
 export const uuid = '8c803'
 export const ref = '3G42'
@@ -52,7 +49,14 @@ export default function VolumeBoule () {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, melange: 5, defaut: 5, shuffle: true, nbQuestions: this.nbQuestions })
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: this.nbQuestions
+    })
     for (let i = 0, r, d, A, rayon, O, B, OO, o, R, s, c, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
@@ -107,7 +111,13 @@ export default function VolumeBoule () {
           s = sphere3d(o, 2.5, 'blue', 'blue', 4, 'gray', 10, 'gray')
           c = cylindre3d(O, OO, R, R, 'black', false)
           reponse = Decimal.acos(-1).mul(2 * rayon ** 3).div(3).toDP(1)
-          texteCorr += '<br>' + mathalea2d({ xmin: -5, max: 9, ymin: -1.5, ymax: 6, scale: 0.8 }, ...s.c2d, ...c.c2d) + '<br>'
+          texteCorr += '<br>' + mathalea2d({
+            xmin: -5,
+            max: 9,
+            ymin: -1.5,
+            ymax: 6,
+            scale: 0.8
+          }, ...s.c2d, ...c.c2d) + '<br>'
           texteCorr += 'Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>'
           texteCorr += 'Le volume du cylindre est : $V_c = \\pi r^2 h$ ; et celui de la boule est : $V_b = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon du cylindre est la moitié de son diamètre, soit ${rayon} ${choixUnites}, et sa hauteur est ${2 * rayon} ${choixUnites}. <br>`
@@ -127,7 +137,14 @@ export default function VolumeBoule () {
           reponse: {
             texte: '',
             valeur: reponse.toNumber(),
-            param: { digits: nombreDeChiffresDe(reponse.toNumber()), decimals: nombreDeChiffresDansLaPartieDecimale(reponse.toNumber()), signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+            param: {
+              digits: nombreDeChiffresDe(reponse.toNumber()),
+              decimals: nombreDeChiffresDansLaPartieDecimale(reponse.toNumber()),
+              signe: false,
+              exposantNbChiffres: 0,
+              exposantSigne: false,
+              approx: 0
+            }
           }
         }
       }

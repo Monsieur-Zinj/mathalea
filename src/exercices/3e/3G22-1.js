@@ -1,14 +1,11 @@
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Agrandissement et réduction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +18,7 @@ export const dateDeModifImportante = '02/04/2023' // Une date de modification im
  * @author Stéphane Guyon rendu interactif par JC Lhote + utilisation de decimal.js
  * Choix des types de problèmes par Guillaume Valmont le 02/04/2023
  * Référence 3G22-1
-*/
+ */
 export const uuid = 'a0ad1'
 export const ref = '3G22-1'
 export default function Agrandissement () {
@@ -42,7 +39,14 @@ export default function Agrandissement () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 8, melange: 9, defaut: 9, nbQuestions: this.nbQuestions, shuffle: true }) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 8,
+      melange: 9,
+      defaut: 9,
+      nbQuestions: this.nbQuestions
+    }) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, V1, V2, A1, A2, l1, l2, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       k = new Decimal(randint(1, 20, 10)).div(10)
       V1 = randint(10, 120) // Les données de départ sont entières, on n'utilise pas Decimal() ici

@@ -13,11 +13,12 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { context } from '../../../modules/context.js'
-import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { min, round } from 'mathjs'
+import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'CAN 4e sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,11 +30,12 @@ export const dateDePublication = '01/05/2022' // La date de publication initiale
  * Description didactique de l'exercice
  * Gilles Mora
  * Référence
-*/
+ */
 
 function compareNombres (a, b) {
   return a - b
 }
+
 export const uuid = 'cf47f'
 export const ref = 'can4a-2022'
 export default function SujetCAN2022quatrieme () {
@@ -78,7 +80,11 @@ export default function SujetCAN2022quatrieme () {
           texteCorr = `$${a} \\times ${b}=${a * b}$`
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
 
           break
@@ -127,7 +133,9 @@ export default function SujetCAN2022quatrieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
 
           nbChamps = 1
           break
@@ -142,7 +150,9 @@ export default function SujetCAN2022quatrieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-          } else { texte += '$\\ldots$' }
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -159,7 +169,9 @@ export default function SujetCAN2022quatrieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
-            } else { texte += '  $\\ldots$ m' }
+            } else {
+              texte += '  $\\ldots$ m'
+            }
           } else {
             a = randint(1, 9) + randint(1, 9) / 10
             reponse = a * 100
@@ -169,7 +181,9 @@ export default function SujetCAN2022quatrieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-            } else { texte += '  $\\ldots$ cm' }
+            } else {
+              texte += '  $\\ldots$ cm'
+            }
           }
           nbChamps = 1
 
@@ -205,7 +219,9 @@ export default function SujetCAN2022quatrieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -223,7 +239,9 @@ export default function SujetCAN2022quatrieme () {
              `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -236,7 +254,11 @@ export default function SujetCAN2022quatrieme () {
           texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}$
                                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -250,7 +272,9 @@ export default function SujetCAN2022quatrieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-          } else { texte += '$\\ldots$' }
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -291,7 +315,9 @@ export default function SujetCAN2022quatrieme () {
             texteCorr = 'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -325,7 +351,9 @@ export default function SujetCAN2022quatrieme () {
              `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -341,7 +369,11 @@ export default function SujetCAN2022quatrieme () {
 
           reponse = arrondi((a / 100) * b, 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -356,7 +388,9 @@ export default function SujetCAN2022quatrieme () {
 
           reponse = arrondi(a[0] / a[1], 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
         case 13:
@@ -374,7 +408,13 @@ export default function SujetCAN2022quatrieme () {
           poly.epaisseur = 1
 
           texte = 'Calcule le périmètre du parallélogramme $ABCD$.<br> '
-          texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 8, ymax: 5, scale: 0.8 }, poly, labelPoint(A, B, C, D), d, e)
+          texte += mathalea2d({
+            xmin: -1.5,
+            ymin: -1,
+            xmax: 8,
+            ymax: 5,
+            scale: 0.8
+          }, poly, labelPoint(A, B, C, D), d, e)
           texteCorr = `Le périmètre en cm est donné par :
             $2\\times ${a}+2\\times ${b} =2\\times(${a}+${b})=${reponse}$ cm`
 
@@ -382,7 +422,9 @@ export default function SujetCAN2022quatrieme () {
           if (this.interactif) {
             texte += ' <br>$\\mathscr{P}= $'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-          } else { texte += '<br> $\\mathscr{P}=\\ldots $ cm' }
+          } else {
+            texte += '<br> $\\mathscr{P}=\\ldots $ cm'
+          }
           nbChamps = 1
           break
 
@@ -393,7 +435,9 @@ export default function SujetCAN2022quatrieme () {
           texte = 'Complète :<br>'
           if (choice([true, false])) {
             reponse = -a
-            if (!this.interactif) { texte += `$${a}+\\ldots=0$` } else {
+            if (!this.interactif) {
+              texte += `$${a}+\\ldots=0$`
+            } else {
               texte += `$${a}+(\\ldots)=0$`
 
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
@@ -402,7 +446,9 @@ export default function SujetCAN2022quatrieme () {
             texteCorr = `$${a}+(${-a})=0$. Les nombres $${a}$ et $${-a}$ sont opposés.`
           } else {
             reponse = fraction(1, a)
-            if (!this.interactif) { texte += `$${a}\\times\\ldots=1$` } else {
+            if (!this.interactif) {
+              texte += `$${a}\\times\\ldots=1$`
+            } else {
               texte += `$${a}\\times\\ldots=1$`
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
@@ -423,7 +469,11 @@ export default function SujetCAN2022quatrieme () {
 
           reponse = arrondi(a / 2, 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -439,7 +489,9 @@ export default function SujetCAN2022quatrieme () {
 
           reponse = a * 100 - b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cL' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cL'
+          }
           nbChamps = 1
           break
 
@@ -469,7 +521,11 @@ export default function SujetCAN2022quatrieme () {
             texteCorr += `$=${reponse}$`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$=\\ldots$' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            } else {
+              texte += '$=\\ldots$'
+            }
           } else {
             a = randint(3, 6)
             reponse = '$0$'
@@ -495,7 +551,11 @@ export default function SujetCAN2022quatrieme () {
             texteCorr += `$=${reponse}$`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$=\\ldots$' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            } else {
+              texte += '$=\\ldots$'
+            }
           }
           nbChamps = 1
           break
@@ -511,7 +571,9 @@ export default function SujetCAN2022quatrieme () {
 
           reponse = arrondi(1.5 * fraction18[0], 0)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -558,9 +620,18 @@ export default function SujetCAN2022quatrieme () {
             Le point $A$ a pour ordonnée $\\dfrac{${b}}{${k2}}${simplificationDeFractionAvecEtapes(b, k2)}$.`
             reponse = fraction(b, k2)
           }
-          texte += mathalea2d({ xmin: -k1 - 1, xmax: k1 + 1, ymin: -k2 - 1, ymax: k2 + 1, scale: 0.7, pixelsParCm: 20 }, r, o, lA, traceA)
+          texte += mathalea2d({
+            xmin: -k1 - 1,
+            xmax: k1 + 1,
+            ymin: -k2 - 1,
+            ymax: k2 + 1,
+            scale: 0.7,
+            pixelsParCm: 20
+          }, r, o, lA, traceA)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -576,7 +647,11 @@ export default function SujetCAN2022quatrieme () {
 
           reponse = a + k
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
         case 21:
@@ -589,7 +664,9 @@ export default function SujetCAN2022quatrieme () {
              En $${b}$ minutes, il parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
               ${c / a}$ km.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km'
+          }
           nbChamps = 1
           break
         case 22:
@@ -601,7 +678,11 @@ export default function SujetCAN2022quatrieme () {
                 $${a}\\times ${ecritureParentheseSiNegatif(b)}\\times (${c})=$`
           texteCorr = `$${a}\\times ${ecritureParentheseSiNegatif(b)}\\times (${c})=${a * b}\\times (${c})=${reponse}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -613,7 +694,11 @@ export default function SujetCAN2022quatrieme () {
                   $ ${ecritureParentheseSiNegatif(a)}^2=$`
           texteCorr = `$ ${ecritureParentheseSiNegatif(a)}^2=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(a)}=${reponse}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -630,7 +715,9 @@ export default function SujetCAN2022quatrieme () {
 
           reponse = fraction(b.n, b.d).simplifie()
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
         case 25:
@@ -649,7 +736,9 @@ export default function SujetCAN2022quatrieme () {
 
           reponse = arrondi(d / 3, 0)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -669,7 +758,11 @@ export default function SujetCAN2022quatrieme () {
           texteCorr = `$1,5\\times ${a}=${a}\\times 1,5=1\\times ${a}+\\underbrace{0,5\\times ${a}}_{=${a}\\div 2}=${a}+${texNombre(a * 0.5, 0)}=${reponse}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += '$\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -682,7 +775,11 @@ export default function SujetCAN2022quatrieme () {
             texteCorr = `$1$ dm$^3 = 1$ L et $1$ dm$^3 = 1000$ cm$^3$.<br>
                   $${a}$ L = ${a} dm$^3 =${a} \\times 1000$ cm$^3=${texNombre(reponse, 3)}$ cm$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' cm$^3$' } else { texte += '$\\ldots$ cm$^3$ ' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' cm$^3$'
+            } else {
+              texte += '$\\ldots$ cm$^3$ '
+            }
           } else {
             reponse = arrondi(a / 1000, 3)
             texte = `Complète.<br>
@@ -690,7 +787,11 @@ export default function SujetCAN2022quatrieme () {
             texteCorr = `$1$ dm$^3 = 1$ L et $1$ cm$^3 = 0,001$ dm$^3$.<br>
                    $${a}$ cm$^3 = ${a} \\div 1000$ dm$^3= ${texNombre(a / 1000, 3)}$ dm$^3 =${texNombre(reponse, 3)}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' L' } else { texte += '$\\ldots$ L ' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' L'
+            } else {
+              texte += '$\\ldots$ L '
+            }
           }
 
           nbChamps = 1
@@ -721,7 +822,17 @@ export default function SujetCAN2022quatrieme () {
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -737,7 +848,17 @@ export default function SujetCAN2022quatrieme () {
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -753,7 +874,17 @@ export default function SujetCAN2022quatrieme () {
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -761,7 +892,11 @@ export default function SujetCAN2022quatrieme () {
                   Par conséquent, $BC=${a[2]}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += ' $\\ldots$ cm' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+          } else {
+            texte += ' $\\ldots$ cm'
+          }
           nbChamps = 1
           break
 
@@ -778,8 +913,12 @@ export default function SujetCAN2022quatrieme () {
           texteCorr = `$${a}x+${b}y=${a}\\times ${ecritureParentheseSiNegatif(c)}+${b}\\times ${ecritureParentheseSiNegatif(d)}=${a * c}+${ecritureParentheseSiNegatif(b * d)}=${reponse}$`
           if (a * c + b * d === 0) {
             setReponse(this, index, '0', { formatInteractif: 'texte' })
-          } else { setReponse(this, index, a * c + b * d, { formatInteractif: 'calcul' }) }
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          } else {
+            setReponse(this, index, a * c + b * d, { formatInteractif: 'calcul' })
+          }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -798,7 +937,9 @@ export default function SujetCAN2022quatrieme () {
             $${c}$ caramels coûtent donc $${c}\\times 0,5=${texNombre(reponse, 2)}$ €.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €'
+          }
           nbChamps = 1
           break
       }

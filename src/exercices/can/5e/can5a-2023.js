@@ -15,17 +15,18 @@ import { prenomF } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { mathalea2d, fixeBordures } from '../../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { paveLPH3d } from '../../../modules/3d.js'
-import { round, min } from 'mathjs'
+import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import Hms from '../../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'CAN 5e sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,11 +35,12 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '312eb'
 export const ref = 'can5a-2023'
+
 /**
  * Aléatoirisation du sujet 2023 de CAN 5e
  * Gilles Mora
  * Référence can5a-2023
-*/
+ */
 
 function compareNombres (a, b) {
   return a - b
@@ -80,7 +82,11 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '' }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += ''
+          }
           nbChamps = 1
 
           break
@@ -170,7 +176,9 @@ export default function SujetCAN2023Cinquieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -207,10 +215,22 @@ export default function SujetCAN2023Cinquieme () {
             if (ang1 < 50) {
               objets.push(texteParPosition('?', 2.2, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
                 texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7))
-            } else { objets.push(texteParPosition('?', 2.2, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7), texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)) }
+            } else {
+              objets.push(texteParPosition('?', 2.2, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7), texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7))
+            }
             reponse = 180 - ang1
             texte = '$A$, $O$ et $B$ sont alignés.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
             texte += context.isHtml ? '<br>? $=$' : ''
             texteCorr = `Un angle plat a une mesure de  $180°$.<br>
                  Ainsi, ? $=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
@@ -253,7 +273,17 @@ export default function SujetCAN2023Cinquieme () {
 
               reponse = 90 - ang1
               texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
-              texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+              texte += mathalea2d({
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto'
+              }, objets)
               texte += context.isHtml ? '<br>? $=$' : ''
               texteCorr = `
                    ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}°$.`
@@ -263,7 +293,17 @@ export default function SujetCAN2023Cinquieme () {
 
               reponse = ang1 - 90
               texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
-              texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+              texte += mathalea2d({
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 40,
+                mainlevee: false,
+                amplitude: 0.5,
+                scale: 1,
+                style: 'margin: auto'
+              }, objets)
               texte += context.isHtml ? '<br>? $=$' : ''
               texteCorr = `? $=${ang1}-90=${miseEnEvidence(ang1 - 90)}°$.  `
             }
@@ -271,7 +311,11 @@ export default function SujetCAN2023Cinquieme () {
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('? $=\\ldots °$')
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°' } else { texte += context.isHtml ? ' $\\ldots °$' : '' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°'
+          } else {
+            texte += context.isHtml ? ' $\\ldots °$' : ''
+          }
 
           nbChamps = 1
 
@@ -287,7 +331,9 @@ export default function SujetCAN2023Cinquieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^2$'
-            } else { texte += context.isHtml ? '  $\\ldots$ dm$^2$' : '' }
+            } else {
+              texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
+            }
             this.listeCanEnonces.push(`$${texNombre(a, 1)}$ m$^2$  $=$`)
             this.listeCanReponsesACompleter.push('$\\ldots\\Aire[dm]{}$')
           } else {
@@ -333,7 +379,7 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
-            '€'
+                            '€'
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
@@ -379,7 +425,9 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
@@ -414,7 +462,9 @@ export default function SujetCAN2023Cinquieme () {
             }
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -441,11 +491,20 @@ export default function SujetCAN2023Cinquieme () {
           })
 
           reponse = a
-          texte = 'Le point $A$ est repéré par le nombre :<br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 20, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, d,
-            texteParPosition('A', 1.5 * a + 7 * 1.5, 0.9, 'milieu', 'blue', context.isHtml ? 2 : 1.5)) + '<br>'
+          texte = 'Le point $A$ est repéré par le nombre :<br>' + mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 20,
+            ymax: 1.5,
+            scale: 0.5,
+            style: 'margin: auto'
+          }, d,
+          texteParPosition('A', 1.5 * a + 7 * 1.5, 0.9, 'milieu', 'blue', context.isHtml ? 2 : 1.5)) + '<br>'
           texteCorr = `Le point $A$ est repéré par le nombre : $${miseEnEvidence(texNombre(a, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -465,7 +524,9 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
-          if (this.interactif) { texte += '<br><br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += '<br><br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -488,7 +549,9 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -509,7 +572,9 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
@@ -527,7 +592,9 @@ export default function SujetCAN2023Cinquieme () {
             this.listeCanReponsesACompleter.push('  $\\ldots$ secondes')
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'secondes'
-            } else { texte += '  $\\ldots$ secondes' }
+            } else {
+              texte += '  $\\ldots$ secondes'
+            }
           } else {
             a = randint(2, 6)
             reponse = a
@@ -540,7 +607,9 @@ export default function SujetCAN2023Cinquieme () {
             this.listeCanReponsesACompleter.push('  $\\ldots$ minutes')
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'minutes'
-            } else { texte += '  $\\ldots$ minutes' }
+            } else {
+              texte += '  $\\ldots$ minutes'
+            }
           }
 
           nbChamps = 1
@@ -556,7 +625,9 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
         case 17:
@@ -569,8 +640,8 @@ export default function SujetCAN2023Cinquieme () {
           texteCorr = `$${a}$ croissants à $${texPrix(b)}$ € l'unité coûtent $${a}\\times ${texPrix(b)}\\text{ € }=${texPrix(new Decimal(a).mul(b))}\\text{ € }$.<br>
           En ajoutant le prix du pain, on obtient :
           ${context.isHtml
-? `$${texPrix(new Decimal(a).mul(b))}\\text{ €}+ ${texPrix(c)}\\text{ € }= ${texPrix(reponse)}\\text{ € }$.<br>`
-          : `$\\Prix{${new Decimal(a).mul(b)}}+ \\Prix{${c}}= \\Prix{${reponse}}$.<br>`}`
+                        ? `$${texPrix(new Decimal(a).mul(b))}\\text{ €}+ ${texPrix(c)}\\text{ € }= ${texPrix(reponse)}\\text{ € }$.<br>`
+                        : `$\\Prix{${new Decimal(a).mul(b)}}+ \\Prix{${c}}= \\Prix{${reponse}}$.<br>`}`
 
           texteCorr += `L'ensemble coûte donc $${miseEnEvidence(texPrix(reponse))}\\text{ € }$.
           
@@ -578,7 +649,9 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('  $\\ldots$ €')
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
+          }
           nbChamps = 1
           break
         case 18:
@@ -607,7 +680,9 @@ export default function SujetCAN2023Cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('? $=\\ldots$')
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
 
           nbChamps = 1
 
@@ -691,15 +766,39 @@ export default function SujetCAN2023Cinquieme () {
           }
           reponse = 180 - a - b
           texte = 'On donne la figure suivante :<br>'
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+          texte += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 40,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.6,
+            style: 'margin: auto'
+          }, objets)
           texte += '? $=$'
           texteCorr = `Dans un triangle, la somme des angles vaut $180°$.<br>
          ?$=180-${a}-${b}=${miseEnEvidence(180 - a - b)}°$.`
-          this.listeCanEnonces.push('On donne la figure suivante :<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets))
+          this.listeCanEnonces.push('On donne la figure suivante :<br>' + mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 40,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.6,
+            style: 'margin: auto'
+          }, objets))
           this.listeCanReponsesACompleter.push('? $=\\ldots °$')
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°' } else { texte += ' $\\ldots °$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°'
+          } else {
+            texte += ' $\\ldots °$'
+          }
           nbChamps = 1
           break
 
@@ -714,7 +813,9 @@ export default function SujetCAN2023Cinquieme () {
            $10\\,\\%$ de $${a}=  ${a}\\div 10 =${miseEnEvidence(texNombre(reponse, 1))}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
           nbChamps = 1
@@ -754,9 +855,29 @@ export default function SujetCAN2023Cinquieme () {
 
           texteCorr = `$AB=${b}-(${a})=${miseEnEvidence(texNombre(b - a, 1))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte = '$AB=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte = '$AB=\\ldots$<br>' }
-          texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.2, pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, d, labA, labB, lab1, lab2, lab3)
-          this.listeCanEnonces.push(mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.2, pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, d, labA, labB, lab1, lab2, lab3))
+          if (this.interactif) {
+            texte = '$AB=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte = '$AB=\\ldots$<br>'
+          }
+          texte += mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: 15,
+            ymax: 1.2,
+            pixelsParCm: 30,
+            scale: 0.6,
+            style: 'margin: auto'
+          }, d, labA, labB, lab1, lab2, lab3)
+          this.listeCanEnonces.push(mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: 15,
+            ymax: 1.2,
+            pixelsParCm: 25,
+            scale: 0.6,
+            style: 'margin: auto'
+          }, d, labA, labB, lab1, lab2, lab3))
           this.listeCanReponsesACompleter.push('$AB=\\ldots$')
           nbChamps = 1
 
@@ -800,7 +921,9 @@ export default function SujetCAN2023Cinquieme () {
             texteCorr = `$20\\times${texNombre(a, 2)}\\times ${texNombre(b, 1)}=\\underbrace{20\\times ${texNombre(b, 2)}}_{=10}\\times${texNombre(a, 2)}=${miseEnEvidence(texNombre(10 * a, 1))}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
           nbChamps = 1
@@ -834,9 +957,29 @@ export default function SujetCAN2023Cinquieme () {
 
             reponse = 4
             texte = 'Quel est le nombre d\'axe(s) de symétrie  ?<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.4,
+              style: 'margin: auto'
+            }, pol)
             texteCorr = `La figure a $${miseEnEvidence(4)}$ axes de symétrie. <br> ` +
-mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol, a, b, c, d)
+                            mathalea2d({
+                              xmin,
+                              ymin,
+                              xmax,
+                              ymax,
+                              pixelsParCm: 40,
+                              mainlevee: false,
+                              amplitude: 0.5,
+                              scale: 0.4,
+                              style: 'margin: auto'
+                            }, pol, a, b, c, d)
           }
           if (choix === 'b') {
             A = point(0, 0)
@@ -852,9 +995,29 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
 
             reponse = 1
             texte = 'Quel est le nombre d\'axe(s) de symétrie  ?<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.4,
+              style: 'margin: auto'
+            }, pol)
             texteCorr = `La figure a $${miseEnEvidence(1)}$ axe de symétrie. <br> ` +
-mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol, a)
+                            mathalea2d({
+                              xmin,
+                              ymin,
+                              xmax,
+                              ymax,
+                              pixelsParCm: 40,
+                              mainlevee: false,
+                              amplitude: 0.5,
+                              scale: 0.4,
+                              style: 'margin: auto'
+                            }, pol, a)
           }
 
           if (choix === 'c') {
@@ -878,9 +1041,29 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
 
             reponse = 2
             texte = 'Quel est le nombre d\'axe(s) de symétrie  ?<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 0.4,
+              style: 'margin: auto'
+            }, pol)
             texteCorr = `La figure a $${miseEnEvidence(2)}$ axes de symétrie. <br> ` +
-mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol, a, b)
+                            mathalea2d({
+                              xmin,
+                              ymin,
+                              xmax,
+                              ymax,
+                              pixelsParCm: 40,
+                              mainlevee: false,
+                              amplitude: 0.5,
+                              scale: 0.4,
+                              style: 'margin: auto'
+                            }, pol, a, b)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -936,7 +1119,9 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
            Ainsi, $${texNombre(a, 1)}\\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(a * b, 2))}$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.listeCanEnonces.push(`Entoure le résultat de $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$`)
           this.listeCanReponsesACompleter.push(`${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`)
           nbChamps = 1
@@ -950,9 +1135,14 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}$ km` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
             texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km.<br>
             Comme il met $3$ h pour parcourir $${texNombre(b)}$ km,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
-            setReponse(this, index, [new Hms({ hour: 4, minute: 30 }), new Hms({ minute: 270 })], { formatInteractif: 'hms' })
+            setReponse(this, index, [new Hms({
+              hour: 4,
+              minute: 30
+            }), new Hms({ minute: 270 })], { formatInteractif: 'hms' })
 
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+            }
           }
           if (m === 2) {
             b = choice([900, 1200, 1500, 1800, 2100, 2400])
@@ -961,9 +1151,14 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(b + b / 6, 0)}$ km` : `\\Lg[km]{${texNombre(b + b / 6, 0)}}`} ? `
             texteCorr = `En $1$ h , l'avion parcourt $${texNombre(b / 3, 0)}$ km, donc en $30$ min, il parcourt  $${texNombre(b / 6, 0)}$ km. <br>
             Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}$ km`
-            setReponse(this, index, [new Hms({ hour: 3, minute: 30 }), new Hms({ minute: 210 })], { formatInteractif: 'hms' })
+            setReponse(this, index, [new Hms({
+              hour: 3,
+              minute: 30
+            }), new Hms({ minute: 210 })], { formatInteractif: 'hms' })
 
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+            }
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots\\text{ h }\\ldots\\text{ min}$')
@@ -978,7 +1173,10 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
           c = choice([2, 4, 5])
           d = paveLPH3d(0, 0, 0, 1, a, c, b, 'black')
           texte = 'Combien y a-t-il de petits cubes ?'
-          texte += `<br>${mathalea2d(Object.assign(fixeBordures(d.c2d), { pixelsParCm: 20, scale: 0.4 }), d.c2d)}`
+          texte += `<br>${mathalea2d(Object.assign(fixeBordures(d.c2d), {
+                        pixelsParCm: 20,
+                        scale: 0.4
+                    }), d.c2d)}`
 
           texteCorr = `Le nombre de petits cubes est donné par le produit :<br>
         $${a}\\times ${b}\\times ${c} = ${miseEnEvidence(a * b * c)}$
@@ -986,7 +1184,9 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
 
           reponse = a * b * c
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots$ cubes')
           nbChamps = 1
@@ -1031,7 +1231,11 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             this.listeCanEnonces.push(`$${a}$ dm$^3=$`)
             this.listeCanReponsesACompleter.push('$\\ldots$ L')
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $\\ldots$ L' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+            } else {
+              texte += ' $\\ldots$ L'
+            }
           }
           if (choix === 'b') {
             reponse = a
@@ -1040,7 +1244,11 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             this.listeCanEnonces.push(`$${a}$ L $=$`)
             this.listeCanReponsesACompleter.push('$\\ldots$ dm$^3$')
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^3$' } else { texte += ' $\\ldots$ dm$^3$' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^3$'
+            } else {
+              texte += ' $\\ldots$ dm$^3$'
+            }
           }
           nbChamps = 1
 
@@ -1060,7 +1268,9 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
       }

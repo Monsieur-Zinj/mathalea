@@ -10,9 +10,10 @@ import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -65,7 +66,6 @@ export default function ExerciceDiviserFractions () {
         typesDeQuestions,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
@@ -83,23 +83,23 @@ export default function ExerciceDiviserFractions () {
           texte = `$${deprecatedTexFraction(a, b)}\\div${deprecatedTexFraction(c, d)}=$`
           if (p === 1) {
             texteCorr = `$${deprecatedTexFraction(a, b)}\\div${deprecatedTexFraction(
-              c,
-              d
-            )}=${deprecatedTexFraction(a, b)}\\times${deprecatedTexFraction(d, c)}=${deprecatedTexFraction(
-              a + '\\times' + d,
-              b + '\\times' + c
-            )}=${deprecatedTexFraction(a * d, b * c)}$`
+                            c,
+                            d
+                        )}=${deprecatedTexFraction(a, b)}\\times${deprecatedTexFraction(d, c)}=${deprecatedTexFraction(
+                            a + '\\times' + d,
+                            b + '\\times' + c
+                        )}=${deprecatedTexFraction(a * d, b * c)}$`
           } else {
             texteCorr = `$${deprecatedTexFraction(a, b)}\\div${deprecatedTexFraction(
-              c,
-              d
-            )}=${deprecatedTexFraction(a, b)}\\times${deprecatedTexFraction(d, c)}=${deprecatedTexFraction(
-              a + '\\times' + d,
-              b + '\\times' + c
-            )}=${deprecatedTexFraction(a * d, b * c)}=${deprecatedTexFraction(
-              (a * d) / p + '\\times\\cancel{' + p + '}',
-              (b * c) / p + '\\times\\cancel{' + p + '}'
-            )}=${deprecatedTexFraction((a * d) / p, (b * c) / p)}$`
+                            c,
+                            d
+                        )}=${deprecatedTexFraction(a, b)}\\times${deprecatedTexFraction(d, c)}=${deprecatedTexFraction(
+                            a + '\\times' + d,
+                            b + '\\times' + c
+                        )}=${deprecatedTexFraction(a * d, b * c)}=${deprecatedTexFraction(
+                            (a * d) / p + '\\times\\cancel{' + p + '}',
+                            (b * c) / p + '\\times\\cancel{' + p + '}'
+                        )}=${deprecatedTexFraction((a * d) / p, (b * c) / p)}$`
           }
           break
 
@@ -122,26 +122,26 @@ export default function ExerciceDiviserFractions () {
           d = abs(d)
           p = pgcd(a * d, b * c)
           texteCorr += `$=${signe}${deprecatedTexFraction(a, b)}\\times${deprecatedTexFraction(
-            d,
-            c
-          )}$`
+                        d,
+                        c
+                    )}$`
           texteCorr += `$=${signe}${deprecatedTexFraction(
-            a + '\\times' + ecritureParentheseSiNegatif(d),
-            b + '\\times' + ecritureParentheseSiNegatif(c)
-          )}$`
+                        a + '\\times' + ecritureParentheseSiNegatif(d),
+                        b + '\\times' + ecritureParentheseSiNegatif(c)
+                    )}$`
           if (p === 1) {
             texteCorr += `$=${signe}${texFractionSigne(a * d, b * c)}$`
           } else {
             texteCorr += `$=${signe}${deprecatedTexFraction(a * d, b * c)}$`
             if (a * d !== b * c) {
               texteCorr += `$=${signe}${deprecatedTexFraction(
-                (a * d) / p + '\\times\\cancel{' + p + '}',
-                (b * c) / p + '\\times\\cancel{' + p + '}'
-              )}$`
+                                (a * d) / p + '\\times\\cancel{' + p + '}',
+                                (b * c) / p + '\\times\\cancel{' + p + '}'
+                            )}$`
               texteCorr += `$=${signe}${deprecatedTexFraction(
-                (a * d) / p,
-                (b * c) / p
-              )}$`
+                                (a * d) / p,
+                                (b * c) / p
+                            )}$`
             } else {
               texteCorr += `$=${signe}1$`
             }
@@ -153,7 +153,13 @@ export default function ExerciceDiviserFractions () {
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
         if (context.isAmc) texte = 'calculer et donner le résultat sous forme irréductible\\\\\n' + texte
-        setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+        setReponse(this, i, reponse, {
+          formatInteractif: 'fraction',
+          digits: 5,
+          digitsNum: 3,
+          digitsDen: 2,
+          signe: true
+        })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

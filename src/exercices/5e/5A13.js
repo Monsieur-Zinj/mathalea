@@ -6,18 +6,21 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { sp } from '../../lib/outils/outilString.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const titre = 'Décomposer en facteurs premiers'
 
 /**
-* Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
-* @author Rémi Angot
-5A13
-*/
+ * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
+ * @author Rémi Angot
+ 5A13
+ */
 export const uuid = '7f50c'
 export const ref = '5A13'
 export default function ExerciceDecomposerEnFacteursPremiers () {
@@ -139,8 +142,17 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
         texteCorr += `<br>Donc la décomposition en produit de facteurs premiers de $${miseEnEvidence(texNombre(n), 'black')}$ est $${miseEnEvidence(decompositionFinale)}$.`
       }
       reponse += facteurs[facteurs.length - 1]
+
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte + '\n',
+          propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
+        }
+      }
       texte += ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')
-      setReponse(this, i, [reponse, produitAvecPuissances])
+      if (!context.isAmc) {
+        setReponse(this, i, [reponse, produitAvecPuissances])
+      }
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -97,11 +97,19 @@ export default function CalculsAvecPuissancesDeDix () {
             statut: true
           },
           {
-            texte: `$${texNombre(mantisse)} \\times 10^{${exp - 1}}$`,
+            texte: `$${texNombre(mantisse * choice([1, 10, 0.1]))} \\times 10^{${exp - 1}}$`,
             statut: false
           },
           {
-            texte: `$${texNombre(mantisse)} \\times 10^{${exp + 1}}$`,
+            texte: `$${texNombre(mantisse * choice([1, 0.01, 0.1]))} \\times 10^{${exp + 1}}$`,
+            statut: false
+          },
+          {
+            texte: `$${texNombre(mantisse * 10)} \\times 10^{${exp + randint(0, 1)}}$`,
+            statut: false
+          },
+          {
+            texte: `$${texNombre(mantisse * 0.1)} \\times 10^{${exp + randint(0, 1)}}$`,
             statut: false
           },
           {

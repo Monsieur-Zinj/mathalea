@@ -2,19 +2,20 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, printlatex } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Réduire une expression de la forme $ax+bx$ '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Réduire des expressions de la forme ax+bx
-*
-* @author Rémi Angot
-* 5L13
-*/
+ * Réduire des expressions de la forme ax+bx
+ *
+ * @author Rémi Angot
+ * 5L13
+ */
 export const uuid = '1bce3'
 export const ref = '5L13'
 export default function Reductionaxbx () {

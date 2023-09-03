@@ -2,8 +2,9 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../l
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, egal } from '../../../modules/outils.js'
+import { egal, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer un vecteur directeur avec une équation cartésienne'
@@ -15,7 +16,7 @@ export const dateDePublication = '08/07/2022'
  * @author Gilles Mora avec Jean-Claude pour la partie interactive
  * Référence can2G17
  *
-*/
+ */
 export const uuid = 'dacc1'
 export const ref = 'can2G17'
 export default function VecteurDirEqCart () {
@@ -29,7 +30,11 @@ export default function VecteurDirEqCart () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let texte; let texteCorr; let a; let b; let c
+    let texte
+    let texteCorr
+    let a
+    let b
+    let c
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(-9, 9, 0)
       b = randint(-9, 9, 0)

@@ -4,9 +4,9 @@ import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, printlatex, listeQuestionsToContenuSansNumero, contraindreValeur } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { contraindreValeur, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Supprimer les parenthèses puis réduire l\'expression'
 export const interactifReady = true
@@ -63,8 +63,8 @@ export default function OpposeExpression () {
       switch (listeTypeDeQuestions[i]) {
         case 1 : // '-(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=-(${printlatex(
-            `${a}${choixLettre}+(${b})`
-          )})$`
+                        `${a}${choixLettre}+(${b})`
+                    )})$`
           texteCorr = texte
           // texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${-a}*${choixLettre}+(${-b})`)}$`
           reponse1 = 0
@@ -73,8 +73,8 @@ export default function OpposeExpression () {
           break
         case 2 : // '(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(
-            `${a}${choixLettre}+(${b})`
-          )})$`
+                        `${a}${choixLettre}+(${b})`
+                    )})$`
           texteCorr = texte
           // texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${choixLettre}+(${b})`)}$`
           reponse1 = 0
@@ -83,8 +83,8 @@ export default function OpposeExpression () {
           break
         case 3 : // '-(ax2+bx+c)':
           texte = `$${lettreDepuisChiffre(i + 1)}=-(${printlatex(
-            `${a}${choixLettre}^2+(${b})${choixLettre}+(${c})`
-          )})$`
+                        `${a}${choixLettre}^2+(${b})${choixLettre}+(${c})`
+                    )})$`
           texteCorr = texte
           // texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${-a}${choixLettre}^2+(${-b})${choixLettre}+(${-c})`)}$`
           reponse1 = -a
@@ -93,8 +93,8 @@ export default function OpposeExpression () {
           break
         case 4 : // '(ax2+bx+c)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(
-            `${a}${choixLettre}^2+(${b})${choixLettre}+(${c})`
-          )})$`
+                        `${a}${choixLettre}^2+(${b})${choixLettre}+(${c})`
+                    )})$`
           texteCorr = texte
           // texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}${choixLettre}^2+(${b})${choixLettre}+(${c})`)}$`
           reponse1 = a
@@ -235,7 +235,7 @@ export default function OpposeExpression () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireTexte = ['Types de questions',
-  `Nombres séparés par des tirets
+        `Nombres séparés par des tirets
 0 : Mélange
 1 : '-(ax+b)'
 2 : '(ax+b)'

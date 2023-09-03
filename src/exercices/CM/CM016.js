@@ -1,9 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Diviser un entier par 10, 100 ou 1000'
 export const amcReady = true
 export const interactifReady = true
@@ -14,7 +15,7 @@ export const amcType = 'AMCNum'
  * Division d'un entier par 10, 100, 1000
  * @author Rémi Angot
  * Référence CM016
-*/
+ */
 export const uuid = '8f2a4'
 export const ref = 'CM016'
 export default function DiviserPar101001000 () {
@@ -32,14 +33,13 @@ export default function DiviserPar101001000 () {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = choice([randint(1, 9), randint(11, 99), randint(101, 999)])
       b = choice([10, 100, 1000])
       texte = `$${texNombre(a)}\\div${texNombre(b)}=$`
       texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(
-        a / b
-      )}$`
+                a / b
+            )}$`
       setReponse(this, i, calcul(a / b))
       if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
 

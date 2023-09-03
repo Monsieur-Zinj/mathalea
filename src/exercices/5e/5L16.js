@@ -1,8 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, contraindreValeur } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Simplifier l\'écriture d\'une expression littérale'
@@ -15,7 +16,7 @@ export const dateDeModifImportante = '18/06/2022'
  * @author Guillaume Valmont
  * Référence 5L16
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
-*/
+ */
 export const uuid = 'e2e64'
 export const ref = '5L16'
 export default function SimplifierEcritureLitterale () {

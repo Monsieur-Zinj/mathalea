@@ -6,8 +6,8 @@ import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer un carré'
 export const dateDePublication = '17/01/2023'
@@ -16,14 +16,14 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Calculer de carré d'un nombre
-*
-* * Entier relatif
-* * Décimal relatif
-* * Fractionnaire relatif
-* @author Sébastien LOZANO
-* Référence 4G20-3
-*/
+ * Calculer de carré d'un nombre
+ *
+ * * Entier relatif
+ * * Décimal relatif
+ * * Fractionnaire relatif
+ * @author Sébastien LOZANO
+ * Référence 4G20-3
+ */
 
 export const uuid = 'e564b'
 export const ref = '4G20-3'

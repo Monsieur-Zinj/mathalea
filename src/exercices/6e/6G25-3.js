@@ -9,13 +9,15 @@ import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint } from '../../modules/outils.js'
+import { egal, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { symetrieAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -58,8 +60,14 @@ export default function PavageEtReflexion2d () {
     }
     const compare2polys = function (poly1, poly2) {
       if (comparenbsommets(poly1, poly2)) {
-        if (comparesommets(poly1, poly2)) { return true } else { return false }
-      } else { return false }
+        if (comparesommets(poly1, poly2)) {
+          return true
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
     }
     const comparenbsommets = function (poly1, poly2) {
       if (poly1.listePoints.length === poly2.listePoints.length) {
@@ -73,7 +81,8 @@ export default function PavageEtReflexion2d () {
       } else return false
     }
     const comparesommets = function (poly1, poly2) {
-      let trouve = false; let trouves = 0
+      let trouve = false
+      let trouves = 0
       if (comparenbsommets(poly1, poly2)) {
         for (const P of poly1.listePoints) {
           for (const M of poly2.listePoints) {
@@ -88,28 +97,33 @@ export default function PavageEtReflexion2d () {
           } else {
             trouves -= 100
           }
-          if (trouves < 0) { break }
-        }
-      }
-      if (trouves === poly1.listePoints.length) { return true } else return false
-    }
-    /*     let associesommets=function(poly1,poly2,d){ //Pour chercher les indices des symétriques dans leur polygone respectif
-        let binomes=[],P,M
-        for (let k=0;k<poly1.listePoints.length;k++) { // afin éventuellement de faire clignoter ces paires de points lors de la correction
-          P=symetrieAxiale(poly1.listePoints[k],d)
-          for (let l=0;l<poly2.listePoints.length;l++) {
-            M=poly2.listePoints[l]
-            if (compare2sommets(M,P)) {
-              binomes.push([k,l])
-              break
-            }
+          if (trouves < 0) {
+            break
           }
         }
-        return binomes
       }
-  */
+      if (trouves === poly1.listePoints.length) {
+        return true
+      } else return false
+    }
+    /*     let associesommets=function(poly1,poly2,d){ //Pour chercher les indices des symétriques dans leur polygone respectif
+            let binomes=[],P,M
+            for (let k=0;k<poly1.listePoints.length;k++) { // afin éventuellement de faire clignoter ces paires de points lors de la correction
+              P=symetrieAxiale(poly1.listePoints[k],d)
+              for (let l=0;l<poly2.listePoints.length;l++) {
+                M=poly2.listePoints[l]
+                if (compare2sommets(M,P)) {
+                  binomes.push([k,l])
+                  break
+                }
+              }
+            }
+            return binomes
+          }
+      */
     const refleccion = function (pavage, d, numero) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
-      const poly = pavage.polygones[numero - 1]; let pol
+      const poly = pavage.polygones[numero - 1]
+      let pol
       const result = -1
       const sympoly = symetrieAxiale(poly, d)
       for (let k = 0; k < pavage.polygones.length; k++) {
@@ -121,7 +135,12 @@ export default function PavageEtReflexion2d () {
       return result
     }
 
-    const objets = []; const objetsCorrection = []; let P1; let P2; let P3; let t
+    const objets = []
+    const objetsCorrection = []
+    let P1
+    let P2
+    let P3
+    let t
     const codes = ['/', '//', '///', 'o', 'w', 'X', 'U', '*']
     let taillePavage = parseInt(this.sup)
     if (taillePavage < 1 || taillePavage > 2) {
@@ -133,9 +152,23 @@ export default function PavageEtReflexion2d () {
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
-    let Nx; let Ny; let index1; let index2; let A; let B; let d; let image; let couples = []; let tailles = []; let monpavage; let fenetre
-    let texte = ''; let texteCorr = ''; let typeDePavage = parseInt(this.sup)
-    let nombreTentatives; let nombrePavageTestes = 1
+    let Nx
+    let Ny
+    let index1
+    let index2
+    let A
+    let B
+    let d
+    let image
+    let couples = []
+    let tailles = []
+    let monpavage
+    let fenetre
+    let texte = ''
+    let texteCorr = ''
+    let typeDePavage = parseInt(this.sup)
+    let nombreTentatives
+    let nombrePavageTestes = 1
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
     } else {

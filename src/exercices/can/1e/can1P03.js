@@ -7,6 +7,7 @@ import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer la probabilité d’une intersection à partir d’un arbre'
@@ -20,7 +21,7 @@ export const amcType = 'AMCNum'
  *
  * @author Gilles Mora
 
-*/
+ */
 export const uuid = '7c8b7'
 export const ref = 'can1P03'
 export default function CalculerProbabiliteIntersection () {
@@ -107,7 +108,14 @@ export default function CalculerProbabiliteIntersection () {
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+          texte += mathalea2d({
+            xmin: -0.1,
+            xmax: 14,
+            ymin: 0,
+            ymax: 7,
+            style: 'inline',
+            scale: 0.5
+          }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
@@ -129,7 +137,7 @@ export default function CalculerProbabiliteIntersection () {
           break
 
         case 2:
-        // On définit l'arbre complet
+          // On définit l'arbre complet
           omega = new Arbre({
             racine: true,
             rationnel: false,
@@ -185,7 +193,14 @@ export default function CalculerProbabiliteIntersection () {
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+          texte += mathalea2d({
+            xmin: -0.1,
+            xmax: 14,
+            ymin: 0,
+            ymax: 7,
+            style: 'inline',
+            scale: 0.5
+          }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap \\overline{B})=$ '
@@ -207,7 +222,7 @@ export default function CalculerProbabiliteIntersection () {
           break
 
         case 3:
-        // On définit l'arbre complet
+          // On définit l'arbre complet
           omega = new Arbre({
             racine: true,
             rationnel: false,
@@ -264,7 +279,14 @@ export default function CalculerProbabiliteIntersection () {
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+          texte += mathalea2d({
+            xmin: -0.1,
+            xmax: 14,
+            ymin: 0,
+            ymax: 7,
+            style: 'inline',
+            scale: 0.5
+          }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{A}\\cap B)=$ '
@@ -293,7 +315,7 @@ export default function CalculerProbabiliteIntersection () {
           break
 
         case 4:
-        // On définit l'arbre complet
+          // On définit l'arbre complet
           omega = new Arbre({
             racine: true,
             rationnel: false,
@@ -351,7 +373,14 @@ export default function CalculerProbabiliteIntersection () {
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+          texte += mathalea2d({
+            xmin: -0.1,
+            xmax: 14,
+            ymin: 0,
+            ymax: 7,
+            style: 'inline',
+            scale: 0.5
+          }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{A}\\cap \\overline{B})=$ '

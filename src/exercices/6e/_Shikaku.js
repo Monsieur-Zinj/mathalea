@@ -1,9 +1,9 @@
 import { point } from '../../lib/2d/points.js'
-import { boite, nommePolygone, polygone } from '../../lib/2d/polygones.js'
+import { BoiteBuilder, nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
-import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 
 /**
@@ -33,10 +33,10 @@ export function flatArrayToPolygone (flat, noms) {
  */
 export default class Shikaku {
   /**
-   *
-   * @param {number} largeur
-   * @param {number} hauteur
-   */
+     *
+     * @param {number} largeur
+     * @param {number} hauteur
+     */
   constructor (largeur, hauteur) {
     this.largeur = largeur
     this.hauteur = hauteur
@@ -79,7 +79,14 @@ export default class Shikaku {
         const rectangle = this.pavage.rectangles[i]
         objets.push(texteParPosition(rectangle.aire, rectangle.placeNom.x + rectangle.x + 0.5, rectangle.placeNom.y + rectangle.y + 0.5))
         if (type === 'solution') {
-          const box = boite({ Xmin: rectangle.x, Ymin: rectangle.y, Xmax: rectangle.x + rectangle.largeur, Ymax: rectangle.y + rectangle.hauteur, color: 'blue' })
+          /* const box = boite({ Xmin: rectangle.x, Ymin: rectangle.y, Xmax: rectangle.x + rectangle.largeur, Ymax: rectangle.y + rectangle.hauteur, color: 'blue' })
+                                         */
+          const box = new BoiteBuilder({
+            xMin: rectangle.x,
+            yMin: rectangle.y,
+            xMax: rectangle.x + rectangle.largeur,
+            yMax: rectangle.y + rectangle.hauteur
+          }).addColor({ color: 'blue' })
           objets.push(box)
         }
       }
@@ -138,13 +145,20 @@ export default class Shikaku {
       } while (x < this.largeur)
       return false // on n'a pas trouvé de place pour un tel rectangle, dans ce cas, on essayera les dimensions suivantes
     }
+
     // une fonction qui choisit aléatoirement la position du nombre dans le rectangle pour ne pas qu'il soit systématiquement en bas à droite.
     function choisitPlaceNom (largeur, hauteur) {
-      if (largeur < 1 || hauteur < 1) window.notify('erreur de largeur ou de hauteur dans choisitPlaceNom(Shikaku)', { largeur, hauteur })
+      if (largeur < 1 || hauteur < 1) {
+        window.notify('erreur de largeur ou de hauteur dans choisitPlaceNom(Shikaku)', {
+          largeur,
+          hauteur
+        })
+      }
       const x = largeur <= 1 ? 0 : randint(0, largeur - 1)
       const y = hauteur <= 1 ? 0 : randint(0, hauteur - 1)
       return { x, y }
     }
+
     this.paver()
   }
 }

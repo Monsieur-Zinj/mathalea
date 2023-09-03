@@ -5,19 +5,20 @@ import { texteGras } from '../../lib/format/style.js'
 import { abs, arrondi } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModificationImportante = '14/05/2023'
 /**
  * Déterminer une fonction affine à partir de deux images
-* @author Stéphane Guyon et Gilles Mora
-* 2F20
-*/
+ * @author Stéphane Guyon et Gilles Mora
+ * 2F20
+ */
 export const uuid = 'ef897'
 export const ref = '2F10-4'
 export default function Determinerfonctionaffine () {
@@ -118,8 +119,12 @@ export default function Determinerfonctionaffine () {
             if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
               texteCorr = ` $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
             }
-            if ((b * (a - c) - (b - d) * a) * (a - c) < 0) { texteCorr = ` $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.` }
-            if ((b * (a - c) - (b - d) * a) * (a - c) === 0) { texteCorr = `$f(x)=${texFractionReduite(b - d, a - c)}x.` }
+            if ((b * (a - c) - (b - d) * a) * (a - c) < 0) {
+              texteCorr = ` $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.`
+            }
+            if ((b * (a - c) - (b - d) * a) * (a - c) === 0) {
+              texteCorr = `$f(x)=${texFractionReduite(b - d, a - c)}x.`
+            }
           } else {
             texteCorr = `$f$ est une fonction affine, elle a donc une expression de la forme  $f(x)=ax+b$ avec $a$ et $b$ des nombres réels.<br>
                           `
@@ -140,16 +145,20 @@ export default function Determinerfonctionaffine () {
               if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
                 texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
               }
-              if ((b * (a - c) - (b - d) * a) * (a - c) < 0) { texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.` }
-              if ((b * (a - c) - (b - d) * a) * (a - c) === 0) { texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x.` }
+              if ((b * (a - c) - (b - d) * a) * (a - c) < 0) {
+                texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.`
+              }
+              if ((b * (a - c) - (b - d) * a) * (a - c) === 0) {
+                texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x.`
+              }
             }
             reponse = [`\\dfrac{${b - d}}{${a - c}}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
-            `${arrondi((b - d) / (a - c), 3)}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
-            `=\\dfrac{${b - d}}{${a - c}}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-            `${arrondi((b - d) / (a - c), 3)}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-            `${m.texFraction}x+${pfraction.texFraction}`,
-            `${m.texFraction}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-            `${arrondi((b - d) / (a - c), 3)}x+${pfraction.texFraction}`]
+                            `${arrondi((b - d) / (a - c), 3)}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
+                            `=\\dfrac{${b - d}}{${a - c}}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
+                            `${arrondi((b - d) / (a - c), 3)}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
+                            `${m.texFraction}x+${pfraction.texFraction}`,
+                            `${m.texFraction}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
+                            `${arrondi((b - d) / (a - c), 3)}x+${pfraction.texFraction}`]
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '$f(x)=$' })
@@ -171,8 +180,12 @@ export default function Determinerfonctionaffine () {
             if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
               texteCorr = ` $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
             }
-            if ((b * (a - c) - (b - d) * a) * (a - c) < 0) { texteCorr = ` $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.` }
-            if ((b * (a - c) - (b - d) * a) * (a - c) === 0) { texteCorr = `$f(x)=${texFractionReduite(b - d, a - c)}x.` }
+            if ((b * (a - c) - (b - d) * a) * (a - c) < 0) {
+              texteCorr = ` $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.`
+            }
+            if ((b * (a - c) - (b - d) * a) * (a - c) === 0) {
+              texteCorr = `$f(x)=${texFractionReduite(b - d, a - c)}x.`
+            }
           } else {
             texteCorr = `$f$ est une fonction affine, elle a donc une expression de la forme  $f(x)=ax+b$ avec $a$ et $b$ des nombres réels.<br>
                           `
@@ -195,16 +208,20 @@ export default function Determinerfonctionaffine () {
               if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
                 texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
               }
-              if ((b * (a - c) - (b - d) * a) * (a - c) < 0) { texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.` }
-              if ((b * (a - c) - (b - d) * a) * (a - c) === 0) { texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x.` }
+              if ((b * (a - c) - (b - d) * a) * (a - c) < 0) {
+                texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.`
+              }
+              if ((b * (a - c) - (b - d) * a) * (a - c) === 0) {
+                texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x.`
+              }
             }
             reponse = [`\\dfrac{${b - d}}{${a - c}}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
-            `${arrondi((b - d) / (a - c), 3)}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
-            `=\\dfrac{${b - d}}{${a - c}}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-            `${arrondi((b - d) / (a - c), 3)}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-            `${m.texFraction}x+${pfraction.texFraction}`,
-            `${m.texFraction}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-            `${arrondi((b - d) / (a - c), 3)}x+${pfraction.texFraction}`]
+                            `${arrondi((b - d) / (a - c), 3)}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
+                            `=\\dfrac{${b - d}}{${a - c}}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
+                            `${arrondi((b - d) / (a - c), 3)}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
+                            `${m.texFraction}x+${pfraction.texFraction}`,
+                            `${m.texFraction}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
+                            `${arrondi((b - d) / (a - c), 3)}x+${pfraction.texFraction}`]
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '$f(x)=$' })

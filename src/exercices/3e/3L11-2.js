@@ -3,9 +3,10 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Réduire une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,10 +15,10 @@ export const amcReady = true
 export const dateDeModifImportante = '20/02/2023'
 
 /**
-* Réduire des expressions lorsque c'est possible
-*
-* @author Rémi Angot (Amélioration AMC par Eric Elter)
-*/
+ * Réduire des expressions lorsque c'est possible
+ *
+ * @author Rémi Angot (Amélioration AMC par Eric Elter)
+ */
 export const uuid = 'f6853'
 export const ref = '3L11-2'
 export default function ReductionSiPossible () {

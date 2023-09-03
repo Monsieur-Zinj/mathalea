@@ -9,6 +9,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
+
 export const titre = 'Utiliser les abscisses fractionnaires'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -22,7 +23,7 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot
  * Référence 6N21
  * publié le 29/6/2021
-*/
+ */
 export const uuid = '2ba53'
 export const ref = '6N21'
 export default function PlacerPointsAbscissesFractionnaires () {
@@ -49,23 +50,30 @@ export default function PlacerPointsAbscissesFractionnaires () {
     const pointsSolutions = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     const fractionsUtilisees = [] // Pour s'assurer de ne pas poser 2 fois la même question
+    const tableUtilisées = [[], [],[]]
     for (let i = 0, texte, texteCorr, origine, num, num2, num3, den, A, B, C, traceA, traceB, traceC, labels, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (typeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // Placer des demis aux quarts sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : 0
-          den = randint(2, 4)
+          den = randint(2, 4,tableUtilisées[0])
           num = origine * den + randint(1, den * 4)
+          tableUtilisées[0].push(den)
+          if (tableUtilisées[0].length === 3) tableUtilisées[0]=[]
           break
         case 2: // Placer des cinquièmes aux neuvièmes sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : 0
-          den = randint(5, 9)
+          den = randint(5, 9, tableUtilisées[1])
           num = origine * den + randint(1, den * 4)
+          tableUtilisées[1].push(den)
+          if (tableUtilisées[1].length === 5) tableUtilisées[1]=[]
           break
         case 3: // Placer des demis aux neuvièmes à partir d'un entier >=1 sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : randint(1, 7)
-          den = randint(2, 9)
+          den = randint(2, 9, tableUtilisées[2])
           num = randint(origine * den + 1, (origine + 4) * den, den)
+          tableUtilisées[2].push(den)
+          if (tableUtilisées[2].length === 8) tableUtilisées[2]=[]
       }
       if (this.interactif) {
         texte = `Placer le point $${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num, den)}\\right).$`
@@ -86,7 +94,12 @@ export default function PlacerPointsAbscissesFractionnaires () {
       pointsNonSolutions[i] = []
       if (this.interactif) {
         for (let indicePoint = 0, monPoint; indicePoint < 60; indicePoint++) {
-          monPoint = pointCliquable(indicePoint / den * tailleUnite, 0, { size: 8, width: 5, color: 'blue', radius: tailleUnite / den / 2 })
+          monPoint = pointCliquable(indicePoint / den * tailleUnite, 0, {
+            size: 8,
+            width: 5,
+            color: 'blue',
+            radius: tailleUnite / den / 2
+          })
           mesObjets.push(monPoint)
           if (indicePoint === num - origine * den) {
             pointsSolutions[i] = monPoint
@@ -95,7 +108,13 @@ export default function PlacerPointsAbscissesFractionnaires () {
           }
         }
       }
-      texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, mesObjets)
+      texte += '<br>' + mathalea2d({
+        xmin: -0.2,
+        xmax: 4 * tailleUnite + 1,
+        ymin: -1,
+        ymax: 1,
+        style: 'margin-top:30px '
+      }, mesObjets)
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
@@ -108,7 +127,6 @@ export default function PlacerPointsAbscissesFractionnaires () {
       traceA = tracePoint(A, 'blue')
       traceA.epaisseur = this.interactif ? 3 : 2
       traceA.taille = this.interactif ? 5 : 3
-      labels = labelPoint(A)
       if (!this.interactif) {
         if (context.isHtml) {
           A.nom = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}$`
@@ -136,13 +154,25 @@ export default function PlacerPointsAbscissesFractionnaires () {
         if (B) B.positionLabel = 'above = 0.2'
         if (C) C.positionLabel = 'above = 0.2'
       }
-
+      // console.log(labels)
       if (this.interactif) {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num, den)}\\right).$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:30px ' }, d, traceA, labels)
+        texteCorr += '<br>' + mathalea2d({
+          xmin: -0.2,
+          xmax: origine + 4 * tailleUnite + 1,
+          ymin: -1,
+          ymax: 2,
+          style: 'margin-top:30px '
+        }, d, traceA, labels)
       } else {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${deprecatedTexFraction(num, den)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${deprecatedTexFraction(num2, den)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${deprecatedTexFraction(num3, den)}\\right)$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:5px ' }, d, traceA, traceB, traceC, labels)
+        texteCorr += '<br>' + mathalea2d({
+          xmin: -0.2,
+          xmax: origine + 4 * tailleUnite + 1,
+          ymin: -1,
+          ymax: 2,
+          style: 'margin-top:5px '
+        }, d, traceA, traceB, traceC, labels)
       }
 
       if (context.isAmc) {

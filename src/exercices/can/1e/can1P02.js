@@ -9,6 +9,7 @@ import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire une probabilité  à partir d’un arbre'
@@ -22,7 +23,7 @@ export const amcType = 'AMCNum'
  * On donne un arbre de probabilité et lit une probabilité sur l'arbre
  * @author Gilles Mora
 
-*/
+ */
 export const uuid = '32394'
 export const ref = 'can1P02'
 export default function LectureProbabilite () {
@@ -115,7 +116,9 @@ export default function LectureProbabilite () {
       texte += '<br>Compléter avec la notation qui convient : '
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-      } else { texte += `${sp(7)}$\\ldots\\ldots $` }
+      } else {
+        texte += `${sp(7)}$\\ldots\\ldots $`
+      }
       texte += ` $= ${texNombre(choix, 2)}$`
       texteCorr = `Les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre :<br>
       $\\bullet$ $P(${nom1})=${texNombre(pA, 2)}$
@@ -143,15 +146,22 @@ export default function LectureProbabilite () {
       }
       if (choix === 1 - pBC) {
         setReponse(this, i, [
-          `p_{\\overline{${nom1}}}({\\overline{${nom2}}})`, `P_{\\overline{${nom1}}}({\\overline{${nom2}}})`,
-          `p\\overline{_${nom1}}(\\overline{{${nom2}}})`, `P\\overline{_${nom1}}(\\overline{{${nom2}}})`,
-          `p_{\\overline{${nom1}}}(\\overline{{${nom2}}})`, `P_{\\overline{${nom1}}}(\\overline{{${nom2}}})`,
-          `p\\overline{_${nom1}}({\\overline{${nom2}}})`, `P\\overline{_${nom1}}({\\overline{${nom2}}})`])
+                    `p_{\\overline{${nom1}}}({\\overline{${nom2}}})`, `P_{\\overline{${nom1}}}({\\overline{${nom2}}})`,
+                    `p\\overline{_${nom1}}(\\overline{{${nom2}}})`, `P\\overline{_${nom1}}(\\overline{{${nom2}}})`,
+                    `p_{\\overline{${nom1}}}(\\overline{{${nom2}}})`, `P_{\\overline{${nom1}}}(\\overline{{${nom2}}})`,
+                    `p\\overline{_${nom1}}({\\overline{${nom2}}})`, `P\\overline{_${nom1}}({\\overline{${nom2}}})`])
       }
       this.canEnonce = `On donne l'arbre de probabilités :<br>
       
       `
-      this.canEnonce += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+      this.canEnonce += mathalea2d({
+        xmin: -0.1,
+        xmax: 14,
+        ymin: 0,
+        ymax: 7,
+        style: 'inline',
+        scale: 0.5
+      }, ...objets)
       this.canReponseACompleter = `Compléter avec la notation qui convient.<br><br>
        $\\ldots= ${texNombre(choix, 2)}$`
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {

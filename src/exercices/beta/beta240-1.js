@@ -2,19 +2,20 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, printlatex } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Utiliser la simple ou la double distributivité et réduire l'expression
-*
-* @author Eric Schrafstetter
-* 3L11-3
-*/
+ * Utiliser la simple ou la double distributivité et réduire l'expression
+ *
+ * @author Eric Schrafstetter
+ * 3L11-3
+ */
 export default function ResoudreEnXetY () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

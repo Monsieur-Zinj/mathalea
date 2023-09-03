@@ -8,7 +8,8 @@ import {
   pointIntersectionCC,
   pointIntersectionLC,
   pointSurCercle,
-  pointSurSegment, tracePoint
+  pointSurSegment,
+  tracePoint
 } from '../../lib/2d/points.js'
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
@@ -19,13 +20,14 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } 
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { texTexte } from '../../lib/format/texTexte.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -58,7 +60,8 @@ export default function ExercicePerimetresEtAires () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const reponses = []
-    let resultat1 = []; let resultat2 = []
+    let resultat1 = []
+    let resultat2 = []
     const tripletsPythagoriciens = [
       [3, 4, 5],
       [6, 8, 10],
@@ -78,21 +81,21 @@ export default function ExercicePerimetresEtAires () {
     ]
 
     /* let QuestionsDisponibles
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles = [contraindreValeur(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5, this.sup, this.exo === 'NoDisk' ? 2 : 4)]
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5, parseInt(QuestionsDisponibles[i]), this.exo === 'NoDisk' ? 2 : 4) // parseInt en fait un tableau d'entiers
+        if (!this.sup) { // Si aucune liste n'est saisie
+          QuestionsDisponibles = rangeMinMax(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5)
+        } else {
+          if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+            QuestionsDisponibles = [contraindreValeur(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5, this.sup, this.exo === 'NoDisk' ? 2 : 4)]
+          } else {
+            QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              QuestionsDisponibles[i] = contraindreValeur(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5, parseInt(QuestionsDisponibles[i]), this.exo === 'NoDisk' ? 2 : 4) // parseInt en fait un tableau d'entiers
+            }
+            // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
+          }
         }
-        // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
-      }
-    }
-    const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
-    */
+        const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
+        */
 
     const typesDeQuestions = gestionnaireFormulaireTexte({
       min: this.exo === 'NoDisk' ? 1 : 4,
@@ -305,9 +308,9 @@ export default function ExercicePerimetresEtAires () {
             texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14\\approx ${texNombre(R * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}${texTexte('cm')}^2$.`
           } else {
             texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi${sp()}\\text{cm}=${texNombre(2 * R)}\\pi${sp()}\\text{cm}\\approx${texNombre(
-              2 * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}\\text{cm}$<br>`
+                            2 * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}\\text{cm}$<br>`
             texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi${sp()}\\text{cm}^2=${texNombre(R * R)}\\pi${sp()}\\text{cm}^2\\approx${texNombre(
-              R * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}\\text{cm}^2$`
+                            R * R * (this.sup4 ? 3.14 : Math.PI), 3)}${sp()}\\text{cm}^2$`
           }
           texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(2 * R * (this.sup4 ? 3.14 : Math.PI), 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(2 * R * (this.sup4 ? 3.14 : Math.PI), 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(2 * R * (this.sup4 ? 3.14 : Math.PI), 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
           texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * (this.sup4 ? 3.14 : Math.PI), 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * (this.sup4 ? 3.14 : Math.PI), 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombre(R * R * (this.sup4 ? 3.14 : Math.PI), 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`

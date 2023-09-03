@@ -1,10 +1,11 @@
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
@@ -58,10 +59,22 @@ export default function MultiplierDecimaux () {
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = calcul(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
-      texteCorr += '$\\phantom{espace}$' + Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })
+      texteCorr += '$\\phantom{espace}$' + Operation({
+        operande1: b,
+        operande2: a,
+        type: 'multiplication',
+        style: 'display: inline'
+      })
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       setReponse(this, i, reponse)
-      this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+      this.autoCorrection[i].options = {
+        digits: 0,
+        decimals: 0,
+        signe: false,
+        exposantNbChiffres: 0,
+        exposantSigne: false,
+        approx: 0
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

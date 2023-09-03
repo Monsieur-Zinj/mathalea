@@ -12,15 +12,12 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import {
-  randint,
-  calcul,
-  listeQuestionsToContenu
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Lire des abscisses décimales sous trois formes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -61,8 +58,16 @@ export default function LireAbscisseDecimaleTroisFormes () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let d1; let extremite; const noms = choisitLettresDifferentes(3, 'Q')
-      let x1 = 0; let x2 = 0; let x3 = 0; let thickOff; let tableau = []; let xmin; let xmax
+      let d1
+      let extremite
+      const noms = choisitLettresDifferentes(3, 'Q')
+      let x1 = 0
+      let x2 = 0
+      let x3 = 0
+      let thickOff
+      let tableau = []
+      let xmin
+      let xmax
       if (parseInt(this.sup) === 1) {
         if (this.niveau === 'CM') {
           xmin = 0
@@ -108,10 +113,19 @@ export default function LireAbscisseDecimaleTroisFormes () {
           axeStyle: extremite
         })
         const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
-        texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[0]}($`, texteApres: `$${sp(1)})$` })
-        texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[1]}($`, texteApres: `$${sp(2)}+$` }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: `$${sp(1)})$` })
+        texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', {
+          texte: `${sp(10)} $${noms[0]}($`,
+          texteApres: `$${sp(1)})$`
+        })
+        texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
+          texte: `${sp(10)} $${noms[1]}($`,
+          texteApres: `$${sp(2)}+$`
+        }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: `$${sp(1)})$` })
         let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
-        texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[2]}($`, texteApres: `$${sp(1)})$` })
+        texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', {
+          texte: `${sp(10)} $${noms[2]}($`,
+          texteApres: `$${sp(1)})$`
+        })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
         texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
@@ -244,10 +258,19 @@ export default function LireAbscisseDecimaleTroisFormes () {
           axeStyle: extremite
         })
         const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
-        texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[0]}($`, texteApres: '$${sp(1))$' })
-        texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[1]}($`, texteApres: `$${sp(2)}+$` }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: `$${sp(1)})$` })
+        texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', {
+          texte: `${sp(10)} $${noms[0]}($`,
+          texteApres: '$${sp(1))$'
+        })
+        texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
+          texte: `${sp(10)} $${noms[1]}($`,
+          texteApres: `$${sp(2)}+$`
+        }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: `$${sp(1)})$` })
         let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
-        texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[2]}($`, texteApres: `$${sp(1)})$` })
+        texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', {
+          texte: `${sp(10)} $${noms[2]}($`,
+          texteApres: `$${sp(1)})$`
+        })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
         texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
@@ -384,10 +407,19 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
 
         const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
-        texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[0]}($`, texteApres: `$${sp(1)})$` })
-        texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', { texte: ` ${noms[1]}(`, texteApres: `$${sp(2)}+$` }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: ')' })
+        texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', {
+          texte: `${sp(10)} $${noms[0]}($`,
+          texteApres: `$${sp(1)})$`
+        })
+        texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
+          texte: ` ${noms[1]}(`,
+          texteApres: `$${sp(2)}+$`
+        }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: ')' })
         let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
-        texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', { texte: `${sp(10)} $${noms[2]}($`, texteApres: `$${sp(1)})$` })
+        texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', {
+          texte: `${sp(10)} $${noms[2]}($`,
+          texteApres: `$${sp(1)})$`
+        })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
         texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
@@ -475,13 +507,20 @@ export default function LireAbscisseDecimaleTroisFormes () {
           }
         }
       }
-      const textedroite = '<br>' + mathalea2d({ xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 1.5, pixelsParCm: 25, scale: 0.5 }, d1)
+      const textedroite = '<br>' + mathalea2d({
+        xmin: -1.5,
+        xmax: 35,
+        ymin: -1.5,
+        ymax: 1.5,
+        pixelsParCm: 25,
+        scale: 0.5
+      }, d1)
       texte += textedroite
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'À partir de la droite graduée ci-dessous, répondre aux questions ci-dessous.' + textedroite
       }
       if (this.questionJamaisPosee(i, texte)) {
-      // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

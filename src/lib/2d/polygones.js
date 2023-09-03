@@ -5,7 +5,7 @@ import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
 import { Point, point, pointAdistance, pointSurSegment } from './points.js'
 import { longueur, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPoint, texteParPositionEchelle } from './textes.js'
+import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.js'
 import { homothetie, rotation, translation } from './transformations.js'
 import { aireTriangle } from './triangle.js'
 
@@ -537,114 +537,67 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
 }
 
 /**
- * Objet composé d'un rectangle horizontal et d'un texte optionnel à l'intérieur
- * Les paramètres sont les suivants :
- * Xmin, Ymin : coordonnées du sommet en bas à gauche
- * Xmax,Ymax : coordonnées du sommet en haut à droite
- * color : la couleur de la bordure
- * colorFill : 'none' sinon, la couleur de remplissage (exemple : 'orange') Code couleur HTML accepté
- * opaciteDeRemplissage : valeur de 0 (transparent) à 1 (opaque)
- * texteIn : texte à mettre à l'intérieur
- * tailleTexte : comme son nom l'indique la taille du texte (1 par défaut)
- * texteColor : sa couleur
- * textMath : un booléen qui détermine la police (true -> Book Antiqua Italic)
- * echelleFigure : pour passer la valeur de scale de tikzPicture (valeur scale de la commande mathalea) afin d'adapter la taille du texte dans la boite à la résolution
- * @class
- * @author Jean-Claude Lhote
+ * Un constructeur de boites rectangulaires.
+ * remplace l'objet Mathalea2d Boite()
+ * On construit une Boite de base puis on peut
+ * Ajouter des couleurs avec la méthode addColor()
+ * Ajouter du texte ou du latex dedans avec addTextIn()
+ * Enfin, la méthode render() retourne l'objet Mathalea2d ou un array d'objet Mathalea2d pour la fonction mathalea2d()
+ * Exemple : const maBoite = new BoiteBuilder({xMin:0, yMin:0, xMax:3, yMax: 2}).addTextIn({textIn: '\\dfrac{1}{2}'}).render()
  */
-export class Boite {
-  constructor ({
-    Xmin = 0,
-    Ymin = 0,
-    Xmax = 1,
-    Ymax = 1,
-    color = 'black',
-    colorFill = 'none',
-    opaciteDeRemplissage = 0.7,
-    texteIn = '',
-    tailleTexte = 1,
-    texteColor = 'black',
-    texteOpacite = 0.7,
-    texteMath = false,
-    echelleFigure = 1
-  } = {}) {
-    // ObjetMathalea2D.call(this, {}) rectification due aux latexParCoordonnees() qui ne sont plus des ObjetsMathalea2d comme les autres
-    // Jean-Claude Lhote 15/08/2023
-    this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
-    this.bordures = this.forme.bordures
-    if (colorFill !== 'none') {
-      this.forme.couleurDeRemplissage = colorToLatexOrHTML(colorFill)
-      this.forme.opaciteDeRemplissage = opaciteDeRemplissage
-    }
-    if (texteIn !== '') {
-      if (texteIn.charAt(0) === '$') {
-        this.texte = latexParCoordonnees(texteIn.replaceAll('$', ''), (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, texteColor)
-      } else {
-        this.texte = texteParPositionEchelle(texteIn, (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, 'milieu', texteColor, tailleTexte, 'middle', texteMath, echelleFigure)
-        this.texte.opacite = texteOpacite
-      }
-    } else {
-      this.texte = false
-    }
-    /*  this.svg = function (coeff) {
-                    return this.texte ? this.forme.svg(coeff) + this.texte.svg(coeff) : this.forme.svg(coeff)
-                  }
-                  this.tikz = function () {
-                    return this.texte ? this.forme.tikz() + this.texte.tikz() : this.forme.tikz()
-                  }
-                 */
-    return this.texte ? [this.texte, this.forme] : this.forme
+export class BoiteBuilder {
+  constructor ({ xMin, xMax, yMin, yMax }) {
+    this.xMin = xMin
+    this.xMax = xMax
+    this.yMin = yMin
+    this.yMax = yMax
+    this.forme = polygone([point(xMin, yMin), point(xMax, yMin), point(xMax, yMax), point(xMin, yMax)])
   }
-}
 
-/**
- * Crée un rectangle positionné horizontal/vertical avec possibilité d'écrire du texte dedans
- * @param {number} [Xmin = 0] abscisse du sommet en bas à gauche
- * @param {number} [Ymin = 0] ordonnée du sommet en bas à gauche
- * @param {number} [Xmax = 1] abscisse du sommet en haut à droite
- * @param {number} [Ymax = 1] ordonnée du sommet en haut à droite
- * @param {string} [color = 'black'] couleur du cadre
- * @param {string} [colorFill = 'none'] couleur de remplissage
- * @param {number} [opaciteDeRemplissage = 0.7] comme son nom l'indique utilisé si colorFill !== 'none'
- * @param {string} texteIn Texte à afficher (On peut passer du latex si texteIn commence et finit par $)
- * @param {number} [tailleTexte = 1] permet de modifier la taille du texteIn
- * @param {string} [texteColor = 'black'] permet de choisir la couleur du texteIn
- * @param {number} [texteOpacite = 0.7] indice d'opacité du texte de 0 à 1
- * @param {boolean} [texteMa = false] Si le texte n'est pas du latex, change la police pour mettre un style mathématique si true
- * @param {number} [echelleFigure = 1] permet de passer le scale utilisé dans la fonction mathalea2d afin d'adapter la taille du texte en latex
- * @return {Boite}
- * @author Rémi Angot et Frédéric Piou
- */
-export function boite ({
-  Xmin = 0,
-  Ymin = 0,
-  Xmax = 1,
-  Ymax = 1,
-  color = 'black',
-  colorFill = 'none',
-  opaciteDeRemplissage = 0.7,
-  texteIn = '',
-  tailleTexte = 1,
-  texteColor = 'black',
-  texteOpacite = 0.7,
-  texteMath = false,
-  echelleFigure = 1
-} = {}) {
-  return new Boite({
-    Xmin,
-    Ymin,
-    Xmax,
-    Ymax,
-    color,
-    colorFill,
-    opaciteDeRemplissage,
-    texteIn,
-    tailleTexte,
-    texteColor,
-    texteOpacite,
-    texteMath,
-    echelleFigure
-  })
+  /**
+     * l'objet ou l'array d'objet pour la fonction mathalea2d()
+     * @returns {(Polygone|Vide2d|LatexParCoordonnees|TexteParPoint)[]|Polygone}
+     */
+  render () {
+    return this.text ? [this.forme, this.text] : this.forme
+  }
+
+  /**
+     * La méthode retourne l'objet afin de la rendre chaînable
+     * @param {string} color
+     * @param {string} colorBackground
+     * @param {number} opacity
+     * @param {number} backgroudOpacity
+     * @returns {BoiteBuilder}
+     */
+  addColor ({ color, colorBackground, opacity, backgroudOpacity }) {
+    this.forme.color = colorToLatexOrHTML(color ?? 'black')
+    this.forme.opacite = opacity ?? 1
+    this.forme.couleurDeRemplissage = colorToLatexOrHTML(colorBackground ?? 'none')
+    this.forme.opaciteDeRemplissage = backgroudOpacity ?? 0.7
+    return this
+  }
+
+  /**
+     * La méthode retourne l'objet afin de la rendre chaînable
+     * @param {string} textIn si contient '\\' alors c'est une commande latex rendue par latexParCoordonnees()
+     * @param {string} color
+     * @param {number} opacity
+     * @param {number} size (facteur d'agrandissement ou de réduction 1 par défaut)
+     * @returns {BoiteBuilder}
+     */
+  addTextIn ({ textIn, color, opacity, size }) {
+    if (typeof textIn !== 'string') {
+      window.notify('BoiteBuilder.addTextIn() requiert un texteIn de type string ', { textIn })
+    }
+    if (textIn.length > 0) {
+      this.text = textIn.includes('\\')
+        ? latexParCoordonnees(textIn, (this.xMin + this.xMax) / 2, (this.yMin + this.yMax) / 2, color ?? 'black', 50, 0, '', (size ?? 1) * 10)
+        : texteParPosition(textIn, (this.xMin + this.xMax) / 2, (this.yMin + this.yMax) / 2, 'milieu', color ?? 'black', size)
+      this.text.opacite = opacity ?? 1
+    }
+    return this
+  }
 }
 
 /**

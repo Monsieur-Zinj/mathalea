@@ -12,6 +12,8 @@ import { context } from '../../modules/context.js'
 export const titre = 'Utiliser des abscisses fractionnaires (niv 2)'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const dateDePublication = '11/05/2023'
 
 /**
@@ -74,7 +76,7 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
       }
       const tab = choice(tableDisponibles[typeDeQuestions[i]], tableUtilisées[typeDeQuestions[i]])
       tableUtilisées[typeDeQuestions[i]].push(tab)
-      console.log(data[tab])
+      // console.log(data[tab])
 
       let num2, num3, den2, den3
       const den1 = !this.sup2 ? data[tab].id : choice(data[tab].den)
@@ -111,7 +113,7 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
           }
         }
       }
-      texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, mesObjets)
+      texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ', scale: 0.6}, mesObjets)
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
@@ -156,37 +158,25 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
 
       if (this.interactif) {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right).$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:30px ' }, d, traceA, labels)
+        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:30px ', scale: 0.6 }, d, traceA, labels)
       } else {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${deprecatedTexFraction(num2, den2)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${deprecatedTexFraction(num3, den3)}\\right)$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:5px ' }, d, traceA, traceB, traceC, labels)
-      }
-
-      if (context.isAmc) {
-        this.autoCorrection[i] = {
-          enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
-          enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
-          enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
-          propositions: [
-            {
-              type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-              propositions: [
-                {
-                  texte: texteCorr,
-                  statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  enonce: texte,
-                  sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }
-          ]
-        }
-      }
+        texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:5px ', scale: 1 }, d, traceA, traceB, traceC, labels)
+      }      
+                      
       if (!isArrayInArray(fractionsUtilisees, [num1, den1])) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         fractionsUtilisees[i] = [num1, den1]
+
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+              enonce: texte + '\n',
+              propositions: [{ texte: texteCorr, statut: 5, sanscadre: true, pointilles: true, feedback: '' }]
+          }
+        }
+
         i++
       }
     }

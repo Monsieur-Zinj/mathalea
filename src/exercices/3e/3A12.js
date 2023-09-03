@@ -278,7 +278,7 @@ export default function PpcmEngrenages () {
           }
           texteCorr += 'pour la roue n$\\degree$2.'
           break
-        case 3: // déterminer le nombre de dents d'une roue connaissant l'autre et le nombre de tours necessaires à la re-synchro
+        case 3: // déterminer le nombre de dents d'une roue connaissant l'autre et le nombre de tours nécessaires à la re-synchro
           if (this.sup) k = choice([2, 3, 4, 5, 6])
           else k = choice([2, 3])
           nbDentsr1 = randint(5, 15)

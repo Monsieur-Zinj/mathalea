@@ -1,10 +1,11 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Simplifier des fractions à l\'aide des nombres premiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +18,7 @@ export const dateDePublication = '17/03/2022'
 /**
  * @author Guillaume Valmont (amendée par Eric Elter pour this.sup2 et une version 3e)
  * Référence 4C24
-*/
+ */
 export const uuid = '612b9'
 export const ref = '4C24'
 export default function SimplifierFractions () {

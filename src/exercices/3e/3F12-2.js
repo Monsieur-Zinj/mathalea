@@ -4,9 +4,9 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outil
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction d\'après sa forme algébrique'
 export const interactifReady = true
@@ -15,16 +15,16 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**
-* Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
-*
-* * Niveau 1 : Fonctions affines
-* * Niveau 2 : Polynôme du second degré
-* * Niveau 3 : Quotients de fonctions affines
-* * Niveau 4 : (ax+b)(cx+d)
-* * Niveau 5 : Mélange
-* @author Rémi Angot
-* 3F12-2
-*/
+ * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
+ *
+ * * Niveau 1 : Fonctions affines
+ * * Niveau 2 : Polynôme du second degré
+ * * Niveau 3 : Quotients de fonctions affines
+ * * Niveau 4 : (ax+b)(cx+d)
+ * * Niveau 5 : Mélange
+ * @author Rémi Angot
+ * 3F12-2
+ */
 export const uuid = '082d7'
 export const ref = '3F12-2'
 export default function ImageFonctionAlgebrique () {

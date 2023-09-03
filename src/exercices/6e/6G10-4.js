@@ -13,7 +13,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const titre = 'Connaître le vocabulaire du cercle'
@@ -25,9 +25,10 @@ export const dateDePublication = '19/08/2022'
  * et en travaillant la reconnaissance et la production (QCM ou réponse libre)
  * @author Guillaume Valmont
  * Référence 6G10-4
-*/
+ */
 export const uuid = '03b49'
 export const ref = '6G10-4'
+
 function ajouterAlternatives (fonction, reponses) {
   const copieReponses = []
   for (const reponse of reponses) {
@@ -38,9 +39,11 @@ function ajouterAlternatives (fonction, reponses) {
   }
   return reponses
 }
+
 function longueurAlternative (longueur) {
   return longueur.slice(1) + longueur.slice(0, 1)
 }
+
 // @todo relire la définition de cette fonction et la déplacer
 function segmentAlternatif (reponses) {
   if (reponses[0] != null) {
@@ -49,6 +52,7 @@ function segmentAlternatif (reponses) {
     window.notify('segmentAlternatif n\'a pas de matière pour choisir', { reponses })
   }
 }
+
 export default function VocabulaireDuCercle () {
   Exercice.call(this)
   this.titre = titre
@@ -176,7 +180,8 @@ export default function VocabulaireDuCercle () {
       }
       let j = 0
       for (const question of questions) {
-        let enonce; const propositionsEE = []
+        let enonce
+        const propositionsEE = []
         texte += numAlpha(j)
         texteCorr += numAlpha(j)
         if (question.sens === 'Un rayon est ...') {
@@ -249,7 +254,7 @@ export default function VocabulaireDuCercle () {
           }
           if (question.sens === '[AB] est ...') {
             reponses = [question.nature]
-            texte += ajouteChampTexte(this, i * questions.length + j, 'inline largeur25 nospacebefore')
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore alphanumeric')
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
           }
         }

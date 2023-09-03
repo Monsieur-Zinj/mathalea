@@ -1,18 +1,13 @@
 import loadjs from 'loadjs'
 import { context } from './context.js'
 import { UserFriendlyError } from './messages.js'
-// import { clavierLongueur } from '../lib/interactif/claviers/longueur_ANCIEN.js'
-// import { clavierTrigo } from '../lib/interactif/claviers/trigo.js'
-// import { clavierCollege } from '../lib/interactif/claviers/college.js'
-// import { clavierLycee } from '../lib/interactif/claviers/lycee.js'
-// import { clavierConfiguration } from '../lib/interactif/claviers/claviersUnites.js'
-// import { clavierCollege6eme } from '../lib/interactif/claviers/college6eme.js'
 import { CLAVIER_HMS, raccourcisHMS } from '../lib/interactif/claviers/clavierHms.js'
 import { CLAVIER_LYCEE, raccourcisLycee } from '../lib/interactif/claviers/lycee.js'
 import { CLAVIER_COLLEGE, raccourcisCollege } from '../lib/interactif/claviers/college.js'
 import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/college6eme.js'
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
-import { clavierConfiguration, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
+import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
+import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -153,10 +148,38 @@ export function loadScratchblocks () {
 export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
   if (champs.length > 0) {
+    /*
+                                            ██
+                                          ██░░██
+  ░░          ░░                        ██░░░░░░██                            ░░░░
+                                      ██░░░░░░░░░░██
+                                      ██░░░░░░░░░░██
+                                    ██░░░░░░░░░░░░░░██
+                                  ██░░░░░░██████░░░░░░██
+                                  ██░░░░░░██████░░░░░░██
+                                ██░░░░░░░░██████░░░░░░░░██
+                                ██░░░░░░░░██████░░░░░░░░██
+                              ██░░░░░░░░░░██████░░░░░░░░░░██
+                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██
+                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██
+                          ██░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░██
+                          ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
+                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██
+                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██
+                      ██░░░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░░░██
+        ░░            ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
+                        ██████████████████████████████████████████
+    */
+    window.parent = window.self
+    /*
+                   SOLUTION TEMPORAIRE POUR REPARER LE CLAVIER MATHLIVE
+    */
     await import('mathlive')
+    window.mathVirtualKeyboard.targetOrigin = '*'
     for (const mf of champs) {
       let clavier, raccourcis
-      mf.mathVirtualKeyboardPolicy = 'manual'
+      mf.mathVirtualKeyboardPolicy = 'sandboxed'
+      mf.virtualKeyboardTargetOrigin = '*'
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
@@ -171,6 +194,12 @@ export async function loadMathLive () {
       } else if (mf.classList.contains('grecTrigo')) {
         clavier = CLAVIER_GRECTRIGO
         raccourcis = raccourcisTrigo
+      } else if (mf.classList.contains('ensemble')) {
+        clavier = CLAVIER_ENSEMBLE
+        raccourcis = raccourcisEnsemble
+      } else if (mf.classList.contains('alphanumeric')) {
+        clavier = 'alphabetic'
+        raccourcis = {}
       } else if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
         const listeParamClavier = mf.classList
         let index = 0
@@ -182,7 +211,7 @@ export async function loadMathLive () {
         // vire le mot 'unités'
         contenuUnites.shift()
 
-        clavier = clavierConfiguration(contenuUnites)
+        clavier = clavierUNITES(contenuUnites)
         raccourcis = raccourcisUnites
       } else {
         //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut
@@ -195,27 +224,56 @@ export async function loadMathLive () {
       })
       mf.inlineShortcuts = raccourcis
 
-      // *******              REMI : A TOI D'ADAPTER LE CODE CI-DESSOUS             ********
+      // Evite les problèmes de positionnement du clavier mathématique dans les iframes
+      // if (context.vue === 'exMoodle') {
+      if (window.self !== window.top) { // Si on est dans une iframe
+        if (!document.getElementById('fixKeyboardPositionInIframe')) {
+          const style = document.createElement('style')
+          style.setAttribute('id', 'fixKeyboardPositionInIframe')
+          style.innerHTML = `
+          div.ML__keyboard.is-visible {
+            position: absolute;
+            top: var(--keyboard-position);
+            height: var(--_keyboard-height);
+          }
+          
+          div.ML__keyboard.is-visible .ML__keyboard--plate {
+            position: static;
+            transform: none;
+          }`
+          document.head.appendChild(style)
+        }
+        const events = ['focus', 'input']
+        events.forEach(e => {
+          mf.addEventListener(e, () => {
+            setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
+              // Alternative à jQuery Offset : https://youmightnotneedjquery.com/#offset
+              const box = mf.getBoundingClientRect()
+              const docElem = document.documentElement
+              const offset = {
+                top: box.top + window.scrollY - docElem.clientTop, // pageYOffset remplacé par scrollY
+                left: box.left + window.scrollX - docElem.clientLeft // pageXOffset remplacé par scrollX
+              }
+              // Autre Alternative à jQuery Offset : https://usefulangle.com/post/179/jquery-offset-vanilla-javascript
+              // const rect = mf.getBoundingClientRect();
+              // const offset = {
+              //   top: rect.top + window.scrollY,
+              //   left: rect.left + window.scrollX,
+              // }
+              // Alternative à jQuery outerHeight : https://youmightnotneedjquery.com/#outer_height
+              const position = offset.top + mf.offsetHeight + 'px'
+              document.body.style.setProperty('--keyboard-position', position)
+            })
+          })
+        })
+      }
 
-      //   // Evite les problèmes de positionnement du clavier mathématique dans les iframes
-      //   if (context.vue === 'exMoodle') {
-      //     const events = ['focus', 'input']
-      //     events.forEach(e => {
-      //       mf.addEventListener(e, () => {
-      //         setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
-      //           const position = jQuery(mf).offset().top + jQuery(mf).outerHeight() + 'px'
-      //           document.body.style.setProperty('--keyboard-position', position)
-      //         })
-      //       })
-      //     })
-      //   }
-
-      //   if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
-      //     // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
-      //     mf.setOptions({
-      //       virtualKeyboardMode: 'onfocus'
-      //     })
-      //   }
+      if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
+        // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
+        mf.setOptions({
+          virtualKeyboardMode: 'onfocus'
+        })
+      }
 
       let style = 'font-size: 20px;'
 

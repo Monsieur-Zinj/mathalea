@@ -13,12 +13,13 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir, fixeBordures } from '../../modules/2dGeneralites.js'
+import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -56,14 +57,24 @@ export default function PavagesEtTransformations () {
     } else this.sup = 1
     // listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,angle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
     const paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]]
-    const quad = []; const quadCorr = []; let quad1; let quad2; let quad3
-    let mediatrice1, mediatrice2, mediatrice3, centre1, centre2, centre3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32
-    let vecteur1, vecteur2, vecteur3, vector1, vector2, vector3, origine1, origine2, origine3, indexsym2, indexsym1, indexsym3
+    const quad = []
+    const quadCorr = []
+    let quad1
+    let quad2
+    let quad3
+    let mediatrice1, mediatrice2, mediatrice3, centre1, centre2, centre3, arc1, arc2, arc3, rayon11, rayon12,
+      rayon21, rayon22, rayon31, rayon32
+    let vecteur1, vecteur2, vecteur3, vector1, vector2, vector3, origine1, origine2, origine3, indexsym2, indexsym1,
+      indexsym3
     let segCorr11, segCorr12, segCorr21, segCorr22, segCorr31, segCorr32
     let B, C, D
     let iB1, iB2, iB3, iC1, iA1, iD1
-    let texte = ''; let texteCorr = ''
-    const tabfigA = []; const tabfigB = []; const tabfigC = []; const tabfigD = []
+    let texte = ''
+    let texteCorr = ''
+    const tabfigA = []
+    const tabfigB = []
+    const tabfigC = []
+    const tabfigD = []
     let pave = []
     let choixPave
     switch (parseInt(this.sup)) {
@@ -82,7 +93,16 @@ export default function PavagesEtTransformations () {
     }
     pave = paves[choixPave]
 
-    const nx = pave[0]; const ny = pave[1]; let xB = pave[2]; let yB = pave[3]; let xC = pave[4]; let yC = pave[5]; let xD = pave[6]; let yD = pave[7]; const Zoom = pave[8]; const Angle = pave[9]
+    const nx = pave[0]
+    const ny = pave[1]
+    let xB = pave[2]
+    let yB = pave[3]
+    let xC = pave[4]
+    let yC = pave[5]
+    let xD = pave[6]
+    let yD = pave[7]
+    const Zoom = pave[8]
+    const Angle = pave[9]
     const A = point(0, 0)
     if (choixPave !== 0 && choixPave !== 6 && choixPave !== 7) {
       B = similitude(point(xB, yB), A, Angle, 22 / Zoom)
@@ -107,8 +127,37 @@ export default function PavagesEtTransformations () {
     const yAJ = yC + yD - yB
     let xAxy, yAxy, numAxy
     let punto = [0, 0, 0]
-    let trouver = false; let indexA; let numA; let indexcentre1; let xmil1 = 0; let ymil1 = 0; let indexD; let numD; let indexcentre2; let xmil2 = 0; let ymil2 = 0; let indexC; let numC; let indexcentre3; let xmil3 = 0; let ymil3 = 0; let num1; let num2; let num3
-    let xc = 0; let yc = 0; let xb = 0; let yb = 0; let xa = 0; let ya = 0; let xV1 = 0; let yV1 = 0; let xV2 = 0; let yV2 = 0; let xV3 = 0; let yV3 = 0
+    let trouver = false
+    let indexA
+    let numA
+    let indexcentre1
+    let xmil1 = 0
+    let ymil1 = 0
+    let indexD
+    let numD
+    let indexcentre2
+    let xmil2 = 0
+    let ymil2 = 0
+    let indexC
+    let numC
+    let indexcentre3
+    let xmil3 = 0
+    let ymil3 = 0
+    let num1
+    let num2
+    let num3
+    let xc = 0
+    let yc = 0
+    let xb = 0
+    let yb = 0
+    let xa = 0
+    let ya = 0
+    let xV1 = 0
+    let yV1 = 0
+    let xV2 = 0
+    let yV2 = 0
+    let xV3 = 0
+    let yV3 = 0
     const s0 = choice(['S', 'T', 'L', 'W', 'R', 'G', 'E', 'F', 'G', 'K'])
     const s1 = choice(['S', 'T', 'L', 'W', 'R', 'G', 'E', 'F', 'G', 'K'], [s0])
     const s2 = choice(['S', 'T', 'L', 'W', 'R', 'G', 'E', 'F', 'G', 'K'], [s0, s1])
@@ -870,7 +919,12 @@ export default function PavagesEtTransformations () {
           codageAngleDroit(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3, rotation(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3, -90), context.isAmc ? 'black' : 'blue', 1, 1),
           codageSegments('|||', context.isAmc ? 'black' : 'green', rayon11, rayon12), codageSegments('OO', context.isAmc ? 'black' : 'red', rayon21, rayon22), codageSegments('XXX', context.isAmc ? 'black' : 'blue', rayon31, rayon32))
         texteCorr += mathalea2d(
-          Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 15, scale: 0.3, optionsTikz: ['every node/.style={scale=0.6}'], mainlevee: false })
+          Object.assign({}, fixeBordures(objetsCorrection), {
+            pixelsParCm: 15,
+            scale: 0.3,
+            optionsTikz: ['every node/.style={scale=0.6}'],
+            mainlevee: false
+          })
           , objetsCorrection
         )
 

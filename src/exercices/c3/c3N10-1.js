@@ -1,17 +1,13 @@
 import { shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import {
-  randint,
-  contraindreValeur,
-  listeQuestionsToContenu,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Recomposer un entier'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -28,6 +24,7 @@ function remplaceParZero (chaine, place) {
     console.log(`Problème dans remplaceParZero avec le nombre : ${chaine} et la position : ${place})`)
   }
 }
+
 /*!
  * @author Jean-Claude Lhote
  * Référence c3N10-1
@@ -44,7 +41,13 @@ export default function RecomposerEntierC3 () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup3, max: 14, defaut: 15, melange: 15, nbQuestions: this.nbQuestions }).map((index) => index - 1)
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      max: 14,
+      defaut: 15,
+      melange: 15,
+      nbQuestions: this.nbQuestions
+    }).map((index) => index - 1)
     const nombreDeChiffresMin = contraindreValeur(3, 6, this.sup, 5)
     const nombreDeChiffresMax = contraindreValeur(nombreDeChiffresMin, 7, this.sup2, 6)
     this.nombreDeChamps = []
@@ -580,16 +583,16 @@ export default function RecomposerEntierC3 () {
       }
       if (context.isAmc) {
         this.autoCorrection[i] =
-        {
-          enonce: texte + '<br>',
-          propositions: [
-            {
-              texte: texteCorr,
-              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-              sanscadre: true
-            }
-          ]
-        }
+                    {
+                      enonce: texte + '<br>',
+                      propositions: [
+                        {
+                          texte: texteCorr,
+                          statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                          sanscadre: true
+                        }
+                      ]
+                    }
       }
 
       texte += (context.isHtml) ? `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display: inline-block"></div>` : ''

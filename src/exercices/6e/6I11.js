@@ -6,14 +6,16 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const dateDeModifImportante = '14/05/2023' // EE : Passage en interactif
@@ -76,11 +78,19 @@ export default function NoteLaCouleur6e () {
     this.listeCorrections = []
     this.autoCorrection = []
     let j, test
-    let objetsEnonce = []; let objetsCorrection = []
+    let objetsEnonce = []
+    let objetsCorrection = []
     const paramsCorrection = this.relatif
       ? { xmin: -13, ymin: -10, xmax: 13, ymax: 10, pixelsParCm: 20, scale: echelleDessin }
       : { xmin: -1, ymin: -1, xmax: 25, ymax: 19, pixelsParCm: 20, scale: echelleDessin }
-    let commandes_disponibles; const sequences_disponibles = []; let sequence; let result; let nb_couleurs; let instruction; let couleurs; let liste_instructions
+    let commandes_disponibles
+    const sequences_disponibles = []
+    let sequence
+    let result
+    let nb_couleurs
+    let instruction
+    let couleurs
+    let liste_instructions
 
     let lutin, lutindepart
     let angledepart
@@ -90,12 +100,21 @@ export default function NoteLaCouleur6e () {
     context.pixelsParCm = 20
     let pion
     const typeDeQuestion = Number(this.sup2) === 1 ? combinaisonListes([1], this.nbQuestions) : Number(this.sup2) === 2 ? combinaisonListes([2], this.nbQuestions) : combinaisonListes([1, 2], this.nbQuestions)
-    const lePlateau = plateau2dNLC({ type: this.sup, melange: this.sup4, scale: echelleDessin, relatif: this.relatif, nx: 16, ny: 12, pas: 30, plateau: damier })
+    const lePlateau = plateau2dNLC({
+      type: this.sup,
+      melange: this.sup4,
+      scale: echelleDessin,
+      relatif: this.relatif,
+      nx: 16,
+      ny: 12,
+      pas: 30,
+      plateau: damier
+    })
     for (let q = 0; q < this.nbQuestions;) {
       objetsCorrection = []
       objetsEnonce = []
-      objetsEnonce.push(lePlateau)
-      objetsCorrection.push(lePlateau)
+      objetsEnonce.push(lePlateau.plateau2d)
+      objetsCorrection.push(lePlateau.plateau2d)
       let reponseCouleur = []
       let texte = ''
       let texteCorr = ''
@@ -124,7 +143,13 @@ export default function NoteLaCouleur6e () {
             xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
             ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
 
-            pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
+            pion = noteLaCouleur({
+              x: xdepart,
+              y: ydepart,
+              orientation: angledepart,
+              plateau: lePlateau.plateauNLC,
+              relatif: this.relatif
+            })
             lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
             lutin.epaisseur = 2
             lutin.pointilles = 2
@@ -211,7 +236,13 @@ export default function NoteLaCouleur6e () {
             xdepart = -225 + randint(4, 11) * 30 + (this.relatif ? 0 : 240)
             ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
 
-            pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
+            pion = noteLaCouleur({
+              x: xdepart,
+              y: ydepart,
+              orientation: angledepart,
+              plateau: lePlateau.plateauNLC,
+              relatif: this.relatif
+            })
             pion.codeScratch = ''
             lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
             lutin.epaisseur = 2
@@ -321,21 +352,23 @@ export default function NoteLaCouleur6e () {
         texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
         texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
         texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
-      } else { texte = '' }
+      } else {
+        texte = ''
+      }
       texte += 'Exécuter le programme et trouver la succession de couleurs.<br><br>'
       if (context.isHtml) {
         texte += '<table><tr><td>' +
-      scratchblock(pion.codeScratch) +
-      '</td><td>' + `${this.sup % 2 === 0
-        ? 'Correspondance chiffre-couleur : <br>0=Blanc ; 1=Noir ; 2=Rouge ; 3=Bleu ; 4=Orange ; 5=Rose ; 6=Jaune ; 7=Vert ; 8=Gris<br>'
-        : ''}` +
-      mathalea2d(paramsCorrection, objetsEnonce) +
-      '</td></tr></table>'
+                    scratchblock(pion.codeScratch) +
+                    '</td><td>' + `${this.sup % 2 === 0
+                        ? 'Correspondance chiffre-couleur : <br>0=Blanc ; 1=Noir ; 2=Rouge ; 3=Bleu ; 4=Orange ; 5=Rose ; 6=Jaune ; 7=Vert ; 8=Gris<br>'
+                        : ''}` +
+                    mathalea2d(paramsCorrection, objetsEnonce) +
+                    '</td></tr></table>'
       } else {
         texte += `\\begin{minipage}{.3 \\linewidth} \n\t ${scratchblock(pion.codeScratch)} \n \\end{minipage}
       \\begin{minipage}{.7 \\linewidth} \n\t ${this.sup % 2 === 0
-        ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
-        : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
+                    ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
+                    : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
         if (q < this.nbQuestions - 1 && !context.isHtml) {
           texte += '\n\\newpage'
         }

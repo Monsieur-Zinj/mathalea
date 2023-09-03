@@ -19,7 +19,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
   function arrayCopy (arr) {
     return JSON.parse(JSON.stringify(arr))
   }
-  
+
   // Permet de tester si un tableau est contenu dans un autre.
   // tableauDansTableau([0, 1, 0, 0, 1, 1, 1, 0],[1, 1]) Permet de tester si [1, 1] est contenu dans [[0, 1], [0, 0], [1, 1], [1, 0]]
   function tableauDansTableau (gdTableau, petitTableau) {
@@ -32,15 +32,15 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     } while (!test && k < gdTableau.length)
     return test
   }
-  
+
   let cheminsEE = [[1, 0]] // [[colonne,ligne]]
   const casesVoisinesTableau = [[-1, 0], [0, 1], [1, 0], [0, -1]] // Nord ; Est ; Sud ; Ouest
-  
+
   // Fonction récursive qui recherche tous les chemins possibles à partir du point de départ caseActuelle, des points déjà parcourus et avec l'indice du chemin actuel dans le tableau actuel
   function rechercheCheminsPossibles (caseActuelle, indiceCheminActuel, dejaParcourus) {
     const casesPossibles = []
     let prochaineCasePossible = []
-    
+
     for (const element of Visitables) {
       prochaineCasePossible = [caseActuelle[0] + element[0], caseActuelle[1] + element[1]] // Test de l'ouest
       if (prochaineCasePossible[0] === nbColonnes) { // On est arrivé
@@ -52,7 +52,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
           for (let k = 0; k < 4; k++) {
             if (!(casesVoisinesTableau[k][0] === elementPrecedent[0] && casesVoisinesTableau[k][1] === elementPrecedent[1])) casesVoisines.push(casesVoisinesTableau[k])
           }
-          
+
           let nonVoisin = true // Les cases voisines sont accessibles
           for (const element2 of casesVoisines) { // Recherche si les cases voisines à la prochaine case possible n'ont pas déjà été parcourues.
             nonVoisin = nonVoisin && !tableauDansTableau(dejaParcourus, [prochaineCasePossible[0] + element2[0], prochaineCasePossible[1] + element2[1]])
@@ -87,16 +87,16 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
       }
     }
   }
-  
+
   // Fin de construction récursive de chemin
-  
+
   let cheminDejaParcouru = [1, 0]
   const Visitables = [[1, 0], [0, -1], [-1, 0], [0, 1]] // Nord ; Est ; Sud ; Ouest
   cheminsEE[0].push(rechercheCheminsPossibles([1, 0], 0, cheminDejaParcouru))
   enleveElement(cheminsEE[0], undefined) // Obligé d'enlever un undefined qui traine sans savoir pourquoi.
   let cheminTableauSimple = [[]]
   cheminTableauSimple = arrayCopy(cheminsEE)
-  
+
   for (let k = 1; k < nbLignes; k++) {
     cheminsEE = [[1, k]]
     cheminDejaParcouru = [1, k]
@@ -104,18 +104,18 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     enleveElement(cheminsEE[0], undefined) // Obligé d'enlever un undefined qui traine sans savoir pourquoi.
     cheminTableauSimple = cheminTableauSimple.concat(cheminsEE)
   }
-  
+
   for (let k = cheminTableauSimple.length - 1; k >= 0; k--) { // On élimine les voies sans issues, celles se terminant par 0, 0
     if (cheminTableauSimple[k][cheminTableauSimple[k].length - 2] === 0) cheminTableauSimple.splice(k, 1)
   }
   cheminTableauSimple.sort((a, b) => b.length - a.length) // On trie les chemins du plus court au plus long...
-  
+
   const chemins = []
   let elementchemin = []
-  
+
   // Le passage ci-dessous est obligatoire pour passer d'un tableau 2d à un tableau 3d
   // afin d'être en adéquation avec la fonction Labyrinthe() Version 1
-  
+
   for (let i = 0; i < cheminTableauSimple.length; i++) { // on double le nombre de chemins par Symétrie.
     elementchemin = []
     for (let j = 0; j < cheminTableauSimple[i].length / 2; j++) {
@@ -124,7 +124,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     chemins.push(elementchemin)
   }
   // Fin de construction de chemin (qui contient tous les chemins du labyrinthe)
-  
+
   // Gestion des vitesses : Escargot, ..., Guépard
   let tableauDeVitesses = [] // Plus la vitesse est grande, moins le trajet est long
   const vitessePetite = cheminTableauSimple[0].length
@@ -135,11 +135,11 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
   }
   tableauDeVitesses[4] = cheminTableauSimple.length
   tableauDeVitesses = tableauDeVitesses.map(element => element - 1)
-  
+
   // Fin de la fonction Labytinthe()
-  
+
   // Mise en place des méthodes de cette fonction
-  
+
   /**
    * Retourne un chemin en fonction du niveau de rapidité
    * @memberof Labyrinthe
@@ -167,7 +167,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     }
     return chemins[choixchemin]
   }
-  
+
   /**
    * Retourne un ensemble d'objets correspondant aux murs du labyrinthe, par rapport à un chemin choisi
    * @memberof Labyrinthe
@@ -195,7 +195,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
       s2.epaisseur = 2
       objets.push(s2)
     }
-    
+
     // Construction du bord gauche entre le départ et le labyrinthe
     s1 = segment(point(0, 1 + 3 * nbLignes), point(0, 3 + choix * 3))
     s1.epaisseur = 3
@@ -203,7 +203,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     s1 = segment(point(0, 1), point(0, 2 + choix * 3))
     s1.epaisseur = 3
     objets.push(s1)
-    
+
     // Construction case départ
     s1 = segment(point(-3, 1 + choix * 3), point(0, 1 + choix * 3), 'green')
     s1.epaisseur = 3
@@ -215,7 +215,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     s1.epaisseur = 3
     objets.push(s1)
     objets.push(texteParPoint('Départ', point(-1.5, 2.5 + choix * 3), 'milieu', 'blue', taille, 0, false))
-    
+
     // les croix centrales communes à A et B
     for (let i = 1; i < nbColonnes; i++) {
       for (let k = 0; k < nbLignes - 1; k++) {
@@ -239,7 +239,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     s1 = segment(point(0, 1), point(3 * nbColonnes, 1))
     s1.epaisseur = 3
     objets.push(s1)
-    
+
     // les sorties
     // La partie verticale
     for (let i = 0; i < nbLignes - 1; i++) {
@@ -261,7 +261,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     }
     return objets
   }
-  
+
   /**
    * Retourne les traits signifiant le chemin correction
    * @memberof Labyrinthe
@@ -295,7 +295,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     chemin2d.push(s1)
     return chemin2d
   }
-  
+
   /**
    * Retourne la position convenable de tous les éléments (bons ou faux) du labyrinthe (nombre, texte, fraction)
    * @memberof Labyrinthe
@@ -317,7 +317,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     let trouve
     let indexBonnesRep = 0
     let indexMauvaisesRep = 0
-    
+
     for (let a = 0; a < nbColonnes; a++) {
       nombres.push([0, 0])
     }

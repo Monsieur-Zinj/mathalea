@@ -5,10 +5,11 @@ import { longueur } from '../../../lib/2d/segmentsVecteurs.js'
 import { symetrieAxiale } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { context } from '../../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Compter les points symétriques manquant'
@@ -122,7 +123,13 @@ export default function CompleterParSymetrieCan () {
       if (this.interactif && context.isHtml) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
       }
-      texteCorr += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.5 }, ...objetsEnonce, ...objetsCorrection)
+      texteCorr += mathalea2d({
+        xmin: -0.5,
+        ymin: -0.5,
+        xmax: 6.5,
+        ymax: 6.5,
+        scale: 0.5
+      }, ...objetsEnonce, ...objetsCorrection)
       setReponse(this, i, pointsEnPlusCorr.length)
       if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
         this.listeQuestions.push(texte)

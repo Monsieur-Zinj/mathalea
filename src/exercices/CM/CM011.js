@@ -2,9 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Quart'
 export const amcReady = true
 export const interactifReady = true
@@ -15,7 +16,7 @@ export const amcType = 'AMCNum'
  * Calculer le quart d'un multiple de 4, d'un impair, d'un multiple de 400, d'un multiple de 40, d'un nombre a,b avec a et b multiples de 4
  * @author Rémi Angot
  * Référence CM011
-*/
+ */
 export const uuid = 'b434c'
 export const ref = 'CM011'
 export default function Quart () {
@@ -38,7 +39,6 @@ export default function Quart () {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 4
@@ -53,7 +53,7 @@ export default function Quart () {
           b = choice([1, 2, 3])
           texte = `$\\text{Le quart de }${a * 4 + b}$`
           texteCorr = `$\\text{Le quart de }${a * 4 + b
-            } \\text{ est } ${texNombre(a + b / 4)}$`
+                    } \\text{ est } ${texNombre(a + b / 4)}$`
           setReponse(this, i, calcul(a + b / 4))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
@@ -61,8 +61,8 @@ export default function Quart () {
           a = randint(2, 9)
           texte = `$\\text{Le quart de }${texNombre(a * 4 * 100)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
-            a * 4 * 100
-          )} \\text{ est } ${texNombre(a * 100)}$`
+                        a * 4 * 100
+                    )} \\text{ est } ${texNombre(a * 100)}$`
           setReponse(this, i, a * 100)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
@@ -70,8 +70,8 @@ export default function Quart () {
           a = randint(2, 9)
           texte = `$\\text{Le quart de }${texNombre(a * 4 * 10)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
-            a * 4 * 10
-          )} \\text{ est } ${texNombre(a * 10)}$`
+                        a * 4 * 10
+                    )} \\text{ est } ${texNombre(a * 10)}$`
           setReponse(this, i, a * 10)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
@@ -80,8 +80,8 @@ export default function Quart () {
           b = randint(2, 9)
           texte = `$\\text{Le quart de }${texNombre(a * 4 + (b * 4) / 100)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
-            a * 4 + (b * 4) / 100
-          )} \\text{ est } ${texNombre(a + b / 100)}$`
+                        a * 4 + (b * 4) / 100
+                    )} \\text{ est } ${texNombre(a + b / 100)}$`
           setReponse(this, i, calcul(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break

@@ -1,15 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import {
-  ecritureAlgebrique,
-  ecritureParentheseSiMoins,
-  ecritureParentheseSiNegatif
-} from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiMoins, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Utiliser la simple distributivité'
 

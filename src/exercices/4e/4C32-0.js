@@ -2,9 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Écriture décimale d\'un calcul avec des puissances de 10'
@@ -16,7 +17,7 @@ export const dateDeModifImportante = '26/04/2023'
  * @author Mireille Gain
  * Ajout du choix du signe de l'exposant par Guillaume Valmont le 26/04/2023
  * 4C32-0
-*/
+ */
 export const uuid = '5d72b'
 export const ref = '4C32-0'
 export default function EcritureDecimaleApresPuissancesDeDix () {

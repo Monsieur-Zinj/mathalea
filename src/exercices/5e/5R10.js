@@ -5,7 +5,8 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const interactifReady = true
 
@@ -58,54 +59,46 @@ export default function TermeInconnuDeSomme () {
         a = arrondi(randint(4 * decimal, 20 * decimal) / decimal, 1)
         b = arrondi(randint(2 * decimal, 20 * decimal) / decimal, 1)
       }
-      if (parseInt(this.sup3) === 1) {
-        inconnue = ' \\ldots\\ldots '
+      if (this.interactif && !context.isAmc) inconnue = ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore')
+      else if (parseInt(this.sup3) === 1) {
+        inconnue = ' $\\ldots\\ldots$ '
       } else {
-        inconnue = ` ${choice(['x', 'y', 'z', 'a', 't', 'n'])} `
+        inconnue = ` $${choice(['x', 'y', 'z', 'a', 't', 'n'])}$ `
       }
       switch (listeTypeDeQuestions[i]) {
         case 1:
-          texte = `$${texNombre(a)} + ${inconnue} = ${texNombre(b)}$`
-          if (this.interactif && !context.isAmc) {
-            texte = `$${texNombre(a)} + $${ajouteChampTexte(this, i, { texte: '' })}$ = ${texNombre(b)}$`
-          }
+          texte = `$${texNombre(a)} + $` + inconnue + `$ = ${texNombre(b)}$`
           texteCorr = `$${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))} = ${texNombre(b)}$`
-          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
-
           break
 
         case 2:
-          texte = `$${inconnue} + ${texNombre(a)}  = ${texNombre(b)}$`
-          if (this.interactif && !context.isAmc) {
-            texte = `${ajouteChampTexte(this, i, { texte: '' })}$ + ${texNombre(a)} = ${texNombre(b)}$`
-          }
+          texte = inconnue + `$ + ${texNombre(a)} = ${texNombre(b)}$`
           texteCorr = `$${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)} = ${texNombre(b)}$`
-          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
           break
 
         case 3:
-          texte = `$${texNombre(b)} = ${inconnue} + ${texNombre(a)} $`
-          if (this.interactif && !context.isAmc) {
-            texte = `$${texNombre(b)} = $${ajouteChampTexte(this, i, { texte: '' })}$ + ${texNombre(a)}$`
-          }
+          texte = `$${texNombre(b)} = $` + inconnue + `$ + ${texNombre(a)}$`
           texteCorr = `$${texNombre(b)}=${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)}$`
-          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
           break
 
         case 4:
-          texte = `$${texNombre(b)} = ${texNombre(a)} + ${inconnue}$`
+          texte = `$${texNombre(b)} = ${texNombre(a)} + $` + inconnue
           if (this.interactif && !context.isAmc) {
-            texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexte(this, i, { texte: '' })}`
+            texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexteMathLive(this, i, 'inline largeur15', { texte: '444' })}`
           }
           texteCorr = `$${texNombre(b)}=${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))}$`
-          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
           break
       }
+      texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, b - a, { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(b - a)), decimals: 0 })
+        setReponse(this, i, b - a, {
+          signe: true,
+          digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(b - a)),
+          decimals: 0
+        })
         i++
       }
       cpt++

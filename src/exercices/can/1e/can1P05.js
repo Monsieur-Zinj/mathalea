@@ -7,6 +7,7 @@ import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Utiliser la formule des probabilités totales dans un arbre'
@@ -20,7 +21,7 @@ export const amcType = 'AMCNum'
  *
  * @author Gilles Mora
 
-*/
+ */
 export const uuid = 'ee478'
 export const ref = 'can1P05'
 export default function CalculProbaFormuleProbaTotale () {
@@ -102,7 +103,14 @@ export default function CalculProbaFormuleProbaTotale () {
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+          texte += mathalea2d({
+            xmin: -0.1,
+            xmax: 14,
+            ymin: 0,
+            ymax: 7,
+            style: 'inline',
+            scale: 0.5
+          }, ...objets)
 
           if (this.interactif) {
             texte += '<br>$P(B)=$ '
@@ -180,7 +188,14 @@ export default function CalculProbaFormuleProbaTotale () {
           texte = `On donne l’arbre de probabilités ci-dessous :<br>
 
          `
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+          texte += mathalea2d({
+            xmin: -0.1,
+            xmax: 14,
+            ymin: 0,
+            ymax: 7,
+            style: 'inline',
+            scale: 0.5
+          }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{B})=$ '

@@ -4,11 +4,12 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import { texTexte } from '../../lib/format/texTexte.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = 'true'
@@ -114,18 +115,18 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
-          '$ ' +
-          texNombre(a) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          ' =  ' +
-          texNombre(a) +
-          '\\times' +
-          texNombre(prefixeMulti[k][1]) +
-          texTexte(unite) +
-          ' = ' +
-          texNombre(resultat) +
-          texTexte(unite) +
-          '$'
+                    '$ ' +
+                    texNombre(a) +
+                    texTexte(prefixeMulti[k][0] + unite) +
+                    ' =  ' +
+                    texNombre(a) +
+                    '\\times' +
+                    texNombre(prefixeMulti[k][1]) +
+                    texTexte(unite) +
+                    ' = ' +
+                    texNombre(resultat) +
+                    texTexte(unite) +
+                    '$'
         if (this.sup3 && context.vue === 'diap') {
           texte += '<br>' + buildTab(0, '', 0, '', 2, true)
         }
@@ -137,18 +138,18 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
-          '$ ' +
-          texNombre(a) +
-          texTexte(prefixeDiv[k][0] + unite) +
-          ' =  ' +
-          texNombre(a) +
-          '\\div' +
-          texNombre(prefixeDiv[k][1]) +
-          texTexte(unite) +
-          ' = ' +
-          texNombre(resultat) +
-          texTexte(unite) +
-          '$'
+                    '$ ' +
+                    texNombre(a) +
+                    texTexte(prefixeDiv[k][0] + unite) +
+                    ' =  ' +
+                    texNombre(a) +
+                    '\\div' +
+                    texNombre(prefixeDiv[k][1]) +
+                    texTexte(unite) +
+                    ' = ' +
+                    texNombre(resultat) +
+                    texTexte(unite) +
+                    '$'
         if (this.sup3 && context.vue === 'diap') {
           texte += '<br>' + buildTab(0, '', 0, '', 2, true)
         }
@@ -168,18 +169,18 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
           texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite1] })}` : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
-            '$ ' +
-            texNombre(a) +
-            texTexte(listeUnite[unite2]) +
-            ' =  ' +
-            texNombre(a) +
-            '\\times' +
-            texNombre(Math.pow(10, ecart)) +
-            texTexte(listeUnite[unite1]) +
-            ' = ' +
-            texNombre(resultat) +
-            texTexte(listeUnite[unite1]) +
-            '$'
+                        '$ ' +
+                        texNombre(a) +
+                        texTexte(listeUnite[unite2]) +
+                        ' =  ' +
+                        texNombre(a) +
+                        '\\times' +
+                        texNombre(Math.pow(10, ecart)) +
+                        texTexte(listeUnite[unite1]) +
+                        ' = ' +
+                        texNombre(resultat) +
+                        texTexte(listeUnite[unite1]) +
+                        '$'
           if (this.sup3 && context.vue === 'diap') {
             texte += '<br>' + buildTab(0, '', 0, '', 2, true)
           }
@@ -191,18 +192,18 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
           texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite2] })}` : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
           texteCorr =
-            '$ ' +
-            texNombre(a) +
-            texTexte(listeUnite[unite1]) +
-            ' =  ' +
-            texNombre(a) +
-            '\\div' +
-            texNombre(Math.pow(10, ecart)) +
-            texTexte(listeUnite[unite2]) +
-            ' = ' +
-            texNombre(resultat) +
-            texTexte(listeUnite[unite2]) +
-            '$'
+                        '$ ' +
+                        texNombre(a) +
+                        texTexte(listeUnite[unite1]) +
+                        ' =  ' +
+                        texNombre(a) +
+                        '\\div' +
+                        texNombre(Math.pow(10, ecart)) +
+                        texTexte(listeUnite[unite2]) +
+                        ' = ' +
+                        texNombre(resultat) +
+                        texTexte(listeUnite[unite2]) +
+                        '$'
           if (this.sup3 && context.vue === 'diap') {
             texte += '<br>' + buildTab(0, '', 0, '', 2, true)
           }
@@ -244,6 +245,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   this.besoinFormulaire3CaseACocher = ['Avec tableau']
 }
+
 /**
  * Fonction utilitaire retournant le rang d'un nombre
  * @param {*} nb Nombre entier ou décimal

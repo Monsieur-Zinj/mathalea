@@ -5,12 +5,13 @@ import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, contraindreValeur, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pave3d, point3d } from '../../modules/3d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Nommer des faces dans un pavé droit'
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
@@ -38,16 +39,17 @@ export default function LireFacePaveDroit () {
   this.sup4 = 6
 
   /**
-* Inverse une chaîne de caractères
-* @param {string} str Chaîne à inverser
-* @author Eric Elter (enfin copié sur le net)
-* @example inverseChaine('laval') renvoie 'laval' /// Hihihihi...
-* @example inverseChaine('parfait') renvoie 'tiafrap'
-* @example inverseChaine('1234') renvoie '4321'
-*/
+     * Inverse une chaîne de caractères
+     * @param {string} str Chaîne à inverser
+     * @author Eric Elter (enfin copié sur le net)
+     * @example inverseChaine('laval') renvoie 'laval' /// Hihihihi...
+     * @example inverseChaine('parfait') renvoie 'tiafrap'
+     * @example inverseChaine('1234') renvoie '4321'
+     */
   function inverseChaine (str) {
     return (str === '') ? '' : inverseChaine(str.substr(1)) + str.charAt(0)
   }
+
   function differentsNomsPossiblesDUneFace (face, nomSolide) {
     let nouvelleFaceChiffree = ''
     let nouvelleFace = ''
@@ -72,22 +74,22 @@ export default function LireFacePaveDroit () {
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     /*
-    let typesDeQuestionsIndisponibles = []
-    if (!this.sup2) { // Si aucune liste n'est saisie
-      typesDeQuestionsIndisponibles = 7
-    } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsIndisponibles[0] = contraindreValeur(1, 6, this.sup2, 1)
-      } else {
-        typesDeQuestionsIndisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsIndisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsIndisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsIndisponibles[i]), 1) // parseInt en fait un tableau d'entiers
+        let typesDeQuestionsIndisponibles = []
+        if (!this.sup2) { // Si aucune liste n'est saisie
+          typesDeQuestionsIndisponibles = 7
+        } else {
+          if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+            typesDeQuestionsIndisponibles[0] = contraindreValeur(1, 6, this.sup2, 1)
+          } else {
+            typesDeQuestionsIndisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < typesDeQuestionsIndisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              typesDeQuestionsIndisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsIndisponibles[i]), 1) // parseInt en fait un tableau d'entiers
+            }
+          }
         }
-      }
-    }
-    if (compteOccurences(typesDeQuestionsIndisponibles, 7) > 0) typesDeQuestionsIndisponibles = [] // Teste si l'utilisateur a choisi rien
-    enleveDoublonNum(typesDeQuestionsIndisponibles)
-    */
+        if (compteOccurences(typesDeQuestionsIndisponibles, 7) > 0) typesDeQuestionsIndisponibles = [] // Teste si l'utilisateur a choisi rien
+        enleveDoublonNum(typesDeQuestionsIndisponibles)
+        */
 
     const typesDeQuestionsIndisponibles = gestionnaireFormulaireTexte({
       max: 6,
@@ -133,7 +135,10 @@ export default function LireFacePaveDroit () {
       solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
       objetsEnonce.push(...solideDessine.c2d)
       // enonceFigure = (context.isAmc ? '' : '<br>') + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.2, style: 'block' }), objetsEnonce) + '<br>'
-      enonceFigure = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
+      enonceFigure = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+        scale: context.isHtml ? 0.7 : 0.3,
+        style: 'block'
+      }), objetsEnonce) + '<br>'
       texte += enonceFigure
       facesPossibles = [['de devant', '0123'], ['de derrière', '4567'], ['de gauche', '0374'], ['de droite', '1265'], ['du dessus', '2376'], ['du dessous', '0154']]
 

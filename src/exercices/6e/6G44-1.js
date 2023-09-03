@@ -4,13 +4,27 @@ import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
-import { point3d, polygone3d, prisme3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cone3d, cylindre3d, pyramide3d } from '../../modules/3d.js'
+import {
+  arc3d,
+  arete3d,
+  cone3d,
+  cylindre3d,
+  droite3d,
+  point3d,
+  polygone3d,
+  prisme3d,
+  pyramide3d,
+  rotation3d,
+  vecteur3d
+} from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
-import { setReponse, ajouteChampTexte } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, fixeBordures, vide2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Reconnaître des solides'
 export const dateDePublication = '24/09/2022'
 export const dateDeModifImportante = '08/05/2023'
@@ -27,7 +41,7 @@ export const ref = '6G44-1'
 export const uuid = '051aa'
 export default function ReconnaitreDesSolides () {
   Exercice.call(this)
-  this.nbQuestions = 10
+  this.nbQuestions = 5
   this.formatChampTexte = 'largeur15 inline'
   this.sup = '8' // Type de question
   this.sup2 = false // qcm
@@ -173,11 +187,11 @@ export default function ReconnaitreDesSolides () {
             // c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
             // c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0)
             /* const c1 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 180, 220)
-            const c2 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 220, 360 + 180)
-            const g1 = arete3d(point3d(0, -3, 0), point3d(1, 0, 0))
-            const g2 = arete3d(point3d(0, -3, 0), point3d(-1, 0, 0))
-            cone.c2d.length = 0
-            cone.c2d.push(c1, c2, g1.c2d, g2.c2d, arete3d(point3d(0, 2, 0), point3d(0, -4, 0), 'red', false).c2d) */
+                        const c2 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 220, 360 + 180)
+                        const g1 = arete3d(point3d(0, -3, 0), point3d(1, 0, 0))
+                        const g2 = arete3d(point3d(0, -3, 0), point3d(-1, 0, 0))
+                        cone.c2d.length = 0
+                        cone.c2d.push(c1, c2, g1.c2d, g2.c2d, arete3d(point3d(0, 2, 0), point3d(0, -4, 0), 'red', false).c2d) */
             objets.push(...cone.c2d)
           } else if (axe === 2) {
             cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)), 'black', true, 'black', 'white')
@@ -224,7 +238,7 @@ export default function ReconnaitreDesSolides () {
             // base sur le plan YZ
             cylindre = cylindre3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, 1, 0), vecteur3d(0, 1, 0))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
-            c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
+                        c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
             const c1 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'black', 90, 270)
             const c2 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'caché', 'black', 270, 360 + 90)
             const c3 = arc3d(point3d(3, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'black', 90, 270)
@@ -331,7 +345,10 @@ export default function ReconnaitreDesSolides () {
         if (this.sup2) this.reponse = solides[choix - 1] // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
 
         objets.push(a1, a2, a3)
-        this.question = mathalea2d(Object.assign({}, fixeBordures(objets), { scale: 0.5, style: 'margin: auto' }), objets)
+        this.question = mathalea2d(Object.assign({}, fixeBordures(objets), {
+          scale: 0.5,
+          style: 'margin: auto'
+        }), objets)
 
         this.autoCorrection[j] = {}
         this.autoCorrection[j].options = {}
@@ -370,7 +387,7 @@ export default function ReconnaitreDesSolides () {
           this.question += propositionsQcm(this, j).texte
         } else {
           setReponse(this, j, this.reponse, { formatInteractif: 'ignorerCasse' })
-          this.question += '<br>' + ajouteChampTexte(this, j, this.reponse)
+          this.question += '<br>' + ajouteChampTexteMathLive(this, j, 'alphanumeric')
         }
         this.listeQuestions.push(this.question)
         this.listeCorrections.push(this.correction)

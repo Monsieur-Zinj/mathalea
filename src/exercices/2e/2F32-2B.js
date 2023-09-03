@@ -1,12 +1,12 @@
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true

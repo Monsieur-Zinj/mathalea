@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-export const titre = 'Citer les propriétés des parallélogrammes'
+export const titre = 'Citer la définition ou les propriétés d\'un parallélogramme'
 
 export const dateDeModifImportante = '08/05/2022'
 
@@ -17,9 +17,8 @@ export const uuid = 'af2c2'
 export const ref = '5G40-1'
 export default function ProprietesDesParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = "Compléter les phrases suivantes à l'aide de la définition ou des propriétés des parallélogrammes."
-  this.nbQuestions = 9
+  this.sup = 3
+  this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -29,7 +28,10 @@ export default function ProprietesDesParallelogrammes () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    if (this.nbQuestions === 1) this.consigne = "Compléter la phrases suivante à l'aide de la définition ou d'une propriété des parallélogrammes."
+    this.consigne = this.nbQuestions === 1
+      ? 'Compléter la phrase suivante '
+      : 'Compléter les phrases suivantes '
+    this.consigne += "à l'aide de la définition ou d'une propriété d'un parallélogramme."
     let typeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     if (parseInt(this.sup) === 1) {
       typeQuestionsDisponibles = [1, 2, 3, 4]
@@ -43,40 +45,40 @@ export default function ProprietesDesParallelogrammes () {
 
       switch (listeTypeQuestions[i]) {
         case 1:
-          texte = 'Si un quadrilatère est un parallélogramme alors ses côtés…'
-          texteCorr = `Si un quadrilatère est un parallélogramme alors ses côtés ${texteEnCouleurEtGras('opposés sont parallèles et de même longueur')}.`
+          texte = 'Si un quadrilatère est un parallélogramme, alors ses côtés…'
+          texteCorr = `Si un quadrilatère est un parallélogramme, alors ses côtés ${texteEnCouleurEtGras('opposés sont parallèles et de même longueur')}.`
           break
         case 2:
-          texte = 'Si un quadrilatère est un parallélogramme alors ses diagonales…'
-          texteCorr = `Si un quadrilatère est un parallélogramme alors ses diagonales ${texteEnCouleurEtGras('se coupent en leur milieu')}.`
+          texte = 'Si un quadrilatère est un parallélogramme, alors ses diagonales…'
+          texteCorr = `Si un quadrilatère est un parallélogramme, alors ses diagonales ${texteEnCouleurEtGras('se coupent en leur milieu')}.`
           break
         case 3:
-          texte = 'Si un quadrilatère est un parallélogramme alors ses angles…'
-          texteCorr = `Si un quadrilatère est un parallélogramme alors ses angles ${texteEnCouleurEtGras('opposés sont égaux et la somme de deux angles consécutifs est égale à 180°')}.`
+          texte = 'Si un quadrilatère est un parallélogramme, alors ses angles…'
+          texteCorr = `Si un quadrilatère est un parallélogramme, alors ses angles ${texteEnCouleurEtGras('opposés sont égaux et la somme de deux angles consécutifs est égale à 180°')}.`
           break
         case 4:
-          texte = 'Si un quadrilatère est un parallélogramme alors … symétrie …'
-          texteCorr = `Si un quadrilatère est un parallélogramme alors ${"il a un centre de symétrie qui est le point d'intersection de ses diagonales"}.`
+          texte = 'Si un quadrilatère est un parallélogramme, alors … symétrie …'
+          texteCorr = `Si un quadrilatère est un parallélogramme, alors ${texteEnCouleurEtGras("il a un centre de symétrie qui est le point d'intersection de ses diagonales")}.`
           break
         case 5:
-          texte = "Si un quadrilatère a ses diagonales … alors c'est un parallélogramme."
-          texteCorr = `Si un quadrilatère a ses diagonales ${texteEnCouleurEtGras('qui se coupent en leur milieu')} alors c'est un parallélogramme`
+          texte = "Si un quadrilatère a ses diagonales …, alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a ses diagonales ${texteEnCouleurEtGras('qui se coupent en leur milieu')}, alors c'est un parallélogramme.`
           break
         case 6:
-          texte = "Si un quadrilatère a … parallèles alors c'est un parallélogramme."
-          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés')} parallèles alors c'est un parallélogramme`
+          texte = "Si un quadrilatère a … parallèles, alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés')} parallèles, alors c'est un parallélogramme.`
           break
         case 7:
-          texte = "Si un quadrilatère a … longueur alors c'est un parallélogramme."
-          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés de même')} longueur alors c'est un parallélogramme`
+          texte = "Si un quadrilatère a … longueur, alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés de même')} longueur, alors c'est un parallélogramme.`
           break
         case 8:
-          texte = "Si un quadrilatère a deux côtés … alors c'est un parallélogramme."
-          texteCorr = `Si un quadrilatère a deux côtés ${texteEnCouleurEtGras('opposés parallèles et de même longueur')} alors c'est un parallélogramme`
+          texte = "Si un quadrilatère a deux côtés …, alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a deux côtés ${texteEnCouleurEtGras('opposés parallèles et de même longueur')}, alors c'est un parallélogramme.`
           break
         case 9:
-          texte = "Si un quadrilatère a … angles … alors c'est un parallélogramme."
-          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses angles opposés égaux')} alors c'est un parallélogramme`
+          texte = "Si un quadrilatère a … angles …, alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses angles opposés égaux')}, alors c'est un parallélogramme.`
           break
       }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

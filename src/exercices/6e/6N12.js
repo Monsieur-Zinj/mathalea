@@ -5,9 +5,10 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -59,7 +60,6 @@ export default function MultiplierEntierPar101001000 () {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1:

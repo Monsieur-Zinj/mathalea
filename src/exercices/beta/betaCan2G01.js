@@ -1,11 +1,12 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Périmètres de carrés et de rectangles'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']

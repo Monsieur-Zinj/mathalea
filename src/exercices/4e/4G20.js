@@ -10,11 +10,12 @@ import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { RedactionPythagore } from './_pythagore.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 'AMCOpenNum' // Question numérique
 export const amcReady = true // Il reste à gérer les options numériques
@@ -112,9 +113,13 @@ export default function Pythagore2D () {
         mesObjetsATracer.push(affAB, affBC)
       }
 
-      if (!context.isHtml) { texte = '~\\\\' }
+      if (!context.isHtml) {
+        texte = '~\\\\'
+      }
       texte += mathalea2d({ xmin, xmax, ymin, ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
-      if (!context.isHtml && !context.isAmc && i !== this.nbQuestions - 1) { texte += '\\columnbreak' } // pour la sortie LaTeX sauf la dernière question
+      if (!context.isHtml && !context.isAmc && i !== this.nbQuestions - 1) {
+        texte += '\\columnbreak'
+      } // pour la sortie LaTeX sauf la dernière question
 
       let redaction
       let nomCote = ''
@@ -134,7 +139,12 @@ export default function Pythagore2D () {
         }
         texteCorr = redaction[0]
         texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]')) : ''
-        context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
+        context.isAmc
+          ? setReponse(this, i, reponse)
+          : setReponse(this, i, new Grandeur(reponse, 'cm'), {
+            formatInteractif: 'unites',
+            precision: 0.001
+          })
 
         if (context.isAmc) {
           this.autoCorrection[i].propositions = [{ statut: 3, texte: texteCorr }]

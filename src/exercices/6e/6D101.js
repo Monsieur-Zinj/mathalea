@@ -2,9 +2,10 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Hms from '../../modules/Hms.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Utiliser les heures décimales'
 export const interactifReady = true
 export const interactifType = 'mathLive'

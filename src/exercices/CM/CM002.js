@@ -1,12 +1,10 @@
 import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {
-  listeQuestionsToContenu,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Tables de divisions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,8 +16,8 @@ export const amcType = 'AMCNum' // Question numérique
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot
-* Référence CM002
-  */
+ * Référence CM002
+ */
 export const uuid = '77511'
 export const ref = 'CM002'
 export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') {
@@ -35,7 +33,14 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const tables = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup, defaut: 9, max: 9, min: 2, enleveDoublons: true })
+    const tables = gestionnaireFormulaireTexte({
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup,
+      defaut: 9,
+      max: 9,
+      min: 2,
+      enleveDoublons: true
+    })
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],

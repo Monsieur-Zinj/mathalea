@@ -7,11 +7,13 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculs de fréquences'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,17 +21,17 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
-|*  888    888          888
-|*  888    888          888
-|*  888    888          888
-|*  8888888888  .d88b.  888 88888b.   .d88b.  888d888 .d8888b
-|*  888    888 d8P  Y8b 888 888 "88b d8P  Y8b 888P"   88K
-|*  888    888 88888888 888 888  888 88888888 888     "Y8888b.
-|*  888    888 Y8b.     888 888 d88P Y8b.     888          X88
-|*  888    888  "Y8888  888 88888P"   "Y8888  888      88888P'
-|*                          888
-|*                          888
-|*                          888
+ |*  888    888          888
+ |*  888    888          888
+ |*  888    888          888
+ |*  8888888888  .d88b.  888 88888b.   .d88b.  888d888 .d8888b
+ |*  888    888 d8P  Y8b 888 888 "88b d8P  Y8b 888P"   88K
+ |*  888    888 88888888 888 888  888 88888888 888     "Y8888b.
+ |*  888    888 Y8b.     888 888 d88P Y8b.     888          X88
+ |*  888    888  "Y8888  888 88888P"   "Y8888  888      88888P'
+ |*                          888
+ |*                          888
+ |*                          888
  */
 
 /**
@@ -73,21 +75,44 @@ function listeEntiersDepuisSomme (total, nbElements) {
   return valeurs
 }
 
-function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 8, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
-  const diagramme = diagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille, couleurDeRemplissage, titreAxeVertical, titre, hauteurDiagramme, coeff, axeVertical, etiquetteValeur, labelAxeVert })
-  return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -3, rymax: 1.5 }), { style: 'inline', scale: 0.5 }), diagramme)
+function graphique (hauteursBarres, etiquettes, {
+  reperageTraitPointille = false,
+  couleurDeRemplissage = 'blue',
+  titreAxeVertical = '',
+  titre = '',
+  hauteurDiagramme = 8,
+  coeff = 2,
+  axeVertical = false,
+  etiquetteValeur = true,
+  labelAxeVert = false
+}) {
+  const diagramme = diagrammeBarres(hauteursBarres, etiquettes, {
+    reperageTraitPointille,
+    couleurDeRemplissage,
+    titreAxeVertical,
+    titre,
+    hauteurDiagramme,
+    coeff,
+    axeVertical,
+    etiquetteValeur,
+    labelAxeVert
+  })
+  return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -3, rymax: 1.5 }), {
+    style: 'inline',
+    scale: 0.5
+  }), diagramme)
 }
 
 /**
-|*  8888888888                                    d8b
-|*  888                                           Y8P
-|*  888
-|*  8888888    888  888  .d88b.  888d888  .d8888b 888  .d8888b  .d88b.
-|*  888        `Y8bd8P' d8P  Y8b 888P"   d88P"    888 d88P"    d8P  Y8b
-|*  888          X88K   88888888 888     888      888 888      88888888
-|*  888        .d8""8b. Y8b.     888     Y88b.    888 Y88b.    Y8b.
-|*  8888888888 888  888  "Y8888  888      "Y8888P 888  "Y8888P  "Y8888
-*/
+ |*  8888888888                                    d8b
+ |*  888                                           Y8P
+ |*  888
+ |*  8888888    888  888  .d88b.  888d888  .d8888b 888  .d8888b  .d88b.
+ |*  888        `Y8bd8P' d8P  Y8b 888P"   d88P"    888 d88P"    d8P  Y8b
+ |*  888          X88K   88888888 888     888      888 888      88888888
+ |*  888        .d8""8b. Y8b.     888     Y88b.    888 Y88b.    Y8b.
+ |*  8888888888 888  888  "Y8888  888      "Y8888P 888  "Y8888P  "Y8888
+ */
 
 /**
  * La classe Population sert à construire la série basée sur le theme choisi en paramètre
@@ -172,7 +197,7 @@ class Population {
  * avec un effectif manquant et l'effectif total donné
  * @author Eve & Sylvain CHAMBON
  * Référence 5S13-2
-*/
+ */
 export const uuid = 'ff67d'
 export const ref = '5S13-2'
 export default function CalculerDesFrequences () {
@@ -206,12 +231,12 @@ export default function CalculerDesFrequences () {
   const listeDesThemes = ['hasard', 'etablissement', 'salon', 'parking', 'collection']
 
   /**
-   * Les questions non modifiables, seule la physionomie de la consigne change (données en tableau ou en diagramme)...
-   * Une seule fonction donc pour générer les questions et leurs corrections identiques pour les deux versions
-   * @param {Map} entreesTableau l'objet Map avec les entrees du tableau sport/effectif
-   * @param {String} cachee le sport dont on a caché l'effectif
-   * @returns liste des questions, liste des corrections
-   */
+     * Les questions non modifiables, seule la physionomie de la consigne change (données en tableau ou en diagramme)...
+     * Une seule fonction donc pour générer les questions et leurs corrections identiques pour les deux versions
+     * @param {Map} entreesTableau l'objet Map avec les entrees du tableau sport/effectif
+     * @param {String} cachee le sport dont on a caché l'effectif
+     * @returns liste des questions, liste des corrections
+     */
   function questionsEtCorrections (preambule, serie, exercice, numero) {
     let questions = []
     const rangValeurChoisie = randint(0, serie.effectifs.length - 1, serie.rangEffectifCache)
@@ -321,9 +346,9 @@ export default function CalculerDesFrequences () {
   }
 
   /**
-   * version 0 :
-   * La consigne avec un tableau d'effectifs
-   * */
+     * version 0 :
+     * La consigne avec un tableau d'effectifs
+     * */
   function exerciceAvecTableau (theme, exercice, numero) { // On a besoin de l'exercice et du numéro de question pour l'interactif
     // paramètres du problème
     const serie = new Population(theme)
@@ -346,7 +371,9 @@ export default function CalculerDesFrequences () {
     })
     cellules.push(`${serie.effectifTotal}`)
     // deuxième ligne de fréquences (vide)
-    for (let i = 0; i <= serie.effectifs.length; i++) { cellules.push('') }
+    for (let i = 0; i <= serie.effectifs.length; i++) {
+      cellules.push('')
+    }
     preambule += tableauColonneLigne(entetesColonnes, entetesLignes, cellules, 1.5)
     preambule += '<br>'
     const texte = questionsEtCorrections(preambule, serie, exercice, numero) // on récupère les questions/réponses en relation
@@ -354,16 +381,21 @@ export default function CalculerDesFrequences () {
   }
 
   /**
-   * version 1 :
-   * La consigne avec un diagramme bâton
-   * */
+     * version 1 :
+     * La consigne avec un diagramme bâton
+     * */
   function exerciceAvecDiagramme (theme, exercice, numero) { // On a besoin de l'exercice et du numéro de question pour l'interactif
     // paramètres du problème
     const serie = new Population(theme)
     let preambule = serie.getPreambule('diagramme')
     // construction du diagramme
     const effectifsSansValeurCachee = serie.effectifs.map((elt, i) => i !== serie.rangEffectifCache ? elt : 0)
-    const diagrammeBaton = graphique(effectifsSansValeurCachee, serie.modalites, { reperageTraitPointille: false, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
+    const diagrammeBaton = graphique(effectifsSansValeurCachee, serie.modalites, {
+      reperageTraitPointille: false,
+      axeVertical: true,
+      titreAxeVertical: 'Effectifs',
+      labelAxeVert: true
+    })
     preambule += diagrammeBaton
     const texte = questionsEtCorrections(preambule, serie, exercice, numero) // on,numero récupère les questions/réponses en relation
     return { questions: texte.questions, corrections: texte.corrections, effectifs: serie.effectifs } // On ajoute les effectifs pour ne pas avoir de doublons dans les différentes questions

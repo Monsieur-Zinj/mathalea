@@ -1,19 +1,20 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
+import { context } from '../../modules/context.js' // eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre une équation $x^2 = a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
  * Résoudre une équation de type x²=a
-* @author Jean-Claude Lhote
-* 3L15
-*/
+ * @author Jean-Claude Lhote
+ * 3L15
+ */
 export const uuid = '57f44'
 export const ref = '3L15-1'
 export default function ResoudreEquatioeX2EgalA () {
@@ -39,17 +40,22 @@ export default function ResoudreEquatioeX2EgalA () {
       [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
     let listeTypeQuestions = []
     switch (parseInt(this.sup)) {
-      case 1: listeTypeQuestions = combinaisonListes([1], this.nbQuestions)
+      case 1:
+        listeTypeQuestions = combinaisonListes([1], this.nbQuestions)
         break
-      case 2: listeTypeQuestions = combinaisonListes([2], this.nbQuestions)
+      case 2:
+        listeTypeQuestions = combinaisonListes([2], this.nbQuestions)
         break
-      case 3: listeTypeQuestions = combinaisonListes([3], this.nbQuestions)
+      case 3:
+        listeTypeQuestions = combinaisonListes([3], this.nbQuestions)
         break
-      case 4: listeTypeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+      case 4:
+        listeTypeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     }
     for (let i = 0, fraction, ns, ds, a, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) {
-        case 1: a = randint(1, 20) // x²=a*a donc x=a ou -a.
+        case 1:
+          a = randint(1, 20) // x²=a*a donc x=a ou -a.
           texte = `$x^2=${a * a}$`
           texteCorr = `$x^2=${a * a}$ équivaut à $x = \\sqrt{${a * a}}$ ou $x = -\\sqrt{${a * a}}$.<br>Soit $x = ${a}$ ou $x = -${a}$.<br>`
           texteCorr += `Les solutions de l'équation sont donc $${miseEnEvidence(a)}$ et $${miseEnEvidence('-' + a)}$.<br>`
@@ -68,7 +74,8 @@ export default function ResoudreEquatioeX2EgalA () {
           setReponse(this, i, [`\\dfrac{${ns}}{${ds}};-\\dfrac{${ns}}{${ds}}`, `-\\dfrac{${ns}}{${ds}};\\dfrac{${ns}}{${ds}}`])
           break
 
-        case 3: a = randint(2, 50, [4, 9, 16, 25, 36, 49]) // solution irrationnelles
+        case 3:
+          a = randint(2, 50, [4, 9, 16, 25, 36, 49]) // solution irrationnelles
           texte = `$x^2=${a}$`
           texteCorr = `$x^2=${a}$ équivaut à $x = \\sqrt{${a}}$ ou $x = -\\sqrt{${a}}$.<br>`
           texteCorr += `Les solutions de l'équation sont donc $${miseEnEvidence(`\\sqrt{${a}}`)}$ et $${miseEnEvidence(`-\\sqrt{${a}}`)}$.<br>`

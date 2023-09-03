@@ -1,25 +1,22 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
-import {
-  ecritureNombreRelatif,
-  ecritureNombreRelatifc,
-  ecritureParentheseSiNegatif
-} from '../../lib/outils/ecritures.js'
+import { ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Multiplication de deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Effectuer une multiplication entre 2 nombres relatifs.
-*
-* * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
-* * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
-* @author Rémi Angot
-* 4C10-3
-*/
+ * Effectuer une multiplication entre 2 nombres relatifs.
+ *
+ * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
+ * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
+ * @author Rémi Angot
+ * 4C10-3
+ */
 export const uuid = '153b9'
 export const ref = '4C10-3'
 export default function ExerciceMultiplicationsRelatifs (max = 10) {

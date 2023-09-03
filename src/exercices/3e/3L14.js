@@ -4,14 +4,11 @@ import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/depr
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  contraindreValeur
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre une équation produit nul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -47,21 +44,29 @@ export default function ResoudreUneEquationProduitNul () {
     this.autoCorrection = []
     let listeTypeDeQuestions = []
     switch (contraindreValeur(1, 8, this.sup, 1)) {
-      case 1: listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions) // coefficients à 1
+      case 1:
+        listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions) // coefficients à 1
         break
-      case 2: listeTypeDeQuestions = combinaisonListes([13, 42], this.nbQuestions) // 1 coef 1 et pas l'autre
+      case 2:
+        listeTypeDeQuestions = combinaisonListes([13, 42], this.nbQuestions) // 1 coef 1 et pas l'autre
         break
-      case 3: listeTypeDeQuestions = combinaisonListes([3, 4], this.nbQuestions) // coefficients > 1 solutions entières
+      case 3:
+        listeTypeDeQuestions = combinaisonListes([3, 4], this.nbQuestions) // coefficients > 1 solutions entières
         break
-      case 4: listeTypeDeQuestions = combinaisonListes([5, 6], this.nbQuestions) // coefficients > 1 solutions rationnelles (simplifiables ou pas)
+      case 4:
+        listeTypeDeQuestions = combinaisonListes([5, 6], this.nbQuestions) // coefficients > 1 solutions rationnelles (simplifiables ou pas)
         break
-      case 5: listeTypeDeQuestions = combinaisonListes([1, 2, 13, 42], this.nbQuestions) // Mélange cas 1 et 2
+      case 5:
+        listeTypeDeQuestions = combinaisonListes([1, 2, 13, 42], this.nbQuestions) // Mélange cas 1 et 2
         break
-      case 6: listeTypeDeQuestions = combinaisonListes([13, 42, 3, 4], this.nbQuestions) // Mélange cas 2 et 3
+      case 6:
+        listeTypeDeQuestions = combinaisonListes([13, 42, 3, 4], this.nbQuestions) // Mélange cas 2 et 3
         break
-      case 7: listeTypeDeQuestions = combinaisonListes([3, 4, 5, 6], this.nbQuestions) // Mélange cas 3 et 4
+      case 7:
+        listeTypeDeQuestions = combinaisonListes([3, 4, 5, 6], this.nbQuestions) // Mélange cas 3 et 4
         break
-      case 8: listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 13, 42], this.nbQuestions)
+      case 8:
+        listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 13, 42], this.nbQuestions)
         break
     }
     for (let i = 0, a, b, c, d, solution1, solution2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -190,9 +195,13 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x+${d}=0$`
           texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x=${0 - d}$`
           texteCorr += '<br> Donc ' + `$x=-${deprecatedTexFraction(b, a)}$`
-          if (deprecatedTexFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
+          if (deprecatedTexFraction(b, a) !== texFractionReduite(b, a)) {
+            texteCorr += `$=-${texFractionReduite(b, a)}$`
+          }
           texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${deprecatedTexFraction(d, c)}$`
-          if (deprecatedTexFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=-${texFractionReduite(d, c)}$` }
+          if (deprecatedTexFraction(d, c) !== texFractionReduite(d, c)) {
+            texteCorr += `$=-${texFractionReduite(d, c)}$`
+          }
           if (b * c === d * a) {
             setReponse(this, i, `$-${texFractionReduite(d, c)}$`)
             solution1 = fraction(-d, c).simplifie()
@@ -264,7 +273,13 @@ export default function ResoudreUneEquationProduitNul () {
             enonceCentre: false, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
             enonceApresNumQuestion: false, // New (12/2022) EE : ce champ est facultatif et permet (si true) de mettre le champ 'enonce' à côté du numéro de question (et non avant par défaut). Ne fonctionne (pour l'instant) que si la première question est AMCNum (pas de besoin autre pour l'instant).
             melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
-            options: { multicols: true, barreseparation: false, multicolsAll: false, avecSymboleMult: false, numerotationEnonce: false }, // facultatif.
+            options: {
+              multicols: true,
+              barreseparation: false,
+              multicolsAll: false,
+              avecSymboleMult: false,
+              numerotationEnonce: false
+            }, // facultatif.
             propositions: [
               {
                 type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen

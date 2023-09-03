@@ -9,13 +9,14 @@ import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '.
 import { arrondi } from '../../lib/outils/nombres.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculer l\'aire de triangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -61,8 +62,21 @@ export default function AireDeTriangles () {
     const tableauDesHauteurs = shuffle([3, 4, 5, 6]) // pour s'assurer que les 3 hauteurs sont différents
     const cotes = combinaisonListesSansChangerOrdre(tableauDesCotes, this.nbQuestions)
     const hauteurs = combinaisonListesSansChangerOrdre(tableauDesHauteurs, this.nbQuestions)
-    let triH; const A = point(0, 0); let B; let C; let H; let triangle; let polynom; let hauteurpoly; let d
-    const objetsEnonce = []; const objetsCorrection = []; let xmin; let xmax; let ymin; let ymax
+    let triH
+    const A = point(0, 0)
+    let B
+    let C
+    let H
+    let triangle
+    let polynom
+    let hauteurpoly
+    let d
+    const objetsEnonce = []
+    const objetsCorrection = []
+    let xmin
+    let xmax
+    let ymin
+    let ymax
 
     const NB_LETTRES = 20
     const nom = creerNomDePolygone(NB_LETTRES, 'QD')
@@ -96,11 +110,29 @@ export default function AireDeTriangles () {
       objetsEnonce.push(polynom[0], polynom[1], hauteurpoly, afficheCoteSegment(segment(B, A), '', 1), afficheLongueurSegment(A, C, 'black', 0.5), afficheLongueurSegment(C, B, 'black', 0.5), afficheLongueurSegment(C, H, 'black', 0.3), codageAngleDroit(A, H, C))
       objetsCorrection.push(polynom[0], polynom[1], hauteurpoly, afficheCoteSegment(segment(B, A), '', 1), afficheLongueurSegment(C, H, 'black', 0.3), codageAngleDroit(A, H, C))
       texte = `Calculer l'aire du triangle ${A.nom}${B.nom}${C.nom}.<br>`
-      texte += mathalea2d({ xmin, xmax, ymin, ymax, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsEnonce) + '<br>'
-      if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin, xmax, ymin, ymax, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsCorrection) + '<br>' } else texteCorr = ''
+      texte += mathalea2d({
+        xmin,
+        xmax,
+        ymin,
+        ymax,
+        pixelsParCm: 20,
+        scale: 0.5,
+        mainlevee: false
+      }, objetsEnonce) + '<br>'
+      if (this.correctionDetaillee) {
+        texteCorr = mathalea2d({
+          xmin,
+          xmax,
+          ymin,
+          ymax,
+          pixelsParCm: 20,
+          scale: 0.5,
+          mainlevee: false
+        }, objetsCorrection) + '<br>'
+      } else texteCorr = ''
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${texNombre(
-      calcul((cotes[i] * hauteurs[i]) / 2)
-    )}~\\text{cm}^2$`
+                calcul((cotes[i] * hauteurs[i]) / 2)
+            )}~\\text{cm}^2$`
       setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[aires]', { texte: `Aire du triangle ${A.nom}${B.nom}${C.nom} :` })
       if (context.isAmc) {

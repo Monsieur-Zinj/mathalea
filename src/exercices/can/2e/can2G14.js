@@ -2,8 +2,9 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer les coordonnées d\'un point avec une translation'
@@ -17,7 +18,7 @@ export const dateDePublication = '04/03:2022' // La date de publication initiale
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Stéphane Guyon
  * Référence
-*/
+ */
 export const uuid = '0dfad'
 export const ref = 'can2G14'
 export default function TranslationVecteur () {

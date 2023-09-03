@@ -14,13 +14,10 @@ import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
@@ -41,7 +38,7 @@ export const dateDeModifImportante = '16/11/2021'
  * @author Mireille Gain, 24 avril 2021
  * Référence 6C35
  * Relecture : Novembre 2021 par EE
-*/
+ */
 export const uuid = '4e89b'
 export const ref = '6C35'
 
@@ -155,16 +152,25 @@ export default function ModelisationProblemes () {
     let a7 = randint(9, 13)
     let b7 = randint(15, 50)
     if (this.sup === 2) {
-      c1 = c3; b5 = b1; c5 = c1; b7 = d3; a7 = b1
+      c1 = c3
+      b5 = b1
+      c5 = c1
+      b7 = d3
+      a7 = b1
     }
-    let A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8, C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8, n1, n2, n3, n4, n5, n6, n7, n8,
+    let A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8, C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3,
+      D4, D5, D6, D7, D8, n1, n2, n3, n4, n5, n6, n7, n8,
       p1, traitHorizontal1, traitVertical1, tb1, th1, th12,
-      p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23, th23, th24, th25,
+      p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23,
+      th23, th24, th25,
       p3, traitHorizontal3, traitVertical3, tb3, th3, th32,
-      p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-      p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55,
+      p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43,
+      th43, th44, th45,
+      p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53,
+      th53, th54, th55,
       p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-      p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
+      p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73,
+      th73, th74, th75,
       p8, traitHorizontal8, traitVertical8, tb8, th8, th82
 
     for (let i = 0, o, colonne1, texteCorr; i < listeTypeDeQuestions.length; i++) {
@@ -198,7 +204,15 @@ export default function ModelisationProblemes () {
           th1 = texteParPosition(b1, 3, 3)
           th12 = texteParPosition(c1, 9, 3)
           n1 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1)
+          schemas[brouilleLesCartes[i]] = mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 16,
+            ymax: 6,
+            style: 'display: inline',
+            pixelsParCm: 15,
+            scale: 0.25
+          }, p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1)
           break
 
         case 2:
@@ -233,7 +247,15 @@ export default function ModelisationProblemes () {
           th24 = texteParPosition(b1, 11, 3)
           th25 = texteParPosition('?', 6, 5)
           n2 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23, th23, th24, th25, n2)
+          schemas[brouilleLesCartes[i]] = mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 16,
+            ymax: 6,
+            style: 'display: inline',
+            pixelsParCm: 15,
+            scale: 0.25
+          }, p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23, th23, th24, th25, n2)
           break
 
         case 3:
@@ -261,7 +283,15 @@ export default function ModelisationProblemes () {
           th3 = texteParPosition('?', 3, 3)
           th32 = texteParPosition(c5, 9, 3)
           n3 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p3, traitHorizontal3, traitVertical3, tb3, th3, th32, n3)
+          schemas[brouilleLesCartes[i]] = mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 16,
+            ymax: 6,
+            style: 'display: inline',
+            pixelsParCm: 15,
+            scale: 0.25
+          }, p3, traitHorizontal3, traitVertical3, tb3, th3, th32, n3)
           break
 
         case 4:
@@ -296,7 +326,15 @@ export default function ModelisationProblemes () {
           th44 = texteParPosition(b5, 11, 3)
           th45 = texteParPosition(c5, 6, 5)
           n4 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45, n4)
+          schemas[brouilleLesCartes[i]] = mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 16,
+            ymax: 6,
+            style: 'display: inline',
+            pixelsParCm: 15,
+            scale: 0.25
+          }, p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45, n4)
           break
 
         case 5:
@@ -330,7 +368,15 @@ export default function ModelisationProblemes () {
           th54 = texteParPosition('?', 11, 3)
           th55 = texteParPosition(c3, 6, 5.2)
           n5 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55, n5)
+          schemas[brouilleLesCartes[i]] = mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 16,
+            ymax: 6,
+            style: 'display: inline',
+            pixelsParCm: 15,
+            scale: 0.25
+          }, p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55, n5)
           break
 
         case 6:
@@ -358,7 +404,15 @@ export default function ModelisationProblemes () {
           th6 = texteParPosition(b7, 3, 3)
           th62 = texteParPosition(a7, 9, 3)
           n6 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p6, traitHorizontal6, traitVertical6, tb6, th6, th62, n6)
+          schemas[brouilleLesCartes[i]] = mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 16,
+            ymax: 6,
+            style: 'display: inline',
+            pixelsParCm: 15,
+            scale: 0.25
+          }, p6, traitHorizontal6, traitVertical6, tb6, th6, th62, n6)
           break
 
         case 7:
@@ -392,7 +446,15 @@ export default function ModelisationProblemes () {
           th74 = texteParPosition(c3, 11, 3)
           th75 = texteParPosition('?', 6, 5.2)
           n7 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75, n7)
+          schemas[brouilleLesCartes[i]] = mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 16,
+            ymax: 6,
+            style: 'display: inline',
+            pixelsParCm: 15,
+            scale: 0.25
+          }, p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75, n7)
           break
 
         case 8:
@@ -419,7 +481,15 @@ export default function ModelisationProblemes () {
           th8 = texteParPosition(a7, 3, 3)
           th82 = texteParPosition('?', 9, 3)
           n8 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({ xmin: -2, ymin: -1, xmax: 16, ymax: 6, style: 'display: inline', pixelsParCm: 15, scale: 0.25 }, p8, traitHorizontal8, traitVertical8, tb8, th8, th82, n8)
+          schemas[brouilleLesCartes[i]] = mathalea2d({
+            xmin: -2,
+            ymin: -1,
+            xmax: 16,
+            ymax: 6,
+            style: 'display: inline',
+            pixelsParCm: 15,
+            scale: 0.25
+          }, p8, traitHorizontal8, traitVertical8, tb8, th8, th82, n8)
           break
       }
       if (this.correctionDetaillee) {

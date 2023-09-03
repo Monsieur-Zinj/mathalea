@@ -7,8 +7,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Déterminer une fonction affine par la donnée des images de deux nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +24,7 @@ export const interactifType = 'mathLive'
  * x1, x2, f(x1) et f(x2) sont toujours entiers relatifs
  * @author Jean-Claude Lhote
  * Référence 3F21-2
-*/
+ */
 export const uuid = 'b8b33'
 export const ref = '3F21-2'
 export default function DeterminerFonctionAffine () {
@@ -74,7 +75,14 @@ export default function DeterminerFonctionAffine () {
             tB = tracePoint(point(x2, y2), 'red')
 
             r = repere({ xMin: -5, yMin: Math.min(-1, b - 1), xMax: 5, yMax: Math.max(b + 1, 2) })
-            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-1, b - 1), xmax: 5, ymax: Math.max(b + 1, 2), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            texteCorr += `<br><br>${mathalea2d({
+                            xmin: -5,
+                            ymin: Math.min(-1, b - 1),
+                            xmax: 5,
+                            ymax: Math.max(b + 1, 2),
+                            pixelsParCm: 20,
+                            scale: 0.7
+                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
           break
 
@@ -93,8 +101,20 @@ export default function DeterminerFonctionAffine () {
             tA = tracePoint(point(x1, y1), 'red')
             tB = tracePoint(point(x2, y2), 'red')
 
-            r = repere({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
-            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            r = repere({
+              xMin: -5,
+              yMin: Math.min(-5 * a + b, 5 * a + b),
+              xMax: 5,
+              yMax: Math.max(-5 * a + b, 5 * a + b)
+            })
+            texteCorr += `<br><br>${mathalea2d({
+                            xmin: -5,
+                            ymin: Math.min(-5 * a + b, 5 * a + b),
+                            xmax: 5,
+                            ymax: Math.max(-5 * a + b, 5 * a + b),
+                            pixelsParCm: 20,
+                            scale: 0.7
+                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
           break
 
@@ -115,8 +135,20 @@ export default function DeterminerFonctionAffine () {
             tA = tracePoint(point(x1, y1), 'red')
             tB = tracePoint(point(x2, y2), 'red')
 
-            r = repere({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
-            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            r = repere({
+              xMin: -5,
+              yMin: Math.min(-5 * a + b, 5 * a + b),
+              xMax: 5,
+              yMax: Math.max(-5 * a + b, 5 * a + b)
+            })
+            texteCorr += `<br><br>${mathalea2d({
+                            xmin: -5,
+                            ymin: Math.min(-5 * a + b, 5 * a + b),
+                            xmax: 5,
+                            ymax: Math.max(-5 * a + b, 5 * a + b),
+                            pixelsParCm: 20,
+                            scale: 0.7
+                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
           break
 
@@ -139,8 +171,20 @@ export default function DeterminerFonctionAffine () {
             tA = tracePoint(point(x1, y1), 'red')
             tB = tracePoint(point(x2, y2), 'red')
 
-            r = repere({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
-            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            r = repere({
+              xMin: -5,
+              yMin: Math.min(-5 * a + b, 5 * a + b),
+              xMax: 5,
+              yMax: Math.max(-5 * a + b, 5 * a + b)
+            })
+            texteCorr += `<br><br>${mathalea2d({
+                            xmin: -5,
+                            ymin: Math.min(-5 * a + b, 5 * a + b),
+                            xmax: 5,
+                            ymax: Math.max(-5 * a + b, 5 * a + b),
+                            pixelsParCm: 20,
+                            scale: 0.7
+                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
           break
 
@@ -165,8 +209,20 @@ export default function DeterminerFonctionAffine () {
 
             a = a.n / a.d
             b = b.n / b.d
-            r = repere({ xMin: -5, yMin: Math.round(Math.min(-5 * a + b, 5 * a + b)), xMax: 5, yMax: Math.round(Math.max(-5 * a + b, 5 * a + b)) })
-            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.round(Math.min(-5 * a + b, 5 * a + b)), xmax: 5, ymax: Math.round(Math.max(-5 * a + b, 5 * a + b)), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
+            r = repere({
+              xMin: -5,
+              yMin: Math.round(Math.min(-5 * a + b, 5 * a + b)),
+              xMax: 5,
+              yMax: Math.round(Math.max(-5 * a + b, 5 * a + b))
+            })
+            texteCorr += `<br><br>${mathalea2d({
+                            xmin: -5,
+                            ymin: Math.round(Math.min(-5 * a + b, 5 * a + b)),
+                            xmax: 5,
+                            ymax: Math.round(Math.max(-5 * a + b, 5 * a + b)),
+                            pixelsParCm: 20,
+                            scale: 0.7
+                        }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
           break
       }

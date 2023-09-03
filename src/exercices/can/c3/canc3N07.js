@@ -3,8 +3,9 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Décomposer un nombre'
@@ -17,7 +18,7 @@ export const dateDePublication = '25/01/2023' // La date de publication initiale
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence
-*/
+ */
 export const uuid = 'ba5d4'
 export const ref = 'canc3N07'
 export default function DecompositionNombre () {

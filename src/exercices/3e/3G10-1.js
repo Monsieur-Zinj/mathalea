@@ -12,15 +12,12 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import {
-  randint,
-  listeQuestionsToContenu,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Trouver les coordonnées de l\'image d\'un point par une rotation et une homothétie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -54,11 +51,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
     const yP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // comme pour t, je n'utiliserai pas le premier élément pour coller aux index.
     const t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
-    const lettre1 = ['A', 'B', 'C']; const lettre2 = ['O\'', 'A', 'B'] // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
+    const lettre1 = ['A', 'B', 'C']
+    const lettre2 = ['O\'', 'A', 'B'] // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
     const punto = [[]]
     const couleurs = ['brown', 'green', 'blue']
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
-    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions * 3, shuffle: true }).map((nb) => nb - 1)
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 6,
+      melange: 7,
+      defaut: 7,
+      nbQuestions: this.nbQuestions * 3
+    }).map((nb) => nb - 1)
     for (let ee = 0, texte, texteCorr, xA, yA, xB, yB, xC, yC, objetsEnonce, objetsCorrection, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
       let enonceAmc = ''
       texte = ''
@@ -70,7 +75,9 @@ export default function TransformationsDuPlanEtCoordonnees () {
       for (let j = 0; j < 3; j++) {
         if (choixTransformation[j] === 10) {
           k[j] = choice([2, 2, 2, 2, 4, 4, 4, 4, 5, 10]) * randint(-1, 1, [0]) // rapport d'homothétie < 1 (plus ou moins  0.5, 0.25, 0.2 ou 0,1 ) avec une fréquence divisée par 4 pour 0.2 et 0.1
-        } else { k[j] = choice([1, 2, 2, 3, 3, 2.5]) * randint(-1, 1, [0]) }
+        } else {
+          k[j] = choice([1, 2, 2, 3, 3, 2.5]) * randint(-1, 1, [0])
+        }
       } // rapport d'homothétie >=1 (plus ou - 1,2,2.5, 3 avec des fréquences divisées par 2 pour 1 et 2.5)
 
       const xO = randint(-3, 3, [0, -1]) // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et punto d'intersection des axes))
@@ -104,12 +111,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
         }
         A = point(xA, yA, 'A')
         Aprime = point(punto[0][0], punto[0][1], "A'")
-        if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+        if (choixTransformation[1] > 4) {
+          punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
+        } else {
+          punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO])
+        } // si c'est une symétrie, l'axe passe par O'
         compteur = 0
         while ((punto[1][0] < -9 || punto[1][0] > 9 || punto[1][1] < -9 || punto[1][1] > 9) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
           xB = randint(-7, 7, [xA]) // Point B
           yB = randint(-7, 7, -1)
-          if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+          if (choixTransformation[1] > 4) {
+            punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
+          } else {
+            punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO])
+          } // si c'est une symétrie, l'axe passe par O'
           compteur++
         }
         if (compteur < 20) {
@@ -121,12 +136,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
         B = point(xB, yB, 'B')
         Bprime = point(punto[1][0], punto[1][1], "B'")
 
-        if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+        if (choixTransformation[2] > 4) {
+          punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
+        } else {
+          punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO])
+        } // si c'est une symétrie, l'axe passe par O'
         compteur = 0
         while ((punto[2][0] < -9 || punto[2][0] > 9 || punto[2][1] < -9 || punto[2][1] > 9) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
           xC = randint(-7, 7) // Point C
           yC = randint(-7, 7, [yA, yB, -1])
-          if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+          if (choixTransformation[2] > 4) {
+            punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
+          } else {
+            punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO])
+          } // si c'est une symétrie, l'axe passe par O'
           compteur++
         }
         if (compteur < 20) {
@@ -575,7 +598,15 @@ export default function TransformationsDuPlanEtCoordonnees () {
       objetsCorrection.push(repere({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
       if (context.isAmc) {
         this.autoCorrection.push({
-          enonce: '\\begin{center}' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsEnonce) + '\\\\' + '\\end{center}' + enonceAmc,
+          enonce: '\\begin{center}' + mathalea2d({
+            xmin: -10,
+            ymin: -10,
+            xmax: 10,
+            ymax: 10,
+            pixelsParCm: 20,
+            scale: 0.5,
+            mainlevee: false
+          }, objetsEnonce) + '\\\\' + '\\end{center}' + enonceAmc,
           enonceAvant: false,
           enonceApresNumQuestion: true,
           options: { barreseparation: false },
@@ -692,8 +723,24 @@ export default function TransformationsDuPlanEtCoordonnees () {
         )
       }
       if (this.questionJamaisPosee(ee, xA, yA, xB, yB, xC, yC)) {
-        this.listeQuestions.push(texte + '<br>' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.4, mainlevee: false }, objetsEnonce))
-        this.listeCorrections.push(texteCorr + '<br>' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.4, mainlevee: false }, objetsCorrection))
+        this.listeQuestions.push(texte + '<br>' + mathalea2d({
+          xmin: -10,
+          ymin: -10,
+          xmax: 10,
+          ymax: 10,
+          pixelsParCm: 20,
+          scale: 0.4,
+          mainlevee: false
+        }, objetsEnonce))
+        this.listeCorrections.push(texteCorr + '<br>' + mathalea2d({
+          xmin: -10,
+          ymin: -10,
+          xmax: 10,
+          ymax: 10,
+          pixelsParCm: 20,
+          scale: 0.4,
+          mainlevee: false
+        }, objetsCorrection))
         ee++
       }
       cpt++

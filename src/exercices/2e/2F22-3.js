@@ -1,17 +1,13 @@
-// import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction.js'
-// import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
-export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement.'
-export const interactifReady = true
-export const interactifType = 'mathLive'
+export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'a7860' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)

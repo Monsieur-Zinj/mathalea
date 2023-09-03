@@ -66,7 +66,7 @@ export default function EncadrerAvecFctRef () {
               a = randint(-12, 12, 0)
               xMin = -200
               xMax = a
-              substituts = [{ antVal: -200, antTex: '-\\infty', imgVal: -40000, imgTex: '' }]
+              substituts = [{ antVal: -200, antTex: '$-\\infty$', imgVal: -40000, imgTex: '' }]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $x^2$ ......`
               texteCorrAvantTableau = `$x${large1 ? '\\leqslant' : ' < '} ${a}$ signifie $x\\in ]-\\infty;${a}${large1 ? ']' : ' [ '}$. <br>
                 Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
@@ -88,7 +88,7 @@ export default function EncadrerAvecFctRef () {
               a = randint(-12, 12, 0)
               xMin = a
               xMax = 200
-              substituts = [{ antVal: 200, antTex: '+\\infty', imgVal: 40000, imgTex: '' }]
+              substituts = [{ antVal: 200, antTex: '$+\\infty$', imgVal: 40000, imgTex: '' }]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $x^2$ ......`
               texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
                 Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
@@ -165,7 +165,7 @@ export default function EncadrerAvecFctRef () {
             case 1: // cas a<x<b avec a>0
               a = randint(2, 20)
               b = randint(a + 1, 20)
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: 1 / a, imgTex: `\\frac{1}{${a}}` },
+              substituts = [{ antVal: a, antTex: a.toString(), imgVal: 1 / a, imgTex: `$\\frac{1}{${a}}$` },
                 { antVal: b, antTex: b.toString(), imgVal: 1 / b, imgTex: `\\frac{1}{${b}}` }]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${b} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(3)} .......  $\\dfrac{1}{x}$  .......`
               texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
@@ -182,8 +182,8 @@ export default function EncadrerAvecFctRef () {
             case 2: // cas a<x<b avec b<0
               a = randint(-20, -3)
               b = randint(a + 1, -2)
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: 1 / a, imgTex: `-\\frac{1}{${-a}}` },
-                { antVal: b, antTex: b.toString(), imgVal: 1 / b, imgTex: `-\\frac{1}{${-b}}` }]
+              substituts = [{ antVal: a, antTex: a.toString(), imgVal: 1 / a, imgTex: `$-\\frac{1}{${-a}}$` },
+                { antVal: b, antTex: b.toString(), imgVal: 1 / b, imgTex: `$-\\frac{1}{${-b}}$` }]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(3)} .......  $\\dfrac{1}{x}$  .......`
               texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
                       Puisque la fonction inverse est strictement décroissante sur $]-\\infty;0[$ et strictement décroissante sur $[0;+\\infty[$, on obtient son tableau de variations
@@ -205,9 +205,9 @@ export default function EncadrerAvecFctRef () {
                   antVal: a,
                   antTex: a.toString(),
                   imgVal: 1 / a,
-                  imgTex: `\\frac{1}{${a}}`
+                  imgTex: `$\\frac{1}{${a}}$`
                 },
-                { antVal: b, antTex: '+\\infty', imgVal: 1 / b, imgTex: '' }]
+                { antVal: b, antTex: '$+\\infty$', imgVal: 1 / b, imgTex: '' }]
                 texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\dfrac{1}{x}$ ......`
                 texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? ']' : ' [ '};+\\infty;${b}[$. <br>
               Puisque la fonction inverse est strictement décroissante sur $]0;+\\infty[$, on obtient son tableau de variations
@@ -227,8 +227,8 @@ export default function EncadrerAvecFctRef () {
             <br> Remarque :  la fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre.<br>
             Ainsi les antécédents et les images sont rangées dans l'ordre inverse : <br>
             Si $x${large1 ? '\\leqslant' : ' < '}${b}$ alors  $\\dfrac{1}{x}${large1 ? '\\geqslant' : ' > '}-\\dfrac{1}{${-b}}$.`
-                substituts = [{ antVal: a, antTex: '-\\infty', imgVal: 1 / a, imgTex: '' },
-                  { antVal: a, antTex: b.toString(), imgVal: 1 / b, imgTex: `\\frac{1}{${b}}` }]
+                substituts = [{ antVal: a, antTex: '$-\\infty$', imgVal: 1 / a, imgTex: '' },
+                  { antVal: a, antTex: b.toString(), imgVal: 1 / b, imgTex: `$\\frac{1}{${b}}$` }]
               }// a est toujours le min et b le max
 
               break
@@ -249,7 +249,7 @@ export default function EncadrerAvecFctRef () {
             case 1: { // cas x<a
               a = randint(1, 100)
               const racineDeA = estParfait(a) ? Math.sqrt(a).toString() : `\\sqrt{${a}}`
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: racineDeA }]
+              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: `$${racineDeA}$` }]
               xMin = 0
               xMax = a
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $\\sqrt{x}$ ......`
@@ -268,8 +268,8 @@ Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $\\sqrt{x}${large1 ? '\\leqsla
               xMin = a
               xMax = 10000
               const racineDeA = estParfait(a) ? Math.sqrt(a).toString() : `\\sqrt{${a}}`
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: racineDeA },
-                { antVal: 10000, antTex: '+\\infty', imgVal: 100, imgTex: '' }]
+              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: `$${racineDeA}$` },
+                { antVal: 10000, antTex: '$+\\infty$', imgVal: 100, imgTex: '' }]
 
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\sqrt{x}$ ......`
               texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
@@ -289,8 +289,8 @@ Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors  $\\sqrt{x}${large1 ? '\\geqsla
               xMax = b
               const racineDeA = estParfait(a) ? Math.sqrt(a).toString() : `\\sqrt{${a}}`
               const racineDeB = estParfait(b) ? Math.sqrt(b).toString() : `\\sqrt{${b}}`
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: racineDeA },
-                { antVal: b, antTex: b.toString(), imgVal: Math.sqrt(b), imgTex: racineDeB }]
+              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: `$${racineDeA}$` },
+                { antVal: b, antTex: b.toString(), imgVal: Math.sqrt(b), imgTex: `$${racineDeB}$` }]
 
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a}${large1 ? ' \\leqslant ' : ' < '} x ${large1 ? '\\leqslant' : ' < '} ${b}$ alors  ...... $\\sqrt{x}$ ......`
               texteCorrAvantTableau = `$${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large1 ? ']' : ' [ '}$. <br>
@@ -320,11 +320,11 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
             if (inférieur) {
               xMin = -200 // a peut aller jusqu'à -100 !
               xMax = a
-              substituts = [{ antVal: -200, antTex: '-\\infty', imgVal: -8000000, imgTex: '' }]
+              substituts = [{ antVal: -200, antTex: '$-\\infty$', imgVal: -8000000, imgTex: '' }]
             } else {
               xMin = a
               xMax = 200
-              substituts = [{ antVal: 200, antTex: '+\\infty', imgVal: 8000000, imgTex: '' }]
+              substituts = [{ antVal: 200, antTex: '$+\\infty$', imgVal: 8000000, imgTex: '' }]
             }
             let symbole
             let intervalle

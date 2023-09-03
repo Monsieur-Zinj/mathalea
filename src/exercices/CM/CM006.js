@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Soustraire 9'
 export const amcReady = true
 export const interactifReady = true
@@ -12,7 +13,7 @@ export const amcType = 'AMCNum'
  * Un nombre à 2 chiffres ne terminant pas par 9 - 9
  * @author Rémi Angot
  * Référence CM006
-*/
+ */
 export const uuid = 'd8a39'
 export const ref = 'CM006'
 export default function Soustraire9 () {
@@ -30,7 +31,6 @@ export default function Soustraire9 () {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(1, 9) * 10 + randint(0, 8)
       texte = `$${a}-9$`

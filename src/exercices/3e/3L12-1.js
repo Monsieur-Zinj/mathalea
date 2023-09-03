@@ -4,11 +4,12 @@ import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,9 +19,9 @@ export const dateDeModifImportante = '26/02/2023' // Une date de modification im
 
 /**
  * Développer (ax-b)(ax+b)
-* @author Jean-Claude Lhote (AMC par Eric Elter)
-* 3L12-1
-*/
+ * @author Jean-Claude Lhote (AMC par Eric Elter)
+ * 3L12-1
+ */
 export const uuid = 'be157'
 export const ref = '3L12-1'
 export default function DevelopperIdentitesRemarquables3 () {

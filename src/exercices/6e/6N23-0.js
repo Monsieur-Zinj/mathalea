@@ -3,9 +3,9 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 export const amcReady = true
@@ -66,7 +66,6 @@ export default function ÉcrireNombresDecimal () {
     for (
       let i = 0, texte, texteCorr, a, b, c, type, nombre, tranche, partEnt, partDec, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       type = listeTypeDeQuestions[i]
       nombre = 0

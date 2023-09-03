@@ -10,12 +10,12 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { texcolors } from '../../lib/format/style.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, contraindreValeur } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const dateDePublication = '3/12/2021'
 export const titre = 'Trouver la transformation'
@@ -76,6 +76,7 @@ export default function TrouverLaTransformations () {
       maGrille.push(tracePoint(noeuds[i * 6 + j]))
     }
   }
+
   function transfoPoly (pol, { type = 'symax', centre, axe, vecteur, angle = 90, sens = true }) {
     switch (type) { // type est l'une des chaine suivante 'symax', 'trans', 'rot90', 'rot180'
       case 'symax':
@@ -90,6 +91,7 @@ export default function TrouverLaTransformations () {
         return pol
     }
   }
+
   // type est le type de transformation (voir ci-dessus)
   // depart est le N° de la figure de dépar, arrivee celui de la figure d'arrivée
   // leSens = true pour rotation de sens direct
@@ -112,7 +114,16 @@ export default function TrouverLaTransformations () {
         texteInteractif = `la translation transformant ${noeuds[depart].nom} en ${noeuds[arrivee].nom}`
         vector = vecteur(noeuds[depart], noeuds[arrivee])
         animation = translationAnimee(poly1, vector, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
+        return {
+          animation,
+          depart,
+          arrivee,
+          texte,
+          texteCorr,
+          texteInteractif,
+          type,
+          vecteur: vecteur(noeuds[depart], noeuds[arrivee])
+        }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? 'direct' : 'indirect'}.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? 'direct' : 'indirect'}.`
@@ -129,6 +140,7 @@ export default function TrouverLaTransformations () {
         return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre }
     }
   }
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     if (this.version === 1) {
@@ -214,30 +226,30 @@ export default function TrouverLaTransformations () {
           case 'rot90':
             trans = definitElements('rot90', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
-              `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens direct`
+                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens direct`
             )
             trans = definitElements('rot90', transfos[i].depart, transfos[i].arrivee, false, 12, polys[transfos[i].depart])
             propositions.push(
-              `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens indirect`
+                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens indirect`
             )
             break
           case 'trans':
             //    trans = definitElements('trans', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
-                  `la translation transformant ${noeuds[transfos[i].depart].nom} en ${noeuds[transfos[i].arrivee].nom}`
+                            `la translation transformant ${noeuds[transfos[i].depart].nom} en ${noeuds[transfos[i].arrivee].nom}`
             )
             break
           case 'rot180':
             //    trans = definitElements('rot180', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
-                  `la symétrie dont le centre est le milieu de [${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}]`
+                            `la symétrie dont le centre est le milieu de [${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}]`
             )
             break
 
           case 'symax':
             //    trans = definitElements('symax', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
-                `la symétrie d'axe (${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom})`
+                            `la symétrie d'axe (${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom})`
             )
             break
         }

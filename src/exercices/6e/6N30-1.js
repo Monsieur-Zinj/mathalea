@@ -5,9 +5,9 @@ import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
 export const interactifReady = true
@@ -40,21 +40,21 @@ export default function LireAbscisseDecimaleBis2d () {
   this.nouvelleVersion = function () {
     // numeroExercice est 0 pour l'exercice 1
     /*
-    let QuestionsDisponibles
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = [1, 2, 3, 4, 5, 6]
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles = [contraindreValeur(1, 6, this.sup, randint(1, 6))]
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(QuestionsDisponibles[i]), randint(1, 6)) // parseInt en fait un entiers
+        let QuestionsDisponibles
+        if (!this.sup) { // Si aucune liste n'est saisie
+          QuestionsDisponibles = [1, 2, 3, 4, 5, 6]
+        } else {
+          if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+            QuestionsDisponibles = [contraindreValeur(1, 6, this.sup, randint(1, 6))]
+          } else {
+            QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              QuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(QuestionsDisponibles[i]), randint(1, 6)) // parseInt en fait un entiers
+            }
+          }
         }
-      }
-    }
-    const typesDeQuestions = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
-    */
+        const typesDeQuestions = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
+        */
 
     const typesDeQuestions = gestionnaireFormulaireTexte({
       max: 6,

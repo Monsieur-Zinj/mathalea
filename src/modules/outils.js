@@ -8,14 +8,9 @@ import {
   enleveDoublonNum
 } from '../lib/outils/arrayOutils.js'
 import { texMulticols } from '../lib/format/miseEnPage.js'
-import { setReponse } from '../lib/interactif/gestionInteractif.js'
-import {
-  arrondi,
-  nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDe,
-  rangeMinMax
-} from '../lib/outils/nombres.js'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, rangeMinMax } from '../lib/outils/nombres.js'
 import { context } from './context.js'
+import { setReponse } from '../lib/interactif/gestionInteractif.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -98,8 +93,8 @@ export function contraindreValeur (min, max, valeur, defaut) {
   // if (isNaN(min) || isNaN(max) || (defaut !== undefined && isNaN(defaut))) { // Rajout de Remi
   if (isNaN(min) || isNaN(max) || (isNaN(defaut))) {
     throw Error(`Erreur dans contraindreValeur : un des paramètres de contrainte est NaN : ${
-      ['min : ' + String(min) + ' ', max, valeur, defaut].reduce((accu, value, index) => String(accu) + ['min', ',max', ',valeur', ',defaut'][index] + ' : ' + String(value) + ' ')
-    }`)
+            ['min : ' + String(min) + ' ', max, valeur, defaut].reduce((accu, value, index) => String(accu) + ['min', ',max', ',valeur', ',defaut'][index] + ' : ' + String(value) + ' ')
+        }`)
   }
   return !isNaN(valeur) ? (Number(valeur) < Number(min) ? Number(min) : (Number(valeur) > Number(max) ? Number(max) : Number(valeur))) : Number(defaut)
 }
@@ -145,7 +140,9 @@ export function gestionnaireFormulaireTexte ({
     } else {
       listeIndexProvisoire = saisie.split('-')// Sinon on crée un tableau à partir des valeurs séparées par des tirets
       for (let i = 0; i < listeIndexProvisoire.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        if (!isNaN(parseInt(listeIndexProvisoire[i]))) { listeIndex.push(contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut)) } // parseInt en fait un tableau d'entiers
+        if (!isNaN(parseInt(listeIndexProvisoire[i]))) {
+          listeIndex.push(contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut))
+        } // parseInt en fait un tableau d'entiers
       }
     }
   }

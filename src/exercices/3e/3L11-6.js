@@ -5,19 +5,20 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Il y a un problème avec l'ordre de la multiplication
 
 /**
-* Factoriser avec un facteur commun évident des expressions complexes
-* Publié le 22/05/2021
-* @author Lhote Jean-Claude
-* 3L11-6
-*/
+ * Factoriser avec un facteur commun évident des expressions complexes
+ * Publié le 22/05/2021
+ * @author Lhote Jean-Claude
+ * 3L11-6
+ */
 export const uuid = '51360'
 export const ref = '3L11-6'
 export default function FactoriserUneExpression3e () {

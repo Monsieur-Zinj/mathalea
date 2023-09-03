@@ -3,14 +3,14 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
-  listeQuestionsToContenu,
-  randint,
-  printlatex,
   calcul,
-  gestionnaireFormulaireTexte
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  printlatex,
+  randint
 } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Réduire une expression littérale (somme et produit)'
 export const interactifReady = true
@@ -20,21 +20,21 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '22/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
-* Réduire une expression
-*
-*    '0 : Mélange des types de questions',
-*    '1 : ax+bx+c',
-*    '2 : ax+b+x+c',
-*    '3 : ax^2+bx+c+dx^2+x',
-*    '4 : a+x+b+c+dx',
-*    '5 : ax+y+bx+c+dy',
-*    '6 : ax.bx',
-*    '7 : ax+c',
-*    '8 : ax.b',
-*    '9 : ax+bx'
-* @author Mickael Guironnet - Rémi Angot
-* 5L12
-*/
+ * Réduire une expression
+ *
+ *    '0 : Mélange des types de questions',
+ *    '1 : ax+bx+c',
+ *    '2 : ax+b+x+c',
+ *    '3 : ax^2+bx+c+dx^2+x',
+ *    '4 : a+x+b+c+dx',
+ *    '5 : ax+y+bx+c+dy',
+ *    '6 : ax.bx',
+ *    '7 : ax+c',
+ *    '8 : ax.b',
+ *    '9 : ax+bx'
+ * @author Mickael Guironnet - Rémi Angot
+ * 5L12
+ */
 export const uuid = 'a8ad0'
 export const ref = '5L12-2'
 export default function ReduireUneExpressionLitterale () {
@@ -55,21 +55,27 @@ export default function ReduireUneExpressionLitterale () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     /*
-    let listeDesProblemes = []
-    if (!this.sup3 || parseInt(this.sup3) === 0) { // Si aucune liste n'est saisie ou mélange demandé
-      listeDesProblemes = range1(9)
-    } else {
-      if (typeof (this.sup3) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeDesProblemes[0] = contraindreValeur(0, 9, this.sup3, 1)
-      } else {
-        listeDesProblemes = this.sup3.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeDesProblemes[i] = contraindreValeur(0, 9, parseInt(listeDesProblemes[i]), 1) // parseInt en fait un tableau d'entiers
+        let listeDesProblemes = []
+        if (!this.sup3 || parseInt(this.sup3) === 0) { // Si aucune liste n'est saisie ou mélange demandé
+          listeDesProblemes = range1(9)
+        } else {
+          if (typeof (this.sup3) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+            listeDesProblemes[0] = contraindreValeur(0, 9, this.sup3, 1)
+          } else {
+            listeDesProblemes = this.sup3.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              listeDesProblemes[i] = contraindreValeur(0, 9, parseInt(listeDesProblemes[i]), 1) // parseInt en fait un tableau d'entiers
+            }
+          }
         }
-      }
-    }
-  */
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup3, max: 9, defaut: 10, melange: 10, nbQuestions: this.nbQuestions })
+      */
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      max: 9,
+      defaut: 10,
+      melange: 10,
+      nbQuestions: this.nbQuestions
+    })
 
     for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a, b, c, d

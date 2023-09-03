@@ -1,13 +1,10 @@
 import { choice, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +20,7 @@ export const ref = '6N20-2'
 export default function ExerciceFractionsDifferentesEcritures () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne =
-    "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale."
+        "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale."
   this.spacing = 2
   this.spacingCorr = 2
   this.sup = false
@@ -34,7 +31,15 @@ export default function ExerciceFractionsDifferentesEcritures () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const listeDenominateurs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 2, max: 10, defaut: 11, melange: 11, nbQuestions: this.nbQuestions, exclus: [3, 6, 7, 9] })
+    const listeDenominateurs = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 2,
+      max: 10,
+      defaut: 11,
+      melange: 11,
+      nbQuestions: this.nbQuestions,
+      exclus: [3, 6, 7, 9]
+    })
     let fractions = []
     let fractions1 = []
     if (!this.sup) {
@@ -98,7 +103,6 @@ export default function ExerciceFractionsDifferentesEcritures () {
     for (
       let i = 0, cpt = 0, fraction, a, ed, b, c, n, texte, texteCorr, reponse;
       i < this.nbQuestions && cpt < 100;
-
     ) {
       if (!this.sup) {
         if (i < 6) {
@@ -122,21 +126,21 @@ export default function ExerciceFractionsDifferentesEcritures () {
       }
       // enleveElement(fractions, fraction) // Il n'y aura pas 2 fois la même partie décimale
       texte =
-        '$ ' +
-        deprecatedTexFraction(a, b) +
-        ' = \\phantom{0000} + ' +
-        deprecatedTexFraction('\\phantom{00000000}', '') +
-        ' =  $'
+                '$ ' +
+                deprecatedTexFraction(a, b) +
+                ' = \\phantom{0000} + ' +
+                deprecatedTexFraction('\\phantom{00000000}', '') +
+                ' =  $'
       texteCorr =
-        '$ ' +
-        deprecatedTexFraction(a, b) +
-        ' = ' +
-        n +
-        '+' +
-        deprecatedTexFraction(c, b) +
-        ' = ' +
-        ed +
-        ' $'
+                '$ ' +
+                deprecatedTexFraction(a, b) +
+                ' = ' +
+                n +
+                '+' +
+                deprecatedTexFraction(c, b) +
+                ' = ' +
+                ed +
+                ' $'
       reponse = `${n}+${deprecatedTexFraction(c, b)}=${ed}`
       setReponse(this, i, reponse)
       if (this.interactif) texte = `$${deprecatedTexFraction(a, b)} = $` + ajouteChampTexteMathLive(this, i)

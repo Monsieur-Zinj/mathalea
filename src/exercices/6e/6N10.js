@@ -3,9 +3,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
@@ -22,9 +23,8 @@ export const dateDeModifImportante = '14/09/2022'
  * Avec des paramètres sur le nombre de chiffres des nombres voulus
  * Avec des paramètres sur la présence obligatoire de nombres avec 80 (et ses copains qui n'aiment pas mettre de S dans leur vin) et avec 100 (et ses copains comme ceux de 80)
  * @author Eric Elter
- * Référence 6N10
  * Relecture : Novembre 2021 par EE
-*/
+ */
 export const uuid = '0688e'
 export const ref = '6N10'
 export default function EcrirePetitsNombresEntiers () {
@@ -224,16 +224,16 @@ export default function EcrirePetitsNombresEntiers () {
 
       if (context.isAmc) {
         this.autoCorrection[i] =
-        {
-          enonce: texte + '<br>',
-          propositions: [
-            {
-              texte: texteCorr,
-              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-              sanscadre: true
-            }
-          ]
-        }
+                    {
+                      enonce: texte + '<br>',
+                      propositions: [
+                        {
+                          texte: texteCorr,
+                          statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                          sanscadre: true
+                        }
+                      ]
+                    }
       }
 
       // Si la question n'a jamais été posée, on l'enregistre

@@ -8,13 +8,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import {
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre une équation résolvante pour le théorème de Thalès'
 

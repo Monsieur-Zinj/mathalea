@@ -4,10 +4,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Operation from '../../modules/operations.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
@@ -56,22 +56,22 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
     this.autoCorrection = []
     let typesDeQuestions, reponse
     /*
-    let typesDequestionsDisponibles = [1, 2, 3, 4, 5] // Paramétrage par défaut
-    const valMaxParametre = 6
-    if (this.sup) { // Si une liste est saisie
-      if (this.sup.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
-        typesDequestionsDisponibles = [contraindreValeur(1, valMaxParametre, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
-      } else {
-        typesDequestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDequestionsDisponibles.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
-          typesDequestionsDisponibles[i] = contraindreValeur(1, valMaxParametre, parseInt(typesDequestionsDisponibles[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
+        let typesDequestionsDisponibles = [1, 2, 3, 4, 5] // Paramétrage par défaut
+        const valMaxParametre = 6
+        if (this.sup) { // Si une liste est saisie
+          if (this.sup.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
+            typesDequestionsDisponibles = [contraindreValeur(1, valMaxParametre, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
+          } else {
+            typesDequestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < typesDequestionsDisponibles.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
+              typesDequestionsDisponibles[i] = contraindreValeur(1, valMaxParametre, parseInt(typesDequestionsDisponibles[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
+            }
+          }
         }
-      }
-    }
-    // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
-    if (compteOccurences(typesDequestionsDisponibles, valMaxParametre) > 0) typesDequestionsDisponibles = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
-    let listeTypeDeQuestions = combinaisonListes(typesDequestionsDisponibles, this.nbQuestions)
-    */
+        // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
+        if (compteOccurences(typesDequestionsDisponibles, valMaxParametre) > 0) typesDequestionsDisponibles = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
+        let listeTypeDeQuestions = combinaisonListes(typesDequestionsDisponibles, this.nbQuestions)
+        */
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,
       defaut: randint(1, 5),
@@ -80,18 +80,18 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
       saisie: this.sup
     })
     /*
-    if (Number(this.sup) === 6) {
-      if (Number(this.nbQuestions) === 3) {
-        listeTypeDeQuestions = [1, 2, 5]
-      }
-      if (Number(this.nbQuestions) === 4) {
-        listeTypeDeQuestions = [1, 2, 4, 5]
-      }
-      if (Number(this.nbQuestions) === 5) {
-        listeTypeDeQuestions = [1, 2, 3, 4, 5]
-      }
-    }
-*/
+        if (Number(this.sup) === 6) {
+          if (Number(this.nbQuestions) === 3) {
+            listeTypeDeQuestions = [1, 2, 5]
+          }
+          if (Number(this.nbQuestions) === 4) {
+            listeTypeDeQuestions = [1, 2, 4, 5]
+          }
+          if (Number(this.nbQuestions) === 5) {
+            listeTypeDeQuestions = [1, 2, 3, 4, 5]
+          }
+        }
+    */
     let grilletxt
     if (this.sup2 < 3) {
       const g = (this.sup2 < 3 ? grille(0, 0, 5, 8, 'gray', 0.7) : '')
@@ -109,11 +109,11 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
       switch (typesDeQuestions) {
         case 1: // abcde + fgh
           a =
-            randint(1, 9) * 10000 +
-            randint(5, 9) * 1000 +
-            randint(5, 9) * 100 +
-            randint(7, 9) * 10 +
-            randint(1, 9)
+                        randint(1, 9) * 10000 +
+                        randint(5, 9) * 1000 +
+                        randint(5, 9) * 100 +
+                        randint(7, 9) * 10 +
+                        randint(1, 9)
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9)
           texte = `$${texNombre(a)}+${b}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse

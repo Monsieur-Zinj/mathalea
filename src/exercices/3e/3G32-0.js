@@ -12,18 +12,15 @@ import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } fro
 import { creerNomDePolygone, lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { min, max } from 'mathjs'
+import { max, min } from 'mathjs'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Problèmes nécessitant un calcul de longueur à l\'aide de la trigonométrie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +38,7 @@ export const dateDePublication = '05/03/2022'
  * Fusion des exercices @author Guillaume Valmont
  * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Eric Elter
  * Référence 3G32-0
-*/
+ */
 export const uuid = '2045e'
 export const ref = '3G32-0'
 export default function ProblemesTrigoLongueur () {
@@ -51,7 +48,7 @@ export default function ProblemesTrigoLongueur () {
   this.sup = true
   this.besoinFormulaire2Texte = [
     'Type de questions',
-    `Cet exercice regroupe les exercices 3G32 et 3G32-X (X : 1 à 5)
+        `Cet exercice regroupe les exercices 3G32 et 3G32-X (X : 1 à 5)
     Nombres séparés par des tirets :
     1 : Calculer la largeur d'une rivière
     2 : Calcul d'un parallèle terrestre
@@ -71,12 +68,43 @@ export default function ProblemesTrigoLongueur () {
     this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones
     const objet = [['arbre', 'un', '', 'situé'], ['immeuble', 'un', '', 'situé'], ['éolienne', 'une', 'te', 'située'], ['colline', 'une', 'te', 'située']]
-    let distance; let beta; let alpha; let taille; let A; let B; let S; let C; let R; let objets = []; let p
-    let O; let H; let M; let R2; let Axe; let normalV; let normalH; let P; let HP; let Sph; let OP; let PoleNord; let PoleSud
-    let hauteur; let teta; let index
+    let distance
+    let beta
+    let alpha
+    let taille
+    let A
+    let B
+    let S
+    let C
+    let R
+    let objets = []
+    let p
+    let O
+    let H
+    let M
+    let R2
+    let Axe
+    let normalV
+    let normalH
+    let P
+    let HP
+    let Sph
+    let OP
+    let PoleNord
+    let PoleSud
+    let hauteur
+    let teta
+    let index
     // let M1, MInit, normalH1, R21, P1
     const lettresGrecques = [['α', '\\alpha'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]
-    const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 6, melange: 7, defaut: 7, nbQuestions: this.nbQuestions, shuffle: true })
+    const listeTypeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 6,
+      melange: 7,
+      defaut: 7,
+      nbQuestions: this.nbQuestions
+    })
 
     let ii = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
@@ -130,7 +158,14 @@ export default function ProblemesTrigoLongueur () {
           texte += `Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}$ m jusqu'à son appareil de mesure noté $${lettreDepuisChiffre(numA)}$.<br>`
           texte += `À l'aide de son appareil, il mesure l'angle $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}}$ noté $${alfa}$  et l'angle $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}$ noté $${baita}$.`
           texte += '<br>(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)'
-          texte += '<br>' + mathalea2d({ xmin: min(-sensH, absC + sensH * (absS + 1)), ymin: min(-sensV, ordA + sensV), xmax: max(-sensH, absC + sensH * (absS + 1)), ymax: max(-sensV, ordA + sensV), pixelsParCm: 20, scale: 0.5 }, objets) //  1O est le max de ordA+1 : ainsi le cadre a toujours proportionnellement la même hauteur, bien que la figure change de hauteur.
+          texte += '<br>' + mathalea2d({
+            xmin: min(-sensH, absC + sensH * (absS + 1)),
+            ymin: min(-sensV, ordA + sensV),
+            xmax: max(-sensH, absC + sensH * (absS + 1)),
+            ymax: max(-sensV, ordA + sensV),
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets) //  1O est le max de ordA+1 : ainsi le cadre a toujours proportionnellement la même hauteur, bien que la figure change de hauteur.
           enonceInit = texte
           if (this.sup) {
             enonceAMC = `<br>${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$ et de $${alfa}$.`
@@ -138,28 +173,28 @@ export default function ProblemesTrigoLongueur () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-                `${AB}\\times tan(${alfaInteractif})`,
-                `${BA}\\times tan(${alfaInteractif})`,
-                `${AB}tan(${alfaInteractif})`,
-                `${BA}tan(${alfaInteractif})`,
-                `tan(${alfaInteractif})\\times ${AB}`,
-                `tan(${alfaInteractif})\\times ${BA}`,
-                `tan(${alfaInteractif})${AB}`,
-                `tan(${alfaInteractif})${BA}`],
+                                    `${AB}\\times tan(${alfaInteractif})`,
+                                    `${BA}\\times tan(${alfaInteractif})`,
+                                    `${AB}tan(${alfaInteractif})`,
+                                    `${BA}tan(${alfaInteractif})`,
+                                    `tan(${alfaInteractif})\\times ${AB}`,
+                                    `tan(${alfaInteractif})\\times ${BA}`,
+                                    `tan(${alfaInteractif})${AB}`,
+                                    `tan(${alfaInteractif})${BA}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 2,
-                    enonce: enonceInit + enonceAMC,
-                    sanslignes: true
-                  }
-                ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 2,
+                                        enonce: enonceInit + enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -170,28 +205,28 @@ export default function ProblemesTrigoLongueur () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=$` })
               setReponse(this, i + ii, [
-                `${AB}\\times tan(${baitaInteractif})`,
-                `${BA}\\times tan(${baitaInteractif})`,
-                `${AB}tan(${baitaInteractif})`,
-                `${BA}tan(${baitaInteractif})`,
-                `tan(${baitaInteractif})\\times ${AB}`,
-                `tan(${baitaInteractif})\\times ${BA}`,
-                `tan(${baitaInteractif})${AB}`,
-                `tan(${baitaInteractif})${BA}`],
+                                    `${AB}\\times tan(${baitaInteractif})`,
+                                    `${BA}\\times tan(${baitaInteractif})`,
+                                    `${AB}tan(${baitaInteractif})`,
+                                    `${BA}tan(${baitaInteractif})`,
+                                    `tan(${baitaInteractif})\\times ${AB}`,
+                                    `tan(${baitaInteractif})\\times ${BA}`,
+                                    `tan(${baitaInteractif})${AB}`,
+                                    `tan(${baitaInteractif})${BA}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 2,
-                      enonce: enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 2,
+                                        enonce: enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -202,44 +237,44 @@ export default function ProblemesTrigoLongueur () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=$` })
             setReponse(this, i + ii, [ // La liste n'est pas exhaustive et ne remplace, hélas, pas du calcul formel.
-              `${AB}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
-              `${BA}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
-              `${AB}(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
-              `${BA}(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
-              `(tan(${baitaInteractif})-tan(${alfaInteractif}))\\times ${AB}`,
-              `(tan(${baitaInteractif})-tan(${alfaInteractif}))\\times ${BA}`,
-              `(tan(${baitaInteractif})-tan(${alfaInteractif}))${AB}`,
-              `(tan(${baitaInteractif})-tan(${alfaInteractif}))${BA}`,
-              `${AB}\\times tan(${baitaInteractif})-${AB}\\times tan(${alfaInteractif})`,
-              `${BA}\\times tan(${baitaInteractif})-${BA}\\times tan(${alfaInteractif})`,
-              `${AB}tan(${baitaInteractif})-${AB}tan(${alfaInteractif})`,
-              `${BA}tan(${baitaInteractif})-${BA}tan(${alfaInteractif})`,
-              `tan(${baitaInteractif})\\times ${AB}-tan(${alfaInteractif})\\times ${AB}`,
-              `tan(${baitaInteractif})\\times ${BA}-tan(${alfaInteractif})\\times ${BA}`,
-              `tan(${baitaInteractif})${AB}-tan(${alfaInteractif})${AB}`,
-              `tan(${baitaInteractif})${BA}-tan(${alfaInteractif})${BA}`,
-              `${AB}\\times tan(${baitaInteractif})-${BA}\\times tan(${alfaInteractif})`,
-              `${BA}\\times tan(${baitaInteractif})-${AB}\\times tan(${alfaInteractif})`,
-              `${AB}tan(${baitaInteractif})-${BA}tan(${alfaInteractif})`,
-              `${BA}tan(${baitaInteractif})-${AB}tan(${alfaInteractif})`,
-              `tan(${baitaInteractif})\\times ${AB}-tan(${alfaInteractif})\\times ${BA}`,
-              `tan(${baitaInteractif})\\times ${BA}-tan(${alfaInteractif})\\times ${AB}`,
-              `tan(${baitaInteractif})${AB}-tan(${alfaInteractif})${BA}`,
-              `tan(${baitaInteractif})${BA}-tan(${alfaInteractif})${AB}`],
+                                `${AB}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
+                                `${BA}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
+                                `${AB}(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
+                                `${BA}(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
+                                `(tan(${baitaInteractif})-tan(${alfaInteractif}))\\times ${AB}`,
+                                `(tan(${baitaInteractif})-tan(${alfaInteractif}))\\times ${BA}`,
+                                `(tan(${baitaInteractif})-tan(${alfaInteractif}))${AB}`,
+                                `(tan(${baitaInteractif})-tan(${alfaInteractif}))${BA}`,
+                                `${AB}\\times tan(${baitaInteractif})-${AB}\\times tan(${alfaInteractif})`,
+                                `${BA}\\times tan(${baitaInteractif})-${BA}\\times tan(${alfaInteractif})`,
+                                `${AB}tan(${baitaInteractif})-${AB}tan(${alfaInteractif})`,
+                                `${BA}tan(${baitaInteractif})-${BA}tan(${alfaInteractif})`,
+                                `tan(${baitaInteractif})\\times ${AB}-tan(${alfaInteractif})\\times ${AB}`,
+                                `tan(${baitaInteractif})\\times ${BA}-tan(${alfaInteractif})\\times ${BA}`,
+                                `tan(${baitaInteractif})${AB}-tan(${alfaInteractif})${AB}`,
+                                `tan(${baitaInteractif})${BA}-tan(${alfaInteractif})${BA}`,
+                                `${AB}\\times tan(${baitaInteractif})-${BA}\\times tan(${alfaInteractif})`,
+                                `${BA}\\times tan(${baitaInteractif})-${AB}\\times tan(${alfaInteractif})`,
+                                `${AB}tan(${baitaInteractif})-${BA}tan(${alfaInteractif})`,
+                                `${BA}tan(${baitaInteractif})-${AB}tan(${alfaInteractif})`,
+                                `tan(${baitaInteractif})\\times ${AB}-tan(${alfaInteractif})\\times ${BA}`,
+                                `tan(${baitaInteractif})\\times ${BA}-tan(${alfaInteractif})\\times ${AB}`,
+                                `tan(${baitaInteractif})${AB}-tan(${alfaInteractif})${BA}`,
+                                `tan(${baitaInteractif})${BA}-tan(${alfaInteractif})${AB}`],
             { formatInteractif: 'texte' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: this.sup ? 2 : 5,
-                    enonce: this.sup ? enonceAMC : enonceInit + '<br>' + enonceAMC,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: this.sup ? 2 : 5,
+                                    enonce: this.sup ? enonceAMC : enonceInit + '<br>' + enonceAMC,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
           }
@@ -271,7 +306,14 @@ export default function ProblemesTrigoLongueur () {
             iiAMC++
           }
           j = 0
-          texteCorr = mathalea2d({ xmin: min(-sensH, absC + sensH * (absS + 1)), ymin: min(-sensV, ordA + sensV), xmax: max(-sensH, absC + sensH * (absS + 1)), ymax: max(-sensV, ordA + sensV), pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
+          texteCorr = mathalea2d({
+            xmin: min(-sensH, absC + sensH * (absS + 1)),
+            ymin: min(-sensV, ordA + sensV),
+            xmax: max(-sensH, absC + sensH * (absS + 1)),
+            ymax: max(-sensV, ordA + sensV),
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets) + '<br>'
           texteCorr += `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ rectangle en $${lettreDepuisChiffre(numB)}$ on a : $\\tan(${alfa})=\\dfrac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}}{${AB}}$ d'où $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${AB}\\times \\tan(${alfa})$.<br>`
           j++
           if (this.sup) {
@@ -317,11 +359,25 @@ export default function ProblemesTrigoLongueur () {
           objets.push(demicercle3d(H, normalV, R2, 'direct', true, 'red', -context.anglePerspective))
           objets.push(arete3d(O, M).c2d)
           objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `$${alpha} \\degree$`))
-          texte = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
+          texte = mathalea2d({
+            xmin: -8,
+            ymin: -6,
+            xmax: 8,
+            ymax: 6,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets) + '<br>'
           texte += `Quelle est la longueur du $${alpha}$e parallèle Nord au kilomètre près ?`
           enonceAMC = texte
           enonceAMC += ` On prendra $${texNombre(6400)}$${sp()}km comme rayon de la Terre.<br>`
-          texteCorr = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
+          texteCorr = mathalea2d({
+            xmin: -8,
+            ymin: -6,
+            xmax: 8,
+            ymax: 6,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets) + '<br>'
           texteCorr += `Considérons que le $${alpha}$e parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la Terre.<br>`
           texteCorr += 'Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>'
           texteCorr += 'Dans le triangle $OPH$ rectangle en $H$, $\\cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d\'où $HP=OP\\times \\cos(\\widehat{OPH})$.<br>'
@@ -336,14 +392,14 @@ export default function ProblemesTrigoLongueur () {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 5,
-                    enonce: enonceAMC,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 5,
+                                    enonce: enonceAMC,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
             propositionsAMC[iiAMC] = {
@@ -403,7 +459,14 @@ export default function ProblemesTrigoLongueur () {
           if (this.sup) {
             texte = `<br>$${lettreDepuisChiffre(numC)}$ représente l'œil de l'observateur, $[${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}]$ représente cet${objet[index][2]} ${objet[index][0]}.<br>`
             texte += '(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)<br>'
-            texte += mathalea2d({ xmin: min(-sensH, ordA + sensH), ymin: -1, xmax: max(-sensH, ordA + sensH), ymax: absS + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            texte += mathalea2d({
+              xmin: min(-sensH, ordA + sensH),
+              ymin: -1,
+              xmax: max(-sensH, ordA + sensH),
+              ymax: absS + 1,
+              pixelsParCm: 20,
+              scale: 0.5
+            }, objets)
             texte += `<br>${numAlpha(j)}Calculer d'abord $${baita}$, arrondie au centième près.`
             enonceAMC = texte
             texte = enonceInit + texte
@@ -415,14 +478,14 @@ export default function ProblemesTrigoLongueur () {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 2,
-                      enonce: enonceInit + enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 2,
+                                        enonce: enonceInit + enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
               propositionsAMC[iiAMC] = {
@@ -482,14 +545,14 @@ export default function ProblemesTrigoLongueur () {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 2,
-                      enonce: enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 2,
+                                        enonce: enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
               propositionsAMC[iiAMC] = {
@@ -526,14 +589,14 @@ export default function ProblemesTrigoLongueur () {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 6,
-                      enonce: enonceInit + '<br>' + enonceAMC + '<br>',
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 6,
+                                        enonce: enonceInit + '<br>' + enonceAMC + '<br>',
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -557,7 +620,14 @@ export default function ProblemesTrigoLongueur () {
             iiAMC++
           }
           j = 0
-          texteCorr = mathalea2d({ xmin: min(-sensH, ordA + sensH), ymin: -1, xmax: max(-sensH, ordA + sensH), ymax: absS + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr = mathalea2d({
+            xmin: min(-sensH, ordA + sensH),
+            ymin: -1,
+            xmax: max(-sensH, ordA + sensH),
+            ymax: absS + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           texteCorr += this.sup ? `<br>${numAlpha(j)}` : '<br>'
           texteCorr += `Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numB)}$ rectangle en $${lettreDepuisChiffre(numR)}$, $\\tan(${baita})=\\dfrac{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numB)}}{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}}$.<br>D'où $${baita}=\\arctan(\\dfrac{${texNombre(hauteur)}}{${texNombre(distance)}})\\approx ${texNombre(beta, 2)}\\degree$.<br>`
           j++
@@ -602,7 +672,14 @@ export default function ProblemesTrigoLongueur () {
           enonceInit = texte
           if (this.sup) {
             enonceAMC = '(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)<br>'
-            enonceAMC += mathalea2d({ xmin: min(-sensH, absC + sensH), ymin: -1, xmax: max(-sensH, absC + sensH), ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            enonceAMC += mathalea2d({
+              xmin: min(-sensH, absC + sensH),
+              ymin: -1,
+              xmax: max(-sensH, absC + sensH),
+              ymax: ordA + 1,
+              pixelsParCm: 20,
+              scale: 0.5
+            }, objets)
             enonceAMC += `<br>${numAlpha(j)}Exprimer $h$ en fonction de $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}$ et $${baita}$ puis en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ et $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
@@ -610,42 +687,42 @@ export default function ProblemesTrigoLongueur () {
               AB = lettreDepuisChiffre(numS) + lettreDepuisChiffre(numC)
               BA = lettreDepuisChiffre(numC) + lettreDepuisChiffre(numS)
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-                `${AB}\\times tan(${baitaInteractif})`,
-                `${BA}\\times tan(${baitaInteractif})`,
-                `${AB}tan(${baitaInteractif})`,
-                `${BA}tan(${baitaInteractif})`,
-                `tan(${baitaInteractif})\\times ${AB}`,
-                `tan(${baitaInteractif})\\times ${BA}`,
-                `tan(${baitaInteractif})${AB}`,
-                `tan(${baitaInteractif})${BA}`],
+                                    `${AB}\\times tan(${baitaInteractif})`,
+                                    `${BA}\\times tan(${baitaInteractif})`,
+                                    `${AB}tan(${baitaInteractif})`,
+                                    `${BA}tan(${baitaInteractif})`,
+                                    `tan(${baitaInteractif})\\times ${AB}`,
+                                    `tan(${baitaInteractif})\\times ${BA}`,
+                                    `tan(${baitaInteractif})${AB}`,
+                                    `tan(${baitaInteractif})${BA}`],
               { formatInteractif: 'texte' })
               ii++
               texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
               AB = lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)
               BA = lettreDepuisChiffre(numC) + lettreDepuisChiffre(numB)
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-                `${AB}\\times tan(${alfaInteractif})`,
-                `${BA}\\times tan(${alfaInteractif})`,
-                `${AB}tan(${alfaInteractif})`,
-                `${BA}tan(${alfaInteractif})`,
-                `tan(${alfaInteractif})\\times ${AB}`,
-                `tan(${alfaInteractif})\\times ${BA}`,
-                `tan(${alfaInteractif})${AB}`,
-                `tan(${alfaInteractif})${BA}`],
+                                    `${AB}\\times tan(${alfaInteractif})`,
+                                    `${BA}\\times tan(${alfaInteractif})`,
+                                    `${AB}tan(${alfaInteractif})`,
+                                    `${BA}tan(${alfaInteractif})`,
+                                    `tan(${alfaInteractif})\\times ${AB}`,
+                                    `tan(${alfaInteractif})\\times ${BA}`,
+                                    `tan(${alfaInteractif})${AB}`,
+                                    `tan(${alfaInteractif})${BA}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 3,
-                      enonce: enonceInit + '<br>' + enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 3,
+                                        enonce: enonceInit + '<br>' + enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -657,32 +734,32 @@ export default function ProblemesTrigoLongueur () {
               AB = lettreDepuisChiffre(numS) + lettreDepuisChiffre(numB)
               BA = lettreDepuisChiffre(numB) + lettreDepuisChiffre(numS)
               setReponse(this, i + ii, [ // Aucune exhaustivité hélas
-              `\\frac{${AB}\\times tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `\\frac{${BA}\\times tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `${AB}\\times \\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `${BA}\\times \\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `tan(${alfaInteractif})\\times \\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `tan(${alfaInteractif})\\times \\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `\\frac{${AB}tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `\\frac{${BA}tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `${AB}\\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `${BA}\\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `tan(${alfaInteractif})\\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `tan(${alfaInteractif})\\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`],
+                                    `\\frac{${AB}\\times tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `\\frac{${BA}\\times tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `${AB}\\times \\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `${BA}\\times \\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `tan(${alfaInteractif})\\times \\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `tan(${alfaInteractif})\\times \\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `\\frac{${AB}tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `\\frac{${BA}tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `${AB}\\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `${BA}\\frac{tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `tan(${alfaInteractif})\\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `tan(${alfaInteractif})\\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 3,
-                      enonce: enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 3,
+                                        enonce: enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -692,32 +769,32 @@ export default function ProblemesTrigoLongueur () {
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}=$` })
               setReponse(this, i + ii, [ // Aucune exhaustivité hélas
-              `\\frac{${AB}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `\\frac{${BA}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `${AB}\\times \\frac{tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `${BA}\\times \\frac{tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `tan(${alfaInteractif})\\times tan(${baitaInteractif})\\times \\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `tan(${alfaInteractif})\\times tan(${baitaInteractif})\\times \\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `\\frac{${AB}tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `\\frac{${BA}tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `${AB}\\frac{tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `${BA}\\frac{tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `tan(${alfaInteractif})tan(${baitaInteractif})\\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
-              `tan(${alfaInteractif})tan(${baitaInteractif})\\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`],
+                                    `\\frac{${AB}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `\\frac{${BA}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `${AB}\\times \\frac{tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `${BA}\\times \\frac{tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `tan(${alfaInteractif})\\times tan(${baitaInteractif})\\times \\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `tan(${alfaInteractif})\\times tan(${baitaInteractif})\\times \\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `\\frac{${AB}tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `\\frac{${BA}tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `${AB}\\frac{tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `${BA}\\frac{tan(${alfaInteractif})tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `tan(${alfaInteractif})tan(${baitaInteractif})\\frac{${AB}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
+                                    `tan(${alfaInteractif})tan(${baitaInteractif})\\frac{${BA}}{tan(${baitaInteractif})-tan(${alfaInteractif})}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 2,
-                      enonce: enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 2,
+                                        enonce: enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -736,14 +813,14 @@ export default function ProblemesTrigoLongueur () {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 6,
-                      enonce: enonceInit + '<br>' + enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 6,
+                                        enonce: enonceInit + '<br>' + enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -796,7 +873,14 @@ export default function ProblemesTrigoLongueur () {
             iiAMC++
           }
           texte += '<br>Arrondir les résultats au mètre près. (On supposera le point d\'observation au niveau de l\'eau)'
-          texteCorr = mathalea2d({ xmin: min(-sensH, absC + sensH), ymin: -1, xmax: max(-sensH, absC + sensH), ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr = mathalea2d({
+            xmin: min(-sensH, absC + sensH),
+            ymin: -1,
+            xmax: max(-sensH, absC + sensH),
+            ymax: ordA + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           j = 0
           texteCorr += this.sup ? `<br>${numAlpha(j)}` : '<br>'
           texteCorr += `Dans le triangle $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numC)}$, $\\tan(${baita})=\\dfrac{h}{${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}}$.<br>D'où $h=${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times \\tan(${baita})$.<br>`
@@ -853,7 +937,14 @@ export default function ProblemesTrigoLongueur () {
           texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $${lettreDepuisChiffre(numC)}$.<br>`
           texte += '(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)<br>'
           texte += `  On donne : $${alfa}=${alpha}\\degree$, $${baita}=${beta}\\degree$ et $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${distance}$ m.<br>`
-          texte += mathalea2d({ xmin: min(-sensH, absS + sensH), ymin: -1, xmax: max(-sensH, absS + sensH), ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texte += mathalea2d({
+            xmin: min(-sensH, absS + sensH),
+            ymin: -1,
+            xmax: max(-sensH, absS + sensH),
+            ymax: ordA + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           enonceInit = texte
           if (this.sup) {
             enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}$ en fonction de $${baita}$.`
@@ -861,21 +952,21 @@ export default function ProblemesTrigoLongueur () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}\\widehat{CAS}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-                `90-${baitaInteractif}`],
+                                    `90-${baitaInteractif}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 2,
-                      enonce: enonceInit + '<br>' + enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 2,
+                                        enonce: enonceInit + '<br>' + enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -884,21 +975,21 @@ export default function ProblemesTrigoLongueur () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-                `90-${alfaInteractif}`],
+                                    `90-${alfaInteractif}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 2,
-                      enonce: enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
+                                    [
+                                      {
+                                        texte: '',
+                                        statut: 2,
+                                        enonce: enonceAMC,
+                                        sanslignes: true
+                                      }
+                                    ]
               }
               iiAMC++
             }
@@ -910,14 +1001,14 @@ export default function ProblemesTrigoLongueur () {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-              [
-                {
-                  texte: '',
-                  statut: this.sup ? 2 : 4,
-                  enonce: this.sup ? enonceAMC : enonceInit + '<br>' + enonceAMC,
-                  sanslignes: true
-                }
-              ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: this.sup ? 2 : 4,
+                                    enonce: this.sup ? enonceAMC : enonceInit + '<br>' + enonceAMC,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
           }
@@ -931,22 +1022,22 @@ export default function ProblemesTrigoLongueur () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}CA=$` })
             setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-            `\\frac{CH}{sin(${baitaInteractif}-${alfaInteractif})}`,
-            `\\frac{HC}{sin(${baitaInteractif}-${alfaInteractif})}`],
+                                `\\frac{CH}{sin(${baitaInteractif}-${alfaInteractif})}`,
+                                `\\frac{HC}{sin(${baitaInteractif}-${alfaInteractif})}`],
             { formatInteractif: 'texte' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 2,
-                    enonce: enonceAMC,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 2,
+                                    enonce: enonceAMC,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
           }
@@ -960,24 +1051,24 @@ export default function ProblemesTrigoLongueur () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
-            `${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${alfaInteractif})`,
-            `sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}`,
-            `${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${alfaInteractif})`,
-            `sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}`],
+                                `${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${alfaInteractif})`,
+                                `sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}`,
+                                `${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${alfaInteractif})`,
+                                `sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}`],
             { formatInteractif: 'texte' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 2,
-                    enonce: enonceAMC,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 2,
+                                    enonce: enonceAMC,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
           }
@@ -992,40 +1083,40 @@ export default function ProblemesTrigoLongueur () {
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhaustivité hélas
-            `${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})`,
-            `sin(${baitaInteractif})\\times ${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}`,
-            `${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}\\times sin(${baitaInteractif})`,
-            `sin(${baitaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}`],
+                                `${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})`,
+                                `sin(${baitaInteractif})\\times ${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}`,
+                                `${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}\\times sin(${baitaInteractif})`,
+                                `sin(${baitaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}`],
             { formatInteractif: 'texte' })
             ii++
             texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
-            `\\frac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-            `\\frac{${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-            `\\frac{sin(${baitaInteractif}\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-            `\\frac{sin(${baitaInteractif}\\times ${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numC)} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
+                                `\\frac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                                `\\frac{${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                                `\\frac{sin(${baitaInteractif}\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                                `\\frac{sin(${baitaInteractif}\\times ${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numC)} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
             { formatInteractif: 'texte' })
             ii++
             texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
-            `\\frac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-            `\\frac{sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-            `\\frac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-            `\\frac{sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
+                                `\\frac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                                `\\frac{sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                                `\\frac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                                `\\frac{sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
             { formatInteractif: 'texte' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                [
-                  {
-                    texte: '',
-                    statut: 5,
-                    enonce: enonceAMC,
-                    sanslignes: true
-                  }
-                ]
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 5,
+                                    enonce: enonceAMC,
+                                    sanslignes: true
+                                  }
+                                ]
             }
             iiAMC++
           }
@@ -1059,7 +1150,14 @@ export default function ProblemesTrigoLongueur () {
             iiAMC++
           }
           j = 0
-          texteCorr = mathalea2d({ xmin: min(-sensH, absS + sensH), ymin: -1, xmax: max(-sensH, absS + sensH), ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texteCorr = mathalea2d({
+            xmin: min(-sensH, absS + sensH),
+            ymin: -1,
+            xmax: max(-sensH, absS + sensH),
+            ymax: ordA + 1,
+            pixelsParCm: 20,
+            scale: 0.5
+          }, objets)
           if (this.sup) {
             texteCorr += `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numS)}$, les angles aigus sont complémentaires donc $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=90-${baita}$.<br>`
             texteCorr += `${numAlpha(j + 1)}Dans le triangle $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numS)}$, pour la même raison $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=90-${alfa}$.<br>`
@@ -1078,100 +1176,108 @@ export default function ProblemesTrigoLongueur () {
           texteCorr += `${numAlpha(j)}Application numérique : $h=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}\\degree)}{\\sin(${beta}\\degree-${alpha}\\degree)}\\times \\sin(${beta}\\degree)$`
           texteCorr += `$=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}\\degree)\\times \\sin(${beta}\\degree)}{\\sin(${beta - alpha}\\degree)}\\approx ${texNombre(Math.round(taille))}${sp()}\\text{m}$.<br>`
           break
-        case 6:
-          {
-            let objetsEnonce = []; let paramsEnonce = {}
+        case 6: {
+          let objetsEnonce = []
+          let paramsEnonce = {}
 
-            const AD = randint(5, 9)
-            const AE = randint(AD + 1, AD + 4)
-            const AC = randint(3, AD - 1)
-            const A = point(0, 0, 'A', 'below left')
-            const C = point(AC, 0, 'C', 'below')
-            const D = point(AD, 0, 'D', 'below right')
-            const dDE = droiteVerticaleParPoint(D)
-            const cAE = cercle(A, AE)
-            const E = pointIntersectionLC(dDE, cAE, 'E')
-            E.positionLabel = 'right'
-            const p = polygone(A, D, E)
-            const dAE = droite(A, E)
-            const B = projectionOrtho(C, dAE, 'B', 'above left')
-            const codage1 = codageAngleDroit(A, B, C)
-            const codage2 = codageAngleDroit(A, D, E)
-            const labels = labelPoint(A, B, C, D, E)
-            const nomDesSommets = creerNomDePolygone(5, listeDeNomsDePolygones)
-            listeDeNomsDePolygones.push(nomDesSommets)
-            A.nom = nomDesSommets[0]
-            B.nom = nomDesSommets[1]
-            C.nom = nomDesSommets[2]
-            D.nom = nomDesSommets[3]
-            E.nom = nomDesSommets[4]
-            const mirroir = choice([true, false])
-            if (mirroir) {
-              B.x *= -1
-              C.x *= -1
-              D.x *= -1
-              E.x *= -1
-              A.positionLabel = 'below'
-              B.positionLabel = 'above'
-              C.positionLabel = 'below'
-              D.positionLabel = 'below'
-              E.positionLabel = 'above'
-            }
-            const sBC = segment(B, C)
-
-            objetsEnonce = [p, sBC, codage1, codage2, labels]
-            paramsEnonce = { xmin: -10, ymin: -1, xmax: 10, ymax: E.y + 1.5, pixelsParCm: 20, scale: 1, mainlevee: false }
-            texte = `$${A.nom + E.nom} = ${AE}~\\text{cm}$, $${A.nom + D.nom} = ${AD}~\\text{cm}$ et $${A.nom + C.nom} = ${AC}~\\text{cm}$.`
-            texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-            texte += `<br>Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée au millimètre près.`
-            enonceAMC = texte + '<br>'
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
-              setReponse(this, i + ii, new Grandeur(arrondi(longueur(A, B), 1), 'cm'), { formatInteractif: 'unites' })
-              ii++
-            } else if (context.isAmc) {
-              propositionsAMC[iiAMC] = {
-                type: 'AMCOpen',
-                propositions:
-                  [
-                    {
-                      texte: '',
-                      statut: 5,
-                      enonce: enonceAMC,
-                      sanslignes: true
-                    }
-                  ]
-              }
-              iiAMC++
-              propositionsAMC[iiAMC] = {
-                type: 'AMCNum',
-                propositions: [{
-                  texte: '',
-                  statut: '',
-                  reponse: {
-                    texte: `Longueur calculée, exprimée en cm et arrondie au millième, du segment $[${A.nom + B.nom}]$ : `,
-                    valeur: [arrondi(longueur(A, B), 1)],
-                    alignement: 'center',
-                    param: {
-                      digits: 1 + nombreDeChiffresDe(arrondi(longueur(A, B), 1)),
-                      decimals: 1,
-                      signe: false
-                    }
-                  }
-                }]
-              }
-              iiAMC++
-            }
-            texteCorr = `Dans le triangle $${A.nom + D.nom + E.nom}$ rectangle en $${D.nom}$ : `
-            texteCorr += `<br>$\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${A.nom + D.nom}}{${A.nom + E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${AD}}{${AE}}$,`
-            texteCorr += `<br> d'où $\\widehat{${D.nom + A.nom + E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${texNombre(angle(D, A, E), 1)}\\degree$.`
-
-            texteCorr += `<br><br>Dans le triangle $${A.nom + B.nom + C.nom}$ rectangle en $${B.nom}$ : `
-            texteCorr += `<br>$\\cos(\\widehat{${B.nom + A.nom + C.nom}})=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}\\quad$ soit $\\quad\\cos(${texNombre(arrondi(angle(D, A, E), 1))}\\degree)\\approx\\dfrac{${A.nom + B.nom}}{${AC}}$,`
-            texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}\\degree)\\approx${texNombre(longueur(A, B), 1)}$ cm.`
-
-            // texteCorr += `<br><br>On pouvait aussi écrire : $${A.nom + B.nom} = ${AC}\\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times \\dfrac{${AD}}{${AE}}=${texFractionReduite(AC * AD, AE)}$ cm qui est la valeur exacte.`
+          const AD = randint(5, 9)
+          const AE = randint(AD + 1, AD + 4)
+          const AC = randint(3, AD - 1)
+          const A = point(0, 0, 'A', 'below left')
+          const C = point(AC, 0, 'C', 'below')
+          const D = point(AD, 0, 'D', 'below right')
+          const dDE = droiteVerticaleParPoint(D)
+          const cAE = cercle(A, AE)
+          const E = pointIntersectionLC(dDE, cAE, 'E')
+          E.positionLabel = 'right'
+          const p = polygone(A, D, E)
+          const dAE = droite(A, E)
+          const B = projectionOrtho(C, dAE, 'B', 'above left')
+          const codage1 = codageAngleDroit(A, B, C)
+          const codage2 = codageAngleDroit(A, D, E)
+          const labels = labelPoint(A, B, C, D, E)
+          const nomDesSommets = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(nomDesSommets)
+          A.nom = nomDesSommets[0]
+          B.nom = nomDesSommets[1]
+          C.nom = nomDesSommets[2]
+          D.nom = nomDesSommets[3]
+          E.nom = nomDesSommets[4]
+          const mirroir = choice([true, false])
+          if (mirroir) {
+            B.x *= -1
+            C.x *= -1
+            D.x *= -1
+            E.x *= -1
+            A.positionLabel = 'below'
+            B.positionLabel = 'above'
+            C.positionLabel = 'below'
+            D.positionLabel = 'below'
+            E.positionLabel = 'above'
           }
+          const sBC = segment(B, C)
+
+          objetsEnonce = [p, sBC, codage1, codage2, labels]
+          paramsEnonce = {
+            xmin: -10,
+            ymin: -1,
+            xmax: 10,
+            ymax: E.y + 1.5,
+            pixelsParCm: 20,
+            scale: 1,
+            mainlevee: false
+          }
+          texte = `$${A.nom + E.nom} = ${AE}~\\text{cm}$, $${A.nom + D.nom} = ${AD}~\\text{cm}$ et $${A.nom + C.nom} = ${AC}~\\text{cm}$.`
+          texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+          texte += `<br>Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée au millimètre près.`
+          enonceAMC = texte + '<br>'
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            setReponse(this, i + ii, new Grandeur(arrondi(longueur(A, B), 1), 'cm'), { formatInteractif: 'unites' })
+            ii++
+          } else if (context.isAmc) {
+            propositionsAMC[iiAMC] = {
+              type: 'AMCOpen',
+              propositions:
+                                [
+                                  {
+                                    texte: '',
+                                    statut: 5,
+                                    enonce: enonceAMC,
+                                    sanslignes: true
+                                  }
+                                ]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `Longueur calculée, exprimée en cm et arrondie au millième, du segment $[${A.nom + B.nom}]$ : `,
+                  valeur: [arrondi(longueur(A, B), 1)],
+                  alignement: 'center',
+                  param: {
+                    digits: 1 + nombreDeChiffresDe(arrondi(longueur(A, B), 1)),
+                    decimals: 1,
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
+          }
+          texteCorr = `Dans le triangle $${A.nom + D.nom + E.nom}$ rectangle en $${D.nom}$ : `
+          texteCorr += `<br>$\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${A.nom + D.nom}}{${A.nom + E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${AD}}{${AE}}$,`
+          texteCorr += `<br> d'où $\\widehat{${D.nom + A.nom + E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${texNombre(angle(D, A, E), 1)}\\degree$.`
+
+          texteCorr += `<br><br>Dans le triangle $${A.nom + B.nom + C.nom}$ rectangle en $${B.nom}$ : `
+          texteCorr += `<br>$\\cos(\\widehat{${B.nom + A.nom + C.nom}})=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}\\quad$ soit $\\quad\\cos(${texNombre(arrondi(angle(D, A, E), 1))}\\degree)\\approx\\dfrac{${A.nom + B.nom}}{${AC}}$,`
+          texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}\\degree)\\approx${texNombre(longueur(A, B), 1)}$ cm.`
+
+          // texteCorr += `<br><br>On pouvait aussi écrire : $${A.nom + B.nom} = ${AC}\\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times \\dfrac{${AD}}{${AE}}=${texFractionReduite(AC * AD, AE)}$ cm qui est la valeur exacte.`
+        }
           break
       }
       if (context.isAmc) {

@@ -44,15 +44,11 @@ import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.j
  * @param {Array} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
  * @param {string} [parametres.Legende = ''] Légende de l'axe
  * @param {number} [parametres.LegendePosition = (Max - Min) * Unite + 1.5] Position de la légende
- * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {number} Unite Nombre de cm par unité
  * @property {number} Min Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
  * @property {number} Max Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
  * @author Jean-Claude Lhote
- * @class
+ * @return {array} Liste d'objets MathAlea2D
  */
 // JSDOC Validee par EE Aout 2022
 export function DroiteGraduee ({
@@ -1472,12 +1468,18 @@ export function Repere ({
     for (const x of xLabelListe) {
       let l
       if (typeof x === 'number') {
-        l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+        if (x >= xMin && x <= xMax) {
+          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+          l.isVisible = false
+          objets.push(l)
+        }
       } else {
-        l = latexParCoordonnees(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart * 2, 'black', 20, 20, '', 8)
+        if (x.valueur <= xMax && x.valeur >= xMin) {
+          l = latexParCoordonnees(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart * 2, 'black', 20, 20, '', 8)
+          l.isVisible = false
+          objets.push(l)
+        }
       }
-      l.isVisible = false
-      objets.push(l)
     }
   }
   if (axeYisVisible) {
@@ -1489,12 +1491,18 @@ export function Repere ({
     for (const y of yLabelListe) {
       let l
       if (typeof y === 'number') {
-        l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+        if (y >= yMin && y <= yMax) {
+          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+          l.isVisible = false
+          objets.push(l)
+        }
       } else {
-        l = latexParCoordonnees(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite, 'black', 20, 20, '', 8)
+        if (l.valeur >= yMin && l.valeur <= yMax) {
+          l = latexParCoordonnees(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite, 'black', 20, 20, '', 8)
+          l.isVisible = false
+          objets.push(l)
+        }
       }
-      l.isVisible = false
-      objets.push(l)
     }
   }
   // LES LÉGENDES

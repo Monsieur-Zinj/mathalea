@@ -6,8 +6,9 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -186,7 +187,17 @@ export default function PrioritesEtRelatifsEtPuissances () {
         } else if (context.isAmc) {
           this.autoCorrection[i].enonce = texte
           this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: 3 }]
-          this.autoCorrection[i].reponse = { texte: 'résultat', valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)), decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false } }
+          this.autoCorrection[i].reponse = {
+            texte: 'résultat',
+            valeur: reponse,
+            param: {
+              digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)),
+              decimals: 0,
+              signe: true,
+              exposantNbChiffres: 0,
+              exposantSigne: false
+            }
+          }
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

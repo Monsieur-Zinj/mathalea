@@ -6,12 +6,13 @@ import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, quotientier, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { min } from 'mathjs'
 import Grandeur from '../../modules/Grandeur.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -23,7 +24,7 @@ export const dateDePublication = '10/08/2022'
 /**
  * Utiliser ou trouver des échelles dans diverses situations
  * @author Eric Elter
-* Référence 5P13
+ * Référence 5P13
  */
 export const uuid = 'edb61'
 export const ref = '5P13'
@@ -47,22 +48,22 @@ export default function EchellesProblemes () {
     // Fin de l'ébauche de la consigne en fonction des possibilités
 
     /*
-    let listeDesProblemes = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      listeDesProblemes = rangeMinMax(1, 4)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeDesProblemes[0] = contraindreValeur(1, 4, this.sup, 4)
-      } else {
-        listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeDesProblemes[i] = contraindreValeur(1, 4, parseInt(listeDesProblemes[i]), 4) // parseInt en fait un tableau d'entiers
+        let listeDesProblemes = []
+        if (!this.sup) { // Si aucune liste n'est saisie
+          listeDesProblemes = rangeMinMax(1, 4)
+        } else {
+          if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+            listeDesProblemes[0] = contraindreValeur(1, 4, this.sup, 4)
+          } else {
+            listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+            for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+              listeDesProblemes[i] = contraindreValeur(1, 4, parseInt(listeDesProblemes[i]), 4) // parseInt en fait un tableau d'entiers
+            }
+          }
         }
-      }
-    }
-    if (compteOccurences(listeDesProblemes, 4) > 0) listeDesProblemes = rangeMinMax(1, 3) // Teste si l'utilisateur a choisi tout
-    listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
-    */
+        if (compteOccurences(listeDesProblemes, 4) > 0) listeDesProblemes = rangeMinMax(1, 3) // Teste si l'utilisateur a choisi tout
+        listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+        */
 
     const listeDesProblemes = gestionnaireFormulaireTexte({
       max: 3,

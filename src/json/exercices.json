@@ -174,8 +174,7 @@
     "id": "1E14",
     "titre": "Factoriser un polynôme du second degré avec racines entières",
     "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
+      "interactif": false,
       "amc": false
     }
   },
@@ -520,7 +519,7 @@
     "url": "2e/2F22-1.js",
     "uuid": "a2ac2",
     "id": "2F22-1",
-    "titre": "Résoudre graphiquement une équation du type f(x)=k.",
+    "titre": "Résoudre graphiquement une équation du type $f(x)=k$",
     "tags": {
       "interactif": true,
       "interactifType": "custom",
@@ -531,10 +530,9 @@
     "url": "2e/2F22-3.js",
     "uuid": "a7860",
     "id": "2F22-3",
-    "titre": "Déterminer le tableau de signes d'une fonction graphiquement.",
+    "titre": "Déterminer le tableau de signes d'une fonction graphiquement",
     "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
+      "interactif": false,
       "amc": false
     }
   },
@@ -1032,7 +1030,7 @@
     "url": "2e/2N14-1.js",
     "uuid": "25fb4",
     "id": "2N14-1",
-    "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
+    "titre": "Déterminer le plus petit ensemble de nombres dans lequel un nombre appartient",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -3559,7 +3557,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amc": false
+      "amcType": "qcmMono",
+      "amc": true
     }
   },
   "4C30-1": {
@@ -4449,7 +4448,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     }
   },
   "5C11": {
@@ -4816,9 +4816,10 @@
     "url": "5e/5G31.js",
     "uuid": "dc8c9",
     "id": "5G31",
-    "titre": "Somme des angles dans un triangle",
+    "titre": "Déterminer la valeur d'un angle en utilisant la somme des angles dans un triangle",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
     }
   },
@@ -4856,7 +4857,7 @@
     "url": "5e/5G40-1.js",
     "uuid": "af2c2",
     "id": "5G40-1",
-    "titre": "Citer les propriétés des parallélogrammes",
+    "titre": "Citer la définition ou les propriétés d'un parallélogramme",
     "tags": {
       "interactif": false,
       "amc": false
@@ -7369,7 +7370,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "custom",
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     }
   },
   "6N22": {
@@ -8551,6 +8553,60 @@
     "titre": "Réaliser le quotient de deux longueurs à la règle non graduée et au compas",
     "tags": {
       "interactif": false,
+      "amc": false
+    }
+  },
+  "betaFonction": {
+    "url": "beta/betaEtudeFonction.js",
+    "uuid": "betaFonction",
+    "id": "betaFonction",
+    "titre": "Recherche d'antécédents",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
+  },
+  "betaPatronSolide": {
+    "url": "beta/betaPatronSolide.js",
+    "uuid": "865e9",
+    "id": "betaPatronSolide",
+    "titre": "Compléter des patrons de solides",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
+  },
+  "betaRepere": {
+    "url": "beta/betaRepere.js",
+    "uuid": "95699",
+    "id": "betaRepere",
+    "titre": "essai de RepereBuilder",
+    "tags": {
+      "interactif": false,
+      "amc": false
+    }
+  },
+  "betaSpline": {
+    "url": "beta/betaModeleSpline.js",
+    "uuid": "betaSpline",
+    "id": "betaSpline",
+    "titre": "Recherche d'antécédents",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
+  },
+  "betaTexNombre": {
+    "url": "beta/betaTexNombre.js",
+    "uuid": "efeee",
+    "id": "betaTexNombre",
+    "titre": "Somme de deux entier",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
     }
   },

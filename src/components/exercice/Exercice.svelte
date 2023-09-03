@@ -1,57 +1,68 @@
 <script lang="ts">
   import { mathaleaHandleParamOfOneExercice, mathaleaLoadExerciceFromUuid } from '../../lib/mathalea'
-  import { onMount, SvelteComponent } from 'svelte'
+  import { SvelteComponent, onMount } from 'svelte'
   import { globalOptions } from '../store'
   import type { InterfaceParams } from 'src/lib/types'
   import uuidToUrl from '../../json/uuidsToUrl.json'
-  import ExerciceStaticSvelteComponent from './ExerciceStatic.svelte'
+  import ExerciceMathalea from './ExerciceMathalea.svelte'
+  import ExerciceVueEleve from './ExerciceVueEleve.svelte'
+  import ExerciceStatic from './ExerciceStatic.svelte'
+  import type Exercice from 'src/exercices/ExerciceTs'
+  import ExerciceHtml from './ExerciceHtml.svelte'
 
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
 
-  let exercice
-  let ComponentExercice: SvelteComponent | ExerciceStaticSvelteComponent
-  let optionsComponent: object
+  let exercice: Exercice
+  let typeExercice: 'mathaleaVueProf' | 'mathaleaVueEleve' | 'static' | 'html' | 'svelte'
+  let ComponentExercice: typeof SvelteComponent
 
   onMount(async () => {
     const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
     if (
-      paramsExercice.uuid.substring(0, 5) === 'crpe-' ||
-      paramsExercice.uuid.substring(0, 4) === 'dnb_' ||
-      paramsExercice.uuid.substring(0, 4) === 'e3c_' ||
-      paramsExercice.uuid.substring(0, 4) === 'bac_' ||
+      paramsExercice.uuid.startsWith('crpe-') ||
+      paramsExercice.uuid.startsWith('dnb_') ||
+      paramsExercice.uuid.startsWith('e3c_') ||
+      paramsExercice.uuid.startsWith('bac_') ||
       paramsExercice.uuid.startsWith('2nd_')
     ) {
-      optionsComponent = { uuid: paramsExercice.uuid }
-      ComponentExercice = (await import('./ExerciceStatic.svelte')).default
+      typeExercice = 'static'
     } else if (urlExercice && urlExercice.includes('.svelte')) {
+      typeExercice = 'svelte'
       // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
       ComponentExercice = (await import('../../exercicesInteractifs/' + urlExercice.replace('.svelte', '') + '.svelte')).default
     } else {
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
-      exercice.numeroExercice = indiceExercice
       if (exercice.typeExercice && exercice.typeExercice.includes('html')) {
-        mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-        optionsComponent = { exercice }
-        ComponentExercice = (await import('./ExerciceHtml.svelte')).default
+        typeExercice = 'html'
       } else {
-        mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-        if (paramsExercice.duration) exercice.duree = paramsExercice.duration
-        optionsComponent = { exercice, isCorrectionVisible }
         if ($globalOptions.v === 'eleve') {
-          ComponentExercice = (await import('./ExerciceVueEleve.svelte')).default
+          typeExercice = 'mathaleaVueEleve'
         } else {
-          ComponentExercice = (await import('./ExerciceMathalea.svelte')).default
+          typeExercice = 'mathaleaVueProf'
         }
       }
+      exercice.numeroExercice = indiceExercice
+      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+      if (paramsExercice.duration) exercice.duree = paramsExercice.duration
     }
   })
 </script>
 
-<svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice}/>
+  {#if typeExercice === 'static'}
+  <ExerciceStatic {indiceExercice} {indiceLastExercice} uuid = {paramsExercice.uuid }/>
+  {:else if typeExercice === 'html'}
+    <ExerciceHtml {exercice} {indiceExercice} {indiceLastExercice} />
+  {:else if typeExercice === 'svelte'}
+    <svelte:component this={ComponentExercice} {indiceExercice} {indiceLastExercice}/>
+  {:else if typeExercice === 'mathaleaVueEleve'}
+    <ExerciceVueEleve {exercice} {indiceExercice} {indiceLastExercice} {isCorrectionVisible}/>
+  {:else if typeExercice === 'mathaleaVueProf'}
+    <ExerciceMathalea {exercice} {indiceExercice} {indiceLastExercice} {isCorrectionVisible}/>
+  {/if}
 
 <style>
 </style>

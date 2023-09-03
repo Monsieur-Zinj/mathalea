@@ -1,10 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +19,7 @@ export const dateDeModifImportante = '17/03/2022'
  * @author Rémi Angot
  * Référence 5N11-3
  * 2021-02-06
-*/
+ */
 export const uuid = '0e58f'
 export const ref = '5N11-3'
 export default function FractionVersPourcentage () {

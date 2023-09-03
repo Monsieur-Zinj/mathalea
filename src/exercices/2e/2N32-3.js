@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Écrire le nombre proposé sous la forme $ a\\sqrt{b}$'
 export const interactifReady = true
@@ -33,11 +33,15 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
       b = a * a
       c = randint(2, 7, [4])
       d = c * b
-      if (this.sup === 1) { texte = `Écrire $\\sqrt{ ${d} } $ sous la forme $a\\sqrt{ ${c} } $ où $a$ est un entier :` }
+      if (this.sup === 1) {
+        texte = `Écrire $\\sqrt{ ${d} } $ sous la forme $a\\sqrt{ ${c} } $ où $a$ est un entier :`
+      }
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.
                             On a donc la décomposition : $${d}=${c} \\times ${b}=${c} \\times ${a}^{2}$ qui permet d'écrire que
                             $\\sqrt{${d}}=\\sqrt{${a}^{2} \\times ${c} }=${a}\\times \\sqrt{${c}}$`
-      if (this.sup === 2) { texte = `$\\sqrt{${d}}$` }
+      if (this.sup === 2) {
+        texte = `$\\sqrt{${d}}$`
+      }
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.
                             On a donc la décomposition : $${d}=${c} \\times ${b}=${c} \\times ${a}^{2}$ qui permet d'écrire que
                             $\\sqrt{${d}}=\\sqrt{${a}^{2} \\times ${c} }=${a}\\times \\sqrt{${c}}$`

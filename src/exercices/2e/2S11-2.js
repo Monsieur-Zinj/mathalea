@@ -5,25 +5,26 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Variations en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/01/2022'
 
 /**
-* Problèmes de variations en pourcentage
-*
-* * Situations variées : prix soldé ou augmenté, effectif d'un collège ou lycée, facture, population d'une ville
-*
-* * Calculer le résultat d'une évolution
-* * Exprimer l'évolution en pourcentage
-* * Retrouver la situation initiale
-* * Mélange des 3 types de problèmes
-* @author Rémi Angot + Florence Tapiero (correction version seconde)
-* 2S12-1
-*/
+ * Problèmes de variations en pourcentage
+ *
+ * * Situations variées : prix soldé ou augmenté, effectif d'un collège ou lycée, facture, population d'une ville
+ *
+ * * Calculer le résultat d'une évolution
+ * * Exprimer l'évolution en pourcentage
+ * * Retrouver la situation initiale
+ * * Mélange des 3 types de problèmes
+ * @author Rémi Angot + Florence Tapiero (correction version seconde)
+ * 2S12-1
+ */
 export const uuid = '12444'
 export const ref = '2S11-2'
 export default function EvolutionsEnPourcentage () {

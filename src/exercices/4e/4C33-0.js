@@ -1,9 +1,10 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +17,7 @@ export const dateDePublication = '21/11/2021' // La date de publication initiale
  * Passer d'un produit à la notation puissance et inversement
  * @author Guillaume Valmont
  * Référence 4C33-0
-*/
+ */
 export const uuid = '1d078'
 export const ref = '4C33-0'
 export default function NotationPuissance () {

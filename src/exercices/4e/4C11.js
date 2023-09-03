@@ -6,9 +6,10 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Calculs utilisant les priorités opératoires'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -89,7 +90,7 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(c)}$`
           texteCorr = `$${a}${miseEnEvidence('~' + ecritureAlgebrique(b) + '\\times' + ecritureParentheseSiNegatif(c))}=${a}${ecritureAlgebrique(b * c)
-            }=${a + b * c}$`
+                    }=${a + b * c}$`
           setReponse(this, i, a + b * c)
           break
         case 2: // a+b/c
@@ -103,7 +104,7 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}${ecritureAlgebrique(b)}\\div${ecritureParentheseSiNegatif(c)}$`
           texteCorr = `$${a}${miseEnEvidence('~' + ecritureAlgebrique(b) + '\\div' + ecritureParentheseSiNegatif(c))}=${a}${ecritureAlgebrique(b / c)
-            }=${a + b / c}$`
+                    }=${a + b / c}$`
           setReponse(this, i, a + b / c)
           break
         case 3: // a/b*c
@@ -117,7 +118,7 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}\\div${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c)}$`
           texteCorr = `$${miseEnEvidence(a + '\\div' + ecritureParentheseSiNegatif(b))}\\times${ecritureParentheseSiNegatif(c)}=${a / b
-            }\\times${ecritureParentheseSiNegatif(c)}=${(a / b) * c}$`
+                    }\\times${ecritureParentheseSiNegatif(c)}=${(a / b) * c}$`
           setReponse(this, i, (a / b) * c)
           break
         case 4: // a*b/c
@@ -144,7 +145,7 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}\\times${ecritureParentheseSiNegatif(b)}\\div${ecritureParentheseSiNegatif(c)}$`
           texteCorr = `$${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}\\div${ecritureParentheseSiNegatif(c)}=${a * b
-            }\\div${ecritureParentheseSiNegatif(c)}=${(a * b) / c}$`
+                    }\\div${ecritureParentheseSiNegatif(c)}=${(a * b) / c}$`
           setReponse(this, i, (a * b) / c)
           break
         case 5: // a*b+c
@@ -158,7 +159,7 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
           texteCorr = `$${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}${ecritureAlgebrique(c)}=${a * b
-            }${ecritureAlgebrique(c)}=${a * b + c}$`
+                    }${ecritureAlgebrique(c)}=${a * b + c}$`
           setReponse(this, i, a * b + c)
           break
         case 6: // a-b+c
@@ -172,7 +173,7 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}-(${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}$`
           texteCorr = `$${a}${miseEnEvidence(ecritureAlgebrique(-b))}${ecritureAlgebrique(c)}=${a - b}${ecritureAlgebrique(c)}=${a - b + c
-            }$`
+                    }$`
           setReponse(this, i, a - b + c)
           break
         case 7: // a+b+c*d
@@ -188,8 +189,8 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}\\times${ecritureParentheseSiNegatif(d)}$`
           texteCorr = `$${a}${ecritureAlgebrique(b)}${miseEnEvidence(
-            ecritureAlgebrique(c) + '\\times' + ecritureParentheseSiNegatif(d)
-          )}=${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c * d)}=${a + b + c * d}$`
+                        ecritureAlgebrique(c) + '\\times' + ecritureParentheseSiNegatif(d)
+                    )}=${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c * d)}=${a + b + c * d}$`
           setReponse(this, i, a + b + c * d)
           break
         case 8: // a*b+c*d
@@ -205,8 +206,8 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}\\times${ecritureParentheseSiNegatif(d)}$`
           texteCorr = `$${a + miseEnEvidence('\\times') + ecritureParentheseSiNegatif(b)
-            }${ecritureAlgebrique(c) + miseEnEvidence('\\times') + ecritureParentheseSiNegatif(d)}=${a * b}${ecritureAlgebrique(c * d)}=${a * b + c * d
-            }$`
+                    }${ecritureAlgebrique(c) + miseEnEvidence('\\times') + ecritureParentheseSiNegatif(d)}=${a * b}${ecritureAlgebrique(c * d)}=${a * b + c * d
+                    }$`
           setReponse(this, i, a * b + c * d)
           break
         case 9: // a*b*c+d
@@ -222,8 +223,8 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}\\times${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)}$`
           texteCorr = `$${miseEnEvidence(
-            a + '\\times' + ecritureParentheseSiNegatif(b)
-          )}\\times${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)}=${miseEnEvidence(a * b + '\\times' + ecritureParentheseSiNegatif(c))}${ecritureAlgebrique(d)}
+                        a + '\\times' + ecritureParentheseSiNegatif(b)
+                    )}\\times${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)}=${miseEnEvidence(a * b + '\\times' + ecritureParentheseSiNegatif(c))}${ecritureAlgebrique(d)}
           =${a * b * c}${ecritureAlgebrique(d)}
           =${a * b * c + d}$`
           setReponse(this, i, a * b * c + d)
@@ -235,8 +236,8 @@ export default function PrioritesEtRelatifs () {
           c = d * randint(2, 8) * choice([-1, 1])
           texte = `$${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}\\div${ecritureParentheseSiNegatif(d)}$`
           texteCorr = `$${a + miseEnEvidence('\\times') + ecritureParentheseSiNegatif(b) +
-            ecritureAlgebrique(c) + miseEnEvidence('\\div') + ecritureParentheseSiNegatif(d)}=${a * b}${ecritureAlgebrique(c / d)}=${a * b + c / d
-            }$`
+                    ecritureAlgebrique(c) + miseEnEvidence('\\div') + ecritureParentheseSiNegatif(d)}=${a * b}${ecritureAlgebrique(c / d)}=${a * b + c / d
+                    }$`
           setReponse(this, i, a * b + c / d)
           break
         case 11: // a*(b+c)
@@ -276,7 +277,7 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$(${a}${ecritureAlgebrique(b)})\\div${ecritureParentheseSiNegatif(c)}$`
           texteCorr = `$(${miseEnEvidence(a + ecritureAlgebrique(b))})\\div${ecritureParentheseSiNegatif(c)}=${a + b
-            }\\div${ecritureParentheseSiNegatif(c)}=${(a + b) / c}$`
+                    }\\div${ecritureParentheseSiNegatif(c)}=${(a + b) / c}$`
           setReponse(this, i, (a + b) / c)
           break
         case 14: // a/(b+c)
@@ -320,7 +321,7 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}\\times${ecritureParentheseSiNegatif(b)}\\times(${c}${ecritureAlgebrique(d)})$`
           texteCorr = `$${a}\\times${ecritureParentheseSiNegatif(b)}\\times(${miseEnEvidence(
-            c + ecritureAlgebrique(d))})=${a}\\times${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c + d)}=${a * b * (c + d)}$`
+                        c + ecritureAlgebrique(d))})=${a}\\times${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c + d)}=${a * b * (c + d)}$`
           setReponse(this, i, a * b * (c + d))
           break
         case 17: // a*(b/c+d)
@@ -330,10 +331,10 @@ export default function PrioritesEtRelatifs () {
           d = randint(2, 6) * choice([-1, 1])
           texte = `$${a}\\times(${b}\\div${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)})$`
           texteCorr = `$${a}\\times(${miseEnEvidence(
-            b + '\\div' + ecritureParentheseSiNegatif(c)
-          )}${ecritureAlgebrique(d)})=${a}\\times(${miseEnEvidence(
-            b / c + ecritureAlgebrique(d)
-          )})=${a}\\times${ecritureParentheseSiNegatif(b / c + d)}=${a * (b / c + d)}$`
+                        b + '\\div' + ecritureParentheseSiNegatif(c)
+                    )}${ecritureAlgebrique(d)})=${a}\\times(${miseEnEvidence(
+                        b / c + ecritureAlgebrique(d)
+                    )})=${a}\\times${ecritureParentheseSiNegatif(b / c + d)}=${a * (b / c + d)}$`
           setReponse(this, i, a * (b / c + d))
           break
         case 18: // a*b/(c+d)
@@ -362,8 +363,8 @@ export default function PrioritesEtRelatifs () {
           }
           texte = `$${a}\\times${ecritureParentheseSiNegatif(b)}\\div(${c}${ecritureAlgebrique(d)})$`
           texteCorr = `$${a}\\times${ecritureParentheseSiNegatif(b)}\\div(${miseEnEvidence(
-            c + ecritureAlgebrique(d))})=${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}\\div${ecritureParentheseSiNegatif(c + d)}=${a * b
-            }\\div${ecritureParentheseSiNegatif(c + d)}=${(a * b) / (c + d)}$`
+                        c + ecritureAlgebrique(d))})=${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}\\div${ecritureParentheseSiNegatif(c + d)}=${a * b
+                    }\\div${ecritureParentheseSiNegatif(c + d)}=${(a * b) / (c + d)}$`
           setReponse(this, i, (a * b) / (c + d))
           break
         case 19: // a-(b+c)

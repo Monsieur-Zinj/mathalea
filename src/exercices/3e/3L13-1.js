@@ -8,24 +8,25 @@ import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre une équation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = false // AMC : pour l'instant on ne peut pas tester une réponse parfois décimale parfois fractionnaire
 
 /**
-* Équation du premier degré
-* * Type 1 : ax+b=cx+d
-* * Type 2 : k(ax+b)=cx+d
-* * Type 3 : k-(ax+b)=cx+d
-* * Tous les types
-* @author Rémi Angot
-* Rendre interactif Laurence Candille
-* 3L13-1
-*/
+ * Équation du premier degré
+ * * Type 1 : ax+b=cx+d
+ * * Type 2 : k(ax+b)=cx+d
+ * * Type 3 : k-(ax+b)=cx+d
+ * * Tous les types
+ * @author Rémi Angot
+ * Rendre interactif Laurence Candille
+ * 3L13-1
+ */
 export const uuid = '1802d'
 export const ref = '3L13-1'
 export default function ExerciceEquation1Tiret2 () {
@@ -63,7 +64,9 @@ export default function ExerciceEquation1Tiret2 () {
       d = randint(-9, 9, 0)
       k = randint(2, 9)
       if (listeTypeDeQuestions[i] === 'ax+b=cx+d') {
-        if (c === a) { c = randint(1, 9, [a]) } // sinon on arrive à une division par 0
+        if (c === a) {
+          c = randint(1, 9, [a])
+        } // sinon on arrive à une division par 0
         if (!this.sup && a < c) {
           c = randint(1, 9)
           a = randint(c + 1, 15) // a sera plus grand que c pour que a-c>0
@@ -93,7 +96,9 @@ export default function ExerciceEquation1Tiret2 () {
         texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(b)}${miseEnEvidence(ecritureAlgebrique(-1 * b))}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
         texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`
 
-        if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${a - c}$.<br>` }
+        if (this.correctionDetaillee) {
+          texteCorr += `On divise les deux membres par $${a - c}$.<br>`
+        }
         texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}=${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
         texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}$`
         if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {
@@ -103,7 +108,9 @@ export default function ExerciceEquation1Tiret2 () {
       }
 
       if (listeTypeDeQuestions[i] === 'k(ax+b)=cx+d') {
-        if (c === k * a) { c = randint(1, 9, [a]) } // sinon on arrive à une division par 0
+        if (c === k * a) {
+          c = randint(1, 9, [a])
+        } // sinon on arrive à une division par 0
         texte = `$${k}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
         if (this.interactif) {
@@ -133,7 +140,9 @@ export default function ExerciceEquation1Tiret2 () {
         texteCorr += `$${rienSi1(k * a - c)}x${ecritureAlgebrique(k * b)}${miseEnEvidence(ecritureAlgebrique(-k * b))}=${d}${miseEnEvidence(ecritureAlgebrique(-k * b))}$<br>`
         texteCorr += `$${rienSi1(k * a - c)}x=${d - k * b}$<br>`
 
-        if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${k * a - c}$.<br>` }
+        if (this.correctionDetaillee) {
+          texteCorr += `On divise les deux membres par $${k * a - c}$.<br>`
+        }
         texteCorr += `$${rienSi1(k * a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(k * a - c))}=${d - k * b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(k * a - c))}$<br>`
         texteCorr += `$x=${deprecatedTexFraction(d - k * b, k * a - c)}$`
         if (pgcd(abs(d - k * b), abs(k * a - c)) > 1 || (k * a - c) < 0) {
@@ -143,7 +152,9 @@ export default function ExerciceEquation1Tiret2 () {
       }
 
       if (listeTypeDeQuestions[i] === 'k-(ax+b)=cx+d') {
-        if (c === -a) { c = randint(-9, 9, [0, a]) } // sinon on arrive à une division par 0
+        if (c === -a) {
+          c = randint(-9, 9, [0, a])
+        } // sinon on arrive à une division par 0
         texte = `$${k}-(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
         if (this.interactif) {
@@ -179,7 +190,9 @@ export default function ExerciceEquation1Tiret2 () {
         texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(b)}${miseEnEvidence(ecritureAlgebrique(-1 * b))}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
         texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`
 
-        if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${a - c}$.<br>` }
+        if (this.correctionDetaillee) {
+          texteCorr += `On divise les deux membres par $${a - c}$.<br>`
+        }
         texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}=${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
         texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}$`
         if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {

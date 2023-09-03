@@ -5,8 +5,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer des durées ou déterminer un horaire'
 export const interactifReady = true
@@ -313,26 +313,26 @@ export default function CalculsDeDureesOuHoraires () {
       }
       if (context.isAmc) {
         this.autoCorrection[i] =
-          {
-            enonce: 'Dans chacun des encadrés, montrer une démarche ou un calcul et répondre par une phrase.<br>',
-            enonceAvant: false,
-            enonceAvantUneFois: true,
-            melange: false,
-            propositions: [
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    texte: ' ',
-                    statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                    feedback: '',
-                    enonce: texte + '<br>', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                    sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                  }
-                ]
-              }
-            ]
-          }
+                    {
+                      enonce: 'Dans chacun des encadrés, montrer une démarche ou un calcul et répondre par une phrase.<br>',
+                      enonceAvant: false,
+                      enonceAvantUneFois: true,
+                      melange: false,
+                      propositions: [
+                        {
+                          type: 'AMCOpen',
+                          propositions: [
+                            {
+                              texte: ' ',
+                              statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                              feedback: '',
+                              enonce: texte + '<br>', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                              sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                            }
+                          ]
+                        }
+                      ]
+                    }
       }
       if (this.interactif) {
         texte += '<br><br>'

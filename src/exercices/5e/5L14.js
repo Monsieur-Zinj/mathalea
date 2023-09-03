@@ -2,29 +2,29 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer la valeur d\'une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
-* Calculer la valeur d'une expression littérale
-*
-* * ax+b
-* * a(x+b)
-* * x^2+y^2
-* * x^2-y^2
-* * ax^2+b(x-1)+cy^3
-* * ax^2+bx+c
-* * ax^2+bx-c
-* * ax^2-bx+c
-* * axy+x+y
-* * (ax+b)(cy-d)
-* @author Rémi Angot
-* 5L14
-*/
+ * Calculer la valeur d'une expression littérale
+ *
+ * * ax+b
+ * * a(x+b)
+ * * x^2+y^2
+ * * x^2-y^2
+ * * ax^2+b(x-1)+cy^3
+ * * ax^2+bx+c
+ * * ax^2+bx-c
+ * * ax^2-bx+c
+ * * axy+x+y
+ * * (ax+b)(cy-d)
+ * @author Rémi Angot
+ * 5L14
+ */
 export const uuid = '17e39'
 export const ref = '5L14'
 export default function CalculerLaValeurDUneExpressionLitterale () {

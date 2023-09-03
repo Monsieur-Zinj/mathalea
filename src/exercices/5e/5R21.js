@@ -9,8 +9,9 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Soustraction de deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,15 +20,15 @@ export const amcType = 'AMCNum'
 export const dateDeModifImportante = '11/11/2021'
 
 /**
-* Effectuer la soustraction de  2 nombres relatifs.
-*
-* * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
-* * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
-* @author Rémi Angot
-* 5R21
-* Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
-* Ajout possibilité correction non détaillée le 11/11/2021 par Mireille Gain
-*/
+ * Effectuer la soustraction de  2 nombres relatifs.
+ *
+ * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
+ * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
+ * @author Rémi Angot
+ * 5R21
+ * Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
+ * Ajout possibilité correction non détaillée le 11/11/2021 par Mireille Gain
+ */
 export const uuid = 'b6982'
 export const ref = '5R21'
 export default function ExerciceSoustractionsRelatifs (max = 20) {
@@ -66,7 +67,9 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
         } else {
           if (this.correctionDetaillee) {
             texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a} ${ecritureAlgebrique(-b)} = ${a - b}$`
-          } else { texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b}$` }
+          } else {
+            texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b}$`
+          }
         }
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' =$'
@@ -82,7 +85,11 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)), decimals: 0 })
+        setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], {
+          signe: true,
+          digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
+          decimals: 0
+        })
         i++
       }
       cpt++

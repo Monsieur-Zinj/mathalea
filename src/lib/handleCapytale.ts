@@ -100,10 +100,13 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
               if ('setValue' in field) {
                 // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
                 field.setValue(exercice.answers[answer])
-              } else if ('value' in field) {
+              }
+              /*
+              else if ('value' in field) {
                 // C'est un HTMLInputElement (créé avec ajouteChampTexte)
                 field.value = exercice.answers[answer]
               }
+              */
             }
             // La réponse correspond à une case à cocher qui doit être cochée
             const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement

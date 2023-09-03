@@ -7,6 +7,7 @@ import { sp } from '../outils/outilString.js'
 import { afficheScore } from './gestionInteractif.js'
 import * as pkg from '@cortex-js/compute-engine'
 import Hms from '../../modules/Hms.js'
+
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
@@ -17,7 +18,8 @@ export function verifQuestionMathLive (exercice, i) {
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-  let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
+  let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse,
+    expoReponse
   let feedbackCorrection, nbDeMoins, precision
   let reponses = []
   let champTexte
@@ -55,7 +57,7 @@ export function verifQuestionMathLive (exercice, i) {
           }
           break
         case 'calcul':
-        // Le format par défaut
+          // Le format par défaut
           saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
@@ -100,7 +102,9 @@ export function verifQuestionMathLive (exercice, i) {
           }
           if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
             saisie = saisie.split('\\times')
-            if (number(saisie[0]) >= 1 && number(saisie[0]) < 10) { resultat = 'OK' }
+            if (number(saisie[0]) >= 1 && number(saisie[0]) < 10) {
+              resultat = 'OK'
+            }
           }
           break
         case 'texte':
@@ -133,7 +137,7 @@ export function verifQuestionMathLive (exercice, i) {
           }
           break
         case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
-        // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
+          // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
           saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
           if (!isNaN(parseFloat(saisie))) {
             const newFraction = new FractionEtendue(parseFloat(saisie))
@@ -220,8 +224,8 @@ export function verifQuestionMathLive (exercice, i) {
               }
             }
           } else {
-          // Dans tous ces cas on est sûr que le format n'est pas bon
-          // Toutefois la valeur peut l'être donc on vérifie
+            // Dans tous ces cas on est sûr que le format n'est pas bon
+            // Toutefois la valeur peut l'être donc on vérifie
             nombreSaisi = saisie
             nombreAttendu = reponse.split('^')
             mantisseReponse = nombreAttendu[0]
@@ -265,10 +269,10 @@ export function verifQuestionMathLive (exercice, i) {
       if (champTexte !== undefined) champTexte.readOnly = true
     } else if (resultat === 'essaieEncoreAvecUneSeuleUnite') {
       spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une seule unité (' +
-    (reponse.uniteDeReference.indexOf('^') > 0
-      ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1])
-      : reponse.uniteDeReference) +
-    ' par exemple).</em>'
+                (reponse.uniteDeReference.indexOf('^') > 0
+                  ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1])
+                  : reponse.uniteDeReference) +
+                ' par exemple).</em>'
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
     } else if (resultat === 'essaieEncorePuissance') {
@@ -282,7 +286,14 @@ export function verifQuestionMathLive (exercice, i) {
     }
     return resultat
   } catch (error) {
-    window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, { champTexteValue: champTexte._slotValue, exercice: exercice.id, i, autoCorrection: exercice.autoCorrection[i], formatInteractif, spanReponseLigne })
+    window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, {
+      champTexteValue: champTexte._slotValue,
+      exercice: exercice.id,
+      i,
+      autoCorrection: exercice.autoCorrection[i],
+      formatInteractif,
+      spanReponseLigne
+    })
   }
 }
 
@@ -291,7 +302,9 @@ function saisieToGrandeur (saisie) {
     const split = saisie.split('°')
     return new Grandeur(parseFloat(split[0].replace(',', '.')), '°')
   }
-  if (saisie.split('operatorname').length !== 2) { return false } else {
+  if (saisie.split('operatorname').length !== 2) {
+    return false
+  } else {
     const split = saisie.split('\\operatorname{')
     const mesure = parseFloat(split[0].replace(',', '.'))
     if (split[1]) {
@@ -331,7 +344,11 @@ export function verifExerciceMathLive (exercice, divScore, divButton) {
   }
 }
 
-export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres = '', texte = '', tailleExtensible = false } = {}) {
+export function ajouteChampTexteMathLive (exercice, i, style = '', {
+  texteApres = '',
+  texte = '',
+  tailleExtensible = false
+} = {}) {
   if (context.isHtml && exercice.interactif) {
     if (style === '') {
       return `<label>${texte}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
@@ -350,7 +367,10 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
  * Dans ce cas, on utilise le format Interactif correspondant : 'Num' ou 'Den'
  * Si les deux champs sont à saisir, on utilise deux réponses de formatInteractif 'calcul'.
  */
-export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
+export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', {
+  texte = '',
+  texteApres = ''
+} = {}) {
   let code = ''
   if (context.isHtml && exercice.interactif) {
     code += `<label>${texte}</label>

@@ -1,6 +1,5 @@
 import { texSymbole } from '../../lib/format/style.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -10,6 +9,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

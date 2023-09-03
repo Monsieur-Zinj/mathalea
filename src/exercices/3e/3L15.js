@@ -6,9 +6,10 @@ import { sp } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Résoudre une équation du second degré se ramenant au premier degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +22,7 @@ export const dateDeModifImportante = '21/06/2023' // EE : Rajout d'un paramètre
  *
  * @author Rémi Angot
  * Référence 3L15
-*/
+ */
 export const uuid = '231d2'
 export const ref = '3L15'
 export default function ExerciceEquations () {

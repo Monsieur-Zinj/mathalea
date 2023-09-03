@@ -8,7 +8,8 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
-  reduirePolynomeDegre3, rienSi1
+  reduirePolynomeDegre3,
+  rienSi1
 } from '../../../lib/outils/ecritures.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -16,12 +17,13 @@ import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { round, min } from 'mathjs'
+import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'CAN seconde sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,11 +34,12 @@ export const dateDePublication = '13/07/2022' // La date de publication initiale
  * Description didactique de l'exercice
  * Gilles Mora
  * Référence
-*/
+ */
 
 function compareNombres (a, b) {
   return a - b
 }
+
 export const uuid = '2a4b1'
 export const ref = 'can2a-2022'
 export default function SujetCAN2022Seconde () {
@@ -75,11 +78,17 @@ export default function SujetCAN2022Seconde () {
           b = new Decimal(randint(1, 9)).div(10)
           if (choice([true, false])) {
             texte = `$${a} \\times ${texNombre(b, 1)}=$ `
-          } else { texte = `$${texNombre(b, 1)} \\times ${a}=$ ` }
+          } else {
+            texte = `$${texNombre(b, 1)} \\times ${a}=$ `
+          }
           texteCorr = `$${a} \\times ${texNombre(b, 1)}=${a}\\times ${texNombre(b * 10, 0)}\\times 0,1=${texNombre(a * b, 1)}$`
           reponse = new Decimal(a).mul(b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += ' $\\ldots$'
+          }
           nbChamps = 1
 
           break
@@ -91,12 +100,20 @@ export default function SujetCAN2022Seconde () {
           if (choice([true, false])) {
             reponse = new FractionEtendue(a * b[1] + b[0], b[1])
             texte = `$${a}+${f.texFraction}= $`
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            } else {
+              texte += ' $\\ldots$'
+            }
             texteCorr = `$${a}+${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}+${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
           } else {
             reponse = new FractionEtendue(a * b[1] - b[0], b[1])
             texte = `$${a}-${f.texFraction}= $`
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            } else {
+              texte += ' $\\ldots$'
+            }
             texteCorr = `$${a}-${f.texFraction}= \\dfrac{${a * b[1]}}{${b[1]}}-${f.texFraction}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
@@ -115,7 +132,9 @@ export default function SujetCAN2022Seconde () {
           reponse = [`${a * c}x^2+${b * c + a * d}x+${b * d}`]
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
 
           break
@@ -137,7 +156,9 @@ export default function SujetCAN2022Seconde () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -160,7 +181,9 @@ export default function SujetCAN2022Seconde () {
           reponse = f
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
         case 6:
@@ -223,7 +246,9 @@ export default function SujetCAN2022Seconde () {
             }
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €'
+          }
           nbChamps = 1
           break
         case 7:
@@ -238,7 +263,9 @@ export default function SujetCAN2022Seconde () {
           texteCorr = `Puisqu'il s'agit d'une situation d'équiprobabilté, la probabilité  est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -251,7 +278,9 @@ export default function SujetCAN2022Seconde () {
             Pour $x=${a}$, on obtient : $${reduirePolynomeDegre3(0, 1, 0, c)}=(${a})^2${ecritureAlgebrique(c)}=${reponse}$.
                       `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -275,7 +304,9 @@ export default function SujetCAN2022Seconde () {
           texteCorr = `La moyenne est donnée par : $\\dfrac{${a}+${b}+${c}+${d}}{4}=\\dfrac{${somme}}{4}=${reponse}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -291,7 +322,11 @@ export default function SujetCAN2022Seconde () {
            `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += ' $\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -349,7 +384,9 @@ export default function SujetCAN2022Seconde () {
 `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 ') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 ')
+          }
           nbChamps = 1
           break
 
@@ -414,7 +451,9 @@ export default function SujetCAN2022Seconde () {
           if (this.interactif) {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
-          } else { texte += ' $\\ldots$' }
+          } else {
+            texte += ' $\\ldots$'
+          }
           nbChamps = 1
           break
 
@@ -426,7 +465,11 @@ export default function SujetCAN2022Seconde () {
           texte = `$${a}^2-${b}^2=$`
           texteCorr = `On utilise l'égalité remarquable $a^2-b^2=(a-b)(a+b)$ avec $a=${a}$ et $b=${b}$.<br>
             $${a}^2-${b}^2=(${a}-${b})(${a}+${b})=${a - b}\\times ${a + b}=${reponse}$ `
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += ' $\\ldots$'
+          }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           nbChamps = 1
@@ -446,7 +489,8 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Le volume d'un cube d'arête $c$ est donné par $c^3$. <br>
               Si on double la longueur de l'arête, le volume du cube n'est pas multiplié par $2$. Il est multiplié par $2^3$, soit $8$. <br>
               Ces deux grandeurs ne sont pas proportionnelles. `
-          } if (choix === 'b') {
+          }
+          if (choix === 'b') {
             texte = `Vrai ou faux<br>
          L'aire d'un disque est proportionnelle à son rayon.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
@@ -538,7 +582,9 @@ export default function SujetCAN2022Seconde () {
           texteCorr = `$1-${f.texFraction}=1-${texNombre(a, 2)}=${texNombre(reponse, 2)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -563,7 +609,11 @@ export default function SujetCAN2022Seconde () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $\\ldots$ L' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+          } else {
+            texte += ' $\\ldots$ L'
+          }
           nbChamps = 1
           break
 
@@ -581,7 +631,9 @@ export default function SujetCAN2022Seconde () {
          \\end{aligned}$<br>
           $${reduireAxPlusB(m, p)}=${m * x + p}$ a pour solution $${x}$ donc l'antécédent de $${m * x + p}$ par $f$ est $${x}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -618,7 +670,9 @@ export default function SujetCAN2022Seconde () {
             Donc en $${h}$ h $20$ min, la distance parcourue est $(${a * h}+${a / 3})$ km, soit $${a * h + a / 3}$ km.       `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km'
+          }
           nbChamps = 1
           break
 
@@ -635,7 +689,9 @@ export default function SujetCAN2022Seconde () {
           Le prix du manteau après la réduction est donc : $${a}-${texNombre(a * d, 0)}=${texNombre(reponse, 0)}$ €. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
+          }
           nbChamps = 1
           break
 
@@ -653,7 +709,9 @@ export default function SujetCAN2022Seconde () {
           `
           reponse = new FractionEtendue(d - b, c - a)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -681,7 +739,17 @@ export default function SujetCAN2022Seconde () {
             reponse = a[1]
             texte = 'Calculer la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
               On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
@@ -696,7 +764,17 @@ export default function SujetCAN2022Seconde () {
             reponse = a[0]
             texte = 'Calculer la longueur $AC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                 On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
@@ -711,7 +789,17 @@ export default function SujetCAN2022Seconde () {
             reponse = a[2]
             texte = 'Calculer la longueur $BC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1,
+              style: 'margin: auto'
+            }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                   On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
@@ -757,7 +845,9 @@ export default function SujetCAN2022Seconde () {
             reponse = new FractionEtendue(1, 4)
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -773,7 +863,9 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Le ratio $4$ : $${g}$ signifie qu'il y a dans cette classe $4$ filles pour $${g}$ garçons.<br>
             Comme il y a ${c ? `$4\\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `4\\times ${k} `} =${reponse}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            }
           }
           if (choix === 'b') {
             g = choice([3, 5, 7])
@@ -785,7 +877,9 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Le ratio $2$ : $${g}$ signifie qu'il y a dans cette classe $2$ filles pour $${g}$ garçons.<br>
             Comme il y a ${c ? `$2\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `2\\times ${k} `} =${reponse}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            }
           }
 
           if (choix === 'c') {
@@ -800,7 +894,9 @@ export default function SujetCAN2022Seconde () {
             Comme il y a ${c ? `$2\\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `2\\times ${k} `} =${reponse1}$.<br>
             Il y a donc dans cette classe $${reponse}$ élèves au total.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            }
           }
           if (choix === 'd') {
             g = choice([3, 5, 7])
@@ -814,7 +910,9 @@ export default function SujetCAN2022Seconde () {
             Comme il y a ${c ? `$4\\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `4\\times ${k} `} =${reponse1}$.<br>
             Il y a donc dans cette classe $${reponse}$ élèves au total.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            }
           }
           nbChamps = 1
           break
@@ -839,14 +937,16 @@ export default function SujetCAN2022Seconde () {
               listeFacteurs24 = shuffle(listeFacteurs24)
             }
             reponse = [`${listeFacteurs24[0]}\\times${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}`,
-                `${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}`]
+                            `${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}`]
             texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}$ en produit de facteurs premiers.`
 
             texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}=${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}^2$`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -874,7 +974,9 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Le carré de $${a}x$ est $(${a}x)^2=${a ** 2}x^2$. On en déduit que le produit du carré de $${a}x$ et de $${b}$ s'écrit $${a ** 2}x^2\\times ${b}=${a ** 2 * b}x^2$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
 
@@ -885,7 +987,11 @@ export default function SujetCAN2022Seconde () {
           texte = `$${texNombre(a, 2)}\\times ${b}=$`
           texteCorr = `
           $${texNombre(a, 2)}\\times ${b}=(${texNombre(a - 0.25, 0)}+0,25)\\times 4\\times ${texNombre(b / 4, 0)}=(${texNombre(4 * a - 1, 0)}+1)\\times ${texNombre(b / 4, 0)}=${reponse}$ `
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += ' $\\ldots$'
+          }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           nbChamps = 1
@@ -903,7 +1009,9 @@ export default function SujetCAN2022Seconde () {
           texteCorr = `L'équation $x^2-${a}=${c ** 2 - a}$ est équivalente à $x^2=${c ** 2}$.<br>
           Cette équation a deux solutions $${-c}$ et $${c}$. La solution négative est donc $${-c}$.
           `
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           nbChamps = 1
@@ -934,7 +1042,17 @@ export default function SujetCAN2022Seconde () {
           reponse = d
           texte = `$(AB)//(CD)$<br><br>
           `
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            pixelsParCm: 25,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.8,
+            style: 'margin: auto'
+          }, objets)
           texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $EC$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $EB$.
           On en déduit que la longueur $DE$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $AE$.<br>
           Ainsi, $DE=${texNombre(k, 1)}\\times ${a}=${texNombre(reponse, 1)}$.`
@@ -942,7 +1060,9 @@ export default function SujetCAN2022Seconde () {
           if (this.interactif) {
             texte += '<br>$DE=$'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-          } else { texte += '$DE=$ $\\ldots$ ' }
+          } else {
+            texte += '$DE=$ $\\ldots$ '
+          }
 
           nbChamps = 1
           break
@@ -960,7 +1080,8 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Dans un agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
             Ici, l'aire a été divisée par $4$, soit multipliée par $\\dfrac{1}{4}$. <br>
             On en déduit que le coefficient de réduction est $\\dfrac{1}{2}$. `
-          } if (choix === 'b') {
+          }
+          if (choix === 'b') {
             a = randint(2, 10)
             b = a * 9
             reponse = new FractionEtendue(1, 3)
@@ -985,7 +1106,9 @@ export default function SujetCAN2022Seconde () {
             On en déduit que le coefficient de réduction est $\\dfrac{1}{4}$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
 
           nbChamps = 1
           break
@@ -1013,7 +1136,9 @@ export default function SujetCAN2022Seconde () {
           texteCorr += ` Donc l'algorithme retourne $${a}$ `
           reponse = a
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
       }

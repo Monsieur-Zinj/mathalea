@@ -1,15 +1,11 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { obtenirListeFractionsIrreductibles } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  contraindreValeur
-} from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Multiplier ou/et diviser des fractions'
 export const amcReady = true

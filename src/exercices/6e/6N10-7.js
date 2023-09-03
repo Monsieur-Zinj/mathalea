@@ -1,13 +1,14 @@
-import { combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
+import { shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { randint, contraindreValeur, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
 export const titre = 'Recomposer un décimal ou un entier'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -24,9 +25,9 @@ function remplaceParZero (chaine, place) {
     console.log(`Problème dans remplaceParZero avec le nombre : ${chaine} et la position : ${place})`)
   }
 }
+
 /*!
  * @author Jean-Claude Lhote
- * Référence c3N10-1
  */
 export const uuid = 'f899b'
 export const ref = '6N10-7'
@@ -42,15 +43,7 @@ export default function RecomposerEntierC3 () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    /*
-    let listeTypeDeQuestionsDemandees = this.sup3.toString().split('-')
-    for (let k = 0; k < listeTypeDeQuestionsDemandees.length; k++) {
-      listeTypeDeQuestionsDemandees[k] = contraindreValeur(1, 15, listeTypeDeQuestionsDemandees[k], 1)
-    }
-    if (compteOccurences(listeTypeDeQuestionsDemandees, 15) > 0) listeTypeDeQuestionsDemandees = rangeMinMax(1, 14)
-    // const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDemandees, this.nbQuestions)
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(listeTypeDeQuestionsDemandees, this.nbQuestions)
-    */
+
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 14,
       defaut: 15,
@@ -60,13 +53,7 @@ export default function RecomposerEntierC3 () {
       shuffle: false
     })
 
-    /*
-    let listeNombresDemandes = this.sup4.toString().split('-')
-    listeNombresDemandes[0] = contraindreValeur(0, 4, listeNombresDemandes[0], 4)
-    if (listeNombresDemandes[0] === 4) listeNombresDemandes = rangeMinMax(0, 3)
-    */
-
-    const listeNombresDemandes = gestionnaireFormulaireTexte({
+    const nombreDeChiffresDec = gestionnaireFormulaireTexte({
       min: 0,
       max: 3,
       defaut: 4,
@@ -76,7 +63,6 @@ export default function RecomposerEntierC3 () {
       shuffle: false
     })
 
-    const nombreDeChiffresDec = combinaisonListes(listeNombresDemandes, this.nbQuestions)
     this.nombreDeChamps = []
 
     this.premierChamp = []
@@ -164,7 +150,7 @@ export default function RecomposerEntierC3 () {
             nombreStr += randint(1, 9, nombreStr).toString()
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (listeNombresDemandes === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -198,7 +184,7 @@ export default function RecomposerEntierC3 () {
             nombreStr += randint(1, 9, nombreStr).toString()
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (listeNombresDemandes === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -309,7 +295,7 @@ export default function RecomposerEntierC3 () {
             nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (listeNombresDemandes === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -345,7 +331,7 @@ export default function RecomposerEntierC3 () {
             nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (listeNombresDemandes === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -552,7 +538,7 @@ export default function RecomposerEntierC3 () {
           nombreStr = remplaceParZero(nombreStr, place)
           nombreStr = remplaceParZero(nombreStr, place + 1)
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (listeNombresDemandes === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -589,7 +575,7 @@ export default function RecomposerEntierC3 () {
           nombreStr = remplaceParZero(nombreStr, place)
           nombreStr = remplaceParZero(nombreStr, place + 1)
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (listeNombresDemandes === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -631,16 +617,16 @@ export default function RecomposerEntierC3 () {
 
       if (context.isAmc) {
         this.autoCorrection[i] =
-        {
-          enonce: texte + '<br>',
-          propositions: [
-            {
-              texte: texteCorr,
-              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-              sanscadre: true
-            }
-          ]
-        }
+                    {
+                      enonce: texte + '<br>',
+                      propositions: [
+                        {
+                          texte: texteCorr,
+                          statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                          sanscadre: true
+                        }
+                      ]
+                    }
       }
       texte += (context.isHtml) ? `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display: inline-block"></div>` : ''
 
