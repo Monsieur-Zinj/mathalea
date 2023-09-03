@@ -639,20 +639,19 @@ export function tableauDeVariation ({
     }
     // Si l'on de définit pas rxmin, rymin, rxmax et rymax, ceux-ci sont fixés par défaut à -0.5 et +0.5, ce qui s'ajoute aux marges déjà prévues pour les segments de -0.2 et +0.2
     // voilà d'où vient le décallage de 0.7 enregistré sur la position des latex par rapport au cadre !
+
     const svgCode = mathalea2d(Object.assign({}, fixeBordures(segments, {
       rxmin: -0.05,
       rymin: -0.1,
       rxmax: 0.1,
       rymax: 0.05
     })), segments)
-    const codeHtml =
-            `<div style="padding: 10px 0px;">
-<div style="position: relative; top: 0px; left: 0px;">
+    const codeHtml = `<div class="svgContainer" style="padding: 10px 0px;">
+      <div style="position: relative;">
         ${svgCode}
         ${divsTexte.join('\n')}
       </div>
-      </div>
-`
+      </div>`
     return codeHtml
   } else {
     let codeLatex = `\\begin{tikzpicture}[baseline, scale=${scale}]
