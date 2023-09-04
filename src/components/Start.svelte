@@ -115,7 +115,7 @@
   // Construction du référentiel pour les entrées examens pour SideMenu
   import referentielStatic from "../json/referentielStatic.json"
   const staticReferentielArray = Array.from(toMap({ ...referentielStatic }), ([key, obj]) => ({ key, obj }))
-  const staticReferentielForSideMenu: ReferentielForList = { title: "Annales d'examens", content: [...staticReferentielArray], type: "exercice" }
+  const staticReferentielForSideMenu: ReferentielForList = { title: "Annales d'examens", content: [...staticReferentielArray], type: "examens" }
   // Construction du référentiel fictif pour les apps tierces pour SideMenu
   const appTierceReferentielForSideMenu: ReferentielForList = { title: "Applications", content: [], type: "apps" }
 

@@ -8,4 +8,4 @@
   // }
 </script>
 
-<button type="button" class="px-6 py-2 font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct" on:click={toggleThirdAppsChoiceDialog}> Applications tierces </button>
+<button type="button" class="font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct" on:click={toggleThirdAppsChoiceDialog}> Applications tierces </button>

@@ -16,11 +16,7 @@
   <div style={isMenuOpen ? `width:${sidebarWidth}px;` : "width: 2.5rem;"} class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
     <div class="{isMenuOpen ? 'flex' : 'hidden'} flex-col items-start pb-4 pt-2 md:pt-4 ml-0 md:mx-0">
       {#each referentiels as ref, i}
-        {#if ref.type === "apps"}
-          <SideMenuApps />
-        {:else}
-          <SideMenuList {ref} moreThanOne={referentiels.length > 1} isMenuDeployed={ref.type === "exercices"} on:filters />
-        {/if}
+        <SideMenuList {ref} moreThanOne={referentiels.length > 1} isMenuDeployed={ref.type === "exercices"} on:filters />
       {/each}
     </div>
     <div
