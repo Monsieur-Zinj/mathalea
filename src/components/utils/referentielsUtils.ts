@@ -19,16 +19,6 @@ if (get(globalOptions).interfaceBeta) {
 }
 // @ts-ignore
 delete baseReferentiel['Calcul mental']
-// @ts-ignore
-baseReferentiel['3e']['Brevet des collèges par thèmes - APMEP'] = baseReferentiel.static['Brevet des collèges par thèmes - APMEP']
-// @ts-ignore
-baseReferentiel.PE['CRPE (2022-2023) par année'] = baseReferentiel.static['CRPE (2022-2023) par année']
-// @ts-ignore
-baseReferentiel.PE['CRPE (2022-2023) par thèmes'] = baseReferentiel.static['CRPE (2022-2023) par thèmes']
-// @ts-ignore
-baseReferentiel.PE['CRPE (2015-2019) par thèmes - COPIRELEM'] = baseReferentiel.static['CRPE (2015-2019) par thèmes - COPIRELEM']
-// @ts-ignore
-baseReferentiel.PE['CRPE (2015-2019) par année - COPIRELEM'] = baseReferentiel.static['CRPE (2015-2019) par année - COPIRELEM']
 let referentielMap = toMap(baseReferentiel)
 
 /**
@@ -113,12 +103,12 @@ export function updateReferentiel (isAmcOnlySelected, isInteractiveOnlySelected,
   let filteredReferentiel = {}
   if (itemsAccepted.length === 0) {
     // pas de filtres sélectionnés
-    filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
+    filteredReferentiel = { ...referentiel }
   } else {
-    filteredReferentiel = Object.keys({ ...referentiel, static: { ...referentielStatic } })
+    filteredReferentiel = Object.keys({ ...referentiel })
       .filter((key) => itemsAccepted.includes(key))
       .reduce((obj, key) => {
-        const ref = { ...referentiel, static: { ...referentielStatic } }
+        const ref = { ...referentiel }
         return {
           ...obj,
           [key]: ref[key]

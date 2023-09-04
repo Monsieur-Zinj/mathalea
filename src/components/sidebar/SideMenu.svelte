@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { ReferentielForList } from "src/lib/types"
-  import SideMenuList from "./SideMenuList.svelte"
-  import SideMenuApps from "./SideMenuApps.svelte"
+  import type { ReferentielForList } from 'src/lib/types'
+  import SideMenuList from './SideMenuList.svelte'
+  import SideMenuApps from './SideMenuApps.svelte'
   export let referentiels: ReferentielForList[] = []
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
@@ -13,10 +13,10 @@
   class="flex md:h-full z-40 relative transition-all duration-500 transform bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
   {isMenuOpen ? '-translate-x-0  pr-4 overflow-y-auto' : '-translate-x-full'}"
 >
-  <div style={isMenuOpen ? `width:${sidebarWidth}px;` : "width: 2.5rem;"} class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+  <div style={isMenuOpen ? `width:${sidebarWidth}px;` : 'width: 2.5rem;'} class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
     <div class="{isMenuOpen ? 'flex' : 'hidden'} flex-col items-start pb-4 pt-2 md:pt-4 ml-0 md:mx-0">
       {#each referentiels as ref, i}
-        <SideMenuList {ref} moreThanOne={referentiels.length > 1} isMenuDeployed={ref.type === "exercices"} on:filters />
+        <SideMenuList {ref} moreThanOne={referentiels.length > 1} isMenuDeployed={ref.type === 'exercices'} on:filters />
       {/each}
     </div>
     <div
