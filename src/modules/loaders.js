@@ -176,9 +176,17 @@ export async function loadMathLive () {
     */
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
+    // get url param environment
+    const urlParams = new URLSearchParams(window.location.search)
+    const environment = urlParams.get('environment')
     for (const mf of champs) {
       let clavier, raccourcis
-      mf.mathVirtualKeyboardPolicy = 'sandboxed'
+      if (environment === 'dev') {
+        console.log('Clavier en dev')
+        mf.mathVirtualKeyboardPolicy = 'manual'
+      } else {
+        mf.mathVirtualKeyboardPolicy = 'sandboxed'
+      }
       mf.virtualKeyboardTargetOrigin = '*'
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
@@ -226,7 +234,7 @@ export async function loadMathLive () {
 
       // Evite les problèmes de positionnement du clavier mathématique dans les iframes
       // if (context.vue === 'exMoodle') {
-      if (window.self !== window.top) { // Si on est dans une iframe
+      if (window.self !== window.top & environment !== 'dev') { // Si on est dans une iframe
         if (!document.getElementById('fixKeyboardPositionInIframe')) {
           const style = document.createElement('style')
           style.setAttribute('id', 'fixKeyboardPositionInIframe')
