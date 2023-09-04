@@ -27,6 +27,24 @@
   let divExercices: HTMLDivElement
   $: isMenuOpen = $isSideMenuVisible
 
+  /**
+   * Gestion des référentiels
+   */
+  // Construction pour affichage dans SideMenu du tableau des entrées du référentiel d'exos aléatoires
+  const itemsSelected: string[] = []
+  let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
+  // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
+  $: exercisesReferentielForSideMenu = { title: "Exercices aléatoires", content: [...arrayReferentielFiltre], type: "exercices" }
+  // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
+  // let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
+  // for (const [key, value] of Object.entries(referentielOutils)) {
+  //   arrayReferentiel.content.push(value)
+  // }
+  const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
+  const ressourcesReferentielForSideMenu: ReferentielForList = { title: "Vos ressources", content: [...ressourcesReferentielArray], type: "ressources" }
+  // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
+  //   ressourcesReferentiel.content.push(value)
+  // }
   // Contexte pour le modal des apps tierces
   import ModalGridOfCards from "./modal/ModalGridOfCards.svelte"
   let thirdAppsChoiceModal: ModalGridOfCards
@@ -62,13 +80,12 @@
       }
     },
   })
-
   // Contexte pour la bibliothèque de statiques
   import referentielBibliotheque from "../json/referentielBibliotheque.json"
   import BreadcrumbHeader from "./sidebar/BreadcrumbHeader.svelte"
   import ImageCard from "./ui/ImageCard.svelte"
   const bibliothequeReferentielArray = Array.from(toMap({ ...referentielBibliotheque }), ([key, obj]) => ({ key, obj }))
-  const bibliothequeReferentielForSideMenu: ReferentielForList = { title: "Exercices (données statiques)", content: [...bibliothequeReferentielArray], type: "bibliotheque" }
+  const bibliothequeReferentielForSideMenu: ReferentielForList = { title: "Exercices non aléatoires", content: [...bibliothequeReferentielArray], type: "bibliotheque" }
   let showBibliothequeChoiceDialog = false
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
@@ -83,7 +100,6 @@
       if (uuidList.includes(exo.uuid)) {
         bibliothequeUuidInExercisesList.push(exo.uuid)
       }
-      console.log(bibliothequeUuidInExercisesList)
     }
     bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
   }
@@ -96,6 +112,13 @@
       }
     },
   })
+  // Construction du référentiel pour les entrées examens pour SideMenu
+  import referentielStatic from "../json/referentielStatic.json"
+  const staticReferentielArray = Array.from(toMap({ ...referentielStatic }), ([key, obj]) => ({ key, obj }))
+  const staticReferentielForSideMenu: ReferentielForList = { title: "Annales d'examens", content: [...staticReferentielArray], type: "exercice" }
+  // Construction du référentiel fictif pour les apps tierces pour SideMenu
+  const appTierceReferentielForSideMenu: ReferentielForList = { title: "Applications", content: [], type: "apps" }
+
   /**
    * Démarrage
    */
@@ -149,24 +172,6 @@
     event.preventDefault()
     sidebarWidth = event.pageX
   }
-  /**
-   * Gestion du référentiel
-   */
-  // Construction pour affichage dans SideMenu du tableau des entrées du référentiel
-  const itemsSelected: string[] = []
-  let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
-  // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
-  $: exercisesReferentielForSideMenu = { title: "Exercices (données aléatoires)", content: [...arrayReferentielFiltre], type: "exercices" }
-  // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
-  // let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
-  // for (const [key, value] of Object.entries(referentielOutils)) {
-  //   arrayReferentiel.content.push(value)
-  // }
-  const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
-  const ressourcesReferentielForSideMenu: ReferentielForList = { title: "Choix des ressources", content: [...ressourcesReferentielArray], type: "ressources" }
-  // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
-  //   ressourcesReferentiel.content.push(value)
-  // }
 
   /**
    * Gestion des filtres
@@ -306,7 +311,7 @@
             bind:isMenuOpen
             isMenuCloseable={$exercicesParams.length !== 0}
             bind:sidebarWidth
-            referentiels={[exercisesReferentielForSideMenu, bibliothequeReferentielForSideMenu, ressourcesReferentielForSideMenu]}
+            referentiels={[exercisesReferentielForSideMenu, bibliothequeReferentielForSideMenu, staticReferentielForSideMenu, appTierceReferentielForSideMenu, ressourcesReferentielForSideMenu]}
             on:filters={(e) => {
               updateFilters(e.detail)
             }}
@@ -536,7 +541,7 @@
     </div>
   </div>
   <ModalGridOfCards bind:this={thirdAppsChoiceModal} bind:displayModal={showThirdAppsChoiceDialog}>
-    <div slot="header">Choix des Applications Tierces</div>
+    <div slot="header">Applications</div>
     <div slot="content">
       <div class="p2">
         {#each appsTierceReferentielArray as group}

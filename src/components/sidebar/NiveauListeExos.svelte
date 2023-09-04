@@ -119,6 +119,7 @@
   style="padding-left: {(nestedLevelCount * 2) / 4}rem"
   on:click={toggleContent}
   on:keydown={toggleContent}
+  role="presentation"
 >
   <div id={"titre-liste-" + indexBase + "-content"} class="text-base">{levelTitle} <span class="font-normal">{themeTitle(levelTitle)}</span></div>
   <i class=" text-xl bg-transparent bx {expanded ? 'bx-plus rotate-[225deg]' : 'bx-plus'} transition-transform duration-500 ease-in-out" />
