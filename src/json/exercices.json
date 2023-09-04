@@ -479,7 +479,7 @@
     "url": "2e/2F12-2.js",
     "uuid": "277d3",
     "id": "2F12-2",
-    "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
+    "titre": "Résoudre graphiquement une inéquation avec une fonction de référence",
     "tags": {
       "interactif": false,
       "amc": false

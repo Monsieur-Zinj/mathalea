@@ -61,7 +61,7 @@ export default function ExtremumsTableau () {
         tabInit: [
           [
             // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-            ['$x$', 3, 8], ['$f(x)$', 4, 20]
+            ['$x$', 2, 10], ['$f(x)$', 4, 30]
           ],
           // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
           [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
@@ -72,7 +72,7 @@ export default function ExtremumsTableau () {
         espcl: 3, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 3, // taille de la première colonne en cm
-        scale: 0.39
+        scale: 0.4
       }) + '<br>'
       this.canEnonce = texte
       if (choice([true, false])) {
