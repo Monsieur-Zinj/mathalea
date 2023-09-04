@@ -7,24 +7,28 @@
   export let list: any
   export let pathToThisNode: string[] = []
   const { toggleBibliothequeChoiceDialog } = getContext("bibliothequeChoiceContext")
+  const handleClick = () => {
+    // const obj = toObject(list)
+    let content = []
+    list.forEach((value) => {
+      content.push(toObject(value))
+    })
+    $bibliothequeSectionContent = [...content]
+    toggleBibliothequeChoiceDialog(pathToThisNode)
+  }
 </script>
 
-<div
-  class="font-normal text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer"
-  style="padding-left: {(nestedLevelCount * 2) / 4}rem"
->
-  <button
-    type="button"
-    on:click={() => {
-      // const obj = toObject(list)
-      let content = []
-      list.forEach((value) => {
-        content.push(toObject(value))
-      })
-      $bibliothequeSectionContent = [...content]
-      toggleBibliothequeChoiceDialog(pathToThisNode)
-    }}
+<div class="flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-{nestedLevelCount * 2}">
+  <div
+    class="flex-1 hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
+    on:click={handleClick}
+    on:keydown={handleClick}
+    role="presentation"
   >
-    {section}
-  </button>
+    <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1">
+      <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+        {section}
+      </div>
+    </div>
+  </div>
 </div>
