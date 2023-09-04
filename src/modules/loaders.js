@@ -183,7 +183,7 @@ export async function loadMathLive () {
       let clavier, raccourcis
       if (environment === 'dev') {
         console.log('Clavier en dev')
-        mf.mathVirtualKeyboardPolicy = 'manuel'
+        mf.mathVirtualKeyboardPolicy = 'manual'
       } else {
         mf.mathVirtualKeyboardPolicy = 'sandboxed'
       }
