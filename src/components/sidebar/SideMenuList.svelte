@@ -20,9 +20,17 @@
   })
 
   export let isMenuDeployed: boolean = false
+
+  function isDisplayed(): boolean {
+    if (isReferentielActivated(ref.name)) {
+      return ref.activated
+    } else {
+      return false
+    }
+  }
 </script>
 
-<div class={isReferentielActivated(ref.name) ? "flex w-full flex-col" : "hidden"}>
+<div class={isDisplayed() ? "flex w-full flex-col" : "hidden"}>
   <div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6">
     {#if ref.type === "apps"}
       <SideMenuApps />
