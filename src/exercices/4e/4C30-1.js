@@ -5,6 +5,7 @@ import Exercice from '../Exercice.js'
 import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const dateDeModifImportante = '05/09/2023'
 export const interactifReady = true
@@ -25,7 +26,7 @@ export default function PuissancesEncadrement () {
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.classe = 4
+  this.classe = 4 // Ce distinguo permet de supprimer les 10^0 du niveau 4ème
   this.nouvelleVersion = function () {
     const listeTypeDeQuestions = []
     let signeChange
@@ -46,13 +47,13 @@ export default function PuissancesEncadrement () {
     for (let ee = 0; ee < this.nbQuestions; ee++) {
       switch (typeDeQuestions[ee]) {
         case 1: // nombre enier positif
-          listeTypeDeQuestions.push(choice([1, 2, 3, 4, 5, 6]))
+          listeTypeDeQuestions.push(choice(this.classe === 2 ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5]))
           break
         case 2: // nombre décimal positif
-          listeTypeDeQuestions.push(choice([7, 8, 9, 10]))
+          listeTypeDeQuestions.push(choice(this.classe === 2 ? [7, 8, 9, 10] : [7, 8, 9]))
           break
         case 3: // nombre décimal positif inférieur à 1
-          listeTypeDeQuestions.push(choice([11, 12, 13, 14]))
+          listeTypeDeQuestions.push(choice(this.classe === 2 ? [11, 12, 13, 14] : [11, 12, 13]))
           break
         case 4: // Mélange
           listeTypeDeQuestions.push(choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]))
@@ -73,41 +74,42 @@ export default function PuissancesEncadrement () {
       const nombreEntier = []
       const nombreDecimal = []
       const nombreDecInfUn = []
-      for (let i = 0; i < 6; i++) {
+
+      for (let j = this.classe === 2 ? 0 : 1; j < 6; j++) {
         signe = signeChange ? choice([-1, 1]) : 1
         entPos.push({
-          val: `${texNombre(signe * randint(10 ** i + 1, 10 ** (i + 1) - 1))}`,
-          puissance_inf: signe === 1 ? `10^{${i}}` : `-10^{${i + 1}}`,
-          puissance_sup: signe === 1 ? `10^{${i + 1}}` : `-10^{${i}}`,
-          puissance_inf_num: signe === 1 ? `${texNombre(10 ** i)}` : `${texNombre(-1 * 10 ** (i + 1))}`,
-          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (i + 1))}` : `${texNombre(-1 * 10 ** i)}`
+          val: `${texNombre(signe * randint(10 ** j + 1, 10 ** (j + 1) - 1))}`,
+          puissance_inf: signe === 1 ? `10^{${j}}` : `-10^{${j + 1}}`,
+          puissance_sup: signe === 1 ? `10^{${j + 1}}` : `-10^{${j}}`,
+          puissance_inf_num: signe === 1 ? `${texNombre(10 ** j)}` : `${texNombre(-1 * 10 ** (j + 1))}`,
+          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (j + 1))}` : `${texNombre(-1 * 10 ** j)}`
         })
-        nombreEntier.push(signe * randint(10 ** i + 1, 10 ** (i + 1)))
+        nombreEntier.push(signe * randint(10 ** j + 1, 10 ** (j + 1)))
       }
 
-      // nombre décimal positif 1 et 10 000 avec 1,2,3 puis 4 décimales
+      // nombre décimal positif entre 1 et 10 000 avec 1,2,3 puis 4 décimales
       const decPos = []
-      for (let i = 0; i < 4; i++) {
+      for (let j = this.classe === 2 ? 0 : 1; j < 4; j++) {
         decPos.push({
-          val: `${texNombre(calcul(signe * randint(10001, 99999) / 10 ** (4 - i)))}`,
-          puissance_inf: signe === 1 ? `10^{${i}}` : `-10^{${i + 1}}`,
-          puissance_sup: signe === 1 ? `10^{${i + 1}}` : `-10^{${i}}`,
-          puissance_inf_num: signe === 1 ? `${texNombre(10 ** i)}` : `${texNombre(-1 * 10 ** (i + 1))}`,
-          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (i + 1))}` : `${texNombre(-1 * 10 ** i)}`
+          val: `${texNombre(calcul(signe * randint(10001, 99999) / 10 ** (4 - j)))}`,
+          puissance_inf: signe === 1 ? `10^{${j}}` : `-10^{${j + 1}}`,
+          puissance_sup: signe === 1 ? `10^{${j + 1}}` : `-10^{${j}}`,
+          puissance_inf_num: signe === 1 ? `${texNombre(10 ** j)}` : `${texNombre(-1 * 10 ** (j + 1))}`,
+          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (j + 1))}` : `${texNombre(-1 * 10 ** j)}`
         })
-        nombreDecimal.push(calcul(signe * randint(10001, 99999) / 10 ** (4 - i)))
+        nombreDecimal.push(calcul(signe * randint(10001, 99999) / 10 ** (4 - j)))
       }
       // nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
       const decPosInfUn = []
-      for (let i = 0; i < 4; i++) {
+      for (let j = this.classe === 2 ? 0 : 1; j < 4; j++) {
         decPosInfUn.push({
-          val: `${texNombre(calcul(signe * randint(10 ** (4 - i - 1) + 1, 10 ** (4 - i) - 1) / 10000))}`,
-          puissance_inf: signe === 1 ? `10^{${-(i + 1)}}` : `-10^{${-i}}`,
-          puissance_sup: signe === 1 ? `10^{${-i}}` : `-10^{${-(i + 1)}}`,
-          puissance_inf_num: signe === 1 ? `${texNombre(calcul(10 ** -(i + 1)))}` : `${texNombre(calcul(-1 * 10 ** -i))}`,
-          puissance_sup_num: signe === 1 ? `${texNombre(calcul(10 ** -i))}` : `${texNombre(calcul(-1 * 10 ** -(i + 1)))}`
+          val: `${texNombre(calcul(signe * randint(10 ** (4 - j - 1) + 1, 10 ** (4 - j) - 1) / 10000))}`,
+          puissance_inf: signe === 1 ? `10^{${-(j + 1)}}` : `-10^{${-j}}`,
+          puissance_sup: signe === 1 ? `10^{${-j}}` : `-10^{${-(j + 1)}}`,
+          puissance_inf_num: signe === 1 ? `${texNombre(calcul(10 ** -(j + 1)))}` : `${texNombre(calcul(-1 * 10 ** -j))}`,
+          puissance_sup_num: signe === 1 ? `${texNombre(calcul(10 ** -j))}` : `${texNombre(calcul(-1 * 10 ** -(j + 1)))}`
         })
-        nombreDecInfUn.push(calcul(randint(signe * 10 ** (4 - i - 1) + 1, 10 ** (4 - i)) / 10000))
+        nombreDecInfUn.push(calcul(randint(signe * 10 ** (4 - j - 1) + 1, 10 ** (4 - j)) / 10000))
       }
       if (listeTypeDeQuestions[i] < 7) { // nombre entier positif
         texte = this.interactif
@@ -115,7 +117,7 @@ export default function PuissancesEncadrement () {
           : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         setReponse(this, 2 * i, entPos[listeTypeDeQuestions[i] - 1].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, entPos[listeTypeDeQuestions[i] - 1].puissance_sup, { formatInteractif: 'puissance' })
-        texteCorr = `$${entPos[listeTypeDeQuestions[i] - 1].puissance_inf} \\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val} \\leqslant ${entPos[listeTypeDeQuestions[i] - 1].puissance_sup}$`
+        texteCorr = `$${miseEnEvidence(entPos[listeTypeDeQuestions[i] - 1].puissance_inf)} \\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val} \\leqslant ${miseEnEvidence(entPos[listeTypeDeQuestions[i] - 1].puissance_sup)}$`
         texteCorr += ` car $${entPos[listeTypeDeQuestions[i] - 1].puissance_inf} = ${entPos[listeTypeDeQuestions[i] - 1].puissance_inf_num}$ et $${entPos[listeTypeDeQuestions[i] - 1].puissance_sup} = ${entPos[listeTypeDeQuestions[i] - 1].puissance_sup_num}.$`
       } else if (listeTypeDeQuestions[i] < 11) { // nombre décimal positif
         texte = this.interactif
@@ -123,7 +125,7 @@ export default function PuissancesEncadrement () {
           : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         setReponse(this, 2 * i, decPos[listeTypeDeQuestions[i] - 7].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, decPos[listeTypeDeQuestions[i] - 7].puissance_sup, { formatInteractif: 'puissance' })
-        texteCorr = `$${decPos[listeTypeDeQuestions[i] - 7].puissance_inf} \\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val} \\leqslant ${decPos[listeTypeDeQuestions[i] - 7].puissance_sup}$`
+        texteCorr = `$${miseEnEvidence(decPos[listeTypeDeQuestions[i] - 7].puissance_inf)} \\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val} \\leqslant ${miseEnEvidence(decPos[listeTypeDeQuestions[i] - 7].puissance_sup)}$`
         texteCorr += ` car $${decPos[listeTypeDeQuestions[i] - 7].puissance_inf} = ${decPos[listeTypeDeQuestions[i] - 7].puissance_inf_num}$ et $${decPos[listeTypeDeQuestions[i] - 7].puissance_sup} = ${decPos[listeTypeDeQuestions[i] - 7].puissance_sup_num}.$`
       } else { // nombre décimal positif inferieur à 1
         texte = this.interactif
@@ -131,13 +133,11 @@ export default function PuissancesEncadrement () {
           : `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         setReponse(this, 2 * i, decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup, { formatInteractif: 'puissance' })
-        texteCorr = `$${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf} \\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val} \\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup}$`
+        texteCorr = `$${miseEnEvidence(decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf)} \\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val} \\leqslant ${miseEnEvidence(decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup)}$`
         texteCorr += ` car $${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf} = ${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf_num}$ et $${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup} = ${decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup_num}.$`
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // ToDo pour les exercices interactifs vérifier l'unicité des questions
-        // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
