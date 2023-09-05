@@ -21,6 +21,11 @@
 
   export let isMenuDeployed: boolean = false
 
+  /**
+   * Pour décider si une entrée doit être affichée dans le menu ou pas :
+   * * on regarde si la valeur d'activation du référentiel (défini dans `referentielsActivation.json`)
+   * * puis on regarde le flag `activated` (défini à la création du référentiel dans `Start` — et modifiable dans le code si besoin)
+   */
   function isDisplayed(): boolean {
     if (isReferentielActivated(ref.name)) {
       return ref.activated
