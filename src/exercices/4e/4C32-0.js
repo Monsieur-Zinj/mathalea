@@ -48,7 +48,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
       switch (listeTypeQuestions[i]) {
         case 'type1':
           n = new Decimal(choice([randint(2, 9), randint(11, 99), randint(101, 999)]))
-          p = randint(0, 7)
+          p = randint(1, 7)
           texte = `$${texNombre(n)} \\times 10^{${p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombre(n.mul(Decimal.pow(10, p)))}$`
@@ -76,7 +76,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
         case 'type4':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           d = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
-          p = randint(0, 7)
+          p = randint(1, 7)
           nb = (new Decimal(d)).div(choice([10, 100, 1000])).add(n)
           texte = `$${texNombre(nb, 3)} \\times 10^{${-p}}$`
           texteCorr = texte
