@@ -8,6 +8,7 @@ import { toMap } from './toMap'
 import { isRecent } from './handleDate'
 import { get } from 'svelte/store'
 import { globalOptions } from '../store'
+import referentielsActivation from '../../json/referentielsActivation.json'
 
 // Réorganisation du référentiel
 // Suppression de la rubrique calcul mental
@@ -147,5 +148,21 @@ export function codeToLevelTitle (code: string) {
     return codeList[code]
   } else {
     return code
+  }
+}
+
+/**
+ * Consulte le fichier `src/json/referentielsActivation.json`
+ * et retourne la valeur d'activation `true`/`false` indiqué pour un nom de référentiel donné.
+ * @param refName nom du référentiel (conformément au type `ReferentielNames` dans `src/lib/types.ts`)
+ * @returns la valeur mentionnée dans `src/json/referentielsActivation.json` <br/> `false` si le nom du référentiel n'exoiste pas.
+ */
+export function isReferentielActivated (refName:string): boolean {
+  const referentielList = toMap({ ...referentielsActivation })
+  if (referentielList.has(refName)) {
+    return referentielList.get(refName) === 'true'
+  } else {
+    console.log(refName + ' is not a valid referentiel name !')
+    return false
   }
 }

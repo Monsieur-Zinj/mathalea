@@ -8,6 +8,7 @@
   import { toObject } from "../utils/toObj"
   import EntreeListeRessources from "./EntreeListeRessources.svelte"
   import SideMenuApps from "./SideMenuApps.svelte"
+  import { isReferentielActivated } from "../utils/referentielsUtils"
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
@@ -21,7 +22,7 @@
   export let isMenuDeployed: boolean = false
 </script>
 
-<div class={ref.activated ? "flex w-full flex-col" : "hidden"}>
+<div class={isReferentielActivated(ref.name) ? "flex w-full flex-col" : "hidden"}>
   <div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6">
     {#if ref.type === "apps"}
       <SideMenuApps />

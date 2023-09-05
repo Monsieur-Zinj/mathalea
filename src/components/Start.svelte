@@ -34,14 +34,14 @@
   const itemsSelected: string[] = []
   let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
   // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
-  $: exercisesReferentielForSideMenu = { title: "Exercices aléatoires", content: [...arrayReferentielFiltre], type: "exercices", activated: true }
+  $: exercisesReferentielForSideMenu = { name: "aleatoires", title: "Exercices aléatoires", content: [...arrayReferentielFiltre], type: "exercices", activated: true }
   // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
   // let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
   // for (const [key, value] of Object.entries(referentielOutils)) {
   //   arrayReferentiel.content.push(value)
   // }
   const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
-  const ressourcesReferentielForSideMenu: ReferentielForList = { title: "Vos ressources", content: [...ressourcesReferentielArray], type: "ressources", activated: true }
+  const ressourcesReferentielForSideMenu: ReferentielForList = { name: "ressources", title: "Vos ressources", content: [...ressourcesReferentielArray], type: "ressources", activated: true }
   // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
   //   ressourcesReferentiel.content.push(value)
   // }
@@ -84,7 +84,13 @@
   import BreadcrumbHeader from "./sidebar/BreadcrumbHeader.svelte"
   import ImageCard from "./ui/ImageCard.svelte"
   const bibliothequeReferentielArray = Array.from(toMap({ ...referentielBibliotheque }), ([key, obj]) => ({ key, obj }))
-  const bibliothequeReferentielForSideMenu: ReferentielForList = { title: "Exercices non aléatoires", content: [...bibliothequeReferentielArray], type: "bibliotheque", activated: false }
+  const bibliothequeReferentielForSideMenu: ReferentielForList = {
+    name: "statiques",
+    title: "Exercices non aléatoires",
+    content: [...bibliothequeReferentielArray],
+    type: "bibliotheque",
+    activated: false,
+  }
   let showBibliothequeChoiceDialog = false
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
@@ -114,9 +120,9 @@
   // Construction du référentiel pour les entrées examens pour SideMenu
   import referentielStatic from "../json/referentielStatic.json"
   const staticReferentielArray = Array.from(toMap({ ...referentielStatic }), ([key, obj]) => ({ key, obj }))
-  const staticReferentielForSideMenu: ReferentielForList = { title: "Annales d'examens", content: [...staticReferentielArray], type: "examens", activated: true }
+  const staticReferentielForSideMenu: ReferentielForList = { name: "examens", title: "Annales d'examens", content: [...staticReferentielArray], type: "examens", activated: true }
   // Construction du référentiel fictif pour les apps tierces pour SideMenu
-  const appTierceReferentielForSideMenu: ReferentielForList = { title: "Applications", content: [], type: "apps", activated: true }
+  const appTierceReferentielForSideMenu: ReferentielForList = { name: "apps", title: "Applications", content: [], type: "apps", activated: true }
 
   /**
    * Démarrage

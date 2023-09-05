@@ -21,7 +21,8 @@ export interface StudentAssignment {resultsByExercice: InterfaceResultExercice[]
 // * `type` : type du référentiel pour gérer l'affichage (exploration récursive ou pas par exemple)
 // * `activated`: flag pour afficher ou pas le référentiel
 export type ReferentielTypes = 'outils' | 'exercices' | 'ressources' | 'bibliotheque' | 'apps' | 'examens'
-export interface ReferentielForList {title: string, content: InterfaceReferentiel[], type: ReferentielTypes, activated: boolean}
+export type ReferentielNames = 'outils' | 'aleatoires' | 'statiques' | 'ressources' | 'bibliotheque' | 'apps' | 'examens'
+export interface ReferentielForList {name:ReferentielNames, title: string, content: InterfaceReferentiel[], type: ReferentielTypes, activated: boolean}
 
 // Pour designer la page appelant un export
 export type CallerComponentType = '' | 'tools'
