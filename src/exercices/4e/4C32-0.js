@@ -5,29 +5,27 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { sp } from '../../lib/outils/outilString.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Écriture décimale d\'un calcul avec des puissances de 10'
+export const titre = 'Donner le résultat de calculs avec des puissances de 10 en écriture décimale'
 export const dateDePublication = '18/01/2022'
-export const dateDeModifImportante = '26/04/2023'
+export const dateDeModifImportante = '05/09/2023'
 
 /**
  * On donne un calcul avec des puissances de 10 et on en attend le résultat en écriture décimale
  * @author Mireille Gain
  * Ajout du choix du signe de l'exposant par Guillaume Valmont le 26/04/2023
- * 4C32-0
  */
 export const uuid = '5d72b'
 export const ref = '4C32-0'
 export default function EcritureDecimaleApresPuissancesDeDix () {
   Exercice.call(this)
-  this.consigne = 'Donner le résultat des calculs suivants en écriture décimale.'
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
-  this.video = ''
 
   this.besoinFormulaireNumerique = ['Exposants', 3, '1 : Positifs\n2 : Négatifs\n3 : Mélange']
   this.sup = 3
@@ -35,6 +33,9 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    this.consigne = this.nbQuestions === 1
+      ? 'Donner le résultat du calcul suivant en écriture décimale.'
+      : 'Donner le résultat des calculs suivants en écriture décimale.'
 
     let typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4']
 
@@ -55,10 +56,11 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           break
         case 'type2':
           n = new Decimal(choice([randint(2, 9), randint(11, 99), randint(101, 999)]))
-          p = randint(1, 7)
+          p = randint(1, 6)
+          n = new Decimal(8)
           texte = `$${texNombre(n)} \\times 10^{${-p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre(n.mul(Decimal.pow(10, -p)), 10)}$`
+          texteCorr += `$=${texNombre(n.mul(Decimal.pow(10, -p)), 6)}$`
           setReponse(this, i, n.mul(Decimal.pow(10, -p)))
           break
         case 'type3':
@@ -68,7 +70,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           nb = (new Decimal(d)).div(choice([10, 100, 1000])).add(n) // nb est Decimal !
           texte = `$${texNombre(nb, 3)} \\times 10^{${p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre(nb.mul(Decimal.pow(10, p)), 0)}$`
+          texteCorr += `$=${texNombre(nb.mul(Decimal.pow(10, p)), 3)}$`
           setReponse(this, i, nb.mul(Decimal.pow(10, p)))
           break
         case 'type4':
@@ -83,9 +85,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           break
       }
 
-      if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i)
-      }
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texte: `${sp(2)}$=$${sp(2)}` })
 
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
