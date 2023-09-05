@@ -9069,7 +9069,7 @@
         "url": "4e/4C30-1.js",
         "uuid": "760d7",
         "id": "4C30-1",
-        "titre": "Encadrer avec des puissances de 10",
+        "titre": "Encadrer des nombres positifs avec des puissances de 10",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9080,7 +9080,7 @@
         "url": "4e/4C30-2.js",
         "uuid": "93df9",
         "id": "4C30-2",
-        "titre": "Écriture décimale d'une puissance de 10",
+        "titre": "Donner l'écriture décimale d'une puissance de 10",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9092,7 +9092,7 @@
         "url": "4e/4C30-3.js",
         "uuid": "36f8b",
         "id": "4C30-3",
-        "titre": "Écriture décimale ou fractionnaire d'une puissance",
+        "titre": "Donner l'écriture entière ou fraction d'une puissance",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9104,7 +9104,7 @@
         "url": "4e/4C30-4.js",
         "uuid": "b0b3c",
         "id": "4C30-4",
-        "titre": "Puissances de 10 et préfixes",
+        "titre": "Associer puissances de 10 et préfixes",
         "tags": {
           "interactif": true,
           "interactifType": "listeDeroulante",
@@ -9115,7 +9115,7 @@
         "url": "4e/4C32.js",
         "uuid": "a0d16",
         "id": "4C32",
-        "titre": "Notation scientifique",
+        "titre": "Associer un nombre décimal à sa notation scientifique",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9127,7 +9127,7 @@
         "url": "4e/4C32-0.js",
         "uuid": "5d72b",
         "id": "4C32-0",
-        "titre": "Écriture décimale d'un calcul avec des puissances de 10",
+        "titre": "Donner le résultat de calculs avec des puissances de 10 en écriture décimale",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9910,7 +9910,7 @@
         "url": "3e/3A10-1.js",
         "uuid": "bba55",
         "id": "3A10-1",
-        "titre": "Indiquer si des nombres sont premiers ou pas' // EE : J",
+        "titre": "Indiquer si des nombres sont premiers ou pas",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -10108,6 +10108,20 @@
         "tags": {
           "interactif": false,
           "amc": false
+        }
+      }
+    },
+    "3C1": {
+      "3C10-1": {
+        "url": "3e/3C10-1.js",
+        "uuid": "eb865",
+        "id": "3C10-1",
+        "titre": "Donner l'écriture entière ou fractionnaire d'une puissance",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amcType": "AMCNum",
+          "amc": true
         }
       }
     },
@@ -11847,7 +11861,7 @@
         "url": "2e/2N12-2.js",
         "uuid": "8f56e",
         "id": "2N12-2",
-        "titre": "Encadrer avec des puissances de 10",
+        "titre": "Encadrer des nombres relatifs avec des puissances de 10",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -12129,6 +12143,18 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCOpenNum",
+          "amc": true
+        }
+      },
+      "2N31-5": {
+        "url": "2e/2N31-5.js",
+        "uuid": "6b2e5",
+        "id": "2N31-5",
+        "titre": "Utiliser les règles de calculs avec des puissances de 10",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amcType": "qcmMono",
           "amc": true
         }
       },
