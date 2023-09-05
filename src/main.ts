@@ -13,7 +13,7 @@ if (typeof (BigInt) === 'undefined') {
 }
 
 const a = BigInt(0)
-console.log(a)
+// console.log(a)
 
 const app = new App({
   target: document.getElementById('appMathalea')
