@@ -28,7 +28,6 @@ function aleaName (names = [], n = names.length, result = []) {
 }
 
 export const dateDePublication = '15/01/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '18/08/2023'
 
 function anglesSecantes (A, rot = { O: 60, A: 0 }) {
   const s = rotation(translation(A, vecteur(1, 0)), A, rot.A)
