@@ -8,7 +8,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
+export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 
 /**
  * Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.

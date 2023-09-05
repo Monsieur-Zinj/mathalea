@@ -283,6 +283,7 @@
         <div class="pb-2">
           <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
           <FormRadio
+            isDisabled={true}
             title="présentation"
             bind:valueSelected={$globalOptions.presMode}
             labelsValues={[

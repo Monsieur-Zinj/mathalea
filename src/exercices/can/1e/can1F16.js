@@ -3,10 +3,11 @@ import { repere } from '../../../lib/2d/reperes.js'
 import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
-import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
+import { deuxColonnes } from '../../../lib/format/miseEnPage.js'
+
 export const titre = 'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +20,7 @@ export const dateDePublication = '22/06/2022' // La date de publication initiale
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence
-*/
+ */
 export const uuid = '6f32d'
 export const ref = 'can1F16'
 export default function LectureGraphiqueTangente () {
@@ -30,8 +31,18 @@ export default function LectureGraphiqueTangente () {
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
-    let f; let r1; let r2; let alpha; let beta; let F; let o; let nbre; let courbef; let courbefp
-    switch (choice([1, 2])) { //
+    let f
+    let r1
+    let r2
+    let alpha
+    let beta
+    let F
+    let o
+    let nbre
+    let courbef
+    let courbefp
+    let colonne1, colonne2
+    switch (choice([1, 2])) { //, 2
       case 1:// second degré (x-alpha)^2+beta
         if (choice([true, false])) {
           nbre = randint(0, 3)
@@ -116,39 +127,51 @@ export default function LectureGraphiqueTangente () {
 
         f = x => 2 * x - 2 * alpha
         F = x => (x - alpha) ** 2 + beta
-        courbef = latexParCoordonnees('\\cal C_f', 0.5, F(0), 'blue', 1, 20, '', 8)
-        courbefp = latexParCoordonnees('\\cal C_f’', 0.5, f(0), 'red', 1, 20, '', 8)
-
+        courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 10, 'blue', 1, 20, '', 8)
+        courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 6, 'red', 1, 20, '', 8)
+        colonne1 = mathalea2d({
+          xmin: -6,
+          xmax: 6,
+          ymin: -3,
+          ymax: 12,
+          style: 'display: inline',
+          pixelsParCm: 14,
+          scale: 0.4
+        },
+        r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
+        )
+        colonne2 = mathalea2d({
+          xmin: -6,
+          xmax: 6,
+          ymin: -5,
+          ymax: 8,
+          style: 'display: inline',
+          pixelsParCm: 14,
+          scale: 0.4
+        },
+        r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
+        )
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
-        this.question += mathalea2d({ xmin: -6, xmax: 6, ymin: -3, ymax: 12, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
-          r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
-        )
-        this.question += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 8, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
-          r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
-        )
+        this.question += deuxColonnes(colonne1, colonne2)
 
         this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
         On lit graphiquement $f(${nbre})=${F(nbre)}$ et $f'(${nbre})=${f(nbre)}$.<br>
         L'équation réduite de la tangente est donc donnée par :
         $y=${f(nbre)}(x${ecritureAlgebrique(-nbre)})${ecritureAlgebrique(F(nbre))}$, soit `
-        if (-nbre * f(nbre) + F(nbre) === 0) { this.correction += `$y=${rienSi1(f(nbre))}x$.` } else { this.correction += `$y=${rienSi1(f(nbre))}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.` }
+        if (-nbre * f(nbre) + F(nbre) === 0) {
+          this.correction += `$y=${rienSi1(f(nbre))}x$.`
+        } else {
+          this.correction += `$y=${rienSi1(f(nbre))}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.`
+        }
 
         this.reponse = [`y=${f(nbre)}x+${-nbre * f(nbre) + F(nbre)}`]
         this.canEnonce = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br>
 
         `
-        this.canEnonce += mathalea2d({ xmin: -6, xmax: 6, ymin: -3, ymax: 12, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
-          r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
-        )
-        this.canEnonce += `<br>
-        
-        `
-        this.canEnonce += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 8, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
-          r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
-        )
-        this.canReponseACompleter = ''
+        this.canEnonce += colonne1
+        this.canReponseACompleter = colonne2
         break
 
       case 2:// second degré -(x-alpha)^2+beta
@@ -233,41 +256,53 @@ export default function LectureGraphiqueTangente () {
           grilleSecondaireXMin: -4,
           grilleSecondaireXMax: 4
         })
-        courbef = latexParCoordonnees('\\cal C_f', 0.5, F(0), 'blue', 1, 20, '', 8)
-        courbefp = latexParCoordonnees('\\cal C_f’', 0.5, f(0), 'red', 1, 20, '', 8)
+        courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 4, 'blue', 1, 20, '', 8)
+        courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 4, 'red', 1, 20, '', 8)
 
         f = x => -2 * x + 2 * alpha
         F = x => (-1) * (x - alpha) ** 2 + beta
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
       Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
-        this.question += mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 5, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
-          r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
+        colonne1 = mathalea2d({
+          xmin: -6,
+          xmax: 6,
+          ymin: -8,
+          ymax: 5,
+          style: 'display: inline',
+          pixelsParCm: 16,
+          scale: 0.4
+        },
+        r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
         )
-        this.question += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 6, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
-          r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
+        colonne2 = mathalea2d({
+          xmin: -6,
+          xmax: 6,
+          ymin: -8,
+          ymax: 6,
+          style: 'display: inline',
+          pixelsParCm: 14,
+          scale: 0.4
+        },
+        r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
         )
-
+        this.question += deuxColonnes(colonne1, colonne2)
         this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
       On lit graphiquement $f(${nbre})=${F(nbre)}$ et $f'(${nbre})=${f(nbre)}$.<br>
       L'équation réduite de la tangente est donc donnée par :
       $y=${f(nbre)}(x${ecritureAlgebrique(-nbre)})${ecritureAlgebrique(F(nbre))}$, soit `
-        if (-nbre * f(nbre) + F(nbre) === 0) { this.correction += `$y=${f(nbre)}x$.` } else { this.correction += `$y=${f(nbre)}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.` }
+        if (-nbre * f(nbre) + F(nbre) === 0) {
+          this.correction += `$y=${f(nbre)}x$.`
+        } else {
+          this.correction += `$y=${f(nbre)}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.`
+        }
         this.reponse = [`y=${f(nbre)}x+${-nbre * f(nbre) + F(nbre)}`]
         this.canEnonce = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br>
         
         `
-        this.canEnonce += mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 5, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
-          r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
-        )
-        this.canEnonce += `<br>
-          
-          `
-        this.canEnonce += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 6, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
-          r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
-        )
+        this.canEnonce += colonne1
 
-        this.canReponseACompleter = ''
+        this.canReponseACompleter = colonne2
         break
     }
   }

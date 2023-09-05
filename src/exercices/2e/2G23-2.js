@@ -14,7 +14,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un point par une translation'
-export const dateDeModificationImportante = '09/07/2023'
+export const dateDeModifImportante = '09/07/2023'
 
 /**
  * Calculer les coordonnées d'un point image ou antécédent d'un autre par une translation

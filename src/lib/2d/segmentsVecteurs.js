@@ -2,7 +2,6 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { calcul, randint } from '../../modules/outils.js'
-import { arrondi } from '../outils/nombres.js'
 import { angleOriente } from './angles.js'
 import { Cercle } from './cercle.js'
 import { Droite, droite } from './droites.js'
@@ -135,15 +134,15 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  */
 export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   ObjetMathalea2D.call(this, {})
-  
+
   /**
-   * Teste si un segment coupe un cercle, une droite, une demi-cercle ou un autre segment
-   * @memberof Segment
-   * @param {Segment | Droite | DemiDroite | Cercle} objet Objet géométrique dont on veut tester l'intersection avec le segment
-   * @example s1.estSecant(d1) // Renvoie true si s1 est sécant avec d1, false sinon
-   * @author Jean-Claude Lhote
-   * @return {boolean}
-   */
+     * Teste si un segment coupe un cercle, une droite, une demi-cercle ou un autre segment
+     * @memberof Segment
+     * @param {Segment | Droite | DemiDroite | Cercle} objet Objet géométrique dont on veut tester l'intersection avec le segment
+     * @example s1.estSecant(d1) // Renvoie true si s1 est sécant avec d1, false sinon
+     * @author Jean-Claude Lhote
+     * @return {boolean}
+     */
   // JSDOC Validee par EE Aout 2022
   this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
@@ -164,7 +163,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     if (!I) return false
     else return I.estSur(objet) && I.estSur(this)
   }
-  
+
   this.typeObjet = 'segment'
   this.styleExtremites = styleExtremites
   this.tailleExtremites = 4
@@ -235,7 +234,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.extremite1,
     this.extremite2
   )
-  
+
   this.codeExtremitesSVG = function (coeff) {
     let code = ''
     const A = point(this.x1, this.y1)
@@ -249,9 +248,9 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const B1 = similitude(M, B, 90, 0.7)
         const B2 = similitude(M, B, -90, 0.7)
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
-          coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
       }
       if (fin === '>') {
         // si ça termine par > on rajoute une flèche en B
@@ -261,12 +260,12 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const B2 = similitude(B, M, -90, 0.7)
         const B2EE = pointSurSegment(B, rotation(B, M, -90), 0.5 / context.pixelsParCm)
         code += `<line x1="${B1EE.xSVG(coeff)}" y1="${B1EE.ySVG(
-          coeff
-        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${B2EE.xSVG(coeff)}" y1="${B2EE.ySVG(
-          coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]}" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]}" stroke-width="${this.epaisseur}" />`
       }
       if (fin === '<') {
         // si ça termine par < on rajoute une flèche inversée en B
@@ -274,15 +273,51 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const B1 = similitude(B, M, 90, 0.7)
         const B2 = similitude(B, M, -90, 0.7)
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
-          coeff
-        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
-          coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
+      }
+      if (fin === '[') {
+        // si ça termine par | on le rajoute en B
+        const M = pointSurSegment(B, A, h / context.pixelsParCm)
+        const B1 = similitude(M, B, 90, 1)
+        const B2 = similitude(M, B, -90, 1)
+        const C1 = similitude(B, B1, -90, 0.3)
+        const C2 = similitude(B, B2, 90, 0.3)
+        code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
+      }
+      if (fin === ']') {
+        // si ça termine par | on le rajoute en B
+        const M = pointSurSegment(B, A, h / context.pixelsParCm)
+        const B1 = similitude(M, B, 90, 1)
+        const B2 = similitude(M, B, -90, 1)
+        const C1 = similitude(B, B1, 90, 0.3)
+        const C2 = similitude(B, B2, -90, 0.3)
+        code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       const debut = this.styleExtremites[0]
+      if (debut === '[') {
+        // si ça termine par | on le rajoute en B
+        const M = pointSurSegment(A, B, h / context.pixelsParCm)
+        const B1 = similitude(M, A, 90, 1)
+        const B2 = similitude(M, A, -90, 1)
+        const C1 = similitude(A, B1, 90, 0.3)
+        const C2 = similitude(A, B2, -90, 0.3)
+        code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
+      }
+      if (debut === ']') {
+        // si ça termine par | on le rajoute en B
+        const M = pointSurSegment(A, B, h / context.pixelsParCm)
+        const B1 = similitude(M, A, 90, 1)
+        const B2 = similitude(M, A, -90, 1)
+        const C1 = similitude(A, B1, -90, 0.3)
+        const C2 = similitude(A, B2, 90, 0.3)
+        code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
+      }
       if (debut === '<') {
         // si ça commence par < on rajoute une flèche en A
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
@@ -291,13 +326,13 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const A2 = rotation(A, M, -90)
         const A2EE = pointSurSegment(A, rotation(A, M, -90), 0.5 / context.pixelsParCm)
         code += `<line x1="${A1EE.xSVG(coeff)}" y1="${A1EE.ySVG(
-          coeff
-        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${A2EE.xSVG(coeff)}" y1="${A2EE.ySVG(
-          coeff
-        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
       }
       if (debut === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
@@ -305,13 +340,13 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const A1 = rotation(A, M, 90)
         const A2 = rotation(A, M, -90)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-          coeff
-        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-          coeff
-        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
       }
       if (debut === '|') {
         // si ça commence par | on le rajoute en A
@@ -319,14 +354,14 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const A1 = rotation(N, A, 90)
         const A2 = rotation(N, A, -90)
         code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
-          coeff
-        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
-        }" stroke-width="${this.epaisseur}" />`
+                    coeff
+                )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
+                }" stroke-width="${this.epaisseur}" />`
       }
     }
     return code
   }
-  
+
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -348,27 +383,27 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
-    
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
     let code = this.codeExtremitesSVG(coeff)
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
-    
+
     code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${B.xSVG(
-      coeff
-    )}" y2="${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} />`
-    
+            coeff
+        )}" y2="${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} />`
+
     if (this.styleExtremites.length > 0) {
       code = `<g id="${this.id}">${code}</g>`
     } else {
       code = code.replace('/>', `id="${this.id}" />`)
     }
-    
+
     return code
   }
-  
+
   this.tikz = function () {
     let optionsDraw = []
     const tableauOptions = []
@@ -391,7 +426,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       case 3:
         tableauOptions.push(' dash dot dot ')
         break
-      
+
       case 4:
         tableauOptions.push(' dotted ')
         break
@@ -399,14 +434,18 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         tableauOptions.push(' dashed ')
         break
     }
-    
+
     if (this.styleExtremites.length > 1) {
-      tableauOptions.push(this.styleExtremites)
+      if (this.styleExtremites.includes('[') || this.styleExtremites.includes(']')) {
+        tableauOptions.push('{' + this.styleExtremites + '}')
+      } else {
+        tableauOptions.push(this.styleExtremites)
+      }
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    return `\\draw${optionsDraw} (${arrondi(this.x1)},${arrondi(this.y1)})--(${arrondi(this.x2)},${arrondi(this.y2)});`
+    return `\\draw${optionsDraw} (${this.x1},${this.y1})--(${this.x2},${this.y2});`
   }
   this.svgml = function (coeff, amp) {
     this.style = 'fill="none"'
@@ -416,7 +455,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
-    
+
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
     const l = longueur(A, B)
@@ -444,17 +483,21 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (this.styleExtremites.length > 1) {
-      tableauOptions.push(this.styleExtremites)
+      if (this.styleExtremites.includes('[') || this.styleExtremites.includes(']')) {
+        tableauOptions.push('{' + this.styleExtremites + '}')
+      } else {
+        tableauOptions.push(this.styleExtremites)
+      }
     }
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
     optionsDraw = '[' + tableauOptions.join(',') + ']'
-    
-    const code = `\\draw${optionsDraw} (${arrondi(A.x)},${arrondi(A.y)})--(${arrondi(B.x)},${arrondi(B.y)});`
+
+    const code = `\\draw${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
     return code
   }
 }

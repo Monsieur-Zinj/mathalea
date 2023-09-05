@@ -19,17 +19,5 @@
       "titre": "XCas",
       "url": "ressources/xcas.ts",
       "tags": {}
-    },
-    "Challenge relatifs": {
-      "titre": "Challenge relatifs",
-      "uuid": "challengeRelatif"
-    },
-    "Permis Littéral": {
-      "titre": "Permis Littéral (béta)",
-      "uuid": "permisLitteral"
-    },
-    "Permis Equerre": {
-      "titre": "Permis Équerre (béta)",
-      "uuid": "permisEquerre"
     }
   }

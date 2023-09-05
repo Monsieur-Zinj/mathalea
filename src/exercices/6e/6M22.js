@@ -6,7 +6,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
-export const dateDeModificationImportante = '11/04/2023'
+export const dateDeModifImportante = '11/04/2023'
 
 /** */
 // Référence 6M22

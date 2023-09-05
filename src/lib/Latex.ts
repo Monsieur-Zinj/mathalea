@@ -21,7 +21,7 @@ export interface LatexFileInfos {
   title: string
   reference: string
   subtitle: string
-  style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can'
+  style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
   nbVersions: number
 }
 
@@ -36,10 +36,11 @@ class Latex {
   }
 
   getContentsForAVersion (
-    style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can',
+    style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can',
     indiceVersion: number = 1
   ): { content: string; contentCorr: string } {
-    if (style === 'ProfMaquette') return { content: this.getContentForAVersionProfMaquette(), contentCorr: '' }
+    if (style === 'ProfMaquette') return { content: this.getContentForAVersionProfMaquette(1, false), contentCorr: '' }
+    if (style === 'ProfMaquetteQrcode') return { content: this.getContentForAVersionProfMaquette(1, true), contentCorr: '' }
     let content = ''
     let contentCorr = ''
     for (const exercice of this.exercices) {
@@ -118,7 +119,7 @@ class Latex {
     return { content, contentCorr }
   }
 
-  getContentForAVersionProfMaquette (indiceVersion: number = 1): string {
+  getContentForAVersionProfMaquette (indiceVersion: number = 1, withQrcode = false): string {
     let content = ''
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') continue
@@ -129,6 +130,7 @@ class Latex {
       exercice.nouvelleVersion()
     }
     for (const exercice of this.exercices) {
+      content += `\n% @Source : ${getUrlFromExercice(exercice)}`
       if (exercice.typeExercice === 'statique') {
         if (exercice.content === '') {
           content += '% Cet exercice n\'est pas disponible au format LaTeX'
@@ -142,9 +144,16 @@ class Latex {
         }
       } else {
         content += '\n\\begin{exercice}\n'
+        if (withQrcode) content += '\n\\begin{minipage}{0.75\\linewidth}'
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
         content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, exercice.listeAvecNumerotation), exercice.nbCols)
+        if (withQrcode) {
+          content += '\n\\end{minipage}'
+          content += '\n\\begin{minipage}{0.20\\linewidth}'
+          content += `\n\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}`
+          content += '\n\\end{minipage}'
+        }
         content += '\n\\end{exercice}\n'
         content += '\n\\begin{Solution}'
         content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, exercice.listeAvecNumerotation), exercice.nbColsCorr)
@@ -155,12 +164,20 @@ class Latex {
     return content
   }
 
-  getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): { content: string; contentCorr: string } {
+  getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): { content: string; contentCorr: string } {
     const contents = { content: '', contentCorr: '' }
     if (style === 'ProfMaquette') {
       for (let i = 1; i < nbVersions + 1; i++) {
-        const contentVersion = this.getContentForAVersionProfMaquette(i)
-        contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}`
+        const contentVersion = this.getContentForAVersionProfMaquette(i, false)
+        contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
+        contents.content += contentVersion
+        contents.content += '\n\\end{Maquette}'
+        contents.contentCorr = ''
+      }
+    } else if (style === 'ProfMaquetteQrcode') {
+      for (let i = 1; i < nbVersions + 1; i++) {
+        const contentVersion = this.getContentForAVersionProfMaquette(i, true)
+        contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
         contents.content += contentVersion
         contents.content += '\n\\end{Maquette}'
         contents.contentCorr = ''
@@ -199,7 +216,7 @@ class Latex {
     title: string
     reference: string
     subtitle: string
-    style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'Can'
+    style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
     nbVersions: number
   }) {
     const contents = this.getContents(style, nbVersions, title, subtitle, reference)
@@ -214,10 +231,14 @@ class Latex {
       result += '\n\\pageDeGardeCan{nbEx}'
       result += '\n\\clearpage'
       result += content
-    } else if (style === 'ProfMaquette') {
+    } else if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
       result = '\\documentclass[a4paper,11pt,fleqn]{article}'
       result += '\n\\usepackage{ProfCollege}'
       result += '\n\\usepackage{ProfMaquette}'
+      result += '\n\\usepackage{qrcode}'
+      result += '\n\\usepackage[luatex]{hyperref}'
+      result += '\n\\usepackage{tkz-tab}'
+      result += '\n\\usepackage{mathrsfs}'
       result += '\n\\usepackage[margin=1cm]{geometry}'
       result += '\n\\pagestyle{empty}'
       result += '\n\\usepackage{enumitem}'
@@ -233,7 +254,7 @@ class Latex {
     } else {
       result = `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${preambule}\n\n\\Theme[${style}]{nombres}{${title}}{${reference}}{${subtitle}}\n\n\\begin{document}\n${content}`
     }
-    if (style === 'ProfMaquette') {
+    if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
       result += '\n\\end{document}'
     } else {
       result += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
@@ -397,6 +418,23 @@ export function format (text: string): string {
     .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
     .replace(/<br>/g, '\\\\')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
+}
+
+function getUrlFromExercice (ex: TypeExercice) {
+  const url = new URL('https://coopmaths.fr/alea')
+  url.searchParams.append('uuid', ex.uuid)
+  if (ex.id !== undefined) url.searchParams.append('id', ex.id)
+  if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
+  if (ex.duration !== undefined) url.searchParams.append('d', ex.duration.toString())
+  if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
+  if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
+  if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
+  if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
+  if (ex.seed !== undefined) url.searchParams.append('alea', ex.seed)
+  if (ex.interactif === '1') url.searchParams.append('i', '1')
+  if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
+  if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols.toString())
+  return url
 }
 
 export default Latex

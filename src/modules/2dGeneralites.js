@@ -64,7 +64,7 @@ export function mathalea2d (
   } = {},
   ...objets
 ) {
-  const ajouteCodeHtml = function (mainlevee, objets, divsLatex) {
+  const ajouteCodeHtml = function (mainlevee, objets, divsLatex, xmin, ymax) {
     let codeSvg = ''
     if (!Array.isArray(objets)) {
       try {
@@ -77,7 +77,9 @@ export function mathalea2d (
             } else {
               const xSvg = (code.x - xmin) * pixelsParCm * zoom
               const ySvg = -(code.y - ymax) * pixelsParCm * zoom
-              const codeHtml = code.divLatex.substring(0, 48) + ` top: "${ySvg}px"; left: "${xSvg}px"; data-top="${ySvg}" data-left="${xSvg}"` + code.divLatex.substring(49)
+              const part1 = code.divLatex.substring(0, 81)
+              const part2 = code.divLatex.substring(81)
+              const codeHtml = part1 + ` top: "${ySvg}px"; left: "${xSvg}px"; data-top="${ySvg}" data-left="${xSvg}"` + part2
               divsLatex.push(codeHtml)
             }
           } else {
@@ -89,7 +91,7 @@ export function mathalea2d (
       }
     } else {
       for (const objet of objets) {
-        codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex)
+        codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex, xmin, ymax)
       }
     }
     return codeSvg
@@ -119,17 +121,20 @@ export function mathalea2d (
     codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
         }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
         } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
-    codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex)
+    codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
     codeSvg += '\n</svg>'
     codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
     //  pixelsParCm = 20;
-    return `<div style="padding: 10px 0px;">
-<div style="position: relative; top: 0px; left: 0px;">
-        ${codeSvg}
-        ${divsLatex.join('\n')}
-      </div>
-      </div>
-`
+    if (divsLatex.length > 0) {
+      return `<div class="svgContainer" style="padding: 0px 0px;">
+        <div style="position: relative;">
+          ${codeSvg}
+          ${divsLatex.join('\n')}
+        </div>
+      </div>`
+    } else {
+      return codeSvg
+    }
   } else { // le context est Latex
     // si scale existe autre que 1 il faut que le code reste comme avant
     // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter

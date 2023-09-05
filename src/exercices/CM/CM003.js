@@ -2,7 +2,7 @@ import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayO
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Tables de multiplication et de divisions'
 export const amcReady = true

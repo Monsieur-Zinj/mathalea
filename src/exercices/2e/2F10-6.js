@@ -13,7 +13,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
-export const dateDeModificationImportante = '18/05/2023'
+export const dateDeModifImportante = '18/05/2023'
 /**
  * @author Stéphane Guyon mise à jour et ajout de cas Gilles Mora
  * 2F10-6

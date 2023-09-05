@@ -12,7 +12,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { min, max } from 'mathjs'
 export const titre = 'Représentation graphique d\'une fonction affine'
-export const dateDeModificationImportante = '08/05/2023'
+export const dateDeModifImportante = '08/05/2023'
 
 /**
 * @author Stéphane Guyon (mise à jour avec les cas Gilles Mora)

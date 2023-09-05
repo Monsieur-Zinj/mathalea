@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, choice } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
@@ -115,7 +115,7 @@ export default function CalculDeVolumes () {
           texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
           texte += this.sup2 ? ', arrondi à l\'unité,' : ''
           texte += ` d'un cube de $${texNombre(c, 1)} ${listeUnites[j][0]}$ d'arête.`
-          texteCorr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
+          texteCorr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
           if (!volume.eq(volume.round())) {
             texteCorr += `\\approx ${volume.round()}${listeUnites[j][1]}$`
           } else {
@@ -138,7 +138,7 @@ export default function CalculDeVolumes () {
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += this.sup2 ? ', arrondi à l\'unité,' : ''
             texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L, 1)}${listeUnites[j][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(L, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(h)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
+            texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
             if (!volume.eq(volume.round())) {
               texteCorr += `\\approx ${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
             } else {
@@ -158,7 +158,7 @@ export default function CalculDeVolumes () {
             volume = l.mul(L).mul(h)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L, 1)}${listeUnites[j - 1][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j + 1][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(L, 1)}${listeUnites[j - 1][0]}\\times${texNombre(h, 0)}${listeUnites[j + 1][0]}=${texNombre(l, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(L * 10)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
+            texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${listeUnites[j - 1][0]}\\times${texNombre(h, 0)}${listeUnites[j + 1][0]}=${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L * 10)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
             if (!volume.eq(volume.round())) {
               texteCorr += `\\approx ${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
             } else {
@@ -179,7 +179,7 @@ export default function CalculDeVolumes () {
             volume = r.pow(2).mul(h).mul(Decimal.acos(-1))
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(
+            texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(
                             r.pow(2).mul(h), 0
                         )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
           } else {
@@ -189,7 +189,7 @@ export default function CalculDeVolumes () {
             volume = r.pow(2).mul(h).mul(Decimal.acos(-1))
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h.div(10), 1)}${listeUnites[j - 1][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${texNombre(r, 0)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h.div(10), 1)}${listeUnites[j - 1][0]}=\\pi\\times${texNombre(r.mul(r), 0)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(r.pow(2).mul(h), 0)}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+            texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${texNombre(r, 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h.div(10), 1)}${listeUnites[j - 1][0]}=\\pi\\times${texNombre(r.mul(r), 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(r.pow(2).mul(h), 0)}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
           }
           resultat = volume.round()
           resultat2 = volume.mul(4).round()
@@ -206,8 +206,12 @@ export default function CalculDeVolumes () {
             volume = c.mul(h * l).div(2)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += this.sup2 ? ', arrondi à l\'unité,' : ''
-            texte += ` d'un prisme droit de hauteur $${l}${listeUnites[j][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j][0]}$.`
-            texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${h}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}}{2}\\times${l}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(volume, 2)}${listeUnites[j][1]}`
+            if (choice([false, true])) {
+              texte += ` d'un prisme droit de hauteur $${l}${listeUnites[j][0]}$. La base du prisme droit est un triangle rectangle dont les côtés de l'angle droit mesurent $${texNombre(c, 1)}${listeUnites[j][0]}$ et $${h}${listeUnites[j][0]}$.`
+            }else{
+              texte += ` d'un prisme droit de hauteur $${l}${listeUnites[j][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j][0]}$.`
+            }            
+            texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${l}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(volume, 2)}${listeUnites[j][1]}`
             if (!volume.eq(volume.round())) {
               texteCorr += `\\approx ${volume.round()}${listeUnites[j][1]}$`
             } else {
@@ -221,8 +225,8 @@ export default function CalculDeVolumes () {
             volume = c.mul(h).mul(l).div(2)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un prisme droit de hauteur $${texNombre(l, 1)}${listeUnites[j - 1][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$.`
-            texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${h}${listeUnites[j + 1][0]}}{2}\\times${texNombre(l, 1)}${listeUnites[j - 1][0]}=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)
-                        }${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}}{2}\\times${texNombre(l.mul(10), 0)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${texNombre(volume, 2)}${listeUnites[j][1]}`
+            texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${h}${listeUnites[j + 1][0]}}{2}\\times${texNombre(l, 1)}${listeUnites[j - 1][0]}=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)
+                        }${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${texNombre(l.mul(10), 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(volume, 2)}${listeUnites[j][1]}`
             if (!volume.eq(volume.round())) {
               texteCorr += `\\approx ${volume.round()}${listeUnites[j][1]}$`
             } else {
@@ -244,7 +248,7 @@ export default function CalculDeVolumes () {
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += ', arrondi à l\'unité, ' // Il faut toujours arrondir à cause de la présence de Pi
             texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${h}${listeUnites[j][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${deprecatedTexFraction(
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${deprecatedTexFraction(
                             r * r * h,
                             3
                         )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round())}${listeUnites[j][1]}$`
@@ -255,7 +259,7 @@ export default function CalculDeVolumes () {
             volume = new Decimal(r * r * h).mul(Decimal.acos(-1)).div(3)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}=${deprecatedTexFraction(r * r * h, 3)}\\pi\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${deprecatedTexFraction(r * r * h, 3)}\\pi\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
           }
           resultat = volume.round()
           resultat2 = volume.mul(4).round()
@@ -273,7 +277,7 @@ export default function CalculDeVolumes () {
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += this.sup2 ? ', arrondi à l\'unité,' : ''
             texte += ` d'une pyramide de hauteur $${h}${listeUnites[j][0]}$ et dont la base  est un carré de $${texNombre(c, 1)}${listeUnites[j][0]}$ de côté.`
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}`
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}`
             if (volume.eq(volume.round())) {
               texteCorr += `=${texNombre(volume, 0)}${listeUnites[j][1]}$`
             } else {
@@ -287,7 +291,7 @@ export default function CalculDeVolumes () {
             volume = c.mul(c).mul(h).div(3)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'une pyramide de hauteur $${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}$ et dont la base  est un carré de $${texNombre(c, 1)}${listeUnites[j][0]}$  de côté.`
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^2\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times${texNombre(c.mul(c), 2)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}^2\\times${texNombre(h)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}`
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times${texNombre(c.mul(c), 2)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}^2\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}`
             if (volume.eq(volume.round())) {
               texteCorr += `=${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
             } else {
@@ -305,7 +309,7 @@ export default function CalculDeVolumes () {
           volume = new Decimal(r).pow(3).mul(4).mul(Decimal.acos(-1)).div(3)
           texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
           texte += `, arrondi à l'unité, d'une boule de $${r}${listeUnites[j][0]}$ de rayon.`
-          texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\right)^3=${deprecatedTexFraction(4 * r * r * r, 3)}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+          texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^3=${deprecatedTexFraction(4 * r * r * r, 3)}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
           resultat = volume.round()
           resultat2 = volume.mul(3).round()
           resultat3 = volume.mul(3).div(4).round()
@@ -374,16 +378,32 @@ export default function CalculDeVolumes () {
           }
         } else {
           this.autoCorrection[i] = {
-            enonce: '',
-            enonceAvant: false,
+            enonce: texte + '\\\\Ecrire le calcul:',
+            enonceAvant: true,            
+            options :{
+              multicols: true,
+              barreseparation: false,
+              multicolsAll: false,
+              numerotationEnonce: true
+            },
             propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  texte: texteCorr,
+                  numQuestionVisible: false,
+                  enonce: '',
+                  statut: 6
+                }
+                ]
+              },
               {
                 type: 'AMCNum',
                 propositions: [{
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte,
+                    texte: '',
                     valeur: [Math.round(volume)],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(Math.round(volume)) + randint(0, 2),
