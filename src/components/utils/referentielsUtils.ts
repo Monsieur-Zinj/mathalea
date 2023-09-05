@@ -96,10 +96,9 @@ function getRecentExercises (obj: InterfaceReferentiel[]): InterfaceReferentiel[
  * @param isAmcOnlySelected Tag pour le filtre AMC
  * @param isInteractiveOnlySelected tag pour le filtre Interactif
  * @param itemsAccepted Tableau des entrées filtrées
- * @param isNewExercisesIncluded tag pour inclure les nouveautés dans la liste
  * @returns tableau de tous les exercices filtrés
  */
-export function updateReferentiel (isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted, isNewExercisesIncluded = true) {
+export function updateReferentiel (isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted) {
   let filteredReferentiel = {}
   if (itemsAccepted.length === 0) {
     // pas de filtres sélectionnés
