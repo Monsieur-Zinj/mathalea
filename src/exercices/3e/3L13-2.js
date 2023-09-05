@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const dateDeModificationImportante = '02/04/2023'
+export const dateDeModifImportante = '02/04/2023'
 /**
  * * Équations résolvantes pour le théorème de Thalès
  * * 3L13-2 enfants : 4P10-2 et 4L15-1

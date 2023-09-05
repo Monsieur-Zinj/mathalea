@@ -13,7 +13,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Déterminer une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '14/05/2023'
+export const dateDeModifImportante = '14/05/2023'
 /**
  * Déterminer une fonction affine à partir de deux images
  * @author Stéphane Guyon et Gilles Mora

@@ -3,7 +3,7 @@ export const titre = 'Déterminer une quatrième proportionnelle dans un tableau
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '04/04/2022'
+export const dateDeModifImportante = '04/04/2022'
 /**
  * * Quatrieme proportionnelle dans un tableau du type
  * ---------

@@ -14,7 +14,7 @@ import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements.js'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
-export const dateDeModificationImportante = '18/08/2023'
+export const dateDeModifImportante = '18/08/2023'
 
 function aleaName (names = [], n = names.length, result = []) {
   const r = Math.floor(Math.random() * names.length)

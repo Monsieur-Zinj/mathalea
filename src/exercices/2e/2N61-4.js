@@ -13,7 +13,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '03/04/2022'
+export const dateDeModifImportante = '03/04/2022'
 
 export const titre = 'Résoudre une inéquation quotient'
 

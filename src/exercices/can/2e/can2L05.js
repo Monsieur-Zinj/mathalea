@@ -8,7 +8,7 @@ import { randint } from '../../../modules/outils.js'
 export const titre = 'Résoudre une inéquation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '21/05/2023'
+export const dateDeModifImportante = '21/05/2023'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

@@ -15,7 +15,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées d\'un vecteur à partir des coordonnées de deux points'
-export const dateDeModificationImportante = '30/06/2023'
+export const dateDeModifImportante = '30/06/2023'
 
 /**
  * Coordonnées d'un vecteur à partir de deux points
