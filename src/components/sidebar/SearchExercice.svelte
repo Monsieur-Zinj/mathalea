@@ -1,28 +1,29 @@
 <script lang="ts">
-  import { createEventDispatcher, tick } from 'svelte'
-    import { exercicesParams } from '../store'
-  import { sortArrayOfStringsWithHyphens } from '../utils/filters'
-  import type { InterfaceReferentiel } from '../../lib/types'
-  import EntreeRecherche from './EntreeRecherche.svelte'
-  import Button from '../forms/Button.svelte'
-  import Filtres from './Filtres.svelte'
+  import { createEventDispatcher, tick } from "svelte"
+  import { exercicesParams } from "../store"
+  import { sortArrayOfStringsWithHyphens } from "../utils/filters"
+  import type { InterfaceReferentiel } from "../../lib/types"
+  import EntreeRecherche from "./EntreeRecherche.svelte"
+  import Button from "../forms/Button.svelte"
+  import Filtres from "./Filtres.svelte"
+  import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
   export let referentiel: object
   let searchField: HTMLInputElement
 
   /**
    * Renvoie tous les objets qui ont une clé uuid
    */
-  export function getAllExercices (referentiel: object) {
+  export function getAllExercices(referentiel: object) {
     const exercices: InterfaceReferentiel[] = []
-    function recursiveSearch (object: object) {
+    function recursiveSearch(object: object) {
       Object.keys(object).forEach((key) => {
         // Les exercces "nouveaux" apparaissent en doublon dans le référentiel
-        if (key === 'Nouveautés') return
+        if (key === "Nouveautés") return
         // @ts-ignore
         const value = object[key]
-        if (key === 'uuid' && typeof value !== 'object') {
+        if (key === "uuid" && typeof value !== "object") {
           exercices.push(object as InterfaceReferentiel)
-        } else if (typeof value === 'object') {
+        } else if (typeof value === "object") {
           recursiveSearch(value)
         }
       })
@@ -39,14 +40,14 @@
   let isFiltersDisplayed: boolean = false
   let isSearchInputDisplayed: boolean = false
   let isInputFocused = false
-  function onFocusInput () {
+  function onFocusInput() {
     isInputFocused = true
   }
-  function onBlurInput () {
+  function onBlurInput() {
     isInputFocused = false
   }
 
-  let inputSearch: string = ''
+  let inputSearch: string = ""
   $: {
     referentiel = referentiel
     listeDesExercices = getAllExercices(referentiel)
@@ -57,7 +58,7 @@
    * Ordonner une liste d'exercices de manière que `4C10-10` arrive après `4C10-9`
    * @param exercisesList la liste des exercices à trier
    */
-  function orderList (exercisesList: InterfaceReferentiel) {
+  function orderList(exercisesList: InterfaceReferentiel) {
     let idsList: string[] = []
     for (const exo of exercisesList) {
       idsList.push(exo.id)
@@ -81,7 +82,7 @@
   }
   $: filteredAndOrderedList = orderList(filteredList)
 
-  function buildStaticList () {
+  function buildStaticList() {
     const liste = listeDesExercices.filter((exercice) => filtreStatic(exercice, inputSearch))
     // retirer les doublons (le référentiel statique contient des classements par thèmes
     //  et années avec les mêmes exercices !!!)
@@ -124,15 +125,15 @@
   /**
    * Détermine si un exercice est dans les résultats de la recherche ou pas
    */
-  function filtre (exercice: InterfaceReferentiel, inputSearch: string, isCanPossible: boolean) {
+  function filtre(exercice: InterfaceReferentiel, inputSearch: string, isCanPossible: boolean) {
     // Les exercices statiques ont une année on les exclue de la recherche
     if (!inputSearch || exercice.annee) return false
     // Cela permet de trouver les problèmes de construction du dictionnaire
-    if (!exercice.id) console.log('Manque id', exercice)
-    if (inputSearch.includes('can')) {
+    if (!exercice.id) console.log("Manque id", exercice)
+    if (inputSearch.includes("can")) {
       isCanInclusDansResultats = true
     }
-    const inputs = inputSearch.split(' ')
+    const inputs = inputSearch.split(" ")
     const results = []
     for (const input of inputs) {
       // Pour les exercices statiques exercice.titre n'existe pas
@@ -144,16 +145,16 @@
     }
     if (!isCanPossible) {
       // Pour les exercices statiques exercice.id n'existe pas
-      results.push(exercice.id && !exercice.id.includes('can'))
+      results.push(exercice.id && !exercice.id.includes("can"))
     }
     return results.every((value) => value === true)
   }
 
   const dispatch = createEventDispatcher()
 
-  function triggerAction () {
-    dispatch('specific', {
-      msg: 'Action triggered !'
+  function triggerAction() {
+    dispatch("specific", {
+      msg: "Action triggered !",
     })
   }
 
@@ -166,10 +167,10 @@
   /**
    * Si Ctrl+K afficher le champ de recherche avec focus
    */
-  function onCtrklK () {
+  function onCtrklK() {
     getSearchDisplayed()
   }
-  function matchOnFilteredList (exoId: string) {
+  function matchOnFilteredList(exoId: string) {
     for (let i = 0; i < filteredList.length; i++) {
       if (inputSearch === filteredList[i].id) {
         return i
@@ -180,13 +181,13 @@
   /**
    * Si Entrée et qu'un seul exercice matche alors on ajoute l'exercice à la liste
    */
-  function onEnterDown () {
+  function onEnterDown() {
     const matchingIndex = matchOnFilteredList(inputSearch)
     if (matchingIndex !== null) {
       const newExercise = {
         url: filteredList[matchingIndex].url,
         id: filteredList[matchingIndex].id,
-        uuid: filteredList[matchingIndex].uuid
+        uuid: filteredList[matchingIndex].uuid,
       }
       exercicesParams.update((list) => [...list, newExercise])
     }
@@ -195,18 +196,18 @@
    *
    * @param event
    */
-  function onKeyDown (event: KeyboardEvent) {
+  function onKeyDown(event: KeyboardEvent) {
     if (event.repeat) return
     switch (event.key) {
-      case 'Control':
+      case "Control":
         isCtrlDown = true
         event.preventDefault()
         break
-      case 'k':
+      case "k":
         isKDown = true
         event.preventDefault()
         break
-      case 'Enter':
+      case "Enter":
         if (isInputFocused) {
           isEnterDown = true
         }
@@ -221,17 +222,17 @@
     }
   }
 
-  function onKeyUp (event: KeyboardEvent) {
+  function onKeyUp(event: KeyboardEvent) {
     switch (event.key) {
-      case 'Control':
+      case "Control":
         isCtrlDown = false
         event.preventDefault()
         break
-      case 'k':
+      case "k":
         isKDown = false
         event.preventDefault()
         break
-      case 'Enter':
+      case "Enter":
         isEnterDown = false
         break
     }
@@ -251,7 +252,7 @@
   <div class="relative flex flex-col w-full">
     <input
       type="text"
-      id="searchInputField"
+      id="searchInputField-{getUniqueStringBasedOnTimeStamp()}"
       class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
       placeholder="🔍 Thème, identifiant..."
       bind:value={inputSearch}
