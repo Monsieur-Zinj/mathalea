@@ -55,10 +55,37 @@
       <i class="bx bx-sm {selected ? 'bx-minus' : 'bx-plus'}" />
     </button>
   </div>
-  <div class="absolute top-3 right-3">
+  <div class="absolute top-3 right-3 rotate-frac">
     <div class="relative">
       <StarIcon class="{selected ? 'container' : 'hidden'} top-0 left-0 h-12 w-12 text-coopmaths-warn-800 dark:text-coopmathsdark-warn" />
       <i class="{selected ? 'container' : 'hidden'} absolute top-1 left-1 bx bx-check bx-md text-coopmaths-canvas dark:text-coopmathsdark-canvas" />
     </div>
   </div>
 </div>
+
+<style>
+  @-webkit-keyframes rotation {
+    0%,
+    70% {
+      -webkit-transform: rotate(0deg);
+    }
+    80%,
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @keyframes rotation {
+    0%,
+    70% {
+      transform: rotate(0deg);
+    }
+    80%,
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .rotate-frac {
+    -webkit-animation: rotation 4s infinite linear;
+    animation: rotation 4s infinite linear;
+  }
+</style>
