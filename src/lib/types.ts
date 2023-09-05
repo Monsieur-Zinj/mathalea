@@ -16,9 +16,12 @@ export interface Activity {globalOptions: InterfaceGlobalOptions, exercicesParam
 export interface StudentAssignment {resultsByExercice: InterfaceResultExercice[]}
 
 // Pour les listes d'entrées de référentiel dans le side menu
-// export enum ReferentielTypes { OUTILS = 'outils', EXERCICES = 'exercices'}
+// * `title` : titre affiché dans le menu
+// * `content` : le référentiel lui-même
+// * `type` : type du référentiel pour gérer l'affichage (exploration récursive ou pas par exemple)
+// * `activated`: flag pour afficher ou pas le référentiel
 export type ReferentielTypes = 'outils' | 'exercices' | 'ressources' | 'bibliotheque' | 'apps' | 'examens'
-export interface ReferentielForList {title: string, content: InterfaceReferentiel[], type: ReferentielTypes}
+export interface ReferentielForList {title: string, content: InterfaceReferentiel[], type: ReferentielTypes, activated: boolean}
 
 // Pour designer la page appelant un export
 export type CallerComponentType = '' | 'tools'
