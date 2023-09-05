@@ -7,7 +7,7 @@ import {
 } from '../../modules/outils.js'
 import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'
 export const titre = 'Traduire des phrases en calculs et réciproquement'
-export const dateDeModificationImportante = '08/05/2023'
+export const dateDeModifImportante = '08/05/2023'
 /**
  * Mettre en relation un calcul, une traduction en français, une expression, un résultat, pour les décliner dans différents exercices.
  * Exercice sur le vocabulaire : somme,différence, produit, quotient...

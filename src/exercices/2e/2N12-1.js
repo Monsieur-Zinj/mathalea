@@ -4,13 +4,12 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '27/10/2021'
 /**
  * Clone de 6N20-1 pour les 2nde
  *
  * @author Jean-Claude Lhote
  */
-export const dateDeModificationImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
+export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 export const uuid = 'd309b'
 export const ref = '2N12-1'
 export default function EncadrerFractionEntre2Entiers2nde () {

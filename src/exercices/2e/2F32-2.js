@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '1/08/2021'
-export const dateDeModificationImportante = '5/08/2022'
+export const dateDeModifImportante = '5/08/2022'
 
 /**
  * Description didactique de l'exercice

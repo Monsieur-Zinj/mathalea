@@ -6,7 +6,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
 
 export const titre = 'Constructibilité des triangles via les longueurs ou les angles'
-export const dateDeModificationImportante = '24/08/2023'
+export const dateDeModifImportante = '24/08/2023'
 
 /**
  * Constructibilité des triangles

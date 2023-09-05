@@ -8,7 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModificationImportante = '09/05/2023'
+export const dateDeModifImportante = '09/05/2023'
 /**
 * Modèle d'exercice très simple pour la course aux nombres
 * @author Stéphane Guyon et Gilles Mora pour augmenter les cas

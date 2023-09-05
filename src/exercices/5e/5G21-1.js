@@ -1,7 +1,7 @@
 import ConstructibiliteDesTriangles from './_Constructibilite_des_triangles.js'
 
 export const titre = 'Justifier la construction des triangles via les longueurs'
-export const dateDeModificationImportante = '24/08/2023'
+export const dateDeModifImportante = '24/08/2023'
 
 /**
  * Justifier la construction des triangles via les longueurs'

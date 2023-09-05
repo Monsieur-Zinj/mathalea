@@ -1,6 +1,6 @@
 import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Traduire une expression par une phrase'
-export const dateDeModificationImportante = '25/03/2022'
+export const dateDeModifImportante = '25/03/2022'
 
 /**
  * @author Jean-Claude Lhote
