@@ -9,7 +9,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
-// export const titre = 'Puissances de 10 : Le sens des règles de calculs'
 export const titre = 'Effectuer des calculs qu\'avec des puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
