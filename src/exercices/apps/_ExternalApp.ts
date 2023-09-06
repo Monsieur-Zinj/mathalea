@@ -6,8 +6,8 @@ const titre = 'Application externe'
 
 class ExternalApp {
   typeExercice: string
-  numeroExercice: number
-  sup: string
+  numeroExercice!: number
+  sup!: string
   titre: string
   container: HTMLDivElement
   iframe: HTMLIFrameElement
@@ -71,6 +71,7 @@ class ExternalApp {
 
   handleScore () {
     window.addEventListener('message', (event) => {
+      console.log('externalApp - handleScore', event)
       if (event.data?.numeroExercice !== this.numeroExercice) return
       if (event.data?.type === 'mathaleaSendScore') {
         this.state = 'done'
@@ -96,7 +97,9 @@ class ExternalApp {
           return l
         })
         const message = { type: 'mathaleaHasScore', score: numberOfPoints, numeroExercice: indice, numberOfQuestions, finalState: answers }
-        this.iframe.contentWindow.postMessage(message, '*')
+        if (this.iframe !== null && this.iframe.contentWindow !== null) {
+          this.iframe.contentWindow.postMessage(message, '*')
+        }
       }
     })
   }
