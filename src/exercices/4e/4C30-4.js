@@ -29,7 +29,7 @@ export default class PuissancesEtPrefixe extends Exercice {
 
   nouvelleVersion () {
     this.interactifType = (this.sup === 1) ? 'listeDeroulante' : 'mathLive'
-    this.consigne = (this.sup === 1) ? 'Compléter avec le préfixe correspondant.' : 'Compléter avec la puissance de 10 correspondant à ce préfixe.'
+    this.consigne = this.sup === 1 ? ('Trouver le préfixe correspondant ' + (this.nbQuestions === 1 ? 'à la puissance de 10 suivante.' : 'aux puissances de 10 suivantes.')) : ('Trouver la puissance de 10 correspondant ' + (this.nbQuestions === 1 ? 'au préfixe suivant.' : 'aux préfixes suivants.'))
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -44,7 +44,9 @@ export default class PuissancesEtPrefixe extends Exercice {
         setReponse(this, i, prefixe)
         texteCorr = `$10^{${exposant}}$, c'est ${description} donc le préfixe correspondant est ${texteEnCouleurEtGras(prefixe)}.`
       } else {
-        texte = `${prefixe}` + ajouteChampTexteMathLive(this, i, 'texte')
+        texte = this.interactif
+          ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, 'texte')
+          : `${prefixe}`
         if (exposant !== 1) setReponse(this, i, `10^{${exposant}}`)
         else setReponse(this, i, ['10^{1}', '10'])
 
