@@ -7416,7 +7416,7 @@
         "url": "5e/5C12.js",
         "uuid": "e61fc",
         "id": "5C12",
-        "titre": "Calculer une expression numérique en détaillant les calculs",
+        "titre": "Calculer en respectant les priorités opératoires",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8831,7 +8831,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amc": false
+          "amcType": "AMCNum",
+          "amc": true
         }
       },
       "4C10-8": {
@@ -9057,7 +9058,7 @@
         "url": "4e/4C30.js",
         "uuid": "f5dcf",
         "id": "4C30",
-        "titre": "Puissances de 10 : Le sens des règles de calculs",
+        "titre": "Effectuer des calculs qu'avec des puissances de 10",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9092,7 +9093,7 @@
         "url": "4e/4C30-3.js",
         "uuid": "36f8b",
         "id": "4C30-3",
-        "titre": "Donner l'écriture entière ou fraction d'une puissance",
+        "titre": "Donner l'écriture entière d'une puissance",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
