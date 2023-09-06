@@ -9,7 +9,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { sp } from '../../lib/outils/outilString.js'
 
-export const titre = 'Donner l\'écriture entière ou fraction d\'une puissance'
+export const titre = 'Donner l\'écriture entière d\'une puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
