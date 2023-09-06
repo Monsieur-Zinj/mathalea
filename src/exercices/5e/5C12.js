@@ -12,7 +12,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpenNum'
-export const titre = 'Calculer une expression numérique en détaillant les calculs'
+export const titre = 'Calculer en respectant les priorités opératoires'
 
 /**
  * @author Jean-Claude Lhote
@@ -22,7 +22,6 @@ export const uuid = 'e61fc'
 export const ref = '5C12'
 export default function CalculerUneExpressionNumerique () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -57,38 +56,21 @@ export default function CalculerUneExpressionNumerique () {
     }
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // let val1
-      // let val2
       this.autoCorrection[i] = {}
       nbOperations = listeTypeDeQuestions[i]
-      // A priori, this.litteral jamais défini. Du coup, mise en commentaires de nombreuses lignes et correction de certaines d'entre elles.
-      // val1 = randint(2, 5)
-      // val2 = randint(6, 9)
-      // if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
-      // if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, !this.sup2) }
       if (this.version > 2 && nbOperations === 1) nbOperations++
       resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2)
       expf = resultats[0]
       expn = resultats[1]
       expc = resultats[2]
-      // nbval = resultats[3]
       if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-      this.consigne = 'Calculer en respectant les priorités opératoires.'
-      // if (!this.litteral) {
+      this.consigne = 'Calculer en respectant les priorités opératoires'
+      this.consigne += this.interactif ? '.' : 'et en détaillant.'
       if (!this.sup4) {
         texte = `${expn}`
       } else {
         texte = `${lettreDepuisChiffre(i + 1)} = ${expn}`
       }
-      /*
-            } else if (nbval === 2) {
-              texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
-            } else {
-              texte = `Pour $x=${val1}$, calculer ${expn}.`
-            }
-            */
-
-      // if (!this.litteral) {
       texteCorr = ''
       if (!this.sup4) {
         expc = expc.substring(1, expc.length - 1).split(' = ')
@@ -110,15 +92,6 @@ export default function CalculerUneExpressionNumerique () {
           texteCorr += nbEtapes === etapes.length ? `$${miseEnEvidence(etape)}$ <br>` : `$${etape}$ <br>`
         })
       }
-      /*
-            } else if (nbval === 2) {
-              texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
-            } else {
-              texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
-            }
-      */
-
-      // reponse = this.litteral ? parseInt(expc.split('=')[expc.split('=').length - 1]) : resultats[4]
       reponse = resultats[4]
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
