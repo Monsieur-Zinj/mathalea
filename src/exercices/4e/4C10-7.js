@@ -10,10 +10,13 @@ import Exercice from '../Exercice.js'
 import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Opérations avec deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum' // type de question AMC
 
 /**
  * Effectuer des opérations avec 2 nombres relatifs
@@ -82,8 +85,12 @@ export default function ExerciceOperationsRelatifs () {
             texte = `$ ${ecritureNombreRelatif(a)}  \\times ${ecritureNombreRelatif(b)} =$`
             texteCorr = `$ ${ecritureNombreRelatifc(a)} \\times ${ecritureNombreRelatifc(b)}  = ${ecritureNombreRelatifc(a * b)} $`
           }
-          setReponse(this, i, a * b)
-          texte += ajouteChampTexteMathLive(this, i)
+          setReponse(this, i, a * b, {
+            signe: true,
+            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a * b)),
+            decimals: 0
+          })
+          if(this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 2: // quotients
           if (this.sup) {
@@ -93,19 +100,27 @@ export default function ExerciceOperationsRelatifs () {
             texte = `$ ${ecritureNombreRelatif(a)}  \\div ${ecritureNombreRelatif(b)} =$`
             texteCorr = `$ ${ecritureNombreRelatifc(a)}  \\div ${ecritureNombreRelatifc(b)} =${ecritureNombreRelatifc(a / b)}$`
           }
-          setReponse(this, i, calcul(a / b))
-          texte += ajouteChampTexteMathLive(this, i)
+          setReponse(this, i, calcul(a / b), {
+            signe: true,
+            digits: 1,
+            decimals: 0
+          })
+          if(this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 3: // additions
           if (this.sup) {
             texte = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  =$`
-            texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  = ${ecritureNombreRelatif(a + b)} $`
+            texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  = ${calcul(a + b)} $`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(b)}  =$`
             texteCorr = `$  ${ecritureNombreRelatifc(a)} + ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a + b)} $`
           }
-          setReponse(this, i, a + b)
-          texte += ajouteChampTexteMathLive(this, i)
+          setReponse(this, i, a + b, {
+            signe: true,
+            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)),
+            decimals: 0
+          })
+          if(this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 4: // soustractions
           if (this.sup) {
@@ -120,13 +135,19 @@ export default function ExerciceOperationsRelatifs () {
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
             decimals: 0
           })
-          texte += ajouteChampTexteMathLive(this, i)
+          if(this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
       }
+
+      
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i].propositions = [{ statut: 0, sanscadre: false, texte: texteCorr }]
+          this.autoCorrection[i].enonce = 'Calculer.\\\\' + texte
+        }
         i++
       }
       cpt++
