@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Diviser par 9'
 export const interactifReady = true
@@ -28,35 +28,35 @@ export default function DivisionPar9 () {
     switch (choice([1, 2, 3])) {
       case 1:
         a = b * 90 + 9
-        this.question = `Calculer $${texNombre(a)}\\div 9$.`
-        this.reponse = calcul(a / 9)
-        this.correction = `$${texNombre(a)}\\div 9 = ${texNombre(this.reponse)}$`
+        this.question = `Calculer $${texNombre(a,0)}\\div 9$.`
+        this.reponse = a / 9
+        this.correction = `$${texNombre(a,0)}\\div 9 = ${texNombre(this.reponse,0)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
-        On décompose $${texNombre(a)}$ en $${texNombre(b * 90)}+9$.<br>
-$${texNombre(b * 90)}\\div 9= ${texNombre(b * 10)}$ et $9\\div 9=1$. <br>
-On obtient donc comme résultat : $${texNombre(a)}\\div 9=${texNombre(b * 10)}+1$, soit $${texNombre(a / 9)}$.
+        On décompose $${texNombre(a,0)}$ en $${texNombre(b * 90,0)}+9$.<br>
+$${texNombre(b * 90,0)}\\div 9= ${texNombre(b * 10,0)}$ et $9\\div 9=1$. <br>
+On obtient donc comme résultat : $${texNombre(a,0)}\\div 9=${texNombre(b * 10,0)}+1$, soit $${texNombre(this.reponse,0)}$.
           `)
         break
       case 2:
         a = b * 900 + 9
-        this.question = `Calculer $${texNombre(a)}\\div 9$.`
-        this.reponse = calcul(a / 9)
-        this.correction = `$${texNombre(a)}\\div 9 = ${texNombre(this.reponse)}$`
+        this.question = `Calculer $${texNombre(a,0)}\\div 9$.`
+        this.reponse = a / 9
+        this.correction = `$${texNombre(a,0)}\\div 9 = ${texNombre(this.reponse,0)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
-        On décompose $${texNombre(a)}$ en $${texNombre(b * 900)}+9$.<br>
-$${texNombre(b * 900)}\\div 9= ${texNombre(b * 100)}$ et $9\\div 9=1$. <br>
-On obtient donc comme résultat : $${texNombre(a)}\\div 9=${texNombre(b * 100)}+1$, soit $${texNombre(a / 9)}$.
+        On décompose $${texNombre(a,0)}$ en $${texNombre(b * 900,0)}+9$.<br>
+$${texNombre(b * 900,0)}\\div 9= ${texNombre(b * 100,0)}$ et $9\\div 9=1$. <br>
+On obtient donc comme résultat : $${texNombre(a,0)}\\div 9=${texNombre(b * 100,0)}+1$, soit $${texNombre(this.reponse,0)}$.
           `)
         break
       case 3:
         a = b * 900 + 90
-        this.question = `Calculer $${texNombre(a)}\\div 9$.`
-        this.reponse = calcul(a / 9)
-        this.correction = `$${texNombre(a)}\\div 9 = ${texNombre(this.reponse)}$`
+        this.question = `Calculer $${texNombre(a,0)}\\div 9$.`
+        this.reponse = a / 9
+        this.correction = `$${texNombre(a,0)}\\div 9 = ${texNombre(this.reponse,0)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
-        On décompose $${texNombre(a)}$ en $${texNombre(b * 900)}+90$.<br>
-$${texNombre(b * 900)}\\div 9= ${texNombre(b * 100)}$ et $90\\div 9=10$. <br>
-On obtient donc comme résultat : $${texNombre(a)}\\div 9=${texNombre(b * 100)}+10$, soit $${texNombre(a / 9)}$.
+        On décompose $${texNombre(a,0)}$ en $${texNombre(b * 900,0)}+90$.<br>
+$${texNombre(b * 900,0)}\\div 9= ${texNombre(b * 100,0)}$ et $90\\div 9=10$. <br>
+On obtient donc comme résultat : $${texNombre(a,0)}\\div 9=${texNombre(b * 100,0)}+10$, soit $${texNombre(this.reponse,0)}$.
           `)
         break
     }
