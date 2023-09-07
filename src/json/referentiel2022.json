@@ -11770,7 +11770,7 @@
         "url": "2e/2G33-2.js",
         "uuid": "e715d",
         "id": "2G33-2",
-        "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
+        "titre": "Déterminer si des droites sont parallèles, sécantes ou confondues",
         "tags": {
           "interactif": false,
           "amc": false
