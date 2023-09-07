@@ -70,7 +70,7 @@ export function numberFormat (nb) {
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
+export function texNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
   const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
@@ -193,7 +193,7 @@ export function scientifiqueToDecimal (mantisse, exp) {
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
+export function stringNombre (nb, precision , completerZeros = false, aussiCompleterEntiers = false) {
   return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
 
@@ -294,7 +294,10 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
     }
     return nombre
   } // fin insereEspacesNombre()
-
+if (precision === undefined){
+  window.notify(`texNombre ou stringNombre appelé sans précision`)
+  precision = 8
+}
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
     window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
