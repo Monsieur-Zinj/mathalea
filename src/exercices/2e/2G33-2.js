@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from 
 import Exercice from '../Exercice.js'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Déterminer si des droites $(d)$ et $(d\')$ sont parallèles, sécantes ou confondues :'
+export const titre = 'Déterminer si des droites sont parallèles, sécantes ou confondues'
 
 /**
  * Description didactique de l'exercice

@@ -20,7 +20,7 @@ export default function CalculMoitieFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatInteractif = 'fraction'
+  this.formatInteractif = 'fractionEgale'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const listeFractions = [[2, 3], [2, 5], [2, 7], [2, 9], [2, 11],
@@ -35,7 +35,7 @@ export default function CalculMoitieFraction () {
     const f = new FractionEtendue(a[0], a[1])
     const reponse = new FractionEtendue(a[0], a[1] * 2).simplifie()
     this.reponse = reponse
-    this.question = `Calculer la moitié de $${f.texFraction}$ sous la forme d'une fraction irréductible.`
+    this.question = `Calculer la moitié de $${f.texFraction}$ sous la forme d'une fraction irréductible.` + a[0] + ' ' + a[1] * 2
     this.correction = `$${f.texFraction}\\div 2=${f.texFraction}\\times \\dfrac{1}{2}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$
           `
     this.canEnonce = this.question
