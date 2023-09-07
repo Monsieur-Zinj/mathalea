@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { evaluate, format } from 'mathjs'
+import {evaluate, format, round} from 'mathjs'
 import { context } from '../../modules/context.js'
 import {
   tropDeChiffres
@@ -294,9 +294,42 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
     }
     return nombre
   } // fin insereEspacesNombre()
-if (precision === undefined){
-  window.notify(`texNombre ou stringNombre appelé sans précision`)
-  precision = 8
+  /**
+   * retourne la précision souhaitée pour le number x, c'est à dire le nombre de chiffres significatifs après la virgule
+   * @param {number} x
+   * @return {number}
+   */
+  const trouveLaPrecision = function (x) {
+    let fix = x.toFixed(18)
+    if (fix.includes('.')){
+      fix = fix.split('.')[1]
+    }
+    let xx = Number('.'+fix)
+    let precision = 1
+    for (let i = 1; i< fix.length;i++){
+      let x = round(Number('.'+fix.substring(0,i+1)),i)
+      let diff = Math.abs(x-xx)
+      if (diff>1e-10){
+        precision++
+      } else
+      {
+        return precision
+      }
+    }
+    return precision
+  }
+  // fin trouveLaPrecision()
+if (precision === undefined){ // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
+   if (nb instanceof Decimal){
+    const nbchiffresSignificatifs = nb.sd(true)
+    precision = nbchiffresSignificatifs - nb.trunc().sd(true)
+  } else {
+    if (Number.isInteger(nb)) {
+      precision = 0
+  } else {
+precision = trouveLaPrecision(nb)
+    }
+  }
 }
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
