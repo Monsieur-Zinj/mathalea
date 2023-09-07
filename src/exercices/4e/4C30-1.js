@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
@@ -71,9 +71,6 @@ export default function PuissancesEncadrement () {
     ) {
       // nombre entier positif, entre 1 et 10, puis 10 et 100 puis ....100 000 et 1 000 000
       const entPos = []
-      const nombreEntier = []
-      const nombreDecimal = []
-      const nombreDecInfUn = []
 
       for (let j = this.classe === 2 ? 0 : 1; j < 6; j++) {
         signe = signeChange ? choice([-1, 1]) : 1
@@ -84,32 +81,31 @@ export default function PuissancesEncadrement () {
           puissance_inf_num: signe === 1 ? `${texNombre(10 ** j)}` : `${texNombre(-1 * 10 ** (j + 1))}`,
           puissance_sup_num: signe === 1 ? `${texNombre(10 ** (j + 1))}` : `${texNombre(-1 * 10 ** j)}`
         })
-        nombreEntier.push(signe * randint(10 ** j + 1, 10 ** (j + 1)))
       }
 
       // nombre décimal positif entre 1 et 10 000 avec 1,2,3 puis 4 décimales
       const decPos = []
       for (let j = this.classe === 2 ? 0 : 1; j < 4; j++) {
+        signe = signeChange ? choice([-1, 1]) : 1
         decPos.push({
-          val: `${texNombre(calcul(signe * randint(10001, 99999) / 10 ** (4 - j)))}`,
+          val: `${texNombre(signe * randint(10001, 99999) / 10 ** (4 - j))}`,
           puissance_inf: signe === 1 ? `10^{${j}}` : `-10^{${j + 1}}`,
           puissance_sup: signe === 1 ? `10^{${j + 1}}` : `-10^{${j}}`,
           puissance_inf_num: signe === 1 ? `${texNombre(10 ** j)}` : `${texNombre(-1 * 10 ** (j + 1))}`,
           puissance_sup_num: signe === 1 ? `${texNombre(10 ** (j + 1))}` : `${texNombre(-1 * 10 ** j)}`
         })
-        nombreDecimal.push(calcul(signe * randint(10001, 99999) / 10 ** (4 - j)))
       }
       // nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
       const decPosInfUn = []
       for (let j = this.classe === 2 ? 0 : 1; j < 4; j++) {
+        signe = signeChange ? choice([-1, 1]) : 1
         decPosInfUn.push({
-          val: `${texNombre(calcul(signe * randint(10 ** (4 - j - 1) + 1, 10 ** (4 - j) - 1) / 10000))}`,
+          val: `${texNombre(signe * randint(10 ** (4 - j - 1) + 1, 10 ** (4 - j) - 1) / 10000,4)}`,
           puissance_inf: signe === 1 ? `10^{${-(j + 1)}}` : `-10^{${-j}}`,
           puissance_sup: signe === 1 ? `10^{${-j}}` : `-10^{${-(j + 1)}}`,
-          puissance_inf_num: signe === 1 ? `${texNombre(calcul(10 ** -(j + 1)))}` : `${texNombre(calcul(-1 * 10 ** -j))}`,
-          puissance_sup_num: signe === 1 ? `${texNombre(calcul(10 ** -j))}` : `${texNombre(calcul(-1 * 10 ** -(j + 1)))}`
+          puissance_inf_num: signe === 1 ? `${texNombre(10 ** -(j + 1),4)}` : `${texNombre(-1 * 10 ** -j,4)}`,
+          puissance_sup_num: signe === 1 ? `${texNombre(10 ** -j,3)}` : `${texNombre(-1 * 10 ** -(j + 1),4)}`
         })
-        nombreDecInfUn.push(calcul(randint(signe * 10 ** (4 - j - 1) + 1, 10 ** (4 - j)) / 10000))
       }
       if (listeTypeDeQuestions[i] < 7) { // nombre entier positif
         texte = this.interactif
