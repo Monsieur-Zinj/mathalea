@@ -2,7 +2,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver un ordre de grandeur (QCM)'
 export const interactifReady = true
@@ -28,9 +28,10 @@ export default function OrdreDeGrandeur () {
       const a = randint(3, 7)
       const b = randint(2, 9)
       const c = randint(1, 9)
+      const nombre = a * 100 + b * 10 + c
       const d = randint(5, 9)
-      const resultat = calcul((a * 100 + b * 10 + c) * d)
-      let texte = `$${texNombre(a * 100 + b * 10 + c)}\\times ${d}$<br>
+      const resultat = nombre * d
+      let texte = `$${texNombre(nombre,0)}\\times ${d}$<br>
     Choisir la bonne réponse sans effectuer précisément le calcul.`
       // Ajout avant l'ajout des propositions de réponse
       // ça serait mieux en uniformisant avec this.question pour tous les exos can
@@ -39,15 +40,15 @@ export default function OrdreDeGrandeur () {
         enonce: texte,
         propositions: [
           {
-            texte: `$${texNombre(resultat)}$`,
+            texte: `$${texNombre(resultat,0)}$`,
             statut: true
           },
           {
-            texte: `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`,
+            texte: `$${texNombre(d * 1000 + nombre,0)}$`,
             statut: false
           },
           {
-            texte: `$${texNombre((a * 1000 + b * 100 + c) * d)}$`,
+            texte: `$${texNombre((a * 1000 + b * 100 + c) * d,0)}$`,
             statut: false
           }
         ]
@@ -56,19 +57,19 @@ export default function OrdreDeGrandeur () {
       if (!context.isAmc) {
         texte += monQcm.texte
       }
-      let texteCorr = `$${texNombre(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$<br>
+      let texteCorr = `$${texNombre(nombre,0)} \\times ${d} = ${texNombre(resultat,0)}$<br>
         `
-      if (a * 100 + b * 10 + c > a * 100 + 50) {
+      if (nombre > a * 100 + 50) {
         texteCorr += texteEnCouleur(`
     Mentalement : <br>
-On remplace le premier facteur $${a * 100 + b * 10 + c}$ par $${(a + 1) * 100}$, on calcule
-$${(a + 1) * 100}\\times ${d}=${texNombre(((a + 1) * 100) * d)}$ et on sélectionne le résultat qui s'en rapproche le plus.
+On remplace le premier facteur $${texNombre(nombre,0)}$ par $${(a + 1) * 100}$, on calcule
+$${(a + 1) * 100}\\times ${d}=${texNombre(((a + 1) * 100) * d,0)}$ et on sélectionne le résultat qui s'en rapproche le plus.
     `)
       } else {
         texteCorr += texteEnCouleur(`
     Mentalement : <br>
-    On remplace le premier facteur $${a * 100 + b * 10 + c}$ par $${a * 100}$, on calcule
-    $${a * 100}\\times ${d}=${texNombre(a * 100 * d)}$ et on sélectionne le résultat qui s'en rapproche le plus.
+    On remplace le premier facteur $${texNombre(nombre,0)}$ par $${a * 100}$, on calcule
+    $${a * 100}\\times ${d}=${texNombre(a * 100 * d,0)}$ et on sélectionne le résultat qui s'en rapproche le plus.
            `)
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

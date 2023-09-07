@@ -11,7 +11,7 @@ import { sp } from './outilString.js'
 const math = { format, evaluate }
 /**
  *
- * @param {Entier} n
+ * @param {number} n
  * retourne le code Latex de la racine carrée de n réduite
  * @author Jean-CLaude Lhote
  */
@@ -37,7 +37,10 @@ export function nombreDecimal (expression, arrondir = false) {
 
 /**
  * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
- * @param {string} expression l'expression à calculer
+ * @param {number|Decimal} nombre l'expression à calculer
+ * @param {string} positif couleur si positif
+ * @param {string} negatif couleur si negatif
+ * @param {string} nul couleur si 0
  */
 export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black') {
   if (nombre > 0) return miseEnEvidence(texNombre(nombre), positif)
@@ -61,13 +64,13 @@ export function numberFormat (nb) {
  * Avec comme avantage immédiat pour le format Decimal : precision est illimité.
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Guillaume Valmont
- * @param {number} nb nombre qu'on veut afficher
+ * @param {number|Decimal} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
  * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
+export function texNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
   const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
@@ -79,7 +82,7 @@ export function texNombre (nb, precision = 8, completerZeros = false, aussiCompl
 export function texNombre2 (nb) {
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
-  let partieEntiere = ''
+  let partieEntiere
   if (rangVirgule !== -1) {
     partieEntiere = nombre.substring(0, rangVirgule)
   } else {
@@ -115,7 +118,7 @@ export function texNombre2 (nb) {
 export function texNombre3 (nb) {
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
-  let partieEntiere = ''
+  let partieEntiere
   if (rangVirgule !== -1) {
     partieEntiere = nombre.substring(0, rangVirgule)
   } else {
@@ -190,7 +193,7 @@ export function scientifiqueToDecimal (mantisse, exp) {
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
+export function stringNombre (nb, precision , completerZeros = false, aussiCompleterEntiers = false) {
   return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
 
@@ -202,7 +205,7 @@ export function stringNombre (nb, precision = 8, completerZeros = false, aussiCo
  * @author Guillaume Valmont
  * @param {number} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
- * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
+ * @param {'stringNombre'|'texNombre'} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
  * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
  * @param {boolean} aussiCompleterEntiers true si on veut ajouter des zéros inutiles aux entiers
  */
@@ -213,7 +216,9 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
    * @author Rémi Angot
    * @author Guillaume Valmont
    * @param {number} nb nombre à afficher
+   * @param {number} nbChiffresPartieEntiere nombre de chiffres de la partie entière
    * @param {number} precision nombre de décimales demandé
+   * @param {'stringNombre'|'texNombre'} fonction la fonction appelante
    * @returns string avec le nombre dans le format français
    */
   function insereEspacesNombre (nb, nbChiffresPartieEntiere, precision, fonction) {
@@ -221,6 +226,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
     let nombre
     const maximumSignificantDigits = nbChiffresPartieEntiere + precision
     if (nb instanceof Decimal) {
+    Decimal.set({toExpNeg: -precision -1})
       signe = nb.isNeg()
       if (nb.abs().gte(1)) {
         if (completerZeros) {
@@ -259,7 +265,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
       }
     }
     const rangVirgule = nombre.indexOf(',')
-    let partieEntiere = ''
+    let partieEntiere
     if (rangVirgule !== -1) {
       partieEntiere = nombre.substring(0, rangVirgule)
     } else {
@@ -288,7 +294,10 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
     }
     return nombre
   } // fin insereEspacesNombre()
-
+if (precision === undefined){
+  window.notify(`texNombre ou stringNombre appelé sans précision`)
+  precision = 8
+}
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
     window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })

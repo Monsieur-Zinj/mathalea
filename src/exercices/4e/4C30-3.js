@@ -58,14 +58,14 @@ export default function EcritureDecimalePuissance () {
           a = listeDeCalculs[i][0]
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${n}}$`
-          texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${miseEnEvidence(texNombre(a ** n))}$`
+          texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${miseEnEvidence(texNombre(a ** n,0))}$`
           setReponse(this, i, a ** n)
           break
         case '-':
           a = listeDeCalculs[i][0]
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${-n}}$`
-          texteCorr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a, n)}}=${miseEnEvidence('\\dfrac{1}{' + texNombre(a ** n)) + '}'}$`
+          texteCorr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a, n)}}=${miseEnEvidence('\\dfrac{1}{' + texNombre(a ** n,0)) + '}'}$`
           setReponse(this, i, fraction(1, a ** n), { formatInteractif: 'fraction' })
           break
       }
