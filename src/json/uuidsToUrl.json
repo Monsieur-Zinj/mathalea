@@ -765,6 +765,7 @@
   "99d95": "6e/6S11.js",
   "fc42d": "6e/beta_liste.js",
   "challengeRelatif": "apps/challengeRelatif.ts",
+  "challengeTables": "apps/challengeTables.ts",
   "permisEquerre": "apps/permisEquerre.ts",
   "permisLitteral": "apps/permisLitteral.ts",
   "betaFonction": "beta/betaEtudeFonction.js",

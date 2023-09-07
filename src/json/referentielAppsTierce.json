@@ -22,6 +22,12 @@
     "rubrique": "Applications Coopmaths",
     "liste": {
       "app01": {
+        "title": "Challenge Tables",
+        "presentation": "Tables de multiplications en temps limité.",
+        "imgPath": "images/apps/app_challenge_tables.png",
+        "uuid": "challengeTables"
+      },
+      "app02": {
         "title": "Challenge Relatifs",
         "presentation": "Calculs avec des nombres relatifs en temps limité.",
         "imgPath": "images/apps/app_challenge_relatifs.png",

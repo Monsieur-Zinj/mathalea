@@ -310,6 +310,7 @@
   "src/exercices/PE/PEG23.js",
   "src/exercices/PE/PEG24.js",
   "src/exercices/apps/challengeRelatif.ts",
+  "src/exercices/apps/challengeTables.ts",
   "src/exercices/apps/permisEquerre.ts",
   "src/exercices/apps/permisLitteral.ts",
   "src/exercices/beta/beta2F31.js",
