@@ -26,7 +26,7 @@ export default function MultiplierAstucieusement () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
-    this.reponse = a*100+b*10+1
+    this.reponse = a*100+b*10+c
     const d = this.reponse/100
     switch (choice([1, 2, 3, 4])) {
       case 1:
