@@ -134,7 +134,7 @@ export default function QuestionsAiresEtPerimetres () {
       <br>`
 
           this.reponse = fraction(n * n, d * d)
-          this.formatInteractif = 'fraction'
+          this.formatInteractif = 'fractionEgale'
           this.canEnonce = this.question// 'Compléter'
           this.canReponseACompleter = ''
         }
@@ -151,7 +151,7 @@ export default function QuestionsAiresEtPerimetres () {
           Ainsi, les longueurs ont été multipliées par  : $\\sqrt{\\dfrac{${n * n}}{${d * d}}}=\\dfrac{${n}}{${d}}$.
       <br>`
           this.reponse = fraction(n * n, d * d)
-          this.formatInteractif = 'fraction'
+          this.formatInteractif = 'fractionEgale'
           this.canEnonce = this.question// 'Compléter'
           this.canReponseACompleter = ''
         }
