@@ -33,8 +33,7 @@ export default function NotationScientifique () {
   this.interactif = false
 
   this.nouvelleVersion = function () {
-    Decimal.toExpNeg = -15
-    Decimal.toExpPos = 20
+    Decimal.set({toExpNeg:-15, toExpPos:  20})
     let reponse
     if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture scientifique des nombres suivants.' : 'Donner l\'écriture scientifique du nombre suivant.'
     else this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture décimale des nombres suivants.' : 'Donner l\'écriture décimale du nombre suivant.'

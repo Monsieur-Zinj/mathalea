@@ -29,9 +29,7 @@ export default function NomExercice () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
-    Decimal.precision = 40
-    Decimal.toExpNeg = -40
-    Decimal.toExpPos = 40
+    Decimal.set({precision: 40,toExpNeg: -40,toExpPos:  40})
     const a = parseFloat(this.sup)
     const precision = parseInt(this.sup2)
     this.listeQuestions = [`StringNombre :  ${stringNombre(a, precision, this.sup3, this.sup4)}        TexNombre : $${texNombre(a, precision, this.sup3, this.sup4)}$<br>`]

@@ -49,7 +49,7 @@ export default function ExerciceConversionsAires () {
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    Decimal.toExpNeg = -15
+    Decimal.set({toExpNeg: -15})
 
     let prefixeMulti = [
       [' da', '\\times100', 100],
@@ -487,6 +487,5 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
   const minTab2 = rTab[0] !== '' || rTab[1] !== '' ? 0 : rTab[2] !== '' || rTab[3] !== '' || force ? 2 : 4
   const maxTab1 = aTab[21] !== '' || aTab[20] !== '' ? 21 : aTab[19] !== '' || aTab[18] !== '' || force ? 19 : 17
   const maxTab2 = rTab[21] !== '' || rTab[20] !== '' ? 21 : rTab[19] !== '' || rTab[18] !== '' || force ? 19 : 17
-  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2) / 2, (1 + Math.max(maxTab1, maxTab2)) / 2, ligne, correction, hectare)
-  return texte
+  return  createTab(aTab, rTab, Math.min(minTab1, minTab2) / 2, (1 + Math.max(maxTab1, maxTab2)) / 2, ligne, correction, hectare)
 }
