@@ -75,11 +75,11 @@ export default function PuissancesEncadrement () {
       for (let j = this.classe === 2 ? 0 : 1; j < 6; j++) {
         signe = signeChange ? choice([-1, 1]) : 1
         entPos.push({
-          val: `${texNombre(signe * randint(10 ** j + 1, 10 ** (j + 1) - 1))}`,
+          val: `${texNombre(signe * randint(10 ** j + 1, 10 ** (j + 1) - 1),0)}`,
           puissance_inf: signe === 1 ? `10^{${j}}` : `-10^{${j + 1}}`,
           puissance_sup: signe === 1 ? `10^{${j + 1}}` : `-10^{${j}}`,
-          puissance_inf_num: signe === 1 ? `${texNombre(10 ** j)}` : `${texNombre(-1 * 10 ** (j + 1))}`,
-          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (j + 1))}` : `${texNombre(-1 * 10 ** j)}`
+          puissance_inf_num: signe === 1 ? `${texNombre(10 ** j,0)}` : `${texNombre(-1 * 10 ** (j + 1),0)}`,
+          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (j + 1),0)}` : `${texNombre(-1 * 10 ** j,0)}`
         })
       }
 
@@ -88,11 +88,11 @@ export default function PuissancesEncadrement () {
       for (let j = this.classe === 2 ? 0 : 1; j < 4; j++) {
         signe = signeChange ? choice([-1, 1]) : 1
         decPos.push({
-          val: `${texNombre(signe * randint(10001, 99999) / 10 ** (4 - j))}`,
+          val: `${texNombre(signe * randint(10001, 99999) / 10 ** (4 - j),4)}`,
           puissance_inf: signe === 1 ? `10^{${j}}` : `-10^{${j + 1}}`,
           puissance_sup: signe === 1 ? `10^{${j + 1}}` : `-10^{${j}}`,
-          puissance_inf_num: signe === 1 ? `${texNombre(10 ** j)}` : `${texNombre(-1 * 10 ** (j + 1))}`,
-          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (j + 1))}` : `${texNombre(-1 * 10 ** j)}`
+          puissance_inf_num: signe === 1 ? `${texNombre(10 ** j,0)}` : `${texNombre(-1 * 10 ** (j + 1),0)}`,
+          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (j + 1),0)}` : `${texNombre(-1 * 10 ** j,0)}`
         })
       }
       // nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
