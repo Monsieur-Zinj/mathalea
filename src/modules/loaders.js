@@ -147,44 +147,19 @@ export function loadScratchblocks () {
  */
 export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
+  const isInIframe = window.self !== window.top
+  // const isInMoodle = get(globalOptions).recorder === 'moodle'
   if (champs.length > 0) {
-    /*
-                                            ██
-                                          ██░░██
-  ░░          ░░                        ██░░░░░░██                            ░░░░
-                                      ██░░░░░░░░░░██
-                                      ██░░░░░░░░░░██
-                                    ██░░░░░░░░░░░░░░██
-                                  ██░░░░░░██████░░░░░░██
-                                  ██░░░░░░██████░░░░░░██
-                                ██░░░░░░░░██████░░░░░░░░██
-                                ██░░░░░░░░██████░░░░░░░░██
-                              ██░░░░░░░░░░██████░░░░░░░░░░██
-                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██
-                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██
-                          ██░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░██
-                          ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
-                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██
-                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██
-                      ██░░░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░░░██
-        ░░            ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
-                        ██████████████████████████████████████████
-    */
-    window.parent = window.self
-    /*
-                   SOLUTION TEMPORAIRE POUR REPARER LE CLAVIER MATHLIVE
-    */
+    if (isInIframe) {
+      //  SOLUTION TEMPORAIRE POUR REPARER LE CLAVIER MATHLIVE DANS UN IFRAME
+      window.parent = window.self
+    }
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
-    // get url param environment
-    const urlParams = new URLSearchParams(window.location.search)
-    const environment = urlParams.get('environment')
     for (const mf of champs) {
       let clavier, raccourcis
-      if (environment === 'dev') {
-        console.log('Clavier en dev')
-        mf.mathVirtualKeyboardPolicy = 'manual'
-      } else {
+      mf.mathVirtualKeyboardPolicy = 'manual'
+      if (isInIframe) {
         mf.mathVirtualKeyboardPolicy = 'sandboxed'
       }
       mf.virtualKeyboardTargetOrigin = '*'
@@ -223,7 +198,6 @@ export async function loadMathLive () {
         raccourcis = raccourcisUnites
       } else {
         //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut
-
         clavier = CLAVIER_COLLEGE
         raccourcis = raccourcisCollege
       }
@@ -233,8 +207,7 @@ export async function loadMathLive () {
       mf.inlineShortcuts = raccourcis
 
       // Evite les problèmes de positionnement du clavier mathématique dans les iframes
-      // if (context.vue === 'exMoodle') {
-      if (window.self !== window.top & environment !== 'dev') { // Si on est dans une iframe
+      if (isInIframe) {
         if (!document.getElementById('fixKeyboardPositionInIframe')) {
           const style = document.createElement('style')
           style.setAttribute('id', 'fixKeyboardPositionInIframe')
