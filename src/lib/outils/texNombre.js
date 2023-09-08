@@ -300,29 +300,35 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
    * @return {number}
    */
   const trouveLaPrecision = function (x) {
-    let fix = x.toFixed(18)
-    if (fix.includes('.')){
-      fix = fix.split('.')[1]
-    }
-    let xx = Number('.'+fix)
-    let precision = 1
-    for (let i = 1; i< fix.length;i++){
-      let x = round(Number('.'+fix.substring(0,i+1)),i)
-      let diff = Math.abs(x-xx)
-      if (diff>1e-10){
-        precision++
-      } else
-      {
-        return precision
+    if (x > 1e-10 && x < 1e11) {
+      let fix = x.toFixed(18)
+      if (fix.includes('.')) {
+        fix = fix.split('.')[1]
       }
+      let xx = Number('.' + fix)
+      let precision = 1
+      for (let i = 1; i < fix.length; i++) {
+        let x = round(Number('.' + fix.substring(0, i + 1)), i)
+        let diff = Math.abs(x - xx)
+        if (diff > 1e-10) {
+          precision++
+        } else {
+          return precision
+        }
+      }
+      return precision
+    } else {
+      // On a à faire à un number trop petit ou trop grand pour que l'algorithme classique fonctionne.
+      // x.toFixed(18) ne contiendrait pas assez de chiffres significatifs
+      // afficherNombre n'est pas prévu pour des nombres pareils sauf éventuellement au format Decimal
+      window.notify(`trouveLaPrecision de ${x} n'est pas possible : il ne peut pas être transformé en écriture décimale. Il faut adapter le code de l'exercice ou verifier que ce nombre n'est pas un bug`)
+      return 20
     }
-    return precision
   }
   // fin trouveLaPrecision()
 if (precision === undefined){ // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
    if (nb instanceof Decimal){
-    const nbchiffresSignificatifs = nb.sd(true)
-    precision = nbchiffresSignificatifs - nb.trunc().sd(true)
+        precision = nb.e < 0 ? nb.precision() + (-nb.e) : nb.precision(true)
   } else {
     if (Number.isInteger(nb)) {
       precision = 0
@@ -373,7 +379,7 @@ precision = trouveLaPrecision(nb)
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
 
   if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
-    window.notify(fonction + ` : ${tropDeChiffres}`, { nb, precision })
+    window.notify(fonction + ` : ${tropDeChiffres} le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un Decimal !`, { nb, precision })
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   } else {
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
