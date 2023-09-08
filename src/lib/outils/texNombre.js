@@ -8,6 +8,7 @@ import { miseEnEvidence } from './embellissements.js'
 import { extraireRacineCarree } from './calculs.js'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres.js'
 import { sp } from './outilString.js'
+import FractionEtendue from "../../modules/FractionEtendue.js";
 const math = { format, evaluate }
 /**
  *
@@ -326,6 +327,11 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
     }
   }
   // fin trouveLaPrecision()
+  // eh oui, il y a eu des appels à texNombre() avec des FractionEtendue... alors que c'est pas fait pour ça.
+  if (nb instanceof FractionEtendue){
+    window.notify(`afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !`,{Nombre: nb.texFSD})
+    nb = nb.valeurDecimale
+  }
 if (precision === undefined){ // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
    if (nb instanceof Decimal){
         precision = nb.e < 0 ? nb.precision() + (-nb.e) : nb.precision(true)
