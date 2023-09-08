@@ -301,7 +301,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
    * @return {number}
    */
   const trouveLaPrecision = function (x) {
-    if (x > 1e-10 && x < 1e11) {
+    if (Math.abs(x) > 1e-10 && Math.abs(x) < 1e11) {
       let fix = x.toFixed(18)
       if (fix.includes('.')) {
         fix = fix.split('.')[1]
