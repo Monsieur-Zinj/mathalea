@@ -8,6 +8,8 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
+import { globalOptions } from '../components/store'
+import { get } from 'svelte/store'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -148,7 +150,7 @@ export function loadScratchblocks () {
 export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
   const isInIframe = window.self !== window.top
-  // const isInMoodle = get(globalOptions).recorder === 'moodle'
+  const isInCapytale = get(globalOptions).recorder === 'capytale'
   if (champs.length > 0) {
     if (isInIframe) {
       //  SOLUTION TEMPORAIRE POUR REPARER LE CLAVIER MATHLIVE DANS UN IFRAME
@@ -159,7 +161,7 @@ export async function loadMathLive () {
     for (const mf of champs) {
       let clavier, raccourcis
       mf.mathVirtualKeyboardPolicy = 'manual'
-      if (isInIframe) {
+      if (isInIframe && !isInCapytale) {
         mf.mathVirtualKeyboardPolicy = 'sandboxed'
       }
       mf.virtualKeyboardTargetOrigin = '*'
