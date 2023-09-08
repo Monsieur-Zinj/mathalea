@@ -33,9 +33,9 @@ export default function NotationScientifique () {
   this.interactif = false
 
   this.nouvelleVersion = function () {
-    Decimal.set({toExpNeg:-15, toExpPos:  20})
+    Decimal.set({ toExpNeg: -15, toExpPos: 20 })
     let reponse
-    if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture scientifique des nombres suivants.' : 'Donner l\'écriture scientifique du nombre suivant.'
+    if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner la notation scientifique des nombres suivants.' : 'Donner la notation scientifique du nombre suivant.'
     else this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture décimale des nombres suivants.' : 'Donner l\'écriture décimale du nombre suivant.'
     let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
@@ -135,7 +135,7 @@ export default function NotationScientifique () {
           this.autoCorrection[i].reponse.valeur = [mantisse.mul(Decimal.pow(10, exp)).toString()]
           if (parseInt(this.sup) === 1) {
             this.amcType = 'AMCNum'
-            this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte + '.'
+            this.autoCorrection[i].enonce = 'Donner la notation scientifique du nombre ' + texte + '.'
           } else {
             this.amcType = 'qcmMono'
             this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texte + '.'
