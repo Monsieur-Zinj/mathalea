@@ -1,3 +1,5 @@
+import 'https://unpkg.com/mathlive?module';
+window.mathVirtualKeyboard.targetOrigin = '*'
 if (typeof window.iMathAlea === 'undefined') {
   // Normalement ce script ne devrait être chargé qu'une unique fois car appelé en module
   // On vérifie tout de même au cas où que le fichier ne soit pas appelé en module
