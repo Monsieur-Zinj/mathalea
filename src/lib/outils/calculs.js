@@ -65,7 +65,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
 
 /**
  *
- * @param {Entier} n
+ * @param {number} n
  * Extrait le plus grand nombre possible de la racine carrée de n
  * retourne le résulat [a, b] pour a²b=n
  * @author Jean-Claude Lhote

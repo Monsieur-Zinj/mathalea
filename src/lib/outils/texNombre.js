@@ -301,7 +301,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
    * @return {number}
    */
   const trouveLaPrecision = function (x) {
-    if (x > 1e-10 && x < 1e11) {
+    if (Math.abs(x) > 1e-10 && Math.abs(x) < 1e11) {
       let fix = x.toFixed(18)
       if (fix.includes('.')) {
         fix = fix.split('.')[1]
@@ -328,10 +328,22 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
   }
   // fin trouveLaPrecision()
   // eh oui, il y a eu des appels à texNombre() avec des FractionEtendue... alors que c'est pas fait pour ça.
-  if (nb instanceof FractionEtendue){
-    window.notify(`afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !`,{Nombre: nb.texFSD})
-    nb = nb.valeurDecimale
+  if (!(nb instanceof Decimal) && typeof nb!=='number') {
+    if (nb instanceof FractionEtendue) {
+      window.notify(`afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !`, {Nombre: nb.texFSD})
+      nb = nb.valeurDecimale
+    } else if (typeof nb === 'string') {
+      nb = new Decimal(nb.replaceAll(',', ','))
+    } else if (typeof nb !== 'number') {
+      window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, {nombreEntrant: nb})
+      nb = Number(nb)
+      if (isNaN(nb)) {
+        window.notify(`Et ce paramètre n'est pas convertible en nombre ! il faut donc vérifier l'exercice qui comporte un bug !`)
+        nb = 0
+      }
+    }
   }
+
 if (precision === undefined){ // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
    if (nb instanceof Decimal){
         precision = nb.e < 0 ? nb.precision() + (-nb.e) : nb.precision(true)
