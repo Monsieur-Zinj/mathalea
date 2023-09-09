@@ -331,6 +331,10 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
   if (nb instanceof FractionEtendue){
     window.notify(`afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !`,{Nombre: nb.texFSD})
     nb = nb.valeurDecimale
+  } else if (typeof nb==='string'){
+    nb = new Decimal(nb.replaceAll(',',','))
+  } else if (typeof nb !== 'number'){
+    window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, {nombreEntrant: nb})
   }
 if (precision === undefined){ // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
    if (nb instanceof Decimal){
