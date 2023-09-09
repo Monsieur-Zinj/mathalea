@@ -38,12 +38,14 @@ export default function MultiplierFraction () {
     const f1 = new FractionEtendue(n1, d1)
     const f2 = new FractionEtendue(n2, d2)
     const f3 = new FractionEtendue(n1 * n2, d1 * d2)
+    const f3b = new FractionEtendue(n2, d1)
+    const f3bb = new FractionEtendue(n1, d2)
     this.reponse = new FractionEtendue(n1 * n2, d1 * d2).simplifie()
 
     this.question = `Calculer sous la forme d'une fraction simplifiée : $${f1.texFraction}\\times ${f2.texFraction}$.`
-
-    this.correction = `$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{${n1}\\times ${n2}}{${d1}\\times ${d2}}=${f3.texFraction}${f3.texSimplificationAvecEtapes(true)}$`
-
+    if (n1 === d2 || n2 === d1) {
+      if (n1 === d2) { this.correction = `$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{\\cancel{${n1}}\\times ${n2}}{${d1}\\times \\cancel{${d2}}}=${f3b.texFraction}${f3b.texSimplificationAvecEtapes(true)}$` } else { this.correction = `$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{${n1}\\times \\cancel{${n2}}}{\\cancel{${d1}}\\times ${d2}}=${f3bb.texFraction}${f3bb.texSimplificationAvecEtapes(true)}$` }
+    } else { this.correction = `$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{${n1}\\times ${n2}}{${d1}\\times ${d2}}=${f3.texFraction}${f3.texSimplificationAvecEtapes(true)}$` }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
