@@ -146,7 +146,7 @@ export default function CourseAuxNombres2024 () {
           break
 
         case 8:
-          texte = `Écriture scientifique de $${texNombre(2024)}$.`
+          texte = `Notation scientifique de $${texNombre(2024)}$.`
           texteCorr = `L'écriture scientique de $${texNombre(2024)}$ est $2,024\\times 10^{3}$.`
           reponse = '2,024\\times 10^{3}'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

@@ -40,7 +40,7 @@ export default function CalculsPuissancesDe10 () {
     this.sup = parseInt(this.sup)
     this.autoCorrection = []
 
-    this.consigne = 'Donner l\'écriture scientifique.'
+    this.consigne = 'Donner la notation scientifique.'
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -996,7 +996,7 @@ export default function SujetCAN20213ieme () {
             reponse = `${stringNombre(truc, 1)}\\times 10^{-2}`
             texte = `Écriture  scientifique de $${texNombre(a, 3)}$.`
 
-            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
           Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 1)}}_{1\\leqslant ${texNombre(truc, 1)} <10}\\times 10^{-2}$. `
           }
           if (choix === 'b') {
@@ -1005,7 +1005,7 @@ export default function SujetCAN20213ieme () {
             reponse = `${stringNombre(truc, 2)}\\times 10^{-3}`
             texte = `Écriture  scientifique de $${texNombre(a, 5)}$.`
 
-            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
             Ici : $${texNombre(a, 5)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-3}$. `
           }
           if (choix === 'c') {
@@ -1014,7 +1014,7 @@ export default function SujetCAN20213ieme () {
             reponse = `${stringNombre(truc, 2)}\\times 10^{-4}`
             texte = `Écriture  scientifique de $${texNombre(a, 6)}$.`
 
-            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-4}$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

@@ -93,7 +93,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             resultat = 'OK'
           }
           break
-        case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
+        case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en notation scientifique
           saisie = champTexte.value.replace(',', '.')
           if (typeof reponse === 'string') {
             reponse = reponse.replace(',', '.').replace('{.}', '.')

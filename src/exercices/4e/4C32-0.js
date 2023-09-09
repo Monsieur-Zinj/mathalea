@@ -9,7 +9,7 @@ import { sp } from '../../lib/outils/outilString.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Donner le résultat de calculs avec des puissances de 10 en écriture décimale'
+export const titre = 'Donner le résultat de nombres écrits avec des puissances de 10 en écriture décimale'
 export const dateDePublication = '18/01/2022'
 export const dateDeModifImportante = '05/09/2023'
 
