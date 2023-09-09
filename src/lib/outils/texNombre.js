@@ -335,7 +335,13 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
     nb = new Decimal(nb.replaceAll(',',','))
   } else if (typeof nb !== 'number'){
     window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, {nombreEntrant: nb})
+    nb = Number(nb)
+    if (isNaN(nb)) {
+      window.notify(`Et ce paramètre n'est pas convertible en nombre ! il faut donc vérifier l'exercice qui comporte un bug !`)
+      nb=0
+    }
   }
+
 if (precision === undefined){ // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
    if (nb instanceof Decimal){
         precision = nb.e < 0 ? nb.precision() + (-nb.e) : nb.precision(true)
