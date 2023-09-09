@@ -43,15 +43,7 @@ export default function MultiplierFraction () {
     this.reponse = new FractionEtendue(n1 * n2, d1 * d2).simplifie()
 
     this.question = `Calculer sous la forme d'une fraction simplifiée : $${f1.texFraction}\\times ${f2.texFraction}$.`
-    if (n1 === d2 || n2 === d1) {
-      if (n1 === d2) {
         this.correction = `$${f1.texProduitFraction(f2, true)}$`//`$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{\\cancel{${n1}}\\times ${n2}}{${d1}\\times \\cancel{${d2}}}=${f3b.texFraction}${f3b.texSimplificationAvecEtapes(true)}$` } else { this.correction = `$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{${n1}\\times \\cancel{${n2}}}{\\cancel{${d1}}\\times ${d2}}=${f3bb.texFraction}${f3bb.texSimplificationAvecEtapes(true)}$` }
-      } else {
-        this.correction = `$${f1.texProduitFraction(f2, true)}$`//`$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{\\cancel{${n1}}\\times ${n2}}{${d1}\\times \\cancel{${d2}}}=${f3b.texFraction}${f3b.texSimplificationAvecEtapes(true)}$` } else { this.correction = `$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{${n1}\\times \\cancel{${n2}}}{\\cancel{${d1}}\\times ${d2}}=${f3bb.texFraction}${f3bb.texSimplificationAvecEtapes(true)}$` }
-      }
-    } else {
-         this.correction = `$${f1.texProduitFraction(f2, true)}$`//`$${f1.texFraction}\\times ${f2.texFraction}=\\dfrac{${n1}\\times ${n2}}{${d1}\\times ${d2}}=${f3.texFraction}${f3.texSimplificationAvecEtapes(true)}$` }
-      }
         this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
