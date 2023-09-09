@@ -328,17 +328,19 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
   }
   // fin trouveLaPrecision()
   // eh oui, il y a eu des appels à texNombre() avec des FractionEtendue... alors que c'est pas fait pour ça.
-  if (nb instanceof FractionEtendue){
-    window.notify(`afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !`,{Nombre: nb.texFSD})
-    nb = nb.valeurDecimale
-  } else if (typeof nb==='string'){
-    nb = new Decimal(nb.replaceAll(',',','))
-  } else if (typeof nb !== 'number'){
-    window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, {nombreEntrant: nb})
-    nb = Number(nb)
-    if (isNaN(nb)) {
-      window.notify(`Et ce paramètre n'est pas convertible en nombre ! il faut donc vérifier l'exercice qui comporte un bug !`)
-      nb=0
+  if (!(nb instanceof Decimal) && typeof nb!=='number') {
+    if (nb instanceof FractionEtendue) {
+      window.notify(`afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !`, {Nombre: nb.texFSD})
+      nb = nb.valeurDecimale
+    } else if (typeof nb === 'string') {
+      nb = new Decimal(nb.replaceAll(',', ','))
+    } else if (typeof nb !== 'number') {
+      window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, {nombreEntrant: nb})
+      nb = Number(nb)
+      if (isNaN(nb)) {
+        window.notify(`Et ce paramètre n'est pas convertible en nombre ! il faut donc vérifier l'exercice qui comporte un bug !`)
+        nb = 0
+      }
     }
   }
 
