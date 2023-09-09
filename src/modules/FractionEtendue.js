@@ -538,7 +538,7 @@ class FractionEtendue extends Fraction {
   }
 
   /**
-    * @param {Fraction} f2 la fraction qui multiplie.
+    * @param {FractionEtendue} f2 la fraction qui multiplie.
     *  @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
@@ -546,13 +546,20 @@ class FractionEtendue extends Fraction {
     if (this.estEntiere) {
       return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.simplifie().num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${ecritureParentheseSiNegatif(f2.den)}}
       ${simplification === 'none' || this.produitFraction(f2).estIrreductible
-      ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
-      : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
+          ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
+          : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
     } else {
       return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}}
     ${simplification === 'none' || this.produitFraction(f2).estIrreductible
-    ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
-    : '=\\dfrac{' + decompositionFacteursPremiers(this.num) + '\\times ' + decompositionFacteursPremiers(f2.num) + '}{' + decompositionFacteursPremiers(this.den) + '\\times ' + decompositionFacteursPremiers(f2.den) + '}' + this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
+          ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
+          : `${(this.den !== f2.num && f2.den !== this.num)
+              ? '=\\dfrac{' + (decompositionFacteursPremiers(this.num) || '1') + '\\times ' + (decompositionFacteursPremiers(f2.num) || '1') + '}{' + (decompositionFacteursPremiers(this.den) || '1') + '\\times ' + (decompositionFacteursPremiers(f2.den) || '1') + '}' + this.produitFraction(f2).texSimplificationAvecEtapes(simplification)
+              : `${this.den === f2.num
+                  ? '=\\dfrac{' +this.num + '}{'+f2.den +'}'+ (new FractionEtendue(this.num,f2.den)).texSimplificationAvecEtapes(simplification)
+                  : '=\\dfrac{' +f2.num + '}{'+this.den +'}'+ (new FractionEtendue(f2.num,this.den)).texSimplificationAvecEtapes(simplification)
+              }`
+          }`
+      }`
     }
   }
 
