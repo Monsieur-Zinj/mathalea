@@ -38,9 +38,8 @@ export default function Exercice () {
   // ///////////////////////////////////////////////
   // Mise en forme de l'exercice
   // ///////////////////////////////////////////////
-  // le this.spacing s'ajoute à l'espacement standard. Une valeur 0 donne un espacement standard.
-  this.spacing = 0.1 // Interligne des questions On a mis 0.1 pour avoir un itemsep systématiquement dans la version latex... si on n'en veut pas, on met 0.
-  this.spacingCorr = 0.1 // Interligne des réponses idem
+  this.spacing = 1 // Interligne des questions
+  this.spacingCorr = 1 // Interligne des réponses
 
   // ////////////////////////////////////////////
   // Gestion de la sortie LateX
