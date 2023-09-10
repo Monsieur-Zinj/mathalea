@@ -37,8 +37,8 @@ export default function MultiplierFraction () {
     const d2 = fraction2[1]
     const f1 = new FractionEtendue(n1, d1)
     const f2 = new FractionEtendue(n2, d2)
-    this.reponse = new FractionEtendue(n1 * n2, d1 * d2).simplifie()
-
+    this.reponse = f1.produitFraction(f2).simplifie()
+console.log(this.reponse)
     this.question = `Calculer et écrire sous la forme d'une fraction simplifiée : $${f1.texFraction}\\times ${f2.texFraction}$.`
     this.correction = `$${f1.texProduitFraction(f2, false)}$`
     this.canEnonce = this.question
