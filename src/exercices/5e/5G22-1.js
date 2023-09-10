@@ -14,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 export const titre = 'Utiliser les propriétés de la médiatrice d\'un segment'
 export const dateDePublication = '05/08/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModificationImportante = '17/08/2023'
+export const dateDeModifImportante = '17/08/2023'
 
 /**
  * Utiliser les propriétés de la médiatrice d'un segment

@@ -32,7 +32,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModificationImportante = '11/04/2023'
+export const dateDeModifImportante = '11/04/2023'
 export const titre = "Calculs de périmètres et d'aires"
 
 /**

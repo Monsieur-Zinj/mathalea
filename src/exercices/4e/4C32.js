@@ -8,8 +8,9 @@ import { context } from '../../modules/context.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
-export const titre = 'Notation scientifique'
+export const titre = 'Associer un nombre décimal à sa notation scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,7 +19,6 @@ export const amcType = 'AMCNum' // type de question AMC
 /**
  * Écrire un nombre décimal en notation scientifique et inversement
  * @author Jean-Claude Lhote
- * 4C32
  */
 
 export const uuid = 'a0d16'
@@ -33,17 +33,16 @@ export default function NotationScientifique () {
   this.interactif = false
 
   this.nouvelleVersion = function () {
-    Decimal.toExpNeg = -15
-    Decimal.toExpPos = 20
+    Decimal.set({ toExpNeg: -15, toExpPos: 20 })
     let reponse
-    if (parseInt(this.sup) === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
-    else this.consigne = 'Donner l\'écriture décimale des nombres suivants.'
+    if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner la notation scientifique des nombres suivants.' : 'Donner la notation scientifique du nombre suivant.'
+    else this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture décimale des nombres suivants.' : 'Donner l\'écriture décimale du nombre suivant.'
     let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    if (parseInt(this.sup2) === 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1]
-    else if (parseInt(this.sup2) === 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2]
+    if (this.sup2 === 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1]
+    else if (this.sup2 === 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2]
     else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -87,7 +86,6 @@ export default function NotationScientifique () {
           break
       }
 
-      // decimalstring = texNombre(mantisse * 10 ** exp)
       scientifiquestring = `${texNombre(mantisse, 8)}\\times 10^{${exp}}`
       decimalstring = scientifiqueToDecimal(mantisse, exp)
 
@@ -98,18 +96,18 @@ export default function NotationScientifique () {
           reponse = `${stringNombre(mantisse, 8)}\\times 10^${exp}`
         }
         texte = `$${decimalstring}${sp()}=$`
-        texteCorr = `$${decimalstring} = ${scientifiquestring}$`
+        texteCorr = `$${decimalstring} = ${miseEnEvidence(scientifiquestring)}$`
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore')
         } else {
           texte += `$${sp()}\\dots$`
         }
       } else {
         reponse = mantisse.mul(Decimal.pow(10, exp))
-        texteCorr = `$${scientifiquestring} = ${decimalstring}$`
+        texteCorr = `$${scientifiquestring} = ${miseEnEvidence(decimalstring)}$`
         texte = `$${scientifiquestring}${sp()}=$`
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore')
         } else {
           texte += `$${sp()}\\dots$`
         }
@@ -137,7 +135,7 @@ export default function NotationScientifique () {
           this.autoCorrection[i].reponse.valeur = [mantisse.mul(Decimal.pow(10, exp)).toString()]
           if (parseInt(this.sup) === 1) {
             this.amcType = 'AMCNum'
-            this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte + '.'
+            this.autoCorrection[i].enonce = 'Donner la notation scientifique du nombre ' + texte + '.'
           } else {
             this.amcType = 'qcmMono'
             this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texte + '.'

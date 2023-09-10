@@ -1,9 +1,9 @@
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import {
   obtenirListeFractionsIrreductibles,
   simplificationDeFractionAvecEtapes
 } from '../../../lib/outils/deprecatedFractions.js'
-import { fraction } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Rendre irréductible une fraction'
 export const interactifReady = true
@@ -24,13 +24,13 @@ export default function FractionIrreductible () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.formatInteractif = 'fraction'
+  this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())
-    const k = choice([4, 6, 8, 12, 15, 20])
+    const k = choice([2, 3, 4, 5, 9, 10, 20])
     const a = k * maFraction[0]
     const b = k * maFraction[1]
-    this.reponse = fraction(maFraction[0], maFraction[1])
+    this.reponse = new FractionEtendue(maFraction[0], maFraction[1]).simplifie()
     this.question = `Rendre la fraction $\\dfrac{${a}}{${b}}$ irréductible.`
     this.correction = `$\\dfrac{${a}}{${b}}` + simplificationDeFractionAvecEtapes(a, b) + '$'
     this.canEnonce = this.question// 'Compléter'

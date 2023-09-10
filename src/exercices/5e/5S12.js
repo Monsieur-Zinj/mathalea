@@ -19,7 +19,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModificationImportante = '17/04/2022'
+export const dateDeModifImportante = '17/04/2022'
 export const titre = 'Représenter des données par un diagramme'
 
 /**

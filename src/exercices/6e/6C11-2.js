@@ -25,7 +25,7 @@ export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '25/10/2021'
-export const dateDeModificationImportante = '07/05/2023'
+export const dateDeModifImportante = '07/05/2023'
 
 /**
  * Détermination du vocabulaire associé à l'égalité issue de la division euclidienne

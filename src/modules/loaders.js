@@ -8,6 +8,8 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
+import { globalOptions } from '../components/store'
+import { get } from 'svelte/store'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -147,46 +149,19 @@ export function loadScratchblocks () {
  */
 export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
+  const isInIframe = window.self !== window.top
+  const isInCapytale = get(globalOptions).recorder === 'capytale'
   if (champs.length > 0) {
-    /*
-                                            ██
-                                          ██░░██
-  ░░          ░░                        ██░░░░░░██                            ░░░░
-                                      ██░░░░░░░░░░██
-                                      ██░░░░░░░░░░██
-                                    ██░░░░░░░░░░░░░░██
-                                  ██░░░░░░██████░░░░░░██
-                                  ██░░░░░░██████░░░░░░██
-                                ██░░░░░░░░██████░░░░░░░░██
-                                ██░░░░░░░░██████░░░░░░░░██
-                              ██░░░░░░░░░░██████░░░░░░░░░░██
-                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██
-                            ██░░░░░░░░░░░░██████░░░░░░░░░░░░██
-                          ██░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░██
-                          ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
-                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██
-                        ██░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░██
-                      ██░░░░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░░░██
-        ░░            ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
-                        ██████████████████████████████████████████
-    */
-    window.parent = window.self
-    /*
-                   SOLUTION TEMPORAIRE POUR REPARER LE CLAVIER MATHLIVE
-    */
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
-    // get url param environment
-    const urlParams = new URLSearchParams(window.location.search)
-    const environment = urlParams.get('environment')
     for (const mf of champs) {
       let clavier, raccourcis
-      if (environment === 'dev') {
-        console.log('Clavier en dev')
-        mf.mathVirtualKeyboardPolicy = 'manual'
-      } else {
+      mf.mathVirtualKeyboardPolicy = 'manual'
+      /*
+      if (isInIframe && !isInCapytale) {
         mf.mathVirtualKeyboardPolicy = 'sandboxed'
       }
+      */
       mf.virtualKeyboardTargetOrigin = '*'
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
@@ -223,7 +198,6 @@ export async function loadMathLive () {
         raccourcis = raccourcisUnites
       } else {
         //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut
-
         clavier = CLAVIER_COLLEGE
         raccourcis = raccourcisCollege
       }
@@ -233,8 +207,8 @@ export async function loadMathLive () {
       mf.inlineShortcuts = raccourcis
 
       // Evite les problèmes de positionnement du clavier mathématique dans les iframes
-      // if (context.vue === 'exMoodle') {
-      if (window.self !== window.top & environment !== 'dev') { // Si on est dans une iframe
+      /*
+      if (isInIframe) {
         if (!document.getElementById('fixKeyboardPositionInIframe')) {
           const style = document.createElement('style')
           style.setAttribute('id', 'fixKeyboardPositionInIframe')
@@ -275,6 +249,7 @@ export async function loadMathLive () {
           })
         })
       }
+      */
 
       if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
         // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)

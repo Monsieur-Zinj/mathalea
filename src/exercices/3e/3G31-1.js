@@ -20,7 +20,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModificationImportante = '09/04/2023'
+export const dateDeModifImportante = '09/04/2023'
 export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complexe'
 
 /**

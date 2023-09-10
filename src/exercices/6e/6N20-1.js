@@ -15,7 +15,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModificationImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
+export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadrer entre 2 entiers

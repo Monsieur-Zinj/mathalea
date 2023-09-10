@@ -8,8 +8,10 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
-export const titre = 'Écriture décimale d\'une puissance de 10'
+export const dateDeModifImportante = '05/09/2023'
+export const titre = 'Donner l\'écriture décimale d\'une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,24 +20,23 @@ export const amcType = 'AMCNum'
 /**
  * Donner l'écriture décimale d'une puissance de 10
  * @author Rémi Angot
- * Référence 4C30-2
  */
 export const uuid = '93df9'
 export const ref = '4C30-2'
 export default function EcritureDecimalePuissanceDe10 () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = "Donner l'écriture décimale des nombres suivants."
   this.nbQuestions = 8
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 3 // exposants positifs et négatifs par défaut
 
   this.nouvelleVersion = function () {
-    this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    this.consigne = this.nbQuestions === 1
+      ? "Donner l'écriture décimale du nombre suivant."
+      : "Donner l'écriture décimale des nombres suivants."
 
     let listeTypeDeQuestions
     if (this.sup === 1) {
@@ -50,7 +51,7 @@ export default function EcritureDecimalePuissanceDe10 () {
     for (let i = 0, texte, texteCorr, n, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case '+':
-          n = randint(0, 10)
+          n = randint(1, 10)
           texte = this.interactif
             ? `$10^{${n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
             : `$10^{${n}}${sp()}=${sp()}\\dots$`
@@ -59,22 +60,22 @@ export default function EcritureDecimalePuissanceDe10 () {
             texteCorr = `$10^${n}=${10 ** n}$`
           } else {
             if (context.isHtml) {
-              texteCorr = `$10^{${n}}=${puissanceEnProduit(10, n)}=${texNombre(10 ** n, 0)}$`
+              texteCorr = `$10^{${n}}=${puissanceEnProduit(10, n)}=${miseEnEvidence(texNombre(10 ** n, 0))}$`
             } else {
-              texteCorr = `$10^{${n}}=${texNombre(10 ** n, 0)}$`
+              texteCorr = `$10^{${n}}=${miseEnEvidence(texNombre(10 ** n, 0))}$`
             }
           }
           break
         case '-':
           n = randint(1, 10)
           texte = this.interactif
-            ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline nospacebefore')
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
           setReponse(this, i, Decimal.pow(10, -n))
           if (context.isHtml) {
-            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${texNombre(1 / 10 ** n, n)}$`
+            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10,-n), n))}$`
           } else {
-            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${texNombre(1 / 10 ** n, n)}$`
+            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10,-n), n))}$`
           }
           break
       }

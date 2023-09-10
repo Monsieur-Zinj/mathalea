@@ -32,6 +32,7 @@ export default function ListeDesDiviseurs5e () {
   this.sup = 2
   this.sup2 = 6
   this.sup3 = 10
+  this.sup4 = 3
 
   this.nouvelleVersion = function () {
     let typesDeQuestions
@@ -59,11 +60,20 @@ export default function ListeDesDiviseurs5e () {
       shuffle: false
     })
 
-    const typesDeQuestionsDisponibles = [1, 1, 2]
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup4,
+      max: 2,
+      shuffle: false, 
+      melange: 3,
+      defaut: 2
+    })
+
+    // const typesDeQuestionsDisponibles = [1, 1, 2]
     const nbChiffresMax = combinaisonListesSansChangerOrdre(nombresDeChiffresMax, this.nbQuestions)
     const nbDiviseursMax = combinaisonListesSansChangerOrdre(nombresDeDiviseursMax, this.nbQuestions)
 
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     const listeDesMDejaTrouves = []
     for (let i = 0, listeDiviseursM = [], nbDiviseursM, M, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
@@ -197,6 +207,13 @@ export default function ListeDesDiviseurs5e () {
   }
   this.besoinFormulaireTexte = ['Nombre de chiffres des entiers (entre 1 et 5)', 'Nombres séparés par des tirets']
   this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers', 'Nombres séparés par des tirets']
+  this.besoinFormulaire4Texte = [
+    'Type de questions', [
+      '1 : Avec aide (tableau)',
+      '2 : Sans Aide (tableau)',
+      '3 : Mélange'
+    ].join('\n')
+  ]
 }
 
 /**

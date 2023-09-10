@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const dateDeModificationImportante = '01/02/2022'
+export const dateDeModifImportante = '01/02/2022'
 
 /**
  * Exercice calqué sur lire abscisse fractionnaire sauf que le résultat attendu est en écriture décimale.

@@ -265,10 +265,10 @@ export function carreParfait (x) {
 
 /**
  * Choisit un nombre au hasard entre min et max sans appartenir à liste\_a\_eviter.
- * @param {int} min
- * @param {int} max
- * @param {int[]} liste - Tous les éléments que l'on souhaite supprimer
- * @return {int} Nombre au hasard entre min et max non compris dans la listeAEviter
+ * @param {number} min
+ * @param {number} max
+ * @param {number | Array<number>} listeAEviter - Tous les éléments que l'on souhaite supprimer
+ * @return {number} Nombre au hasard entre min et max non compris dans la listeAEviter
  *
  * @example
  * // Renvoie 1, 2 ou 3

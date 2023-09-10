@@ -100,7 +100,12 @@ class Latex {
           if (exercice.nbColsCorr > 1) {
             contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
           }
-          contentCorr += '\n\\begin{enumerate}'
+          if (exercice.spacingCorr>0){
+            contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
+          } else {
+            contentCorr += '\n\\begin{enumerate}'
+          }
+
           for (const correction of exercice.listeCorrections) {
             contentCorr += `\n\\item ${format(correction)}`
           }
@@ -151,7 +156,7 @@ class Latex {
         if (withQrcode) {
           content += '\n\\end{minipage}'
           content += '\n\\begin{minipage}{0.20\\linewidth}'
-          content += `\n\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}}`
+          content += `\n\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}`
           content += '\n\\end{minipage}'
         }
         content += '\n\\end{exercice}\n'
@@ -236,7 +241,7 @@ class Latex {
       result += '\n\\usepackage{ProfCollege}'
       result += '\n\\usepackage{ProfMaquette}'
       result += '\n\\usepackage{qrcode}'
-      result += '\\usepackage[luatex]{hyperref}}'
+      result += '\n\\usepackage[luatex]{hyperref}'
       result += '\n\\usepackage{tkz-tab}'
       result += '\n\\usepackage{mathrsfs}'
       result += '\n\\usepackage[margin=1cm]{geometry}'
@@ -277,7 +282,7 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
   if (questions !== undefined && questions.length > 1) {
     content += '\n\\begin{enumerate}'
     const specs:string[] = []
-    if (spacing !== 1) {
+    if (spacing !== 0) {
       specs.push(`itemsep=${spacing}em`)
     }
     if (!numbersNeeded) {

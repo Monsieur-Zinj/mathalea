@@ -28,7 +28,7 @@ export const titre = 'Puissances de 10'
 export default function ComparerPuissance10 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Dans chaque cas, comparer les deux nombres. Les deux nombres sont écrits en écriture scientifique.'
+  this.consigne = 'Dans chaque cas, comparer les deux nombres. Les deux nombres sont écrits en notation scientifique.'
   this.nbQuestions = 5 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.correctionDetailleeDisponible = true
@@ -108,7 +108,7 @@ export default function ComparerPuissance10 () {
               texteCorr += 'Les deux nombres sont de signes opposés. Le plus petit nombre est donc le nombre négatif. <br>'
             } else {
               if (a1 > 0 && a2 > 0) { // a1 et a2 strictement positifs
-                texteCorr += 'Les deux nombres sont positifs. On compare les exposants de l\'écriture scientifique : '
+                texteCorr += 'Les deux nombres sont positifs. On compare les exposants de la notation scientifique : '
                 if (n1 > n2) {
                   texteCorr += `$${n1} > ${n2}$. <br>`
                 }
@@ -126,7 +126,7 @@ export default function ComparerPuissance10 () {
               }
               if (a1 < 0 && a2 < 0) { // a1 et a2 strictement négatifs
                 texteCorr += `Les deux nombres sont négatifs. Ils sont rangés dans l'ordre contraire de leur opposé : ${ecriturePuissance(-a1, 10, n1)} et ${ecriturePuissance(-a2, 10, n2)}. <br>`
-                texteCorr += 'On compare les exposants de l\'écriture scientifique : '
+                texteCorr += 'On compare les exposants de la notation scientifique : '
                 if (n1 > n2) {
                   texteCorr += `$${n1} > ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br>`
                 }

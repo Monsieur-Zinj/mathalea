@@ -7416,7 +7416,7 @@
         "url": "5e/5C12.js",
         "uuid": "e61fc",
         "id": "5C12",
-        "titre": "Calculer une expression numérique en détaillant les calculs",
+        "titre": "Calculer en respectant les priorités opératoires",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8831,7 +8831,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amc": false
+          "amcType": "AMCNum",
+          "amc": true
         }
       },
       "4C10-8": {
@@ -9057,7 +9058,7 @@
         "url": "4e/4C30.js",
         "uuid": "f5dcf",
         "id": "4C30",
-        "titre": "Puissances de 10 : Le sens des règles de calculs",
+        "titre": "Effectuer des calculs qu'avec des puissances de 10",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9069,7 +9070,7 @@
         "url": "4e/4C30-1.js",
         "uuid": "760d7",
         "id": "4C30-1",
-        "titre": "Encadrer avec des puissances de 10",
+        "titre": "Encadrer des nombres positifs avec des puissances de 10",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9080,7 +9081,7 @@
         "url": "4e/4C30-2.js",
         "uuid": "93df9",
         "id": "4C30-2",
-        "titre": "Écriture décimale d'une puissance de 10",
+        "titre": "Donner l'écriture décimale d'une puissance de 10",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9092,7 +9093,7 @@
         "url": "4e/4C30-3.js",
         "uuid": "36f8b",
         "id": "4C30-3",
-        "titre": "Écriture décimale ou fractionnaire d'une puissance",
+        "titre": "Donner l'écriture entière d'une puissance",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9104,7 +9105,7 @@
         "url": "4e/4C30-4.js",
         "uuid": "b0b3c",
         "id": "4C30-4",
-        "titre": "Puissances de 10 et préfixes",
+        "titre": "Associer puissances de 10 et préfixes",
         "tags": {
           "interactif": true,
           "interactifType": "listeDeroulante",
@@ -9115,7 +9116,7 @@
         "url": "4e/4C32.js",
         "uuid": "a0d16",
         "id": "4C32",
-        "titre": "Notation scientifique",
+        "titre": "Associer un nombre décimal à sa notation scientifique",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9127,7 +9128,7 @@
         "url": "4e/4C32-0.js",
         "uuid": "5d72b",
         "id": "4C32-0",
-        "titre": "Écriture décimale d'un calcul avec des puissances de 10",
+        "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en écriture décimale",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9138,21 +9139,11 @@
         "url": "4e/4C32-1.js",
         "uuid": "762fe",
         "id": "4C32-1",
-        "titre": "Calcul avec les puissances de dix",
+        "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
           "amcType": "qcmMono",
-          "amc": false
-        }
-      },
-      "4C32-2": {
-        "url": "4e/4C32-2.js",
-        "uuid": "fedae",
-        "id": "4C32-2",
-        "titre": "Puissances de 10 et préfixes kilo, méga, giga, téra",
-        "tags": {
-          "interactif": false,
           "amc": false
         }
       },
@@ -9910,7 +9901,7 @@
         "url": "3e/3A10-1.js",
         "uuid": "bba55",
         "id": "3A10-1",
-        "titre": "Indiquer si des nombres sont premiers ou pas' // EE : J",
+        "titre": "Indiquer si des nombres sont premiers ou pas",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -10108,6 +10099,20 @@
         "tags": {
           "interactif": false,
           "amc": false
+        }
+      }
+    },
+    "3C1": {
+      "3C10-1": {
+        "url": "3e/3C10-1.js",
+        "uuid": "eb865",
+        "id": "3C10-1",
+        "titre": "Donner l'écriture entière ou fractionnaire d'une puissance",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amcType": "AMCNum",
+          "amc": true
         }
       }
     },
@@ -11755,7 +11760,7 @@
         "url": "2e/2G33-2.js",
         "uuid": "e715d",
         "id": "2G33-2",
-        "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
+        "titre": "Déterminer si des droites sont parallèles, sécantes ou confondues",
         "tags": {
           "interactif": false,
           "amc": false
@@ -11847,7 +11852,7 @@
         "url": "2e/2N12-2.js",
         "uuid": "8f56e",
         "id": "2N12-2",
-        "titre": "Encadrer avec des puissances de 10",
+        "titre": "Encadrer des nombres relatifs avec des puissances de 10",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -12130,6 +12135,53 @@
           "interactifType": "mathLive",
           "amcType": "AMCOpenNum",
           "amc": true
+        }
+      },
+      "2N31-5": {
+        "url": "2e/2N31-5.js",
+        "uuid": "6b2e5",
+        "id": "2N31-5",
+        "titre": "Utiliser les règles de calculs avec des puissances de 10",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amcType": "qcmMono",
+          "amc": true
+        }
+      },
+      "2N31-6": {
+        "url": "2e/2N31-6.js",
+        "uuid": "816c8",
+        "id": "2N31-6",
+        "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm",
+          "amcType": "qcmMono",
+          "amc": false
+        }
+      },
+      "2N31-7": {
+        "url": "2e/2N31-7.js",
+        "uuid": "f49ff",
+        "id": "2N31-7",
+        "titre": "Trouver l'exposant manquant dans des nombres écrits avec des puissances de 10",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm",
+          "amcType": "qcmMono",
+          "amc": false
+        }
+      },
+      "2N31-8": {
+        "url": "2e/2N31-8.js",
+        "uuid": "fedae",
+        "id": "2N31-8",
+        "titre": "Lier calcul avec des puissances de 10 et les préfixes",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": false
         }
       },
       "2N32-1": {

@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées du produit d\'un vecteur par un réel'
 export const dateDePublication = '28/05/2023'
-export const dateDeModificationImportante = '14/06/2023'
+export const dateDeModifImportante = '14/06/2023'
 
 /**
  * Produit d'un vecteur par un réel
