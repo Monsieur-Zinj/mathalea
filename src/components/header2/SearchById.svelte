@@ -2,14 +2,11 @@
   import Chips from './Chips.svelte'
   import { exercicesParams, globalOptions } from '../store'
   import refToUuid from '../../json/refToUuid.json'
-    import type { InterfaceParams, InterfaceReferentiel } from 'src/lib/types'
 
-  let input: HTMLInputElement
   let listeIdPourLesChips: string[] = []
 
   const idExercicesDisponibles = Object.keys(refToUuid)
 
-  const exercices = []
   $: {
     listeIdPourLesChips = []
     for (const ex of $exercicesParams) {
@@ -39,6 +36,7 @@
 
   let searchInput: HTMLInputElement
   let inputValue = ''
+  let hiLiteIndex: number | null = null
 
   $: if (!inputValue) {
     filteredExercices = []
@@ -54,15 +52,15 @@
     searchInput.focus()
   }
 
-  const setInputVal = (ex: string) => {
-    inputValue = ex
-    hiLiteIndex = null
-    addExercice(ex)
-    clearInput()
-    const input = document.querySelector('#idInput') as HTMLInputElement
-    input.focus()
-    filteredExercices = []
-  }
+  // const setInputVal = (ex: string) => {
+  //   inputValue = ex
+  //   hiLiteIndex = null
+  //   addExercice(ex)
+  //   clearInput()
+  //   const input = document.querySelector('#idInput') as HTMLInputElement
+  //   input.focus()
+  //   filteredExercices = []
+  // }
 
   const submitValue = () => {
     if (idExercicesDisponibles.includes(inputValue)) {
@@ -71,8 +69,7 @@
     }
   }
 
-  let hiLiteIndex: number = null
-  $: filteredExercices[hiLiteIndex]
+  $: filteredExercices = [hiLiteIndex]
 
   const navigateList = (e: KeyboardEvent) => {
     // Pour naviguer dans la liste proposée avec les flèches.
@@ -88,8 +85,6 @@
         addExercice(filteredExercices[hiLiteIndex])
         clearInput()
       }
-    } else {
-
     }
   }
 
@@ -120,7 +115,7 @@
         on:input={filterEx}
       />
       <datalist id="autocomplete-items-list" class="fixed">
-        {#each filteredExercices as ex, i}
+        {#each filteredExercices as ex}
           <option value={ex} />
         {/each}
       </datalist>
