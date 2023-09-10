@@ -23,19 +23,23 @@ import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 import { setReponse } from './interactif/gestionInteractif'
 
-function getExerciceStaticByUuid (uuid: string) {
-  for (const examen in referentielStatic) {
-    for (const anneOuTag in referentielStatic[examen as keyof typeof referentielStatic]) {
-      // @ts-ignore
-      for (const exercice in referentielStatic[examen][anneOuTag]) {
-        // @ts-ignore
-        if (referentielStatic[examen][anneOuTag][exercice].uuid === uuid) {
-          // @ts-ignore
-          return referentielStatic[examen][anneOuTag][exercice]
-        }
+function getExerciceByUuid (root: object, targetUUID: string): object | null {
+  if ('uuid' in root) {
+    if (root.uuid === targetUUID) {
+      return root
+    }
+  }
+  for (const child in root) {
+    if (child in root) {
+      if (typeof root[child] !== 'object') continue
+      const foundObject = getExerciceByUuid(root[child], targetUUID)
+      if (foundObject) {
+        return foundObject
       }
     }
   }
+
+  return null
 }
 
 /**
@@ -103,9 +107,10 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       param.uuid.substring(0, 5) === 'crpe-' ||
             param.uuid.substring(0, 4) === 'dnb_' ||
             param.uuid.substring(0, 4) === 'e3c_' ||
-            param.uuid.substring(0, 4) === 'bac_'
+            param.uuid.substring(0, 4) === 'bac_' ||
+            param.uuid.startsWith('2nd_')
     ) {
-      const infosExerciceStatique = getExerciceStaticByUuid(param.uuid)
+      const infosExerciceStatique = getExerciceByUuid(referentielStatic, param.uuid)
       let content = ''
       let contentCorr = ''
       if (infosExerciceStatique.url) content = await (await window.fetch(infosExerciceStatique.url)).text()
@@ -304,6 +309,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let isInteractiveFree = true
   let oneShot = false
   let twoColumns = false
+  let interfaceBeta = false
   let url: URL
   try {
     url = new URL(urlString)
@@ -385,6 +391,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       iframe = entry[1]
     } else if (entry[0] === 'answers') {
       answers = entry[1]
+    } else if (entry[0] === 'interfaceBeta') {
+      interfaceBeta = true
     }
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
@@ -426,6 +434,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     twoColumns,
     recorder,
     done,
+    interfaceBeta,
     iframe,
     answers
   }

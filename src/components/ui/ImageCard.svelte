@@ -1,12 +1,13 @@
 <script lang="ts">
+  import type { bibliothequeExercise } from "../../lib/types"
   import StarIcon from "../icons/StarIcon.svelte"
   import { exercicesParams } from "../store"
 
-  export let application = {
-    title: "Titre",
-    presentation: " blabla",
-    imgPath: "images/apps/appDefault.png",
+  export let exercise: bibliothequeExercise = {
     uuid: "theUuid",
+    presentation: " blabla",
+    png: "images/apps/appDefault.png",
+    pngCor: "images/apps/appDefault.png",
   }
   export let reversed = false
   export let selected = false
@@ -22,22 +23,22 @@
     listeCodes = listeCodes
   }
 
-  function addAppToList() {
-    exercicesParams.update((list) => [...list, { uuid: application.uuid }])
+  function addExerciseToList() {
+    exercicesParams.update((list) => [...list, { uuid: exercise.uuid }])
   }
   const isPresent = (code: string) => {
-    return code === application.uuid
+    return code === exercise.uuid
   }
-  function removeAppFromList() {
+  function removeExerciseFromList() {
     const matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
   function handelSelection() {
     selected = !selected
     if (selected) {
-      addAppToList()
+      addExerciseToList()
     } else {
-      removeAppFromList()
+      removeExerciseFromList()
     }
   }
 </script>
@@ -48,11 +49,10 @@
   on:click={handelSelection}
 >
   <div class="{reversed ? 'hide' : 'block'} ">
-    <img src={application.imgPath} alt="{application.title} image" class="object-fill rounded-t-lg" />
+    <img src={exercise.png} alt="{exercise.uuid} image" class="object-fill rounded-t-lg" />
   </div>
-  <div class="p-2 text-left">
-    <h5 class="mb-2 text-lg font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct">{application.title}</h5>
-    <p class="max-h-24 min-h-24 h-24 text-sm text-ellipsis overflow-hidden mb-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-tight">{application.presentation}</p>
+  <div class="p-2">
+    <h5 class="mb-2 text-lg font-bold leading-tight text-coopmaths-struct dark:text-coopmathsdark-struct">{exercise.uuid}</h5>
   </div>
   <div class="absolute -bottom-4 left-1/2 -translate-x-1/2">
     <div class="rounded-full h-8 w-8 bg-coopmaths-action text-coopmaths-canvas flex justify-center items-center hover:animate-pulse">

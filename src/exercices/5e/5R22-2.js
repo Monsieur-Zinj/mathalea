@@ -20,7 +20,10 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   this.sup = max
   this.titre = titre
   this.consigne = 'Simplifier puis calculer.'
-  this.spacing = 2
+  // this.spacing = 2
+  this.nbCols = 3
+  this.nbColsCorr = 2
+  this.nbQuestions = 9 // pour équilibrer les colonnes
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

@@ -37,7 +37,9 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
   this.sup2 = false // écriture simplifiée
   this.titre = titre
   this.consigne = 'Calculer.'
-  this.spacing = 2
+  this.nbCols = 3
+  this.nbColsCorr = 2
+
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.amcType = amcType

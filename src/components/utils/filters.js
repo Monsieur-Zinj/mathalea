@@ -5,7 +5,7 @@
    * @param data tableau à trier
    * @param order `asc` (défaut) ou `desc`
    */
-export function sortArrayOfStringsWithHyphens (data, order) {
+export function sortArrayOfStringsWithHyphens (data, order = 'asc') {
   function isNumber (v) {
     return (+v).toString() === v
   }

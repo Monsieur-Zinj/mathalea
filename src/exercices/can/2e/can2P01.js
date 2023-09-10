@@ -21,7 +21,7 @@ export default function CalculsDeProbabilites () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // this.formatInteractif = 'fraction'
+  // this.formatInteractif = 'fractionEgale'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(2, 4)

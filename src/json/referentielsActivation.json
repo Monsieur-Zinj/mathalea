@@ -1,0 +1,9 @@
+{
+  "outils" : "true",
+  "aleatoires" : "true",
+  "statiques" : "false",
+  "ressources" : "true",
+  "bibliotheque" : "true",
+  "apps" : "true",
+  "examens": "true"
+}

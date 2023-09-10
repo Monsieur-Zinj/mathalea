@@ -1,103 +1,103 @@
 <script lang="ts">
-  import { globalOptions, darkMode, callerComponent } from '../store'
-  import Button from '../forms/Button.svelte'
-  import { mathaleaHandleComponentChange } from '../../lib/mathalea'
-  import NavBarV2Subtitle from './NavBarV2Subtitle.svelte'
+  import { globalOptions, darkMode, callerComponent } from "../store"
+  import Button from "../forms/Button.svelte"
+  import { mathaleaHandleComponentChange } from "../../lib/mathalea"
+  import NavBarV2Subtitle from "./NavBarV2Subtitle.svelte"
 
   const isNavBarVisible = false
-  export let title: string = 'MathALÉA'
-  export let subtitle: string = ''
-  export let subtitleType: 'export' | 'design' = 'export'
+  export let title: string = "MathALÉA"
+  export let subtitle: string = ""
+  export let subtitleType: "export" | "design" = "export"
   const menus = {
     referentiels: {
-      titre: 'Classes',
-      id: 'classes',
-      entrees: ['Sixième', 'Cinquième', 'Quatrième', 'Troisième', 'Seconde', 'CRPE'],
-      actions: ['https://coopmaths.fr/6e', 'https://coopmaths.fr/5e', 'https://coopmaths.fr/4e', 'https://coopmaths.fr/3e', 'https://coopmaths.fr/2e', 'https://coopmaths.fr/crpe'],
-      isMenuOpen: false
+      titre: "Classes",
+      id: "classes",
+      entrees: ["Sixième", "Cinquième", "Quatrième", "Troisième", "Seconde", "CRPE"],
+      actions: ["https://coopmaths.fr/6e", "https://coopmaths.fr/5e", "https://coopmaths.fr/4e", "https://coopmaths.fr/3e", "https://coopmaths.fr/2e", "https://coopmaths.fr/crpe"],
+      isMenuOpen: false,
     },
     professeurs: {
-      titre: 'Professeurs',
-      id: 'professeurs',
+      titre: "Professeurs",
+      id: "professeurs",
       entrees: [
-        'Exercices en ligne',
-        'Comment utiliser MathALEA',
-        'Générateur LaTeX/PDF',
-        'Export vers Moodle',
-        'Programmation de figures géométriques',
-        'Animations avec des instruments de géométrie',
-        'Outils'
+        "Exercices en ligne",
+        "Comment utiliser MathALEA",
+        "Générateur LaTeX/PDF",
+        "Export vers Moodle",
+        "Programmation de figures géométriques",
+        "Animations avec des instruments de géométrie",
+        "Outils",
       ],
       actions: [
-        '/',
-        'https://coopmaths.fr/mathalea_tuto/',
+        "/",
+        "https://coopmaths.fr/mathalea_tuto/",
         () => {
-          document.location.href = urlV2('latex')
+          document.location.href = urlV2("latex")
         },
         () => {
-          document.location.href = urlV2('moodle')
+          document.location.href = urlV2("moodle")
         },
-        'https://coopmaths.fr/mathalea2d.html',
-        'https://coopmaths.fr/mathalea2iep.html',
-        'https://coopmaths.fr/mathalea.html?filtre=outils'
+        "https://coopmaths.fr/mathalea2d.html",
+        "https://coopmaths.fr/mathalea2iep.html",
+        "https://coopmaths.fr/mathalea.html?filtre=outils",
       ],
-      isMenuOpen: false
+      isMenuOpen: false,
     },
     aPropos: {
-      titre: 'À Propos',
-      id: 'apropos',
-      entrees: ['Objectifs généraux', 'Présentation du logiciel', 'Nous contacter', 'Documentation pour les développeurs'],
-      actions: ['https://coopmaths.fr/a_propos', 'https://coopmaths.fr/mathalea_a_propos/', 'mailto:contact@coopmaths.fr', 'https://coopmaths.fr/documentation'],
-      isMenuOpen: false
+      titre: "À Propos",
+      id: "apropos",
+      entrees: ["Objectifs généraux", "Présentation du logiciel", "Nous contacter", "Documentation pour les développeurs"],
+      actions: ["https://coopmaths.fr/a_propos", "https://coopmaths.fr/mathalea_a_propos/", "mailto:contact@coopmaths.fr", "https://coopmaths.fr/documentation"],
+      isMenuOpen: false,
     },
     export: {
-      titre: 'Export',
-      id: 'export',
-      entrees: ['Plein écran', 'Plein écran élève', 'Diaporama', 'Lien', 'LaTeX', 'Moodle', 'AMC'],
+      titre: "Export",
+      id: "export",
+      entrees: ["Plein écran", "Plein écran élève", "Diaporama", "Lien", "LaTeX", "Moodle", "AMC"],
       actions: [
         () =>
           globalOptions.update((params) => {
-            params.v = 'l'
+            params.v = "l"
             return params
           }),
         () =>
           globalOptions.update((params) => {
-            params.v = 'eleve'
+            params.v = "eleve"
             return params
           }),
         () =>
           globalOptions.update((params) => {
-            params.v = 'diaporama'
+            params.v = "diaporama"
             return params
           }), // () => {document.location.href = urlV2('diap')},
         () => {
-          alert('Non disponible')
+          alert("Non disponible")
         },
         () => {
           globalOptions.update((params) => {
-            params.v = 'latex'
+            params.v = "latex"
             return params
           })
         },
         () => {
-          document.location.href = urlV2('moodle')
+          document.location.href = urlV2("moodle")
         },
         () => {
-          document.location.href = urlV2('amc')
-        }
+          document.location.href = urlV2("amc")
+        },
       ],
-      isMenuOpen: false
-    }
+      isMenuOpen: false,
+    },
   }
 
-  function urlV2 (vue) {
+  function urlV2(vue) {
     const params = new URLSearchParams(document.location.search)
-    if (vue) params.set('v', vue)
-    params.delete('uuid')
-    return ('https://coopmaths.fr/mathalea.html?' + params.toString()).replaceAll('id=', 'ex=').replaceAll('&s', ',s').replaceAll('&n', ',n')
+    if (vue) params.set("v", vue)
+    params.delete("uuid")
+    return ("https://coopmaths.fr/mathalea.html?" + params.toString()).replaceAll("id=", "ex=").replaceAll("&s", ",s").replaceAll("&n", ",n")
   }
 
-  function goToMathalea (paramV) {
+  function goToMathalea(paramV) {
     mathaleaHandleComponentChange(paramV, $callerComponent)
   }
 </script>
@@ -144,7 +144,7 @@
     <div class="flex flex-row space-x-4 px-0 pt-2 md:px-4">
       <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
         <!-- this hidden checkbox controls the state -->
-        <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} />
+        <input id="hidden-checkbox-for-darkmode" type="checkbox" class="invisible" bind:checked={$darkMode.isActive} />
         <!-- sun icon -->
         <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
         <!-- moon icon -->

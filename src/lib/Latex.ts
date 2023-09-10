@@ -100,7 +100,12 @@ class Latex {
           if (exercice.nbColsCorr > 1) {
             contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
           }
-          contentCorr += '\n\\begin{enumerate}'
+          if (exercice.spacingCorr>0){
+            contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
+          } else {
+            contentCorr += '\n\\begin{enumerate}'
+          }
+
           for (const correction of exercice.listeCorrections) {
             contentCorr += `\n\\item ${format(correction)}`
           }
@@ -277,7 +282,7 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
   if (questions !== undefined && questions.length > 1) {
     content += '\n\\begin{enumerate}'
     const specs:string[] = []
-    if (spacing !== 1) {
+    if (spacing !== 0) {
       specs.push(`itemsep=${spacing}em`)
     }
     if (!numbersNeeded) {

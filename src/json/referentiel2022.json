@@ -9128,7 +9128,7 @@
         "url": "4e/4C32-0.js",
         "uuid": "5d72b",
         "id": "4C32-0",
-        "titre": "Donner le résultat de calculs avec des puissances de 10 en écriture décimale",
+        "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en écriture décimale",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9139,21 +9139,11 @@
         "url": "4e/4C32-1.js",
         "uuid": "762fe",
         "id": "4C32-1",
-        "titre": "Calcul avec les puissances de dix",
+        "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
           "amcType": "qcmMono",
-          "amc": false
-        }
-      },
-      "4C32-2": {
-        "url": "4e/4C32-2.js",
-        "uuid": "fedae",
-        "id": "4C32-2",
-        "titre": "Puissances de 10 et préfixes kilo, méga, giga, téra",
-        "tags": {
-          "interactif": false,
           "amc": false
         }
       },
@@ -11770,7 +11760,7 @@
         "url": "2e/2G33-2.js",
         "uuid": "e715d",
         "id": "2G33-2",
-        "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
+        "titre": "Déterminer si des droites sont parallèles, sécantes ou confondues",
         "tags": {
           "interactif": false,
           "amc": false
@@ -12157,6 +12147,41 @@
           "interactifType": "mathLive",
           "amcType": "qcmMono",
           "amc": true
+        }
+      },
+      "2N31-6": {
+        "url": "2e/2N31-6.js",
+        "uuid": "816c8",
+        "id": "2N31-6",
+        "titre": "Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm",
+          "amcType": "qcmMono",
+          "amc": false
+        }
+      },
+      "2N31-7": {
+        "url": "2e/2N31-7.js",
+        "uuid": "f49ff",
+        "id": "2N31-7",
+        "titre": "Trouver l'exposant manquant dans des nombres écrits avec des puissances de 10",
+        "tags": {
+          "interactif": true,
+          "interactifType": "qcm",
+          "amcType": "qcmMono",
+          "amc": false
+        }
+      },
+      "2N31-8": {
+        "url": "2e/2N31-8.js",
+        "uuid": "fedae",
+        "id": "2N31-8",
+        "titre": "Lier calcul avec des puissances de 10 et les préfixes",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": false
         }
       },
       "2N32-1": {

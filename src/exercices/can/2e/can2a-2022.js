@@ -340,7 +340,7 @@ export default function SujetCAN2022Seconde () {
             reponse = `${b}\\times 10^{${exp + 2}}`
             texte = `Donner l'écriture  scientifique de $${a}\\times 10^{${exp}}$.`
 
-            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${a}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^2\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp + 2}}$.
               
  `
@@ -353,7 +353,7 @@ export default function SujetCAN2022Seconde () {
             reponse = `${b}\\times 10^{${exp + 1}}`
             texte = `Donner l'écriture  scientifique de $${a}\\times 10^{${exp}}$.`
 
-            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${a}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^1\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp + 2}}$.
               
  `
@@ -366,7 +366,7 @@ export default function SujetCAN2022Seconde () {
             reponse = `${b}\\times 10^{${exp - 1}}`
             texte = `Donner l'écriture  scientifique de $${texNombre(a, 2)}\\times 10^{${exp}}$.`
 
-            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-1}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 1}}$.
  `
           }
@@ -379,7 +379,7 @@ export default function SujetCAN2022Seconde () {
             reponse = `${b}\\times 10^{${exp - 2}}`
             texte = `Donner l'écriture  scientifique de $${texNombre(a, 2)}\\times 10^{${exp}}$.`
 
-            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
   Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-2}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 2}}$.
 `
           }

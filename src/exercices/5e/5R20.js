@@ -29,9 +29,11 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   this.sup = max
   this.sup2 = false // écriture simplifiée
   this.consigne = 'Calculer.'
-  this.spacing = 2
+  this.spacing = 0.5
   this.modeQcm = false
   this.sup3 = false
+  this.nbCols = 3
+  this.nbColsCorr = 3
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

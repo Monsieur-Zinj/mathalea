@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { InterfaceParams } from 'src/lib/types'
-  import { exercicesParams, globalOptions } from '../store'
-  import { isRecent } from '../utils/handleDate'
-  import NoInteractivityIcon from '../icons/NoInteractivityIcon.svelte'
+  import type { InterfaceParams } from "src/lib/types"
+  import { exercicesParams, globalOptions } from "../store"
+  import { isRecent } from "../utils/handleDate"
+  import NoInteractivityIcon from "../icons/NoInteractivityIcon.svelte"
 
-  import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-  import { onMount } from 'svelte'
+  import renderMathInElement from "katex/dist/contrib/auto-render.js"
+  import { onMount } from "svelte"
 
   export let exercice: Map<string, string | Map<string, string>>
   export let nestedLevelCount: number
@@ -13,18 +13,18 @@
   let nomDeExercice: HTMLDivElement
 
   onMount(() => {
-    if (nomDeExercice && nomDeExercice.innerHTML.includes('$')) {
+    if (nomDeExercice && nomDeExercice.innerHTML.includes("$")) {
       renderMathInElement(nomDeExercice, {
         delimiters: [
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false }
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
         ],
         // Les accolades permettent d'avoir une formule non coupée
-        preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
+        preProcess: (chaine: string) => "{" + chaine.replaceAll(String.fromCharCode(160), "\\,") + "}",
         throwOnError: true,
-        errorColor: '#CC0000',
-        strict: 'warn',
-        trust: false
+        errorColor: "#CC0000",
+        strict: "warn",
+        trust: false,
       })
     }
   })
@@ -33,9 +33,9 @@
     Gestions des exercices via la liste
    --------------------------------------------------------------- */
   const isPresent = (code: string) => {
-    return code === exercice.get('uuid')
+    return code === exercice.get("uuid")
   }
-  const tags = exercice.get('tags')
+  const tags = exercice.get("tags")
   let selectedCount = 0
   let listeCodes: string[]
   // on compte réactivement le nombre d'occurences
@@ -51,15 +51,15 @@
   /**
    * Ajouter l'exercice courant à la liste
    */
-  function addToList () {
+  function addToList() {
     const newExercise = {
-      url: exercice.get('url'),
-      id: exercice.get('id'),
-      uuid: exercice.get('uuid'),
-      interactif: '0'
+      url: exercice.get("url"),
+      id: exercice.get("id"),
+      uuid: exercice.get("uuid"),
+      interactif: "0",
     } as InterfaceParams
-    if ($globalOptions.recorder === 'capytale') {
-      newExercise.interactif = '1'
+    if ($globalOptions.recorder === "capytale") {
+      newExercise.interactif = "1"
     }
     exercicesParams.update((list) => [...list, newExercise])
   }
@@ -67,7 +67,7 @@
    * Retirer l'exercice de la liste (si plusieurs occurences
    * la première est retirée)
    */
-  function removeFromList () {
+  function removeFromList() {
     const matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
@@ -75,17 +75,17 @@
   /* --------------------------------------------------------------
     Gestions des icônes en début de ligne
    --------------------------------------------------------------- */
-  let icon = 'bxs-message-alt'
-  let rotation = '-rotate-90'
+  let icon = "bxs-message-alt"
+  let rotation = "-rotate-90"
   let mouseIsOut = true
-  function handleMouseOver () {
-    icon = 'bx-trash'
-    rotation = 'rotate-0'
+  function handleMouseOver() {
+    icon = "bx-trash"
+    rotation = "rotate-0"
     mouseIsOut = false
   }
-  function handleMouseOut () {
-    icon = 'bxs-message-alt'
-    rotation = '-rotate-90'
+  function handleMouseOut() {
+    icon = "bxs-message-alt"
+    rotation = "-rotate-90"
     mouseIsOut = true
   }
 </script>
@@ -110,10 +110,12 @@
     class="flex-1 hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
     on:click={addToList}
     on:keydown={addToList}
+    role="presentation"
   >
     <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1" bind:this={nomDeExercice}>
-      {#if exercice.has('lieu')}
-        <span class="font-bold">{exercice.get('typeExercice').toUpperCase()} {exercice.get('mois') || ''} {exercice.get('annee')} - {exercice.get('lieu')} - {exercice.get('numeroInitial')}</span>
+      {#if exercice.has("lieu")}
+        <!-- Exercices d'annales -->
+        <span class="font-bold">{exercice.get("typeExercice").toUpperCase()} {exercice.get("mois") || ""} {exercice.get("annee")} - {exercice.get("lieu")} - {exercice.get("numeroInitial")}</span>
         <div>
           {#each tags as tag}
             <span
@@ -122,28 +124,34 @@
             >
           {/each}
         </div>
-      {:else}
+      {:else if exercice.has("id")}
+        <!-- Exercice MathALÉA -->
         <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-          <span class="font-bold">{exercice.get('id')} - </span>{exercice.get('titre')}
-          {#if isRecent(exercice.get('datePublication'))}
+          <span class="font-bold">{exercice.get("id")} - </span>{exercice.get("titre")}
+          {#if isRecent(exercice.get("datePublication"))}
             &nbsp;<span
               class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
               >NEW</span
             >
           {/if}
-          {#if isRecent(exercice.get('dateModification'))}
+          {#if isRecent(exercice.get("dateModification"))}
             &nbsp;<span
               class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
               >MAJ</span
             >
           {/if}
-          {#if !tags.get('interactif')}
+          {#if !tags.get("interactif")}
             &nbsp;<span class="tooltip tooltip-bottom tooltip-neutral" data-tip="Pas d'interactivité">
               <NoInteractivityIcon
                 class="inline-flex h-3 w-3 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark fill-coopmaths-warn-dark dark:fill-coopmathsdark-warn-dark stroke-coopmaths-warn-dark dark:stroke-coopmathsdark-warn-dark"
               />
             </span>
           {/if}
+        </div>
+      {:else}
+        <!-- Exercice de la bibliothèqye -->
+        <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          <span class="font-bold">{exercice.get("uuid")}</span>
         </div>
       {/if}
     </div>

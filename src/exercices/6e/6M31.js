@@ -61,8 +61,7 @@ export default function ExerciceConversionsVolumes () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    Decimal.toExpNeg = -20 // pour éviter la conversion en notation scientifique on va jusqu'à 20 décimales (-7 est la valeur par défaut)
-    Decimal.toExpPos = 20 // pour les grands entiers, c'est la valeur par défaut
+    Decimal.set({toExpNeg :-20, toExpPos:20}) // pour éviter la conversion en notation scientifique on va jusqu'à 20 décimales (-7 est la valeur par défaut)
     const prefixeMulti = [
       [' da', '\\times1000', 1000],
       [' h', '\\times1000\\times1000', 1000000],
@@ -426,6 +425,5 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
   const minTab2 = rTab[0] !== '' || rTab[1] !== '' || rTab[2] !== '' ? 0 : rTab[3] !== '' || rTab[4] !== '' || rTab[5] !== '' || force ? 3 : 6
   const maxTab1 = aTab[32] !== '' || aTab[31] !== '' || aTab[30] !== '' ? 33 : aTab[29] !== '' || aTab[28] !== '' || aTab[27] !== '' || force ? 30 : 27
   const maxTab2 = rTab[32] !== '' || rTab[31] !== '' || rTab[30] !== '' ? 33 : rTab[29] !== '' || rTab[28] !== '' || rTab[27] !== '' || force ? 30 : 27
-  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2) / 3, Math.max(maxTab1, maxTab2) / 3, ligne, correction)
-  return texte
+  return createTab(aTab, rTab, Math.min(minTab1, minTab2) / 3, Math.max(maxTab1, maxTab2) / 3, ligne, correction)
 }

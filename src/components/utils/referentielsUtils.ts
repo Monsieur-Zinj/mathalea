@@ -1,27 +1,25 @@
 import type { InterfaceReferentiel } from 'src/lib/types'
 import referentiel from '../../json/referentiel2022.json'
 import referentielStatic from '../../json/referentielStatic.json'
+import referentiel2nd from '../../json/referentiel2nd.json'
 import codeList from '../../json/codeToLevelList.json'
 import { findPropPaths, findDuplicates } from './searching'
 import { toMap } from './toMap'
 import { isRecent } from './handleDate'
+import { get } from 'svelte/store'
+import { globalOptions } from '../store'
+import referentielsActivation from '../../json/referentielsActivation.json'
 
 // Réorganisation du référentiel
 // Suppression de la rubrique calcul mental
 // On renomme les chapitres pour la partie statique
 const baseReferentiel = { ...referentiel, static: { ...referentielStatic } }
+if (get(globalOptions).interfaceBeta) {
+  baseReferentiel.static['2nd'] = referentiel2nd['2nd']
+  console.log(baseReferentiel.static)
+}
 // @ts-ignore
 delete baseReferentiel['Calcul mental']
-// @ts-ignore
-baseReferentiel['3e']['Brevet des collèges par thèmes - APMEP'] = baseReferentiel.static['Brevet des collèges par thèmes - APMEP']
-// @ts-ignore
-baseReferentiel.PE['CRPE (2022-2023) par année'] = baseReferentiel.static['CRPE (2022-2023) par année']
-// @ts-ignore
-baseReferentiel.PE['CRPE (2022-2023) par thèmes'] = baseReferentiel.static['CRPE (2022-2023) par thèmes']
-// @ts-ignore
-baseReferentiel.PE['CRPE (2015-2019) par thèmes - COPIRELEM'] = baseReferentiel.static['CRPE (2015-2019) par thèmes - COPIRELEM']
-// @ts-ignore
-baseReferentiel.PE['CRPE (2015-2019) par année - COPIRELEM'] = baseReferentiel.static['CRPE (2015-2019) par année - COPIRELEM']
 let referentielMap = toMap(baseReferentiel)
 
 /**
@@ -99,19 +97,18 @@ function getRecentExercises (obj: InterfaceReferentiel[]): InterfaceReferentiel[
  * @param isAmcOnlySelected Tag pour le filtre AMC
  * @param isInteractiveOnlySelected tag pour le filtre Interactif
  * @param itemsAccepted Tableau des entrées filtrées
- * @param isNewExercisesIncluded tag pour inclure les nouveautés dans la liste
  * @returns tableau de tous les exercices filtrés
  */
-export function updateReferentiel (isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted, isNewExercisesIncluded = true) {
+export function updateReferentiel (isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted) {
   let filteredReferentiel = {}
   if (itemsAccepted.length === 0) {
     // pas de filtres sélectionnés
-    filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
+    filteredReferentiel = { ...referentiel }
   } else {
-    filteredReferentiel = Object.keys({ ...referentiel, static: { ...referentielStatic } })
+    filteredReferentiel = Object.keys({ ...referentiel })
       .filter((key) => itemsAccepted.includes(key))
       .reduce((obj, key) => {
-        const ref = { ...referentiel, static: { ...referentielStatic } }
+        const ref = { ...referentiel }
         return {
           ...obj,
           [key]: ref[key]
@@ -151,5 +148,21 @@ export function codeToLevelTitle (code: string) {
     return codeList[code]
   } else {
     return code
+  }
+}
+
+/**
+ * Consulte le fichier `src/json/referentielsActivation.json`
+ * et retourne la valeur d'activation `true`/`false` indiqué pour un nom de référentiel donné.
+ * @param refName nom du référentiel (conformément au type `ReferentielNames` dans `src/lib/types.ts`)
+ * @returns la valeur mentionnée dans `src/json/referentielsActivation.json` <br/> `false` si le nom du référentiel n'exoiste pas.
+ */
+export function isReferentielActivated (refName:string): boolean {
+  const referentielList = toMap({ ...referentielsActivation })
+  if (referentielList.has(refName)) {
+    return referentielList.get(refName) === 'true'
+  } else {
+    console.log(refName + ' is not a valid referentiel name !')
+    return false
   }
 }
