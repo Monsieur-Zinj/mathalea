@@ -65,7 +65,7 @@ export default function CalculerUneExpressionNumerique () {
       expc = resultats[2]
       if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
       this.consigne = 'Calculer en respectant les priorités opératoires'
-      this.consigne += this.interactif ? '.' : 'et en détaillant.'
+      this.consigne += this.interactif ? '.' : ' et en détaillant.'
       if (!this.sup4) {
         texte = `${expn}`
       } else {
