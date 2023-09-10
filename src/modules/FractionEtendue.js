@@ -138,9 +138,19 @@ class FractionEtendue extends Fraction {
         }
         den = round(den * pow(10, maxDecimalesNumDen))
         num = round(num * pow(10, maxDecimalesNumDen))
-        super(num, den)
-        this.num = num
-        this.den = den
+        try {
+          super(num, den)
+          this.num = num
+          this.den = den
+        } catch (error){
+          window.notify(`transformation impossible en Fraction par Math.Fraction() de num = ${num} et den = ${den} ! `,{num, den})
+          this.num = Math.round(num)
+          this.n = this.num
+          this.den = Math.round(den)
+          this.d = this.den
+          this.s = this.num*this.den<0 ? -1 : 1
+          this.signe = this.s
+        }
       } else {
         super(NaN)
       }
