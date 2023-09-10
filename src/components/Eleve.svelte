@@ -150,6 +150,9 @@
       // ou x[0].contentRect.height ou x[0].contentBoxSize[0].blockSize ou x[0].borderBoxSize[0].inlineSize ou x[0].target.scrollHeight
     })
     resizeObserver.observe(eleveSection)
+    if ($globalOptions.recorder === 'capytale') {
+      $globalOptions.isInteractiveFree = false
+    }
     return () => {
       /* onDestroy function */
       resizeObserver.disconnect()
