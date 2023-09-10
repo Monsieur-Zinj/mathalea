@@ -2356,6 +2356,28 @@
             "amcType": "AMCNum",
             "amc": true
           }
+        },
+        "can4C17": {
+          "url": "can/4e/can4C17.js",
+          "uuid": "471bf",
+          "id": "can4C17",
+          "titre": "Simplifier des fractions (cas simples)",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amc": true
+          }
+        },
+        "can4C18": {
+          "url": "can/4e/can4C18.js",
+          "uuid": "f84d1",
+          "id": "can4C18",
+          "titre": "Décomposer une fraction",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amc": true
+          }
         }
       },
       "can4G": {
