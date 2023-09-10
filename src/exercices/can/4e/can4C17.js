@@ -21,7 +21,7 @@ export default function SimplifierFractionSimple () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.formatInteractif = 'fraction'
+  this.formatInteractif = 'calcul'
   this.nouvelleVersion = function () {
     switch (choice([1, 2, 3])) { // 1, 2, 3, 4, 5, 6
       case 1 :
@@ -30,7 +30,7 @@ export default function SimplifierFractionSimple () {
           const d = choice([-1, 1])
           this.reponse = new FractionEtendue(n, d).simplifie()
           this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
-          this.correction = ''
+          this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse}$`
           this.canEnonce = this.question
           this.canReponseACompleter = '' }
         break
@@ -39,7 +39,7 @@ export default function SimplifierFractionSimple () {
         const d = n * choice([-1, 1])
         this.reponse = new FractionEtendue(n, d).simplifie()
         this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
-        this.correction = ''
+        this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse}$`
         this.canEnonce = this.question
         this.canReponseACompleter = '' }
         break
@@ -49,7 +49,7 @@ export default function SimplifierFractionSimple () {
         const n = d * choice([-10, 10])
         this.reponse = new FractionEtendue(n, d).simplifie()
         this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
-        this.correction = ''
+        this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse}$`
         this.canEnonce = this.question
         this.canReponseACompleter = '' }
         break
