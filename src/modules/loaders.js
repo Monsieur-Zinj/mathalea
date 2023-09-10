@@ -152,18 +152,16 @@ export async function loadMathLive () {
   const isInIframe = window.self !== window.top
   const isInCapytale = get(globalOptions).recorder === 'capytale'
   if (champs.length > 0) {
-    if (isInIframe) {
-      //  SOLUTION TEMPORAIRE POUR REPARER LE CLAVIER MATHLIVE DANS UN IFRAME
-      window.parent = window.self
-    }
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
     for (const mf of champs) {
       let clavier, raccourcis
       mf.mathVirtualKeyboardPolicy = 'manual'
+      /*
       if (isInIframe && !isInCapytale) {
         mf.mathVirtualKeyboardPolicy = 'sandboxed'
       }
+      */
       mf.virtualKeyboardTargetOrigin = '*'
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
@@ -209,6 +207,7 @@ export async function loadMathLive () {
       mf.inlineShortcuts = raccourcis
 
       // Evite les problèmes de positionnement du clavier mathématique dans les iframes
+      /*
       if (isInIframe) {
         if (!document.getElementById('fixKeyboardPositionInIframe')) {
           const style = document.createElement('style')
@@ -250,6 +249,7 @@ export async function loadMathLive () {
           })
         })
       }
+      */
 
       if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
         // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
