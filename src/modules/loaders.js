@@ -249,7 +249,6 @@ export async function loadMathLive () {
           })
         })
       }
-      */
 
       if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
         // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
@@ -257,6 +256,7 @@ export async function loadMathLive () {
           virtualKeyboardMode: 'onfocus'
         })
       }
+      */
 
       let style = 'font-size: 20px;'
 
