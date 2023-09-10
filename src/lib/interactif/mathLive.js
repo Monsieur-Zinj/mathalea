@@ -124,27 +124,19 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           break
         case 'fractionPlusSimple':
           saisie = champTexte.value.replace(',', '.')
-          if (!isNaN(parseFloat(saisie))) {
-            if (parseInt(saisie) === reponse.n) resultat = 'OK'
-          } else {
-            saisieParsee = engine.parse(saisie, { canonical: false })
-            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
-            if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
-          }
+          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
+          saisieParsee = engine.parse(saisie, { canonical: true })
+            console.log(saisieParsee.json, fReponse.json)
+            if (saisieParsee.json[0]==='Rational') {
+              if (saisieParsee.canonical.isSame(fReponse.canonical) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
+            }
           break
         case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
           saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
-          if (!isNaN(parseFloat(saisie))) {
-            const newFraction = new FractionEtendue(parseFloat(saisie))
-            saisieParsee = engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical
-          } else {
-            saisieParsee = engine.parse(saisie).canonical
-          }
-          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', '')).canonical
-          if (saisieParsee) {
-            if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
-          }
+          saisieParsee = engine.parse(saisie, {canonical: true})
+          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''))
+            if (saisieParsee.canonical.isEqual(fReponse.canonical)) resultat = 'OK'
           break
         case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
           saisie = champTexte.value.replaceAll(',', '.')
