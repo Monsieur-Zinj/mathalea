@@ -30,7 +30,8 @@ export default function DecomposerFraction () {
     const frac = new FractionEtendue(n - Math.trunc(n / d) * d, d)
     this.reponse = `${Math.trunc(n / d)}+${frac.texFSD}`
     this.question = `Écrire $\\dfrac{${n}}{${d}}$ sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1.`
-    this.correction = `$\\dfrac{${n}}{${d}}=\\dfrac{${Math.trunc(n / d) * d}}{${d}}+\\dfrac{${n - Math.trunc(n / d) * d}}{${d}}=${Math.trunc(n / d)}+\\dfrac{${n - Math.trunc(n / d) * d}}{${d}}$`
+    this.correction = `Le plus grand multiple de $${d}$ inférieur à $${n}$ est $${Math.trunc(n / d) * d}$. <br>
+    Ainsi, $\\dfrac{${n}}{${d}}=\\dfrac{${Math.trunc(n / d) * d}}{${d}}+\\dfrac{${n - Math.trunc(n / d) * d}}{${d}}=${Math.trunc(n / d)}+\\dfrac{${n - Math.trunc(n / d) * d}}{${d}}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
