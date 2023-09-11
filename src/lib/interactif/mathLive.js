@@ -124,13 +124,12 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           break
         case 'fractionPlusSimple':
           saisie = champTexte.value.replace(',', '.')
-          if (!isNaN(parseFloat(saisie))) {
-            if (parseInt(saisie) === reponse.n) resultat = 'OK'
-          } else {
-            saisieParsee = engine.parse(saisie, { canonical: false })
-            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
-            if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
-          }
+          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
+          saisieParsee = engine.parse(saisie, { canonical: true })
+            console.log(saisieParsee.json, fReponse.json)
+            if (saisieParsee.json[0]==='Rational') {
+              if (saisieParsee.canonical.isSame(fReponse.canonical) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
+            }
           break
         case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
@@ -141,17 +140,15 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           } else {
             saisieParsee = engine.parse(saisie).canonical
           }
-          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', '')).canonical
-          if (saisieParsee) {
-            if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
-          }
+          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''))
+          if (saisieParsee.canonical.isEqual(fReponse.canonical)) resultat = 'OK'
           break
         case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
           saisie = champTexte.value.replaceAll(',', '.')
-          nbDeMoins = saisie.split('-')
+          nbDeMoins = saisie.split('-').length
           if (saisie.indexOf('-') !== -1) {
             if (nbDeMoins % 2 === 1) {
-              saisie = saisie.replace('-', '')
+              saisie = saisie.replaceAll('-', '')
             } else {
               saisie = saisie.replaceAll('-', '')
               saisie = '-' + saisie
@@ -160,8 +157,8 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (!isNaN(parseFloat(saisie))) {
             if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
-            saisieParsee = engine.parse(saisie.replace('frac', 'dfrac').replace('ddfrac', 'dfrac'))
-            fReponse = engine.parse(reponse.texFSD.replaceAll('\\,', ''))
+            saisieParsee = engine.parse(saisie,{canonical: false})
+            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), {canonical: false})
             if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           }
           break
