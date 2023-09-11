@@ -177,7 +177,9 @@
       handleCapytale()
       globalOptions.update((params) => {
         params.presMode = 'un_exo_par_page'
-        params.isInteractiveFree = false
+        if ($globalOptions.v === 'eleve') {
+          params.isInteractiveFree = false
+        }
         return params
       })
     }
@@ -520,7 +522,7 @@
     <div slot="header">Réglages de l'affichage des exercices</div>
     <div slot="content">
       <div class="pt-2 pl-2 grid grid-flow-row lg:grid-cols-2 gap-4">
-        <div class="pb-2">
+        <!-- <div class="pb-2">
           <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
           <FormRadio
             isDisabled={true}
@@ -533,7 +535,7 @@
               { label: 'Une page par question', value: 'une_question_par_page' }
             ]}
           />
-        </div>
+        </div> -->
         <div class="pb-2">
           <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>
           <FormRadio
@@ -545,13 +547,13 @@
               { label: "Pas d'interactivité", value: '0' }
             ]}
           />
-          <div class="pl-2 pt-2">
+          <!-- <div class="pl-2 pt-2">
             <ButtonToggle
               isDisabled={$globalOptions.setInteractive === '0'}
               titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
               bind:value={$globalOptions.isInteractiveFree}
             />
-          </div>
+          </div> -->
           <div class="pl-2 pt-2">
             <ButtonToggle
               isDisabled={$globalOptions.setInteractive === '0'}

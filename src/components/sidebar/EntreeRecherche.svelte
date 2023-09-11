@@ -1,27 +1,27 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions } from "../store"
-  import { isRecent } from "../utils/handleDate"
+  import { exercicesParams, globalOptions } from '../store'
+  import { isRecent } from '../utils/handleDate'
 
-  import renderMathInElement from "katex/dist/contrib/auto-render.js"
-  import type { InterfaceReferentiel } from "../../lib/types"
+  import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+  import type { InterfaceReferentiel } from '../../lib/types'
 
   export let exercice: Map<string, string | Map>
 
-  import { afterUpdate } from "svelte"
+  import { afterUpdate } from 'svelte'
   let nomDeExercice: HTMLDivElement
   afterUpdate(() => {
-    if (nomDeExercice && nomDeExercice.outerText.includes("$")) {
+    if (nomDeExercice && nomDeExercice.outerText.includes('$')) {
       renderMathInElement(nomDeExercice, {
         delimiters: [
-          { left: "\\[", right: "\\]", display: true },
-          { left: "$", right: "$", display: false },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false }
         ],
         // Les accolades permettent d'avoir une formule non coupée
-        preProcess: (chaine: string) => "{" + chaine.replaceAll(String.fromCharCode(160), "\\,") + "}",
+        preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
         throwOnError: true,
-        errorColor: "#CC0000",
-        strict: "warn",
-        trust: false,
+        errorColor: '#CC0000',
+        strict: 'warn',
+        trust: false
       })
     }
   })
@@ -53,15 +53,15 @@
   /**
    * Ajouter l'exercice courant à la liste
    */
-  function addToList(exercice: InterfaceReferentiel) {
+  function addToList (exercice: InterfaceReferentiel) {
     const newExercise = {
       url: exercice.url,
       id: exercice.id,
       uuid: exercice.uuid,
-      interactif: "0",
+      interactif: '0'
     }
-    if ($globalOptions.recorder === "capytale") {
-      newExercise.interactif = "1"
+    if ($globalOptions.recorder === 'capytale') {
+      newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
   }
@@ -69,24 +69,24 @@
    * Retirer l'exercice de la liste (si plusieurs occurences
    * la première est retirée)
    */
-  function removeFromList() {
+  function removeFromList () {
     const matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
   /* --------------------------------------------------------------
     Gestions des icônes en début de ligne
    --------------------------------------------------------------- */
-  let icon = "bxs-message-alt"
-  let rotation = "-rotate-90"
+  let icon = 'bxs-message-alt'
+  let rotation = '-rotate-90'
   let mouseIsOut = true
-  function handleMouseOver() {
-    icon = "bx-trash"
-    rotation = "rotate-0"
+  function handleMouseOver () {
+    icon = 'bx-trash'
+    rotation = 'rotate-0'
     mouseIsOut = false
   }
-  function handleMouseOut() {
-    icon = "bxs-message-alt"
-    rotation = "-rotate-90"
+  function handleMouseOut () {
+    icon = 'bxs-message-alt'
+    rotation = '-rotate-90'
     mouseIsOut = true
   }
 </script>
@@ -104,7 +104,7 @@
   >
     <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1" bind:this={nomDeExercice}>
       {#if exercice.lieu}
-        <span class="font-bold">{exercice.typeExercice.toUpperCase()} {exercice.mois || ""} {exercice.annee} - {exercice.lieu} - {exercice.numeroInitial}</span>
+        <span class="font-bold">{exercice.typeExercice.toUpperCase()} {exercice.mois || ''} {exercice.annee} - {exercice.lieu} - {exercice.numeroInitial}</span>
         <div>
           {#each exercice.tags as tag}
             <span

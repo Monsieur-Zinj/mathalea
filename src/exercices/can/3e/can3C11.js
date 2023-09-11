@@ -36,7 +36,7 @@ export default function SimplifieFractionOuRacinesCarrees () {
         this.question = `Écrire $${maFraction.texFraction}$ sous la forme d'une fraction irréductible.`
         this.correction = `$${maFraction.texFraction}=\\dfrac{${resultat.n}\\times ${k}}{${resultat.d}\\times ${k}} =${resultat.texFraction}$.`
         this.reponse = resultat
-        this.formatInteractif = 'fractionEgale'
+        this.formatInteractif = 'fraction'
         break
 
       case 2:// racine carrée ()^2 ou rac(0,04) par ex

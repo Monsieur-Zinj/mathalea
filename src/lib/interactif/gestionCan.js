@@ -1,7 +1,7 @@
 import { context } from '../../modules/context.js'
 import { addElement, get } from '../html/dom.js'
 import { verifQuestionCliqueFigure } from './cliqueFigure.js'
-import { verifQuestionMathLive } from './questionMathLive.js'
+import { verifQuestionMathLive } from './mathLive.js'
 import { verifQuestionQcm } from './qcm.js'
 
 export function gestionCan (exercice) {

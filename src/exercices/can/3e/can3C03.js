@@ -24,7 +24,7 @@ export default function FractionIrreductible () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.formatInteractif = 'fractionEgale'
+  this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())
     const k = choice([2, 3, 4, 5, 9, 10, 20])
