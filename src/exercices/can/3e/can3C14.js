@@ -25,7 +25,7 @@ export default function DecimalVersFractionIr () {
   this.nouvelleVersion = function () {
     let a, d, maFraction, d1
     this.formatChampTexte = 'largeur15 inline'
-    this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'fraction'
     switch (choice([1, 2, 3])) {
       case 1:// division par 10
         a = randint(1, 39, [10, 20, 30])
