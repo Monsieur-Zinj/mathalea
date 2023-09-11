@@ -22,7 +22,7 @@ export default function SommeEntierEtFractionIrred () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.formatInteractif = 'fractionEgale'
+  this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())
     const a = randint(1, 4)
