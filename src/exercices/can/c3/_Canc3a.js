@@ -429,13 +429,13 @@ export default class ClasseCan2023 {
       c = randint(0, 8)
       d = randint(0, 4)
       if (a === 0) {
-        sortie.texte = `Écris en chiffres le nombre : <br> ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]} `
+        sortie.texte = `Écris en chiffres le nombre ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}.`
         sortie.reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
-        sortie.texteCorr = `$\\text{${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}}= ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre[c][1]} =${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]))}$ `
+        sortie.texteCorr = `${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]} = $${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)}$ + ${chiffre[c][1]} = $${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]))}$ `
       } else {
-        sortie.texte = `Écris en chiffres le nombre : <br> ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]} `
+        sortie.texte = `Écris en chiffres le nombre ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]}.`
         sortie.reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
-        sortie.texteCorr = `$\\text{${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]}}= ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre[c][1]} =${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]))}$ `
+        sortie.texteCorr = `${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]} = $${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)}$ + ${chiffre[c][1]} = $${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]))}$ `
       }
     } else {
       if (a === 0) {
@@ -640,7 +640,7 @@ export default class ClasseCan2023 {
     sortie.reponse = [`${nombreDeDizaines};${nombreDUnites}`]
     sortie.texte = `Complète : ${sp(3)}
     $${texNombre(nombre, 0)}= \\ldots$ dizaines  $\\ldots$  unités`
-    sortie.texteCorr = `$${texNombre(nombre, 0)} = ${miseEnEvidence(texNombre(nombreDeDizaines, 0))} \\text{ dizaines } ${miseEnEvidence(texNombre(nombreDUnites, 0))} \\text{ unités }$`
+    sortie.texteCorr = `$${texNombre(nombre, 0)} = ${miseEnEvidence(texNombre(nombreDeDizaines, 0))}$ dizaines $${miseEnEvidence(texNombre(nombreDUnites, 0))}$ unités`
     sortie.canEnonce = 'Complète.'
     sortie.canReponseACompleter = `$${texNombre(nombre, 0)}= \\ldots$  dizaines $\\ldots$  unités  `
     return sortie
@@ -789,7 +789,7 @@ export default class ClasseCan2023 {
         a, s1, s2, s3)
       sortie.reponse = new FractionEtendue(2, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
-      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $2$ carreaux, soit $\\dfrac{${miseEnEvidence(2)}}{${miseEnEvidence(b)}}$ u.l. `
+      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $2$ carreaux, soit $\\dfrac{${miseEnEvidence(2)}}{${miseEnEvidence(b)}}$ ul.`
     }
     if (choix === 'b') {
       a = grille(-2, 0, 7, 4, 'gray', 1, 1)
@@ -822,7 +822,7 @@ export default class ClasseCan2023 {
         a, s1, s2, s3, s4)
       sortie.reponse = new FractionEtendue(3, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
-      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $3$ carreaux, soit $\\dfrac{${miseEnEvidence(3)}}{${miseEnEvidence(b)}}$ u.l. `
+      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $3$ carreaux, soit $\\dfrac{${miseEnEvidence(3)}}{${miseEnEvidence(b)}}$ ul `
     }
     if (choix === 'c') {
       a = grille(-2, 0, 7, 4, 'gray', 1, 1)
@@ -859,7 +859,7 @@ export default class ClasseCan2023 {
         a, s1, s2, s3, s4, s5)
       sortie.reponse = new FractionEtendue(4, b)
       sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
-      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $4$ carreaux, soit $\\dfrac{${miseEnEvidence(4)}}{${miseEnEvidence(b)}}$ u.l. `
+      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $4$ carreaux, soit $\\dfrac{${miseEnEvidence(4)}}{${miseEnEvidence(b)}}$ ul `
     }
     sortie.canEnonce = sortie.texte
     sortie.canReponseACompleter = '$\\ldots$ ul'
@@ -931,7 +931,7 @@ export default class ClasseCan2023 {
       case 'premiere':
         sortie.reponse = vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure
         sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}$ km/h à vitesse constante. <br>Combien de kilomètres parcourt-elle en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
-        sortie.texteCorr = `En $1$ h la voiture parcourt $${vitesseCommune.vitesse}$ km.<br>
+        sortie.texteCorr = `En $1$ h, la voiture parcourt $${vitesseCommune.vitesse}$ km.<br>
         En $${vitesseCommune.nombreDeMinutes}$ minutes, elle parcourt $${vitesseCommune.diviseurDeLHeure}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${vitesseCommune.vitesse}}{${vitesseCommune.diviseurDeLHeure}}=
         ${miseEnEvidence(texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2))}$ km.`
         sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
@@ -996,10 +996,10 @@ export default class ClasseCan2023 {
     const accordCentaine = nombreDeCentaines === 1 ? 'centaine' : 'centaines'
     sortie.reponse = nombreDeDizaines
     sortie.texte = `Complète : ${sp(3)}
-    $${texNombre(nombreDeCentaines, 0)} \\text{ ${accordCentaine} et } \\ldots \\text{ ${accordDizaine} font } ${nombre}$ `
-    sortie.texteCorr = `$${texNombre(nombre, 0)} = ${texNombre(nombreDeCentaines, 0)} \\text{ centaines et } ${miseEnEvidence(texNombre(nombreDeDizaines, 0))} \\text{ dizaines }$`
+    $${texNombre(nombreDeCentaines, 0)}$ ${accordCentaine} et  $\\ldots$  ${accordDizaine} font  $${nombre}$.`
+    sortie.texteCorr = `$${texNombre(nombre, 0)} = ${texNombre(nombreDeCentaines, 0)}$ centaines et $${miseEnEvidence(texNombre(nombreDeDizaines, 0))}$ dizaines`
     sortie.canEnonce = 'Complète.'
-    sortie.canReponseACompleter = `$${texNombre(nombreDeCentaines, 0)}\\text{ ${accordCentaine} et} \\dots\\text{ ${accordDizaine}}$\\\\ $\\text{font } ${nombre}$`
+    sortie.canReponseACompleter = `$${texNombre(nombreDeCentaines, 0)}$ ${accordCentaine} et  $\\ldots$  ${accordDizaine} font  $${nombre}$.`
     return sortie
   }
 
@@ -1110,10 +1110,10 @@ export default class ClasseCan2023 {
     sortie.nombre = new Decimal(unites.add(dixiemes).add(centiemes))
     sortie.reponse = new Decimal(unites.mul(10).add(dixiemes.mul(10)))
     sortie.texte = `Combien de dixièmes y a-t-il en tout dans $${texNombre(sortie.nombre, 2)}$ ?`
-    sortie.texteCorr = `$${texNombre(sortie.nombre, 2)} = ${texNombre(unites, 0)} \\text{ ${unites.toNumber() === 1 ? 'unité' : 'unités'} } ${texNombre(dixiemes.mul(10), 0)} \\text{ ${dixiemes.mul(10).toNumber() === 1 ? 'dixième' : 'dixièmes'} } ${texNombre(centiemes.mul(100), 0)} \\text{ ${centiemes.mul(100).toNumber() === 1 ? 'centième' : 'centièmes'} }$.<br>`
-    sortie.texteCorr += `Or $1$ unité = $10$ dixièmes donc $${texNombre(unites, 0)} \\text{ ${unites.toNumber() === 1 ? 'unité' : 'unités'}} = ${texNombre(unites.mul(10), 0)} \\text{ dixèmes }$.<br>`
-    sortie.texteCorr += `Finalement $${texNombre(sortie.nombre, 2)} = ${texNombre(unites.mul(10).add(dixiemes.mul(10)), 0)} \\text{ dixièmes } ${texNombre(centiemes.mul(100), 0)} \\text{ ${centiemes.mul(100).toNumber() === 1 ? 'centième' : 'centièmes'} }$.<br>`
-    sortie.texteCorr += `Il y a donc $${miseEnEvidence(texNombre(sortie.reponse))} \\text{ dixièmes }$ en tout dans $${texNombre(sortie.nombre, 2)}$.`
+    sortie.texteCorr = `$${texNombre(sortie.nombre, 2)} = ${texNombre(unites, 0)}$ ${unites.toNumber() === 1 ? 'unité' : 'unités'} $${texNombre(dixiemes.mul(10), 0)}$ ${dixiemes.mul(10).toNumber() === 1 ? 'dixième' : 'dixièmes'} $${texNombre(centiemes.mul(100), 0)}$ ${centiemes.mul(100).toNumber() === 1 ? 'centième' : 'centièmes'}.<br>`
+    sortie.texteCorr += `Or $1$ unité = $10$ dixièmes donc $${texNombre(unites, 0)}$ ${unites.toNumber() === 1 ? 'unité' : 'unités'} $= ${texNombre(unites.mul(10), 0)}$ dixièmes.<br>`
+    sortie.texteCorr += `Finalement $${texNombre(sortie.nombre, 2)} = ${texNombre(unites.mul(10).add(dixiemes.mul(10)), 0)}$ dixièmes $${texNombre(centiemes.mul(100), 0)}$ ${centiemes.mul(100).toNumber() === 1 ? 'centième' : 'centièmes'}.<br>`
+    sortie.texteCorr += `Il y a donc $${miseEnEvidence(texNombre(sortie.reponse))}$ dixièmes en tout dans $${texNombre(sortie.nombre, 2)}$.`
     sortie.canEnonce = `Combien de dixièmes y a-t-il en tout \\\\ dans $${texNombre(sortie.nombre, 2)}$ ?`
     sortie.canReponseACompleter = '\\dots{} dixièmes'
     return sortie
