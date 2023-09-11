@@ -35,7 +35,7 @@ export default function CalculMoitieFraction () {
     const f = new FractionEtendue(a[0], a[1])
     const reponse = new FractionEtendue(a[0], a[1] * 2).simplifie()
     this.reponse = reponse
-    this.question = `Calculer la moitié de $${f.texFraction}$ sous la forme d'une fraction irréductible.`
+    this.question = `Calculer la moitié de $${f.texFraction}$ et écrire le résultat sous la forme d'une fraction simplifiée.`
     this.correction = `$${f.texFraction}\\div 2=${f.texFraction}\\times \\dfrac{1}{2}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$
           `
     this.canEnonce = this.question
