@@ -70,7 +70,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = produit.texteCorr
           setReponse(this, index, produit.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore')
           }
           nbChamps = 1
           this.listeCanEnonces.push(produit.canEnonce)
@@ -84,7 +84,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = somme.texteCorr
           setReponse(this, index, somme.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore')
           }
           nbChamps = 1
           this.listeCanEnonces.push(somme.canEnonce)
@@ -112,7 +112,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = moitieDouble.texteCorr
           setReponse(this, index, moitieDouble.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ' est ' + ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore')
           }
           nbChamps = 1
           this.listeCanEnonces.push(moitieDouble.canEnonce)
@@ -277,9 +277,8 @@ export default function SujetCAN2023CM2 () {
           texteCorr = decomposerUnNombreATroisChiffresEnDizainesUnites.texteCorr
           setReponse(this, index, decomposerUnNombreATroisChiffresEnDizainesUnites.reponse, { formatInteractif: 'texte' })
           if (this.interactif && !context.isAmc) {
-            texte += '<br>Écris le nombre de dizaines puis d\'unités dans cet ordre séparés par un point virgule.<br>'
+            texte += '<br>Écris le nombre de dizaines puis d\'unités dans cet ordre séparés par un point virgule. '
             texte += ajouteChampTexteMathLive(this, index, 'largeur6 inline')
-            // texte += ajouteChampTexteMathLive(this, index, 'largeur6 inline', { texteApres: sp(5) + 'unites.' })
           }
           nbChamps = 1
           this.listeCanEnonces.push(decomposerUnNombreATroisChiffresEnDizainesUnites.canEnonce)
@@ -326,7 +325,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = proportionnaliteParAddition.texteCorr
           setReponse(this, index, proportionnaliteParAddition.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur15')} ${proportionnaliteParAddition.uniteInteractif} .`
+            texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore')} ${proportionnaliteParAddition.uniteInteractif} .`
           } else {
             texte += ` $\\ldots$ ${proportionnaliteParAddition.uniteInteractif}.`
           }
@@ -342,7 +341,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = determinerUnNombreDUnitesDeLongueur.texteCorr
           setReponse(this, index, determinerUnNombreDUnitesDeLongueur.reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif && !context.isAmc) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'u.l.'
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'ul'
           }
           nbChamps = 1
           this.listeCanEnonces.push(determinerUnNombreDUnitesDeLongueur.canEnonce)
@@ -426,7 +425,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = tracerUneFigureAireDonneeEnFonctionUniteAire.texteCorr
           setReponse(this, index, tracerUneFigureAireDonneeEnFonctionUniteAire.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texteApres: sp(5) + 'petits carreaux.' })
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texteApres: sp(5) + 'petits carreaux' })
           }
           nbChamps = 1
           this.listeCanEnonces.push(tracerUneFigureAireDonneeEnFonctionUniteAire.canEnonce)
@@ -440,7 +439,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = nombreDeDixiemesDansUnDecimal.texteCorr
           setReponse(this, index, nombreDeDixiemesDansUnDecimal.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur15', {
+            texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore', {
                             texte: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`,
                             texteApres: sp(5) + 'dixièmes en tout.'
                         })}`
@@ -485,7 +484,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = ajouterDeuxDecimaux.texteCorr
           setReponse(this, index, ajouterDeuxDecimaux.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texte: '$=$' })
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore', { texte: `${sp(2)} $=$` })
           }
           nbChamps = 1
           this.listeCanEnonces.push(ajouterDeuxDecimaux.canEnonce)
