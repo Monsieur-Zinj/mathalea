@@ -186,7 +186,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = ordreDeGrandeur.texteCorr
           setReponse(this, index, new Grandeur(ordreDeGrandeur.reponse, ordreDeGrandeur.reponseUnite), { formatInteractif: 'unites' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 unites[Longueurs]')
           }
           nbChamps = 1
           this.listeCanEnonces.push(ordreDeGrandeur.canEnonce)
