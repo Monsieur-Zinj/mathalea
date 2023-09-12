@@ -240,7 +240,7 @@
       $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     }
     exercice.numeroExercice = indiceExercice
-    exercice.nouvelleVersion(indiceExercice)
+    if (exercice.typeExercice !== 'simple') exercice.nouvelleVersion(indiceExercice)
     mathaleaUpdateUrlFromExercicesParams()
     adjustMathalea2dFiguresWidth()
   }

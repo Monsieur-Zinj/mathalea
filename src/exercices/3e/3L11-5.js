@@ -50,7 +50,6 @@ export default function IdentitesCalculs () {
   this.tailleDiaporama = 3
 
   this.listePackages = 'bclogo'
-
   let typesDeQuestionsDisponibles
   this.nouvelleVersion = function () {
     // une fonction pour gérer un \hfill dans la sortie LaTeX
@@ -374,8 +373,6 @@ export default function IdentitesCalculs () {
       }
       if (!this.can) {
         texte += ajouteChampTexteMathLive(this, i)
-      } else {
-        // comment
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         // ToDo traiter les éventuelles question interactives en double
@@ -385,7 +382,7 @@ export default function IdentitesCalculs () {
             mybool = true
           }
         })
-        if (!mybool) {
+        if (!mybool && this.typeExercice !== 'simple') {
           this.listeQuestions.push(texte)
           this.listeCorrections.push(texteCorr)
           i++
