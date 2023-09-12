@@ -14,7 +14,7 @@ export const titre = 'Effectuer somme, différence ou produit de fractions'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const dateDePublication = '15/09/2021'
-export const dateDeModifImportante = '26/07/2023'
+export const dateDeModifImportante = '11/09/2023'
 
 /**
  * Effectuer somme, différence ou produit de fractions
@@ -69,11 +69,11 @@ export default function SommeOuProduitFractions () {
       num1 = randint(1, 7)
       num2 = randint(3, 9)
       // les dénominateurs
-      den1 = randint(2, 9)
+      den1 = randint(2, 9, [num2, num1])
       k = randint(1, 4)
       k2 = randint(2, 5)
       den2 = k * den1
-      den3 = randint(2, 9)
+      den3 = randint(2, 9, [num2, num1])
       alea = choice([1, 2])
       texte = ''
       texteCorr = ''
