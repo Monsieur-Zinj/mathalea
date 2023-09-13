@@ -5,6 +5,7 @@ import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import {miseEnEvidence} from "../../lib/outils/embellissements.js";
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,6 +28,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.sup3 = 2 // 1: on commence toujours par le nombre de la table, 2: on mélange
   this.consigne = 'Calculer : '
   this.spacing = 2
+
 
   this.besoinFormulaireTexte = ['Choix des tables (entre 2 et 9)', 'Nombres séparés par des tirets'] // Texte, tooltip
   this.besoinFormulaire2Numerique = [
@@ -59,6 +61,8 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     for (let i = 0, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
       a = couples[i][0]
       b = couples[i][1]
+      const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
+      const choix = choice(ordre)
       if (parseInt(this.sup2) === 1) {
         typesDeQuestions = 'classique'
       } else if (parseInt(this.sup2) === 2) {
@@ -68,37 +72,38 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       }
       if (typesDeQuestions === 'classique') {
         // classique
-        const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
-        if (choice(ordre)) {
-          texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore') : '$'
-          texteCorr = `$ ${texNombre(a)} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
+          if (choix) {
+          texte = `$ ${texNombre(a,0)}\\times ${texNombre(b,0)} =`
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore') : '\\ldots\\ldots$'
+          texteCorr = `$ ${texNombre(a,0)}\\times ${texNombre(b,0)} = ${miseEnEvidence(texNombre(a * b,0))}$`
         } else {
-          texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore') : '$'
-          texteCorr = `$ ${texNombre(b)} \\times ${texNombre(a)} = ${texNombre(a * b)}$`
+          texte = `$ ${texNombre(b,0)}\\times ${texNombre(a,0)} = `
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore') : '\\ldots\\ldots$'
+          texteCorr = `$ ${texNombre(b,0)}\\times ${texNombre(a,0)} = ${miseEnEvidence(texNombre(a * b,0))}$`
         }
         setReponse(this, i, a * b)
       } else {
         // a trous
         if (tables.length > 2) {
         // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
-          const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
-          if (choice(ordre)) {
-            texte = '$ ' + a + ' \\times '
-            texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texteApres: `$ = ${a * b} $` }) : `   \\ldots\\ldots = ${a * b}$`
+
+          if (choix) {
+            texte = '$' + a.toString() + '\\times '
+            texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore', { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
             setReponse(this, i, b)
           } else {
-            texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texteApres: `$\\times ${b} = ${a * b}$` }) : `$ \\ldots\\ldots \\times ${b} = ${a * b}$`
+            texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore', { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
             setReponse(this, i, a)
           }
         } else {
         // Sinon on demande forcément le 2e facteur
-          texte = `$${a} \\times `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texteApres: ` = ${a * b}` }) + '$' : `\\ldots\\ldots = ${a * b}$`
+          texte = `$${a.toString()} \\times `
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore', { texteApres: ` =${(a * b).toString()}` }) + '$' : `\\ldots\\ldots = ${(a * b).toString()}$`
           setReponse(this, i, b)
         }
-        texteCorr = `$${a} \\times ${b} = ${a * b}$`
+        texteCorr = choix
+            ? `$${a.toString()} \\times ${miseEnEvidence(b.toString())} =${(a * b).toString()}$`
+            : `$${miseEnEvidence(a.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
       }
       if (context.isAmc) {
         this.autoCorrection[i].reponse.param = {
