@@ -10,7 +10,8 @@
   import Settings from './Settings.svelte'
   import { exercisesUuidRanking, uuidCount } from '../utils/counts'
   import uuidsRessources from '../../json/uuidsRessources.json'
-  export let exercice: TypeExercice
+  import Exercice from "../../exercices/ExerciceTs.js";
+  export let exercice: Exercice
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
@@ -35,7 +36,7 @@
   let counts
   let titleExtra: string
   let title: string
-  const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id.replace('.js', '') : ''
+  const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id ? exercice.id.replace('.js', '') : '' : ''
   $: {
     ranks = exercisesUuidRanking($exercicesParams)
     counts = uuidCount($exercicesParams)
@@ -50,19 +51,20 @@
   })
 
   const ressourcesUuids = Object.keys({ ...uuidsRessources })
-  const category = ressourcesUuids.includes(exercice.uuid) ? 'Ressource' : 'Exercice'
+  const category = exercice.uuid ? ressourcesUuids.includes(exercice.uuid) ? 'Ressource' : 'Exercice' : '' // @fixme si exercice.uuid n'existe pas, on fait quoi ?
 
   let headerExerciceProps: {
-    title: string
+    title?: string
     id: string
-    titleExtra: string
-    category: string
-    isInteractif: boolean
+    titleExtra?: string
+    category?: string
+    isInteractif?: boolean
     settingsReady?: boolean
     isSortable?: boolean
     isDeletable?: boolean
     isHidable?: boolean
     correctionReady?: boolean
+    correctionExists?: boolean
     randomReady?: boolean
     interactifReady?: boolean
   } = {
@@ -114,7 +116,7 @@
 
   onDestroy(() => {
     // Détruit l'objet exercice pour libérer la mémoire
-    exercice = null
+    exercice = undefined
   })
 
   onMount(async () => {
@@ -148,11 +150,11 @@
       for (const svg of svgDivs) {
         if (svg.hasAttribute('data-width') === false) {
           const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth
+          svg.dataset.width = originalWidth ?? '0'
         }
         if (svg.hasAttribute('data-height') === false) {
           const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight
+          svg.dataset.height = originalHeight ?? '0'
         }
         const w = Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
         const h = Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
@@ -240,7 +242,7 @@
       $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     }
     exercice.numeroExercice = indiceExercice
-    if (exercice.typeExercice !== 'simple') exercice.nouvelleVersion(indiceExercice)
+    if (exercice.typeExercice !== 'simple' && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(indiceExercice)
     mathaleaUpdateUrlFromExercicesParams()
     adjustMathalea2dFiguresWidth()
   }
@@ -249,7 +251,8 @@
     isCorrectionVisible = true
     isExerciceChecked = true
     resultsByExercice.update((l) => {
-      l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
+      const index = exercice.numeroExercice ?? 0
+      l[index] = exerciceInteractif(exercice, divScore, buttonScore)
       return l
     })
   }
@@ -307,8 +310,8 @@
           // réinitialisation
           const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
           const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
-          mathalea2dFigures[k].setAttribute('width', initialWidth)
-          mathalea2dFigures[k].setAttribute('height', initialHeight)
+          mathalea2dFigures[k].setAttribute('width', initialWidth ?? '0')
+          mathalea2dFigures[k].setAttribute('height', initialHeight ?? '0')
           // les éléments des tableaux de variations reviennent à leurs positions initiales
           const eltsInVariationTables = divExercice.querySelectorAll<HTMLElement>('[id^="divLatex-"]')
           for (const elt of eltsInVariationTables) {
@@ -367,7 +370,7 @@
       updateDisplay()
     }}
     on:clickNewData={newData}
-    interactifReady={exercice?.interactifReady && !isCorrectionVisible && headerExerciceProps?.interactifReady}
+    interactifReady={Boolean(exercice?.interactifReady && !isCorrectionVisible && headerExerciceProps?.interactifReady)}
     on:clickMessages={(event) => {
       isMessagesVisible = event.detail.isMessagesVisible
       updateDisplay()
