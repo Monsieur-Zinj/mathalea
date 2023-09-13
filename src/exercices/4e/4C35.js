@@ -89,8 +89,13 @@ export default function PuissanceDecimaleOuFractionnaire () {
           if (this.sup) a *= choice([-1, 1])
           n = 0
           texte = `$${a}^{${n}} = $`
-          texteCorr = `$${a}^{${n}} = 1$`
-          reponse = new FractionEtendue(1)
+          if (a > 0) {
+            texteCorr = `$${a}^{${n}} = 1$`
+            reponse = new FractionEtendue(1)
+          } else {
+            texteCorr = `$${a}^{${n}} = -1$`
+            reponse = new FractionEtendue(-1)
+          }
           break
         case 'puissance1':
           a = randint(11, 40)
