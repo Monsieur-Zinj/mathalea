@@ -408,5 +408,5 @@ Si $${inégalité}$ alors : $${Math.pow(a, 3)} ${large1 ? ' \\leqslant ' : ' < '
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions', '1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange']
+  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)', '1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange']
 }
