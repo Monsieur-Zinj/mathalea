@@ -60,15 +60,15 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
     // L'extension doit-être visible donc on l'enlève avant de la remettre...
     let module: any
     if (isCan === 'can') {
-      if (filename.includes('.ts')) {
+      if (filename != null && filename.includes('.ts')) {
         module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
-      } else {
+      } else if (filename != null) {
         module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
       }
     } else {
-      if (filename.includes('.ts')) {
+      if (filename != null && filename.includes('.ts')) {
         module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
-      } else {
+      } else if (filename != null) {
         module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
       }
     }
@@ -113,13 +113,13 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       const infosExerciceStatique = getExerciceByUuid(referentielStatic, param.uuid)
       let content = ''
       let contentCorr = ''
-      if (infosExerciceStatique.url) content = await (await window.fetch(infosExerciceStatique.url)).text()
-      if (infosExerciceStatique.urlcor) contentCorr = await (await window.fetch(infosExerciceStatique.urlcor)).text()
-      const annee = infosExerciceStatique.annee
-      const lieu = infosExerciceStatique.lieu
-      const mois = infosExerciceStatique.mois
-      const numeroInitial = infosExerciceStatique.numeroInitial
-      let examen: string
+      if (infosExerciceStatique?.url) content = await (await window.fetch(infosExerciceStatique.url)).text()
+      if (infosExerciceStatique?.urlcor) contentCorr = await (await window.fetch(infosExerciceStatique.urlcor)).text()
+      const annee = infosExerciceStatique?.annee
+      const lieu = infosExerciceStatique?.lieu
+      const mois = infosExerciceStatique?.mois
+      const numeroInitial = infosExerciceStatique?.numeroInitial
+      let examen: string = ''
       if (param.uuid.substring(0, 5) === 'crpe-') examen = 'CRPE'
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
@@ -268,17 +268,17 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
   const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
   for (const ex of params) {
     url.searchParams.append('uuid', ex.uuid)
-    if (ex.id !== undefined) url.searchParams.append('id', ex.id)
+    if (ex.id != null) url.searchParams.append('id', ex.id)
     if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
-    if (ex.duration !== undefined) url.searchParams.append('d', ex.duration.toString())
-    if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
-    if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
-    if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
-    if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
-    if (ex.alea !== undefined) url.searchParams.append('alea', ex.alea)
+    if (ex.duration != null) url.searchParams.append('d', ex.duration.toString())
+    if (ex.sup != null) url.searchParams.append('s', ex.sup)
+    if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
+    if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
+    if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
+    if (ex.alea != null) url.searchParams.append('alea', ex.alea)
     if (ex.interactif === '1') url.searchParams.append('i', '1')
-    if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
-    if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols.toString())
+    if (ex.cd != null) url.searchParams.append('cd', ex.cd)
+    if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
   }
   updateGlobalOptionsInURL(url)
 }
@@ -314,7 +314,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   try {
     url = new URL(urlString)
   } catch (error) {
-    return null
+    return {} // @fixme null n'est vraiment pas compatible avec la signature de la fonction, mais il faudrait sans doute traîter l'erreur mieux que ça
   }
   // let url = new URL(urlString)
   if (isCrypted(url)) {
