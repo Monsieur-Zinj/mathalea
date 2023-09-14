@@ -9203,6 +9203,18 @@
           "amc": false
         }
       },
+      "4C33-1": {
+        "url": "4e/4C33-1.js",
+        "uuid": "bae57",
+        "id": "4C33-1",
+        "titre": "Puissances : Le sens des règles de calculs",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amcType": "AMCNum",
+          "amc": false
+        }
+      },
       "4C33-3": {
         "url": "4e/4C33-3.js",
         "uuid": "c71da",
@@ -10123,18 +10135,6 @@
           "interactifType": "mathLive",
           "amcType": "AMCNum",
           "amc": true
-        }
-      },
-      "3C10-2": {
-        "url": "3e/3C10-2.js",
-        "uuid": "3010d",
-        "id": "3C10-2",
-        "titre": "Effectuer des calculs qu'avec des puissances",
-        "tags": {
-          "interactif": true,
-          "interactifType": "mathLive",
-          "amcType": "AMCNum",
-          "amc": false
         }
       }
     },
