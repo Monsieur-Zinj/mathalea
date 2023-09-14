@@ -6,7 +6,7 @@ import { texteGras } from '../../lib/format/style.js'
 import { context } from '../../modules/context.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
@@ -16,7 +16,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true // pour définir que l'exercice est exportable AMC
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '12/09/2023'
+export const dateDeModifImportante = '14/09/2023'
 /**
  * Puissances d'un relatif (1)
  * * L\'objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
@@ -28,7 +28,7 @@ export const dateDeModifImportante = '12/09/2023'
  * * 4 : produit de puissances de même exposant
  * * 5 : mélange des trois autres niveaux
  * @author Sébastien Lozano
- * 4C33-1
+ * 4C33-1 initialement
  */
 export const uuid = '3010d'
 export const ref = '3C10-2'
@@ -60,8 +60,6 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
 
 export default function PuissancesDunRelatif1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 1
-  this.titre = titre
   context.isHtml
     ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
     : (this.consigne = 'Écrire sous la forme $a^n$.')
@@ -71,7 +69,7 @@ export default function PuissancesDunRelatif1 () {
   this.correctionDetailleeDisponible = true
   this.nbColsCorr = 1
   this.sup = 5
-  this.listeAvecNumerotation = false
+  this.sup2 = 1
   this.classe = 3
 
   this.listePackages = 'bclogo'
@@ -92,7 +90,6 @@ export default function PuissancesDunRelatif1 () {
   }
 
   this.nouvelleVersion = function (numeroExercice) {
-    let typesDeQuestions
     this.boutonAide = modalPdf(
       numeroExercice,
       'assets/pdf/FichePuissances-4N21.pdf',
@@ -103,7 +100,16 @@ export default function PuissancesDunRelatif1 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const typesDeQuestionsDisponibles = this.sup < 5 ? [this.sup] : [1, 2, 3, 4]
+    // const typesDeQuestionsDisponibles = this.sup < 5 ? [this.sup] : [1, 2, 3, 4]
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: this.nbQuestions,
+      shuffle: true
+    })
 
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -134,9 +140,8 @@ export default function PuissancesDunRelatif1 () {
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-
-      base = randint(2, 9) * choice([-1, 1]) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
+      base = randint(2, 9)
+      base = base * (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([-1, 1])) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
       exp0 = this.classe === 3 ? randint(2, 5) : randint(1, 9)
       exp1 = this.classe === 3 ? randint(2, 5, exp0) : randint(1, 9, exp0)
       exp = [exp0, exp1] // on choisit deux exposants différents c'est mieux
@@ -150,7 +155,7 @@ export default function PuissancesDunRelatif1 () {
 
       texteCorr = ''
 
-      switch (typesDeQuestions) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=${baseUtile}^${exp[0]}\\times ${baseUtile}^${exp[1]}$`
 
@@ -376,9 +381,16 @@ export default function PuissancesDunRelatif1 () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = [
+  /*  this.besoinFormulaireNumerique = [
     'Règle à travailler',
     5,
-    '1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances de même exposant\n5 : Mélange'
+    '1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange'
+  ] */
+  this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange']
+
+  this.besoinFormulaire2Numerique = [
+    'Signe de la mantisse',
+    3,
+    '1 : Positif\n2 : Négatif\n3 : Mélange'
   ]
 }
