@@ -199,7 +199,7 @@ export default function ProblemesPythagore () {
           texte = `$${nomQuadrilatere}$ est un rectangle tel que $${A + B
             }=${texNombre(a)}$ cm et $${A + C}=${texNombre(c)}$ cm.<br>`
           texte += `Calculer $${B + C}$.`
-          texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits .`
+          texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits.`
           texteCorr += RedactionPythagore(B, A, C, 2, b, a, c)[0]
           break
 
