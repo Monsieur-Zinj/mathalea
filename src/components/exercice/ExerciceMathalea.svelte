@@ -340,8 +340,8 @@
     }
   }
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
-  window.onresize = (event) => {
-    adjustMathalea2dFiguresWidth(true)
+  window.onresize = async (event) => {
+    await adjustMathalea2dFiguresWidth(true)
   }
 </script>
 
@@ -354,7 +354,7 @@
       isVisible = event.detail.isVisible
     }}
     on:clickSettings={(event) => (isSettingsVisible = event.detail.isSettingsVisible)}
-    on:clickCorrection={(event) => {
+    on:clickCorrection={async (event) => {
       isContentVisible = event.detail.isContentVisible
       isCorrectionVisible = event.detail.isCorrectionVisible
       if (isCorrectionVisible) {
@@ -363,24 +363,24 @@
       if (isInteractif) {
         isInteractif = !isInteractif
         exercice.interactif = isInteractif
-        updateDisplay()
+        await updateDisplay()
       }
-      adjustMathalea2dFiguresWidth()
+      await adjustMathalea2dFiguresWidth()
     }}
-    on:clickInteractif={(event) => {
+    on:clickInteractif={async (event) => {
       isInteractif = event.detail.isInteractif
       exercice.interactif = isInteractif
       exercicesParams.update((params) => {
         params[indiceExercice].interactif = isInteractif ? '1' : '0'
         return params
       })
-      updateDisplay()
+      await updateDisplay()
     }}
     on:clickNewData={newData}
     interactifReady={Boolean(exercice?.interactifReady && !isCorrectionVisible && headerExerciceProps?.interactifReady)}
-    on:clickMessages={(event) => {
+    on:clickMessages={async (event) => {
       isMessagesVisible = event.detail.isMessagesVisible
-      updateDisplay()
+      await updateDisplay()
     }}
   />
 
