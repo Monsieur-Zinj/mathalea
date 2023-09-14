@@ -12206,6 +12206,18 @@
           "amc": false
         }
       },
+      "2N31-9": {
+        "url": "2e/2N31-9.js",
+        "uuid": "fb1a4",
+        "id": "2N31-9",
+        "titre": "Utiliser la notation puissance",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amcType": "AMCOpen",
+          "amc": false
+        }
+      },
       "2N32-1": {
         "url": "2e/2N32-1.js",
         "uuid": "55cc0",
