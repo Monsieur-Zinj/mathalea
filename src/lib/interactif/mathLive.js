@@ -59,6 +59,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+          saisie = saisie.replaceAll('²', '^2')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
           // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
@@ -126,10 +127,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           saisie = champTexte.value.replace(',', '.')
           fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
           saisieParsee = engine.parse(saisie, { canonical: true })
-            console.log(saisieParsee.json, fReponse.json)
-            if (saisieParsee.json[0]==='Rational') {
-              if (saisieParsee.canonical.isSame(fReponse.canonical) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
-            }
+          console.log(saisieParsee.json, fReponse.json)
+          if (saisieParsee.json[0] === 'Rational') {
+            if (saisieParsee.canonical.isSame(fReponse.canonical) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
+          }
           break
         case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
@@ -157,8 +158,8 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (!isNaN(parseFloat(saisie))) {
             if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
-            saisieParsee = engine.parse(saisie,{canonical: false})
-            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), {canonical: false})
+            saisieParsee = engine.parse(saisie, { canonical: false })
+            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
             if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           }
           break

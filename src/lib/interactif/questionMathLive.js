@@ -1,7 +1,6 @@
 import { context } from '../../modules/context.js'
 import { sp } from '../outils/outilString.js'
 
-
 export function ajouteChampTexteMathLive (exercice, i, style = '', {
   texteApres = '',
   texte = '',
