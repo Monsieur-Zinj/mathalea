@@ -11,6 +11,7 @@
   import { exercisesUuidRanking, uuidCount } from '../utils/counts'
   import uuidsRessources from '../../json/uuidsRessources.json'
   import Exercice from "../../exercices/ExerciceTs.js";
+  import type {InterfaceResultExercice} from "../../lib/types";
   export let exercice: Exercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -116,29 +117,31 @@
 
   onDestroy(() => {
     // Détruit l'objet exercice pour libérer la mémoire
-    exercice = undefined
+    for (const prop of Object.keys(exercice)){
+        Reflect.deleteProperty(exercice, prop)
+    }
   })
 
   onMount(async () => {
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
-    updateDisplay()
+    await updateDisplay()
     await tick()
-    countMathField()
+    await countMathField()
   })
 
   afterUpdate(async () => {
     if (exercice) {
       await tick()
       if (isInteractif) {
-        loadMathLive()
+        await loadMathLive()
         if (exercice?.interactifType === 'cliqueFigure') {
           prepareExerciceCliqueFigure(exercice)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
         if (window.localStorage.getItem(`${exercice.id}|${exercice.seed}`) && isContentVisible) {
-          newData()
+          await newData()
         }
       }
       mathaleaRenderDiv(divExercice)
@@ -166,23 +169,24 @@
   })
 
   async function newData () {
-    if (exercice === null) return
-    if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
-    exercice.applyNewSeed()
-    if (buttonScore) initButtonScore()
-    if (isCorrectionVisible) {
-      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
+    if (exercice.hasOwnProperty('listeDeQuestions')) {
+      if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
+      exercice.applyNewSeed()
+      if (buttonScore) initButtonScore()
+      if (isCorrectionVisible) {
+        window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
+      }
+      await updateDisplay()
     }
-    updateDisplay()
   }
 
   async function setAllInteractif () {
     if (exercice?.interactifReady) isInteractif = true
-    updateDisplay()
+    await updateDisplay()
   }
   async function removeAllInteractif () {
     if (exercice?.interactifReady) isInteractif = false
-    updateDisplay()
+    await updateDisplay()
   }
 
   function handleNewSettings (event: CustomEvent) {
@@ -234,9 +238,9 @@
       exercice.applyNewSeed()
     }
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif))
     exercice.interactif = isInteractif
-    if ($exercicesParams[indiceExercice] !== undefined) {
+    if ($exercicesParams[indiceExercice].hasOwnProperty('listeDeQuestions')) {
       $exercicesParams[indiceExercice].alea = exercice.seed
       $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
       $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
@@ -244,7 +248,7 @@
     exercice.numeroExercice = indiceExercice
     if (exercice.typeExercice !== 'simple' && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(indiceExercice)
     mathaleaUpdateUrlFromExercicesParams()
-    adjustMathalea2dFiguresWidth()
+    await adjustMathalea2dFiguresWidth()
   }
 
   function verifExercice () {
@@ -252,7 +256,10 @@
     isExerciceChecked = true
     resultsByExercice.update((l) => {
       const index = exercice.numeroExercice ?? 0
-      l[index] = exerciceInteractif(exercice, divScore, buttonScore)
+      const result = exerciceInteractif(exercice, divScore, buttonScore)
+      if (result  != null){
+        l[index] = <InterfaceResultExercice>result
+      }
       return l
     })
   }

@@ -7,7 +7,7 @@
   import uuidsRessources from '../../json/uuidsRessources.json'
   import refProfs from '../../json/referentielProfs.json'
   import { toMap } from '../utils/toMap'
-  export let title: string
+  export let title: string|undefined
   export let id: string
   // export let titleExtra: string
   // export let category: string
