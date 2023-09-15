@@ -12,7 +12,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
-export const titre = '2G35-3' // Résoudre un système 2x2 par combinaisons linéaire
+export const titre = '2G35-3'
 
 // Représentation d'un système 2x2
 

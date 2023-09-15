@@ -16,7 +16,7 @@ export const titre = 'Opérations avec deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC
+export const amcType = 'AMCNum'
 
 /**
  * Effectuer des opérations avec 2 nombres relatifs
@@ -90,7 +90,7 @@ export default function ExerciceOperationsRelatifs () {
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a * b)),
             decimals: 0
           })
-          if(this.interactif) texte += ajouteChampTexteMathLive(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 2: // quotients
           if (this.sup) {
@@ -105,7 +105,7 @@ export default function ExerciceOperationsRelatifs () {
             digits: 1,
             decimals: 0
           })
-          if(this.interactif) texte += ajouteChampTexteMathLive(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 3: // additions
           if (this.sup) {
@@ -120,7 +120,7 @@ export default function ExerciceOperationsRelatifs () {
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)),
             decimals: 0
           })
-          if(this.interactif) texte += ajouteChampTexteMathLive(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 4: // soustractions
           if (this.sup) {
@@ -135,11 +135,9 @@ export default function ExerciceOperationsRelatifs () {
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
             decimals: 0
           })
-          if(this.interactif) texte += ajouteChampTexteMathLive(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
       }
-
-      
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

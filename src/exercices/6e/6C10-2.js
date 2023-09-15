@@ -8,7 +8,7 @@ import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 'qcmMono' // type de question AMC
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 

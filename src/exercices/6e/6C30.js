@@ -11,7 +11,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 'AMCNum' // Question numérique
+export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

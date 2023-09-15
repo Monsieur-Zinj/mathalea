@@ -17,8 +17,8 @@ import { RedactionPythagore } from './_pythagore.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
-export const amcType = 'AMCOpenNum' // Question numérique
-export const amcReady = true // Il reste à gérer les options numériques
+export const amcType = 'AMCOpenNum'
+export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

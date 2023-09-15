@@ -14,7 +14,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer le volume de solides donnés'
 export const amcReady = true
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 /**
@@ -208,9 +208,9 @@ export default function CalculDeVolumes () {
             texte += this.sup2 ? ', arrondi à l\'unité,' : ''
             if (choice([false, true])) {
               texte += ` d'un prisme droit de hauteur $${l}${listeUnites[j][0]}$. La base du prisme droit est un triangle rectangle dont les côtés de l'angle droit mesurent $${texNombre(c, 1)}${listeUnites[j][0]}$ et $${h}${listeUnites[j][0]}$.`
-            }else{
+            } else {
               texte += ` d'un prisme droit de hauteur $${l}${listeUnites[j][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j][0]}$.`
-            }            
+            }
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${l}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(volume, 2)}${listeUnites[j][1]}`
             if (!volume.eq(volume.round())) {
               texteCorr += `\\approx ${volume.round()}${listeUnites[j][1]}$`
@@ -379,8 +379,8 @@ export default function CalculDeVolumes () {
         } else {
           this.autoCorrection[i] = {
             enonce: texte + '\\\\Ecrire le calcul:',
-            enonceAvant: true,            
-            options :{
+            enonceAvant: true,
+            options: {
               multicols: true,
               barreseparation: false,
               multicolsAll: false,

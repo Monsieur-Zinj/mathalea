@@ -13,7 +13,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Convertir des volumes'
 export const amcReady = true
-export const amcType = 'qcmMono' // type de question AMC
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
@@ -61,7 +61,7 @@ export default function ExerciceConversionsVolumes () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    Decimal.set({toExpNeg :-20, toExpPos:20}) // pour éviter la conversion en notation scientifique on va jusqu'à 20 décimales (-7 est la valeur par défaut)
+    Decimal.set({ toExpNeg: -20, toExpPos: 20 }) // pour éviter la conversion en notation scientifique on va jusqu'à 20 décimales (-7 est la valeur par défaut)
     const prefixeMulti = [
       [' da', '\\times1000', 1000],
       [' h', '\\times1000\\times1000', 1000000],

@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.j
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 export const interactifType = 'qcm'
 export const interactifReady = true
 /**
