@@ -148,42 +148,43 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
         groupe.style[key] = (this.etat) ? click[key] : out[key]
       }
     }
+    const mouseOverEffect = ()=> {
+      for (const key in over) {
+        this.style[key] = over[key]
+      }
+    }
+    const mouseOutEffect =()=> {
+      for (const key in out) {
+        this.style[key] = out[key]
+      }
+    }
+    const mouseClick =()=> {
+      if (this.etat) {
+        // On désactive le point
+        groupe.addEventListener('mouseover', mouseOverEffect)
+        groupe.addEventListener('mouseout', mouseOutEffect)
+        // On lui remet le style de out
+        for (const key in out) {
+          this.style[key] = out[key]
+        }
+        this.etat = false
+        changeEtatPoint(false)
+      } else {
+        // On désactive les listeners
+        groupe.removeEventListener('mouseover', mouseOverEffect)
+        groupe.removeEventListener('mouseout', mouseOutEffect)
+        // On applique le style de click
+        for (const key in click) {
+          this.style[key] = click[key]
+        }
+        this.etat = true
+      }
+    }
     if (groupe && cliquable) {
       groupe.addEventListener('mouseover', mouseOverEffect)
       groupe.addEventListener('mouseout', mouseOutEffect)
       groupe.addEventListener('click', mouseClick)
-      const mouseOverEffect = ()=> {
-        for (const key in over) {
-          this.style[key] = over[key]
-        }
-      }
-      const mouseOutEffect =()=> {
-        for (const key in out) {
-          this.style[key] = out[key]
-        }
-      }
-      const mouseClick =()=> {
-        if (this.etat) {
-          // On désactive le point
-          groupe.addEventListener('mouseover', mouseOverEffect)
-          groupe.addEventListener('mouseout', mouseOutEffect)
-          // On lui remet le style de out
-          for (const key in out) {
-            this.style[key] = out[key]
-          }
-          this.etat = false
-          changeEtatPoint(false)
-        } else {
-          // On désactive les listeners
-          groupe.removeEventListener('mouseover', mouseOverEffect)
-          groupe.removeEventListener('mouseout', mouseOutEffect)
-          // On applique le style de click
-          for (const key in click) {
-            this.style[key] = click[key]
-          }
-          this.etat = true
-        }
-      }
+
     }
   }
   document.addEventListener('exercicesAffiches', gestionDeLaSouris)
