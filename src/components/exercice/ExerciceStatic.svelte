@@ -2,11 +2,29 @@
   import HeaderExercice from './HeaderExercice.svelte'
   import referentielStatic from '../../json/referentielStatic.json'
   import { globalOptions, exercicesParams } from '../store'
+  import Exercice from "../../exercices/ExerciceTs.js";
+
   export let uuid: string
   export let indiceExercice: number
   export let indiceLastExercice: number
-
-function getExerciceByUuid (root: object, targetUUID: string): object | null {
+interface ExoStatic extends Exercice {
+    png: string | string[]
+  pngCor: string | string[]
+  mois: string
+  annee: string
+  lieu: string
+  typeExercice: string
+  uuid: string
+  numeroInitial: string
+  title: string
+  id: string
+  isInteractif: boolean
+  interactifReady: boolean
+  settingsReady: boolean
+  randomReady: boolean
+  correctionReady: boolean
+}
+function getExerciceByUuid (root: object, targetUUID: string): ExoStatic | null {
   if ('uuid' in root) {
     if (root.uuid === targetUUID) {
       return root
@@ -30,16 +48,18 @@ function getExerciceByUuid (root: object, targetUUID: string): object | null {
   let isCorrectionVisible = false
   let isContentVisible = true
   $: zoomFactor = $globalOptions.z
-
+  let headerExerciceProps: ExoStatic
+if (exercice!= null) {
   if (typeof exercice.png === 'string') exercice.png = [exercice.png]
   if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
-  const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id.replace('.js', '') : ''
-  const headerExerciceProps = { title: '', id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible }
+  const id: string = $exercicesParams[indiceExercice]?.id ? String(exercice.id).replace('.js', '') : ''
+  headerExerciceProps = {title: '', id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible}
   if (exercice.typeExercice !== undefined) {
     headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ''} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
   } else {
     headerExerciceProps.title = exercice.uuid
   }
+}
 </script>
 
 <HeaderExercice
@@ -57,9 +77,11 @@ function getExerciceByUuid (root: object, targetUUID: string): object | null {
 
 <div class="p-4">
   {#if isContentVisible}
+    {#if exercice}
     {#each exercice.png as url}
       <img src={url} style="width: calc(100% * {zoomFactor}" alt="énoncé" />
     {/each}
+      {/if}
   {/if}
 
   {#if isCorrectionVisible}
@@ -68,9 +90,11 @@ function getExerciceByUuid (root: object, targetUUID: string): object | null {
       id="correction{indiceExercice}"
     >
       <div class="container">
+        {#if exercice}
         {#each exercice.pngCor as url}
           <img src={url} class="p-2" style="width: calc(100% * {zoomFactor}" alt="correction" />
         {/each}
+          {/if}
       </div>
       <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
       <div

@@ -2,6 +2,7 @@ import preambule from '../lib/latex/preambule.tex?raw'
 import type TypeExercice from '../exercices/ExerciceTs.js'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
+import Exercice from "../exercices/Exercice";
 
 export interface Exo {
   content: string
@@ -45,27 +46,32 @@ class Latex {
     let contentCorr = ''
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') continue
-      const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
-      exercice.seed = seed
-      if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
-      seedrandom(seed, { global: true })
-      exercice.nouvelleVersion()
+      if (!exercice.hasOwnProperty('listeDeQuestion')) continue
+      if (exercice instanceof Exercice) {
+        const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
+        exercice.seed = seed
+        if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
+        seedrandom(seed, {global: true})
+        if (typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion()
+      }
     }
     if (style === 'Can') {
       content += '\\begin{TableauCan}\n'
       contentCorr += '\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
-        for (let i = 0; i < exercice.listeQuestions.length; i++) {
-          if (exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter[i] !== undefined) {
-            content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(
-              exercice.listeCanReponsesACompleter[i]
-            )} &\\tabularnewline \\hline\n`
-          } else {
-            content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeQuestions[i])} &&\\tabularnewline \\hline\n`
+        if (exercice instanceof Exercice) {
+          for (let i = 0; i < exercice.listeQuestions.length; i++) {
+            if (exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter[i] !== undefined) {
+              content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(
+                  exercice.listeCanReponsesACompleter[i]
+              )} &\\tabularnewline \\hline\n`
+            } else {
+              content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeQuestions[i])} &&\\tabularnewline \\hline\n`
+            }
           }
-        }
-        for (const correction of exercice.listeCorrections) {
-          contentCorr += `\n\\item ${format(correction)}`
+          for (const correction of exercice.listeCorrections) {
+            contentCorr += `\n\\item ${format(correction)}`
+          }
         }
       }
       contentCorr += '\n\\end{enumerate}\n'
@@ -74,51 +80,51 @@ class Latex {
       content = content.replace(/\n\s*\n/gm, '')
     } else {
       for (const exercice of this.exercices) {
-        if (exercice.typeExercice === 'statique') {
-          if (exercice.content === '') {
-            content += '% Cet exercice n\'est pas disponible au format LaTeX'
+          if (exercice.typeExercice === 'statique') {
+            if (exercice.content === '') {
+              content += '% Cet exercice n\'est pas disponible au format LaTeX'
+            } else {
+              if (style === 'Coopmaths') {
+                content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
+              } else if (style === 'Classique') {
+                content += '\n\\begin{EXO}{}{}\n'
+              }
+              if (Number(exercice.nbCols) > 1) {
+                content += `\\begin{multicols}{${exercice.nbCols}}\n`
+              }
+              content += exercice.content
+              if (Number(exercice.nbCols) > 1) {
+                content += '\n\\end{multicols}\n'
+              }
+              content += '\n\\end{EXO}\n'
+              contentCorr += '\n\\begin{EXO}{}{}\n'
+              contentCorr += exercice.contentCorr
+              contentCorr += '\n\\end{EXO}\n'
+            }
           } else {
-            if (style === 'Coopmaths') {
-              content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
-            } else if (style === 'Classique') {
-              content += '\n\\begin{EXO}{}{}\n'
-            }
-            if (exercice.nbCols > 1) {
-              content += `\\begin{multicols}{${exercice.nbCols}}\n`
-            }
-            content += exercice.content
-            if (exercice.nbCols > 1) {
-              content += '\n\\end{multicols}\n'
-            }
-            content += '\n\\end{EXO}\n'
             contentCorr += '\n\\begin{EXO}{}{}\n'
-            contentCorr += exercice.contentCorr
-            contentCorr += '\n\\end{EXO}\n'
-          }
-        } else {
-          contentCorr += '\n\\begin{EXO}{}{}\n'
-          if (exercice.nbColsCorr > 1) {
-            contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
-          }
-          if (exercice.spacingCorr>0){
-            contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
-          } else {
-            contentCorr += '\n\\begin{enumerate}'
-          }
+            if (Number(exercice.nbColsCorr )> 1) {
+              contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
+            }
+            if (Number(exercice.spacingCorr) > 0) {
+              contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
+            } else {
+              contentCorr += '\n\\begin{enumerate}'
+            }
 
-          for (const correction of exercice.listeCorrections) {
-            contentCorr += `\n\\item ${format(correction)}`
+            for (const correction of exercice.listeCorrections) {
+              contentCorr += `\n\\item ${format(correction)}`
+            }
+            contentCorr += '\n\\end{enumerate}\n'
+            if (Number(exercice.nbColsCorr) > 1) {
+              contentCorr += '\\end{multicols}\n'
+            }
+            contentCorr += '\n\\end{EXO}\n'
+            content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${String(exercice.id).replace('.js', '')}}\n`
+            content += writeIntroduction(exercice.introduction)
+            content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation)), Number(exercice.nbCols))
+            content += '\n\\end{EXO}\n'
           }
-          contentCorr += '\n\\end{enumerate}\n'
-          if (exercice.nbColsCorr > 1) {
-            contentCorr += '\\end{multicols}\n'
-          }
-          contentCorr += '\n\\end{EXO}\n'
-          content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${exercice.id.replace('.js', '')}}\n`
-          content += writeIntroduction(exercice.introduction)
-          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, exercice.listeAvecNumerotation), exercice.nbCols)
-          content += '\n\\end{EXO}\n'
-        }
       }
     }
     return { content, contentCorr }
@@ -132,7 +138,7 @@ class Latex {
       exercice.seed = seed
       if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
       seedrandom(seed, { global: true })
-      exercice.nouvelleVersion()
+      if (typeof exercice.nouvelleVersion ==='function') exercice.nouvelleVersion()
     }
     for (const exercice of this.exercices) {
       content += `\n% @Source : ${getUrlFromExercice(exercice)}`
@@ -152,7 +158,7 @@ class Latex {
         if (withQrcode) content += '\n\\begin{minipage}{0.75\\linewidth}'
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
-        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, exercice.listeAvecNumerotation), exercice.nbCols)
+        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation)), Number(exercice.nbCols))
         if (withQrcode) {
           content += '\n\\end{minipage}'
           content += '\n\\begin{minipage}{0.20\\linewidth}'
@@ -161,7 +167,7 @@ class Latex {
         }
         content += '\n\\end{exercice}\n'
         content += '\n\\begin{Solution}'
-        content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, exercice.listeAvecNumerotation), exercice.nbColsCorr)
+        content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, Boolean(exercice.listeAvecNumerotation)), Number(exercice.nbColsCorr))
         content += '\n\\end{Solution}\n'
         console.log(exercice)
       }
@@ -314,7 +320,7 @@ function writeInCols (text: string, nb: number): string {
  * * Elle présuppose donc que les images sont toutes au format `eps` et qu'elles ne sont pas stockées ailleurs.
  * @author sylvain
  */
-export function buildImagesUrlsList (exosContentList: Exo[], picsNames: picFile[][]) {
+export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: picFile[][]) {
   const imagesFilesUrls = [] as string[]
   exosContentList.forEach((exo, i) => {
     if (picsNames[i].length !== 0) {
@@ -351,14 +357,23 @@ export function buildImagesUrlsList (exosContentList: Exo[], picsNames: picFile[
  * * les figures dans les corrections ne sont pas concernées.
  * @author sylvain
  */
+
+interface ExoContent {
+  content?: string
+  serie?: string
+  month?: string
+  year?: string
+  zone?: string
+  title?: string
+}
 export function getExosContentList (exercices: TypeExercice[]) {
-  const exosContentList = []
+  const exosContentList: ExoContent[] = []
   for (const exo of exercices) {
-    let data
+    let data: ExoContent = {}
     if (exo.typeExercice === undefined) {
-      data = { content: exo.contenu }
+      Object.assign(data,{}, { content: exo.contenu ?? ''})
     } else if (exo.typeExercice === 'simple') {
-      data = { content: exo.listeQuestions.join(' ') }
+      Object.assign(data, {},{ content: exo.listeQuestions.join(' ') })
     } else {
       data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
     }
@@ -366,7 +381,7 @@ export function getExosContentList (exercices: TypeExercice[]) {
   }
   return exosContentList
 }
-export function getPicsNames (exosContentList: Exo[]) {
+export function getPicsNames (exosContentList: ExoContent[]) {
   const picsList = [] as RegExpMatchArray[][]
   const picsNames = [] as picFile[][]
   const regExpImage = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
@@ -387,11 +402,14 @@ export function getPicsNames (exosContentList: Exo[]) {
         let imgObj
         if (item[1].match(regExpImageName)) {
           const imgFile = [...item[1].matchAll(regExpImageName)]
+          if (imgFile[0].groups != null)
           imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
         } else {
-          imgObj = { name: item[1], format: undefined }
+          imgObj = { name: item[1], format: '' }
         }
-        picsNames[index] = [...picsNames[index], imgObj]
+        if (imgObj !=null){
+          picsNames[index].push(imgObj)
+        }
       }
     }
   })
@@ -427,7 +445,7 @@ export function format (text: string): string {
 
 function getUrlFromExercice (ex: TypeExercice) {
   const url = new URL('https://coopmaths.fr/alea')
-  url.searchParams.append('uuid', ex.uuid)
+  url.searchParams.append('uuid', String(ex.uuid))
   if (ex.id !== undefined) url.searchParams.append('id', ex.id)
   if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
   if (ex.duration !== undefined) url.searchParams.append('d', ex.duration.toString())
@@ -436,9 +454,9 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
   if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
   if (ex.seed !== undefined) url.searchParams.append('alea', ex.seed)
-  if (ex.interactif === '1') url.searchParams.append('i', '1')
-  if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
-  if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols.toString())
+  if (ex.interactif == true) url.searchParams.append('i', '1') // je remplace === '1' par == true J-C le 15/09/2023
+  // if (ex.cd != null) url.searchParams.append('cd', ex.cd) @fixme cd n'existe pas sur TypeExercice
+  // if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString()) @fixme idem pour cols
   return url
 }
 
