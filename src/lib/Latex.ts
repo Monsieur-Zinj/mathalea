@@ -5,7 +5,7 @@ import seedrandom from 'seedrandom'
 import Exercice from '../exercices/Exercice'
 
 export interface Exo {
-  content: string
+  content?: string
   serie?: string
   month?: string
   year?: string

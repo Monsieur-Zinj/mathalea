@@ -48,7 +48,7 @@
 
   onMount(() => {
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    downloadPicsModal = document.getElementById('downloadPicsModal')
+    downloadPicsModal = document.getElementById('downloadPicsModal') as HTMLElement
   })
 
   /* ============================================================================
@@ -58,7 +58,7 @@
   =============================================================================== */
   // click en dehors du moda de téléchargement des figures le fait disparaître
   window.onclick = function (event) {
-    if (event.target == downloadPicsModal) {
+    if (event.target === downloadPicsModal) {
       downloadPicsModal.style.display = 'none'
     }
   }
@@ -197,7 +197,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
     </div>
 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
-    <ButtonOverleaf {latex} latexFileInfos={{ title, reference, subtitle, style, nbVersions }} disabled={style === 'ProfMaquette' || style === 'ProfMaquetteQrcode'} />
+    <ButtonOverleaf {latex} latexFileInfos={{ title, reference, subtitle, style, nbVersions }} disabled={false} />
     <div
       class="flex flex-col md:flex-row justify-start space-x-0 space-y-2 mt-6 md:space-x-4 md:space-y-0"
     >
@@ -257,6 +257,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
     </ModalMessageBeforeAction>
 
     <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg">
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html messageForCopyPasteModal}
       {#if style === 'ProfMaquette'}
       <p class="mt-4">Il faut mettre à jour votre distribution LaTeX pour avoir la dernière version du package <em class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold">ProfMaquette</em>.</p>
@@ -268,7 +269,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
     <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
       {contents.content}
-      {#if style != 'ProfMaquette'}
+      {#if style !== 'ProfMaquette'}
       %%%%%%%%%%%%%%%%%%%%%%
       %%%   CORRECTION   %%%
       %%%%%%%%%%%%%%%%%%%%%%
