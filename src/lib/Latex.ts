@@ -56,7 +56,7 @@ class Latex {
       contentCorr += '\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
         for (let i = 0; i < exercice.listeQuestions.length; i++) {
-          if (exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter[i] !== undefined) {
+          if (exercice?.listeCanEnonces !== undefined && exercice?.listeCanEnonces[i] !== undefined && exercice?.listeCanReponsesACompleter !== undefined && exercice?.listeCanReponsesACompleter[i] !== undefined) {
             content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(
               exercice.listeCanReponsesACompleter[i]
             )} &\\tabularnewline \\hline\n`
@@ -83,11 +83,11 @@ class Latex {
             } else if (style === 'Classique') {
               content += '\n\\begin{EXO}{}{}\n'
             }
-            if (exercice.nbCols > 1) {
+            if (exercice.nbCols != null && exercice.nbCols > 1) {
               content += `\\begin{multicols}{${exercice.nbCols}}\n`
             }
             content += exercice.content
-            if (exercice.nbCols > 1) {
+            if (exercice.nbCols != null && exercice.nbCols > 1) {
               content += '\n\\end{multicols}\n'
             }
             content += '\n\\end{EXO}\n'
@@ -97,10 +97,10 @@ class Latex {
           }
         } else {
           contentCorr += '\n\\begin{EXO}{}{}\n'
-          if (exercice.nbColsCorr > 1) {
+          if (exercice.nbColsCorr != null && exercice.nbColsCorr > 1) {
             contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
           }
-          if (exercice.spacingCorr>0){
+          if (exercice.spacingCorr != null && exercice.spacingCorr > 0) {
             contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
           } else {
             contentCorr += '\n\\begin{enumerate}'
@@ -110,13 +110,13 @@ class Latex {
             contentCorr += `\n\\item ${format(correction)}`
           }
           contentCorr += '\n\\end{enumerate}\n'
-          if (exercice.nbColsCorr > 1) {
+          if (exercice.nbColsCorr != null && exercice.nbColsCorr > 1) {
             contentCorr += '\\end{multicols}\n'
           }
           contentCorr += '\n\\end{EXO}\n'
-          content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${exercice.id.replace('.js', '')}}\n`
+          content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${String(exercice.id).replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
-          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, exercice.listeAvecNumerotation), exercice.nbCols)
+          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, !!exercice.listeAvecNumerotation), exercice.nbCols || 1)
           content += '\n\\end{EXO}\n'
         }
       }
@@ -152,7 +152,7 @@ class Latex {
         if (withQrcode) content += '\n\\begin{minipage}{0.75\\linewidth}'
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
-        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, exercice.listeAvecNumerotation), exercice.nbCols)
+        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, !!exercice.listeAvecNumerotation), exercice.nbCols || 1)
         if (withQrcode) {
           content += '\n\\end{minipage}'
           content += '\n\\begin{minipage}{0.20\\linewidth}'
@@ -161,7 +161,7 @@ class Latex {
         }
         content += '\n\\end{exercice}\n'
         content += '\n\\begin{Solution}'
-        content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, exercice.listeAvecNumerotation), exercice.nbColsCorr)
+        content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, !!exercice.listeAvecNumerotation), exercice.nbColsCorr || 1)
         content += '\n\\end{Solution}\n'
         console.log(exercice)
       }
@@ -387,7 +387,7 @@ export function getPicsNames (exosContentList: Exo[]) {
         let imgObj
         if (item[1].match(regExpImageName)) {
           const imgFile = [...item[1].matchAll(regExpImageName)]
-          imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
+          imgObj = { name: imgFile[0]?.groups?.name, format: imgFile[0]?.groups?.format }
         } else {
           imgObj = { name: item[1], format: undefined }
         }
@@ -427,7 +427,7 @@ export function format (text: string): string {
 
 function getUrlFromExercice (ex: TypeExercice) {
   const url = new URL('https://coopmaths.fr/alea')
-  url.searchParams.append('uuid', ex.uuid)
+  if (ex.uuid !== undefined) url.searchParams.append('uuid', ex.uuid)
   if (ex.id !== undefined) url.searchParams.append('id', ex.id)
   if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
   if (ex.duration !== undefined) url.searchParams.append('d', ex.duration.toString())
@@ -436,9 +436,9 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
   if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
   if (ex.seed !== undefined) url.searchParams.append('alea', ex.seed)
-  if (ex.interactif === '1') url.searchParams.append('i', '1')
-  if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
-  if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols.toString())
+  if (ex.interactif) url.searchParams.append('i', '1')
+  if (ex.correctionDetaillee !== undefined) url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
+  if (ex.nbCols !== undefined) url.searchParams.append('cols', ex.nbCols.toString())
   return url
 }
 
