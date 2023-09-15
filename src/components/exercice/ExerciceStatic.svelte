@@ -16,6 +16,13 @@ interface ExoStatic extends Exercice {
   typeExercice: string
   uuid: string
   numeroInitial: string
+  title: string
+  id: string
+  isInteractif: boolean
+  interactifReady: boolean
+  settingsReady: boolean
+  randomReady: boolean
+  correctionReady: boolean
 }
 function getExerciceByUuid (root: object, targetUUID: string): ExoStatic | null {
   if ('uuid' in root) {
@@ -41,11 +48,12 @@ function getExerciceByUuid (root: object, targetUUID: string): ExoStatic | null 
   let isCorrectionVisible = false
   let isContentVisible = true
   $: zoomFactor = $globalOptions.z
+  let headerExerciceProps: ExoStatic
 if (exercice!= null) {
   if (typeof exercice.png === 'string') exercice.png = [exercice.png]
   if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
   const id: string = $exercicesParams[indiceExercice]?.id ? String(exercice.id).replace('.js', '') : ''
-  const headerExerciceProps = {title: '', id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible}
+  headerExerciceProps = {title: '', id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible}
   if (exercice.typeExercice !== undefined) {
     headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ''} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
   } else {
