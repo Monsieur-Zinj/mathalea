@@ -320,7 +320,7 @@ function writeInCols (text: string, nb: number): string {
  * * Elle présuppose donc que les images sont toutes au format `eps` et qu'elles ne sont pas stockées ailleurs.
  * @author sylvain
  */
-export function buildImagesUrlsList (exosContentList: Exo[], picsNames: picFile[][]) {
+export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: picFile[][]) {
   const imagesFilesUrls = [] as string[]
   exosContentList.forEach((exo, i) => {
     if (picsNames[i].length !== 0) {
@@ -357,14 +357,23 @@ export function buildImagesUrlsList (exosContentList: Exo[], picsNames: picFile[
  * * les figures dans les corrections ne sont pas concernées.
  * @author sylvain
  */
+
+interface ExoContent {
+  content?: string
+  serie?: string
+  month?: string
+  year?: string
+  zone?: string
+  title?: string
+}
 export function getExosContentList (exercices: TypeExercice[]) {
-  const exosContentList = []
+  const exosContentList: ExoContent[] = []
   for (const exo of exercices) {
-    let data
+    let data: ExoContent = {}
     if (exo.typeExercice === undefined) {
-      data = { content: exo.contenu }
+      Object.assign(data,{}, { content: exo.contenu ?? ''})
     } else if (exo.typeExercice === 'simple') {
-      data = { content: exo.listeQuestions.join(' ') }
+      Object.assign(data, {},{ content: exo.listeQuestions.join(' ') })
     } else {
       data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
     }
@@ -372,7 +381,7 @@ export function getExosContentList (exercices: TypeExercice[]) {
   }
   return exosContentList
 }
-export function getPicsNames (exosContentList: Exo[]) {
+export function getPicsNames (exosContentList: ExoContent[]) {
   const picsList = [] as RegExpMatchArray[][]
   const picsNames = [] as picFile[][]
   const regExpImage = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
@@ -396,9 +405,11 @@ export function getPicsNames (exosContentList: Exo[]) {
           if (imgFile[0].groups != null)
           imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
         } else {
-          imgObj = { name: item[1], format: undefined }
+          imgObj = { name: item[1], format: '' }
         }
-        picsNames[index] = [...picsNames[index], imgObj]
+        if (imgObj !=null){
+          picsNames[index].push(imgObj)
+        }
       }
     }
   })
