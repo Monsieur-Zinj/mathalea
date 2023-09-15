@@ -309,32 +309,36 @@
    */
   async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
     const mathalea2dFigures = document.getElementsByClassName('mathalea2d') as HTMLCollectionOf<SVGElement>
-    const consigneDiv = document.getElementById('consigne' + indiceExercice + '-0')
-    if (mathalea2dFigures.length !== 0) {
-      await tick()
-      for (let k = 0; k < mathalea2dFigures.length; k++) {
-        if (initialDimensionsAreNeeded) {
-          // réinitialisation
-          const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
-          const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
-          mathalea2dFigures[k].setAttribute('width', initialWidth ?? '0')
-          mathalea2dFigures[k].setAttribute('height', initialHeight ?? '0')
-          // les éléments des tableaux de variations reviennent à leurs positions initiales
-          const eltsInVariationTables = divExercice.querySelectorAll<HTMLElement>('[id^="divLatex-"]')
-          for (const elt of eltsInVariationTables) {
-            const e = elt
-            e.style.setProperty('top', e.dataset.top + 'px')
-            e.style.setProperty('left', e.dataset.left + 'px')
+    if (mathalea2dFigures != null) {
+      const consigneDiv = document.getElementById('consigne' + indiceExercice + '-0')
+      if (mathalea2dFigures.length !== 0) {
+        await tick()
+        for (let k = 0; k < mathalea2dFigures.length; k++) {
+          if (initialDimensionsAreNeeded) {
+            // réinitialisation
+            const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
+            const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
+            mathalea2dFigures[k].setAttribute('width', initialWidth ?? '0')
+            mathalea2dFigures[k].setAttribute('height', initialHeight ?? '0')
+            // les éléments des tableaux de variations reviennent à leurs positions initiales
+            if (divExercice != null) {
+              const eltsInVariationTables = divExercice.querySelectorAll<HTMLElement>('[id^="divLatex-"]')
+              for (const elt of eltsInVariationTables) {
+                const e = elt
+                e.style.setProperty('top', e.dataset.top + 'px')
+                e.style.setProperty('left', e.dataset.left + 'px')
+              }
+            }
           }
-        }
-        if (consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
-          // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
-          const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
-          const newFigWidth = consigneDiv.clientWidth * 0.95
-          const newFigHeight = mathalea2dFigures[k].clientHeight * coef
-          mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
-          mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
-          // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+          if (consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+            // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
+            const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+            const newFigWidth = consigneDiv.clientWidth * 0.95
+            const newFigHeight = mathalea2dFigures[k].clientHeight * coef
+            mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
+            mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
+            // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+          }
         }
       }
     }
