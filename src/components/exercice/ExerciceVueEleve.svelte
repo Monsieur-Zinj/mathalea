@@ -280,7 +280,7 @@
             }}
           />
         </div>
-        <div class={isPossibleToRestart() ? 'flex ml-2' : 'hidden'}>
+        <div class={(isPossibleToRestart() && !exercice.interactif) ? 'flex ml-2' : 'hidden'}>
           <Button
             title={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
             icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
