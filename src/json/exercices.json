@@ -1256,16 +1256,6 @@
       "amc": false
     }
   },
-  "2N31-3": {
-    "url": "2e/2N31-3.js",
-    "uuid": "0ecd3",
-    "id": "2N31-3",
-    "titre": "Puissances : Calculs automatisés et règles de calculs",
-    "tags": {
-      "interactif": false,
-      "amc": false
-    }
-  },
   "2N31-4": {
     "url": "2e/2N31-4.js",
     "uuid": "6fda8",
@@ -3761,10 +3751,10 @@
     }
   },
   "4C33-3": {
-    "url": "4e/4C33-3.js",
+    "url": "2e/2N31-3.js",
     "uuid": "c71da",
     "id": "4C33-3",
-    "titre": "Puissances : Calculs automatisés et règles de calculs",
+    "titre": "Effectuer des calculs avec des puissances et leurs règles de calculs",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
