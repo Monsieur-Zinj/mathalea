@@ -1253,7 +1253,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "2N31-4": {
@@ -1324,7 +1324,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
-      "amc": false
+      "amc": true
     }
   },
   "2N32-1": {
@@ -1405,7 +1405,7 @@
     "id": "2N32-8",
     "titre": "Encadrer une racine carrée",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": false
@@ -2081,10 +2081,10 @@
     "id": "3A11-1",
     "titre": "Résoudre des problèmes de conjonction de phénomènes",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "3A12": {
@@ -3274,10 +3274,10 @@
     "id": "4A12",
     "titre": "Résoudre des problèmes de conjonction de phénomènes",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "4C10": {
@@ -3735,7 +3735,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
-      "amc": false
+      "amc": true
     }
   },
   "4C33-1": {
@@ -3747,7 +3747,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "4C33-3": {
@@ -3759,7 +3759,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "4C34": {
@@ -3893,7 +3893,7 @@
     "id": "4G12-1",
     "titre": "Trouver la transformation",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "listeDeroulante",
       "amc": false
     }
@@ -3936,7 +3936,7 @@
     "id": "4G20-1",
     "titre": "Donner ou compléter une égalité de Pythagore",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amc": false
     }
@@ -3991,7 +3991,7 @@
     "id": "4G20-6",
     "titre": "Encadrer une racine carrée et en donner un arrondi",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": false
@@ -4729,7 +4729,7 @@
     "id": "5G12-3",
     "titre": "Identifier une transformation",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "listeDeroulante",
       "amc": false
     }
@@ -6617,7 +6617,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "6G23-5": {
@@ -6629,7 +6629,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "6G24": {
