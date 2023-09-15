@@ -2,7 +2,7 @@ import PuissancesDunRelatif1 from '../4e/4C33-1.js'
 export const titre = 'Puissances : le sens des règles de calculs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**

@@ -17,7 +17,7 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer un angle, déduit de figures simples'
-export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 export const interactifReady = true

@@ -8,7 +8,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export const dateDePublication = '21/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

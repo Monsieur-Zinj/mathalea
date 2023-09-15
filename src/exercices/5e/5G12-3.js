@@ -1,6 +1,6 @@
 import TrouverLaTransformations from '../4e/4G12-1.js'
 export const titre = 'Identifier une transformation'
-export const interactifReady = true // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
+export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const dateDePublication = '4/12/2021'
 

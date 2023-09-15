@@ -19,7 +19,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const dateDePublication = '3/12/2021'
 export const titre = 'Trouver la transformation'
-export const interactifReady = true // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
+export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 
 export const uuid = '8ac93'

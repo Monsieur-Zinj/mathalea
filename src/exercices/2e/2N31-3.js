@@ -12,7 +12,7 @@ export const titre = 'Effectuer des calculs avec des puissances et leurs règles
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcReady = true
 export const amcType = 'AMCNum'
 /**
  * Puissances d'un relatif (2)

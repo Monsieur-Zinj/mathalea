@@ -1,6 +1,6 @@
 import CalculValeurApprocheeRacineCarree from '../4e/4G20-6.js'
 export const titre = 'Encadrer une racine carrée'
-export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
+export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'AMCHybride'
