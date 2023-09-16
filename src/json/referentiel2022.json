@@ -5146,7 +5146,7 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amcType": "AMCOpenNum✖︎2",
+          "amcType": "AMCHybride",
           "amc": true
         }
       },
@@ -5433,7 +5433,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
-          "amc": false
+          "amc": true
         }
       },
       "6C31-2": {
@@ -5549,7 +5549,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCHybride",
-          "amc": false
+          "amc": true
         }
       },
       "6D13": {
@@ -5814,7 +5814,7 @@
         "tags": {
           "interactif": true,
           "amcType": "AMCHybride",
-          "amc": false
+          "amc": true
         }
       },
       "6G22-1": {
@@ -6223,7 +6223,7 @@
         "titre": "Trouver le bon tracé avec Scratch",
         "tags": {
           "interactif": true,
-          "interactifType": "custom' // La correction doit être gérée dans l",
+          "interactifType": "custom",
           "amcType": "qcmMono",
           "amc": true
         }
@@ -6847,7 +6847,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
-          "amc": false
+          "amc": true
         }
       },
       "6N23-7": {
@@ -8328,7 +8328,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
-          "amc": false
+          "amc": true
         }
       },
       "5P14-1": {
@@ -8340,7 +8340,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
-          "amc": false
+          "amc": true
         }
       },
       "5P14-2": {
@@ -9166,7 +9166,7 @@
           "interactif": true,
           "interactifType": "qcm",
           "amcType": "qcmMono",
-          "amc": false
+          "amc": true
         }
       },
       "4C32-3": {
@@ -9188,7 +9188,7 @@
           "interactif": true,
           "interactifType": "qcm",
           "amcType": "qcmMono",
-          "amc": false
+          "amc": true
         }
       },
       "4C33-0": {
@@ -9398,7 +9398,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCOpenNum",
-          "amc": false
+          "amc": true
         }
       },
       "4G20-1": {
@@ -9465,7 +9465,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCHybride",
-          "amc": false
+          "amc": true
         }
       },
       "4G21": {
@@ -9890,7 +9890,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
-          "amc": false
+          "amc": true
         }
       }
     },
@@ -10356,7 +10356,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCHybride",
-          "amc": false
+          "amc": true
         }
       }
     },
@@ -12170,7 +12170,7 @@
           "interactif": true,
           "interactifType": "qcm",
           "amcType": "qcmMono",
-          "amc": false
+          "amc": true
         }
       },
       "2N31-7": {
@@ -12182,7 +12182,7 @@
           "interactif": true,
           "interactifType": "qcm",
           "amcType": "qcmMono",
-          "amc": false
+          "amc": true
         }
       },
       "2N31-8": {
@@ -12289,7 +12289,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCHybride",
-          "amc": false
+          "amc": true
         }
       }
     },
@@ -12716,7 +12716,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
-          "amc": false
+          "amc": true
         }
       },
       "2S10-3": {
@@ -12798,7 +12798,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
-          "amc": false
+          "amc": true
         }
       },
       "2S20-4": {
