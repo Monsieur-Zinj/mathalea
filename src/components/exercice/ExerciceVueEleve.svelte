@@ -38,6 +38,11 @@
   $: {
     if (isInteractif && buttonScore) initButtonScore()
     headerExerciceProps = headerExerciceProps
+    if ($globalOptions.setInteractive === '1') {
+      setAllInteractif()
+    } else if ($globalOptions.setInteractive === '0') {
+      removeAllInteractif()
+    }
   }
 
   let numberOfAnswerFields: number = 0
