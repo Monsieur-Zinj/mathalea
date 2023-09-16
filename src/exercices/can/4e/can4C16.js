@@ -25,10 +25,10 @@ export default function MultiplierFraction () {
   this.nouvelleVersion = function () {
     const listeFractions1 = [[1, 3], [1, 5], [2, 3], [3, 4], [2, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8],
-      [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [3, 4], [5, 3], [5, 3], [5, 4]]
+      [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [3, 4], [5, 3], [5, 3], [5, 4], [10, 3], [3, 10]]
     const listeFractions2 = [[1, 3], [1, 5], [2, 3], [3, 4], [2, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
-      [1, 9], [2, 9], [4, 9], [5, 9], [7, 9]]
+      [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [9, 8], [10, 7], [10, 9], [7, 10]]
     const fraction1 = choice(listeFractions1)
     const fraction2 = choice(listeFractions2)
     const n1 = fraction1[0]
@@ -38,7 +38,6 @@ export default function MultiplierFraction () {
     const f1 = new FractionEtendue(n1, d1)
     const f2 = new FractionEtendue(n2, d2)
     this.reponse = f1.produitFraction(f2).simplifie()
-console.log(this.reponse)
     this.question = `Calculer et écrire sous la forme d'une fraction simplifiée : $${f1.texFraction}\\times ${f2.texFraction}$.`
     this.correction = `$${f1.texProduitFraction(f2, false)}$`
     this.canEnonce = this.question
