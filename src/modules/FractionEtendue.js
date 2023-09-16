@@ -198,7 +198,7 @@ class FractionEtendue extends Fraction {
      * @type {number}
      */
     let sign
-    Object.defineProperty(this, 'pourcentage', {
+    Object.defineProperty(this, 'sign', {
       enumerable: true,
       get:() => {
         if (!sign) sign = this.s
