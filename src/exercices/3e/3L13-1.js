@@ -15,7 +15,6 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Résoudre une équation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = false // AMC : pour l'instant on ne peut pas tester une réponse parfois décimale parfois fractionnaire
 
 /**
  * Équation du premier degré

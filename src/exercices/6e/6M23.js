@@ -1,7 +1,7 @@
 import ExerciceConversionsAires from './_Exercice_conversions_aires.js'
 export const titre = 'Convertir des aires'
 export const amcReady = true
-export const amcType = 'qcmMono' // type de question AMC
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const dateDeModifImportante = '30/04/2023'

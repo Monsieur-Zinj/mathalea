@@ -9,7 +9,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
+export const amcType = 'AMCOpen'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

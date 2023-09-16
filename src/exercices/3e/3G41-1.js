@@ -11,7 +11,7 @@ import { pave3d, point3d } from '../../modules/3d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Construire la section d\'un plan dans un un pavé droit'
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
+export const amcType = 'AMCOpen'
 
 export const dateDePublication = '07/11/2022'
 

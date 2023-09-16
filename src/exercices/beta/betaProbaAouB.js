@@ -3,7 +3,7 @@ import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/depr
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
-export const titre = '2S30-6' // Probabilité A ou B dans situation concrète
+export const titre = '2S30-6'
 
 const multiple = (n, d) => n % d === 0
 const impair = (n) => n % 2 // ou not(multiple(n,2))

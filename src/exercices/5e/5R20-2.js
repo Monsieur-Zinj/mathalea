@@ -4,7 +4,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
-export const amcType = 'qcmMono' // qcm
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

@@ -3,7 +3,7 @@ export const titre = 'Dernier chiffre d\'un calcul'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcType = 'AMCNum' // Question numérique
+export const amcType = 'AMCNum'
 /**
  *Clone de 6C34 pour les CM1-CM2
  *

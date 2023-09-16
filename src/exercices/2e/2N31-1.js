@@ -3,7 +3,7 @@ export const titre = 'Notation scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC
+export const amcType = 'AMCNum'
 
 /**
  * Clone de 4C32 pour les 2nde

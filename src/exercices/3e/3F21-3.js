@@ -18,7 +18,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true // pour définir que l'exercice peut servir à AMC
+export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '28/05/2023'
 

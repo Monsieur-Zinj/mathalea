@@ -10,10 +10,9 @@ import { calculer } from '../../modules/outilsMathjs.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 'qcmMono' // QCM
+export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive' // Le QCM est prêt mais pas géré
-
+export const interactifType = 'mathLive'
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
 
 /**

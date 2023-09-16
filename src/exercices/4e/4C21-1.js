@@ -13,7 +13,7 @@ export const titre = 'Additionner deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC
+export const amcType = 'AMCNum'
 /**
  * Effectuer la somme de deux fractions
  *

@@ -6,8 +6,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
-export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
-export const amcType = 'qcmMono' // QCM
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const interactifType = 'qcm'
 export const interactifReady = true
 

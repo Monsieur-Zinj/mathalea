@@ -26,7 +26,7 @@ import { afficheScore } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
-export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
+export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'qcmMono'
 

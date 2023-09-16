@@ -2,7 +2,7 @@ import CalculDeLongueur from '../3e/3G30.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 export const titre = 'Utiliser le cosinus pour calculer une longueur dans un triangle rectangle'
 
 /**

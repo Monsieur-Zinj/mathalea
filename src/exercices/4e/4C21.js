@@ -13,7 +13,7 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC
+export const amcType = 'AMCNum'
 export const titre = 'Additionner ou soustraire deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'

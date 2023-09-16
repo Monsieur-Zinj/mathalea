@@ -11,7 +11,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
+export const amcType = 'AMCOpen'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 

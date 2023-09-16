@@ -10,7 +10,7 @@ export const titre = 'Déterminer le dernier chiffre d\'un calcul'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcType = 'AMCNum' // Question numérique
+export const amcType = 'AMCNum'
 
 /**
  * Trouver le dernier chiffre d'un calcul (somme, produit, différence)

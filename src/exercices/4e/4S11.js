@@ -11,7 +11,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Déterminer des médianes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true // pour définir que l'exercice est exportable à AMC
+export const amcReady = true
 export const amcType = 'AMCNum'
 
 export const dateDeModifImportante = '28/10/2021'

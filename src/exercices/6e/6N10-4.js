@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Écrire correctement les grands nombres entiers'
 
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
+export const amcType = 'AMCOpen'
 
 /**
  * Supprimer les zéros inutiles, séparer les classes d'un nombre entier.

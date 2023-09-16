@@ -10,7 +10,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Encadrer une racine carrée et en donner un arrondi'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true // pour définir que l'exercice peut servir à AMC
+export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
