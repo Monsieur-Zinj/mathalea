@@ -24,7 +24,7 @@ export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 
 export const dateDePublication = '15/02/2022'
 export const dateDeModifImportante = '06/04/2023'

@@ -10,9 +10,9 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
-export const amcType = 'qcmMono' // QCM
+export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive' // On pourrait ajouter QCM
+export const interactifType = 'mathLive'
 
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)

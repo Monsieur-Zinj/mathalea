@@ -12,10 +12,10 @@ import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.j
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
+export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcType = 'AMCNum' // Question numérique
+export const amcType = 'AMCNum'
 export const titre = 'Effectuer divisions décimales'
 
 /**

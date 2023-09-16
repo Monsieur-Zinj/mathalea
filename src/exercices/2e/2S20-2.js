@@ -2,7 +2,7 @@ import DeterminerDesMedianes from '../4e/4S11.js'
 export const titre = 'Calculer des médianes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true // pour définir que l'exercice est exportable à AMC
+export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**

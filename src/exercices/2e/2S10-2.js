@@ -11,8 +11,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Calculer une proportion ou appliquer un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true // Pour en bénéficier avec le générateur AMC
-export const amcType = 'AMCNum' // Les réponses sont des valeurs numériques à encoder
+export const amcReady = true
+export const amcType = 'AMCNum'
 export const dateDePublication = '9/12/2021'
 export const dateDeModifImportante = '28/04/2023' // ajout du cas entreprise
 /**

@@ -9,7 +9,7 @@ export const titre = 'Tables de divisions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum' // Question numérique
+export const amcType = 'AMCNum'
 
 /**
  * Tables de divisions classiques, à trou ou un mélange des deux.

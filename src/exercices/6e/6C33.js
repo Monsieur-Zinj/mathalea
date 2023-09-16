@@ -13,7 +13,7 @@ export const titre = 'Calculer en utilisant les priorités opératoires'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcType = 'AMCNum' // Question numérique
+export const amcType = 'AMCNum'
 
 export const dateDeModifImportante = '21/05/2023'
 

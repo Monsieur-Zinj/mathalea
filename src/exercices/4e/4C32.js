@@ -14,7 +14,7 @@ export const titre = 'Associer un nombre décimal à sa notation scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC
+export const amcType = 'AMCNum'
 
 /**
  * Écrire un nombre décimal en notation scientifique et inversement

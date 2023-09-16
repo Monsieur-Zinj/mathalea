@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.j
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
-export const amcType = 'qcmMono' // QCM
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

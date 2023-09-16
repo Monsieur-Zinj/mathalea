@@ -8,8 +8,8 @@ import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 export const titre = 'Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique'
 export const dateDeModifImportante = '08/09/2023'
-export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
-export const amcType = 'qcmMono' // QCM
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const interactifType = 'qcm'
 export const interactifReady = true
 

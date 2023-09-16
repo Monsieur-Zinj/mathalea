@@ -10,7 +10,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Choisir la bonne figure'
 export const amcReady = true
-export const amcType = 'qcmMono' // type de question AMC
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['cliqueFigure']
 

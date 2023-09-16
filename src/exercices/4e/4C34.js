@@ -12,7 +12,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum' // type de question AMC
+export const amcType = 'AMCOpenNum'
 
 export const titre = 'Calculs utilisant les priorités opératoires et les puissances'
 

@@ -3,7 +3,7 @@ export const titre = 'Calculs utilisant les priorités opératoires et les puiss
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum' // type de question AMC
+export const amcType = 'AMCOpenNum'
 
 /**
  * Clone de 4C34 pour les 2nde

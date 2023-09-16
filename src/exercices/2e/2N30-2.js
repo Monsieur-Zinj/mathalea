@@ -1,7 +1,7 @@
 import ExerciceAdditionnerOuSoustraireDesFractions from '../4e/4C21.js'
 export const titre = 'Additionner ou soustraire deux fractions'
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC
+export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

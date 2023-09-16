@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
-export const amcType = 'qcmMult' // type de question AMC
+export const amcType = 'qcmMult'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

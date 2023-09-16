@@ -7,7 +7,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const amcType = 'qcmMono' // type de question AMC
+export const amcType = 'qcmMono'
 
 export const titre = 'Utiliser tables de multiplication pour effectuer produits avec décimaux'
 

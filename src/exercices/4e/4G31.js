@@ -3,7 +3,7 @@ export const titre = 'Contrôler si deux droites sont parallèles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 
 /**
  * @author Jean-Claude Lhote

@@ -12,8 +12,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
 
 export const amcReady = true
-// export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**

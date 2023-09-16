@@ -21,8 +21,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Nommer un angle'
 export const interactifType = ['qcm', 'mathLive']
 export const interactifReady = true
-export const amcType = 'AMCHybride' // Question numérique
-export const amcReady = true // Il reste à gérer les options numériques
+export const amcType = 'AMCHybride'
+export const amcReady = true
 
 export const dateDePublication = '13/04/2022'
 
