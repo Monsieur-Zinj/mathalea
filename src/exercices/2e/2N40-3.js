@@ -1,7 +1,7 @@
 import ÉcrireUneExpressionLitterale from '../5e/5L10.js'
 export const titre = 'Écrire une expression littérale'
 export const amcReady = true
-export const amcType = 'qcmMult' qcm Mult
+export const amcType = 'qcmMult'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
