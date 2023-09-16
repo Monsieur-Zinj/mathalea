@@ -23,14 +23,6 @@ import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, s
 import { fraction } from './fractions.js'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
 
-// Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
-const definePropRo = (obj, prop, get) => {
-  Object.defineProperty(obj, prop, {
-    enumerable: true,
-    get,
-    set: () => { throw Error(`${prop} est en lecture seule`) }
-  })
-}
 /**
  * La classe FractionEtendue est une extension de la classe Fraction de mathjs
  * @author Jean-Claude Lhote
@@ -192,9 +184,13 @@ class FractionEtendue extends Fraction {
         * @type {number}
         */
     let pourcentage
-    definePropRo(this, 'pourcentage', () => {
-      if (!pourcentage) pourcentage = arrondi(this.s * this.n * 100 / this.d, 2)
-      return pourcentage
+    Object.defineProperty(this, 'pourcentage', {
+      enumerable: true,
+      get:() => {
+        if (!pourcentage) pourcentage = arrondi(this.s * this.n * 100 / this.d, 2)
+        return pourcentage
+      },
+      set: () => { throw Error('\'pourcentage\' est en lecture seule') }
     })
 
     /**
@@ -202,15 +198,25 @@ class FractionEtendue extends Fraction {
      * @type {number}
      */
     let sign
-    definePropRo(this, 'signe', () => {
-      if (!sign) sign = this.s
-      return sign
+    Object.defineProperty(this, 'sign', {
+      enumerable: true,
+      get:() => {
+        if (!sign) sign = this.s
+        return sign
+      },
+      set: () => { throw Error('\'sign\' est en lecture seule') }
     })
+
     let signeString
-    definePropRo(this, 'signeString', () => {
-      if (!signeString) signeString = this.s === -1 ? '-' : '+'
-      return signeString
+    Object.defineProperty(this, 'signeString', {
+      enumerable: true,
+      get:() => {
+        if (!signeString) signeString = this.s === -1 ? '-' : '+'
+        return signeString
+      },
+      set: () => { throw Error('\'signeString\' est en lecture seule') }
     })
+
 
     /**
      * num/den
@@ -218,9 +224,13 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let texFraction // num/den mais sans traitement des signes des numérateur et dénominateur
-    definePropRo(this, 'texFraction', () => {
-      if (!texFraction) texFraction = this.den === 1 ? `${texNombre(this.num)}` : `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
-      return texFraction
+    Object.defineProperty(this, 'texFraction', {
+      enumerable: true,
+      get:() => {
+        if (!texFraction) texFraction =  this.den === 1 ? `${texNombre(this.num)}` : `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
+        return texFraction
+      },
+      set: () => { throw Error('\'texFraction\' est en lecture seule') }
     })
 
     /**
@@ -229,9 +239,13 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let texFractionSR // num/den mais sans traitement des signes des numérateur et dénominateur
-    definePropRo(this, 'texFractionSR', () => {
-      if (!texFractionSR) texFractionSR = `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
-      return texFractionSR
+    Object.defineProperty(this, 'texFractionSR', {
+      enumerable: true,
+      get:() => {
+        if (!texFractionSR) texFractionSR =  `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
+        return texFractionSR
+      },
+      set: () => { throw Error('\'texFractionSR\' est en lecture seule') }
     })
 
     /**
@@ -240,10 +254,15 @@ class FractionEtendue extends Fraction {
        * @type {string}
        */
     let texFSD
-    definePropRo(this, 'texFSD', () => {
-      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num))) : `-\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num))) : `\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}`
-      return texFSD
+    Object.defineProperty(this, 'texFSD', {
+      enumerable: true,
+      get:() => {
+        if (!texFSD) texFSD =  this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num))) : `-\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num))) : `\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}`
+        return texFSD
+      },
+      set: () => { throw Error('\'texFSD\' est en lecture seule') }
     })
+
 
     /**
      * + n/d si positif, - n/d si négatif
@@ -252,10 +271,15 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let texFractionSignee
-    definePropRo(this, 'texFractionSignee', () => {
-      if (!texFractionSignee) texFractionSignee = (this.s === -1) ? this.texFSD : '+' + this.texFSD
-      return texFractionSignee
+    Object.defineProperty(this, 'texFractionSignee', {
+      enumerable: true,
+      get:() => {
+        if (!texFractionSignee) texFractionSignee =  this.s === -1 ? this.texFSD : '+' + this.texFSD
+        return texFractionSignee
+      },
+      set: () => { throw Error('\'texFractionSignee\' est en lecture seule') }
     })
+
 
     /**
      * -1 => '-'
@@ -266,10 +290,15 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let texFractionSaufUn
-    definePropRo(this, 'texFractionSaufUn', () => {
-      if (!texFractionSaufUn) texFractionSaufUn = (this.valeurDecimale === -1) ? '-' : (this.valeurDecimale === 1) ? '' : this.texFSD
-      return texFractionSaufUn
+    Object.defineProperty(this, 'texFractionSaufUn', {
+      enumerable: true,
+      get:() => {
+        if (!texFractionSaufUn) texFractionSaufUn =  this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '' : this.texFSD
+        return texFractionSaufUn
+      },
+      set: () => { throw Error('\'texFractionSaufUn\' est en lecture seule') }
     })
+
 
     /**
      * -1 => '-'
@@ -280,10 +309,15 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let texFractionSaufUnSignee
-    definePropRo(this, 'texFractionSaufUnSignee', () => {
-      if (!texFractionSaufUnSignee) texFractionSaufUnSignee = (this.valeurDecimale === -1) ? '-' : (this.valeurDecimale === 1) ? '+' : this.texFractionSignee
-      return texFractionSaufUnSignee
+    Object.defineProperty(this, 'texFractionSaufUnSignee', {
+      enumerable: true,
+      get:() => {
+        if (!texFractionSaufUnSignee) texFractionSaufUnSignee =  this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '+' : this.texFractionSignee
+        return texFractionSaufUnSignee
+      },
+      set: () => { throw Error('\'texFractionSaufUnSignee\' est en lecture seule') }
     })
+
 
     /**
      * num/den si positif, (- num/den) sinon
@@ -291,17 +325,26 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let texFSP
-    definePropRo(this, 'texFSP', () => {
-      if (!texFSP) texFSP = (this.s > 0) ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
-      return texFSP
+    Object.defineProperty(this, 'texFSP', {
+      enumerable: true,
+      get:() => {
+        if (!texFSP) texFSP =  this.s > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+        return texFSP
+      },
+      set: () => { throw Error('\'texFSP\' est en lecture seule') }
     })
+
     /**
  * retourne la fraction mis entre parenthèses notamment pour l'exponentiation.
  */
     let texParentheses
-    definePropRo(this, 'texParentheses', () => {
-      if (!texParentheses) texParentheses = this.den === 1 && this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
-      return texParentheses
+    Object.defineProperty(this, 'texParentheses', {
+      enumerable: true,
+      get:() => {
+        if (!texParentheses) texParentheses =  this.den === 1 && this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+        return texParentheses
+      },
+      set: () => { throw Error('\'texParentheses\' est en lecture seule') }
     })
 
     /**
@@ -310,10 +353,15 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let texFractionSimplifiee
-    definePropRo(this, 'texFractionSimplifiee', () => {
-      if (!texFractionSimplifiee) texFractionSimplifiee = (new FractionEtendue(this.numIrred, this.denIrred)).texFSD
-      return texFractionSimplifiee
+    Object.defineProperty(this, 'texFractionSimplifiee', {
+      enumerable: true,
+      get:() => {
+        if (!texFractionSimplifiee) texFractionSimplifiee =  new FractionEtendue(this.numIrred, this.denIrred).texFSD
+        return texFractionSimplifiee
+      },
+      set: () => { throw Error('\'texFractionSimplifiee\' est en lecture seule') }
     })
+
 
     /**
      * le code LaTeX de l'écriture algébrique de la fraction
@@ -322,9 +370,13 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let ecritureAlgebrique
-    definePropRo(this, 'ecritureAlgebrique', () => {
-      if (!ecritureAlgebrique) ecritureAlgebrique = this.s === 1 ? '+' + this.texFSD : this.texFSD
-      return ecritureAlgebrique
+    Object.defineProperty(this, 'ecritureAlgebrique', {
+      enumerable: true,
+      get:() => {
+        if (!ecritureAlgebrique) ecritureAlgebrique =  this.s === 1 ? '+' + this.texFSD : this.texFSD
+        return ecritureAlgebrique
+      },
+      set: () => { throw Error('\'ecritureAlgebrique\' est en lecture seule') }
     })
 
     /**
@@ -333,9 +385,13 @@ class FractionEtendue extends Fraction {
      * @type {string}
      */
     let ecritureParentheseSiNegatif
-    definePropRo(this, 'ecritureParentheseSiNegatif', () => {
-      if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
-      return ecritureParentheseSiNegatif
+    Object.defineProperty(this, 'ecritureParentheseSiNegatif', {
+      enumerable: true,
+      get:() => {
+        if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif =  this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+        return ecritureParentheseSiNegatif
+      },
+      set: () => { throw Error('\'ecritureParentheseSiNegatif\' est en lecture seule') }
     })
 
     /**
@@ -344,40 +400,57 @@ class FractionEtendue extends Fraction {
      * @type {number}
      */
     let valeurDecimale
-    definePropRo(this, 'valeurDecimale', () => {
-      if (!valeurDecimale) valeurDecimale = arrondi(this.n * this.s / this.d, 6)
-      return valeurDecimale
+    Object.defineProperty(this, 'valeurDecimale', {
+      enumerable: true,
+      get:() => {
+        if (!valeurDecimale) valeurDecimale =  arrondi(this.n * this.s / this.d, 6)
+        return valeurDecimale
+      },
+      set: () => { throw Error('\'valeurDecimale\' est en lecture seule') }
     })
 
     /**
      * true si la fraction est un entier false sinon
      */
     let estEntiere
-    definePropRo(this, 'estEntiere', () => {
-      if (!estEntiere) estEntiere = this.d === 1
-      return estEntiere
+    Object.defineProperty(this, 'estEntiere', {
+      enumerable: true,
+      get:() => {
+        if (!estEntiere) estEntiere =  this.d === 1
+        return estEntiere
+      },
+      set: () => { throw Error('\'estEntiere\' est en lecture seule') }
     })
+
     /**
  * @returns true si la FractionEtendue est le carré d'une FractionEtendue
  */
     let estParfaite
-    definePropRo(this, 'estParfaite', () => {
-      if (!estParfaite) estParfaite = this.racineCarree() !== false
-      return estParfaite
+    Object.defineProperty(this, 'estParfaite', {
+      enumerable: true,
+      get:() => {
+        if (!estParfaite) estParfaite =  this.racineCarree() !== false
+        return estParfaite
+      },
+      set: () => { throw Error('\'estParfaite\' est en lecture seule') }
     })
 
     /**
  * @returns true si la FractionEtendue est irréductible
  */
     let estIrreductible
-    definePropRo(this, 'estIrreductible', () => {
-      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1 && this.den !== 1
-      return estIrreductible
+    Object.defineProperty(this, 'estIrreductible', {
+      enumerable: true,
+      get:() => {
+        if (!estIrreductible) estIrreductible =  gcd(this.num, this.den) === 1 && this.den !== 1
+        return estIrreductible
+      },
+      set: () => { throw Error('\'estIrreductible\' est en lecture seule') }
     })
 
     /**
    * basé sur la méthode toLatex() de mathjs, on remplace \frac par \dfrac plus joli.
-   * @returns la chaine Latex pour écrire la fraction (signe devant)
+   * @returns {string} la chaine Latex pour écrire la fraction (signe devant)
    */
   }
 
@@ -386,6 +459,11 @@ class FractionEtendue extends Fraction {
     return text.replace('\\frac', '\\dfrac')
   }
 
+  /**
+   *
+   * @param FractionEtendues[]
+   * @returns {FractionEtendue}
+   */
   sommeFractions (...fractions) { // retourne un résultat simplifié
     let s = fraction(this.s * this.n, this.d)
     for (const f of fractions) {
@@ -401,7 +479,7 @@ class FractionEtendue extends Fraction {
 
   /**
  * Convertit la FractionEtendue en Fraction
- * @returns un objet Fraction (mathjs)
+ * @returns {FractionEtendue} un objet Fraction (mathjs)
  */
   toFraction () { return new Fraction(this.n * this.s, this.d) }
 
@@ -417,7 +495,7 @@ class FractionEtendue extends Fraction {
   /**
  * On pourra utiliser k = 0.5 pour simplifier par 2 la fraction par exemple.
  * @param {number} k
- * @returns La FractionEtendue dont le numérateur et le dénominateur ont été multipliés par k.
+ * @returns {FractionEtendue} La FractionEtendue dont le numérateur et le dénominateur ont été multipliés par k.
  */
   reduire (k) {
     const num = multiply(this.num, k)
@@ -426,12 +504,12 @@ class FractionEtendue extends Fraction {
   }
 
   /**
- * @param {FractionEtendue | Fraction} f2
+ * @param {FractionEtendue | Fraction | number} f2
  * @returns true si la FractionEtendue est égale à la fraction passée en argument.
  */
   isEqual (f2) { return equal(this, f2) }
   /**
- * @param {FractionEtendue | Fraction} f
+ * @param {FractionEtendue | Fraction | number} f
  * @returns la FractionEtendue - f résultat simplifié
  */
   differenceFraction (f) { return new FractionEtendue(subtract(this, f)) }
