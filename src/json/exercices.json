@@ -11130,6 +11130,18 @@
       "amc": true
     }
   },
+  "can4C16": {
+    "url": "can/4e/can4C16.js",
+    "uuid": "07df0",
+    "id": "can4C16",
+    "titre": "Multiplier des fractions",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amcType": "AMCNum",
+      "amc": true
+    }
+  },
   "can4C17": {
     "url": "can/4e/can4C17.js",
     "uuid": "471bf",
