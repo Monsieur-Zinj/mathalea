@@ -96,7 +96,7 @@ export function triePositifsNegatifs (liste) {
 
 /**
  * Renvoie le nombre de chiffres de la partie décimale
- * @param nb : nombre décimal
+ * @param {number} nb : nombre décimal
  * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Rémi Angot
  */
