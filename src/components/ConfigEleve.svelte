@@ -51,15 +51,6 @@
     window.open(url, '_blank').focus()
   }
 
-  $: {
-    if ($globalOptions.setInteractive !== '0') {
-      globalOptions.update((l) => {
-        l.isSolutionAccessible = true
-        return l
-      })
-    }
-  }
-
   // Gestion de la graine
   let isDataRandom: boolean = false
   function handleSeed () {
@@ -151,7 +142,7 @@
             Correction
           </div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} isDisabled={$globalOptions.setInteractive !== '0'} bind:value={$globalOptions.isSolutionAccessible} />
+            <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} bind:value={$globalOptions.isSolutionAccessible} />
           </div>
         </div>
       </div>

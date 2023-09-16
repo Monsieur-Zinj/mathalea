@@ -93,7 +93,7 @@
   afterUpdate(async () => {
     if (exercice) {
       await tick()
-      if (isInteractif) {
+      if (exercice.interactif) {
         loadMathLive()
         if (exercice.interactifType === 'cliqueFigure') {
           prepareExerciceCliqueFigure(exercice)
@@ -129,13 +129,11 @@
   })
 
   async function newData () {
+    exercice.isDone = false
     if (isCorrectionVisible) isCorrectionVisible = false
     const seed = mathaleaGenerateSeed()
     exercice.seed = seed
     if (buttonScore) initButtonScore()
-    if (isCorrectionVisible && window.localStorage !== undefined && exercice.id !== undefined) {
-      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
-    }
     updateDisplay()
   }
 
@@ -163,7 +161,8 @@
   }
 
   function verifExerciceVueEleve () {
-    isCorrectionVisible = true
+    exercice.isDone = true
+    if ($globalOptions.isSolutionAccessible) isCorrectionVisible = true
     if (exercice.numeroExercice != null) {
       resultsByExercice.update((l) => {
         l[exercice.numeroExercice as number] = {
@@ -264,6 +263,17 @@
     adjustMathalea2dFiguresWidth(true)
   }
 
+  function switchCorrectionVisible () {
+    isCorrectionVisible = !isCorrectionVisible
+    if (isCorrectionVisible && window.localStorage !== undefined && exercice.id !== undefined) {
+      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
+    }
+    if (exercice.interactif && !isCorrectionVisible && !exercice.isDone) {
+      newData()
+    }
+    adjustMathalea2dFiguresWidth()
+  }
+
 </script>
 
 <div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
@@ -286,16 +296,13 @@
             }}
           />
         </div>
-        <div class={(!exercice.interactif && $globalOptions.isSolutionAccessible) ? 'flex ml-2' : 'hidden'}>
+        <div class={($globalOptions.isSolutionAccessible && ((exercice.interactif && exercice.isDone) || !exercice.interactif)) ? 'flex ml-2' : 'hidden'}>
           <Button
             title={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
             icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
             classDeclaration="py-[2px] px-2 text-[0.7rem] w-36"
             inverted={true}
-            on:click={() => {
-              isCorrectionVisible = !isCorrectionVisible
-              adjustMathalea2dFiguresWidth()
-            }}
+            on:click={switchCorrectionVisible}
           />
         </div>
         <!-- {/if} -->
