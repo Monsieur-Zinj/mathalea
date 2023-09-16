@@ -104,13 +104,25 @@ export function expTrinome (a, b, c) {
 export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
   const determinant = matrice.determinant()
+  if (determinant.isEqual(0)) {
+    return [[0, 0], [0, 0], [0, 0]]
+  }
   const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
   if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    const fa = fraction(a, determinant)
-    const fb = fraction(b, determinant)
+    windows.notify(`Les coefficients trouvés sont des entiers avant division par le déterminant,
+     cela ne devrait pas arriver puisque multiplieVecteur() produit des FractionEtendue.
+      Le déterminant est : ${determinant} et les numérateurs ${a} et ${b}`,{determinant, a, b})
+    const fa = determinant.inverse.multiplieEntier(a)
+    const fb = determinant.inverse.multiplieEntier(b)
     return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
+  } else {
+    const fa = a.diviseFraction( determinant)
+    const fb = b.diviseFraction( determinant)
+    return [
+      [fa.numIrred, fa.denIrred],
+      [fb.numIrred, fb.denIrred]
+    ]
   }
-  return [[a / determinant, 1], [b / determinant, 1]]
 }
 
 /**
