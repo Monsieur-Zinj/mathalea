@@ -55,7 +55,7 @@ class Latex {
     let contentCorr = ''
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') continue
-      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeDeQuestions')) continue
+      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
       if (exercice instanceof Exercice) {
         const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
         exercice.seed = seed
