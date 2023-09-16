@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'
+import FractionEtendue from "../../../modules/FractionEtendue.js";
 export const titre = 'Trouver l’opposé ou l’inverse d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -57,9 +57,9 @@ export default function OpposeDeFraction () {
         b = a.n
         d = fraction(b, c)
         e = fraction(c, b)
-        this.question = `Quel est l'inverse de $\\dfrac{${b}}{${c}}$ ?`
+        this.question = `Quel est l'inverse de $${d.texFraction}$ ?`
         this.correction = `Deux nombres sont inverses l'un de l'autre lorsque leur produit vaut $1$.<br>
-        Ainsi, l'inverse de $\\dfrac{${b}}{${c}}$ est $${texFractionReduite(c, b)}$ car $\\dfrac{${b}}{${c}}\\times ${texFractionReduite(c, b)}=1$.`
+        Ainsi, l'inverse de $\\dfrac{${b}}{${c}}$ est $${e.texFraction}$ car $${d.texFraction}\\times ${e.texFraction}=1$.`
         this.reponse = e
         break
       case 'e' :
@@ -68,7 +68,7 @@ export default function OpposeDeFraction () {
         e = fraction(c, b)
         this.question = `Quel est l'inverse de $-\\dfrac{${b}}{${c}}$ ?`
         this.correction = `Deux nombres sont inverses l'un de l'autre lorsque leur produit vaut $1$.<br>
-        Ainsi, l'inverse de $-\\dfrac{${b}}{${c}}$ est $-${texFractionReduite(c, b)}$ car $-\\dfrac{${b}}{${c}}\\times \\left(-${texFractionReduite(c, b)}\\right)=1$ .`
+        Ainsi, l'inverse de $-\\dfrac{${b}}{${c}}$ est $-${e.texFraction}$ car $-${d.texFraction}}\\times \\left(-${e.texFraction}\\right)=1$ .`
         this.reponse = e.oppose()
         break
     }

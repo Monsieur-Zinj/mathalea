@@ -25,40 +25,31 @@ export default function DecimalVersFraction () {
     let a, d, maFraction
     this.formatChampTexte = 'largeur15 inline'
     this.formatInteractif = 'fractionEgale'
+    a = randint(1, 39, [10, 20, 30])
     switch (choice([1, 2, 3])) {
       case 1:// division par 10
-        a = randint(1, 39, [10, 20, 30])
         d = new Decimal(a).div(10)
         maFraction = new FractionEtendue(a, 10)
-        this.question = `Écrire $${texNombre(d, 1)}$ sous la forme d'une fraction.`
         this.correction = `Il y a plusieurs réponses possibles (une fraction simplifiée, une fraction non simplifiée, une fraction décimale). <br>
-        
         $${texNombre(d, 1)}=\\dfrac{${texNombre(d * 10, 0)}}{10}${maFraction.texSimplificationAvecEtapes()}$ `
-        this.reponse = maFraction
-
         break
       case 2:// division par 100
-        a = randint(1, 39, [10, 20, 30])
         d = new Decimal(a).div(100)
         maFraction = new FractionEtendue(a, 100)
-        this.question = `Écrire $${texNombre(d, 2)}$ sous la forme d'une fraction.`
         this.correction = `Il y a plusieurs réponses possibles (une fraction simplifiée, une fraction non simplifiée, une fraction décimale). <br>
-        
         $${texNombre(d, 2)}=\\dfrac{${texNombre(d * 100, 2)}}{100}${maFraction.texSimplificationAvecEtapes()}$ `
-        this.reponse = maFraction
         break
 
       case 3:// division par 1000
-        a = choice([randint(1, 39, [10, 20, 30]), randint(201, 299, [210, 220, 230, 240, 250, 260, 270, 280, 290])])
+        a = choice([a, randint(201, 299, [210, 220, 230, 240, 250, 260, 270, 280, 290])])
         d = new Decimal(a).div(1000)
         maFraction = new FractionEtendue(a, 1000)
-        this.question = `Écrire $${texNombre(d, 3)}$ sous la forme d'une fraction.`
         this.correction = `Il y a plusieurs réponses possibles (une fraction simplifiée, une fraction non simplifiée, une fraction décimale). <br>
-        
         $${texNombre(d, 3)}=\\dfrac{${texNombre(d * 1000, 3)}}{1000}${maFraction.texSimplificationAvecEtapes()}$ `
-        this.reponse = maFraction
         break
     }
+    this.question = `Écrire $${texNombre(d, 3)}$ sous la forme d'une fraction.`
+    this.reponse = maFraction
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }
