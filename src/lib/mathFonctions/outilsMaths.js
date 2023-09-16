@@ -124,26 +124,32 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const y2 = fx2 - d
   const y3 = fx3 - d
   const determinant = matrice.determinant()
-  if (determinant === 0) {
+  if (determinant.isEqual(0)) {
     return [[0, 0], [0, 0], [0, 0]]
   }
   const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
-    const fa = fraction(a, determinant)
-    const fb = fraction(b, determinant)
-    const fc = fraction(c, determinant)
+  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // code caduque : determinant est une FractionEtendue de même que a,b et c
+    const fa = determinant.inverse.multiplieEntier(a)
+    const fb = determinant.inverse.multiplieEntier(b)
+    const fc = determinant.inverse.multiplieEntier(c)
+    windows.notify(`Les coefficients trouvés sont des entiers avant division par le déterminant,
+     cela ne devrait pas arriver puisque multiplieVecteur() produit des FractionEtendue.
+      Le déterminant est : ${determinant} et les numérateurs ${a}, ${b} et ${c}`,{determinant, a, b, c})
     return [
       [fa.numIrred, fa.denIrred],
       [fb.numIrred, fb.denIrred],
       [fc.numIrred, fc.denIrred]
     ]
-    // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
+  } else {
+    const fa = a.diviseFraction( determinant)
+    const fb = b.diviseFraction( determinant)
+    const fc = c.diviseFraction( determinant)
+    return [
+      [fa.numIrred, fa.denIrred],
+      [fb.numIrred, fb.denIrred],
+      [fc.numIrred, fc.denIrred]
+    ]
   }
-  return [
-    [a / determinant, 1],
-    [b / determinant, 1],
-    [b / determinant, 1]
-  ]
 }
 
 export function rationnalise (x) {
