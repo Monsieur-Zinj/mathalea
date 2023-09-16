@@ -133,7 +133,7 @@
     const seed = mathaleaGenerateSeed()
     exercice.seed = seed
     if (buttonScore) initButtonScore()
-    if (isCorrectionVisible) {
+    if (isCorrectionVisible && window.localStorage !== undefined && exercice.id !== undefined) {
       window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
     }
     updateDisplay()

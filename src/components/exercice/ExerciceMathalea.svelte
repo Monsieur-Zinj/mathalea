@@ -173,7 +173,7 @@
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
       exercice.applyNewSeed()
       if (buttonScore) initButtonScore()
-      if (isCorrectionVisible) {
+      if (window.localStorage !== undefined && exercice.id !== undefined && isCorrectionVisible) {
         window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
       }
       await updateDisplay()
@@ -361,7 +361,7 @@
     on:clickCorrection={async (event) => {
       isContentVisible = event.detail.isContentVisible
       isCorrectionVisible = event.detail.isCorrectionVisible
-      if (isCorrectionVisible) {
+      if (window.localStorage !== undefined && exercice.id !== undefined && isCorrectionVisible) {
         window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
       }
       if (isInteractif) {
