@@ -82,6 +82,7 @@
           }
         }
         if (buttonScore) {
+          exercice.isDone = true
           buttonScore.click()
         }
       }
@@ -130,7 +131,7 @@
 
   async function newData () {
     exercice.isDone = false
-    if (isCorrectionVisible) isCorrectionVisible = false
+    if (isCorrectionVisible) switchCorrectionVisible()
     const seed = mathaleaGenerateSeed()
     exercice.seed = seed
     if (buttonScore) initButtonScore()
@@ -268,10 +269,18 @@
     if (isCorrectionVisible && window.localStorage !== undefined && exercice.id !== undefined) {
       window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
     }
-    if (exercice.interactif && !isCorrectionVisible && !exercice.isDone) {
+    if (!$globalOptions.oneShot && exercice.interactif && !isCorrectionVisible && !exercice.isDone) {
       newData()
     }
     adjustMathalea2dFiguresWidth()
+  }
+
+  function switchInteractif () {
+    if (isCorrectionVisible) switchCorrectionVisible()
+    isInteractif = !isInteractif
+    exercice.interactif = isInteractif
+    $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
+    updateDisplay()
   }
 
 </script>
@@ -296,7 +305,7 @@
             }}
           />
         </div>
-        <div class={($globalOptions.isSolutionAccessible && ((exercice.interactif && exercice.isDone) || !exercice.interactif)) ? 'flex ml-2' : 'hidden'}>
+        <div class={($globalOptions.isSolutionAccessible && !exercice.isDone && ((exercice.interactif && exercice.isDone) || !exercice.interactif)) ? 'flex ml-2' : 'hidden'}>
           <Button
             title={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
             icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
@@ -311,12 +320,7 @@
           class={$globalOptions.isInteractiveFree && exercice?.interactifReady ? 'w-5 ml-2 tooltip tooltip-right tooltip-neutral ' : 'hidden'}
           data-tip={isInteractif ? "Désactiver l'interactivité" : 'Rendre interactif'}
           type="button"
-          on:click={() => {
-            isInteractif = !isInteractif
-            exercice.interactif = isInteractif
-            $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
-            updateDisplay()
-          }}
+          on:click={switchInteractif}
         >
           <InteractivityIcon isOnStateActive={isInteractif} size={4} />
         </button>
