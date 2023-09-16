@@ -17,7 +17,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
+export const amcType = 'AMCOpen'
 export const titre = 'Tracer des parallèles et des perpendiculaires'
 
 /**

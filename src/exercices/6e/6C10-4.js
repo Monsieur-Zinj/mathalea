@@ -2,14 +2,16 @@
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
-export const amcType = 'AMCNum' // Question numérique
+export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -24,6 +26,7 @@ export default function ExerciceTablesAdditions (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Calculer.'
+  this.sup2 = '1'
   this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale
   this.spacing = 2
   this.tailleDiaporama = 3
@@ -32,6 +35,7 @@ export default function ExerciceTablesAdditions (max = 20) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 1, melange: 3, shuffle: true, listeOfCase: ['somme', 'terme'], nbQuestions: this.nbQuestions })
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -39,13 +43,25 @@ export default function ExerciceTablesAdditions (max = 20) {
       this.autoCorrection[i] = {}
       a = randint(2, parseInt(this.sup))
       b = randint(2, parseInt(this.sup))
-      texte = `$ ${texNombre(a)} + ${texNombre(b)} =  $ `
-
-      texteCorr = `$ ${texNombre(a)} + ${texNombre(b)} = ${texNombre(a + b)} $`
-      setReponse(this, i, a + b)
+      let socket
+      const choix = choice([false, true])
       if (context.isHtml && this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i)
-      } else texte += '$\\ldots\\ldots$'
+        socket = ajouteChampTexteMathLive(this, i)
+      } else socket = '$\\ldots\\ldots$'
+      texte = listeTypeDeQuestions[i] === 'somme'
+        ? `$ ${texNombre(a, 0)} + ${texNombre(b, 0)} =  $${socket}`
+        : choix
+          ? `$ ${texNombre(a, 0)} + $${socket} $= ${texNombre(a + b, 0)} $ `
+          : `${socket} $ + ${texNombre(a, 0)} = ${texNombre(a + b, 0)}$ `
+
+      texteCorr = listeTypeDeQuestions[i] !== 'somme'
+        ? choix
+          ? `$ ${texNombre(a, 0)} + ${miseEnEvidence(texNombre(b, 0))} = ${texNombre(a + b, 0)} $`
+          : `$ ${miseEnEvidence(texNombre(b, 0))} + ${texNombre(a, 0)} = ${texNombre(a + b, 0)} $`
+        : `$ ${texNombre(a, 0)} + ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a + b, 0))} $`
+
+      setReponse(this, i, listeTypeDeQuestions[i] === 'somme' ? a + b : b)
+
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
@@ -67,4 +83,5 @@ export default function ExerciceTablesAdditions (max = 20) {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+  this.besoinFormulaire2Texte = ['Type de questions (nombres séparés par des tirets)', '1: Calculer la somme\n2: Calculer un terme manquant\n3: Mélange']
 }

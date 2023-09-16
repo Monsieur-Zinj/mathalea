@@ -405,7 +405,7 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `La taille d'une ${taille1[a][0]} est $${miseEnEvidence(b)}$ ${taille1[a][3]}.`
           setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 unites[Longueur]')
           }
           this.listeCanEnonces.push(`Entoure la réponse possible.<br> La hauteur d'une ${taille1[a][0]} est :`)
           this.listeCanReponsesACompleter.push(`${propositions[0]} ${sp(8)} ${propositions[1]} \\\\ ${propositions[2]}${sp(8)} ${propositions[3]}`)

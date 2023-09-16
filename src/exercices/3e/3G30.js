@@ -22,7 +22,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/03/2022'
 
 export const titre = 'Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie'
@@ -429,7 +429,7 @@ export default function CalculDeLongueur () {
         }
       }
       if (context.isHtml && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline longueur')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[Longueur]')
         setReponse(this, i, new Grandeur(reponse, unite), { formatInteractif: 'unites' })
       }
       this.listeQuestions.push(texte)

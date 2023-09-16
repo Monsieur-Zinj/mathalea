@@ -10,7 +10,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
-export const amcType = 'qcmMono' // QCM
+export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const dateDeModifImportante = '04/07/2023' // Modif par EE : Correction des QCM, ajout d'une question, amélioration des feedback

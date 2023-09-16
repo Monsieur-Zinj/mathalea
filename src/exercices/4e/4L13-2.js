@@ -3,7 +3,7 @@ export const titre = 'Mettre un problème en équation et le résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 
 export const dateDePublication = '04/04/2022'
 export const dateDeModifImportante = '05/04/2023'

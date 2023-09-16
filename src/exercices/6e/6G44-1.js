@@ -31,7 +31,7 @@ export const dateDeModifImportante = '08/05/2023'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true
-export const amcType = 'qcmMono' // type de question AMC
+export const amcType = 'qcmMono'
 
 /*!
  * @author Mickael Guironnet (Adapté par Eric Elter pour que les nouvelles fonctions 3d soient bien utilisées)

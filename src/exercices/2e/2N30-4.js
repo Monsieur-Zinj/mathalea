@@ -2,7 +2,7 @@ import ExerciceDiviserFractions from '../4e/4C22-2.js'
 
 export const titre = 'Diviser des fractions'
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC
+export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

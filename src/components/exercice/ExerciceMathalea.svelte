@@ -10,7 +10,9 @@
   import Settings from './Settings.svelte'
   import { exercisesUuidRanking, uuidCount } from '../utils/counts'
   import uuidsRessources from '../../json/uuidsRessources.json'
-  export let exercice: TypeExercice
+  import Exercice from "../../exercices/ExerciceTs.js";
+  import type {InterfaceResultExercice} from "../../lib/types";
+  export let exercice: Exercice
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
@@ -35,7 +37,7 @@
   let counts
   let titleExtra: string
   let title: string
-  const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id.replace('.js', '') : ''
+  const id: string = $exercicesParams[indiceExercice]?.id ? exercice.id ? exercice.id.replace('.js', '') : '' : ''
   $: {
     ranks = exercisesUuidRanking($exercicesParams)
     counts = uuidCount($exercicesParams)
@@ -50,19 +52,20 @@
   })
 
   const ressourcesUuids = Object.keys({ ...uuidsRessources })
-  const category = ressourcesUuids.includes(exercice.uuid) ? 'Ressource' : 'Exercice'
+  const category = exercice.uuid ? ressourcesUuids.includes(exercice.uuid) ? 'Ressource' : 'Exercice' : '' // @fixme si exercice.uuid n'existe pas, on fait quoi ?
 
   let headerExerciceProps: {
-    title: string
+    title?: string
     id: string
-    titleExtra: string
-    category: string
-    isInteractif: boolean
+    titleExtra?: string
+    category?: string
+    isInteractif?: boolean
     settingsReady?: boolean
     isSortable?: boolean
     isDeletable?: boolean
     isHidable?: boolean
     correctionReady?: boolean
+    correctionExists?: boolean
     randomReady?: boolean
     interactifReady?: boolean
   } = {
@@ -114,29 +117,31 @@
 
   onDestroy(() => {
     // Détruit l'objet exercice pour libérer la mémoire
-    exercice = null
+    for (const prop of Object.keys(exercice)){
+        Reflect.deleteProperty(exercice, prop)
+    }
   })
 
   onMount(async () => {
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
-    updateDisplay()
+    await updateDisplay()
     await tick()
-    countMathField()
+    await countMathField()
   })
 
   afterUpdate(async () => {
     if (exercice) {
       await tick()
       if (isInteractif) {
-        loadMathLive()
+        await loadMathLive()
         if (exercice?.interactifType === 'cliqueFigure') {
           prepareExerciceCliqueFigure(exercice)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
         if (window.localStorage.getItem(`${exercice.id}|${exercice.seed}`) && isContentVisible) {
-          newData()
+          await newData()
         }
       }
       mathaleaRenderDiv(divExercice)
@@ -148,11 +153,11 @@
       for (const svg of svgDivs) {
         if (svg.hasAttribute('data-width') === false) {
           const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth
+          svg.dataset.width = originalWidth ?? '0'
         }
         if (svg.hasAttribute('data-height') === false) {
           const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight
+          svg.dataset.height = originalHeight ?? '0'
         }
         const w = Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
         const h = Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
@@ -164,23 +169,24 @@
   })
 
   async function newData () {
-    if (exercice === null) return
-    if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
-    exercice.applyNewSeed()
-    if (buttonScore) initButtonScore()
-    if (isCorrectionVisible) {
-      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
+    if (exercice.hasOwnProperty('listeQuestions')) {
+      if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
+      exercice.applyNewSeed()
+      if (buttonScore) initButtonScore()
+      if (isCorrectionVisible) {
+        window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
+      }
+      await updateDisplay()
     }
-    updateDisplay()
   }
 
   async function setAllInteractif () {
     if (exercice?.interactifReady) isInteractif = true
-    updateDisplay()
+    await updateDisplay()
   }
   async function removeAllInteractif () {
     if (exercice?.interactifReady) isInteractif = false
-    updateDisplay()
+    await updateDisplay()
   }
 
   function handleNewSettings (event: CustomEvent) {
@@ -232,24 +238,28 @@
       exercice.applyNewSeed()
     }
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif))
     exercice.interactif = isInteractif
-    if ($exercicesParams[indiceExercice] !== undefined) {
+    if ($exercicesParams[indiceExercice].hasOwnProperty('listeQuestions')) {
       $exercicesParams[indiceExercice].alea = exercice.seed
       $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
       $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     }
     exercice.numeroExercice = indiceExercice
-    exercice.nouvelleVersion(indiceExercice)
+    if (exercice.typeExercice !== 'simple' && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(indiceExercice)
     mathaleaUpdateUrlFromExercicesParams()
-    adjustMathalea2dFiguresWidth()
+    await adjustMathalea2dFiguresWidth()
   }
 
   function verifExercice () {
     isCorrectionVisible = true
     isExerciceChecked = true
     resultsByExercice.update((l) => {
-      l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
+      const index = exercice.numeroExercice ?? 0
+      const result = exerciceInteractif(exercice, divScore, buttonScore)
+      if (result  != null){
+        l[index] = <InterfaceResultExercice>result
+      }
       return l
     })
   }
@@ -299,39 +309,43 @@
    */
   async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
     const mathalea2dFigures = document.getElementsByClassName('mathalea2d') as HTMLCollectionOf<SVGElement>
-    const consigneDiv = document.getElementById('consigne' + indiceExercice + '-0')
-    if (mathalea2dFigures.length !== 0) {
-      await tick()
-      for (let k = 0; k < mathalea2dFigures.length; k++) {
-        if (initialDimensionsAreNeeded) {
-          // réinitialisation
-          const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
-          const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
-          mathalea2dFigures[k].setAttribute('width', initialWidth)
-          mathalea2dFigures[k].setAttribute('height', initialHeight)
-          // les éléments des tableaux de variations reviennent à leurs positions initiales
-          const eltsInVariationTables = divExercice.querySelectorAll<HTMLElement>('[id^="divLatex-"]')
-          for (const elt of eltsInVariationTables) {
-            const e = elt
-            e.style.setProperty('top', e.dataset.top + 'px')
-            e.style.setProperty('left', e.dataset.left + 'px')
+    if (mathalea2dFigures != null) {
+      const consigneDiv = document.getElementById('consigne' + indiceExercice + '-0')
+      if (mathalea2dFigures.length !== 0) {
+        await tick()
+        for (let k = 0; k < mathalea2dFigures.length; k++) {
+          if (initialDimensionsAreNeeded) {
+            // réinitialisation
+            const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
+            const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
+            mathalea2dFigures[k].setAttribute('width', initialWidth ?? '0')
+            mathalea2dFigures[k].setAttribute('height', initialHeight ?? '0')
+            // les éléments des tableaux de variations reviennent à leurs positions initiales
+            if (divExercice != null) {
+              const eltsInVariationTables = divExercice.querySelectorAll<HTMLElement>('[id^="divLatex-"]')
+              for (const elt of eltsInVariationTables) {
+                const e = elt
+                e.style.setProperty('top', e.dataset.top + 'px')
+                e.style.setProperty('left', e.dataset.left + 'px')
+              }
+            }
           }
-        }
-        if (consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
-          // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
-          const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
-          const newFigWidth = consigneDiv.clientWidth * 0.95
-          const newFigHeight = mathalea2dFigures[k].clientHeight * coef
-          mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
-          mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
-          // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+          if (consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+            // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
+            const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+            const newFigWidth = consigneDiv.clientWidth * 0.95
+            const newFigHeight = mathalea2dFigures[k].clientHeight * coef
+            mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
+            mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
+            // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+          }
         }
       }
     }
   }
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
-  window.onresize = (event) => {
-    adjustMathalea2dFiguresWidth(true)
+  window.onresize = async (event) => {
+    await adjustMathalea2dFiguresWidth(true)
   }
 </script>
 
@@ -344,7 +358,7 @@
       isVisible = event.detail.isVisible
     }}
     on:clickSettings={(event) => (isSettingsVisible = event.detail.isSettingsVisible)}
-    on:clickCorrection={(event) => {
+    on:clickCorrection={async (event) => {
       isContentVisible = event.detail.isContentVisible
       isCorrectionVisible = event.detail.isCorrectionVisible
       if (isCorrectionVisible) {
@@ -353,24 +367,24 @@
       if (isInteractif) {
         isInteractif = !isInteractif
         exercice.interactif = isInteractif
-        updateDisplay()
+        await updateDisplay()
       }
-      adjustMathalea2dFiguresWidth()
+      await adjustMathalea2dFiguresWidth()
     }}
-    on:clickInteractif={(event) => {
+    on:clickInteractif={async (event) => {
       isInteractif = event.detail.isInteractif
       exercice.interactif = isInteractif
       exercicesParams.update((params) => {
         params[indiceExercice].interactif = isInteractif ? '1' : '0'
         return params
       })
-      updateDisplay()
+      await updateDisplay()
     }}
     on:clickNewData={newData}
-    interactifReady={exercice?.interactifReady && !isCorrectionVisible && headerExerciceProps?.interactifReady}
-    on:clickMessages={(event) => {
+    interactifReady={Boolean(exercice?.interactifReady && !isCorrectionVisible && headerExerciceProps?.interactifReady)}
+    on:clickMessages={async (event) => {
       isMessagesVisible = event.detail.isMessagesVisible
-      updateDisplay()
+      await updateDisplay()
     }}
   />
 

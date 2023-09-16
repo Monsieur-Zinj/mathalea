@@ -10,7 +10,7 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
-export const interactifType = 'mathLive' // Le QCM est prêt mais pas géré
+export const interactifType = 'mathLive'
 export const titre = 'Effectuer des calculs de fractions (à dénominateurs multiples) un peu complexes'
 
 export const dateDePublication = '12/05/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

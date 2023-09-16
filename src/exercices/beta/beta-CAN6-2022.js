@@ -826,7 +826,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           texteCorr = `La taille d'une ${taille1[a][0]} est ${b} ${taille1[a][3]}`
           setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 unites[Longueur]')
           }
           nbChamps = 1
           break

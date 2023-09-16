@@ -19,7 +19,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Mesurer un angle avec rapporteur intégré'
 export const interactifType = 'mathLive'
 export const interactifReady = true
-export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '26/04/2022'
 

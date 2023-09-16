@@ -1,7 +1,7 @@
 import ParalleleEtPerpendiculaires from './6G12-1.js'
 export const titre = 'Tracer des perpendiculaires'
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
+export const amcType = 'AMCOpen'
 
 /**
  * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021)

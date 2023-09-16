@@ -27,7 +27,7 @@ export default class Exercice {
   introduction: string
   listeQuestions: string[]
   listeCorrections: string[]
-  isteCanReponsesACompleter?: string[]
+  listeCanReponsesACompleter?: string[]
   listeCanEnonces?: string[]
   question?: string // Seulement pour les exercices de type simple
   reponse?: string // Seulement pour les exercices de type simple
@@ -90,7 +90,7 @@ export default class Exercice {
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: string[]
   html?: HTMLElement
-  applyNewSeed: () => void
+  applyNewSeed!: () => void
   constructor () {
   // ////////////////////////////////////////////////
   // Autour de l'exercice
@@ -205,9 +205,9 @@ export default class Exercice {
     for (const arg of args) {
       if (arg !== undefined) argsConcatenes += arg.toString()
     }
-    if (this.listeArguments.indexOf(argsConcatenes) > -1) {
+    if (this.listeArguments != null && this.listeArguments.indexOf(argsConcatenes) > -1) {
       return false
-    } else {
+    } else if (this.listeArguments != null) {
       this.listeArguments.push(argsConcatenes)
       return true
     }

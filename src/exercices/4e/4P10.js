@@ -665,7 +665,7 @@ export default function ProblemesGrandeursComposees () {
               texte +=
                 numAlpha(0) +
                 ` ${quidam} voit un éclair dans le ciel et compte dans sa tête $${duree}$ secondes avant d'entendre le tonnerre.<br>`
-              texte += `À quelle la distance de ${quidam}, l'éclair est-il tombé ?<br>`
+              texte += `À quelle distance de ${quidam}, l'éclair est-il tombé ?<br>`
               texte +=
                 numAlpha(1) +
                 ' L\'éclair suivant tombe sur le paratonnerre situé sur le clocher de l\'église du village voisin.<br>'

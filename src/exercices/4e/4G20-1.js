@@ -1,7 +1,7 @@
 import Pythagore2D from './4G20.js'
 // 4G20-1
 export const titre = 'Donner ou compléter une égalité de Pythagore'
-export const interactifReady = 1
+export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '28/12/2022'
 

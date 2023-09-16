@@ -33,14 +33,14 @@ export default class PuissancesEtPrefixe extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const exposants = [[-9, 'nano', 'un milliardième'], [-6, 'micro', 'un millionième'], [-3, 'milli', 'un millième'], [-2, 'centi', 'un centième'], [-1, 'déci', 'un dixième'], [1, 'déca', 'dix'], [2, 'hecto', 'cent'], [3, 'kilo', 'mille'], [6, 'méga', 'un-million'], [9, 'giga', 'un-milliard'], [12, 'téra', 'mille-milliards']]
+    const exposants = [[-9, 'nano', 'un milliardième'], [-6, 'micro', 'un millionième'], [-3, 'milli', 'un millième'], [-2, 'centi', 'un centième'], [-1, 'déci', 'un dixième'], [1, 'déca', 'dix'], [2, 'hecto', 'cent'], [3, 'kilo', 'mille'], [6, 'Méga', 'un-million'], [9, 'Giga', 'un-milliard'], [12, 'Téra', 'mille-milliards']]
     const listeExposants = combinaisonListes(exposants, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const exposant = listeExposants[i][0]
       const prefixe = listeExposants[i][1]
       const description = listeExposants[i][2]
       if (this.sup === 1) {
-        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, 0, shuffle(['nano', 'micro', 'milli', 'centi', 'déci', 'déca', 'hecto', 'kilo', 'Mega', 'Giga', 'Tera']), 'une réponse')
+        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, 0, shuffle(['nano', 'micro', 'milli', 'centi', 'déci', 'déca', 'hecto', 'kilo', 'Mega', 'Giga', 'Téra']), 'une réponse')
         setReponse(this, i, prefixe)
         texteCorr = `$10^{${exposant}}$, c'est ${description} donc le préfixe correspondant est ${texteEnCouleurEtGras(prefixe)}.`
       } else {

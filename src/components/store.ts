@@ -38,7 +38,14 @@ export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', t
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
-export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
+
+interface InterfaceSelectedExercises {
+  isActive: boolean,
+  indexes: number[],
+  count?: number
+}
+
+export const selectedExercises = writable<InterfaceSelectedExercises>({ isActive: false, indexes: [], count: 1 })
 
 interface InterfaceTransitionsBetweenQuestions {
     isActive: boolean,
@@ -80,7 +87,7 @@ export function moveExercice (liste: InterfaceParams[], iDepart: number, iArrive
 }
 
 let urlToWrite: URL
-let timerId: ReturnType<typeof setTimeout>
+let timerId: ReturnType<typeof setTimeout> | undefined
 
 /**
  * Complète l'URL courante avec les éléments relatifs au diaporama
@@ -130,7 +137,7 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('sound')
   }
   if (options.v === 'eleve') {
-    if (options.title.length > 0) {
+    if (options.title != null && options.title.length > 0) {
       url.searchParams.append('title', options.title)
     } else {
       url.searchParams.delete('title')
@@ -146,7 +153,10 @@ export function updateGlobalOptionsInURL (url: URL) {
       url.searchParams.delete('answers')
     }
     if (typeof options !== 'undefined') {
-      let es = presModeId.indexOf(options.presMode).toString()
+      let es = ''
+      if (options.presMode != null) {
+        es = presModeId.indexOf(options.presMode).toString()
+      } else es = '1'
       es += options.setInteractive
       es += options.isSolutionAccessible ? '1' : '0'
       es += options.isInteractiveFree ? '1' : '0'

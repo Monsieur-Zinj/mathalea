@@ -67,9 +67,9 @@
       if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols.toString())
     }
     url.searchParams.append('v', 'eleve')
-    url.searchParams.append('title', $globalOptions.title)
-    url.searchParams.append('es', buildUrlAddendumForEsParam(false))
-    window.open(url, '_blank').focus()
+    url.searchParams.append('title', $globalOptions.title ?? '')
+    url.searchParams.append('es', buildUrlAddendumForEsParam(false).replace('&es=', ''))
+    window.open(url, '_blank')?.focus()
   }
 
   /**
@@ -210,13 +210,13 @@
   /**
    * Gestion du redimentionnement de la largeur du menu des choix
    */
-  let expanding: HTMLElement = null
+  let expanding: HTMLElement | null = null
   let sidebarWidth = 400
   function stopResizing () {
     expanding = null
   }
 
-  function startResizing (type: HTMLElement, event: MouseEvent) {
+  function startResizing (type: HTMLElement) {
     expanding = type
   }
 
@@ -252,11 +252,11 @@
       for (const svg of svgDivs) {
         if (svg.hasAttribute('data-width') === false) {
           const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth
+          svg.dataset.width = originalWidth ?? ''
         }
         if (svg.hasAttribute('data-height') === false) {
           const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight
+          svg.dataset.height = originalHeight ?? ''
         }
         const w = Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
         const h = Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
@@ -510,7 +510,7 @@
           <div>Pas d'exercices dans cette section</div>
         {:else}
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {#each $bibliothequeSectionContent as exercise, i}
+            {#each $bibliothequeSectionContent as exercise}
               <ImageCard {exercise} selected={bibliothequeUuidInExercisesList.includes(exercise.uuid)} />
             {/each}
           </div>
@@ -556,7 +556,7 @@
           </div> -->
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === '0'}
+              isDisabled={false}
               titles={['Les élèves peuvent répondre une seule fois', 'Les élèves peuvent répondre plusieurs fois']}
               bind:value={$globalOptions.oneShot}
             />

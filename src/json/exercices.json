@@ -1253,17 +1253,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
-    }
-  },
-  "2N31-3": {
-    "url": "2e/2N31-3.js",
-    "uuid": "0ecd3",
-    "id": "2N31-3",
-    "titre": "Puissances : Calculs automatisés et règles de calculs",
-    "tags": {
-      "interactif": false,
-      "amc": false
+      "amc": true
     }
   },
   "2N31-4": {
@@ -1299,7 +1289,7 @@
       "interactif": true,
       "interactifType": "qcm",
       "amcType": "qcmMono",
-      "amc": false
+      "amc": true
     }
   },
   "2N31-7": {
@@ -1311,7 +1301,7 @@
       "interactif": true,
       "interactifType": "qcm",
       "amcType": "qcmMono",
-      "amc": false
+      "amc": true
     }
   },
   "2N31-8": {
@@ -1323,6 +1313,18 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
+    }
+  },
+  "2N31-9": {
+    "url": "2e/2N31-9.js",
+    "uuid": "fb1a4",
+    "id": "2N31-9",
+    "titre": "Utiliser la notation puissance",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amcType": "AMCOpen",
+      "amc": true
     }
   },
   "2N32-1": {
@@ -1403,10 +1405,10 @@
     "id": "2N32-8",
     "titre": "Encadrer une racine carrée",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "2N40-1": {
@@ -1825,7 +1827,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "2S10-3": {
@@ -1905,7 +1907,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "2S20-4": {
@@ -2079,10 +2081,10 @@
     "id": "3A11-1",
     "titre": "Résoudre des problèmes de conjonction de phénomènes",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "3A12": {
@@ -2402,7 +2404,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "3G10-1": {
@@ -3272,10 +3274,10 @@
     "id": "4A12",
     "titre": "Résoudre des problèmes de conjonction de phénomènes",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "4C10": {
@@ -3699,7 +3701,7 @@
       "interactif": true,
       "interactifType": "qcm",
       "amcType": "qcmMono",
-      "amc": false
+      "amc": true
     }
   },
   "4C32-3": {
@@ -3721,7 +3723,7 @@
       "interactif": true,
       "interactifType": "qcm",
       "amcType": "qcmMono",
-      "amc": false
+      "amc": true
     }
   },
   "4C33-0": {
@@ -3733,7 +3735,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
-      "amc": false
+      "amc": true
     }
   },
   "4C33-1": {
@@ -3745,19 +3747,19 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "4C33-3": {
-    "url": "4e/4C33-3.js",
+    "url": "2e/2N31-3.js",
     "uuid": "c71da",
     "id": "4C33-3",
-    "titre": "Puissances : Calculs automatisés et règles de calculs",
+    "titre": "Effectuer des calculs avec des puissances et leurs règles de calculs",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "4C34": {
@@ -3891,7 +3893,7 @@
     "id": "4G12-1",
     "titre": "Trouver la transformation",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "listeDeroulante",
       "amc": false
     }
@@ -3925,7 +3927,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCOpenNum",
-      "amc": false
+      "amc": true
     }
   },
   "4G20-1": {
@@ -3934,7 +3936,7 @@
     "id": "4G20-1",
     "titre": "Donner ou compléter une égalité de Pythagore",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amc": false
     }
@@ -3989,10 +3991,10 @@
     "id": "4G20-6",
     "titre": "Encadrer une racine carrée et en donner un arrondi",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "4G21": {
@@ -4401,7 +4403,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "4S20": {
@@ -4727,7 +4729,7 @@
     "id": "5G12-3",
     "titre": "Identifier une transformation",
     "tags": {
-      "interactif": false,
+      "interactif": true,
       "interactifType": "listeDeroulante",
       "amc": false
     }
@@ -5402,7 +5404,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "5P14-1": {
@@ -5414,7 +5416,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "5P14-2": {
@@ -5878,7 +5880,7 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amcType": "AMCOpenNum✖︎2",
+      "amcType": "AMCHybride",
       "amc": true
     }
   },
@@ -6161,7 +6163,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "6C31-2": {
@@ -6275,7 +6277,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "6D13": {
@@ -6536,7 +6538,7 @@
     "tags": {
       "interactif": true,
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "6G22-1": {
@@ -6615,7 +6617,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
-      "amc": false
+      "amc": true
     }
   },
   "6G23-5": {
@@ -6627,7 +6629,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "6G24": {
@@ -6937,7 +6939,7 @@
     "titre": "Trouver le bon tracé avec Scratch",
     "tags": {
       "interactif": true,
-      "interactifType": "custom' // La correction doit être gérée dans l",
+      "interactifType": "custom",
       "amcType": "qcmMono",
       "amc": true
     }
@@ -7551,7 +7553,7 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
-      "amc": false
+      "amc": true
     }
   },
   "6N23-7": {
@@ -11096,7 +11098,7 @@
     "url": "can/4e/can4C13.js",
     "uuid": "7a0b1",
     "id": "can4C13",
-    "titre": "Calculer une fraction de dénomiteur un décimal",
+    "titre": "Calculer une fraction de dénominateur un décimal",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",

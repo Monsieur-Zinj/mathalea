@@ -13,10 +13,10 @@ import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint }
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
+export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcType = 'AMCNum' // Question numérique
+export const amcType = 'AMCNum'
 export const titre = 'Calculer la valeur décimale d\'une fraction'
 export const dateDePublication = '18/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 

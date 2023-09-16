@@ -5,6 +5,13 @@ import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import Grandeur from '../../modules/Grandeur.js'
 
+/**
+ *
+ * @param {Exercice} exercice
+ * @param {HTMLDivElement} divScore
+ * @param {HTMLButtonElement} buttonScore
+ * @returns {{numberOfPoints: number, numberOfQuestions: number}}
+ */
 export function exerciceInteractif (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
   if (exercice.interactifType === 'mathLive') return verifExerciceMathLive(exercice, divScore, buttonScore)
   if (exercice.interactifType === 'qcm') return verifExerciceQcm(exercice, divScore, buttonScore)

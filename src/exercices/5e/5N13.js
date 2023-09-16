@@ -10,7 +10,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 'AMCOpen' // type de question AMC
+export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = ['mathLive', 'qcm']
 

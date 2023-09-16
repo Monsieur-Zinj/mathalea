@@ -22,4 +22,5 @@ export default function IdentitesCalculs2e () {
   this.can = true
   this.canVersion = 'v2'
   this.consigne = ''
+  this.typeExercice = 'simple'
 }

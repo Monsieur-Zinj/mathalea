@@ -33,7 +33,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer des longueurs dans la géométrie dans l\'espace'
 export const amcReady = true
-export const amcType = 'AMCHybride' // type de question AMC
+export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '19/12/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

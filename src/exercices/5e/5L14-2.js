@@ -9,7 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 'AMCNum' // type de question AMC NumeriqueChoice
+export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 

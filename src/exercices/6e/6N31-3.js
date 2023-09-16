@@ -12,7 +12,7 @@ import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.j
 import Exercice from '../Exercice.js'
 
 export const amcReady = true
-export const amcType = 'qcmMult' // type de question AMC
+export const amcType = 'qcmMult'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
