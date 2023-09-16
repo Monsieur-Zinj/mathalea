@@ -108,11 +108,11 @@
       for (const svg of svgDivs) {
         if (svg.hasAttribute('data-width') === false) {
           const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth
+          svg.dataset.width = originalWidth ?? ''
         }
         if (svg.hasAttribute('data-height') === false) {
           const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight
+          svg.dataset.height = originalHeight ?? ''
         }
         const w = Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
         const h = Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
@@ -146,7 +146,7 @@
   async function updateDisplay () {
     if (exercice.seed === undefined) exercice.seed = mathaleaGenerateSeed()
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, !!isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
@@ -159,18 +159,20 @@
 
   function verifExerciceVueEleve () {
     isCorrectionVisible = true
-    resultsByExercice.update((l) => {
-      l[exercice.numeroExercice] = {
-        uuid: exercice.uuid,
-        title: exercice.titre,
-        indice: exercice.numeroExercice,
-        state: 'done',
-        alea: exercice.seed,
-        answers: exercice.answers,
-        ...exerciceInteractif(exercice, divScore, buttonScore)
-      }
-      return l
-    })
+    if (exercice.numeroExercice != null) {
+      resultsByExercice.update((l) => {
+        l[exercice.numeroExercice as number] = {
+          uuid: exercice.uuid,
+          title: exercice.titre,
+          indice: exercice.numeroExercice as number,
+          state: 'done',
+          alea: exercice.seed,
+          answers: exercice.answers,
+          ...exerciceInteractif(exercice, divScore, buttonScore)
+        }
+        return l
+      })
+    }
     if ($globalOptions.recorder === 'moodle') {
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get('iframe')
@@ -227,7 +229,7 @@
    * @author sylvain
    */
   async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
-    const mathalea2dFigures = document.getElementsByClassName('mathalea2d') as HTMLCollectionOf<SVGElement>
+    const mathalea2dFigures = document.getElementsByClassName('mathalea2d')
     if (mathalea2dFigures.length !== 0) {
       await tick()
       const body = document.getElementsByTagName('body')[0]
@@ -236,8 +238,8 @@
           // réinitialisation
           const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
           const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
-          mathalea2dFigures[k].setAttribute('width', initialWidth)
-          mathalea2dFigures[k].setAttribute('height', initialHeight)
+          mathalea2dFigures[k].setAttribute('width', initialWidth ?? '')
+          mathalea2dFigures[k].setAttribute('height', initialHeight ?? '')
         }
         // console.log("got figures !!! --> DIV " + body.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > body.clientWidth) {
@@ -257,10 +259,6 @@
     adjustMathalea2dFiguresWidth(true)
   }
 
-  function isPossibleToRestart (): boolean {
-    return ($globalOptions.setInteractive === '0' || !$globalOptions.oneShot) &&
-    $globalOptions.done !== '1'
-  }
 </script>
 
 <div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
@@ -269,7 +267,10 @@
   <div class="flex flex-col-reverse lg:flex-row">
     <div class="flex flex-col justify-start items-start" id="exercice{indiceExercice}">
       <div class="flex flex-row justify-start items-center {indiceLastExercice > 1 && $globalOptions.presMode !== 'un_exo_par_page' ? 'ml-2 lg:ml-6' : 'ml-2'} mb-2 lg:mb-6">
-        <div class={$globalOptions.setInteractive === '0' || !$globalOptions.oneShot ? 'flex' : 'hidden'}>
+        <div class={(!$globalOptions.oneShot &&
+          $globalOptions.done !== '1')
+          ? 'flex'
+          : 'hidden'}>
           <Button
             title="Nouvel Énoncé"
             icon="bx-refresh"
@@ -280,7 +281,7 @@
             }}
           />
         </div>
-        <div class={(isPossibleToRestart() && !exercice.interactif) ? 'flex ml-2' : 'hidden'}>
+        <div class={(!exercice.interactif && $globalOptions.isSolutionAccessible) ? 'flex ml-2' : 'hidden'}>
           <Button
             title={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
             icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}

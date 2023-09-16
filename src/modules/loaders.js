@@ -149,8 +149,6 @@ export function loadScratchblocks () {
  */
 export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
-  const isInIframe = window.self !== window.top
-  const isInCapytale = get(globalOptions).recorder === 'capytale'
   if (champs.length > 0) {
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
