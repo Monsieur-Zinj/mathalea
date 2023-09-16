@@ -1,8 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { fraction } from '../../../modules/fractions.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import FractionEtendue from "../../../modules/FractionEtendue.js";
 export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,11 +27,11 @@ export default function SimplifieFractionOuRacinesCarrees () {
       case 1:// simplification de fraction
         do {
           a = randint(1, 12)
-          b = randint(2, 12, [a, calcul(a / 2), calcul(a / 3), calcul(a / 4), 11])
-        } while (Number.isInteger((calcul(a / b))))
+          b = randint(2, 12, [a, a / 2, a / 3, a / 4, 11])
+        } while (Number.isInteger(a / b))
         k = choice([2, 4, 6, 8, 9, 10])
-        maFraction = fraction(a * k, b * k)
-        k = calcul(maFraction.n / maFraction.numIrred)
+        maFraction = new FractionEtendue(a * k, b * k)
+        k = maFraction.n / maFraction.numIrred
         resultat = maFraction.simplifie()
         this.question = `Écrire $${maFraction.texFraction}$ sous la forme d'une fraction irréductible.`
         this.correction = `$${maFraction.texFraction}=\\dfrac{${resultat.n}\\times ${k}}{${resultat.d}\\times ${k}} =${resultat.texFraction}$.`

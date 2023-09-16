@@ -4,8 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul } from '../../../modules/outils.js'
-import { fraction } from '../../../modules/fractions.js'
+import { randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer le coefficient directeur d\'une droite'
 export const interactifReady = true
@@ -56,9 +55,9 @@ export default function CoeffDirecteurDroite () {
         a = randint(-4, 4, 0)
         b = randint(-4, 4, 0)
         xA = randint(-3, 3, [-1, 0])
-        yA = calcul(a * xA + b)
+        yA = a * xA + b
         xB = xA + 1
-        yB = calcul(b + a * xB)
+        yB = b + a * xB
         rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
         this.formatInteractif = 'calcul'
         this.question = `Donner le coefficient directeur de la droite.<br>
@@ -101,7 +100,7 @@ export default function CoeffDirecteurDroite () {
       case 4:// coefficient directeur fct linéaire
         xA = randint(1, 10)
         yA = randint(-10, 10, 0)
-        this.reponse = fraction(yA, xA).simplifie()
+        this.reponse = new FractionEtendue(yA, xA).simplifie()
         this.formatInteractif = 'fractionEgale'
         this.question = `Donner le coefficient directeur d'une droite représentant une fonction linéaire passant par le point $A(${xA};${yA})$.<br>
 
