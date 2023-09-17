@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import {evaluate, format, round} from 'mathjs'
+import { evaluate, format, round } from 'mathjs'
 import { context } from '../../modules/context.js'
 import {
   tropDeChiffres
@@ -8,7 +8,7 @@ import { miseEnEvidence } from './embellissements.js'
 import { extraireRacineCarree } from './calculs.js'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres.js'
 import { sp } from './outilString.js'
-import FractionEtendue from "../../modules/FractionEtendue.js";
+import FractionEtendue from '../../modules/FractionEtendue.js'
 const math = { format, evaluate }
 /**
  *
@@ -194,7 +194,7 @@ export function scientifiqueToDecimal (mantisse, exp) {
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision , completerZeros = false, aussiCompleterEntiers = false) {
+export function stringNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
   return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
 
@@ -227,7 +227,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
     let nombre
     const maximumSignificantDigits = nbChiffresPartieEntiere + precision
     if (nb instanceof Decimal) {
-    Decimal.set({toExpNeg: -precision -1})
+      Decimal.set({ toExpNeg: -precision - 1 })
       signe = nb.isNeg()
       if (nb.abs().gte(1)) {
         if (completerZeros) {
@@ -306,11 +306,11 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
       if (fix.includes('.')) {
         fix = fix.split('.')[1]
       }
-      let xx = Number('.' + fix)
+      const xx = Number('.' + fix)
       let precision = 1
       for (let i = 1; i < fix.length; i++) {
-        let x = round(Number('.' + fix.substring(0, i + 1)), i)
-        let diff = Math.abs(x - xx)
+        const x = round(Number('.' + fix.substring(0, i + 1)), i)
+        const diff = Math.abs(x - xx)
         if (diff > 1e-10) {
           precision++
         } else {
@@ -328,33 +328,33 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
   }
   // fin trouveLaPrecision()
   // eh oui, il y a eu des appels à texNombre() avec des FractionEtendue... alors que c'est pas fait pour ça.
-  if (!(nb instanceof Decimal) && typeof nb!=='number') {
+  if (!(nb instanceof Decimal) && typeof nb !== 'number') {
     if (nb instanceof FractionEtendue) {
-      window.notify(`afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !`, {Nombre: nb.texFSD})
+      window.notify('afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !', { Nombre: nb.texFSD })
       nb = nb.valeurDecimale
     } else if (typeof nb === 'string') {
-      nb = new Decimal(nb.replaceAll(',', ','))
+      nb = new Decimal(nb.replaceAll(',', '.'))
     } else if (typeof nb !== 'number') {
-      window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, {nombreEntrant: nb})
+      window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, { nombreEntrant: nb })
       nb = Number(nb)
       if (isNaN(nb)) {
-        window.notify(`Et ce paramètre n'est pas convertible en nombre ! il faut donc vérifier l'exercice qui comporte un bug !`)
+        window.notify('Et ce paramètre n\'est pas convertible en nombre ! il faut donc vérifier l\'exercice qui comporte un bug !')
         nb = 0
       }
     }
   }
 
-if (precision === undefined){ // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
-   if (nb instanceof Decimal){
-        precision = nb.e < 0 ? nb.precision() + (-nb.e) : nb.precision(true)
-  } else {
-    if (Number.isInteger(nb)) {
-      precision = 0
-  } else {
-precision = trouveLaPrecision(nb)
+  if (precision === undefined) { // la précision n'a pas été fournie à texNombre ou à stringNombre, alors on va essayer de la deviner.
+    if (nb instanceof Decimal) {
+      precision = nb.e < 0 ? nb.precision() + (-nb.e) : nb.precision(true)
+    } else {
+      if (Number.isInteger(nb)) {
+        precision = 0
+      } else {
+        precision = trouveLaPrecision(nb)
+      }
     }
   }
-}
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
     window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
