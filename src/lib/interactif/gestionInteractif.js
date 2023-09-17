@@ -191,12 +191,16 @@ function mouseSvgClick () {
 }
 
 export function afficheScore (exercice /** Exercice */, nbBonnesReponses /** number */, nbMauvaisesReponses /** number */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
-  divButton.classList.add('cursor-not-allowed', 'opacity-50', 'pointer-events-none')
-  divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
-  divScore.style.color = '#f15929'
-  divScore.style.fontWeight = 'bold'
-  divScore.style.fontSize = 'x-large'
-  divScore.style.display = 'inline'
+  if (divButton != null) {
+    divButton.classList.add('cursor-not-allowed', 'opacity-50', 'pointer-events-none')
+  }
+  if (divScore != null) {
+    divScore.innerHTML = `${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+    divScore.style.color = '#f15929'
+    divScore.style.fontWeight = 'bold'
+    divScore.style.fontSize = 'x-large'
+    divScore.style.display = 'inline'
+  }
   return { numberOfPoints: nbBonnesReponses, numberOfQuestions: nbBonnesReponses + nbMauvaisesReponses }
 }
 
