@@ -27,6 +27,8 @@ export function texRacineCarree (n) {
  * Utilise la class Decimal pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
  * Le 2e argument facultatif permet de préciser l'arrondi souhaité
  * @author Rémi Angot
+ * @param {number|boolean} arrondir
+ * @param {number|string} expression
  */
 export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
@@ -42,11 +44,12 @@ export function nombreDecimal (expression, arrondir = false) {
  * @param {string} positif couleur si positif
  * @param {string} negatif couleur si negatif
  * @param {string} nul couleur si 0
+ * @param {number} precision
  */
-export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black') {
-  if (nombre > 0) return miseEnEvidence(texNombre(nombre), positif)
-  else if (nombre < 0) return miseEnEvidence(texNombre(nombre), negatif)
-  else return miseEnEvidence(texNombre(0), nul)
+export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black', precision) {
+  if (nombre > 0) return miseEnEvidence(texNombre(nombre, precision), positif)
+  else if (nombre < 0) return miseEnEvidence(texNombre(nombre, precision), negatif)
+  else return miseEnEvidence(texNombre(0, precision), nul)
 }
 
 /**
@@ -173,7 +176,7 @@ export function nombreAvecEspace (nb) {
 /**
  *
  * @param {number} mantisse
- * @param {integer} exp
+ * @param {number} exp
  * @returns {string} Écriture décimale avec espaces
  */
 export function scientifiqueToDecimal (mantisse, exp) {
@@ -188,7 +191,7 @@ export function scientifiqueToDecimal (mantisse, exp) {
  * Sinon, renvoie le nombre à afficher dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Jean-Claude Lhote
  * @author Guillaume Valmont
- * @param {number} nb nombre qu'on veut afficher
+ * @param {number|Decimal} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
  * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
