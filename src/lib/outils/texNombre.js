@@ -47,6 +47,9 @@ export function nombreDecimal (expression, arrondir = false) {
  * @param {number} precision
  */
 export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black', precision) {
+  if (typeof nombre === 'string'){
+    window.notify(`texNombreCouleur appelé avec un string à la place d'un nombre`,{nombre})
+  }
   if (nombre > 0) return miseEnEvidence(texNombre(nombre, precision), positif)
   else if (nombre < 0) return miseEnEvidence(texNombre(nombre, precision), negatif)
   else return miseEnEvidence(texNombre(0, precision), nul)
@@ -75,6 +78,9 @@ export function numberFormat (nb) {
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
 export function texNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
+  if (typeof nb === 'string'){
+    window.notify(`texNombre appelé avec un string à la place d'un nombre`,{nombre: nb})
+  }
   const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
@@ -84,6 +90,9 @@ export function texNombre (nb, precision, completerZeros = false, aussiCompleter
  * @author Rémi Angot
  */
 export function texNombre2 (nb) {
+  if (typeof nb === 'string'){
+    window.notify(`texNombre2 appelé avec un string à la place d'un nombre`,{nombre: nb})
+  }
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere
@@ -120,6 +129,9 @@ export function texNombre2 (nb) {
  * Rajout Octobre 2021 pour 6C14
  */
 export function texNombre3 (nb) {
+  if (typeof nb === 'string'){
+    window.notify(`texNombre3 appelé avec un string à la place d'un nombre`,{nombre:nb})
+  }
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere
@@ -198,6 +210,9 @@ export function scientifiqueToDecimal (mantisse, exp) {
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
 export function stringNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
+  if (typeof nb === 'string'){
+    window.notify(`stringNombre appelé avec un string à la place d'un nombre`,{nombre:nb})
+  }
   return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
 
@@ -337,7 +352,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
       nb = nb.valeurDecimale
     } else if (typeof nb === 'string') {
       const nbFormatAnglais = nb.replaceAll(',', '.') ?? ''
-      if (nb!= null){
+      if (nb!== ''){
         nb = new Decimal(nbFormatAnglais)
       } else {
         window.notify(`TrouveLaPrecision : problème avec ce nombre : ${nb}`)
