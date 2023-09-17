@@ -333,7 +333,12 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
       window.notify('afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !', { Nombre: nb.texFSD })
       nb = nb.valeurDecimale
     } else if (typeof nb === 'string') {
-      nb = new Decimal(nb.replaceAll(',', '.'))
+      const nbFormatAnglais = nb.replaceAll(',', '.') ?? ''
+      if (nb!= null){
+        nb = new Decimal(nb.replaceAll(',', '.'))
+      } else {
+        window.notify(`TrouveLaPrecision : problème avec ce nombre : ${nb}`)
+      }
     } else if (typeof nb !== 'number') {
       window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, { nombreEntrant: nb })
       nb = Number(nb)
