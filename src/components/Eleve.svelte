@@ -202,7 +202,8 @@
       mathaleaRenderDiv(document.querySelector<HTMLElement>('body'))
       loadMathLive()
     }
-    const hauteurExercice = window.document.querySelector('section').scrollHeight
+    const section = document.querySelector('section') as HTMLElement
+    const hauteurExercice = section.scrollHeight
     const url = new URL(window.location.href)
     const iframe = url.searchParams.get('iframe')
     window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: 'mathalea:init', iframe }, '*')
@@ -247,23 +248,23 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section bind:this={eleveSection} class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
   <div
-    class="fixed z-20 h-16 bottom-4 right-2 {($globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
-    $globalOptions.title.length > 0
+    class="fixed z-20 h-16 bottom-4 right-2 {((typeof $globalOptions.title === 'string' && $globalOptions.title.length === 0) && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
+    ($globalOptions.title != null && $globalOptions.title.length > 0)
       ? 'lg:top-8'
       : 'lg:top-20'}  lg:right-6"
   >
     <div class="flex flex-col-reverse lg:flex-row space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 scale-75 lg:scale-100">
-      <BtnZoom size="bx-sm md:bx-md" isBorderTransparent={$globalOptions.title.length > 0} />
+      <BtnZoom size="bx-sm md:bx-md" isBorderTransparent={(typeof $globalOptions.title === 'string' && $globalOptions.title.length > 0)} />
     </div>
   </div>
   <div class="mb-auto">
     <div
-      class="{$globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')
+      class="{(typeof $globalOptions.title === 'string' && $globalOptions.title.length === 0) && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')
         ? 'hidden'
         : 'h-[10%]'}  w-full flex flex-col justify-center items-center"
     >
       <!-- titre de la feuille -->
-      {#if $globalOptions.title.length > 0}
+      {#if typeof $globalOptions.title === 'string' && $globalOptions.title.length > 0}
         <div
           class="w-full p-8 text-center text-4xl font-light {$globalOptions.recorder === 'capytale'
             ? 'bg-black'
