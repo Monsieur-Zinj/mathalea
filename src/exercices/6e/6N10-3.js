@@ -28,6 +28,13 @@ export const amcType = 'AMCNum'
 export const uuid = '34579'
 export const ref = '6N10-3'
 
+/**
+ *
+ * @param {string} type
+ * @param {string} str
+ * @param {number[]} rang
+ * @returns {number}
+ */
 // une fonction pour la correction selon le type de question
 function chiffreNombreCorr (type, str, rang) {
   let sortie
@@ -40,9 +47,17 @@ function chiffreNombreCorr (type, str, rang) {
       sortie += str.split('')[rang[k]]
     }
   }
-  return sortie
+  return Number(sortie)
 }
 
+/**
+ *
+ * @param {string} type
+ * @param {string} str
+ * @param {number[]} rang
+ * @param {number} cduNum
+ * @returns {string}
+ */
 // une fonction pour la justification supplémentaire dans le cas nombre de ...
 function nombreDeJustif (type, str, rang, cduNum) {
   let sortie
@@ -50,19 +65,22 @@ function nombreDeJustif (type, str, rang, cduNum) {
     sortie = ''
   }
   if (type === 'nombre') {
-    let nbDe = str.split('')[rang[0]]
+    let nbDeString = str.split('')[rang[0]]
     for (let k = 1; k < rang.length; k++) {
-      nbDe += str.split('')[rang[k]]
+      nbDeString += str.split('')[rang[k]]
     }
+    const nbDe = Number(nbDeString)
     let j = rang[rang.length - 1]
     j++
-    let nbDeReste = ''
+    let nbDeResteString = ''
     while (str.split('')[j] !== undefined) {
-      nbDeReste += str.split('')[j]
+      nbDeResteString += str.split('')[j]
       j++
     }
-    sortie = `comme $${texNombre(str, 0)} = ${texNombre(nbDe, 0)}\\times ${texNombre(cduNum, 0)}`
-    sortie += texNombre(nbDeReste, 0) !== '0' ? `+${texNombre(nbDeReste, 0)}$, alors ` : '$, alors '
+    const nbDeReste = Number(nbDeResteString)
+    // faut arrêter de passer des strings à texNombre !
+    sortie = `comme $${texNombre(Number(str), 0)} = ${texNombre(nbDe, 0)}\\times ${texNombre(cduNum, 0)}`
+    sortie += !isNaN(nbDeReste) ? `+${texNombre(Number(nbDeReste), 0)}$, alors ` : '$, alors '
   }
   return sortie
 }
