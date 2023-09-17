@@ -46,11 +46,6 @@
     // title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
   }
 
-  // Evènement indispensable pour pointCliquable par exemple
-  const exercicesAffiches = new window.Event('exercicesAffiches', {
-    bubbles: true
-  })
-
   const ressourcesUuids = Object.keys({ ...uuidsRessources })
   const category = exercice.uuid ? ressourcesUuids.includes(exercice.uuid) ? 'Ressource' : 'Exercice' : '' // @fixme si exercice.uuid n'existe pas, on fait quoi ?
 
@@ -169,6 +164,10 @@
         svg.setAttribute('height', String(h))
       }
     }
+    // Evènement indispensable pour pointCliquable par exemple
+    const exercicesAffiches = new window.Event('exercicesAffiches', {
+      bubbles: true
+    })
     document.dispatchEvent(exercicesAffiches)
   })
 
