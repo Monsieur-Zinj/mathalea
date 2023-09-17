@@ -335,7 +335,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
     } else if (typeof nb === 'string') {
       const nbFormatAnglais = nb.replaceAll(',', '.') ?? ''
       if (nb!= null){
-        nb = new Decimal(nb.replaceAll(',', '.'))
+        nb = new Decimal(nbFormatAnglais)
       } else {
         window.notify(`TrouveLaPrecision : problème avec ce nombre : ${nb}`)
       }
