@@ -1,4 +1,4 @@
-import PuissancesDunRelatif1 from '../3e/3C10-2.js'
+import PuissancesDunRelatif1 from '../4e/4C33-1.js'
 export const titre = 'Effectuer des calculs qu\'avec des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -7,7 +7,7 @@ export const amcType = 'AMCNum'
 export const dateDeModifImportante = '14/09/2023'
 
 /**
- * Clone de 3C10-2 pour les 2nde
+ * Clone de 4C33-1 pour les 2nde
  * @author Sébastien Lozano
  */
 
