@@ -207,7 +207,7 @@ export function stringNombre (nb, precision, completerZeros = false, aussiComple
  * S'il y a plus de 15 chiffres significatifs, envoie un message à bugsnag et renvoie un nombre avec 15 chiffres significatifs
  * Sinon, renvoie un nombre avec le nombre de décimales demandé
  * @author Guillaume Valmont
- * @param {number} nb nombre qu'on veut afficher
+ * @param {number|string|FractionEtendue|Decimal} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
  * @param {'stringNombre'|'texNombre'} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
  * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
@@ -219,7 +219,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
    * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
    * @author Rémi Angot
    * @author Guillaume Valmont
-   * @param {number} nb nombre à afficher
+   * @param {number|string|FractionEtendue|Decimal} nb nombre à afficher
    * @param {number} nbChiffresPartieEntiere nombre de chiffres de la partie entière
    * @param {number} precision nombre de décimales demandé
    * @param {'stringNombre'|'texNombre'} fonction la fonction appelante
