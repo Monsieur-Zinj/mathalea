@@ -83,7 +83,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i)
-        setReponse(this, i, a + b)
+        setReponse(this, i, [a + b, `(${a + b})`])
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
