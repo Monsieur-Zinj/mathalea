@@ -1,8 +1,7 @@
 import preambule from '../lib/latex/preambule.tex?raw'
-import type TypeExercice from '../exercices/ExerciceTs.js'
+import TypeExercice from '../exercices/ExerciceTs.js'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
-import Exercice from '../exercices/Exercice'
 
 export interface Exo {
   content?: string
@@ -56,7 +55,7 @@ class Latex {
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') continue
       if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
-      if (exercice instanceof Exercice) {
+      if (exercice != null) {
         const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
         exercice.seed = seed
         if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
@@ -68,9 +67,9 @@ class Latex {
       content += '\\begin{TableauCan}\n'
       contentCorr += '\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
-        if (exercice instanceof Exercice) {
+        if (exercice != null) {
           for (let i = 0; i < exercice.listeQuestions.length; i++) {
-            if (exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter[i] !== undefined) {
+            if (exercice.listeCanEnonces != null && exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter != null && exercice.listeCanReponsesACompleter[i] !== undefined) {
               content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(
                   exercice.listeCanReponsesACompleter[i]
               )} &\\tabularnewline \\hline\n`
@@ -178,7 +177,6 @@ class Latex {
         content += '\n\\begin{Solution}'
         content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, Boolean(exercice.listeAvecNumerotation)), Number(exercice.nbColsCorr))
         content += '\n\\end{Solution}\n'
-        console.log(exercice)
       }
     }
     return content

@@ -269,7 +269,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
     <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
       {contents.content}
-      {#if style !== 'ProfMaquette'}
+      {#if style !== 'ProfMaquette' && style !== 'ProfMaquetteQrcode'}
       %%%%%%%%%%%%%%%%%%%%%%
       %%%   CORRECTION   %%%
       %%%%%%%%%%%%%%%%%%%%%%
