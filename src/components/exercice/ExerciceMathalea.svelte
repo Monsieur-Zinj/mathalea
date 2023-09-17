@@ -175,7 +175,7 @@
   async function newData () {
     if (exercice.hasOwnProperty('listeQuestions')) {
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
-      exercice.applyNewSeed()
+      if (exercice !== undefined && typeof exercice?.applyNewSeed === 'function') exercice.applyNewSeed()
       if (buttonScore) initButtonScore()
       if (window.localStorage !== undefined && exercice.id !== undefined && isCorrectionVisible) {
         window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
