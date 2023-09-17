@@ -1,5 +1,4 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer la probabilité d’ un évènement contraire'
@@ -30,12 +29,14 @@ export default function ProbaEvenementContraire () {
     const fraction = choice(listeFractions)
     const n = fraction[0]
     const d = fraction[1]
-    this.question = `La probabilité d'un événement $A$ est $${deprecatedTexFraction(n, d)}$. <br>
+    const nSurD = new FractionEtendue(n,d)
+    const dMoinsNSurD = new FractionEtendue(d-n,d)
+    this.question = `La probabilité d'un événement $A$ est $${nSurD.texFraction}$. <br>
 
 Quelle est la probabilité de son événement contraire ?
 `
     this.correction = `La relation entre la probabilité d'un événement $A$ et celle de son contraire $\\overline{A}$ est :  $P(\\overline{A})=1-P(A)$.<br>
-        Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${deprecatedTexFraction(d - n, d)}$.`
+        Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${dMoinsNSurD.texFraction}$.`
     this.reponse = new FractionEtendue(d - n, d)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

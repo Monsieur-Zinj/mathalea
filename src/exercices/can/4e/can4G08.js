@@ -3,20 +3,18 @@ import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can4G07
+ * Référence can4G08
  * Date de publication septembre 2021
 */
 export const uuid = 'b1a48'
@@ -46,12 +44,14 @@ export default function QuestionsAiresEtPerimetres () {
           this.reponse = 'oui'
         }
         this.ignoreCasse = true
+        this.formatInteractif = 'texte'
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''
         break
       case 2:// aire d'un carré connaissant son perimètre
         a = randint(2, 10)
-        this.reponse = calcul(a * a)
+        this.reponse = a * a
+        this.formatInteractif = 'calcul'
         this.question = `Quelle est l'aire d'un carré en cm$^2$ dont le périmètre est $${4 * a}$ cm ? `
         this.correction = `Le côté du carré est $${4 * a}\\div 4=${a}$, donc son aire est : $${a}\\times ${a}=${a ** 2}$ cm$^2$.`
         this.canEnonce = this.question// 'Compléter'
@@ -60,7 +60,8 @@ export default function QuestionsAiresEtPerimetres () {
       case 3:// perimètre d'un carré connaissant son aire
         a = randint(1, 10)
         c = a * a
-        this.reponse = calcul(4 * a)
+        this.reponse = 4 * a
+        this.formatInteractif = 'calcul'
         this.question = `Déterminer le périmètre (en cm) d'un carré d'aire $${c}$ cm$^2$. `
         this.correction = `Le côté du carré est $\\sqrt{${c}}=${a}$. Son périmètre est donc $4\\times ${a}=${4 * a}$ cm.`
         this.canEnonce = this.question// 'Compléter'
@@ -69,7 +70,8 @@ export default function QuestionsAiresEtPerimetres () {
 
       case 4:// côté d'un carré connaissant son perimètre
         a = randint(5, 20) * 4
-        this.reponse = calcul(a / 4)
+        this.reponse = a / 4
+        this.formatInteractif = 'calcul'
         this.question = `Le périmètre d'un carré est $${a}$ cm. Quelle est la longueur (en cm) du côté du carré ? `
         this.correction = `Le côté du carré est $${a}\\div 4=${a / 4}$.`
         this.canEnonce = this.question// 'Compléter'
@@ -98,6 +100,7 @@ export default function QuestionsAiresEtPerimetres () {
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` Le périmètre est donné par : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${texNombre(a + b + c + d)}$.<br>`
         this.reponse = a + b + c + d
+        this.formatInteractif = 'calcul'
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ m'
         break
@@ -118,9 +121,7 @@ export default function QuestionsAiresEtPerimetres () {
           this.reponse = a * c * c
           this.canEnonce = this.question// 'Compléter'
           this.canReponseACompleter = '$\\ldots$ cm$^2$'
-        }
-
-        if (N === 'b') {
+        } else if (N === 'b') {
           n = randint(1, 3)
           d = randint(n + 1, 10)
           maFraction = fraction(n, d).simplifie()
@@ -137,8 +138,7 @@ export default function QuestionsAiresEtPerimetres () {
           this.formatInteractif = 'fractionEgale'
           this.canEnonce = this.question// 'Compléter'
           this.canReponseACompleter = ''
-        }
-        if (N === 'c') {
+        } else { // N === 'c'
           n = randint(1, 3)
           d = randint(n + 1, 10)
           maFraction = fraction(n, d).simplifie()
@@ -150,7 +150,7 @@ export default function QuestionsAiresEtPerimetres () {
           this.correction = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
           Ainsi, les longueurs ont été multipliées par  : $\\sqrt{\\dfrac{${n * n}}{${d * d}}}=\\dfrac{${n}}{${d}}$.
       <br>`
-          this.reponse = fraction(n * n, d * d)
+          this.reponse = fraction(n , d)
           this.formatInteractif = 'fractionEgale'
           this.canEnonce = this.question// 'Compléter'
           this.canReponseACompleter = ''
@@ -175,7 +175,8 @@ export default function QuestionsAiresEtPerimetres () {
           On cherche $AC$ telle que $\\dfrac{${a}\\times AC}{2}=${b}$. <br>
           $AC=\\dfrac{2\\times ${b}}{${a}}=${texFractionReduite(2 * b, a)}$ m.
       <br>`
-        this.reponse = calcul(2 * b / a)
+        this.reponse = 2 * b / a
+          this.formatInteractif = 'calcul'
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ m'
         break

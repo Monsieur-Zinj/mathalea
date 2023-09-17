@@ -22,6 +22,8 @@ export default function Proportionnalite2 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
+  this.formatInteractif = 'fractionEgale'
+
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let a, b, fruits, fruits2, poids1, frac, choix
@@ -39,9 +41,7 @@ export default function Proportionnalite2 () {
           a = randint(4, 7)// kg pour 9 €
           b = a - 1
           fruits = choice(listefruits1)
-          this.formatInteractif = 'fractionEgale'
           frac = new FractionEtendue(9 * b, a)
-          this.reponse = frac
           if (choice([true, false])) {
             this.question = `On paie  $9$ € pour $${a}$ kg de ${fruits[0]}s.<br>
        Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
@@ -56,14 +56,11 @@ export default function Proportionnalite2 () {
           On en déduit que $${b}$ kg de ${fruits[0]}s coûtent $\\dfrac{9\\times${b}}{${a}}=\\dfrac{${9 * b}}{${a}}${frac.texSimplificationAvecEtapes()}$ €.
        
         `
-        }
-        if (choix === 'b') {
+        } else if (choix === 'b') {
           a = randint(3, 5)// kg pour 7 €
           b = a - 1
           fruits = choice(listefruits1)
-          this.formatInteractif = 'fractionEgale'
           frac = new FractionEtendue(7 * b, a)
-          this.reponse = frac
           if (choice([true, false])) {
             this.question = `On paie  $7$ € pour $${a}$ kg de ${fruits[0]}s.<br>
 
@@ -82,15 +79,11 @@ export default function Proportionnalite2 () {
              On en déduit que $${b}$ kg de ${fruits[0]}s coûtent $\\dfrac{7\\times${b}}{${a}}=\\dfrac{${7 * b}}{${a}}${frac.texSimplificationAvecEtapes()}$ €.
           
            `
-        }
-
-        if (choix === 'c') {
+        } else { // choix === 'c'
           a = randint(5, 8)// kg pour 11 €
           b = a - randint(1, 2)
           fruits = choice(listefruits1)
-          this.formatInteractif = 'fractionEgale'
           frac = new FractionEtendue(11 * b, a)
-          this.reponse = frac
           if (choice([true, false])) {
             this.question = `On paie  $11$ € pour $${a}$ kg de ${fruits[0]}s.<br>
 
@@ -119,9 +112,7 @@ export default function Proportionnalite2 () {
           poids1 = randint(5, 10, [6, 9])// masse de 3 fruits
           a = randint(4, 10)// 2ième nombre de fruits
           fruits2 = choice(listefruits2)
-          this.formatInteractif = 'fractionEgale'
           frac = new FractionEtendue(a * poids1, 3)
-          this.reponse = frac
           this.question = `$3$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
 
       Quelle est la masse de  $${a}$  de ces mêmes ${fruits2[0]} ? <br>
@@ -136,9 +127,7 @@ export default function Proportionnalite2 () {
           poids1 = randint(5, 11, [6, 8, 10])// masse de 4 fruits
           a = randint(5, 11, 8)// 2ième nombre de fruits
           fruits2 = choice(listefruits2)
-          this.formatInteractif = 'fractionEgale'
           frac = new FractionEtendue(a * poids1, 4)
-          this.reponse = frac
           this.question = `$4$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
 
     Quelle est la masse de  $${a}$  de ces mêmes ${fruits2[0]} ? <br>
@@ -153,5 +142,6 @@ export default function Proportionnalite2 () {
         this.canReponseACompleter = '$\\ldots$ kg'
         break
     }
+    this.reponse = frac
   }
 }

@@ -3,6 +3,7 @@ import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../..
 import { fraction } from '../../../modules/fractions.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import FractionEtendue from "../../../modules/FractionEtendue.js";
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,8 +22,8 @@ export default function CalculsDeProbabilites () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  // this.formatInteractif = 'fractionEgale'
   this.formatChampTexte = 'largeur15 inline'
+  this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const a = randint(2, 4)
     const b = choice([2, 3])
@@ -36,12 +37,12 @@ export default function CalculsDeProbabilites () {
         <br>
         Donner le résultat sous la forme d'une fraction irréductible.`
         this.correction = "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
-        this.reponse = fraction(1, 6)
+        this.reponse = new FractionEtendue(1, 6)
         break
       case 'b':
         this.question = `Si on lance une pièce $${a}$ fois de suite, quelle est la probabilité d'obtenir PILE $${a}$ fois ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
         this.correction = `A chaque lancer, la probabilité d'obtenir PILE est $\\dfrac{1}{2}$, donc si on lance $${a}$ fois la pièce, la probabilité d'obtenir $${a}$ fois PILE est $\\left(\\dfrac{1}{2}\\right)^${a}=\\dfrac{1}{${2 ** a}}$.`
-        this.reponse = texFractionReduite(1, 2 ** a)
+        this.reponse = new FractionEtendue(1, 2 ** a)
         break
       case 'c':
         this.question = `On lance un dé cubique équilibré.<br>
@@ -50,7 +51,7 @@ export default function CalculsDeProbabilites () {
         
         Donner le résultat sous la forme d'une fraction irréductible.`
         this.correction = `Comme il y a $${5 - b}$ multiples de $${b}$, la probabilité d'obtenir un multiple de $${b}$ est $\\dfrac{${5 - b}}{6}=\\dfrac{1}{${b}}$.`
-        this.reponse = texFractionReduite(1, b)
+        this.reponse = new FractionEtenduee(1, b)
         break
       case 'd':
         this.question = `On lance deux dés cubiques équilibrés.<br>
@@ -59,7 +60,7 @@ export default function CalculsDeProbabilites () {
         
         Donner le résultat sous la forme d'une fraction irréductible.`
         this.correction = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
-        this.reponse = texFractionReduite(p[c - 2], 36)
+        this.reponse = new FractionEtendue(p[c - 2], 36)
         break
     }
     this.canEnonce = this.question// 'Compléter'

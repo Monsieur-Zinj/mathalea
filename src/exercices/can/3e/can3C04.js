@@ -28,10 +28,11 @@ export default function SommeEntierEtFractionIrred () {
     const a = randint(1, 4)
     const b = maFraction[0]
     const c = maFraction[1]
-    const d = fraction(a * c + b, c).simplifie()
+    const bSurC = new FractionEtendue(b,c)
+    const d = new FractionEtendue(a * c + b, c).simplifie()
     this.reponse = d
-    this.question = `Calculer sous la forme d'une fraction irréductible :  $${a}+${deprecatedTexFraction(b, c)}$.`
-    this.correction = `$${a}+${deprecatedTexFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${d.texFraction}$`
+    this.question = `Calculer sous la forme d'une fraction irréductible :  $${a}+${bSurC.texFraction}$.`
+    this.correction = `$${a}+${bSurC.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} + ${bSurC.texFraction} = \\dfrac{${a * c}}{${c}} + ${bSurC.texFraction}  =${d.texFraction}$`
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }
