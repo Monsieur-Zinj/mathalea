@@ -156,7 +156,10 @@
     $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
-    exercice.nouvelleVersion(indiceExercice)
+    if (exercice !== undefined &&
+    typeof exercice.nouvelleVersion === 'function') {
+      exercice.nouvelleVersion(indiceExercice)
+    }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     adjustMathalea2dFiguresWidth()
   }

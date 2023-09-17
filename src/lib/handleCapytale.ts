@@ -17,7 +17,7 @@ const rpc = new RPC({
 })
 
 // timer pour ne pas lancer hasChanged trop souvent
-let timerId: ReturnType<typeof setTimeout>
+let timerId: ReturnType<typeof setTimeout> | undefined
 let firstTime = true
 
 /**
@@ -148,13 +148,11 @@ export async function sendToCapytaleMathaleaHasChanged () {
 
 export function sendToCapytaleSaveStudentAssignment () {
   const results = get(resultsByExercice)
-  let evaluation = ''
-  let i = 1
+  let evaluation = 0
   for (const resultExercice of results) {
-    if (resultExercice?.numberOfPoints !== undefined) {
-      evaluation += `Ex ${i} : ${resultExercice.numberOfPoints}/${resultExercice.numberOfQuestions}\n`
+    if (Number.isFinite(resultExercice?.numberOfPoints)) {
+      evaluation += resultExercice.numberOfPoints
     }
-    i++
   }
   rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation })
 }
