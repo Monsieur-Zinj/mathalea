@@ -7,20 +7,21 @@ import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Donner description et notation de droites, segments et demi-droites'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
  * Utiliser les notations des segments, droites et demi-droites
  * @author Rémi Angot
- * Référence 6G10-1
  */
 export const uuid = 'd81c6'
 export const ref = '6G10-1'
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = 'Faire une phrase pour décrire le plus précisément possible la figure et donner sa notation mathématique.'
+  this.consigne = 'Décrire précisément, avec des mots, la figure et donner sa notation mathématique.'
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
@@ -73,7 +74,25 @@ export default function DescriptionSegmentDroiteDemiDroite () {
       )
       texteCorr = dABCorr
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (context.isAmc) {
+        this.autoCorrection = [
+          {
+            enonce: this.consigne + '<br>' + texte,
+            propositions: [
+              {
+                texte: texteCorr,
+                statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: true // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              }
+            ]
+          }
+        ]
+      }
+
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -83,5 +102,4 @@ export default function DescriptionSegmentDroiteDemiDroite () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
