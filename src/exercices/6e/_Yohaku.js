@@ -4,7 +4,6 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { fractionLatexToMathjs } from '../../lib/mathFonctions/outilsMaths.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
@@ -126,33 +125,38 @@ export class Yohaku {
 
   // fonction utilisée par calculeResultats
   operate (valeurs) {
+    const valeursConverties = valeurs.map((val)=>{
+      if (typeof val === 'number' || val.s !== undefined ) return val
+      else if (typeof val === 'string') return val.replaceAll(/\s/g, '')
+      else return val.N().valueOf()
+    })
     let initialValue
     switch (this.operation) {
       case 'addition':
         if (this.type !== 'littéraux') {
           if (this.type.substring(0, 4) === 'frac') {
             initialValue = math.fraction('0')
-            return valeurs.reduce((previous, current) => math.fraction(math.add(previous, current)), initialValue)
+            return valeursConverties.reduce((previous, current) => math.fraction(math.add(previous, current)), initialValue)
           } else {
             initialValue = math.number(0)
-            return valeurs.reduce((previous, current) => math.add(previous, current), initialValue)
+            return valeursConverties.reduce((previous, current) => math.add(previous, current), initialValue)
           }
         } else {
           initialValue = math.parse('0')
-          return valeurs.reduce((previous, current) => calculer(`${previous.toString()}+${current.toString()}`).printResult, initialValue)
+          return valeursConverties.reduce((previous, current) => calculer(`${previous.toString()}+${current.toString()}`).printResult, initialValue).replaceAll(/\s/g,'')
         }
       case 'multiplication':
         if (this.type !== 'littéraux') {
           if (this.type.substring(0, 4) === 'frac') {
             initialValue = math.fraction('1')
-            return valeurs.reduce((previous, current) => math.fraction(math.multiply(previous, current)), initialValue)
+            return valeursConverties.reduce((previous, current) => math.fraction(math.multiply(previous, current)), initialValue)
           } else {
             initialValue = math.number(1)
-            return valeurs.reduce((previous, current) => math.multiply(previous, current), initialValue)
+            return valeursConverties.reduce((previous, current) => math.multiply(previous, current), initialValue)
           }
         } else {
           initialValue = math.parse('1')
-          return valeurs.reduce((previous, current) => calculer(`(${previous.toString()})*(${current.toString()})`).printResult, initialValue)
+          return valeursConverties.reduce((previous, current) => calculer(`(${previous.toString()})*(${current.toString()})`).printResult, initialValue).replaceAll(/\s/g,'')
         }
     }
   }
@@ -274,8 +278,8 @@ export default function FabriqueAYohaku () {
       yohaku.calculeResultats()
       const mot = type === 'littéraux' ? ['expressions', 'contenues'] : ['nombres', 'contenus']
       this.introduction = operateur === 'addition'
-        ? `Les ${mot[0]} en bout de ligne ou de colonne sont les sommes des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
-        : `Les ${mot[0]} en bout de ligne ou de colonne sont les produits des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
+          ? `Les ${mot[0]} en bout de ligne ou de colonne sont les sommes des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
+          : `Les ${mot[0]} en bout de ligne ou de colonne sont les produits des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
       this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot[0]} qui conviennent (plusieurs solutions possibles).<br>`
       texte = yohaku.representation()
       for (let k = 0; k < yohaku.cellulesPreremplies.length; k++) {
@@ -305,7 +309,11 @@ export default function FabriqueAYohaku () {
     const saisies = []
     for (let k = 0; k < taille ** 2; k++) {
       champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * taille ** 2 + k}`)
-      saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
+      if (this.yohaku[i].type ==='littéraux'){ // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
+        saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1').replaceAll(/\s/gm,'').replace('','0') ?? '0'
+      } else {
+        saisies[k] = engine.parse(champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1').replace('','0') ?? '0')
+      }
     }
     let resultat
     if (this.saisieCoherente(saisies, taille, i)) {
@@ -319,45 +327,42 @@ export default function FabriqueAYohaku () {
   }
   this.saisieCoherente = function (saisies, taille, question) {
     let resultatOK = true
-    let valeurs
     for (let i = 0; i < taille; i++) {
-      valeurs = []
+      const valeurs = []
       for (let j = 0; j < taille; j++) {
-        if (this.yohaku[question].type !== 'littéraux' && this.yohaku[question].type.substring(0, 4) !== 'frac') {
-          valeurs.push(Number(saisies[i + j * taille]))
+        if (this.yohaku[question].type === 'littéraux') {
+          valeurs.push(saisies[i + j * taille] ?? '0')
         } else {
-          if (this.yohaku[question].type.substring(0, 4) === 'frac') {
-            const test = saisies[i + j * taille].indexOf('frac') === -1 ? Number(saisies[i + j * taille]) : fractionLatexToMathjs(saisies[i + j * taille])
-            valeurs.push(test)
-          } else {
-            valeurs.push(engine.parse(saisies[i + j * taille]).canonical.toString())
-          }
+          valeurs.push(saisies[i + j * taille])
         }
       }
-      if (this.yohaku[question].type.substring(0, 4) === 'frac') {
-        resultatOK = resultatOK && math.equal(this.yohaku[question].operate(valeurs), (this.yohaku[question].resultats[i]))
+      let resultVal = this.yohaku[question].operate(valeurs)
+      let resultatAttendu = this.yohaku[question].resultats[i]
+      if (resultatAttendu.includes('x')){
+        resultVal = engine.parse(resultVal)
+        resultatAttendu = engine.parse(resultatAttendu)
+        resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
       } else {
-        resultatOK = resultatOK && (this.yohaku[question].operate(valeurs) === this.yohaku[question].resultats[i])
+        resultatOK = resultatOK && math.equal(resultVal, resultatAttendu)
       }
     }
     for (let i = taille; i < taille * 2; i++) {
-      valeurs = []
+      const valeurs = []
       for (let j = 0; j < taille; j++) {
-        if (this.yohaku[question].type !== 'littéraux' && this.yohaku[question].type.substring(0, 4) !== 'frac') {
-          valeurs.push(Number(saisies[(i - taille) * taille + j]))
+        if (this.yohaku[question].type === 'littéraux') {
+          valeurs.push(saisies[(i - taille) * taille + j] ?? '0')
         } else {
-          if (this.yohaku[question].type.substring(0, 4) === 'frac') {
-            const test = saisies[(i - taille) * taille + j].indexOf('frac') === -1 ? Number(saisies[(i - taille) * taille + j]) : fractionLatexToMathjs(saisies[(i - taille) * taille + j])
-            valeurs.push(test)
-          } else {
-            valeurs.push(engine.parse(saisies[(i - taille) * taille + j]).canonical.toString())
-          }
+          valeurs.push(saisies[(i - taille) * taille + j])
         }
       }
-      if (this.yohaku[question].type.substring(0, 4) === 'frac') {
-        resultatOK = resultatOK && math.equal(this.yohaku[question].operate(valeurs), (this.yohaku[question].resultats[i]))
+      let resultVal = this.yohaku[question].operate(valeurs)
+      let resultatAttendu = this.yohaku[question].resultats[i]
+      if (resultatAttendu.includes('x')){
+        resultVal = engine.parse(resultVal)
+        resultatAttendu = engine.parse(resultatAttendu)
+        resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
       } else {
-        resultatOK = resultatOK && (this.yohaku[question].operate(valeurs) === (this.yohaku[question].resultats[i]))
+        resultatOK = resultatOK && math.equal(resultVal, resultatAttendu)
       }
     }
     return resultatOK
