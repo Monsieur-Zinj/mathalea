@@ -13,8 +13,9 @@ export const dateDePublication = '05/09/2023'
 export const uuid = '6b2e5'
 export const ref = '2N31-5'
 export default function PuissancesDeDix2 () {
-  this.sup = 3
   PuissancesDeDix.call(this)
+  this.sup = 3
+  this.correctionDetaillee = false
   this.besoinFormulaireNumerique = [
     'Règle à travailler',
     3,

@@ -6,16 +6,17 @@ import { texteGras } from '../../lib/format/style.js'
 import { context } from '../../modules/context.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
-export const titre = 'Puissances : Le sens des règles de calculs'
+export const titre = 'Effectuer des calculs qu\'avec des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
+export const dateDeModifImportante = '14/09/2023'
 /**
  * Puissances d'un relatif (1)
  * * L\'objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
@@ -59,8 +60,6 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
 
 export default function PuissancesDunRelatif1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 1
-  this.titre = titre
   context.isHtml
     ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
     : (this.consigne = 'Écrire sous la forme $a^n$.')
@@ -70,7 +69,8 @@ export default function PuissancesDunRelatif1 () {
   this.correctionDetailleeDisponible = true
   this.nbColsCorr = 1
   this.sup = 5
-  this.listeAvecNumerotation = false
+  this.sup2 = 1
+  this.classe = 4
 
   this.listePackages = 'bclogo'
 
@@ -90,8 +90,6 @@ export default function PuissancesDunRelatif1 () {
   }
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.sup = Number(this.sup)
-    let typesDeQuestions
     this.boutonAide = modalPdf(
       numeroExercice,
       'assets/pdf/FichePuissances-4N21.pdf',
@@ -102,19 +100,16 @@ export default function PuissancesDunRelatif1 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
-    let typesDeQuestionsDisponibles = []
-    if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1] // produit de puissances de même base
-    } else if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [2] // quotient de puissances de même base
-    } else if (this.sup === 3) {
-      typesDeQuestionsDisponibles = [3] // puissance de puissance
-    } else if (this.sup === 4) {
-      typesDeQuestionsDisponibles = [4] // produit de puissances de même exposant
-    } else if (this.sup === 5) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4] // mélange
-    }
+    // const typesDeQuestionsDisponibles = this.sup < 5 ? [this.sup] : [1, 2, 3, 4]
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: this.nbQuestions,
+      shuffle: true
+    })
 
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -145,12 +140,12 @@ export default function PuissancesDunRelatif1 () {
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-
-      base = randint(2, 9) * choice([-1, 1]) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
-      exp0 = randint(1, 9)
-      exp1 = randint(1, 9, [exp0])
+      base = randint(2, 9)
+      base = base * (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([-1, 1])) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
+      exp0 = randint(3, 5)
+      exp1 = this.classe === 4 ? randint(2, exp0 - 1) : randint(2, 5, exp0)
       exp = [exp0, exp1] // on choisit deux exposants différents c'est mieux
+      console.log(exp)
       lettre = lettreDepuisChiffre(i + 1) // on utilise des lettres pour les calculs
 
       if (base < 0) {
@@ -161,31 +156,27 @@ export default function PuissancesDunRelatif1 () {
 
       texteCorr = ''
 
-      switch (typesDeQuestions) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=${baseUtile}^${exp[0]}\\times ${baseUtile}^${exp[1]}$`
 
-          texteCorr += `$${lettre}=${baseUtile}^${exp[0]}\\times ${baseUtile}^${exp[1]}$`
+          // texteCorr += `$${lettre}=${baseUtile}^${exp[0]}\\times ${baseUtile}^${exp[1]}$`
           if (this.correctionDetaillee) {
-            texteCorr += '<br>'
             texteCorr += `$${lettre}=${eclatePuissance(
                             baseUtile,
                             exp[0],
                             coul0
                         )} \\times ${eclatePuissance(baseUtile, exp[1], coul1)}$`
+            texteCorr += '<br>'
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${baseUtile}$.`
+            texteCorr += '<br>'
           }
-          texteCorr += '<br>'
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${baseUtile}$.`
-          texteCorr += '<br>'
-          texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}`
-          // attention la baseUtile est de type str alors que la fonction switch sur un type number
           if ((base < 0) && ((exp[1] + exp[0]) % 2 === 0)) {
-            texteCorr += `=${simpNotPuissance(base, exp[1] + exp[0])}$`
+            texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}=${miseEnEvidence(simpNotPuissance(base, exp[1] + exp[0]))}$`
           } else {
-            texteCorr += '$'
+            texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${miseEnEvidence(`${baseUtile}^{${exp[0] + exp[1]}}`)}$`
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[1] + exp[0])
-          texteCorr += '<br>'
           if (base < 0 && ((exp[0] + exp[1]) % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[1] + exp[0]}`, `${-base}^${exp[1] + exp[0]}`]
             baseUtileBisAMC = -base
@@ -206,16 +197,11 @@ export default function PuissancesDunRelatif1 () {
 
           texte = `$${lettre}=\\dfrac{${baseUtile}^${exp[0]}}{${baseUtile}^${exp[1]}}$`
 
-          texteCorr += `$${lettre}=\\dfrac{${baseUtile}^${exp[0]}}{${baseUtile}^${exp[1]}}$`
-
           if (this.correctionDetaillee) {
-            texteCorr += '<br><br>'
             texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(baseUtile, exp[0], couleurExp0)}}{${eclatePuissance(baseUtile, exp[1], couleurExp1)}}$`
-          }
-          texteCorr += '<br><br>'
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(exp[0], exp[1])}}}$ simplifications par $${baseUtile}$ possibles.`
-          if (this.correctionDetaillee) {
-            texteCorr += '<br><br>'
+            texteCorr += '<br>'
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(exp[0], exp[1])}}}$ simplification${Math.min(exp[0], exp[1]) === 1 ? '' : 's'} par $${baseUtile}$ possibles.`
+            texteCorr += '<br>'
           }
           if (exp[0] - exp[1] === 0) {
             if (this.correctionDetaillee) {
@@ -228,8 +214,8 @@ export default function PuissancesDunRelatif1 () {
                                 exp[0],
                                 couleurExp1
                             )}}$`
+              texteCorr += '<br>'
             }
-            texteCorr += '<br><br>'
             texteCorr += `$${lettre}=1$`
           } else if (exp[0] - exp[1] < 0) {
             if (this.correctionDetaillee) {
@@ -246,16 +232,16 @@ export default function PuissancesDunRelatif1 () {
                                 exp[1] - exp[0],
                                 couleurExp1
                             )}}$`
+              texteCorr += '<br>'
             }
-            texteCorr += '<br><br>'
             texteCorr += `$${lettre}=\\dfrac{1}{${baseUtile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${baseUtile}^{${exp[1] - exp[0]}}}`
             if ((base < 0) && ((exp[1] - exp[0]) % 2 === 0)) {
               texteCorr += `=\\dfrac{1}{${simpNotPuissance(
                                 base,
                                 exp[1] - exp[0]
-                            )}}=${simpNotPuissance(base, exp[0] - exp[1])}$`
+                            )}}=${miseEnEvidence(`${simpNotPuissance(base, exp[0] - exp[1])}`)}$`
             } else {
-              texteCorr += `=${baseUtile}^{${exp[0] - exp[1]}}$`
+              texteCorr += `=${miseEnEvidence(`${baseUtile}^{${exp[0] - exp[1]}}`)}$`
             }
           } else {
             if (this.correctionDetaillee) {
@@ -272,17 +258,16 @@ export default function PuissancesDunRelatif1 () {
                                 exp[1],
                                 couleurExp1
                             )}}$`
+              texteCorr += '<br>'
             }
-            texteCorr += '<br><br>'
-            texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}-${exp[1]}}=${baseUtile}^{${exp[0] - exp[1]}}`
+            texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}-${exp[1]}}`
             if ((base < 0) && ((exp[0] - exp[1]) % 2 === 0)) {
-              texteCorr += `=${simpNotPuissance(base, exp[0] - exp[1])}$`
+              texteCorr += `=${baseUtile}^{${exp[0] - exp[1]}}=${miseEnEvidence(simpNotPuissance(base, exp[0] - exp[1]))}$`
             } else {
-              texteCorr += '$'
+              texteCorr += `=${miseEnEvidence(`${baseUtile}^{${exp[0] - exp[1]}}`)}$`
             }
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[0] - exp[1])
-          texteCorr += '<br>'
           if (base < 0 && ((exp[0] - exp[1]) % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[0] - exp[1]}`, `${-base}^${exp[0] - exp[1]}`]
             baseUtileBisAMC = -base
@@ -295,10 +280,7 @@ export default function PuissancesDunRelatif1 () {
           exp = [randint(2, 4), randint(2, 4)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
           texte = `$${lettre}=(${baseUtile}^${exp[0]})^{${exp[1]}}$`
 
-          texteCorr += `$${lettre}=(${baseUtile}^${exp[0]})^{${exp[1]}}$`
-
           if (this.correctionDetaillee) {
-            texteCorr += '<br>'
             texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
                             `(${baseUtile}^${exp[0]})`,
                             exp[1],
@@ -315,19 +297,18 @@ export default function PuissancesDunRelatif1 () {
                             coul0
                         )}}_{${exp[1]}\\times\\color{${coul1}}{${exp[0]
                         }}\\thickspace\\color{black}{\\text{facteurs}}}}$`
+            texteCorr += '<br>'
           }
-          texteCorr += '<br>'
           texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${baseUtile}$.`
           texteCorr += '<br>'
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}\\times${exp[1]
-                    }} = ${baseUtile}^{${exp[0] * exp[1]}}`
+                    }} `
           if ((base < 0) && ((exp[1] * exp[0]) % 2 === 0)) {
-            texteCorr += `= ${simpNotPuissance(base, exp[0] * exp[1])}$`
+            texteCorr += `= ${baseUtile}^{${exp[0] * exp[1]}} = ${miseEnEvidence(simpNotPuissance(base, exp[0] * exp[1]))}$`
           } else {
-            texteCorr += '$'
+            texteCorr += `= ${miseEnEvidence(`${baseUtile}^{${exp[0] * exp[1]}}`)}$`
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[0] * exp[1])
-          texteCorr += '<br>'
           if (base < 0 && (exp[0] * exp[1] % 2) === 0) {
             reponseInteractive = [`${baseUtile}^${exp[0] * exp[1]}`, `${-base}^${exp[0] * exp[1]}`]
             baseUtileBisAMC = -base
@@ -342,7 +323,6 @@ export default function PuissancesDunRelatif1 () {
           base = [base0, base1] // on choisit 2 bases différentes c'est mieux
           exp = randint(2, 5, 6) // on choisit un exposant
           texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`
-          texteCorr += '<br>'
           texteCorr += `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`
 
           if (this.correctionDetaillee) {
@@ -364,12 +344,11 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += '<br>'
           texteCorr += `$${lettre}= (\\color{${coul0}}{\\mathbf{${base[0]
                     }}} \\color{black}{\\times} \\color{${coul1}}{\\mathbf{${base[1]
-                    }}}\\color{black}{)^{${exp}}}=${base[0] * base[1]}^${exp}$`
-          texteCorr += '<br>'
+                    }}}\\color{black}{)^{${exp}}}=${miseEnEvidence(`${base[0] * base[1]}^${exp}`)}$`
           // Ici la base ne peut jamais être négative
           reponseInteractive = `${base[0] * base[1]}^${exp}`
           baseUtile = base[0] * base[1]
-          baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter un batterie de ligne spécifique pour ce cas, je mets deux fois la même chose
+          baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter une batterie de lignes spécifiques pour ce cas, je mets deux fois la même chose
           base = baseUtile
           exposantInteractif = exp
           break
@@ -398,9 +377,16 @@ export default function PuissancesDunRelatif1 () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = [
+  /*  this.besoinFormulaireNumerique = [
     'Règle à travailler',
     5,
-    '1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances de même exposant\n5 : Mélange'
+    '1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange'
+  ] */
+  this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange']
+
+  this.besoinFormulaire2Numerique = [
+    'Signe de la mantisse',
+    3,
+    '1 : Positif\n2 : Négatif\n3 : Mélange'
   ]
 }
