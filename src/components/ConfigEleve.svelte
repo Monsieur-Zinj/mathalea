@@ -138,7 +138,7 @@
           </div>
         </div>
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light {$globalOptions.setInteractive !== '0' ? 'text-opacity-20' : 'text-opacity-100'}">
+          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">
             Correction
           </div>
           <div class="flex flex-row justify-start items-center px-4">
