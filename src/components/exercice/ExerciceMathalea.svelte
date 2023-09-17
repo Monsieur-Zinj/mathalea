@@ -238,7 +238,7 @@
 
   async function updateDisplay () {
     if (exercice == null) return
-    if (exercice.seed === undefined) {
+    if (exercice.seed === undefined && typeof exercice.applyNewSeed === 'function') {
       exercice.applyNewSeed()
     }
     seedrandom(exercice.seed, { global: true })
