@@ -243,7 +243,7 @@
     seedrandom(exercice.seed, { global: true })
     if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif))
     exercice.interactif = isInteractif
-    if ($exercicesParams[indiceExercice].hasOwnProperty('listeQuestions')) {
+    if ($exercicesParams[indiceExercice] != null) {
       $exercicesParams[indiceExercice].alea = exercice.seed
       $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
       $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
