@@ -59,7 +59,7 @@ export default function RecomposerEntierC3 () {
       defaut: 4,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      saisie: this.sup4,
+      saisie: String(this.sup4),
       shuffle: false
     })
 
