@@ -38,10 +38,7 @@ export default function EquationSecondDegreParticuliere () {
       b = randint(-10, 10, 0)
       c = randint(-10, 10, 0)
       f = new FractionEtendue(-b, a)
-      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br>
-
-   $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.<br>`
-
+      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation : $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.`
       if (this.interactif) {
         texte += 'Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=\\bigg\\{$'
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
