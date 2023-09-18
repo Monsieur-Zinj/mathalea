@@ -1,40 +1,40 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
-  export let text = ''
+  import { createEventDispatcher } from "svelte"
+  export let text: string = ""
   export let bgColor:
-    | 'canvas'
-    | 'canvas-light'
-    | 'canvas`lightest'
-    | 'warn'
-    | 'warn-light'
-    | 'warn-lightest'
-    | 'corpus'
-    | 'corpus-light'
-    | 'corpus-lightest'
-    | 'struct'
-    | 'struct-ligh'
-    | 'struct-lightest' = 'warn'
+    | "canvas"
+    | "canvas-light"
+    | "canvas`lightest"
+    | "warn"
+    | "warn-light"
+    | "warn-lightest"
+    | "corpus"
+    | "corpus-light"
+    | "corpus-lightest"
+    | "struct"
+    | "struct-ligh"
+    | "struct-lightest" = "warn"
   export let textColor:
-    | 'canvas'
-    | 'canvas-light'
-    | 'canvas`lightest'
-    | 'warn'
-    | 'warn-light'
-    | 'warn-lightest'
-    | 'corpus'
-    | 'corpus-light'
-    | 'corpus-lightest'
-    | 'struct'
-    | 'struct-ligh'
-    | 'struct-lightest' = 'corpus'
+    | "canvas"
+    | "canvas-light"
+    | "canvas`lightest"
+    | "warn"
+    | "warn-light"
+    | "warn-lightest"
+    | "corpus"
+    | "corpus-light"
+    | "corpus-lightest"
+    | "struct"
+    | "struct-ligh"
+    | "struct-lightest" = "corpus"
   export let isVisible: boolean = true
 
   // Au clic sur le bouton, on diffuse _action_
   const dispatch = createEventDispatcher()
 
-  function triggerAction () {
-    dispatch('action', {
-      msg: 'Action triggered !'
+  function triggerAction() {
+    dispatch("action", {
+      msg: "Action triggered !",
     })
   }
 </script>

@@ -8,8 +8,8 @@
     imgPath: "images/apps/appDefault.png",
     uuid: "theUuid",
   }
-  export let reversed = false
-  export let selected = false
+  export let reversed: boolean = false
+  export let selected: boolean = false
 
   let listeCodes: string[]
   // on compte réactivement le nombre d'occurences

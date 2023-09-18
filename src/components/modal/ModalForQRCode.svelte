@@ -1,31 +1,31 @@
 <script lang="ts">
-  import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage, allowedImageFormats } from '../utils/qr-code.js'
-  import { copyQRCodeImageToClipboard } from '../utils/clipboard'
-  import FormRadio from '../forms/FormRadio.svelte'
+  import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage, allowedImageFormats } from "../utils/qr-code.js"
+  import { copyQRCodeImageToClipboard } from "../utils/clipboard"
+  import FormRadio from "../forms/FormRadio.svelte"
 
   // définition d'un type pour le format de l'image afin de rester dans les valeurs possible de `allowedImageFormats`
   // source: https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range/70307091#70307091
-  type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Enumerate<N, [...Acc, Acc['length']]>
+  type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N ? Acc[number] : Enumerate<N, [...Acc, Acc["length"]]>
   type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>
   // type FormatCodeRange = Range<0, allowedImageFormats.length>
 
-  export let imageId: string = 'QRImage'
-  export let dialogId: string = 'dialogQR'
+  export let imageId: string = "QRImage"
+  export let dialogId: string = "dialogQR"
   export let width: number = 100
-  export let format = 0
-  export let tooltipMessage: string = 'My tooltip'
-  export let buttonSize: string = 'text-2xl'
-  export let buttonIcon: string = 'bx-qr'
-  export let buttonSecondIcon: string = ''
-  export let classForButton: string = ''
-  export let urlAddendum: string = ''
+  export let format: number = 0
+  export let tooltipMessage: string = "My tooltip"
+  export let buttonSize: string = "text-2xl"
+  export let buttonIcon: string = "bx-qr"
+  export let buttonSecondIcon: string = ""
+  export let classForButton: string = ""
+  export let urlAddendum: string = ""
   export let isShort: boolean = false
   export let isEncrypted: boolean = false
 
   const labelsForFormats = [
-    { label: 'jpeg', value: 0 },
-    { label: 'png', value: 1 },
-    { label: 'webp', value: 2 }
+    { label: "jpeg", value: 0 },
+    { label: "png", value: 1 },
+    { label: "webp", value: 2 },
   ]
 </script>
 
@@ -74,14 +74,14 @@
       on:keydown={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum, isShort, isEncrypted)}
     />
     {#if buttonSecondIcon.length !== 0}
-      <i class="absolute -bottom-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-full bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn  dark:text-coopmathsdark-warn" />
+      <i class="absolute -bottom-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-full bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn dark:text-coopmathsdark-warn" />
     {/if}
   </div>
 </label>
 <input type="checkbox" id={dialogId} class="modal-toggle" />
 <div class="modal">
   <div class="modal-box relative z-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark">
-    <dialog class="rounded-xl z-10 bg-coopmaths-canvas text-coopmaths-corpus  dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light" id="{dialogId}-1">
+    <dialog class="rounded-xl z-10 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light" id="{dialogId}-1">
       Le QR-Code est copié dans le presse-papier !
     </dialog>
     <dialog class="rounded-xl z-10 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light" id="{dialogId}-2">
@@ -107,7 +107,7 @@
         min="80"
         max="300"
         bind:value={width}
-        class="ml-3 w-20 h-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark  border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
+        class="ml-3 w-20 h-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
         on:change={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum, isShort, isEncrypted)}
       />
     </div>
