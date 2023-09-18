@@ -1,27 +1,27 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
-  import BoutonMonter from './BoutonMonter.svelte'
-  import BoutonDescendre from './BoutonDescendre.svelte'
-  import { globalOptions, exercicesParams } from '../store'
-    import InteractivityIcon from '../icons/TwoStatesIcon.svelte'
-  import uuidsRessources from '../../json/uuidsRessources.json'
-  import refProfs from '../../json/referentielProfs.json'
-  import { toMap } from '../utils/toMap'
-  export let title: string|undefined
+  import { createEventDispatcher } from "svelte"
+  import BoutonMonter from "./BoutonMonter.svelte"
+  import BoutonDescendre from "./BoutonDescendre.svelte"
+  import { globalOptions, exercicesParams } from "../store"
+  import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
+  import uuidsRessources from "../../json/uuidsRessources.json"
+  import refProfs from "../../json/referentielProfs.json"
+  import { toMap } from "../utils/toMap"
+  export let title: string | undefined
   export let id: string
   // export let titleExtra: string
   // export let category: string
-  export let randomReady = true
-  export let settingsReady = true
-  export let correctionReady = true
-  export let correctionExists = true
+  export let randomReady: boolean = true
+  export let settingsReady: boolean = true
+  export let correctionReady: boolean = true
+  export let correctionExists: boolean = true
   export let indiceExercice: number
   export let indiceLastExercice: number
-  export let isInteractif = false
+  export let isInteractif: boolean = false
   export let interactifReady: boolean
-  export let isSortable = true
-  export let isDeletable = true
-  export let isHidable = true
+  export let isSortable: boolean = true
+  export let isDeletable: boolean = true
+  export let isHidable: boolean = true
   let isVisible = true
   let isSettingsVisible = false
   const isContentVisible = true
@@ -29,27 +29,27 @@
 
   // Éttablissement de la catégorie
   const ressourcesUuids = Object.keys({ ...uuidsRessources })
-  const profsUuids = Array.from(toMap({ ...refProfs }).values()).map((e) => e.get('uuid'))
+  const profsUuids = Array.from(toMap({ ...refProfs }).values()).map((e) => e.get("uuid"))
   let category: string
   if (ressourcesUuids.includes($exercicesParams[indiceExercice]?.uuid)) {
-    category = 'Ressource'
+    category = "Ressource"
   } else if (profsUuids.includes($exercicesParams[indiceExercice]?.uuid)) {
-    category = 'Outil'
+    category = "Outil"
   } else {
-    category = 'Exercice'
+    category = "Exercice"
   }
   const dispatch = createEventDispatcher()
 
-  function switchInteractif () {
+  function switchInteractif() {
     isInteractif = !isInteractif
-    dispatch('clickInteractif', { isInteractif })
+    dispatch("clickInteractif", { isInteractif })
   }
 
-  function newData () {
-    dispatch('clickNewData')
+  function newData() {
+    dispatch("clickNewData")
   }
 
-  function remove () {
+  function remove() {
     exercicesParams.update((l) => [...l.slice(0, indiceExercice), ...l.slice(indiceExercice + 1)])
   }
 </script>
@@ -112,13 +112,13 @@
         </button> -->
         <button
           class="mx-2 tooltip tooltip-left tooltip-neutral {correctionExists && correctionReady ? '' : 'hidden'}"
-          data-tip={isCorrectionVisible ? 'Masquer la correction' : 'Montrer la correction'}
+          data-tip={isCorrectionVisible ? "Masquer la correction" : "Montrer la correction"}
           type="button"
           on:click={() => {
             isCorrectionVisible = !isCorrectionVisible
-            dispatch('clickCorrection', {
+            dispatch("clickCorrection", {
               isCorrectionVisible,
-              isContentVisible
+              isContentVisible,
             })
           }}
         >
@@ -130,7 +130,7 @@
         </button>
         <button
           class="mx-2 tooltip tooltip-left tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'hidden'}"
-          data-tip={isInteractif ? "Désactiver l'interactivité" : 'Rendre interactif'}
+          data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={switchInteractif}
         >
@@ -147,7 +147,7 @@
           type="button"
           on:click={() => {
             isSettingsVisible = !isSettingsVisible
-            dispatch('clickSettings', { isSettingsVisible })
+            dispatch("clickSettings", { isSettingsVisible })
           }}
         >
           <i
@@ -161,7 +161,7 @@
             type="button"
             on:click={() => {
               isVisible = !isVisible
-              dispatch('clickVisible', { isVisible })
+              dispatch("clickVisible", { isVisible })
             }}
             class="mx-2 tooltip tooltip-left"
             data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"

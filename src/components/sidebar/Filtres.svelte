@@ -4,7 +4,7 @@
   import Chip from "../forms/Chip.svelte"
   import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
 
-  export let isVisible = false
+  export let isVisible: boolean = false
   const levelsMap = new Map([
     [
       "6e",

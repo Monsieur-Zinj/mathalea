@@ -31,6 +31,11 @@ module.exports = {
           typescript: '@typescript-eslint/parser'
         }
       }
+    },
+    {
+      extends: ['plugin:markdown/recommended'],
+      files: ['**/*.md'],
+      processor: 'markdown/markdown'
     }
   ],
   parser: '@typescript-eslint/parser',
