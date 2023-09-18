@@ -132,7 +132,7 @@ export function gestionnaireFormulaireTexte ({
   let listeIndex, listeIndexProvisoire
   listeIndex = []
 
-  if (!saisie) { // Si aucune liste n'est saisie
+  if (saisie === null) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
   } else {
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
