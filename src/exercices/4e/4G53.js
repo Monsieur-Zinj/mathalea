@@ -18,4 +18,6 @@ export default function CalculDeVolumes4e () {
   this.classe = 4
   this.sup4 = 7
   this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1  : Cubes\n2 : Pavés droits\n3 : Cylindres\n4 : Prismes droits\n5 : Cônes\n6 : Pyramides\n7 : Mélange']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Sans conversion\n2 : Avec des conversions\n3 : Sans conversion avec ​π≃3'
+  ]
 }

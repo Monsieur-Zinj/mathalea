@@ -41,10 +41,16 @@ export default function CalculDeVolumes () {
 
   this.sup4 = 3
   let thissup4Max
+  let piApprox = false
 
   this.nouvelleVersion = function () {
     // this.consigne = this.interactif ? '' : "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
+    piApprox = false
+    if (this.sup=== 3){
+      this.sup = 1
+      piApprox = true // calcul en prenant Pi environ 3
+    } 
     this.autoCorrection = []
     switch (this.classe) {
       case 6 :
@@ -176,12 +182,33 @@ export default function CalculDeVolumes () {
             j = randint(0, 3) // pour le choix de l'unité
             r = new Decimal(randint(2, 10))
             h = new Decimal(randint(2, 15))
-            volume = r.pow(2).mul(h).mul(Decimal.acos(-1))
+
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
-            texte += `, arrondi à l'unité, d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(
-                            r.pow(2).mul(h), 0
-                        )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+            if (piApprox){
+              volume = r.pow(2).mul(h).mul(3)
+              texte += ', en prenant $\\pi \\approx 3$, ' // On prend pi = 3
+            }else{
+              volume = r.pow(2).mul(h).mul(Decimal.acos(-1))
+              texte += ', arrondi à l\'unité, ' // Il faut toujours arrondir à cause de la présence de Pi
+            }
+            let diametre = randint(0, 1)            
+            if (diametre){
+              // diamètre 
+              texte += `d'un cylindre de $${2*r}${listeUnites[j][0]}$ de diamètre et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
+            }else{
+              texte += `d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
+            }
+            if(piApprox){
+              texteCorr =  (diametre ? `$R = diametre \\div 2 = ${2*r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
+              texteCorr += `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(
+                r.pow(2).mul(h), 0)}\\pi${listeUnites[j][1]}\\approx ${texNombre(
+                  r.pow(2).mul(h), 0)}\\times 3${listeUnites[j][1]} \\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+            }else{
+              texteCorr =  (diametre ? `$R = diametre \\div 2 = ${2*r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
+              texteCorr += `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texNombre(
+                r.pow(2).mul(h), 0)}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round(), 0)}${listeUnites[j][1]}$`
+
+            }                        
           } else {
             j = randint(2, 3) // pour le choix de l'unité
             r = new Decimal(randint(2, 10))
@@ -244,14 +271,31 @@ export default function CalculDeVolumes () {
             j = randint(0, 3) // pour le choix de l'unité
             r = randint(2, 10)
             h = randint(2, 15)
-            volume = new Decimal(r * r * h).mul(Decimal.acos(-1)).div(3)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
-            texte += ', arrondi à l\'unité, ' // Il faut toujours arrondir à cause de la présence de Pi
-            texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${h}${listeUnites[j][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${deprecatedTexFraction(
-                            r * r * h,
-                            3
-                        )}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round())}${listeUnites[j][1]}$`
+            if (piApprox){
+              volume = new Decimal(r * r * h).mul(3).div(3)
+              texte += ', en prenant $\\pi \\approx 3$, ' // On prend pi = 3
+            }else{
+              volume = new Decimal(r * r * h).mul(Decimal.acos(-1)).div(3)
+              texte += ', arrondi à l\'unité, ' // Il faut toujours arrondir à cause de la présence de Pi
+            }
+            let diametre = randint(0, 1)            
+            if (diametre){
+              // diamètre 
+              texte += `d'un cône de $${2*r}${listeUnites[j][0]}$ de diamètre et de $${h}${listeUnites[j][0]}$ de hauteur.`
+            }else{
+              texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${h}${listeUnites[j][0]}$ de hauteur.`
+            }
+            if(piApprox){
+              texteCorr =  (diametre ? `$R = diametre \\div 2 = ${2*r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
+              texteCorr += `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${deprecatedTexFraction(
+                r * r * h, 3)}\\pi${listeUnites[j][1]}\\approx${deprecatedTexFraction(
+                  r * r * h, 3)}\\times 3 \\approx${texNombre(volume.round())}${listeUnites[j][1]}$`
+            }else{
+              texteCorr =  (diametre ? `$R = diametre \\div 2 = ${2*r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
+              texteCorr += `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${deprecatedTexFraction(
+                            r * r * h, 3)}\\pi${listeUnites[j][1]}\\approx${texNombre(volume.round())}${listeUnites[j][1]}$`
+            }
           } else {
             j = randint(2, 3) // pour le choix de l'unité
             r = randint(2, 10)
@@ -427,6 +471,9 @@ export default function CalculDeVolumes () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    if (this.sup === 1 && piApprox){
+      this.sup = 3
+    } 
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
