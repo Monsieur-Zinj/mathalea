@@ -30,7 +30,7 @@ export const ref = '4C10-7'
 export default function ExerciceOperationsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = false // écriture simplifiée
-  this.sup2 = 2 // type d'opértions
+  this.sup2 = 5 // Mélange par défaut
   this.sup3 = 10 // Valeur maximum
   this.interactifReady = interactifReady
   this.interactifType = interactifType
