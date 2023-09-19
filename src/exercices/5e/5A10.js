@@ -13,6 +13,9 @@ export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+export const amcReady = true
+export const amcType = 'AMCOpen'
+
 /**
  * 5A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
@@ -193,6 +196,12 @@ export default function ListeDesDiviseurs5e () {
           break
       }
       setReponse(this, i, JSON.stringify(listeDesDiviseurs(M)).replace('[', '').replace(']', ''), { formatInteractif: 'texte' })
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte + '\n',
+          propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
+        }
+      }
       texte += ajouteChampTexteMathLive(this, i, 'largeur35 inline', { texte: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

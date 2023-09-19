@@ -3,6 +3,10 @@ export const titre = 'Décomposer un nombre entier en produit de (petits) facteu
 export const dateDeModifImportante = '02/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+
+export const amcReady = true
+export const amcType = 'AMCOpen'
+
 /**
  * @author Guillaume Valmont
  * reference 4A11-0
