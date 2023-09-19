@@ -64,9 +64,10 @@ export default function DeveloppementCoeff2 () {
       `
     }
     this.correction += `
-     Le terme en $x$ est donc donné par la somme :  $${2 * e * f}x +${ecritureParentheseSiNegatif(rienSi1(a * d + b * c))}x=${2 * e * f + a * d + b * c}x$.<br>
+     Le terme en $x$ est donc donné par la somme :  $${2 * e * f}x +${a * d + b * c ===1 ? '':`${ecritureParentheseSiNegatif(a * d + b * c)}`}x=${2 * e * f + a * d + b * c}x$.<br>
      Le coefficient devant $x$ est donc $${2 * e * f + a * d + b * c}$.`
-
+     
+     
     this.reponse = 2 * e * f + a * d + b * c
     this.canEnonce = this.question
     this.canReponseACompleter = ''

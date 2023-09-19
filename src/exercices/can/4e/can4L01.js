@@ -3,7 +3,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = 'Résoudre une équation x+a=b ou ax=b'
+export const titre = 'Résoudre une équation $x+a=b$ ou $ax=b$'
 
 /*!
  * @author Jean-Claude Lhote

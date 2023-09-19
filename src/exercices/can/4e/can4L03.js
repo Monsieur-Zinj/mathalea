@@ -3,7 +3,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = 'Résoudre une équation ax+b=cx+d'
+export const titre = 'Résoudre une équation $ax+b=cx+d$'
 
 /*!
  * @author Jean-Claude Lhote
