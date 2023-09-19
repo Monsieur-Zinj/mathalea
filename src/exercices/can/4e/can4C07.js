@@ -2,6 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'
+import Decimal from 'decimal.js'
 export const titre = 'Calculer la différence de fractions à dénominateurs compatibles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,7 +36,7 @@ export default function DifferenceFractionsCompatibles () {
     $${a.texFraction} - ${b.texFraction}=
    \\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}- ${b.texFraction}
     =${a.reduire(c).texFraction} - ${b.texFraction}=\\dfrac{${a.n * c}-${b.n}}{${b.d}}=\\dfrac{${a.n * c - b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c - b.n, b.d)}$`
-    this.reponse = a.differenceFraction(b).simplifie()
+    this.reponse = a.differenceFraction(b)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

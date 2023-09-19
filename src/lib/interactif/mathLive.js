@@ -76,14 +76,16 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 saisie = saisie.replaceAll('²', '^2')
                 saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                 saisie = saisie.replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-                // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-                // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
                 if (!isNaN(reponse)) {
                   if (saisie !== '' && Number(saisie) === Number(reponse)) {
                     resultat = 'OK'
                   }
-                } else if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
-                  resultat = 'OK'
+                } else {
+                  const reponseCanonique = engine.parse(reponse)
+                  const saisieCanonique = engine.parse(saisie)
+                  if (reponseCanonique.isEqual(saisieCanonique)) { // engine.parse() retourne du canonical par défaut.
+                    resultat = 'OK'
+                  }
                 }
                 break
               case 'hms':
