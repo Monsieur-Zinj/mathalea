@@ -39,6 +39,8 @@ export function verifQuestionQcm (exercice, i) {
             type: proposition.statut ? 'positive' : 'error'
           })
         }
+      } else {
+        exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '0'
       }
       if (proposition.statut) {
         if (check.checked === true) {
