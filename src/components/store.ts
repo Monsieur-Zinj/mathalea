@@ -1,5 +1,11 @@
 import { get, writable } from 'svelte/store'
-import type { CallerComponentType, InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice, bibliothequeExercise } from '../lib/types'
+import type {
+  CallerComponentType,
+  InterfaceGlobalOptions,
+  InterfaceParams,
+  InterfaceResultExercice,
+  bibliothequeExercise
+} from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -34,28 +40,52 @@ export const exercicesParams = writable<InterfaceParams[]>([])
  * Le paramètre `es` est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions + affichage deux colonnes
  */
-export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'un_exo_par_page', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true, oneShot: false, twoColumns: false })
+export const globalOptions = writable<InterfaceGlobalOptions>({
+  v: '',
+  z: '1',
+  title: 'Évaluation',
+  presMode: 'un_exo_par_page',
+  setInteractive: '2',
+  isSolutionAccessible: true,
+  isInteractiveFree: true,
+  oneShot: false,
+  twoColumns: false
+})
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
-export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
+export const questionsOrder = writable({
+  isQuestionsShuffled: false,
+  indexes: []
+})
 
 interface InterfaceSelectedExercises {
-  isActive: boolean,
-  indexes: number[],
+  isActive: boolean
+  indexes: number[]
   count?: number
 }
 
-export const selectedExercises = writable<InterfaceSelectedExercises>({ isActive: false, indexes: [], count: 1 })
+export const selectedExercises = writable<InterfaceSelectedExercises>({
+  isActive: false,
+  indexes: [],
+  count: 1
+})
 
 interface InterfaceTransitionsBetweenQuestions {
-    isActive: boolean,
-    isNoisy: boolean,
-    isQuestThenSolModeActive: boolean,
-    questThenQuestAndSolDisplay: boolean,
-    tune: '0' | '1' | '2' | '3'
+  isActive: boolean
+  isNoisy: boolean
+  isQuestThenSolModeActive: boolean
+  questThenQuestAndSolDisplay: boolean
+  tune: '0' | '1' | '2' | '3'
 }
 
-export const transitionsBetweenQuestions = writable<InterfaceTransitionsBetweenQuestions>({ isActive: true, isNoisy: false, isQuestThenSolModeActive: false, questThenQuestAndSolDisplay: false, tune: '0' })
+export const transitionsBetweenQuestions =
+  writable<InterfaceTransitionsBetweenQuestions>({
+    isActive: true,
+    isNoisy: false,
+    isQuestThenSolModeActive: false,
+    questThenQuestAndSolDisplay: false,
+    tune: '0'
+  })
 
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
@@ -81,7 +111,11 @@ export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
 /**
  * Déplace un exercice dans exercicesParams
  */
-export function moveExercice (liste: InterfaceParams[], iDepart: number, iArrivee: number): InterfaceParams[] {
+export function moveExercice (
+  liste: InterfaceParams[],
+  iDepart: number,
+  iArrivee: number
+): InterfaceParams[] {
   liste.splice(iArrivee, 0, liste.splice(iDepart, 1)[0])
   return liste
 }
@@ -184,10 +218,16 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
   if (options.v === 'can' || options.v === 'diaporama') {
     if (selectedExexercicesStore) {
-      url.searchParams.append('selectedExercises', JSON.stringify(selectedExexercicesStore))
+      url.searchParams.append(
+        'selectedExercises',
+        JSON.stringify(selectedExexercicesStore)
+      )
     }
     if (questionsOrderStore) {
-      url.searchParams.append('questionsOrder', JSON.stringify(questionsOrderStore))
+      url.searchParams.append(
+        'questionsOrder',
+        JSON.stringify(questionsOrderStore)
+      )
     }
   }
   if (options.interfaceBeta) {
@@ -208,4 +248,14 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
 }
 
-export const presModeId: ['liste_exos', 'un_exo_par_page', 'liste_questions', 'une_question_par_page'] = ['liste_exos', 'un_exo_par_page', 'liste_questions', 'une_question_par_page']
+export const presModeId: [
+  'liste_exos',
+  'un_exo_par_page',
+  'liste_questions',
+  'une_question_par_page'
+] = [
+  'liste_exos',
+  'un_exo_par_page',
+  'liste_questions',
+  'une_question_par_page'
+]

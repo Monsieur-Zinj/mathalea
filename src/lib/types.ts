@@ -147,6 +147,7 @@ export type Action = () => void
 
 // type pour un intervalle de nombres
 // usage : const myNumber: NumericRange<0, 100> = 3 (par de valeur possible inférieure à 0 et supérieure à 100)
+// source: https://github.com/microsoft/TypeScript/issues/43505#issuecomment-1686128430
 export type NumericRange<
   start extends number,
   end extends number,

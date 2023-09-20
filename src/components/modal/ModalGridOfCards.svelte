@@ -19,7 +19,7 @@
   on:click|self={() => dialog.close()}
   class="rounded-xl w-2/3 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
-  <div on:click|stopPropagation class="relative p-8">
+  <div on:click|stopPropagation class="relative p-8" role="button" tabindex="0">
     <div class="text-4xl text-coopmaths-struct font-light mb-6">
       <slot name="header" />
     </div>
