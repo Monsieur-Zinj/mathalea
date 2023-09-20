@@ -39,48 +39,48 @@ export default class Exercice {
   formatInteractif?: string
   contenu?: string
   contenuCorrection?: string
-  autoCorrection?: object[]
+  autoCorrection: object[]
   amcType?: string
   tableauSolutionsDuQcm?: object[]
-  spacing?: number
-  spacingCorr?: number
-  pasDeVersionLatex?: boolean
-  listePackages?: string[]
-  consigneModifiable?: boolean
-  nbQuestionsModifiable?: boolean
-  nbCols?: number // Nombre de colonnes pour la sortie LaTeX
-  nbColsCorr?: number
-  nbColsModifiable?: boolean
-  nbColsCorrModifiable?: boolean
-  spacingModifiable?: boolean
-  spacingCorrModifiable?: boolean
+  spacing: number
+  spacingCorr: number
+  pasDeVersionLatex: boolean
+  listePackages: string[]
+  consigneModifiable: boolean
+  nbQuestionsModifiable: boolean
+  nbCols: number // Nombre de colonnes pour la sortie LaTeX
+  nbColsCorr: number
+  nbColsModifiable: boolean
+  nbColsCorrModifiable: boolean
+  spacingModifiable: boolean
+  spacingCorrModifiable: boolean
   listeAvecNumerotation?: boolean
-  beamer?: boolean
-  tailleDiaporama?: number
-  nbQuestions?: number
-  pointsParQuestions?: number
-  correctionDetailleeDisponible?: boolean
-  correctionDetaillee?: boolean
-  correctionIsCachee?: boolean
-  video?: string
-  interactif?: boolean
-  interactifObligatoire?: boolean
+  beamer: boolean
+  tailleDiaporama: number
+  nbQuestions: number
+  pointsParQuestions: number
+  correctionDetailleeDisponible: boolean
+  correctionDetaillee: boolean
+  correctionIsCachee: boolean
+  video: string
+  interactif: boolean
+  interactifObligatoire: boolean
   interactifReady?: boolean
   interactifType?: string
-  besoinFormulaireNumerique?: boolean | any[]
-  besoinFormulaireTexte?: boolean | any[]
-  besoinFormulaireCaseACocher?: boolean | any[]
-  besoinFormulaire2Numerique?: boolean | any[]
-  besoinFormulaire2Texte?: boolean | any[]
-  besoinFormulaire2CaseACocher?: boolean | any[]
-  besoinFormulaire3Numerique?: boolean | any[]
-  besoinFormulaire3Texte?: boolean | any[]
-  besoinFormulaire3CaseACocher?: boolean | any[]
-  besoinFormulaire4Numerique?: boolean | any[]
-  besoinFormulaire4Texte?: boolean | any[]
-  besoinFormulaire4CaseACocher?: boolean | any[]
-  mg32Editable?: boolean
-  listeArguments?: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+  besoinFormulaireNumerique: boolean | any[]
+  besoinFormulaireTexte: boolean | any[]
+  besoinFormulaireCaseACocher: boolean | any[]
+  besoinFormulaire2Numerique: boolean | any[]
+  besoinFormulaire2Texte: boolean | any[]
+  besoinFormulaire2CaseACocher: boolean | any[]
+  besoinFormulaire3Numerique: boolean | any[]
+  besoinFormulaire3Texte: boolean | any[]
+  besoinFormulaire3CaseACocher: boolean | any[]
+  besoinFormulaire4Numerique: boolean | any[]
+  besoinFormulaire4Texte: boolean | any[]
+  besoinFormulaire4CaseACocher: boolean | any[]
+  mg32Editable: boolean
+  listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   examen?: string // Pour les exercices statiques
   mois?: string // Pour les exercices statiques
   annee?: string // Pour les exercices statiques
