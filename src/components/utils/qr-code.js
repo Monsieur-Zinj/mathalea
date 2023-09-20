@@ -1,7 +1,11 @@
 import QRCode from 'qrcode'
 import { encrypt, getShortenedCurrentUrl } from './urls'
 
-export const allowedImageFormats = ['image/jpeg', 'image/png', 'image/webp']
+export const allowedImageFormats = [
+  { name: 'jpeg', format: 'image/jpeg' },
+  { name: 'png', format: 'image/png' },
+  { name: 'webp', format: 'image/webp' }
+]
 
 /**
  * Generate QR-Code from current URL and display it in designated image
@@ -14,7 +18,14 @@ export const allowedImageFormats = ['image/jpeg', 'image/png', 'image/webp']
  * @param crypted l'URL doit être encryptée ou pas ?
  * @author sylvain
  */
-export async function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRCodeIndex = 0, urlAddendum = '', shorten = false, crypted = false) {
+export async function urlToQRCodeOnWithinImgTag (
+  imageId,
+  QRCodeWidth,
+  formatQRCodeIndex = 0,
+  urlAddendum = '',
+  shorten = false,
+  crypted = false
+) {
   // const currentURL = document.URL + urlAddendum
   let currentURL
   if (shorten) {
@@ -25,11 +36,13 @@ export async function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRC
       throw error
     }
   } else {
-    currentURL = crypted ? encrypt(document.URL + urlAddendum) + '' : document.URL + urlAddendum
+    currentURL = crypted
+      ? encrypt(document.URL + urlAddendum) + ''
+      : document.URL + urlAddendum
   }
   const options = {
     errorCorrectionLevel: 'H',
-    type: allowedImageFormats[formatQRCodeIndex],
+    type: allowedImageFormats[formatQRCodeIndex].format,
     quality: 0.9,
     margin: 1,
     scale: 2,
@@ -47,12 +60,12 @@ export async function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRC
 }
 
 /**
-* Download image of QR-Code contained within designated img tag
-* (timestamp is added to the file name)
-* @param imageId ID of the image to download
-* @param formatQRCodeIndex code du format d'image (voir allowedImageFormats)
-* @author sylvain
-*/
+ * Download image of QR-Code contained within designated img tag
+ * (timestamp is added to the file name)
+ * @param imageId ID of the image to download
+ * @param formatQRCodeIndex code du format d'image (voir allowedImageFormats)
+ * @author sylvain
+ */
 export function downloadQRCodeImage (imageId, formatQRCodeIndex = 0) {
   // creating a timestamp for file name
   const date = new Date()
@@ -70,7 +83,11 @@ export function downloadQRCodeImage (imageId, formatQRCodeIndex = 0) {
       const downloadLink = document.createElement('a')
       downloadLink.style.display = 'none'
       downloadLink.href = url
-      downloadLink.download = 'qrcode_diapo_coopmaths' + timestamp + '.' + allowedImageFormats[formatQRCodeIndex].slice(6)
+      downloadLink.download =
+        'qrcode_diapo_coopmaths_' +
+        timestamp +
+        '.' +
+        allowedImageFormats[formatQRCodeIndex].name
       document.body.appendChild(downloadLink)
       downloadLink.click()
       window.URL.revokeObjectURL(url)

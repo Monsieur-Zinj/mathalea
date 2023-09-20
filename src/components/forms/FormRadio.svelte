@@ -3,10 +3,10 @@
   type FlexOrientation = 'col' | 'row'
 
   export let title: string
-  export let valueSelected: string
+  export let valueSelected: string|number
   export let labelsValues: {
     label: string
-    value: string
+    value: string|number
     isDisabled?: boolean
   }[] = []
   export let isDisabled: boolean = false
