@@ -1,7 +1,17 @@
-<svg width="32.000004" height="31.999998" viewBox="0 0 8.4666675 8.4666661" xmlns="http://www.w3.org/2000/svg" class={$$props.class} fill="currentColor">
+<svg
+  width="32.000004"
+  height="31.999998"
+  viewBox="0 0 8.4666675 8.4666661"
+  xmlns="http://www.w3.org/2000/svg"
+  class={$$props.class}
+  fill="currentColor"
+>
   <defs id="defs504" />
   <g id="layer1">
-    <g id="g1669" transform="matrix(1.108044,0,0,1.0300717,-0.36352999,-0.1273056)">
+    <g
+      id="g1669"
+      transform="matrix(1.108044,0,0,1.0300717,-0.36352999,-0.1273056)"
+    >
       <g
         aria-label="A"
         id="text313"
@@ -18,7 +28,10 @@
         id="text371"
         style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
       >
-        <path d="M 4.4998348,1.4087978 V 8.3430815 H 6.0659451 V 7.2958631 H 5.2828899 V 5.3901144 h 0.566064 V 4.2768552 H 5.2828899 V 2.4560161 H 6.0659451 V 1.4087978 Z" id="path1653" />
+        <path
+          d="M 4.4998348,1.4087978 V 8.3430815 H 6.0659451 V 7.2958631 H 5.2828899 V 5.3901144 h 0.566064 V 4.2768552 H 5.2828899 V 2.4560161 H 6.0659451 V 1.4087978 Z"
+          id="path1653"
+        />
       </g>
       <g
         aria-label="L"
@@ -26,14 +39,20 @@
         style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
         transform="translate(-0.16940966)"
       >
-        <path d="M 0.4974923,0.12358906 V 7.0578728 h 1.5944135 v -0.94344 H 1.2805475 V 0.12358906 Z" id="path1644" />
+        <path
+          d="M 0.4974923,0.12358906 V 7.0578728 h 1.5944135 v -0.94344 H 1.2805475 V 0.12358906 Z"
+          id="path1644"
+        />
       </g>
       <g
         aria-label="T"
         id="text367"
         style="font-stretch:ultra-condensed;font-size:9.4344px;line-height:1.25;font-family:'League Gothic';-inkscape-font-specification:'League Gothic, Ultra-Condensed';text-align:end;text-anchor:end;stroke-width:0.353789"
       >
-        <path d="M 2.8936626,1.1708074 H 3.4691609 V 7.0578728 H 4.2522161 V 1.1708074 H 4.8277145 V 0.12358906 H 2.8936626 Z" id="path1650" />
+        <path
+          d="M 2.8936626,1.1708074 H 3.4691609 V 7.0578728 H 4.2522161 V 1.1708074 H 4.8277145 V 0.12358906 H 2.8936626 Z"
+          id="path1650"
+        />
       </g>
       <g
         aria-label="X"
