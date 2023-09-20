@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { mathaleaHandleParamOfOneExercice, mathaleaLoadExerciceFromUuid } from '../../lib/mathalea'
+  import {
+    mathaleaHandleParamOfOneExercice,
+    mathaleaLoadExerciceFromUuid
+  } from '../../lib/mathalea'
   import { SvelteComponent, onMount } from 'svelte'
   import { globalOptions } from '../store'
   import type { InterfaceParams } from 'src/lib/types'
@@ -16,7 +19,12 @@
   export let isCorrectionVisible = false
 
   let exercice: Exercice
-  let typeExercice: 'mathaleaVueProf' | 'mathaleaVueEleve' | 'static' | 'html' | 'svelte'
+  let typeExercice:
+    | 'mathaleaVueProf'
+    | 'mathaleaVueEleve'
+    | 'static'
+    | 'html'
+    | 'svelte'
   let ComponentExercice: typeof SvelteComponent
 
   onMount(async () => {
@@ -32,7 +40,13 @@
     } else if (urlExercice && urlExercice.includes('.svelte')) {
       typeExercice = 'svelte'
       // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
-      ComponentExercice = (await import('../../exercicesInteractifs/' + urlExercice.replace('.svelte', '') + '.svelte')).default
+      ComponentExercice = (
+        await import(
+          '../../exercicesInteractifs/' +
+            urlExercice.replace('.svelte', '') +
+            '.svelte'
+        )
+      ).default
     } else {
       exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
@@ -52,17 +66,35 @@
   })
 </script>
 
-  {#if typeExercice === 'static'}
-  <ExerciceStatic {indiceExercice} {indiceLastExercice} uuid = {paramsExercice.uuid }/>
-  {:else if typeExercice === 'html'}
-    <ExerciceHtml {exercice} {indiceExercice} {indiceLastExercice} />
-  {:else if typeExercice === 'svelte'}
-    <svelte:component this={ComponentExercice} {indiceExercice} {indiceLastExercice}/>
-  {:else if typeExercice === 'mathaleaVueEleve'}
-    <ExerciceVueEleve {exercice} {indiceExercice} {indiceLastExercice} {isCorrectionVisible}/>
-  {:else if typeExercice === 'mathaleaVueProf'}
-    <ExerciceMathalea {exercice} {indiceExercice} {indiceLastExercice} {isCorrectionVisible}/>
-  {/if}
+{#if typeExercice === 'static'}
+  <ExerciceStatic
+    {indiceExercice}
+    {indiceLastExercice}
+    uuid={paramsExercice.uuid}
+  />
+{:else if typeExercice === 'html'}
+  <ExerciceHtml {exercice} {indiceExercice} {indiceLastExercice} />
+{:else if typeExercice === 'svelte'}
+  <svelte:component
+    this={ComponentExercice}
+    {indiceExercice}
+    {indiceLastExercice}
+  />
+{:else if typeExercice === 'mathaleaVueEleve'}
+  <ExerciceVueEleve
+    {exercice}
+    {indiceExercice}
+    {indiceLastExercice}
+    {isCorrectionVisible}
+  />
+{:else if typeExercice === 'mathaleaVueProf'}
+  <ExerciceMathalea
+    {exercice}
+    {indiceExercice}
+    {indiceLastExercice}
+    {isCorrectionVisible}
+  />
+{/if}
 
 <style>
 </style>

@@ -2,46 +2,49 @@
   import HeaderExercice from './HeaderExercice.svelte'
   import referentielStatic from '../../json/referentielStatic.json'
   import { globalOptions, exercicesParams } from '../store'
-  import Exercice from "../../exercices/ExerciceTs.js";
+  import Exercice from '../../exercices/ExerciceTs.js'
 
   export let uuid: string
   export let indiceExercice: number
   export let indiceLastExercice: number
-interface ExoStatic extends Exercice {
+  interface ExoStatic extends Exercice {
     png: string | string[]
-  pngCor: string | string[]
-  mois: string
-  annee: string
-  lieu: string
-  typeExercice: string
-  uuid: string
-  numeroInitial: string
-  title: string
-  id: string
-  isInteractif: boolean
-  interactifReady: boolean
-  settingsReady: boolean
-  randomReady: boolean
-  correctionReady: boolean
-}
-function getExerciceByUuid (root: object, targetUUID: string): ExoStatic | null {
-  if ('uuid' in root) {
-    if (root.uuid === targetUUID) {
-      return root
-    }
+    pngCor: string | string[]
+    mois: string
+    annee: string
+    lieu: string
+    typeExercice: string
+    uuid: string
+    numeroInitial: string
+    title: string
+    id: string
+    isInteractif: boolean
+    interactifReady: boolean
+    settingsReady: boolean
+    randomReady: boolean
+    correctionReady: boolean
   }
-  for (const child in root) {
-    if (child in root) {
-      if (typeof root[child] !== 'object') continue
-      const foundObject = getExerciceByUuid(root[child], targetUUID)
-      if (foundObject) {
-        return foundObject
+  function getExerciceByUuid (
+    root: object,
+    targetUUID: string
+  ): ExoStatic | null {
+    if ('uuid' in root) {
+      if (root.uuid === targetUUID) {
+        return root
       }
     }
-  }
+    for (const child in root) {
+      if (child in root) {
+        if (typeof root[child] !== 'object') continue
+        const foundObject = getExerciceByUuid(root[child], targetUUID)
+        if (foundObject) {
+          return foundObject
+        }
+      }
+    }
 
-  return null
-}
+    return null
+  }
 
   const exercice = getExerciceByUuid(referentielStatic, uuid)
 
@@ -49,17 +52,29 @@ function getExerciceByUuid (root: object, targetUUID: string): ExoStatic | null 
   let isContentVisible = true
   $: zoomFactor = $globalOptions.z
   let headerExerciceProps: ExoStatic
-if (exercice!= null) {
-  if (typeof exercice.png === 'string') exercice.png = [exercice.png]
-  if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
-  const id: string = $exercicesParams[indiceExercice]?.id ? String(exercice.id).replace('.js', '') : ''
-  headerExerciceProps = {title: '', id, isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, correctionReady: $globalOptions.isSolutionAccessible}
-  if (exercice.typeExercice !== undefined) {
-    headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ''} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
-  } else {
-    headerExerciceProps.title = exercice.uuid
+  if (exercice != null) {
+    if (typeof exercice.png === 'string') exercice.png = [exercice.png]
+    if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
+    const id: string = $exercicesParams[indiceExercice]?.id
+      ? String(exercice.id).replace('.js', '')
+      : ''
+    headerExerciceProps = {
+      title: '',
+      id,
+      isInteractif: false,
+      settingsReady: false,
+      interactifReady: false,
+      randomReady: false,
+      correctionReady: $globalOptions.isSolutionAccessible
+    }
+    if (exercice.typeExercice !== undefined) {
+      headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${
+        exercice.mois || ''
+      } ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
+    } else {
+      headerExerciceProps.title = exercice.uuid
+    }
   }
-}
 </script>
 
 <HeaderExercice
@@ -78,10 +93,10 @@ if (exercice!= null) {
 <div class="p-4">
   {#if isContentVisible}
     {#if exercice}
-    {#each exercice.png as url}
-      <img src={url} style="width: calc(100% * {zoomFactor}" alt="énoncé" />
-    {/each}
-      {/if}
+      {#each exercice.png as url}
+        <img src={url} style="width: calc(100% * {zoomFactor}" alt="énoncé" />
+      {/each}
+    {/if}
   {/if}
 
   {#if isCorrectionVisible}
@@ -91,10 +106,15 @@ if (exercice!= null) {
     >
       <div class="container">
         {#if exercice}
-        {#each exercice.pngCor as url}
-          <img src={url} class="p-2" style="width: calc(100% * {zoomFactor}" alt="correction" />
-        {/each}
-          {/if}
+          {#each exercice.pngCor as url}
+            <img
+              src={url}
+              class="p-2"
+              style="width: calc(100% * {zoomFactor}"
+              alt="correction"
+            />
+          {/each}
+        {/if}
       </div>
       <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
       <div
@@ -102,7 +122,9 @@ if (exercice!= null) {
       >
         Correction
       </div>
-      <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
+      <div
+        class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
+      />
     </div>
   {/if}
 </div>
