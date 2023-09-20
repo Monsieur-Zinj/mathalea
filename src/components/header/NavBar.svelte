@@ -1,5 +1,5 @@
 <script>
-    import { mathaleaHandleComponentChange } from 'src/lib/mathalea'
+  import { mathaleaHandleComponentChange } from 'src/lib/mathalea'
   import { globalOptions, darkMode } from '../store'
 
   import NavBarMenuV2 from './NavBarMenuV2.svelte'
@@ -10,8 +10,22 @@
     referentiels: {
       titre: 'Classes',
       id: 'classes',
-      entrees: ['Sixième', 'Cinquième', 'Quatrième', 'Troisième', 'Seconde', 'CRPE'],
-      actions: ['https://coopmaths.fr/6e', 'https://coopmaths.fr/5e', 'https://coopmaths.fr/4e', 'https://coopmaths.fr/3e', 'https://coopmaths.fr/2e', 'https://coopmaths.fr/crpe'],
+      entrees: [
+        'Sixième',
+        'Cinquième',
+        'Quatrième',
+        'Troisième',
+        'Seconde',
+        'CRPE'
+      ],
+      actions: [
+        'https://coopmaths.fr/6e',
+        'https://coopmaths.fr/5e',
+        'https://coopmaths.fr/4e',
+        'https://coopmaths.fr/3e',
+        'https://coopmaths.fr/2e',
+        'https://coopmaths.fr/crpe'
+      ],
       isMenuOpen: false
     },
     professeurs: {
@@ -44,14 +58,32 @@
     aPropos: {
       titre: 'À Propos',
       id: 'apropos',
-      entrees: ['Objectifs généraux', 'Présentation du logiciel', 'Nous contacter', 'Documentation pour les développeurs'],
-      actions: ['https://coopmaths.fr/a_propos', 'https://coopmaths.fr/mathalea_a_propos/', 'mailto:contact@coopmaths.fr', 'https://coopmaths.fr/documentation'],
+      entrees: [
+        'Objectifs généraux',
+        'Présentation du logiciel',
+        'Nous contacter',
+        'Documentation pour les développeurs'
+      ],
+      actions: [
+        'https://coopmaths.fr/a_propos',
+        'https://coopmaths.fr/mathalea_a_propos/',
+        'mailto:contact@coopmaths.fr',
+        'https://coopmaths.fr/documentation'
+      ],
       isMenuOpen: false
     },
     export: {
       titre: 'Export',
       id: 'export',
-      entrees: ['Plein écran', 'Plein écran élève', 'Diaporama', 'Lien', 'LaTeX', 'Moodle', 'AMC'],
+      entrees: [
+        'Plein écran',
+        'Plein écran élève',
+        'Diaporama',
+        'Lien',
+        'LaTeX',
+        'Moodle',
+        'AMC'
+      ],
       actions: [
         () =>
           globalOptions.update((params) => {
@@ -95,7 +127,10 @@
     const params = new URLSearchParams(document.location.search)
     if (vue) params.set('v', vue)
     params.delete('uuid')
-    return ('https://coopmaths.fr/mathalea.html?' + params.toString()).replaceAll('id=', 'ex=').replaceAll('&s', ',s').replaceAll('&n', ',n')
+    return ('https://coopmaths.fr/mathalea.html?' + params.toString())
+      .replaceAll('id=', 'ex=')
+      .replaceAll('&s', ',s')
+      .replaceAll('&n', ',n')
   }
 
   function goToMathalea () {
@@ -119,23 +154,36 @@
         <div
           on:click={goToMathalea}
           on:keydown={goToMathalea}
+          role="button"
+          tabindex="0"
           class="inline-flex cursor-pointer text-6xl font-logo13Condensed font-black text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
         >
           {title}
         </div>
-        <div class="absolute -bottom-4 right-0 font-logo13Condensed font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+        <div
+          class="absolute -bottom-4 right-0 font-logo13Condensed font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+        >
           par <a
             href="https://coopmaths.fr"
             target="_blank"
             rel="noreferrer"
-            class="font-extrabold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest">CoopMaths</a
+            class="font-extrabold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
+            >CoopMaths</a
           >
         </div>
       </div>
       {#if subtitle}
         <div class="inline-flex text-6xl font-logo13Condensed">
-          <div class="px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"><i class="bx bx-export bx-rotate-90" /></div>
-          <div class=" font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
+          <div
+            class="px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+          >
+            <i class="bx bx-export bx-rotate-90" />
+          </div>
+          <div
+            class=" font-black text-coopmaths-struct dark:text-coopmathsdark-struct"
+          >
+            {subtitle}
+          </div>
         </div>
         <!-- {:else}
         <div class="absolute bottom-0 right-0 font-logo13Condensed text-xs text-coopmaths-struct dark:text-coopmathsdark-struct">
@@ -144,7 +192,11 @@
       {/if}
     </div>
     <!-- menu -->
-    <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">
+    <div
+      class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible
+        ? 'flex'
+        : 'hidden'}"
+    >
       <!-- <ul class="flex flex-col space-y-2 lg:flex-row lg:space-y-0">
         <li>
           <NavBarMenuV2 {...menus.referentiels} bind:isNavBarVisible />
@@ -163,13 +215,21 @@
           <NavBarMenuV2 {...menus.aPropos} bind:isNavBarVisible />
         </li>
       </ul> -->
-      <div class="flex flex-1 pt-6 lg:pt-0 items-center justify-start lg:justify-end">
+      <div
+        class="flex flex-1 pt-6 lg:pt-0 items-center justify-start lg:justify-end"
+      >
         <NavBarMenuV2 {...menus.export} bind:isNavBarVisible />
       </div>
       <div class="flex px-4">
-        <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+        <label
+          class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+        >
           <!-- this hidden checkbox controls the state -->
-          <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} />
+          <input
+            type="checkbox"
+            class="invisible"
+            bind:checked={$darkMode.isActive}
+          />
           <!-- sun icon -->
           <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
           <!-- moon icon -->

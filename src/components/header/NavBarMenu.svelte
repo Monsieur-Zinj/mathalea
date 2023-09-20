@@ -1,8 +1,8 @@
 <script lang="ts">
   import { typeOf } from 'mathjs'
-
+  import type { Action } from '../../lib/types'
   export let entrees: string[]
-  export let actions = []
+  export let actions: (string | Action)[] = []
   export let isMenuOpen: boolean
   export let titre: string
   export let id: string
@@ -11,8 +11,8 @@
   /** Dispatch event on click outside of node
    * Référence : https://svelte.dev/repl/0ace7a508bd843b798ae599940a91783?version=3.16.7
    */
-  function clickOutside (node) {
-    const handleClick = (event) => {
+  function clickOutside (node: HTMLDivElement) {
+    const handleClick = (event: Event) => {
       if (node && !node.contains(event.target) && !event.defaultPrevented) {
         node.dispatchEvent(new CustomEvent('click_outside', node))
       }
@@ -26,11 +26,11 @@
       }
     }
   }
-  function closeMenu (i) {
+  function closeMenu (i: number) {
     isMenuOpen = false
     isNavBarVisible = false
     if (typeOf(actions[i]) === 'string') {
-      window.location.href = actions[i]
+      window.location.href = actions[i] as string
     } else {
       actions[i]()
     }
@@ -40,24 +40,43 @@
   }
 </script>
 
-<div class="group inline-block relative" use:clickOutside on:click_outside={handleClickOutside}>
+<div
+  class="group inline-block relative"
+  use:clickOutside
+  on:click_outside={handleClickOutside}
+>
   <button
-    class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas  text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl font-extrabold relative flex lg:block py-6 px-2 lg:px-8 items-center"
+    class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl font-extrabold relative flex lg:block py-6 px-2 lg:px-8 items-center"
     {id}
     on:click={() => (isMenuOpen = !isMenuOpen)}
     on:keydown={() => (isMenuOpen = !isMenuOpen)}
   >
-    <span>{titre}<i class="ml-2 bx {isMenuOpen ? 'bx-caret-down lg:hidden' : 'bx-caret-right lg:hidden'}" /></span>
+    <span>
+      {titre}
+      <i
+        class="ml-2 bx {isMenuOpen
+          ? 'bx-caret-down lg:hidden'
+          : 'bx-caret-right lg:hidden'}"
+      />
+    </span>
   </button>
-  <ul class="lg:absolute right-0 {isMenuOpen ? 'block' : 'hidden'} w-56 filter drop-shadow-xl z-50">
+  <ul
+    class="lg:absolute right-0 {isMenuOpen
+      ? 'block'
+      : 'hidden'} w-56 filter drop-shadow-xl z-50"
+  >
     {#each entrees as entree, i}
       <li>
         <a
           class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-darkest text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest py-2 px-4 block whitespace-no-wrap"
           id={[id, '-entree-', i + 1].join('')}
           on:click={() => closeMenu(i)}
-          on:keydown={() => closeMenu(i)}>{entree}</a
+          on:keydown={() => closeMenu(i)}
+          role="button"
+          tabindex="0"
         >
+          {entree}
+        </a>
       </li>
     {/each}
   </ul>
