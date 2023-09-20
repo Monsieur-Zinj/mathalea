@@ -325,7 +325,7 @@
         {#if $globalOptions.recorder === undefined}
           <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs">
             <button
-              class={columnsCount > 1 ? "visible" : "invisible"}
+              class={(columnsCount > 1 && window.innerWidth > 1000 ) ? "visible" : "invisible"}
               type="button"
               on:click={() => {
                 columnsCount--
@@ -366,7 +366,7 @@
             </div>
           {/if}
         </div>
-        <div style="columns: {columnsCount.toString()}">
+        <div style="columns: {window.innerWidth > 1000 ? columnsCount.toString() : '1'}">
           <ul
             class="{exercice.listeQuestions.length === 1 || !exercice.listeAvecNumerotation
               ? 'list-none'
