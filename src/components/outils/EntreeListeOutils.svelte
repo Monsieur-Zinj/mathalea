@@ -14,7 +14,8 @@
           { left: '$', right: '$', display: false }
         ],
         // Les accolades permettent d'avoir une formule non coupée
-        preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
+        preProcess: (chaine: string) =>
+          '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
         throwOnError: true,
         errorColor: '#CC0000',
         strict: 'warn',
@@ -30,7 +31,7 @@
   const isPresent = (code: string) => {
     return code === outil.uuid
   }
-  const tags = outil.tags
+  // const tags = outil.tags
   let selectedCount = 0
   let listeCodes: string[]
   // on compte réactivement le nombre d'occurences
@@ -61,7 +62,10 @@
    */
   function removeFromList () {
     const matchingIndex = listeCodes.findIndex(isPresent)
-    exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
+    exercicesParams.update((list) => [
+      ...list.slice(0, matchingIndex),
+      ...list.slice(matchingIndex + 1)
+    ])
   }
 
   /* --------------------------------------------------------------
@@ -96,13 +100,18 @@
   - **outil** : objet de type *Exo* (`{"id": UUID de l'exo, "code": nom de l'exo (par exemple "6N12-3")}`)
 
  -->
-<div class="relative flex flex-row mr-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-2">
+<div
+  class="relative flex flex-row mr-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-2"
+>
   <div
     class="flex-1 hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
     on:click={addToList}
     on:keydown={addToList}
   >
-    <div class="ml-[3px] pl-2 py-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1" bind:this={nomDeExercice}>
+    <div
+      class="ml-[3px] pl-2 py-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1"
+      bind:this={nomDeExercice}
+    >
       <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
         <span class="font-bold">{outil.id} - </span>{outil.titre}
       </div>
@@ -117,10 +126,17 @@
       on:mouseout={handleMouseOut}
       on:blur={handleMouseOut}
       on:click={removeFromList}
-      on:keydown={removeFromList}><i class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}" /></button
+      on:keydown={removeFromList}
+      ><i
+        class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}"
+      /></button
     >
   {/if}
   {#if selectedCount >= 2 && mouseIsOut}
-    <div class="absolute -left-[12.5px] text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark">{selectedCount}</div>
+    <div
+      class="absolute -left-[12.5px] text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark"
+    >
+      {selectedCount}
+    </div>
   {/if}
 </div>
