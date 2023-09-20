@@ -10,8 +10,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const amcReady = true
-export const amcType = 'AMCOpen'
-export const titre = 'Tracer des droites, segments,...'
+export const amcType = 'AMCHybride'
+export const titre = 'Tracer des droites, segments, ...'
 export const dateDePublication = '05/10/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -131,19 +131,71 @@ export default class constructionElementaire extends Exercice {
         },
         objetsCorrection
       )
-      /** ********************** AMC Open *****************************/
-      this.autoCorrection[i] = {}
-      this.autoCorrection[i].options = { ordered: false }
-      this.autoCorrection[i].enonce = enonce + '<br>'
+      /** ********************** AMC Hybride *****************************/
+      this.autoCorrection[i] = {
+        enonce: enonce + '<br>',
+  enonceAvant: false  }
+    
       this.autoCorrection[i].propositions = [
+        {
+          type: 'AMCOpen',
+          propositions : [
         {
           texte: correction,
           statut: 3,
+          enonce:enonce + '<br>Question \\textbf{a}',
           sanscadre: true
         }
       ]
-      // this.autoCorrection = [{ enonce: enonce + '<br>', propositions: [{ texte: correction, statut: 3, sanscadre: true }] }]
+    },
+    {
+      type: 'AMCOpen',
+      propositions :[
+    {
+      texte: correction,
+      statut: 3,
+      enonce:'Question \\textbf{b}',
+      sanscadre: true
+    }
+  ]
+},
+{
+  type: 'AMCOpen',
+  propositions :[
+{
+  texte: correction,
+  statut: 3,
+  enonce:'Question \\textbf{c}',
+  sanscadre: true
+}
+]
+},
+{
+  type: 'AMCOpen',
+  propositions :[
+{
+  texte: correction,
+  statut: 3,
+  enonce:'Question \\textbf{d}',
+  sanscadre: true
+}
+]
+},
+{
+  type: 'AMCOpen',
+  propositions :[
+{
+  texte: correction,
+  statut: 3,
+  enonce:'Question \\textbf{e}',
+  sanscadre: true
+}
+]
+}
+  ]
+
       /****************************************************/
+     
       correction += anim.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
       // Si la question n'a jamais été posée, on en crée une autre
