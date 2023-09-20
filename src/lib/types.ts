@@ -29,3 +29,7 @@ export type CallerComponentType = '' | 'tools'
 
 // Pour les exercices statiques de la bibliotheque
 export interface bibliothequeExercise {uuid: string, url: string, png: string, pngCor: string}
+
+// Pour les couleurs utilisées dans le site
+// chaînes de caractères possible à ajouter après <text|fill|bg|border|...>-coopmaths- ou <text|fill|bg|border|...>-coopmathsdark-
+export type CoopmathsColor = 'canvas' | 'canvas-light' | 'canvas`lightest' | 'canvas-dark' | 'canvas-darkest' | 'warn' | 'warn-light' | 'warn-lightest' | 'warn-dark' | 'warn-darkest' | 'corpus' | 'corpus-light' | 'corpus-lightest' | 'corpus-dark' | 'corpus-darkest' | 'struct' | 'struct-ligh' | 'struct-lightest' | 'struct-dark' | 'struct-darkest'
