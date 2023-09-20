@@ -17,9 +17,9 @@ import { stringNombre, texNombre } from './texNombre.js'
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
 export function rienSi1 (a) {
-  if (typeof a === 'string'){
-    window.notify(`rienSi1() n'accepte pas les string.`,{argument: a})
-    a= Number(a)
+  if (typeof a === 'string') {
+    window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
+    a = Number(a)
   }
   if (equal(a, 1)) return ''
   if (equal(a, -1)) return '-'
@@ -50,8 +50,8 @@ export function texteExposant (texte) {
  * @author Rémi Angot
  */
 export function ecritureNombreRelatif (a) {
-  if (typeof a === 'string'){
-    window.notify(`ecritureNombreRelatif() n'accepte pas les string.`,{argument: a})
+  if (typeof a === 'string') {
+    window.notify('ecritureNombreRelatif() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   if (a > 0) {
@@ -68,8 +68,8 @@ export function ecritureNombreRelatif (a) {
  * @param {number} a
  */
 export function ecritureNombreRelatifc (a) {
-  if (typeof a === 'string'){
-    window.notify(`ecritureNombreRelatifc() n'accepte pas les string.`,{argument: a})
+  if (typeof a === 'string') {
+    window.notify('ecritureNombreRelatifc() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   let result = ''
@@ -90,8 +90,8 @@ export function ecritureNombreRelatifc (a) {
  * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
  */
 export function ecritureAlgebrique (a) {
-  if (typeof a === 'string'){
-    window.notify(`ecritureAlgebrique() n'accepte pas les string.`,{argument: a})
+  if (typeof a === 'string') {
+    window.notify('ecritureAlgebrique() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   if (a instanceof Fraction || a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
@@ -117,8 +117,8 @@ export function ecritureAlgebrique (a) {
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
 export function ecritureAlgebriqueSauf1 (a) {
-  if (typeof a === 'string'){
-    window.notify(`ecritureAlgebriqueSauf1() n'accepte pas les string.`,{argument: a})
+  if (typeof a === 'string') {
+    window.notify('ecritureAlgebriqueSauf1() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   if (equal(a, 1)) return '+'
@@ -133,8 +133,8 @@ export function ecritureAlgebriqueSauf1 (a) {
  * @param {number} a
  */
 export function ecritureAlgebriquec (a) {
-  if (typeof a === 'string'){
-    window.notify(`ecritureAlgebriquec() n'accepte pas les string.`,{argument: a})
+  if (typeof a === 'string') {
+    window.notify('ecritureAlgebriquec() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   let result = ''
@@ -153,7 +153,7 @@ export function ecritureAlgebriquec (a) {
  */
 
 export function signeMoinsEnEvidence (r, precision = 0) {
-  if (typeof r !== 'number') window.notify(`signeMoinsEnEvidence() appelé avec autre chose qu'un nombre.`, {argument: r})
+  if (typeof r !== 'number') window.notify('signeMoinsEnEvidence() appelé avec autre chose qu\'un nombre.', { argument: r })
   else if (r < 0) return miseEnEvidence('-') + texNombre(Math.abs(r), precision)
   else return texNombre(Math.abs(r), precision)
 }
@@ -176,10 +176,10 @@ export function ecritureParentheseSiNegatif (a) {
       result = `(${texNombre(a, 8)})`
     }
     return result
-  } else if (a instanceof FractionEtendue){
+  } else if (a instanceof FractionEtendue) {
     return a.ecritureParentheseSiNegatif
   } else {
-    window.notify(`ecritureParentheseSiNegatif() appelée avec autre chose qu'un nombre`, {argument: a})
+    window.notify('ecritureParentheseSiNegatif() appelée avec autre chose qu\'un nombre', { argument: a })
   }
 }
 
@@ -191,10 +191,10 @@ export function ecritureParentheseSiNegatif (a) {
  */
 export function ecritureParentheseSiMoins (expr) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
-  else if (typeof expr === 'number' && expr<0) return `(${stringNombre(expr,undefined)})`
+  else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, undefined)})`
   else if (expr instanceof FractionEtendue && expr.s === -1) return `(${expr.texFSD})`
   else {
-    window.notify(`ecritureParentheseSiMoins() n'accepte pas ce type d'argument.`,{argument: expr})
+    window.notify('ecritureParentheseSiMoins() n\'accepte pas ce type d\'argument.', { argument: expr })
     return expr
   }
 }
@@ -261,7 +261,7 @@ export function reduireAxPlusB (a, b) {
  * @author Jean-Claude Lhote
  */
 export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
-  [a,b,c,d].forEach((el)=> typeof el === 'number' ? el : Number(el))
+  [a, b, c, d].forEach((el) => typeof el === 'number' ? el : Number(el))
   let result = ''
   if (a !== 0) {
     switch (a) {

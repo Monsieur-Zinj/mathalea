@@ -596,11 +596,23 @@ class FractionEtendue extends Fraction {
   */
   produitFraction (f2) {
     if (f2 instanceof FractionEtendue) {
-      return new FractionEtendue(this.num * f2.num, this.den * f2.den)
+      if (this.s * f2.s === 1) {
+        return new FractionEtendue(Math.abs(this.num * f2.num), Math.abs(this.den * f2.den))
+      } else {
+        return new FractionEtendue(-Math.abs(this.num * f2.num), Math.abs(this.den * f2.den))
+      }
     } else if (f2 instanceof Fraction) {
-      return new FractionEtendue(this.num * f2.d * f2.s, this.den * f2.d)
+      if (this.s * f2.s) {
+        return new FractionEtendue(Math.abs(this.num * f2.d), Math.abs(this.den * f2.d))
+      } else {
+        return new FractionEtendue(-Math.abs(this.num * f2.d), Math.abs(this.den * f2.d))
+      }
     } else if (typeof f2 === 'number') {
-      return new FractionEtendue(this.num * f2, this.den)
+      if (this.s * f2 >= 0) {
+        return new FractionEtendue(Math.abs(this.num * f2), Math.abs(this.den))
+      } else {
+        return new FractionEtendue(-Math.abs(this.num * f2), Math.abs(this.den))
+      }
     } else {
       window.notify('FractionEtendue.produitFraction() a reçu un argument bizarre', { f2 })
       return null
@@ -626,12 +638,12 @@ class FractionEtendue extends Fraction {
     */
   texProduitFraction (f2, simplification = 'none') {
     if (this.estEntiere) {
-      return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.simplifie().num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${ecritureParentheseSiNegatif(f2.den)}}
+      return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.simplifie().num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${ecritureParentheseSiNegatif(f2.den)}}
       ${simplification === 'none' || this.produitFraction(f2).estIrreductible
           ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
           : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
     } else {
-      return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}}
+      return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}}
     ${simplification === 'none' || this.produitFraction(f2).estIrreductible
           ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
           : `${(this.den !== f2.num && f2.den !== this.num)
@@ -766,7 +778,7 @@ class FractionEtendue extends Fraction {
       return `=${this.texFSD}`
     } else {
       if (factorisation) {
-        const signe = this.signe === -1 ? '-' : ''
+        const signe = this.sign === -1 ? '-' : ''
         const num = Math.abs(this.num)
         const den = Math.abs(this.den)
         const listenum = obtenirListeFacteursPremiers(num)
@@ -829,7 +841,7 @@ class FractionEtendue extends Fraction {
         result += `=${signe}${new FractionEtendue(a, b).simplifie().texFraction}`
         return result
       } else {
-        const signe = this.signe === -1 ? '-' : ''
+        const signe = this.sign === -1 ? '-' : ''
         const num = Math.abs(this.num)
         const den = Math.abs(this.den)
         const pgcd = gcd(num, den)
