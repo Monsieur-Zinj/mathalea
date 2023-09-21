@@ -1,4 +1,4 @@
-import type { Activity, InterfaceResultExercice } from 'src/lib/types.js'
+import type { Activity, InterfaceResultExercice } from '../lib/types.js'
 import { exercicesParams, globalOptions, resultsByExercice } from '../components/store.js'
 import { mathaleaHandleComponentChange } from './mathalea.js'
 import { get } from 'svelte/store'

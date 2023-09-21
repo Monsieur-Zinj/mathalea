@@ -8,7 +8,7 @@
   import { onMount } from 'svelte'
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
   import SideMenuOutils from './outils/SideMenuOutils.svelte'
-  import type { ReferentielForList } from 'src/lib/types'
+  import type { ReferentielForList } from '../lib/types'
   import ButtonsDeck from './outils/ButtonsDeck.svelte'
   import Button from './forms/Button.svelte'
   import ButtonSvg from './forms/ButtonSvg.svelte'

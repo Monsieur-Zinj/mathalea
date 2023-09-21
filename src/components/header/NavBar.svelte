@@ -1,5 +1,5 @@
 <script>
-  import { mathaleaHandleComponentChange } from 'src/lib/mathalea'
+  import { mathaleaHandleComponentChange } from '../../lib/mathalea'
   import { globalOptions, darkMode } from '../store'
 
   import NavBarMenuV2 from './NavBarMenuV2.svelte'

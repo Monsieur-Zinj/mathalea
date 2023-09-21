@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type Latex from 'src/lib/Latex'
+  import type Latex from '../../lib/Latex'
   import {
     buildImagesUrlsList,
     doesLatexNeedsPics,

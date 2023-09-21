@@ -1,4 +1,4 @@
-import type { InterfaceParams } from 'src/lib/types'
+import type { InterfaceParams } from '../../lib/types'
 
 /**
  * Compte le nombre d'apparitions de chaque UUIDs dans un tableau d'exercices (`InterfaceParams`)

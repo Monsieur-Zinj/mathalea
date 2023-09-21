@@ -5,12 +5,12 @@
   } from '../../lib/mathalea'
   import { SvelteComponent, onMount } from 'svelte'
   import { globalOptions } from '../store'
-  import type { InterfaceParams } from 'src/lib/types'
+  import type { InterfaceParams } from '../../lib/types'
   import uuidToUrl from '../../json/uuidsToUrl.json'
   import ExerciceMathalea from './ExerciceMathalea.svelte'
   import ExerciceVueEleve from './ExerciceVueEleve.svelte'
   import ExerciceStatic from './ExerciceStatic.svelte'
-  import type Exercice from 'src/exercices/ExerciceTs'
+  import type Exercice from '../../exercices/ExerciceTs'
   import ExerciceHtml from './ExerciceHtml.svelte'
 
   export let paramsExercice: InterfaceParams

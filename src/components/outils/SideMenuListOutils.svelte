@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type ReferentielForList from 'src/lib/types'
+  import type ReferentielForList from '../../lib/types'
   import NiveauListeExos from '../sidebar/NiveauListeExos.svelte'
   import EntreeListeOutils from './EntreeListeOutils.svelte'
-  import codeList from 'src/json/codeToLevelList.json'
+  import codeList from '../../json/codeToLevelList.json'
   type ObjectKey = keyof typeof codeList
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false

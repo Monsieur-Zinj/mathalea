@@ -1,4 +1,4 @@
-import type { InterfaceReferentiel } from 'src/lib/types'
+import type { InterfaceReferentiel } from '../../lib/types'
 import referentiel from '../../json/referentiel2022.json'
 import referentielStatic from '../../json/referentielStatic.json'
 import referentiel2nd from '../../json/referentiel2nd.json'

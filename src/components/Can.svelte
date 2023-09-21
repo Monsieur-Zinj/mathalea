@@ -13,7 +13,7 @@
   } from '../lib/mathalea'
   import type Exercice from '../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
-  import type { InterfaceParams } from 'src/lib/types'
+  import type { InterfaceParams } from '../lib/types'
   import BtnZoom from './ui/btnZoom.svelte'
 
   let exercices: Exercice[] = []

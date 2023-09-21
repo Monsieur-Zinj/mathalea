@@ -23,7 +23,7 @@
   import FormRadio from './forms/FormRadio.svelte'
   import ButtonToggle from './forms/ButtonToggle.svelte'
   import NavBarV2 from './header/NavBarV2.svelte'
-  import type { InterfaceParams } from 'src/lib/types'
+  import type { InterfaceParams } from '../lib/types'
 
   const divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
