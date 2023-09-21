@@ -5,22 +5,23 @@
   import { onMount } from 'svelte'
   import { uuidCount, exercisesUuidRanking } from '../utils/counts'
   import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
+  import type { ChipContentType } from '../../lib/types'
 
   // let idListForChips: string[] = []
   // $: idListForChips = $exercicesParams.map((p) => {
   //   ref: p.id ?? p.uuid
   // })
-  let listIdsForChips: string[] = []
+  let listIdsForChips: ChipContentType[] = []
   $: {
-    const lIFC = []
+    const lIFC: ChipContentType[] = []
     let ranks: number[]
-    let counts
+    let counts: Record<string, number>
     for (const [i, ex] of $exercicesParams.entries()) {
       ranks = exercisesUuidRanking($exercicesParams)
       counts = uuidCount($exercicesParams)
       const insert: string = `${counts[ex.uuid] > 1 ? ' [' + ranks[i] + ']' : ''}`
-      const keyValue = getUniqueStringBasedOnTimeStamp(i)
-      const obj = {
+      const keyValue = getUniqueStringBasedOnTimeStamp(i.toString())
+      const obj: ChipContentType = {
         ref: ex.id ?? ex.uuid,
         title: `${ex.id ?? ex.uuid}${insert}`,
         key: keyValue
@@ -29,11 +30,12 @@
     }
     listIdsForChips = lIFC
   }
-  let chipsList: HTMLDivElement
   onMount(() => {
-    chipsList = document.getElementById('chips-list')
-    const sortable = Sortable.create(chipsList, {
+    Sortable.create(document.getElementById('chips-list'), {
       animation: 150,
+      // Erreur dans le linter : Parameter 'evt' implicitly has an 'any' type.
+      // Sortable étant en JavaScript on ne connait pas le type de `evt`.
+      // @ts-ignore
       onEnd: (evt) => {
         exercicesParams.update((l) => {
           return moveExercice(l, evt.oldIndex, evt.newIndex)
@@ -41,10 +43,6 @@
       }
     })
   })
-
-  const isPresent = (code: string) => {
-    return code === exercice.get('uuid')
-  }
 </script>
 
 <div

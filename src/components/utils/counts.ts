@@ -5,7 +5,7 @@ import type { InterfaceParams } from '../../lib/types'
  * @param {InterfaceParams[]} exosParams Un tableau des exercices
  * @returns Objet contenant toutes les UUIDs avec le nombres d'apparition
  */
-export function uuidCount (exosParams: InterfaceParams[]) {
+export function uuidCount (exosParams: InterfaceParams[]): Record<string, number> {
   const counts: Record<string, number> = {}
   for (const ex of exosParams) {
     counts[ex.uuid] = counts[ex.uuid] ? counts[ex.uuid] + 1 : 1
@@ -13,7 +13,7 @@ export function uuidCount (exosParams: InterfaceParams[]) {
   return counts
 }
 
-export function exercisesUuidRanking (exosParams: InterfaceParams[]) {
+export function exercisesUuidRanking (exosParams: InterfaceParams[]): number[] {
   const codesList: string[] = exosParams.map((p) => p.uuid)
   const ranks: number[] = []
   for (const [i, ex] of exosParams.entries()) {

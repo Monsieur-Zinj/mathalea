@@ -161,3 +161,6 @@ export type NumericRange<
       [...arr, 1],
       arr[start] extends undefined ? acc : acc | arr['length']
     >
+
+// type pour les chips des exercices
+export type ChipContentType = { ref: string; title: string; key: string }
