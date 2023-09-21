@@ -11,7 +11,7 @@ import { context } from '../../modules/context.js'
 export const titre = 'Choisir la bonne figure'
 export const amcReady = true
 export const amcType = 'qcmMono'
-export const interactifReady = false
+export const interactifReady = true
 export const interactifType = ['cliqueFigure']
 
 /**
@@ -30,7 +30,7 @@ export default function CliqueFigure () {
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.interactifType = 'cliqueFigure'
-    this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : context.vue !== 'diap' && !context.isAmc ? 'Entourer la bonne figure.' : 'Choisir la bonne figure représentant ' /// Penser ici à AMC aussi.
+    this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : context.vue !== 'diap' && !context.isAmc ? 'Entourer la bonne figure.' : 'Choisir la bonne figure représentant : ' /// Penser ici à AMC aussi.
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -89,7 +89,7 @@ export default function CliqueFigure () {
       // PROPRE A AMC
       enleveElement(figIncorrectAMC, figCorrecteAMC)
       this.autoCorrection[i] = {}
-      this.autoCorrection[i].enonce = this.consigne + 'l' + texte.substring(1)
+      this.autoCorrection[i].enonce = this.consigne + texte
       this.autoCorrection[i].propositions = [
         {
           texte: figCorrecteAMC,
@@ -124,7 +124,7 @@ export default function CliqueFigure () {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -197,7 +197,7 @@ export default class constructionElementaire extends Exercice {
       /****************************************************/
      
       correction += anim.htmlBouton(this.numeroExercice, i)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + '<br>')
         this.listeCorrections.push(correction + '<br>')
