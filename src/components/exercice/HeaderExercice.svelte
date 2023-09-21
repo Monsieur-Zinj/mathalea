@@ -15,11 +15,11 @@
   export let correctionExists = true
   export let indiceExercice: number
   export let indiceLastExercice: number
-  export let isInteractif = false
+  export let isInteractif: boolean = false
   export let interactifReady: boolean
-  export let isSortable = true
-  export let isDeletable = true
-  export let isHidable = true
+  export let isSortable: boolean = true
+  export let isDeletable: boolean = true
+  export let isHidable: boolean = true
   let isVisible = true
   let isSettingsVisible = false
   const isContentVisible = true

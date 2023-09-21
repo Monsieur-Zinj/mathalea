@@ -65,7 +65,7 @@
         }
         if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
-        exercice.nouvelleVersion()
+        exercice.nouvelleVersion?.()
         if ($selectedExercises.indexes.includes(k)) {
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
           corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]

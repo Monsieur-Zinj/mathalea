@@ -6,6 +6,7 @@ import { gestionCan } from './gestionCan.js'
 import { afficheScore } from './gestionInteractif.js'
 
 export function verifQuestionQcm (exercice, i) {
+  exercice.answers = {} // On réinitialise les réponses
   let resultat
   // i est l'indice de la question
   let nbBonnesReponses = 0
@@ -39,6 +40,8 @@ export function verifQuestionQcm (exercice, i) {
             type: proposition.statut ? 'positive' : 'error'
           })
         }
+      } else {
+        exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '0'
       }
       if (proposition.statut) {
         if (check.checked === true) {

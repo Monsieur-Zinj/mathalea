@@ -162,7 +162,7 @@
   /**
    * Gestion du redimentionnement de la largeur du menu des choix
    */
-  let expanding: HTMLElement = null
+  let expanding: HTMLElement | null = null
   let sidebarWidth = 400
   function stopResizing () {
     expanding = null

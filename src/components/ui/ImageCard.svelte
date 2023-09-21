@@ -9,8 +9,8 @@
     png: "images/apps/appDefault.png",
     pngCor: "images/apps/appDefault.png",
   }
-  export let reversed = false
-  export let selected = false
+  export let reversed: boolean = false
+  export let selected: boolean = false
 
   let listeCodes: string[]
   // on compte réactivement le nombre d'occurences

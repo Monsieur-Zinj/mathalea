@@ -2489,7 +2489,7 @@
           "url": "can/4e/can4L01.js",
           "uuid": "0641c",
           "id": "can4L01",
-          "titre": "Résoudre une équation x+a=b ou ax=b",
+          "titre": "Résoudre une équation $x+a=b$ ou $ax=b$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -2501,7 +2501,7 @@
           "url": "can/4e/can4L02.js",
           "uuid": "c5700",
           "id": "can4L02",
-          "titre": "Résoudre une équation ax+b=c",
+          "titre": "Résoudre une équation $ax+b=c$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -2513,7 +2513,7 @@
           "url": "can/4e/can4L03.js",
           "uuid": "91cd5",
           "id": "can4L03",
-          "titre": "Résoudre une équation ax+b=cx+d",
+          "titre": "Résoudre une équation $ax+b=cx+d$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -3035,7 +3035,7 @@
           "url": "can/3e/can3L01.js",
           "uuid": "ac10f",
           "id": "can3L01",
-          "titre": "Résoudre une équation du type ax=b",
+          "titre": "Résoudre une équation du type $ax=b$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -3047,7 +3047,7 @@
           "url": "can/3e/can3L02.js",
           "uuid": "9419f",
           "id": "can3L02",
-          "titre": "Résoudre une équation du type ax+b=0",
+          "titre": "Résoudre une équation du type $ax+b=0$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -3059,7 +3059,7 @@
           "url": "can/3e/can3L03.js",
           "uuid": "cb6b3",
           "id": "can3L03",
-          "titre": "Résoudre une équation du type ax+b=c",
+          "titre": "Résoudre une équation du type $ax+b=c$",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -5635,10 +5635,10 @@
         "url": "6e/6G10-5.js",
         "uuid": "3dbda",
         "id": "6G10-5",
-        "titre": "Tracer des droites, segments,...",
+        "titre": "Tracer des droites, segments, ...",
         "tags": {
           "interactif": false,
-          "amcType": "AMCOpen",
+          "amcType": "AMCHybride",
           "amc": true
         }
       },
@@ -7335,7 +7335,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "5A11": {
@@ -8242,16 +8243,6 @@
           "amcType": "qcmMono",
           "amc": true
         }
-      },
-      "5N15": {
-        "url": "5e/5N15.js",
-        "uuid": "0a637",
-        "id": "5N15",
-        "titre": "Problèmes de ratio",
-        "tags": {
-          "interactif": false,
-          "amc": false
-        }
       }
     },
     "5N2": {
@@ -8316,6 +8307,16 @@
         "uuid": "60910",
         "id": "5P12",
         "titre": "Partager une quantité en deux ou trois parts selon un ratio donné",
+        "tags": {
+          "interactif": false,
+          "amc": false
+        }
+      },
+      "5P12-1": {
+        "url": "5e/5P12-1.js",
+        "uuid": "0a637",
+        "id": "5P12-1",
+        "titre": "Problèmes de ratio",
         "tags": {
           "interactif": false,
           "amc": false
@@ -8715,7 +8716,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "4A11-1": {
@@ -9221,18 +9223,6 @@
         "uuid": "bae57",
         "id": "4C33-1",
         "titre": "Effectuer des calculs qu'avec des puissances",
-        "tags": {
-          "interactif": true,
-          "interactifType": "mathLive",
-          "amcType": "AMCNum",
-          "amc": true
-        }
-      },
-      "4C33-3": {
-        "url": "2e/2N31-3.js",
-        "uuid": "c71da",
-        "id": "4C33-3",
-        "titre": "Effectuer des calculs avec des puissances et leurs règles de calculs",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -12155,6 +12145,18 @@
         "uuid": "1e42b",
         "id": "2N31-2",
         "titre": "Effectuer des calculs qu'avec des puissances",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amcType": "AMCNum",
+          "amc": true
+        }
+      },
+      "2N31-3": {
+        "url": "2e/2N31-3.js",
+        "uuid": "c71da",
+        "id": "2N31-3",
+        "titre": "Effectuer des calculs avec des puissances et leurs règles de calculs",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",

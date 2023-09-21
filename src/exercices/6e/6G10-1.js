@@ -18,7 +18,7 @@ export const amcType = 'AMCOpen'
  * @author Rémi Angot
  */
 export const uuid = 'd81c6'
-export const ref = '6G10-1'
+export const ref = '6G10-1' 
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Décrire précisément, avec des mots, la figure et donner sa notation mathématique.'
@@ -75,7 +75,7 @@ export default function DescriptionSegmentDroiteDemiDroite () {
       texteCorr = dABCorr
 
       if (context.isAmc) {
-        this.autoCorrection = [
+        this.autoCorrection[i] =
           {
             enonce: this.consigne + '<br>' + texte,
             propositions: [
@@ -89,7 +89,6 @@ export default function DescriptionSegmentDroiteDemiDroite () {
               }
             ]
           }
-        ]
       }
 
       if (this.questionJamaisPosee(i, texte)) {

@@ -154,7 +154,7 @@ export function sendToCapytaleSaveStudentAssignment () {
       evaluation += resultExercice.numberOfPoints
     }
   }
-  rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation })
+  rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation: evaluation.toString() })
 }
 
 function sendToCapytaleActivityParams () {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let subtitle = ''
+  export let subtitle: string = ''
   export let type: 'export' | 'design' = 'export'
 </script>
 

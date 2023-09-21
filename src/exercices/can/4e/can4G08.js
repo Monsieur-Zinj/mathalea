@@ -8,7 +8,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
-import FractionEtendue from "../../../modules/FractionEtendue.js";
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -151,7 +151,7 @@ export default function QuestionsAiresEtPerimetres () {
           this.correction = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
           Ainsi, les longueurs ont été multipliées par  : $\\sqrt{\\dfrac{${n * n}}{${d * d}}}=\\dfrac{${n}}{${d}}$.
       <br>`
-          this.reponse = fraction(n , d)
+          this.reponse = fraction(n, d)
           this.formatInteractif = 'fractionEgale'
           this.canEnonce = this.question// 'Compléter'
           this.canReponseACompleter = ''
@@ -174,10 +174,10 @@ export default function QuestionsAiresEtPerimetres () {
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 9, ymax: 4.5, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` L'aire de ce triangle rectangle est donnée par : $\\dfrac{BC\\times AC}{2}$.<br>
           On cherche $AC$ telle que $\\dfrac{${a}\\times AC}{2}=${b}$. <br>
-          $AC=\\dfrac{2\\times ${b}}{${a}}=${new FractionEtendue(2*b,a).simplifie().texFraction}$ m.
+          $AC=\\dfrac{2\\times ${b}}{${a}}=${new FractionEtendue(2 * b, a).simplifie().texFraction}$ m.
       <br>`
         this.reponse = 2 * b / a
-          this.formatInteractif = 'calcul'
+        this.formatInteractif = 'calcul'
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ m'
         break

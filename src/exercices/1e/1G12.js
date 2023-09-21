@@ -169,7 +169,7 @@ export default function MesurePrincipale () {
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       texte = listeTypeQuestions[i].texte
-      setReponse(this, i, listeTypeQuestions[i].reponse, { formatInteractif: 'texte' })
+      setReponse(this, i, listeTypeQuestions[i].reponse)
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore grecTrigo') // n'ajoute rien si on n'est pas en interactif
       if (!this.interactif) texte += '$\\ldots$'
 

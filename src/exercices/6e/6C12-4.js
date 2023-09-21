@@ -70,7 +70,7 @@ export default function ExerciceInformationsProblemes () {
       defaut: 11,
       nbQuestions: this.nbQuestions,
       melange: 11,
-      saisie: this.sup2
+      saisie: this.sup
     })
 
     const FamilleH = ['père', 'frère', 'cousin', 'grand-père', 'voisin']
