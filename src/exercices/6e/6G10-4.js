@@ -131,7 +131,7 @@ export default function VocabulaireDuCercle () {
         {
           nom: `[$${B.nom + C.nom}$]`,
           nature: 'un diamètre',
-          commentaire: `${texteEnCouleurEtGras('Un')} diamètre est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`,
+          commentaire: `${texteEnCouleurEtGras('Un')} diamètre est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
           commentaireAlt: `${texteEnCouleurEtGras('Le')} diamètre est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`,
           sens: sensDesQuestions[i * nbSousQuestions + 1]
         },
@@ -179,6 +179,13 @@ export default function VocabulaireDuCercle () {
         })
       }
       let j = 0
+      let nomDiametre = ''
+      for (const question of questions) {
+        if (question.nature === 'un diamètre') {
+          nomDiametre = question.nom
+          break
+        }
+      }
       for (const question of questions) {
         let enonce
         const propositionsEE = []
@@ -188,11 +195,12 @@ export default function VocabulaireDuCercle () {
           enonce = `${premiereLettreEnMajuscule(question.nature)} est ${this.interactifType === 'mathLive' ? '' : '...'}`
           texte += enonce
           texteCorr += `${premiereLettreEnMajuscule(question.nature)} est ${texteEnCouleurEtGras(question.nom)}.<br>`
+          if (question.nature === 'une corde') texteCorr += `${texteEnCouleurEtGras(nomDiametre)} étant un diamètre, c'est aussi une corde.<br>`
         }
         if (question.sens === '[AB] est ...') {
           enonce = `${question.nom} est ${this.interactifType === 'mathLive' ? '' : '...'}`
           texte += enonce
-          texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}.<br>`
+          texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}${question.nom === nomDiametre ? ' et aussi ' + texteEnCouleurEtGras('une corde') : ''}.<br>`
         }
         if (this.correctionDetaillee && question.commentaire !== '') texteCorr += question.commentaire + '<br>'
         if (this.sup2) {
@@ -204,7 +212,7 @@ export default function VocabulaireDuCercle () {
             propositions = propositionsABEst
           }
           for (let ee = 0; ee < propositions.length; ee++) {
-            const statut = propositions[ee].texte === question.nom || propositions[ee].texte === question.nature
+            const statut = propositions[ee].texte === question.nom || propositions[ee].texte === question.nature || (question.nature === 'un diamètre' && propositions[ee].texte === 'une corde') || (question.nature === 'une corde' && propositions[ee].texte === nomDiametre)
             let feedback
             statut ? feedback = propositions[ee].feedback : feedback = propositions[ee].feedbackAlt
             propositionsEE.push({
