@@ -2,12 +2,11 @@ import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 export const titre = 'Traduire une phrase par une expression et la calculer'
 
 /**
  * @author Jean-Claude Lhote
- * Référence 5C12-1
  */
 export const uuid = 'cd0d8'
 export const ref = '5C12-1'

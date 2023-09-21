@@ -1,10 +1,11 @@
 import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Traduire une expression par une phrase'
 export const dateDeModifImportante = '25/03/2022'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
  * @author Jean-Claude Lhote
- * Référence 5C11-1
  */
 export const uuid = 'baa4b'
 export const ref = '5C11-1'
