@@ -1,8 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, tick } from 'svelte'
-  import { exercicesParams } from '../store'
+  import { exercicesParams, globalOptions } from '../store'
   import { sortArrayOfStringsWithHyphens } from '../utils/filters'
-  import { globalOptions } from '../store'
   import type { InterfaceReferentiel } from '../../lib/types'
   import EntreeRecherche from './EntreeRecherche.svelte'
   import Button from '../forms/Button.svelte'
@@ -59,7 +58,7 @@
    * Ordonner une liste d'exercices de manière que `4C10-10` arrive après `4C10-9`
    * @param exercisesList la liste des exercices à trier
    */
-  function orderList (exercisesList: InterfaceReferentiel) {
+  function orderList (exercisesList: InterfaceReferentiel[]) {
     let idsList: string[] = []
     for (const exo of exercisesList) {
       idsList.push(exo.id)
@@ -107,7 +106,7 @@
    * @returns {boolean} `true` si les tags contienne un bout de la requête, `false` sinon
    * @author sylvain
    */
-  const filtreStatic = (exercice, inputSearch: string) => {
+  const filtreStatic = (exercice: InterfaceReferentiel, inputSearch: string) => {
     if (!inputSearch) {
       return false
     }

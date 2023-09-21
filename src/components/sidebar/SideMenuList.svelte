@@ -1,14 +1,13 @@
 <script lang="ts">
-  import type { ReferentielForList } from "src/lib/types"
-  import NiveauListeExos from "./NiveauListeExos.svelte"
-  import EntreeListeOutils from "../outils/EntreeListeOutils.svelte"
-  import { codeToLevelTitle } from "../utils/referentielsUtils"
-  import SearchExercice from "./SearchExercice.svelte"
-  import { onMount } from "svelte"
-  import { toObject } from "../utils/toObj"
-  import EntreeListeRessources from "./EntreeListeRessources.svelte"
-  import SideMenuApps from "./SideMenuApps.svelte"
-  import { isReferentielActivated } from "../utils/referentielsUtils"
+  import type { ReferentielForList } from '../../lib/types'
+  import NiveauListeExos from './NiveauListeExos.svelte'
+  import EntreeListeOutils from '../outils/EntreeListeOutils.svelte'
+  import { codeToLevelTitle, isReferentielActivated } from '../utils/referentielsUtils'
+  import SearchExercice from './SearchExercice.svelte'
+  import { onMount } from 'svelte'
+  import { toObject } from '../utils/toObj'
+  import EntreeListeRessources from './EntreeListeRessources.svelte'
+  import SideMenuApps from './SideMenuApps.svelte'
 
   export let ref: ReferentielForList
   export let moreThanOne: boolean = false
@@ -26,7 +25,7 @@
    * * on regarde si la valeur d'activation du référentiel (défini dans `referentielsActivation.json`)
    * * puis on regarde le flag `activated` (défini à la création du référentiel dans `Start` — et modifiable dans le code si besoin)
    */
-  function isDisplayed(): boolean {
+  function isDisplayed (): boolean {
     if (isReferentielActivated(ref.name)) {
       return ref.activated
     } else {
@@ -35,9 +34,11 @@
   }
 </script>
 
-<div class={isDisplayed() ? "flex w-full flex-col" : "hidden"}>
-  <div class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6">
-    {#if ref.type === "apps"}
+<div class={isDisplayed() ? 'flex w-full flex-col' : 'hidden'}>
+  <div
+    class="w-full flex flex-row justify-between items-center px-6 py-2 md:py-6"
+  >
+    {#if ref.type === 'apps'}
       <SideMenuApps />
     {:else}
       <button
@@ -49,7 +50,7 @@
       >
         {ref.title}</button
       >
-      <div class={moreThanOne ? "flex" : "flex md:hidden"}>
+      <div class={moreThanOne ? 'flex' : 'flex md:hidden'}>
         <button
           type="button"
           on:click={() => {
@@ -65,30 +66,44 @@
       </div>
     {/if}
   </div>
-  <ul class={isMenuDeployed ? "w-full flex flex-col pl-4 " : "hidden"}>
-    {#if ref.type === "outils"}
+  <ul class={isMenuDeployed ? 'w-full flex flex-col pl-4 ' : 'hidden'}>
+    {#if ref.type === 'outils'}
       {#each ref.content as item, i}
         <li>
           <EntreeListeOutils outil={item} />
         </li>
       {/each}
-    {:else if ref.type === "exercices" || ref.type === "examens"}
+    {:else if ref.type === 'exercices' || ref.type === 'examens'}
       <SearchExercice referentiel={refAsObject} on:filters />
       {#each ref.content as item, i}
         <li>
-          <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} section={ref.type} />
+          <NiveauListeExos
+            indexBase={i.toString()}
+            nestedLevelCount={1}
+            pathToThisNode={[item.key]}
+            levelTitle={codeToLevelTitle(item.key)}
+            items={item.obj}
+            section={ref.type}
+          />
         </li>
       {/each}
-    {:else if ref.type === "ressources"}
+    {:else if ref.type === 'ressources'}
       {#each ref.content as item, i}
         <li>
           <EntreeListeRessources ressource={item.obj} />
         </li>
       {/each}
-    {:else if ref.type === "bibliotheque"}
+    {:else if ref.type === 'bibliotheque'}
       {#each ref.content as item, i}
         <li>
-          <NiveauListeExos indexBase={i.toString()} nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} section={ref.type} />
+          <NiveauListeExos
+            indexBase={i.toString()}
+            nestedLevelCount={1}
+            pathToThisNode={[item.key]}
+            levelTitle={codeToLevelTitle(item.key)}
+            items={item.obj}
+            section={ref.type}
+          />
         </li>
       {/each}
     {:else}

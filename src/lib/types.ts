@@ -99,7 +99,7 @@ export type ReferentielNames =
   | 'bibliotheque'
   | 'apps'
   | 'examens'
-export default interface ReferentielForList {
+export type ReferentielForList = {
   name: ReferentielNames
   title: string
   content: InterfaceReferentiel[]

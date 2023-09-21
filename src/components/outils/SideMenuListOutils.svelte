@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type ReferentielForList from '../../lib/types'
+  import type { ReferentielForList } from '../../lib/types'
   import NiveauListeExos from '../sidebar/NiveauListeExos.svelte'
   import EntreeListeOutils from './EntreeListeOutils.svelte'
   import codeList from '../../json/codeToLevelList.json'
