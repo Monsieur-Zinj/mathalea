@@ -1,8 +1,11 @@
+import { context } from '../../modules/context.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from '../CM/_TrouverSolutionMathador.js'
 import Exercice from '../Exercice.js'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 export const titre = 'Traduire une succession d\'opérations par une expression'
 
@@ -40,6 +43,22 @@ export default function ÉcrireUneExpressionMathador () {
       }
       texte += 'Écris cette succession d\'opérations en une seule expression.'
       texteCorr = `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+        {
+          enonce: texte,
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              pointilles: false  // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+            }
+          ]
+        }
+        
+      }
+      
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

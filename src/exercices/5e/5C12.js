@@ -4,19 +4,17 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
-// import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 export const titre = 'Calculer en respectant les priorités opératoires'
 
 /**
  * @author Jean-Claude Lhote
- * Référence 5C12
  */
 export const uuid = 'e61fc'
 export const ref = '5C12'
@@ -48,7 +46,6 @@ export default function CalculerUneExpressionNumerique () {
     let decimal
     let nbOperations
     let resultats
-    // let nbval
     if (this.sup2) {
       decimal = 10
     } else {
@@ -96,10 +93,42 @@ export default function CalculerUneExpressionNumerique () {
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: ' = ' })
+          setReponse(this, i, reponse)
         } else if (context.isAmc) {
           texte += '<br>Détailler les calculs dans le cadre et coder le résultat.<br>'
+          this.autoCorrection[i] = {
+            enonce: '',
+            enonceAvant: false,
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  enonce: texte,
+                  texte: texteCorr,
+                  statut: 3,
+                  pointilles: false
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Résultat de cet enchaînement de calculs : ',
+                    valeur: [reponse],
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
         }
-        setReponse(this, i, reponse)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

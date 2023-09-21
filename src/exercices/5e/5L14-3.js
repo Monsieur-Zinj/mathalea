@@ -1,10 +1,10 @@
 import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
-
 export const titre = 'Traduire une phrase par une expression et la calculer'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * @author Jean-Claude Lhote
- * Référence 5L14-3
  */
 export const uuid = '2c600'
 export const ref = '5L14-3'
