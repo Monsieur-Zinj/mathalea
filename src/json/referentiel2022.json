@@ -5635,10 +5635,10 @@
         "url": "6e/6G10-5.js",
         "uuid": "3dbda",
         "id": "6G10-5",
-        "titre": "Tracer des droites, segments,...",
+        "titre": "Tracer des droites, segments, ...",
         "tags": {
           "interactif": false,
-          "amcType": "AMCOpen",
+          "amcType": "AMCHybride",
           "amc": true
         }
       },
@@ -8243,16 +8243,6 @@
           "amcType": "qcmMono",
           "amc": true
         }
-      },
-      "5N15": {
-        "url": "5e/5N15.js",
-        "uuid": "0a637",
-        "id": "5N15",
-        "titre": "Problèmes de ratio",
-        "tags": {
-          "interactif": false,
-          "amc": false
-        }
       }
     },
     "5N2": {
@@ -8317,6 +8307,16 @@
         "uuid": "60910",
         "id": "5P12",
         "titre": "Partager une quantité en deux ou trois parts selon un ratio donné",
+        "tags": {
+          "interactif": false,
+          "amc": false
+        }
+      },
+      "5P12-1": {
+        "url": "5e/5P12-1.js",
+        "uuid": "0a637",
+        "id": "5P12-1",
+        "titre": "Problèmes de ratio",
         "tags": {
           "interactif": false,
           "amc": false
