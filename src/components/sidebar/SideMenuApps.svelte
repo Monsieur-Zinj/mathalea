@@ -1,6 +1,6 @@
 <script>
-  import { getContext } from "svelte"
-  const { toggleThirdAppsChoiceDialog } = getContext("thirdAppsChoiceContext")
+  import { getContext } from 'svelte'
+  const { toggleThirdAppsChoiceDialog } = getContext('thirdAppsChoiceContext')
   // const thirdAppsChoiceContext = getContext("thirdAppsChoiceContext")
   // let toogleThirdAppsChoiceDialog
   // if (thirdAppsChoiceContext !== undefined) {
@@ -8,4 +8,10 @@
   // }
 </script>
 
-<button type="button" class="font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct" on:click={toggleThirdAppsChoiceDialog}> Applications tierces </button>
+<button
+  type="button"
+  class="font-bold text-xl text-coopmaths-struct dark:text-coopmathsdark-struct"
+  on:click={toggleThirdAppsChoiceDialog}
+>
+  Applications tierces
+</button>

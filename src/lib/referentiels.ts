@@ -8,7 +8,7 @@ export interface AppTierce {
   uuid: string
   title: string
   presentation: string
-  impPath: string
+  imgPath: string
 }
 
 export interface AppTierceGroup {
