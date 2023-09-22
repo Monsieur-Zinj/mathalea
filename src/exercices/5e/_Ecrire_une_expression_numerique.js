@@ -11,7 +11,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+//export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 /**
  * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
  * @author Jean-Claude Lhote
@@ -125,7 +126,6 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           if (!this.litteral) {
             texteCorr = ''
             if (!this.sup4) {
-              // texteCorr = `${expc}`
               const expc2 = expc.substring(1, expc.length - 1).split('=')
               texteCorr += `$${miseEnEvidence(expc2[0])} =$` + sp()
               for (let ee = 1; ee < expc2.length - 1; ee++) {
@@ -147,8 +147,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
             }
           } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
-          // reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
-          reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
+          reponse = parseInt(expc.split('=')[expc.split('=').length - 1].replace('$', ''))
           break
         case 4:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
@@ -164,12 +163,62 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       }
       if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.version > 2) {
+
+          /// vérifier qu'il n'y a plus d'OpenNUM
           if (!context.isAmc) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })
           } else {
-            texte += '<br>Détailler les calculs dans le cadre et coder le résultat.<br>'
+            texte += '<br>Détailler les calculs dans le cadre et coder le résultat ci-dessous.'
+            this.autoCorrection[i] = {
+              enonce: '',
+              enonceAvant: false,
+              propositions: [
+                {
+                  type: 'AMCOpen',
+                  propositions: [{
+                    enonce: texte,
+                    texte: texteCorr,
+                    statut: 3,
+                    pointilles: false
+                  }]
+                },
+                {
+                  type: 'AMCNum',
+                  propositions: [{
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: 'Résultat de cet enchaînement de calculs : ',
+                      valeur: [reponse],
+                      param: {
+                        digits: 2,
+                        decimals: 0,
+                        signe: false,
+                        approx: 0
+                      }
+                    }
+                  }]
+                }
+              ]
+            }
+
+
+
           }
           setReponse(this, i, reponse)
+        } else if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
+          this.autoCorrection[i] =
+        {
+          enonce: this.consigne + '<br>' + texte,
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: this.version, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              pointilles: this.version === 2  // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+            }
+          ]
+        }
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -158,7 +158,15 @@ export function sendToCapytaleSaveStudentAssignment () {
 }
 
 function sendToCapytaleActivityParams () {
-  return { exercicesParams: get(exercicesParams), globalOptions: get(globalOptions) }
+  const params = get(exercicesParams)
+  const options = get(globalOptions)
+  for (const param of params) {
+    if (param.alea !== undefined) {
+      param.alea = undefined
+    }
+  }
+  console.log(params, options)
+  return { exercicesParams: params, globalOptions: options }
 }
 
 export default async function handleCapytale () {

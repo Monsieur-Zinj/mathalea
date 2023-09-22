@@ -7425,7 +7425,8 @@
         "titre": "Traduire une phrase par une expression",
         "tags": {
           "interactif": false,
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "5C11-1": {
@@ -7435,7 +7436,8 @@
         "titre": "Traduire une expression par une phrase",
         "tags": {
           "interactif": false,
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "5C11-2": {
@@ -7445,7 +7447,8 @@
         "titre": "Traduire une succession d'opérations par une expression",
         "tags": {
           "interactif": false,
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "5C12": {
@@ -7456,7 +7459,7 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amcType": "AMCOpenNum",
+          "amcType": "AMCHybride",
           "amc": true
         }
       },
@@ -7468,7 +7471,7 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amcType": "AMCOpenNum",
+          "amcType": "AMCHybride",
           "amc": true
         }
       },
@@ -7923,7 +7926,8 @@
         "titre": "Traduire une phrase par une expression",
         "tags": {
           "interactif": false,
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "5L10-2": {
@@ -7945,7 +7949,8 @@
         "titre": "Traduire une expression par une phrase",
         "tags": {
           "interactif": false,
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "5L10-4": {
@@ -8018,7 +8023,8 @@
         "titre": "Calculer une expression littérale pour les valeurs données en détaillant les calculs",
         "tags": {
           "interactif": false,
-          "amc": false
+          "amcType": "AMCHybride",
+          "amc": true
         }
       },
       "5L14-2": {
@@ -8040,7 +8046,8 @@
         "titre": "Traduire une phrase par une expression et la calculer",
         "tags": {
           "interactif": false,
-          "amc": false
+          "amcType": "AMCHybride",
+          "amc": true
         }
       },
       "5L14-4": {

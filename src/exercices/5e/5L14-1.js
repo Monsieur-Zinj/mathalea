@@ -1,6 +1,7 @@
 import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Calculer une expression littérale pour les valeurs données en détaillant les calculs'
-
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  * @author Jean-Claude Lhote
   * Référence 5L14-1
