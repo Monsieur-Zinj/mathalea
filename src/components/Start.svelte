@@ -105,7 +105,7 @@
     bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
   }
   setContext('bibliothequeChoiceContext', {
-    toggleBibliothequeChoiceDialog: (path) => {
+    toggleBibliothequeChoiceDialog: (path: string[]) => {
       bibliothequePathToSection = path
       showBibliothequeChoiceDialog = !showBibliothequeChoiceDialog
       if (showBibliothequeChoiceDialog === false) {
@@ -137,6 +137,19 @@
   })
   addEventListener('popstate', urlToDisplay)
 
+  /**
+   * Gestion de l'URL
+   */
+  // Récupération des informations de l'URL
+  let isInitialUrlHandled = false
+  function urlToDisplay () {
+    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
+    globalOptions.update(() => {
+      return urlOptions
+    })
+    isInitialUrlHandled = true
+    zoom = Number(urlOptions.z)
+  }
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
     if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -240,16 +253,6 @@
       bubbles: true
     })
     document.dispatchEvent(newDataForAll)
-  }
-  // Récupération des informations de l'URL
-  let isInitialUrlHandled = false
-  function urlToDisplay () {
-    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
-    globalOptions.update(() => {
-      return urlOptions
-    })
-    isInitialUrlHandled = true
-    zoom = Number(urlOptions.z)
   }
 
   /**

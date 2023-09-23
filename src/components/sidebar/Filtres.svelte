@@ -1,119 +1,119 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  import Button from "../forms/Button.svelte"
-  import Chip from "../forms/Chip.svelte"
-  import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
+  import { createEventDispatcher } from 'svelte'
+  import Button from '../forms/Button.svelte'
+  import Chip from '../forms/Chip.svelte'
+  import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
 
   export let isVisible: boolean = false
   const levelsMap = new Map([
     [
-      "6e",
+      '6e',
       {
-        title: "Sixième",
-        values: ["6e"],
-      },
+        title: 'Sixième',
+        values: ['6e']
+      }
     ],
     [
-      "5e",
+      '5e',
       {
-        title: "Cinquième",
-        values: ["5e"],
-      },
+        title: 'Cinquième',
+        values: ['5e']
+      }
     ],
     [
-      "4e",
+      '4e',
       {
-        title: "Quatrième",
-        values: ["4e"],
-      },
+        title: 'Quatrième',
+        values: ['4e']
+      }
     ],
     [
-      "3e",
+      '3e',
       {
-        title: "Troisième",
-        values: ["3e"],
-      },
+        title: 'Troisième',
+        values: ['3e']
+      }
     ],
     [
-      "college",
+      'college',
       {
-        title: "Collège",
-        values: ["6e", "5e", "4e", "3e"],
-      },
+        title: 'Collège',
+        values: ['6e', '5e', '4e', '3e']
+      }
     ],
     [
-      "2e",
+      '2e',
       {
-        title: "Seconde",
-        values: ["2e"],
-      },
+        title: 'Seconde',
+        values: ['2e']
+      }
     ],
     [
-      "1e",
+      '1e',
       {
-        title: "Première",
-        values: ["1e"],
-      },
+        title: 'Première',
+        values: ['1e']
+      }
     ],
     [
-      "1techno",
+      '1techno',
       {
-        title: "Première Technologique",
-        values: ["1techno"],
-      },
+        title: 'Première Technologique',
+        values: ['1techno']
+      }
     ],
     [
-      "Ex",
+      'Ex',
       {
-        title: "Terminale Expert",
-        values: ["Ex"],
-      },
+        title: 'Terminale Expert',
+        values: ['Ex']
+      }
     ],
     [
-      "HP",
+      'HP',
       {
-        title: "Hors-Programme (Lycée)",
-        values: ["HP"],
-      },
+        title: 'Hors-Programme (Lycée)',
+        values: ['HP']
+      }
     ],
     [
-      "lycee",
+      'lycee',
       {
-        title: "Lycée",
-        values: ["2e", "1e", "1techno", "Ex", "HP"],
-      },
+        title: 'Lycée',
+        values: ['2e', '1e', '1techno', 'Ex', 'HP']
+      }
     ],
     [
-      "crpe",
+      'crpe',
       {
-        title: "CRPE",
-        values: ["crpe"],
-      },
-    ],
+        title: 'CRPE',
+        values: ['crpe']
+      }
+    ]
   ])
 
   const typesMap = new Map([
     [
-      "interactif",
+      'interactif',
       {
-        title: "Interactif",
-        values: ["interactif"],
-      },
+        title: 'Interactif',
+        values: ['interactif']
+      }
     ],
     [
-      "amc",
+      'amc',
       {
-        title: "AMC (AutoMultipleChoice)",
-        values: ["amc"],
-      },
+        title: 'AMC (AutoMultipleChoice)',
+        values: ['amc']
+      }
     ],
     [
-      "static",
+      'static',
       {
-        title: "Statique",
-        values: ["static"],
-      },
-    ],
+        title: 'Statique',
+        values: ['static']
+      }
+    ]
   ])
 
   // pour pouvoir différentier les ID des checkboxes
@@ -122,12 +122,12 @@
   $: selectedFilters = []
 
   let levelsBoxes = {}
-  const multipleSelections = ["college", "lycee"]
+  const multipleSelections = ['college', 'lycee']
   /**
    * Mise à jour des checkboxes des filtres de niveaux
    * (prise en compte des sélections multiples comme `college` ou `lycee`)
    */
-  function updateLevelsBoxes() {
+  function updateLevelsBoxes () {
     levelsBoxes = {}
     for (const key of levelsMap.keys()) {
       if (selectedFilters.includes(key)) {
@@ -150,7 +150,7 @@
    * Mise à jour des checkboxes des filtres de types
    * (prise en compte des sélections multiples comme `college` ou `lycee`)
    */
-  function updateTypesBoxes() {
+  function updateTypesBoxes () {
     typesBoxes = {}
     for (const key of typesMap.keys()) {
       if (selectedFilters.includes(key)) {
@@ -171,7 +171,7 @@
         return k
       }
     }
-    return ""
+    return ''
   }
 
   const dispatch = createEventDispatcher()
@@ -179,7 +179,7 @@
    * Gestion de la liste des filtres sélectionnés
    * @param {string} key la clé à ajouter/enlever
    */
-  function updateFilters(key) {
+  function updateFilters (key) {
     // on vérifie si la clé ne fait pas partie d'une clé multiple
     const group = isInOneMultipleSelectedFilters(key)
     if (group.length !== 0 && selectedFilters.includes(group)) {
@@ -230,16 +230,16 @@
       return a
     }
     // retrouver les niveaux/types sélectionnés (sans doublons)
-    const concatFilters = (array: string[], t: "level" | "type") => {
+    const concatFilters = (array: string[], t: 'level' | 'type') => {
       let filters = []
       for (const filter of array) {
         switch (t) {
-          case "level":
+          case 'level':
             if (levelsMap.has(filter)) {
               filters = filters.concat(levelsMap.get(filter).values).unique()
             }
             break
-          case "type":
+          case 'type':
             if (typesMap.has(filter)) {
               filters = filters.concat(typesMap.get(filter).values).unique()
             }
@@ -250,14 +250,22 @@
       }
       return filters
     }
-    const selectedLevels = [...concatFilters(selectedFilters, "level")]
-    const selectedTypes = [...concatFilters(selectedFilters, "type")]
-    dispatch("filters", { levels: selectedLevels, types: selectedTypes, size: selectedLevels.length + selectedTypes.length })
+    const selectedLevels = [...concatFilters(selectedFilters, 'level')]
+    const selectedTypes = [...concatFilters(selectedFilters, 'type')]
+    dispatch('filters', {
+      levels: selectedLevels,
+      types: selectedTypes,
+      size: selectedLevels.length + selectedTypes.length
+    })
   }
 </script>
 
 <!-- Chips des filtres -->
-<div class="{selectedFilters.length === 0 ? 'hidden' : 'flex'} flex-row flex-wrap text-sm mt-2 {isVisible ? 'mb-0' : 'mb-2'} ">
+<div
+  class="{selectedFilters.length === 0
+    ? 'hidden'
+    : 'flex'} flex-row flex-wrap text-sm mt-2 {isVisible ? 'mb-0' : 'mb-2'} "
+>
   {#each selectedFilters as filter}
     <Chip
       text={(levelsMap.get(filter) ?? typesMap.get(filter)).title}
@@ -272,7 +280,11 @@
 </div>
 <!-- Listes des filtres (déployée par bouton) -->
 <div class="{isVisible ? 'flex' : 'hidden'} flex-col px-4">
-  <div class="text-coopmaths-struct font-semibold text-sm border-b w-full border-coopmaths-struct">Types</div>
+  <div
+    class="text-coopmaths-struct font-semibold text-sm border-b w-full border-coopmaths-struct"
+  >
+    Types
+  </div>
   <ul>
     {#each Array.from(typesMap.keys()) as key, i}
       <li>
@@ -288,12 +300,21 @@
               updateFilters(key)
             }}
           />
-          <label for="checkbox-{key}-{i}-{timeTag}" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> {typesMap.get(key).title} </label>
+          <label
+            for="checkbox-{key}-{i}-{timeTag}"
+            class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+          >
+            {typesMap.get(key).title}
+          </label>
         </div>
       </li>
     {/each}
   </ul>
-  <div class="text-coopmaths-struct font-semibold text-sm border-b w-full border-coopmaths-struct mt-2">Niveaux</div>
+  <div
+    class="text-coopmaths-struct font-semibold text-sm border-b w-full border-coopmaths-struct mt-2"
+  >
+    Niveaux
+  </div>
   <ul>
     {#each Array.from(levelsMap.keys()) as key, i}
       <li>
@@ -309,7 +330,12 @@
               updateFilters(key)
             }}
           />
-          <label for="checkbox-{key}-{i}-{timeTag}" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> {levelsMap.get(key).title} </label>
+          <label
+            for="checkbox-{key}-{i}-{timeTag}"
+            class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+          >
+            {levelsMap.get(key).title}
+          </label>
         </div>
       </li>
     {/each}
