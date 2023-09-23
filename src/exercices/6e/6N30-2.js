@@ -11,7 +11,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, egal, calcul } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Placer un point d\'abscisse décimale'
-export const interactifReady = true
+export const interactifReady = false
+// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
