@@ -148,41 +148,41 @@ export function labelPoint (...points) {
       A = unPoint.c2d
     } else {
       A = unPoint
+    }
 
-      let x, y
-      if (A.nom !== undefined) {
-        x = A.x
-        y = A.y
-        // if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
-        switch (A.positionLabel) {
-          case 'left':
-            objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y, 'milieu', color[0], taille, 'middle', true))
-            break
-          case 'right':
-            objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y, 'milieu', color[0], taille, 'middle', true))
-            break
-          case 'below':
-            objets.push(texteParPosition(A.nom, x, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
-            break
-          case 'above':
-            objets.push(texteParPosition(A.nom, x, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
-            break
-          case 'above left':
-            objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
-            break
-          case 'above right':
-            objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
-            break
-          case 'below left':
-            objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
-            break
-          case 'below right':
-            objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
-            break
-          default:
-            objets.push(texteParPosition(A.nom, x, y, 'milieu', color[0], taille, 'middle', true))
-            break
-        }
+    let x, y
+    if (A.nom !== undefined) {
+      x = A.x
+      y = A.y
+      // if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
+      switch (A.positionLabel) {
+        case 'left':
+          objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y, 'milieu', color[0], taille, 'middle', true))
+          break
+        case 'right':
+          objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y, 'milieu', color[0], taille, 'middle', true))
+          break
+        case 'below':
+          objets.push(texteParPosition(A.nom, x, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+          break
+        case 'above':
+          objets.push(texteParPosition(A.nom, x, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+          break
+        case 'above left':
+          objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+          break
+        case 'above right':
+          objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y + 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+          break
+        case 'below left':
+          objets.push(texteParPosition(A.nom, x - 10 / context.pixelsParCm, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+          break
+        case 'below right':
+          objets.push(texteParPosition(A.nom, x + 10 / context.pixelsParCm, y - 10 / context.pixelsParCm, 'milieu', color[0], taille, 'middle', true))
+          break
+        default:
+          objets.push(texteParPosition(A.nom, x, y, 'milieu', color[0], taille, 'middle', true))
+          break
       }
     }
   }

@@ -76,7 +76,7 @@ export default function ReperagePaveDroit () {
     const deltay = profondeur / nbgraduationy
     const deltaz = hauteur / nbgraduationz
     const I = point3d(deltax, 0, 0, true, 'I', 'below right')
-    const J = point3d(0, deltay, 0, false, 'J', 'left')
+    const J = point3d(0, deltay, 0, false, 'J', 'above left')
     const K = point3d(0, 0, deltaz, true, 'K', 'left')
 
     objetsAtracer.push(labelPoint(A, B, C, D, E, F, G, H, I, J, K))
@@ -142,7 +142,7 @@ export default function ReperagePaveDroit () {
       x = 0
       y = 0
       z = 0
-      while (x === 0 && y === 0 && z === 0) {
+      while ((x === 0 && y === 0 && z === 0) || (x + y + y === 1)) {
         x = randint(0, nbgraduationx)
         y = randint(0, nbgraduationy)
         z = randint(0, nbgraduationz)
@@ -150,7 +150,7 @@ export default function ReperagePaveDroit () {
       pointCoord = [x, y, z]
       pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`, 'below right')
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'blue', true)
-      s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), '#f15929', true)
+      s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), 'green', true)
       s3 = arete3d(point3d(pointAplacer.x, pointAplacer.y, 0), pointAplacer, 'red', true)
       s1.c2d.epaisseur = 3
       s2.c2d.epaisseur = 3
@@ -158,30 +158,30 @@ export default function ReperagePaveDroit () {
       t = tracePoint(pointAplacer, 'red')
       t.epaisseur = 2
       t.taille = 6
-      objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
+      objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t,labelPoint(pointAplacer)].concat(objetsAtracer)
       if (listeTypesDeQuestions[i] === 'placer') {
         texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
         texteCorr = mathalea2d({
           xmin: -1,
           xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)),
           ymin: -1,
-          ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
+          ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
           scale: 0.6,
           style: 'display: block; margin-top:20px;'
         }, objetsAtracerCorr)
-        texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], '#f15929')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'green')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
       } else {
         texte = `Donner les coordonnées du point $${lettreDepuisChiffre(i + 12)}$`
-        objetsAtracer.push(labelPoint(pointAplacer))
+        objetsAtracer.push( tracePoint(pointAplacer, 'blue'), labelPoint(pointAplacer))
         texteCorr = mathalea2d({
           xmin: -1,
           xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)),
           ymin: -1,
-          ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
+          ymax:  1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
           scale: 0.6,
           style: 'display: block; margin-top:20px;'
         }, objetsAtracerCorr)
-        texteCorr += `<br>Le point $${lettreDepuisChiffre(i + 12)}$ a pour coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
+        texteCorr += `<br>Le point $${lettreDepuisChiffre(i + 12)}$ a pour coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'green')};${miseEnEvidence(pointCoord[2], 'red')})$.`
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -196,7 +196,8 @@ export default function ReperagePaveDroit () {
       xmin: -1,
       xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(radians(context.anglePerspective)),
       ymin: -1,
-      ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
+      ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
+      scale: 0.6,
       style: 'display: block; margin-top:20px;'
     }, objetsAtracer) + (context.vue === 'diap' ? '</center>' : '')
     listeQuestionsToContenu(this)
