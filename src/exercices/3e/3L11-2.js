@@ -93,7 +93,7 @@ export default function ReductionSiPossible () {
           if (b + d === 0) {
             if (a + c === 0) {
               texteCorr += '=0$'
-              reponse = '0'
+              reponse = 0
               coeffa = 0
               constb = 0
             } else {
@@ -105,7 +105,7 @@ export default function ReductionSiPossible () {
           } else {
             if (a + c === 0) {
               texteCorr += `=${b + d}$`
-              reponse = `${b + d}`
+              reponse = b + d
               constb = b + d
               coeffa = 0
             } else {
@@ -122,7 +122,7 @@ export default function ReductionSiPossible () {
           if (b + d === 0) {
             if (a + c === 0) {
               texteCorr += '=0$'
-              reponse = '0'
+              reponse = 0
               coeffa = 0
               constb = 0
             } else {
@@ -134,7 +134,7 @@ export default function ReductionSiPossible () {
           } else {
             if (a + c === 0) {
               texteCorr += `=${b + d}$`
-              reponse = `${b + d}$`
+              reponse = b + d
               coeffa = 0
               constb = b + d
             } else {
