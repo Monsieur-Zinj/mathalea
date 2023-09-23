@@ -104,7 +104,7 @@ export const CLAVIER_LYCEE = {
 
     ],
     [
-      { class: 'separator w10' },
+      { class: 'separator w5' },
       {
         class: 'small',
         latex: '(#0)',
@@ -125,7 +125,8 @@ export const CLAVIER_LYCEE = {
         latex: '\\{#0\\}',
         insert: '$$\\{#0\\}$$' /// Accolades
       },
-      { class: 'separator w10' },
+      { latex: '\\emptyset' },
+      { class: 'separator w5' },
       { label: '1', key: '1' },
       { label: '2', key: '2' },
       { label: '3', key: '3' },

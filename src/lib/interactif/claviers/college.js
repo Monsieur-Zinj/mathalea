@@ -70,8 +70,8 @@ export const CLAVIER_COLLEGE = {
       { class: 'separator w10' }
     ],
     [
-      { class: 'tex', label: '<i>c</i>' },
-      { class: 'tex', label: '<i>z</i>' },
+      { class: 'tex', label: 'c' },
+      { class: 'tex', label: 'z' },
       { class: 'separator w5' },
       { label: '1', key: '1' },
       { label: '2', key: '2' },
