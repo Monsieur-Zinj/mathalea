@@ -3,8 +3,8 @@ export const CLAVIER_GRECTRIGO = {
   tooltip: 'Clavier mathématique (lettres grecques et trigonométrie)', // Tooltip when hovering over the label
   rows: [
     [
-      { label: '\\alpha', latex: '\\alpha' },
-      { label: '\\beta', latex: '\\beta' },
+      { latex: '\\alpha' },
+      { latex: '\\beta' },
       { class: 'separator w5' },
       { label: '7', key: '7' },
       { label: '8', key: '8' },
@@ -28,8 +28,8 @@ export const CLAVIER_GRECTRIGO = {
       }
     ],
     [
-      { label: '\\gamma', latex: '\\gamma' },
-      { label: '\\delta', latex: '\\delta' },
+      { latex: '\\gamma' },
+      { latex: '\\delta' },
       { class: 'separator w5' },
       { label: '4', latex: '4' },
       { label: '5', key: '5' },
@@ -41,21 +41,21 @@ export const CLAVIER_GRECTRIGO = {
       { latex: 'f' }
     ],
     [
-      { label: '\\epsilon', latex: '\\epsilon' },
-      { label: '\\theta', latex: '\\theta' },
+      { latex: '\\epsilon' },
+      { latex: '\\theta' },
       { class: 'separator w5' },
       { label: '1', key: '1' },
       { label: '2', key: '2' },
       { label: '3', key: '3' },
       { latex: '-' },
       { class: 'separator w5' },
-      { label: 'cos', key: 'cos(' },
-      { label: 'sin', key: 'sin(' },
-      { label: 'tan', key: 'tan(' }
+      { label: 'cos', latex: 'cos(#0)' },
+      { label: 'sin', latex: 'sin(#0)' },
+      { label: 'tan', latex: 'tan(#0)' }
     ],
     [
-      { label: '\\lambda', latex: '\\lambda' },
-      { label: '\\omega', latex: '\\omega' },
+      { latex: '\\lambda' },
+      { latex: '\\omega' },
       { class: 'separator w5' },
       { label: '0', key: '0' },
       { latex: ',' },
@@ -81,19 +81,7 @@ export const CLAVIER_GRECTRIGO = {
   ]
 }
 
-/*
-const grecTrigoKeyboard = {
-  grecTrigoKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (lettres grecTrigoques)', // Tooltip when hovering over the label
-    layer: 'grecTrigoLayer'
-  }
-}
-export const clavierTrigo = {
-  customVirtualKeyboardLayers: grecTrigoKeyboardLayer,
-  customVirtualKeyboards: grecTrigoKeyboard,
-  virtualKeyboards: 'grecTrigoKeyboard roman',
-  */
+
 export const raccourcisTrigo = {
   alpha: { mode: 'math', value: '\\alpha' },
   beta: { mode: 'math', value: '\\beta' },
@@ -105,8 +93,7 @@ export const raccourcisTrigo = {
   lambda: { mode: 'math', value: '\\lambda' },
   '*': { mode: 'math', value: '\\times' },
   '.': { mode: 'math', value: ',' },
-  cos: { mode: 'math', value: 'cos(' },
-  sin: { mode: 'math', value: 'sin(' },
-  tan: { mode: 'math', value: 'tan(' }
+ cos: { mode: 'math',  value: 'cos(#0)' },
+ sin: { mode: 'math', value: 'sin(#0)' },
+tan: { mode: 'math', value: 'tan(#0)' }
 }
-// }

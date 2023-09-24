@@ -179,11 +179,7 @@ export const CLAVIER_LYCEE = {
   ]
 }
 
-export const // clavierLycee = {
-  // customVirtualKeyboardLayers: lyceeKeyboardLayer,
-  // customVirtualKeyboards: lyceeKeyboard,
-  // virtualKeyboards: 'lyceeKeyboard roman',
-  raccourcisLycee = {
+export const raccourcisLycee = {
     '²': { mode: 'math', value: '^2' },
     '³': { mode: 'math', value: '^3' },
     D: { mode: 'math', value: 'd' },
@@ -202,7 +198,7 @@ export const // clavierLycee = {
     lim: { mode: 'math', value: '\\lim_{#0\\to\\ #1}}' },
     som: { mode: 'math', value: '\\sum_#0^#1' },
     Un: { mode: 'math', value: 'U_n' },
-    ln: { mode: 'math', value: '\\ln' },
+    ln: { mode: 'math', value: '\\ln(#0)' },
     exp: { mode: 'math', value: 'e^#0' }, //
     parmi: { mode: 'math', value: '\\tbinom{#0}{#1}' },
     pasachantb: { mode: 'math', value: 'P_{#0}({#1})' },
@@ -224,11 +220,3 @@ export const // clavierLycee = {
     gdZ: { mode: 'math', value: '\\mathbb{Z}' },
     gdN: { mode: 'math', value: '\\mathbb{N}' }
   }
-  //,
-  // virtualKeyboards: 'numeric roman',
-  // virtualKeyboardMode: 'manual'
-  // "auto": on touch-enabled devices, show the virtual keyboard panel when the mathfield is focused, otherwise, don’t show it.
-  // "manual": a toggle button to control the virtual keyboard panel is displayed in the mathfield
-  // "onfocus": the virtual keyboard panel is displayed when the mathfield is focused
-  // "off": never show the virtual keyboard panel
-// }
