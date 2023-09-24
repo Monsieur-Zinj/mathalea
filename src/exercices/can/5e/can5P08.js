@@ -67,6 +67,8 @@ export default function Proportionnalite3 () {
        
         `
         }
+        this.reponse = frac
+        this.formatInteractif = 'fractionEgale'
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ kg'
         break
