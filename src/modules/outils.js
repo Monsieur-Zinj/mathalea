@@ -145,6 +145,7 @@ export function gestionnaireFormulaireTexte ({
       }
     }
   }
+  if (listeIndex.length===0) listeIndex = [defaut] // EE : Le cas où finalement listeIndex est vide car la saisie n'était pas un paramètre attendu.
   if (melange != null && compteOccurences(listeIndex, melange)) {
     listeIndex = rangeMinMax(min, max)
   }
