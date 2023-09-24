@@ -6,11 +6,6 @@ export const CLAVIER_COLLEGE6EME = {
     [
       { class: 'separator w5' },
       { label: '7', key: '7' },
-      // Will display the label using the system font. To display
-      // with the TeX font, use:
-      // { class: "tex", label: "7", key: "7" },
-      // or
-      // { latex: "7"},
       { label: '8', key: '8' },
       { label: '9', key: '9' },
       { latex: '\\div' },
@@ -77,22 +72,6 @@ export const CLAVIER_COLLEGE6EME = {
   ]
 }
 
-/*
-const college6emeKeyboard = {
-  college6emeKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
-    layer: 'college6emeLayer'
-  }
-}
-
-export const clavierCollege6eme = {
-  customVirtualKeyboardLayers: college6emeKeyboardLayer,
-  customVirtualKeyboards: college6emeKeyboard,
-  virtualKeyboards: 'college6emeKeyboard roman',
-  virtualKeyboardLayout: 'azerty',
-  mathModeSpace: '\\,',
-  */
 export const raccourcis6eme = {
   D: { mode: 'math', value: 'd' },
   '*': { mode: 'math', value: '\\times' },
@@ -103,11 +82,3 @@ export const raccourcis6eme = {
   '/': { mode: 'math', value: '\\frac{#@}{#1}' },
   ' ': { mode: 'math', value: '\\,' }
 }
-/*,
-  // virtualKeyboards: 'numeric roman',
-  virtualKeyboardMode: 'manual'
-  // "auto": on touch-enabled devices, show the virtual keyboard panel when the mathfield is focused, otherwise, don’t show it.
-  // "manual": a toggle button to control the virtual keyboard panel is displayed in the mathfield
-  // "onfocus": the virtual keyboard panel is displayed when the mathfield is focused
-  // "off": never show the virtual keyboard panel
-} */
