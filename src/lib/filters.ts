@@ -91,9 +91,7 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
   }
 
   meetCriterion (items: T[]): T[] {
-    const list: [Criterion<T>, Criterion<T>, ...Criterion<T>[]] = [...this.criteriaList]
-    const firstCriterion: Criterion<T> = list.pop()
-    const secondCriterion: Criterion<T> = list.pop()
+    const [firstCriterion, secondCriterion, ...list] = [...this.criteriaList]
     let resultCriterion = new OrCriteria<T>(firstCriterion, secondCriterion)
     for (const criterion of list) {
       resultCriterion = new OrCriteria<T>(resultCriterion, criterion)
