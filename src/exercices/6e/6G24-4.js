@@ -11,7 +11,8 @@ import { context } from '../../modules/context.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
-export const interactifReady = true
+export const interactifReady = false
+// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpenNum'
