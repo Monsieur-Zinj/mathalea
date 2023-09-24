@@ -5971,7 +5971,7 @@
         "id": "6G24-4",
         "titre": "Compléter un nuage de points symétriques",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpenNum",
           "amc": true
@@ -6578,7 +6578,7 @@
         "id": "6N11-2",
         "titre": "Placer un point d'abscisse entière (grands nombres)",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpen",
           "amc": true
@@ -6715,7 +6715,7 @@
         "id": "6N21",
         "titre": "Utiliser les abscisses fractionnaires",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCHybride",
           "amc": true
@@ -6727,7 +6727,7 @@
         "id": "6N21-1",
         "titre": "Utiliser des abscisses fractionnaires (niv 2)",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpen",
           "amc": true
@@ -6941,7 +6941,7 @@
         "id": "6N30-2",
         "titre": "Placer un point d'abscisse décimale",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpen",
           "amc": true
@@ -7601,7 +7601,7 @@
         "id": "5G11-6",
         "titre": "Compléter un nuage de points symétriques",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpenNum",
           "amc": true
@@ -8428,7 +8428,7 @@
         "id": "5R11-2",
         "titre": "Placer un point d'abscisse un nombre relatif",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpen",
           "amc": true
@@ -10271,7 +10271,8 @@
         "id": "3F13",
         "titre": "Lire les antécédents d'un nombre à partir d'un graphique",
         "tags": {
-          "interactif": false,
+          "interactif": true,
+          "interactifType": "mathLive",
           "amc": false
         }
       },
