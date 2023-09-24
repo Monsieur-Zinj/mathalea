@@ -8,12 +8,15 @@ export const titre = 'Vidéo'
 
 class ressourceVideo {
   typeExercice: string
-  numeroExercice: number
-  sup: string
+  numeroExercice!: number
+  sup!: string
+  sup2?: string
   titre: string
   container: HTMLDivElement
   iframe: HTMLIFrameElement
   fieldUrl: HTMLInputElement
+  fieldText: HTMLInputElement
+  teacherText: HTMLDivElement
   iTooltip: HTMLButtonElement
   button: HTMLButtonElement
   constructor () {
@@ -32,6 +35,7 @@ class ressourceVideo {
       this.iframe.setAttribute('width', '100%')
       this.iframe.setAttribute('height', this.iframe.offsetWidth * 0.75 + '')
     }
+    this.teacherText = document.createElement('div')
     window.addEventListener('resize', updateVideoSize)
     this.container.addEventListener('addedToDom', updateVideoSize)
 
@@ -40,6 +44,8 @@ class ressourceVideo {
     // /!\ pas de mise en formee ici !!!
     // this.iframe.classList.add('my-10')
     this.fieldUrl = createTextInput({ placeholder: 'URL', autoCorrect: false })
+    this.fieldText = createTextInput({ placeholder: 'Consigne éventuelle' })
+    this.fieldText.style.display = 'block'
     this.button = createButon()
     const tooltip = `Formats supportés : 
 - lien direct vers la vidéo
@@ -51,13 +57,19 @@ class ressourceVideo {
 - dai.ly
 - vimeo.com`
     this.iTooltip = createIButton({ tooltip, direction: 'bottom' })
-    this.container.append(this.fieldUrl, this.button, this.iTooltip, this.iframe)
+    this.container.append(this.fieldUrl, this.iTooltip, this.fieldText, this.teacherText, this.button,  this.iframe)
     this.button.addEventListener('click', () => {
       // On transforme https://youtu.be/Jup128waBI8 en https://www.youtube.com/embed/Jup128waBI8
       this.updateVideoFromUrl()
       this.sup = encodeURIComponent(this.fieldUrl.value)
+      if (this.fieldText.value !== '') {
+        this.sup2 = encodeURIComponent(this.fieldText.value)
+      }
       exercicesParams.update(l => {
-        l[this.numeroExercice].sup = encodeURIComponent(this.fieldUrl.value)
+        l[this.numeroExercice].sup = this.sup
+        if (this.fieldText.value !== '') {
+          l[this.numeroExercice].sup2 = encodeURIComponent(this.fieldText.value)
+        }
         return l
       })
     })
@@ -66,6 +78,7 @@ class ressourceVideo {
   get html () {
     if (get(globalOptions).v === 'eleve') {
       this.fieldUrl.remove()
+      this.fieldText.remove()
       this.button.remove()
       this.iTooltip.remove()
     }
@@ -73,6 +86,9 @@ class ressourceVideo {
       this.iframe.src = decodeURIComponent(this.sup)
       this.fieldUrl.value = decodeURIComponent(this.sup)
       this.updateVideoFromUrl()
+    }
+    if (this.sup2 !== undefined) {
+      this.teacherText.textContent = decodeURIComponent(this.sup2)
     }
     return this.container
   }
@@ -104,6 +120,8 @@ class ressourceVideo {
     } else {
       this.iframe.src = this.fieldUrl.value
     }
+    this.teacherText.textContent = this.fieldText.value
+    this.titre = this.fieldText.value
   }
 }
 
