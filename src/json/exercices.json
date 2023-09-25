@@ -2205,11 +2205,23 @@
     "url": "3e/3C10-2.js",
     "uuid": "379cd",
     "id": "3C10-2",
-    "titre": "Donner l'écriture entière ou fractionnaire d'une puissance",
+    "titre": "Effectuer des calculs qu'avec des puissances",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
+      "amc": true
+    }
+  },
+  "3C10-3": {
+    "url": "3e/3C10-3.js",
+    "uuid": "31bd7",
+    "id": "3C10-3",
+    "titre": "Utiliser la notation puissance",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amcType": "AMCOpen",
       "amc": true
     }
   },
@@ -3657,7 +3669,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amc": false
+      "amcType": "AMCHybride",
+      "amc": true
     }
   },
   "4C30-2": {
@@ -3692,7 +3705,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "listeDeroulante",
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     }
   },
   "4C32": {
@@ -3737,7 +3751,8 @@
     "titre": "Problèmes avec des puissances de 10 et des conversions",
     "tags": {
       "interactif": false,
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     }
   },
   "4C32-4": {
@@ -3807,7 +3822,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
-      "amc": false
+      "amcType": "qcmMono",
+      "amc": true
     }
   },
   "4C37": {
@@ -6331,8 +6347,9 @@
     "id": "6G10-1",
     "titre": "Donner description et notation de droites, segments et demi-droites",
     "tags": {
-      "interactif": false,
-      "amcType": "AMCOpen",
+      "interactif": true,
+      "interactifType": "qcm",
+      "amcType": "qcmMult",
       "amc": true
     }
   },
