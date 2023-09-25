@@ -14,7 +14,6 @@ export default class Exercice {
   sup2: any
   sup3: any
   sup4: any
-  nouvelleVersion?: (numeroExercice?: number) => void
   correctionInteractive?: (i?: number) => string
   duree?: number
   seed?: string
@@ -198,6 +197,9 @@ export default class Exercice {
    * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
    * @returns {boolean} true si la question n'a jamais été posée
    */
+  }
+  nouvelleVersion (numeroExercice?: number): void {
+
   }
 
   questionJamaisPosee (i: number, ...args:(string|number)[]) {
