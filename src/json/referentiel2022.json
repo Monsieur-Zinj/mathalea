@@ -12514,6 +12514,17 @@
           "amc": false
         }
       },
+      "2N42-1": {
+        "url": "2e/2N42-1.js",
+        "uuid": "ef686",
+        "id": "2N42-1",
+        "titre": "Exprimer une variable en fonction des autres",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": false
+        }
+      },
       "2N42-3": {
         "url": "2e/2N42-3.js",
         "uuid": "327cf",
