@@ -12,6 +12,8 @@ import Decimal from 'decimal.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const titre = 'Utiliser les ordres de grandeur pour vérifier ses résultats'
 
 export const dateDePublication = '23/05/2022'
@@ -19,7 +21,6 @@ export const dateDeModifImportante = '18/06/2022'
 
 /**
  * @author Guillaume Valmont
- * Référence 4C36
  * Reformulation de l'énoncé et ajout de problèmes avec des puissances de 10 par Guillaume Valmont le 18/06/2022
 */
 export const uuid = '975cc'
@@ -39,7 +40,7 @@ export default class nomExercice extends Exercice {
     this.autoCorrection = []
 
     const problemesNaturels = [
-      {
+     /* {
         intitule: 'la distance entre la Terre et la Lune',
         puissanceDe10: 5,
         unite: 'km'
@@ -48,7 +49,7 @@ export default class nomExercice extends Exercice {
         intitule: 'le rayon de la Terre',
         puissanceDe10: 3,
         unite: 'km'
-      },
+      },*/
       {
         intitule: 'la hauteur d\'un immeuble',
         puissanceDe10: 2,
