@@ -131,7 +131,7 @@ export function gestionnaireFormulaireTexte ({
   if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== melange)) throw Error(`La fonction gestionnaireFormulaireTexte réclame un paramètre defaut (ici, ${defaut}) compris entre min (ici, ${min}) et max (ici, ${max})`)
   let listeIndex, listeIndexProvisoire
   listeIndex = []
-  if (saisie === '' || saisie === null || saisie === undefined) { // Si aucune liste n'est saisie
+  if (typeof (saisie) === 'boolean' || saisie === '' || saisie === null || saisie === undefined) { // Si aucune liste n'est saisie
     listeIndex = [defaut]
   } else {
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
