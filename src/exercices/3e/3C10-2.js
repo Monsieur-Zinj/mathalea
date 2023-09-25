@@ -1,5 +1,6 @@
 import PuissancesDunRelatif1 from '../4e/4C33-1.js'
-export const titre = 'Donner l\'écriture entière ou fractionnaire d\'une puissance'
+
+export const titre = 'Effectuer des calculs qu\'avec des puissances'
 export const dateDePublication = '17/09/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'

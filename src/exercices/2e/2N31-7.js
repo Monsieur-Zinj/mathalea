@@ -19,7 +19,7 @@ export const interactifReady = true
  */
 export const uuid = 'f49ff'
 export const ref = '2N31-7'
-export default function CalculsAvecPuissancesDeDix () {
+export default function CalculsAvecPuissancesDeDixBis () {
   Exercice.call(this)
   this.sup = 1
   this.nbQuestions = 5

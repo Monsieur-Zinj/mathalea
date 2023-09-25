@@ -26,7 +26,7 @@ export default function ExerciceFractionsDifferentesEcritures () {
   this.sup = false
   this.sup2 = '11'
   this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-  this.besoinFormulaire2Texte = ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
+  this.besoinFormulaire2Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

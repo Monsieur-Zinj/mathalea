@@ -17,5 +17,5 @@ export default function EncadrerFractionEntre2Entiers2nde () {
   this.lycee = true
   this.sup = false
   this.sup2 = '10'
-  this.besoinFormulaire2Texte = ['Dénominateurs à choisir (nombres séparés par des tirets', 'De 2 à 9 pour les dénominateurs correspondants\n10 Mélange']
+  this.besoinFormulaire2Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9 pour les dénominateurs correspondants\n10 Mélange']
 }
