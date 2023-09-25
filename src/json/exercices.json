@@ -5519,6 +5519,16 @@
       "amc": false
     }
   },
+  "5R12-1": {
+    "url": "5e/5R12-1.ts",
+    "uuid": "4dadb",
+    "id": "5R12-1",
+    "titre": "Placer un point dans un repère",
+    "tags": {
+      "interactif": false,
+      "amc": false
+    }
+  },
   "5R12-2": {
     "url": "5e/5R12-2.js",
     "uuid": "ab968",
