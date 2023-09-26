@@ -9,6 +9,16 @@ export interface Feature {
   type: string
 }
 
+export interface FeatureParams {
+  type: string
+  isActive: boolean
+}
+
+export interface FeatureJC {
+  interactif?: FeatureParams
+  amc?: FeatureParams
+}
+
 export interface AppTierce {
   uuid: string
   title: string
@@ -41,7 +51,8 @@ export interface ItemInReferentielExamen extends ItemInReferentielStatic {
   numeroInitial: string
 }
 
-export interface ItemInReferentielExamenWithoutTex extends ItemInReferentielBase {
+export interface ItemInReferentielExamenWithoutTex
+  extends ItemInReferentielBase {
   png: string[]
   pngCor: string[]
   annee: string
