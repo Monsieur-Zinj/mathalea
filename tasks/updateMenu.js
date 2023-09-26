@@ -69,27 +69,45 @@ async function readInfos (dirPath) {
           } else {
             console.error('\x1b[31m%s\x1b[0m', `titre non trouvé dans ${filePath}`)
           }
-          infos.tags = {}
+          const matchDate = data.match(/export const dateDePublication = '([^']*)'/)
+          if (matchDate) {
+            infos.datePublication = matchDate[1]
+          }
+          const matchDateModif = data.match(/export const dateDeModifImportante = '([^']*)'/)
+          if (matchDateModif) {
+            infos.dateModification = matchDateModif[1]
+          }
+          infos.features = []
           const matchInteractif = data.match(/export const interactifReady = (.*)/)
+          const matchInteractifType = data.match(/export const interactifType = (.*)/)
           if (matchInteractif && matchInteractif[1] === 'true') {
-            infos.tags.interactif = true
+            infos.features.push({
+              name: 'interactif',
+              isActive: true,
+              type: matchInteractifType[1] || ''
+            })
           } else {
-            infos.tags.interactif = false
+            infos.features.push({
+              name: 'interactif',
+              isActive: false,
+              type: ''
+            })
             exercicesNonInteractifs.push(filePath)
           }
-          const matchInteractifType = data.match(/export const interactifType = '(.*)'/)
-          if (matchInteractifType) {
-            infos.tags.interactifType = matchInteractifType[1]
-          }
+          const matchAmc = data.match(/export const amcReady = (.*)/)
           const matchAmcType = data.match(/export const amcType = '(.*)'/)
           if (matchAmcType) {
-            infos.tags.amcType = matchAmcType[1]
-          }
-          const matchAmc = data.match(/export const amcReady = (.*)/)
-          if (matchAmc && matchAmc[1] === 'true') {
-            infos.tags.amc = true
+            infos.features.push({
+              name: 'AMC',
+              isActive: true,
+              type: matchAmcType[1] || ''
+            })
           } else {
-            infos.tags.amc = false
+            infos.features.push({
+              name: 'AMC',
+              isActive: false,
+              type: ''
+            })
           }
           if (infos.id !== undefined) {
             exercicesShuffled[infos.id] = infos
