@@ -79,6 +79,7 @@ export default class EngrenagesAnimes extends Exercice {
     divM2d.setAttribute('id', 'divM2d')
     let roues = []
     let rouesCorr
+    let animRoueA, animRoueB,animRoueC,compteurRoueA,compteurRoueB,compteurRoueC
     switch (listeTypesDeQuestions[0]) {
       case 1:
         do {
@@ -105,12 +106,16 @@ export default class EngrenagesAnimes extends Exercice {
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
-            const animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
-            const animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+            do {
+              animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
+              animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+            } while (animRoueA == null || animRoueB == null)
             animRoueA.beginElement()
             animRoueB.beginElement()
-            const compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-            const compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+            do {
+              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+            } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
             interA = setInterval(() => {
@@ -128,7 +133,7 @@ export default class EngrenagesAnimes extends Exercice {
               }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
             }
           } catch (e) {
-            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d })
+            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d: JSON.stringify(divM2d), animRoueA,animRoueB,compteurRoueA,compteurRoueB })
           }
         }
 
@@ -158,19 +163,23 @@ export default class EngrenagesAnimes extends Exercice {
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
-            const animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
-            const animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+            do {
+              animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
+              animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+            } while (animRoueA == null || animRoueB == null)
             animRoueA.beginElement()
             animRoueB.beginElement()
-            const compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-            const compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+            do {
+              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+            } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
             interA = setInterval(() => {
-              compteurRoueA.innerHTML = parseInt(compteurRoueA.innerHTML) + 1
+              compteurRoueA.innerHTML = String(parseInt(compteurRoueA.innerHTML) + 1)
             }, animRoueA.getAttribute('dur') * 1000)
             interB = setInterval(() => {
-              compteurRoueB.innerHTML = parseInt(compteurRoueB.innerHTML) + 1
+              compteurRoueB.innerHTML = String( parseInt(compteurRoueB.innerHTML) + 1)
             }, animRoueB.getAttribute('dur') * 1000)
             if (this.sup2) {
               interABC = setInterval(() => {
@@ -181,7 +190,7 @@ export default class EngrenagesAnimes extends Exercice {
               }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
             }
           } catch (e) {
-            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d })
+            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d: JSON.stringify(divM2d), animRoueA,animRoueB,compteurRoueA,compteurRoueB })
           }
         }
 
@@ -213,12 +222,16 @@ export default class EngrenagesAnimes extends Exercice {
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
-            const animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
-            const animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+            do {
+              animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
+              animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+            } while (animRoueA == null || animRoueB == null)
             animRoueA.beginElement()
             animRoueB.beginElement()
-            const compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-            const compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+            do {
+              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+            } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
             interA = setInterval(() => {
@@ -236,7 +249,7 @@ export default class EngrenagesAnimes extends Exercice {
               }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
             }
           } catch (e) {
-            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d })
+            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d: JSON.stringify(divM2d), animRoueA,animRoueB,compteurRoueA,compteurRoueB })
           }
         }
         break
@@ -264,12 +277,16 @@ export default class EngrenagesAnimes extends Exercice {
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
-            const animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
-            const animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+            do {
+              animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
+              animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+            } while (animRoueA == null || animRoueB == null)
             animRoueA.beginElement()
             animRoueB.beginElement()
-            const compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-            const compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+            do {
+              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+            } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
             interA = setInterval(() => {
@@ -287,7 +304,7 @@ export default class EngrenagesAnimes extends Exercice {
               }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
             }
           } catch (e) {
-            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d })
+            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d: JSON.stringify(divM2d), animRoueA,animRoueB,compteurRoueA,compteurRoueB })
           }
         }
         break
@@ -329,19 +346,24 @@ export default class EngrenagesAnimes extends Exercice {
         texteCorr += nbToursC * nbDentsRoueC % nbDentsRoueB === 0 ? `Ce nombre est un multiple du nombre de dents de la roue du milieu, donc elle a effectué exactement $\\dfrac{${nbToursC * nbDentsRoueC}}{${nbDentsRoueB}}=${nbToursC * nbDentsRoueC / nbDentsRoueB}$ tours.<br>` : 'Ce nombre n\'est un multiple du nombre de dents de la roue du milieu, donc elle ne sera pas dans sa position initiale.<br>'
         texteCorr += `Il faudra attendre que la roue de gauche tourne de $${nbToursAbc * nbDentsRoueA}$ dents soit $${nbToursAbc}$ tours, la roue du milieu en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueB}$ et la roue de droite en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueC}$.<br>`
         remiseAZero = () => {
+          try {
           clearInterval(interABC)
           clearInterval(interA)
           clearInterval(interB)
           clearInterval(interC)
-          const animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
-          const animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
-          const animRoueC = divM2d.querySelector(`#animRoue${roueCCorr.id}`)
-          animRoueA.beginElement()
-          animRoueB.beginElement()
-          animRoueC.beginElement()
-          const compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-          const compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
-          const compteurRoueC = divM2d.querySelector(`#compteur${roueCCorr.id}`)
+          do {
+          animRoueA = divM2d.querySelector(`#animRoue${roueACorr.id}`)
+          animRoueB = divM2d.querySelector(`#animRoue${roueBCorr.id}`)
+          animRoueC = divM2d.querySelector(`#animRoue${roueCCorr.id}`)
+        } while (animRoueA == null || animRoueB == null || animRoueC == null)
+        animRoueA.beginElement()
+        animRoueB.beginElement()
+        animRoueC.beginElement()
+        do {
+          compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
+          compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+          compteurRoueC = divM2d.querySelector(`#compteur${roueCCorr.id}`)
+        } while (compteurRoueA == null || compteurRoueB == null || compteurRoueC == null)
           compteurRoueA.innerHTML = '0'
           compteurRoueB.innerHTML = '0'
           compteurRoueC.innerHTML = '0'
@@ -363,6 +385,9 @@ export default class EngrenagesAnimes extends Exercice {
               clearInterval(interB)
               clearInterval(interC)
             }, parseFloat(animRoueA.getAttribute('dur')) * nbToursAbc * 1000)
+
+          } } catch(e){
+            window.notify(`${e.msg} ... erreur dans la fonction remiseAZero()`, { divM2d: JSON.stringify(divM2d), animRoueA,animRoueB,animRoueC,compteurRoueA,compteurRoueB,compteurRoueC })
           }
         }
         break
