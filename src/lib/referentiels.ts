@@ -21,35 +21,39 @@ export interface AppTierceGroup {
   liste: AppTierce[]
 }
 
-export interface ReferentielBase {
+export interface ItemInReferentielBase {
   uuid: string
-  url: string
   tags: string[]
+  typeExercice: 'alea' | 'dnb' | 'crpe' | 'bac' | 'simple' | 'html' | 'svelte'
 }
 
-export interface ReferentielExercice extends ReferentielBase {
+export interface ItemInReferentielStatic extends ItemInReferentielBase {
+  png: string[]
+  pngCor: string[]
+  tex: string
+  texCor: string
+}
+
+export interface ItemInReferentielExamen extends ItemInReferentielStatic {
+  mois?: string
+  annee: string
+  lieu: string
+  numeroInitial: string
+}
+
+export interface ItemInReferentielExamenWithoutTex extends ItemInReferentielBase {
+  png: string[]
+  pngCor: string[]
+  annee: string
+  lieu: string
+  numeroInitial: string
+}
+
+export interface ItemInReferentielExercice extends ItemInReferentielBase {
+  url: string
   id: string
   titre: string
   features: Feature[]
-}
-
-export interface ReferentielStatic extends ReferentielBase {
-  png: string[]
-  pngCor: string[]
-}
-
-export interface ReferentielExamen extends ReferentielStatic {
-  mois: string
-  annee: string
-  lieu: string
-  typeExercice: string
-  numeroInitial: string
-  urlcor: string
-}
-
-export interface ReferentielRessource extends ReferentielBase {
-  id: string
-  titre: string
 }
 
 // ===========================================================================
@@ -58,7 +62,4 @@ export interface ReferentielRessource extends ReferentielBase {
 //
 // ===========================================================================
 
-export type JSONValue =
-  | string
-  | {[x: string] : JSONValue}
-  | Array<JSONValue>
+export type JSONValue = string | { [x: string]: JSONValue } | Array<JSONValue>
