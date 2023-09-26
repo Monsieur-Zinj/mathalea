@@ -4,18 +4,19 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre = 'Traduire une phrase par une expression et la calculer'
+export const dateDeModifImportante='21/09/2023'
 
 /**
  * @author Jean-Claude Lhote
  */
+
 export const uuid = 'cd0d8'
 export const ref = '5C12-1'
 export default function TraduireUnePhraseParUneExpressionEtCalculer () {
   EcrireUneExpressionNumerique.call(this)
   this.version = 3
-  this.titre = titre
-  this.sup4 = true
-  this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
+  this.sup3 = true
+  this.sup4 = 6
   this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
-  this.besoinFormulaire4CaseACocher = ['Présentation des corrections en colonnes', true]
+  this.besoinFormulaire3CaseACocher = ['Présence du signe "fois"', true]
 }

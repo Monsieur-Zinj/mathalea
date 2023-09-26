@@ -5595,8 +5595,9 @@
         "id": "6G10-1",
         "titre": "Donner description et notation de droites, segments et demi-droites",
         "tags": {
-          "interactif": false,
-          "amcType": "AMCOpen",
+          "interactif": true,
+          "interactifType": "qcm",
+          "amcType": "qcmMult",
           "amc": true
         }
       },
@@ -5971,7 +5972,7 @@
         "id": "6G24-4",
         "titre": "Compléter un nuage de points symétriques",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpenNum",
           "amc": true
@@ -6578,7 +6579,7 @@
         "id": "6N11-2",
         "titre": "Placer un point d'abscisse entière (grands nombres)",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpen",
           "amc": true
@@ -6715,7 +6716,7 @@
         "id": "6N21",
         "titre": "Utiliser les abscisses fractionnaires",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCHybride",
           "amc": true
@@ -6727,7 +6728,7 @@
         "id": "6N21-1",
         "titre": "Utiliser des abscisses fractionnaires (niv 2)",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpen",
           "amc": true
@@ -6941,7 +6942,7 @@
         "id": "6N30-2",
         "titre": "Placer un point d'abscisse décimale",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpen",
           "amc": true
@@ -7601,7 +7602,7 @@
         "id": "5G11-6",
         "titre": "Compléter un nuage de points symétriques",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpenNum",
           "amc": true
@@ -8428,7 +8429,7 @@
         "id": "5R11-2",
         "titre": "Placer un point d'abscisse un nombre relatif",
         "tags": {
-          "interactif": true,
+          "interactif": false,
           "interactifType": "custom",
           "amcType": "AMCOpen",
           "amc": true
@@ -9118,7 +9119,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amc": false
+          "amcType": "AMCHybride",
+          "amc": true
         }
       },
       "4C30-2": {
@@ -9153,7 +9155,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "listeDeroulante",
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "4C32": {
@@ -9198,7 +9201,8 @@
         "titre": "Problèmes avec des puissances de 10 et des conversions",
         "tags": {
           "interactif": false,
-          "amc": false
+          "amcType": "AMCOpen",
+          "amc": true
         }
       },
       "4C32-4": {
@@ -9268,7 +9272,8 @@
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
-          "amc": false
+          "amcType": "qcmMono",
+          "amc": true
         }
       },
       "4C37": {
@@ -10151,11 +10156,23 @@
         "url": "3e/3C10-2.js",
         "uuid": "379cd",
         "id": "3C10-2",
-        "titre": "Donner l'écriture entière ou fractionnaire d'une puissance",
+        "titre": "Effectuer des calculs qu'avec des puissances",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
+          "amc": true
+        }
+      },
+      "3C10-3": {
+        "url": "3e/3C10-3.js",
+        "uuid": "31bd7",
+        "id": "3C10-3",
+        "titre": "Utiliser la notation puissance",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amcType": "AMCOpen",
           "amc": true
         }
       }
@@ -10271,7 +10288,8 @@
         "id": "3F13",
         "titre": "Lire les antécédents d'un nombre à partir d'un graphique",
         "tags": {
-          "interactif": false,
+          "interactif": true,
+          "interactifType": "mathLive",
           "amc": false
         }
       },
@@ -12490,6 +12508,17 @@
         "uuid": "641bc",
         "id": "2N41-8",
         "titre": "Mettre au même dénominateur des expressions littérales",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": false
+        }
+      },
+      "2N42-1": {
+        "url": "2e/2N42-1.js",
+        "uuid": "ef686",
+        "id": "2N42-1",
+        "titre": "Exprimer une variable en fonction des autres",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",

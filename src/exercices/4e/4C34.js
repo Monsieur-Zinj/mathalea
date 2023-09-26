@@ -79,11 +79,11 @@ export default function PrioritesEtRelatifsEtPuissances () {
   this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
   this.spacing = context.isHtml ? 3 : 1
   this.spacingCorr = context.isHtml ? 3 : 1
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.listeAvecNumerotation = false
+  this.sup = false
 
   this.nouvelleVersion = function () {
+    if (this.sup) this.amcType = 'AMCNum'
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -201,5 +201,5 @@ export default function PrioritesEtRelatifsEtPuissances () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
+  this.besoinFormulaireCaseACocher = ['AMC : Que la réponse numérique (pas de question ouverte)','false'] 
 }
-// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

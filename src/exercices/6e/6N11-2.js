@@ -11,7 +11,8 @@ import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
-export const interactifReady = true
+export const interactifReady = false
+// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'

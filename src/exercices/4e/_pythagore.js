@@ -1,6 +1,6 @@
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { calcul } from '../../modules/outils.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 
 /**
    * Crée une rédaction du théorème de Pythagore adaptée à la recherche de l'hypoténuse ou d'un côté de l'angle droit
@@ -26,20 +26,20 @@ export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenu
   texte = `Le triangle $${A + B + C}$ est rectangle en $${A}$ donc d'après le théorème de Pythagore, on a : `
   texte += `<br> $${B + C}^2=${A + B}^2+${A + C}^2$`
   if (rechercheHypotenuse === 1) {
-    texte += `<br> $${B + C}^2=${texNombre(AB)}^2+${texNombre(AC)}^2$`
-    texte += `<br> $${B + C}^2=${texNombre(AB ** 2 + AC ** 2)}$`
-    texte += `<br> $${B + C}=\\sqrt{${texNombre(AB ** 2 + AC ** 2)}}$`
-    if (calcul(Math.sqrt(AB ** 2 + AC ** 2), 1) === calcul(Math.sqrt(AB ** 2 + AC ** 2), 5)) signeEgal = '='
+    texte += `<br> $${B + C}^2=${texNombre(AB, 2)}^2+${texNombre(AC, 2)}^2$`
+    texte += `<br> $${B + C}^2=${texNombre(AB ** 2 + AC ** 2, 2)}$`
+    texte += `<br> $${B + C}=\\sqrt{${texNombre(AB ** 2 + AC ** 2, 2)}}$`
+    if (arrondi(Math.sqrt(AB ** 2 + AC ** 2), 1) === arrondi(Math.sqrt(AB ** 2 + AC ** 2), 5)) signeEgal = '='
     else signeEgal = '\\approx'
-    texte += `<br> Donc $${B + C} ${signeEgal} ${miseEnEvidence(texNombre(BC), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}.`
+    texte += `<br> Donc $${B + C} ${signeEgal} ${miseEnEvidence(texNombre(BC, 2), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}.`
   } else if (rechercheHypotenuse === 2) {
     texte += `<br> D'où  $${A + B}^2=${B + C}^2-${A + C}^2$.`
-    texte += `<br> $${A + B}^2=${texNombre(BC)}^2-${texNombre(AC)}^2$`
-    texte += `<br> $${A + B}^2=${texNombre(BC ** 2 - AC ** 2)}$`
-    texte += `<br> $${A + B}=\\sqrt{${texNombre(BC ** 2 - AC ** 2)}}$`
-    if (calcul(Math.sqrt(BC ** 2 - AC ** 2), 1) === calcul(Math.sqrt(BC ** 2 - AC ** 2), 5)) signeEgal = '='
+    texte += `<br> $${A + B}^2=${texNombre(BC, 2)}^2-${texNombre(AC, 2)}^2$`
+    texte += `<br> $${A + B}^2=${texNombre(BC ** 2 - AC ** 2, 2)}$`
+    texte += `<br> $${A + B}=\\sqrt{${texNombre(BC ** 2 - AC ** 2, 2)}}$`
+    if (arrondi(Math.sqrt(BC ** 2 - AC ** 2), 1) === arrondi(Math.sqrt(BC ** 2 - AC ** 2), 5)) signeEgal = '='
     else signeEgal = '\\approx'
-    texte += `<br> Donc $${A + B} ${signeEgal} ${miseEnEvidence(texNombre(AB), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}.`
+    texte += `<br> Donc $${A + B} ${signeEgal} ${miseEnEvidence(texNombre(AB, 2), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}.`
   }
   return [texte, signeEgal]
 }

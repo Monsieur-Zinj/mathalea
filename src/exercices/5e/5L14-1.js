@@ -2,6 +2,8 @@ import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Calculer une expression littérale pour les valeurs données en détaillant les calculs'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante='21/09/2023'
+
 /**
  * @author Jean-Claude Lhote
   * Référence 5L14-1
@@ -13,5 +15,5 @@ export default function CalculerUneExpressionLitterale () {
   this.version = 4
   this.titre = titre
   this.litteral = true
-  this.sup4 = 4
+  this.sup4 = '2-3-4-5'
 }

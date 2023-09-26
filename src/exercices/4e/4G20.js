@@ -10,7 +10,7 @@ import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { RedactionPythagore } from './_pythagore.js'
@@ -56,7 +56,7 @@ export default function Pythagore2D () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let listeTypeDeQuestions = []
+    let listeTypeDeQuestions
     if (this.sup2 === 1) {
       listeTypeDeQuestions = ['BC']
     } else if (this.sup2 === 2) {
@@ -79,8 +79,8 @@ export default function Pythagore2D () {
       texte = ''
       texteCorr = ''
       const A1 = point(0, 0)
-      const B1 = point(calcul(randint(22, 50) / 10), 0)
-      const C1 = similitude(B1, A1, 90, calcul(randint(22, 50) / 10) / longueur(A1, B1))
+      const B1 = point(randint(22, 50) / 10, 0)
+      const C1 = similitude(B1, A1, 90, randint(22, 50) / 10 / longueur(A1, B1))
       const p1 = polygone(A1, B1, C1)
       p1.isVisible = false
       const p2 = rotation(p1, A1, randint(0, 360))
@@ -154,7 +154,7 @@ export default function Pythagore2D () {
         const hypotenuse = [`${B.nom + C.nom}^2`, `${C.nom + B.nom}^2`]
         const cote1 = [`${B.nom + A.nom}^2`, `${A.nom + B.nom}^2`]
         const cote2 = [`${C.nom + A.nom}^2`, `${A.nom + C.nom}^2`]
-        redaction = RedactionPythagore(A.nom, B.nom, C.nom, 0, longueurAB, longueurAC, reponse)
+        redaction = RedactionPythagore(A.nom, B.nom, C.nom, 0, longueurAB, longueurAC, null)
         texteCorr = redaction[0]
         if (this.sup === 1) {
           reponse = []

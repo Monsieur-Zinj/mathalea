@@ -83,7 +83,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 } else {
                   const reponseCanonique = engine.parse(reponse)
                   const saisieCanonique = engine.parse(saisie)
-                  if (reponseCanonique.isEqual(saisieCanonique)) { // engine.parse() retourne du canonical par défaut.
+                  if (reponseCanonique.isSame(saisieCanonique)) { // engine.parse() retourne du canonical par défaut.
                     resultat = 'OK'
                   }
                 }

@@ -5,7 +5,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
+export const dateDeModificationImportante = '24/09/2023'
 /**
  * Tables de multiplication classiques, à trou ou un mélange des deux.
  *
@@ -16,7 +16,7 @@ export const amcType = 'AMCNum'
 export const uuid = '0e6bd'
 export const ref = '6C10-1'
 export default function TablesParametres () {
-  TablesDeMultiplications.call(this, '2-3-4-5-6-7-8-9')
+  TablesDeMultiplications.call(this, '2-3-4-5-6-7-8-9-10')
   this.titre = titre
   this.consigne = 'Compléter.'
   this.sup2 = 2

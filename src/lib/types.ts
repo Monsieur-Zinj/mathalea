@@ -2,33 +2,7 @@
  * setInteractive à 0 on enlève tout, à 1 on les met tous en interactif, à 2 on ne change rien
  * iframe est un identifiant de l'iframe utilisé par des recorders comme Moodle
  */
-export interface InterfaceGlobalOptions {
-  v?: string
-  z?: string
-  durationGlobal?: number
-  nbVues?: number
-  shuffle?: boolean
-  choice?: number
-  trans?: boolean
-  sound?: '0' | '1' | '2' | '3'
-  es?: string
-  title?: string
-  presMode?:
-    | 'liste_exos'
-    | 'un_exo_par_page'
-    | 'liste_questions'
-    | 'une_question_par_page'
-  setInteractive?: string
-  isSolutionAccessible?: boolean
-  isInteractiveFree?: boolean
-  oneShot?: boolean
-  recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki'
-  done?: '1'
-  answers?: string
-  iframe?: string
-  twoColumns?: boolean
-  interfaceBeta?: boolean
-}
+export interface InterfaceGlobalOptions { v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: '0' | '1' | '2' | '3', es?: string, title?: string, presMode?: 'liste_exos' | 'un_exo_par_page' | 'liste_questions' | 'une_question_par_page', setInteractive?: string, isSolutionAccessible?: boolean, isInteractiveFree?: boolean, oneShot?: boolean, recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki', done?: '1', answers?: string, iframe?: string, twoColumns?: boolean, interfaceBeta?: boolean, isDataRandom?: boolean }
 
 export interface InterfaceParams {
   uuid: string

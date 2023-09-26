@@ -161,7 +161,7 @@ function sendToCapytaleActivityParams () {
   const params = get(exercicesParams)
   const options = get(globalOptions)
   for (const param of params) {
-    if (param.alea !== undefined) {
+    if (param.alea !== undefined && get(globalOptions).isDataRandom) {
       param.alea = undefined
     }
   }

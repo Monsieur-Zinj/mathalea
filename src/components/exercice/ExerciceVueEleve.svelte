@@ -125,13 +125,12 @@
           prepareExerciceCliqueFigure(exercice)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
-        if (
-          window.localStorage != null &&
-          exercice.id !== undefined &&
-          exercice.seed !== undefined &&
-          window.localStorage.getItem(`${exercice.id}|${exercice.seed}`) != null
-        ) {
-          newData()
+        try {
+          if (window.localStorage != null && exercice.id !== undefined && exercice.seed !== undefined && window.localStorage.getItem(`${exercice.id}|${exercice.seed}`) != null) {
+            newData()
+          }
+        } catch (e) {
+          console.error(e)
         }
       }
       mathaleaRenderDiv(divExercice)

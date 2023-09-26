@@ -41,30 +41,6 @@ export const CLAVIER_HMS = {
   ]
 }
 
-/*
-const collegeKeyboard = {
-  collegeKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
-    layer: 'collegeLayer'
-  }
-}
-
-export const CLAVIER_HMS = {
-  rows: [
-    ['7', '8', '9', '[separator]', '{\\:\\text{h}\\:}'],
-    ['4', '5', '6', '[separator]', '{\\:\\text{min}\\:}'],
-    ['1', '2', '3', '[separator]', '{\\:\\text{s}\\:}'],
-    ['0', { label: '[backspace]', command: 'deleteBackward', width: 1 }, '[separator]', '[separator]', '[separator]']
-    // ['0', { label: '[backspace]', command: 'deleteBackward', width: 1 }, { label: '[hide-keyboard]', command: 'hideVirtualKeyboard', width: 1 }, '[separator]', '[separator]']
-  ]
-}
-
-export const clavierHms = {
-  customVirtualKeyboardLayers: collegeKeyboardLayer,
-  customVirtualKeyboards: collegeKeyboard,
-  virtualKeyboards: 'collegeKeyboard',
-  */
 export const raccourcisHMS = {
   D: { mode: 'math', value: 'd' },
   h: { mode: 'text', value: '{\\:\\text{h}\\:}' },
@@ -74,21 +50,5 @@ export const raccourcisHMS = {
   s: { mode: 'text', value: '{\\:\\text{s}\\:}' },
   S: { mode: 'text', value: '{\\:\\text{s}\\:}' },
   '*': { mode: 'math', value: '\\times' },
-  '.': { mode: 'math', value: ',' },
-  '%': { mode: 'math', value: '\\%' },
-  '²': { mode: 'math', value: '^2' },
-  '³': { mode: 'math', value: '^3' },
-  pi: { mode: 'math', value: '\\pi' },
-  ang: { mode: 'math', value: '\\widehat{#@}' },
-  rac: { mode: 'math', value: '\\sqrt{#@}' },
-  frac: { mode: 'math', value: '\\frac{#@}{#1}' },
-  '/': { mode: 'math', value: '\\frac{#@}{#1}' },
-  '<': '<',
-  '>': '>',
-  '>=': '\\geq',
-  '<=': '\\leq',
-  '(': '\\lparen',
-  ')': '\\rparen'
-}//,
-// virtualKeyboardMode: 'manual'
-// }
+  '.': { mode: 'math', value: ',' }
+}

@@ -8,11 +8,6 @@ export const CLAVIER_COLLEGE = {
       { latex: 'x' },
       { class: 'separator w5' },
       { label: '7', key: '7' },
-      // Will display the label using the system font. To display
-      // with the TeX font, use:
-      // { class: "tex", label: "7", key: "7" },
-      // or
-      // { latex: "7"},
       { label: '8', key: '8' },
       { label: '9', key: '9' },
       { latex: '\\div' },
@@ -70,8 +65,8 @@ export const CLAVIER_COLLEGE = {
       { class: 'separator w10' }
     ],
     [
-      { class: 'tex', label: '<i>c</i>' },
-      { class: 'tex', label: '<i>z</i>' },
+      { class: 'tex', label: 'c' },
+      { class: 'tex', label: 'z' },
       { class: 'separator w5' },
       { label: '1', key: '1' },
       { label: '2', key: '2' },
@@ -118,20 +113,7 @@ export const CLAVIER_COLLEGE = {
     ]
   ]
 }
-/*
-const collegeKeyboard = {
-  collegeKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
-    layer: 'collegeLayer'
-  }
-}
 
-export const clavierCollege = {
-  customVirtualKeyboardLayers: collegeKeyboardLayer,
-  customVirtualKeyboards: collegeKeyboard,
-  virtualKeyboards: 'collegeKeyboard roman',
-  */
 export const raccourcisCollege = {
   D: { mode: 'math', value: 'd' },
   '*': { mode: 'math', value: '\\times' },
@@ -151,11 +133,3 @@ export const raccourcisCollege = {
   '(': '\\lparen',
   ')': '\\rparen'
 }
-/*,
-  // virtualKeyboards: 'numeric roman',
-  virtualKeyboardMode: 'manual'
-  // "auto": on touch-enabled devices, show the virtual keyboard panel when the mathfield is focused, otherwise, don’t show it.
-  // "manual": a toggle button to control the virtual keyboard panel is displayed in the mathfield
-  // "onfocus": the virtual keyboard panel is displayed when the mathfield is focused
-  // "off": never show the virtual keyboard panel
-} */

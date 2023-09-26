@@ -13,6 +13,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 //export const amcType = 'AMCOpenNum'
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante='21/09/2023'
 /**
  * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
  * @author Jean-Claude Lhote
@@ -25,8 +26,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-  this.sup = 6
-  this.sup3 = true
+  this.sup3 = true // Si présence ou pas du signe "fois"
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
   this.nouvelleVersion = function () {
@@ -34,35 +34,18 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let listeTypeDeQuestions
-    if (typeof this.sup4 === 'number' && isNaN(this.sup)) {
-      if (this.sup4 === 1) {
-        this.sup = '1-1-2-2-3'
-      } else if (this.sup4 === 2) {
-        this.sup = '2-2-3-3-3'
-      } else if (this.sup4 === 3) {
-        this.sup = '2-2-3-3-4'
-      } else if (this.sup4 === 4) {
-        this.sup = '2-3-4-5'
-      }
-      listeTypeDeQuestions = gestionnaireFormulaireTexte({
-        saisie: this.sup,
+    
+    this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
+  
+   const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+        saisie: this.sup4,
         min: 1,
         max: 5,
         melange: 6,
         defaut: 6,
         nbQuestions: this.nbQuestions
       })
-    } else {
-      listeTypeDeQuestions = gestionnaireFormulaireTexte({
-        saisie: this.sup,
-        min: 2,
-        max: 5,
-        melange: 6,
-        defaut: 6,
-        nbQuestions: this.nbQuestions
-      })
-    }
+   
     let expf
     let expn
     let expc
@@ -83,7 +66,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     }
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-      nbOperations = parseInt(listeTypeDeQuestions[i] % 6)
+      nbOperations = listeTypeDeQuestions[i]
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++

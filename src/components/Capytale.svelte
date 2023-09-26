@@ -39,17 +39,6 @@
     modal.closeModal()
   }
   // Gestion de la graine
-  let isDataRandom: boolean = false
-  function handleSeed () {
-    for (const param of $exercicesParams) {
-      if (!isDataRandom && param.alea === undefined) {
-        param.alea = mathaleaGenerateSeed()
-      } else {
-        param.alea = undefined
-      }
-    }
-    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-  }
   function handleEleveVueSetUp () {
     const url = new URL('https://coopmaths.fr/alea/')
     for (const ex of $exercicesParams) {
@@ -177,6 +166,7 @@
       handleCapytale()
       globalOptions.update((params) => {
         params.presMode = 'un_exo_par_page'
+        params.isDataRandom = true
         if ($globalOptions.v === 'eleve') {
           params.isInteractiveFree = false
         }
@@ -562,13 +552,13 @@
             />
           </div>
         </div>
-        <!-- <div class="pb-2">
+        <div class="pb-2">
           <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Données</div>
           <div class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light disabled">Tous les élèves auront des pages :</div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={['identiques', 'différentes']} bind:value={isDataRandom} on:click={handleSeed} isDisabled={true} />
+            <ButtonToggle titles={['différentes', 'identiques']} bind:value={$globalOptions.isDataRandom} on:click={() => { console.log($globalOptions)}} />
           </div>
-        </div> -->
+        </div>
         <div class="pb-2">
           <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">
             Correction
