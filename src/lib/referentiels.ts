@@ -1,3 +1,8 @@
+// ===========================================================================
+//
+//    Typage des bouts de chaînes des référentiels (les données des exercices)
+//
+// ===========================================================================
 export interface Feature {
   name: string
   isActive: boolean
@@ -46,3 +51,14 @@ export interface ReferentielRessource extends ReferentielBase {
   id: string
   titre: string
 }
+
+// ===========================================================================
+//
+//    Types pour les référentiels eux-mêmes
+//
+// ===========================================================================
+
+export type JSONValue =
+  | string
+  | {[x: string] : JSONValue}
+  | Array<JSONValue>
