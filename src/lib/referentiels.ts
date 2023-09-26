@@ -54,6 +54,8 @@ export interface ItemInReferentielExercice extends ItemInReferentielBase {
   id: string
   titre: string
   features: Feature[]
+  datePublication?: string
+  dateModification?: string
 }
 
 // ===========================================================================
