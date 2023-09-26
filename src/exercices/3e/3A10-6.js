@@ -1,6 +1,6 @@
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texteGras } from '../../lib/format/style.js'
-import { sommeDesChiffres } from '../../lib/outils/nombres.js'
+import { rangeMinMax, sommeDesChiffres } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -8,17 +8,15 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver un chiffre pour qu\'un nombre soit divisible par un autre'
-// export const amcReady = true
-// export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '29/08/2022'
+export const dateDeModifImportante = '26/09/2023'
 /**
  *
  * Attendus de 3e : Connaître et utiliser les critères de divisibilité par 2, par 3, par 5, par 9 et par 10
  * @author Eric Elter
- * Référence 3A10-6
  */
 
 export const ref = '3A10-6'
@@ -103,7 +101,7 @@ export default function TrouverChiffre () {
                               reponse[k] = reponse[k].join(';')
                             }
                             */
-              reponse = '0;2;4;6;8'
+              reponse = [0,2,4,6,8]
               break
             default : // Le chiffre inconnu n'est pas le chiffre des unités
               if (a[nombreDeChiffres[i] - 2] % 2 === 0) { // Le chiffre des unités est pair
@@ -118,7 +116,7 @@ export default function TrouverChiffre () {
                                   reponse[k] = reponse[k].join(';')
                                 }
                                 */
-                reponse = '0;1;2;3;4;5;6;7;8;9'
+                reponse = rangeMinMax(0,9)
               } else { // Le chiffre des unités est impair
                 texteCorr += texteEnCouleurEtGras('aucun chiffre convient') + ' car le nombre ne peut pas être pair.<br>'
                 for (let ee = 0; ee < 8; ee++) {
@@ -137,7 +135,7 @@ export default function TrouverChiffre () {
           for (let ee = 1; ee < (ajoutPourTroisouNeuf[0] === 0 ? 4 : 3); ee++) {
             ajoutPourTroisouNeuf.push(3 + ajoutPourTroisouNeuf[ee - 1])
           }
-          reponse = ajoutPourTroisouNeuf.join(';')
+          reponse = ajoutPourTroisouNeuf
           texteCorr += '<br>Il suffit de savoir quel nombre à un chiffre il faut ajouter à '
           texteCorr += (nombreDeChiffres[i] !== 2 ? sommeDesChiffres(a)[1] + '=' : '')
           texteCorr += sommePourTroisouNeuf
@@ -164,11 +162,11 @@ export default function TrouverChiffre () {
             case nombreDeChiffres[i] - 1 : // Le chiffre caché est le chiffre des unités
               texteCorr += texteEnCouleurEtGras('les chiffres 0 et 5 suffisent.<br>')
               texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, 0)} et ${nbAvecChiffreCache.replace(symboleChiffreCache, '5')} sont divisibles par 5.`
-              reponse = '0;5'
+              reponse = [0,5]
               break
             default : // Le chiffre caché n'est pas le chiffre des unités
               if (a[nombreDeChiffres[i] - 2] % 5 === 0) { // Le chiffre des unités est 0 ou 5
-                reponse = '0;1;2;3;4;5;6;7;8;9'
+                reponse = rangeMinMax(0,9)
                 texteCorr += texteEnCouleurEtGras('tout chiffre convient') + ' car le chiffre des unités est déjà égal à 0 ou 5.<br>'
                 for (let ee = 0; ee < 8; ee++) {
                   texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, ee)}, `
@@ -188,7 +186,7 @@ export default function TrouverChiffre () {
         case 4 : // Divisible par 9
           sommePourTroisouNeuf = sommeDesChiffres(a)[0]
           ajoutPourTroisouNeuf = sommePourTroisouNeuf % 9 === 0 ? [0, 9] : [9 - sommePourTroisouNeuf % 9]
-          reponse = ajoutPourTroisouNeuf.join(';')
+          reponse = ajoutPourTroisouNeuf
 
           texteCorr += '<br>Il suffit de savoir quel nombre à un chiffre il faut ajouter à '
           texteCorr += (nombreDeChiffres[i] !== 2 ? sommeDesChiffres(a)[1] + '=' : '')
@@ -219,7 +217,6 @@ export default function TrouverChiffre () {
                 ajoutPourTroisouNeuf.push(3 + ajoutPourTroisouNeuf[ee - 1])
                 if (ajoutPourTroisouNeuf[ee] % 2 === 0) reponse.push(ajoutPourTroisouNeuf[ee])
               }
-              reponse = reponse.join(';')
               texteCorr += `<br>${numAlpha(1)}Pour savoir si le nombre est divisible par 3, il suffit de savoir quel nombre à un chiffre il faut ajouter à `
               texteCorr += (nombreDeChiffres[i] !== 2 ? sommeDesChiffres(a)[1] + '=' : '')
               texteCorr += sommePourTroisouNeuf
@@ -277,7 +274,7 @@ export default function TrouverChiffre () {
                   texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[ee])}, `
                 }
                 texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[ajoutPourTroisouNeuf.length - 2])} et ${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[ajoutPourTroisouNeuf.length - 1])} sont divisibles par 3.`
-                reponse = ajoutPourTroisouNeuf.join(';')
+                reponse = ajoutPourTroisouNeuf
               } else { // Le chiffre des unités est impair
                 texteCorr += '<br>Un entier divisible par 2 est pair donc ici, '
                 texteCorr += texteEnCouleurEtGras('aucun chiffre convient') + ' car le nombre ne peut pas être pair donc n\'est pas divisible par 2.<br>'
@@ -297,7 +294,7 @@ export default function TrouverChiffre () {
             case nombreDeChiffres[i] - 1 : // Le chiffre caché est le chiffre des unités
               texteCorr += texteEnCouleurEtGras('le chiffre 0 suffit.<br>')
               texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, 0)} est divisible par 10.`
-              reponse = '0'
+              reponse = 0
               break
             default : // Le chiffre caché n'est pas le chiffre des unités
               if (a[nombreDeChiffres[i] - 2] % 10 === 0) { // Le chiffre des unités est 0
@@ -306,7 +303,7 @@ export default function TrouverChiffre () {
                   texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, ee)}, `
                 }
                 texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, 8)} et ${nbAvecChiffreCache.replace(symboleChiffreCache, 9)} sont divisibles par 10.`
-                reponse = '0;2;4;6;8'
+                reponse = [0,2,4,6,8]
               } else { // Le chiffre des unités n'est pas 0 ou 5
                 texteCorr += texteEnCouleurEtGras('aucun chiffre convient') + ' car le chiffre des unités n\'est déjà pas égal à 0.<br>'
                 for (let ee = 0; ee < 8; ee++) {
@@ -333,7 +330,6 @@ export default function TrouverChiffre () {
                 ajoutPourTroisouNeuf.push(3 + ajoutPourTroisouNeuf[ee - 1])
                 if (ajoutPourTroisouNeuf[ee] % 2 === 0) reponse.push(ajoutPourTroisouNeuf[ee])
               }
-              reponse = reponse.join(';')
               texteCorr += `<br>${numAlpha(1)}Pour savoir si le nombre est divisible par 3, il suffit de savoir quel nombre à un chiffre il faut ajouter à `
               texteCorr += (nombreDeChiffres[i] !== 2 ? sommeDesChiffres(a)[1] + '=' : '')
               texteCorr += sommePourTroisouNeuf
@@ -390,7 +386,7 @@ export default function TrouverChiffre () {
                   texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[ee])}, `
                 }
                 texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[ajoutPourTroisouNeuf.length - 2])} et ${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[ajoutPourTroisouNeuf.length - 1])} sont divisibles par 3.`
-                reponse = ajoutPourTroisouNeuf.join(';')
+                reponse = ajoutPourTroisouNeuf
               } else { // Le chiffre des unités est impair
                 texteCorr += texteEnCouleurEtGras('aucun chiffre convient') + ' car le nombre ne peut pas être pair donc n\'est pas divisible par 2.<br>'
                 for (let ee = 0; ee < 8; ee++) {
@@ -408,7 +404,7 @@ export default function TrouverChiffre () {
             case nombreDeChiffres[i] - 1 : // Le chiffre caché est le chiffre des unités
               texteCorr += texteEnCouleurEtGras('le chiffre 0 suffit.<br>')
               texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, 0)} est divisible par 10.`
-              reponse = '0'
+              reponse = 0
               break
             default : // Le chiffre caché n'est pas le chiffre des unités
               if (a[nombreDeChiffres[i] - 2] % 10 === 0) { // Le chiffre des unités est 0
@@ -417,7 +413,7 @@ export default function TrouverChiffre () {
                   texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, ee)}, `
                 }
                 texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, 8)} et ${nbAvecChiffreCache.replace(symboleChiffreCache, 9)} sont divisibles par 10.`
-                reponse = '0;1;2;3;4;5;6;7;8;9'
+                reponse = rangeMinMax(0,9)
               } else { // Le chiffre des unités n'est pas 0 ou 5
                 texteCorr += texteEnCouleurEtGras('aucun chiffre convient') + ' car le chiffre des unités n\'est déjà pas égal à 0.<br>'
                 for (let ee = 0; ee < 8; ee++) {
@@ -430,7 +426,7 @@ export default function TrouverChiffre () {
           }
           break
       }
-      setReponse(this, i, reponse, { formatInteractif: 'texte' })
+      setReponse(this, i, reponse)
       texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25')) : ''
 
       if (this.questionJamaisPosee(i, nbAvecChiffreCache)) {
