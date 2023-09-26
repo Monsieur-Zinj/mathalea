@@ -23,13 +23,10 @@ if (context.versionMathalea) engine = new ComputeEngine()
 const math = create(all)
 
 /**
- * Travailler les tables de multiplication autrement
+ * Travailler les tables de multiplication ou d'addition autrement
  * @author Jean-Claude Lhote
- * Référence 6C10-6
  */
 export class Rose {
-  // operation = 'addition' | 'multiplication
-  // type = 'résultats' | 'valeurs' | 'can1' | 'can2' | 'solutions'
   constructor ({ values = [], nombreDeValeurs, rayon = 2, operation = 'addition', type = 'résultats', typeDonnees = 'entiers', cellulesPreremplies = Array.from('abcdefghi'), valeurMax = 10, indexInconnue = 999 }) {
     this.type = type
     this.operation = operation
@@ -166,14 +163,13 @@ export class Rose {
       const t = segment(B, C, 'black')
       const u = segment(C, D, 'black')
       const M2 = pointIntersectionDD(droite(B, D), droite(O, C), 'M2')
-      // objets.push(tracePoint(C, P, M2), labelPoint(C, P, M2), segment(O, C, 'red'), segment(B, D, 'green'))
       const s1 = homothetie(segment(C, P), C, (longueur(C, P) - this.rayonBoite) / longueur(C, P))
       s1.styleExtremites = '->'
-      s1.tailleExtremites = 2
+      s1.tailleExtremites = 5
       s1.pointilles = 2
       const s2 = homothetie(segment(N, P), N, (longueur(N, P) - this.rayonBoite) / longueur(N, P))
       s2.styleExtremites = '->'
-      s2.tailleExtremites = 2
+      s2.tailleExtremites = 5
       s2.pointilles = 2
       if (this.type === 'can1') {
         bulle1 = vide2d() // rotation(boite({??????}), M, 180 / this.nombreDeValeurs - 90)
@@ -197,7 +193,6 @@ export class Rose {
                 }
               } else {
                 objets.push(latexParCoordonneesBox(this.values[i], M2.x, M2.y, 'black', 50, 12, '', 8, { anchor: 'center' }))
-                // objets.push(latexParPoint(this.values[i], M, 'black', 70, 12, '', 6))
               }
             }
           }
@@ -219,7 +214,6 @@ export class Rose {
               }
             } else {
               objets.push(latexParCoordonneesBox(this.resultats[i], P.x, P.y, 'black', 50, 12, '', 8, { anchor: 'center', dy: (this.nombreDeValeurs === 3 ? '-35%' : '') }))
-              //  objets.push(latexParPoint(this.resultats[i], P, 'black', 70, 10, ''))
             }
           }
         }
@@ -261,7 +255,6 @@ export function ExoRose () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.valeurMax = contraindreValeur(10, 30, this.sup, 10)
     this.nombreDeValeurs = contraindreValeur(3, 9, this.sup2, 5)
-    // this.sup3 = contraindreValeur(1, 4, this.sup3, 1)
     switch (this.sup3) {
       case 1:
         this.type = 'résultats'
@@ -300,30 +293,30 @@ export function ExoRose () {
       switch (this.type) {
         case 'résultats':
           if (this.operation === 'multiplication') {
-            this.consigne = 'Calculer les produits à l\'extrémité des flèches.'
+            texte = 'Calculer les produits à l\'extrémité des flèches.<br>'
           } else {
-            this.consigne = 'Calculer les sommes à l\'extrémité des flèches.'
+            texte = 'Calculer les sommes à l\'extrémité des flèches.<br>'
           }
           break
         case 'valeurs':
           if (this.operation === 'multiplication') {
-            this.consigne = 'Retrouver les facteurs à l\'origine des flèches.'
+            texte = 'Retrouver les facteurs à l\'origine des flèches.<br>'
           } else {
-            this.consigne = 'Retrouver les termes à l\'origine des flèches.'
+            texte = 'Retrouver les termes à l\'origine des flèches.<br>'
           }
           break
         case 'can1':
-          if (this.typeDonnees === 'nombres') {
-            this.consigne = `Trouver le nombre de la case ${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}.`
+          if (this.typeDonnees.includes('entiers')) {
+            texte = `Trouver le nombre de la case ${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}.<br>`
           } else {
-            this.consigne = `Trouver l'expression de la case ${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}.`
+            texte = `Trouver l'expression de la case ${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}.<br>`
           }
           break
         case 'can2':
-          if (this.typeDonnees === 'nombres') {
-            this.consigne = `Trouver le nombre de la case ${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}.`
+          if (this.typeDonnees.includes('entiers')) {
+            texte = `Trouver le nombre de la case ${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}.<br>`
           } else {
-            this.consigne = `Trouver l'expression de la case ${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}.`
+            texte = `Trouver l'expression de la case ${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}.<br>`
           }
           break
       }
@@ -332,7 +325,7 @@ export function ExoRose () {
       objets = this.roses[i].representation()
       this.roses[i].type = 'solutions'
       objetsCorr = this.roses[i].representation()
-      texte = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
+      texte += mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
           texte += ajouteChampTexteMathLive(this, i, 'nospacebefor', { texte: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })

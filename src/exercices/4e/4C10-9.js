@@ -7,7 +7,6 @@ export const dateDePublication = '12/08/2022'
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote
- * Référence 4C10-9
  */
 
 export const uuid = '9e862'
