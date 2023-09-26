@@ -7,7 +7,6 @@ export const dateDePublication = '12/08/2022'
 /**
  * Travailler les multiplications de fractions
  * @author Jean-Claude Lhote
- * Référence 4C22-4
  */
 
 export const uuid = '4713e'

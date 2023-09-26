@@ -4,9 +4,8 @@ export const dateDePublication = '12/08/2022'
 export const interactifReady = false
 
 /**
- * Travailler la double distribu
+ * Travailler la double distributivité
  * @author Jean-Claude Lhote
- * Référence 3L11-9
  */
 
 export const uuid = '4963b'
