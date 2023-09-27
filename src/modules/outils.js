@@ -449,10 +449,16 @@ export function texParagraphe (liste, spacing = false, retourCharriot) {
  * * Recopie le texte.
  * * `<br>` est remplacé par un saut de paragraphe
  * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+ * @param {string} texte
+ * @return {string}
  * @author Rémi Angot
  */
 export function texIntroduction (texte) {
-  return texte.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+  if (typeof texte === 'string' && texte !=='') {
+    return texte.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+  } else {
+    return ''
+  }
 }
 
 /**
