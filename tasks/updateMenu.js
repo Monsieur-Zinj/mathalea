@@ -106,6 +106,7 @@ async function readInfos (dirPath) {
               type: ''
             }
           }
+          infos.typeExercice = 'alea'
           if (infos.id !== undefined) {
             exercicesShuffled[infos.id] = infos
           }
