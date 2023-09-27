@@ -7,7 +7,7 @@ import {
 } from '../../lib/outils/ecritures.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
@@ -80,7 +80,7 @@ export default function ExerciceOperationsRelatifs () {
         case 1: // multiplications
           if (this.sup) {
             texte = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)} =$`
-            texteCorr = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)} = ${calcul(a * b)} $`
+            texteCorr = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)} = ${calculANePlusJamaisUtiliser(a * b)} $`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)}  \\times ${ecritureNombreRelatif(b)} =$`
             texteCorr = `$ ${ecritureNombreRelatifc(a)} \\times ${ecritureNombreRelatifc(b)}  = ${ecritureNombreRelatifc(a * b)} $`
@@ -95,12 +95,12 @@ export default function ExerciceOperationsRelatifs () {
         case 2: // quotients
           if (this.sup) {
             texte = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)} =$`
-            texteCorr = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)} = ${calcul(a / b)}$`
+            texteCorr = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)} = ${calculANePlusJamaisUtiliser(a / b)}$`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)}  \\div ${ecritureNombreRelatif(b)} =$`
             texteCorr = `$ ${ecritureNombreRelatifc(a)}  \\div ${ecritureNombreRelatifc(b)} =${ecritureNombreRelatifc(a / b)}$`
           }
-          setReponse(this, i, calcul(a / b), {
+          setReponse(this, i, calculANePlusJamaisUtiliser(a / b), {
             signe: true,
             digits: 1,
             decimals: 0
@@ -110,7 +110,7 @@ export default function ExerciceOperationsRelatifs () {
         case 3: // additions
           if (this.sup) {
             texte = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  =$`
-            texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  = ${calcul(a + b)} $`
+            texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  = ${calculANePlusJamaisUtiliser(a + b)} $`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(b)}  =$`
             texteCorr = `$  ${ecritureNombreRelatifc(a)} + ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a + b)} $`

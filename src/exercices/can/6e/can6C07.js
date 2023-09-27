@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le reste d’une division par 3'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export default function ResteDivisionPar3 () {
     const b = randint(1, 9)
     const c = randint(0, 9)
     const d = randint(0, 9, [b, c])
-    const a = calcul(b * 100 + c * 10 + d)
+    const a = calculANePlusJamaisUtiliser(b * 100 + c * 10 + d)
     this.reponse = a % 3
     this.question = `Quel est le reste de la division de $${a}$ par $3$ ?`
     if (a % 3 === 0) {

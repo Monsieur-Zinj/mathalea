@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la somme de quatre entiers qui se marient'
 export const interactifReady = true
@@ -25,7 +25,7 @@ export default function Somme4EntiersQuiSeMarient () {
     const b = randint(1, 9, a)
     const c = randint(3, 7) * 10
     const d = randint(10, 15) * 10 - c
-    this.reponse = calcul(2 * (c + d))
+    this.reponse = calculANePlusJamaisUtiliser(2 * (c + d))
     this.question = `Calculer $${c - a} + ${d + b} + ${c + a} + ${d - b}$.`
     this.correction = `$${c - a} + ${d + b} + ${c + a} + ${d - b} =  ${2 * (c + d)}$`
     this.correction += texteEnCouleur(`

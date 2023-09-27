@@ -4,7 +4,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer une moyenne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -59,8 +59,8 @@ export default function MoyenneStat () {
       case 3:
         N = choice(['a', 'b', 'c', 'd'])//
         if (N === 'a') {
-          a = calcul(randint(1, 10) + randint(31, 89, [40, 50, 60, 70, 80]) / 100)
-          e = calcul(randint(2, 9) / 100)
+          a = calculANePlusJamaisUtiliser(randint(1, 10) + randint(31, 89, [40, 50, 60, 70, 80]) / 100)
+          e = calculANePlusJamaisUtiliser(randint(2, 9) / 100)
           b = a - e
           c = a + e
           this.question = `$${texNombre(a)}$ ${sp(2)} ; ${sp(2)}  $${texNombre(b)}$  ${sp(2)} ; ${sp(2)}  $${texNombre(c)}$<br>
@@ -79,7 +79,7 @@ export default function MoyenneStat () {
           this.reponse = a
         }
         if (N === 'b') {
-          a = calcul(randint(1, 10) + randint(31, 89, [40, 50, 60, 70, 80]) / 100)
+          a = calculANePlusJamaisUtiliser(randint(1, 10) + randint(31, 89, [40, 50, 60, 70, 80]) / 100)
           e = randint(2, 9) / 100
           b = a - e
           c = a + e

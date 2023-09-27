@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { calcul } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Effectuer une division avec une fraction'
 export const interactifReady = true
@@ -28,7 +28,7 @@ export default function QuotientEntierQuiVaBienParFraction () {
     const c = choice([2, 3, 4, 5, 6])
     const b = a.n * c
     this.question = `Calculer $${b}\\div ${a.texFraction}$.`
-    this.reponse = calcul(a.d * c)
+    this.reponse = calculANePlusJamaisUtiliser(a.d * c)
     if (a.n === 1) {
       this.correction = `Diviser par un nombre revient à multiplier par son inverse. <br>
     Ici, on divise par $${a.texFraction}$, donc cela revient à multiplier par son inverse : $${a.inverse().texFraction}$.<br>

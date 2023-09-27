@@ -11,7 +11,7 @@ import Exercice from '../Exercice.js'
 import { fraction } from '../../modules/fractions.js'
 import { min, round } from 'mathjs'
 
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -389,8 +389,8 @@ $${a + 1}$ h et $${reponse}$ min.`
           break
 
         case 15:
-          a = calcul(randint(1, 9) + 0.9 + randint(1, 9) / 100)
-          b = calcul(randint(1, 9) + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
+          a = calculANePlusJamaisUtiliser(randint(1, 9) + 0.9 + randint(1, 9) / 100)
+          b = calculANePlusJamaisUtiliser(randint(1, 9) + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
 
           if (choice([true, false])) {
             texte = `Ajoute un dixième à $${texNombre(a)}$ ?`
@@ -537,7 +537,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choix === 'b') {
             texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille `
-            reponse = calcul(2 * 1000000 + chiffre[a][1] * 1000)
+            reponse = calculANePlusJamaisUtiliser(2 * 1000000 + chiffre[a][1] * 1000)
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${texNombre(2 * 1000000 + chiffre[a][1] * 1000)}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -549,7 +549,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choix === 'c') {
             texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre2[a][0]}-mille `
-            reponse = calcul(2 * 1000000 + chiffre2[a][1] * 1000)
+            reponse = calculANePlusJamaisUtiliser(2 * 1000000 + chiffre2[a][1] * 1000)
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} =${texNombre(2 * 1000000 + chiffre2[a][1] * 1000)}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -561,7 +561,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choix === 'd') {
             texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille `
-            reponse = calcul(2 * 1000000 + chiffre[a][1] * 1000)
+            reponse = calculANePlusJamaisUtiliser(2 * 1000000 + chiffre[a][1] * 1000)
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} =${texNombre(2 * 1000000 + chiffre[a][1] * 1000)}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -735,7 +735,7 @@ $${a + 1}$ h et $${reponse}$ min.`
         case 24:
           if (choice([true, false])) {
             a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
-            reponse = calcul(a / 5)
+            reponse = calculANePlusJamaisUtiliser(a / 5)
             texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({
               xmin: -1,
               ymin: -1,
@@ -763,7 +763,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{5}=${texNombre(reponse)}$`
           } else {
             a = choice([1, 3, 5, 7, 9]) // numérateur
-            reponse = calcul(a / 4)
+            reponse = calculANePlusJamaisUtiliser(a / 4)
             texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({
               xmin: -1,
               ymin: -1,

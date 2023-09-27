@@ -9,7 +9,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -368,7 +368,7 @@ export default function ExploiterRepresentationGraphique () {
                   statut: '',
                   reponse: {
                     texte: '1)',
-                    valeur: calcul(t1),
+                    valeur: calculANePlusJamaisUtiliser(t1),
                     param: {
                       digits: 2,
                       decimals: 0,

@@ -260,10 +260,10 @@ window.addEventListener('load', function () {
           // We apply the new viewBox values onto the SVG
           svg.setAttribute('viewBox', viewBoxString)
           myCodeMirrorSvg.setValue(divSvg.innerHTML)
-          const xmin = window.calcul(newViewBox.x / context.pixelsParCm, 1)
-          const xmax = window.calcul(xmin + viewBox.width / context.pixelsParCm, 1)
-          const ymax = window.calcul(newViewBox.y / context.pixelsParCm * (-1), 1)
-          const ymin = window.calcul(ymax - viewBox.height / context.pixelsParCm, 1)
+          const xmin = window.calculANePlusJamaisUtiliser(newViewBox.x / context.pixelsParCm, 1)
+          const xmax = window.calculANePlusJamaisUtiliser(xmin + viewBox.width / context.pixelsParCm, 1)
+          const ymax = window.calculANePlusJamaisUtiliser(newViewBox.y / context.pixelsParCm * (-1), 1)
+          const ymin = window.calculANePlusJamaisUtiliser(ymax - viewBox.height / context.pixelsParCm, 1)
           if (myCodeMirror.getValue().indexOf('fenetreMathalea2d') > -1) {
             myCodeMirror.setValue(myCodeMirror.getValue().replace(/fenetreMathalea2d.*/, `fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]`))
           } else {

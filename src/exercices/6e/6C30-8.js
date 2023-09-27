@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
@@ -77,15 +77,15 @@ export default function DiviserPar101001000 () {
       } else {
         exposant = this.sup ? 0 : exposant = -randint(1, 3)
       }
-      nombreentier = calcul(randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
-      nombre = calcul(nombreentier * 10 ** exposant)
-      resultat = calcul(nombre * 10 ** coef)
+      nombreentier = calculANePlusJamaisUtiliser(randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
+      nombre = calculANePlusJamaisUtiliser(nombreentier * 10 ** exposant)
+      resultat = calculANePlusJamaisUtiliser(nombre * 10 ** coef)
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1:
-          texte = `$${texNombre2(nombre)}\\div ${texNombre2(calcul(10 ** -coef))}=\\ldots\\ldots\\ldots\\ldots$`
-          texteCorr = `Quand on divise par $${texNombre2(calcul(10 ** -coef))}$, chaque chiffre prend une valeur $${texNombre2(calcul(10 ** (-coef)))}$ fois plus petite.<br>`
+          texte = `$${texNombre2(nombre)}\\div ${texNombre2(calculANePlusJamaisUtiliser(10 ** -coef))}=\\ldots\\ldots\\ldots\\ldots$`
+          texteCorr = `Quand on divise par $${texNombre2(calculANePlusJamaisUtiliser(10 ** -coef))}$, chaque chiffre prend une valeur $${texNombre2(calculANePlusJamaisUtiliser(10 ** (-coef)))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${texNombre2(nombre)}\\div ${texNombre2(calcul(10 ** -coef))}=${miseEnEvidence(texNombre2(resultat), 'blue')}$`
+          texteCorr += `$${texNombre2(nombre)}\\div ${texNombre2(calculANePlusJamaisUtiliser(10 ** -coef))}=${miseEnEvidence(texNombre2(resultat), 'blue')}$`
 
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -95,15 +95,15 @@ export default function DiviserPar101001000 () {
               statut: true
             },
             {
-              texte: `$${texNombre2(calcul(nombre * 10 ** (-coef)))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10 ** (-coef)))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calcul(nombre * 10 ** (coef - 1)))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10 ** (coef - 1)))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calcul(nombre * 10 ** (-coef + 1)))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10 ** (-coef + 1)))}$`,
               statut: false
             }
           ]
@@ -122,19 +122,19 @@ export default function DiviserPar101001000 () {
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texNombre2(calcul(10 ** 1))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 ** 1))}$`,
               statut: -coef === 1
             },
             {
-              texte: `$${texNombre2(calcul(10 ** 2))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 ** 2))}$`,
               statut: -coef === 2
             },
             {
-              texte: `$${texNombre2(calcul(10 ** 3))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 ** 3))}$`,
               statut: -coef === 3
             },
             {
-              texte: `$${texNombre2(calcul(10 ** 4))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 ** 4))}$`,
               statut: -coef === 4
             }
           ]
@@ -157,15 +157,15 @@ export default function DiviserPar101001000 () {
               statut: true
             },
             {
-              texte: `$${texNombre2(calcul(nombre / 10))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre / 10))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calcul(nombre * 10))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calcul(nombre * 10 ** (-coef + 1)))}$`,
+              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10 ** (-coef + 1)))}$`,
               statut: false
             }
           ]

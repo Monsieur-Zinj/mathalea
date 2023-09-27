@@ -6,7 +6,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/ou
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Résoudre une équation avec une fonction de référence*'
 export const interactifReady = true
@@ -37,7 +37,7 @@ export default function ResoudreEquationsFonctionDeReference2 () {
         case 1 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
-          k = calcul(c - b)
+          k = calculANePlusJamaisUtiliser(c - b)
           if (this.interactif) {
             texte = `L'ensemble des solutions $S$ de l'équation $x^2${ecritureAlgebrique(b)}=${c}$ est :
                  `
@@ -225,7 +225,7 @@ export default function ResoudreEquationsFonctionDeReference2 () {
         case 2 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
-          k = calcul(b - c)
+          k = calculANePlusJamaisUtiliser(b - c)
           if (this.interactif) {
             texte = `L'ensemble des solutions $S$ de l'équation $-x^2${ecritureAlgebrique(b)}=${c}$ est :
            `
@@ -418,7 +418,7 @@ export default function ResoudreEquationsFonctionDeReference2 () {
         case 3 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5)
-          k = calcul(c - b)
+          k = calculANePlusJamaisUtiliser(c - b)
           if (this.interactif) {
             texte = `L'ensemble des solutions $S$ de l'équation $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$ est :
                        `
@@ -548,7 +548,7 @@ export default function ResoudreEquationsFonctionDeReference2 () {
         case 4 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5)
-          k = calcul(b - c)
+          k = calculANePlusJamaisUtiliser(b - c)
           if (this.interactif) {
             texte = `L'ensemble des solutions $S$ de l'équation $${b}-\\sqrt{x}=${c}$ est :
                            `

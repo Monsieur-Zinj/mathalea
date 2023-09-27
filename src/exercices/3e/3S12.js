@@ -8,7 +8,7 @@ import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilStrin
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -151,14 +151,14 @@ export default function CalculEffectifFrequence () {
       texteCorr += ' D\'après le graphique, il y a ' + lstNombresAnimaux[1] + ' ' + lstAnimauxExo[1] + '. <br>'
       texteCorr += ' La fréquence (ou la proportion) de  ' + lstAnimauxExo[1] + ' est : $ ' + texFractionSigne(lstNombresAnimaux[1], Ntotal) + '$ '
       // test de l'arrondi
-      if (calcul(lstNombresAnimaux[1] / Ntotal, 4) === arrondi(lstNombresAnimaux[1] / Ntotal, 3)) {
+      if (calculANePlusJamaisUtiliser(lstNombresAnimaux[1] / Ntotal, 4) === arrondi(lstNombresAnimaux[1] / Ntotal, 3)) {
         texteCorr += '= '
       } else {
         texteCorr += '$\\approx $ '
       }
       texteCorr += stringNombre(lstNombresAnimaux[1] / Ntotal, 3) + '. <br>'
       texteCorr += texteGras('La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + stringNombre(100 * lstNombresAnimaux[1] / Ntotal, 1) + symbolePourCent + '. <br>')
-      setReponse(this, 4 * ee + 1, [calcul(100 * lstNombresAnimaux[1] / Ntotal, 1), calcul(100 * lstNombresAnimaux[1] / Ntotal, 1) + `\\${symbolePourCent}`])
+      setReponse(this, 4 * ee + 1, [calculANePlusJamaisUtiliser(100 * lstNombresAnimaux[1] / Ntotal, 1), calculANePlusJamaisUtiliser(100 * lstNombresAnimaux[1] / Ntotal, 1) + `\\${symbolePourCent}`])
       // question 3
       texteCorr += numAlpha(2) + ' On fait la somme des effectifs de chaque espèce de quadrupèdes : '
       let NTotalQuadri = lstNombresAnimaux[0]
@@ -181,14 +181,14 @@ export default function CalculEffectifFrequence () {
       texteCorr += ' L\'effectif total des animaux est : ' + Ntotal + '. <br>'
       texteCorr += ' La fréquence (ou la proportion) d\'oiseaux est : $ ' + texFractionSigne(NTotalOiseaux, Ntotal) + '$ '
       // test de l'arrondi
-      if (calcul(NTotalOiseaux / Ntotal, 4) === arrondi(NTotalOiseaux / Ntotal, 3)) {
+      if (calculANePlusJamaisUtiliser(NTotalOiseaux / Ntotal, 4) === arrondi(NTotalOiseaux / Ntotal, 3)) {
         texteCorr += '= '
       } else {
         texteCorr += '$\\approx $ '
       }
       texteCorr += stringNombre(NTotalOiseaux / Ntotal, 3) + '. <br>'
       texteCorr += texteGras('La fréquence des oiseaux est donc : ' + stringNombre(100 * NTotalOiseaux / Ntotal, 1) + symbolePourCent + '. <br>')
-      setReponse(this, 4 * ee + 3, [calcul(100 * NTotalOiseaux / Ntotal, 1), calcul(100 * NTotalOiseaux / Ntotal, 1) + `\\${symbolePourCent}`])
+      setReponse(this, 4 * ee + 3, [calculANePlusJamaisUtiliser(100 * NTotalOiseaux / Ntotal, 1), calculANePlusJamaisUtiliser(100 * NTotalOiseaux / Ntotal, 1) + `\\${symbolePourCent}`])
 
       if (context.isAmc) {
         this.autoCorrection[ee] = {
@@ -222,7 +222,7 @@ export default function CalculEffectifFrequence () {
                   texte: '',
                   reponse: {
                     texte: texte1,
-                    valeur: calcul(100 * lstNombresAnimaux[1] / Ntotal, 1),
+                    valeur: calculANePlusJamaisUtiliser(100 * lstNombresAnimaux[1] / Ntotal, 1),
                     param: {
                       signe: false,
                       digits: 3,
@@ -257,7 +257,7 @@ export default function CalculEffectifFrequence () {
                   multicolsEnd: true,
                   reponse: {
                     texte: texte3,
-                    valeur: calcul(100 * NTotalOiseaux / Ntotal, 1),
+                    valeur: calculANePlusJamaisUtiliser(100 * NTotalOiseaux / Ntotal, 1),
                     param: {
                       signe: false,
                       digits: 3,

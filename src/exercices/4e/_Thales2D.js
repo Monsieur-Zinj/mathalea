@@ -13,7 +13,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -74,7 +74,7 @@ export default function Thales2D () {
       ABC.id = `M2D_${numeroExercice}_${i}_1`
       const C = ABC.listePoints[2]
       C.nom = nomC
-      let k = calcul(randint(3, 8, 5) / 10)
+      let k = calculANePlusJamaisUtiliser(randint(3, 8, 5) / 10)
       if (parseInt(this.sup) === 2) {
         k *= -1
         this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
@@ -202,7 +202,7 @@ export default function Thales2D () {
       if (this.interactif && context.isHtml) {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
-        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'unites' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
+        setReponse(this, i * 2, new Grandeur(calculANePlusJamaisUtiliser(Math.abs(k) * ab), 'cm'), { formatInteractif: 'unites' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
         texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] inline largeur25')
         texte += `<br>$${nomC + nomB} = $`
         texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] inline largeur25')

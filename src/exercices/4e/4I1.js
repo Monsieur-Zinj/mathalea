@@ -2,7 +2,7 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/outils/embellissements.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin.js'
 
@@ -156,7 +156,7 @@ export default function TracerAvecScratch () {
         baisseCrayon(lutin2)
         for (let k = 1; k < n + 1; k++) {
           avance(myPolyName(n).nbPas, lutin2)
-          tournerD(calcul(360 / n, 2), lutin2)
+          tournerD(calculANePlusJamaisUtiliser(360 / n, 2), lutin2)
         }
         // le lutin2 fait un polygone régulier avec un côté de plus
         leveCrayon(lutin2)
@@ -164,7 +164,7 @@ export default function TracerAvecScratch () {
         baisseCrayon(lutin2)
         for (let k = 1; k < n + 1 + 1; k++) {
           avance(myPolyName(n + 1).nbPas, lutin2)
-          tournerD(calcul(360 / (n + 1), 2), lutin2)
+          tournerD(calculANePlusJamaisUtiliser(360 / (n + 1), 2), lutin2)
         }
 
         // le lutin2 fait un polygone régulier avec un côté de moins
@@ -173,7 +173,7 @@ export default function TracerAvecScratch () {
         baisseCrayon(lutin2)
         for (let k = 1; k < n; k++) {
           avance(myPolyName(n - 1).nbPas, lutin2)
-          tournerD(calcul(360 / (n - 1), 2), lutin2)
+          tournerD(calculANePlusJamaisUtiliser(360 / (n - 1), 2), lutin2)
         }
 
         // le lutin2 fait une figure ouverte à n côtés
@@ -182,7 +182,7 @@ export default function TracerAvecScratch () {
         baisseCrayon(lutin2)
         for (let k = 1; k < n + 1; k++) {
           avance(myPolyName(n).nbPas, lutin2)
-          tournerD(calcul((360 / n) - 10, 2), lutin2)
+          tournerD(calculANePlusJamaisUtiliser((360 / n) - 10, 2), lutin2)
         }
         allerA(tabAbsDemLutin2[3], 0, lutin2)
 
@@ -213,7 +213,7 @@ export default function TracerAvecScratch () {
         baisseCrayon(lutin3)
         for (let k = 1; k < n + 1; k++) {
           avance(myPolyName(n).nbPas, lutin3)
-          tournerD(calcul(360 / n, 2), lutin3)
+          tournerD(calculANePlusJamaisUtiliser(360 / n, 2), lutin3)
         }
         // le lutin3 fait un polygone régulier avec un côté de plus
         lutin3.color = colorToLatexOrHTML('red')
@@ -222,7 +222,7 @@ export default function TracerAvecScratch () {
         baisseCrayon(lutin3)
         for (let k = 1; k < n + 1 + 1; k++) {
           avance(myPolyName(n + 1).nbPas, lutin3)
-          tournerD(calcul(360 / (n + 1), 2), lutin3)
+          tournerD(calculANePlusJamaisUtiliser(360 / (n + 1), 2), lutin3)
         }
 
         // le lutin3 fait un polygone régulier avec un côté de moins
@@ -231,7 +231,7 @@ export default function TracerAvecScratch () {
         baisseCrayon(lutin3)
         for (let k = 1; k < n; k++) {
           avance(myPolyName(n - 1).nbPas, lutin3)
-          tournerD(calcul(360 / (n - 1), 2), lutin3)
+          tournerD(calculANePlusJamaisUtiliser(360 / (n - 1), 2), lutin3)
         }
 
         // le lutin3 fait une figure ouverte à n côtés
@@ -240,7 +240,7 @@ export default function TracerAvecScratch () {
         baisseCrayon(lutin3)
         for (let k = 1; k < n + 1; k++) {
           avance(myPolyName(n).nbPas, lutin3)
-          tournerD(calcul((360 / n) - 10, 2), lutin3)
+          tournerD(calculANePlusJamaisUtiliser((360 / n) - 10, 2), lutin3)
         }
         allerA(tabAbsDemLutin2[3], 0, lutin3)
 

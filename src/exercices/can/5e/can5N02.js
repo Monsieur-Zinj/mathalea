@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Passer de la fraction décimale à l’écriture décimale*'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export default function FractionDecimaleEcritureDecimale2 () {
         a = randint(1, 19, [10])
         b = randint(11, 59, [20, 30, 40, 50])
 
-        this.reponse = calcul(a * 0.1 + b * 0.01)
+        this.reponse = calculANePlusJamaisUtiliser(a * 0.1 + b * 0.01)
         if (choice([true, false])) {
           this.question = `Écrire sous forme décimale $\\dfrac{${a}}{10}+\\dfrac{${b}}{100}$. `
           this.correction = `$\\dfrac{${a}}{10}+\\dfrac{${b}}{100}=${texNombre(a / 10)}+${texNombre(b / 100)}=${texNombre(a / 10 + b / 100)}$<br>
@@ -44,7 +44,7 @@ export default function FractionDecimaleEcritureDecimale2 () {
         b = randint(1, 299, [20, 30, 40, 50, 60, 70, 80, 90, 100, 200])
         c = randint(1, 29, [10, 20])
 
-        this.reponse = calcul(b * 0.01 + c * 0.001)
+        this.reponse = calculANePlusJamaisUtiliser(b * 0.01 + c * 0.001)
         if (choice([true, false])) {
           this.question = `Écrire sous forme décimale $\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}$. `
           this.correction = `$\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}=${texNombre(c / 1000)}+${texNombre(b / 100)}=${texNombre(c / 1000 + b / 100)}$

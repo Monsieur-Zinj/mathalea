@@ -2,7 +2,7 @@ import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Lire l\'abscisse décimale d\'un point sur une droite graduée'
@@ -30,7 +30,7 @@ export default function LireAbscisseDecimaleDeFraction () {
     switch (choice([1, 2])) { //
       case 1:// droite graduée     /4 resultat décimal
         a = choice([1, 3, 5, 6, 7, 9, 10, 11]) // numérateur
-        this.reponse = calcul(a / 4)
+        this.reponse = calculANePlusJamaisUtiliser(a / 4)
         this.question = `Determiner l'abscisse du point $A$.<br>
         On donnera le résultat sous  forme décimale.<br>
     
@@ -58,7 +58,7 @@ export default function LireAbscisseDecimaleDeFraction () {
         break
       case 2:// droite graduée     /5 resultat décimal
         a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
-        this.reponse = calcul(a / 5)
+        this.reponse = calculANePlusJamaisUtiliser(a / 5)
         this.question = `Determiner l'abscisse du point $A$.<br>
         On donnera le résultat sous  forme décimale.<br>
     

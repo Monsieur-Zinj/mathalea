@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampFractionMathLive, ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { format } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -76,7 +76,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
         ])
       // X, XX, X0X, X00X, XX0
       b = [10, 100, 1000, 10, 100][i % 5]
-      n = calcul(a / b)
+      n = calculANePlusJamaisUtiliser(a / b)
 
       switch (typesDeQuestions) {
         case 2: // fraction décimale -> écriture décimale

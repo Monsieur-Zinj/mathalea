@@ -1,4 +1,4 @@
-import { calcul } from './outils.js'
+import { calculANePlusJamaisUtiliser } from './outils.js'
 
 /**
  * @class
@@ -25,7 +25,7 @@ class Grandeur {
   convertirEnAncien (unite2) {
     const unite2Parsee = parseUnite(unite2)
     if (unite2Parsee.puissanceUnite === this.puissanceUnite && unite2Parsee.uniteDeReference === this.uniteDeReference) {
-      return new Grandeur(calcul(this.mesure * 10 ** ((this.puissancePrefixe - unite2Parsee.puissancePrefixe) * this.puissanceUnite)), unite2)
+      return new Grandeur(calculANePlusJamaisUtiliser(this.mesure * 10 ** ((this.puissancePrefixe - unite2Parsee.puissancePrefixe) * this.puissanceUnite)), unite2)
     } else {
       // console.log('Conversion impossible')
     }
@@ -42,15 +42,15 @@ class Grandeur {
   convertirEn (uniteConversion) {
     const uniteConversionParsee = parseUnite(uniteConversion) // Unité de conversion (issue de la saisie)
     if (uniteConversionParsee.puissanceUnite === this.puissanceUnite && uniteConversionParsee.uniteDeReference === this.uniteDeReference) { // Mêmes unités
-      return new Grandeur(calcul(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe) * this.puissanceUnite)), uniteConversion)
+      return new Grandeur(calculANePlusJamaisUtiliser(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe) * this.puissanceUnite)), uniteConversion)
     } else if (uniteConversionParsee.uniteDeReference === 'm^3' & this.uniteDeReference === 'L') { // On met tout en litres.
-      return new Grandeur(calcul(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe - 3) * this.puissanceUnite)), 'L')
+      return new Grandeur(calculANePlusJamaisUtiliser(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe - 3) * this.puissanceUnite)), 'L')
     } else if (uniteConversionParsee.uniteDeReference === 'L' & this.uniteDeReference === 'm^3') { // On met tout en m³.
-      return new Grandeur(calcul(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite + 3)), 'm^3')
+      return new Grandeur(calculANePlusJamaisUtiliser(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite + 3)), 'm^3')
     } else if (uniteConversionParsee.uniteDeReference === 'm^2' & this.uniteDeReference === 'a') { // On met tout en m².
-      return new Grandeur(calcul(this.mesure * 10 ** (this.puissancePrefixe + 2)), 'm^2')
+      return new Grandeur(calculANePlusJamaisUtiliser(this.mesure * 10 ** (this.puissancePrefixe + 2)), 'm^2')
     } else if (uniteConversionParsee.uniteDeReference === 'a' & this.uniteDeReference === 'm^2') { // On met tout en a.
-      return new Grandeur(calcul(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite - 2)), 'a')
+      return new Grandeur(calculANePlusJamaisUtiliser(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite - 2)), 'a')
     }
   }
 

@@ -3,7 +3,7 @@ import { traceBarre } from '../../lib/2d/diagrammes.js'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Simulation d\'expériences aléatoires'
@@ -73,7 +73,7 @@ export default function SimulateurAleatoire () {
             tabEff[randint(1, nbFaces) - 1]++
           }
           for (let i = 0; i < nbFaces; i++) {
-            tabRes[i] = [i, calcul(tabEff[i] / nbLancers)]
+            tabRes[i] = [i, calculANePlusJamaisUtiliser(tabEff[i] / nbLancers)]
           }
         } else {
           face = randint(1, nbFaces) // on choisit une face au hasard. Elle aura une fréquence déséquilibrée.
@@ -90,7 +90,7 @@ export default function SimulateurAleatoire () {
           tabEff[randint(1, nbFaces, face) - 1] += S
           tabEff[face - 1] -= S
           for (let i = 0; i < nbFaces; i++) {
-            tabRes[i] = [i, calcul(tabEff[i] / nbLancers)]
+            tabRes[i] = [i, calculANePlusJamaisUtiliser(tabEff[i] / nbLancers)]
           }
           texteCorr += 'Ici, l\'expérience montre qu\'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>'
           texteCorr += `En effet, la fréquence de la face $${face}$ est largement inférieure à $${texNombre(f.pourcentage, 2)}\\%$.`
@@ -123,7 +123,7 @@ export default function SimulateurAleatoire () {
             }
           }
           for (let i = 0; i < nbFaces; i++) {
-            tabRes[i] = [i, calcul(tabEff[i] / nbLancers)]
+            tabRes[i] = [i, calculANePlusJamaisUtiliser(tabEff[i] / nbLancers)]
           }
         } else {
           nbFaces = 4
@@ -146,7 +146,7 @@ export default function SimulateurAleatoire () {
           tabEff[randint(1, 4, face) - 1] += S
           tabEff[face - 1] -= S
           for (let i = 0; i < nbFaces; i++) {
-            tabRes[i] = [i, calcul(tabEff[i] / nbLancers)]
+            tabRes[i] = [i, calculANePlusJamaisUtiliser(tabEff[i] / nbLancers)]
           }
           texteCorr += 'Ici, l\'expérience montre qu\'il y a quelque chose qui semble fausser cette équiprobabilité comme des boules discernables au toucher.<br>'
           texteCorr += `En effet, la fréquence des boules ${tabcoul[face - 1]} est largement inférieure à $${f.texFraction}\\approx ${texNombre(f.pourcentage, 2)}\\%$.`

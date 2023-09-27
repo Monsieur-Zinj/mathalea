@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir en tous sens'
 export const interactifReady = true
@@ -28,7 +28,7 @@ export default function ConversionEnTousSens () {
       case 'a':
         if (choice([true, false])) {
           a = randint(1, 13) * 50
-          resultat = calcul(a / 1000)
+          resultat = calculANePlusJamaisUtiliser(a / 1000)
           this.question = `$${texNombre(a)}$ g  =`
           if (!this.interactif) {
             this.question += ' .... kg'
@@ -44,7 +44,7 @@ export default function ConversionEnTousSens () {
     Comme $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}$ g$${sp()}=${texNombre(a / 1000)}$ kg.  `)
         } else {
           a = randint(1, 5) / 10
-          resultat = calcul(a * 1000)
+          resultat = calculANePlusJamaisUtiliser(a * 1000)
           this.question = `$${texNombre(a)}$ kg  = `
           if (!this.interactif) {
             this.question += ' ..... g'
@@ -62,7 +62,7 @@ export default function ConversionEnTousSens () {
       case 'b':
         if (choice([true, false])) {
           a = randint(1, 13) * 5
-          resultat = calcul(a * 100)
+          resultat = calculANePlusJamaisUtiliser(a * 100)
           this.question = `$${texNombre(a)}$ m  =`
           if (!this.interactif) {
             this.question += ' ..... cm'
@@ -77,7 +77,7 @@ export default function ConversionEnTousSens () {
             Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}$ m$=${texNombre(a * 100)}$ cm.  `)
         } else {
           a = randint(1, 12) * 10
-          resultat = calcul(a / 100)
+          resultat = calculANePlusJamaisUtiliser(a / 100)
           this.question = `$${texNombre(a)}$ cm  =`
           if (!this.interactif) {
             this.question += '..... m'
@@ -96,7 +96,7 @@ export default function ConversionEnTousSens () {
       case 'c':
         if (choice([true, false])) {
           a = randint(1, 13) / 10
-          resultat = calcul(a * 10)
+          resultat = calculANePlusJamaisUtiliser(a * 10)
           this.question = `$${texNombre(a)}$ cL  =  `
           if (!this.interactif) {
             this.question += ' .... mL'
@@ -111,7 +111,7 @@ export default function ConversionEnTousSens () {
             Comme  $${texNombre(a)}\\times 10 =${texNombre(a * 10)}$, alors $${texNombre(a)}$ cL$=${texNombre(a * 10)}$ mL.  `)
         } else {
           a = randint(1, 12)
-          resultat = calcul(a / 10)
+          resultat = calculANePlusJamaisUtiliser(a / 10)
           this.question = `$${texNombre(a)}$ mL  = `
           if (!this.interactif) {
             this.question += ' .... cL'
@@ -130,7 +130,7 @@ export default function ConversionEnTousSens () {
       case 'd':
         if (choice([true, false])) {
           a = randint(1, 20) * 10
-          resultat = calcul(a / 1000)
+          resultat = calculANePlusJamaisUtiliser(a / 1000)
           this.question = `$${texNombre(a)}$ m  $=$ `
           if (!this.interactif) {
             this.question += ' .... km'
@@ -146,7 +146,7 @@ export default function ConversionEnTousSens () {
             Comme  $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}$ m$=${texNombre(a / 1000)}$ km.  `)
         } else {
           a = randint(1, 35) / 100
-          resultat = calcul(a * 1000)
+          resultat = calculANePlusJamaisUtiliser(a * 1000)
           this.question = `$${texNombre(a)}$ km $=$`
           if (!this.interactif) {
             this.question += ' .... m'

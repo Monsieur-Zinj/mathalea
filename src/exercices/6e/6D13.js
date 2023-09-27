@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -41,7 +41,7 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
     for (let i = 0, cpt = 0, a, b, d, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 4)
       b = randint(10, 59)
-      d = calcul(a * 60 + b)
+      d = calculANePlusJamaisUtiliser(a * 60 + b)
       if (listeTypeQuestions[i] === 'min vers h et min') {
         texte = `Convertir $${d}$ minutes en heures (h) et minutes (min).` + ajouteChampTexteMathLive(this, i, 'inline clavierHms')
         this.canEnonce = `Convertir $${d}$ minutes en heures et minutes.`

@@ -4,7 +4,7 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -154,7 +154,7 @@ export default function LectureDiagrammeBarre () {
     })
 
     const lstElementGraph = []
-    const bornesAEviter = [calcul(10 * coef * Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])] / (10 * coef)))]
+    const bornesAEviter = [calculANePlusJamaisUtiliser(10 * coef * Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])] / (10 * coef)))]
     for (let i = 0, borne, reponsea, reponseb, reponsec; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 0.1 / coef }))
       if (context.isAmc) {

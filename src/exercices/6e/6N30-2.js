@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, egal, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, egal, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Placer un point d\'abscisse décimale'
 export const interactifReady = false
@@ -98,13 +98,13 @@ export default function PlacerPointsSurAxe () {
           break
 
         case 2: // Placer un point sur un axe (2 décimales)
-          abs0 = this.sup > 4 ? calcul(randint(-50, 50) / 10) : calcul(randint(0, 90) / 10)
+          abs0 = this.sup > 4 ? calculANePlusJamaisUtiliser(randint(-50, 50) / 10) : calculANePlusJamaisUtiliser(randint(0, 90) / 10)
           pas1 = 10
           pas2 = 10
           break
 
         case 3: // Placer un point sur un axe (3 décimales)
-          abs0 = this.sup > 4 ? calcul(randint(-500, 500) / 100) : calcul(randint(0, 990) / 100)
+          abs0 = this.sup > 4 ? calculANePlusJamaisUtiliser(randint(-500, 500) / 100) : calculANePlusJamaisUtiliser(randint(0, 990) / 100)
           pas1 = 100
           pas2 = 10
           break

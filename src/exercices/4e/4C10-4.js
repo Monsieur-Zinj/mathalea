@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -56,8 +56,8 @@ export default function ExerciceQuotientsRelatifs () {
           break
       }
       texte = `$\\dfrac{${a}}{${b}}$`
-      texteCorr = `$\\dfrac{${a}}{${b}}=${calcul(a / b)}$`
-      setReponse(this, i, calcul(a / b))
+      texteCorr = `$\\dfrac{${a}}{${b}}=${calculANePlusJamaisUtiliser(a / b)}$`
+      setReponse(this, i, calculANePlusJamaisUtiliser(a / b))
       texte += ajouteChampTexteMathLive(this, i)
 
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre

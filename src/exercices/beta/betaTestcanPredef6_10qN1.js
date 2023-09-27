@@ -6,7 +6,7 @@ import { prenomF } from '../../lib/outils/Personne.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -69,8 +69,8 @@ export default function Can10Questions6N1 () {
           c = randint(1, 3)
           d = randint(1, 2)
           reponse = d * 10 + b
-          texte = `$${c * 10 + a} + \\dots = ${calcul((c + d) * 10 + b + a)}$`
-          texteCorr = `On obtient le nombre cherché par la différence : $${calcul((c + d) * 10 + b + a)} - ${c * 10 + a} = ${reponse}$`
+          texte = `$${c * 10 + a} + \\dots = ${calculANePlusJamaisUtiliser((c + d) * 10 + b + a)}$`
+          texteCorr = `On obtient le nombre cherché par la différence : $${calculANePlusJamaisUtiliser((c + d) * 10 + b + a)} - ${c * 10 + a} = ${reponse}$`
           texteCorr += texteEnCouleur(`<br> Mentalement : <br>
             On complète $${c * 10 + a}$ jusqu'à la dizaine la plus proche en ajoutant $${(c + 1) * 10 - (c * 10 + a)}$, on obtient $${(c + 1) * 10}$,
             puis de $${(c + 1) * 10}$ à $${(c + d) * 10 + b + a}$, on ajoute encore $${(c + d) * 10 + b + a - (c + 1) * 10}$. <br>
@@ -108,11 +108,11 @@ export default function Can10Questions6N1 () {
           break
 
         case '4':
-          a = calcul(randint(2, 9) / 10)
+          a = calculANePlusJamaisUtiliser(randint(2, 9) / 10)
           b = choice([1, 10])
           texte = `$${b}-${texNombre(a)}=$`
           texteCorr = `$${b}-${texNombre(a)}=${texNombre(1 - a)}$`
-          reponse = calcul(b - a)
+          reponse = calculANePlusJamaisUtiliser(b - a)
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
           if (b === 1) {
             texteCorr += texteEnCouleur(`
@@ -167,7 +167,7 @@ export default function Can10Questions6N1 () {
           a = randint(2, 5)
           b = randint(2, 9)
           c = randint(2, 9)
-          reponse = calcul(a * 1000 + b * 10 + c * 100)
+          reponse = calculANePlusJamaisUtiliser(a * 1000 + b * 10 + c * 100)
           if (choice([true, false])) {
             texte = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100=$`
             texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(reponse)}$`
@@ -200,7 +200,7 @@ export default function Can10Questions6N1 () {
         case '7':
           a = randint(1, 3)
           b = randint(10, 40)
-          d = calcul(a * 60 + b)
+          d = calculANePlusJamaisUtiliser(a * 60 + b)
           texte = `Compléter : <br> $${a}$ heures $${b}$ minutes $=$`
           texteCorr = `Il y a $60$ minutes dans une heure.<br>
       Comme $${a} \\times 60 + ${b}=${d}$ alors $${a}$h $${b}$min = $${d}$ minutes`
@@ -222,7 +222,7 @@ export default function Can10Questions6N1 () {
           a = randint(0, 7)
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
-          reponse = calcul(c / 5 * b)
+          reponse = calculANePlusJamaisUtiliser(c / 5 * b)
           texte = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 10 * b)}$ €,
             combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
           texteCorr = `On reconnaît une situation de proportionnalité : <br>

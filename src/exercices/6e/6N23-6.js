@@ -9,7 +9,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -85,7 +85,7 @@ export default function DivisionFraction () {
           break
         case 3: // fraction : entier divisé par 6 quotient : xxx,5
           b = 6
-          q = calcul(
+          q = calculANePlusJamaisUtiliser(
             randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5
           )
           a = q * 6
@@ -111,12 +111,12 @@ export default function DivisionFraction () {
           q = arrondi(a / b, 3)
           break
         case 8: // dénominateur = 9
-          a = calcul((randint(11, 19) * 9) + randint(1, 8))
+          a = calculANePlusJamaisUtiliser((randint(11, 19) * 9) + randint(1, 8))
           b = 9
           q = arrondi(a / b, 3)
           break
         case 9: // dénominateur = 3
-          a = calcul((randint(11, 99) * 3) + randint(1, 2))
+          a = calculANePlusJamaisUtiliser((randint(11, 99) * 3) + randint(1, 2))
           b = 3
           q = arrondi(a / b, 3)
       }

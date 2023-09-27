@@ -11,7 +11,7 @@ import { texcolors } from '../../lib/format/style.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, calcul } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 
@@ -281,7 +281,7 @@ export default function LireUnDiagramme () {
         },
         {
           texte: 'La moitié des animaux',
-          statut: nbMax === calcul(effectiftotal / 2)
+          statut: nbMax === calculANePlusJamaisUtiliser(effectiftotal / 2)
         }
         )
         this.autoCorrection[q * 3].options = {}
@@ -328,7 +328,7 @@ export default function LireUnDiagramme () {
         },
         {
           texte: 'La moitié des animaux',
-          statut: nbMax === calcul(effectiftotal / 2)
+          statut: nbMax === calculANePlusJamaisUtiliser(effectiftotal / 2)
         }
         ]
         this.autoCorrection[q].propositions[0].options = { ordered: true }

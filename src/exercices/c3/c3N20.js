@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -50,32 +50,32 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         case 'type1':
           texte = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100}$`
           texteCorr = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100} = ${texNombre(a + b / 10 + c / 100)} $`
-          reponse = calcul(a + b / 10 + c / 100)
+          reponse = calculANePlusJamaisUtiliser(a + b / 10 + c / 100)
           break
         case 'type2':
           texte = `$${a} + \\dfrac{${c}}{100} + \\dfrac{${b}}{10} $`
           texteCorr = `$${a} + \\dfrac{${c}}{100} + \\dfrac{${b}}{10}  = ${texNombre(a + b / 10 + c / 100)} $`
-          reponse = calcul(a + b / 10 + c / 100)
+          reponse = calculANePlusJamaisUtiliser(a + b / 10 + c / 100)
           break
         case 'type3':
           texte = `$\\dfrac{${c}}{100} + \\dfrac{${b}}{10} + ${a}$`
           texteCorr = `$\\dfrac{${c}}{100} + \\dfrac{${b}}{10} + ${a} = ${texNombre(a + b / 10 + c / 100)} $`
-          reponse = calcul(a + b / 10 + c / 100)
+          reponse = calculANePlusJamaisUtiliser(a + b / 10 + c / 100)
           break
         case 'type4':
           texte = `$\\dfrac{${c}}{100} + ${a} + \\dfrac{${b}}{10} $`
           texteCorr = `$\\dfrac{${c}}{100} + ${a} + \\dfrac{${b}}{10}  = ${texNombre(a + b / 10 + c / 100)} $`
-          reponse = calcul(a + b / 10 + c / 100)
+          reponse = calculANePlusJamaisUtiliser(a + b / 10 + c / 100)
           break
         case 'type5':
           texte = `$${a} + \\dfrac{${b}}{100}$`
           texteCorr = `$${a} + \\dfrac{${b}}{100} = ${texNombre(a + b / 100)}$`
-          reponse = calcul(a + b / 100)
+          reponse = calculANePlusJamaisUtiliser(a + b / 100)
           break
         case 'type6':
           texte = `$\\dfrac{${b}}{100} + ${a}$`
           texteCorr = `$\\dfrac{${b}}{100} + ${a} = ${texNombre(a + b / 100)}$`
-          reponse = calcul(a + b / 100)
+          reponse = calculANePlusJamaisUtiliser(a + b / 100)
           break
       }
 

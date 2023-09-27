@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Prendre t % d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -50,7 +50,7 @@ export default function PoucentageP2 () {
         break
       case 'c':
         u = randint(1, 99)
-        a = calcul(randint(1, 9) / 10)
+        a = calculANePlusJamaisUtiliser(randint(1, 9) / 10)
 
         this.question = `Prendre $${texNombre(u + a)}~\\%$ d'une quantité revient à la multiplier par `
         if (!this.interactif) {

@@ -1,4 +1,4 @@
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des Heures/minutes en minutes'
 export const interactifReady = true
@@ -26,7 +26,7 @@ export default function ConversionHeuresEtMinutesVersMinutes () {
   this.nouvelleVersion = function () {
     const a = randint(2, 4)
     const b = randint(10, 59)
-    const d = calcul(a * 60 + b)
+    const d = calculANePlusJamaisUtiliser(a * 60 + b)
     this.question = `Compléter : <br> $${a}$ heures $${b}$ minutes $=$`
     if (!this.interactif) {
       this.question += ' .... minutes'

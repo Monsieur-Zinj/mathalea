@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Passer d’un calcul de fractions décimales à une écriture décimale'
 export const interactifReady = true
@@ -28,7 +28,7 @@ export default function FractionDecimaleEcritureDecimale1 () {
         b = randint(1, 9)
         c = randint(1, 9)
 
-        this.reponse = calcul(a * 0.1 + b * 0.01 + c * 0.001)
+        this.reponse = calculANePlusJamaisUtiliser(a * 0.1 + b * 0.01 + c * 0.001)
         if (choice([true, false])) {
           this.question = `Calculer $\\dfrac{${b}}{100}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ sous forme décimale. `
           this.correction = `$\\dfrac{${b}}{100}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${texNombre(b / 100)}+${texNombre(a / 10)}+${texNombre(c / 1000)}=${texNombre(a / 10 + b / 100 + c / 1000)}$`
@@ -41,7 +41,7 @@ export default function FractionDecimaleEcritureDecimale1 () {
         u = randint(1, 99)
         a = randint(1, 9, [20, 30, 40, 50])
         c = randint(1, 9)
-        this.reponse = calcul(u + a * 0.1 + c * 0.001)
+        this.reponse = calculANePlusJamaisUtiliser(u + a * 0.1 + c * 0.001)
         if (choice([true, false])) {
           this.question = `Calculer  $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ sous forme décimale. `
           this.correction = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10)}+${texNombre(c / 1000)}=${texNombre(u + a / 10 + c / 1000)}$`
@@ -55,7 +55,7 @@ export default function FractionDecimaleEcritureDecimale1 () {
         u = randint(1, 99)
         b = randint(1, 9)
         c = randint(1, 9)
-        this.reponse = calcul(u + b * 0.01 + c * 0.001)
+        this.reponse = calculANePlusJamaisUtiliser(u + b * 0.01 + c * 0.001)
         if (choice([true, false])) {
           this.question = `Calculer  $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ sous forme décimale. `
           this.correction = `$${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=${u}+${texNombre(b / 100)}+${texNombre(c / 1000)}=${texNombre(u + b / 100 + c / 1000)}$`
@@ -67,7 +67,7 @@ export default function FractionDecimaleEcritureDecimale1 () {
       case 'd':
         a = randint(1, 9)
         c = randint(1, 9)
-        this.reponse = calcul(a * 0.1 + c * 0.001)
+        this.reponse = calculANePlusJamaisUtiliser(a * 0.1 + c * 0.001)
         if (choice([true, false])) {
           this.question = `Calculer  $\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ sous forme décimale. `
           this.correction = `$\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${texNombre(a / 10)}+${texNombre(c / 1000)}=${texNombre(a / 10 + c / 1000)}$`
@@ -80,7 +80,7 @@ export default function FractionDecimaleEcritureDecimale1 () {
         u = randint(1, 99)
         b = randint(11, 99)
         c = randint(1, 9)
-        this.reponse = calcul(u + b * 0.01 + c * 0.001)
+        this.reponse = calculANePlusJamaisUtiliser(u + b * 0.01 + c * 0.001)
         if (choice([true, false])) {
           this.question = `Calculer  $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ sous forme décimale. `
           this.correction = `$${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=${u}+${texNombre(b / 100)}+${texNombre(c / 1000)}=${texNombre(u + b / 100 + c / 1000)}$`

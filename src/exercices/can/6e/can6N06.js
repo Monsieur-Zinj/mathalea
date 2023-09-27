@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Arrondir au dixième ou au centième'
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'ad44e'
 export const ref = 'can6N06'
-export default function ArrondiDixiemeCentième () {
+export default function ArrondiDixiemeCentieme () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
@@ -28,7 +28,7 @@ export default function ArrondiDixiemeCentième () {
     const b = randint(0, 9, 5)
     const c = randint(1, 9, b)
     const e = randint(1, 9)
-    const d = calcul(a + b * 0.1 + c * 0.01 + e * 0.001)
+    const d = calculANePlusJamaisUtiliser(a + b * 0.1 + c * 0.01 + e * 0.001)
     if (choice([true, false])) {
       this.question = `Quel est l'arrondi au dixième de $${texNombre(d)}$ ?`
       if (c > 4) {

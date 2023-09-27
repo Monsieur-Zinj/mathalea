@@ -1,4 +1,4 @@
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une expression pour une valeur particulière*'
 export const interactifReady = true
@@ -26,7 +26,7 @@ export default function CalculSubstitution () {
         a = randint(-5, -1)
         b = randint(1, 9)
         d = randint(1, 9)
-        this.reponse = calcul(a ** 2 + b)
+        this.reponse = calculANePlusJamaisUtiliser(a ** 2 + b)
         this.question = `Calculer $x^2+${b}$ pour $x=${a}$.`
         this.correction = `$(${a})^2+${b}=${a ** 2 + b}$.`
         break
@@ -34,7 +34,7 @@ export default function CalculSubstitution () {
         a = randint(2, 7)
         b = randint(1, 9)
         d = randint(1, 9)
-        this.reponse = calcul(-b + a ** 2)
+        this.reponse = calculANePlusJamaisUtiliser(-b + a ** 2)
         this.question = `Calculer $-${b}+x^2$ pour $x=${a}$.`
         this.correction = `$-${b}+(${a})^2=${-b + a * a}$.`
         break
@@ -42,7 +42,7 @@ export default function CalculSubstitution () {
         a = randint(2, 9)
         b = randint(1, 9)
         d = randint(1, 9)
-        this.reponse = calcul(a - a * a)
+        this.reponse = calculANePlusJamaisUtiliser(a - a * a)
         this.question = `Calculer $x-x^2$ pour $x=${a}$.`
         this.correction = `$${a}-${a}^2=${a - a ** 2}$.`
         break
@@ -50,7 +50,7 @@ export default function CalculSubstitution () {
         a = randint(1, 6)
         b = randint(1, 9)
         d = randint(1, 9)
-        this.reponse = calcul(a ** 2 + a - d)
+        this.reponse = calculANePlusJamaisUtiliser(a ** 2 + a - d)
         this.question = `Calculer $x^2+x-${d}$ pour $x=${a}$.`
         this.correction = `$(${a})^2+${a}-${d}=${a ** 2 + a - d}$.`
         break

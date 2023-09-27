@@ -3,7 +3,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -85,7 +85,7 @@ export default function ÉcrireNombresDecimal () {
           // nombre += tranche[j] * 10 ** ((j-1)*3)
         }
         partDec = tranche[0]
-        nombre = calcul(partEnt + partDec / 1000, 3)
+        nombre = calculANePlusJamaisUtiliser(partEnt + partDec / 1000, 3)
         // if (tranche[listeTypeDeQuestions[i]-1]==0) nombre=0
         if (tranche[1] < 2) nombre = 0
         if (tranche[0] === 0) nombre = 0

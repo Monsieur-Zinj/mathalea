@@ -2,7 +2,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Rechercher un nombre à ajouter'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,7 +36,7 @@ export default function NombreATrouver () {
     Le nombre cherché est négatif car le résultat est plus petit que le nombre de départ. <br>
 L'"écart" entre les deux nombres est $${abs(c - a)}$. Il faut donc ajouter $${c - a}$.
 `)
-    this.reponse = calcul(c - a)
+    this.reponse = calculANePlusJamaisUtiliser(c - a)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

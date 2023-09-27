@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -69,54 +69,54 @@ export default function DivisionDecimale () {
         case 1: // entier divisé par 4 quotient : xx,25 ou xx,75
           b = 4
           a = (randint(2, 9) * 10 + randint(2, 9)) * 4 + choice([1, 3])
-          q = calcul(a / b)
+          q = calculANePlusJamaisUtiliser(a / b)
           break
         case 2: // entier divisé par 8 quotient : x,125 ou x,375 ou x,625 ou x,875
           b = 8
           a = randint(2, 9) * 8 + choice([1, 3, 5, 7])
-          q = calcul(a / b)
+          q = calculANePlusJamaisUtiliser(a / b)
           break
         case 3: // entier divisé par 6 quotient : xxx,5
           b = 6
-          q = calcul(
+          q = calculANePlusJamaisUtiliser(
             randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5
           )
           a = q * 6
           break
         case 4: // quotient xx,xx division par 2, 3 , 4 ou 5
-          q = calcul(
+          q = calculANePlusJamaisUtiliser(
             randint(2, 5) * 10 +
                         randint(2, 5) +
                         randint(2, 5) / 10 +
                         randint(2, 5) / 100
           )
           b = randint(2, 5)
-          a = calcul(b * q)
+          a = calculANePlusJamaisUtiliser(b * q)
           break
         case 5: // quotient x,xxx division par 6 à 9
-          q = calcul(
+          q = calculANePlusJamaisUtiliser(
             randint(6, 9) +
                         randint(5, 9) / 10 +
                         randint(6, 9) / 100 +
                         randint(6, 9) / 1000
           )
           b = randint(6, 9)
-          a = calcul(b * q)
+          a = calculANePlusJamaisUtiliser(b * q)
           break
         case 6: // un 0 dans le quotient
           if (randint(1, 2) === 1) {
             // x0x,x
-            q = calcul(
+            q = calculANePlusJamaisUtiliser(
               randint(2, 9) * 100 + randint(2, 9) + randint(2, 9) / 10
             )
           } else {
             // xx0,x
-            q = calcul(
+            q = calculANePlusJamaisUtiliser(
               randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) / 10
             )
           }
           b = randint(7, 9)
-          a = calcul(b * q)
+          a = calculANePlusJamaisUtiliser(b * q)
           break
         case 7: // division par 7
           a = randint(2, 9) * 7 + randint(1, 6)
@@ -124,12 +124,12 @@ export default function DivisionDecimale () {
           q = arrondi(a / b, 3)
           break
         case 8: // division par 9
-          a = calcul((randint(11, 19) * 9) / 10 + randint(1, 8) / 10)
+          a = calculANePlusJamaisUtiliser((randint(11, 19) * 9) / 10 + randint(1, 8) / 10)
           b = 9
           q = arrondi(a / b, 3)
           break
         case 9: // division par 3
-          a = calcul((randint(11, 99) * 3) / 100 + randint(1, 2) / 100)
+          a = calculANePlusJamaisUtiliser((randint(11, 99) * 3) / 100 + randint(1, 2) / 100)
           b = 3
           q = arrondi(a / b, 3)
       }

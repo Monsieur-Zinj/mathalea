@@ -4,7 +4,7 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import { texTexte } from '../../lib/format/texTexte.js'
@@ -111,7 +111,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
 
       if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
-        resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calculANePlusJamaisUtiliser(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
@@ -134,7 +134,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
         }
       } else if (div && typesDeQuestions < 4) {
-        resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
+        resultat = calculANePlusJamaisUtiliser(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
@@ -165,7 +165,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         }
         const ecart = unite2 - unite1 // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (randint(0, 1) > 0) {
-          resultat = calcul(a * Math.pow(10, ecart))
+          resultat = calculANePlusJamaisUtiliser(a * Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
           texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite1] })}` : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
@@ -188,7 +188,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
             texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1])
           }
         } else {
-          resultat = calcul(a / Math.pow(10, ecart))
+          resultat = calculANePlusJamaisUtiliser(a / Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
           texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite2] })}` : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
           texteCorr =

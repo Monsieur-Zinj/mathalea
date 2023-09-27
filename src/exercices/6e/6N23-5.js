@@ -5,7 +5,7 @@ import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu,
   randint,
-  calcul,
+  calculANePlusJamaisUtiliser,
   gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
@@ -159,11 +159,11 @@ export default function SensDeLaFraction () {
           }
           f = fraction(a, b)
 
-          texte = `Le nombre $${texNombre2(calcul(a / b))}$ s'écrit en écriture fractionnaire : $${deprecatedTexFraction(
+          texte = `Le nombre $${texNombre2(calculANePlusJamaisUtiliser(a / b))}$ s'écrit en écriture fractionnaire : $${deprecatedTexFraction(
             '\\phantom{00000}',
             '\\phantom{00000}'
           )}$`
-          texteCorr = `Le nombre $${texNombre2(calcul(a / b))}$ s'écrit  $${f.fractionDecimale().texFraction}$`
+          texteCorr = `Le nombre $${texNombre2(calculANePlusJamaisUtiliser(a / b))}$ s'écrit  $${f.fractionDecimale().texFraction}$`
           if (f.fractionDecimale().texFraction !== f.texFractionSimplifiee) {
             texteCorr += ` ou $${f.texFractionSimplifiee}$.`
           } else texte += '.'
@@ -187,7 +187,7 @@ export default function SensDeLaFraction () {
               statut: false
             },
             {
-              texte: `$${deprecatedTexFraction(Math.floor(a / b), fraction(calcul((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().n)}$`,
+              texte: `$${deprecatedTexFraction(Math.floor(a / b), fraction(calculANePlusJamaisUtiliser((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().n)}$`,
               statut: false
             }
           ]

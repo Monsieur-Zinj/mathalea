@@ -4,7 +4,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -73,25 +73,25 @@ export default function MultiplierDecimaux () {
       switch (typesDeQuestions) {
         case 1: // xxx * xx,x chiffres inférieurs à 5
           a = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5)
-          b = calcul(randint(2, 5) * 10 + randint(2, 5) + randint(2, 5) / 10)
+          b = calculANePlusJamaisUtiliser(randint(2, 5) * 10 + randint(2, 5) + randint(2, 5) / 10)
           break
         case 2: // xx,x * x,x
-          a = calcul(randint(2, 9) * 10 + randint(2, 9) + randint(2, 9) / 10)
-          b = calcul(randint(6, 9) + randint(6, 9) / 10)
+          a = calculANePlusJamaisUtiliser(randint(2, 9) * 10 + randint(2, 9) + randint(2, 9) / 10)
+          b = calculANePlusJamaisUtiliser(randint(6, 9) + randint(6, 9) / 10)
           break
         case 3: // x,xx * x0x
-          a = calcul(randint(2, 9) + randint(2, 9) / 10 + randint(2, 9) / 100)
-          b = calcul(randint(2, 9) * 100 + randint(2, 9))
+          a = calculANePlusJamaisUtiliser(randint(2, 9) + randint(2, 9) / 10 + randint(2, 9) / 100)
+          b = calculANePlusJamaisUtiliser(randint(2, 9) * 100 + randint(2, 9))
           break
         case 4: // 0,xx * x,x
-          a = calcul(randint(2, 9) / 10 + randint(2, 9) / 100)
-          b = calcul(randint(2, 9) + randint(2, 9) / 10)
+          a = calculANePlusJamaisUtiliser(randint(2, 9) / 10 + randint(2, 9) / 100)
+          b = calculANePlusJamaisUtiliser(randint(2, 9) + randint(2, 9) / 10)
           break
       }
 
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       texte += grilletxt
-      reponse = calcul(a * b)
+      reponse = calculANePlusJamaisUtiliser(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
       texteCorr += context.isHtml ? '' : '\\hspace*{30mm}'
       texteCorr += Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })

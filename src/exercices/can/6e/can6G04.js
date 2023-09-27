@@ -3,7 +3,7 @@ import { droite } from '../../../lib/2d/droites.js'
 import { point, tracePointSurDroite } from '../../../lib/2d/points.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../../lib/2d/textes.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Résoudre un problème de longueurs'
@@ -60,7 +60,7 @@ export default function ProblemesDeLongueurs () {
     const s2 = segment(B, E, 'green')
     s1.pointilles = 2
     s2.pointilles = 2
-    const abc = calcul(a * b * c)
+    const abc = calculANePlusJamaisUtiliser(a * b * c)
     objets.push(texteSurSegment(c, F, E), labelPoint(F), codageSegments('/', 'blue', D, ...pointsSurDE, E), s1, s2)
     this.question = `Sachant que $FE=${c}$ cm et que $CB=DE$, déterminer $AB$.<br>
 
