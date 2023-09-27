@@ -4,7 +4,7 @@ import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { nombreAvecEspace, stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -47,7 +47,7 @@ export default function VitesseDistanceTemps () {
       } else {
         t = randint(2, 19) * 6
       } // On s'assure que le produit v*t est divisible par 6
-      d = calcul(v * t / 60)
+      d = calculANePlusJamaisUtiliser(v * t / 60)
       pronomgenre = choice(['il', 'elle'])
       if (pronomgenre === 'il') {
         prenom = prenomM()

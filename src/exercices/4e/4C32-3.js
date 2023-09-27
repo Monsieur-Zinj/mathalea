@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 export const titre = 'Problèmes avec des puissances de 10 et des conversions'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -39,30 +39,30 @@ export default function ProblemesPuissancesDe10EtConversions () {
           b = randint(11, 40)
           b1 = choice([650, 700, 750])
           c = randint(3, 20)
-          c1 = calcul(randint(11, 49) / 10)
+          c1 = calculANePlusJamaisUtiliser(randint(11, 49) / 10)
           texte = `Sur mon disque dur, j'ai ${a} photos de ${a1} ko, ${b} films de ${b1} Mo et ${c} films HD de $${texNombre(c1)}$ Go.<br>`
           texte += 'Combien de place vont occuper tous ces fichiers ? Donner le résultat en mega-octets ou en giga-octets.'
-          texteCorr = `Taille des photos : $${a}\\times${a1}~\\text{ko}=${texNombre(a * a1)}~\\text{ko}=${texNombre(calcul(a * a1 / 1000))}~\\text{Mo}$<br>`
+          texteCorr = `Taille des photos : $${a}\\times${a1}~\\text{ko}=${texNombre(a * a1)}~\\text{ko}=${texNombre(calculANePlusJamaisUtiliser(a * a1 / 1000))}~\\text{Mo}$<br>`
           texteCorr += `Taille des films : $${b}\\times${b1}~\\text{Mo}=${texNombre(b * b1)}~\\text{Mo}$<br>`
           texteCorr += `Taille des films HD : $${c}\\times${texNombre(c1)}~\\text{Go}=${texNombre(c * c1)}~\\text{Go}=${texNombre(c * c1 * 1000)}~\\text{Mo}$<br>`
-          texteCorr += `Taille totale : $${texNombre(calcul(a * a1 / 1000))}~\\text{Mo}+${texNombre(b * b1)}~\\text{Mo}+${texNombre(c * c1 * 1000)}~\\text{Mo}=${texNombre(calcul(a * a1 / 1000 + b * b1 + c * c1 * 1000))}~\\text{Mo}=${texNombre(calcul((a * a1 / 1000 + b * b1 + c * c1 * 1000) / 1000))}~\\text{Go}$`
+          texteCorr += `Taille totale : $${texNombre(calculANePlusJamaisUtiliser(a * a1 / 1000))}~\\text{Mo}+${texNombre(b * b1)}~\\text{Mo}+${texNombre(c * c1 * 1000)}~\\text{Mo}=${texNombre(calculANePlusJamaisUtiliser(a * a1 / 1000 + b * b1 + c * c1 * 1000))}~\\text{Mo}=${texNombre(calculANePlusJamaisUtiliser((a * a1 / 1000 + b * b1 + c * c1 * 1000) / 1000))}~\\text{Go}$`
           break
         case 'info2':
-          a = calcul(randint(11, 49, [20, 30, 40]) / 10)
+          a = calculANePlusJamaisUtiliser(randint(11, 49, [20, 30, 40]) / 10)
           a1 = randint(4, 10)
           b = randint(11, 40)
           texte = `Un serveur héberge $${texNombre(a)}\\times10^{${a1}}$ fichiers de $${b}$ Mo.<br>`
           texte += 'Combien de place occupent tous ces fichiers ? Donner le résultat en tera-octets.'
-          texteCorr = `$${texNombre(a)}\\times10^{${a1}}\\times${b}~\\text{Mo}=${texNombre(calcul(a * b))}\\times10^{${a1}}~\\text{Mo}$<br>`
+          texteCorr = `$${texNombre(a)}\\times10^{${a1}}\\times${b}~\\text{Mo}=${texNombre(calculANePlusJamaisUtiliser(a * b))}\\times10^{${a1}}~\\text{Mo}$<br>`
           texteCorr += 'Or $1~\\text{To}=1~000~\\text{Go}=1~000~000~\\text{Mo}$, il faut donc diviser par un million ou multiplier par $10^{-6}$ pour convertir les méga-octets en tera-octets.<br>'
-          texteCorr += `$${texNombre(calcul(a * b))}\\times10^{${a1}}~\\text{Mo}=${texNombre(calcul(a * b))}\\times10^{${a1 - 6}}~\\text{To}$`
+          texteCorr += `$${texNombre(calculANePlusJamaisUtiliser(a * b))}\\times10^{${a1}}~\\text{Mo}=${texNombre(calculANePlusJamaisUtiliser(a * b))}\\times10^{${a1 - 6}}~\\text{To}$`
           break
         case 'electricite':
           a = choice([30, 35, 40, 45])
-          b = calcul(randint(11, 49, [20, 30, 40]) / 10)
+          b = calculANePlusJamaisUtiliser(randint(11, 49, [20, 30, 40]) / 10)
           texte = `On estime qu'un foyer consomme ${a} kWh par jour. Si une centrale électrique produit $${texNombre(b)}$ TWh par an, combien de foyers pourra-t-elle alimenter ? Arrondir à l'unité.<br>`
           texteCorr = `Consommation annuelle d'un foyer français : $365\\times${texNombre(a)}~\\text{kWh} = ${texNombre(a * 365)}~\\text{kWh}$<br>`
-          texteCorr += `Nombre de foyers pouvant être alimentés par cette centrale : $\\dfrac{${texNombre(b)}~\\text{TWh}}{${texNombre(a * 365)}~\\text{kWh}}=\\dfrac{${texNombre(b)}\\times10^{12}~\\text{Wh}}{${texNombre(a * 365)}\\times10^3~\\text{Wh}}\\approx${texNombre(calcul((b * 10 ** 12) / (a * 365 * 10 ** 3), 0))}$`
+          texteCorr += `Nombre de foyers pouvant être alimentés par cette centrale : $\\dfrac{${texNombre(b)}~\\text{TWh}}{${texNombre(a * 365)}~\\text{kWh}}=\\dfrac{${texNombre(b)}\\times10^{12}~\\text{Wh}}{${texNombre(a * 365)}\\times10^3~\\text{Wh}}\\approx${texNombre(calculANePlusJamaisUtiliser((b * 10 ** 12) / (a * 365 * 10 ** 3), 0))}$`
           break
         case 'lumiere':
           a = randint(2, 22)
@@ -71,11 +71,11 @@ export default function ProblemesPuissancesDe10EtConversions () {
           if (u === 'j') {
             texte += 'jours ? Donner le résultat en kilomètres.'
             texteCorr = 'Dans une journée, il y a $24$ heures et dans chaque heure $3~600$ secondes, la distance parcourue est donc : <br>'
-            texteCorr += `$${a}\\times24\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}=${texNombre(a * 24 * 3600 * 3)}\\times10^8~\\text{m}=${texNombre(calcul(a * 24 * 3600 * 3) / 1000)}\\times10^8~\\text{km}$`
+            texteCorr += `$${a}\\times24\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}=${texNombre(a * 24 * 3600 * 3)}\\times10^8~\\text{m}=${texNombre(calculANePlusJamaisUtiliser(a * 24 * 3600 * 3) / 1000)}\\times10^8~\\text{km}$`
           } else {
             texte += 'heures ? Donner le résultat en kilomètres.<br>'
             texteCorr = 'Dans une heure, il y a $3~600$ secondes, la distance parcourue est donc : <br>'
-            texteCorr += `$${a}\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}=${texNombre(a * 3600 * 3)}\\times10^8~\\text{m}=${texNombre(calcul(a * 3600 * 3) / 1000)}\\times10^8~\\text{km}$`
+            texteCorr += `$${a}\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}=${texNombre(a * 3600 * 3)}\\times10^8~\\text{m}=${texNombre(calculANePlusJamaisUtiliser(a * 3600 * 3) / 1000)}\\times10^8~\\text{km}$`
           }
           break
       }

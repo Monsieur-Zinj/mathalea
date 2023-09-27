@@ -9,7 +9,7 @@ import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '.
 import { arrondi } from '../../lib/outils/nombres.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -92,7 +92,7 @@ export default function AireDeTriangles () {
       if (listeTypeQuestions[i] === 'extérieur') {
         d = longueur(A, B) + randint(6, 9) / 3
       } else {
-        d = calcul(randint(6, Math.round(longueur(A, B) * 10 - 6)) / 10)
+        d = calculANePlusJamaisUtiliser(randint(6, Math.round(longueur(A, B) * 10 - 6)) / 10)
       }
       triH = triangle2points1hauteur(A, B, hauteurs[i], d, 2)
       H = triH.pied
@@ -131,7 +131,7 @@ export default function AireDeTriangles () {
         }, objetsCorrection) + '<br>'
       } else texteCorr = ''
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${texNombre(
-                calcul((cotes[i] * hauteurs[i]) / 2)
+                calculANePlusJamaisUtiliser((cotes[i] * hauteurs[i]) / 2)
             )}~\\text{cm}^2$`
       setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[aires]', { texte: `Aire du triangle ${A.nom}${B.nom}${C.nom} :` })

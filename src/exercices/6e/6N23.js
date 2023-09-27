@@ -3,7 +3,7 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -50,7 +50,7 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
       )
       // X, XX, X0X, X00X,XXX
       b = choice([10, 100, 1000])
-      setReponse(this, i, calcul(a / b))
+      setReponse(this, i, calculANePlusJamaisUtiliser(a / b))
       this.autoCorrection[i].reponse.param.digits = 6
       this.autoCorrection[i].reponse.param.decimals = 3
       texte = context.isAmc ? 'Donner l\'écriture décimale de ' : ''
@@ -60,7 +60,7 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
                 '$ ' +
                 deprecatedTexFraction(texNombre(a), texNombre(b)) +
                 ' = ' +
-                texNombre(calcul(a / b)) +
+                texNombre(calculANePlusJamaisUtiliser(a / b)) +
                 ' $'
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre

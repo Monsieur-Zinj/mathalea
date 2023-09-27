@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier ou diviser par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true
@@ -31,14 +31,14 @@ export default function MultiplierParPuissanceDixNeg () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, b)
-    const facteur = calcul(a * 100 + b * 10 + c)
+    const facteur = calculANePlusJamaisUtiliser(a * 100 + b * 10 + c)
 
     let typeQuestionsDisponibles = ['multiplier', 'diviser']
     if (this.sup === 1) typeQuestionsDisponibles = ['multiplier']
     else if (this.sup === 2) typeQuestionsDisponibles = ['diviser']
     const typeQuestion = choice(typeQuestionsDisponibles)
     const d = choice([0.1, 0.01, 0.001])
-    this.reponse = calcul(facteur * d)
+    this.reponse = calculANePlusJamaisUtiliser(facteur * d)
     let operateurLaTeX = '\\times'
     let operateurLateXContraire = '\\div'
     let verbeOperation = 'multipli'
@@ -46,7 +46,7 @@ export default function MultiplierParPuissanceDixNeg () {
     let participePresentOperation = 'multipliant'
     let petitOuGrand = 'petit'
     if (typeQuestion === 'diviser') {
-      this.reponse = calcul(facteur / d)
+      this.reponse = calculANePlusJamaisUtiliser(facteur / d)
       operateurLaTeX = '\\div'
       verbeOperation = 'divis'
       verbeOperationContraire = 'multipli'

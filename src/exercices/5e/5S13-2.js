@@ -7,7 +7,7 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -256,7 +256,7 @@ export default function CalculerDesFrequences () {
       }
     })
     correction1 += ')$<br>'
-    correction1 += `$e=${serie.effectifTotal}-${calcul(serie.effectifTotal - serie.effectifs[serie.rangEffectifCache])}$<br>`
+    correction1 += `$e=${serie.effectifTotal}-${calculANePlusJamaisUtiliser(serie.effectifTotal - serie.effectifs[serie.rangEffectifCache])}$<br>`
     correction1 += `$e=${serie.effectifs[serie.rangEffectifCache]}$`
     // correction question 2
     let correction2

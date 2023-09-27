@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître des vecteurs colinéaires (V/F)'
 export const interactifReady = true
@@ -30,9 +30,9 @@ export default function VecteursColineairesVF () {
     for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4, 5])) { //
         case 1 :
-          ux = calcul(randint(-3, 3, 0) * 2)
-          uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
-          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
+          uy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, ux / 2]) * 2)
+          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
           vx = k * ux
           vy = k * uy
           texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
@@ -74,9 +74,9 @@ export default function VecteursColineairesVF () {
          `)
           break
         case 2 :
-          vx = calcul(randint(-3, 3, 0) * 2)
-          vy = calcul(randint(-3, 3, [0, vx / 2]) * 2)
-          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          vx = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
+          vy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, vx / 2]) * 2)
+          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
           ux = k * vx
           uy = k * vy
           texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
@@ -119,9 +119,9 @@ export default function VecteursColineairesVF () {
           break
 
         case 3 :
-          ux = calcul(randint(-3, 3, 0) * 2)
-          uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
-          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
+          uy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, ux / 2]) * 2)
+          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
           vx = k * ux
           vy = k * uy + 1
           texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
@@ -164,9 +164,9 @@ export default function VecteursColineairesVF () {
           break
 
         case 4 :
-          ux = calcul(randint(-3, 3, 0) * 2)
-          uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
-          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
+          uy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, ux / 2]) * 2)
+          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
           vx = k * ux + 1
           vy = k * uy
           texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
@@ -208,9 +208,9 @@ export default function VecteursColineairesVF () {
              `)
           break
         case 5 :
-          ux = calcul(randint(-3, 3, 0) * 2)
-          uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
-          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
+          uy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, ux / 2]) * 2)
+          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
           vx = k * ux
           vy = k * uy * (-1)
           texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>

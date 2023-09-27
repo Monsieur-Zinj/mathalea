@@ -8,7 +8,7 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -97,11 +97,11 @@ export default function LireUneAbscisseAvecZoom () {
         } else {
           xmin = randint(5, 10) - 0.2
           origine = Math.round(xmin + 0.2)
-          extreme = calcul(origine + 9)
+          extreme = calculANePlusJamaisUtiliser(origine + 9)
           thickOff = 0.1
           xmax = origine + 9.2
         }
-        x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
+        x1 = calculANePlusJamaisUtiliser(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
 
@@ -209,12 +209,12 @@ export default function LireUneAbscisseAvecZoom () {
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${deprecatedTexFraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${deprecatedTexFraction(calcul(x1 * 10), 10)}$.<br>`
+        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(10 * (x1 - Math.floor(x1))), 10)}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(x1 * 10), 10)}$.<br>`
 
         reponse1 = x1
         reponse2A = Math.floor(x1)
-        reponse2B = new FractionEtendue(calcul(10 * (x1 - Math.floor(x1))), 10)
-        reponse3 = new FractionEtendue(calcul(x1 * 10), 10)
+        reponse2B = new FractionEtendue(calculANePlusJamaisUtiliser(10 * (x1 - Math.floor(x1))), 10)
+        reponse3 = new FractionEtendue(calculANePlusJamaisUtiliser(x1 * 10), 10)
       } else if (this.sup === 2) {
         if (this.niveau === 'CM') {
           xmin = 0
@@ -225,9 +225,9 @@ export default function LireUneAbscisseAvecZoom () {
         }
 
         xmax = xmin + 1.05
-        x1 = calcul(xmin + 0.02 + randint(2, 8) / 10 + randint(2, 8) / 100)
-        x2 = calcul(Math.floor(x1 * 10) / 10)
-        x3 = calcul(x2 + 0.1)
+        x1 = calculANePlusJamaisUtiliser(xmin + 0.02 + randint(2, 8) / 10 + randint(2, 8) / 100)
+        x2 = calculANePlusJamaisUtiliser(Math.floor(x1 * 10) / 10)
+        x3 = calculANePlusJamaisUtiliser(x2 + 0.1)
         //      xmin=calcul(x2-0.8)
         //      xmax=calcul(xmin+1.7)
         if (xmin === 0) extremite = '|->'
@@ -349,31 +349,31 @@ export default function LireUneAbscisseAvecZoom () {
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         const partent = Math.floor(x1)
-        const pardec = calcul(x1 - partent)
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${deprecatedTexFraction(calcul(pardec * 100), 100)}=${deprecatedTexFraction(calcul(x1 * 100), 100)}$.<br>`
+        const pardec = calculANePlusJamaisUtiliser(x1 - partent)
+        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(pardec * 100), 100)}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(x1 * 100), 100)}$.<br>`
 
         reponse1 = x1
         reponse2A = partent
-        reponse2B = new FractionEtendue(calcul(pardec * 100), 100)
-        reponse3 = new FractionEtendue(calcul(x1 * 100), 100)
+        reponse2B = new FractionEtendue(calculANePlusJamaisUtiliser(pardec * 100), 100)
+        reponse3 = new FractionEtendue(calculANePlusJamaisUtiliser(x1 * 100), 100)
       } else if (this.sup === 3) {
         if (this.niveau === 'CM') {
           xmin = 0
           xmax = 1
           thickOff = 0
-          x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+          x1 = calculANePlusJamaisUtiliser(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
           x2 = troncature(x1, 1)
           x21 = troncature(x1, 2)
-          x3 = calcul(x2 + 0.1)
-          x31 = calcul(x21 + 0.01)
+          x3 = calculANePlusJamaisUtiliser(x2 + 0.1)
+          x31 = calculANePlusJamaisUtiliser(x21 + 0.01)
         } else {
           xmin = randint(1, 15)
           xmax = xmin + 1
-          x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+          x1 = calculANePlusJamaisUtiliser(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
           x2 = troncature(x1, 1)
           x21 = troncature(x1, 2)
-          x3 = calcul(x2 + 0.1)
-          x31 = calcul(x21 + 0.01)
+          x3 = calculANePlusJamaisUtiliser(x2 + 0.1)
+          x31 = calculANePlusJamaisUtiliser(x21 + 0.01)
           xmin = Math.floor(x2)
           xmax = xmin + 1
           thickOff = 0.001
@@ -554,12 +554,12 @@ export default function LireUneAbscisseAvecZoom () {
         objets.push(d1, d2, d3, sA, sB, sC, sD)
         objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
         const partent = Math.floor(x1)
-        const pardec = calcul(x1 - partent)
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${deprecatedTexFraction(calcul(pardec * 1000), 1000)}=${deprecatedTexFraction(calcul(x1 * 1000), 1000)}$.<br>`
+        const pardec = calculANePlusJamaisUtiliser(x1 - partent)
+        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(pardec * 1000), 1000)}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(x1 * 1000), 1000)}$.<br>`
         reponse1 = x1
         reponse2A = partent
-        reponse2B = new FractionEtendue(calcul(pardec * 1000), 1000)
-        reponse3 = new FractionEtendue(calcul(x1 * 1000), 1000)
+        reponse2B = new FractionEtendue(calculANePlusJamaisUtiliser(pardec * 1000), 1000)
+        reponse3 = new FractionEtendue(calculANePlusJamaisUtiliser(x1 * 1000), 1000)
       }
       texte = `Donner l'abscisse de ${noms[1]} sous `
       texte += context.isAmc ? 'deux ' : 'trois '

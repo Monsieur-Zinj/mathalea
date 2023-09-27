@@ -12,7 +12,7 @@ import { texcolors } from '../../lib/format/style.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mod } from 'mathjs'
@@ -348,7 +348,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calcul(1.1 - chemin.length * 0.03125)
+          scale: calculANePlusJamaisUtiliser(1.1 - chemin.length * 0.03125)
         }
         paramsCorrection = {
           xmin: -0.5,
@@ -356,7 +356,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calcul(1 - chemin.length * 0.03125)
+          scale: calculANePlusJamaisUtiliser(1 - chemin.length * 0.03125)
         }
       } else { // à partir de la symétrie centrale, il peut y avoir 2 lignes par étapes, donc on rétrécit davantage la figure.
         paramsEnonce = {
@@ -365,7 +365,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calcul(1.2 - chemin.length * 0.05)
+          scale: calculANePlusJamaisUtiliser(1.2 - chemin.length * 0.05)
         }
         paramsCorrection = {
           xmin: -0.5,
@@ -373,7 +373,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calcul(1.1 - chemin.length * 0.05)
+          scale: calculANePlusJamaisUtiliser(1.1 - chemin.length * 0.05)
         }
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {

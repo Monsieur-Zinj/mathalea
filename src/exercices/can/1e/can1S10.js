@@ -3,7 +3,7 @@ import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.j
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Trouver le sens de variation d’une suite (QCM)'
 export const interactifReady = true
@@ -255,7 +255,7 @@ export default function SensVariationSuite () {
             if (q > 0) { texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. ` }
           }
           if (choix === 2) { // suite géométrique q^n avec 0<q<1
-            q = calcul(randint(1, 9) / 10)
+            q = calculANePlusJamaisUtiliser(randint(1, 9) / 10)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${texNombre(q)}^n$.<br>
             
             Alors, $(${s}_n)$ est une suite ...`
@@ -285,7 +285,7 @@ export default function SensVariationSuite () {
             texteCorr += `Comme $0 < q < 1$ et que le premier terme est  positif, la suite $(${s}_{n})$ est strictement décroissante. `
           }
           if (choix === 3) { // suite géométrique avec q<0
-            q = choice([calcul(randint(-9, -1) / 10), randint(-10, -1)])
+            q = choice([calculANePlusJamaisUtiliser(randint(-9, -1) / 10), randint(-10, -1)])
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${texNombre(q)})^n$.<br>
            
             Alors, $(${s}_n)$ est une suite ...`
@@ -497,7 +497,7 @@ export default function SensVariationSuite () {
           }
 
           if (choix === 5) { // suite géométrique a*q^n avec 0<q <1 et a>0
-            q = calcul(randint(1, 9) / 10)
+            q = calculANePlusJamaisUtiliser(randint(1, 9) / 10)
             a = randint(2, 10)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times ${texNombre(q)}^n$.<br>
            
@@ -528,7 +528,7 @@ export default function SensVariationSuite () {
             texteCorr += `Comme $0 < q <1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement décroissante. `
           }
           if (choix === 6) { // suite géométrique a*q^n avec 0<q <1 et a<0
-            q = calcul(randint(1, 9) / 10)
+            q = calculANePlusJamaisUtiliser(randint(1, 9) / 10)
             a = randint(-10, -2)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${a})\\times ${texNombre(q)}^n$.<br>
           
@@ -885,7 +885,7 @@ export default function SensVariationSuite () {
 
           if (choix === 6) { // suite recurrente u(n+1)=q*u(n) avec 0<q<1
             a = randint(-10, 10, [-1, 0, 1])
-            q = calcul(randint(1, 9) / 10)
+            q = calculANePlusJamaisUtiliser(randint(1, 9) / 10)
 
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texNombre(q)}${s}_n$.<br>
        

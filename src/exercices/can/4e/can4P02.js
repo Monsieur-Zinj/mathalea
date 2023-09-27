@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { calcul } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de vitesse'
 export const interactifReady = true
@@ -23,18 +23,18 @@ export default function ProblemesDeVitesse () {
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const a = choice([2, 3, 5, 6, 10]) // diviseur de l'heure
-    const b = calcul(60 / a) // nombre de minutes de l'énoncé
+    const b = calculANePlusJamaisUtiliser(60 / a) // nombre de minutes de l'énoncé
     const c = choice([30, 60, 90, 120])
-    this.reponse = calcul(c / a)
+    this.reponse = calculANePlusJamaisUtiliser(c / a)
     this.question = `Une voiture roule à $${c}$ km/h. <br>
     
     Combien de kilomètres parcourt-elle en $${b}$ minutes ?`
-    this.correction = `La voiture parcourt $${calcul(c / a)}$ km.`
+    this.correction = `La voiture parcourt $${calculANePlusJamaisUtiliser(c / a)}$ km.`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On cherche combien de "$${b}$ minutes" il y a dans $1$ heure soit $60$ minutes. Il y en a $${a}$,
     car $${a}\\times ${b}=60$.<br>
     Cela signifie qu'en $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
-    ${calcul(c / a)}$ km.`)
+    ${calculANePlusJamaisUtiliser(c / a)}$ km.`)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

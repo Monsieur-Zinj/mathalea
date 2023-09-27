@@ -6,7 +6,7 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -69,9 +69,9 @@ export default function FractionDuneQuantite () {
             const figure = frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue')
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
-          texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${deprecatedTexFraction(1, den)}$ d'heure, soit $${calcul(60 / den, 0)}$ minutes.<br>`
-          texteCorr += `Ici, il y a $${deprecatedTexFraction(num, den)}$ d'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60 / den, 0)}=${calcul(num * 60 / den, 0)}$.<br>`
-          texteCorr += `$${frac.texFraction}$ d'heure correspond donc à $${calcul(num * 60 / den, 0)}$ minutes.`
+          texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${deprecatedTexFraction(1, den)}$ d'heure, soit $${calculANePlusJamaisUtiliser(60 / den, 0)}$ minutes.<br>`
+          texteCorr += `Ici, il y a $${deprecatedTexFraction(num, den)}$ d'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calculANePlusJamaisUtiliser(60 / den, 0)}=${calculANePlusJamaisUtiliser(num * 60 / den, 0)}$.<br>`
+          texteCorr += `$${frac.texFraction}$ d'heure correspond donc à $${calculANePlusJamaisUtiliser(num * 60 / den, 0)}$ minutes.`
           setReponse(this, index, Math.round(num * 60 / den))
           break
         case 2:
@@ -85,9 +85,9 @@ export default function FractionDuneQuantite () {
             const figure = frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue')
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
-          texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${deprecatedTexFraction(1, den)}$ d'heure, soit $${calcul(60 / den, 0)}$ minutes.<br>`
-          texteCorr += `Ici, il y a $${deprecatedTexFraction(num, den)}$ d'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60 / den, 0)}=${calcul(num * 60 / den, 0)}$.<br>`
-          texteCorr += `$${frac.texFraction}$ d'heure correspond donc à $${calcul(num * 60 / den, 0)}$ minutes.`
+          texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${deprecatedTexFraction(1, den)}$ d'heure, soit $${calculANePlusJamaisUtiliser(60 / den, 0)}$ minutes.<br>`
+          texteCorr += `Ici, il y a $${deprecatedTexFraction(num, den)}$ d'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calculANePlusJamaisUtiliser(60 / den, 0)}=${calculANePlusJamaisUtiliser(num * 60 / den, 0)}$.<br>`
+          texteCorr += `$${frac.texFraction}$ d'heure correspond donc à $${calculANePlusJamaisUtiliser(num * 60 / den, 0)}$ minutes.`
           setReponse(this, index, Math.round(num * 60 / den))
           break
         case 3:
@@ -95,7 +95,7 @@ export default function FractionDuneQuantite () {
           masse = choice([120, 180, 240, 300])
           denIrred = choixdent[i]
           numIrred = (i * randint(1, denIrred - 1)) % denIrred
-          while (pgcd(denIrred, numIrred) !== 1 || calcul(denIrred / numIrred, 2) === 2) {
+          while (pgcd(denIrred, numIrred) !== 1 || calculANePlusJamaisUtiliser(denIrred / numIrred, 2) === 2) {
             denIrred = choixdent[i]
             numIrred = randint(1, denIrred - 1)
           }
@@ -116,7 +116,7 @@ export default function FractionDuneQuantite () {
             texteCorr += `La masse de chocolat consommée est $${texNombre(numIrred * masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Il reste donc : $${masse}-${texNombre(numIrred * masse / denIrred, 2)}=${texNombre(masse - numIrred * masse / denIrred, 2)}$ grammes de chocolat.<br>`
             texteCorr += `une autre façon de faire est d'utiliser la fraction restante : $${deprecatedTexFraction(denIrred, denIrred)}-${frac.texFractionSimplifiee}=${deprecatedTexFraction(denIrred - numIrred, denIrred)}$.<br>`
-            texteCorr += `$${deprecatedTexFraction(denIrred - numIrred, denIrred)}$ de $${masse}$ grammes c'est $${denIrred - numIrred}$ fois $${calcul(masse / denIrred, 2)}$ grammes.<br>`
+            texteCorr += `$${deprecatedTexFraction(denIrred - numIrred, denIrred)}$ de $${masse}$ grammes c'est $${denIrred - numIrred}$ fois $${calculANePlusJamaisUtiliser(masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Il reste donc : $${denIrred - numIrred}\\times${texNombre(masse / denIrred, 2)}=${texNombre((denIrred - numIrred) * masse / denIrred, 2)}$ grammes de chocolat.`
             setReponse(this, index, arrondi((denIrred - numIrred) * masse / denIrred, 2))
           }
@@ -132,13 +132,13 @@ export default function FractionDuneQuantite () {
           longueur = choice([120, 180, 240, 300])
           denIrred = choixdenb[i]
           numIrred = randint(1, denIrred - 1)
-          while (pgcd(denIrred, numIrred) !== 1 || calcul(denIrred / numIrred, 2) === 2) {
+          while (pgcd(denIrred, numIrred) !== 1 || calculANePlusJamaisUtiliser(denIrred / numIrred, 2) === 2) {
             denIrred = choice([2, 3, 4, 5, 10])
             numIrred = randint(1, denIrred - 1)
           }
-          k = calcul(300 / denIrred, 2)
-          den = calcul(denIrred * k, 2)
-          num = calcul(numIrred * k, 2)
+          k = calculANePlusJamaisUtiliser(300 / denIrred, 2)
+          den = calculANePlusJamaisUtiliser(denIrred * k, 2)
+          num = calculANePlusJamaisUtiliser(numIrred * k, 2)
           frac = fraction(num, den)
           texte = `Un bâton de $${texNombre(longueur / 100)}$ mètre`
           if (longueur >= 200) texte += 's'
@@ -152,11 +152,11 @@ export default function FractionDuneQuantite () {
             texte: 'Deuxième morceau : ',
             texteApres: ' m'
           }) + '<br>'
-          setReponse(this, index, calcul(numIrred * longueur / 100 / denIrred, 3))
-          setReponse(this, index + 1, calcul(longueur / 100 - numIrred * longueur / 100 / denIrred, 3))
+          setReponse(this, index, calculANePlusJamaisUtiliser(numIrred * longueur / 100 / denIrred, 3))
+          setReponse(this, index + 1, calculANePlusJamaisUtiliser(longueur / 100 - numIrred * longueur / 100 / denIrred, 3))
           if (this.sup2) {
             texte += 'Ce bâton est représenté ci-dessous :<br>'
-            const figure = frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${stringNombre(calcul(longueur / 100, 1))}`)
+            const figure = frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${stringNombre(calculANePlusJamaisUtiliser(longueur / 100, 1))}`)
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `$${deprecatedTexFraction(1, denIrred)}$ de $${texNombre(longueur / 100, 1)}$ représente $${texNombre(longueur / 100, 1)} \\div ${denIrred} = ${texNombre(longueur / 100 / denIrred, 3)}$.<br>`

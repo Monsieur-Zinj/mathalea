@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite.js'
 import Exercice from '../../Exercice.js'
-import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
@@ -122,7 +122,7 @@ export default function ReconnaitreFonctionAffine () {
          La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.`
           this.canReponseACompleter = '$a=\\ldots $ et $b=\\ldots$'
         }
-        setReponse(this, 0, [`${deprecatedTexFraction(a, b)}`, `${deprecatedTexFraction(-a, -b)}`, calcul(a / b), calcul(-a / (-b))])
+        setReponse(this, 0, [`${deprecatedTexFraction(a, b)}`, `${deprecatedTexFraction(-a, -b)}`, calculANePlusJamaisUtiliser(a / b), calculANePlusJamaisUtiliser(-a / (-b))])
         setReponse(this, 1, c)
         this.listeCorrections.push(`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $\\dfrac{ax}{b}=\\dfrac{a}{b}x$) et la valeur de $b$ est la constante.<br>
         $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}=\\underbrace{\\dfrac{${a}}{${b}}}_{a}x+\\underbrace{${ecritureParentheseSiNegatif(c)}}_{b}$`)
@@ -156,8 +156,8 @@ export default function ReconnaitreFonctionAffine () {
          La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.`
           this.canReponseACompleter = '$a=\\ldots $ et $b=\\ldots$'
         }
-        setReponse(this, 0, [`${deprecatedTexFraction(a, b)}`, `${deprecatedTexFraction(-a, -b)}`, calcul(a / b), calcul(-a / (-b))])
-        setReponse(this, 1, [`${deprecatedTexFraction(c, b)}`, `${deprecatedTexFraction(-c, -b)}`, calcul(c / b), calcul(-c / (-b))])
+        setReponse(this, 0, [`${deprecatedTexFraction(a, b)}`, `${deprecatedTexFraction(-a, -b)}`, calculANePlusJamaisUtiliser(a / b), calculANePlusJamaisUtiliser(-a / (-b))])
+        setReponse(this, 1, [`${deprecatedTexFraction(c, b)}`, `${deprecatedTexFraction(-c, -b)}`, calculANePlusJamaisUtiliser(c / b), calculANePlusJamaisUtiliser(-c / (-b))])
 
         this.listeCorrections = [`On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$  et la valeur de $b$ est la constante.<br>
         $f(x)=\\dfrac{${rienSi1(a)}x${ecritureAlgebrique(c)}}{${b}}=\\underbrace{\\dfrac{${a}}{${b}}}_{a}x+\\underbrace{\\dfrac{${c}}{${b}}}_{b}$`]

@@ -20,7 +20,7 @@ import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire un triangle avec les instruments'
@@ -111,9 +111,9 @@ export default function ConstruireUnTriangle () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // triangle donné par trois longueurs
           lAC = randint(35, 45)
-          lBC = calcul(randint(35, 45, lAC) / 10)
-          lAB = calcul(randint(46, 60) / 10)
-          lAC = calcul(lAC / 10)
+          lBC = calculANePlusJamaisUtiliser(randint(35, 45, lAC) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
+          lAC = calculANePlusJamaisUtiliser(lAC / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
@@ -133,7 +133,7 @@ export default function ConstruireUnTriangle () {
 
         case 2: // triangle rectangle donné par longueur hypoténuse et un côté de l'angle droit.
           lAC = randint(70, 80) / 10
-          lAB = calcul(randint(46, 60) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           cA = cercle(A, lAC)
           dAB = droite(A, B)
@@ -176,9 +176,9 @@ export default function ConstruireUnTriangle () {
               }
             }
           }
-          lAB = calcul(disSave[0] / 10)
-          lBC = calcul(disSave[1] / 10)
-          lAC = calcul(disSave[2] / 10)
+          lAB = calculANePlusJamaisUtiliser(disSave[0] / 10)
+          lBC = calculANePlusJamaisUtiliser(disSave[1] / 10)
+          lAC = calculANePlusJamaisUtiliser(disSave[2] / 10)
           B = pointAdistance(A, lAB, randint(-10, 10), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
@@ -236,9 +236,9 @@ export default function ConstruireUnTriangle () {
               }
             }
           }
-          lAB = calcul(disSave[0] / 10)
-          lBC = calcul(disSave[1] / 10)
-          lAC = calcul(disSave[2] / 10)
+          lAB = calculANePlusJamaisUtiliser(disSave[0] / 10)
+          lBC = calculANePlusJamaisUtiliser(disSave[1] / 10)
+          lAC = calculANePlusJamaisUtiliser(disSave[2] / 10)
           B = pointAdistance(A, lAB, randint(-10, 10), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
@@ -296,9 +296,9 @@ export default function ConstruireUnTriangle () {
               }
             }
           }
-          lAB = calcul(disSave[0] / 10)
-          lBC = calcul(disSave[1] / 10)
-          lAC = calcul(disSave[2] / 10)
+          lAB = calculANePlusJamaisUtiliser(disSave[0] / 10)
+          lBC = calculANePlusJamaisUtiliser(disSave[1] / 10)
+          lAC = calculANePlusJamaisUtiliser(disSave[2] / 10)
           B = pointAdistance(A, lAB, randint(-10, 10), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
@@ -357,9 +357,9 @@ export default function ConstruireUnTriangle () {
               }
             }
           }
-          lAB = calcul(disSave[0] / 10)
-          lBC = calcul(disSave[1] / 10)
-          lAC = calcul(disSave[2] / 10)
+          lAB = calculANePlusJamaisUtiliser(disSave[0] / 10)
+          lBC = calculANePlusJamaisUtiliser(disSave[1] / 10)
+          lAC = calculANePlusJamaisUtiliser(disSave[2] / 10)
           B = pointAdistance(A, lAB, randint(-10, 10), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
@@ -421,9 +421,9 @@ export default function ConstruireUnTriangle () {
               }
             }
           }
-          lAB = calcul(disSave[0] / 10)
-          lBC = calcul(disSave[1] / 10)
-          lAC = calcul(disSave[2] / 10)
+          lAB = calculANePlusJamaisUtiliser(disSave[0] / 10)
+          lBC = calculANePlusJamaisUtiliser(disSave[1] / 10)
+          lAC = calculANePlusJamaisUtiliser(disSave[2] / 10)
           B = pointAdistance(A, lAB, randint(-10, 10), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)

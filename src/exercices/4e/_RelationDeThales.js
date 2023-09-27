@@ -11,7 +11,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Écrire une relation de Thalès'
 
@@ -59,7 +59,7 @@ export default function RelationDeThales () {
       ABC.id = `M2D_${numeroExercice}_${i}_1`
       const C = ABC.listePoints[2]
       C.nom = nomC
-      let k = calcul(randint(3, 8, 5) / 10)
+      let k = calculANePlusJamaisUtiliser(randint(3, 8, 5) / 10)
       if (parseInt(this.sup) === 2) {
         k *= -1
       }

@@ -3,7 +3,7 @@ import { texPrix } from '../../lib/format/style.js'
 import { troncature } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, carreParfait } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, carreParfait } from '../../modules/outils.js'
 export const titre = 'Calculer la racine carrée de (x² +/- y²)'
 
 /**
@@ -32,18 +32,18 @@ export default function CalculerUneExpressionLitteralePythagore () {
         case 'type1':
           a = randint(3, 12)
           n = randint(5, 9)
-          b = calcul(n * 0.1)
+          b = calculANePlusJamaisUtiliser(n * 0.1)
           break
 
         case 'type2':
           a = randint(3, 12)
           n = randint(1, 5)
-          b = calcul(1 + n * 0.1)
+          b = calculANePlusJamaisUtiliser(1 + n * 0.1)
           break
       }
 
-      s = calcul(a * a + b * b)
-      d = calcul(a * a - b * b)
+      s = calculANePlusJamaisUtiliser(a * a + b * b)
+      d = calculANePlusJamaisUtiliser(a * a - b * b)
       racs = Math.sqrt(s)
       racd = Math.sqrt(d)
       miracs = troncature(racs - troncature(racs, 2), 3)
@@ -57,7 +57,7 @@ export default function CalculerUneExpressionLitteralePythagore () {
    \\\\&= ${texNombre((a * a + b * b))}\\end{aligned}$`
       texteCorr += `<br>$\\phantom{123456}\\sqrt{${texNombre(a * a + b * b)}}$`
 
-      if (carreParfait(calcul(100 * s))) {
+      if (carreParfait(calculANePlusJamaisUtiliser(100 * s))) {
         texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racs)}$  (qui est la valeur exacte de $\\sqrt{${texNombre(a * a + b * b)}}$)`
       } else {
         if (1000 * miracs < 5) {
@@ -73,7 +73,7 @@ export default function CalculerUneExpressionLitteralePythagore () {
   \\\\&= ${texNombre(a * a - b * b)}\\end{aligned}$`
       texteCorr += `<br>$\\phantom{123456}\\sqrt{${texNombre(a * a - b * b)}}$`
 
-      if (carreParfait(calcul(100 * d))) {
+      if (carreParfait(calculANePlusJamaisUtiliser(100 * d))) {
         texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racd)}$  (qui est la valeur exacte de $\\sqrt{${texNombre(a * a - b * b)}}$)`
       } else {
         if (1000 * miracd < 5) {

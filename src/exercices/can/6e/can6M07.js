@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Compléter un volume au litre'
 export const interactifReady = true
@@ -33,7 +33,7 @@ export default function CompleterVolumeAuLitre () {
    Comme $1$ L $=100$ cL, le nombre cherché est donné par la différence : $100-${a}=${100 - a}$.
    `)
 
-        this.reponse = calcul(100 - a)
+        this.reponse = calculANePlusJamaisUtiliser(100 - a)
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${a}$ cL $+$ $ \\ldots$ cL $ = 1 $ L`
         break
@@ -44,7 +44,7 @@ export default function CompleterVolumeAuLitre () {
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
    Comme $1$ L $=100$ cL, le nombre cherché est donné par la différence : $100-${a}=${100 - a}$.
    `)
-        this.reponse = calcul(100 - a)
+        this.reponse = calculANePlusJamaisUtiliser(100 - a)
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$\\ldots$ cL $+$ $${a}$ cL $ = 1 $ L`
         break
@@ -55,7 +55,7 @@ export default function CompleterVolumeAuLitre () {
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
    Comme $1$ L$=${texNombre(1000)}$ mL, le nombre cherché est donné par la différence : $${texNombre(1000)}-${a * 10}=${1000 - a * 10}$.
    `)
-        this.reponse = calcul(1000 - a * 10)
+        this.reponse = calculANePlusJamaisUtiliser(1000 - a * 10)
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${a * 10}$ mL $+$ $ \\ldots$ mL $ = 1 $ L`
         break
@@ -66,7 +66,7 @@ export default function CompleterVolumeAuLitre () {
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
    Comme $1$ L$=${texNombre(1000)}$ mL, le nombre cherché est donné par la différence : $${texNombre(1000)}-${a * 10}=${1000 - a * 10}$.
    `)
-        this.reponse = calcul(1000 - a * 10)
+        this.reponse = calculANePlusJamaisUtiliser(1000 - a * 10)
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$\\ldots$ mL $+$ $${a * 10}$ mL $ = 1 $ L`
         break

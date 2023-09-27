@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le chiffre des ...'
 export const interactifReady = true
@@ -29,7 +29,7 @@ export default function ChiffreDes () {
     const d = randint(1, 9, [a, b, c])
     const e = randint(1, 9, [a, b, c, d])
     const f = randint(1, 9, [a, b, c, d, e])
-    const n = calcul(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
+    const n = calculANePlusJamaisUtiliser(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
     const m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes'])
     this.question = `Dans $${texNombre(n)}$ quel est le chiffre des ${m} ? `
     switch (m) {

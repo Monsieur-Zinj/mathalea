@@ -8,7 +8,7 @@ import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -60,7 +60,7 @@ export default function CalculHypotenusePythagore () {
         $${a}^2+${b}^2=x^2$, d'où $x=\\sqrt{${a}^2+${b}^2}=\\sqrt{${a ** 2 + b ** 2}}$
        <br>
        Ainsi, $a=${a ** 2 + b ** 2}$.`
-        this.reponse = calcul(a ** 2 + b ** 2)
+        this.reponse = calculANePlusJamaisUtiliser(a ** 2 + b ** 2)
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$a=\\ldots$'
         break
@@ -78,7 +78,7 @@ export default function CalculHypotenusePythagore () {
                $${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2=${nom[1]}${nom[2]}^2$, <br>
                soit $${a}^2+\\sqrt{${b}}^2=${nom[1]}${nom[2]}^2$, d'où $${nom[1]}${nom[2]}^2=${a * a + b}$ soit $${nom[1]}${nom[2]}=\\sqrt{${a * a + b}}=${Math.sqrt(a * a + b)}$.
              <br>`
-          this.reponse = calcul(Math.sqrt(a ** 2 + b))
+          this.reponse = calculANePlusJamaisUtiliser(Math.sqrt(a ** 2 + b))
         } else {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$.<br>
 

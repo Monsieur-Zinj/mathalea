@@ -3,7 +3,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -104,9 +104,9 @@ export default function RecompositionDecimale () {
         texteCorr += `$\\dfrac{${c}}{100}$ et `
         texteCorr += `$\\dfrac{${m}}{1000}$.<br>Le nombre décimal représenté ci-dessus est le nombre $${texNombre(e + d / 10 + c / 100 + m / 1000)}$.`
       }
-      if (reponses.indexOf(calcul(e + d / 10 + c / 100 + m / 1000)) === -1) {
+      if (reponses.indexOf(calculANePlusJamaisUtiliser(e + d / 10 + c / 100 + m / 1000)) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        reponses[q] = calcul(e + d / 10 + c / 100 + m / 1000)
+        reponses[q] = calculANePlusJamaisUtiliser(e + d / 10 + c / 100 + m / 1000)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         setReponse(this, q, reponses[q], { digits: 4, decimals: 3 })

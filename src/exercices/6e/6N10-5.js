@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Parcourir un labyrinthe de numération décimale'
 export const amcReady = true
@@ -90,7 +90,7 @@ export default function ExerciceLabyrintheNumeration () {
         nombreLaby[rang] = chiffre
         nombretemp = 0
         for (let k = 0; k <= rangMax; k++) {
-          nombretemp = this.sup ? calcul(nombretemp + Math.pow(10, k - 4) * nombreLaby[k]) : calcul(nombretemp + Math.pow(10, k - 3) * nombreLaby[k])
+          nombretemp = this.sup ? calculANePlusJamaisUtiliser(nombretemp + Math.pow(10, k - 4) * nombreLaby[k]) : calculANePlusJamaisUtiliser(nombretemp + Math.pow(10, k - 3) * nombreLaby[k])
         }
         reponsesOK.push(nombretemp)
       }
@@ -105,7 +105,7 @@ export default function ExerciceLabyrintheNumeration () {
         nombreLaby[rang] = randint(0, 9, [chiffre])
         nombretemp = 0
         for (let k = 0; k <= rangMax; k++) {
-          nombretemp = this.sup ? calcul(nombretemp + Math.pow(10, k - 4) * nombreLaby[k]) : calcul(nombretemp + Math.pow(10, k - 3) * nombreLaby[k])
+          nombretemp = this.sup ? calculANePlusJamaisUtiliser(nombretemp + Math.pow(10, k - 4) * nombreLaby[k]) : calculANePlusJamaisUtiliser(nombretemp + Math.pow(10, k - 3) * nombreLaby[k])
         }
         reponsesPasOK.push(nombretemp)
       }

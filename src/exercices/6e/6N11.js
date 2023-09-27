@@ -5,7 +5,7 @@ import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -77,12 +77,12 @@ export default function LireAbscisseEntiere2d () {
           pas1 = 0.00001
           break
       }
-      x1 = calcul(randint(0, 27) / 10)
-      x2 = calcul(randint(33, 47) / 10)
-      x3 = calcul(randint(53, 67) / 10)
-      reponse1 = calcul(x1 / pas1 + abs0)
-      reponse2 = calcul(x2 / pas1 + abs0)
-      reponse3 = calcul(x3 / pas1 + abs0)
+      x1 = calculANePlusJamaisUtiliser(randint(0, 27) / 10)
+      x2 = calculANePlusJamaisUtiliser(randint(33, 47) / 10)
+      x3 = calculANePlusJamaisUtiliser(randint(53, 67) / 10)
+      reponse1 = calculANePlusJamaisUtiliser(x1 / pas1 + abs0)
+      reponse2 = calculANePlusJamaisUtiliser(x2 / pas1 + abs0)
+      reponse3 = calculANePlusJamaisUtiliser(x3 / pas1 + abs0)
       d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
@@ -93,7 +93,7 @@ export default function LireAbscisseEntiere2d () {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, context.isAmc ? `${texNombre(abs0, 0)}` : `${stringNombre(abs0)}`], [1, context.isAmc ? `${texNombre(calcul(abs0 + 1 / pas1), 0)}` : `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[0, context.isAmc ? `${texNombre(abs0, 0)}` : `${stringNombre(abs0)}`], [1, context.isAmc ? `${texNombre(calculANePlusJamaisUtiliser(abs0 + 1 / pas1), 0)}` : `${stringNombre(calculANePlusJamaisUtiliser(abs0 + 1 / pas1))}`]],
         pointListe: [[x1, l1], [x2, l2], [x3, l3]]
       })
       d[2 * i + 1] = droiteGraduee({

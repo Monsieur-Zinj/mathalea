@@ -10,7 +10,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -141,15 +141,15 @@ export default function AireCarresRectanglesTriangles () {
           break
         case 2 :
           texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}.`
-          texteCorr += `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
+          texteCorr += `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calculANePlusJamaisUtiliser((a * b) / 2))}~\\text{cm}^2$`
+          setReponse(this, i, new Grandeur(calculANePlusJamaisUtiliser((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm en cm${texteExposant(2)}`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
-                valeur: calcul((a * b) / 2),
+                valeur: calculANePlusJamaisUtiliser((a * b) / 2),
                 param: {
                   digits: 2,
                   decimals: 0,

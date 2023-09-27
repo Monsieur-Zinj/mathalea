@@ -10,7 +10,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -71,7 +71,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
       const a = randint(2, 5)
       const b = randint(2, 5)
       const c2 = Math.sqrt(a * a + b * b)
-      const pIJK = calcul(a + b + c2, 1)
+      const pIJK = calculANePlusJamaisUtiliser(a + b + c2, 1)
       const A = point(0, 0, nom[0])
       const B = rotation(point(c, 0), A, randint(-15, 15), nom[1])
       const C = rotation(A, B, -90, nom[2])
@@ -271,8 +271,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
               texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2.toFixed(1))}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
-              texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}${sp()}\\text{cm}^2$<br>`
-              setReponse(this, incrementation * i + nbPuces, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
+              texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre(calculANePlusJamaisUtiliser((a * b) / 2))}${sp()}\\text{cm}^2$<br>`
+              setReponse(this, incrementation * i + nbPuces, new Grandeur(calculANePlusJamaisUtiliser((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
               if (context.isAmc) {
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
@@ -282,12 +282,12 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
                     multicolsEnd: nbPuces === incrementation - 1,
                     reponse: {
                       texte: texteAMC,
-                      valeur: calcul((a * b) / 2),
+                      valeur: calculANePlusJamaisUtiliser((a * b) / 2),
                       alignement: 'center',
                       param: {
                         signe: false,
                         decimals: 0,
-                        digits: nombreDeChiffresDe(calcul((a * b) / 2))
+                        digits: nombreDeChiffresDe(calculANePlusJamaisUtiliser((a * b) / 2))
                       }
                     }
                   }]

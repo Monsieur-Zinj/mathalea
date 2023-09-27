@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -54,7 +54,7 @@ export default function Moitie () {
           texte = `$\\text{La moitié de }${a * 2 + 1}$`
           texteCorr = `$\\text{La moitié de }${a * 2 + 1
                     } \\text{ est } ${texNombre(a + 5 / 10)}$`
-          setReponse(this, i, calcul(a + 5 / 10))
+          setReponse(this, i, calculANePlusJamaisUtiliser(a + 5 / 10))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 3: // Table de 200
@@ -84,7 +84,7 @@ export default function Moitie () {
           texteCorr = `$\\text{La moitié de }${texNombre(
                         a * 2 + (b * 2) / 100
                     )} \\text{ est } ${texNombre(a + b / 100)}$`
-          setReponse(this, i, calcul(a + b / 100))
+          setReponse(this, i, calculANePlusJamaisUtiliser(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 6: // 1xx avec xx un nombre pair

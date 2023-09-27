@@ -12,7 +12,7 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
 /**
@@ -125,7 +125,7 @@ export default function ProblemesAdditifsFractions5e () {
             article: destinationsVols[0][0],
             nom: destinationsVols[0][1],
             frac: fracVols[0],
-            angle: calcul(360 / fracVols[0][1]),
+            angle: calculANePlusJamaisUtiliser(360 / fracVols[0][1]),
             arg_graph: fracVols[0][2]
           },
           cat2: {
@@ -133,7 +133,7 @@ export default function ProblemesAdditifsFractions5e () {
             article: destinationsVols[1][0],
             nom: destinationsVols[1][1],
             frac: fracVols[1],
-            angle: calcul(360 / fracVols[1][1]),
+            angle: calculANePlusJamaisUtiliser(360 / fracVols[1][1]),
             arg_graph: fracVols[1][2]
           },
           cat3: {
@@ -141,7 +141,7 @@ export default function ProblemesAdditifsFractions5e () {
             article: destinationsVols[2][0],
             nom: destinationsVols[2][1],
             frac: fracVols[2],
-            angle: calcul(360 / fracVols[2][1]),
+            angle: calculANePlusJamaisUtiliser(360 / fracVols[2][1]),
             arg_graph: fracVols[2][2]
           },
           cat4: {
@@ -149,7 +149,7 @@ export default function ProblemesAdditifsFractions5e () {
             article: destinationsVols[3][0],
             nom: destinationsVols[3][1],
             frac: fracVols[3],
-            angle: calcul(360 / fracVols[3][1]),
+            angle: calculANePlusJamaisUtiliser(360 / fracVols[3][1]),
             arg_graph: fracVols[3][2]
           },
           cat5: {
@@ -157,7 +157,7 @@ export default function ProblemesAdditifsFractions5e () {
             article: destinationsVols[4][0],
             nom: destinationsVols[4][1],
             frac: fracVols[4],
-            angle: calcul(360 / fracVols[4][1]),
+            angle: calculANePlusJamaisUtiliser(360 / fracVols[4][1]),
             arg_graph: fracVols[4][2]
           },
           nb_total: nbVolsTotal,
@@ -295,8 +295,8 @@ ${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat2.destination
 ${texteEnCouleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}<br>
 
 ${numAlpha(indexSouSegmentQuestionCorr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} :<br>
-$\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}\\times ${situations[k].nb_total} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${situations[k].nb_total}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}\\times ${situations[k].cat3.frac[1]}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}\\times \\cancel{${situations[k].cat3.frac[1]}}}{\\cancel{${situations[k].cat3.frac[1]}}} = ${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])} = ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}$<br>
-${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}.`)}
+$\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}\\times ${situations[k].nb_total} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${situations[k].nb_total}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calculANePlusJamaisUtiliser(situations[k].nb_total / situations[k].cat3.frac[1])}\\times ${situations[k].cat3.frac[1]}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calculANePlusJamaisUtiliser(situations[k].nb_total / situations[k].cat3.frac[1])}\\times \\cancel{${situations[k].cat3.frac[1]}}}{\\cancel{${situations[k].cat3.frac[1]}}} = ${situations[k].cat3.frac[0]}\\times ${calculANePlusJamaisUtiliser(situations[k].nb_total / situations[k].cat3.frac[1])} = ${calculANePlusJamaisUtiliser(situations[k].nb_total / situations[k].cat3.frac[1])}$<br>
+${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calculANePlusJamaisUtiliser(situations[k].nb_total / situations[k].cat3.frac[1])}.`)}
 `
         })
       }

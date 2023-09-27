@@ -3,7 +3,7 @@ import { texPrix } from '../../lib/format/style.js'
 import { abs } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -60,11 +60,11 @@ export default function EvolutionsEnPourcentage () {
     for (let i = 0, texte, texteCorr, depart, arrive, taux, coeff, reponse, texteApres, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typesDeSituations[i]) {
         case 'prix':
-          depart = choice([calcul(randint(11, 99) / 10), randint(11, 99), randint(11, 99) * 10])
+          depart = choice([calculANePlusJamaisUtiliser(randint(11, 99) / 10), randint(11, 99), randint(11, 99) * 10])
           taux = choice([10, 20, 30, 40, 60])
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
-          arrive = calcul(depart * (1 + taux / 100))
+          arrive = calculANePlusJamaisUtiliser(depart * (1 + taux / 100))
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
               if (taux > 0) {
@@ -130,7 +130,7 @@ export default function EvolutionsEnPourcentage () {
               taux = randint(1, 11)
               break
           }
-          arrive = calcul(depart * (1 + taux / 100))
+          arrive = calculANePlusJamaisUtiliser(depart * (1 + taux / 100))
           coeff = texNombre(1 + taux / 100)
           date = new Date()
           cetteAnnee = date.getFullYear()
@@ -187,7 +187,7 @@ export default function EvolutionsEnPourcentage () {
           taux = randint(1, 12)
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
-          arrive = calcul(depart * (1 + taux / 100))
+          arrive = calculANePlusJamaisUtiliser(depart * (1 + taux / 100))
           facture = choice(["ma facture annuelle d'électricité", 'ma facture annuelle de gaz', "ma taxe d'habitation", 'mon ordinateur', 'mon vélo électrique'])
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
@@ -241,7 +241,7 @@ export default function EvolutionsEnPourcentage () {
           taux = randint(5, 35)
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
-          arrive = calcul(depart * (1 + taux / 100))
+          arrive = calculANePlusJamaisUtiliser(depart * (1 + taux / 100))
           nb = randint(5, 15)
           switch (listeTypeDeQuestions[i]) {
             case 'finale':

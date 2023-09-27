@@ -23,7 +23,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Construire des quadrilatères particuliers'
 export const dateDeModifImportante = '02/09/2023'
@@ -69,11 +69,11 @@ export default function ConstructionsParallelogrammesParticuliers () {
       case 1:
         A = point(0, 0, noms[0])
         c1 = randint(20, 25) * 2 // AB
-        c4 = calcul(randint(20, 30, c1 / 2) / 5) // AD
-        c1 = calcul(c1 / 10)
+        c4 = calculANePlusJamaisUtiliser(randint(20, 30, c1 / 2) / 5) // AD
+        c1 = calculANePlusJamaisUtiliser(c1 / 10)
         d1 = 5 * (Math.abs(c4 - c1) + 2)
         d2 = 5 * (c1 + c4 - 3)
-        d1 = calcul(randint(Math.min(d1, d2), Math.max(d1, d2)) / 5) // BD
+        d1 = calculANePlusJamaisUtiliser(randint(Math.min(d1, d2), Math.max(d1, d2)) / 5) // BD
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         D = pointIntersectionCC(cercle(A, c4), cercle(B, d1), noms[3])
         O = milieu(B, D, noms[4])
@@ -105,8 +105,8 @@ export default function ConstructionsParallelogrammesParticuliers () {
       case 2:
         O = point(0, 0, noms[4])
         c1 = randint(25, 35) * 2 // AC
-        c4 = calcul(randint((c1 + 4) / 2, 45) / 5) // BD
-        c1 = calcul(c1 / 10)
+        c4 = calculANePlusJamaisUtiliser(randint((c1 + 4) / 2, 45) / 5) // BD
+        c1 = calculANePlusJamaisUtiliser(c1 / 10)
         alpha = randint(100, 130)
 
         A = pointAdistance(O, c1 / 2, randint(-30, 30), noms[0])
@@ -132,8 +132,8 @@ export default function ConstructionsParallelogrammesParticuliers () {
       case 3:
         A = point(0, 0, noms[0])
         c1 = randint(26, 40) * 2 // AB
-        c4 = calcul(randint(15, 25) / 5) // AD
-        c1 = calcul(c1 / 10)
+        c4 = calculANePlusJamaisUtiliser(randint(15, 25) / 5) // AD
+        c1 = calculANePlusJamaisUtiliser(c1 / 10)
 
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         D = similitude(B, A, 90, c4 / c1, noms[3])
@@ -163,8 +163,8 @@ export default function ConstructionsParallelogrammesParticuliers () {
       case 4:
         A = point(0, 0, noms[0])
         c1 = randint(15, 30) // AB
-        c4 = calcul(randint(15, 20, c1) / 5) // BD
-        c1 = calcul(c1 / 5)
+        c4 = calculANePlusJamaisUtiliser(randint(15, 20, c1) / 5) // BD
+        c1 = calculANePlusJamaisUtiliser(c1 / 5)
 
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         D = pointIntersectionCC(cercle(A, c1), cercle(B, c4), noms[3])
@@ -194,8 +194,8 @@ export default function ConstructionsParallelogrammesParticuliers () {
       case 5:
         A = point(0, 0, noms[0])
         c1 = randint(20, 35) * 2 // AC
-        c4 = calcul(randint((c1 - 4) / 2, 35) / 5) // AD
-        c1 = calcul(c1 / 10)
+        c4 = calculANePlusJamaisUtiliser(randint((c1 - 4) / 2, 35) / 5) // AD
+        c1 = calculANePlusJamaisUtiliser(c1 / 10)
         alpha = randint(95, 120)
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         D = similitude(B, A, alpha, c4 / c1, noms[3])
@@ -225,10 +225,10 @@ export default function ConstructionsParallelogrammesParticuliers () {
         A = point(0, 0, noms[0])
         c1 = randint(20, 35) * 2 // AC
         c2 = randint(15, 20) * 2 // AO
-        c3 = calcul(c1 + randint(5, 10) * 2) - c2 // BO
-        c1 = calcul(c1 / 10)
-        c2 = calcul(c2 / 10)
-        c3 = calcul(c3 / 10)
+        c3 = calculANePlusJamaisUtiliser(c1 + randint(5, 10) * 2) - c2 // BO
+        c1 = calculANePlusJamaisUtiliser(c1 / 10)
+        c2 = calculANePlusJamaisUtiliser(c2 / 10)
+        c3 = calculANePlusJamaisUtiliser(c3 / 10)
 
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         O = pointIntersectionCC(cercle(A, c2), cercle(B, c3), noms[4])
@@ -265,7 +265,7 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
       case 7:
         A = point(0, 0, noms[0])
-        c1 = calcul(randint(30, 40) / 5) // AC
+        c1 = calculANePlusJamaisUtiliser(randint(30, 40) / 5) // AC
         c2 = randint(25, 40)// angle OAB
         c3 = randint(30, 45, c2) // angle OCB
 

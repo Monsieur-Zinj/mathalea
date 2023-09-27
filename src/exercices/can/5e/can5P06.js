@@ -3,7 +3,7 @@ import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.j
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Écrire sous la forme d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +33,7 @@ export default function ÉcrirePourcentage () {
       [1, 10], [3, 10], [7, 10], [9, 10], [3, 25], [9, 25], [13, 25], [9, 50], [17, 50], [9, 20], [3, 20], [17, 20]]
     switch (choice(['a', 'b', 'c'])) { //
       case 'a':
-        a = calcul(randint(10, 99) / 100)
+        a = calculANePlusJamaisUtiliser(randint(10, 99) / 100)
         this.question = `Compléter : $${texNombre(a)}=$`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
         else{this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
@@ -43,8 +43,8 @@ export default function ÉcrirePourcentage () {
         this.canReponseACompleter = `$${texNombre(a)}=.... ${sp()}\\%$`
         break
       case 'b':
-        a = calcul(randint(0, 9) / 100)
-        b = calcul(randint(0, 9) / 1000)
+        a = calculANePlusJamaisUtiliser(randint(0, 9) / 100)
+        b = calculANePlusJamaisUtiliser(randint(0, 9) / 1000)
         if (a === 0 && b === 0) { b = 1 }
         this.question = `Compléter : $${texNombre(a + b)}=$`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }

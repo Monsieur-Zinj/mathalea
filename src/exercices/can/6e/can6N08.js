@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le nombre de centaines, dizaines'
 export const interactifReady = true
@@ -29,7 +29,7 @@ export default function NombreDeDizaines () {
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
     const m = choice(['centaines', 'dizaines'])
-    const n = calcul(a * 1000 + b * 100 + c * 10 + d)
+    const n = calculANePlusJamaisUtiliser(a * 1000 + b * 100 + c * 10 + d)
     this.question = `Quel est le nombre entier de ${m} dans $${texNombre(n)}$ ? `
     if (a !== 0) {
       if (m === 'centaines') {

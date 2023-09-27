@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -68,13 +68,13 @@ export default function LireAbscisseRelative () {
           break
 
         case 2: // Placer des décimaux relatifs sur un axe (2 décimales)
-          abs0 = calcul(randint(-4, -2) / 10)
+          abs0 = calculANePlusJamaisUtiliser(randint(-4, -2) / 10)
           pas1 = 10
           pas2 = 10
           break
 
         case 3: // Placer des décimaux relatifs sur un axe (3 décimales)
-          abs0 = calcul(randint(-6, -2) / 100)
+          abs0 = calculANePlusJamaisUtiliser(randint(-6, -2) / 100)
           pas1 = 100
           pas2 = 10
           break

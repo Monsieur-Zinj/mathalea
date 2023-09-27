@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,10 +25,10 @@ export default function ProgrammeCalcul () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   // ${texNombre(ecritureParenthesesSiNegatif(a / 5 - e))}^2=${texNombre((a / 5 - e) * (a / 5 - e))}$
   this.nouvelleVersion = function () {
-    const a = calcul(randint(2, 9) * 5)
-    const b = calcul(randint(2, 9) * 4)
-    const c = calcul(randint(2, 9) * 3)
-    const d = calcul(randint(2, 9) * 6)
+    const a = calculANePlusJamaisUtiliser(randint(2, 9) * 5)
+    const b = calculANePlusJamaisUtiliser(randint(2, 9) * 4)
+    const c = calculANePlusJamaisUtiliser(randint(2, 9) * 3)
+    const d = calculANePlusJamaisUtiliser(randint(2, 9) * 6)
     const e = randint(2, 9, [a / 5, b / 4, c / 3, d / 6])
     const N = choice(['quart', 'tiers', 'cinquième', 'sixième'])
 

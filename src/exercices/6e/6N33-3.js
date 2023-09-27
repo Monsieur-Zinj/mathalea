@@ -4,7 +4,7 @@ import { texPrix } from '../../lib/format/style.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -52,7 +52,7 @@ export default function AppliquerUnPourcentage () {
       switch (choix[i]) {
         case 1:
           prix[i] = randint(article[index[i]][1], article[index[i]][2])
-          montant = calcul((pourcent[i] * prix[i]) / 100)
+          montant = calculANePlusJamaisUtiliser((pourcent[i] * prix[i]) / 100)
           texte = `${article[index[i]][0]} coûtant $${prix[i]}$${sp()}€ bénéficie d'une réduction de $${pourcent[i]} ${sp()}${sp()}\\%$.<br>`
           texte += 'Quel est le montant en euro de cette réduction ?'
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' €' })
@@ -63,7 +63,7 @@ export default function AppliquerUnPourcentage () {
           break
         case 2:
           masse[i] = randint(legume[index[i]][1], article[index[i]][2])
-          montant = calcul(masse[i] * pourcent[i] / 100)
+          montant = calculANePlusJamaisUtiliser(masse[i] * pourcent[i] / 100)
           texte = `${legume[index[i]][0]} pesant $${masse[i]}$ grammes a eu une croissance de $${pourcent[i]} ${sp()}\\%$.<br>`
           texte += 'Quelle est la masse supplémentaire en grammes correspondant à cette croissance ?'
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' g' })

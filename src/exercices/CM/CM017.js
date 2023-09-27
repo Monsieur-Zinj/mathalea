@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -36,16 +36,16 @@ export default function DiviserDecimalPar101001000 () {
       a = choice([
         randint(1, 9),
         randint(11, 99),
-        calcul(randint(11, 99) / 10),
-        calcul(randint(101, 999) / 100),
-        calcul(randint(1, 9) / 10)
+        calculANePlusJamaisUtiliser(randint(11, 99) / 10),
+        calculANePlusJamaisUtiliser(randint(101, 999) / 100),
+        calculANePlusJamaisUtiliser(randint(1, 9) / 10)
       ])
       b = choice([10, 100, 1000])
       texte = `$${texNombre(a)}\\div${texNombre(b)}=$`
       texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(
                 a / b
             )}$`
-      setReponse(this, i, calcul(a / b))
+      setReponse(this, i, calculANePlusJamaisUtiliser(a / b))
       if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
 
       if (this.listeQuestions.indexOf(texte) === -1) {

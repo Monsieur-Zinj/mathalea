@@ -452,7 +452,7 @@ class FractionEtendue extends Fraction {
 
   /**
    *
-   * @param FractionEtendues[]
+   * @param {FractionEtendue[]} fractions
    * @returns {FractionEtendue}
    */
   sommeFractions (...fractions) { // retourne un résultat simplifié

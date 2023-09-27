@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 
 export const titre = 'Calculer un angle dans un triangle isocèle'
@@ -66,7 +66,7 @@ export default function AngleTriangleIsocele () {
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
         Ainsi $\\widehat{${nom[2]}}=180°-2\\times ${a}°=${texNombre(180 - 2 * a)}°$
     <br>`
-          this.reponse = calcul(180 - 2 * a)
+          this.reponse = calculANePlusJamaisUtiliser(180 - 2 * a)
         } else {
           xmin = Math.min(A.x, B.x, C.x) - 1
           ymin = Math.min(A.y, B.y, C.y) - 1.5
@@ -91,7 +91,7 @@ export default function AngleTriangleIsocele () {
           this.correction = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
             Ainsi $\\widehat{${nom[2]}}=180°-2\\times ${a}°=${texNombre(180 - 2 * a)}°$
         <br>`
-          this.reponse = calcul(180 - 2 * a)
+          this.reponse = calculANePlusJamaisUtiliser(180 - 2 * a)
         }
         break
       case 'b':

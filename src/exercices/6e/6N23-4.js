@@ -3,7 +3,7 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -75,29 +75,29 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // 3 unités, 5 dixièmes et 8 centièmes
           texte = `${a} unités, ${b} dixièmes et ${c} centièmes`
-          reponseAMC = calcul(a + b / 10 + c / 100)
+          reponseAMC = calculANePlusJamaisUtiliser(a + b / 10 + c / 100)
           texteCorr = `$${a}+${deprecatedTexFraction(b, 10)}+${deprecatedTexFraction(c, 100)}=${texNombre(reponseAMC)}$`
           break
         case 2: // 3 unités et 5 centièmes
           texte = `${a} unités et ${c} centièmes`
-          reponseAMC = calcul(a + c / 100)
+          reponseAMC = calculANePlusJamaisUtiliser(a + c / 100)
           texteCorr = `$${a}+${deprecatedTexFraction(c, 100)}=${texNombre(reponseAMC)}$`
           break
         case 3: // 5 dixièmes / centièmes ou millièmes
           choix = randint(1, 3)
           if (choix === 1) {
             texte = `${a} dixièmes`
-            reponseAMC = calcul(a / 10)
+            reponseAMC = calculANePlusJamaisUtiliser(a / 10)
             texteCorr = `$${deprecatedTexFraction(a, 10)}=${texNombre(reponseAMC)}$`
           }
           if (choix === 2) {
             texte = `${a} centièmes`
-            reponseAMC = calcul(a / 100)
+            reponseAMC = calculANePlusJamaisUtiliser(a / 100)
             texteCorr = `$${deprecatedTexFraction(a, 100)}=${texNombre(reponseAMC)}$`
           }
           if (choix === 3) {
             texte = `${a} millièmes`
-            reponseAMC = calcul(a / 1000)
+            reponseAMC = calculANePlusJamaisUtiliser(a / 1000)
             texteCorr = `$${deprecatedTexFraction(a, 1000)}=${texNombre(reponseAMC)}$`
           }
           break
@@ -106,15 +106,15 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
           choix = randint(1, 3)
           if (choix === 1) {
             texte = `$${deprecatedTexFraction(n, 10)}$`
-            reponseAMC = calcul(n / 10)
+            reponseAMC = calculANePlusJamaisUtiliser(n / 10)
             texteCorr = `$${deprecatedTexFraction(n, 10)}=${texNombre(reponseAMC)}$`
           } else if (choix === 2) {
             texte = `$${deprecatedTexFraction(n, 100)}$`
-            reponseAMC = calcul(n / 100)
+            reponseAMC = calculANePlusJamaisUtiliser(n / 100)
             texteCorr = `$${deprecatedTexFraction(n, 100)}=${texNombre(reponseAMC)}$`
           } else {
             texte = `$${deprecatedTexFraction(n, 1000)}$`
-            reponseAMC = calcul(n / 1000)
+            reponseAMC = calculANePlusJamaisUtiliser(n / 1000)
             texteCorr = `$${deprecatedTexFraction(n, 1000)}=${texNombre(reponseAMC)}$`
           }
           break
@@ -122,11 +122,11 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
           choix = randint(1, 2)
           if (choix === 1) {
             texte = `$${a}+${deprecatedTexFraction(b, 100)}+${deprecatedTexFraction(c, 100)}$`
-            reponseAMC = calcul(a + (b + c) / 100)
+            reponseAMC = calculANePlusJamaisUtiliser(a + (b + c) / 100)
             texteCorr = `$${a}+${deprecatedTexFraction(b, 100)}+${deprecatedTexFraction(c, 100)}=${a}+${deprecatedTexFraction(b + c, 100)}=${texNombre(reponseAMC)}$`
           } else if (choix === 2) {
             texte = `$${a}+${deprecatedTexFraction(b, 10)}+${deprecatedTexFraction(c, 10)}$`
-            reponseAMC = calcul(a + (b + c) / 10)
+            reponseAMC = calculANePlusJamaisUtiliser(a + (b + c) / 10)
             texteCorr = `$${a}+${deprecatedTexFraction(b, 10)}+${deprecatedTexFraction(c, 10)}=${a}+${deprecatedTexFraction(b + c, 10)}=${a}+${texNombre((b + c) / 10)}=${texNombre(reponseAMC)}$`
           }
           break

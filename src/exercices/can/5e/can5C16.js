@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer astucieusement avec une factorisation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default function CalculAstucieuxAvecFactorisation () {
       case 'a':
 
         a = randint(5, 99) / 10
-        b = calcul(randint(2, 9) * 5)
+        b = calculANePlusJamaisUtiliser(randint(2, 9) * 5)
         c = 100 - b
         this.question = `Calculer $${b}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}$.
 `
@@ -74,8 +74,8 @@ ${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=$
         this.reponse = d * a
         break
       case 'd':
-        a = calcul(randint(5, 99) / 100)
-        b = calcul(randint(2, 99) / 10)
+        a = calculANePlusJamaisUtiliser(randint(5, 99) / 100)
+        b = calculANePlusJamaisUtiliser(randint(2, 99) / 10)
         c = 10 - b
         this.question = `Calculer $ ${texNombre(b)}\\times${texNombre(a)}+ ${texNombre(c)}\\times${texNombre(a)}$.
     `
@@ -89,8 +89,8 @@ ${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=$
         this.reponse = 10 * a
         break
       case 'e':
-        a = calcul(randint(1, 12) * 10)
-        b = calcul(randint(2, 9) / 10)
+        a = calculANePlusJamaisUtiliser(randint(1, 12) * 10)
+        b = calculANePlusJamaisUtiliser(randint(2, 9) / 10)
         c = 5 - b
         this.question = `Calculer $ ${texNombre(a)}\\times${texNombre(b)}+ ${texNombre(c)}\\times${texNombre(a)}$.
     `

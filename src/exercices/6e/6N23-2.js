@@ -12,7 +12,7 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -74,7 +74,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           thickOff = 0
         } else {
           xmin = randint(1, 15)
-          thickOff = calcul(2 / (10 ** (parseInt(this.sup))))
+          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (parseInt(this.sup))))
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
@@ -82,9 +82,9 @@ export default function LireAbscisseDecimaleTroisFormes () {
         x1 = xmin * 10 + randint(0, 2) * 10 + randint(2, 8)
         x2 = xmin * 10 + randint(3, 5) * 10 + randint(2, 8)
         x3 = xmin * 10 + randint(6, 8) * 10 + randint(2, 8)
-        x1 = calcul(x1 / 10)
-        x2 = calcul(x2 / 10)
-        x3 = calcul(x3 / 10)
+        x1 = calculANePlusJamaisUtiliser(x1 / 10)
+        x2 = calculANePlusJamaisUtiliser(x2 / 10)
+        x3 = calculANePlusJamaisUtiliser(x3 / 10)
 
         tableau = shuffle([x1, x2, x3])
         x1 = tableau[0]
@@ -128,13 +128,13 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${deprecatedTexFraction(calcul(x3 * 10), 10)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${deprecatedTexFraction(calculANePlusJamaisUtiliser(x3 * 10), 10)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1, { formatInteractif: 'calcul' })
           setReponse(this, 1, Math.floor(x2), { formatInteractif: 'calcul' })
-          setReponse(this, 2, fraction(calcul(10 * (x2 - Math.floor(x2))), 10), { formatInteractif: 'fraction' })
-          setReponse(this, 3, fraction(calcul(x3 * 10), 10), { formatInteractif: 'fraction' })
+          setReponse(this, 2, fraction(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2))), 10), { formatInteractif: 'fraction' })
+          setReponse(this, 3, fraction(calculANePlusJamaisUtiliser(x3 * 10), 10), { formatInteractif: 'fraction' })
         } else {
           this.autoCorrection[i] = {
             enonce: '', // on le remplira à la fin.
@@ -198,10 +198,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
-                    valeur: new FractionEtendue(calcul(10 * (x2 - Math.floor(x2))), 10),
+                    valeur: new FractionEtendue(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2))), 10),
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(calcul(10 * (x2 - Math.floor(x2)))),
-                      digitsNum: nombreDeChiffresDansLaPartieEntiere(calcul(10 * (x2 - Math.floor(x2)))),
+                      digits: nombreDeChiffresDansLaPartieEntiere(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2)))),
+                      digitsNum: nombreDeChiffresDansLaPartieEntiere(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2)))),
                       digitsDen: 2,
                       decimals: 0,
                       signe: false,
@@ -219,18 +219,18 @@ export default function LireAbscisseDecimaleTroisFormes () {
           thickOff = 0
         } else {
           xmin = randint(1, 15) - 0.1
-          thickOff = calcul(2 / (10 ** (parseInt(this.sup))))
+          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (parseInt(this.sup))))
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
-        xmax = calcul(xmin + 1.5)
+        xmax = calculANePlusJamaisUtiliser(xmin + 1.5)
         x1 = 10 + xmin * 100 + randint(1, 3) * 10 + randint(2, 8)
         x2 = 10 + xmin * 100 + randint(4, 6) * 10 + randint(2, 8)
         x3 = 10 + xmin * 100 + randint(7, 9) * 10 + randint(2, 8)
 
-        x1 = calcul(x1 / 100)
-        x2 = calcul(x2 / 100)
-        x3 = calcul(x3 / 100)
+        x1 = calculANePlusJamaisUtiliser(x1 / 100)
+        x2 = calculANePlusJamaisUtiliser(x2 / 100)
+        x3 = calculANePlusJamaisUtiliser(x3 / 100)
         tableau = shuffle([x1, x2, x3])
         x1 = tableau[0]
         x2 = tableau[1]
@@ -273,13 +273,13 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${deprecatedTexFraction(calcul(x3 * 100), 100)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${deprecatedTexFraction(calculANePlusJamaisUtiliser(x3 * 100), 100)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1)
           setReponse(this, 1, Math.floor(x2))
-          setReponse(this, 2, fraction(calcul(100 * (x2 - Math.floor(x2))), 100), { formatInteractif: 'fraction' })
-          setReponse(this, 3, fraction(calcul(x3 * 100), 100), { formatInteractif: 'fraction' })
+          setReponse(this, 2, fraction(calculANePlusJamaisUtiliser(100 * (x2 - Math.floor(x2))), 100), { formatInteractif: 'fraction' })
+          setReponse(this, 3, fraction(calculANePlusJamaisUtiliser(x3 * 100), 100), { formatInteractif: 'fraction' })
         } else {
           this.autoCorrection[i] = {
             enonce: '', // on le remplira à la fin.
@@ -343,9 +343,9 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
-                    valeur: new FractionEtendue(calcul(100 * (x2 - Math.floor(x2))), 100),
+                    valeur: new FractionEtendue(calculANePlusJamaisUtiliser(100 * (x2 - Math.floor(x2))), 100),
                     param: {
-                      digitsNum: nombreDeChiffresDansLaPartieEntiere(calcul(100 * (x2 - Math.floor(x2)))),
+                      digitsNum: nombreDeChiffresDansLaPartieEntiere(calculANePlusJamaisUtiliser(100 * (x2 - Math.floor(x2)))),
                       digitsDen: 3,
                       decimals: 0,
                       signe: false,
@@ -362,19 +362,19 @@ export default function LireAbscisseDecimaleTroisFormes () {
           xmin = 0
           thickOff = 0
         } else {
-          xmin = calcul(randint(0, 15) + randint(0, 9) * 0.1)
-          thickOff = calcul(2 / (10 ** (parseInt(this.sup))))
+          xmin = calculANePlusJamaisUtiliser(randint(0, 15) + randint(0, 9) * 0.1)
+          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (parseInt(this.sup))))
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
-        xmax = calcul(xmin + 0.15)
+        xmax = calculANePlusJamaisUtiliser(xmin + 0.15)
 
         x1 = xmin * 1000 + randint(1, 5) * 10 + randint(2, 8)
         x2 = xmin * 1000 + randint(6, 9) * 10 + randint(2, 8)
         x3 = xmin * 1000 + randint(11, 14) * 10 + randint(2, 8)
-        x1 = calcul(x1 / 1000)
-        x2 = calcul(x2 / 1000)
-        x3 = calcul(x3 / 1000)
+        x1 = calculANePlusJamaisUtiliser(x1 / 1000)
+        x2 = calculANePlusJamaisUtiliser(x2 / 1000)
+        x3 = calculANePlusJamaisUtiliser(x3 / 1000)
 
         tableau = shuffle([x1, x2, x3])
         x1 = tableau[0]
@@ -422,13 +422,13 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calcul(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${deprecatedTexFraction(calcul(x3 * 1000), 1000)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${deprecatedTexFraction(calculANePlusJamaisUtiliser(x3 * 1000), 1000)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1)
           setReponse(this, 1, Math.floor(x2))
-          setReponse(this, 2, fraction(calcul(1000 * (x2 - Math.floor(x2))), 1000), { formatInteractif: 'fraction' })
-          setReponse(this, 3, fraction(calcul(x3 * 1000), 1000), { formatInteractif: 'fraction' })
+          setReponse(this, 2, fraction(calculANePlusJamaisUtiliser(1000 * (x2 - Math.floor(x2))), 1000), { formatInteractif: 'fraction' })
+          setReponse(this, 3, fraction(calculANePlusJamaisUtiliser(x3 * 1000), 1000), { formatInteractif: 'fraction' })
         } else {
           this.autoCorrection[i] = {
             enonce: '', // on le remplira à la fin.
@@ -492,9 +492,9 @@ export default function LireAbscisseDecimaleTroisFormes () {
                   statut: '',
                   reponse: {
                     texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
-                    valeur: new FractionEtendue(calcul(1000 * (x2 - Math.floor(x2))), 1000),
+                    valeur: new FractionEtendue(calculANePlusJamaisUtiliser(1000 * (x2 - Math.floor(x2))), 1000),
                     param: {
-                      digitsNum: nombreDeChiffresDansLaPartieEntiere(calcul(1000 * (x2 - Math.floor(x2)))),
+                      digitsNum: nombreDeChiffresDansLaPartieEntiere(calculANePlusJamaisUtiliser(1000 * (x2 - Math.floor(x2)))),
                       digitsDen: 4,
                       decimals: 0,
                       signe: false,

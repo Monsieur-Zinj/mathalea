@@ -356,7 +356,7 @@ export function xcas (expression) {
  * Si c'est pour arrondir, utiliser arrondi(nombre, précision) qui ne règle pas plus le problème des flottants.
  * @author Rémi Angot modifié par Jean-Claude Lhote mais en vain !
  */
-export function calcul (x, arrondir = 6) {
+export function calculANePlusJamaisUtiliser (x, arrondir = 6) {
   const sansPrecision = (arrondir === undefined)
   // if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {

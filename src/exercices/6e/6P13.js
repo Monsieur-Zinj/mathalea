@@ -6,7 +6,7 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -79,8 +79,8 @@ export default function AugmenterEtReduireDunPourcentage () {
         pr = randint(21, 39, [30])
         pa = randint(2, 9)
       } else {
-        pr = calcul((randint(40, 60) * 100 + randint(1, 9) * 10) / 100)
-        pa = calcul((randint(1, 9) * 10 + randint(1, 9)) / 10)
+        pr = calculANePlusJamaisUtiliser((randint(40, 60) * 100 + randint(1, 9) * 10) / 100)
+        pa = calculANePlusJamaisUtiliser((randint(1, 9) * 10 + randint(1, 9)) / 10)
       }
     }
 
@@ -94,8 +94,8 @@ export default function AugmenterEtReduireDunPourcentage () {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'réduction':
           nombreDecimales(n)
-          mr = calcul(pr * billet / 100)
-          final1 = calcul(billet - mr)
+          mr = calculANePlusJamaisUtiliser(pr * billet / 100)
+          final1 = calculANePlusJamaisUtiliser(billet - mr)
           texte = `Un billet d'avion coûte ${billet} ${sp()}€. ${prenom1} bénéficie d'une réduction de $${pr} ${sp()}\\%$.`
           enonceInit = texte
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
@@ -163,8 +163,8 @@ export default function AugmenterEtReduireDunPourcentage () {
           break
         case 'augmentation':
           nombreDecimales(n)
-          calcul(ma = pa * loyer / 100)
-          calcul(final2 = loyer + ma)
+          calculANePlusJamaisUtiliser(ma = pa * loyer / 100)
+          calculANePlusJamaisUtiliser(final2 = loyer + ma)
 
           enonceInit = `Le loyer de l'appartement de ${prenom2} coûte ${loyer} ${sp()}€. Au 1er janvier, il augmente de $${pa} ${sp()}\\%$.`
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`

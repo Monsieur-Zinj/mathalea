@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer avec +/-99 ou +/-999'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,20 +27,20 @@ export default function CalculAvec99 () {
     let a
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //
       case 'a':
-        a = calcul(randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
         this.question = `Calculer $${texNombre(a)}+99$.`
         this.correction = `$${texNombre(a)}+99=${texNombre(a + 99)}$.`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
        Pour ajouter $99$, on ajoute $100$ et on retranche $1$.<br>
        $${texNombre(a)}+99=${texNombre(a)}+\\underbrace{100-1}_{99}=${texNombre(a + 100)}-1=${texNombre(a + 99)}$.
           `)
-        this.reponse = calcul(a + 99)
+        this.reponse = calculANePlusJamaisUtiliser(a + 99)
         break
       case 'b':
-        a = calcul(randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
         this.question = `Calculer $${texNombre(a)}+999$.`
         this.correction = `$${texNombre(a)}+999=${texNombre(a + 999)}$.`
-        this.reponse = calcul(a + 999)
+        this.reponse = calculANePlusJamaisUtiliser(a + 999)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
        Pour ajouter $999$, on ajoute $${texNombre(1000)}$ et on retranche $1$.<br>
        $${texNombre(a)}+999=${texNombre(a)}+\\underbrace{1000-1}_{999}=${texNombre(a + 1000)}-1=${texNombre(a + 999)}$.
@@ -48,30 +48,30 @@ export default function CalculAvec99 () {
         break
 
       case 'c':
-        a = calcul(randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
         this.question = `Calculer $${texNombre(a)}-999$.`
         this.correction = `$${texNombre(a)}-999=${texNombre(a - 999)}$.`
-        this.reponse = calcul(a - 999)
+        this.reponse = calculANePlusJamaisUtiliser(a - 999)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
        Pour retrancher $999$, on retranche $${texNombre(1000)}$ et on ajoute $1$.<br>
        $${texNombre(a)}-999=${texNombre(a)}\\underbrace{-1000+1}_{-999}=${texNombre(a - 1000)}+1=${texNombre(a - 999)}$.
           `)
         break
       case 'd':
-        a = calcul(randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
         this.question = `Calculer $${texNombre(a)}-99$.`
         this.correction = `$${texNombre(a)}-99=${texNombre(a - 99)}$.`
-        this.reponse = calcul(a - 99)
+        this.reponse = calculANePlusJamaisUtiliser(a - 99)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
        Pour retrancher $99$, on retranche $100$ et on ajoute $1$.<br>
        $${texNombre(a)}-99=${texNombre(a)}\\underbrace{-100+1}_{-99}=${texNombre(a - 100)}+1=${texNombre(a - 99)}$.
           `)
         break
       case 'e':
-        a = calcul(randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 1000 + randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9))
         this.question = `Calculer $${texNombre(a)}+99$.`
         this.correction = `$${texNombre(a)}+99=${texNombre(a + 99)}$.`
-        this.reponse = calcul(a + 99)
+        this.reponse = calculANePlusJamaisUtiliser(a + 99)
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour ajouter $99$, on ajoute $100$ et on retranche $1$.<br>
         $${texNombre(a)}+99=${texNombre(a)}+\\underbrace{100-1}_{99}=${texNombre(a + 100)}-1=${texNombre(a + 99)}$.

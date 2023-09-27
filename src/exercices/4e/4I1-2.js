@@ -7,7 +7,7 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
 import { scratchblock } from '../../modules/scratchblock.js'
@@ -173,14 +173,14 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
           lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
         } else {
           if (bonneReponse === 1) {
-            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${calcul(val1 / 2)}} pas}\n`
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${calculANePlusJamaisUtiliser(val1 / 2)}} pas}\n`
           } else {
-            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${calcul(val1 + 2)}} pas}\n`
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${calculANePlusJamaisUtiliser(val1 + 2)}} pas}\n`
           }
         }
         switch (bonneReponse) {
           case 0:
-            lutins[0].codeScratch += `\n\\blockmove{tourner \\turnright{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}\n`
+            lutins[0].codeScratch += `\n\\blockmove{tourner \\turnright{} de \\ovalnum{${calculANePlusJamaisUtiliser(90 - 180 / n2)}} degrés}\n`
             break
           case 1:
             lutins[0].codeScratch += '\n\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
@@ -195,11 +195,11 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n2}} fois}\n
         {
           \\blockmove{avancer de \\ovalnum{${val3}} pas}\n
-          \\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(360 / n2)}} degrés}\n
+          \\blockmove{tourner \\turnleft{} de \\ovalnum{${calculANePlusJamaisUtiliser(360 / n2)}} degrés}\n
         }\n`
         switch (bonneReponse) {
           case 0:
-            lutins[0].codeScratch += `\\blockmove{tourner \\turnleft{} de \\ovalnum{${calcul(90 - 180 / n2)}} degrés}\n`
+            lutins[0].codeScratch += `\\blockmove{tourner \\turnleft{} de \\ovalnum{${calculANePlusJamaisUtiliser(90 - 180 / n2)}} degrés}\n`
             break
           case 1:
             lutins[0].codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
@@ -211,7 +211,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
             lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}\n'
             break
         }
-        lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${calcul(360 / n)}} degrés}\n}\n`
+        lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${calculANePlusJamaisUtiliser(360 / n)}} degrés}\n}\n`
 
         for (let i = 0; i < n; i++) {
           allerA(0, 0, lutins[0])
@@ -257,7 +257,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         n2 = randint(1, 4) + Math.floor((9 - n) / 2)
         val1 = randint(1, 4) * 5
         val2 = 60 + randint(0, 4) * 5
-        val3 = calcul(360 / n)
+        val3 = calculANePlusJamaisUtiliser(360 / n)
 
         if (bonneReponse !== 2) {
           lutins[0].codeScratch += `\\blockvariable{mettre \\ovalvariable*{longueur} à \\ovalnum{${val1}}}
@@ -316,8 +316,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       case 'roueDentee':
         n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
         val1 = randint(1, 2) * 10
-        val2 = calcul(720 / n)
-        val3 = calcul(360 / n)
+        val2 = calculANePlusJamaisUtiliser(720 / n)
+        val3 = calculANePlusJamaisUtiliser(360 / n)
 
         if (bonneReponse < 5) {
           lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
@@ -495,14 +495,14 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     paramsEnonces.xmax = largeur
     paramsEnonces.ymax = hauteur + 1
     paramsEnonces.pixelsParCm = Math.round(400 / largeur)
-    paramsEnonces.scale = calcul(4 / largeur)
+    paramsEnonces.scale = calculANePlusJamaisUtiliser(4 / largeur)
     paramsEnonces.style = ''
     paramsCorrection.xmin = -0.5
     paramsCorrection.ymin = -0.5
     paramsCorrection.xmax = largeur
     paramsCorrection.ymax = hauteur + 1
     paramsCorrection.pixelsParCm = Math.round(400 / largeur)
-    paramsCorrection.scale = calcul(4 / largeur)
+    paramsCorrection.scale = calculANePlusJamaisUtiliser(4 / largeur)
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     for (let i = 0; i < 4; i++) {

@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import {
-  randint, calcul
+  randint, calculANePlusJamaisUtiliser
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une image avec le second degré'
 export const interactifReady = true
@@ -90,7 +90,7 @@ export default function CalculImageSecondDegre () {
   Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
     `)
         }
-        this.reponse = calcul(a * x * x + b * x + c)
+        this.reponse = calculANePlusJamaisUtiliser(a * x * x + b * x + c)
         break
       case 'b':
         a = randint(1, 3)
@@ -106,7 +106,7 @@ export default function CalculImageSecondDegre () {
         if (a === 1 & c === 1) {
           this.correction = `$f(${x})=\\left(${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=
           ${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}=${(a * x + b) * (c * x + d)}$<br>`
-          this.reponse = calcul((a * x + b) * (c * x + d))
+          this.reponse = calculANePlusJamaisUtiliser((a * x + b) * (c * x + d))
           this.correction += texteEnCouleur(` Mentalement : <br>
           On commence par "calculer" la première parenthèse :  $${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$.<br>
            Puis la deuxième : $${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
@@ -116,7 +116,7 @@ export default function CalculImageSecondDegre () {
         if (a !== 1 & c !== 1) {
           this.correction = `$f(${x})=\\left(${rienSi1(a)}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=
         ${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}=${(a * x + b) * (c * x + d)}$<br>`
-          this.reponse = calcul((a * x + b) * (c * x + d))
+          this.reponse = calculANePlusJamaisUtiliser((a * x + b) * (c * x + d))
           this.correction += texteEnCouleur(` Mentalement : <br>
         On commence par "calculer" la première parenthèse :  $${rienSi1(a)}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$.
         <br>Puis la deuxième : $${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
@@ -126,7 +126,7 @@ export default function CalculImageSecondDegre () {
         if (a === 1 & c !== 1) {
           this.correction = `$f(${x})=\\left(${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=
         ${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}=${(a * x + b) * (c * x + d)}$<br>`
-          this.reponse = calcul((a * x + b) * (c * x + d))
+          this.reponse = calculANePlusJamaisUtiliser((a * x + b) * (c * x + d))
           this.correction += texteEnCouleur(` Mentalement : <br>
         On commence par "calculer" la première parenthèse :  $${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$.
         <br>Puis la deuxième : $${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
@@ -136,7 +136,7 @@ export default function CalculImageSecondDegre () {
         if (a !== 1 & c === 1) {
           this.correction = `$f(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=
         ${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}=${(a * x + b) * (c * x + d)}$<br>`
-          this.reponse = calcul((a * x + b) * (c * x + d))
+          this.reponse = calculANePlusJamaisUtiliser((a * x + b) * (c * x + d))
           this.correction += texteEnCouleur(` Mentalement : <br>
         On commence par "calculer" la première parenthèse :  $${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$.
         <br>Puis la deuxième : $${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
@@ -155,7 +155,7 @@ export default function CalculImageSecondDegre () {
           Calculer $f(${x})$.`
 
         this.correction = `$f(${x})=${a}- ${ecritureParentheseSiNegatif(x)}^2=${a - b * x * x}$.<br>`
-        this.reponse = calcul(a - b * x * x)
+        this.reponse = calculANePlusJamaisUtiliser(a - b * x * x)
         if (b === 1) {
           this.correction += texteEnCouleur(` Mentalement : <br>
           On commence par "calculer" le carré de $${x}$ :  $${ecritureParentheseSiNegatif(x)}^2=${x * x}$.<br>
@@ -185,7 +185,7 @@ export default function CalculImageSecondDegre () {
         \\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)^2=
         (${a * x}${ecritureAlgebrique(b)})^2=${ecritureParentheseSiNegatif(a * x + b)}^2
         =${(a * x + b) * (a * x + b)}$. <br>`
-        this.reponse = calcul(a * x + b) * (a * x + b)
+        this.reponse = calculANePlusJamaisUtiliser(a * x + b) * (a * x + b)
 
         this.correction += texteEnCouleur(` Mentalement : <br>
           On commence par "calculer" l'intérieur de la parenthèse, puis on élève le résultat au carré.

@@ -6,7 +6,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
 
@@ -52,10 +52,10 @@ export default function ReperagePointDuPlan () {
       xmin = -5; ymin = -5; xmax = 5; ymax = 5
     }
     const listeAbs = []; const listeOrd = []
-    for (let i = calcul(xmin + 1 / k); i < calcul(xmax - (parseInt(this.sup) - 1) / k); i = calcul(i + 1 / k)) {
+    for (let i = calculANePlusJamaisUtiliser(xmin + 1 / k); i < calculANePlusJamaisUtiliser(xmax - (parseInt(this.sup) - 1) / k); i = calculANePlusJamaisUtiliser(i + 1 / k)) {
       listeAbs.push(i)
     }
-    for (let i = calcul(ymin + 1 / k); i < calcul(ymax - (parseInt(this.sup) - 1) / k); i = calcul(i + 1 / k)) {
+    for (let i = calculANePlusJamaisUtiliser(ymin + 1 / k); i < calculANePlusJamaisUtiliser(ymax - (parseInt(this.sup) - 1) / k); i = calculANePlusJamaisUtiliser(i + 1 / k)) {
       listeOrd.push(i)
     }
     let X0 = false; let Y0 = false

@@ -13,7 +13,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'
 
 // Gestion de la date de publication initiale
@@ -78,10 +78,10 @@ export default function SymetrieAxialeProprietes () {
         case 1 :
           nbpoints = 4
           noms = choisitLettresDifferentes(nbpoints, 'QWX', true)
-          A = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[0])
-          while (distancePointDroite(A, d) < 1) A = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[0])
-          B = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[1])
-          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[1])
+          A = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[0])
+          while (distancePointDroite(A, d) < 1) A = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[0])
+          B = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[1])
+          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[1])
           C = symetrieAxiale(A, d, noms[2])
           D = symetrieAxiale(B, d, noms[3])
           texte += `Les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ sont symétriques par rapport à $(d)$ et $${A.nom}${B.nom}=${texNombre(longueur(A, B, 1))}${sp()}\\text{cm}$ . Quelle est la longueur du segment $[${C.nom}${D.nom}]$ ?`
@@ -95,10 +95,10 @@ export default function SymetrieAxialeProprietes () {
         case 3 :
           nbpoints = 6
           noms = choisitLettresDifferentes(nbpoints, 'QWX', true)
-          A = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[0])
-          while (distancePointDroite(A, d) < 1) A = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[0])
-          B = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[1])
-          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[1])
+          A = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[0])
+          while (distancePointDroite(A, d) < 1) A = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[0])
+          B = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[1])
+          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[1])
           C = pointSurDroite(droite(A, B), B.x + 1, noms[2])
           D = symetrieAxiale(A, d, noms[3])
           E = symetrieAxiale(B, d, noms[4])
@@ -114,12 +114,12 @@ export default function SymetrieAxialeProprietes () {
         case 2 :
           nbpoints = 6
           noms = choisitLettresDifferentes(nbpoints, 'QWX', true)
-          A = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[0])
-          while (distancePointDroite(A, d) < 1) A = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[0])
-          B = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[1])
-          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[1])
-          C = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[2])
-          while ((distancePointDroite(C, d) < 1) || (longueur(A, C) < 1) || (longueur(symetrieAxiale(A, d), C) < 1) || (longueur(C, B) < 1) || (longueur(symetrieAxiale(B, d), C) < 1) || (angle(A, B, C) < 30) || (angle(B, A, C) < 30) || (angle(A, C, B) < 30)) C = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[2])
+          A = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[0])
+          while (distancePointDroite(A, d) < 1) A = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[0])
+          B = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[1])
+          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[1])
+          C = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[2])
+          while ((distancePointDroite(C, d) < 1) || (longueur(A, C) < 1) || (longueur(symetrieAxiale(A, d), C) < 1) || (longueur(C, B) < 1) || (longueur(symetrieAxiale(B, d), C) < 1) || (angle(A, B, C) < 30) || (angle(B, A, C) < 30) || (angle(A, C, B) < 30)) C = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[2])
           D = symetrieAxiale(A, d, noms[3])
           E = symetrieAxiale(B, d, noms[4])
           F = symetrieAxiale(C, d, noms[5])
@@ -134,12 +134,12 @@ export default function SymetrieAxialeProprietes () {
         case 4 :
           nbpoints = 6
           noms = choisitLettresDifferentes(nbpoints, 'QWX', true)
-          A = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[0])
-          while (distancePointDroite(A, d) < 1) A = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[0])
-          B = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[1])
-          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 6 || (longueur(symetrieAxiale(A, d), B) < 1))) B = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[1])
-          C = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[2])
-          while ((distancePointDroite(C, d) < 1) || (longueur(A, C) < 6) || (longueur(symetrieAxiale(A, d), C) < 1) || (longueur(C, B) < 6) || (longueur(symetrieAxiale(B, d), C) < 1) || (angle(A, B, C) < 30) || (angle(B, A, C) < 30) || (angle(A, C, B) < 30)) C = point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[2])
+          A = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[0])
+          while (distancePointDroite(A, d) < 1) A = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[0])
+          B = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[1])
+          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 6 || (longueur(symetrieAxiale(A, d), B) < 1))) B = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[1])
+          C = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[2])
+          while ((distancePointDroite(C, d) < 1) || (longueur(A, C) < 6) || (longueur(symetrieAxiale(A, d), C) < 1) || (longueur(C, B) < 6) || (longueur(symetrieAxiale(B, d), C) < 1) || (angle(A, B, C) < 30) || (angle(B, A, C) < 30) || (angle(A, C, B) < 30)) C = point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[2])
           D = symetrieAxiale(A, d, noms[3])
           E = symetrieAxiale(B, d, noms[4])
           F = symetrieAxiale(C, d, noms[5])

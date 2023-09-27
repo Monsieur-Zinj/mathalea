@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Passer du coefficient multiplicateur au taux d’évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +31,7 @@ export default function CoeffTaux () {
     switch (choice(['a', 'b', 'b'])) { //, 'b', 'b'
       case 'a':
         taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
-        coeff = calcul(1 + taux / 100)
+        coeff = calculANePlusJamaisUtiliser(1 + taux / 100)
         this.question = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff)}$ est `
         if (!this.interactif) {
           this.question += '.... '
@@ -48,7 +48,7 @@ export default function CoeffTaux () {
         break
       case 'b':
         taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
-        coeff = calcul(1 - taux / 100)
+        coeff = calculANePlusJamaisUtiliser(1 - taux / 100)
         this.question = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombre(coeff)}$ est `
         if (!this.interactif) {
           this.question += '.... '

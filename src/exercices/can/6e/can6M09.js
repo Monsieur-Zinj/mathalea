@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 export const titre = 'Calculer des longueurs à partir des périmètres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +32,7 @@ export default function PerimetreCarreRectangle () {
         this.correction = `On calcule le périmètre d'un carré
         en multipliant par $4$ la longueur de son côté. <br>
         On obtient donc la longueur du côté en divisant par $4$ son périmètre : $${a}\\div 4=${texNombre(a / 4)}$ cm.`
-        this.reponse = calcul(a / 4)
+        this.reponse = calculANePlusJamaisUtiliser(a / 4)
         break
       case 'b':
         a = randint(4, 7) * 2

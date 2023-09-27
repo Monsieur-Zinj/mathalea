@@ -3,7 +3,7 @@ import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.j
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Donner la nature d’une suite (formule de récurrence)'
 export const interactifReady = true
@@ -303,7 +303,7 @@ export default function NatureSuiteRec () {
 
           break
         case 7 :// suite géo u_{n+1}-u_n=au_n
-          a = calcul(randint(2, 99) * choice([-1, 1])) / 100
+          a = calculANePlusJamaisUtiliser(randint(2, 99) * choice([-1, 1])) / 100
           u = randint(1, 10) * choice([-1, 1])
 
           if (this.interactif) {

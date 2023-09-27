@@ -3,7 +3,7 @@ import { texPrix } from '../../lib/format/style.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -46,7 +46,7 @@ export default function ValeurApprocheeDePourcentages () {
     for (let i = 0, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       den = randint(10, listeTypeDeQuestions[i])
       num = randint(1, den - 8)
-      while (calcul(num / den) === arrondi(num / den, 4)) {
+      while (calculANePlusJamaisUtiliser(num / den) === arrondi(num / den, 4)) {
         den = randint(10, listeTypeDeQuestions[i])
         num = randint(1, den - 8)
       }
@@ -55,12 +55,12 @@ export default function ValeurApprocheeDePourcentages () {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteApres: '%' })
       }
       if (this.sup === 1) {
-        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texPrix(calcul(num / den, 2))} $ soit environ $${calcul(calcul(num / den, 2) * 100)}~\\%$ $\\left(\\text{car } ${texPrix(calcul(num / den, 2))}=\\dfrac{${calcul(calcul(num / den, 2) * 100)}}{100}\\right)$.`
-        setReponse(this, i, calcul(calcul(num / den, 2) * 100))
+        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texPrix(calculANePlusJamaisUtiliser(num / den, 2))} $ soit environ $${calculANePlusJamaisUtiliser(calculANePlusJamaisUtiliser(num / den, 2) * 100)}~\\%$ $\\left(\\text{car } ${texPrix(calculANePlusJamaisUtiliser(num / den, 2))}=\\dfrac{${calculANePlusJamaisUtiliser(calculANePlusJamaisUtiliser(num / den, 2) * 100)}}{100}\\right)$.`
+        setReponse(this, i, calculANePlusJamaisUtiliser(calculANePlusJamaisUtiliser(num / den, 2) * 100))
       }
       if (this.sup === 2) {
-        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(calcul(num / den, 3))} $ soit environ $${texNombre(calcul(num / den * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(calcul(num / den, 3))}=\\dfrac{${texNombre(calcul(num / den * 100, 1))}}{100}\\right)$.`
-        setReponse(this, i, calcul(num / den * 100, 1))
+        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(calculANePlusJamaisUtiliser(num / den, 3))} $ soit environ $${texNombre(calculANePlusJamaisUtiliser(num / den * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(calculANePlusJamaisUtiliser(num / den, 3))}=\\dfrac{${texNombre(calculANePlusJamaisUtiliser(num / den * 100, 1))}}{100}\\right)$.`
+        setReponse(this, i, calculANePlusJamaisUtiliser(num / den * 100, 1))
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

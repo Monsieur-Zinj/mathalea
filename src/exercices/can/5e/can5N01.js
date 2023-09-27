@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la somme de nombres décimaux'
 export const interactifReady = true
@@ -26,7 +26,7 @@ export default function SommeDecimale5e () {
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
-    this.reponse = calcul(10 + (b + d) * 0.1 + c * 0.01)
+    this.reponse = calculANePlusJamaisUtiliser(10 + (b + d) * 0.1 + c * 0.01)
     this.question = `Calculer $${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}$.`
     this.correction = `$${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}=${texNombre(10 + (b + d) * 0.1 + c * 0.01)}$`
     this.correction += texteEnCouleur(`
