@@ -8,9 +8,8 @@ import {
   enleveDoublonNum
 } from '../lib/outils/arrayOutils.js'
 import { texMulticols } from '../lib/format/miseEnPage.js'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, rangeMinMax } from '../lib/outils/nombres.js'
+import { arrondi, rangeMinMax } from '../lib/outils/nombres.js'
 import { context } from './context.js'
-import { setReponse } from '../lib/interactif/gestionInteractif.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -36,39 +35,12 @@ export function listeQuestionsToContenu (exercice) {
   exercice.contenu = exercice.contenu.replace(/\\\\\n*/g, '\\\\\n')
 }
 
-export function exerciceSimpleToContenu (exercice) {
-  const listeQuestions = []
-  const listeCorrections = []
-  for (let i = 0, cpt = 0; i < exercice.nbQuestions & cpt < 50; cpt++) {
-    if (exercice.questionJamaisPosee(i, exercice.question)) {
-      if (context.isAmc) {
-        listeQuestions.push(exercice.question + '<br>')
-        listeCorrections.push(exercice.correction)
-      } else {
-        listeQuestions.push(exercice.question)
-        listeCorrections.push(exercice.correction)
-      }
-      if (context.isAmc && exercice.amcType === 'AMCNum') {
-        setReponse(exercice, i, exercice.reponse, {
-          digits: nombreDeChiffresDe(exercice.reponse),
-          decimals: nombreDeChiffresDansLaPartieDecimale(exercice.reponse),
-          signe: exercice.reponse < 0,
-          approx: 0
-        })
-      }
-      exercice.nouvelleVersion()
-      i++
-    }
-  }
-  exercice.listeQuestions = listeQuestions
-  exercice.listeCorrections = listeCorrections
-  listeQuestionsToContenu(exercice)
-}
 
 /**
  * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
  * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
  * @param {Exercice} exercice
+ * @param {boolean} retourCharriot
  * @author Rémi Angot
  */
 export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
@@ -165,8 +137,8 @@ export function gestionnaireFormulaireTexte ({
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
- * @param {number} min borne inférieure
- * @param {number} max borne supérieure
+ * @param {number} a borne inférieure
+ * @param {number} b borne supérieure
  * @author Eric Elter
  * @returns {number}
  */
@@ -257,8 +229,7 @@ export const ppcm = (a, b) => {
  * @return {boolean}
  */
 export function carreParfait (x) {
-  if (estentier(Math.sqrt(x))) return true
-  else return false
+  return estentier(Math.sqrt(x))
 }
 
 // Fonctions mathématiques
@@ -511,7 +482,7 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
  * @author Rémi Angot
  */
 export function texConsigne (consigne) {
-  return '\\exo{' + consigne.replace(/<br>/g, '\\\\') + '}\n\n'
+  return '\\exo{' + ((consigne != null && typeof consigne === 'string')? consigne.replace(/<br>/g, '\\\\') : '') + '}\n\n'
 }
 
 /**
@@ -520,20 +491,27 @@ export function texConsigne (consigne) {
  * @returns retourne un nombre au format français sans espace après la virgule
  */
 export function num (nb) {
-  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  if (typeof nb === 'number'){
+    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  } else {
+    window.notify(`Fonction num() appelée avec autre chose qu'un number`, {nb})
+  }
+
 }
 
 /**
  * Affiche un lien vers une URL
  * @param {string} texte à afficher
- * @param {string} URL
+ * @param {string} lien
  * @author Rémi Angot
  */
 export function href (texte, lien) {
-  if (context.isHtml) {
-    return `<a target="_blank" href=${lien}> ${texte} </a>`
-  } else {
-    return `\\href{${lien}}{${texte}}`
+  if (typeof texte === 'string' && texte !=='' && typeof lien === 'string' && lien !== '') {
+    if (context.isHtml) {
+      return `<a target="_blank" href=${lien}> ${texte} </a>`
+    } else {
+      return `\\href{${lien}}{${texte}}`
+    }
   }
 }
 
@@ -543,10 +521,12 @@ export function href (texte, lien) {
  */
 
 export function printlatex (e) {
-  if (e === '0x') {
-    return '0'
-  } else {
-    return Algebrite.run(`printlatex(quote(${e}))`)
+  if (typeof e === 'string' && e!=='') {
+    if (e === '0x') {
+      return '0'
+    } else {
+      return Algebrite.run(`printlatex(quote(${e}))`)
+    }
   }
 }
 
@@ -555,19 +535,23 @@ export function printlatex (e) {
  * @author Rémi Angot
  */
 export function itemize (tableauDeTexte) {
-  let texte = ''
-  if (context.isHtml) {
-    texte = '<div>'
-    for (let i = 0; i < tableauDeTexte.length; i++) {
-      texte += '<div> − ' + tableauDeTexte[i] + '</div>'
+  if (Array.isArray(tableauDeTexte) && tableauDeTexte.filter(el=>typeof el !== 'string').length !==0) {
+    let texte
+    if (context.isHtml) {
+      texte = '<div>'
+      for (let i = 0; i < tableauDeTexte.length; i++) {
+        texte += '<div> − ' + tableauDeTexte[i] + '</div>'
+      }
+      texte += '</div>'
+    } else {
+      texte = '\t\\begin{itemize}\n'
+      for (let i = 0; i < tableauDeTexte.length; i++) {
+        texte += '\t\t\\item ' + tableauDeTexte[i] + '\n'
+      }
+      texte += '\t\\end{itemize}'
     }
-    texte += '</div>'
+    return texte
   } else {
-    texte = '\t\\begin{itemize}\n'
-    for (let i = 0; i < tableauDeTexte.length; i++) {
-      texte += '\t\t\\item ' + tableauDeTexte[i] + '\n'
-    }
-    texte += '\t\\end{itemize}'
+    window.notify(`Fonction itemize appelée avec autre chose qu'un array de string`, {tableauDeTexte})
   }
-  return texte
-}
+  }
