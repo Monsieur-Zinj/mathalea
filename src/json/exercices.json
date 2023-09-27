@@ -1692,7 +1692,7 @@
       "interactifType": "mathLive",
       "amc": false
     },
-    "dateModification": "21/09/2023"
+    "datePublication": "25/09/2023"
   },
   "2N42-3": {
     "url": "2e/2N42-3.js",
@@ -5934,7 +5934,8 @@
       "interactifType": "custom",
       "amc": false
     },
-    "datePublication": "12/08/2022"
+    "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023"
   },
   "5R21": {
     "url": "5e/5R21.js",
@@ -6116,7 +6117,8 @@
       "interactifType": "custom",
       "amc": false
     },
-    "datePublication": "12/08/2022"
+    "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023"
   },
   "6C10-1": {
     "url": "6e/6C10-1.js",
@@ -6187,7 +6189,8 @@
       "interactifType": "custom",
       "amc": false
     },
-    "datePublication": "12/08/2022"
+    "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023"
   },
   "6C10-7a": {
     "url": "6e/6C10-7a.js",
