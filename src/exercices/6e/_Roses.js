@@ -321,7 +321,12 @@ export function ExoRose () {
           break
       }
 
-      this.roses[i] = new Rose({ nombreDeValeurs: this.nombreDeValeurs, type: this.type, operation: this.operation, valeurMax: this.valeurMax, typeDonnees: this.typeDonnees, indexInconnue: this.indexInconnue[i] })
+      this.roses[i] = new Rose({ nombreDeValeurs: this.nombreDeValeurs,
+        type: this.type,
+        operation: this.operation,
+        valeurMax: this.valeurMax,
+        typeDonnees: this.typeDonnees,
+        indexInconnue: this.indexInconnue[i] })
       objets = this.roses[i].representation()
       this.roses[i].type = 'solutions'
       objetsCorr = this.roses[i].representation()
@@ -381,29 +386,29 @@ export function ExoRose () {
     let resultatOK = true
     if (this.type === 'can2') {
       if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]].toLatex()).canonical.isSame(engine.parse(saisies[0].toLatex()).canonical)
+        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]].toLatex()).isSame(engine.parse(saisies[0]))
       } else {
-        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]]).canonical.isSame(engine.parse(saisies[0].toString()).canonical)
+        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]]).isSame(engine.parse(saisies[0]))
       }
     } else if (this.type === 'can1') {
       if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-        return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toLatex()).canonical)
+        return engine.parse(saisies[0]).isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toLatex()))
       } else {
-        return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toString()).canonical)
+        return engine.parse(saisies[0]).isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toString()))
       }
     } else {
       for (let i = 0; i < taille; i++) {
         if (this.type === 'résultats') {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-            resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
+            resultatOK = resultatOK && engine.parse(saisies[i]).isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
-            resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toString()).canonical)
+            resultatOK = resultatOK && engine.parse(saisies[i]).isEqual(engine.parse(this.roses[question].resultats[i].toString()))
           }
         } else {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-            resultatOK = resultatOK && engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
+            resultatOK = resultatOK && engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
-            resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toString()).canonical)
+            resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).isEqual(engine.parse(this.roses[question].resultats[i].toString()))
           }
         }
       }
