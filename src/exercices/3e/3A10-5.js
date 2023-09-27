@@ -4,19 +4,19 @@ import Exercice from '../Exercice.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 
 export const titre = 'Recourir à une décomposition en facteurs premiers dans des cas simples'
 // export const amcReady = true
 // export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
 export const dateDePublication = '29/08/2022'
+export const dateDeModifImportante = '27/09/2023'
 /**
  *
  * Attendus de 3e : Recourir à une décomposition en facteurs premiers dans des cas simples
  * @author Eric Elter
- * Référence 3A10-5
  */
 
 export const uuid = 'eee79'
@@ -24,9 +24,9 @@ export const ref = '3A10-5'
 export default function RecourirDecompositionFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4
-  this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Mélange']
+  this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Au moins un nombre premier entre 10 et 20\n6 : Mélange']
   this.besoinFormulaire2Numerique = ['Puissance la plus élevée possible (entre 2 et 5)', 3]
-  this.sup = 5
+  this.sup = 6
   this.tailleDiaporama = 2
 
   function ecrireReponse (alpha, a, beta, b, gamma, c) {
@@ -78,14 +78,14 @@ export default function RecourirDecompositionFacteursPremiers () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 4,
-      melange: 5,
-      defaut: 5,
+      max: 5,
+      melange: 6,
+      defaut: 6,
       nbQuestions: this.nbQuestions
     })
     const puissanceMax = contraindreValeur(2, 5, this.sup2, 3)
     for (
-      let i = 0, texte, texteCorr, cpt = 0, a, b, c, nbADecomposer; i < this.nbQuestions && cpt < 50;) {
+      let i = 0, texte, texteCorr, facteur1, facteur2, facteurX, solution, cpt = 0, a, b, c, nbADecomposer; i < this.nbQuestions && cpt < 50;) {
       a = randint(0, puissanceMax)
       b = randint(0, puissanceMax, a)
       c = randint(0, puissanceMax, [a, b])
@@ -111,12 +111,28 @@ export default function RecourirDecompositionFacteursPremiers () {
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore', { texte: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(2, a, 5, b, 7, c), { formatInteractif: 'texte' })
           break
-        case 4: // 3, 5 et 7
+          case 4: // 3, 5 et 7
           nbADecomposer = Math.pow(3, a) * Math.pow(5, b) * Math.pow(7, c)
           texte = `$${texNombre(nbADecomposer)}$`
           texteCorr = texte + `$${sp(2)}=${sp(1)}` + ecrireReponse(3, a, 5, b, 7, c)[0] + `${sp(2)}=${sp(1)}` + ecrireReponse(3, a, 5, b, 7, c)[1] + '$'
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore', { texte: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(3, a, 5, b, 7, c), { formatInteractif: 'texte' })
+          break
+          case 5: // 11, 13, 17 ou 19 et deux autres facteurs parmi 2, 3 et 5
+          facteur1 = choice([2,3,5])
+          facteur2 = choice([2,3,5],[facteur1])
+          if(facteur1 > facteur2) {
+            facteurX = facteur1
+            facteur1 = facteur2
+            facteur2 = facteurX
+          }
+          facteurX = choice([11,13,17,19])
+          nbADecomposer = Math.pow(facteurX ,1) * Math.pow(facteur1, b) * Math.pow(facteur2, c)
+          texte = `$${texNombre(nbADecomposer)}$`
+          solution = ecrireReponse(facteur1, b, facteur2, c, facteurX, 1)
+          texteCorr = texte + `$${sp(2)}=${sp(1)}` + solution[0] + `${sp(2)}=${sp(1)}` + solution[1] + '$'
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore', { texte: `${sp(2)}=` })
+          setReponse(this, i, solution, { formatInteractif: 'texte' })
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
