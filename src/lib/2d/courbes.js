@@ -93,6 +93,7 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
   this.textAbs = textAbs
   this.textOrd = textOrd
   this.color = color
+  this.bordures = [x-0.5,y<0 ? y-0.5 : -0.7,x+0.5, y>0 ? y+0.5 : 0]
 
   this.svg = function (coeff) {
     const x0 = this.x / this.xscale
