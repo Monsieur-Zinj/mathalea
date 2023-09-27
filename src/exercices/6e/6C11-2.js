@@ -172,7 +172,7 @@ export default function VocabulaireDivisionEuclidienne () {
       if (this.questionJamaisPosee(i, ...Nbutilises)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (this.interactif) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur 20 inline')
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur 20 inline alphanumeric')
         }
         setReponse(this, i, ReponsesCorrectes, { formatInteractif: 'ignorerCasse' })
         if (context.isAmc) {
