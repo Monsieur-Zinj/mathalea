@@ -9,16 +9,23 @@ import { isRecent } from './handleDate'
 import { get } from 'svelte/store'
 import { globalOptions } from '../store'
 import referentielsActivation from '../../json/referentielsActivation.json'
-
+import type { JSONReferentielObject } from '../../lib/referentiels'
+import { getRecentExercices } from './refUtils'
 // Réorganisation du référentiel
 // Suppression de la rubrique calcul mental
 // On renomme les chapitres pour la partie statique
-const baseReferentiel = { ...referentiel, static: { ...referentielStatic } }
+const baseReferentiel: JSONReferentielObject = {
+  ...referentiel,
+  static: { ...referentielStatic }
+}
 if (get(globalOptions).interfaceBeta) {
-  baseReferentiel.static['2nd'] = referentiel2nd['2nd']
+  // const second: JSONReferentielObject = referentiel2nd
+  // Object.assign(baseReferentiel.static, { '2nd': second['2nd'] })
+  if (baseReferentiel.static !== null) {
+    baseReferentiel.static['2nd'] = { ...referentiel2nd }
+  }
   console.log(baseReferentiel.static)
 }
-// @ts-ignore
 delete baseReferentiel['Calcul mental']
 let referentielMap = toMap(baseReferentiel)
 
@@ -46,21 +53,24 @@ function buildReferentiel (listOfEntries) {
 }
 
 /**
-   * Détecter si une valeur est un objet
-   * @param val valeur à analyser
-   */
-const isObject = (val: unknown) => val && typeof val === 'object' && !Array.isArray(val)
+ * Détecter si une valeur est un objet
+ * @param val valeur à analyser
+ */
+const isObject = (val: unknown) =>
+  val && typeof val === 'object' && !Array.isArray(val)
 
 /**
-   * Construit un object contenant les références des exercices ayant une date
-   * de modification ou de publication récente (<= 1mois)
-   * en parcourant récursivement l'objet passé en paramètre
-   * Inspiration : {@link https://stackoverflow.com/questions/15690706/recursively-looping-through-an-object-to-build-a-property-list/53620876#53620876}
-   * @param {any} obj objet à parcourir (récursivement)
-   * @return {[string]} objet des exos nouveaux
-   * @author sylvain
-   */
-function getRecentExercises (obj: InterfaceReferentiel[]): InterfaceReferentiel[] {
+ * Construit un object contenant les références des exercices ayant une date
+ * de modification ou de publication récente (<= 1mois)
+ * en parcourant récursivement l'objet passé en paramètre
+ * Inspiration : {@link https://stackoverflow.com/questions/15690706/recursively-looping-through-an-object-to-build-a-property-list/53620876#53620876}
+ * @param {any} obj objet à parcourir (récursivement)
+ * @return {[string]} objet des exos nouveaux
+ * @author sylvain
+ */
+function getRecentExercises (
+  obj: InterfaceReferentiel[]
+): InterfaceReferentiel[] {
   const recentExercises: InterfaceReferentiel[] = []
   /**
    * On parcourt récursivement l'objet référentiel et on en profite pour peupler
@@ -68,12 +78,17 @@ function getRecentExercises (obj: InterfaceReferentiel[]): InterfaceReferentiel[
    * ou de modification sont récentes
    * @param obj Objet à parcourir
    */
-  const traverseObject = (obj: InterfaceReferentiel[]): InterfaceReferentiel[] => {
+  const traverseObject = (
+    obj: InterfaceReferentiel[]
+  ): InterfaceReferentiel[] => {
     return Object.entries(obj).reduce((product, [key, value]) => {
       if (isObject(value as InterfaceReferentiel)) {
         if ('uuid' in value) {
           // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
-          if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
+          if (
+            isRecent(value.datePublication) ||
+            isRecent(value.dateModification)
+          ) {
             // @ts-ignore
             recentExercises.push({ [key]: value })
           }
@@ -99,7 +114,12 @@ function getRecentExercises (obj: InterfaceReferentiel[]): InterfaceReferentiel[
  * @param itemsAccepted Tableau des entrées filtrées
  * @returns tableau de tous les exercices filtrés
  */
-export function updateReferentiel (isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted) {
+export function updateReferentiel (
+  isAmcOnlySelected,
+  isInteractiveOnlySelected,
+  itemsAccepted
+) {
+  // console.log(getRecentExercices(baseReferentiel))
   let filteredReferentiel = {}
   if (itemsAccepted.length === 0) {
     // pas de filtres sélectionnés
@@ -119,16 +139,30 @@ export function updateReferentiel (isAmcOnlySelected, isInteractiveOnlySelected,
   }
   // Construction du tableau des chemins vers les exercices ayant la propriété `amc` et/ou `interactif`
   if (isAmcOnlySelected && !isInteractiveOnlySelected) {
-    const amcCompatible = findPropPaths(baseReferentiel, (key) => key === 'amc').map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
+    const amcCompatible = findPropPaths(
+      baseReferentiel,
+      (key) => key === 'amc'
+    ).map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
     filteredReferentiel = { ...buildReferentiel(amcCompatible) }
   } else if (isInteractiveOnlySelected && !isAmcOnlySelected) {
-    const interactiveCompatible = findPropPaths(baseReferentiel, (key) => key === 'interactif').map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
+    const interactiveCompatible = findPropPaths(
+      baseReferentiel,
+      (key) => key === 'interactif'
+    ).map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
     filteredReferentiel = { ...buildReferentiel(interactiveCompatible) }
   } else if (isAmcOnlySelected && isInteractiveOnlySelected) {
-    const amcCompatible = findPropPaths(baseReferentiel, (key) => key === 'amc').map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
-    const interactiveCompatible = findPropPaths(baseReferentiel, (key) => key === 'interactif').map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
+    const amcCompatible = findPropPaths(
+      baseReferentiel,
+      (key) => key === 'amc'
+    ).map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
+    const interactiveCompatible = findPropPaths(
+      baseReferentiel,
+      (key) => key === 'interactif'
+    ).map((elt) => elt.replace(/(?:\.tags\.interactif)$/, '').split('.'))
     // garder que les doublons
-    const bothCompatible = findDuplicates(amcCompatible.concat(interactiveCompatible))
+    const bothCompatible = findDuplicates(
+      amcCompatible.concat(interactiveCompatible)
+    )
     filteredReferentiel = { ...buildReferentiel(bothCompatible) }
   }
   // Construction des entrées nouvelles dans la liste
@@ -157,7 +191,7 @@ export function codeToLevelTitle (code: string) {
  * @param refName nom du référentiel (conformément au type `ReferentielNames` dans `src/lib/types.ts`)
  * @returns la valeur mentionnée dans `src/json/referentielsActivation.json` <br/> `false` si le nom du référentiel n'exoiste pas.
  */
-export function isReferentielActivated (refName:string): boolean {
+export function isReferentielActivated (refName: string): boolean {
   const referentielList = toMap({ ...referentielsActivation })
   if (referentielList.has(refName)) {
     return referentielList.get(refName) === 'true'

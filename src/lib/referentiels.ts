@@ -1,3 +1,4 @@
+import type { FrenchDateString } from './dates'
 // ===========================================================================
 //
 //    Types des bouts de chaînes des référentiels (les données des exercices)
@@ -8,7 +9,7 @@
  * @interface FeatureParams
  * @property {string} type : mot clé décrivant le type de l'interactivité
  * @property {boolean} isActive : flag pour savoir si la fonctionnalité est activée ou pas
-*/
+ */
 export interface FeatureParams {
   type: string
   isActive: boolean
@@ -20,7 +21,7 @@ export interface FeatureParams {
  * @interface Feature
  * @property {Feature} interactif : interactivité dans l'exercice
  * @property {Feature} amc : possibilité d'exportation pour utilisation dans AMC
-*/
+ */
 export interface Feature {
   interactif?: FeatureParams
   amc?: FeatureParams
@@ -130,8 +131,8 @@ export interface ExerciceItemInReferentiel extends BaseItemInReferentiel {
   id: string
   titre: string
   features: Feature[]
-  datePublication?: string
-  dateModification?: string
+  datePublication?: FrenchDateString
+  dateModification?: FrenchDateString
 }
 
 // ===========================================================================
@@ -145,11 +146,29 @@ export interface ExerciceItemInReferentiel extends BaseItemInReferentiel {
  * on fabrique un objet dont le type est défini ci-dessous. Les extrémités des imbrications
  * sont correspondent aux différents types de ressources décrites ci-dessus.
  */
-export type JSONReferentielValue =
-  | string
+// Type pour un objet situé en fin de référentiel
+export type JSONReferentielEnding =
   | BaseItemInReferentiel
   | StaticItemInreferentiel
   | ExamItemInReferentiel
   | ExamWithoutTexItemInReferentiel
   | ExerciceItemInReferentiel
-  | { [x: string]: JSONReferentielValue }
+// Type pour la valeur pouvant être attribué à une clé
+export type JSONReferentielValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JSONReferentielEnding
+// Type pour un référentiel complet
+export interface JSONReferentielObject
+  extends Record<
+    string,
+    JSONReferentielValue | JSONReferentielObject | JSONReferentielArray
+  > {}
+interface JSONReferentielArray
+  extends Array<
+    JSONReferentielValue | JSONReferentielObject | JSONReferentielArray
+  > {}
+
+export const isExerciceItemInReferentiel = (obj: any): obj is ExerciceItemInReferentiel => obj.uuid !== undefined && obj.features !== undefined
