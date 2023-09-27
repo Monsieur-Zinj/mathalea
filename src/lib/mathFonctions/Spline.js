@@ -495,6 +495,8 @@ export class Trace extends ObjetMathalea2D {
   } = {}) {
     super()
     const objets = []
+    const { xMin, xMax, yMin, yMax } = spline.trouveMaxes()
+    this.bordures = [xMin, yMin, xMax, yMax]
     for (let i = 0; i < spline.n - 1; i++) {
       if (spline.polys[i].deg > 1) {
         objets.push(new Courbe(spline.fonctions[i], {

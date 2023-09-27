@@ -242,6 +242,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     }
     leNom = texteParPosition(this.nom, absNom, ordNom, 'milieu', this.color, 1, 'middle', true)
   } else leNom = vide2d()
+  this.bordures = [Math.min(this.x1, this.x2),Math.min(this.y1,this.y2),Math.max(this.x1, this.x2),Math.max(this.y1,this.y2)]
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
