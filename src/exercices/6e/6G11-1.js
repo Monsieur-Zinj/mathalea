@@ -3,7 +3,7 @@ import { codageSegment } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
 import { milieu, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint, latexParPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
@@ -123,7 +123,7 @@ export default class constructionPerpendiculaires extends Exercice {
       const ag2 = angle(C, B, A)
       const ag3 = angle(A, C, B)
 
-      if ((typesDeQuestions === 1 || typesDeQuestions === 3) && (ag1 > 85 || ag2 > 85 || ag3 > 85)) {
+      if ((typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'CircoInterieur') && (ag1 > 85 || ag2 > 85 || ag3 > 85)) {
         continue
       }
 
@@ -187,8 +187,13 @@ export default class constructionPerpendiculaires extends Exercice {
       }
       const T = tracePoint(A, B, C)
       T.tailleTikz = 0.3
-      objetsCorrection.push(T, labelPoint(A, B, C), labelPoint(pHc, 'blue'), labelPoint(pHb, 'green'), labelPoint(pHa, 'red'), dAB, dAC, dBC, hA, hB, hC)
-      if (typesDeQuestions === 1 || typesDeQuestions === 2) {
+      
+      objetsCorrection.push(T, labelPoint(A, B, C), dAB, dAC, dBC, hA, hB, hC)
+      objetsCorrection.push(latexParPoint (pHc.nom, pHc, 'blue', 20, 12, '', 8))
+      objetsCorrection.push(latexParPoint (pHb.nom, pHb, 'green', 20, 12, '', 8))
+      objetsCorrection.push(latexParPoint (pHa.nom, pHa, 'red', 20, 12, '', 8))
+      // objetsCorrection.push(latexParCoordonnees (pHc.nom.substring(1, pHc.nom.length - 1), pHc.x, pHc.y, 'blue', 50, 20, '',8))
+      if (typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'OrthoExterieur') {
         objetsCorrection.push(codageAngleDroit(B, pointIntersectionDD(hC, dAB), C), codageAngleDroit(C, pointIntersectionDD(hA, dBC), A), codageAngleDroit(B, pointIntersectionDD(hB, dAC), C))
       } else {
         objetsCorrection.push(codageSegment(B, milieu(B, C), '|||'), codageSegment(milieu(B, C), C, '|||'), codageSegment(A, milieu(A, C), '||'), codageSegment(milieu(A, C), C, '||'), codageSegment(B, milieu(A, B), '|'), codageSegment(milieu(A, B), A, '|'), codageAngleDroit(B, milieu(A, B), ortho), codageAngleDroit(C, milieu(B, C), ortho), codageAngleDroit(C, milieu(A, C), ortho))
