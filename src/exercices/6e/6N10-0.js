@@ -78,7 +78,7 @@ export default function ÉcrireNombresEntiers () {
       }
       if (typeDeConsigne[i] === 1) {
         setReponse(this, i, nombreEnLettres(nombre))
-        if (context.vue !== 'diap') texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
+        if (context.vue !== 'diap') texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'alphanumeric')}`
         else texte = `$${texNombre(nombre)}$`
         if (context.vue !== 'diap') texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
         else texteCorr = `${nombreEnLettres(nombre)}`
