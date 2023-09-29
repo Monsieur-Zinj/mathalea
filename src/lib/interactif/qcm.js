@@ -28,9 +28,6 @@ export function verifQuestionQcm (exercice, i) {
     if (check != null) {
       if (check.checked) {
         // Sauvegarde pour les exports Moodle, Capytale...
-        if (exercice.answers === undefined) {
-          exercice.answers = {}
-        }
         exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '1'
         // Gestion du feedback de toutes les cases cochées
         if (exercice.autoCorrection[i].propositions[indice].feedback) {
