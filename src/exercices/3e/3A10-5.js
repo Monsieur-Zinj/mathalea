@@ -5,10 +5,9 @@ import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Recourir à une décomposition en facteurs premiers dans des cas simples'
-// export const amcReady = true
-// export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '29/08/2022'
@@ -93,49 +92,49 @@ export default function RecourirDecompositionFacteursPremiers () {
         case 1: // 2, 3 et 5
           nbADecomposer = Math.pow(2, a) * Math.pow(3, b) * Math.pow(5, c)
           texte = `$${texNombre(nbADecomposer)}$`
-          texteCorr = texte + `$${sp(2)}=${sp(1)}` + ecrireReponse(2, a, 3, b, 5, c)[0] + `${sp(2)}=${sp(1)}` + ecrireReponse(2, a, 3, b, 5, c)[1] + '$'
+          texteCorr = texte + `$${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 3, b, 5, c)[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 3, b, 5, c)[1]) + '$'
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore', { texte: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(2, a, 3, b, 5, c), { formatInteractif: 'texte' })
           break
         case 2: // 2, 3 et 7
           nbADecomposer = Math.pow(2, a) * Math.pow(3, b) * Math.pow(7, c)
           texte = `$${texNombre(nbADecomposer)}$`
-          texteCorr = texte + `$${sp(2)}=${sp(1)}` + ecrireReponse(2, a, 3, b, 7, c)[0] + `${sp(2)}=${sp(1)}` + ecrireReponse(2, a, 3, b, 7, c)[1] + '$'
+          texteCorr = texte + `$${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 3, b, 7, c)[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 3, b, 7, c)[1]) + '$'
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore', { texte: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(2, a, 3, b, 7, c), { formatInteractif: 'texte' })
           break
         case 3: // 2, 5 et 7
           nbADecomposer = Math.pow(2, a) * Math.pow(5, b) * Math.pow(7, c)
           texte = `$${texNombre(nbADecomposer)}$`
-          texteCorr = texte + `$${sp(2)}=${sp(1)}` + ecrireReponse(2, a, 5, b, 7, c)[0] + `${sp(2)}=${sp(1)}` + ecrireReponse(2, a, 5, b, 7, c)[1] + '$'
+          texteCorr = texte + `$${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 5, b, 7, c)[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(2, a, 5, b, 7, c)[1]) + '$'
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore', { texte: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(2, a, 5, b, 7, c), { formatInteractif: 'texte' })
           break
-          case 4: // 3, 5 et 7
+        case 4: // 3, 5 et 7
           nbADecomposer = Math.pow(3, a) * Math.pow(5, b) * Math.pow(7, c)
           texte = `$${texNombre(nbADecomposer)}$`
-          texteCorr = texte + `$${sp(2)}=${sp(1)}` + ecrireReponse(3, a, 5, b, 7, c)[0] + `${sp(2)}=${sp(1)}` + ecrireReponse(3, a, 5, b, 7, c)[1] + '$'
+          texteCorr = texte + `$${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(3, a, 5, b, 7, c)[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(ecrireReponse(3, a, 5, b, 7, c)[1]) + '$'
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore', { texte: `${sp(2)}=` })
           setReponse(this, i, ecrireReponse(3, a, 5, b, 7, c), { formatInteractif: 'texte' })
           break
-          case 5: // 11, 13, 17 ou 19 et deux autres facteurs parmi 2, 3 et 5
-          facteur1 = choice([2,3,5])
-          facteur2 = choice([2,3,5],[facteur1])
-          if(facteur1 > facteur2) {
+        case 5: // 11, 13, 17 ou 19 et deux autres facteurs parmi 2, 3 et 5
+          facteur1 = choice([2, 3, 5])
+          facteur2 = choice([2, 3, 5], [facteur1])
+          if (facteur1 > facteur2) {
             facteurX = facteur1
             facteur1 = facteur2
             facteur2 = facteurX
           }
-          facteurX = choice([11,13,17,19])
-          nbADecomposer = Math.pow(facteurX ,1) * Math.pow(facteur1, b) * Math.pow(facteur2, c)
+          facteurX = choice([11, 13, 17, 19])
+          nbADecomposer = Math.pow(facteurX, 1) * Math.pow(facteur1, b) * Math.pow(facteur2, c)
           texte = `$${texNombre(nbADecomposer)}$`
           solution = ecrireReponse(facteur1, b, facteur2, c, facteurX, 1)
-          texteCorr = texte + `$${sp(2)}=${sp(1)}` + solution[0] + `${sp(2)}=${sp(1)}` + solution[1] + '$'
+          texteCorr = texte + `$${sp(2)}=${sp(1)}` + miseEnEvidence(solution[0], 'blue') + `${sp(2)}=${sp(1)}` + miseEnEvidence(solution[1]) + '$'
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore', { texte: `${sp(2)}=` })
           setReponse(this, i, solution, { formatInteractif: 'texte' })
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
