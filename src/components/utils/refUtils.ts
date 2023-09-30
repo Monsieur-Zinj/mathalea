@@ -111,7 +111,8 @@ export function findResourcesAndPaths (
       if (isJSONReferentielEnding(value)) {
         if (goalReachedWith(value)) {
           path.push(key)
-          harvest.push({ resource: value, pathToResource: path || [] })
+          harvest.push({ resource: value, pathToResource: [...path] })
+          path.pop()
         }
       } else {
         path.push(key)
