@@ -170,7 +170,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       for (let i = 0; i < 3; i++) {
         switch (choixTransformation[i]) {
           case 1: // symétrie axiale
-            droited1 = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', context.isHtml ? couleurs[i] : 'black'), 'd_1')
+            droited1 = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', context.isHtml ? couleurs[i] : 'black'), '(d_1)')
             droited1.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited1.isVisible = true
             droited1.epaisseur = 2

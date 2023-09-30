@@ -334,10 +334,10 @@ export default function LireUnDiagramme () {
         this.autoCorrection[q].propositions[0].options = { ordered: true }
         this.autoCorrection[q].propositions[1].options = { ordered: false }
       }
-      monQcm1 = propositionsQcm(this, q * 3)
-      monQcm2 = propositionsQcm(this, q * 3 + 1)
-      monQcm3 = propositionsQcm(this, q * 3 + 2)
       if (!context.isAmc) {
+        monQcm1 = propositionsQcm(this, q * 3)
+        monQcm2 = propositionsQcm(this, q * 3 + 1)
+        monQcm3 = propositionsQcm(this, q * 3 + 2)
         texte += `<br>${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?` + monQcm1.texte
         texte += `<br>${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?` + monQcm2.texte
         texte += `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ...` + monQcm3.texte
