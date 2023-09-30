@@ -96,7 +96,7 @@ export function verifQuestionQcm (exercice, i) {
 
 /**
  * @param {exercice}
- * @param {i} i indice de la question
+ * @param {number} i indice de la question
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {

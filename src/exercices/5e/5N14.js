@@ -1,14 +1,11 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import {
-  deprecatedTexFraction,
-  obtenirListeFractionsIrreductibles,
-  texFractionSigne
-} from '../../lib/outils/deprecatedFractions.js'
+import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -39,17 +36,16 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions)
+    // On crée une liste de FractionEtendues irréductibles.
     const listeFractions = obtenirListeFractionsIrreductibles()
-    for (let i = 0, fraction, a, b, k, positifOuNegatif, signeAsurB, texte, texteCorr, signe, signe2; i < this.nbQuestions;) {
+    for (let i = 0, positifOuNegatif, texte, texteCorr, signe, signe2; i < this.nbQuestions;) {
       this.autoCorrection[i] = {}
       if (this.sup2 === true) positifOuNegatif = listeSignes[i]
       else positifOuNegatif = 1
-      fraction = choice(listeFractions)
-      a = fraction[0] * positifOuNegatif
-      b = fraction[1]
-      k = randint(2, this.sup)
-      let ecart = choice([-4, -3, -2, -1, 1, 2, 3, 4], [-k * a, k * a]) // On exclue -k * a pour ne pas avoir une fraction nulle
-      if (k * a + ecart <= 0) {
+      const fractionAbsolue = choice(listeFractions)
+      const k = randint(2, this.sup)
+      let ecart = choice([-4, -3, -2, -1, 1, 2, 3, 4], [-k * fractionAbsolue.num, k * fractionAbsolue.num]) // On exclut -k * a pour ne pas avoir une fraction nulle
+      if (k * fractionAbsolue.num + ecart <= 0) {
         ecart = ecart * (-1)
       }
       if (ecart > 0) {
@@ -59,34 +55,36 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
         signe = '>'
         signe2 = '<'
       }
-      enleveElement(listeFractions, fraction) // Il n'y aura pas 2 fois la même réponse
-
+      enleveElement(listeFractions, fractionAbsolue) // Il n'y aura pas 2 fois la même réponse
+      const fraction = fractionAbsolue.multiplieEntier(positifOuNegatif)
+      const autreFraction = new FractionEtendue(k * fraction.num + ecart, k * fraction.den)
       const ordreDesFractions = randint(1, 2)
       if (ordreDesFractions === 1) {
-        texte = `$${texFractionSigne(a, b)} \\quad$ et $\\quad ${texFractionSigne(k * a + ecart, k * b)}$`
+        texte = `$${fraction.texFSD} \\quad$ et $\\quad ${autreFraction.texFSD}$`
       } else {
-        texte = `$${texFractionSigne(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFractionSigne(a, b)}$`
+        texte = `$${autreFraction.texFSD} \\quad$ et $\\quad ${fraction.texFSD}$`
       }
       if (!context.isHtml) {
         texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots')
       }
-      if (a * b < 0) signeAsurB = '-'
+      let signeAsurB
+      if (fraction.signe < 0) signeAsurB = '-'
       else signeAsurB = ''
-      texteCorr = `$${texFractionSigne(a, b)}= ${signeAsurB} ${deprecatedTexFraction(Math.abs(a) + miseEnEvidence('\\times  ' + k), Math.abs(b) + miseEnEvidence('\\times  ' + k))}=${texFractionSigne(a * k, b * k)}\\quad$`
+      texteCorr = `$${fraction.texFSD}= ${signeAsurB} \\dfrac{${Math.abs(fractionAbsolue.num).toString() + miseEnEvidence('\\times  ' + k.toString())}}{${Math.abs(fractionAbsolue.den).toString() + miseEnEvidence('\\times  ' + k.toString())}}=${fraction.reduire(k).texFSD}\\quad$`
       if (ordreDesFractions === 1) {
-        texteCorr += `  et   $\\quad${texFractionSigne(a * k, b * k)} ${signe} ${texFractionSigne(a * k + ecart, b * k)} \\quad$ donc $\\quad ${texFractionSigne(a, b)} ${signe} ${texFractionSigne(a * k + ecart, b * k)}$ `
+        texteCorr += `  et   $\\quad${fraction.reduire(k).texFSD} ${signe} ${autreFraction.texFSD} \\quad$ donc $\\quad ${fraction.texFSD} ${signe} ${autreFraction.texFSD}$ `
       } else {
-        texteCorr += `  et   $\\quad${texFractionSigne(a * k + ecart, b * k)} ${signe2} ${texFractionSigne(a * k, b * k)} \\quad$ donc $\\quad ${texFractionSigne(a * k + ecart, b * k)} ${signe2} ${texFractionSigne(a, b)} $ `
+        texteCorr += `  et   $\\quad${autreFraction.texFSD} ${signe2} ${fraction.reduire(k).texFSD} \\quad$ donc $\\quad ${autreFraction.texFSD} ${signe2} ${fraction.texFSD} $ `
       }
       this.autoCorrection[i] = {
-        enonce: 'comparer les fractions suivantes : ' + (ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} \\quad$ et $\\quad ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFractionSigne(a, b)}$`),
+        enonce: 'comparer les fractions suivantes : ' + (ordreDesFractions < 2 ? `$${fraction.texFSD} \\quad$ et $\\quad ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} \\quad$ et $\\quad ${fraction.texFSD}$`),
         propositions: [
           {
-            texte: ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} < ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} < ${texFractionSigne(a, b)}$`,
+            texte: ordreDesFractions < 2 ? `$${fraction.texFSD} < ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} < ${fraction.texFSD}$`,
             statut: ordreDesFractions < 2 ? ecart > 0 : ecart < 0
           },
           {
-            texte: ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} > ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} >${texFractionSigne(a, b)}$`,
+            texte: ordreDesFractions < 2 ? `$${fraction.texFSD} > ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} >${fraction.texFSD}$`,
             statut: ordreDesFractions < 2 ? ecart < 0 : ecart > 0
           }
         ],
@@ -105,9 +103,9 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
         this.canEnonce = 'Compléter avec $>$ ou $<$.<br>'
         this.correction = this.listeCorrections[0]
         if (ordreDesFractions === 1) {
-          this.canReponseACompleter = `$${texFractionSigne(a, b)}\\ldots${texFractionSigne(k * a + ecart, k * b)}$`
+          this.canReponseACompleter = `$${fraction.texFSD}\\ldots${autreFraction.texFSD}$`
         } else {
-          this.canReponseACompleter = `$${texFractionSigne(k * a + ecart, k * b)} \\ldots${texFractionSigne(a, b)}$`
+          this.canReponseACompleter = `$${autreFraction.texFSD} \\ldots${fraction.texFSD}$`
         }
       }
     }
