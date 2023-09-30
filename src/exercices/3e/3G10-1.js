@@ -1,6 +1,11 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
-import { droiteHorizontaleParPoint, droiteParPointEtPente, droiteVerticaleParPoint } from '../../lib/2d/droites.js'
+import {
+  droiteAvecNomLatex,
+  droiteHorizontaleParPoint,
+  droiteParPointEtPente,
+  droiteVerticaleParPoint
+} from '../../lib/2d/droites.js'
 import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
@@ -165,7 +170,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       for (let i = 0; i < 3; i++) {
         switch (choixTransformation[i]) {
           case 1: // symétrie axiale
-            droited1 = droiteParPointEtPente(O, 1, '$(d_1)$', context.isHtml ? couleurs[i] : 'black')
+            droited1 = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', context.isHtml ? couleurs[i] : 'black'), 'd_1')
             droited1.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited1.isVisible = true
             droited1.epaisseur = 2
@@ -198,7 +203,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 2: // symétrie axiale
-            droited2 = droiteParPointEtPente(O, -1, '$(d_2)$', context.isHtml ? couleurs[i] : 'black')
+            droited2 = droiteAvecNomLatex(droiteParPointEtPente(O, -1, '', context.isHtml ? couleurs[i] : 'black'), '(d_2)')
             droited2.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited2.isVisible = true
             droited2.epaisseur = 2
@@ -230,7 +235,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 3: // symétrie axiale
-            droited = droiteHorizontaleParPoint(O, '$(d)$', context.isHtml ? couleurs[i] : 'black')
+            droited = droiteAvecNomLatex(droiteHorizontaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d)')
             droited.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited.isVisible = true
             droited.epaisseur = 2
@@ -262,7 +267,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 4: // symétrie axiale
-            droitedprime = droiteVerticaleParPoint(O, "$(d')$", context.isHtml ? couleurs[i] : 'black')
+            droitedprime = droiteAvecNomLatex(droiteVerticaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d\')')
             droitedprime.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droitedprime.isVisible = true
             droitedprime.epaisseur = 2
