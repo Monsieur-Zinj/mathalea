@@ -126,15 +126,15 @@ export function mathalea2d (
     codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
     //  pixelsParCm = 20;
     if (divsLatex.length > 0) {
-      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}">
-        <div style="position: relative;">
+      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
+        <div style="position: relative;${style}">
           ${codeSvg}
           ${divsLatex.join('\n')}
         </div>
       </div>`
     } else {
-      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}">
-        <div style="position: relative;">
+      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
+        <div style="position: relative;${style}">
           ${codeSvg}
         </div>
       </div>`
