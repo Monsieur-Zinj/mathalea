@@ -71,7 +71,16 @@ const config = {
             light: '#f47a54',
             lightest: '#f79b7f',
             dark: '#d43d0e',
-            darkest: '#9f2e0a'
+            darkest: '#9f2e0a',
+            100: '#feeeea',
+            200: '#fcded4',
+            300: '#fbcdbf',
+            400: '#f9bda9',
+            500: '#f8ac94',
+            600: '#f79b7f',
+            700: '#f58b69',
+            800: '#f47a54',
+            900: '#f26a3e'
           },
           warn: {
             DEFAULT: '#80D925',

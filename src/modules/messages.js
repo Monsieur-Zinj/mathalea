@@ -59,9 +59,9 @@ export function messageFeedback ({ id, message = '', type = 'error' } = {}) {
   div.style.width = '400px'
   div.classList.add('my-2', 'p-1')
   if (type === 'error') {
-    div.classList.add('bg-red-100', 'rounded-lg', 'p-1')
+    div.classList.add('bg-coopmaths-action-200', 'rounded-lg', 'p-3')
   } else if (type === 'positive') {
-    div.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+    div.classList.add('bg-coopmaths-warn-100', 'rounded-lg', 'p-3')
   } else {
     div.style.color = 'rgb(33,109,54)'
   }

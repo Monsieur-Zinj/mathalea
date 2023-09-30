@@ -297,9 +297,8 @@
                   {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
                     <div
-                      class="absolute bottom-0 left-0 right-0 mx-auto text-xs font-bold {$resultsByExercice[i].numberOfPoints < $resultsByExercice[i].numberOfQuestions
-                        ? 'bg-red-500'
-                        : 'bg-coopmaths-warn'} dark:bg-coopmathsdark-warn text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                    style="--nbPoints:{$resultsByExercice[i].numberOfPoints}; --nbQuestions:{$resultsByExercice[i].numberOfQuestions};"
+                      class="absolute bottom-0 left-0 right-0 mx-auto text-xs font-bold progressbar dark:progressbardark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                     >
                       {$resultsByExercice[i].numberOfPoints + '/' + $resultsByExercice[i].numberOfQuestions}
                     </div>
@@ -529,3 +528,12 @@
     <Footer2 />
   </div>
 </section>
+<style>
+  /* sur une idée de Mathieu Degrange */
+  .progressbar{
+    background: linear-gradient(90deg,  #6ebc1f 0%, #6ebc1f calc(100% / var(--nbQuestions) * var(--nbPoints)), #d43d0e calc(100% / var(--nbQuestions) * var(--nbPoints)), #d43d0e 100%);
+  }
+  .progressbardark{
+    background: linear-gradient(90deg,  #ff94d1 0%, #ff94d1 calc(100% / var(--nbQuestions) * var(--nbPoints)), #ff9523 calc(100% / var(--nbQuestions) * var(--nbPoints)), #ff9523 100%);
+  }
+</style>

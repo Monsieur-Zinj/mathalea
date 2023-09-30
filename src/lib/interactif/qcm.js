@@ -42,12 +42,12 @@ export function verifQuestionQcm (exercice, i) {
       if (proposition.statut) {
         if (check.checked === true) {
           nbBonnesReponses++
-          label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+          label.classList.add('bg-coopmaths-warn-100', 'rounded-lg', 'p-1')
         } else { // Bonnes réponses non cochées
-          label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+          label.classList.add('bg-coopmaths-warn-100', 'rounded-lg', 'p-1')
         }
       } else if (check.checked === true) {
-        label.classList.add('bg-red-100', 'rounded-lg', 'p-1')
+        label.classList.add('bg-coopmaths-action-200', 'rounded-lg', 'p-1')
         nbMauvaisesReponses++
       }
     }
@@ -96,7 +96,7 @@ export function verifQuestionQcm (exercice, i) {
 
 /**
  * @param {exercice}
- * @param {i} i indice de la question
+ * @param {number} i indice de la question
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
