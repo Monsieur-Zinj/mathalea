@@ -18,11 +18,11 @@ export interface FeatureParams {
 /**
  * Fonctionnalités supplémentaires d'un exercice.
  * @remark **Au 2023-09-26, ces fonctionnalités sont au nombre de deux seulement**
- * @interface Feature
- * @property {Feature} interactif : interactivité dans l'exercice
- * @property {Feature} amc : possibilité d'exportation pour utilisation dans AMC
+ * @interface Features
+ * @property {FeatureParams} interactif : interactivité dans l'exercice
+ * @property {FeatureParams} amc : possibilité d'exportation pour utilisation dans AMC
  */
-export interface Feature {
+export interface Features {
   interactif?: FeatureParams
   amc?: FeatureParams
 }
@@ -130,7 +130,7 @@ export interface ExerciceItemInReferentiel extends BaseItemInReferentiel {
   url: string
   id: string
   titre: string
-  features: Feature[]
+  features: Features
   datePublication?: FrenchDateString
   dateModification?: FrenchDateString
 }
@@ -153,22 +153,14 @@ export type JSONReferentielEnding =
   | ExamItemInReferentiel
   | ExamWithoutTexItemInReferentiel
   | ExerciceItemInReferentiel
-// Type pour la valeur pouvant être attribué à une clé
-export type JSONReferentielValue =
-  | string
-  | number
-  | boolean
-  | null
-  | JSONReferentielEnding
 // Type pour un référentiel complet
 export interface JSONReferentielObject
-  extends Record<
-    string,
-    JSONReferentielValue | JSONReferentielObject | JSONReferentielArray
-  > {}
-interface JSONReferentielArray
-  extends Array<
-    JSONReferentielValue | JSONReferentielObject | JSONReferentielArray
-  > {}
+  extends Record<string, JSONReferentielEnding | JSONReferentielObject | string | string[]| Features> {}
 
-export const isExerciceItemInReferentiel = (obj: any): obj is ExerciceItemInReferentiel => obj.uuid !== undefined && obj.features !== undefined
+export const isExerciceItemInReferentiel = (
+  obj: any
+): obj is ExerciceItemInReferentiel =>
+  obj.uuid !== undefined && obj.features !== undefined
+export const isJSONReferentielEnding = (
+  obj: any
+): obj is JSONReferentielEnding => obj.uuid !== undefined

@@ -2,19 +2,16 @@ import { isLessThanAMonth } from '../../lib/types/dates'
 import {
   type JSONReferentielObject,
   type JSONReferentielEnding,
-  isExerciceItemInReferentiel
+  isExerciceItemInReferentiel,
+  isJSONReferentielEnding
 } from '../../lib/types/referentiels'
 import codeList from '../../json/codeToLevelList.json'
-import referentielAlea from '../../json/referentiel2022.json'
-import referentielStatic from '../../json/referentielStatic.json'
-const baseReferentiel: JSONReferentielObject = { ...referentielAlea, static: { ...referentielStatic } }
-
-/**
- * Détecter si une valeur est un objet
- * @param val valeur à analyser
- */
-const isObject = (val: unknown) =>
-  val && typeof val === 'object' && !Array.isArray(val)
+// import referentielAlea from '../../json/referentiel2022.json'
+// import referentielStatic from '../../json/referentielStatic.json'
+// const baseReferentiel: JSONReferentielObject = {
+//   ...referentielAlea,
+//   static: { ...referentielStatic }
+// }
 
 /**
  * Récupérer la liste des exercices récents !
@@ -25,41 +22,27 @@ export function getRecentExercices (
   refObj: JSONReferentielObject
 ): JSONReferentielEnding[] {
   const recentExercises: JSONReferentielEnding[] = []
-  /**
-   * On parcourt récursivement l'objet référentiel et on en profite pour peupler
-   * le tableau recentExercises avec les exercices dont les dates de publication
-   * ou de modification sont récentes
-   * @param obj Objet à parcourir
-   */
-  function traverse (obj: JSONReferentielObject) {
-    Object.values(obj).forEach((value) => {
-      if (isObject(value as JSONReferentielObject)) {
-        if (isExerciceItemInReferentiel(value)) {
-          // la valeur est un exercice alea
-          if (
-            (value.datePublication !== undefined &&
-              isLessThanAMonth(value.datePublication)) ||
-            (value.dateModification !== undefined &&
-              isLessThanAMonth(value.dateModification))
-          ) {
-            // l'exercice a moins d'un mois donc on l''ajoute à la liste des exercices récent
-            recentExercises.push(value)
-          }
-        } else {
-          // la valeur n'est pas un exercice alea, on continue l'exploration
-          return traverse(value as JSONReferentielObject)
-        }
+  fetchThrough(refObj, recentExercises, (e: JSONReferentielEnding) => {
+    if (isExerciceItemInReferentiel(e)) {
+      if (
+        (e.datePublication && isLessThanAMonth(e.datePublication)) ||
+        (e.dateModification && isLessThanAMonth(e.dateModification))
+      ) {
+        return true
+      } else {
+        return false
       }
-    })
-  }
-  traverse(refObj)
+    } else {
+      return false
+    }
+  })
   return recentExercises
 }
 
 /**
  * Retrouve le titre d'un niveau basé sur son code
  *
- * #### Exemple
+ * #### Exemple de code
  * `levelCode` : "6e" --> Traduction: "Sixième"
  * @param {string} levelCode code du niveau
  */
@@ -72,4 +55,53 @@ export function codeToLevelTitle (levelCode: string): string {
     // pas d'entrée trouvée : on retourne le code
     return levelCode
   }
+}
+
+export function getReferentielEndings (
+  ref: JSONReferentielObject,
+  results: JSONReferentielEnding[]
+): void {
+  fetchThrough(ref, results, (e: JSONReferentielEnding) => {
+    if (isExerciceItemInReferentiel(e)) {
+      if (e.features.amc && !e.features.amc.isActive) {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
+  })
+}
+/**
+ * Parcourt toutes les branches d'un référentiel passé en paramètre
+ * et remplit une liste (passée en paramètre) avec les extrémités
+ * qui passent le test d'une fonction passée en paramètre
+ * @param {JSONReferentielObject} referentiel le référentiel à parcourir
+ * @param {JSONReferentielEnding[]} harvest la liste stockant la récolte
+ * @param {function(e: JSONReferentielEnding):boolean} goalReachedWith fonction de triage
+ * @example
+ * ```ts
+ * fetchThrough(ref, results, (e: JSONReferentielEnding) => {
+    if (isExerciceItemInReferentiel(e)) {
+      return true
+    } else {
+      return false
+    }
+ * ```
+ */
+export function fetchThrough (
+  referentiel: JSONReferentielObject,
+  harvest: JSONReferentielEnding[],
+  goalReachedWith: (e: JSONReferentielEnding) => boolean
+): void {
+  Object.values(referentiel).forEach((value) => {
+    if (isJSONReferentielEnding(value)) {
+      if (goalReachedWith(value)) {
+        harvest.push(value)
+      }
+    } else {
+      fetchThrough(value as JSONReferentielObject, harvest, goalReachedWith)
+    }
+  })
 }
