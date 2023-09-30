@@ -1,9 +1,13 @@
-import { isLessThanAMonth } from '../../lib/dates'
+import { isLessThanAMonth } from '../../lib/types/dates'
 import {
   type JSONReferentielObject,
   type JSONReferentielEnding,
   isExerciceItemInReferentiel
-} from '../../lib/referentiels'
+} from '../../lib/types/referentiels'
+import codeList from '../../json/codeToLevelList.json'
+import referentielAlea from '../../json/referentiel2022.json'
+import referentielStatic from '../../json/referentielStatic.json'
+const baseReferentiel: JSONReferentielObject = { ...referentielAlea, static: { ...referentielStatic } }
 
 /**
  * Détecter si une valeur est un objet
@@ -50,4 +54,22 @@ export function getRecentExercices (
   }
   traverse(refObj)
   return recentExercises
+}
+
+/**
+ * Retrouve le titre d'un niveau basé sur son code
+ *
+ * #### Exemple
+ * `levelCode` : "6e" --> Traduction: "Sixième"
+ * @param {string} levelCode code du niveau
+ */
+export function codeToLevelTitle (levelCode: string): string {
+  const liste: { [key: string]: string } = codeList
+  if (liste[levelCode]) {
+    // une traduction du code est trouvée dans la liste
+    return liste[levelCode]
+  } else {
+    // pas d'entrée trouvée : on retourne le code
+    return levelCode
+  }
 }

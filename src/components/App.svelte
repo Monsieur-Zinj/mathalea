@@ -7,16 +7,23 @@
   import Latex from './Latex.svelte'
   import { freezeUrl, globalOptions, isInIframe } from './store'
   import { context } from '../modules/context.js'
-  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from '../modules/ElementInstrumenpoche.js'
+  import {
+    ElementButtonInstrumenpoche,
+    ElementInstrumenpoche
+  } from '../modules/ElementInstrumenpoche.js'
   import Amc from './Amc.svelte'
   import Moodle from './Moodle.svelte'
   import OutilsProf from './OutilsProf.svelte'
   import Capytale from './Capytale.svelte'
+  import Test from './Test.svelte'
 
   context.versionMathalea = 3
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-    customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
+    customElements.define(
+      'alea-buttoninstrumenpoche',
+      ElementButtonInstrumenpoche
+    )
   }
 
   // Gestion des recorders (Moodle, Capytale, etc. )
@@ -68,6 +75,8 @@
     <Moodle />
   {:else if $globalOptions.v === 'tools'}
     <OutilsProf />
+  {:else if $globalOptions.v === 'test'}
+    <Test />
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
   {:else}

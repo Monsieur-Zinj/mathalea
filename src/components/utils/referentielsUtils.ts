@@ -9,8 +9,7 @@ import { isRecent } from './handleDate'
 import { get } from 'svelte/store'
 import { globalOptions } from '../store'
 import referentielsActivation from '../../json/referentielsActivation.json'
-import type { JSONReferentielObject } from '../../lib/referentiels'
-import { getRecentExercices } from './refUtils'
+import type { JSONReferentielObject } from '../../lib/types/referentiels'
 // Réorganisation du référentiel
 // Suppression de la rubrique calcul mental
 // On renomme les chapitres pour la partie statique
