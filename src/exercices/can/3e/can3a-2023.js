@@ -5,7 +5,7 @@ import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, repere } from '../../../lib/2d/reperes.js'
 import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
@@ -16,7 +16,7 @@ import { prenomF } from '../../../lib/outils/Personne.js'
 import { texPrix } from '../../../lib/format/style.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
@@ -896,24 +896,24 @@ export default function SujetCAN2023troisieme () {
             poly2.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             objets = []
             objets.push(poly1, poly2, poly3, s1)
+            const mAE = milieu(A, E)
+            const mFG = milieu(F, G)
+            const mGB = milieu(G, B)
+            const mIJ = milieu(I, J)
             objets.push(
-              context.isHtml ? texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y, 'milieu', 'black') : texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y, 'milieu', 'black') : texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition(`$${b}$`, milieu(B, H).x, milieu(B, H).y, 'milieu', 'black') : texteParPosition(`$${b}$`, milieu(B, H).x, milieu(B, H).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition(`$${c}$`, milieu(I, J).x, milieu(I, J).y + 0.1, 'milieu', 'black') : texteParPosition(`$${c}$`, milieu(I, J).x, milieu(I, J).y + 0.3, 'milieu', 'black', 0.7))
+              context.isHtml ? latexParCoordonnees('a', mAE.x, mAE.y, 'black', 0, 0, '', 8) : latexParCoordonnees('a', mAE.x, mAE.y + 0.3, 'black', 0, 0, '', 8)
+              , context.isHtml ? latexParCoordonnees('a', mFG.x, mFG.y, 'black', 0, 0, '', 8) : latexParCoordonnees('a', mFG.x, mFG.y + 0.3, 'black', 0, 0, '', 8)
+              , context.isHtml ? latexParCoordonnees(`${b}`, mGB.x, mGB.y, 'black', 0, 0, '', 8) : latexParCoordonnees(`${b}`, mGB.x, mGB.y + 0.3, 'black', 0, 0, '', 8)
+              , context.isHtml ? latexParCoordonnees(`${c}`, mIJ.x, mIJ.y + 0.5, 'black', 0, 0, '', 8) : latexParCoordonnees(`${c}`, mIJ.x, mIJ.y + 0.3, 'black', 0, 0, '', 8))
             reponse = a
             texte = 'Loïs a représenté un problème :'
-            texte += '<br>' + mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
+            texte += '<br>' + mathalea2d(Object.assign({
               pixelsParCm: 30,
               mainlevee: false,
               amplitude: 0.6,
               scale: 0.6,
               style: 'margin: auto'
-            }, objets)
+            }, fixeBordures(objets)), objets)
             texte += '<br>$a=$'
             texteCorr = `$a=\\dfrac{${c}-${b}}{2}=${miseEnEvidence(a)}$.`
           } else {
@@ -941,30 +941,32 @@ export default function SujetCAN2023troisieme () {
             poly1 = polygone(A, F, E, D)
             poly2 = polygone(E, F, H, G)
             poly3 = polygone(G, H, J, I)
-            poly4 = polygone(G, H, B, C)
+            poly4 = polygone(I, J, B, C)
             poly1.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             poly2.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             poly3.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             objets = []
             objets.push(poly1, poly2, poly3, poly4, s1)
+            const mAE = milieu(A, E)
+            const mFG = milieu(F, G)
+            const mGJ = milieu(G, J)
+            const mKL = milieu(K, L)
+            const mBI = milieu(B, I)
             objets.push(
-              context.isHtml ? texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y, 'milieu', 'black') : texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y, 'milieu', 'black') : texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition('$a$', milieu(H, J).x, milieu(H, J).y, 'milieu', 'black') : texteParPosition('$a$', milieu(H, J).x, milieu(H, J).y + 0.3, 'milieu', 'black', 0.7), context.isHtml ? texteParPosition(`$${b}$`, milieu(B, J).x, milieu(B, J).y, 'milieu', 'black') : texteParPosition(`$${b}$`, milieu(B, J).x, milieu(B, J).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition(`$${c}$`, milieu(K, L).x, milieu(K, L).y + 0.1, 'milieu', 'black') : texteParPosition(`$${c}$`, milieu(K, L).x, milieu(K, L).y + 0.3, 'milieu', 'black', 0.7))
+              context.isHtml ? latexParCoordonnees('a', mAE.x, mAE.y, 'black', 0, 0, '', 8) : latexParCoordonnees('a', mAE.x, mAE.y + 0.3, 'black', 0, 0, '', 8),
+              context.isHtml ? latexParCoordonnees('a', mFG.x, mFG.y, 'black', 0, 0, '', 8) : latexParCoordonnees('a', mFG.x, mFG.y + 0.3, 'black', 0, 0, '', 8),
+              context.isHtml ? latexParCoordonnees('a', mGJ.x, mGJ.y, 'black', 0, 0, '', 8) : latexParCoordonnees('a', mGJ.x, mGJ.y + 0.3, 'black', 0, 0, '', 8),
+              context.isHtml ? latexParCoordonnees(`${b}`, mBI.x, mBI.y, 'black', 0, 0, '', 8) : latexParCoordonnees(`${b}`, mBI.x, mBI.y, 'black', 0, 0, '', 8),
+              context.isHtml ? latexParCoordonnees(`${c}`, mKL.x, mKL.y + 0.5, 'black', 0, 0, '', 8) : latexParCoordonnees(`${c}`, mKL.x, mKL.y + 0.3, 'black', 0, 0, '', 8))
             reponse = a
             texte = 'Loïs a représenté un problème :'
-            texte += '<br>' + mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
+            texte += '<br>' + mathalea2d(Object.assign({
               pixelsParCm: 30,
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.6,
               style: 'margin: auto'
-            }, objets)
+            }, fixeBordures(objets)), objets)
             texte += '<br>$a=$'
             texteCorr = `$a=\\dfrac{${c}-${b}}{2}=${miseEnEvidence(a)}$.`
           }
