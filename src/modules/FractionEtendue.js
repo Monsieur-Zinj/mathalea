@@ -22,7 +22,7 @@ import {
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow, fraction as fractionMathjs } from 'mathjs'
 import { fraction } from './fractions.js'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
-import Decimal from "decimal.js";
+import Decimal from 'decimal.js'
 
 /**
  * La classe FractionEtendue est une extension de la classe Fraction de mathjs
@@ -43,8 +43,8 @@ class FractionEtendue extends Fraction {
       super(NaN)
     } else {
       if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
-        if (args[0] instanceof Decimal){ // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
-          [num,den] = args[0].toFraction().split(',').map(el=>Number(el))
+        if (args[0] instanceof Decimal) { // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
+          [num, den] = args[0].toFraction().split(',').map(el => Number(el))
         } else {
           num = Number(args[0]) // ça c'est pas terrible... et ça peut conduire à des fractions monumentales !
           den = 1
@@ -134,6 +134,7 @@ class FractionEtendue extends Fraction {
           super(num, den)
           this.num = num
           this.den = den
+          this.signe = num * den < 0 ? -1 : 1
         } catch (error) {
           window.notify(`transformation impossible en Fraction par Math.Fraction() de num = ${num} et den = ${den} ! `, { num, den })
           return new FractionEtendue(0)
@@ -438,16 +439,27 @@ class FractionEtendue extends Fraction {
       },
       set: () => { throw Error('\'estIrreductible\' est en lecture seule') }
     })
+  }
 
-    /**
+  /**
    * basé sur la méthode toLatex() de mathjs, on remplace \frac par \dfrac plus joli.
    * @returns {string} la chaine Latex pour écrire la fraction (signe devant)
    */
-  }
-
   toLatex () {
     const text = super.toLatex()
     return text.replace('\\frac', '\\dfrac')
+  }
+
+  /**
+   * retourne un flottant pour compatibilité de FractionEtendue() avec Number().
+   * @returns {number}
+   */
+  toNumber () {
+    return this.num / this.den
+  }
+
+  toString () {
+    return this.texFraction
   }
 
   /**
