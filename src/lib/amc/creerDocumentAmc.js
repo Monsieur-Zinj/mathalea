@@ -858,7 +858,8 @@ export function creerDocumentAmc ({
   const texQuestions = [[]]
   const titreQuestion = []
   const melangeQuestion = []
-
+  const nombreExoAmc = exercices.filter(el => el.amcReady).length
+  if (nombreExoAmc === 0) return ''
   for (const exercice of exercices) {
     code = exportQcmAmc(exercice, idExo)
     idExo++
