@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getRecentExercices } from '../components/utils/refUtils'
+  import { getRecentExercices, buildReferentiel } from '../components/utils/refUtils'
   import { type JSONReferentielObject } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
@@ -8,7 +8,9 @@
     ...referentielAlea,
     static: { ...referentielStatic }
   }
-  console.log(getRecentExercices(baseReferentiel))
+  const recents = getRecentExercices(baseReferentiel)
+  console.log(recents)
+  console.log(buildReferentiel(recents))
   console.log(codeToLevelTitle('6e'))
 </script>
 

@@ -7,6 +7,8 @@ import {
   isJSONReferentielEnding
 } from '../../lib/types/referentiels'
 import codeList from '../../json/codeToLevelList.json'
+import referentielsActivation from '../../json/referentielsActivation.json'
+import { toMap } from './toMap'
 // import referentielAlea from '../../json/referentiel2022.json'
 // import referentielStatic from '../../json/referentielStatic.json'
 // const baseReferentiel: JSONReferentielObject = {
@@ -22,7 +24,6 @@ import codeList from '../../json/codeToLevelList.json'
 export function getRecentExercices (
   refObj: JSONReferentielObject
 ): ResourceAndItsPath[] {
-  // const recentExercises: ResourceAndItsPath[] = []
   return findResourcesAndPaths(refObj, (e: JSONReferentielEnding) => {
     if (isExerciceItemInReferentiel(e)) {
       if (
@@ -37,7 +38,6 @@ export function getRecentExercices (
       return false
     }
   })
-  // return recentExercises
 }
 
 /**
@@ -123,4 +123,67 @@ export function findResourcesAndPaths (
   }
   find(referentiel)
   return harvest
+}
+
+/**
+ * Fabrique de zéro un référentiels sur la base d'entrées constituées d'un chemin d'accès
+ * et d'une terminaison `{resource: JSONReferentielEnding,  pathToResource: string[]}`
+ * @param listOfEntries la liste des entrées pour constituer le référentiel
+ * @returns {JSONReferentielObject} un référentiel sous forme d'objet
+ */
+export function buildReferentiel (
+  listOfEntries: ResourceAndItsPath[]
+): JSONReferentielObject {
+  const paths: JSONReferentielObject[] = []
+  for (const e of listOfEntries) {
+    const reversePath = e.pathToResource.reverse()
+    paths.push(
+      reversePath.reduce((res, key) => ({ [key]: res }), {
+        ...e.resource
+      } as JSONReferentielObject)
+    )
+  }
+  return mergeReferentielObjects(...paths)
+}
+
+/**
+ * Fusionne des objets référentiels sans écraser les entrées précédentes
+ * @param {JSONReferentielObject[]} objects les objets à fusionner
+ * @returns {JSONReferentielObject} un référentiel
+ * @see https://tutorial.eyehunts.com/js/javascript-merge-objects-without-overwriting-example-code/
+ */
+function mergeReferentielObjects (...objects:JSONReferentielObject[]) : JSONReferentielObject {
+  const isObject = (obj:unknown) => obj && typeof obj === 'object'
+  return objects.reduce((prev, obj) => {
+    Object.keys(obj).forEach((key) => {
+      const pVal = prev[key]
+      const oVal = obj[key]
+
+      if (Array.isArray(pVal) && Array.isArray(oVal)) {
+        prev[key] = pVal.concat(...oVal)
+      } else if (isObject(pVal) && isObject(oVal)) {
+        prev[key] = mergeReferentielObjects(pVal, oVal)
+      } else {
+        prev[key] = oVal
+      }
+    })
+
+    return prev
+  }, {})
+}
+
+/**
+ * Consulte le fichier `src/json/referentielsActivation.json`
+ * et retourne la valeur d'activation `true`/`false` indiqué pour un nom de référentiel donné.
+ * @param refName nom du référentiel (conformément au type `ReferentielNames` dans `src/lib/types.ts`)
+ * @returns la valeur mentionnée dans `src/json/referentielsActivation.json` <br/> `false` si le nom du référentiel n'exoiste pas.
+ */
+export function isReferentielActivated (refName: string): boolean {
+  const referentielList = toMap({ ...referentielsActivation })
+  if (referentielList.has(refName)) {
+    return referentielList.get(refName) === 'true'
+  } else {
+    console.log(refName + ' is not a valid referentiel name !')
+    return false
+  }
 }
