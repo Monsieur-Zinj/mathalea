@@ -3,7 +3,7 @@ import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../..
 import { fraction } from '../../../modules/fractions.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import FractionEtendue from "../../../modules/FractionEtendue.js";
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -51,7 +51,7 @@ export default function CalculsDeProbabilites () {
         
         Donner le résultat sous la forme d'une fraction irréductible.`
         this.correction = `Comme il y a $${5 - b}$ multiples de $${b}$, la probabilité d'obtenir un multiple de $${b}$ est $\\dfrac{${5 - b}}{6}=\\dfrac{1}{${b}}$.`
-        this.reponse = new FractionEtenduee(1, b)
+        this.reponse = new FractionEtendue(1, b)
         break
       case 'd':
         this.question = `On lance deux dés cubiques équilibrés.<br>

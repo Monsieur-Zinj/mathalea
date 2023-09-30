@@ -105,8 +105,8 @@ export function propositionsQcm (exercice, i) {
   let espace = ''
   let nbCols = 1
   let vertical = false
-  if (exercice.autoCorrection[i].propositions === undefined) {
-    window.notify('propositionsQcm a reçu une liste de propositions undefined')
+  if (exercice?.autoCorrection[i]?.propositions === undefined) {
+    window.notify('propositionsQcm a reçu une liste de propositions undefined', { autoCrorrection: exercice?.autoCorrection[i], propositions: exercice?.autoCorrection[i].propositions })
     return { texte: '', texteCorr: '' }
   }
   if (context.isAmc) return { texte: '', texteCorr: '' }
@@ -116,7 +116,7 @@ export function propositionsQcm (exercice, i) {
     espace = '\\qquad '
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
-  if (exercice.autoCorrection[i].options !== undefined) {
+  if (exercice?.autoCorrection[i]?.options !== undefined) {
     vertical = exercice.autoCorrection[i].options.vertical // est-ce qu'on veut une présentation en colonnes ?
     nbCols = exercice.autoCorrection[i].options.nbCols > 1 ? exercice.autoCorrection[i].options.nbCols : 1 // Nombre de colonnes avant de passer à la ligne
     if (!exercice.autoCorrection[i].options.ordered) {
