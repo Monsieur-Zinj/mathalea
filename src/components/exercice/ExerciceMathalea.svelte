@@ -258,10 +258,10 @@
     isCorrectionVisible = true
     isExerciceChecked = true
     resultsByExercice.update((l) => {
-      const index = exercice.numeroExercice ?? 0
-      const result = exerciceInteractif(exercice, divScore, buttonScore)
-      if (result  != null){
-        l[index] = <InterfaceResultExercice>result
+      const indice = exercice.numeroExercice ?? 0
+      const result = { ...exerciceInteractif(exercice, divScore, buttonScore), indice }
+      if (result != null) {
+        l[indice] = result
       }
       return l
     })

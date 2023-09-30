@@ -80,7 +80,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       return l
     })
   }
-  // Attendre pour que les champs texte soient bien chargés
   await new Promise((resolve) => setTimeout(resolve, 500))
   if (studentAssignment != null) {
     for (const exercice of studentAssignment) {
@@ -107,24 +106,30 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
                 field.value = exercice.answers[answer]
               }
               */
+            } else {
+              // La réponse correspond à une case à cocher qui doit être cochée
+              const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+              if (checkBox !== null && exercice.answers[answer] === '1') {
+                checkBox.checked = true
+              } else {
+              // La réponse correspond à une liste déroulante
+                const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+                if (select !== null) {
+                  select.value = exercice.answers[answer]
+                }
+              }
             }
-            // La réponse correspond à une case à cocher qui doit être cochée
-            const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-            if (checkBox !== null && exercice.answers[answer] === '1') {
-              checkBox.checked = true
-            }
-            // La réponse correspond à une liste déroulante
-            const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-            if (select !== null) {
-              select.value = exercice.answers[answer]
-            }
-          }
-          // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
-          const buttonScore = document.querySelector(`#buttonScoreEx${exercice.indice}`) as HTMLButtonElement
-          if (buttonScore !== null) {
-            buttonScore.click()
           }
         }
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    // On attend 500 ms pour que les champs texte soient bien remplis
+    for (const exercice of studentAssignment) {
+      // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
+      const buttonScore = document.querySelector(`#buttonScoreEx${exercice.indice}`) as HTMLButtonElement
+      if (buttonScore !== null) {
+        buttonScore.click()
       }
     }
   }
@@ -165,7 +170,6 @@ function sendToCapytaleActivityParams () {
       param.alea = undefined
     }
   }
-  console.log(params, options)
   return { exercicesParams: params, globalOptions: options }
 }
 
