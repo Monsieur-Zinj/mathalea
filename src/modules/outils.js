@@ -35,7 +35,6 @@ export function listeQuestionsToContenu (exercice) {
   exercice.contenu = exercice.contenu.replace(/\\\\\n*/g, '\\\\\n')
 }
 
-
 /**
  * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
  * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
@@ -117,7 +116,7 @@ export function gestionnaireFormulaireTexte ({
       }
     }
   }
-  if (listeIndex.length===0) listeIndex = [defaut] // EE : Le cas où finalement listeIndex est vide car la saisie n'était pas un paramètre attendu.
+  if (listeIndex.length === 0) listeIndex = [defaut] // EE : Le cas où finalement listeIndex est vide car la saisie n'était pas un paramètre attendu.
   if (melange != null && compteOccurences(listeIndex, melange)) {
     listeIndex = rangeMinMax(min, max)
   }
@@ -454,7 +453,7 @@ export function texParagraphe (liste, spacing = false, retourCharriot) {
  * @author Rémi Angot
  */
 export function texIntroduction (texte) {
-  if (typeof texte === 'string' && texte !=='') {
+  if (typeof texte === 'string' && texte !== '') {
     return texte.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
   } else {
     return ''
@@ -488,7 +487,7 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
  * @author Rémi Angot
  */
 export function texConsigne (consigne) {
-  return '\\exo{' + ((consigne != null && typeof consigne === 'string')? consigne.replace(/<br>/g, '\\\\') : '') + '}\n\n'
+  return '\\exo{' + ((consigne != null && typeof consigne === 'string') ? consigne.replace(/<br>/g, '\\\\') : '') + '}\n\n'
 }
 
 /**
@@ -497,12 +496,11 @@ export function texConsigne (consigne) {
  * @returns retourne un nombre au format français sans espace après la virgule
  */
 export function num (nb) {
-  if (typeof nb === 'number'){
+  if (typeof nb === 'number') {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   } else {
-    window.notify(`Fonction num() appelée avec autre chose qu'un number`, {nb})
+    window.notify('Fonction num() appelée avec autre chose qu\'un number', { nb })
   }
-
 }
 
 /**
@@ -512,7 +510,7 @@ export function num (nb) {
  * @author Rémi Angot
  */
 export function href (texte, lien) {
-  if (typeof texte === 'string' && texte !=='' && typeof lien === 'string' && lien !== '') {
+  if (typeof texte === 'string' && texte !== '' && typeof lien === 'string' && lien !== '') {
     if (context.isHtml) {
       return `<a target="_blank" href=${lien}> ${texte} </a>`
     } else {
@@ -527,7 +525,7 @@ export function href (texte, lien) {
  */
 
 export function printlatex (e) {
-  if (typeof e === 'string' && e!=='') {
+  if (typeof e === 'string' && e !== '') {
     if (e === '0x') {
       return '0'
     } else {
@@ -541,7 +539,7 @@ export function printlatex (e) {
  * @author Rémi Angot
  */
 export function itemize (tableauDeTexte) {
-  if (Array.isArray(tableauDeTexte) && tableauDeTexte.filter(el=>typeof el !== 'string').length !==0) {
+  if (Array.isArray(tableauDeTexte) && tableauDeTexte.filter(el => typeof el !== 'string').length !== 0) {
     let texte
     if (context.isHtml) {
       texte = '<div>'
@@ -558,6 +556,6 @@ export function itemize (tableauDeTexte) {
     }
     return texte
   } else {
-    window.notify(`Fonction itemize appelée avec autre chose qu'un array de string`, {tableauDeTexte})
+    window.notify('Fonction itemize appelée avec autre chose qu\'un array de string', { tableauDeTexte })
   }
-  }
+}
