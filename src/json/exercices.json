@@ -2164,8 +2164,7 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amcType": "AMCNum",
-      "amc": true
+      "amc": false
     },
     "datePublication": "29/08/2022",
     "dateModification": "27/09/2023"
