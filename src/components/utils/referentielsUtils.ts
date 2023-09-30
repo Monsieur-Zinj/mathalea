@@ -142,6 +142,7 @@ export function updateReferentiel (
       baseReferentiel,
       (key) => key === 'amc'
     ).map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
+    console.log(amcCompatible)
     filteredReferentiel = { ...buildReferentiel(amcCompatible) }
   } else if (isInteractiveOnlySelected && !isAmcOnlySelected) {
     const interactiveCompatible = findPropPaths(

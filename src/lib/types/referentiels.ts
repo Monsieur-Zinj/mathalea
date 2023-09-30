@@ -157,6 +157,8 @@ export type JSONReferentielEnding =
 export interface JSONReferentielObject
   extends Record<string, JSONReferentielEnding | JSONReferentielObject | string | string[]| Features> {}
 
+export type ResourceAndItsPath = { resource: JSONReferentielEnding; pathToResource: string[] }
+
 export const isExerciceItemInReferentiel = (
   obj: any
 ): obj is ExerciceItemInReferentiel =>

@@ -2,6 +2,7 @@ import { isLessThanAMonth } from '../../lib/types/dates'
 import {
   type JSONReferentielObject,
   type JSONReferentielEnding,
+  type ResourceAndItsPath,
   isExerciceItemInReferentiel,
   isJSONReferentielEnding
 } from '../../lib/types/referentiels'
@@ -20,9 +21,9 @@ import codeList from '../../json/codeToLevelList.json'
  */
 export function getRecentExercices (
   refObj: JSONReferentielObject
-): JSONReferentielEnding[] {
-  const recentExercises: JSONReferentielEnding[] = []
-  fetchThrough(refObj, recentExercises, (e: JSONReferentielEnding) => {
+): ResourceAndItsPath[] {
+  // const recentExercises: ResourceAndItsPath[] = []
+  return findResources(refObj, (e: JSONReferentielEnding) => {
     if (isExerciceItemInReferentiel(e)) {
       if (
         (e.datePublication && isLessThanAMonth(e.datePublication)) ||
@@ -36,7 +37,7 @@ export function getRecentExercices (
       return false
     }
   })
-  return recentExercises
+  // return recentExercises
 }
 
 /**
@@ -57,22 +58,6 @@ export function codeToLevelTitle (levelCode: string): string {
   }
 }
 
-export function getReferentielEndings (
-  ref: JSONReferentielObject,
-  results: JSONReferentielEnding[]
-): void {
-  fetchThrough(ref, results, (e: JSONReferentielEnding) => {
-    if (isExerciceItemInReferentiel(e)) {
-      if (e.features.amc && !e.features.amc.isActive) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      return false
-    }
-  })
-}
 /**
  * Parcourt toutes les branches d'un référentiel passé en paramètre
  * et remplit une liste (passée en paramètre) avec les extrémités
@@ -105,3 +90,33 @@ export function fetchThrough (
     }
   })
 }
+
+export function findResources (
+  referentiel: JSONReferentielObject,
+  goalReachedWith: (e: JSONReferentielEnding) => boolean
+): ResourceAndItsPath[] {
+  const harvest: ResourceAndItsPath[] = []
+  const path: string[] = []
+  function find (ref: JSONReferentielObject) {
+    Object.entries(ref).forEach(([key, value]) => {
+      if (isJSONReferentielEnding(value)) {
+        if (goalReachedWith(value)) {
+          path.push(key)
+          harvest.push({ resource: value, pathToResource: path || [] })
+        }
+      } else {
+        path.push(key)
+        find(value as JSONReferentielObject)
+        path.pop()
+      }
+    })
+  }
+  find(referentiel)
+  return harvest
+}
+
+// export function updateReferentiel (
+//   isAmcOnlySelected: boolean,
+//   isInteractiveOnlySelected: boolean,
+//   itemsAccepted: string[]
+// ) { }
