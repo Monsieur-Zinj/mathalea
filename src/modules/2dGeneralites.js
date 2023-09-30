@@ -69,7 +69,7 @@ export function mathalea2d (
     if (!Array.isArray(objets)) {
       try {
         // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
-        if (objets.isVisible) {
+        if (objets?.isVisible) {
           if ((!mainlevee) || typeof (objets.svgml) === 'undefined') {
             const code = objets.svg(pixelsParCm)
             if (typeof code === 'string') {
@@ -100,7 +100,7 @@ export function mathalea2d (
     let codeTikz = ''
     if (!Array.isArray(objets)) {
       try {
-        if (objets.isVisible) {
+        if (objets?.isVisible) {
           if (!mainlevee || typeof (objets.tikzml) === 'undefined') codeTikz = '\t' + objets.tikz(scale) + '\n'
           else codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
         }
