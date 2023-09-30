@@ -23,7 +23,7 @@ export function getRecentExercices (
   refObj: JSONReferentielObject
 ): ResourceAndItsPath[] {
   // const recentExercises: ResourceAndItsPath[] = []
-  return findResources(refObj, (e: JSONReferentielEnding) => {
+  return findResourcesAndPaths(refObj, (e: JSONReferentielEnding) => {
     if (isExerciceItemInReferentiel(e)) {
       if (
         (e.datePublication && isLessThanAMonth(e.datePublication)) ||
@@ -91,7 +91,16 @@ export function fetchThrough (
   })
 }
 
-export function findResources (
+/**
+ * Parcourt un référentiel jusqu'à ses extrémités et en garde la trace
+ * avec son chemin lorsque cette extrémité remplie les conditions fixées
+ * par la fonction passée en paramètre
+ * @param {JSONReferentielObject} referentiel Le référentiel à chercher
+ * @param {(e: JSONReferentielEnding) => boolean} goalReachedWith la fonction de filtrage
+ * @returns {ResourceAndItsPath[]} Une liste d'objets du type
+ * `{resource: JSONReferentielEnding,  pathToResource: string[]}`
+ */
+export function findResourcesAndPaths (
   referentiel: JSONReferentielObject,
   goalReachedWith: (e: JSONReferentielEnding) => boolean
 ): ResourceAndItsPath[] {
@@ -114,9 +123,3 @@ export function findResources (
   find(referentiel)
   return harvest
 }
-
-// export function updateReferentiel (
-//   isAmcOnlySelected: boolean,
-//   isInteractiveOnlySelected: boolean,
-//   itemsAccepted: string[]
-// ) { }
