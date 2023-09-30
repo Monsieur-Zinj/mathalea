@@ -521,7 +521,6 @@ export function exportQcmAmc (exercice, idExo) {
               /* if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
               } */
-
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -535,8 +534,7 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-
-              texQr += `${qr > 0 && (qrType === 'qcmMono' || (qrType === 'qcmMult' && !autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}`
+              texQr += `${qr > 0 && (qrType === 'qcmMono' || (qrType === 'qcmMult' && (typeof autoCorrection[j].options !== 'undefined') && !autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}`
               texQr += ((typeof autoCorrection[j].options !== 'undefined') && (autoCorrection[j].options.numerotationEnonce)) ? '\n \\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''
               texQr += `\\begin{${qrType === 'qcmMono' ? 'question' : 'questionmult'}}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
               if (prop.enonce !== undefined) {
@@ -582,8 +580,8 @@ export function exportQcmAmc (exercice, idExo) {
                   texQr += `${autoCorrection[j].enonce} \n` // Enonce de la question
                   texQr += '\\end{questionmultx}'
                 }
-               
-               // texQr += '\\begin{minipage}{\\textwidth}\n'
+
+                // texQr += '\\begin{minipage}{\\textwidth}\n'
                 texQr += '\\begin{multicols}{2}\n'
                 texQr += `${((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
 
@@ -614,7 +612,7 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=true,approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${rep.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
                 texQr += '\\end{questionmultx}\\end{multicols}\n'
-                //texQr += '\\end{minipage}\n\n'
+                // texQr += '\\end{minipage}\n\n'
                 id += 2
               } else if (rep.valeur[0].num !== undefined) { // Hybride dont la réponse est une fraction (et non une puissance)
                 // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
