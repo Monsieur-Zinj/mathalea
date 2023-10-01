@@ -15,7 +15,7 @@ import { imagePointParTransformation } from '../../modules/imagePointParTransfor
 import Exercice from '../Exercice.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { egal, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -41,11 +41,20 @@ export default function PavagesEtTransformations () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.listeAvecNumerotation = false
+  this.besoinFormulaire2Texte = ['Choix des pavages', 'Nombres séparés par des tirets\nChoix entre 1 et 7\nChoix 8 pour un mélange de tous les pavages']
+  this.sup2 = 8
   // this.sup = 1 // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
   // context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
+    const typeDePavage = gestionnaireFormulaireTexte({
+      max: 7,
+      defaut: 8,
+      melange: 8,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup2
+    })
     const objetsEnonce = []
     const objetsCorrection = []
     if (this.level === 3) {
@@ -78,12 +87,13 @@ export default function PavagesEtTransformations () {
     const tabfigD = []
     let pave = []
     let choixPave
-    switch (parseInt(this.sup)) {
+    switch (this.sup) {
       case 1:
         choixPave = 0 // pavages adaptés à symétrie axiale (carrés)
         break
       case 2:
-        choixPave = randint(0, 7)// pavages adaptés à symétrie centrale (tous)
+        // choixPave = randint(0, 7)// pavages adaptés à symétrie centrale (tous)
+        choixPave = typeDePavage[0]// pavages adaptés à symétrie centrale (tous)
         break
       case 3:
         choixPave = randint(0, 7) // pavages adaptés à translation (tous)
