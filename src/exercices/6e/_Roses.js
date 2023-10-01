@@ -1,26 +1,24 @@
 /* eslint-disable camelcase */
-import { droite } from '../../lib/2d/droites.js'
-import { point, pointIntersectionDD } from '../../lib/2d/points.js'
+import { point } from '../../lib/2d/points.js'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonneesBox, latexParPoint, texteParPoint } from '../../lib/2d/textes.js'
+import { latexParCoordonnees, latexParCoordonneesBox, texteParPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { create, all } from 'mathjs'
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import * as pkg from '@cortex-js/compute-engine'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
-const math = create(all)
 
 /**
  * Travailler les tables de multiplication ou d'addition autrement
@@ -46,33 +44,35 @@ export class Rose {
       for (let i = 0; i < this.nombreDeValeurs; i++) {
         switch (this.typeDonnees) {
           case 'entiers' :
-            values.push(randint(1, this.valeurMax, values))
+            values.push(randint(2, this.valeurMax, values))
             this.rayon = 2
             break
           case 'entiers relatifs' :
-            values.push(randint(-this.valeurMax, this.valeurMax, [0, ...values]))
+            values.push(randint(-this.valeurMax, this.valeurMax, [0, 1, ...values]))
             this.rayon = 2
             break
-          case 'litteraux' :
-            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult)
-            this.rayon = 4
+          case 'litteraux' : {
+            const value = calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult
+            values.push(value)
+            this.rayon = 3
+          }
             break
           case 'fractions dénominateurs multiples':
-            values.push(math.fraction(randint(1, this.valeurMax), den))
-            this.rayon = 3
+            values.push(new FractionEtendue(randint(1, this.valeurMax), den).simplifie())
+            this.rayon = 2.5
             break
           case 'fractions positives dénominateurs premiers':
-            values.push(math.fraction(randint(1, this.valeurMax), choice([2, 3, 5, 7])))
-            this.rayon = 3
+            values.push(new FractionEtendue(randint(1, this.valeurMax), choice([2, 3, 5, 7])).simplifie())
+            this.rayon = 2.5
             break
 
           case 'fractions positives' :
-            values.push(math.fraction(randint(1, this.valeurMax), randint(2, this.valeurMax)))
-            this.rayon = 3
+            values.push(new FractionEtendue(randint(1, this.valeurMax), randint(2, this.valeurMax)).simplifie())
+            this.rayon = 2.5
             break
           case 'fractions relatives' :
-            values.push(math.fraction(randint(-this.valeurMax, this.valeurMax, 0), randint(2, this.valeurMax)))
-            this.rayon = 3
+            values.push(new FractionEtendue(randint(-this.valeurMax, this.valeurMax, 0), randint(2, this.valeurMax)).simplifie())
+            this.rayon = 2.5
             break
         }
       }
@@ -80,25 +80,27 @@ export class Rose {
       for (let i = this.values.length; i < this.nombreDeValeurs; i++) {
         switch (this.typeDonnees) {
           case 'entiers' :
-            values.push(randint(1, this.valeurMax, values))
+            values.push(randint(2, this.valeurMax, values))
             break
           case 'entiers relatifs' :
-            values.push(randint(-this.valeurMax, this.valeurMax, [0, ...values]))
+            values.push(randint(-this.valeurMax, this.valeurMax, [0, 1, ...values]))
             break
-          case 'litteraux' :
-            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult)
+          case 'litteraux' : {
+            const value = calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult
+            values.push(value)
+          }
             break
           case 'fractions dénominateurs multiples':
-            values.push(math.fraction(randint(1, this.valeurMax), values[i - 1].d))
+            values.push(new FractionEtendue(randint(1, this.valeurMax), values[i - 1].d).simplifie())
             break
           case 'fractions positives dénominateurs premiers':
-            values.push(math.fraction(randint(1, this.valeurMax), choice([2, 3, 5, 7])))
+            values.push(new FractionEtendue(randint(1, this.valeurMax), choice([2, 3, 5, 7])).simplifie())
             break
           case 'fractions positives' :
-            values.push(math.fraction(randint(1, this.valeurMax), randint(2, this.valeurMax)))
+            values.push(new FractionEtendue(randint(1, this.valeurMax), randint(2, this.valeurMax)).simplifie())
             break
           case 'fractions relatives' :
-            values.push(math.fraction(randint(-this.valeurMax, this.valeurMax, 0), randint(2, this.valeurMax)))
+            values.push(new FractionEtendue(randint(-this.valeurMax, this.valeurMax, 0), randint(2, this.valeurMax)).simplifie())
             break
         }
       }
@@ -120,9 +122,9 @@ export class Rose {
       case 'addition':
         if (this.typeDonnees !== 'litteraux') {
           if (this.typeDonnees.substring(0, 4) === 'frac') {
-            return math.fraction(math.add(a, b))
+            return a.sommeFraction(b) // math.fraction(math.add(a, b))
           } else {
-            return math.add(a, b)
+            return a + b // math.add(a, b)
           }
         } else {
           return calculer(`${a.toString()}+${b.toString()}`, null).printResult
@@ -130,12 +132,12 @@ export class Rose {
       case 'multiplication':
         if (this.typeDonnees !== 'litteraux') {
           if (this.typeDonnees.substring(0, 4) === 'frac') {
-            return math.fraction(math.multiply(a, b))
+            return a.produitFraction(b)
           } else {
-            return math.multiply(a, b)
+            return a * b
           }
         } else {
-          return calculer(`(${a.toString()})*(${b.toString()})`, null).printResult
+          return calculer(`(${String(a)}) * (${String(b)})`, null).printResult
         }
     }
   }
@@ -145,8 +147,10 @@ export class Rose {
       this.rayonBoite = 1
     } else {
       if (this.typeDonnees.substring(0, 4) === 'frac') this.rayonBoite = 1.5
-      else if (this.typeDonnees === 'litteraux') this.rayonBoite = 3.5
-      else this.rayonBoite = 1
+      else if (this.typeDonnees === 'litteraux') {
+        if (this.operation === 'multiplication') this.rayonBoite = 3.2
+        else this.rayonBoite = 2.5
+      } else this.rayonBoite = 1
     }
     const objets = []
     const O = point(0, 0, '', '')
@@ -154,15 +158,15 @@ export class Rose {
     for (let i = 0, bulle1, bulle2; i < this.nombreDeValeurs; i++) {
       const M = rotation(A, O, 360 * i / this.nombreDeValeurs, 'M')
       M.positionLabel = 'center'
-      const B = similitude(M, O, 180 / this.nombreDeValeurs, 1.3, 'B')
-      const D = similitude(M, O, -180 / this.nombreDeValeurs, 1.3, 'D')
-      const C = homothetie(M, O, 1.6, 'C')
+      const B = similitude(M, O, 180 / this.nombreDeValeurs, 1.2, 'B')
+      const D = similitude(M, O, -180 / this.nombreDeValeurs, 1.2, 'D')
+      const C = homothetie(M, O, 1.5, 'C')
       const N = rotation(C, O, 360 / this.nombreDeValeurs, 'N')
       const P = similitude(M, O, 180 / this.nombreDeValeurs, 2.5, 'P')
       const s = segment(O, B, 'black')
       const t = segment(B, C, 'black')
       const u = segment(C, D, 'black')
-      const M2 = pointIntersectionDD(droite(B, D), droite(O, C), 'M2')
+      const M2 = homothetie(C, O, 0.6)// pointIntersectionDD(droite(B, D), droite(O, C), 'M2')
       const s1 = homothetie(segment(C, P), C, (longueur(C, P) - this.rayonBoite) / longueur(C, P))
       s1.styleExtremites = '->'
       s1.tailleExtremites = 5
@@ -186,10 +190,10 @@ export class Rose {
               objets.push(texteParPoint(this.values[i].toString(), M, 'milieu', 'black', 1, 'middle', true))
             } else {
               if (this.typeDonnees !== 'litteraux') {
-                if (this.values[i].d === 1) {
-                  objets.push(texteParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'milieu', 'black', 1, 'middle', true))
+                if (this.values[i] instanceof FractionEtendue) {
+                  objets.push(latexParCoordonnees(this.values[i].toLatex(), M.x, M.y, 'black', 0, 0, '', 8))
                 } else {
-                  objets.push(latexParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'black', 20, 0, ''))
+                  objets.push(texteParPoint(String(this.values[i]), M, 'milieu', 'black', 1, 'middle', true))
                 }
               } else {
                 objets.push(latexParCoordonneesBox(this.values[i], M2.x, M2.y, 'black', 50, 12, '', 8, { anchor: 'center' }))
@@ -206,15 +210,7 @@ export class Rose {
           if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
             objets.push(texteParPoint((this.resultats[i]).toString(), P, 'milieu', 'black', 1, 'middle', true))
           } else {
-            if (this.typeDonnees !== 'litteraux') {
-              if (this.resultats[i].d === 1) {
-                objets.push(texteParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'milieu', 'black', 1, 'middle', true))
-              } else {
-                objets.push(latexParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'black', 20, 0, ''))
-              }
-            } else {
-              objets.push(latexParCoordonneesBox(this.resultats[i], P.x, P.y, 'black', 50, 12, '', 8, { anchor: 'center', dy: (this.nombreDeValeurs === 3 ? '-35%' : '') }))
-            }
+            objets.push(latexParCoordonnees(String(this.resultats[i]), P.x, P.y, 'black', 0, 0, '', 8))
           }
         }
         if (this.type === 'can2' && this.indexInconnue === i) {
@@ -321,12 +317,14 @@ export function ExoRose () {
           break
       }
 
-      this.roses[i] = new Rose({ nombreDeValeurs: this.nombreDeValeurs,
+      this.roses[i] = new Rose({
+        nombreDeValeurs: this.nombreDeValeurs,
         type: this.type,
         operation: this.operation,
         valeurMax: this.valeurMax,
         typeDonnees: this.typeDonnees,
-        indexInconnue: this.indexInconnue[i] })
+        indexInconnue: this.indexInconnue[i]
+      })
       objets = this.roses[i].representation()
       this.roses[i].type = 'solutions'
       objetsCorr = this.roses[i].representation()
@@ -384,33 +382,35 @@ export function ExoRose () {
   }
   this.saisieCoherente = function (saisies, taille, question) {
     let resultatOK = true
+    let stringSaisie = saisies[0]
+    let stringResultat
     if (this.type === 'can2') {
-      if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]].toLatex()).isSame(engine.parse(saisies[0]))
-      } else {
-        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]]).isSame(engine.parse(saisies[0]))
-      }
+      stringResultat = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+        ? this.roses[question].resultats[this.indexInconnue[question]].toLatex().replace('dfrac', 'frac')
+        : this.roses[question].resultats[this.indexInconnue[question]].toString()
+      return engine.parse(stringResultat).isSame(engine.parse(stringSaisie))
     } else if (this.type === 'can1') {
-      if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-        return engine.parse(saisies[0]).isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toLatex()))
-      } else {
-        return engine.parse(saisies[0]).isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toString()))
-      }
+      stringSaisie = saisies[0]
+      stringResultat = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+        ? this.roses[question].values[this.indexInconnue[question]].toLatex().replace('dfrac', 'frac')
+        : this.roses[question].values[this.indexInconnue[question]].toString()
+      return engine.parse(stringSaisie).isSame(engine.parse(stringResultat))
     } else {
       for (let i = 0; i < taille; i++) {
+        stringSaisie = saisies[i]
         if (this.type === 'résultats') {
-          if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-            resultatOK = resultatOK && engine.parse(saisies[i]).isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
-          } else {
-            resultatOK = resultatOK && engine.parse(saisies[i]).isEqual(engine.parse(this.roses[question].resultats[i].toString()))
-          }
+          stringResultat = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+            ? this.roses[question].resultats[i].toLatex().replace('dfrac', 'frac')
+            : this.roses[question].resultats[i].toString()
         } else {
-          if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-            resultatOK = resultatOK && engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
-          } else {
-            resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).isEqual(engine.parse(this.roses[question].resultats[i].toString()))
-          }
+          stringResultat = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+            ? this.roses[question].resultats[i].toLatex().replace('dfrac', 'frac')
+            : String(this.roses[question].resultats[i])
+          stringSaisie = this.roses[question].typeDonnees.substring(0, 4) === 'frac'
+            ? `${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times '}${saisies[(i + 1) % this.nombreDeValeurs]}`
+            : String(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs]))
         }
+        resultatOK = resultatOK && engine.parse(stringSaisie).isEqual(engine.parse(stringResultat))
       }
       return resultatOK
     }
