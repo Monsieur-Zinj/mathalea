@@ -10,7 +10,8 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const amcReady = false
+export const amcReady = true
+export const amcType = 'AMCHybride'
 export const titre = 'Connaitre le vocabulaire de base des polygones'
 
 export const dateDePublication = '21/10/2022'
@@ -18,14 +19,12 @@ export const dateDePublication = '21/10/2022'
 /**
  * Connaissance du vocabulaire de base des polygones : nom, côté, sommet, diagonale
  * @author Guillaume Valmont
- * 6G20-3
 */
 export const uuid = '18672'
 export const ref = '6G20-3'
 export default class VocabulaireDeBaseDesPolygones extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.correctionDetailleeDisponible = true
     this.nbQuestions = 4
     this.nbQuestionsModifiable = false
@@ -37,6 +36,7 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    const propositionsAMC = []
     const typeQuestionsDisponibles = ['nom', 'sommet', 'cote', 'diagonale']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const objets2d = []
@@ -75,7 +75,7 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
     const xmax = Math.max(...pointsX) + 2
     const ymin = Math.min(...pointsY) - 2
     const ymax = Math.max(...pointsY) + 2
-    const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
+    const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: context.isAmc ? 0.5 : 1 }
     this.introduction = '' + mathalea2d(parametres2d, objets2d)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -110,7 +110,7 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
         case 'nom':
           questionReponse =
           {
-            question: 'Quels sont les deux noms possibles de ce polygone ?',
+            question: 'Parmi les noms ci-dessous, lesquels sont les noms possibles de ce polygone ?',
             propositions: [nomDirectCorrect, nomDirectIncorrect, nomIndirectCorrect, nomIndirrectIncorrect],
             reponses: [nomDirectCorrect, nomIndirectCorrect],
             explications: `On peut le nommer de plein de façons différentes.<br>
@@ -167,14 +167,33 @@ export default class VocabulaireDeBaseDesPolygones extends Exercice {
         propositions
       }
       const monQcm = propositionsQcm(this, i)
-      texte += context.isAmc ? '' : questionReponse.question + '<br>'
+      texte += questionReponse.question + '<br>'
       texte += monQcm.texte
-      texteCorr += context.isAmc ? '' : questionReponse.question + '<br>'
+      texteCorr += questionReponse.question + '<br>'
       texteCorr += monQcm.texteCorr
       this.correctionDetaillee ? texteCorr += questionReponse.explications + '<br><br>' : texteCorr += '<br>'
+
+      if (context.isAmc) {
+        propositionsAMC[i] = {
+          type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+          enonce: questionReponse.question,
+          propositions
+        }
+      }
+
       if (this.questionJamaisPosee(i, ...pointsX, ...pointsY, listeTypeQuestions[i])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: mathalea2d(parametres2d, objets2d),
+            enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+            enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
+            // options: { ordered: false },
+            propositions: propositionsAMC
+          }
+        }
+
         i++
       }
       cpt++

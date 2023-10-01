@@ -5,7 +5,7 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntie
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -85,9 +85,9 @@ export default function MultiplierDecimauxPar101001000 () {
           a = choice([randint(11, 99), randint(100, 999)])
           if (!this.sup4) {
             if (this.sup3) {
-              a = calcul(a / choice([10, 100, 1000]))
+              a = calculANePlusJamaisUtiliser(a / choice([10, 100, 1000]))
             } else {
-              a = calcul(a / choice([10, 100, 1000, 10000]))
+              a = calculANePlusJamaisUtiliser(a / choice([10, 100, 1000, 10000]))
             }
           }
           b = facteurs[i]
@@ -95,15 +95,15 @@ export default function MultiplierDecimauxPar101001000 () {
           texteCorr = `$${texNombre(a)} \\times ${texNombre(
                         b
                     )} = ${miseEnEvidence(texNombre(a * b))}$`
-          reponse = calcul(a * b)
+          reponse = calculANePlusJamaisUtiliser(a * b)
           break
         case 2: // 10 × a,abcd
           a = choice([randint(11, 99), randint(100, 999)])
           if (!this.sup4) {
             if (this.sup3) {
-              a = calcul(a / choice([10, 100, 1000]))
+              a = calculANePlusJamaisUtiliser(a / choice([10, 100, 1000]))
             } else {
-              a = calcul(a / choice([10, 100, 1000, 10000]))
+              a = calculANePlusJamaisUtiliser(a / choice([10, 100, 1000, 10000]))
             }
           }
           b = facteurs[i]
@@ -111,7 +111,7 @@ export default function MultiplierDecimauxPar101001000 () {
           texteCorr = `$${texNombre(b)} \\times ${texNombre(
                         a
                     )} = ${miseEnEvidence(texNombre(a * b))}$`
-          reponse = calcul(a * b)
+          reponse = calculANePlusJamaisUtiliser(a * b)
           break
         case 3: // abcd/10 × 10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
@@ -128,7 +128,7 @@ export default function MultiplierDecimauxPar101001000 () {
           texteCorr = `$${deprecatedTexFraction(a, den)} \\times ${texNombre(
                         b
                     )} = ${deprecatedTexFraction(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
-          reponse = calcul(a * b / den)
+          reponse = calculANePlusJamaisUtiliser(a * b / den)
           break
         case 4: // 10 × abcd/10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
@@ -146,15 +146,15 @@ export default function MultiplierDecimauxPar101001000 () {
                         a,
                         den
                     )} = ${deprecatedTexFraction(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
-          reponse = calcul(a * b / den)
+          reponse = calculANePlusJamaisUtiliser(a * b / den)
           break
         case 5: // .... × 10 = a,abcd
           a = choice([randint(11, 99), randint(100, 999)])
           if (!this.sup4) {
             if (this.sup3) {
-              a = calcul(a / choice([10, 100, 1000]))
+              a = calculANePlusJamaisUtiliser(a / choice([10, 100, 1000]))
             } else {
-              a = calcul(a / choice([10, 100, 1000, 10000]))
+              a = calculANePlusJamaisUtiliser(a / choice([10, 100, 1000, 10000]))
             }
           }
           b = facteurs[i]
@@ -168,9 +168,9 @@ export default function MultiplierDecimauxPar101001000 () {
           a = choice([randint(11, 99), randint(100, 999)])
           if (!this.sup4) {
             if (this.sup3) {
-              a = calcul(a / choice([10, 100, 1000]))
+              a = calculANePlusJamaisUtiliser(a / choice([10, 100, 1000]))
             } else {
-              a = calcul(a / choice([10, 100, 1000, 10000]))
+              a = calculANePlusJamaisUtiliser(a / choice([10, 100, 1000, 10000]))
             }
           }
           b = facteurs[i]

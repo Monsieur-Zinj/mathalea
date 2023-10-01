@@ -122,7 +122,7 @@
   }
 
   let numberOfAnswerFields: number = 0
-  async function countMathField() {
+  async function countMathField () {
     // IDs de la forme 'champTexteEx1Q0'
     const answerFields = document.querySelectorAll(
       `[id^='champTexteEx${indiceExercice}']`
@@ -196,14 +196,10 @@
     document.dispatchEvent(exercicesAffiches)
   })
 
-  async function newData() {
+  async function newData () {
     if (exercice.hasOwnProperty('listeQuestions')) {
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
-      if (
-        exercice !== undefined &&
-        typeof exercice?.applyNewSeed === 'function'
-      )
-        exercice.applyNewSeed()
+      if (exercice !== undefined && typeof exercice?.applyNewSeed === 'function') exercice.applyNewSeed()
       if (buttonScore) initButtonScore()
       if (
         window.localStorage !== undefined &&
@@ -216,16 +212,16 @@
     }
   }
 
-  async function setAllInteractif() {
+  async function setAllInteractif () {
     if (exercice?.interactifReady) isInteractif = true
     await updateDisplay()
   }
-  async function removeAllInteractif() {
+  async function removeAllInteractif () {
     if (exercice?.interactifReady) isInteractif = false
     await updateDisplay()
   }
 
-  function handleNewSettings(event: CustomEvent) {
+  function handleNewSettings (event: CustomEvent) {
     if (event.detail.nbQuestions) {
       exercice.nbQuestions = event.detail.nbQuestions
       $exercicesParams[indiceExercice].nbQuestions = exercice.nbQuestions
@@ -270,7 +266,7 @@
     }
   }
 
-  async function updateDisplay() {
+  async function updateDisplay () {
     if (exercice == null) return
     if (
       exercice.seed === undefined &&
@@ -279,8 +275,7 @@
       exercice.applyNewSeed()
     }
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === 'simple')
-      mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif))
+    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif))
     exercice.interactif = isInteractif
     if ($exercicesParams[indiceExercice] != null) {
       $exercicesParams[indiceExercice].alea = exercice.seed
@@ -289,29 +284,25 @@
         columnsCount > 1 ? columnsCount : undefined
     }
     exercice.numeroExercice = indiceExercice
-    if (
-      exercice.typeExercice !== 'simple' &&
-      typeof exercice.nouvelleVersion === 'function'
-    )
-      exercice.nouvelleVersion(indiceExercice)
+    if (exercice.typeExercice !== 'simple' && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(indiceExercice)
     mathaleaUpdateUrlFromExercicesParams()
     await adjustMathalea2dFiguresWidth()
   }
 
-  function verifExercice() {
+  function verifExercice () {
     isCorrectionVisible = true
     isExerciceChecked = true
     resultsByExercice.update((l) => {
-      const index = exercice.numeroExercice ?? 0
-      const result = exerciceInteractif(exercice, divScore, buttonScore)
+      const indice = exercice.numeroExercice ?? 0
+      const result = { ...exerciceInteractif(exercice, divScore, buttonScore), indice }
       if (result != null) {
-        l[index] = <InterfaceResultExercice>result
+        l[indice] = result
       }
       return l
     })
   }
 
-  function initButtonScore() {
+  function initButtonScore () {
     buttonScore.classList.remove(...buttonScore.classList)
     buttonScore.classList.add(
       'inline-flex',
@@ -354,12 +345,8 @@
    * @param {boolean} initialDimensionsAreNeeded si `true`, les valeurs initiales sont rechargées ()`false` par défaut)
    * @author sylvain
    */
-  async function adjustMathalea2dFiguresWidth(
-    initialDimensionsAreNeeded: boolean = false
-  ) {
-    const mathalea2dFigures = document.getElementsByClassName(
-      'mathalea2d'
-    ) as HTMLCollectionOf<SVGElement>
+  async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
+    const mathalea2dFigures = document.getElementsByClassName('mathalea2d') as HTMLCollectionOf<SVGElement>
     if (mathalea2dFigures != null) {
       const consigneDiv = document.getElementById(
         'consigne' + indiceExercice + '-0'

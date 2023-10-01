@@ -2,7 +2,7 @@ import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.
 import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -119,7 +119,7 @@ export default function CourseAuxNombresCM () {
           a = randint(1, 3)
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
-          resultat = calcul(a * 1000 + b * 10 + c * 100)
+          resultat = calculANePlusJamaisUtiliser(a * 1000 + b * 10 + c * 100)
           texte = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$`
           texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(resultat)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -132,29 +132,29 @@ export default function CourseAuxNombresCM () {
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q7': // Somme entier et décimal
-          a = calcul(randint(1, 5) + randint(1, 5) / 10)
+          a = calculANePlusJamaisUtiliser(randint(1, 5) + randint(1, 5) / 10)
           b = randint(1, 4)
           texte = `$${texNombre(a)}+${b}$`
           texteCorr = `$${texNombre(a)}+${b}=${texNombre(a + b)}$`
           setReponse(this, i, a + b, { formatInteractif: 'calcul' })
           break
         case 'q8': // Somme décimaux
-          a = calcul(randint(1, 5) + randint(1, 5) / 10)
-          b = calcul(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
+          a = calculANePlusJamaisUtiliser(randint(1, 5) + randint(1, 5) / 10)
+          b = calculANePlusJamaisUtiliser(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$`
-          setReponse(this, i, calcul(a + b), { formatInteractif: 'calcul' })
+          setReponse(this, i, calculANePlusJamaisUtiliser(a + b), { formatInteractif: 'calcul' })
           break
         case 'q9': // Différence décimaux
-          a = calcul(randint(1, 5) + randint(1, 5) / 10)
-          b = calcul(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
+          a = calculANePlusJamaisUtiliser(randint(1, 5) + randint(1, 5) / 10)
+          b = calculANePlusJamaisUtiliser(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
           texte = `$${texNombre(a + b)}-${texNombre(a)}$`
           texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q10': // Différence décimaux avec retenue
-          a = calcul(randint(1, 5) + randint(5, 9) / 10)
-          b = calcul(randint(1, 4) + randint(5, 9) / 10)
+          a = calculANePlusJamaisUtiliser(randint(1, 5) + randint(5, 9) / 10)
+          b = calculANePlusJamaisUtiliser(randint(1, 4) + randint(5, 9) / 10)
           texte = `$${texNombre(a + b)}-${texNombre(a)}$`
           texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })

@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { calcul, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import { angleOriente } from './angles.js'
 import { Cercle } from './cercle.js'
 import { Droite, droite } from './droites.js'
@@ -570,7 +570,7 @@ export function longueur (A, B, arrondi) {
   if (arrondi === undefined) {
     return Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2)
   } else {
-    return calcul(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), arrondi)
+    return calculANePlusJamaisUtiliser(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), arrondi)
   }
 }
 

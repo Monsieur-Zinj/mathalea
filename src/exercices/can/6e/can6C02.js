@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier un nombre pair par 5'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export default function NombrePairFois5 () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(11, 49, [20, 30, 40, 15, 25, 35, 45]) * 2
-    this.reponse = calcul(a * 5)
+    this.reponse = calculANePlusJamaisUtiliser(a * 5)
     this.question = `Calculer $${a}\\times 5$.`
     // Selon le cas l'endroit d'ajout peut différer
     this.canEnonce = this.question
@@ -31,7 +31,7 @@ export default function NombrePairFois5 () {
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Pour multiplier par $5$, on peut :  <br>
     $\\bullet$ ou bien d'abord multiplier par $10$, puis diviser par $2$ :<br>
-    $${a}\\times 5 = (${a} \\times 10)\\div 2  = ${calcul(a * 10)}\\div 2=${this.reponse}$.<br>
-    $\\bullet$ ou bien d'abord diviser  par $2$, puis multiplier  par $10$ :<br>$${a}\\times 5 = (${a}\\div 2 ) \\times 10 = ${calcul(a / 2)}\\times 10=${this.reponse}$.`)
+    $${a}\\times 5 = (${a} \\times 10)\\div 2  = ${calculANePlusJamaisUtiliser(a * 10)}\\div 2=${this.reponse}$.<br>
+    $\\bullet$ ou bien d'abord diviser  par $2$, puis multiplier  par $10$ :<br>$${a}\\times 5 = (${a}\\div 2 ) \\times 10 = ${calculANePlusJamaisUtiliser(a / 2)}\\times 10=${this.reponse}$.`)
   }
 }

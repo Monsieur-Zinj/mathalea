@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Utiliser les intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +31,7 @@ export default function Intervalles () {
       case 1:
         a = randint(1, 4) * (-1)
         b = randint(1, 4)
-        c = calcul(randint(-4, -1) + randint(-9, -1) / 10)
+        c = calculANePlusJamaisUtiliser(randint(-4, -1) + randint(-9, -1) / 10)
         N = choice(['a', 'b', 'c', 'd', 'e'])//, ${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}     Bigg[${a}  ${sp(2)} ; ${sp(2)} ${b}\\Bigg]$ <br><br>$\\left]${miseEnEvidence(a, 'black') + sp(2)} ; ${sp(2) + miseEnEvidence(b, 'black')}\\right]$?<br>
         if (N === 'a') {
           this.question = `Combien y a-t-il d'entiers dans l'intervalle $\\bigg[${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg]$ ?
@@ -83,8 +83,8 @@ export default function Intervalles () {
       case 2 :
         a = randint(1, 4) * (-1)
         b = randint(1, 4)
-        c = calcul(randint(-9, -4) + randint(-9, -1) / 10)
-        d = calcul(c + randint(2, 4))
+        c = calculANePlusJamaisUtiliser(randint(-9, -4) + randint(-9, -1) / 10)
+        d = calculANePlusJamaisUtiliser(c + randint(2, 4))
         e = randint(-8, -1)
         N = choice(['a', 'b', 'c', 'd'])//,
         if (N === 'a') {

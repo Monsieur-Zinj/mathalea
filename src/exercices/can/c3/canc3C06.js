@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le nombre manquant dans une somme'
 export const interactifReady = true
@@ -24,15 +24,15 @@ export default function ComplementAuDixiemeOuALaDizaine () {
   this.nouvelleVersion = function () {
     let a, b
     if (choice([true, false])) { // décimal ou entier ?
-      a = calcul((randint(1, 5) * 10 + randint(1, 9) / 10))
+      a = calculANePlusJamaisUtiliser((randint(1, 5) * 10 + randint(1, 9) / 10))
       b = Math.ceil(a)
-      this.reponse = calcul(b - a)
+      this.reponse = calculANePlusJamaisUtiliser(b - a)
       this.question = `Compléter : $${texNombre(a)}+\\dots=${b}$`
       this.correction = `On doit compléter les dixièmes du nombre $${texNombre(a)}$ pour obtenir une unité de plus.<br>Il faut donc ajouter $${texNombre(this.reponse)}$.`
       this.canEnonce = 'Compléter.'
       this.canReponseACompleter = `$${texNombre(a)}+\\dots=${b}$`
     } else {
-      a = calcul((randint(2, 5) * 100 + randint(1, 9) * 10 + randint(1, 9)))
+      a = calculANePlusJamaisUtiliser((randint(2, 5) * 100 + randint(1, 9) * 10 + randint(1, 9)))
       b = Math.ceil(a / 10) * 10
       this.reponse = b - a
       this.question = `Compléter : $${a}+\\dots=${b}$`

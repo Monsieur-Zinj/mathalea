@@ -2,7 +2,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -80,51 +80,51 @@ export default function ArrondirUnDecimal () {
       switch (listeTypeDeQuestions[i]) {
         case 6: { // arrondi au centième
           texte = `Donner un arrondi au centième de
-                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
+                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + 0 * 0.01 + 0 * 0.001), 3, true).replace('0', miseEnEvidence(ci, 'blue')).replace('0', miseEnEvidence(mi))
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + 0 * 0.01 + 0 * 0.001), 3, true).replace('0', miseEnEvidence(ci, 'blue')).replace('0', miseEnEvidence(mi))
           if (mi < 5) {
-            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01))
-            texteCorr = `Un arrondi au centième de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01))}$.`
+            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01))
+            texteCorr = `Un arrondi au centième de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01))}$.`
           } else {
-            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + (ci + 1) * 0.01))
-            texteCorr = `Un arrondi au centième de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + (ci + 1) * 0.01))}$.`
+            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + (ci + 1) * 0.01))
+            texteCorr = `Un arrondi au centième de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + (ci + 1) * 0.01))}$.`
           }
           indexQ++
           break
         }
         case 5: { // arrondi au dixième
           texte = `Donner un arrondi au dixième de
-                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
+                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(0 * 0.1 + 0 * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(di, 'blue')).replace('0', miseEnEvidence(ci))
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(0 * 0.1 + 0 * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(di, 'blue')).replace('0', miseEnEvidence(ci))
           if (ci < 5) {
-            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1))
-            texteCorr = `Un arrondi au dixième de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1))}$.`
+            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1))
+            texteCorr = `Un arrondi au dixième de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1))}$.`
           } else {
-            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul((di + 1) * 0.1))
-            texteCorr = `Un arrondi au dixième de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul((di + 1) * 0.1))}$.`
+            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser((di + 1) * 0.1))
+            texteCorr = `Un arrondi au dixième de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser((di + 1) * 0.1))}$.`
           }
           indexQ++
           break
         }
         case 4: { // arrondi à l'unité
           texte = `Donner un arrondi à l'unité de
-                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
+                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 0 + calcul(di * 0 + ci * 0.01 + mi * 0.001), 3, true).replace('0', miseEnEvidence(u, 'blue')).replace('0', miseEnEvidence(di))
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 0 + calculANePlusJamaisUtiliser(di * 0 + ci * 0.01 + mi * 0.001), 3, true).replace('0', miseEnEvidence(u, 'blue')).replace('0', miseEnEvidence(di))
           if (di < 5) {
             setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1)
             texteCorr = `Un arrondi à l'unité de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1)}$.`
@@ -137,51 +137,51 @@ export default function ArrondirUnDecimal () {
         }
         case 3: { // valeur approchée au centième
           texte = `${(valeurdegaucheoudroite === 1 ? 'Donner une valeur par défaut au centième de ' : 'Donner une valeur par excès au centième de ')}
-                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
+                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + 0 * 0.01 + mi * 0.001), 3, true).replace('0', miseEnEvidence(ci, 'blue'))
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + 0 * 0.01 + mi * 0.001), 3, true).replace('0', miseEnEvidence(ci, 'blue'))
           if (valeurdegaucheoudroite === 1) {
-            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01))
-            texteCorr = `Une valeur approchée au centième par défaut de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01))}$`
+            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01))
+            texteCorr = `Une valeur approchée au centième par défaut de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01))}$`
           } else {
-            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + (ci + 1) * 0.01))
-            texteCorr = `Une valeur approchée au centième par excès de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + (ci + 1) * 0.01))}$.`
+            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + (ci + 1) * 0.01))
+            texteCorr = `Une valeur approchée au centième par excès de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + (ci + 1) * 0.01))}$.`
           }
           indexQ++
           break
         }
         case 2: { // valeur approchée au dixième
           texte = `${(valeurdegaucheoudroite === 1 ? 'Donner une valeur par défaut au dixième de ' : 'Donner une valeur par excès au dixième de ')}
-                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
+                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(0 * 0.1 + ci * 0.01 + mi * 0.001), 3, true).replace('0', miseEnEvidence(di, 'blue'))
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(0 * 0.1 + ci * 0.01 + mi * 0.001), 3, true).replace('0', miseEnEvidence(di, 'blue'))
           if (valeurdegaucheoudroite === 1) {
-            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1))
-            texteCorr = `Une valeur approchée au dixième par défaut de de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1))}$.`
+            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1))
+            texteCorr = `Une valeur approchée au dixième par défaut de de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1))}$.`
           } else {
-            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul((di + 1) * 0.1))
-            texteCorr = `Une valeur approchée au dixième par excès de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul((di + 1) * 0.1))}$`
+            setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser((di + 1) * 0.1))
+            texteCorr = `Une valeur approchée au dixième par excès de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser((di + 1) * 0.1))}$`
           }
           indexQ++
           break
         }
         case 1: { // encadrement à l'unité
           texte = `${(valeurdegaucheoudroite === 1 ? 'Donner une valeur par défaut à l\'unité de ' : 'Donner une valeur défaut à l\'unité de ')}
-                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
+                    $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 0 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001), 3, true).replace('0', miseEnEvidence(u, 'blue'))
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 0 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001), 3, true).replace('0', miseEnEvidence(u, 'blue'))
           if (valeurdegaucheoudroite === 1) {
             setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1)
             texteCorr = `Une valeur approchée à l'unité par défaut de $${nombreStr}$ est $ ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1)}$.`

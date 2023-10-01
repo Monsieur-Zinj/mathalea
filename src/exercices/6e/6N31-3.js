@@ -8,7 +8,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const amcReady = true
@@ -87,7 +87,7 @@ export default function ArrondirUneValeur () {
           me = randint(0, 1)
           ce = randint(0, 1)
           de = randint(0, 1)
-          n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
+          n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001)
           nb = texNombre(n)
           texte = `$${nb}$`
 

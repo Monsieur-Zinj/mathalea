@@ -5,7 +5,7 @@ import { pgcd } from '../../lib/outils/primalite.js'
 import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
@@ -74,15 +74,15 @@ export default function ExerciceLabyrintheFractionsEgales () {
       }
       listeMultiples = combinaisonListes(listeMultiples, nbC * nbL)
       for (let i = 0; i < nbC * nbL; i++) {
-        mesfractions.push(fraction(calcul(num * listeMultiples[i] / table), listeMultiples[i]))
+        mesfractions.push(fraction(calculANePlusJamaisUtiliser(num * listeMultiples[i] / table), listeMultiples[i]))
       }
       for (let i = 0; i < nbC * nbL; i++) {
         switch (randint(1, 3)) {
           case 1: mesfractions.push(fraction(listeMultiples[i], num * listeMultiples[i] / table))
             break
-          case 2: mesfractions.push(fraction(calcul(num * listeMultiples[i] / table), listeMultiples[i] - table))
+          case 2: mesfractions.push(fraction(calculANePlusJamaisUtiliser(num * listeMultiples[i] / table), listeMultiples[i] - table))
             break
-          case 3: mesfractions.push(fraction(calcul(num * listeMultiples[i] / table), listeMultiples[i] - table))
+          case 3: mesfractions.push(fraction(calculANePlusJamaisUtiliser(num * listeMultiples[i] / table), listeMultiples[i] - table))
             break
         }
       }

@@ -47,12 +47,6 @@ export default function Pythagore2D () {
   this.video = 'M9sceJ8gzNc'
 
   this.nouvelleVersion = function () {
-    if (this.sup) {
-      this.sup = parseInt(this.sup)
-    }
-    if (this.sup2) {
-      this.sup2 = parseInt(this.sup2)
-    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

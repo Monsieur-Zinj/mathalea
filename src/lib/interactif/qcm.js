@@ -6,7 +6,6 @@ import { gestionCan } from './gestionCan.js'
 import { afficheScore } from './gestionInteractif.js'
 
 export function verifQuestionQcm (exercice, i) {
-  exercice.answers = {} // On réinitialise les réponses
   let resultat
   // i est l'indice de la question
   let nbBonnesReponses = 0
@@ -28,9 +27,6 @@ export function verifQuestionQcm (exercice, i) {
     if (check != null) {
       if (check.checked) {
         // Sauvegarde pour les exports Moodle, Capytale...
-        if (exercice.answers === undefined) {
-          exercice.answers = {}
-        }
         exercice.answers[`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '1'
         // Gestion du feedback de toutes les cases cochées
         if (exercice.autoCorrection[i].propositions[indice].feedback) {
@@ -46,12 +42,12 @@ export function verifQuestionQcm (exercice, i) {
       if (proposition.statut) {
         if (check.checked === true) {
           nbBonnesReponses++
-          label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+          label.classList.add('bg-coopmaths-warn-100', 'rounded-lg', 'p-1')
         } else { // Bonnes réponses non cochées
-          label.classList.add('bg-green-100', 'rounded-lg', 'p-1')
+          label.classList.add('bg-coopmaths-warn-100', 'rounded-lg', 'p-1')
         }
       } else if (check.checked === true) {
-        label.classList.add('bg-red-100', 'rounded-lg', 'p-1')
+        label.classList.add('bg-coopmaths-action-200', 'rounded-lg', 'p-1')
         nbMauvaisesReponses++
       }
     }
@@ -100,7 +96,7 @@ export function verifQuestionQcm (exercice, i) {
 
 /**
  * @param {exercice}
- * @param {i} i indice de la question
+ * @param {number} i indice de la question
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
@@ -109,8 +105,8 @@ export function propositionsQcm (exercice, i) {
   let espace = ''
   let nbCols = 1
   let vertical = false
-  if (exercice.autoCorrection[i].propositions === undefined) {
-    window.notify('propositionsQcm a reçu une liste de propositions undefined')
+  if (exercice?.autoCorrection[i]?.propositions === undefined) {
+    window.notify('propositionsQcm a reçu une liste de propositions undefined', { autoCrorrection: exercice?.autoCorrection[i], propositions: exercice?.autoCorrection[i].propositions })
     return { texte: '', texteCorr: '' }
   }
   if (context.isAmc) return { texte: '', texteCorr: '' }
@@ -120,7 +116,7 @@ export function propositionsQcm (exercice, i) {
     espace = '\\qquad '
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
-  if (exercice.autoCorrection[i].options !== undefined) {
+  if (exercice?.autoCorrection[i]?.options !== undefined) {
     vertical = exercice.autoCorrection[i].options.vertical // est-ce qu'on veut une présentation en colonnes ?
     nbCols = exercice.autoCorrection[i].options.nbCols > 1 ? exercice.autoCorrection[i].options.nbCols : 1 // Nombre de colonnes avant de passer à la ligne
     if (!exercice.autoCorrection[i].options.ordered) {

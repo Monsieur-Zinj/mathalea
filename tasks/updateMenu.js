@@ -87,7 +87,7 @@ async function readInfos (dirPath) {
               type: matchInteractifType[1] || ''
             }
           } else {
-            infos.features.interactif= {
+            infos.features.interactif = {
               isActive: false,
               type: ''
             }

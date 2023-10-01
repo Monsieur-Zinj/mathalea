@@ -5,7 +5,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import { Triangles } from '../../modules/Triangles.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texEnumerateSansNumero } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, texEnumerateSansNumero } from '../../modules/outils.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 export const dateDeModifImportante = '25/07/2023'
 export const titre = 'Utiliser le vocabulaire des triangles'
@@ -143,9 +143,9 @@ export default function VocabulaireDesTriangles () {
       const triangleIsoceleRectangle = new Triangles()
       let partieDecimale1, partieDecimale2, partieDecimale3
       if (this.sup2) {
-        partieDecimale1 = calcul(randint(1, 9) / 10 * randint(0, 1))
-        partieDecimale2 = calcul(randint(1, 9) / 10 * randint(0, 1))
-        partieDecimale3 = calcul(randint(1, 9) / 10 * randint(0, 1))
+        partieDecimale1 = calculANePlusJamaisUtiliser(randint(1, 9) / 10 * randint(0, 1))
+        partieDecimale2 = calculANePlusJamaisUtiliser(randint(1, 9) / 10 * randint(0, 1))
+        partieDecimale3 = calculANePlusJamaisUtiliser(randint(1, 9) / 10 * randint(0, 1))
       } else {
         partieDecimale1 = 0
         partieDecimale2 = 0

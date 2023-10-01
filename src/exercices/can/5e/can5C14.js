@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Diviser avec des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default function DivisionAvecDecimaux () {
     let a, b
     switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':
-        a = calcul(randint(3, 9) / 10)
+        a = calculANePlusJamaisUtiliser(randint(3, 9) / 10)
         b = randint(2, 9)
         this.question = `Calculer sous forme décimale $\\dfrac{${texNombre(a * b)}}{${texNombre(a)}}$.`
         this.correction = `$\\dfrac{${texNombre(a * b)}}{${texNombre(a)}}=${texNombre((a * b) / a)}$. `
@@ -36,10 +36,10 @@ export default function DivisionAvecDecimaux () {
         $\\dfrac{${texNombre(a * b)}}{${texNombre(a)}}=\\dfrac{${texNombre(a * b)}\\times 10}{${texNombre(a)}\\times 10}=\\dfrac{${texNombre(a * b * 10)}}{${texNombre(a * 10)}}=${texNombre((a * b) / a)}$.
          `)
 
-        this.reponse = calcul((a * b) / a)
+        this.reponse = calculANePlusJamaisUtiliser((a * b) / a)
         break
       case 'b':
-        a = calcul(randint(3, 9) / 100)
+        a = calculANePlusJamaisUtiliser(randint(3, 9) / 100)
         b = randint(2, 9)
         this.question = `Calculer sous forme décimale $\\dfrac{${texNombre(a * b)}}{${texNombre(a)}}$.
         `
@@ -50,11 +50,11 @@ export default function DivisionAvecDecimaux () {
         =\\dfrac{${texNombre(a * b)}\\times 100}{${texNombre(a)}\\times 100}
         =\\dfrac{${texNombre(a * b * 100)}}{${texNombre(a * 100)}}
         =${texNombre((a * b) / a)}$. `)
-        this.reponse = calcul((a * b) / a)
+        this.reponse = calculANePlusJamaisUtiliser((a * b) / a)
         break
 
       case 'c':
-        a = calcul(randint(3, 9) / 100)
+        a = calculANePlusJamaisUtiliser(randint(3, 9) / 100)
         b = randint(2, 9)
         this.question = `Calculer sous forme décimale $\\dfrac{${texNombre(a * b)}}{${texNombre(a * 10)}}$.
         `
@@ -68,10 +68,10 @@ export default function DivisionAvecDecimaux () {
         $\\dfrac{1}{10}\\times\\dfrac{${texNombre(a * b * 100)}}{${texNombre(a * 100)}}=
         0,1\\times${texNombre((a * b * 100) / texNombre(a * 100))}=
         ${texNombre((a * b) / (10 * a))}$.  `)
-        this.reponse = calcul((a * b) / (a * 10))
+        this.reponse = calculANePlusJamaisUtiliser((a * b) / (a * 10))
         break
       case 'd':
-        a = calcul(randint(3, 9) / 10)
+        a = calculANePlusJamaisUtiliser(randint(3, 9) / 10)
         b = choice([1, 3, 7, 9])
         this.question = `Calculer sous forme décimale $\\dfrac{${texNombre(a * b)}}{${texNombre(a * 10)}}$.`
         this.correction = `$\\dfrac{${texNombre(a * b)}}{${texNombre(a * 10)}}=
@@ -83,7 +83,7 @@ export default function DivisionAvecDecimaux () {
         $\\dfrac{1}{10}\\times\\dfrac{${texNombre(a * b * 10)}}{${texNombre(a * 10)}}=
         0,1\\times${texNombre((a * b * 10) / texNombre(a * 10))}=
         ${texNombre((a * b) / (10 * a))}$. `)
-        this.reponse = calcul((a * b) / (a * 10))
+        this.reponse = calculANePlusJamaisUtiliser((a * b) / (a * 10))
         break
     }
     this.canEnonce = this.question// 'Compléter'

@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Soustraire 10n+9'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export default function SoustraireX9 () {
     const a = randint(5, 9)
     const b = randint(1, 8)
     const c = randint(1, 4)
-    this.reponse = calcul(a * 10 + b - c * 10 - 9)
+    this.reponse = calculANePlusJamaisUtiliser(a * 10 + b - c * 10 - 9)
     this.question = `Calculer $${a * 10 + b} - ${c * 10 + 9}$.`
     this.correction = `$${a * 10 + b} - ${c * 10 + 9}= ${this.reponse}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>

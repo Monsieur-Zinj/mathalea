@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de robinets'
 export const interactifReady = true
@@ -23,9 +23,9 @@ export default function ProblemesDeRobinets () {
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
-    const b = calcul(60 / a) // nombres de litres/min
+    const b = calculANePlusJamaisUtiliser(60 / a) // nombres de litres/min
     const c = randint(2, b - 1) % 10 // volume du seau à remplir
-    this.reponse = calcul(c * a)
+    this.reponse = calculANePlusJamaisUtiliser(c * a)
     this.question = `Le débit d'eau d'un robinet est de $${b}$ L/min.<br>
     
     Combien de secondes faut-il pour remplir un seau de $${c}$ L ?`

@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des m$^3$ et litres'
 export const interactifReady = true
@@ -26,8 +26,8 @@ export default function ConversionM3EtLitres () {
     let a, resultat
     switch (choice(['a', 'b'])) {
       case 'a':
-        a = calcul(randint(1, 12) + randint(1, 9) / 10)
-        resultat = calcul(a * 1000)
+        a = calculANePlusJamaisUtiliser(randint(1, 12) + randint(1, 9) / 10)
+        resultat = calculANePlusJamaisUtiliser(a * 1000)
         this.question = ` $${texNombre(a)}$ m$^3 =$ `
         if (!this.interactif) {
           this.question += '$ ....$ L'
@@ -42,8 +42,8 @@ export default function ConversionM3EtLitres () {
         this.canReponseACompleter = `$${texNombre(a)}$ m$^3 = \\dots$ L`
         break
       case 'b':
-        a = calcul(randint(1, 9) + randint(1, 9) * 10 + randint(0, 9) * 100)
-        resultat = calcul(a / 1000)
+        a = calculANePlusJamaisUtiliser(randint(1, 9) + randint(1, 9) * 10 + randint(0, 9) * 100)
+        resultat = calculANePlusJamaisUtiliser(a / 1000)
         this.question = `$${texNombre(a)}$  L $=$ `
         if (!this.interactif) {
           this.question += ' .... m$^3$ '

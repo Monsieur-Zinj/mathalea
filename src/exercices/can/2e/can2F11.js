@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { abs } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Utiliser la fonction carré pour comparer deux images'
 export const interactifReady = true
@@ -31,8 +31,8 @@ export default function ComparerAvecFctCarre () {
     let texte, texteCorr, a, b
     switch (choice([1, 2, 3])) { //
       case 1 :
-        a = calcul(randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
-        b = calcul(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
+        a = calculANePlusJamaisUtiliser(randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
+        b = calculANePlusJamaisUtiliser(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
           texte = 'Sélectionner1111111 la réponse correcte. '
           if (a < b) {
@@ -86,8 +86,8 @@ export default function ComparerAvecFctCarre () {
         this.canReponseACompleter = ''
         break
       case 2 :
-        a = calcul((randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000) * (-1))
-        b = calcul(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
+        a = calculANePlusJamaisUtiliser((randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000) * (-1))
+        b = calculANePlusJamaisUtiliser(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
           texte = 'Sélectionner2222222 la réponse correcte. '
           if (a < b) {
@@ -142,8 +142,8 @@ export default function ComparerAvecFctCarre () {
         this.canReponseACompleter = ''
         break
       case 3 :
-        a = calcul(randint(1, 6) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
-        b = calcul((-1) * a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
+        a = calculANePlusJamaisUtiliser(randint(1, 6) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
+        b = calculANePlusJamaisUtiliser((-1) * a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
           texte = 'Sélectionner 333333la réponse correcte. '
           if (abs(a) < abs(b)) {

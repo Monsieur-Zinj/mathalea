@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
@@ -29,7 +29,7 @@ export default function AppliquerUnPourcentage () {
     switch (this.bis ? choice([4, 5, 6]) : choice([1, 2, 3])) {
       case 1:// prendre 10%
         a = randint(2, 99)
-        this.reponse = calcul(a / 10)
+        this.reponse = calculANePlusJamaisUtiliser(a / 10)
         this.question = `Calculer $10${sp(1)}\\%$ de $${a}$.`
         this.correction = `$10${sp(1)}\\%$ de $${a} = 0,1 \\times ${a}=${texNombre(this.reponse)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -40,7 +40,7 @@ export default function AppliquerUnPourcentage () {
       case 2:// prendre  20%, 30%, 40%......
         a = randint(1, 9) * 10
         p = randint(2, 9, 5) * 10
-        this.reponse = calcul(a * p / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a * p / 100)
         this.question = `Calculer $${p}${sp(1)}\\%$ de $${a}$.`
         this.correction = `$${p}${sp(1)}\\%$ de $${a} = ${texNombre(this.reponse)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -52,7 +52,7 @@ export default function AppliquerUnPourcentage () {
       case 3:
         p = randint(2, 9) * 10
         a = randint(2, 9, p) * 10
-        this.reponse = calcul(p * a / 100)
+        this.reponse = calculANePlusJamaisUtiliser(p * a / 100)
         this.question = `Calculer $${p}${sp(1)}\\%$ de $${a}$.`
         if (p === 50) {
           this.correction = `$50${sp(1)}\\%$  de $${a} = ${this.reponse}$.`
@@ -70,7 +70,7 @@ export default function AppliquerUnPourcentage () {
         break
       case 4: // prende 1%
         a = randint(100, 999)
-        this.reponse = calcul(a / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a / 100)
         this.question = `Calculer $1${sp(1)}\\%$ de $${a}$.`
         this.correction = texteEnCouleur(`<br> Mentalement : <br>
         Prendre $1${sp(1)}\\%$  d'une quantité revient à la diviser par $100$.<br>
@@ -80,7 +80,7 @@ export default function AppliquerUnPourcentage () {
       case 5:// prendre  25%, 50%, 75%......
         a = randint(10, 50) * 20
         p = choice([25, 50, 75])
-        this.reponse = calcul(a * p / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a * p / 100)
         this.question = `Calculer $${p}${sp(1)}\\%$ de $${a}$.`
         this.correction = `$${p}${sp(1)}\\%$ de $${a} = ${texNombre(this.reponse)}$`
         if (p === 25) {
@@ -91,8 +91,8 @@ export default function AppliquerUnPourcentage () {
         } else if (p === 75) {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $75${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par 4 et à multiplier le résultat par $3$.<br>
-          Comme $25${sp(1)}\\%$  de $${a}$ vaut $${calcul(a / 4)}$, alors
-          $75${sp(1)}\\%$ de $${a}=${calcul(a / 4)}\\times 3=${this.reponse}$.
+          Comme $25${sp(1)}\\%$  de $${a}$ vaut $${calculANePlusJamaisUtiliser(a / 4)}$, alors
+          $75${sp(1)}\\%$ de $${a}=${calculANePlusJamaisUtiliser(a / 4)}\\times 3=${this.reponse}$.
          `)
         } else {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -103,7 +103,7 @@ export default function AppliquerUnPourcentage () {
       case 6:
         a = randint(10, 50) * 20
         p = choice([5, 10, 20])
-        this.reponse = calcul(a * p / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a * p / 100)
         this.question = `Calculer $${p}${sp(1)}\\%$ de $${a}$.`
         if (p === 5) {
           this.correction = `$5${sp(1)}\\%$  de $${a} = ${this.reponse}$.`
@@ -120,7 +120,7 @@ export default function AppliquerUnPourcentage () {
           this.correction = `$20${sp(1)}\\%$ de $${a} = ${this.reponse}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $20${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par $5$ soit diviser par $10$ puis multiplier le résultat par $2$.<br>
-          Donc $20${sp(1)}\\%$ de $${a}=\\dfrac{${a}}{10}\\times 2=${calcul(this.reponse / 2)}\\times 2=${this.reponse}$.
+          Donc $20${sp(1)}\\%$ de $${a}=\\dfrac{${a}}{10}\\times 2=${calculANePlusJamaisUtiliser(this.reponse / 2)}\\times 2=${this.reponse}$.
          `)
         }
         break

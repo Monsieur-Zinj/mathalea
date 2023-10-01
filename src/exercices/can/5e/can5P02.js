@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer (ou calculer avec) un pourcentage de proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -50,7 +50,7 @@ export default function PoucentageP2 () {
       ${d} représentent ..... $\\%$ du groupe.`
           this.optionsChampTexte = { texteApres: '$\\%$' }
           this.correction = `La proportion de ${n} est donnée par $\\dfrac{${b}}{${a}}=${texFractionReduite(b, a)}=${texNombre(b / a)}$, soit $${texNombre((b / a) * 100)}$ $\\%$.`
-          this.reponse = calcul((b / a) * 100)
+          this.reponse = calculANePlusJamaisUtiliser((b / a) * 100)
         } else {
           a = choice([30, 60])
           b = choice([6, 12, 18, 24])
@@ -61,15 +61,15 @@ export default function PoucentageP2 () {
           ${d} représentent ..... $\\%$ du groupe.`
           this.optionsChampTexte = { texteApres: '$\\%$' }
           this.correction = `La proportion de ${n} est donnée par $\\dfrac{${b}}{${a}}=${texFractionReduite(b, a)}=${texNombre(b / a)}$, soit $${texNombre((b / a) * 100)}$ $\\%$.`
-          this.reponse = calcul((b / a) * 100)
+          this.reponse = calculANePlusJamaisUtiliser((b / a) * 100)
         }
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = this.question//
         break
       case 'b':
-        a = calcul(randint(1, 5) * 1000)
-        b = calcul(randint(1, 8) * 10)
-        c = calcul(randint(1, 8) * 10)
+        a = calculANePlusJamaisUtiliser(randint(1, 5) * 1000)
+        b = calculANePlusJamaisUtiliser(randint(1, 8) * 10)
+        c = calculANePlusJamaisUtiliser(randint(1, 8) * 10)
         carac2 = choice(listeCarac2)
         n = carac2[0]
         d = carac2[1]
@@ -99,15 +99,15 @@ export default function PoucentageP2 () {
        commence par calculer  $10\\%$  de cette quantité en la divisant par $10$, puis on multiplie
        par $2$ ce résultat si on veut en calculer $20 \\%$, par $3$ si on veut en calculer $30\\%$, ....<br>
                            `)
-        this.reponse = calcul(c * b * a / 10000)
+        this.reponse = calculANePlusJamaisUtiliser(c * b * a / 10000)
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''
         break
 
       case 'c':
 
-        a = calcul(randint(1, 12) * 10)
-        b = calcul(a * randint(1, 6) / 10)
+        a = calculANePlusJamaisUtiliser(randint(1, 12) * 10)
+        b = calculANePlusJamaisUtiliser(a * randint(1, 6) / 10)
         c = (b / a) * 100
         choix = choice([true, false])
         this.question = `Le prix d'un article coûtant $${a}$ euros ${choix ? 'baisse' : 'augmente'} de $${b}$ euros.<br>
@@ -147,7 +147,7 @@ export default function PoucentageP2 () {
           this.correction = ` $50~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $2$ fois plus que $${b}$ € (car $2\\times 50=100$).<br>
            Le prix de l'article était donc : $2\\times${b}=${2 * b}$ €.  `
         }
-        this.reponse = calcul(100 * b / a)
+        this.reponse = calculANePlusJamaisUtiliser(100 * b / a)
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ €'
         break

@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -102,7 +102,7 @@ export default function DeterminerDesMedianes () {
       if (Array.isArray(repInteractive)) {
         setReponse(this, i, repInteractive, {
           decimals: 1,
-          milieuIntervalle: calcul((repInteractive[0] + repInteractive[1]) / 2),
+          milieuIntervalle: calculANePlusJamaisUtiliser((repInteractive[0] + repInteractive[1]) / 2),
           approx: 'intervalleStrict',
           formatInteractif: 'intervalleStrict'
         })

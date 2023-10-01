@@ -5,7 +5,7 @@ import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix, texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs'
 
 /**
@@ -113,10 +113,10 @@ export default function ProblemesAdditifsRelatifs5e () {
       }
 
       let bilan
-      if (isBilanPositif(calcul((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calcul(gainMultiple / 10)) + calcul(nombreDeGainsUnitaires * calcul(gainPerteUnitaire / 10)) - calcul(nombreDePertes * calcul(gainPerteUnitaire / 10)))) {
-        bilan = ['Globalement, le montant des gains', 'est supérieur au montant des pertes', `${texteEnCouleur('Le bilan est donc positif.')}`, 'a gagné', texPrix(calcul((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calcul(gainMultiple / 10)) + calcul(nombreDeGainsUnitaires * calcul(gainPerteUnitaire / 10)) - calcul(nombreDePertes * calcul(gainPerteUnitaire / 10)))]
+      if (isBilanPositif(calculANePlusJamaisUtiliser((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calculANePlusJamaisUtiliser(gainMultiple / 10)) + calculANePlusJamaisUtiliser(nombreDeGainsUnitaires * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)) - calculANePlusJamaisUtiliser(nombreDePertes * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)))) {
+        bilan = ['Globalement, le montant des gains', 'est supérieur au montant des pertes', `${texteEnCouleur('Le bilan est donc positif.')}`, 'a gagné', texPrix(calculANePlusJamaisUtiliser((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calculANePlusJamaisUtiliser(gainMultiple / 10)) + calculANePlusJamaisUtiliser(nombreDeGainsUnitaires * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)) - calculANePlusJamaisUtiliser(nombreDePertes * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)))]
       } else {
-        bilan = ['Globalement, le montant des gains', 'est inférieur au montant des pertes', `${texteEnCouleur('Le bilan est donc négatif.')}`, 'a perdu', texPrix((-1) * (calcul((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calcul(gainMultiple / 10)) + calcul(nombreDeGainsUnitaires * calcul(gainPerteUnitaire / 10)) - calcul(nombreDePertes * calcul(gainPerteUnitaire / 10))))]
+        bilan = ['Globalement, le montant des gains', 'est inférieur au montant des pertes', `${texteEnCouleur('Le bilan est donc négatif.')}`, 'a perdu', texPrix((-1) * (calculANePlusJamaisUtiliser((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calculANePlusJamaisUtiliser(gainMultiple / 10)) + calculANePlusJamaisUtiliser(nombreDeGainsUnitaires * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)) - calculANePlusJamaisUtiliser(nombreDePertes * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10))))]
       }
       // pour les situations
       const situations = [
@@ -125,9 +125,9 @@ export default function ProblemesAdditifsRelatifs5e () {
           nb_gains_unitaires: nombreDeGainsUnitaires,
           nb_pertes: nombreDePertes,
           nb_gains: nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes,
-          perte: calcul(gainPerteUnitaire / 10),
-          gain_unitaire: calcul(gainPerteUnitaire / 10),
-          gain_multiple: calcul(gainMultiple / 10),
+          perte: calculANePlusJamaisUtiliser(gainPerteUnitaire / 10),
+          gain_unitaire: calculANePlusJamaisUtiliser(gainPerteUnitaire / 10),
+          gain_multiple: calculANePlusJamaisUtiliser(gainMultiple / 10),
           enonce_1: 'lancer une balle sur des quilles.',
           enonce_2: '- Si la balle touche plusieurs quilles, le joueur gagne ',
           enonce_3: '- Si la balle ne touche qu\'une quille, le joueur gagne ',

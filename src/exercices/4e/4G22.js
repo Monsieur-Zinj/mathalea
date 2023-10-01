@@ -3,7 +3,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { RedactionPythagore } from './_pythagore.js'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 
@@ -171,9 +171,9 @@ export default function ProblemesPythagore () {
       }
       if (a > 9 && choice([true, true, true, false])) {
         // le plus souvent on utilise des décimaux
-        a = calcul(a / 10)
-        b = calcul(b / 10)
-        c = calcul(c / 10)
+        a = calculANePlusJamaisUtiliser(a / 10)
+        b = calculANePlusJamaisUtiliser(b / 10)
+        c = calculANePlusJamaisUtiliser(c / 10)
       }
 
       switch (listeTypeDeQuestions[i]) {

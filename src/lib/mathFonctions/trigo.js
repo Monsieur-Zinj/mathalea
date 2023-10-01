@@ -1,4 +1,4 @@
-import { calcul } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres.js'
 
 /**
@@ -21,7 +21,7 @@ export function radians (degres) {
  * @author Jean-Claude Lhote
  */
 export function degCos (a) {
-  return calcul(Math.cos(radians(a)))
+  return calculANePlusJamaisUtiliser(Math.cos(radians(a)))
 }
 
 /**
@@ -30,7 +30,7 @@ export function degCos (a) {
  * @author Jean-Claude Lhote
  */
 export function degSin (a) {
-  return calcul(Math.sin(radians(a)))
+  return calculANePlusJamaisUtiliser(Math.sin(radians(a)))
 }
 
 /**
@@ -39,7 +39,7 @@ export function degSin (a) {
  * @author Jean-Claude Lhote
  */
 export function degTan (a) {
-  return calcul(Math.tan(radians(a)))
+  return calculANePlusJamaisUtiliser(Math.tan(radians(a)))
 }
 
 /**

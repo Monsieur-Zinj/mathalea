@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { abs, rangeMinMax } from '../../lib/outils/nombres.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
@@ -49,13 +49,13 @@ export default function CalculsAvecPuissancesDeDix () {
         case 1:
           decalage = randint(-2, 2, 0)
           decalage = this.sup2 === 1 ? abs(decalage) : this.sup2 === 2 ? -abs(decalage) : decalage
-          mantisse = calcul(randint(11, 99) / 10)
+          mantisse = calculANePlusJamaisUtiliser(randint(11, 99) / 10)
           break
         case 2:
           decalage = randint(-3, 3, 0)
           decalage = this.sup2 === 1 ? abs(decalage) : this.sup2 === 2 ? -abs(decalage) : decalage
-          if (randint(0, 1) === 1) mantisse = calcul(randint(111, 999) / 100)
-          else mantisse = calcul((randint(1, 9) * 100 + randint(1, 9)) / 100)
+          if (randint(0, 1) === 1) mantisse = calculANePlusJamaisUtiliser(randint(111, 999) / 100)
+          else mantisse = calculANePlusJamaisUtiliser((randint(1, 9) * 100 + randint(1, 9)) / 100)
           break
 /*        case 3:
           decalage = randint(-4, 4, 0)
@@ -67,7 +67,7 @@ export default function CalculsAvecPuissancesDeDix () {
       exp = this.classe === 4
           ? (this.sup3 === 1 ? randint(decalage + 1, decalage + 3, 0) : this.sup3 === 2 ? randint(decalage - 3, decalage -1, 0) : randint(decalage - 3, decalage + 3, [decalage, 0]))
           : (this.sup3 === 1 ? randint(decalage + 3 + this.sup - 1, decalage + 8 + this.sup - 1, 0) : this.sup3 === 2 ? randint(decalage - 8 - (this.sup - 1), decalage - 2 - (this.sup - 1), [0, decalage]) : choice(rangeMinMax(decalage - 8 - (this.sup - 1), decalage + 8 + this.sup - 1), rangeMinMax(decalage - 2 - (this.sup - 1), decalage + 2 + this.sup - 1)))
-      mantisse1 = calcul(mantisse * 10 ** decalage)
+      mantisse1 = calculANePlusJamaisUtiliser(mantisse * 10 ** decalage)
       exp1 = exp - decalage
 
       decimalstring = `${texNombre(mantisse1)} \\times 10^{${exp1}}`

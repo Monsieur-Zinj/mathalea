@@ -7,7 +7,6 @@ export const dateDePublication = '12/08/2022'
 /**
  * Travailler les réductions d'expressions littérales
  * @author Jean-Claude Lhote
- * Référence 4L10-4
  */
 
 export const uuid = 'a40d6'

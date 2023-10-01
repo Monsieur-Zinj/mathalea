@@ -24,10 +24,8 @@ export const uuid = '9a5fe'
 export const ref = '6M10-1'
 export default function ProblemesAiresRectangles () {
   Exercice.call(this)
-  this.titre = titre
   this.consigne = "Trouver la mesure désignée par un point d'interrogation."
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 5
@@ -140,7 +138,6 @@ export default function ProblemesAiresRectangles () {
     const colonneDisponible = Array(typeDeGrille[0]).fill(true)
     const ligneDisponible = Array(typeDeGrille[1]).fill(true)
     let alternance
-    // const etapeAireInconnue = Math.floor((nombreTotalEtapes + 1) / 2)
     if (typeDeGrille[0] < typeDeGrille[1]) alternance = 'ligne'
     else if (typeDeGrille[0] > typeDeGrille[1]) alternance = 'colonne'
     else alternance = choice(['colonne', 'ligne'])
@@ -239,28 +236,28 @@ export default function ProblemesAiresRectangles () {
       texteCorr += 'D\'autre part :<br>'
       ;[texteCorr, colonneOuLigne] = etapesDeLaFinAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue, alternance === 'colonne')
       texteCorr += `Nous venons de calculer la largeur et la longueur du rectangle numéro $${miseEnEvidence(rectangles[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]].numero)}$.<br>`
-      texteCorr += `On en déduit que son aire est $${texNombre(longueursHorizontales[listeCellules[etapeAireInconnue - 1][0]], 1)}\\times ${texNombre(longueursVerticales[listeCellules[etapeAireInconnue - 1][1]], 1)} = ${texNombre(aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 2)}\\text{ cm}^2$.<br>`
+      texteCorr += `On en déduit que son aire est $${texNombre(longueursHorizontales[listeCellules[etapeAireInconnue - 1][0]], 1)}\\times ${texNombre(longueursVerticales[listeCellules[etapeAireInconnue - 1][1]], 1)} = ${miseEnEvidence(texNombre(aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 2))}\\text{ cm}^2$.<br>`
       reponse = [aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 'cm^2']
     } else {
       [texteCorr, colonneOuLigne] = etapesDeUnAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, nombreTotalEtapes, colonneOuLigne)
       if (colonneOuLigne) {
         if (longueursVerticales[listeCellules[listeCellules.length - 1][1]] === longueursHorizontales[listeCellules[listeCellules.length - 1][0]]) {
-          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit
-      $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1) + '\\text{ cm}', 'black')}$.`
+          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')}, soit
+      $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1))} \\text{ cm}$.`
         } else {
           texteCorr += `La mesure demandée est la ${longueursVerticales[listeCellules[listeCellules.length - 1][1]] > longueursHorizontales[listeCellules[listeCellules.length - 1][0]] ? 'largeur' : 'longueur'}
-      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit
-      $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1) + '\\text{ cm}', 'black')}$.`
+      du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')}, soit
+      $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1))} \\text{ cm}$.`
         }
         reponse = [longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 'cm']
       } else {
         if (longueursHorizontales[listeCellules[listeCellules.length - 1][0]] === longueursVerticales[listeCellules[listeCellules.length - 1][1]]) {
-          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit
-      $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1) + '\\text{ cm}', 'black')}$.`
+          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')}, soit
+      $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1))} \\text{ cm}$.`
         } else {
           texteCorr += `La mesure demandée est la ${longueursHorizontales[listeCellules[listeCellules.length - 1][0]] > longueursVerticales[listeCellules[listeCellules.length - 1][1]] ? 'largeur' : 'longueur'}
-    du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit
-    $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1) + '\\text{ cm}', 'black')}$.`
+    du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')}, soit
+    $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1))} \\text{ cm}$.`
         }
         reponse = [longueursVerticales[listeCellules[listeCellules.length - 1][1]], 'cm']
       }
@@ -346,20 +343,7 @@ export default function ProblemesAiresRectangles () {
     this.listeCorrections = []
     this.autoCorrection = []
     let choixDesTables
-    /*
-        let nombreTotalEtapes = []
 
-        if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
-          nombreTotalEtapes[0] = contraindreValeur(1, 7, this.sup, 5)
-        } else {
-          nombreTotalEtapes = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
-          for (let i = 0; i < nombreTotalEtapes.length; i++) {
-            nombreTotalEtapes[i] = contraindreValeur(1, 7, parseInt(nombreTotalEtapes[i]), 5)
-          }
-        }
-        nombreTotalEtapes = combinaisonListes(nombreTotalEtapes, this.nbQuestions)
-    */
     const nombreTotalEtapes = gestionnaireFormulaireTexte({
       max: 7,
       defaut: 5,
@@ -367,19 +351,6 @@ export default function ProblemesAiresRectangles () {
       saisie: this.sup
     })
 
-    /*
-        let typesDeProblemes = []
-        if (typeof this.sup4 === 'number') {
-          // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
-          typesDeProblemes[0] = contraindreValeur(1, 2, this.sup4, 1)
-        } else {
-          typesDeProblemes = this.sup4.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
-          for (let i = 0; i < typesDeProblemes.length; i++) {
-            typesDeProblemes[i] = contraindreValeur(1, 2, parseInt(typesDeProblemes[i]), 1)
-          }
-        }
-        typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
-    */
     const typesDeProblemes = gestionnaireFormulaireTexte({
       max: 2,
       defaut: 1,
@@ -413,8 +384,8 @@ export default function ProblemesAiresRectangles () {
       texte = tablo[0]
       texteCorr = tablo[1]
       reponse = tablo[2]
-      setReponse(this, q, reponse, { formatInteractif: 'unites' })
-      texte += ajouteChampTexteMathLive(this, q, 'largeur25 inline unites[longueurs,aires]', { texte: 'Réponse avec l\'unité : ' })
+      setReponse(this, q, reponse)
+      texte += ajouteChampTexteMathLive(this, q, 'largeur25 inline unites[longueurs,aires]', { texte: 'Réponse : ', texteApres: this.sup4 === 1 ? '$ \\text{ cm}$' : '$ \\text{ cm}^2$' })
       if (this.questionJamaisPosee(q, ...longueursHorizontales, ...longueursVerticales)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -425,7 +396,7 @@ export default function ProblemesAiresRectangles () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireTexte = ['Nombre d\'étapes (de 1 à 7)', 'Nombres séparés par des tirets']
-  this.besoinFormulaire2Numerique = ['Difficulté', 2, '1 : facile\n2 : difficile']
+  this.besoinFormulaire2Numerique = ['Difficulté', 2, '1 : Facile\n2 : Moins facile']
   this.besoinFormulaire3CaseACocher = ['Longueurs entières', true]
   this.besoinFormulaire4Texte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Longueur finale\n2 : Aire intermédiaire']
 }

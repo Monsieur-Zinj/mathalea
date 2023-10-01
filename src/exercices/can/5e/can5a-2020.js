@@ -19,7 +19,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { min, round } from 'mathjs'
-import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
@@ -652,7 +652,7 @@ export default function SujetCAN20205ieme () {
 
         case 23:
           a = randint(11, 24, 20)
-          reponse = calcul(101 * a)
+          reponse = calculANePlusJamaisUtiliser(101 * a)
           texte = `$${a}\\times 101=$`
           texteCorr = `$${a}\\times 101 = ${texNombre(101 * a)}$<br>`
 

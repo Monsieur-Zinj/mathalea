@@ -5,7 +5,7 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -52,11 +52,11 @@ export default function ProblemeCourse () {
     if (this.sup) {
       masseEnKgDeAliment1 = randint(2, 5)
     } else {
-      masseEnKgDeAliment1 = calcul(
+      masseEnKgDeAliment1 = calculANePlusJamaisUtiliser(
         randint(2, 5) + randint(1, 9) / 10
       )
     }
-    const prixAliment1 = calcul(randint(2, 4) + randint(1, 9) / 10)
+    const prixAliment1 = calculANePlusJamaisUtiliser(randint(2, 4) + randint(1, 9) / 10)
     const aliment1 = choice(['courgettes', 'carottes', 'pommes'])
     let masseEnGdeAliment2
 
@@ -65,14 +65,14 @@ export default function ProblemeCourse () {
       prixAliment2 = randint(15, 25)
       masseEnGdeAliment2 = randint(2, 7) * 500
     } else {
-      prixAliment2 = calcul(randint(12, 23) + randint(1, 9) / 10)
+      prixAliment2 = calculANePlusJamaisUtiliser(randint(12, 23) + randint(1, 9) / 10)
       masseEnGdeAliment2 = randint(21, 97) * 10
     }
     const aliment2 = choice(['bœuf', 'veau', 'poulet'])
-    const prixTotalAliment1 = calcul(masseEnKgDeAliment1 * prixAliment1)
-    const prixTotalAliment2 = calcul((masseEnGdeAliment2 * prixAliment2) / 1000)
-    const prixTotal = calcul(prixTotalAliment1 + prixTotalAliment2)
-    const masseEnKgDeAliment2 = calcul(masseEnGdeAliment2 / 1000)
+    const prixTotalAliment1 = calculANePlusJamaisUtiliser(masseEnKgDeAliment1 * prixAliment1)
+    const prixTotalAliment2 = calculANePlusJamaisUtiliser((masseEnGdeAliment2 * prixAliment2) / 1000)
+    const prixTotal = calculANePlusJamaisUtiliser(prixTotalAliment1 + prixTotalAliment2)
+    const masseEnKgDeAliment2 = calculANePlusJamaisUtiliser(masseEnGdeAliment2 / 1000)
     let texte = `${prenom} achète $${texNombre(masseEnKgDeAliment1, 1)}$ kg de ${aliment1} à $${texPrix(prixAliment1)}$ €/kg `
     texte += `et $${texNombre(masseEnGdeAliment2)}$ g de ${aliment2} à $${texPrix(prixAliment2)}$ €/kg. Quel est le prix total à payer ?`
     let texteCorr = `Prix des ${aliment1} : $${texNombre(masseEnKgDeAliment1, 1)}\\text{ kg} \\times ${texPrix(prixAliment1)}$ €/kg $ = ${texPrix(prixTotalAliment1)}$ €<br>`

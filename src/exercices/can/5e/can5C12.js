@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { calcul } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
@@ -26,7 +26,7 @@ export default function FractionDEntierQuiVaBien () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
     const b = a.d * c
-    this.reponse = calcul(a.n * c)
+    this.reponse = calculANePlusJamaisUtiliser(a.n * c)
     this.question = `Calculer $${a.texFraction}\\times ${b}$ sous la forme d'un entier.`
     if (a.n === 1) {
       this.correction = `$${a.texFraction}\\times ${b}=${a.n * c}$<br><br>`

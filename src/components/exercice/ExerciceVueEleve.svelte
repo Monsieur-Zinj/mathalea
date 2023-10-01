@@ -42,6 +42,8 @@
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event('exercicesAffiches', {
     bubbles: true
+  const exercicesAffiches = new window.Event('exercicesAffiches', {
+    bubbles: true
   })
   document.dispatchEvent(exercicesAffiches)
 
@@ -49,19 +51,23 @@
     title: string
   } = {
     title
+    title
   }
 
   $: {
     if (isInteractif && buttonScore) initButtonScore()
     headerExerciceProps = headerExerciceProps
     if ($globalOptions.setInteractive === '1') {
+    if ($globalOptions.setInteractive === '1') {
       setAllInteractif()
+    } else if ($globalOptions.setInteractive === '0') {
     } else if ($globalOptions.setInteractive === '0') {
       removeAllInteractif()
     }
   }
 
   let numberOfAnswerFields: number = 0
+  async function countMathField () {
   async function countMathField () {
     // IDs de la forme 'champTexteEx1Q0'
     const answerFields = document.querySelectorAll(
@@ -74,6 +80,9 @@
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
+    document.addEventListener('newDataForAll', newData)
+    document.addEventListener('setAllInteractif', setAllInteractif)
+    document.addEventListener('removeAllInteractif', removeAllInteractif)
     updateDisplay()
     setTimeout(() => {
       if (
@@ -83,9 +92,11 @@
         const fields = document.querySelectorAll('math-field')
         fields.forEach((field) => {
           field.setAttribute('disabled', 'true')
+          field.setAttribute('disabled', 'true')
         })
         const url = new URL(window.location.href)
         // Pour Moodle, les réponses sont dans l'URL
+        const answers = url.searchParams.get('answers')
         const answers = url.searchParams.get('answers')
         const objAnswers = answers ? JSON.parse(answers) : undefined
         $globalOptions.answers = objAnswers
@@ -122,6 +133,7 @@
       if (exercice.interactif) {
         loadMathLive()
         if (exercice.interactifType === 'cliqueFigure') {
+        if (exercice.interactifType === 'cliqueFigure') {
           prepareExerciceCliqueFigure(exercice)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
@@ -138,13 +150,21 @@
     }
     // affectation du zoom pour les figures scratch
     const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
+    const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
     for (const scratchDiv of scratchDivs) {
+      const svgDivs = scratchDiv.getElementsByTagName('svg')
       const svgDivs = scratchDiv.getElementsByTagName('svg')
       for (const svg of svgDivs) {
         if (svg.hasAttribute('data-width') === false) {
           const originalWidth = svg.getAttribute('width')
           svg.dataset.width = originalWidth ?? ''
+        if (svg.hasAttribute('data-width') === false) {
+          const originalWidth = svg.getAttribute('width')
+          svg.dataset.width = originalWidth ?? ''
         }
+        if (svg.hasAttribute('data-height') === false) {
+          const originalHeight = svg.getAttribute('height')
+          svg.dataset.height = originalHeight ?? ''
         if (svg.hasAttribute('data-height') === false) {
           const originalHeight = svg.getAttribute('height')
           svg.dataset.height = originalHeight ?? ''
@@ -161,6 +181,7 @@
   })
 
   async function newData () {
+  async function newData () {
     exercice.isDone = false
     if (isCorrectionVisible) switchCorrectionVisible()
     const seed = mathaleaGenerateSeed()
@@ -170,14 +191,17 @@
   }
 
   async function setAllInteractif () {
+  async function setAllInteractif () {
     if (exercice?.interactifReady) isInteractif = true
     updateDisplay()
   }
+  async function removeAllInteractif () {
   async function removeAllInteractif () {
     if (exercice?.interactifReady) isInteractif = false
     updateDisplay()
   }
 
+  async function updateDisplay () {
   async function updateDisplay () {
     if (exercice.seed === undefined) exercice.seed = mathaleaGenerateSeed()
     seedrandom(exercice.seed, { global: true })
@@ -199,14 +223,17 @@
   }
 
   function verifExerciceVueEleve () {
+  function verifExerciceVueEleve () {
     exercice.isDone = true
     if ($globalOptions.isSolutionAccessible) isCorrectionVisible = true
     if (exercice.numeroExercice != null) {
+      const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercice, divScore, buttonScore)
       resultsByExercice.update((l) => {
         l[exercice.numeroExercice as number] = {
           uuid: exercice.uuid,
           title: exercice.titre,
           indice: exercice.numeroExercice as number,
+          state: 'done',
           state: 'done',
           alea: exercice.seed,
           answers: exercice.answers,
@@ -215,6 +242,7 @@
         return l
       })
     }
+    if ($globalOptions.recorder === 'moodle') {
     if ($globalOptions.recorder === 'moodle') {
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get('iframe')
@@ -231,6 +259,7 @@
     }
   }
 
+  function initButtonScore () {
   function initButtonScore () {
     buttonScore.classList.remove(...buttonScore.classList)
     buttonScore.id = `buttonScoreEx${indiceExercice}`
@@ -267,7 +296,40 @@
       'duration-150',
       'ease-in-out',
       'checkReponses'
+      'inline-block',
+      'px-6',
+      'py-2.5',
+      'mr-10',
+      'my-5',
+      'ml-6',
+      'bg-coopmaths-action',
+      'dark:bg-coopmathsdark-action',
+      'text-coopmaths-canvas',
+      'dark:text-coopmathsdark-canvas',
+      'font-medium',
+      'text-xs',
+      'leading-tight',
+      'uppercase',
+      'rounded',
+      'shadow-md',
+      'transform',
+      'hover:bg-coopmaths-action-lightest',
+      'dark:hover:bg-coopmathsdark-action-lightest',
+      'hover:shadow-lg',
+      'focus:bg-coopmaths-action-lightest',
+      'dark:focus:bg-coopmathsdark-action-lightest',
+      'focus:shadow-lg',
+      'focus:outline-none',
+      'focus:ring-0',
+      'active:bg-coopmaths-action-lightest',
+      'dark:active:bg-coopmathsdark-action-lightest',
+      'active:shadow-lg',
+      'transition',
+      'duration-150',
+      'ease-in-out',
+      'checkReponses'
     )
+    if (divScore) divScore.innerHTML = ''
     if (divScore) divScore.innerHTML = ''
   }
 
@@ -283,6 +345,7 @@
     const mathalea2dFigures = document.getElementsByClassName('mathalea2d')
     if (mathalea2dFigures.length !== 0) {
       await tick()
+      const body = document.getElementsByTagName('body')[0]
       const body = document.getElementsByTagName('body')[0]
       for (let k = 0; k < mathalea2dFigures.length; k++) {
         if (initialDimensionsAreNeeded) {
@@ -304,6 +367,8 @@
           const newFigHeight = mathalea2dFigures[k].clientHeight * coef
           mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
           mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
+          mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
+          mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
           // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
         }
       }
@@ -315,6 +380,7 @@
     adjustMathalea2dFiguresWidth(true)
   }
 
+  function switchCorrectionVisible () {
   function switchCorrectionVisible () {
     isCorrectionVisible = !isCorrectionVisible
     if (
@@ -336,9 +402,11 @@
   }
 
   function switchInteractif () {
+  function switchInteractif () {
     if (isCorrectionVisible) switchCorrectionVisible()
     isInteractif = !isInteractif
     exercice.interactif = isInteractif
+    $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
     $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
     updateDisplay()
   }
@@ -450,6 +518,7 @@
         ).toString()}rem;  line-height: calc({$globalOptions.z || 1});"
       >
         <div class="flex flex-col w-full">
+          {#if typeof exercice.consigne !== 'undefined' && exercice.consigne.length !== 0}
           {#if typeof exercice.consigne !== 'undefined' && exercice.consigne.length !== 0}
             <div>
               <p

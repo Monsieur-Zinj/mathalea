@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Tester une égalité'
 
@@ -67,12 +67,12 @@ export default function TesterUneEgalite () {
           if (this.sup === 1) {
             a = randint(1, 9)
             b = randint(0, 4) * 2 + a % 2
-            x1 = parseInt(calcul((a + b) / 2))
+            x1 = parseInt(calculANePlusJamaisUtiliser((a + b) / 2))
             x2 = randint(1, 9, x1)
           } else {
             a = randint(-9, 9, [0])
             b = randint(-4, 4, [a, 0]) * 2 + a % 2
-            x1 = parseInt(calcul((a + b) / 2))
+            x1 = parseInt(calculANePlusJamaisUtiliser((a + b) / 2))
             x2 = randint(-9, 9, [0, x1])
           }
 
@@ -88,12 +88,12 @@ export default function TesterUneEgalite () {
           if (this.sup === 1) {
             a = randint(1, 3)
             b = randint(1, 3)
-            x2 = parseInt(calcul((10 * a + 4 * b) / 2))
+            x2 = parseInt(calculANePlusJamaisUtiliser((10 * a + 4 * b) / 2))
             x1 = randint(1, 9, x2)
           } else {
             a = randint(-3, 3, [0])
             b = randint(-3, 3, [0])
-            x2 = parseInt(calcul((10 * a + 4 * b) / 2))
+            x2 = parseInt(calculANePlusJamaisUtiliser((10 * a + 4 * b) / 2))
             x1 = randint(-9, 9, [0, x2])
           }
 

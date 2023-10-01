@@ -10,7 +10,7 @@ import { arcenciel } from '../../lib/format/style.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
@@ -56,21 +56,21 @@ export default function ConstruireSymetriquePoint5e () {
     let xMin, yMin, xMax, yMax, nontrouve, assezloin;
     [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
     for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "'"))
+      N.push(point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[i] + "'"))
       nontrouve = true
       while (longueur(N[i], O) < 3 || nontrouve) {
         nontrouve = true
         if (longueur(N[i], O) < 3) {
-          N[i].x = calcul(randint(-80, 80, 0) / 10)
-          N[i].y = calcul(randint(-80, 80, 0) / 10)
+          N[i].x = calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10)
+          N[i].y = calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10)
         } else {
           assezloin = true
           for (let j = 0; j < i; j++) {
             if (longueur(N[i], N[j]) < 4.5) { assezloin = false }
           }
           if (assezloin === false) { // éloigner les points donc les grilles
-            N[i].x = calcul(randint(-80, 80, 0) / 10)
-            N[i].y = calcul(randint(-80, 80, 0) / 10)
+            N[i].x = calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10)
+            N[i].y = calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10)
           } else { nontrouve = false }
         }
       }

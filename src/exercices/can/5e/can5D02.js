@@ -4,7 +4,7 @@ import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
@@ -33,7 +33,7 @@ export default function HeuresDecimalesHeuresMinutes2 () {
 
           a = randint(1, 5)
           b = choice([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.25, 0.75])
-          d = calcul(b * 60)
+          d = calculANePlusJamaisUtiliser(b * 60)
           if (!this.interactif) {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$ .....  h ..... min`
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
@@ -54,7 +54,7 @@ export default function HeuresDecimalesHeuresMinutes2 () {
 
           a = randint(1, 5)
           b = choice([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.25, 0.75])
-          d = calcul(b * 60)
+          d = calculANePlusJamaisUtiliser(b * 60)
           if (!this.interactif) {
             texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ ..... h`
             texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>

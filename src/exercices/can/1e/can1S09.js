@@ -3,7 +3,7 @@ import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.j
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
@@ -39,8 +39,8 @@ export default function RelationRec () {
         case 1 :// magazine arithmetico-geo
           a = randint(1, 30)
           // u = randint(1, 10) * choice([-1, 1])
-          b = calcul(randint(1, 10) * 100)
-          c = calcul(randint(5, 20) * 1000)
+          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
+          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a}${sp(1)}\\%$  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
           En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.
 
@@ -69,8 +69,8 @@ export default function RelationRec () {
         case 2 :// magazine geo
           a = randint(1, 15)
           // u = randint(1, 10) * choice([-1, 1])
-          b = calcul(randint(1, 10) * 100)
-          c = calcul(randint(5, 20) * 1000)
+          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
+          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
 
           texte = `Chaque année, un magazine perd $${a}${sp()} \\%$  de ses abonnés.<br>
           En $${texNombre(2020)}$, ce magazine compte $${c}$ abonnés.
@@ -98,10 +98,10 @@ export default function RelationRec () {
           break
 
         case 3 :// magazine arith
-          a = calcul(randint(1, 15) * 100)
+          a = calculANePlusJamaisUtiliser(randint(1, 15) * 100)
           // u = randint(1, 10) * choice([-1, 1])
-          b = calcul(randint(1, 10) * 100)
-          c = calcul(randint(5, 20) * 1000)
+          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
+          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a}$ abonnés.<br>
           En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.
           On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
@@ -128,10 +128,10 @@ export default function RelationRec () {
 
         case 4 :// magazine arith/geo avec tiers....
           proportion = ['le quart', 'le tiers', 'le dixième', 'le cinquième', 'la moitié']//
-          a = calcul(randint(1, 15) * 100)
+          a = calculANePlusJamaisUtiliser(randint(1, 15) * 100)
           // u = randint(1, 10) * choice([-1, 1])
-          b = calcul(randint(1, 10) * 100)
-          c = calcul(randint(5, 20) * 1000)
+          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
+          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
           T = choice(proportion)
           texte = `Chaque année, un magazine perd ${T}  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
           En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.

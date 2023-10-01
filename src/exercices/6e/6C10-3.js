@@ -1,7 +1,7 @@
 import { choice, creerCouples } from '../../lib/outils/arrayOutils.js'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, calcul, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
@@ -83,8 +83,8 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       couple = choice([[1, 10], [1, 100], [1, 1000], [10, 100], [10, 1000], [100, 100], [100, 1000]])
       k1 = couple[0]
       k2 = couple[1]
-      a = calcul(a / k1)
-      b = calcul(b / k2)
+      a = calculANePlusJamaisUtiliser(a / k1)
+      b = calculANePlusJamaisUtiliser(b / k2)
       if (a === 1) {
         a = 0.01
       }
@@ -99,7 +99,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         ' \\times ' +
         texNombre(b) +
         ' = ' +
-        texNombre(calcul(a * b)) +
+        texNombre(calculANePlusJamaisUtiliser(a * b)) +
         ' $'
       /**********************************/
       // QCM
@@ -112,22 +112,22 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
           feedback: 'Correct !'
         },
         {
-          texte: `$${texNombre2(calcul(a * b / 10))}$`,
+          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b / 10))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calcul(a * b * 10))}$`,
+          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b * 10))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calcul(a * b / 100))}$`,
+          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b / 100))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calcul(a * b * 100))}$`,
+          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b * 100))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         }

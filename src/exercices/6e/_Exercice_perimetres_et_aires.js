@@ -20,7 +20,7 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } 
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -112,8 +112,8 @@ export default function ExercicePerimetresEtAires () {
       if (this.sup2) {
         partieDecimale1 = randint(1, 9)
         partieDecimale2 = randint(1, 9, [partieDecimale1])
-        partieDecimale1 = calcul(partieDecimale1 / 10)
-        partieDecimale2 = calcul(partieDecimale2 / 10)
+        partieDecimale1 = calculANePlusJamaisUtiliser(partieDecimale1 / 10)
+        partieDecimale2 = calculANePlusJamaisUtiliser(partieDecimale2 / 10)
       } else {
         partieDecimale1 = 0
         partieDecimale2 = 0
@@ -121,7 +121,7 @@ export default function ExercicePerimetresEtAires () {
       texte = 'Calculer le périmètre et l\'aire '
       switch (typesDeQuestionsDisponibles[typesDeQuestions[i] - 1]) {
         case 'carre':
-          cote = calcul(randint(2, 8) + partieDecimale1)
+          cote = calculANePlusJamaisUtiliser(randint(2, 8) + partieDecimale1)
           nomCarre = creerNomDePolygone(4, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(nomCarre)
           if (this.sup3) {
@@ -157,8 +157,8 @@ export default function ExercicePerimetresEtAires () {
           texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
           texteCorr = `$\\mathcal{P}_{${nomCarre}}=4\\times${texNombre(cote)}${sp()}\\text{cm}=${texNombre(4 * cote)}${sp()}\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}_{${nomCarre}}=${texNombre(cote)}${sp()}\\text{cm}\\times${texNombre(cote)}${sp()}\\text{cm}=${texNombre(cote * cote)}${sp()}\\text{cm}^2$`
-          resultat1 = [calcul(4 * cote)]
-          resultat2 = [calcul(cote * cote)]
+          resultat1 = [calculANePlusJamaisUtiliser(4 * cote)]
+          resultat2 = [calculANePlusJamaisUtiliser(cote * cote)]
           break
         case 'rectangle':
           L = randint(3, 11)
@@ -201,16 +201,16 @@ export default function ExercicePerimetresEtAires () {
           texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
           texteCorr = `$\\mathcal{P}_{${nomRectangle}}=(${texNombre(L)}${sp()}\\text{cm}+${l}${sp()}\\text{cm})\\times2=${texNombre((L + l) * 2)}${sp()}\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}_{${nomRectangle}}=${texNombre(L)}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${texNombre(L * l)}${sp()}\\text{cm}^2$`
-          resultat1 = [calcul(2 * L + 2 * l)]
-          resultat2 = [calcul(L * l)]
+          resultat1 = [calculANePlusJamaisUtiliser(2 * L + 2 * l)]
+          resultat2 = [calculANePlusJamaisUtiliser(L * l)]
           break
         case 'triangle_rectangle': {
           triplet = choice(tripletsPythagoriciens)
           // enleveElement(tripletsPythagoriciens, triplet)
           const adjust = (this.sup2 ? Math.floor(10 * (randint(6, 15) + randint(4, 8) * 0.1) / Math.max(...triplet)) * 0.1 : 1)
-          a = calcul(triplet[0] * (adjust))
-          b = calcul(triplet[1] * (adjust))
-          c = calcul(triplet[2] * (adjust))
+          a = calculANePlusJamaisUtiliser(triplet[0] * (adjust))
+          b = calculANePlusJamaisUtiliser(triplet[1] * (adjust))
+          c = calculANePlusJamaisUtiliser(triplet[2] * (adjust))
           nomTriangle = creerNomDePolygone(3, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(nomTriangle)
           if (this.sup3) {
@@ -256,12 +256,12 @@ export default function ExercicePerimetresEtAires () {
           texteCorr = `$\\mathcal{P}_{${nomTriangle}}=${texNombre(a)}${sp()}\\text{cm}+${texNombre(b)}
           ${sp()}\\text{cm}+${texNombre(c)}${sp()}\\text{cm}=${texNombre(a + b + c)}${sp()}\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}_{${nomTriangle}}=${texNombre(a)}${sp()}\\text{cm}\\times${texNombre(b)}${sp()}\\text{cm}\\div2=${texNombre(a * b / 2)}${sp()}\\text{cm}^2$`
-          resultat1 = [calcul(a + b + c)]
-          resultat2 = [calcul(a * b / 2)]
+          resultat1 = [calculANePlusJamaisUtiliser(a + b + c)]
+          resultat2 = [calculANePlusJamaisUtiliser(a * b / 2)]
           break
         }
         case 'cercle':
-          R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
+          R = (this.sup2 ? calculANePlusJamaisUtiliser(randint(4, 5) + randint(1, 9) / 10) : calculANePlusJamaisUtiliser(randint(4, 10)))
           if (this.sup3) {
             texte += 'de ce disque. Donner une valeur approchée au dixième de cm pour l\'un et au dixième de cm$^2$ pour l\'autre.'
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)
@@ -318,7 +318,7 @@ export default function ExercicePerimetresEtAires () {
           resultat2 = [troncature(R * R * (this.sup4 ? 3.14 : Math.PI), 1), troncature(R * R * (this.sup4 ? 3.14 : Math.PI) + 0.1, 1)]
           break
         case 'demi-disque':
-          R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
+          R = (this.sup2 ? calculANePlusJamaisUtiliser(randint(4, 5) + randint(1, 9) / 10) : calculANePlusJamaisUtiliser(randint(4, 10)))
           if (this.sup3) {
             texte += 'de ce demi-disque. Donner une valeur approchée au dixième de cm pour l\'un et au dixième de cm$^2$ pour l\'autre.'
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)

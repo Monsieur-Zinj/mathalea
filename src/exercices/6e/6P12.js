@@ -4,7 +4,7 @@ import { texPrix } from '../../lib/format/style.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -176,9 +176,9 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
   const y = couplePremiersEntreEux[indexN][1]
   let x
   if (versionSimplifiee) {
-    x = calcul(n * randint(2, 5))
+    x = calculANePlusJamaisUtiliser(n * randint(2, 5))
   } else {
-    x = calcul(n * pu, 2)
+    x = calculANePlusJamaisUtiliser(n * pu, 2)
   }
   let met = false
   let p
@@ -201,7 +201,7 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
         `$${y}$ ${objet} coûtent donc $${miseEnCouleur(y)}$ fois plus que $${miseEnCouleur(texPrix(x / n), 'blue')}$ €, le prix d'${listeDeChose[index1][index2]}.` +
         `<br> $${miseEnCouleur(texPrix(x / n), 'blue')}$ € $\\times ${miseEnCouleur(y)} = ${texPrix(x * y / n)}$ €<br>` +
         ` ${texteEnCouleurEtGras('Conclusion :', 'black')} $${y}$ ${objet} coûtent $${texPrix(x * y / n)}$ €.`
-  setReponse(exo, i, calcul(x * y / n))
+  setReponse(exo, i, calculANePlusJamaisUtiliser(x * y / n))
 
   return {
     qtexte: texte,
@@ -237,8 +237,8 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
   const alea1 = randint(0, 3) // pour le choix de l'ingredient
   const alea2 = randint(0, liste[alea1].recettes.length - 1) // pour le choix de la recette
   const alea3 = randint(0, liste[alea1].quantites_par_pers.length - 1) // pour le choix de la quantité par personne.
-  const quantite = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personne
-  const quantiteReponse = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal) // Pour la correction
+  const quantite = calculANePlusJamaisUtiliser(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personne
+  const quantiteReponse = calculANePlusJamaisUtiliser(liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal) // Pour la correction
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${stringNombre(quantite)} g de ${liste[alea1].ingredient}. <br>` +
         `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
@@ -322,7 +322,7 @@ function questionDillution (exo, i) { // questions de mélange de volumes
         ` Il faut donc ${texteEnCouleur(volumeFinalAff)} fois plus de ${liste[alea1].solute} que ${stringNombre(quantite / volumeInitial)} ${liste[alea1].unite_solute} :` +
         `<br> ${texteEnCouleur(stringNombre(quantite / volumeInitial), 'blue')} ${liste[alea1].unite_solute} $\\times$ ${texteEnCouleur(volumeFinalAff)} = ${stringNombre(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute}<br>` +
         `${texteEnCouleurEtGras('Conclusion :', 'black')} il faut prévoir ${stringNombre(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute}.`
-  setReponse(exo, i, calcul(quantite / volumeInitial * volumeFinal))
+  setReponse(exo, i, calculANePlusJamaisUtiliser(quantite / volumeInitial * volumeFinal))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
@@ -372,7 +372,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
         ` Le ${liste[alea1].locomotion} parcourt donc ${texteEnCouleur(dureeR)} fois plus de distance qu'en 1 h.` +
         `<br> ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km $\\times$ ${texteEnCouleur(dureeR)} = $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km <br>` +
         `${texteEnCouleurEtGras('Conclusion :', 'black')} le ${liste[alea1].locomotion} parcourra en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km en ${dureeR} h.`
-  setReponse(exo, i, calcul(liste[alea1].vitesse[alea2] * dureeR * facteur))
+  setReponse(exo, i, calculANePlusJamaisUtiliser(liste[alea1].vitesse[alea2] * dureeR * facteur))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
@@ -398,7 +398,7 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
         ` ${distanceCarte2} cm, c'est ${texteEnCouleur(distanceCarte2)} fois 1 cm.` +
         `<br> ${texteEnCouleur(stringNombre(distanceReel / distanceCarte), 'blue')} km $\\times$ ${texteEnCouleur(distanceCarte2)} = ${stringNombre(distanceCarte2 * distanceReel / distanceCarte)} km<br>` +
         `${texteEnCouleurEtGras('Conclusion :', 'black')} son trajet correspond en réalité à une distance de ${stringNombre(distanceCarte2 * distanceReel / distanceCarte)} km.`
-  setReponse(exo, i, calcul(distanceCarte2 * distanceReel / distanceCarte))
+  setReponse(exo, i, calculANePlusJamaisUtiliser(distanceCarte2 * distanceReel / distanceCarte))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
@@ -441,7 +441,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
   } else {
     surfaceInitiale = liste[alea1].qtt_surface[alea3]
     quantite = liste[alea1].qtt_matiere_unitaire[alea2]
-    surfaceFinale = calcul(rapport[alea4] * liste[alea1].qtt_surface[alea3], 3)
+    surfaceFinale = calculANePlusJamaisUtiliser(rapport[alea4] * liste[alea1].qtt_surface[alea3], 3)
   }
   const prenoms = [prenomF(), prenomM()]
   const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
@@ -458,7 +458,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
         ` ${stringNombre(surfaceFinale)} m$^2$, c'est ${texteEnCouleur(stringNombre(surfaceFinale))} fois plus que 1 m$^2$.` +
         `<br> ${texteEnCouleur(stringNombre(quantite / surfaceInitiale), 'blue')} ${liste[alea1].unite} $\\times$ ${texteEnCouleur(stringNombre(surfaceFinale))} = ${stringNombre(quantite * surfaceFinale / surfaceInitiale)} ${liste[alea1].unite}<br>` +
         `${texteEnCouleurEtGras('Conclusion :', 'black')} ${prenoms[0]} aura besoin de ${stringNombre(quantite * surfaceFinale / surfaceInitiale)} ${liste[alea1].unite} pour recouvrir ${stringNombre(surfaceFinale)} m$^2$.`
-  setReponse(exo, i, calcul(quantite * surfaceFinale / surfaceInitiale, 3))
+  setReponse(exo, i, calculANePlusJamaisUtiliser(quantite * surfaceFinale / surfaceInitiale, 3))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr

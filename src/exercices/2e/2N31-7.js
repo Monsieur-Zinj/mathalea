@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
@@ -46,15 +46,15 @@ export default function CalculsAvecPuissancesDeDixBis () {
           break
         case 1:
           decalage = randint(-2, 2, 0)
-          mantisse = calcul(randint(11, 99) / 10)
+          mantisse = calculANePlusJamaisUtiliser(randint(11, 99) / 10)
           exp = (!this.sup2)
             ? randint(decalage - 3, decalage + 3, [decalage, 0])
             : choice(rangeMinMax(decalage - 9, decalage + 9), rangeMinMax(decalage - 3, decalage + 3))
           break
         case 2:
           decalage = randint(-3, 3, 0)
-          if (randint(0, 1) === 1) mantisse = calcul(randint(111, 999) / 100)
-          else mantisse = calcul((randint(1, 9) * 100 + randint(1, 9)) / 100)
+          if (randint(0, 1) === 1) mantisse = calculANePlusJamaisUtiliser(randint(111, 999) / 100)
+          else mantisse = calculANePlusJamaisUtiliser((randint(1, 9) * 100 + randint(1, 9)) / 100)
           exp = (!this.sup2)
             ? randint(decalage - 3, decalage + 3, [decalage, 0])
             : choice(rangeMinMax(decalage - 10, decalage + 10), rangeMinMax(decalage - 4, decalage + 4))
@@ -67,7 +67,7 @@ export default function CalculsAvecPuissancesDeDixBis () {
           break */
       }
       // nombre = calcul(mantisse * 10 ** exp)
-      mantisse1 = calcul(mantisse * 10 ** decalage)
+      mantisse1 = calculANePlusJamaisUtiliser(mantisse * 10 ** decalage)
       exp1 = exp - decalage
 
       // decimalstring = `${texNombre(mantisse1)} \\times 10^{${exp1}}`

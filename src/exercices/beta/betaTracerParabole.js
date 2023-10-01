@@ -8,10 +8,10 @@ import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { simplify, floor } from 'mathjs'
 
-const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calcul(v, 3))
+const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calculANePlusJamaisUtiliser(v, 3))
 
 export const titre = 'Etude d\'une parabole'
 

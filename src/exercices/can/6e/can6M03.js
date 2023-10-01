@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir en mètres'
 export const interactifReady = true
@@ -24,14 +24,14 @@ export default function ConvertirEnM () {
     let a
     if (choice([true, false])) {
       a = randint(0, 5) * 10 + randint(1, 9)
-      this.reponse = calcul(a * 1000)
+      this.reponse = calculANePlusJamaisUtiliser(a * 1000)
       this.question = `$${a}$ km font combien de mètres ?`
       this.correction = `Comme $1$ km $=1000$ m, $${a}$ km = $${texNombre(this.reponse)}$ m.`
       this.formatChampTexte = 'largeur15 inline'
       this.optionsChampTexte = { texteApres: ' m' }
     } else {
       a = randint(11, 24) * 10 + randint(0, 9)
-      this.reponse = calcul(a / 100)
+      this.reponse = calculANePlusJamaisUtiliser(a / 100)
       this.question = `$${a}$ cm font combien de mètres ?`
       this.correction = `Comme $1$ cm $=0,01$ m, $${a}$ cm = $${texNombre(this.reponse)}$ m.`
       this.formatChampTexte = 'largeur15 inline'

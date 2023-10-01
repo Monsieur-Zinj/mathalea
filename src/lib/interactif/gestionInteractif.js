@@ -45,6 +45,7 @@ function verifExerciceQcm (exercice /** Exercice */, divScore /** HTMLDivElement
   // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
   let nbQuestionsValidees = 0
   let nbQuestionsNonValidees = 0
+  exercice.answers = {}
   for (let i = 0; i < exercice.autoCorrection.length; i++) {
     const resultat = verifQuestionQcm(exercice, i)
     resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++

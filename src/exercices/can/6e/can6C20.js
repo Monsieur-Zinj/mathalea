@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le complément à 1'
 export const interactifReady = true
@@ -26,10 +26,10 @@ export default function ComplementAUn () {
     let a
     switch (choice([1, 2, 3])) {
       case 1:
-        a = calcul(randint(2, 9) / 10)
+        a = calculANePlusJamaisUtiliser(randint(2, 9) / 10)
         this.question = `Calculer $1-${texNombre(a)}$.`
         this.correction = `$1-${texNombre(a)}=${texNombre(1 - a)}$`
-        this.reponse = calcul(1 - a)
+        this.reponse = calculANePlusJamaisUtiliser(1 - a)
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     $1$ unité = $10$ dixièmes.<br>
@@ -37,10 +37,10 @@ export default function ComplementAUn () {
     Ainsi, $1-${texNombre(a)}=${texNombre(1 - a)}$.  `)
         break
       case 2:
-        a = calcul(randint(2, 9) / 100)
+        a = calculANePlusJamaisUtiliser(randint(2, 9) / 100)
         this.question = `Calculer $1-${texNombre(a)}$.`
         this.correction = `$1-${texNombre(a)}=${texNombre(1 - a)}$`
-        this.reponse = calcul(1 - a)
+        this.reponse = calculANePlusJamaisUtiliser(1 - a)
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     $1$ unité = $100$ centièmes.<br>
@@ -48,10 +48,10 @@ export default function ComplementAUn () {
     Ainsi, $1-${texNombre(a)}=${texNombre(1 - a)}$.  `)
         break
       case 3:
-        a = calcul(randint(2, 9) / 1000)
+        a = calculANePlusJamaisUtiliser(randint(2, 9) / 1000)
         this.question = `Calculer $1-${texNombre(a)}$.`
         this.correction = `$1-${texNombre(a)}=${texNombre(1 - a)}$`
-        this.reponse = calcul(1 - a)
+        this.reponse = calculANePlusJamaisUtiliser(1 - a)
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     $1$ unité = $1000$ millièmes.<br>

@@ -2,7 +2,7 @@ import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Déterminer un taux global d’évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,8 +33,8 @@ export default function TauxGlobal () {
 
     switch (choice(['a', 'b', 'c', 'd'])) {
       case 'a':// augmente puis diminue
-        a = calcul(randint(1, 9) * 10)
-        b = calcul(randint(1, 9) * 10)
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 10)
+        b = calculANePlusJamaisUtiliser(randint(1, 9) * 10)
         coeffG = (1 + a / 100) * (1 - b / 100)
         listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 - a / 100) * (1 - b / 100))}$${sp(4)}`,
 `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
@@ -58,12 +58,12 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
         Le taux d'évolution global est donc : $${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$
 `
         }
-        this.reponse = calcul((coeffG - 1) * 100)
+        this.reponse = calculANePlusJamaisUtiliser((coeffG - 1) * 100)
         break
 
       case 'b':// augmente puis augmente
-        a = calcul(randint(1, 9) * 10)
-        b = calcul(randint(1, 9) * 10)
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 10)
+        b = calculANePlusJamaisUtiliser(randint(1, 9) * 10)
         coeffG = (1 + a / 100) * (1 + b / 100)
         listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 - a / 100) * (1 + b / 100))}$${sp(4)}`,
   `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
@@ -81,11 +81,11 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
            $1+${texNombre(coeffG - 1)}$. <br>
           Le taux d'évolution global est donc : $+${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
   `
-        this.reponse = calcul((coeffG - 1) * 100)
+        this.reponse = calculANePlusJamaisUtiliser((coeffG - 1) * 100)
         break
       case 'c':// diminue puis diminue
-        a = calcul(randint(1, 9) * 10)
-        b = calcul(randint(1, 9) * 10)
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 10)
+        b = calculANePlusJamaisUtiliser(randint(1, 9) * 10)
         coeffG = (1 - a / 100) * (1 - b / 100)
         listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 - a / 100) * (1 - b / 100))}$${sp(4)}`,
   `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 + a / 100) * (1 + b / 100))}$${sp(4)}`,
@@ -103,11 +103,11 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
            $1-${texNombre(1 - coeffG)}$. <br>
           Le taux d'évolution global est donc : $${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
   `
-        this.reponse = calcul((coeffG - 1) * 100)
+        this.reponse = calculANePlusJamaisUtiliser((coeffG - 1) * 100)
         break
       case 'd':// diminue puis augmente
-        a = calcul(randint(1, 9) * 10)
-        b = calcul(randint(1, 9) * 10)
+        a = calculANePlusJamaisUtiliser(randint(1, 9) * 10)
+        b = calculANePlusJamaisUtiliser(randint(1, 9) * 10)
         coeffG = (1 - a / 100) * (1 + b / 100)
         listeCalculs = [`$\\bullet$ $${texNombre(1 - a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre((1 - a / 100) * (1 + b / 100))}$${sp(4)}`,
   `$\\bullet$ $${texNombre(1 + a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre((1 + a / 100) * (1 - b / 100))}$${sp(4)}`,
@@ -131,7 +131,7 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
           Le taux d'évolution global est donc : $${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
   `
         }
-        this.reponse = calcul((coeffG - 1) * 100)
+        this.reponse = calculANePlusJamaisUtiliser((coeffG - 1) * 100)
         break
     }
     this.canEnonce = this.question// 'Compléter'

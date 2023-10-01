@@ -19,7 +19,7 @@ import { fraction } from '../../../modules/fractions.js'
 import { max, min, round } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
 import { paveLPH3d } from '../../../modules/3d.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
@@ -412,7 +412,7 @@ export default function SujetCAN2022cinquieme () {
         case 12:
           a = randint(2, 4)
           b = randint(10, 59)
-          d = calcul(a * 60 + b)
+          d = calculANePlusJamaisUtiliser(a * 60 + b)
           if (!this.interactif) {
             texte = `Complète : <br>$${d}$ min $=$ .....  h ..... min`
             texteCorr = ` On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>

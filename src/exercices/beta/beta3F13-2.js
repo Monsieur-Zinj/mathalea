@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
  * ref 3F13-2
  */
 export const uuid = 'be398'
-export const ref = '3F13-2'
+export const ref = 'beta3F13-2'
 
 export function cesar (word, decal) {
   let mot = ''

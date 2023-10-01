@@ -4,7 +4,7 @@ import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { texTexte } from '../../lib/format/texTexte.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -117,7 +117,7 @@ export default function ExerciceConversions (niveau = 1) {
         } else {
           unite = 'o'
         }
-        resultat = calcul(a * prefixeMulti[k][1]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calculANePlusJamaisUtiliser(a * prefixeMulti[k][1]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = '$ ' + texNombre(a) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
 
         texteCorr =
@@ -190,7 +190,7 @@ export default function ExerciceConversions (niveau = 1) {
         const ecart = unite2 - unite1 // nombre de multiplication par 1000 pour passer de l'un à l'autre
         if (unite1 === 0 && a % 1 !== 0) a = randint(3, 100) // Pas de nombre d'octets non entiers
         if (!div) {
-          resultat = calcul(a * Math.pow(10, 3 * ecart))
+          resultat = calculANePlusJamaisUtiliser(a * Math.pow(10, 3 * ecart))
           unite = listeUniteInfo[unite1]
           texte =
                         '$ ' +

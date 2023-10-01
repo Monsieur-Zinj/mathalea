@@ -1,4 +1,4 @@
-import { equal, fraction, largerEq, max, number } from 'mathjs'
+import { equal, largerEq, max, number } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { randint } from '../../modules/outils.js'
 import { choice } from '../outils/arrayOutils.js'
@@ -11,11 +11,11 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../outils/
  * rendant l'expression mathématique inutilisable avec Algebrite et aussi dans la définition de la fonction x=>f(x)
  * @param {boolean} rand Donner true si on veut un polynôme aléatoire
  * @param {number} deg à fournir >=0 en plus de rand === true pour fixer le degré
- * @param {Array} coeffs liste de coefficients par ordre de degré croissant OU liste de couples [valeurMax, relatif?]
+ * @param {number[]|Array<[number, boolean]>} coeffs liste de coefficients par ordre de degré croissant OU liste de couples [valeurMax, relatif?]
  * @author Jean-Léon Henry, Jean-Claude Lhote
  * @example Polynome({ coeffs:[0, 2, 3] }) donne 3x²+2x
  * @example Polynome({ rand:true, deg:3 }) donne un ax³+bx²+cx+d à coefficients entiers dans [-10;10]\{0}
- * @example Polynome({ rand:true, coeffs:[[10, true], [0], [5, false]] }) donne un ax²+b avec a∈[1;5] et b∈[-10;10]\{0}
+ * @example Polynome({ rand:true, coeffs:[[10, true], 0, [5, false]] }) donne un ax²+b avec a∈[1;5] et b∈[-10;10]\{0}
  */
 export class Polynome {
   constructor ({ rand = false, deg = -1, coeffs = [[10, true], [10, true]] }) {
@@ -27,10 +27,16 @@ export class Polynome {
       }
       // Création de this.monomes
       this.monomes = coeffs.map(function (el) {
-        if (equal(el[0], 0)) {
-          return new FractionEtendue(0)
-        } else {
+        if (typeof el === 'number') {
+          return new FractionEtendue(el)
+        } else if (Array.isArray(el)){
           return el[1] ? (new FractionEtendue(choice([-1, 1]) * randint(1, number(el[0])))).simplifie() : (new FractionEtendue(randint(1, number(el[0]))).simplifie())
+        } else if (el instanceof FractionEtendue){
+          return el
+        } else if (el instanceof Decimal){
+          return new FractionEtendue(el)
+        } else {
+          window.notify(`Dans Polynome, l'un des coefficient n'est pas d'un type attendu.`, {coeff: el})
         }
       })
     } else {
@@ -49,7 +55,7 @@ export class Polynome {
     const monomes = this.monomes
     this.fonction = function (x) {
       if (!(x instanceof FractionEtendue)) {
-        const f = fraction(x.toFixed(3))
+        const f = new FractionEtendue(x.toFixed(3))
         x = new FractionEtendue(f.n * f.s, f.d)
       }
       let val = new FractionEtendue(0)

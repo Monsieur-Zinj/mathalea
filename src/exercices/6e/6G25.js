@@ -10,7 +10,7 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -58,8 +58,8 @@ export default function ConstruireMediatrices6e () {
     const dB = droiteParPointEtPerpendiculaire(B, medB)
     medA.color = colorToLatexOrHTML('blue')
     medB.color = colorToLatexOrHTML('green')
-    const cA = cercle(A, calcul(randint(25, 40) / 20))
-    const cB = cercle(B, calcul(randint(45, 60) / 20))
+    const cA = cercle(A, calculANePlusJamaisUtiliser(randint(25, 40) / 20))
+    const cB = cercle(B, calculANePlusJamaisUtiliser(randint(45, 60) / 20))
     const A1 = pointIntersectionLC(dA, cA, noms[0], 1)
     const A2 = symetrieAxiale(A1, medA, noms[1])
     const B1 = pointIntersectionLC(dB, cB, noms[2], 1)

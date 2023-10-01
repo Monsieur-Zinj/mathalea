@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { sommeDesChiffres } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -95,11 +95,11 @@ export default function CriteresDeDivisibilite () {
           sommeString = sommeDesChiffres(n)
           texte = `$${texNombre(n)}$ est-il divisible par $3$ ?`
           if (n % 3 === 0) {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${calcul(sommeString[0] / 3)}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${calculANePlusJamaisUtiliser(sommeString[0] / 3)}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(n)}$ est divisible par $3$ donc $${texNombre(n)}$ est divisible par $3$.`
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${calcul((sommeString[0] - sommeString[0] % 3) / 3)
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${calculANePlusJamaisUtiliser((sommeString[0] - sommeString[0] % 3) / 3)
               }+${sommeString[0] % 3}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(
               n
@@ -115,11 +115,11 @@ export default function CriteresDeDivisibilite () {
           sommeString = sommeDesChiffres(n)
           texte = `$${texNombre(n)}$ est-il divisible par $9$ ?`
           if (sommeString[0] % 9 === 0) {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${calcul(sommeString[0] / 9)}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${calculANePlusJamaisUtiliser(sommeString[0] / 9)}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(n)}$ est divisible par $9$ donc $${texNombre(n)}$ est divisible par $9$.`
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${calcul((sommeString[0] - sommeString[0] % 9) / 9)}+${sommeString[0] % 9}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${calculANePlusJamaisUtiliser((sommeString[0] - sommeString[0] % 9) / 9)}+${sommeString[0] % 9}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(n)}$ n'est pas divisible par $9$ donc $${texNombre(n)}$ n'est pas divisible par $9$.`
             this.autoCorrection[i].propositions[1].statut = true
           }

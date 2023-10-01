@@ -1,4 +1,4 @@
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Chercher un reste en minutes'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export default function ResteEnMinutes () {
   this.nouvelleVersion = function () {
     const a = randint(1, 2)
     const b = randint(10, 59)
-    const d = calcul(a * 60 + b)
+    const d = calculANePlusJamaisUtiliser(a * 60 + b)
     this.question = ` $${d}$ minutes $=$  $a$ heure(s) et  $b$ minute(s).<br>
     Quelle est la valeur de $b$ sachant que $a$ est le plus grand possible?`
     this.correction = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = $${a}h ${b}$ min, donc $b=${b}$.`

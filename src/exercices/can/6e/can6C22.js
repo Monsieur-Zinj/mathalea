@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer la valeur décimale d’une fraction'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export default function ValeursDecimalesFractions () {
     switch (choice([1, 2, 3, 4])) {
       case 1:
         a = randint(1, 9, 5)
-        this.reponse = calcul(a / 5)
+        this.reponse = calculANePlusJamaisUtiliser(a / 5)
         this.question = `Donner la valeur décimale de  $\\dfrac{${a}}{5}$.`
         if (a === 1) {
           this.correction = `$\\dfrac{${a}}{5}=${texNombre(this.reponse)}$`
@@ -48,7 +48,7 @@ export default function ValeursDecimalesFractions () {
       case 2:
         b = choice([1, 3, 5, 7, 9, 11])
         this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{4}$.`
-        this.reponse = calcul(b / 4)
+        this.reponse = calculANePlusJamaisUtiliser(b / 4)
         if (b === 1) {
           this.correction = `$\\dfrac{${b}}{4}=${texNombre(this.reponse)}$`
         }
@@ -74,7 +74,7 @@ export default function ValeursDecimalesFractions () {
       case 3:
         b = choice([1, 3, 5, 7, 9, 11, 13, 17, 19])
         this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{10}$.`
-        this.reponse = calcul(b / 10)
+        this.reponse = calculANePlusJamaisUtiliser(b / 10)
         if (b === 1) {
           this.correction = `$\\dfrac{${b}}{10}=${texNombre(this.reponse)}$`
         }
@@ -90,7 +90,7 @@ export default function ValeursDecimalesFractions () {
       case 4:
         b = choice([3, 5, 7, 9, 11, 13, 17, 19])
         this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{2}$.`
-        this.reponse = calcul(b / 2)
+        this.reponse = calculANePlusJamaisUtiliser(b / 2)
 
         this.correction = `$\\dfrac{${b}}{2}=${texNombre(this.reponse)}$`
         this.correction += texteEnCouleur(`

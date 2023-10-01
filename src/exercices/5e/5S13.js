@@ -6,7 +6,7 @@ import { arrondi } from '../../lib/outils/nombres.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
@@ -103,10 +103,10 @@ export default function CalculerDesFrequences () {
           texte += '\\\\\\hline\\end{array}$'
         }
 
-        texte += '<br><br> Calculer la fréquence de la valeur ' + `$${calcul(nombreDes + indexValeur)}$.`
-        texteCorr = 'La valeur ' + `$${calcul(nombreDes + indexValeur)}$ apparaît ` + `$${tirages[indexValeur][1]}$ fois.<br>Le nombre total de lancers est $${texNombre(nombreTirages)}$.<br>`
-        texteCorr += 'La fréquence de la valeur ' + `$${calcul(nombreDes + indexValeur)}$` + ' est ' + `$${deprecatedTexFraction(tirages[indexValeur][1], texNombre(nombreTirages))}=${texNombre(calcul(tirages[indexValeur][1] / nombreTirages))}$<br>`
-        texteCorr += 'Soit ' + `$${texNombre(calcul(tirages[indexValeur][1] * 100 / nombreTirages))}\\thickspace\\%$.`
+        texte += '<br><br> Calculer la fréquence de la valeur ' + `$${calculANePlusJamaisUtiliser(nombreDes + indexValeur)}$.`
+        texteCorr = 'La valeur ' + `$${calculANePlusJamaisUtiliser(nombreDes + indexValeur)}$ apparaît ` + `$${tirages[indexValeur][1]}$ fois.<br>Le nombre total de lancers est $${texNombre(nombreTirages)}$.<br>`
+        texteCorr += 'La fréquence de la valeur ' + `$${calculANePlusJamaisUtiliser(nombreDes + indexValeur)}$` + ' est ' + `$${deprecatedTexFraction(tirages[indexValeur][1], texNombre(nombreTirages))}=${texNombre(calculANePlusJamaisUtiliser(tirages[indexValeur][1] / nombreTirages))}$<br>`
+        texteCorr += 'Soit ' + `$${texNombre(calculANePlusJamaisUtiliser(tirages[indexValeur][1] * 100 / nombreTirages))}\\thickspace\\%$.`
         reponse = new FractionEtendue(tirages[indexValeur][1], nombreTirages)
       } else if (this.sup === 2) { // ici on trie des notes
         nombreNotes = choice([8, 10, 12])
@@ -131,10 +131,10 @@ export default function CalculerDesFrequences () {
         reponse = new FractionEtendue(frequence, nombreNotes)
         if (arrondi(frequence / nombreNotes, 3) === frequence / nombreNotes) { // valeurs exactes
           texteCorr += `$=${texNombre(frequence / nombreNotes, 3)}$<br>` // fréquence à 3 chiffres significatifs
-          texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreNotes))}\\thickspace\\%$.` // fréquence en pourcentage avec 1 décimale
+          texteCorr += 'Soit ' + `$${texNombre(calculANePlusJamaisUtiliser(frequence * 100 / nombreNotes))}\\thickspace\\%$.` // fréquence en pourcentage avec 1 décimale
         } else {
           texteCorr += `$\\approx${texNombre(frequence / nombreNotes, 3)}$<br>` // valeurs arrondies
-          texteCorr += 'Soit environ ' + `$${texNombre(calcul(frequence * 100 / nombreNotes), 1)}\\thickspace\\%$.`
+          texteCorr += 'Soit environ ' + `$${texNombre(calculANePlusJamaisUtiliser(frequence * 100 / nombreNotes), 1)}\\thickspace\\%$.`
         }
       } else { // ici on relève des températures
         const mois = randint(1, 12)
@@ -187,10 +187,10 @@ export default function CalculerDesFrequences () {
         reponse = new FractionEtendue(frequence, joursParMois(mois, annee))
         if (arrondi(frequence / nombreTemperatures, 3) === frequence / nombreTemperatures) { // valeurs exactes
           texteCorr += `$=${texNombre(frequence / nombreTemperatures, 3)}$<br>`
-          texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreTemperatures))}\\thickspace\\%$.`
+          texteCorr += 'Soit ' + `$${texNombre(calculANePlusJamaisUtiliser(frequence * 100 / nombreTemperatures))}\\thickspace\\%$.`
         } else {
           texteCorr += `$\\approx${texNombre(frequence / nombreTemperatures, 3)}$<br>` // valeurs arrondies
-          texteCorr += 'Soit environ ' + `$${texNombre(calcul(frequence * 100 / nombreTemperatures), 1)}\\thickspace\\%$.`
+          texteCorr += 'Soit environ ' + `$${texNombre(calculANePlusJamaisUtiliser(frequence * 100 / nombreTemperatures), 1)}\\thickspace\\%$.`
         }
       }
       if (this.interactif) {

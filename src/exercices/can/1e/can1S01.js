@@ -3,7 +3,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite explicite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -56,7 +56,7 @@ export default function CalculTermeSuiteExp () {
           }
         }
         this.correction += `=${a * k + b}$.`
-        this.reponse = calcul(a * k + b)
+        this.reponse = calculANePlusJamaisUtiliser(a * k + b)
         break
       case 'b':// polynome second degré
         a = randint(1, 2) * choice([-1, 1])
@@ -107,7 +107,7 @@ export default function CalculTermeSuiteExp () {
           }
         }
         this.correction += `${ecritureAlgebrique(c)}=${a * k * k + b * k + c}$.`
-        this.reponse = calcul(a * k * k + b * k + c)
+        this.reponse = calculANePlusJamaisUtiliser(a * k * k + b * k + c)
         break
       case 'c':// suite a+b/n
         choix = choice([true, false])
@@ -126,10 +126,10 @@ export default function CalculTermeSuiteExp () {
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
         if (choix === true) {
           this.correction += `${a}+\\dfrac{${b}}{${k}}=${a}+${texNombre(b / k)}=${texNombre(a + b / k)}$.`
-          this.reponse = calcul(a + b / k)
+          this.reponse = calculANePlusJamaisUtiliser(a + b / k)
         } else {
           this.correction += `${a}-\\dfrac{${b}}{${k}}=${a}-${texNombre(b / k)}=${texNombre(a - b / k)}$.`
-          this.reponse = calcul(a - b / k)
+          this.reponse = calculANePlusJamaisUtiliser(a - b / k)
         }
 
         break

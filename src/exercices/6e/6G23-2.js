@@ -5,7 +5,7 @@ import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angles'
@@ -38,7 +38,7 @@ export default function TracerTriangle2Angles () {
 
     ) {
       if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
-      const c = calcul(randint(30, 70) / 10)
+      const c = calculANePlusJamaisUtiliser(randint(30, 70) / 10)
       const angle1 = randint(20, 70)
       const angle2 = randint(20, 70)
       const p = creerNomDePolygone(3, listeDeNomsDePolygones)

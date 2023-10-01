@@ -4,7 +4,7 @@ import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 export const titre = 'Reconnaître des tableaux de proportionnalité'
 
 /**
@@ -34,7 +34,7 @@ function justificationsOK (n1, n2, n3, coeff, sens) {
 function justificationsKO (n1, n2, n3, coeff, operation, sens) {
   let sortie
   const isEq = function (n1, n2, coeff) {
-    if (calcul(n1 / (n1 + coeff), 8) === calcul(n2 / (n2 + coeff), 8)) {
+    if (calculANePlusJamaisUtiliser(n1 / (n1 + coeff), 8) === calculANePlusJamaisUtiliser(n2 / (n2 + coeff), 8)) {
       return '='
     } else {
       return '\\neq'

@@ -148,7 +148,7 @@ export default class SignePuissance extends Exercice {
       }
       this.autoCorrection[i].options = { ordered: true }
       monQcm = propositionsQcm(this, i)
-      if (this.questionJamaisPosee(i, n)) {
+      if (this.questionJamaisPosee(i, a, n)) {
         this.listeQuestions.push(texte + monQcm.texte)
         this.listeCorrections.push(texteCorr)
         this.listeCanReponsesACompleter[i] = monQcm.texte

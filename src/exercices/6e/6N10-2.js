@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -108,7 +108,7 @@ export default function DecompositionNombreDecimal () {
           texteCorr =
                         texte + `$${miseEnEvidence(texNombre(di / 10 + ci / 100 + mi / 1000))}$`
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          setReponse(this, i, calcul(di / 10 + ci / 100 + mi / 1000))
+          setReponse(this, i, calculANePlusJamaisUtiliser(di / 10 + ci / 100 + mi / 1000))
           this.autoCorrection[i].reponse.param.digits = 6
           this.autoCorrection[i].reponse.param.decimals = 4
           break
@@ -164,7 +164,7 @@ export default function DecompositionNombreDecimal () {
           texte = `Le nombre de dizaines du nombre $${n}$ est : `
           texteCorr = texte + `$${miseEnEvidence(texNombre(d + c * 10 + m * 100))}$`
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          setReponse(this, i, calcul(d + c * 10 + m * 100))
+          setReponse(this, i, calculANePlusJamaisUtiliser(d + c * 10 + m * 100))
           this.autoCorrection[i].reponse.param.digits = 6
           this.autoCorrection[i].reponse.param.decimals = 0
           break
@@ -172,7 +172,7 @@ export default function DecompositionNombreDecimal () {
           texte = `Le nombre de centaines du nombre $${n}$ est : `
           texteCorr = texte + `$${miseEnEvidence(texNombre(c + m * 10))}$`
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          setReponse(this, i, calcul(c + m * 10))
+          setReponse(this, i, calculANePlusJamaisUtiliser(c + m * 10))
           this.autoCorrection[i].reponse.param.digits = 6
           this.autoCorrection[i].reponse.param.decimals = 0
           break
@@ -180,7 +180,7 @@ export default function DecompositionNombreDecimal () {
           texte = `Le nombre de dixièmes du nombre $${n}$ est : `
           texteCorr = texte + `$${miseEnEvidence(texNombre(di + u * 10 + d * 100 + c * 1000 + m * 10000))}$`
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          setReponse(this, i, calcul(di + u * 10 + d * 100 + c * 1000 + m * 10000))
+          setReponse(this, i, calculANePlusJamaisUtiliser(di + u * 10 + d * 100 + c * 1000 + m * 10000))
           this.autoCorrection[i].reponse.param.digits = 6
           this.autoCorrection[i].reponse.param.decimals = 0
           break

@@ -6,8 +6,57 @@ import { traceCompas } from './cercle.js'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages.js'
 import { milieu, point, pointSurDroite, pointSurSegment } from './points.js'
 import { demiDroite, longueur, norme, segment, vecteur } from './segmentsVecteurs.js'
-import { texteParPosition } from './textes.js'
+import { latexParCoordonnees, texteParPosition } from './textes.js'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations.js'
+
+/**
+ * Afin de régler le problème des noms de droites en latex qui ne peuvent se fondre dans le svg, cette fonction retourne un Array de deux objets :
+ * Le premier est la droite (avec toutes ses propriétés et méthodes
+ * Le deuxième est un objet texteParPosittion ou latexParCoordonnees
+ * @param d
+ * @param nom
+ * @returns {*[]}
+ */
+export function droiteAvecNomLatex (d, nom) { // nom est un latexParCoordonnees
+  let absNom, ordNom
+  if (egal(d.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
+    absNom = -d.c / d.a + 0.8 // l'abscisse du label est décalé de 0.8
+    ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
+  } else if (egal(d.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
+    absNom = context.fenetreMathalea2d[0] + 0.8 // l'abscisse du label est xmin +1
+    ordNom = -d.c / d.b + 0.8 // l'ordonnée du label est décalée de 0.8
+  } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
+    // y=(-a.x-c)/b est l'aquation cartésienne et x=(-by-c)/a
+    const y0 = (-d.a * (context.fenetreMathalea2d[0] + 1) - d.c) / d.b
+    const y1 = (-d.a * (context.fenetreMathalea2d[2] - 1) - d.c) / d.b
+    const x0 = (-d.b * (context.fenetreMathalea2d[1] + 1) - d.c) / d.a
+    const x1 = (-d.b * (context.fenetreMathalea2d[3] - 1) - d.c) / d.a
+    if (y0 > context.fenetreMathalea2d[1] && y0 < context.fenetreMathalea2d[3]) {
+      absNom = context.fenetreMathalea2d[0] + 1
+      ordNom = y0 + d.pente
+    } else {
+      if (y1 > context.fenetreMathalea2d[1] && y1 < context.fenetreMathalea2d[3]) {
+        absNom = context.fenetreMathalea2d[2] - 1
+        ordNom = y1 - d.pente
+      } else {
+        if (x0 > context.fenetreMathalea2d[0] && x0 < context.fenetreMathalea2d[2]) {
+          absNom = x0
+          ordNom = context.fenetreMathalea2d[1] + Math.abs(d.pente)
+        } else {
+          if (x1 > context.fenetreMathalea2d[0] && x1 < context.fenetreMathalea2d[2]) {
+            absNom = x1
+            ordNom = context.fenetreMathalea2d[3] + d.pente
+          } else {
+            absNom = (context.fenetreMathalea2d[0] + context.fenetreMathalea2d[2]) / 2
+            ordNom = pointSurDroite(d, absNom).y
+          }
+        }
+      }
+    }
+  }
+  const leNom = latexParCoordonnees(nom, absNom, ordNom, d.color, 0, 0, '', 8)
+  return [d, leNom]
+}
 
 /**  Trace une droite
  * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
@@ -37,7 +86,7 @@ import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } fr
 // JSDOC Validee par EE Aout 2022
 export function Droite (arg1, arg2, arg3, arg4, arg5) {
   let a, b, c
-  
+
   ObjetMathalea2D.call(this, {})
   if (arguments.length === 2) {
     if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) {
@@ -63,7 +112,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
           arg3
         })
       }
-      
+
       // droite d'équation ax +by +c =0
       this.nom = ''
       this.a = arg1
@@ -203,6 +252,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     point(0, 0),
     point(this.directeur.x, this.directeur.y)
   )
+  this.bordures = [Math.min(this.x1, this.x2), Math.min(this.y1, this.y2), Math.max(this.x1, this.x2), Math.max(this.y1, this.y2)]
   let absNom, ordNom, leNom
   if (this.nom !== '') {
     if (egal(this.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
@@ -240,8 +290,20 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
         }
       }
     }
-    leNom = texteParPosition(this.nom, absNom, ordNom, 'milieu', this.color, 1, 'middle', true)
-  } else leNom = vide2d()
+    if (this.nom.includes('$')) {
+      leNom = latexParCoordonnees(this.nom, absNom, ordNom, this.color, 0, 0, '', 8)
+    } else {
+      leNom = texteParPosition(this.nom, absNom, ordNom, 'milieu', this.color, 1, 'middle', true)
+    }
+  }
+
+  if (this.nom.includes('$')) { // On a du Latex, donc on ne peut pas utiliser droite() tel quel.
+    window.notify('Droite() appelé avec un nom contenant du Latex... utiliser droiteAvecNom() à la place !\nOn va retourner un array contenant la droite et un latexParCoordonnees dans un proche avenir !\nIl faut donc adapter l\'exo qui a provoqué ça.\n Pour l\'instant on retourne une droite sans nom.', { nom: this.nom })
+    // On retourne une droite sans nom accompagnée de son nom Latex
+    // return droiteAvecNomLAtex(new Droite(point(this.x1, this.y1), point(this.x2, this.y2)), leNom)
+    // @fixme la ligne suivante sera à retirer lorsque les exos concernés auront été repérés. Et la précédente à utiliser.
+    return new Droite(point(this.x1, this.y1), point(this.x2, this.y2)) // On retourne une droite sans nom en attendant que quelqu'un adapte l'exo et utilise droiteAvecNom() à la place de droite.
+  }
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -272,11 +334,11 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     const B1 = pointSurSegment(B, A, -50)
     if (this.nom === '') {
       return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
-        coeff
+          coeff
       )}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id ="${this.id}" />`
     } else {
       return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
-        coeff
+          coeff
       )}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
     }
   }
@@ -305,11 +367,11 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
         tableauOptions.push(' dashed ')
         break
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    
+
     let optionsDraw = []
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -318,7 +380,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     const B = point(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
-    
+
     if (this.nom !== '') {
       return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});` + leNom.tikz()
     } else {
@@ -332,7 +394,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     const B1 = pointSurSegment(B, A, -50)
     const s = segment(A1, B1, this.color[0])
     s.isVisible = this.isVisible
-    return s.svgml(coeff, amp) + leNom.svg(coeff)
+    return s.svgml(coeff, amp)
   }
   this.tikzml = function (amp) {
     const A = point(this.x1, this.y1)
@@ -341,7 +403,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     const B1 = pointSurSegment(B, A, -50)
     const s = segment(A1, B1, this.color[1])
     s.isVisible = this.isVisible
-    return s.tikzml(amp) + leNom.tikz()
+    return s.tikzml(amp)
   }
 }
 
@@ -776,7 +838,7 @@ export function Bissectrice (
         objets.push(sMP, sNP, codes)
       }
     }
-    
+
     this.svg = function (coeff) {
       let code = ''
       for (const objet of objets) {

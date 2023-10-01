@@ -10,8 +10,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Exprimer une variable en fonction des autres'
-export const dateDeModifImportante = '21/09/2023' // Correction par Rémi Angot avec ajout des réponses pour les case 4 à 8
-
+export const dateDePublication = '25/09/2023'
 /**
  * 
  * @author Gilles Mora
@@ -84,7 +83,7 @@ export default function ExprimerEnFonctionDesAutres () {
                          <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$ est $${nomV[1]}= ${nomV[0]}-${nomV[2]}$.`}
            
                          if(choix===3){//a=b/c on cherche b
-  texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres vérifiant l'égalité suivante : 
+  texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres non nuls vérifiant l'égalité suivante : 
   $${nomV[0]}=\\dfrac{${nomV[1]}}{${nomV[2]}}$.<br>
                             Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$.`
                             reponse = [`${nomV[1]}=${nomV[0]}\\times ${nomV[2]}`, `${nomV[0]}\\times ${nomV[2]}=${nomV[1]}`]
@@ -96,7 +95,7 @@ export default function ExprimerEnFonctionDesAutres () {
                                          <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$ est $${nomV[1]}=${nomV[0]}\\times ${nomV[2]}$.`}
       
 if(choix===4){//a=b/c on cherche c
- texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres vérifiant l'égalité suivante :
+ texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres non nuls vérifiant l'égalité suivante :
   $${nomV[0]}=\\dfrac{${nomV[1]}}{${nomV[2]}}$.<br>
 Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$ et $${nomV[1]}$.`
  reponse = [`${nomV[2]}=\\dfrac{${nomV[1]}}{${nomV[0]}}`, `\\dfrac{${nomV[1]}}{${nomV[0]}}=${nomV[2]}`]
@@ -109,7 +108,7 @@ $\\begin{aligned}
 <br> Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$ et $${nomV[1]}$ est $${nomV[2]}=\\dfrac{${nomV[1]}}{${nomV[0]}}$.`}
                                      
 if(choix===5){//a=b*c on cherche b
-  texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres vérifiant l'égalité suivante :
+  texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres non nuls vérifiant l'égalité suivante :
   $${nomV[0]}=${nomV[1]}\\times ${nomV[2]}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$.`
   reponse = [`${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[2]}}`, `\\dfrac{${nomV[0]}}{${nomV[2]}}}=${nomV[1]}`]
@@ -130,8 +129,8 @@ shuffle(['c','m','f','e']),  shuffle(['K','L','M','N']), shuffle(['r','s','t','u
   ]
  nomV = choice(nomVariables)
  choix= randint(1,12)
- intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres vérifiant l'égalité suivante :`
   if(choix===1){//a=b-cd on cherche  c
+    intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
  texte = `${intro}`+` $${nomV[0]}=${nomV[1]}-${nomV[2]}${nomV[3]}$.<br>
    Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$.`
     reponse = [`${nomV[2]}=\\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[3]}}`, `\\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[3]}}=${nomV[2]}`]
@@ -145,6 +144,7 @@ shuffle(['c','m','f','e']),  shuffle(['K','L','M','N']), shuffle(['r','s','t','u
       <br> Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$ est $${nomV[2]}=  \\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[3]}}$.`
         }
        if(choix===2){//a=b-cd on cherche  d
+        intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres (avec $${nomV[2]}$ non nul) vérifiant l'égalité suivante :`
         texte = `${intro}`+` $${nomV[0]}=${nomV[1]}-${nomV[2]}${nomV[3]}$.<br>
           Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$.`
            reponse = [`${nomV[3]}=\\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[2]}}`, `\\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[2]}}=${nomV[3]}`]
@@ -158,6 +158,7 @@ shuffle(['c','m','f','e']),  shuffle(['K','L','M','N']), shuffle(['r','s','t','u
       <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$ est $${nomV[3]}=  \\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[2]}}$.`}
    
       if(choix===3){//a=b-cd on cherche  b
+        intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres vérifiant l'égalité suivante :`
         texte =  `${intro}`+` $${nomV[0]}=${nomV[1]}-${nomV[2]}${nomV[3]}$.<br>
      Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$.`
       reponse = [`${nomV[1]}=${nomV[0]}+${nomV[2]}${nomV[3]}`, `${nomV[0]}+${nomV[2]}${nomV[3]}=${nomV[1]}`]
@@ -169,6 +170,7 @@ shuffle(['c','m','f','e']),  shuffle(['K','L','M','N']), shuffle(['r','s','t','u
  <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[2]}$ est $${nomV[1]}= ${nomV[0]}+${nomV[2]}${nomV[3]}$.`}
                             
  if(choix===4){//a=bc+d on cherche  b
+  intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres (avec $${nomV[2]}$ non nul) vérifiant l'égalité suivante :`
   texte = `${intro}`+`  $${nomV[0]}=${nomV[1]}${nomV[2]}+${nomV[3]}$.<br>
     Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$.`
      reponse = [`${nomV[1]}=\\dfrac{${nomV[0]}-${nomV[3]}}{${nomV[2]}}`, `\\dfrac{${nomV[0]}-${nomV[3]}}{${nomV[2]}}=${nomV[1]}`]
@@ -181,6 +183,7 @@ shuffle(['c','m','f','e']),  shuffle(['K','L','M','N']), shuffle(['r','s','t','u
        <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$ est $${nomV[1]}=  \\dfrac{${nomV[0]}-${nomV[3]}}{${nomV[2]}}$.`
          }                                                      
     if(choix===5){//a=bc+d on cherche  d
+      intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres vérifiant l'égalité suivante :`
       texte = `${intro}`+`  $${nomV[0]}=${nomV[1]}${nomV[2]}+${nomV[3]}$.<br>
      Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$.`
   reponse = [`${nomV[3]}=${nomV[0]}-${nomV[1]}${nomV[2]}`, `${nomV[0]}-${nomV[1]}${nomV[2]}=${nomV[3]}`]
@@ -192,6 +195,7 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
    <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$ est $${nomV[3]}=  ${nomV[0]}-${nomV[1]}${nomV[2]}$.`}
      
    if(choix===6){//a=(b+c)/d on cherche  b
+    intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
       texte = `${intro}`+`  $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$.`
  reponse = [`${nomV[1]}=${nomV[3]}\\times ${nomV[0]}-${nomV[2]}`, `${nomV[3]}\\times ${nomV[0]}-${nomV[2]}=${nomV[1]}`]
@@ -204,6 +208,7 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
     <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$ est $${nomV[1]}= ${nomV[3]}\\times ${nomV[0]}-${nomV[2]}$.`}
 
     if(choix===7){//a=(b+c)/d on cherche  c
+      intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
       texte = `${intro}`+`  $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}}$.<br>
   Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$.`
  reponse = [`${nomV[2]}=${nomV[3]}\\times ${nomV[0]}-${nomV[1]}`, `${nomV[3]}\\times ${nomV[0]}-${nomV[1]}=${nomV[2]}`]
@@ -216,6 +221,7 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
     <br> Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$ est $${nomV[2]}= ${nomV[3]}\\times ${nomV[0]}-${nomV[1]}$.`}
 
     if(choix===8){//a=(b+c)/d on cherche  d
+      intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$ et $${nomV[0]}$  non nuls) vérifiant l'égalité suivante :`
       texte = `${intro}`+`  $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}}$.<br>
   Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$.`
  reponse = [`${nomV[3]}=\\dfrac{${nomV[1]} +${nomV[2]}}{${nomV[0]}}`, `\\dfrac{${nomV[1]} +${nomV[2]}}{${nomV[0]}}=${nomV[3]}`]
@@ -228,6 +234,7 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
     <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$ est $${nomV[3]}= \\dfrac{${nomV[1]} +${nomV[2]}}{${nomV[0]}}$.`}
    
     if(choix===9){//a=(b+c)*d on cherche  b
+      intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
       texte = `${intro}`+`  $${nomV[0]}=(${nomV[1]}+${nomV[2]})${nomV[3]}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et  $${nomV[2]}$.`
  reponse = [`${nomV[1]}=\\dfrac{${nomV[0]} -${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}`, `\\dfrac{${nomV[0]} -${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}=${nomV[1]}`, `${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[3]}}-${nomV[2]}`,`\\dfrac{${nomV[0]}}{${nomV[3]}}-${nomV[2]}=${nomV[1]}`]
@@ -245,6 +252,7 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
   
 
  if(choix===10){//a=(b+c)*d on cherche  d
+  intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[1]}+${nomV[2]}$  non nul) vérifiant l'égalité suivante :`
       texte = `${intro}`+`  $${nomV[0]}=(${nomV[1]}+${nomV[2]})${nomV[3]}$.<br>
   Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$.`
  reponse = [`${nomV[3]}=\\dfrac{${nomV[0]}}{${nomV[1]}+${nomV[2]}}`, `\\dfrac{${nomV[0]}}{${nomV[1]}+${nomV[2]}}=${nomV[3]}`]
@@ -257,6 +265,7 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
     $${nomV[3]}= \\dfrac{${nomV[0]}}{${nomV[1]}+${nomV[2]}}$.`}
  
     if(choix===11){//a=(b-c)*d on cherche  b
+      intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
       texte = `${intro}`+`  $${nomV[0]}=(${nomV[1]}-${nomV[2]})${nomV[3]}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et  $${nomV[2]}$.`
  reponse = [`${nomV[1]}=\\dfrac{${nomV[0]} +${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}`, `\\dfrac{${nomV[0]} +${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}=${nomV[1]}`, `${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[3]}}+${nomV[2]}`, `\\dfrac{${nomV[0]}}{${nomV[3]}}+${nomV[2]}=${nomV[1]}`]
@@ -272,6 +281,7 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
                           
  
     if(choix===12){//a=(b-c)*d on cherche  c
+      intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$  non nul) vérifiant l'égalité suivante :`
       texte = `${intro}`+`  $${nomV[0]}=(${nomV[1]}-${nomV[2]})${nomV[3]}$.<br>
   Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$.`
   reponse = [`${nomV[2]}=\\dfrac{-${nomV[0]} +${nomV[1]}\\times ${nomV[3]}}{${nomV[3]}}`, 
@@ -302,8 +312,8 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
       ]
      nomV = choice(nomVariables)
      choix= randint(1,6)
-     intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres vérifiant l'égalité suivante :`
       if(choix===1){//a=(b+c)(d-e) on cherche  b
+        intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[3]}-${nomV[4]}$ non nul) vérifiant l'égalité suivante :`
      texte = `${intro}`+` $${nomV[0]}=(${nomV[1]}+${nomV[2]})(${nomV[3]}-${nomV[4]})$.<br>
        Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$.`
         reponse = [`${nomV[1]}=\\dfrac{${nomV[0]}-${nomV[2]}${nomV[3]}+${nomV[2]}${nomV[4]}}{${nomV[3]}-${nomV[4]}}`, 
@@ -319,11 +329,12 @@ texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
            ${nomV[0]}-${nomV[2]}${nomV[3]}+${nomV[2]}${nomV[4]}&= ${nomV[1]}(${nomV[3]}-${nomV[4]})\\\\
            \\dfrac{${nomV[0]}-${nomV[2]}${nomV[3]}+${nomV[2]}${nomV[4]}}{${nomV[3]}-${nomV[4]}}&=${nomV[1]}
                      \\end{aligned}$
-          <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[3]}$ et $${nomV[4]}$ est $${nomV[1]}=\\dfrac{${nomV[0]}-${nomV[2]}${nomV[3]}+${nomV[2]}${nomV[4]}}{${nomV[3]}-${nomV[4]}}$ ou pus simplement 
+          <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[3]}$ et $${nomV[4]}$ est $${nomV[1]}=\\dfrac{${nomV[0]}-${nomV[2]}${nomV[3]}+${nomV[2]}${nomV[4]}}{${nomV[3]}-${nomV[4]}}$ ou plus simplement 
           $${nomV[1]}= \\dfrac{${nomV[0]}}{${nomV[3]}-${nomV[4]}}-${nomV[2]}$.`
             }
           
             if(choix===2){//a=(b+c)(d-e) on cherche  e
+              intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[1]}+${nomV[2]}$ non nul) vérifiant l'égalité suivante :`
               texte = `${intro}`+` $${nomV[0]}=(${nomV[1]}+${nomV[2]})(${nomV[3]}-${nomV[4]})$.<br>
                 Exprimer $${nomV[4]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[1]}$.`
                  reponse = [`${nomV[4]}=\\dfrac{${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}}{-${nomV[1]}-${nomV[2]}}`, 
@@ -355,6 +366,7 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
  
                      
                      if(choix===3){//a=(b+c)/(d-e) on cherche  d
+                      intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[3]}-${nomV[4]}$ et $${nomV[0]}}$ non nuls) vérifiant l'égalité suivante :`
  texte = `${intro}`+` $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}-${nomV[4]}}$.<br>
  Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[4]}$.`
     reponse = [`${nomV[3]}=\\dfrac{${nomV[1]}+${nomV[2]}+${nomV[0]}${nomV[4]}}{${nomV[0]}}`, 
@@ -373,6 +385,7 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
        $${nomV[3]}=\\dfrac{${nomV[1]}+${nomV[2]}+${nomV[0]}${nomV[4]}}{${nomV[0]}}$.`
                                                    }
     if(choix===4){//a=(b+c)/(d-e) on cherche  e
+      intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[3]}-${nomV[4]}$ et $${nomV[0]}$ non nuls) vérifiant l'égalité suivante :`
    texte = `${intro}`+` $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}-${nomV[4]}}$.<br>
     Exprimer $${nomV[4]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$.`
       reponse = [`${nomV[4]}=\\dfrac{${nomV[1]}+${nomV[2]}-${nomV[0]}${nomV[4]}}{-${nomV[0]}}`, 
@@ -395,6 +408,7 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
            $${nomV[4]}=\\dfrac{-${nomV[1]}-${nomV[2]}+${nomV[0]}${nomV[3]}}{${nomV[0]}}$.`
                                                                                                       }             
  if(choix===5){//a=b+c\sqrt{d+e} on cherche d
+  intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (strictement positifs) vérifiant l'égalité suivante :`
  texte = `${intro}`+` $${nomV[0]}=${nomV[1]}+${nomV[2]}\\sqrt{${nomV[3]}+${nomV[4]}}$.<br>
     Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[4]}$.`
     reponse = [`${nomV[3]}=\\dfrac{${nomV[0]}^2-2${nomV[0]}${nomV[1]}+${nomV[1]}^2}{${nomV[2]}^2}-${nomV[4]}`, 
@@ -420,6 +434,7 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
  
  
  if(choix===6){//a=b+c\sqrt{d+e} on cherche c
+  intro=`Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (strictement positifs) vérifiant l'égalité suivante :`
   texte = `${intro}`+` $${nomV[0]}=${nomV[1]}+${nomV[2]}\\sqrt{${nomV[3]}+${nomV[4]}}$.<br>
      Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[3]}$ et $${nomV[4]}$.`
      reponse = [`${nomV[2]}=\\dfrac{${nomV[0]}-${nomV[1]}}{\\sqrt{${nomV[3]}+${nomV[4]}}}`, 

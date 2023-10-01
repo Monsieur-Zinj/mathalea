@@ -6,7 +6,7 @@ import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, egal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, egal } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
 
@@ -100,7 +100,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, !context.isAmc ? stringNombre(abs0) : texNombre(abs0, 0)], [1, !context.isAmc ? stringNombre(calcul(abs0 + pas1)) : texNombre(calcul(abs0 + pas1))]]
+        labelListe: [[0, !context.isAmc ? stringNombre(abs0) : texNombre(abs0, 0)], [1, !context.isAmc ? stringNombre(calculANePlusJamaisUtiliser(abs0 + pas1)) : texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))]]
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -110,7 +110,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         pointTaille: 5,
         pointStyle: 'x',
         labelsPrincipaux: false,
-        labelListe: [[0, !context.isAmc ? stringNombre(abs0) : texNombre(abs0, 0)], [1, !context.isAmc ? stringNombre(calcul(abs0 + pas1)) : texNombre(calcul(abs0 + pas1))]],
+        labelListe: [[0, !context.isAmc ? stringNombre(abs0) : texNombre(abs0, 0)], [1, !context.isAmc ? stringNombre(calculANePlusJamaisUtiliser(abs0 + pas1)) : texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))]],
         thickSec: true,
         step1: 10
       })

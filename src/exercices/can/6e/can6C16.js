@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer le double ou la moitié'
 export const interactifReady = true
@@ -31,7 +31,7 @@ export default function DoubleEtMoitie () {
     Si le double du nombre est $${2 * a}$, ce nombre est : $${2 * a}\\div 2=${a}$.<br>
     Puisqu'on cherche sa moitié, on le divise par $2$, soit  $${a}\\div 2=${a / 2}$.<br>
      `)
-    this.reponse = calcul(a / 2)
+    this.reponse = calculANePlusJamaisUtiliser(a / 2)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

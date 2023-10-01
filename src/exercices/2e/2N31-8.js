@@ -3,7 +3,7 @@ import { modalTexteCourt } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, calcul, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -52,7 +52,7 @@ nano : milliardième $\\times10^{-9}$<br>
     let uniteOrdre = []
     let correctionDetail
     for (let i = 0, a, n, unite, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = choice([calcul(randint(1, 9) + randint(1, 9) / 10), calcul(randint(11, 99) + randint(1, 9) / 10 + randint(1, 9) / 100), calcul(randint(11, 999) + randint(1, 9) / 10)], calcul(randint(10000, 99999) / 100))
+      a = choice([calculANePlusJamaisUtiliser(randint(1, 9) + randint(1, 9) / 10), calculANePlusJamaisUtiliser(randint(11, 99) + randint(1, 9) / 10 + randint(1, 9) / 100), calculANePlusJamaisUtiliser(randint(11, 999) + randint(1, 9) / 10)], calculANePlusJamaisUtiliser(randint(10000, 99999) / 100))
       texte = ''
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent

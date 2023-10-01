@@ -1,6 +1,6 @@
 import { texPrix } from '../../../lib/format/style.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser une proportionnalité'
 export const interactifReady = true
@@ -36,7 +36,7 @@ export default function ProportionnaliteSimple () {
     const a = randint(0, 7)
     const b = fruits[a][1]
     const c = randint(fruits[a][2], fruits[a][3])
-    this.reponse = calcul(c / 5 * b)
+    this.reponse = calculANePlusJamaisUtiliser(c / 5 * b)
     this.question = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 10 * b)}$ €,
     combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
     this.correction = `On reconnaît une situation de proportionnalité.<br>

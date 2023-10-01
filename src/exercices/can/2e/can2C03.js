@@ -4,7 +4,7 @@ import { abs } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer avec  des puissances*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -48,7 +48,7 @@ export default function CalculPuissance1 () {
         avec $a=5$,  $b=${texNombre(a)}$ et $n=${b}$.<br>
        $5^{${b}}\\times ${texNombre(a)}^{${b}}=(5\\times ${texNombre(a)})^{${b}}=
        ${5 * a}^${texNombre(b)}=${texNombre((5 ** b) * (a ** b))} $`
-        this.reponse = calcul((5 ** b) * (a ** b))
+        this.reponse = calculANePlusJamaisUtiliser((5 ** b) * (a ** b))
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''
         break
@@ -60,7 +60,7 @@ export default function CalculPuissance1 () {
 
         
         $2^{${a}}\\times 8=\\dfrac{1}{${2 ** abs(a)}}\\times 8=${texNombre(8 * 1 / 2 ** (-a))} $`
-        this.reponse = calcul((2 ** a) * 8)
+        this.reponse = calculANePlusJamaisUtiliser((2 ** a) * 8)
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''
         break
@@ -71,7 +71,7 @@ export default function CalculPuissance1 () {
 
         
         $2^{${a}}\\times 16=\\dfrac{1}{${2 ** abs(a)}}\\times 16=${texNombre(16 * 1 / 2 ** (-a))} $`
-        this.reponse = calcul((2 ** a) * 16)
+        this.reponse = calculANePlusJamaisUtiliser((2 ** a) * 16)
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''
         break
@@ -82,7 +82,7 @@ export default function CalculPuissance1 () {
 
         
         $2^{${a}}\\times 32=\\dfrac{1}{${2 ** abs(a)}}\\times 32=${texNombre(32 * 1 / 2 ** (-a))} $`
-        this.reponse = calcul((2 ** a) * 32)
+        this.reponse = calculANePlusJamaisUtiliser((2 ** a) * 32)
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''
         break
@@ -95,7 +95,7 @@ export default function CalculPuissance1 () {
         La somme des exposants doit donner $${-d}$.<br>
         On cherche donc le nombre qui, ajouté à $${c}$ donne $${-d}$.<br> Il s'agit de  :
 $-${d}-${ecritureParentheseSiNegatif(c)}=${-d - c}$.`
-        this.reponse = calcul(-d - c)
+        this.reponse = calculANePlusJamaisUtiliser(-d - c)
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${a}^{\\ldots}\\times ${a}^{${c}}=${a}^{${-d}}$`
         break
