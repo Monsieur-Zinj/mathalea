@@ -32,7 +32,7 @@ export interface Criterion<T> {
 export class MultiCriteria<T> implements Criterion<T> {
   private criteriaList: Criterion<T>[] = []
 
-  addCriterion (criterion: Criterion<T> | Criterion<T>[]): void {
+  addCriterion (criterion: Criterion<T> | Criterion<T>[]): MultiCriteria<T> {
     if (Array.isArray(criterion)) {
       for (const item of criterion) {
         this.criteriaList.push(item)
@@ -40,6 +40,7 @@ export class MultiCriteria<T> implements Criterion<T> {
     } else {
       this.criteriaList.push(criterion)
     }
+    return this
   }
 
   meetCriterion (items: T[]): T[] {
@@ -91,7 +92,7 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
     this.criteriaList = [...criteriaList]
   }
 
-  addCriterion (criterion: Criterion<T> | Criterion<T>[]): void {
+  addCriterion (criterion: Criterion<T> | Criterion<T>[]): AtLeastOneOfCriteria<T> {
     if (Array.isArray(criterion)) {
       for (const item of criterion) {
         this.criteriaList.push(item)
@@ -99,6 +100,7 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
     } else {
       this.criteriaList.push(criterion)
     }
+    return this
   }
 
   meetCriterion (items: T[]): T[] {
@@ -191,13 +193,16 @@ export function featuresCriteria (
 }
 
 /**
- * Construit un critère pour filtrer une liste d 'objets `ResourceAndItsPath`
+ * Construit un critère pour filtrer une liste d'objets `ResourceAndItsPath`
  * contre un niveau de classe
  * @param {Level} level le niveau de classe retenu
  * @param {boolean} considerCAN doit-on inclure les exos CAN ou pas ?
  * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
  */
-export function levelCriterion (level: Level, considerCAN: boolean): Criterion<ResourceAndItsPath> {
+export function levelCriterion (
+  level: Level,
+  considerCAN: boolean
+): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
       return items.filter((item) => {
@@ -213,6 +218,29 @@ export function levelCriterion (level: Level, considerCAN: boolean): Criterion<R
           return item.pathToResource[0] === level
         }
       })
+    }
+  }
+  return criterion
+}
+
+/**
+ * Construit un critère pour filtrer une liste d'objets `ResourceAndItsPath`
+ * contre un sujet à rechercher dans la liste des tags
+ * @param {string} selectedTag le sujet recherché dans les tags
+ * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
+ */
+export function tagCriterion (
+  selectedTag: string
+): Criterion<ResourceAndItsPath> {
+  const criterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]) {
+      return items.filter(
+        (item: ResourceAndItsPath) =>
+          item.resource.tags &&
+          item.resource.tags
+            .map((t) => t.toLowerCase())
+            .includes(selectedTag.toLowerCase())
+      )
     }
   }
   return criterion

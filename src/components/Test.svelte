@@ -3,7 +3,7 @@
   import { type JSONReferentielObject, type ResourceAndItsPath } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
-  import { AtLeastOneOfCriteria, featuresCriteria, levelCriterion } from '../lib/types/filters'
+  import { AtLeastOneOfCriteria, MultiCriteria, featuresCriteria, levelCriterion, tagCriterion } from '../lib/types/filters'
   const baseReferentiel: JSONReferentielObject = {
     ...referentielAlea,
     static: { ...referentielStatic }
@@ -20,6 +20,15 @@
   const can = levelCriterion('CAN', false)
   const union = new AtLeastOneOfCriteria([sixieme, troisieme, quatrieme, can])
   console.log(buildReferentiel(union.meetCriterion(all)))
+  const pythagore = tagCriterion('pythagore')
+  const thales = tagCriterion('thalès')
+  const pytTha = new MultiCriteria<ResourceAndItsPath>()
+  pytTha.addCriterion(pythagore).addCriterion(thales)
+  console.log('pythagore+thales')
+  console.log(buildReferentiel(pytTha.meetCriterion(all)))
+  const pytOuTha = new AtLeastOneOfCriteria<ResourceAndItsPath>([pythagore, thales])
+  console.log('pythagore OU thales')
+  console.log(buildReferentiel(pytOuTha.meetCriterion(all)))
 </script>
 
 <h1>Tests</h1>
